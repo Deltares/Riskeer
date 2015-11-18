@@ -406,7 +406,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private static void ForceViewCleanup(IView view)
         {
-            // allow pluginguis to clean up their shit.
             view.Data = null; // reset data for view
 
             // deep clean-up
@@ -417,7 +416,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                 {
                     if (childView == null)
                     {
-                        Log.WarnFormat(Resources.ViewList_ForceViewCleanup_Unexpected_behaviour_from_composite_view__child_view_is_null__parent_view___0_, view);
+                        Log.WarnFormat(Resources.ViewList_ForceViewCleanup_A_view_within_0_has_no_value, view);
                     }
                     else
                     {

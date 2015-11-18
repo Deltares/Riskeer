@@ -321,26 +321,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Model kan niet worden verwijderd omdat model &apos;{0}&apos; een koppeling naar dit model bevat.
-        /// </summary>
-        public static string CompositeModelNodePresenter_CanRemove_Model_cannot_be_deleted_because_model___0___contain_links_to_it {
-            get {
-                return ResourceManager.GetString("CompositeModelNodePresenter_CanRemove_Model_cannot_be_deleted_because_model___0__" +
-                        "_contain_links_to_it", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er kunnen uitsluitend modellen worden versleept naar een samengestelde model..
-        /// </summary>
-        public static string CompositeModelNodePresenter_OnDragDrop_Only_models_can_be_dropped_onto_a_composite_model_ {
-            get {
-                return ResourceManager.GetString("CompositeModelNodePresenter_OnDragDrop_Only_models_can_be_dropped_onto_a_composit" +
-                        "e_model_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap control_play {
@@ -417,34 +397,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
             get {
                 object obj = ResourceManager.GetObject("DataItemInvalid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} naar {1} kopiëren.
-        /// </summary>
-        public static string DataItemNodePresenter_OnDragDrop_Copy__0__to__1_ {
-            get {
-                return ResourceManager.GetString("DataItemNodePresenter_OnDragDrop_Copy__0__to__1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} koppelen aan {1}.
-        /// </summary>
-        public static string DataItemNodePresenter_OnDragDrop_Link__0__to__1_ {
-            get {
-                return ResourceManager.GetString("DataItemNodePresenter_OnDragDrop_Link__0__to__1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tag moet niet worden ingesteld in de {0} node presenter omdat het deel uitmaakt van een data item, alleen de afbeelding kan worden ingesteld..
-        /// </summary>
-        public static string DataItemNodePresenter_UpdateNode_Tag_should_not_be_set_in_the__0__node_presenter_since_it_is_part_of_a_data_item__only_image_can_be_set_ {
-            get {
-                return ResourceManager.GetString("DataItemNodePresenter_UpdateNode_Tag_should_not_be_set_in_the__0__node_presenter_" +
-                        "since_it_is_part_of_a_data_item__only_image_can_be_set_", resourceCulture);
             }
         }
         
@@ -779,15 +731,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;leeg&gt;.
-        /// </summary>
-        public static string ModelDataItemNodePresenter_UpdateNode__empty_ {
-            get {
-                return ResourceManager.GetString("ModelDataItemNodePresenter_UpdateNode__empty_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ModelRunning {
@@ -928,7 +871,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen bijbehorende node vinden in de projectverkenner voor item: {0}.
+        ///   Looks up a localized string similar to Kan geen bijbehorende knoop vinden in de projectverkenner voor item: {0}.
         /// </summary>
         public static string ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_ {
             get {
@@ -947,112 +890,11 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project Verkenner.
+        ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
         public static string ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer {
             get {
                 return ResourceManager.GetString("ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FolderNodePresenter moet zijn toegevoegd aan het project treenodepresenters.
-        /// </summary>
-        public static string ProjectNodePresenter_GetChildNodeObjects_FolderNodePresenter_should_have_been_added_to_project_treenodepresenters {
-            get {
-                return ResourceManager.GetString("ProjectNodePresenter_GetChildNodeObjects_FolderNodePresenter_should_have_been_add" +
-                        "ed_to_project_treenodepresenters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen rootfolder gevonden bij dit project!.
-        /// </summary>
-        public static string ProjectNodePresenter_GetChildNodeObjects_No_rootfolder_found_on_project_ {
-            get {
-                return ResourceManager.GetString("ProjectNodePresenter_GetChildNodeObjects_No_rootfolder_found_on_project_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan niet worden gekoppeld.
-        /// </summary>
-        public static string ProjectTreeView_buttonDataItemLinkClick_Cannot_link {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_buttonDataItemLinkClick_Cannot_link", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niets om aan te koppelen..
-        /// </summary>
-        public static string ProjectTreeView_buttonDataItemLinkClick_Nothing_to_link_to_ {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_buttonDataItemLinkClick_Nothing_to_link_to_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer een item dat moet worden link....
-        /// </summary>
-        public static string ProjectTreeView_buttonDataItemLinkClick_Select_an_item_to_link____ {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_buttonDataItemLinkClick_Select_an_item_to_link____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens het koppelen: {0}.
-        /// </summary>
-        public static string ProjectTreeView_contextMenuModelDataItemLinkToClick_An_error_occured_during_linking___0_ {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_contextMenuModelDataItemLinkToClick_An_error_occured_during_linki" +
-                        "ng___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} koppelen aan {1}.
-        /// </summary>
-        public static string ProjectTreeView_contextMenuModelDataItemLinkToClick_Link__0__to__1_ {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_contextMenuModelDataItemLinkToClick_Link__0__to__1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer een item om te linken naar....
-        /// </summary>
-        public static string ProjectTreeView_contextMenuModelDataItemLinkToClick_Select_an_item_to_link_to___ {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_contextMenuModelDataItemLinkToClick_Select_an_item_to_link_to___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project.
-        /// </summary>
-        public static string ProjectTreeView_FormatDataItemOwnerString_Project {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_FormatDataItemOwnerString_Project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bevestigen.
-        /// </summary>
-        public static string ProjectTreeView_OnProcessCmdKey_Confirm {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_OnProcessCmdKey_Confirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het geselecteerde item kan niet worden verwijderd.
-        /// </summary>
-        public static string ProjectTreeView_OnProcessCmdKey_The_selected_item_cannot_be_removed {
-            get {
-                return ResourceManager.GetString("ProjectTreeView_OnProcessCmdKey_The_selected_item_cannot_be_removed", resourceCulture);
             }
         }
         
@@ -1154,33 +996,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hulp Vensters.
-        /// </summary>
-        public static string ShowProjectExplorerCommand_category {
-            get {
-                return ResourceManager.GetString("ShowProjectExplorerCommand_category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Project Verkenner.
-        /// </summary>
-        public static string ShowProjectExplorerCommand_text {
-            get {
-                return ResourceManager.GetString("ShowProjectExplorerCommand_text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon Project Verkenner.
-        /// </summary>
-        public static string ShowProjectExplorerCommand_tooltip {
-            get {
-                return ResourceManager.GetString("ShowProjectExplorerCommand_tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap StopHS {
@@ -1207,24 +1022,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
             get {
                 object obj = ResourceManager.GetObject("table_import", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invoer.
-        /// </summary>
-        public static string TreeNodeModelDataWrapperNodePresenter_UpdateNode_Input {
-            get {
-                return ResourceManager.GetString("TreeNodeModelDataWrapperNodePresenter_UpdateNode_Input", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitvoer.
-        /// </summary>
-        public static string TreeNodeModelDataWrapperNodePresenter_UpdateNode_Output {
-            get {
-                return ResourceManager.GetString("TreeNodeModelDataWrapperNodePresenter_UpdateNode_Output", resourceCulture);
             }
         }
         

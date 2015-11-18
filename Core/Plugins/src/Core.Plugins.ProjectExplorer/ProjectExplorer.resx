@@ -112,29 +112,29 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>375, 25</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>375, 352</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="treeViewPanel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="buttonScrollToItemInActiveView.ToolTipText" xml:space="preserve">
-    <value>Zoek scherm behorende bij het actieve item in de projectverkenner</value>
+    <value>Zoek scherm behorende bij het actieve item in de projectverkenner.</value>
   </data>
   <data name="buttonScrollToItemInActiveView.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="treeViewPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -144,16 +144,16 @@
   <data name="buttonScrollToItemInActiveView.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsEAAA7BAbiRa+0AAAHxSURBVDhPxdLfa9JRGMfx/SNBBNFNl0EQ/Qu7EK1Z27Sa
-        Gy2tzZmCGkYMWTCSkOVoVMxmyne6UTIrN8ugFVsbjaxtzlldpG2uUVS78gfvPN9veJF2UV30wOfmwHmd
-        5zznNDX9a6l6JeOVieyOM5TFEawmkMF+O41tdBnrrTdYbqboG1mi9/pLenwLmIbmcfhmd8Q++Wx3JF3x
-        xjf505y5mqzIgDj5b9I1+AQZcATWybDMupwVsqzyjjV0YQ2JzEO2vhcoVUr8Wh0DjxTAPrZWA9KV1/Q/
-        d8rAEX8z8ZUYhW+bDYET7umfQHVgogMRc7wbnaQhuTVNR6CVWCpK4WsVKNd3oLv0QAHEtMVm64yJ8/eN
-        uBI2WkfVGEMGYktRNr5sUCwX667Q5oopgHiqUxEt5qlufIsevAuDeOYG6PTrmZyP8PFzvmEHxy9EFcBy
-        45XcQZekxxBsR+/Xcsh1gPaRFsLPJHLbuYaA1nFXAXqGF2sz0Fxr5vDFg7yvruw/u4/I7Dj57TzFUv0V
-        NNaIApwbelEDVsspdMPHZGBv5x6CyTvkPn1o2IHaMq4AJu9cDRD/4C1pGdit20UgMfZbQNUnKYDKHJJO
-        e54ifpbh8mNOumfQ98dpc00hBqV13qPFPslR2wQaaxi1RUJlFglJMvDf6wcw6m2dwHXkfgAAAABJRU5E
-        rkJggg==
+        YQUAAAAJcEhZcwAADsAAAA7AAWrWiQkAAAHySURBVDhPxdLfS1phGAdw/5EggthNl0EQ/QtdSK7cWsdt
+        WdS0H+YU1HBESIOYDDFj0UaWKSdPUZJtls1BP6gVi7mlZq4u0soWRT+u/MG3874nDMpdtF3sge/FuXg+
+        7/M+5xX9c4nbWcWb8dilwRWD3snHEYVuOALt0CY0H35C/T6IjoENtL/7hjbbGpTWVehti5ekjwImLpK1
+        +A5x37x4G8hSgJz8N2ns/QIK6B3biGIT2zQhxBDGDrbAuCXwRz/h6CKJdDaN21XfMy8AupGtHBDJ/kD3
+        soECD+2V8IW8SJ4f5gWemmavAX5hBCBR+ZrBsBIEjmZR76iFN+hB8owHMncBpuujAJBtk2bNnBIvZxQw
+        +rWoHaqCwiWHd8ODg9MDpDKp67abemL0CgD5Vc85KVTTzbCtm2FZ64V5pQcNdhkmVjnsnyTyTvC40yMA
+        6sHvdIJGVga5sw4yuxTlxlLUDdTAvcQifhzPC0j1kwLQ1r+e24GkrxIVr8qwy3+VtDwAtziGxHECqfTd
+        K0g0nAC0Wr/mgHAmCKb/EQWKG4rgDIwi/nsv7wRV6jEBUFpWcgB5B78QoUAhUwCHf+SPgLiDFQCxysU2
+        mRfoy5K//oxnpjnIun38lqfpoqSGKdToJlCtHefHdvMnsxCrSFwsBf5ziURXMOptncLGWiUAAAAASUVO
+        RK5CYII=
 </value>
   </data>
   <data name="toolStrip1.Text" xml:space="preserve">
@@ -219,13 +219,13 @@
   <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>Russian (Russia)</value>
-  </metadata>
+  </data>
+  <data name="$this.Language" type="System.Globalization.CultureInfo, mscorlib">
+    <value>ru-RU</value>
+  </data>
 </root>

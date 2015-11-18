@@ -23,7 +23,7 @@ namespace Core.Common.Utils.ComponentModel
             var propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(Resource.DynamicReadOnlyAttribute_IsDynamicReadOnly_Could_not_find_property__0__on_type__1_, propertyName,
+                throw new MissingMemberException(string.Format(Resource.Could_not_find_property__0__on_type__1_, propertyName,
                                                                obj.GetType()));
             }
 

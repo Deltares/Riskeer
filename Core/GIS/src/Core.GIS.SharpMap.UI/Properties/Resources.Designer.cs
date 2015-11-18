@@ -241,15 +241,6 @@ namespace Core.GIS.SharpMap.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Omkeer de regel(s).
-        /// </summary>
-        internal static string Reverse2DLineTool_MenuItemText {
-            get {
-                return ResourceManager.GetString("Reverse2DLineTool_MenuItemText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap sliderbottom {

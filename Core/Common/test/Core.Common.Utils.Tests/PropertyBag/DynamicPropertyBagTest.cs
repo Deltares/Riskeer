@@ -209,7 +209,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
         }
 
         [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestWithTwoValidationMethodsClassProperties")]
+        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestWithTwoValidationMethodsClassProperties.")]
         public void OnlySingleValidationMethodIsAllowed()
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithTwoValidationMethodsClassProperties());

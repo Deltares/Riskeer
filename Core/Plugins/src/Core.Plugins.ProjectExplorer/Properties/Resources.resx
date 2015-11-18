@@ -355,9 +355,6 @@
   <data name="fullscreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fullscreen.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ShowProjectExplorerCommand_text" xml:space="preserve">
-    <value>&amp;Project Verkenner</value>
-  </data>
   <data name="linkOverlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\linkOverlay.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -368,19 +365,7 @@
     <value>..\Resources\playall.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer" xml:space="preserve">
-    <value>Project Verkenner</value>
-  </data>
-  <data name="TreeNodeModelDataWrapperNodePresenter_UpdateNode_Output" xml:space="preserve">
-    <value>Uitvoer</value>
-  </data>
-  <data name="TreeNodeModelDataWrapperNodePresenter_UpdateNode_Input" xml:space="preserve">
-    <value>Invoer</value>
-  </data>
-  <data name="ShowProjectExplorerCommand_tooltip" xml:space="preserve">
-    <value>Toon Project Verkenner</value>
-  </data>
-  <data name="ShowProjectExplorerCommand_category" xml:space="preserve">
-    <value>Hulp Vensters</value>
+    <value>Projectverkenner</value>
   </data>
   <data name="ExclamationOverlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\exclamation-small.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -391,30 +376,6 @@
   <data name="cog1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cog1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CompositeModelNodePresenter_OnDragDrop_Only_models_can_be_dropped_onto_a_composite_model_" xml:space="preserve">
-    <value>Er kunnen uitsluitend modellen worden versleept naar een samengestelde model.</value>
-  </data>
-  <data name="CompositeModelNodePresenter_CanRemove_Model_cannot_be_deleted_because_model___0___contain_links_to_it" xml:space="preserve">
-    <value>Model kan niet worden verwijderd omdat model '{0}' een koppeling naar dit model bevat</value>
-  </data>
-  <data name="DataItemNodePresenter_UpdateNode_Tag_should_not_be_set_in_the__0__node_presenter_since_it_is_part_of_a_data_item__only_image_can_be_set_" xml:space="preserve">
-    <value>Tag moet niet worden ingesteld in de {0} node presenter omdat het deel uitmaakt van een data item, alleen de afbeelding kan worden ingesteld.</value>
-  </data>
-  <data name="DataItemNodePresenter_OnDragDrop_Link__0__to__1_" xml:space="preserve">
-    <value>{0} koppelen aan {1}</value>
-  </data>
-  <data name="DataItemNodePresenter_OnDragDrop_Copy__0__to__1_" xml:space="preserve">
-    <value>{0} naar {1} kopiëren</value>
-  </data>
-  <data name="ModelDataItemNodePresenter_UpdateNode__empty_" xml:space="preserve">
-    <value>&lt;leeg&gt;</value>
-  </data>
-  <data name="ProjectNodePresenter_GetChildNodeObjects_No_rootfolder_found_on_project_" xml:space="preserve">
-    <value>Geen rootfolder gevonden bij dit project!</value>
-  </data>
-  <data name="ProjectNodePresenter_GetChildNodeObjects_FolderNodePresenter_should_have_been_added_to_project_treenodepresenters" xml:space="preserve">
-    <value>FolderNodePresenter moet zijn toegevoegd aan het project treenodepresenters</value>
-  </data>
   <data name="ProjectExplorer_TreeViewOnBeforeWaitUntilAllEventsAreProcessed_MainWindow_must_be_visible_when_WaitUntilAllEventsAreProcessed_is_called_on_project_tree_view_" xml:space="preserve">
     <value>Het MainWindow moet zichtbaar zijn wanneer WaitUntilAllEventsAreProcessed wordt aangeroepen.</value>
   </data>
@@ -422,34 +383,7 @@
     <value>Kan geen projectitem vinden voor de data van dit scherm: {0}</value>
   </data>
   <data name="ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_" xml:space="preserve">
-    <value>Kan geen bijbehorende node vinden in de projectverkenner voor item: {0}</value>
-  </data>
-  <data name="ProjectTreeView_OnProcessCmdKey_The_selected_item_cannot_be_removed" xml:space="preserve">
-    <value>Het geselecteerde item kan niet worden verwijderd</value>
-  </data>
-  <data name="ProjectTreeView_OnProcessCmdKey_Confirm" xml:space="preserve">
-    <value>Bevestigen</value>
-  </data>
-  <data name="ProjectTreeView_buttonDataItemLinkClick_Select_an_item_to_link____" xml:space="preserve">
-    <value>Selecteer een item dat moet worden link...</value>
-  </data>
-  <data name="ProjectTreeView_buttonDataItemLinkClick_Nothing_to_link_to_" xml:space="preserve">
-    <value>Niets om aan te koppelen.</value>
-  </data>
-  <data name="ProjectTreeView_buttonDataItemLinkClick_Cannot_link" xml:space="preserve">
-    <value>Kan niet worden gekoppeld</value>
-  </data>
-  <data name="ProjectTreeView_FormatDataItemOwnerString_Project" xml:space="preserve">
-    <value>Project</value>
-  </data>
-  <data name="ProjectTreeView_contextMenuModelDataItemLinkToClick_Select_an_item_to_link_to___" xml:space="preserve">
-    <value>Selecteer een item om te linken naar...</value>
-  </data>
-  <data name="ProjectTreeView_contextMenuModelDataItemLinkToClick_Link__0__to__1_" xml:space="preserve">
-    <value>{0} koppelen aan {1}</value>
-  </data>
-  <data name="ProjectTreeView_contextMenuModelDataItemLinkToClick_An_error_occured_during_linking___0_" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens het koppelen: {0}</value>
+    <value>Kan geen bijbehorende knoop vinden in de projectverkenner voor item: {0}</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
     <value>Beeld</value>

@@ -117,18 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>160, 17</value>
-  </data>
+  </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="toolStrip1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonAddWmsLayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAALQSURBVDhPhZJ7TI1xGMff4d/8YzMZmWyWZLRJiuxMF0qU
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALQSURBVDhPhZJ7TI1xGMff4d/8YzMZmWyWZLRJiuxMF0qU
         nJY1m0PFW5GMmrSQSyldzlplWtdlRBfVSdONN+VylDqlKRXK6jTV5tZFs/XRe2LtsPHdvnv27LfP9/fs
         2SP8KVHanhEoOQyIkt2Yn2TX4Fuz0fzX0791Uav0v9V6YvLbxBOGvnbRPtDLozeNxD+JJOi+M6oCzxkr
         8MxVoBA3EHrHm1+oIJyfgbtG08egF/hM16dhtB/HyG4ZJaPxFcVtOZx+4I76+QUDHKYJmoNlpXYGTY1Q
@@ -158,7 +158,7 @@
   <data name="buttonAddLayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAGqSURBVDhPrZHNK4RBHMfnH1g5CeHiIlKraEO05SZlCzka
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGqSURBVDhPrZHNK4RBHMfnH1g5CeHiIlKraEO05SZlCzka
         8rK4PBdRkkfCwbJPsrWFmgO1UnpYaS2H3YvEweMl7XFXWXLQXuTma2ae9bI9i5JvfZqZw+f3m98M+ff4
         TmehRhSTEIUi0F2gAYETLuaE022HstmBtPIZdr4M9UQBi7EvaBLNUKGdqFIeCQ5Z5Y2LFdn1T7Ls/K1s
         FhDyZCiL7DsdBeVzUp3D53T5ORpH5bOOcZT0zMwOI5CLeIDA0Ajuzmasxe7vDCSibUg9MKRSuonYxzWO
@@ -183,7 +183,7 @@
   <data name="buttonRemoveLayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAGkSURBVDhPrZExSAJhGIYvtN22VqGWanAuq6M5QYigtqMa
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGkSURBVDhPrZExSAJhGIYvtN22VqGWanAuq6M5QYigtqMa
         xOmIypq8JYcoOCJBiOKvFGyJAwmEInQRK6JriZZAhSwKyiGrybfvv7vKOI2IPnjgX573+15+4d8nehKB
         kpFN0hJkjuaHlOSI8DMRYsADeXcUlvI17HwNSl4Gu2J1qAaqrkDNK4Y8mwra5cTFurH1T7KxualsBnA5
         nG4gR09CkKinpBHU0x8jVEKhrvOEbHVmHuhJFwpJAboq4OZ00R52e6OjmB1B5Y6hUtFM+LugEgoqumTI
@@ -200,10 +200,10 @@
     <value>23, 22</value>
   </data>
   <data name="buttonRemoveLayer.Text" xml:space="preserve">
-    <value>Wis geselecteerde laag</value>
+    <value>Verwijder geselecteerde laag</value>
   </data>
   <data name="buttonRemoveLayer.ToolTipText" xml:space="preserve">
-    <value>Wis geselecteerde laag</value>
+    <value>Verwijder geselecteerde laag</value>
   </data>
   <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -230,107 +230,107 @@
   <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="contextMenuLayer.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="contextMenuLayer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>25, 15</value>
-  </data>
+  </metadata>
   <data name="contextMenuLayerOpenAttributeTable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="contextMenuLayerOpenAttributeTable.Text" xml:space="preserve">
     <value>Attributentabel openen</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 6</value>
+    <value>266, 6</value>
   </data>
   <data name="contextMenuLayerDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="contextMenuLayerDelete.Text" xml:space="preserve">
     <value>&amp;Verwijderen</value>
   </data>
   <data name="contextMenuLayerRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="contextMenuLayerRename.Text" xml:space="preserve">
     <value>&amp;Hernoemen</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 6</value>
-  </data>
-  <data name="bringToFrontToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 22</value>
-  </data>
-  <data name="bringToFrontToolStripMenuItem.Text" xml:space="preserve">
-    <value>Op de voorgrond plaatsen</value>
-  </data>
-  <data name="sendToBackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 22</value>
-  </data>
-  <data name="sendToBackToolStripMenuItem.Text" xml:space="preserve">
-    <value>Naar de achterkant verplaatsen</value>
-  </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 6</value>
-  </data>
-  <data name="bringForwardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 22</value>
-  </data>
-  <data name="bringForwardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Naar voren halen</value>
-  </data>
-  <data name="sendBackwardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 22</value>
-  </data>
-  <data name="sendBackwardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Naar achteren sturen</value>
+    <value>266, 6</value>
   </data>
   <data name="orderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="orderToolStripMenuItem.Text" xml:space="preserve">
     <value>Volgorde</value>
   </data>
   <data name="zoomToLayerToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="zoomToLayerToolStripMenuItem1.Text" xml:space="preserve">
     <value>&amp;Zoomen naar omvang</value>
   </data>
   <data name="zoomToMapExtentsToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="zoomToMapExtentsToolStripMenuItem1.Text" xml:space="preserve">
     <value>Synchroniseer zoomniveau met kaart</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 6</value>
+    <value>266, 6</value>
   </data>
   <data name="showLabelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="showLabelsToolStripMenuItem.Text" xml:space="preserve">
     <value>Labels weergeven</value>
   </data>
   <data name="showInLegendToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="showInLegendToolStripMenuItem.Text" xml:space="preserve">
     <value>Weergeven in de legenda</value>
   </data>
   <data name="hideAllButThisOneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 22</value>
+    <value>269, 22</value>
   </data>
   <data name="hideAllButThisOneToolStripMenuItem.Text" xml:space="preserve">
-    <value>Alle lagen op deze na verbergen</value>
+    <value>Alle andere lagen verbergen</value>
   </data>
   <data name="contextMenuLayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 220</value>
+    <value>270, 220</value>
   </data>
   <data name="&gt;&gt;contextMenuLayer.Name" xml:space="preserve">
     <value>contextMenuLayer</value>
   </data>
   <data name="&gt;&gt;contextMenuLayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bringToFrontToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 22</value>
+  </data>
+  <data name="bringToFrontToolStripMenuItem.Text" xml:space="preserve">
+    <value>Op de voorgrond plaatsen</value>
+  </data>
+  <data name="sendToBackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="sendToBackToolStripMenuItem.Text" xml:space="preserve">
+    <value>Naar de achtergrond verplaatsen</value>
+  </data>
+  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 6</value>
+  </data>
+  <data name="bringForwardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 22</value>
+  </data>
+  <data name="bringForwardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Naar voren halen</value>
+  </data>
+  <data name="sendBackwardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 22</value>
+  </data>
+  <data name="sendBackwardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Naar achteren sturen</value>
   </data>
   <data name="TreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -354,7 +354,7 @@
     <value>TreeView</value>
   </data>
   <data name="&gt;&gt;TreeView.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.TreeViewControls.TreeView, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.TreeViewControls.TreeView, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;TreeView.Parent" xml:space="preserve">
     <value>$this</value>
@@ -362,17 +362,11 @@
   <data name="&gt;&gt;TreeView.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="contextMenuWmsLayer.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="contextMenuWmsLayer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>259, 17</value>
-  </data>
-  <data name="zoomToLayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="zoomToLayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Zoom naar laag</value>
-  </data>
+  </metadata>
   <data name="contextMenuWmsLayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 26</value>
+    <value>158, 26</value>
   </data>
   <data name="&gt;&gt;contextMenuWmsLayer.Name" xml:space="preserve">
     <value>contextMenuWmsLayer</value>
@@ -380,44 +374,17 @@
   <data name="&gt;&gt;contextMenuWmsLayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="contextMenuMap.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <data name="zoomToLayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 22</value>
+  </data>
+  <data name="zoomToLayerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zoom naar laag</value>
+  </data>
+  <metadata name="contextMenuMap.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>426, 17</value>
-  </data>
-  <data name="addLayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 22</value>
-  </data>
-  <data name="addLayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Voeg laag toe</value>
-  </data>
-  <data name="addLayergroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 22</value>
-  </data>
-  <data name="addLayergroupToolStripMenuItem.Text" xml:space="preserve">
-    <value>Toevoegen groeplaag</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 6</value>
-  </data>
-  <data name="zoomToExtentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 22</value>
-  </data>
-  <data name="zoomToExtentsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Zoom naar alles</value>
-  </data>
-  <data name="zoomToMapExtentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 22</value>
-  </data>
-  <data name="zoomToMapExtentsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Inzoomen tot de kaart</value>
-  </data>
-  <data name="changeCoordinateSystemToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 22</value>
-  </data>
-  <data name="changeCoordinateSystemToolStripMenuItem.Text" xml:space="preserve">
-    <value>Veranderen kaartcoördinatenstelsel...</value>
-  </data>
+  </metadata>
   <data name="contextMenuMap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>258, 120</value>
+    <value>269, 120</value>
   </data>
   <data name="&gt;&gt;contextMenuMap.Name" xml:space="preserve">
     <value>contextMenuMap</value>
@@ -425,9 +392,42 @@
   <data name="&gt;&gt;contextMenuMap.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="addLayerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 22</value>
   </data>
+  <data name="addLayerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Voeg laag toe</value>
+  </data>
+  <data name="addLayergroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 22</value>
+  </data>
+  <data name="addLayergroupToolStripMenuItem.Text" xml:space="preserve">
+    <value>Toevoegen groeplaag</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 6</value>
+  </data>
+  <data name="zoomToExtentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 22</value>
+  </data>
+  <data name="zoomToExtentsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zoom naar alles</value>
+  </data>
+  <data name="zoomToMapExtentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 22</value>
+  </data>
+  <data name="zoomToMapExtentsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Inzoomen tot de kaart</value>
+  </data>
+  <data name="changeCoordinateSystemToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 22</value>
+  </data>
+  <data name="changeCoordinateSystemToolStripMenuItem.Text" xml:space="preserve">
+    <value>Veranderen kaartcoördinatenstelsel...</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
@@ -456,7 +456,7 @@
     <value>contextMenuLayerOpenAttributeTable</value>
   </data>
   <data name="&gt;&gt;contextMenuLayerOpenAttributeTable.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
     <value>toolStripMenuItem2</value>
@@ -468,13 +468,13 @@
     <value>contextMenuLayerDelete</value>
   </data>
   <data name="&gt;&gt;contextMenuLayerDelete.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;contextMenuLayerRename.Name" xml:space="preserve">
     <value>contextMenuLayerRename</value>
   </data>
   <data name="&gt;&gt;contextMenuLayerRename.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
     <value>toolStripMenuItem1</value>
@@ -522,13 +522,13 @@
     <value>zoomToLayerToolStripMenuItem1</value>
   </data>
   <data name="&gt;&gt;zoomToLayerToolStripMenuItem1.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zoomToMapExtentsToolStripMenuItem1.Name" xml:space="preserve">
     <value>zoomToMapExtentsToolStripMenuItem1</value>
   </data>
   <data name="&gt;&gt;zoomToMapExtentsToolStripMenuItem1.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
@@ -540,37 +540,37 @@
     <value>showLabelsToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;showLabelsToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;showInLegendToolStripMenuItem.Name" xml:space="preserve">
     <value>showInLegendToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;showInLegendToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;hideAllButThisOneToolStripMenuItem.Name" xml:space="preserve">
     <value>hideAllButThisOneToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;hideAllButThisOneToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zoomToLayerToolStripMenuItem.Name" xml:space="preserve">
     <value>zoomToLayerToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;zoomToLayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;addLayerToolStripMenuItem.Name" xml:space="preserve">
     <value>addLayerToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;addLayerToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;addLayergroupToolStripMenuItem.Name" xml:space="preserve">
     <value>addLayergroupToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;addLayergroupToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
@@ -582,13 +582,13 @@
     <value>zoomToExtentsToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;zoomToExtentsToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zoomToMapExtentsToolStripMenuItem.Name" xml:space="preserve">
     <value>zoomToMapExtentsToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;zoomToMapExtentsToolStripMenuItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.786, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.830, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;changeCoordinateSystemToolStripMenuItem.Name" xml:space="preserve">
     <value>changeCoordinateSystemToolStripMenuItem</value>
@@ -601,8 +601,5 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
 </root>

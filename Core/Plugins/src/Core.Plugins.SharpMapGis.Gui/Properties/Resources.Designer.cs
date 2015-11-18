@@ -61,15 +61,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg meetpunten operatie toe.
-        /// </summary>
-        public static string AddSamplesOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("AddSamplesOperationProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap arrow_circle_double {
@@ -99,56 +90,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dimensies.
-        /// </summary>
-        public static string Categories_Dimensions {
-            get {
-                return ResourceManager.GetString("Categories_Dimensions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
             get {
                 return ResourceManager.GetString("Categories_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invoer.
-        /// </summary>
-        public static string Categories_Input {
-            get {
-                return ResourceManager.GetString("Categories_Input", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Operatie parameters.
-        /// </summary>
-        public static string Categories_Operation_Parameters {
-            get {
-                return ResourceManager.GetString("Categories_Operation_Parameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitvoer.
-        /// </summary>
-        public static string Categories_Output {
-            get {
-                return ResourceManager.GetString("Categories_Output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslag.
-        /// </summary>
-        public static string Categories_Storage {
-            get {
-                return ResourceManager.GetString("Categories_Storage", resourceCulture);
             }
         }
         
@@ -162,65 +108,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cel-middelen-algoritme.
-        /// </summary>
-        public static string CellAveragingAlgorithm_DisplayName {
-            get {
-                return ResourceManager.GetString("CellAveragingAlgorithm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string Common_Name_DisplayName {
             get {
                 return ResourceManager.GetString("Common_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De gewenste ruimte tussen punten op de omtrek..
-        /// </summary>
-        public static string ContourOperation_DesiredSampleSpacing_Description {
-            get {
-                return ResourceManager.GetString("ContourOperation_DesiredSampleSpacing_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bemonstering van de afstand.
-        /// </summary>
-        public static string ContourOperation_DesiredSampleSpacing_DisplayName {
-            get {
-                return ResourceManager.GetString("ContourOperation_DesiredSampleSpacing_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argument wordt gebruikt als waarde voor de punten op de contour..
-        /// </summary>
-        public static string ContourOperation_Value_Description {
-            get {
-                return ResourceManager.GetString("ContourOperation_Value_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argumentwaarde.
-        /// </summary>
-        public static string ContourOperation_Value_DisplayName {
-            get {
-                return ResourceManager.GetString("ContourOperation_Value_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string ContourOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("ContourOperationProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -255,15 +147,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Crop&quot;-operatie.
-        /// </summary>
-        public static string CropOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("CropOperationProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CurvePointSmall {
@@ -280,78 +163,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("CurvePointSmallRemove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kromlijnigraster.
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de kromlijnige die getoond wordt aan de gebruiker..
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bepaal of u wel of niet de oppervlakken (&quot;faces&quot;) van het raster wilt laten zien..
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_ShowFaces_Description {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_ShowFaces_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon oppervlakken.
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_ShowFaces_DisplayName {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_ShowFaces_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bepaal of u wel of niet de lijnen (randen) tussen de rasterpunten wilt laten zien..
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_ShowLines_Description {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_ShowLines_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon regels.
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_ShowLines_DisplayName {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_ShowLines_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bepaar of u wel of niet de gedefinieerde punten (hoekpunten) van het raster wilt laten zien..
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_ShowVertices_Description {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_ShowVertices_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Punten weergeven.
-        /// </summary>
-        public static string CurvilinearGridLayerProperties_ShowVertices_DisplayName {
-            get {
-                return ResourceManager.GetString("CurvilinearGridLayerProperties_ShowVertices_DisplayName", resourceCulture);
             }
         }
         
@@ -436,15 +247,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis operatie.
-        /// </summary>
-        public static string EraseOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("EraseOperationProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap eraser {
@@ -492,15 +294,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deze functie biedt geen ondersteuning voor gedeeltelijk selecteren van meerdere onderdelen. Selecteer slechts één of alle waarden.
-        /// </summary>
-        public static string FilterFunctionDialog_ValidateMultiSelectError {
-            get {
-                return ResourceManager.GetString("FilterFunctionDialog_ValidateMultiSelectError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap folder__plus {
@@ -517,132 +310,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("FunctionGrid2D", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;Gdal&quot;-rasterlaag.
-        /// </summary>
-        public static string GdalRasterLayerProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De verlenging van het &quot;Gdal&quot;-rasterlaag..
-        /// </summary>
-        public static string GdalRasterLayerProperties_Envelope_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Envelope_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitbreiding van de laag.
-        /// </summary>
-        public static string GdalRasterLayerProperties_Envelope_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Envelope_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximale zichtbaarheidszoomniveau.
-        /// </summary>
-        public static string GdalRasterLayerProperties_MaxVisibility_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_MaxVisibility_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximale zoomniveau waar deze laag nog steeds zichtbaar is..
-        /// </summary>
-        public static string GdalRasterLayerProperties_MaxVisible_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_MaxVisible_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimale zoomniveau waar the laag nog steeds zichtbaar is..
-        /// </summary>
-        public static string GdalRasterLayerProperties_MinVisible_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_MinVisible_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimale zichtbaarheidszoomniveau.
-        /// </summary>
-        public static string GdalRasterLayerProperties_MinVisible_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_MinVisible_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het &quot;Gdal&quot;-rasterlaag dat getoond wordt aan de gebruiker..
-        /// </summary>
-        public static string GdalRasterLayerProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De coördinaat van de oorsprong van de &quot;Gdal&quot;-rasterlaag..
-        /// </summary>
-        public static string GdalRasterLayerProperties_Origin_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Origin_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Oorsprong.
-        /// </summary>
-        public static string GdalRasterLayerProperties_Origin_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Origin_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aantal rastercellen langs de as van het raster..
-        /// </summary>
-        public static string GdalRasterLayerProperties_Size_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Size_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rastergrootte.
-        /// </summary>
-        public static string GdalRasterLayerProperties_Size_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Size_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De afmetingen van een enkele rastercel..
-        /// </summary>
-        public static string GdalRasterLayerProperties_Step_Description {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Step_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De grootte van een rastercel.
-        /// </summary>
-        public static string GdalRasterLayerProperties_Step_DisplayName {
-            get {
-                return ResourceManager.GetString("GdalRasterLayerProperties_Step_DisplayName", resourceCulture);
             }
         }
         
@@ -673,69 +340,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("gradient", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Horizontale hoek van het verloop in graden (90 = noordwaarts).
-        /// </summary>
-        public static string GradientOperation_Angle_Description {
-            get {
-                return ResourceManager.GetString("GradientOperation_Angle_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hoek.
-        /// </summary>
-        public static string GradientOperation_Angle_DisplayName {
-            get {
-                return ResourceManager.GetString("GradientOperation_Angle_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initiele waarde voor de gradiënt.
-        /// </summary>
-        public static string GradientOperation_StartValue_Description {
-            get {
-                return ResourceManager.GetString("GradientOperation_StartValue_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Beginwaarde.
-        /// </summary>
-        public static string GradientOperation_StartValue_DisplayName {
-            get {
-                return ResourceManager.GetString("GradientOperation_StartValue_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Definitieve waarde voor de helling.
-        /// </summary>
-        public static string GradientOperation_StopValue_Description {
-            get {
-                return ResourceManager.GetString("GradientOperation_StopValue_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Laatste waarde.
-        /// </summary>
-        public static string GradientOperation_StopValue_DisplayName {
-            get {
-                return ResourceManager.GetString("GradientOperation_StopValue_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Operatie kleurovergang.
-        /// </summary>
-        public static string GradientOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("GradientOperationProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -792,168 +396,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         public static string GroupLayerProperties_NumberOfLayers_DisplayName {
             get {
                 return ResourceManager.GetString("GroupLayerProperties_NumberOfLayers_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestand waaruit de meetpuntenreeks wordt gelezen..
-        /// </summary>
-        public static string ImportSamplesOperation_File_Description {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperation_File_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invoerbestand.
-        /// </summary>
-        public static string ImportSamplesOperation_File_Displayname {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperation_File_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinatenstelsel waarin de punten van het bestand zijn aangegeven..
-        /// </summary>
-        public static string ImportSamplesOperation_Source_CS_Description {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperation_Source_CS_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Broncoördinatenstelsel.
-        /// </summary>
-        public static string ImportSamplesOperation_Source_CS_Displayname {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperation_Source_CS_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinatenstelsel waarnaar de invoerpunten moeten worden geconverteerd..
-        /// </summary>
-        public static string ImportSamplesOperation_Target_CS_Description {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperation_Target_CS_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doelcoördinatenstelsel.
-        /// </summary>
-        public static string ImportSamplesOperation_Target_CS_Displayname {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperation_Target_CS_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Meetpunten importeren eigenschappen.
-        /// </summary>
-        public static string ImportSamplesOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("ImportSamplesOperationProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bepaal welke waarde als resultaat wordt gegeven voor de gevonden meetpunten.
-        /// </summary>
-        public static string InterpolateOperation_AveragingMethod_Description {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_AveragingMethod_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Celraster middelingsmethode.
-        /// </summary>
-        public static string InterpolateOperation_AveragingMethod_DisplayName {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_AveragingMethod_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interpolatiemethode: &quot;Delauny triangulatie&quot; of rastercel gemiddelde.
-        /// </summary>
-        public static string InterpolateOperation_InterpolationMethod_Description {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_InterpolationMethod_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interpolatiemethode.
-        /// </summary>
-        public static string InterpolateOperation_InterpolationMethod_DisplayName {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_InterpolationMethod_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrens van het aantal meetpunten per &quot;cell&quot; dat is gevonden bij het interpoleren.
-        /// </summary>
-        public static string InterpolateOperation_MinPoints_Description {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_MinPoints_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimaal aantal meetpunten per &quot;cell&quot;.
-        /// </summary>
-        public static string InterpolateOperation_MinPoints_DisplayName {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_MinPoints_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schaalfactor voor de celgrootte.
-        /// </summary>
-        public static string InterpolateOperation_RelSearchCellSize_Description {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_RelSearchCellSize_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Relatieve zoek-celgrootte.
-        /// </summary>
-        public static string InterpolateOperation_RelSearchCellSize_DisplayName {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_RelSearchCellSize_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Punt instellen die wordt geïnterpoleerd op het raster.
-        /// </summary>
-        public static string InterpolateOperation_Samples_Description {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_Samples_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Meetpunten reeks.
-        /// </summary>
-        public static string InterpolateOperation_Samples_Displayname {
-            get {
-                return ResourceManager.GetString("InterpolateOperation_Samples_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Operatie interpolatie.
-        /// </summary>
-        public static string InterpolateOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("InterpolateOperationProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -1082,7 +524,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het aantal pixels als &quot;inner margin&quot; langs alle randen van de legenda..
+        ///   Looks up a localized string similar to Het aantal pixels als binnenmarge van de legenda..
         /// </summary>
         public static string LegendToolProperties_Padding_Description {
             get {
@@ -1118,7 +560,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onderbroken-lijnstijl van de lijn..
+        ///   Looks up a localized string similar to Stijl van de lijn..
         /// </summary>
         public static string LineStyleProperies_DashStyle_Description {
             get {
@@ -1382,24 +824,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kaart.
-        /// </summary>
-        public static string mapToolbar {
-            get {
-                return ResourceManager.GetString("mapToolbar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kaart.
-        /// </summary>
-        public static string mapToolbar1 {
-            get {
-                return ResourceManager.GetString("mapToolbar1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap MapZoomInImage {
@@ -1520,69 +944,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe waarde dat ingevoegd moet worden..
-        /// </summary>
-        public static string OverwriteValueOperation_Value_Description {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperation_Value_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarde.
-        /// </summary>
-        public static string OverwriteValueOperation_Value_DisplayName {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperation_Value_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde van de eerste coördinaat van de locatie zal overschreven worden..
-        /// </summary>
-        public static string OverwriteValueOperation_X_Description {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperation_X_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X.
-        /// </summary>
-        public static string OverwriteValueOperation_X_DisplayName {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperation_X_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tweede coördinaatwaarde van de locatie zal overschreven worden..
-        /// </summary>
-        public static string OverwriteValueOperation_Y_Description {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperation_Y_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Y.
-        /// </summary>
-        public static string OverwriteValueOperation_Y_DisplayName {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperation_Y_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;Spatial data&quot;-waarden overschrijven.
-        /// </summary>
-        public static string OverwriteValueOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("OverwriteValueOperationProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap paintcan {
@@ -1660,7 +1021,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bepaal of u wel of niet de lijn langs de omtrek van het punt wilt laten zien..
+        ///   Looks up a localized string similar to Bepaal of u wel of niet de omtrek van het punt wilt laten zien..
         /// </summary>
         public static string PointStyleProperties_EnableOutline_Description {
             get {
@@ -1669,7 +1030,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rand weergeven.
+        ///   Looks up a localized string similar to Omtrek weergeven.
         /// </summary>
         public static string PointStyleProperties_EnableOutline_DisplayName {
             get {
@@ -1678,7 +1039,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van het punt..
+        ///   Looks up a localized string similar to Kleur van de omtrek van het punt..
         /// </summary>
         public static string PointStyleProperties_OutlineColor_Description {
             get {
@@ -1687,7 +1048,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Randkleur.
+        ///   Looks up a localized string similar to Omtrekkleur.
         /// </summary>
         public static string PointStyleProperties_OutlineColor_DisplayName {
             get {
@@ -1696,7 +1057,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onderbroken-lijnstijl van de lijn langs de omtrek van het punt..
+        ///   Looks up a localized string similar to Omtrekstijl van het punt..
         /// </summary>
         public static string PointStyleProperties_OutlineDashStyle_Description {
             get {
@@ -1705,7 +1066,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Randstreepstijl.
+        ///   Looks up a localized string similar to Omtrekstijl.
         /// </summary>
         public static string PointStyleProperties_OutlineDashStyle_DisplayName {
             get {
@@ -1714,7 +1075,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breedte van de lijn langs de omtrek van het punt..
+        ///   Looks up a localized string similar to Breedte van de omtrek van het punt..
         /// </summary>
         public static string PointStyleProperties_OutlineWidth_Description {
             get {
@@ -1723,7 +1084,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Randbreedte.
+        ///   Looks up a localized string similar to Omtrekbreedte.
         /// </summary>
         public static string PointStyleProperties_OutlineWidth_DisplayName {
             get {
@@ -1824,7 +1185,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van de polygoon..
+        ///   Looks up a localized string similar to Kleur van de omtrek van de polygoon..
         /// </summary>
         public static string PolygonStyleProperties_OutlineColor_Description {
             get {
@@ -1833,7 +1194,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breedte van de lijn langs de omtrek van de polygoon..
+        ///   Looks up a localized string similar to Breedte van de omtrek van de polygoon..
         /// </summary>
         public static string PolygonStyleProperties_OutlineWidth_Description {
             get {
@@ -1872,312 +1233,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laatste werkfolder openen....
-        /// </summary>
-        public static string RealTimeControlModelNodePresenter_GetContextMenu_Open_Last_Working_Directory____ {
-            get {
-                return ResourceManager.GetString("RealTimeControlModelNodePresenter_GetContextMenu_Open_Last_Working_Directory____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valideren....
-        /// </summary>
-        public static string RealTimeControlModelNodePresenter_GetContextMenu_Validate___ {
-            get {
-                return ResourceManager.GetString("RealTimeControlModelNodePresenter_GetContextMenu_Validate___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het &quot;spatial data&quot;-raster waar deze cel aan toe tot behoort..
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_Coverage_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_Coverage_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de &quot;spatial data&quot;.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_Coverage_DislpayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_Coverage_DislpayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regelmatig &quot;spatial data&quot;-rastercel.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De op 0 gebaseerde index langs de X-as..
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_I_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_I_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X index.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_I_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_I_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De op 0 gebaseerde index langs de Y-as..
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_J_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_J_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Y index.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_J_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_J_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde van de rastercel..
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_Value_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_Value_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarde.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_Value_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_Value_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De X-coördinaat van het rastercel..
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_X_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_X_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_X_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_X_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Y-coördinaat van de rastercel..
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_Y_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_Y_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Y.
-        /// </summary>
-        public static string RegularGridCoverageCellProperties_Y_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageCellProperties_Y_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Beschrijving van de regelmatige raster van de &quot;spatial data&quot;..
-        /// </summary>
-        public static string RegularGridCoverageProperties_Description_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_Description_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Omschrijving.
-        /// </summary>
-        public static string RegularGridCoverageProperties_Description_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_Description_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regelmatig &quot;spatial data&quot;-raster.
-        /// </summary>
-        public static string RegularGridCoverageProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hiermee wordt aangegeven of dit regelmatige raster een bestand gebaseerde opslag schema gebruikt..
-        /// </summary>
-        public static string RegularGridCoverageProperties_FileBased_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_FileBased_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Heeft het bestand een basis bestand.
-        /// </summary>
-        public static string RegularGridCoverageProperties_FileBased_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_FileBased_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestandsfolder waar het reguliere raster voor &quot;spatial data&quot; gevonden kan worden..
-        /// </summary>
-        public static string RegularGridCoverageProperties_FilePath_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_FilePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het regelmatige raster van &quot;spatial data&quot;..
-        /// </summary>
-        public static string RegularGridCoverageProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarden die het ontbreken van gegevens vertegenwoordigen..
-        /// </summary>
-        public static string RegularGridCoverageProperties_NoDataValues_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_NoDataValues_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;No data&quot;-waarden.
-        /// </summary>
-        public static string RegularGridCoverageProperties_NoDataValues_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_NoDataValues_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestandsfolder.
-        /// </summary>
-        public static string RegularGridCoverageProperties_Path_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_Path_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schema dat gebruikt wordt om deze regelmatige raster &quot;spatial data&quot; op te slaan..
-        /// </summary>
-        public static string RegularGridCoverageProperties_Store_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_Store_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Winkel.
-        /// </summary>
-        public static string RegularGridCoverageProperties_Store_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_Store_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft het waardetype aan dat gebruikt wordt om waarden weer te geven..
-        /// </summary>
-        public static string RegularGridCoverageProperties_ValueType_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_ValueType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waardetype.
-        /// </summary>
-        public static string RegularGridCoverageProperties_ValueType_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageProperties_ValueType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijdsafhankelijk regelmatige raster ruimtelijke gegevens.
-        /// </summary>
-        public static string RegularGridCoverageTimeDependentProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageTimeDependentProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Extrapolatie schema toegepast langs de tijd-as bij de evaluatie van de waarden..
-        /// </summary>
-        public static string RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijdextrapolatie.
-        /// </summary>
-        public static string RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interpolatie schema bij de evaluatie van waarden is langs de tijdas toegepast..
-        /// </summary>
-        public static string RegularGridCoverageTimeDependentProperties_TimeInterpolationType_Description {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageTimeDependentProperties_TimeInterpolationType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijd interpolatie.
-        /// </summary>
-        public static string RegularGridCoverageTimeDependentProperties_TimeInterpolationType_DisplayName {
-            get {
-                return ResourceManager.GetString("RegularGridCoverageTimeDependentProperties_TimeInterpolationType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kaart coördinaatsysteem.
         /// </summary>
         public static string Ribbon_Map_CoordinateSystem_Header {
@@ -2187,7 +1242,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verander het coördinaat referentiestelsel van de kaart.
+        ///   Looks up a localized string similar to Verander het coördinaat referentiestelsel van de kaart..
         /// </summary>
         public static string Ribbon_Map_CoordinateSystem_ToolTip {
             get {
@@ -2214,7 +1269,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteer de kaart als een afbeelding.
+        ///   Looks up a localized string similar to Exporteer de kaart als een afbeelding..
         /// </summary>
         public static string Ribbon_Map_ExportAsImage_ToolTip {
             get {
@@ -2241,7 +1296,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weergeven of verbergen van de legenda.
+        ///   Looks up a localized string similar to Weergeven of verbergen van de legenda..
         /// </summary>
         public static string Ribbon_Map_Legend_ToolTip {
             get {
@@ -2259,7 +1314,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meet afstand door het tekenen van een polylijn.
+        ///   Looks up a localized string similar to Meet afstand door het tekenen van een polylijn..
         /// </summary>
         public static string Ribbon_Map_MeasureDistance_ToolTip {
             get {
@@ -2277,7 +1332,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volgend zoomniveau.
+        ///   Looks up a localized string similar to Ga naar het volgende zoomniveau..
         /// </summary>
         public static string Ribbon_Map_NextZoom_ToolTip {
             get {
@@ -2304,7 +1359,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weergeven of verbergen van de schaalbalk.
+        ///   Looks up a localized string similar to Weergeven of verbergen van de schaalbalk..
         /// </summary>
         public static string Ribbon_Map_ScaleBar_ToolTip {
             get {
@@ -2322,7 +1377,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windroos.
+        ///   Looks up a localized string similar to Noordpijl.
         /// </summary>
         public static string Ribbon_Map_ShowNorthArrow_Header {
             get {
@@ -2331,7 +1386,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weergeven of verbergen van de windroos.
+        ///   Looks up a localized string similar to Weergeven of verbergen van de noordpijl..
         /// </summary>
         public static string Ribbon_Map_ShowNorthArrow_ToolTip {
             get {
@@ -2358,7 +1413,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoom in door het tekenen van een rechthoek.
+        ///   Looks up a localized string similar to Zoom in door het tekenen van een rechthoek..
         /// </summary>
         public static string Ribbon_Map_ZoomByRectange_ToolTip {
             get {
@@ -2376,7 +1431,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vorig zoom niveau.
+        ///   Looks up a localized string similar to Ga naar het vorige zoomniveau..
         /// </summary>
         public static string Ribbon_Map_ZoomPrevious_ToolTip {
             get {
@@ -2394,7 +1449,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoom naar alles op de kaart.
+        ///   Looks up a localized string similar to Zoom naar alles op de kaart..
         /// </summary>
         public static string Ribbon_Map_ZoomToExtent_ToolTip {
             get {
@@ -2460,74 +1515,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waarde die wordt gebruikt als argument voor de puntsgewijze operatie.
-        /// </summary>
-        public static string SetValueOperation_Value_Description {
-            get {
-                return ResourceManager.GetString("SetValueOperation_Value_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argumentwaarde.
-        /// </summary>
-        public static string SetValueOperation_Value_DisplayName {
-            get {
-                return ResourceManager.GetString("SetValueOperation_Value_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Operatie interpolatie.
-        /// </summary>
-        public static string SetValueOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("SetValueOperationProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De standaard achtergrondlaag verwijderen.
-        /// </summary>
-        public static string SharpMapGisGuiPlugin_GetContextMenu_Remove_As_Default_Background_Layer {
-            get {
-                return ResourceManager.GetString("SharpMapGisGuiPlugin_GetContextMenu_Remove_As_Default_Background_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik als standaard achtergrondlaag.
-        /// </summary>
-        public static string SharpMapGisGuiPlugin_GetContextMenu_Use_As_Default_Background_Layer {
-            get {
-                return ResourceManager.GetString("SharpMapGisGuiPlugin_GetContextMenu_Use_As_Default_Background_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik de vorige uitvoer....
-        /// </summary>
-        public static string SharpMapGisGuiPlugin_GetContextMenu_Use_Previous_Output___ {
-            get {
-                return ResourceManager.GetString("SharpMapGisGuiPlugin_GetContextMenu_Use_Previous_Output___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kaart.
         /// </summary>
         public static string SharpMapGisPluginGui_InitializeMapLegend_Map_Contents {
             get {
                 return ResourceManager.GetString("SharpMapGisPluginGui_InitializeMapLegend_Map_Contents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kaart.
-        /// </summary>
-        public static string SharpMapGisPluginGui_InitializeMapLegend_Map_Contents1 {
-            get {
-                return ResourceManager.GetString("SharpMapGisPluginGui_InitializeMapLegend_Map_Contents1", resourceCulture);
             }
         }
         
@@ -2538,60 +1530,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("ShowProfile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Omgekeerde afstand gewicht exponent.
-        /// </summary>
-        public static string SmoothingOperation_Exponent_Description {
-            get {
-                return ResourceManager.GetString("SmoothingOperation_Exponent_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Exponent.
-        /// </summary>
-        public static string SmoothingOperation_Exponent_Displayname {
-            get {
-                return ResourceManager.GetString("SmoothingOperation_Exponent_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aantal cycli in het &quot;smoothing&quot;-algoritme.
-        /// </summary>
-        public static string SmoothingOperation_Iterations_Description {
-            get {
-                return ResourceManager.GetString("SmoothingOperation_Iterations_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Iteraties.
-        /// </summary>
-        public static string SmoothingOperation_Iterations_Displayname {
-            get {
-                return ResourceManager.GetString("SmoothingOperation_Iterations_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschrijf methode.
-        /// </summary>
-        public static string SmoothingOperation_Method_Displayname {
-            get {
-                return ResourceManager.GetString("SmoothingOperation_Method_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vloeiend maken.
-        /// </summary>
-        public static string SmoothingOperationProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("SmoothingOperationProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -2612,24 +1550,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("spatial_operation_parameter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bepaal of de operatie wordt uitgevoerd wanneer het resultaat van de &quot;stack&quot; wordt vernieuwd.
-        /// </summary>
-        public static string SpatialOperation_Enabled_Description {
-            get {
-                return ResourceManager.GetString("SpatialOperation_Enabled_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ingeschakeld.
-        /// </summary>
-        public static string SpatialOperation_Enabled_Displayname {
-            get {
-                return ResourceManager.GetString("SpatialOperation_Enabled_Displayname", resourceCulture);
             }
         }
         
@@ -2761,24 +1681,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operatie die puntsgewijs wordt toegepast op de waarden van de &quot;spatial data&quot;.
-        /// </summary>
-        public static string ValueOperation_Operation_Description {
-            get {
-                return ResourceManager.GetString("ValueOperation_Operation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Puntsgewijze operatie.
-        /// </summary>
-        public static string ValueOperation_Operation_DisplayName {
-            get {
-                return ResourceManager.GetString("ValueOperation_Operation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Attribuut toevoegen.
         /// </summary>
         public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute {
@@ -2817,7 +1719,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vector laag (lijn).
+        ///   Looks up a localized string similar to Vectorlaag (lijn).
         /// </summary>
         public static string VectorLayerLineProperties_DisplayName {
             get {
@@ -2826,7 +1728,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vector laag (punt).
+        ///   Looks up a localized string similar to Vectorlaag (punt).
         /// </summary>
         public static string VectorLayerPointProperties_DisplayName {
             get {
@@ -2863,7 +1765,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vector laag.
+        ///   Looks up a localized string similar to Vectorlaag.
         /// </summary>
         public static string VectorLayerProperties_DisplayName {
             get {
@@ -2935,7 +1837,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van de lijn..
+        ///   Looks up a localized string similar to Kleur van de omtrek van de lijn..
         /// </summary>
         public static string VectorLayerProperties_OutlineColor_Description {
             get {
@@ -2944,7 +1846,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breedte van de lijn langs de omtrek van de lijn..
+        ///   Looks up a localized string similar to Breedte van de omtrek van de lijn..
         /// </summary>
         public static string VectorLayerProperties_OutlineWidth_Description {
             get {
@@ -2962,7 +1864,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Symbool schaal.
+        ///   Looks up a localized string similar to Symboolschaal.
         /// </summary>
         public static string VectorLayerProperties_SymbolScale_DisplayName {
             get {
@@ -2971,7 +1873,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onderbroken-lijnstijl van de lijn aling de omtrek van de lijn..
+        ///   Looks up a localized string similar to Lijnstijl voor de omtrek van de vector..
         /// </summary>
         public static string VectorStyleProperties_DashStyle_Description {
             get {
@@ -2980,7 +1882,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vector stijl.
+        ///   Looks up a localized string similar to Vectorstijl.
         /// </summary>
         public static string VectorStyleProperties_DisplayName {
             get {
@@ -2989,7 +1891,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bepaal of u wel of niet de lijn langs de omtrek van de lijn wilt laten zien..
+        ///   Looks up a localized string similar to Bepaal of u wel of niet de omtrek van de lijn wilt laten zien..
         /// </summary>
         public static string VectorStyleProperties_EnableOutline_Description {
             get {

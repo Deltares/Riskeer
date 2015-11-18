@@ -158,7 +158,7 @@ namespace Core.Plugins.CommonTools.Gui.Property.Charting
 
         [ResourcesCategory(typeof(Resources), "ChartProperties_Categories_Axes")]
         [ResourcesDisplayName(typeof(Resources), "ChartProperties_RightAxis_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ChartProperties_RightAcis_Description")]
+        [ResourcesDescription(typeof(Resources), "ChartProperties_RightAxis_Description")]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public ChartAxisProperties RightAxis
         {

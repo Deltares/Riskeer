@@ -69,8 +69,8 @@ namespace Core.Common.Utils.Interop
                     var error = Marshal.GetLastWin32Error();
                     var exception = new Win32Exception(error);
                     throw new FileNotFoundException(
-                        string.Format(Resource.NativeLibrary_LoadNativeDll_Could_not_find___load__3___2_Error___4_____0__2_File___5___1_,
-                                      exception.Message, dllFileName, Environment.NewLine, dllFileName, error, directory));
+                        string.Format(Resource.NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_,
+                                      dllFileName, error, exception.Message, directory, dllFileName));
                 }
             }
         }

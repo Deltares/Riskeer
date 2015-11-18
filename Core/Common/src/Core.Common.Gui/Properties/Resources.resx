@@ -171,19 +171,13 @@
     <value>..\Resources\Edit_UndoHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer" xml:space="preserve">
-    <value>"Explorer"</value>
-  </data>
-  <data name="MainWindowCommands_ShowPropertiesViewCommand_Name_Show_Properties" xml:space="preserve">
-    <value>"Properties" weergeven</value>
+    <value>Verkenner</value>
   </data>
   <data name="Ribbon_Command_New" xml:space="preserve">
     <value>Nieuw</value>
   </data>
-  <data name="MainWindowCommands_ShowPropertiesViewCommand_Text_Show_Properties__Shift___Alt____P_" xml:space="preserve">
-    <value>"Properties" weergeven (Shift + Alt + P)</value>
-  </data>
   <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Please_close_the_other_instance_first_" xml:space="preserve">
-    <value>Kan geen meerdere instanties van "Ringtoets" starten. Sluit eerst de andere instantie.</value>
+    <value>Kan niet meerdere instanties van Ringtoets starten. Sluit eerst de andere instantie.</value>
   </data>
   <data name="brick_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -213,7 +207,7 @@
     <value>Ringtoets project files (.rtx)|*.rtx</value>
   </data>
   <data name="PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to__0_" xml:space="preserve">
-    <value>Fout bij het opslaan van de instellingen in {0}</value>
+    <value>Fout bij het opslaan van de instellingen in {0}.</value>
   </data>
   <data name="FindView" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FindView.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -222,16 +216,13 @@
     <value>Weergave wordt gesloten terwijl hij aan het openen is!</value>
   </data>
   <data name="ViewList_DockingManagerViewBarClosing_Closing_view___0_" xml:space="preserve">
-    <value>Bezig met sluiten van de weergave: {0}</value>
+    <value>Bezig met sluiten van de weergave: {0}.</value>
   </data>
   <data name="GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected__impossible" xml:space="preserve">
     <value>Geen van de "radiobuttons" is geselecteerd: onmogelijk</value>
   </data>
   <data name="new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MainWindowCommands_ShowMessageWindowCommand_Text_Show_Messages__Shift___Alt____O_" xml:space="preserve">
-    <value>Toon berichten (Shift + Alt + O)</value>
   </data>
   <data name="link" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\link.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -252,7 +243,7 @@
     <value>Weergeven/Verbergen</value>
   </data>
   <data name="GuiCommandHandler_ImportOn_Unable_to_import_on__0__" xml:space="preserve">
-    <value>Kan niet importeren naar {0}</value>
+    <value>Kan niet importeren naar {0}.</value>
   </data>
   <data name="cog_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/cog_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -261,7 +252,7 @@
     <value>Algemeen</value>
   </data>
   <data name="AvalonDockDockingManager_Add_View_was_already_added__activate_it_instead_of_add" xml:space="preserve">
-    <value>Weergave is al toegevoegd, activeren de weergave in plaats van het proberen toe te  voegen</value>
+    <value>Weergave is al toegevoegd. Activeer de weergave in plaats van het toe te voegen.</value>
   </data>
   <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -269,20 +260,14 @@
   <data name="Ribbon_Command_Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
-  <data name="ViewList_ForceViewCleanup_Unexpected_behaviour_from_composite_view__child_view_is_null__parent_view___0_" xml:space="preserve">
-    <value>Onverwacht gedrag van de samengestelde weergave, "child"-weergave is "null", "parent"-weergave is: {0}</value>
-  </data>
-  <data name="MainWindowCommands_ShowChartContentsViewCommand_Name_Show_Chart_Contents" xml:space="preserve">
-    <value>Weergeven van de inhoud van de grafiek</value>
+  <data name="ViewList_ForceViewCleanup_A_view_within_0_has_no_value" xml:space="preserve">
+    <value>Onverwacht gedrag van de samengestelde weergave. Een weergave binnen de samengestelde weergave '{0}' heeft geen waarde.</value>
   </data>
   <data name="RingtoetsGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
-    <value>"Default tool windows"aan het maken...</value>
+    <value>Standaardschermen aan het maken...</value>
   </data>
   <data name="RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
-    <value>Exceptie tijdens deactivering van de "gui"-plugin</value>
-  </data>
-  <data name="MainWindowCommands_ShowMessageWindowCommand_Name_Show_Messages" xml:space="preserve">
-    <value>Berichten weergeven</value>
+    <value>Exceptie tijdens deactivering van de grafische interface plugin.</value>
   </data>
   <data name="ProgressDialog_SetButtonState_Cancelling___" xml:space="preserve">
     <value>Annuleren...</value>
@@ -290,14 +275,11 @@
   <data name="MessageWindow_showDetailsToolStripMenuItem_Click_Message_details" xml:space="preserve">
     <value>Berichtdetails</value>
   </data>
-  <data name="MainWindowCommands_ShowObjectInTreeViewCommand_Name_Find_In_Project_Treeview" xml:space="preserve">
-    <value>Zoek in "Project Treeview"</value>
-  </data>
   <data name="RingtoetsGui_Run_Starting_application____" xml:space="preserve">
     <value>Starten van de toepassing...</value>
   </data>
   <data name="App_RunRingtoets_Activity___0___ended_with_status__1_" xml:space="preserve">
-    <value>Activiteit '{0}' eindigde met status {1}</value>
+    <value>Activiteit '{0}' eindigde met status {1}.</value>
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Berichten</value>
@@ -333,7 +315,7 @@
     <value>Starten van activiteit '{0}'</value>
   </data>
   <data name="PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported" xml:space="preserve">
-    <value>Instelling {0} is "roaming". Dit wordt niet ondersteund</value>
+    <value>Instelling {0} heeft de niet-ondersteunde waarde 'roaming'.</value>
   </data>
   <data name="resultset_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/resultset_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -342,7 +324,7 @@
     <value>../Resources/folder_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MainWindow_AddNewMruItem_Can_t_open_project" xml:space="preserve">
-    <value>Project kan niet worden geopend</value>
+    <value>Project kan niet worden geopend.</value>
   </data>
   <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -363,7 +345,7 @@
     <value>..\Resources\graphhs.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsGui_InitToolWindows_Creating_document_window_manager____" xml:space="preserve">
-    <value>"Document window manager" aan het maken...</value>
+    <value>Schermmanager voor documenten aan het maken...</value>
   </data>
   <data name="data_item_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\data_item_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -378,7 +360,7 @@
     <value>Opgeslagen project '{0}'</value>
   </data>
   <data name="ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control" xml:space="preserve">
-    <value>"Sender" moet "non-null" en van het type "Control" zijn</value>
+    <value>Argument 'Sender' moet een instantie van het type 'Control' zijn</value>
   </data>
   <data name="ToolWindow_Name_Chart" xml:space="preserve">
     <value>Grafiek</value>
@@ -387,7 +369,7 @@
     <value>..\Resources\folder_edit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock" xml:space="preserve">
-    <value>"Lock"</value>
+    <value>Vastzetten</value>
   </data>
   <data name="cog_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cog_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -396,13 +378,10 @@
     <value>Geen enkele "importer" is beschikbaar voor dit "item" ({0}).</value>
   </data>
   <data name="ViewResolver_OpenViewForData_No_view_registered_for____0_" xml:space="preserve">
-    <value>Geen weergave geregistreerd voor: {0}</value>
+    <value>Geen weergave geregistreerd voor: {0}.</value>
   </data>
   <data name="Loading_project_from_selected_file" xml:space="preserve">
-    <value>Loading Ringtoets project from selected file.</value>
-  </data>
-  <data name="App_ParseArguments_Run_script_from_file" xml:space="preserve">
-    <value>Voer script uit vanaf bestand</value>
+    <value>Laden van Ringtoets project vanaf geselecteerd bestand.</value>
   </data>
   <data name="CopyHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CopyHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -423,7 +402,7 @@
     <value>Het licentie bestand {0} niet kan worden gevonden op de computer.</value>
   </data>
   <data name="RingtoetsGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
-    <value>Beëindigd "InitToolWindows"</value>
+    <value>Maken van standaardschermen beëindigd</value>
   </data>
   <data name="Ribbon_Command_Save_As" xml:space="preserve">
     <value>Opslaan Als</value>
@@ -441,22 +420,19 @@
     <value>Schermen initialiseren...</value>
   </data>
   <data name="SelectViewDialog_listBox_DrawItem_____Default_" xml:space="preserve">
-    <value>#NAME?</value>
+    <value>- (Standaard)</value>
   </data>
   <data name="Ribbon_TabItem_Help" xml:space="preserve">
     <value>Help</value>
   </data>
   <data name="App_App_Starting_Ringtoets____" xml:space="preserve">
-    <value>"Ringtoets" wordt gestart...</value>
+    <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="ToolWindow_Name_Map" xml:space="preserve">
     <value>Kaart</value>
   </data>
   <data name="MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state__The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
     <value>Ribbon kon niet worden hersteld. De instellingen zijn ongeldig en zullen worden teruggezet naar de standaardinstellingen.</value>
-  </data>
-  <data name="MainWindowCommands_ShowObjectInTreeViewCommand_Text_Find_In_Project_Treeview__Shift___Alt___L_" xml:space="preserve">
-    <value>Zoeken in "Project Treeview" (Shift + Alt + L)</value>
   </data>
   <data name="PlayHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -495,7 +471,7 @@
     <value>..\Resources\application_view_list.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SplashScreen_Shutdown_Hiding_splash_screen____" xml:space="preserve">
-    <value>Verbergen "splash"-scherm...</value>
+    <value>Verbergen opstartscherm...</value>
   </data>
   <data name="magnifier" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifier.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -510,7 +486,7 @@
     <value>../Resources/brick_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="App_RunRingtoets_No_project_found__load_project_first" xml:space="preserve">
-    <value>Geen project gevonden, laad het project eerst</value>
+    <value>Geen project gevonden. Laad het project eerst.</value>
   </data>
   <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAsHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -521,9 +497,6 @@
   <data name="CloseFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CloseFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainWindowCommands_ShowMapLegendViewCommand_Name_Show_Map_Contents" xml:space="preserve">
-    <value>Weergeven van de inhoud van de kaart</value>
-  </data>
   <data name="fullscreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fullscreen.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -531,7 +504,7 @@
     <value>Bedrijf</value>
   </data>
   <data name="ViewSelectionContextMenuController_UpdateMenuItemsValidity_Unlock" xml:space="preserve">
-    <value>"Unlock"</value>
+    <value>Losmaken</value>
   </data>
   <data name="ProgressDialog_SetButtonState_Cancel_all_activities" xml:space="preserve">
     <value>Annuleer alle activiteiten</value>
@@ -540,13 +513,13 @@
     <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsGui_Run_Started_in__0_f2__sec" xml:space="preserve">
-    <value>Gestart in {0:f2} sec</value>
+    <value>Gestart in {0:f2} seconden.</value>
   </data>
   <data name="folder_input" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_input.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsGui_InitToolWindows_Creating_tool_window_manager____" xml:space="preserve">
-    <value>"tool window manager" aan het maken...</value>
+    <value>Schermmanager aan het maken...</value>
   </data>
   <data name="application_import_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -563,23 +536,14 @@
   <data name="brick_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainWindowCommands_CloseViewTabCommand_Name_Close_Current_View" xml:space="preserve">
-    <value>Sluit huidige weergave</value>
-  </data>
   <data name="CutHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CutHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ribbon_Command_Open" xml:space="preserve">
     <value>Openen</value>
   </data>
-  <data name="MainWindowCommands_ShowMapLegendViewCommand_Text_Show_Map_Contents__Shift___Alt____M_" xml:space="preserve">
-    <value>Kaart inhoud tonen (Shift + Alt + M)</value>
-  </data>
-  <data name="MainWindowCommands_CloseViewTabCommand_Text_Close_Current_view__Ctrl___W_" xml:space="preserve">
-    <value>Sluit huidige weergave (Ctrl + W)</value>
-  </data>
   <data name="RingtoetsGui_ShowSplashScreen_User_has_cancelled_start__exiting____" xml:space="preserve">
-    <value>Gebruiker heeft de start geannuleerd, afsluiten...</value>
+    <value>Gebruiker heeft het opstarten onderbroken. Applicatie wordt afgesloten...</value>
   </data>
   <data name="OptionsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OptionsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -597,7 +561,7 @@
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewResolver_CreateViewForData_More_than_one_view_for_data" xml:space="preserve">
-    <value>Meer dan één weergave voor de gegevens</value>
+    <value>Meer dan één weergave voor de gegevens.</value>
   </data>
   <data name="bug" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bug.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -605,11 +569,8 @@
   <data name="Ribbon_License" xml:space="preserve">
     <value>Licentie</value>
   </data>
-  <data name="App_ParseArguments_Run_specified_command__Python__" xml:space="preserve">
-    <value>Uitvoeren van een opgegeven instructie (Python).</value>
-  </data>
   <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data" xml:space="preserve">
-    <value>Beginnen met het importeren van gegevens</value>
+    <value>Beginnen met het importeren van gegevens.</value>
   </data>
   <data name="chart_organisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_organisation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -633,13 +594,10 @@
     <value>Alle vensters zijn gemaakt.</value>
   </data>
   <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from" xml:space="preserve">
-    <value>Selecteer een bestand om eruit te importeren</value>
+    <value>Selecteer een bestand om eruit te importeren...</value>
   </data>
   <data name="RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
     <value>Menu's en werkbalken instellen...</value>
-  </data>
-  <data name="MainWindowCommands_ShowChartContentsViewCommand_Text_Show_Chart_Contents__Shift___Alt____C_" xml:space="preserve">
-    <value>Inhoud van de grafiek weergeven (Shift + Alt + C)</value>
   </data>
   <data name="Opening_new_project" xml:space="preserve">
     <value>Openen van nieuw Ringtoets project.</value>
@@ -657,16 +615,16 @@
     <value>Berekenen activiteit of model is beschikbaar in het project.</value>
   </data>
   <data name="App_RunRingtoets_Starting_Ringtoets_Gui____" xml:space="preserve">
-    <value>"Ringtoets Gui" wordt gestart...</value>
+    <value>Ringtoets' grafische interface wordt gestart...</value>
   </data>
   <data name="MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout__The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
-    <value>Kon de gevraagde "dock layout" niet laden. De instellingen zijn niet goed en zullen vervangen worden door de standaardinstellingen.</value>
+    <value>Kon de gevraagde "dock" opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen.</value>
   </data>
   <data name="application_import_blue_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue_Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewList_ActivateView_Item_not_found_in_list_of_views" xml:space="preserve">
-    <value>Item ïs niet gevonden in de lijst met weergaven</value>
+    <value>Weergave is niet gevonden tussen alle mogelijke weergaven.</value>
   </data>
   <data name="folder_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_database.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -690,7 +648,7 @@
     <value>../Resources/control_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file" xml:space="preserve">
-    <value>Logbestand kan niet worden geopend</value>
+    <value>Logbestand kan niet worden geopend.</value>
   </data>
   <data name="App_RunRingtoets_Saving_project___0__" xml:space="preserve">
     <value>Opslaan van project '{0}'</value>
@@ -705,7 +663,7 @@
     <value>..\Resources\cut.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Please_select_an_item" xml:space="preserve">
-    <value>Selecteer een "item"</value>
+    <value>Selecteer een gegevenstype.</value>
   </data>
   <data name="cog_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/cog_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -718,9 +676,6 @@
   </data>
   <data name="cross_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cross-small.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="App_RunRingtoets_Could_not_find_script__0_" xml:space="preserve">
-    <value>Kon "script" {0} niet vinden</value>
   </data>
   <data name="MainWindow_UpdateMainWindowRibbonElements_Reset_layout__restart_" xml:space="preserve">
     <value>Opmaak resetten na opnieuw opstarten</value>
@@ -747,13 +702,13 @@
     <value>..\Resources\folder_output.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiCommandHandler_CloseProject_Project_closed" xml:space="preserve">
-    <value>Project is gesloten</value>
+    <value>Project is gesloten.</value>
   </data>
   <data name="Ribbon_Recent" xml:space="preserve">
     <value>Recent</value>
   </data>
   <data name="GeneralOptionsControl_SetSettingsToNumberFormatControls_Unknown_numberFormat_for_user_settings" xml:space="preserve">
-    <value>Onbekende "numberFormat" voor de gebruikersinstellingen</value>
+    <value>Onbekende getalnotatie voor de gebruikersinstellingen</value>
   </data>
   <data name="Ribbon_Exit" xml:space="preserve">
     <value>Afsluiten</value>
@@ -771,16 +726,16 @@
     <value>Afsluiten</value>
   </data>
   <data name="SelectItemDialog_SelectedItem_Number_of_selected_items_must_be_1" xml:space="preserve">
-    <value>Het aantal geselecteerde items moet 1 zijn</value>
+    <value>Het aantal geselecteerde gegevenstypes moet 1 zijn.</value>
   </data>
   <data name="AvalonDockDockingManager_AddToolView_View_location__0__is_not_implemented_yet" xml:space="preserve">
-    <value>Weergave locatie {0} is nog niet geïmplementeerd</value>
+    <value>Weergave locatie {0} is nog niet geïmplementeerd.</value>
   </data>
   <data name="chart_pie" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_pie.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
-    <value>Slechts één instantie van "RingtoetsGui" is toegestaan per proces. Zorg ervoor dat de vorige instantie correct gewist was, "stack trace":</value>
+    <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. "Stack trace":</value>
   </data>
   <data name="Ribbon_Show_Log" xml:space="preserve">
     <value>Log Tonen</value>
@@ -831,22 +786,22 @@
     <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
   </data>
   <data name="GuiCommandHandler_AddNewFolder_Add_new_folder" xml:space="preserve">
-    <value>Nieuwe folder toevoegen</value>
+    <value>Nieuwe map toevoegen</value>
   </data>
   <data name="GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
-    <value>Er moet een project zijn om een "item" te kunnen toevoegen</value>
+    <value>Er moet een project zijn om een "item" te kunnen toevoegen.</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed" xml:space="preserve">
-    <value>Exporteren mislukt</value>
+    <value>Exporteren mislukt.</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting" xml:space="preserve">
-    <value>Exporteren afgerond</value>
+    <value>Exporteren afgerond.</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to" xml:space="preserve">
-    <value>Selecteer een bestand om naar toe te exporteren</value>
+    <value>Selecteer een bestand om naartoe te exporteren.</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting" xml:space="preserve">
-    <value>Exporteren gestart</value>
+    <value>Exporteren gestart.</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available_" xml:space="preserve">
     <value>Ringtoets kan de huidige selectie niet exporteren.</value>

@@ -71,7 +71,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vlak serie instellingen.
+        ///   Looks up a localized string similar to Vlak gegevensreeks instellingen.
         /// </summary>
         public static string AreaChartSeriesProperties_DisplayName {
             get {
@@ -80,7 +80,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interpolatieschema van de serie..
+        ///   Looks up a localized string similar to Interpolatieschema van de gegevensreeks..
         /// </summary>
         public static string AreaChartSeriesProperties_Interpolation_Description {
             get {
@@ -128,7 +128,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de balken in de serie..
+        ///   Looks up a localized string similar to Kleur van de balken in de gegevensreeks..
         /// </summary>
         public static string BarSeriesProperties_Color_Description {
             get {
@@ -146,7 +146,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijnstijl van de lijn langs de omtrek van de serie..
+        ///   Looks up a localized string similar to Stijl van de lijn langs de omtrek van de gegevensreeks..
         /// </summary>
         public static string BarSeriesProperties_DashStyle_Description {
             get {
@@ -155,7 +155,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dash stijl.
+        ///   Looks up a localized string similar to Lijnstijl.
         /// </summary>
         public static string BarSeriesProperties_DashStyle_DisplayName {
             get {
@@ -164,7 +164,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bar series instellingen.
+        ///   Looks up a localized string similar to Balk gegevensreeks instellingen.
         /// </summary>
         public static string BarSeriesProperties_DisplayName {
             get {
@@ -173,7 +173,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zichtbaarheid van de lijn langs de omtrek van de serie..
+        ///   Looks up a localized string similar to Zichtbaarheid van de lijn langs de omtrek van de gegevensreeks..
         /// </summary>
         public static string BarSeriesProperties_LineVisible_Description {
             get {
@@ -182,7 +182,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van de serie..
+        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van de gegevensreeks..
         /// </summary>
         public static string BarSeriesProperties_OutlineColor_Description {
             get {
@@ -200,7 +200,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breedte van de lijn langs de omtrek van de serie..
+        ///   Looks up a localized string similar to Breedte van de lijn langs de omtrek van de gegevensreeks..
         /// </summary>
         public static string BarSeriesProperties_Width_Description {
             get {
@@ -237,15 +237,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Categories_General1 {
-            get {
-                return ResourceManager.GetString("Categories_General1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Chart {
@@ -256,7 +247,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detecteer automatisch de minimale en maximale waarden van de serie en gebruik deze als as limieten..
+        ///   Looks up a localized string similar to Detecteer automatisch de minimale en maximale waarden van de gegevensreeks en gebruik deze als as limieten..
         /// </summary>
         public static string ChartAxisProperties_Automatic_Description {
             get {
@@ -553,7 +544,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lettertype grootte is niet binnen grenzen (3-200).
+        ///   Looks up a localized string similar to Lettertype grootte valt niet binnen grenzen (3-200).
         /// </summary>
         public static string ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_ {
             get {
@@ -600,9 +591,9 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Rechteras van deze grafiek..
         /// </summary>
-        public static string ChartProperties_RightAcis_Description {
+        public static string ChartProperties_RightAxis_Description {
             get {
-                return ResourceManager.GetString("ChartProperties_RightAcis_Description", resourceCulture);
+                return ResourceManager.GetString("ChartProperties_RightAxis_Description", resourceCulture);
             }
         }
         
@@ -661,7 +652,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Serie instellingen.
+        ///   Looks up a localized string similar to Gegevensreeks instellingen.
         /// </summary>
         public static string ChartSeriesProperties_DisplayName {
             get {
@@ -670,7 +661,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hiermee bepaalt u of deze serie in de legenda van de grafiek wordt weergeven..
+        ///   Looks up a localized string similar to Hiermee bepaalt u of deze gegevensreeks in de legenda van de grafiek wordt weergeven..
         /// </summary>
         public static string ChartSeriesProperties_ShowInLegend_Description {
             get {
@@ -688,7 +679,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Titel van deze serie..
+        ///   Looks up a localized string similar to Titel van deze gegevensreeks..
         /// </summary>
         public static string ChartSeriesProperties_Title_Description {
             get {
@@ -697,7 +688,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verticale as waarvan de waarden gekoppeld zijn aan deze serie..
+        ///   Looks up a localized string similar to Verticale as waarvan de waarden gekoppeld zijn aan deze gegevensreeks..
         /// </summary>
         public static string ChartSeriesProperties_VerticalAxis_Description {
             get {
@@ -724,94 +715,11 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van dit item..
-        /// </summary>
-        public static string Common_Name_Description {
-            get {
-                return ResourceManager.GetString("Common_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string Common_Name_DisplayName {
             get {
                 return ResourceManager.GetString("Common_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TODO: dialoogvenster weergeven en selecteer welk deel van de functie in een grafiek moet worden weergegeven en selecteer reekstype..
-        /// </summary>
-        public static string CommonToolsGuiPlugin_ActiveViewDragDrop_TODO__show_dialog_and_select_which_part_of_function_should_be_shown_on_a_chart_and_select_series_type_ {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_ActiveViewDragDrop_TODO__show_dialog_and_select_which_part_o" +
-                        "f_function_should_be_shown_on_a_chart_and_select_series_type_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gegevens in de serie genereren....
-        /// </summary>
-        public static string CommonToolsGuiPlugin_CommonToolsGuiPlugin_Generate_Data_in_Series___ {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_CommonToolsGuiPlugin_Generate_Data_in_Series___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to View van type {0} heeft meerdere ITimeNavigatable ChildViews: dubbelzinnig..
-        /// </summary>
-        public static string CommonToolsGuiPlugin_FindTimeNavigatableView_View_of_type__0__has_multiple_ITimeNavigatable_ChildViews__ambiguous_ {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_FindTimeNavigatableView_View_of_type__0__has_multiple_ITimeN" +
-                        "avigatable_ChildViews__ambiguous_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy State.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetContextMenu_Copy_State {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetContextMenu_Copy_State", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plakken status.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetContextMenu_Paste_State {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetContextMenu_Paste_State", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik als Beginstatus.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetContextMenu_Use_as_Initial_State {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetContextMenu_Use_as_Initial_State", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik Laatste Successvolle Restart.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetContextMenu_Use_Last_Valid_Restart {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetContextMenu_Use_Last_Valid_Restart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik Herstart.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetContextMenu_Use_Restart {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetContextMenu_Use_Restart", resourceCulture);
             }
         }
         
@@ -834,24 +742,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteren vanaf project.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetViewInfoObjects_Export_from_project {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetViewInfoObjects_Export_from_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tabelweergave.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetViewInfoObjects_Table_View {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetViewInfoObjects_Table_View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Teksteditor.
         /// </summary>
         public static string CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor {
@@ -870,15 +760,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gegevens.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_InitializeFunctionTreeView_Data {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_InitializeFunctionTreeView_Data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Control {
@@ -889,254 +770,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data item.
-        /// </summary>
-        public static string DataItemProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("DataItemProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het getoond item..
-        /// </summary>
-        public static string DataItemProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("DataItemProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data item set.
-        /// </summary>
-        public static string DataItemSetProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("DataItemSetProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het getoonde data item set..
-        /// </summary>
-        public static string DataItemSetProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("DataItemSetProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deze variabele is afhankelijk van deze variabelen..
-        /// </summary>
-        public static string DependentVariableProperties_DependsOn_Description {
-            get {
-                return ResourceManager.GetString("DependentVariableProperties_DependsOn_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afhankelijk van.
-        /// </summary>
-        public static string DependentVariableProperties_DependsOn_DisplayName {
-            get {
-                return ResourceManager.GetString("DependentVariableProperties_DependsOn_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afhankelijke variabele.
-        /// </summary>
-        public static string DependentVariableProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("DependentVariableProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarde die het ontbreken van gegevens weergeeft..
-        /// </summary>
-        public static string DependentVariableProperties_NoDataValue_Description {
-            get {
-                return ResourceManager.GetString("DependentVariableProperties_NoDataValue_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen gegevens&apos;-waarde.
-        /// </summary>
-        public static string DependentVariableProperties_NoDataValue_DisplayName {
-            get {
-                return ResourceManager.GetString("DependentVariableProperties_NoDataValue_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Eraser {
             get {
                 object obj = ResourceManager.GetObject("Eraser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wizard werd niet correct afgerond. Niet in staat om te configureren..
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable_to_configure_ {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable" +
-                        "_to_configure_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wizard is niet compatibel met gegeven exporteur..
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_Configure_Wizard_is_incompatible_with_given_exporter_ {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_Configure_Wizard_is_incompatible_with_given_expor" +
-                        "ter_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Exporteren vanaf project.
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Export_from_project {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Export_from_proje" +
-                        "ct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Druk op Voltooien om af te ronden..
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Press_Finish_to_Finish_ {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Press_Finish_to_F" +
-                        "inish_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project-bestand waarnaar de momenteel geselecteerde map of het project zal worden uitgevoerd.
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Project_file_to_which_the_currently_selected_folder_or_project_will_be_exported {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Project_file_to_w" +
-                        "hich_the_currently_selected_folder_or_project_will_be_exported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to doelbestand .dsproj.
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_target__dsproj_file {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_target__dsproj_fi" +
-                        "le", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deze wizard wordt gebruikt voor het exporteren van het huidige project of een map in het huidige project naar een nieuw project..
-        /// </summary>
-        public static string ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_This_wizard_is_used_to_export_the_current_project_or_a_folder_in_the_current_project_to_a_new_project_ {
-            get {
-                return ResourceManager.GetString("ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_This_wizard_is_us" +
-                        "ed_to_export_the_current_project_or_a_folder_in_the_current_project_to_a_new_pro" +
-                        "ject_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De werkelijke datum en tijd op het moment van aanmaken van deze herstart staat..
-        /// </summary>
-        public static string FileBasedRestartStateProperties_CreationTime_Description {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_CreationTime_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aanmaaktijd.
-        /// </summary>
-        public static string FileBasedRestartStateProperties_CreationTime_DisplayName {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_CreationTime_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De beschrijvende tekst voor deze restart state..
-        /// </summary>
-        public static string FileBasedRestartStateProperties_Description_Description {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_Description_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Omschrijving.
-        /// </summary>
-        public static string FileBasedRestartStateProperties_Description_DisplayName {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_Description_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restart state.
-        /// </summary>
-        public static string FileBasedRestartStateProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of deze restart state leeg is of niet..
-        /// </summary>
-        public static string FileBasedRestartStateProperties_Empty_Description {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_Empty_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Leeg.
-        /// </summary>
-        public static string FileBasedRestartStateProperties_Empty_DisplayName {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_Empty_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de restart state..
-        /// </summary>
-        public static string FileBasedRestartStateProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De simulatie datum en tijd waarvoor deze herstart staat is gemaakt..
-        /// </summary>
-        public static string FileBasedRestartStateProperties_SimulationTime_Description {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_SimulationTime_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Simulatietijd.
-        /// </summary>
-        public static string FileBasedRestartStateProperties_SimulationTime_DisplayName {
-            get {
-                return ResourceManager.GetString("FileBasedRestartStateProperties_SimulationTime_DisplayName", resourceCulture);
             }
         }
         
@@ -1209,77 +848,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon de View niet maken omdat een van de functies null of leeg is.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_the_view_because_one_of_the_functions_is_null___empty {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_the_view_be" +
-                        "cause_one_of_the_functions_is_null___empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon View niet maken, omdat een van de functies geen argumenten bevat.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_arguments {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_becaus" +
-                        "e_one_of_the_functions_doesn_t_contain_arguments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon View niet maken, omdat een van de functies geen componenten bevat.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_components {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_becaus" +
-                        "e_one_of_the_functions_doesn_t_contain_components", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon View niet maken, omdat een van de componenten dezelfde naam heeft als een argument. Dit is niet toegestaan.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_component_name_is_the_same_as_the_argument_name_which_is_not_allowed {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_crea" +
-                        "te_view_because_one_of_the_functions_component_name_is_the_same_as_the_argument_" +
-                        "name_which_is_not_allowed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon View niet maken, omdat een van de functies niet de naam van een geldig argument bevatten.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_a_valid_argument_name {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_crea" +
-                        "te_view_because_one_of_the_functions_doesn_t_contain_a_valid_argument_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon View niet maken, omdat een van de functies niet de naam van een geldige component bevatten.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_a_valid_component_name {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_crea" +
-                        "te_view_because_one_of_the_functions_doesn_t_contain_a_valid_component_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon View niet maken, omdat een van de functies geen argument heeft van het type netwerklocatie.
-        /// </summary>
-        public static string FunctionChartSeriesCreator_ThrowWhenValueTypeIsNull_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_an_argument_of_type_network_location {
-            get {
-                return ResourceManager.GetString("FunctionChartSeriesCreator_ThrowWhenValueTypeIsNull_Couldn_t_create_view_because_" +
-                        "one_of_the_functions_doesn_t_contain_an_argument_of_type_network_location", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FunctionComponent {
@@ -1310,221 +878,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet ten minste één interval stap tussen de begin- en eindwaarden zitten..
-        /// </summary>
-        public static string GenerateDataSeriesWizard_CalculateRowsFromStartAndEnd_There_should_be_at_least_one_interval_step_between_the_start_and_end_values_ {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_CalculateRowsFromStartAndEnd_There_should_be_at_least_on" +
-                        "e_interval_step_between_the_start_and_end_values_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer een interval &gt; 0 in..
-        /// </summary>
-        public static string GenerateDataSeriesWizard_CheckInput_Please_enter_a_interval___0_ {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_CheckInput_Please_enter_a_interval___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De constante waarde van de component &apos;{0}&apos; is nog niet ingesteld. Alle component velden zijn verplicht..
-        /// </summary>
-        public static string GenerateDataSeriesWizard_CheckInput_The_constant_value_of_the_component___0___isn_t_set_yet__All_component_fields_are_mandatory_ {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_CheckInput_The_constant_value_of_the_component___0___isn" +
-                        "_t_set_yet__All_component_fields_are_mandatory_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De eindwaarde van de te creeren data serie is nog niet ingesteld. Alle argument interval velden zijn verplicht..
-        /// </summary>
-        public static string GenerateDataSeriesWizard_CheckInput_The_end_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_ {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_CheckInput_The_end_value_of_the_data_series_to_generate_" +
-                        "isn_t_set_yet__All_argument_interval_fields_are_mandatory_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De intervalwaarde van de te creeren data serie is nog niet ingesteld. Alle argument interval velden zijn verplicht..
-        /// </summary>
-        public static string GenerateDataSeriesWizard_CheckInput_The_interval_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_ {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_CheckInput_The_interval_value_of_the_data_series_to_gene" +
-                        "rate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De beginwaarde van de gegevensreeks voor het genereren van de serie is nog niet ingesteld. Alle argument interval velden zijn verplicht..
-        /// </summary>
-        public static string GenerateDataSeriesWizard_CheckInput_The_starting_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_ {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_CheckInput_The_starting_value_of_the_data_series_to_gene" +
-                        "rate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gegevensfout generatie instellingen.
-        /// </summary>
-        public static string GenerateDataSeriesWizard_MessageBoxHeader_Data_generation_settings_error {
-            get {
-                return ResourceManager.GetString("GenerateDataSeriesWizard_MessageBoxHeader_Data_generation_settings_error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ImageExport {
             get {
                 object obj = ResourceManager.GetObject("ImageExport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wizard werd niet correct afgerond. Niet in staat om te configureren..
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable_to_configure_ {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable" +
-                        "_to_configure_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wizard is incompatibale met gegeven importeur..
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_Configure_Wizard_is_incompatibale_with_given_importer_ {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_Configure_Wizard_is_incompatibale_with_given_impo" +
-                        "rter_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .dsproj bestand dat geïmporteerd moet worden.
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog__dsproj_file_to_be_imported {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog__dsproj_file_to_b" +
-                        "e_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project importeren.
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Import_project {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Import_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Druk op Voltooien om af te ronden..
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Press_Finish_to_Finish_ {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Press_Finish_to_F" +
-                        "inish_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer een bestaand project waaruit u wilt importeren.
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Select_an_existing_project_from_which_you_want_to_import {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Select_an_existin" +
-                        "g_project_from_which_you_want_to_import", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deze wizard wordt gebruikt om gegevens uit een bestaand project te importeren in het huidige project..
-        /// </summary>
-        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_project_into_the_current_project_ {
-            get {
-                return ResourceManager.GetString("ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_us" +
-                        "ed_to_import_data_from_an_existing_project_into_the_current_project_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onafhankelijke variabele.
-        /// </summary>
-        public static string IndependentVariableProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het extrapolatieschema dat wordt gebruikt langs deze variabele..
-        /// </summary>
-        public static string IndependentVariableProperties_Extrapolation_Description {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_Extrapolation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Extrapolatie.
-        /// </summary>
-        public static string IndependentVariableProperties_Extrapolation_DisplayName {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_Extrapolation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het interpolatieschema dat wordt gebruikt langs deze variabele..
-        /// </summary>
-        public static string IndependentVariableProperties_Interpolation_Description {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_Interpolation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interpolatie.
-        /// </summary>
-        public static string IndependentVariableProperties_Interpolation_DisplayName {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_Interpolation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De eenheid waarin de variabele waarden worden uitgedrukt..
-        /// </summary>
-        public static string IndependentVariableProperties_Unit_Description {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_Unit_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aantal values.
-        /// </summary>
-        public static string IndependentVariableProperties_ValueCount_DisplayName {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_ValueCount_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het aantal gedefinieerde waarden in deze variabele..
-        /// </summary>
-        public static string IndependentVariableProperties_VariableCount_Description {
-            get {
-                return ResourceManager.GetString("IndependentVariableProperties_VariableCount_Description", resourceCulture);
             }
         }
         
@@ -1539,7 +898,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de lijn-serie..
+        ///   Looks up a localized string similar to Kleur van de lijn-gegevensreeks..
         /// </summary>
         public static string LineChartSeriesProperties_Color_Description {
             get {
@@ -1557,7 +916,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De dashstijl van deze lijn..
+        ///   Looks up a localized string similar to De stijl van deze lijn..
         /// </summary>
         public static string LineChartSeriesProperties_DashStyle_Description {
             get {
@@ -1566,7 +925,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dash stijl.
+        ///   Looks up a localized string similar to Lijnstijl.
         /// </summary>
         public static string LineChartSeriesProperties_DashStyle_DisplayName {
             get {
@@ -1575,7 +934,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijn serie instellingen.
+        ///   Looks up a localized string similar to Lijn-gegevensreeks instellingen.
         /// </summary>
         public static string LineChartSeriesProperties_DisplayName {
             get {
@@ -1602,7 +961,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Breedte van de lijn-serie..
+        ///   Looks up a localized string similar to Breedte van de lijn-gegevensreeks..
         /// </summary>
         public static string LineChartSeriesProperties_Width_Description {
             get {
@@ -1660,161 +1019,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de no data values voor de series niet zetten. Ongeldig type.
-        /// </summary>
-        public static string MultipleFunctionView_GetNoDataValues_Unable_to_set_no_data_values_for_series__Invalid_type {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_GetNoDataValues_Unable_to_set_no_data_values_for_series__Inv" +
-                        "alid_type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niet-identieke argumentwaarden tegengekomen.
-        /// </summary>
-        public static string MultipleFunctionView_GetReuseViewData_Non_identical_argument_values_encountered {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_GetReuseViewData_Non_identical_argument_values_encountered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tabel zal worden verborgen. Moet de functie nog steeds aan de huidige view worden toegeveogd?.
-        /// </summary>
-        public static string MultipleFunctionView_GetReuseViewData_Table_will_be_hidden__Continue_to_add_function_to_current_view_ {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_GetReuseViewData_Table_will_be_hidden__Continue_to_add_funct" +
-                        "ion_to_current_view_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Functie weergave.
-        /// </summary>
-        public static string MultipleFunctionView_MultipleFunctionView_Function_view {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_MultipleFunctionView_Function_view", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer hier een waarde in &gt; = {0}.
-        /// </summary>
-        public static string MultipleFunctionView_TableViewEditorValidator_Larger {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_TableViewEditorValidator_Larger", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer een unieke waarde in. Waarde {0} is al aanwezig..
-        /// </summary>
-        public static string MultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value__0__is_already_present_ {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value_" +
-                        "_0__is_already_present_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer een geldig getal in.
-        /// </summary>
-        public static string MultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer hier een waarde in &lt; = {0}.
-        /// </summary>
-        public static string MultipleFunctionView_TableViewEditorValidator_Smaller {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_TableViewEditorValidator_Smaller", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Jaar moet niet kleiner zijn dan 1000.
-        /// </summary>
-        public static string MultipleFunctionView_TableViewEditorValidator_Year_should_not_be_smaller_than_1000 {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_TableViewEditorValidator_Year_should_not_be_smaller_than_100" +
-                        "0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teveel series om te tekenen... Beperkt tot de eerste {0}..
-        /// </summary>
-        public static string MultipleFunctionView_TableViewSelectionChanged_Too_many_chart_series_to_draw____Limited_to_the_first__0__ {
-            get {
-                return ResourceManager.GetString("MultipleFunctionView_TableViewSelectionChanged_Too_many_chart_series_to_draw____L" +
-                        "imited_to_the_first__0__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Next {
             get {
                 object obj = ResourceManager.GetObject("Next", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parameter.
-        /// </summary>
-        public static string ParameterProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("ParameterProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de getoonde parameter..
-        /// </summary>
-        public static string ParameterProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("ParameterProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De eenheid waarin de parameterwaarden wordt uitgedrukt..
-        /// </summary>
-        public static string ParameterProperties_Unit_Description {
-            get {
-                return ResourceManager.GetString("ParameterProperties_Unit_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde van deze parameter..
-        /// </summary>
-        public static string ParameterProperties_Value_Description {
-            get {
-                return ResourceManager.GetString("ParameterProperties_Value_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarde.
-        /// </summary>
-        public static string ParameterProperties_Value_DisplayName {
-            get {
-                return ResourceManager.GetString("ParameterProperties_Value_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het value type van de parameter..
-        /// </summary>
-        public static string ParameterProperties_ValueType_Description {
-            get {
-                return ResourceManager.GetString("ParameterProperties_ValueType_Description", resourceCulture);
             }
         }
         
@@ -1828,7 +1038,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de pointers..
+        ///   Looks up a localized string similar to Kleur van de punten..
         /// </summary>
         public static string PointChartSeriesProperties_PointerColor_Description {
             get {
@@ -1837,7 +1047,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pointer kleur.
+        ///   Looks up a localized string similar to Puntkleur.
         /// </summary>
         public static string PointChartSeriesProperties_PointerColor_DisplayName {
             get {
@@ -1846,7 +1056,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hiermee bepaalt u of de pointer-lijn wordt weergegeven..
+        ///   Looks up a localized string similar to Hiermee bepaalt u of de puntenlijn wordt weergegeven..
         /// </summary>
         public static string PointChartSeriesProperties_PointerLineVisible_Description {
             get {
@@ -1855,7 +1065,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toon pointer-lijn.
+        ///   Looks up a localized string similar to Toon puntenlijn.
         /// </summary>
         public static string PointChartSeriesProperties_PointerLineVisible_DisplayName {
             get {
@@ -1864,7 +1074,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van de pointers..
+        ///   Looks up a localized string similar to Kleur van de lijn langs de omtrek van de punten.
         /// </summary>
         public static string PointChartSeriesProperties_PointerOutlineColor_Description {
             get {
@@ -1873,7 +1083,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pointer-lijn kleur.
+        ///   Looks up a localized string similar to Puntenlijn kleur.
         /// </summary>
         public static string PointChartSeriesProperties_PointerOutlineColor_DisplayName {
             get {
@@ -1882,7 +1092,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vorm van de value pointers..
+        ///   Looks up a localized string similar to Vorm van de punten..
         /// </summary>
         public static string PointChartSeriesProperties_PointerShape_Description {
             get {
@@ -1900,7 +1110,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pointergrootte..
+        ///   Looks up a localized string similar to Puntgrootte..
         /// </summary>
         public static string PointChartSeriesProperties_Size_Description {
             get {
@@ -1918,7 +1128,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hiermee bepaalt u of de pointers van de serie worden weergegeven..
+        ///   Looks up a localized string similar to Hiermee bepaalt u of de punten van de gegevensreeks worden weergegeven..
         /// </summary>
         public static string PointChartSeriesProperties_Visibility_Description {
             get {
@@ -1947,7 +1157,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur van de vlak serie..
+        ///   Looks up a localized string similar to Kleur van de vlak gegevensreeks..
         /// </summary>
         public static string PolygonChartSeriesProperties_AreaColor_Description {
             get {
@@ -1956,7 +1166,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Indien true, is de polygoon automatisch gesloten door een lijn te trekken tussen de laatste en eerste gedefinieerde punten..
+        ///   Looks up a localized string similar to Indien waar, dan wordt de polygoon automatisch gesloten door een lijn te trekken tussen de laatste en eerste gedefinieerde punten..
         /// </summary>
         public static string PolygonChartSeriesProperties_Closed_Description {
             get {
@@ -1974,7 +1184,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Polygoon serie instellingen.
+        ///   Looks up a localized string similar to Polygoon gegevensreeks instellingen.
         /// </summary>
         public static string PolygonChartSeriesProperties_DisplayName {
             get {
@@ -2010,7 +1220,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arceringstijl van deze serie..
+        ///   Looks up a localized string similar to Arceringstijl van deze gegevensreeks..
         /// </summary>
         public static string PolygonChartSeriesProperties_HatchStyle_Description {
             get {
@@ -2028,7 +1238,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percentage van de transparantie van de serie..
+        ///   Looks up a localized string similar to Percentage van de transparantie van de gegevensreeks..
         /// </summary>
         public static string PolygonChartSeriesProperties_Transparency_Description {
             get {
@@ -2046,7 +1256,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deze waarde bepaalt welke stijl gebruikt wordt voor het arceren van de serie..
+        ///   Looks up a localized string similar to Deze waarde bepaalt welke stijl gebruikt wordt voor het arceren van de gegevensreeks..
         /// </summary>
         public static string PolygonChartSeriesProperties_UseHatch_Description {
             get {
@@ -2070,51 +1280,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("Previous", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project.
-        /// </summary>
-        public static string ProjectProperties_Categories_Project {
-            get {
-                return ResourceManager.GetString("ProjectProperties_Categories_Project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Datum en tijd wanneer het project is gewijzigd..
-        /// </summary>
-        public static string ProjectProperties_ChangeTime_Description {
-            get {
-                return ResourceManager.GetString("ProjectProperties_ChangeTime_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gewijzigd op.
-        /// </summary>
-        public static string ProjectProperties_ChangeTime_DisplayName {
-            get {
-                return ResourceManager.GetString("ProjectProperties_ChangeTime_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Datum en tijd waarop dit project is gemaakt..
-        /// </summary>
-        public static string ProjectProperties_CreateTime_Description {
-            get {
-                return ResourceManager.GetString("ProjectProperties_CreateTime_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gemaakt op.
-        /// </summary>
-        public static string ProjectProperties_CreateTime_DisplayName {
-            get {
-                return ResourceManager.GetString("ProjectProperties_CreateTime_DisplayName", resourceCulture);
             }
         }
         
@@ -2155,42 +1320,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grootte van alle projectgegevens, in kilobytes..
-        /// </summary>
-        public static string ProjectProperties_Size_Description {
-            get {
-                return ResourceManager.GetString("ProjectProperties_Size_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grootte.
-        /// </summary>
-        public static string ProjectProperties_Size_DisplayName {
-            get {
-                return ResourceManager.GetString("ProjectProperties_Size_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het aantal taken in het project..
-        /// </summary>
-        public static string ProjectProperties_TaskCount_Description {
-            get {
-                return ResourceManager.GetString("ProjectProperties_TaskCount_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aantal taken.
-        /// </summary>
-        public static string ProjectProperties_TaskCount_DisplayName {
-            get {
-                return ResourceManager.GetString("ProjectProperties_TaskCount_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Rewind {
@@ -2215,15 +1344,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         public static string Ribbon_ContextualGroup_Charting {
             get {
                 return ResourceManager.GetString("Ribbon_ContextualGroup_Charting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data Structuur.
-        /// </summary>
-        public static string Ribbon_Data_Structure_View {
-            get {
-                return ResourceManager.GetString("Ribbon_Data_Structure_View", resourceCulture);
             }
         }
         
@@ -2318,30 +1438,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tijd Navigatie.
-        /// </summary>
-        public static string Ribbon_Time_Navigator {
-            get {
-                return ResourceManager.GetString("Ribbon_Time_Navigator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ruler_3 {
             get {
                 object obj = ResourceManager.GetObject("ruler_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ringtoets project.
-        /// </summary>
-        public static string SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File {
-            get {
-                return ResourceManager.GetString("SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File", resourceCulture);
             }
         }
         
@@ -2366,159 +1468,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rechts-klik om tabbladen samen te voegen.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_ConfigureControls_right_click_to_join_tabs {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_ConfigureControls_right_click_to_join_tabs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rechts-klik om tabbladen te splitsen.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_ConfigureControls_right_click_to_split_into_tabs {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_ConfigureControls_right_click_to_split_into_tabs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de serie met verschillende argumentwaarden niet weergeven in een tabel..
-        /// </summary>
-        public static string TabbedMultipleFunctionView_JoinTabsEventHandler_Cannot_display_series_with_different_argument_values_in_one_table_ {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_JoinTabsEventHandler_Cannot_display_series_with_differ" +
-                        "ent_argument_values_in_one_table_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tabblad join fout.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_JoinTabsEventHandler_Tab_join_error {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_JoinTabsEventHandler_Tab_join_error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Functie weergave.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TabbedMultipleFunctionView_Function_view {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TabbedMultipleFunctionView_Function_view", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tabbladen samenvoegen....
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TabbedMultipleFunctionView_join_tabs___ {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TabbedMultipleFunctionView_join_tabs___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Split tabbladen....
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TabbedMultipleFunctionView_split_tabs___ {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TabbedMultipleFunctionView_split_tabs___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer hier een waarde in &gt; = {0}.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TableViewEditorValidator_ {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TableViewEditorValidator_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer een unieke waarde in. Waarde {0} is al aanwezig..
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value__0__is_already_present_ {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__" +
-                        "Value__0__is_already_present_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer een geldig getal in.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voer hier een waarde in &lt; = {0}.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_TableViewEditorValidator_Smaller {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_TableViewEditorValidator_Smaller", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onderas bereik modus {0} niet ondersteund.
-        /// </summary>
-        public static string TabbedMultipleFunctionView_UpdateBottomAxisRange_Bottom_axis_range_mode__0__not_supported {
-            get {
-                return ResourceManager.GetString("TabbedMultipleFunctionView_UpdateBottomAxisRange_Bottom_axis_range_mode__0__not_s" +
-                        "upported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genereren.
-        /// </summary>
-        public static string TableViewTimeSeriesGeneratorTool_ConfigureTableView_Generate {
-            get {
-                return ResourceManager.GetString("TableViewTimeSeriesGeneratorTool_ConfigureTableView_Generate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap TextDocument {
             get {
                 object obj = ResourceManager.GetObject("TextDocument", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tekstdocument (uit bestand).
-        /// </summary>
-        public static string TextDocumentFromFileProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("TextDocumentFromFileProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie waar het bestand kan worden gevonden..
-        /// </summary>
-        public static string TextDocumentFromFileProperties_Path_Description {
-            get {
-                return ResourceManager.GetString("TextDocumentFromFileProperties_Path_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pad.
-        /// </summary>
-        public static string TextDocumentFromFileProperties_Path_DisplayName {
-            get {
-                return ResourceManager.GetString("TextDocumentFromFileProperties_Path_DisplayName", resourceCulture);
             }
         }
         
@@ -2569,109 +1524,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meta-gegevens die zijn gekoppeld aan de tijdreeksen..
-        /// </summary>
-        public static string TimeSeries_Attributes_Description {
-            get {
-                return ResourceManager.GetString("TimeSeries_Attributes_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Attributes.
-        /// </summary>
-        public static string TimeSeries_Attributes_DisplayName {
-            get {
-                return ResourceManager.GetString("TimeSeries_Attributes_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kies uw instellingen voor de geïmporteerde tijdreeksen.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Choose_your_settings_for_the_imported_time_series {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Choose_your_settings_for_the_" +
-                        "imported_time_series", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CSV-bestanden.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_files {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CSV-formaat instellingen.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_format_settings {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_format_settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CSV-parse kolommen.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_parse_columns {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_parse_columns", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Druk op Voltooien om de gegevens te importeren..
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Press_Finish_to_import_the_data_ {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Press_Finish_to_import_the_da" +
-                        "ta_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer CSV-bestand.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_CSV_file {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_CSV_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer het CSV-bestand met de gegevens.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_the_CSV_file_containing_the_data {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_the_CSV_file_containin" +
-                        "g_the_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deze wizard zal u de mogelijkheid bieden om CSV-gegevens importeren.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_This_wizard_will_allow_you_to_import_CSV_data {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_This_wizard_will_allow_you_to" +
-                        "_import_CSV_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijdserie instellingen.
-        /// </summary>
-        public static string TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Time_series_settings {
-            get {
-                return ResourceManager.GetString("TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Time_series_settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap TimeSeriesEmpty {
@@ -2682,94 +1534,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereren van tijdreeksen mislukt: {0}.
-        /// </summary>
-        public static string TimeSeriesGeneratorDialog_Apply_Generating_time_series_failed___0_ {
-            get {
-                return ResourceManager.GetString("TimeSeriesGeneratorDialog_Apply_Generating_time_series_failed___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Huidige:.
-        /// </summary>
-        public static string TimeSeriesGeneratorDialog_FillControl_Current_ {
-            get {
-                return ResourceManager.GetString("TimeSeriesGeneratorDialog_FillControl_Current_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tot.
-        /// </summary>
-        public static string TimeSeriesGeneratorDialog_FillControl_till {
-            get {
-                return ResourceManager.GetString("TimeSeriesGeneratorDialog_FillControl_till", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap TimeSeriesGrid2D {
             get {
                 object obj = ResourceManager.GetObject("TimeSeriesGrid2D", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spring naar het laatste tijdstip: {0}....
-        /// </summary>
-        public static string TimeSeriesNavigator_TimeNavigatableTimesChanged_Jumping_to_the_last_time___0_____ {
-            get {
-                return ResourceManager.GetString("TimeSeriesNavigator_TimeNavigatableTimesChanged_Jumping_to_the_last_time___0_____" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijd Navigatie.
-        /// </summary>
-        public static string TimeSeriesNavigator_TimeSeriesNavigator_Time_Navigator {
-            get {
-                return ResourceManager.GetString("TimeSeriesNavigator_TimeSeriesNavigator_Time_Navigator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijdreeksen.
-        /// </summary>
-        public static string TimeSeriesProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("TimeSeriesProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het extrapolatieschema dat wordt gebruikt langs de tijdas..
-        /// </summary>
-        public static string TimeSeriesProperties_Extrapolation_Description {
-            get {
-                return ResourceManager.GetString("TimeSeriesProperties_Extrapolation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het interpolatieschema dat wordt gebruikt langs de tijdas..
-        /// </summary>
-        public static string TimeSeriesProperties_Interpolation_Description {
-            get {
-                return ResourceManager.GetString("TimeSeriesProperties_Interpolation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de getoonde tijdreeks..
-        /// </summary>
-        public static string TimeSeriesProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("TimeSeriesProperties_Name_Description", resourceCulture);
             }
         }
         
@@ -2788,15 +1558,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         public static string TreeFolderProperties_Name_Description {
             get {
                 return ResourceManager.GetString("TreeFolderProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Item set.
-        /// </summary>
-        public static string TreeNodeModelDataWrapperProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("TreeNodeModelDataWrapperProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -2833,78 +1594,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         public static string UrlProperties_Path_DisplayName {
             get {
                 return ResourceManager.GetString("UrlProperties_Path_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarde van de variabele in geval er geen gegevens voor deze variabele zijn opgegeven..
-        /// </summary>
-        public static string VariableProperties_DefaultValue_Description {
-            get {
-                return ResourceManager.GetString("VariableProperties_DefaultValue_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standaardwaarde.
-        /// </summary>
-        public static string VariableProperties_DefaultValue_DisplayName {
-            get {
-                return ResourceManager.GetString("VariableProperties_DefaultValue_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de getoonde variabele..
-        /// </summary>
-        public static string VariableProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("VariableProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Eenheid.
-        /// </summary>
-        public static string VariableProperties_Unit_DisplayName {
-            get {
-                return ResourceManager.GetString("VariableProperties_Unit_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het value type van de variabele..
-        /// </summary>
-        public static string VariableProperties_ValueType_Description {
-            get {
-                return ResourceManager.GetString("VariableProperties_ValueType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value type.
-        /// </summary>
-        public static string VariableProperties_ValueType_DisplayName {
-            get {
-                return ResourceManager.GetString("VariableProperties_ValueType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argumenten.
-        /// </summary>
-        public static string VariablesFolderTreeViewNodePresenter_UpdateNode_Arguments {
-            get {
-                return ResourceManager.GetString("VariablesFolderTreeViewNodePresenter_UpdateNode_Arguments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Variabelen.
-        /// </summary>
-        public static string VariablesFolderTreeViewNodePresenter_UpdateNode_Variables {
-            get {
-                return ResourceManager.GetString("VariablesFolderTreeViewNodePresenter_UpdateNode_Variables", resourceCulture);
             }
         }
     }

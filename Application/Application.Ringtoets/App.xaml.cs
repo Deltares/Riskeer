@@ -53,9 +53,7 @@ namespace Application.Ringtoets
         private static string previousExceptionsText = "";
 
         private static int previousExceptionsCount;
-        private static string runCommand;
         private static string runActivity;
-        private static string runScriptFilePath;
 
         static App()
         {
@@ -377,12 +375,6 @@ namespace Application.Ringtoets
                 },
                 {
                     "r|run-activity=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_activity_or_model_available_in_the_project_, v => runActivity = v
-                },
-                {
-                    "f|run-file=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_script_from_file, v => runScriptFilePath = Path.GetFullPath(v)
-                },
-                {
-                    "c|run-command=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_specified_command__Python__, v => runCommand = v
                 },
                 {
                     "p|project=", delegate(string projectPath) { projectFilePath = projectPath; }
