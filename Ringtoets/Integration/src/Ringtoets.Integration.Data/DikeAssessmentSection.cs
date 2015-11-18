@@ -6,7 +6,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Integration.Data
 {
     /// <summary>
-    /// The section to be assessed by the user for safety in regards of various failure mechanisms.
+    /// The dike-based section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
     public class DikeAssessmentSection : Observable
     {
