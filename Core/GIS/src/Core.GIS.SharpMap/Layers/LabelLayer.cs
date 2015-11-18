@@ -21,8 +21,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
-using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
@@ -61,7 +59,6 @@ namespace Core.GIS.SharpMap.Layers
     /// layLabel.Style.HorizontalAlignment = SharpMap.Styles.LabelStyle.HorizontalAlignmentEnum.Center;
     /// </code>
     /// </example>
-    [Entity(FireOnCollectionChange = false)]
     public class LabelLayer : Layer, ILabelLayer
     {
         private MultipartGeometryBehaviourEnum multipartGeometryBehaviour;
@@ -71,6 +68,12 @@ namespace Core.GIS.SharpMap.Layers
         private ILabelStyle style;
 
         private GetLabelMethod getLabelMethod;
+        private SmoothingMode smoothingMode;
+        private TextRenderingHint textRenderingHint;
+        private ITheme theme;
+        private string labelColumn;
+        private string rotationColumn;
+        private int priority;
 
         public LabelLayer() : this("") {}
 
@@ -110,7 +113,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("LabelFilter");
                 labelFilter = value;
+                OnPropertyChanged("LabelFilter");
             }
         }
 
@@ -126,19 +131,45 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("MultipartGeometryBehaviour");
                 multipartGeometryBehaviour = value;
+                OnPropertyChanged("MultipartGeometryBehaviour");
             }
         }
 
         /// <summary>
         /// Render whether smoothing (antialiasing) is applied to lines and curves and the edges of filled areas
         /// </summary>
-        public virtual SmoothingMode SmoothingMode { get; set; }
+        public virtual SmoothingMode SmoothingMode
+        {
+            get
+            {
+                return smoothingMode;
+            }
+            set
+            {
+                OnPropertyChanging("SmoothingMode");
+                smoothingMode = value;
+                OnPropertyChanged("SmoothingMode");
+            }
+        }
 
         /// <summary>
         /// Specifies the quality of text rendering
         /// </summary>
-        public virtual TextRenderingHint TextRenderingHint { get; set; }
+        public virtual TextRenderingHint TextRenderingHint
+        {
+            get
+            {
+                return textRenderingHint;
+            }
+            set
+            {
+                OnPropertyChanging("TextRenderingHint");
+                textRenderingHint = value;
+                OnPropertyChanged("TextRenderingHint");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the rendering style of the label layer.
@@ -151,14 +182,56 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("Style");
+
+                if (style != null)
+                {
+                    style.PropertyChanging -= OnPropertyChanging;
+                    style.PropertyChanged -= OnPropertyChanged;
+                }
+
                 style = value;
+
+                if (style != null)
+                {
+                    style.PropertyChanging += OnPropertyChanging;
+                    style.PropertyChanged += OnPropertyChanged;
+                }
+
+                OnPropertyChanged("Style");
             }
         }
 
         /// <summary>
         /// Gets or sets thematic settings for the layer. Set to null to ignore thematics
         /// </summary>
-        public virtual ITheme Theme { get; set; }
+        public virtual ITheme Theme
+        {
+            get
+            {
+                return theme;
+            }
+            set
+            {
+                OnPropertyChanging("Theme");
+
+                if (theme != null)
+                {
+                    theme.PropertyChanging -= OnPropertyChanging;
+                    theme.PropertyChanged -= OnPropertyChanged;
+                }
+
+                theme = value;
+
+                if (theme != null)
+                {
+                    theme.PropertyChanging += OnPropertyChanging;
+                    theme.PropertyChanged += OnPropertyChanged;
+                }
+
+                OnPropertyChanged("Theme");
+            }
+        }
 
         /// <summary>
         /// Data column or expression where label text is extracted from.
@@ -166,7 +239,19 @@ namespace Core.GIS.SharpMap.Layers
         /// <remarks>
         /// This property is overriden by the <see cref="LabelStringDelegate"/>.
         /// </remarks>
-        public virtual string LabelColumn { get; set; }
+        public virtual string LabelColumn
+        {
+            get
+            {
+                return labelColumn;
+            }
+            set
+            {
+                OnPropertyChanging("LabelColumn");
+                labelColumn = value;
+                OnPropertyChanged("LabelColumn");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the method for creating a custom label string based on a feature.
@@ -191,7 +276,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("LabelStringDelegate");
                 getLabelMethod = value;
+                OnPropertyChanged("LabelStringDelegate");
             }
         }
 
@@ -200,14 +287,37 @@ namespace Core.GIS.SharpMap.Layers
         /// If this is empty, rotation will be zero, or aligned to a linestring.
         /// Rotation are in degrees (positive = clockwise).
         /// </summary>
-        public virtual string RotationColumn { get; set; }
+        public virtual string RotationColumn
+        {
+            get
+            {
+                return rotationColumn;
+            }
+            set
+            {
+                OnPropertyChanging("RotationColumn");
+                rotationColumn = value;
+                OnPropertyChanged("RotationColumn");
+            }
+        }
 
         /// <summary>
         /// A value indication the priority of the label in cases of label-collision detection
         /// </summary>
-        public virtual int Priority { get; set; }
+        public virtual int Priority
+        {
+            get
+            {
+                return priority;
+            }
+            set
+            {
+                OnPropertyChanging("Priority");
+                priority = value;
+                OnPropertyChanged("Priority");
+            }
+        }
 
-        [NoNotifyPropertyChange]
         public override IFeatureProvider DataSource
         {
             get
@@ -220,7 +330,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [NoNotifyPropertyChange]
         public override ICoordinateTransformation CoordinateTransformation
         {
             get
@@ -254,7 +363,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [NoNotifyPropertyChange]
         public virtual ILayer Parent { get; set; }
 
         /// <summary>
