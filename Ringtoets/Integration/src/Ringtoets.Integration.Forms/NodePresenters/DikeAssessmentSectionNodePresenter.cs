@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
+﻿using System.Collections;
 
 using Core.Common.Base;
 using Core.Common.Controls;
-using Core.Common.Utils.Collections;
 
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
 
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -16,93 +13,48 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// <summary>
     /// Node presenter for <see cref="Ringtoets.Integration.Data.DikeAssessmentSection"/> items in the tree view.
     /// </summary>
-    public class DikeAssessmentSectionNodePresenter : ITreeNodePresenter
+    public class DikeAssessmentSectionNodePresenter : RingtoetsNodePresenterBase<DikeAssessmentSection>
     {
-        public ITreeView TreeView { get; set; }
-
-        public Type NodeTagType
+        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, DikeAssessmentSection nodeData)
         {
-            get
-            {
-                return typeof(DikeAssessmentSection);
-            }
-        }
-
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
-        {
-            var assessmentSection = (DikeAssessmentSection)nodeData;
-            node.Text = assessmentSection.Name;
+            node.Text = nodeData.Name;
             node.Image = RingtoetsFormsResources.AssessmentSectionFolderIcon;
         }
 
-        public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(DikeAssessmentSection nodeData, ITreeNode node)
         {
-            var assessmentSection = (DikeAssessmentSection)parentNodeData;
-            if (assessmentSection.PipingFailureMechanism != null)
+            if (nodeData.PipingFailureMechanism != null)
             {
-                yield return assessmentSection.PipingFailureMechanism;
+                yield return nodeData.PipingFailureMechanism;
             }
         }
 
-        public bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(ITreeNode node)
         {
             return true;
         }
 
-        public bool CanRenameNodeTo(ITreeNode node, string newName)
+        public override bool CanRenameNodeTo(ITreeNode node, string newName)
         {
             return true;
         }
 
-        public void OnNodeRenamed(object nodeData, string newName)
+        protected override void OnNodeRenamed(DikeAssessmentSection nodeData, string newName)
         {
-            var assessmentSection = (DikeAssessmentSection)nodeData;
-
-            assessmentSection.Name = newName;
-            assessmentSection.NotifyObservers();
+            nodeData.Name = newName;
+            nodeData.NotifyObservers();
         }
 
-        public void OnNodeChecked(ITreeNode node) {}
-
-        public DragOperations CanDrag(object nodeData)
-        {
-            return DragOperations.None;
-        }
-
-        public DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            return DragOperations.None;
-        }
-
-        public bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
-        {
-            return false;
-        }
-
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position) {}
-
-        public void OnNodeSelected(object nodeData) {}
-
-        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
-        {
-            return null;
-        }
-
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
-
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
-
-        public bool CanRemove(object parentNodeData, object nodeData)
+        protected override bool CanRemove(object parentNodeData, DikeAssessmentSection nodeData)
         {
             return true;
         }
 
-        public bool RemoveNodeData(object parentNodeData, object nodeData)
+        protected override bool RemoveNodeData(object parentNodeData, DikeAssessmentSection nodeData)
         {
             var parentProject = (Project) parentNodeData;
-            var assessmentSection = (DikeAssessmentSection) nodeData;
 
-            parentProject.Items.Remove(assessmentSection);
+            parentProject.Items.Remove(nodeData);
             parentProject.NotifyObservers();
 
             return true;

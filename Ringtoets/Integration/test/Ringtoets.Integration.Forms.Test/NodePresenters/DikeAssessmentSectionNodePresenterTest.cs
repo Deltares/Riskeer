@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             mocks.ReplayAll();
 
             var nodePresenter = new DikeAssessmentSectionNodePresenter();
@@ -175,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -195,7 +195,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             mocks.ReplayAll();
 
             var nodePresenter = new DikeAssessmentSectionNodePresenter();
@@ -270,7 +270,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
@@ -289,7 +289,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
@@ -307,14 +307,14 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new DikeAssessmentSectionNodePresenter();
 
             // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
+            bool removalAllowed = nodePresenter.CanRemove(nodeMock, dataMock);
 
             // Assert
             Assert.IsTrue(removalAllowed);
