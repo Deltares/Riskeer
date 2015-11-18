@@ -81,7 +81,7 @@ namespace Core.GIS.SharpMap.Layers
         /// </summary>
         public LabelLayer(string layername)
         {
-            style = new LabelStyle();
+            Style = new LabelStyle();
             Name = layername;
             SmoothingMode = SmoothingMode.AntiAlias;
             TextRenderingHint = TextRenderingHint.AntiAlias;

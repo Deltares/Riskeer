@@ -98,7 +98,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        protected void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        private void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
         {
             if (PropertyChanging != null)
             {
@@ -116,7 +116,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (PropertyChanged != null)
             {

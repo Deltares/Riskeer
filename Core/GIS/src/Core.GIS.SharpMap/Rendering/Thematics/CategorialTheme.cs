@@ -25,7 +25,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         public CategorialTheme(string attributeName, IStyle defaultStyle)
         {
             AttributeName = attributeName;
-            this.defaultStyle = (defaultStyle != null) ? (IStyle) defaultStyle.Clone() : null;
+            DefaultStyle = (defaultStyle != null) ? (IStyle) defaultStyle.Clone() : null;
         }
 
         public override EventedList<IThemeItem> ThemeItems
