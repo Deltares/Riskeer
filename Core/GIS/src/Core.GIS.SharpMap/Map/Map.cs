@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -24,8 +25,6 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.CoordinateSystems;
@@ -80,9 +79,7 @@ namespace Core.GIS.SharpMap.Map
     /// System.Drawing.Image imgMap = myMap.GetMap(); //Renders the map
     /// </code>
     /// </example>
-    [Entity(FireOnCollectionChange = false)]
-    //[Serializable]
-    public class Map : Observable, IDisposable, INotifyCollectionChange, IMap
+    public class Map : Observable, IDisposable, INotifyCollectionChange, INotifyPropertyChange, IMap
     {
         /// <summary>
         /// When layer render time is less than this - image will not be cached, increase this parameter when you get memory leaks.
@@ -100,7 +97,7 @@ namespace Core.GIS.SharpMap.Map
         private const int defaultExtendsMarginPercentage = 10;
         private static readonly ILog log = LogManager.GetLogger(typeof(Map));
 
-        private IEventedList<ILayer> layers;
+        private EventedList<ILayer> layers;
 
         private double worldHeight;
         private double worldLeft;
@@ -148,7 +145,6 @@ namespace Core.GIS.SharpMap.Map
         /// 
         /// Calling Render() resets this flag automatically.
         /// </summary>
-        [NoNotifyPropertyChange]
         public virtual bool RenderRequired { get; protected set; }
 
         public virtual Image Image
@@ -174,6 +170,8 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("ShowGrid");
+
                 showGrid = value;
 
                 if (value)
@@ -186,10 +184,10 @@ namespace Core.GIS.SharpMap.Map
                 }
 
                 RenderRequired = true;
+
+                OnPropertyChanged("ShowGrid");
             }
         }
-
-        public bool ReplacingLayer { get; private set; }
 
         /// <summary>
         /// Returns the (first) layer on which <paramref name="feature"/> is present.
@@ -749,7 +747,6 @@ namespace Core.GIS.SharpMap.Map
 
         public void ReplaceLayer(ILayer sourceLayer, ILayer targetLayer)
         {
-            ReplacingLayer = true;
             sourceLayer.ThemeGroup = sourceLayer.Name;
             sourceLayer.ShowInTreeView = false;
             targetLayer.ThemeGroup = sourceLayer.ThemeGroup;
@@ -785,7 +782,6 @@ namespace Core.GIS.SharpMap.Map
                 }
             }
 
-            ReplacingLayer = false;
             NotifyObservers();
         }
 
@@ -1016,6 +1012,8 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("MapTransform");
+
                 mapTransform = value;
                 if (mapTransform.IsInvertible)
                 {
@@ -1028,6 +1026,8 @@ namespace Core.GIS.SharpMap.Map
                 }
 
                 SetRenderRequiredForAllLayers();
+
+                OnPropertyChanged("MapTransform");
             }
         }
 
@@ -1046,9 +1046,12 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
-                srsWkt = value;
+                OnPropertyChanging("SrsWkt");
 
+                srsWkt = value;
                 CreateCoordinateSystemFromWkt(value);
+
+                OnPropertyChanged("SrsWkt");
             }
         }
 
@@ -1088,6 +1091,8 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("CoordinateSystem");
+
                 srsWkt = null;
 
                 if (value != null)
@@ -1124,6 +1129,8 @@ namespace Core.GIS.SharpMap.Map
                     }
                 }
                 ZoomToExtents();
+
+                OnPropertyChanged("CoordinateSystem");
             }
         }
 
@@ -1181,12 +1188,16 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("SRID");
+
                 srid = value;
 
                 if (CoordinateSystemFactory != null)
                 {
                     CoordinateSystem = CoordinateSystemFactory.CreateFromEPSG(srid);
                 }
+
+                OnPropertyChanged("SRID");
             }
         }
 
@@ -1195,7 +1206,7 @@ namespace Core.GIS.SharpMap.Map
         /// <summary>
         /// A collection of layers. The first layer in the list is drawn first, the last one on top.
         /// </summary>
-        public virtual IEventedList<ILayer> Layers
+        public virtual EventedList<ILayer> Layers
         {
             get
             {
@@ -1215,6 +1226,8 @@ namespace Core.GIS.SharpMap.Map
             {
                 if (layers != null)
                 {
+                    layers.PropertyChanging -= OnPropertyChanging;
+                    layers.PropertyChanged -= OnPropertyChanged;
                     layers.CollectionChanging -= LayersCollectionChanging;
                     layers.CollectionChanged -= LayersCollectionChanged;
                 }
@@ -1223,6 +1236,8 @@ namespace Core.GIS.SharpMap.Map
 
                 if (layers != null)
                 {
+                    layers.PropertyChanging += OnPropertyChanging;
+                    layers.PropertyChanged += OnPropertyChanged;
                     layers.CollectionChanging += LayersCollectionChanging;
                     layers.CollectionChanged += LayersCollectionChanged;
                 }
@@ -1380,11 +1395,15 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("BackColor");
+
                 backColor = value;
                 if (MapViewOnChange != null)
                 {
                     MapViewOnChange();
                 }
+
+                OnPropertyChanged("BackColor");
             }
         }
 
@@ -1401,11 +1420,15 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("Center");
+
                 center = value;
 
                 desiredEnvelope.SetCentre(center);
 
                 ZoomToFit(desiredEnvelope, false);
+
+                OnPropertyChanged("Center");
             }
         }
 
@@ -1431,6 +1454,8 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("Zoom");
+
                 double oldZoom = zoom;
                 double clippedZoom;
 
@@ -1452,6 +1477,8 @@ namespace Core.GIS.SharpMap.Map
                 ZoomToFit(desiredEnvelope, false);
 
                 zoom = clippedZoom; //using intermediate value because desired.Zoom(100*) causes minor rounding issues in ZoomToFit
+
+                OnPropertyChanged("Zoom");
             }
         }
 
@@ -1583,9 +1610,14 @@ namespace Core.GIS.SharpMap.Map
                 {
                     throw new ArgumentException("Invalid Pixel Aspect Ratio");
                 }
+
+                OnPropertyChanging("PixelAspectRatio");
+
                 pixelAspectRatio = value;
                 UpdateDimensions();
                 SetRenderRequiredForAllLayers();
+
+                OnPropertyChanged("PixelAspectRatio");
             }
         }
 
@@ -1614,8 +1646,12 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("Size");
+
                 size = value;
                 ZoomToFit(desiredEnvelope ?? Envelope, false);
+
+                OnPropertyChanged("Size");
             }
         }
 
@@ -1636,8 +1672,13 @@ namespace Core.GIS.SharpMap.Map
                 {
                     throw (new ArgumentException("Minimum zoom must be 0 or more"));
                 }
+
+                OnPropertyChanging("MinimumZoom");
+
                 minimumZoom = value;
                 SetRenderRequiredForAllLayers();
+
+                OnPropertyChanged("MinimumZoom");
             }
         }
 
@@ -1664,8 +1705,13 @@ namespace Core.GIS.SharpMap.Map
                 {
                     throw (new ArgumentException("Maximum zoom must larger than 0"));
                 }
+
+                OnPropertyChanging("MaximumZoom");
+
                 maximumZoom = value;
                 SetRenderRequiredForAllLayers();
+
+                OnPropertyChanged("MaximumZoom");
             }
         }
 
@@ -1677,7 +1723,9 @@ namespace Core.GIS.SharpMap.Map
             }
             set
             {
+                OnPropertyChanging("Name");
                 name = value;
+                OnPropertyChanged("Name");
             }
         }
 
@@ -1695,6 +1743,46 @@ namespace Core.GIS.SharpMap.Map
             get
             {
                 return desiredEnvelope.Equals(new Envelope(-500, 500, -500, 500));
+            }
+        }
+
+        #endregion
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        protected void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(sender, e);
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, e);
             }
         }
 

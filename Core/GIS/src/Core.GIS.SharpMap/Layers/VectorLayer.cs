@@ -100,7 +100,7 @@ namespace Core.GIS.SharpMap.Layers
             {
                 if (layer.Style != null)
                 {
-                    style = (VectorStyle) layer.Style.Clone();
+                    Style = (VectorStyle) layer.Style.Clone();
                     isStyleDirty = true;
                 }
 
@@ -238,7 +238,7 @@ namespace Core.GIS.SharpMap.Layers
 
         protected virtual void OnInitializeDefaultStyle()
         {
-            style = new VectorStyle();
+            Style = new VectorStyle();
             UpdateStyleGeometry();
         }
 

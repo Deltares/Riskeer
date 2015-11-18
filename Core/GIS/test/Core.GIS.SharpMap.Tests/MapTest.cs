@@ -27,16 +27,15 @@ namespace Core.GIS.SharpMap.Tests
     {
         //TODO: rename this test
         [Test]
-        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Map")]
         public void EventBubbling2()
         {
             int changeCount = 0;
             var map = new Map.Map(new Size(2, 1));
-            var vectorLayer = new VectorLayer("EventBubbling");
+            var vectorLayer = new VectorLayer("EventBubbling") { Style = new VectorStyle() };
             map.Layers.Add(vectorLayer);
 
             ((INotifyPropertyChanged) map).PropertyChanged +=
-                delegate(object sender, PropertyChangedEventArgs e)
+                (sender, e) =>
                 {
                     Assert.AreEqual(e.PropertyName, "Line");
                     changeCount++;

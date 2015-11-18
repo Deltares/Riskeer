@@ -60,7 +60,7 @@ namespace Core.GIS.SharpMap.Api
         /// <summary>
         /// A collection of layers. The first layer in the list is drawn first, the last one on top.
         /// </summary>
-        IEventedList<ILayer> Layers { get; set; }
+        EventedList<ILayer> Layers { get; set; }
 
         /// <summary>
         /// Map background color (defaults to transparent)
@@ -133,14 +133,6 @@ namespace Core.GIS.SharpMap.Api
         bool HasDefaultEnvelopeSet { get; }
 
         bool IsDisposing { get; }
-
-        /// <summary>
-        /// Replacing layer is used, because we cannot use Layers[i] = layer.
-        /// This is because there are a lot of places that have a NotImplementedException when 
-        /// a replace event in the collection occurs.
-        /// HACK
-        /// </summary>
-        bool ReplacingLayer { get; }
 
         void ClearImage();
 
