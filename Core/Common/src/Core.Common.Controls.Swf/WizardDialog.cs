@@ -280,7 +280,7 @@ namespace Core.Common.Controls.Swf
 
         private void ShowExceptionInMessageWindow(Exception ee)
         {
-            var message = string.Format(Resources.WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input___1__1_Error___1__0_, ee.Message, Environment.NewLine);
+            var message = string.Format(Resources.WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_, ee.Message);
             MessageBox.Show(message, Resources.WizardDialog_WizardControl1NextClick_Error_occurred, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 

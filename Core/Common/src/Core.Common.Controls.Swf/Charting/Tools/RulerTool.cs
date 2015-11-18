@@ -188,12 +188,13 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         private string GetDefaultDifferenceString(object dx, object dy)
         {
             var dxText = dx is TimeSpan
-                             ? ((TimeSpan) dx).TotalSeconds.ToString("0.##", CultureInfo.InvariantCulture) + Resources.RulerTool_GetDefaultDifferenceString__seconds
-                             : ((double) dx).ToString("0.##", CultureInfo.InvariantCulture);
+                             ? ((TimeSpan) dx).TotalSeconds.ToString("0.## ") + Resources.RulerTool_GetDefaultDifferenceString_seconds
+                             : ((double) dx).ToString("0.##");
             var dyText = dy is TimeSpan
-                             ? ((TimeSpan) dy).TotalSeconds.ToString("0.##", CultureInfo.InvariantCulture) + Resources.RulerTool_GetDefaultDifferenceString__seconds
-                             : ((double) dy).ToString("0.##", CultureInfo.InvariantCulture);
-            return string.Format(Resources.RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical___1_, dxText, dyText, Environment.NewLine);
+                             ? ((TimeSpan) dy).TotalSeconds.ToString("0.## ") + Resources.RulerTool_GetDefaultDifferenceString_seconds
+                             : ((double) dy).ToString("0.##");
+
+            return string.Format(Resources.RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_, dxText, dyText);
         }
 
         private object GetAxesValue(double minValue, double maxValue, int minPixel, int maxPixel, int pixel)

@@ -61,24 +61,6 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AddPointTool: naar beneden.
-        /// </summary>
-        internal static string AddPointTool_OnMouseDown_AddPointTool___Down {
-            get {
-                return ResourceManager.GetString("AddPointTool_OnMouseDown_AddPointTool___Down", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddPointTool: naar boven.
-        /// </summary>
-        internal static string AddPointTool_OnMouseUp_AddPointTool___Up {
-            get {
-                return ResourceManager.GetString("AddPointTool_OnMouseUp_AddPointTool___Up", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle bestanden (*.*)|*.*.
         /// </summary>
         internal static string AllFilesFilter {
@@ -98,7 +80,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argument bevat geen bestandsnaam.
+        ///   Looks up a localized string similar to Argument bevat geen bestandsnaam..
         /// </summary>
         internal static string Chart_ExportAsImage_Argument_did_not_contain_a_filename {
             get {
@@ -116,7 +98,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argument kan niet de waarde &apos;null&apos; hebben.
+        ///   Looks up a localized string similar to Argument kan niet de waarde &apos;null&apos; hebben..
         /// </summary>
         internal static string Chart_ExportAsImage_Argument_should_not_be_null {
             get {
@@ -125,7 +107,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hatch stijl wordt niet ondersteund voor exporteren en zal genegeerd worden..
+        ///   Looks up a localized string similar to Gearceerde stijl wordt niet ondersteund voor exporteren en zal genegeerd worden..
         /// </summary>
         internal static string Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_ {
             get {
@@ -135,7 +117,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extensie ({0}) wordt niet ondersteund.
+        ///   Looks up a localized string similar to Extensie ({0}) wordt niet ondersteund..
         /// </summary>
         internal static string Chart_GetImageFormatByExtension_Extension___0___not_supported {
             get {
@@ -154,7 +136,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongeldig argument for databron van series. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund.
+        ///   Looks up a localized string similar to Ongeldig argument voor databron van gegevensreeks. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund..
         /// </summary>
         internal static string ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IEnumerable__IList_and_IListSource_are_supported {
             get {
@@ -164,16 +146,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ChartSeriesType niet ondersteund.
-        /// </summary>
-        internal static string ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType {
-            get {
-                return ResourceManager.GetString("ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan diagram niet tekenen.
+        ///   Looks up a localized string similar to Kan diagram niet tekenen..
         /// </summary>
         internal static string ChartView_TeeChartBeforeDraw_Can_not_draw_chart {
             get {
@@ -182,7 +155,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onbekende TeeChart serie: houdt geen verband met een bekende ChartSeries.
+        ///   Looks up a localized string similar to Onbekende TeeChart gegevensreeks: houdt geen verband met een bekende ChartSeries..
         /// </summary>
         internal static string ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series__not_related_to_any_known_ChartSeries {
             get {
@@ -192,7 +165,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dit programma accepteert alleen {0} als series.
+        ///   Looks up a localized string similar to Dit programma accepteert alleen {0} als gegevensreeks..
         /// </summary>
         internal static string ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series {
             get {
@@ -201,16 +174,17 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LastSelectedSeries is &apos;null&apos;!.
+        ///   Looks up a localized string similar to &apos;LastSelectedSeries&apos; moet gezet zijn voordat &apos;SelectedPointIndex&apos; wordt gezet..
         /// </summary>
-        internal static string ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_ {
+        internal static string ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_needs_to_be_set_before_SelectedPointIndex_is_set {
             get {
-                return ResourceManager.GetString("ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_", resourceCulture);
+                return ResourceManager.GetString("ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_needs_to_be_set_bef" +
+                        "ore_SelectedPointIndex_is_set", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geselecteerde index is buiten bereik van de serie.
+        ///   Looks up a localized string similar to Geselecteerde index is buiten bereik van de gevensreeks..
         /// </summary>
         internal static string ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series {
             get {
@@ -220,7 +194,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet te klonen subitems in menu-item.
+        ///   Looks up a localized string similar to Niet te klonen subitems in menu-item..
         /// </summary>
         internal static string ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item {
             get {
@@ -229,7 +203,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;An optional border style to paint on the control. Set to Flat for no border&quot;.
+        ///   Looks up a localized string similar to Een optionele randstijl om te tekenen. Zet de waarde op &apos;Flat&apos; om geen rand te tekenen..
         /// </summary>
         internal static string CollapsibleSplitter_BorderStyle3D_Description {
             get {
@@ -238,7 +212,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De inklapbare splitser kan geen &quot;Dockstyle&quot; &quot;Filled:  of &quot;None&quot; hebben.
+        ///   Looks up a localized string similar to De eigenschap &apos;DockStyle&apos; van de inklapbare splitser kan geen waarde &apos;Filled&apos; of &apos;None&apos; hebben..
         /// </summary>
         internal static string CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property {
             get {
@@ -338,7 +312,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X-waarde wordt vastgelegd (linker limiet) {0} =&gt; {1}.
+        ///   Looks up a localized string similar to X-waarde wordt vastgelegd (linker limiet) {0} =&gt; {1}..
         /// </summary>
         internal static string EditPointTool_CalculateXValue_left_limit {
             get {
@@ -347,7 +321,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X-waarde wordt vastgelegd (rechter limiet) {0} =&gt; {1}.
+        ///   Looks up a localized string similar to X-waarde wordt vastgelegd (rechter limiet) {0} =&gt; {1}..
         /// </summary>
         internal static string EditPointTool_CalculateXValue_right_limit {
             get {
@@ -356,7 +330,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen cursor toegewezen aan {0}.
+        ///   Looks up a localized string similar to Geen cursor toegewezen aan {0}..
         /// </summary>
         internal static string EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_ {
             get {
@@ -365,34 +339,18 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EditPointTool: naar beneden.
+        ///   Looks up a localized string similar to Interne fout:
+        ///{0}.
         /// </summary>
-        internal static string EditPointTool_OnMouseDown_EditPointTool___Down {
+        internal static string ExceptionDialog_GetExceptionText_Inner_exceptions_0_ {
             get {
-                return ResourceManager.GetString("EditPointTool_OnMouseDown_EditPointTool___Down", resourceCulture);
+                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Inner_exceptions_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EditPointTool: naar boven.
-        /// </summary>
-        internal static string EditPointTool_OnMouseUp_EditPointTool___Up {
-            get {
-                return ResourceManager.GetString("EditPointTool_OnMouseUp_EditPointTool___Up", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interne fout:{1}{2}.
-        /// </summary>
-        internal static string ExceptionDialog_GetExceptionText_Inner_exceptions {
-            get {
-                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Inner_exceptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Foutmelding van de loader:.
+        ///   Looks up a localized string similar to Foutmelding van de loader:
+        ///.
         /// </summary>
         internal static string ExceptionDialog_GetExceptionText_Loader_exceptions {
             get {
@@ -438,7 +396,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} exemplaren van {1} zijn met {2} vervangen.
+        ///   Looks up a localized string similar to {0} exemplaren van {1} zijn met {2} vervangen..
         /// </summary>
         internal static string FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_ {
             get {
@@ -506,7 +464,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controleer of de invoer geldig is.
+        ///   Looks up a localized string similar to Controleer of de invoer geldig is..
         /// </summary>
         internal static string InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid {
             get {
@@ -524,7 +482,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoofdvenster niet geïnjecteerd.
+        ///   Looks up a localized string similar to Hoofdvenster niet geïnjecteerd..
         /// </summary>
         internal static string ModalHelper_ShowModal_Main_window_not_injected {
             get {
@@ -563,7 +521,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transparantie moet tussen 0 en 100 liggen.
+        ///   Looks up a localized string similar to Transparantie moet tussen 0 en 100 liggen..
         /// </summary>
         internal static string PolygonChartSeries_Transparency_Transparancy_should_be_between_0_and_100 {
             get {
@@ -572,66 +530,11 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden.
+        ///   Looks up a localized string similar to Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden..
         /// </summary>
         internal static string PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values {
             get {
                 return ResourceManager.GetString("PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1e kwartaal {0}.
-        /// </summary>
-        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__1st_Qtr_ {
-            get {
-                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__1st_Qtr_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 2e kw. {0}.
-        /// </summary>
-        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__2nd_Qtr_ {
-            get {
-                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__2nd_Qtr_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 3e kw. {0}.
-        /// </summary>
-        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__3rd_Qtr_ {
-            get {
-                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__3rd_Qtr_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 4e kw. {0}.
-        /// </summary>
-        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__4th_Qtr_ {
-            get {
-                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__4th_Qtr_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onbekend kwartaal.
-        /// </summary>
-        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__Unknown_quarter_ {
-            get {
-                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__Unknown_quarte" +
-                        "r_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to kw. yyyy.
-        /// </summary>
-        internal static string QuarterNavigatableLabelFormatProvider_GetUnits_qtr_yyyy {
-            get {
-                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetUnits_qtr_yyyy", resourceCulture);
             }
         }
         
@@ -645,48 +548,22 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  seconden.
+        ///   Looks up a localized string similar to Verschil:
+        ///horizontaal: {0}
+        ///verticaal: {1}.
         /// </summary>
-        internal static string RulerTool_GetDefaultDifferenceString__seconds {
+        internal static string RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_ {
             get {
-                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString__seconds", resourceCulture);
+                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschil: {2} horizontaal: {0} {2} verticaal: {1}.
+        ///   Looks up a localized string similar to seconden.
         /// </summary>
-        internal static string RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical___1_ {
+        internal static string RulerTool_GetDefaultDifferenceString_seconds {
             get {
-                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical" +
-                        "___1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verwijderen is niet geïmplementeerd voor dit type databron..
-        /// </summary>
-        internal static string SelectPointTool_KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_ {
-            get {
-                return ResourceManager.GetString("SelectPointTool_KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SelectPointTool: naar boven.
-        /// </summary>
-        internal static string SelectPointTool_OnMouseUp_SelectPointTool___Up {
-            get {
-                return ResourceManager.GetString("SelectPointTool_OnMouseUp_SelectPointTool___Up", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shape bestanden |*.shp.
-        /// </summary>
-        internal static string Shape_files_filter {
-            get {
-                return ResourceManager.GetString("Shape_files_filter", resourceCulture);
+                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString_seconds", resourceCulture);
             }
         }
         
@@ -701,7 +578,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet toegestaan om rijen aan deze tabel toe te voegen.
+        ///   Looks up a localized string similar to Het is niet toegestaan om rijen aan deze tabel toe te voegen..
         /// </summary>
         internal static string TableView_AddNewRowToDataSource_Adding_rows_to_this_table_is_not_allowed {
             get {
@@ -746,20 +623,11 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan tekenreeks {0} niet omzetten naar {1} om te plakken.
+        ///   Looks up a localized string similar to Kan tekenreeks {0} niet omzetten naar {1} om te plakken..
         /// </summary>
         internal static string TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste {
             get {
                 return ResourceManager.GetString("TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarde wordt gewijzigd {0}.
-        /// </summary>
-        internal static string TableView_DxGridViewCellValueChanging_Value_Changing__0_ {
-            get {
-                return ResourceManager.GetString("TableView_DxGridViewCellValueChanging_Value_Changing__0_", resourceCulture);
             }
         }
         
@@ -774,7 +642,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Actie {0} wordt niet ondersteund door de TableView.
+        ///   Looks up a localized string similar to Actie {0} wordt niet ondersteund door de TableView..
         /// </summary>
         internal static string TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_TableView {
             get {
@@ -784,7 +652,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan waarde in cel [{0}, {1}] niet instellen reden: {2}.
+        ///   Looks up a localized string similar to Kan waarde in cel [{0}, {1}] niet instellen. Reden: {2}..
         /// </summary>
         internal static string TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_ {
             get {
@@ -793,7 +661,16 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nieuwe Tabel.
+        ///   Looks up a localized string similar to Geen conversie van het type &apos;string&apos; mogelijk..
+        /// </summary>
+        internal static string TableView_SetCellValueInternal_No_conversion_from_string_possible {
+            get {
+                return ResourceManager.GetString("TableView_SetCellValueInternal_No_conversion_from_string_possible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe tabel.
         /// </summary>
         internal static string TableView_TableView_new_Table {
             get {
@@ -802,7 +679,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy all headers.
+        ///   Looks up a localized string similar to Kopiëer alle kopteksten.
         /// </summary>
         internal static string TableView_UpdateColumnHeaderMenu_Copy_all_headers {
             get {
@@ -829,7 +706,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selectie gewijzigd event firen.
+        ///   Looks up a localized string similar to SelectionChanged event afgevuurd..
         /// </summary>
         internal static string TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event {
             get {
@@ -838,7 +715,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan waarde voor rij {0} niet instellen, reden: {1}.
+        ///   Looks up a localized string similar to Kan waarde voor rij {0} niet instellen. Reden: {1}..
         /// </summary>
         internal static string TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_ {
             get {
@@ -876,7 +753,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan niet plakken in gesorteerde kolom.
+        ///   Looks up a localized string similar to Kan niet plakken in gesorteerde kolom..
         /// </summary>
         internal static string TableViewPasteController_CanPaste_Cannot_paste_into_sorted_column {
             get {
@@ -885,7 +762,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen waardes om te plakken (headers worden overgeslagen)..
+        ///   Looks up a localized string similar to Er zijn geen waardes om te plakken (kopteksten worden overgeslagen)..
         /// </summary>
         internal static string TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipped__ {
             get {
@@ -895,7 +772,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan niet in niet-rechthoekige selectie plakken.
+        ///   Looks up a localized string similar to Kan alleen in rechthoekige selectie plakken..
         /// </summary>
         internal static string TableViewPasteController_GetPasteTargetSelection_Cannot_paste_into_non_rectangular_selection {
             get {
@@ -905,7 +782,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de waarde in cel [{0}, {1}] niet plakken. Rij {0} wordt overgeslagen.
+        ///   Looks up a localized string similar to Kan de waarde in cel [{0}, {1}] niet plakken. Rij {0} wordt overgeslagen..
         /// </summary>
         internal static string TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1____Row__0__will_be_skipped {
             get {
@@ -915,7 +792,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plakken waarden mislukt: {0}.
+        ///   Looks up a localized string similar to Plakken waarden mislukt: {0}..
         /// </summary>
         internal static string TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_ {
             get {
@@ -924,7 +801,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongeldige geplate rij {0} wordt overgeslagen.
+        ///   Looks up a localized string similar to Ongeldig geplakte rij {0} wordt overgeslagen..
         /// </summary>
         internal static string TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting {
             get {
@@ -933,7 +810,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klembord bevat geen tekst, hierdoor kan het niet worden geplakt op het rooster..
+        ///   Looks up a localized string similar to Klembord bevat geen tekst. Hierdoor kan het niet worden geplakt op het rooster..
         /// </summary>
         internal static string TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_ {
             get {
@@ -943,7 +820,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongeldige rijnummer {0}.
+        ///   Looks up a localized string similar to Ongeldig rijnummer {0}..
         /// </summary>
         internal static string TableViewPasteController_PasteValuesCore_Invalid_row_number__0_ {
             get {
@@ -952,7 +829,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongeldige rij: {0}.
+        ///   Looks up a localized string similar to Ongeldige rij: {0}..
         /// </summary>
         internal static string TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_ {
             get {
@@ -961,7 +838,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van cel is mislukt: {0}.
+        ///   Looks up a localized string similar to Validatie van cel is mislukt: {0}..
         /// </summary>
         internal static string TableViewValidator_ValidateCell_Validation_of_cell_failed_0_ {
             get {
@@ -970,7 +847,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van rij is mislukt: {0}.
+        ///   Looks up a localized string similar to Validatie van rij is mislukt: {0}..
         /// </summary>
         internal static string TableViewValidator_ValidateRow_Validation_of_row_failed_0_ {
             get {
@@ -998,7 +875,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datumtijd notatie niet zoals verwacht.
+        ///   Looks up a localized string similar to Datumtijd notatie niet zoals verwacht..
         /// </summary>
         internal static string TimeSpanEditor_GetTimeSymbolAtPosition_Datetime_format_not_as_expected {
             get {
@@ -1034,7 +911,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het geselecteerde item kan niet worden verwijderd.
+        ///   Looks up a localized string similar to Het geselecteerde item kan niet worden verwijderd..
         /// </summary>
         internal static string TreeView_DeleteNodeData_The_selected_item_cannot_be_removed {
             get {
@@ -1043,7 +920,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout tijdens slepen/neerzetten: {0}.
+        ///   Looks up a localized string similar to Fout tijdens slepen/neerzetten: {0}..
         /// </summary>
         internal static string TreeView_TreeViewDragDrop_Error_during_drag_drop_0_ {
             get {
@@ -1052,7 +929,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet in staat om node presenter te vinden voor &apos;null&apos; object.
+        ///   Looks up a localized string similar to Niet in staat om node presenter te vinden voor &apos;null&apos; object..
         /// </summary>
         internal static string TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data {
             get {
@@ -1061,7 +938,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Structuurweergave mag niet leeg zijn.
+        ///   Looks up a localized string similar to Structuurweergave mag niet leeg zijn..
         /// </summary>
         internal static string TreeViewController_TreeViewController_Tree_view_can_t_be_null {
             get {
@@ -1070,7 +947,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden, zorg ervoor dat u het aan de Presenters verzameling voor een TreeView hebt toegevoegd.
+        ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenchap van een TreeView heeft toegevoegd..
         /// </summary>
         internal static string TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView {
             get {
@@ -1080,16 +957,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan het object (&quot;treeNode.Presenter&quot;) niet vinden om de boomstructuur weer te geven: {0}.
-        /// </summary>
-        internal static string TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_ {
-            get {
-                return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse.
+        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse..
         /// </summary>
         internal static string TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class {
             get {
@@ -1099,12 +967,15 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. {1}{1}Error: {1}{0}.
+        ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. 
+        ///
+        ///Error:
+        ///{0}.
         /// </summary>
-        internal static string WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input___1__1_Error___1__0_ {
+        internal static string WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_ {
             get {
-                return ResourceManager.GetString("WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input_" +
-                        "__1__1_Error___1__0_", resourceCulture);
+                return ResourceManager.GetString("WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_E" +
+                        "rror_0_", resourceCulture);
             }
         }
         
@@ -1114,15 +985,6 @@ namespace Core.Common.Controls.Swf.Properties {
         internal static string WizardDialog_WizardControl1NextClick_Error_occurred {
             get {
                 return ResourceManager.GetString("WizardDialog_WizardControl1NextClick_Error_occurred", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to yyyy.
-        /// </summary>
-        internal static string YearNavigatableLabelFormatProvider_GetUnits_yyyy {
-            get {
-                return ResourceManager.GetString("YearNavigatableLabelFormatProvider_GetUnits_yyyy", resourceCulture);
             }
         }
     }

@@ -117,14 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RingtoetsApplication_Run_You_can_call_Run___only_once_per_application" xml:space="preserve">
-    <value>U kunt  slechts eenmaal Run() uitvoeren per applicatie</value>
-  </data>
   <data name="RingtoetsApplication_Run_starting" xml:space="preserve">
     <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="RingtoetsApplication_Run_Application_is_already_running" xml:space="preserve">
-    <value>Toepassing is al actief</value>
+    <value>Ringtoets wordt al uitgevoerd en kan daarom niet nog een keer gestart worden.</value>
   </data>
   <data name="RingtoetsApplication_Run_Creating_new_project____" xml:space="preserve">
     <value>Nieuw project aanmaken...</value>
@@ -132,35 +129,20 @@
   <data name="RingtoetsApplication_Run_Activating_plugins____" xml:space="preserve">
     <value>Activeer plugins...</value>
   </data>
-  <data name="RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____" xml:space="preserve">
+  <data name="RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated" xml:space="preserve">
     <value>Wachten tot alle plugins zijn geactiveerd...</value>
   </data>
-  <data name="RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_" xml:space="preserve">
-    <value>Ringtoets is klaar, opstarttijd van {0:F3} seconde</value>
+  <data name="RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds" xml:space="preserve">
+    <value>Ringtoets is klaar, opstarttijd van {0:F3} seconden.</value>
   </data>
   <data name="RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened" xml:space="preserve">
-    <value>"Run()" moet eerst worden aangeroepen voordat het project kan worden geopend</value>
+    <value>'Run()' moet eerst worden aangeroepen voordat het project kan worden geopend.</value>
   </data>
   <data name="RingtoetsApplication_LogSystemInfo_Environmental_variables_" xml:space="preserve">
     <value>Omgevingsvariabelen:</value>
   </data>
   <data name="RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_" xml:space="preserve">
-    <value>Alle plugins waren geactiveerd.</value>
-  </data>
-  <data name="RingtoetsApplication_InitializeLicense_Initializing_license____" xml:space="preserve">
-    <value>Licentie initialiseren...</value>
-  </data>
-  <data name="RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_" xml:space="preserve">
-    <value>Licentiebestand bestaat niet: {0}</value>
-  </data>
-  <data name="RingtoetsApplication_InitializeLicense_License_is_initialized_" xml:space="preserve">
-    <value>Licentie wordt geïnitialiseerd.</value>
-  </data>
-  <data name="RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____" xml:space="preserve">
-    <value>Registreren van "persistent data types"...</value>
-  </data>
-  <data name="RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_" xml:space="preserve">
-    <value>Registreren gegevenstype {0}</value>
+    <value>Alle plugins zijn geactiveerd.</value>
   </data>
   <data name="RingtoetsApplication_RegisterImporters_Registering_importer__0_" xml:space="preserve">
     <value>Registreren "importer" {0}</value>
@@ -174,17 +156,17 @@
   <data name="RingtoetsApplication_RegisterImporters_Registering_importers____" xml:space="preserve">
     <value>Registreren "importers"...</value>
   </data>
-  <data name="Activity_Execute_Activity_is__0___Initialize___must_be_called_before_Execute__" xml:space="preserve">
-    <value>Activiteit is '{0}', Initialize() moet aangeroepen worden voor Execute()</value>
+  <data name="Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute" xml:space="preserve">
+    <value>Activiteit is '{0}'. 'Initialize()' moet aangeroepen worden voor 'Execute()'.</value>
   </data>
   <data name="Activity_Execute_Can_t_call_Execute___for_activity_in__0__state_" xml:space="preserve">
     <value>Kan Execute() niet aanroepen voor activiteit met de '{0}' status.</value>
   </data>
   <data name="ActivityRunner_Completed_Cancelled_activity__0_" xml:space="preserve">
-    <value>Activiteit geannuleerd {0}</value>
+    <value>Activiteit '{0}' geannuleerd.</value>
   </data>
   <data name="ActivityRunner_Completed_Finished_activity__0_" xml:space="preserve">
-    <value>Activiteit voltooid {0}</value>
+    <value>Activiteit '{0}' voltooid.</value>
   </data>
   <data name="ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity__" xml:space="preserve">
     <value>Een fout is opgetreden tijdens het uitvoeren van een achtergrond activiteit:</value>
@@ -193,7 +175,7 @@
     <value>Een fout is opgetreden tijdens het uitvoeren van activiteit {0}:</value>
   </data>
   <data name="ActivityRunner_Enqueue_Enqueued_activity__0_" xml:space="preserve">
-    <value>Enqueued activity {0}</value>
+    <value>Activiteit '{0}' in wachtrij gezet.</value>
   </data>
   <data name="ActivityRunner_RunActivity_Initialization_of__0__has_failed_" xml:space="preserve">
     <value>Initialisatie van {0} is mislukt.</value>
@@ -210,10 +192,10 @@
   <data name="ActivityRunner_RunActivity_Clean_up_of__0__has_failed_" xml:space="preserve">
     <value>Opschonen van {0} is mislukt.</value>
   </data>
-  <data name="FileImportActivity_ImportFromFile__0__of__1_" xml:space="preserve">
+  <data name="FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_" xml:space="preserve">
     <value>{0} van {1}</value>
   </data>
   <data name="ActivityRunner_StartTaskIfPossible_Run_activity__0_" xml:space="preserve">
-    <value>Uitvoeren activiteit {0}</value>
+    <value>Uitvoeren activiteit {0}.</value>
   </data>
 </root>

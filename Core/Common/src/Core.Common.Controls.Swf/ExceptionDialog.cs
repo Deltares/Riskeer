@@ -75,8 +75,7 @@ namespace Core.Common.Controls.Swf
 
             if (exception.InnerException != null)
             {
-                str += string.Format(Resources.ExceptionDialog_GetExceptionText_Inner_exceptions, 
-                    Environment.NewLine,
+                str += string.Format(Resources.ExceptionDialog_GetExceptionText_Inner_exceptions_0_, 
                     exception.InnerException);
             }
 
@@ -84,7 +83,7 @@ namespace Core.Common.Controls.Swf
             {
                 var reflException = exception as ReflectionTypeLoadException;
 
-                str += Resources.ExceptionDialog_GetExceptionText_Loader_exceptions + Environment.NewLine;
+                str += Resources.ExceptionDialog_GetExceptionText_Loader_exceptions;
                 str = reflException.LoaderExceptions.Aggregate(str, (current, ex) => current + (ex + Environment.NewLine));
             }
 

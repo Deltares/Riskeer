@@ -100,7 +100,7 @@ namespace Core.Common.Base.Workflow
             importer.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
             {
                 Name = string.Format("{0} - {1}", importer.Name, currentStepName);
-                progressText = string.Format(Resources.FileImportActivity_ImportFromFile__0__of__1_, currentStep, totalSteps);
+                progressText = string.Format(Resources.FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_, currentStep, totalSteps);
 
                 SetProgressText(progressText);
             };

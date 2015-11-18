@@ -160,7 +160,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
                     if (nodePresenter == null)
                     {
-                        Log.Debug(string.Format(Resources.TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_, tag));
+                        Log.Debug(string.Format(Resources.TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView, tag));
                         return;
                     }
 

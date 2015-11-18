@@ -271,7 +271,6 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            log.Debug(Resources.SelectPointTool_OnMouseUp_SelectPointTool___Up);
             selectedPoints.Clear();
             AddClickedPoint(e.X, e.Y);
             Invalidate();

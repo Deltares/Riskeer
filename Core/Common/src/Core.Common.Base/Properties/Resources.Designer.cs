@@ -61,11 +61,11 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activiteit is &apos;{0}&apos;, Initialize() moet aangeroepen worden voor Execute().
+        ///   Looks up a localized string similar to Activiteit is &apos;{0}&apos;. &apos;Initialize()&apos; moet aangeroepen worden voor &apos;Execute()&apos;..
         /// </summary>
-        internal static string Activity_Execute_Activity_is__0___Initialize___must_be_called_before_Execute__ {
+        internal static string Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute {
             get {
-                return ResourceManager.GetString("Activity_Execute_Activity_is__0___Initialize___must_be_called_before_Execute__", resourceCulture);
+                return ResourceManager.GetString("Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute", resourceCulture);
             }
         }
         
@@ -79,7 +79,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activiteit geannuleerd {0}.
+        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; geannuleerd..
         /// </summary>
         internal static string ActivityRunner_Completed_Cancelled_activity__0_ {
             get {
@@ -88,7 +88,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activiteit voltooid {0}.
+        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; voltooid..
         /// </summary>
         internal static string ActivityRunner_Completed_Finished_activity__0_ {
             get {
@@ -97,7 +97,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enqueued activity {0}.
+        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; in wachtrij gezet..
         /// </summary>
         internal static string ActivityRunner_Enqueue_Enqueued_activity__0_ {
             get {
@@ -170,7 +170,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren activiteit {0}.
+        ///   Looks up a localized string similar to Uitvoeren activiteit {0}..
         /// </summary>
         internal static string ActivityRunner_StartTaskIfPossible_Run_activity__0_ {
             get {
@@ -181,14 +181,14 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} van {1}.
         /// </summary>
-        internal static string FileImportActivity_ImportFromFile__0__of__1_ {
+        internal static string FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_ {
             get {
-                return ResourceManager.GetString("FileImportActivity_ImportFromFile__0__of__1_", resourceCulture);
+                return ResourceManager.GetString("FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle plugins waren geactiveerd..
+        ///   Looks up a localized string similar to Alle plugins zijn geactiveerd..
         /// </summary>
         internal static string RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_ {
             get {
@@ -197,7 +197,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Run()&quot; moet eerst worden aangeroepen voordat het project kan worden geopend.
+        ///   Looks up a localized string similar to &apos;Run()&apos; moet eerst worden aangeroepen voordat het project kan worden geopend..
         /// </summary>
         internal static string RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened {
             get {
@@ -207,56 +207,11 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licentie initialiseren....
-        /// </summary>
-        internal static string RingtoetsApplication_InitializeLicense_Initializing_license____ {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_InitializeLicense_Initializing_license____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Licentiebestand bestaat niet: {0}.
-        /// </summary>
-        internal static string RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_ {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Licentie wordt geïnitialiseerd..
-        /// </summary>
-        internal static string RingtoetsApplication_InitializeLicense_License_is_initialized_ {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_InitializeLicense_License_is_initialized_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Omgevingsvariabelen:.
         /// </summary>
         internal static string RingtoetsApplication_LogSystemInfo_Environmental_variables_ {
             get {
                 return ResourceManager.GetString("RingtoetsApplication_LogSystemInfo_Environmental_variables_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registreren gegevenstype {0}.
-        /// </summary>
-        internal static string RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_ {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registreren van &quot;persistent data types&quot;....
-        /// </summary>
-        internal static string RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____ {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____", resourceCulture);
             }
         }
         
@@ -306,7 +261,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toepassing is al actief.
+        ///   Looks up a localized string similar to Ringtoets wordt al uitgevoerd en kan daarom niet nog een keer gestart worden..
         /// </summary>
         internal static string RingtoetsApplication_Run_Application_is_already_running {
             get {
@@ -324,11 +279,11 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets is klaar, opstarttijd van {0:F3} seconde.
+        ///   Looks up a localized string similar to Ringtoets is klaar, opstarttijd van {0:F3} seconden..
         /// </summary>
-        internal static string RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_ {
+        internal static string RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds", resourceCulture);
             }
         }
         
@@ -344,18 +299,9 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wachten tot alle plugins zijn geactiveerd....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____ {
+        internal static string RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to U kunt  slechts eenmaal Run() uitvoeren per applicatie.
-        /// </summary>
-        internal static string RingtoetsApplication_Run_You_can_call_Run___only_once_per_application {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_You_can_call_Run___only_once_per_application", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated", resourceCulture);
             }
         }
     }

@@ -784,7 +784,7 @@ namespace Core.Common.Controls.Swf.Table
                                      : value;
             if (objectValue == null)
             {
-                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_, rowIndex, col.AbsoluteIndex, "No conversion from string possible");
+                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_, rowIndex, col.AbsoluteIndex, Resources.TableView_SetCellValueInternal_No_conversion_from_string_possible);
                 return false;
             }
 
@@ -2071,11 +2071,6 @@ namespace Core.Common.Controls.Swf.Table
             ColumnFilterChanged(sender, new EventArgs<ITableViewColumn>(selectedColumn));
         }
 
-        private void DxGridViewCellValueChanging(object sender, CellValueChangedEventArgs e)
-        {
-            Trace.WriteLine(string.Format(Resources.TableView_DxGridViewCellValueChanging_Value_Changing__0_, e.Value));
-        }
-
         private void DxGridViewCustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
         {
             if (!showRowNumbers)
@@ -2548,7 +2543,6 @@ namespace Core.Common.Controls.Swf.Table
             // value changes
             dxGridView.CellValueChanged += tableViewValidator.OnCellValueChanged;
             dxGridView.CellValueChanged += DxGridViewCellValueChanged;
-            dxGridView.CellValueChanging += DxGridViewCellValueChanging;
 
             // filtering events
             dxGridView.ColumnFilterChanged += DxGridViewColumnFilterChanged;

@@ -169,7 +169,7 @@
     <value>7, 48</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 13</value>
+    <value>75, 13</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -280,7 +280,7 @@
     <value>6, 19</value>
   </data>
   <data name="radioButtonNumberNotation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 17</value>
+    <value>199, 17</value>
   </data>
   <data name="radioButtonNumberNotation.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -307,7 +307,7 @@
     <value>6, 63</value>
   </data>
   <data name="radioButtonScientificNotation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 17</value>
+    <value>110, 17</value>
   </data>
   <data name="radioButtonScientificNotation.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -343,16 +343,10 @@
     <value>True</value>
   </data>
   <data name="textBoxRealFormatSample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 88</value>
+    <value>237, 88</value>
   </data>
   <data name="textBoxRealFormatSample.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="textBoxRealFormatSample.Text" xml:space="preserve">
-    <value>0,00001
-1,00001
-10,0000
-1000,00</value>
   </data>
   <data name="&gt;&gt;textBoxRealFormatSample.Name" xml:space="preserve">
     <value>textBoxRealFormatSample</value>
@@ -367,13 +361,13 @@
     <value>0</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>195, 12</value>
+    <value>220, 12</value>
   </data>
   <data name="groupBox2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>7, 7, 7, 7</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 115</value>
+    <value>251, 115</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -396,8 +390,11 @@
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 86</value>
   </data>
+  <data name="groupBox1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>477, 137</value>
+  </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>470, 137</value>
+    <value>477, 137</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -424,7 +421,7 @@
     <value>8, 21</value>
   </data>
   <data name="checkBoxStartPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 17</value>
+    <value>188, 17</value>
   </data>
   <data name="checkBoxStartPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -488,8 +485,5 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxAutoSaveOnRun.Text" xml:space="preserve">
-    <value>Automatisch project opslaan bij model berekenen</value>
   </data>
 </root>

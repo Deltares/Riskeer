@@ -39,24 +39,5 @@ namespace Core.Common.Controls.Swf.Charting.Series
                        ? new PolygonChartSeries(baseSeries)
                        : new PolygonChartSeries();
         }
-
-        public static IChartSeries CreateSeries(ChartSeriesType chartSeriesType)
-        {
-            switch (chartSeriesType)
-            {
-                case ChartSeriesType.PointSeries:
-                    return CreatePointSeries();
-                case ChartSeriesType.LineSeries:
-                    return CreateLineSeries();
-                case ChartSeriesType.AreaSeries:
-                    return CreateAreaSeries();
-                case ChartSeriesType.BarSeries:
-                    return CreateBarSeries();
-                case ChartSeriesType.PolygonSeries:
-                    return CreatePolygonSeries();
-                default:
-                    throw new ArgumentOutOfRangeException(Resources.ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType);
-            }
-        }
     }
 }

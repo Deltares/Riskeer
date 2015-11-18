@@ -78,7 +78,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     }
                     else
                     {
-                        throw new InvalidOperationException(Resources.ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_);
+                        throw new InvalidOperationException(Resources.ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_needs_to_be_set_before_SelectedPointIndex_is_set);
                     }
                 }
             }

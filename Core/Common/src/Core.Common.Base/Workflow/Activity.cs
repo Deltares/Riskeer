@@ -69,7 +69,7 @@ namespace Core.Common.Base.Workflow
         {
             if (Status == ActivityStatus.Finished || Status == ActivityStatus.Cancelled || Status == ActivityStatus.Failed || Status == ActivityStatus.None)
             {
-                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Activity_is__0___Initialize___must_be_called_before_Execute__, Status));
+                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute, Status));
             }
 
             if (Status != ActivityStatus.Executed && Status != ActivityStatus.Initialized)

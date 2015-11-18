@@ -160,8 +160,6 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            log.Debug(Resources.EditPointTool_OnMouseDown_EditPointTool___Down);
-
             Point p = new Point(e.X, e.Y);
 
             //why not e.Button?
@@ -204,7 +202,6 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseMove(MouseEventArgs e, ref Cursor c)
         {
-            //slog.Debug("On mouse move");
             var p = new Point(e.X, e.Y);
 
             Steema.TeeChart.Styles.Series s = ClickedSeries(p);
@@ -271,8 +268,6 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            log.Debug(Resources.EditPointTool_OnMouseUp_EditPointTool___Up);
-
             if (Steema.TeeChart.Utils.GetMouseButton(e) != MouseButtons.Left)
             {
                 return;

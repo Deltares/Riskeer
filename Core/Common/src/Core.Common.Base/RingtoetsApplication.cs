@@ -186,7 +186,7 @@ namespace Core.Common.Base
         {
             if (isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_Run_You_can_call_Run___only_once_per_application);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_Run_Application_is_already_running);
             }
 
             initializing = true;
@@ -213,8 +213,6 @@ namespace Core.Common.Base
 
             LogSystemInfo();
 
-            InitializeLicense();
-
             Plugins.ForEach(p => p.Application = this);
 
             isRunning = true;
@@ -225,11 +223,10 @@ namespace Core.Common.Base
             log.Info(Properties.Resources.RingtoetsApplication_Run_Activating_plugins____);
             ActivatePlugins();
 
-            RegisterDataTypes();
             RegisterImporters();
             RegisterExporters();
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated);
 
             Project = projectBeingCreated; // opens project in application
 
@@ -237,7 +234,7 @@ namespace Core.Common.Base
 
             stopwatch.Stop();
 
-            log.InfoFormat(Properties.Resources.RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_, stopwatch.ElapsedMilliseconds/1000.0);
+            log.InfoFormat(Properties.Resources.RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds, stopwatch.ElapsedMilliseconds/1000.0);
 
             if (AfterRun != null)
             {
@@ -405,47 +402,6 @@ namespace Core.Common.Base
             foreach (DictionaryEntry pair in Environment.GetEnvironmentVariables())
             {
                 log.DebugFormat("{0} = {1}", pair.Key, pair.Value);
-            }
-        }
-
-        /// <summary>
-        /// Set license environmental variables to path of the license file. 
-        /// </summary>
-        private void InitializeLicense()
-        {
-            string licenseFilePath = null;
-
-            if (Settings != null && Settings["licenseFilePath"] != null)
-            {
-                licenseFilePath = Settings["licenseFilePath"];
-            }
-
-            if (string.IsNullOrEmpty(licenseFilePath))
-            {
-                return;
-            }
-
-            log.Debug(Properties.Resources.RingtoetsApplication_InitializeLicense_Initializing_license____);
-
-            if (!File.Exists(licenseFilePath))
-            {
-                log.WarnFormat(Properties.Resources.RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_, licenseFilePath);
-            }
-            else
-            {
-                Environment.SetEnvironmentVariable("RINGTOETS_LICENSE_FILE", Path.GetFullPath(licenseFilePath));
-            }
-
-            log.Debug(Properties.Resources.RingtoetsApplication_InitializeLicense_License_is_initialized_);
-        }
-
-        private void RegisterDataTypes()
-        {
-            log.Debug(Properties.Resources.RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____);
-
-            foreach (var dataName in Plugins.SelectMany(plugin => plugin.GetDataItemInfos().Select(dii => dii.Name)))
-            {
-                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_, dataName);
             }
         }
 
