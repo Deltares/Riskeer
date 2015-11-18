@@ -164,40 +164,6 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="IStyle">style</see> for the minimum value
-        /// </summary>
-        public IStyle MinStyle
-        {
-            get
-            {
-                return minItem.Style;
-            } //minStyle; }
-            set
-            {
-                OnPropertyChanging("MinStyle");
-                minItem.Style = value;
-                OnPropertyChanged("MinStyle");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IStyle">style</see> for the maximum value
-        /// </summary>
-        public IStyle MaxStyle
-        {
-            get
-            {
-                return maxItem.Style;
-            } //maxStyle; }
-            set
-            {
-                OnPropertyChanging("MaxStyle");
-                maxItem.Style = value;
-                OnPropertyChanged("MaxStyle");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used on labels
         /// </summary>
         public ColorBlend TextColorBlend
@@ -307,16 +273,16 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
                 throw new ApplicationException(
                     "Invalid Attribute type in Gradient Theme - Couldn't parse attribute (must be numerical)");
             }
-            if (MinStyle.GetType() != MaxStyle.GetType())
+            if (minItem.Style.GetType() != maxItem.Style.GetType())
             {
                 throw new ArgumentException("MinStyle and MaxStyle must be of the same type");
             }
-            switch (MinStyle.GetType().FullName)
+            switch (minItem.Style.GetType().FullName)
             {
                 case "SharpMap.Styles.VectorStyle":
                     return CalculateVectorStyle(attr);
                 case "SharpMap.Styles.LabelStyle":
-                    return CalculateLabelStyle(MinStyle as LabelStyle, MaxStyle as LabelStyle, attr);
+                    return CalculateLabelStyle(minItem.Style as LabelStyle, maxItem.Style as LabelStyle, attr);
                 default:
                     throw new ArgumentException(
                         "Only SharpMap.Styles.VectorStyle and SharpMap.Styles.LabelStyle are supported for the gradient theme");
@@ -452,8 +418,8 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         /// <returns></returns>
         protected VectorStyle CalculateVectorStyle(double value)
         {
-            var min = (VectorStyle) MinStyle;
-            var max = (VectorStyle) MaxStyle;
+            var min = (VectorStyle) minItem.Style;
+            var max = (VectorStyle) maxItem.Style;
 
             bool isNoDataValue = noDataValues != null && noDataValues.Contains(value);
 
@@ -583,7 +549,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         private void UpdateThemeItems()
         {
             themeItems.Clear();
-            CreateThemeItems(MinStyle, MaxStyle, numberOfClasses);
+            CreateThemeItems(minItem.Style, maxItem.Style, numberOfClasses);
 
             vectorStyleCache.Clear();
         }
