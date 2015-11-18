@@ -94,7 +94,21 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             set
             {
                 OnPropertyChanging("DefaultStyle");
+
+                if (defaultStyle != null)
+                {
+                    defaultStyle.PropertyChanging -= OnPropertyChanging;
+                    defaultStyle.PropertyChanged -= OnPropertyChanged;
+                }
+
                 defaultStyle = value;
+
+                if (defaultStyle != null)
+                {
+                    defaultStyle.PropertyChanging += OnPropertyChanging;
+                    defaultStyle.PropertyChanged += OnPropertyChanged;
+                }
+
                 OnPropertyChanged("DefaultStyle");
             }
         }
@@ -223,7 +237,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public event PropertyChangingEventHandler PropertyChanging;
 
-        protected void OnPropertyChanging(string propertyName)
+        private void OnPropertyChanging(string propertyName)
         {
             if (PropertyChanging != null)
             {
@@ -231,13 +245,29 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
+        private void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(sender, e);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, e);
             }
         }
 

@@ -137,6 +137,7 @@
     <Compile Include="Rendering\Thematics\CategorialThemeItemTest.cs" />
     <Compile Include="Rendering\Thematics\CategorialThemeTest.cs" />
     <Compile Include="Rendering\Thematics\ColorBlendTest.cs" />
+    <Compile Include="Rendering\Thematics\CustomThemeTest.cs" />
     <Compile Include="Rendering\Thematics\GradientThemeItemTest.cs" />
     <Compile Include="Rendering\Thematics\GradientThemeTest.cs" />
     <Compile Include="Rendering\VectorRenderingHelperTest.cs" />
