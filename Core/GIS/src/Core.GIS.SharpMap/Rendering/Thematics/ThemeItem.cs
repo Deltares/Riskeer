@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Utils;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
@@ -10,8 +9,8 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 {
     public abstract class ThemeItem : IThemeItem, ICloneable
     {
-        protected string label;
-        protected IStyle style;
+        private string label;
+        private IStyle style;
 
         /// <summary>
         /// The label identifying this ThemeItem (for example shown in a legend).
@@ -39,7 +38,21 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             set
             {
                 OnPropertyChanging("Style");
+
+                if (style != null)
+                {
+                    style.PropertyChanging -= OnPropertyChanging;
+                    style.PropertyChanged -= OnPropertyChanged;
+                }
+
                 style = value;
+
+                if (style != null)
+                {
+                    style.PropertyChanging += OnPropertyChanging;
+                    style.PropertyChanged += OnPropertyChanged;
+                }
+
                 OnPropertyChanged("Style");
             }
         }
@@ -85,6 +98,14 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
+        private void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(sender, e);
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
@@ -92,6 +113,14 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, e);
             }
         }
 

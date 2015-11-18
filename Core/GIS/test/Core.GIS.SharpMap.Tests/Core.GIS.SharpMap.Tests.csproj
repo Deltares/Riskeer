@@ -134,8 +134,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Rendering\MapHelperTest.cs" />
+    <Compile Include="Rendering\Thematics\CategorialThemeItemTest.cs" />
     <Compile Include="Rendering\Thematics\CategorialThemeTest.cs" />
     <Compile Include="Rendering\Thematics\ColorBlendTest.cs" />
+    <Compile Include="Rendering\Thematics\GradientThemeItemTest.cs" />
     <Compile Include="Rendering\Thematics\GradientThemeTest.cs" />
     <Compile Include="Rendering\VectorRenderingHelperTest.cs" />
   </ItemGroup>

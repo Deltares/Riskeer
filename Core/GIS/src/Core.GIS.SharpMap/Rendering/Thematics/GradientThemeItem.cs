@@ -11,15 +11,15 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public GradientThemeItem(IStyle style, string label, string range)
         {
-            this.label = label;
-            this.style = (IStyle) style.Clone();
+            Label = label;
+            Style = (IStyle) style.Clone();
             this.range = range;
         }
 
         public GradientThemeItem(GradientThemeItem another)
         {
-            label = another.Label;
-            style = (IStyle) another.Style.Clone();
+            Label = another.Label;
+            Style = (IStyle) another.Style.Clone();
             range = another.Range.Clone() as string;
         }
 
@@ -38,7 +38,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public override int CompareTo(object obj)
         {
-            return label.CompareTo(((GradientThemeItem) obj).label);
+            return Label.CompareTo(((GradientThemeItem) obj).Label);
         }
     }
 }

@@ -15,23 +15,22 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public CategorialThemeItem(string category, IStyle style, object value)
         {
-            label = category;
-            this.style = (IStyle) style.Clone();
+            Label = category;
+            Style = (IStyle) style.Clone();
 
             Value = value;
         }
 
         public CategorialThemeItem(string category, IStyle style)
         {
-            label = category;
-            this.style = (IStyle) style.Clone();
+            Label = category;
+            Style = (IStyle) style.Clone();
         }
 
         private CategorialThemeItem(CategorialThemeItem another)
         {
-            label = another.Label;
-            style = (IStyle) another.Style.Clone();
-
+            Label = another.Label;
+            Style = (IStyle) another.Style.Clone();
             Value = another.Value;
         }
 
@@ -64,7 +63,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public override int CompareTo(object obj)
         {
-            return label.CompareTo(((CategorialThemeItem) obj).label);
+            return Label.CompareTo(((CategorialThemeItem) obj).Label);
         }
     }
 }
