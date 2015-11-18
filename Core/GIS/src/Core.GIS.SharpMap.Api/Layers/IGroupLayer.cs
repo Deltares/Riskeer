@@ -5,7 +5,7 @@ namespace Core.GIS.SharpMap.Api.Layers
 {
     public interface IGroupLayer : ILayer, INotifyCollectionChange
     {
-        IEventedList<ILayer> Layers { get; set; }
+        EventedList<ILayer> Layers { get; set; }
 
         /// <summary>
         /// Determines whether it is allowed to add or remove child layers in the grouplayer. Also the order of the layers is fixed.

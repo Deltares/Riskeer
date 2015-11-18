@@ -14,7 +14,7 @@ namespace Core.Plugins.SharpMapGis
     /// <summary>
     /// Layer group based on a map. Contains the layers of the source map.
     /// </summary>
-    public class BackGroundMapLayer : GroupLayer // TODO: rename to BackgroundMapLayer
+    public class BackGroundMapLayer : GroupLayer
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(BackGroundMapLayer));
 
@@ -34,7 +34,7 @@ namespace Core.Plugins.SharpMapGis
         }
 
         [NoNotifyCollectionChange]
-        public override IEventedList<ILayer> Layers
+        public override EventedList<ILayer> Layers
         {
             get
             {

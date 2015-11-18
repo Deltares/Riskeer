@@ -20,8 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Geometries;
@@ -38,8 +36,6 @@ namespace Core.GIS.SharpMap.Layers
     /// The Group layer is useful for grouping a set of layers,
     /// for instance a set of image tiles, and expose them as a single layer
     /// </remarks>
-    [Entity(FireOnCollectionChange = false)]
-    //[NotifyPropertyChanged(AttributeTargetMembers = "SharpMap.Layers.LayerGroup.Map", AttributeExclude = true, AttributePriority = 2)]
     public class GroupLayer : Layer, IGroupLayer //, IDisposable, INotifyCollectionChange
     {
         public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -49,7 +45,7 @@ namespace Core.GIS.SharpMap.Layers
 
         private readonly bool created = false;
 
-        private IEventedList<ILayer> layers;
+        private EventedList<ILayer> layers;
         private bool isMapInitialized; // performance (lazy initialization)
         private bool cloning;
 
@@ -69,7 +65,6 @@ namespace Core.GIS.SharpMap.Layers
             created = true;
         }
 
-        [NoNotifyPropertyChange]
         public override bool RenderRequired
         {
             get
@@ -121,7 +116,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [NoNotifyPropertyChange]
         public override IMap Map
         {
             get
@@ -138,7 +132,7 @@ namespace Core.GIS.SharpMap.Layers
         /// <summary>
         /// Sublayers in the group
         /// </summary>
-        public virtual IEventedList<ILayer> Layers
+        public virtual EventedList<ILayer> Layers
         {
             get
             {
@@ -155,17 +149,27 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("Layers");
+
                 if (layers != null)
                 {
-                    layers.CollectionChanged -= LayersCollectionChanged;
+                    layers.PropertyChanging -= OnPropertyChanging;
+                    layers.PropertyChanged -= OnPropertyChanged;
                     layers.CollectionChanging -= LayersCollectionChanging;
+                    layers.CollectionChanged -= LayersCollectionChanged;
                 }
+
                 layers = value;
+
                 if (layers != null)
                 {
-                    layers.CollectionChanged += LayersCollectionChanged;
+                    layers.PropertyChanging += OnPropertyChanging;
+                    layers.PropertyChanged += OnPropertyChanged;
                     layers.CollectionChanging += LayersCollectionChanging;
+                    layers.CollectionChanged += LayersCollectionChanged;
                 }
+
+                OnPropertyChanged("Layers");
             }
         }
 
@@ -177,7 +181,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("LayersReadOnly");
                 layersReadOnly = value;
+                OnPropertyChanged("LayersReadOnly");
             }
         }
 
