@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = String.Format(IOResources.Error_Path_cannot_contain_characters_0_,
+            var expectedMessage = String.Format(IOResources.Error_Path_cannot_contain_Characters_0_,
                 String.Join(", ", Path.GetInvalidFileNameChars()));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_Directory_in_path_0_missing, path);
+                var expectedMessage = string.Format(IOResources.Error_Directory_in_Path_0_missing, path);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -325,7 +325,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_Directory_in_path_0_missing, path);
+                var expectedMessage = string.Format(IOResources.Error_Directory_in_Path_0_missing, path);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }

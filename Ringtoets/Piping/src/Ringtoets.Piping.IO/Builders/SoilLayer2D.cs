@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.IO.Builders
             var segment2Ds = loop.ToArray();
             if(segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
-                var message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX);
+                var message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
                 throw new SoilLayer2DConversionException(message);
             }
             return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);

@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            var internalErrorMessage = string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_,
+            var internalErrorMessage = string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_,
                                                      "Profile","IntersectionX");
             var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
                                                    corruptPath, internalErrorMessage);

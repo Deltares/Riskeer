@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_, profileName, readColumn);
+                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, profileName, readColumn);
                     throw new PipingSoilProfileReadException(profileName, message, e);
                 }
             }
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_, profileName, readColumn);
+                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, profileName, readColumn);
                     throw new PipingSoilProfileReadException(profileName, message, e);
                 }
             }

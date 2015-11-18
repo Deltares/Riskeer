@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.IO
             }
             catch (ArgumentException e)
             {
-                throw new ArgumentException(String.Format(Resources.Error_Path_cannot_contain_characters_0_,
+                throw new ArgumentException(String.Format(Resources.Error_Path_cannot_contain_Characters_0_,
                                                           String.Join(", ", Path.GetInvalidFileNameChars())), e);
             }
             if (String.Empty == name)

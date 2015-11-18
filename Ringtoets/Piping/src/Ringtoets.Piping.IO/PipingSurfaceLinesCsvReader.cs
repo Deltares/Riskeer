@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.IO
             }
             catch (DirectoryNotFoundException e)
             {
-                var message = string.Format(Resources.Error_Directory_in_path_0_missing, path);
+                var message = string.Format(Resources.Error_Directory_in_Path_0_missing, path);
                 throw new CriticalFileReadException(message, e);
             }
             catch (IOException e)

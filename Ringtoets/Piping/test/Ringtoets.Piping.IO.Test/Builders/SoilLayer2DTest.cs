@@ -686,7 +686,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<SoilLayer2DConversionException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX), exception.Message);
+            Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
         [Test]
@@ -724,7 +724,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<SoilLayer2DConversionException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX), exception.Message);
+            Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
     }
 }

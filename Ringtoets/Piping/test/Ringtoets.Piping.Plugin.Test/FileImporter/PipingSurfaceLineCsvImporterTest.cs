@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(PipingIOResources.Error_Path_cannot_contain_characters_0_,
+            var internalErrorMessage = String.Format(PipingIOResources.Error_Path_cannot_contain_Characters_0_,
                                                      String.Join(", ", Path.GetInvalidFileNameChars()));
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);

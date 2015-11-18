@@ -174,15 +174,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var parsedX2 = double.Parse(x2String, invariantCulture);
             var parsedY1 = double.Parse(y1String, invariantCulture);
             var parsedY2 = double.Parse(y2String, invariantCulture);
-            var sometempvarforbassie = string.Format(invariantCulture, "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
-                                                                        "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                                                                        "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                        "</GeometryCurve><GeometryCurve>" +
-                                                                        "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
-                                                                        "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                        "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
-                                                                        x1String, y1String, x2String, y2String);
-            var bytes = StringGeometryHelper.GetXmlDocument(sometempvarforbassie);
+            var bytes = StringGeometryHelper.GetXmlDocument(string.Format(invariantCulture, "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                                                                                            "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                                                                                            "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                                                                                            "</GeometryCurve><GeometryCurve>" +
+                                                                                            "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
+                                                                                            "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
+                                                                                            "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
+                                                                          x1String, y1String, x2String, y2String));
             var xmlDoc = bytes;
             var reader = new SoilLayer2DReader();
 

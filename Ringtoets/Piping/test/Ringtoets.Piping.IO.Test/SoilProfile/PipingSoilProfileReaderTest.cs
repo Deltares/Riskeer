@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1_, dbName, version), exception.Message);
+            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_File_0_incorrect_version_requires_Version_1_, dbName, version), exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
-                var message = String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, 85.2);
+                var message = String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2);
                 Assert.AreEqual(message, exception.Message);
 
                 // Call

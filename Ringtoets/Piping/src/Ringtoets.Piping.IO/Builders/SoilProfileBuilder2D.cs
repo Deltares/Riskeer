@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             if (double.IsNaN(atX))
             {
-                var message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN , profileName);
+                var message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN , profileName);
                 throw new ArgumentException(message);
             }
             this.profileName = profileName;
