@@ -38,8 +38,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            const string nodeName = "Faalmechanisme piping";
-
             var mocks = new MockRepository();
             var pipingNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
@@ -52,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, pipingNode, pipingData);
 
             // Assert
-            Assert.AreEqual(nodeName, pipingNode.Text);
+            Assert.AreEqual("Dijken - Piping", pipingNode.Text);
             Assert.AreEqual(16, pipingNode.Image.Height);
             Assert.AreEqual(16, pipingNode.Image.Width);
         }

@@ -23,10 +23,19 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override IEnumerable GetChildNodeObjects(DikeAssessmentSection nodeData, ITreeNode node)
         {
-            if (nodeData.PipingFailureMechanism != null)
-            {
-                yield return nodeData.PipingFailureMechanism;
-            }
+            yield return nodeData.ReferenceLine;
+            yield return nodeData.FailureMechanismContribution;
+            yield return nodeData.HydraulicBoundaryDatabase;
+
+            yield return nodeData.PipingFailureMechanism;
+            yield return nodeData.GrassErosionFailureMechanism;
+            yield return nodeData.MacrostabilityInwardFailureMechanism;
+            yield return nodeData.OvertoppingFailureMechanism;
+            yield return nodeData.ClosingFailureMechanism;
+            yield return nodeData.FailingOfConstructionFailureMechanism;
+            yield return nodeData.StoneRevetmentFailureMechanism;
+            yield return nodeData.AsphaltRevetmentFailureMechanism;
+            yield return nodeData.GrassRevetmentFailureMechanism;
         }
 
         public override bool CanRenameNode(ITreeNode node)

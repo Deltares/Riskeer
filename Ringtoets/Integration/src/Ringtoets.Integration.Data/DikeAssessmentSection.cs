@@ -1,6 +1,6 @@
 ﻿using Core.Common.Base;
 
-using Ringtoets.Common.Placeholder;
+using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data
@@ -16,19 +16,19 @@ namespace Ringtoets.Integration.Data
         public DikeAssessmentSection()
         {
             Name = "Dijktraject";
-            ReferenceLine = new PlaceholderWithReadonlyName("Referentielijn");
-            FailureMechanismContribution = new PlaceholderWithReadonlyName("Faalkansverdeling");
-            HydraulicBoundaryDatabase = new PlaceholderWithReadonlyName("HR locatiedatabase");
+            ReferenceLine = new InputPlaceholder("Referentielijn");
+            FailureMechanismContribution = new InputPlaceholder("Faalkansverdeling");
+            HydraulicBoundaryDatabase = new InputPlaceholder("HR locatiedatabase");
 
             PipingFailureMechanism = new PipingFailureMechanism();
-            GrassErosionFailureMechanism = new PlaceholderWithReadonlyName("Dijken - Graserosie kruin en binnentalud");
-            MacrostabilityInwardFailureMechanism = new PlaceholderWithReadonlyName("Dijken - Macrostabiliteit binnenwaarts");
-            OvertoppingFailureMechanism = new PlaceholderWithReadonlyName("Kunstwerken - Overslag en overloop");
-            ClosingFailureMechanism = new PlaceholderWithReadonlyName("Kunstwerken - Niet sluiten");
-            FailingOfConstructionFailureMechanism = new PlaceholderWithReadonlyName("Kunstwerken - Constructief falen");
-            StoneRevetmentFailureMechanism = new PlaceholderWithReadonlyName("Kunstwerken - Steenbekledingen");
-            AsphaltRevetmentFailureMechanism = new PlaceholderWithReadonlyName("Kunstwerken - Asfaltbekledingen");
-            GrassRevetmentFailureMechanism = new PlaceholderWithReadonlyName("Kunstwerken - Grasbekledingen");
+            GrassErosionFailureMechanism = new FailureMechanismPlaceholder("Dijken - Graserosie kruin en binnentalud");
+            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder("Dijken - Macrostabiliteit binnenwaarts");
+            OvertoppingFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Overslag en overloop");
+            ClosingFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Niet sluiten");
+            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Constructief falen");
+            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Steenbekledingen");
+            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Asfaltbekledingen");
+            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Grasbekledingen");
         }
 
         /// <summary>
@@ -39,17 +39,17 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets or sets the reference line defining the geometry of the dike assessment section.
         /// </summary>
-        public PlaceholderWithReadonlyName ReferenceLine { get; private set; }
+        public InputPlaceholder ReferenceLine { get; private set; }
 
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.
         /// </summary>
-        public PlaceholderWithReadonlyName FailureMechanismContribution { get; private set; }
+        public InputPlaceholder FailureMechanismContribution { get; private set; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary database.
         /// </summary>
-        public PlaceholderWithReadonlyName HydraulicBoundaryDatabase { get; private set; }
+        public InputPlaceholder HydraulicBoundaryDatabase { get; private set; }
 
         /// <summary>
         /// Gets the "Piping" failure mechanism.
@@ -59,41 +59,41 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Graserosie kruin en binnentalud" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName GrassErosionFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder GrassErosionFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName MacrostabilityInwardFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder MacrostabilityInwardFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Overslag en overloop" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName OvertoppingFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder OvertoppingFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Niet sluiten" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName ClosingFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder ClosingFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Constructief falen" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName FailingOfConstructionFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder FailingOfConstructionFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Steenbekledingen" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName StoneRevetmentFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder StoneRevetmentFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Asfaltbekledingen" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName AsphaltRevetmentFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder AsphaltRevetmentFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Grasbekledingen" failure mechanism.
         /// </summary>
-        public PlaceholderWithReadonlyName GrassRevetmentFailureMechanism { get; private set; }
+        public FailureMechanismPlaceholder GrassRevetmentFailureMechanism { get; private set; }
     }
 }

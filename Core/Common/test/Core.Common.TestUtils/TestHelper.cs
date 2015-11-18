@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -272,6 +273,28 @@ namespace Core.Common.TestUtils
             var renderedMessages = GetAllRenderedMessages(action);
 
             Assert.AreEqual(count, renderedMessages.Count());
+        }
+
+        /// <summary>
+        /// Asserts that two bitmap images are equal.
+        /// </summary>
+        /// <param name="expectedImage">The expected image.</param>
+        /// <param name="actualImage">The actual image.</param>
+        /// <exception cref="AssertionException">When <paramref name="actualImage"/> is not
+        /// equal to <paramref name="expectedImage"/>.</exception>
+        public static void AssertImagesAreEqual(Image expectedImage, Image actualImage)
+        {
+            if (expectedImage == null)
+            {
+                Assert.IsNull(actualImage);
+                return;
+            }
+            Assert.IsNotNull(actualImage);
+
+            Assert.AreEqual(expectedImage.Size, actualImage.Size);
+            IEnumerable<byte> expectedImageBytes = GetImageAsByteArray(expectedImage);
+            IEnumerable<byte> actualImageBytes = GetImageAsByteArray(actualImage);
+            CollectionAssert.AreEqual(expectedImageBytes, actualImageBytes);
         }
 
         private static string GetCurrentTestClassMethodName()
@@ -580,5 +603,17 @@ namespace Core.Common.TestUtils
         }
 
         #endregion
+
+        private static IEnumerable<byte> GetImageAsByteArray(Image expectedImage)
+        {
+            using (var stream = new MemoryStream())
+            {
+                expectedImage.Save(stream, ImageFormat.Bmp);
+                var length = stream.Length;
+                var imageBytes = new byte[length];
+                stream.Read(imageBytes, 0, (int)length);
+                return imageBytes;
+            }
+        }
     }
 }

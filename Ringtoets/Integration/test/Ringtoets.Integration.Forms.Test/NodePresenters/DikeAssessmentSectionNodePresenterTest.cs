@@ -71,8 +71,19 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var children = nodePresenter.GetChildNodeObjects(assessmentSection, nodeMock).Cast<object>().AsList();
 
             // Assert
-            Assert.AreEqual(1, children.Count);
-            Assert.AreSame(assessmentSection.PipingFailureMechanism, children[0]);
+            Assert.AreEqual(12, children.Count);
+            Assert.AreSame(assessmentSection.ReferenceLine, children[0]);
+            Assert.AreSame(assessmentSection.FailureMechanismContribution, children[1]);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, children[2]);
+            Assert.AreSame(assessmentSection.PipingFailureMechanism, children[3]);
+            Assert.AreSame(assessmentSection.GrassErosionFailureMechanism, children[4]);
+            Assert.AreSame(assessmentSection.MacrostabilityInwardFailureMechanism, children[5]);
+            Assert.AreSame(assessmentSection.OvertoppingFailureMechanism, children[6]);
+            Assert.AreSame(assessmentSection.ClosingFailureMechanism, children[7]);
+            Assert.AreSame(assessmentSection.FailingOfConstructionFailureMechanism, children[8]);
+            Assert.AreSame(assessmentSection.StoneRevetmentFailureMechanism, children[9]);
+            Assert.AreSame(assessmentSection.AsphaltRevetmentFailureMechanism, children[10]);
+            Assert.AreSame(assessmentSection.GrassRevetmentFailureMechanism, children[11]);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 

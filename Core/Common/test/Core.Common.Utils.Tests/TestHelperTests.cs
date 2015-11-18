@@ -4,6 +4,8 @@ using System.IO;
 using System.Reflection;
 using Core.Common.TestUtils;
 using Core.Common.Utils.IO;
+using Core.Common.Utils.Tests.Properties;
+
 using log4net;
 using NUnit.Framework;
 using SharpTestsEx;
@@ -118,6 +120,53 @@ namespace Core.Common.Utils.Tests
             TestHelper.AssertLogMessagesCount(() => log.Error("test 1"), 1);
             TestHelper.AssertLogMessagesCount(() => log.Warn("test 2"), 1);
             TestHelper.AssertLogMessagesCount(() => log.Info("test 3"), 1);
+        }
+
+        [Test]
+        public void AssertImagesAreEqual_TwoIdenticalImages_NoAssertionErrors()
+        {
+            // Setup
+            Bitmap image = Resources.abacus;
+
+            // Call
+            TestDelegate call = () => TestHelper.AssertImagesAreEqual(image, image);
+            
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void AssertImagesAreEqual_TwoDifferentImages_ThrowAssertionException()
+        {
+            // Setup
+            Bitmap image1 = Resources.abacus;
+            Bitmap image2 = Resources.acorn;
+
+            // Call
+            TestDelegate call = () => TestHelper.AssertImagesAreEqual(image1, image2);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertImagesAreEqual_ExpectedIsNullButActualIsNot_ThrowAssertionException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.AssertImagesAreEqual(null, Resources.acorn);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertImagesAreEqual_ActualIsNullButExpectingImage_ThrowAssertionException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.AssertImagesAreEqual(Resources.acorn, null);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
         }
     }
 }

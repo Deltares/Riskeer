@@ -711,7 +711,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalmechanisme piping.
+        ///   Looks up a localized string similar to Dijken - Piping.
         /// </summary>
         public static string PipingFailureMechanism_DisplayName {
             get {

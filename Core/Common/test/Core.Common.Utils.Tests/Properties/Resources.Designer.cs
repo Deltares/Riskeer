@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Integration.Forms.Properties {
+namespace Core.Common.Utils.Tests.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Integration.Forms.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Common.Utils.Tests.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,55 +63,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AssessmentSectionFolderIcon {
+        internal static System.Drawing.Bitmap abacus {
             get {
-                object obj = ResourceManager.GetObject("AssessmentSectionFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        internal static string Categories_General {
-            get {
-                return ResourceManager.GetString("Categories_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijktraject.
-        /// </summary>
-        internal static string DikeAssessmentSection_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeAssessmentSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het dijktraject..
-        /// </summary>
-        internal static string DikeAssessmentSection_Name_Description {
-            get {
-                return ResourceManager.GetString("DikeAssessmentSection_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        internal static string DikeAssessmentSection_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeAssessmentSection_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap FailureMechanismIcon {
-            get {
-                object obj = ResourceManager.GetObject("FailureMechanismIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("abacus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -119,19 +73,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap GenericInputIcon {
+        internal static System.Drawing.Bitmap acorn {
             get {
-                object obj = ResourceManager.GetObject("GenericInputIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PlaceholderIcon {
-            get {
-                object obj = ResourceManager.GetObject("PlaceholderIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("acorn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
