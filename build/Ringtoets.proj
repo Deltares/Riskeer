@@ -28,7 +28,7 @@
   </Target>
   
   <Target Name="TechnicalDocumentation" DependsOnTargets="RunPDF2LaTeX">
-	<Exec Command="ren refman.pdf Technical_documentation.pdf" WorkingDirectory="..\target\Technical_documentation\latex"/>
+	<Exec Command="ren refman.pdf Ringtoets_Technical_documentation.pdf" WorkingDirectory="..\target\Technical_documentation\latex"/>
   </Target>
   
 </Project>
