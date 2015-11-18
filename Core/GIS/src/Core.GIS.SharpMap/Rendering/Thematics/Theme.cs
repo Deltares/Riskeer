@@ -32,7 +32,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        public virtual string AttributeName
+        public string AttributeName
         {
             get
             {

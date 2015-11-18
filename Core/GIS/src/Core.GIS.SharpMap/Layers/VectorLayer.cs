@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Reflection;
-using Core.Common.Utils.Aop;
+using Core.Common.Utils;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
@@ -57,8 +57,7 @@ namespace Core.GIS.SharpMap.Layers
     /// System.Drawing.Image mapImage = myMap.GetMap();
     /// </code>
     /// </example>
-    [Entity(FireOnCollectionChange = false)]
-    public class VectorLayer : Layer
+    public class VectorLayer : Layer, INotifyPropertyChange
     {
         public static readonly Bitmap DefaultPointSymbol = (Bitmap) Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("Core.GIS.SharpMap.Styles.DefaultSymbol.png"));
         private static readonly ILog log = LogManager.GetLogger(typeof(VectorLayer));
@@ -159,7 +158,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("ClippingEnabled");
                 clippingEnabled = value;
+                OnPropertyChanged("ClippingEnabled");
             }
         }
 
@@ -174,7 +175,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("SmoothingMode");
                 smoothingMode = value;
+                OnPropertyChanged("SmoothingMode");
             }
         }
 
@@ -193,8 +196,25 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("Style");
+
+                if (style != null)
+                {
+                    style.PropertyChanging -= OnPropertyChanging;
+                    style.PropertyChanged -= OnPropertyChanged;
+                }
+
                 style = value;
+
+                if (style != null)
+                {
+                    style.PropertyChanging += OnPropertyChanging;
+                    style.PropertyChanged += OnPropertyChanged;
+                }
+
                 isStyleDirty = true;
+
+                OnPropertyChanged("Style");
             }
         }
 
@@ -347,7 +367,19 @@ namespace Core.GIS.SharpMap.Layers
         /// <summary>
         /// Performance. When true - geometry is simplified before it is rendered. 
         /// </summary>
-        public virtual bool SimplifyGeometryDuringRendering { get; set; }
+        public virtual bool SimplifyGeometryDuringRendering
+        {
+            get
+            {
+                return simplifyGeometryDuringRendering;
+            }
+            set
+            {
+                OnPropertyChanging("SimplifyGeometryDuringRendering");
+                simplifyGeometryDuringRendering = value;
+                OnPropertyChanged("SimplifyGeometryDuringRendering");
+            }
+        }
 
         private void RenderFeatures(Graphics g, IEnvelope envelope, IMap map)
         {
@@ -442,6 +474,7 @@ namespace Core.GIS.SharpMap.Layers
 
         private double lastRenderDuration;
         private IEnumerable<DateTime> times;
+        private bool simplifyGeometryDuringRendering;
 
         public override double LastRenderDuration
         {

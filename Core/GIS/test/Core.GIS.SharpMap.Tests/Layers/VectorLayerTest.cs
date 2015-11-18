@@ -200,5 +200,26 @@ namespace Core.GIS.SharpMap.Tests.Layers
             callCount
                 .Should("labels are not rendered when label layer is not visible").Be.EqualTo(0);
         }
+
+        [Test]
+        [Ignore("Will be activated (and will run correctly) when Entity is removed from Layer")]
+        public void VectorLayersBubblesPropertyChangesOfStyle()
+        {
+            var counter = 0;
+            var style = new VectorStyle();
+            var vectorLayer = new VectorLayer { Style = style };
+
+            ((INotifyPropertyChanged) vectorLayer).PropertyChanged += (sender, e) =>
+            {
+                if (sender is IStyle)
+                {
+                    counter++;
+                }
+            };
+
+            style.EnableOutline = true;
+
+            Assert.AreEqual(1, counter);
+        }
     }
 }

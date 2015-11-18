@@ -1300,5 +1300,45 @@ namespace Core.GIS.SharpMap.Layers
         }
 
         #endregion
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        protected void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(sender, e);
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, e);
+            }
+        }
+
+        #endregion
     }
 }
