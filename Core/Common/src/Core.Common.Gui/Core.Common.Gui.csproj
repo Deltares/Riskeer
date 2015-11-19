@@ -356,7 +356,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
