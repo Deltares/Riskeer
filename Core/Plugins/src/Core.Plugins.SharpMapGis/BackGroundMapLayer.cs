@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.SharpMap.Api.Layers;
@@ -33,7 +32,6 @@ namespace Core.Plugins.SharpMapGis
             BackgroundMap = map;
         }
 
-        [NoNotifyCollectionChange]
         public override EventedList<ILayer> Layers
         {
             get
@@ -64,7 +62,6 @@ namespace Core.Plugins.SharpMapGis
         /// <summary>
         /// Map used a basis for this grouplayer
         /// </summary>
-        [NoNotifyPropertyChange]
         public Map BackgroundMap
         {
             get

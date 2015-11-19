@@ -1,4 +1,3 @@
-using Core.Common.Utils.Aop.Markers;
 using Core.GIS.SharpMap.Api.Delegates;
 
 namespace Core.GIS.SharpMap.Api.Layers
@@ -30,7 +29,6 @@ namespace Core.GIS.SharpMap.Api.Layers
         /// </remarks>
         GetLabelMethod LabelStringDelegate { get; set; }
 
-        [NoNotifyPropertyChange]
         ILayer Parent { get; set; }
     }
 }

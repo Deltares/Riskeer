@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using Core.Common.Utils.Aop;
 using log4net;
 
 namespace Core.Common.Utils.Collections.Generic
@@ -417,11 +416,6 @@ namespace Core.Common.Utils.Collections.Generic
         {
             if (CollectionChanging != null)
             {
-                if (EventSettings.EnableLogging)
-                {
-                    eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>", "EventedList", typeof(T).Name, item, index, action);
-                }
-
                 var args = new NotifyCollectionChangingEventArgs(action, item, index, -1);
 
                 try
@@ -443,11 +437,6 @@ namespace Core.Common.Utils.Collections.Generic
         {
             if (CollectionChanged != null)
             {
-                if (EventSettings.EnableLogging)
-                {
-                    eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]', item:{2}, index:{3}, action:{4} - END <<<<<<<<<<<<<<", "EventedList", typeof(T).Name, item, index, action);
-                }
-
                 var args = new NotifyCollectionChangingEventArgs(action, item, index, -1)
                 {
                     OldItem = oldItem
@@ -461,19 +450,6 @@ namespace Core.Common.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (CollectionChanging != null)
             {
-                if (EventSettings.EnableLogging)
-                {
-                    if (sender.GetType().Name.Contains("EventedList"))
-                    {
-                        var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
-                        eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", "EventedList", senderTypeName, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
-                    }
-                    else
-                    {
-                        eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender, sender.GetType().Name, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
-                    }
-                }
-
                 CollectionChanging(sender, e);
             }
         }
@@ -483,19 +459,6 @@ namespace Core.Common.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (CollectionChanged != null)
             {
-                if (EventSettings.EnableLogging)
-                {
-                    if (sender.GetType().Name.Contains("EventedList"))
-                    {
-                        var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
-                        eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", "EventedList", senderTypeName, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
-                    }
-                    else
-                    {
-                        eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender, sender.GetType().Name, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
-                    }
-                }
-
                 CollectionChanged(sender, e);
             }
         }
@@ -505,11 +468,6 @@ namespace Core.Common.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (PropertyChanging != null)
             {
-                if (EventSettings.EnableLogging)
-                {
-                    eventsLog.DebugFormat("PropertyChanging L>> '{0}.{1}': '{2}[{3}]' -> '{4}[{5}]'", sender.GetType().Name, e.PropertyName, sender, sender.GetType().Name, "EventedList", typeof(T).Name);
-                }
-
                 PropertyChanging(sender, e);
             }
         }
@@ -519,11 +477,6 @@ namespace Core.Common.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (PropertyChanged != null)
             {
-                if (EventSettings.EnableLogging)
-                {
-                    eventsLog.DebugFormat("PropertyChanged L<< '{0}.{1}': '{2}[{3}]' -> '{4}[{5}]'", sender.GetType().Name, e.PropertyName, sender, sender.GetType().Name, "EventedList", typeof(T).Name);
-                }
-
                 PropertyChanged(sender, e);
             }
         }
@@ -537,11 +490,6 @@ namespace Core.Common.Utils.Collections.Generic
             var notifyPropertyChange = item as INotifyPropertyChange;
             if (notifyPropertyChange != null)
             {
-//                if (((INotifyCollectionChange)this).HasParentIsCheckedInItems)
-//                {
-//                    EntityAttribute.UnsetParent(notifyPropertyChange);
-//                }
-
                 notifyPropertyChange.PropertyChanging -= Item_PropertyChangingDelegate;
                 notifyPropertyChange.PropertyChanged -= Item_PropertyChangedDelegate;
             }
@@ -568,11 +516,6 @@ namespace Core.Common.Utils.Collections.Generic
             var notifyPropertyChange = item as INotifyPropertyChange;
             if (notifyPropertyChange != null)
             {
-//                if (((INotifyCollectionChange)this).HasParentIsCheckedInItems)
-//                {
-//                    EntityAttribute.SetParent(notifyPropertyChange);
-//                }
-
                 if (Item_PropertyChangedDelegate == null)
                 {
                     InitializeDelegates();

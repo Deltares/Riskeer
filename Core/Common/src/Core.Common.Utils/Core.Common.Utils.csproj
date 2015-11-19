@@ -116,10 +116,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Aop\EventSettings.cs" />
-    <Compile Include="Aop\ICustomNotifyCollectionChange.cs" />
-    <Compile Include="Aop\Markers\NoNotifyCollectionChangeAttribute.cs" />
-    <Compile Include="Aop\Markers\NoNotifyPropertyChangeAttribute.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttribute.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
