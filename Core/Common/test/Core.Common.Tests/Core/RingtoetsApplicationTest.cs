@@ -70,37 +70,5 @@ namespace Core.Common.Tests.Core
                 mocks.VerifyAll();
             }
         }
-
-        [Test]
-        public void CurrentCultureIsChangedWhenTurkishOrAzeri()
-        {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            using (var ringtoetsApplication = new RingtoetsApplication())
-            {
-                ringtoetsApplication.Run();
-                Assert.AreEqual("en-US", Thread.CurrentThread.CurrentCulture.ToString());
-            }
-
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL");
-            using (var ringtoetsApplication = new RingtoetsApplication())
-            {
-                ringtoetsApplication.Run();
-                Assert.AreEqual("nl-NL", Thread.CurrentThread.CurrentCulture.ToString());
-            }
-
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("tr-TR");
-            using (var ringtoetsApplication = new RingtoetsApplication())
-            {
-                ringtoetsApplication.Run();
-                Assert.AreEqual("en-US", Thread.CurrentThread.CurrentCulture.ToString());
-            }
-
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("az");
-            using (var ringtoetsApplication = new RingtoetsApplication())
-            {
-                ringtoetsApplication.Run();
-                Assert.AreEqual("en-US", Thread.CurrentThread.CurrentCulture.ToString());
-            }
-        }
     }
 }

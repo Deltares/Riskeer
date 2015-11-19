@@ -159,12 +159,6 @@ namespace Core.Common.Base
                     RegionalSettingsManager.RealNumberFormat = (string) realNumberFormat;
                 }
             }
-
-            var culture = Thread.CurrentThread.CurrentCulture.ToString();
-            if (culture == "tr-TR" || culture == "az")
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            }
         }
 
         public string GetUserSettingsDirectoryPath()
