@@ -1811,15 +1811,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand.
-        /// </summary>
-        public static string Ribbon_TabItem_File {
-            get {
-                return ResourceManager.GetString("Ribbon_TabItem_File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Ribbon_TabItem_Help {

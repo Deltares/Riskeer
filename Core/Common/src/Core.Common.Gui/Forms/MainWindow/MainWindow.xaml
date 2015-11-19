@@ -57,7 +57,7 @@
         <fluent:Ribbon Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="public">
             <!--Backstage-->
             <fluent:Ribbon.Menu>
-                <fluent:Backstage Header="{x:Static Properties:Resources.Ribbon_TabItem_File}" Background="#008fc5" Name="Menu" x:FieldModifier="private">
+                <fluent:Backstage Background="#008fc5" Name="Menu" x:FieldModifier="private">
 
                     <fluent:BackstageTabControl>
                         <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_New}"
