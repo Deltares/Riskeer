@@ -181,7 +181,9 @@ namespace Application.Ringtoets
                     Plugins =
                     {
                         new CommonToolsApplicationPlugin(),
+#if INCLUDE_DEMOPROJECT
                         new SharpMapGisApplicationPlugin(),
+#endif
                         new RingtoetsApplicationPlugin(),
                         new PipingApplicationPlugin()
                     }
