@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +10,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Markup;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls.Swf;
@@ -58,6 +60,11 @@ namespace Application.Ringtoets
         static App()
         {
             RingtoetsApplication.SetLanguageAndRegionalSettions(Settings.Default);
+
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(
+                    XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets____);
         }
