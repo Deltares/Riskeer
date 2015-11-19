@@ -11,12 +11,21 @@ using Ringtoets.Piping.Plugin.FileImporter;
 namespace Ringtoets.Demo.Commands
 {
     /// <summary>
-    /// Command that adds a new assessment section with demo data to the project tree.
+    /// Command that adds a new <see cref="DikeAssessmentSection"/> with demo data to the project tree.
     /// </summary>
-    public class AddNewDemoAssessmentSectionCommand : IGuiCommand
+    public class AddNewDemoDikeAssessmentSectionCommand : IGuiCommand
     {
-        public bool Enabled { get { return true; } }
+        public bool Enabled
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public bool Checked { get; set; }
+
+        public IGui Gui { get; set; }
 
         public void Execute(params object[] arguments)
         {
@@ -27,7 +36,7 @@ namespace Ringtoets.Demo.Commands
 
         private DikeAssessmentSection CreateNewDemoAssessmentSection()
         {
-            var demoAssessmentSection = new DikeAssessmentSection()
+            var demoAssessmentSection = new DikeAssessmentSection
             {
                 Name = "Demo dijktraject"
             };
@@ -41,14 +50,12 @@ namespace Ringtoets.Demo.Commands
 
             using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv"))
             {
-
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
                 surfaceLinesImporter.ImportItem(tempPath.FilePath, pipingFailureMechanism.SurfaceLines);
             }
 
             using (var tempPath = new TemporaryImportFile("complete.soil"))
             {
-
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
                 surfaceLinesImporter.ImportItem(tempPath.FilePath, pipingFailureMechanism.SoilProfiles);
             }
@@ -57,8 +64,6 @@ namespace Ringtoets.Demo.Commands
             calculation.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
             calculation.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
         }
-
-        public IGui Gui { get; set; }
 
         /// <summary>
         /// Class for creating a temporary file in the windows Temp directory based on a
@@ -84,7 +89,20 @@ namespace Ringtoets.Demo.Commands
 
                 var bytes = GetBinaryDataOfStream(stream);
 
-                File.WriteAllBytes(fullFilePath, bytes); 
+                File.WriteAllBytes(fullFilePath, bytes);
+            }
+
+            public string FilePath
+            {
+                get
+                {
+                    return fullFilePath;
+                }
+            }
+
+            public void Dispose()
+            {
+                Directory.Delete(tempTargetFolderPath, true);
             }
 
             private Stream GetStreamToFileInResource(string embeddedResourceFileName)
@@ -100,19 +118,6 @@ namespace Ringtoets.Demo.Commands
                 var reader = new BinaryReader(stream);
                 reader.Read(bytes, 0, (int)stream.Length);
                 return bytes;
-            }
-
-            public string FilePath
-            {
-                get
-                {
-                    return fullFilePath;
-                }
-            }
-
-            public void Dispose()
-            {
-                Directory.Delete(tempTargetFolderPath, true);
             }
         }
     }

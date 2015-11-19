@@ -70,11 +70,20 @@ namespace Ringtoets.Demo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Demo dijk traject.
+        ///   Looks up a localized string similar to Demo dijktraject.
         /// </summary>
         public static string DemoDikeAssessmentSection {
             get {
                 return ResourceManager.GetString("DemoDikeAssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demo duintraject.
+        /// </summary>
+        public static string DemoDuneAssessmentSection {
+            get {
+                return ResourceManager.GetString("DemoDuneAssessmentSection", resourceCulture);
             }
         }
         

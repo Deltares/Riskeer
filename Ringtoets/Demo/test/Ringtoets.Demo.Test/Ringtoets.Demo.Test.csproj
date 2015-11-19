@@ -44,7 +44,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AddNewDemoAssessmentSectionCommandTest.cs" />
+    <Compile Include="Commands\AddNewDemoDikeAssessmentSectionCommandTest.cs" />
+    <Compile Include="Commands\AddNewDemoDuneAssessmentSectionCommandTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -17,13 +17,13 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Demo.Test.Commands
 {
     [TestFixture]
-    public class AddNewDemoAssessmentSectionCommandTest
+    public class AddNewDemoDikeAssessmentSectionCommandTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var command = new AddNewDemoAssessmentSectionCommand();
+            var command = new AddNewDemoDikeAssessmentSectionCommand();
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
@@ -49,7 +49,7 @@ namespace Ringtoets.Demo.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var command = new AddNewDemoAssessmentSectionCommand();
+            var command = new AddNewDemoDikeAssessmentSectionCommand();
             command.Gui = guiMock;
 
             project.Attach(observerMock);

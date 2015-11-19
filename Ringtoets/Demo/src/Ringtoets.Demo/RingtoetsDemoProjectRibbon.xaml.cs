@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
@@ -14,20 +15,22 @@ namespace Ringtoets.Demo
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewDemoProject;
+        private readonly ICommand addNewDikeAssessmentSection, addNewDuneAssessmentSection;
 
         public RingtoetsDemoProjectRibbon()
         {
             InitializeComponent();
 
-            addNewDemoProject = new AddNewDemoAssessmentSectionCommand();
+            addNewDikeAssessmentSection = new AddNewDemoDikeAssessmentSectionCommand();
+            addNewDuneAssessmentSection = new AddNewDemoDuneAssessmentSectionCommand();
         }
 
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                yield return addNewDemoProject;
+                yield return addNewDikeAssessmentSection;
+                yield return addNewDuneAssessmentSection;
             }
         }
 
@@ -46,9 +49,14 @@ namespace Ringtoets.Demo
             return false;
         }
 
-        private void AddNewRingtoetsDemoProjectButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void AddNewDemoDikeAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
         {
-            addNewDemoProject.Execute();
+            addNewDikeAssessmentSection.Execute();
+        }
+
+        private void AddNewDemoDuneAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            addNewDuneAssessmentSection.Execute();
         }
     }
 }
