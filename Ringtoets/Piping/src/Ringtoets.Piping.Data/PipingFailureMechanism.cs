@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Base;
 
+using Ringtoets.Common.Data;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : IObservable
+    public class PipingFailureMechanism : IObservable, IFailureMechanism
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
 

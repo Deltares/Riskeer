@@ -61,6 +61,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam van het toetstraject..
+        /// </summary>
+        internal static string AssessmentSectionBase_Name_Description {
+            get {
+                return ResourceManager.GetString("AssessmentSectionBase_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        internal static string AssessmentSectionBase_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionBase_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AssessmentSectionFolderIcon {
@@ -89,20 +107,11 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van het dijktraject..
+        ///   Looks up a localized string similar to Duintraject.
         /// </summary>
-        internal static string DikeAssessmentSection_Name_Description {
+        internal static string DuneAssessmentSection_DisplayName {
             get {
-                return ResourceManager.GetString("DikeAssessmentSection_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        internal static string DikeAssessmentSection_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeAssessmentSection_Name_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DuneAssessmentSection_DisplayName", resourceCulture);
             }
         }
         

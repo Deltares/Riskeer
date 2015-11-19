@@ -1,4 +1,6 @@
-﻿using Core.Common.Base;
+﻿using System.Linq;
+
+using Core.Common.Base;
 
 using NUnit.Framework;
 
@@ -17,6 +19,7 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.IsInstanceOf<Observable>(section);
+            Assert.IsInstanceOf<AssessmentSectionBase>(section);
 
             Assert.AreEqual("Dijktraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
@@ -48,6 +51,28 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, section.Name);
+        }
+
+        [Test]
+        public void GetFailureMechanisms_Always_ReturnAllFailureMechanisms()
+        {
+            // Setup
+            var assessmentSection = new DikeAssessmentSection();
+
+            // Call
+            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+
+            // Assert
+            Assert.AreEqual(9, failureMechanisms.Length);
+            Assert.AreSame(assessmentSection.PipingFailureMechanism, failureMechanisms[0]);
+            Assert.AreSame(assessmentSection.GrassErosionFailureMechanism, failureMechanisms[1]);
+            Assert.AreSame(assessmentSection.MacrostabilityInwardFailureMechanism, failureMechanisms[2]);
+            Assert.AreSame(assessmentSection.OvertoppingFailureMechanism, failureMechanisms[3]);
+            Assert.AreSame(assessmentSection.ClosingFailureMechanism, failureMechanisms[4]);
+            Assert.AreSame(assessmentSection.FailingOfConstructionFailureMechanism, failureMechanisms[5]);
+            Assert.AreSame(assessmentSection.StoneRevetmentFailureMechanism, failureMechanisms[6]);
+            Assert.AreSame(assessmentSection.AsphaltRevetmentFailureMechanism, failureMechanisms[7]);
+            Assert.AreSame(assessmentSection.GrassRevetmentFailureMechanism, failureMechanisms[8]);
         }
     }
 }

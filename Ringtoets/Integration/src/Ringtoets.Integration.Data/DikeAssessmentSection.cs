@@ -1,5 +1,8 @@
-﻿using Core.Common.Base;
+﻿using System.Collections.Generic;
 
+using Core.Common.Base;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Piping.Data;
@@ -9,7 +12,7 @@ namespace Ringtoets.Integration.Data
     /// <summary>
     /// The dike-based section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
-    public class DikeAssessmentSection : Observable
+    public class DikeAssessmentSection : AssessmentSectionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DikeAssessmentSection"/> class.
@@ -17,9 +20,6 @@ namespace Ringtoets.Integration.Data
         public DikeAssessmentSection()
         {
             Name = Resources.DikeAssessmentSection_DisplayName;
-            ReferenceLine = new InputPlaceholder(Resources.ReferenceLine_DisplayName);
-            FailureMechanismContribution = new InputPlaceholder(Resources.FailureMechanismContribution_DisplayName);
-            HydraulicBoundaryDatabase = new InputPlaceholder(Resources.HydraulicBoundaryDatabase_DisplayName);
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName);
@@ -31,26 +31,6 @@ namespace Ringtoets.Integration.Data
             AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
             GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
         }
-
-        /// <summary>
-        /// Gets or sets the name of the assessment section.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reference line defining the geometry of the dike assessment section.
-        /// </summary>
-        public InputPlaceholder ReferenceLine { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the contribution of each failure mechanism available in this assessment section.
-        /// </summary>
-        public InputPlaceholder FailureMechanismContribution { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary database.
-        /// </summary>
-        public InputPlaceholder HydraulicBoundaryDatabase { get; private set; }
 
         /// <summary>
         /// Gets the "Piping" failure mechanism.
@@ -96,5 +76,18 @@ namespace Ringtoets.Integration.Data
         /// Gets the "Grasbekledingen" failure mechanism.
         /// </summary>
         public FailureMechanismPlaceholder GrassRevetmentFailureMechanism { get; private set; }
+
+        public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
+        {
+            yield return PipingFailureMechanism;
+            yield return GrassErosionFailureMechanism;
+            yield return MacrostabilityInwardFailureMechanism;
+            yield return OvertoppingFailureMechanism;
+            yield return ClosingFailureMechanism;
+            yield return FailingOfConstructionFailureMechanism;
+            yield return StoneRevetmentFailureMechanism;
+            yield return AsphaltRevetmentFailureMechanism;
+            yield return GrassRevetmentFailureMechanism;
+        }
     }
 }

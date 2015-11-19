@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 
+using Ringtoets.Common.Data;
+
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
@@ -22,6 +24,7 @@ namespace Ringtoets.Piping.Data.Test
             var piping = new PipingFailureMechanism();
 
             // assert
+            Assert.IsInstanceOf<IFailureMechanism>(piping);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);

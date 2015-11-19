@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 
 using Core.Common.Base;
+using Core.Common.TestUtils;
 
 using NUnit.Framework;
 
 using Ringtoets.Integration.Data;
+using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -31,16 +33,23 @@ namespace Ringtoets.Integration.Plugin.Test
             var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
 
             // assert
-            Assert.AreEqual(1, dataItemDefinitions.Length);
+            Assert.AreEqual(2, dataItemDefinitions.Length);
 
-            DataItemInfo AssessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DikeAssessmentSection));
-            Assert.AreEqual("Dijktraject", AssessmentSectionDataItemDefinition.Name);
-            Assert.AreEqual("Algemeen", AssessmentSectionDataItemDefinition.Category);
-            Assert.AreEqual(16, AssessmentSectionDataItemDefinition.Image.Width);
-            Assert.AreEqual(16, AssessmentSectionDataItemDefinition.Image.Height);
-            Assert.IsNull(AssessmentSectionDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<DikeAssessmentSection>(AssessmentSectionDataItemDefinition.CreateData(null));
-            Assert.IsNull(AssessmentSectionDataItemDefinition.AddExampleData);
+            DataItemInfo dikeAssessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DikeAssessmentSection));
+            Assert.AreEqual("Dijktraject", dikeAssessmentSectionDataItemDefinition.Name);
+            Assert.AreEqual("Algemeen", dikeAssessmentSectionDataItemDefinition.Category);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
+            Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AdditionalOwnerCheck);
+            Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSectionDataItemDefinition.CreateData(null));
+            Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AddExampleData);
+
+            DataItemInfo duneAssessmentDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DuneAssessmentSection));
+            Assert.AreEqual("Duintraject", duneAssessmentDataItemDefinition.Name);
+            Assert.AreEqual("Algemeen", duneAssessmentDataItemDefinition.Category);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
+            Assert.IsNull(duneAssessmentDataItemDefinition.AdditionalOwnerCheck);
+            Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(null));
+            Assert.IsNull(duneAssessmentDataItemDefinition.AddExampleData);
         }
     }
 }

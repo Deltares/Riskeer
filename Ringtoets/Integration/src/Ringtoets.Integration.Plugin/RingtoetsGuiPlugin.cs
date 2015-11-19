@@ -25,12 +25,12 @@ namespace Ringtoets.Integration.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<DikeAssessmentSection, DikeAssessmentSectionProperties>();
+            yield return new PropertyInfo<AssessmentSectionBase, AssessmentSectionBaseProperties>();
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new DikeAssessmentSectionNodePresenter();
+            yield return new AssessmentSectionBaseNodePresenter();
             yield return new PlaceholderWithReadonlyNameNodePresenter();
         }
     }

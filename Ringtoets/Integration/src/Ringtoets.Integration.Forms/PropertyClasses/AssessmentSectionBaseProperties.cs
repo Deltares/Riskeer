@@ -9,12 +9,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="DikeAssessmentSection"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "DikeAssessmentSection_DisplayName")]
-    public class DikeAssessmentSectionProperties : ObjectProperties<DikeAssessmentSection>
+    public class AssessmentSectionBaseProperties : ObjectProperties<AssessmentSectionBase>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "DikeAssessmentSection_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeAssessmentSection_Name_Description")]
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionBase_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "AssessmentSectionBase_Name_Description")]
         public string Name
         {
             get

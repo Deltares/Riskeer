@@ -23,6 +23,13 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner => new DikeAssessmentSection()
             };
+            yield return new DataItemInfo<DuneAssessmentSection>
+            {
+                Name = RingtoetsFormsResources.DuneAssessmentSection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                CreateData = owner => new DuneAssessmentSection()
+            };
         }
     }
 }
