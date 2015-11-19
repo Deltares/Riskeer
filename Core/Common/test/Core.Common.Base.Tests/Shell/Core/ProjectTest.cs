@@ -14,8 +14,6 @@ namespace Core.Common.Base.Tests.Shell.Core
             var project = new Project();
 
             // assert
-            Assert.IsInstanceOf<INotifyPropertyChanging>(project);
-            Assert.IsInstanceOf<INotifyPropertyChanged>(project);
             Assert.IsInstanceOf<IObservable>(project);
 
             Assert.AreEqual("Project", project.Name);

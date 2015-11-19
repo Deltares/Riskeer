@@ -58,8 +58,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
 
         protected override void OnPropertyChanged(Project item, ITreeNode node, PropertyChangedEventArgs e)
         {
-            //small HACK, force update of name if path is changed, because name references path.
-            if (e.PropertyName == "Name" || e.PropertyName == "Path")
+            if (e.PropertyName == "Name")
             {
                 node.Text = item.Name;
             }

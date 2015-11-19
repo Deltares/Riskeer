@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.Common.Utils.Aop;
+using System.Linq;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Base
@@ -7,7 +7,6 @@ namespace Core.Common.Base
     /// <summary>
     /// Container of all data and tasks.
     /// </summary>
-    [Entity(FireOnCollectionChange = false)]
     public class Project : IObservable
     {
         /// <summary>
@@ -57,7 +56,7 @@ namespace Core.Common.Base
 
         public void NotifyObservers()
         {
-            foreach (var observer in observers)
+            foreach (var observer in observers.ToList()) // Copy the list of observers; an update of one observer might result in detaching another observer (which will result in a "list modified" exception over here otherwise)
             {
                 observer.UpdateObserver();
             }

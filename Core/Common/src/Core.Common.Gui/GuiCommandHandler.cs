@@ -23,7 +23,7 @@ using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler
+    public class GuiCommandHandler : IGuiCommandHandler, IObserver
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
@@ -99,9 +99,6 @@ namespace Core.Common.Gui
             if (gui.Application.Project != null)
             {
                 Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project_);
-
-                // Disconnect project
-                ((INotifyPropertyChanged) gui.Application.Project).PropertyChanged -= CurrentProjectChanged;
 
                 // DO NOT REMOVE CODE BELOW. If the views are not cleaned up here we access disposable stuff like in issue 4161.
                 // SO VIEWS SHOULD ALWAYS BE CLOSED!
@@ -323,15 +320,17 @@ namespace Core.Common.Gui
                     view.Data = null;
                 }
             }
-            ((INotifyCollectionChange) project).CollectionChanged -= ProjectCollectionChanged;
+
+            project.Detach(this);
+            project.Items.CollectionChanged -= ProjectCollectionChanged;
         }
 
         private void ApplicationProjectOpened(Project project)
         {
             gui.Selection = project;
 
-            // listen to all changes in project
-            ((INotifyCollectionChange) project).CollectionChanged += ProjectCollectionChanged;
+            project.Attach(this);
+            project.Items.CollectionChanged += ProjectCollectionChanged;
         }
 
         private void ProjectCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
@@ -441,17 +440,6 @@ namespace Core.Common.Gui
             gui.Application.Project.NotifyObservers();
         }
 
-        private void CurrentProjectChanged(object sender, PropertyChangedEventArgs e)
-        {
-            var project = (sender as Project);
-            if (project == null)
-            {
-                return;
-            }
-
-            RefreshGui();
-        }
-
         [InvokeRequired]
         private void RemoveViewsAndData(IEnumerable<IView> toolViews)
         {
@@ -468,7 +456,7 @@ namespace Core.Common.Gui
             var project = gui.Application.Project;
 
             // Set the gui selection to the current project
-            gui.Selection = gui.Application.Project;
+            gui.Selection = project;
 
             var mainWindowTitle = gui.Application.Settings != null
                                       ? gui.Application.Settings["mainWindowTitle"]
@@ -479,10 +467,13 @@ namespace Core.Common.Gui
                 gui.MainWindow.Title = string.Format(Resources.GuiCommandHandler_UpdateGui__no_project_opened_____0_, mainWindowTitle);
                 return;
             }
-            gui.MainWindow.Title = project.Name + " - " + mainWindowTitle;
 
-            ((INotifyPropertyChanged) project).PropertyChanged -= CurrentProjectChanged;
-            ((INotifyPropertyChanged) project).PropertyChanged += CurrentProjectChanged;
+            gui.MainWindow.Title = project.Name + " - " + mainWindowTitle;
+        }
+
+        public void UpdateObserver()
+        {
+            RefreshGui();
         }
     }
 }
