@@ -698,13 +698,6 @@ namespace Core.GIS.SharpMap.UI.Forms
 
         private void ToolsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != TypeUtils.GetMemberName<LayoutComponentTool>(t => t.Visible) &&
-                e.PropertyName != TypeUtils.GetMemberName<LayoutComponentTool>(t => t.Anchor) &&
-                e.PropertyName != TypeUtils.GetMemberName<LayoutComponentTool>(t => t.UseAnchor))
-            {
-                return;
-            }
-
             tools.OfType<LayoutComponentTool>().ForEach(t => t.SetScreenLocationForAnchor());
         }
 

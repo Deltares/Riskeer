@@ -1,8 +1,9 @@
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils.Aop;
+using Core.Common.Utils;
 using Core.GIS.GeoAPI.Geometries;
 
 namespace Core.GIS.SharpMap.UI.Tools.Decorations
@@ -11,8 +12,7 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
     /// A base class for layout-related components on a map such as a legend, scale bar or north arrow.
     /// It implements drag and drop moving of the component.
     /// </summary>
-    [Entity]
-    public abstract class LayoutComponentTool : MapTool
+    public abstract class LayoutComponentTool : MapTool, INotifyPropertyChange
     {
         private const int Margin = 5;
 
@@ -27,6 +27,7 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
         private Size oldMapSize; // Store the 'old' size of the map to compare to changes in the map size
         private bool visible;
         private int backGroundTransparencyPercentage = 50;
+        private bool useAnchor;
 
         public LayoutComponentTool()
         {
@@ -54,8 +55,12 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             }
             set
             {
+                OnPropertyChanging("Anchor");
+
                 anchor = value;
                 UseAnchor = true;
+
+                OnPropertyChanged("Anchor");
             }
         }
 
@@ -124,7 +129,9 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             }
             set
             {
+                OnPropertyChanging("Visible");
                 visible = value;
+                OnPropertyChanged("Visible");
             }
         }
 
@@ -229,7 +236,19 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             }
         }
 
-        public bool UseAnchor { get; set; }
+        public bool UseAnchor
+        {
+            get
+            {
+                return useAnchor;
+            }
+            set
+            {
+                OnPropertyChanging("UseAnchor");
+                useAnchor = value;
+                OnPropertyChanged("UseAnchor");
+            }
+        }
 
         public bool Selected { get; private set; }
 
@@ -375,6 +394,30 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             MapControl.Invalidate(MapControl.ClientRectangle);
 
             return true;
+        }
+
+        #endregion
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         #endregion

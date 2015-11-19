@@ -55,7 +55,9 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             }
             set
             {
+                OnPropertyChanging("Padding");
                 padding = value;
+                OnPropertyChanged("Padding");
             }
         }
 
@@ -70,7 +72,9 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             }
             set
             {
+                OnPropertyChanging("LegendFont");
                 legendFont = value;
+                OnPropertyChanged("LegendFont");
             }
         }
 
