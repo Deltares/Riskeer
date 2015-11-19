@@ -166,7 +166,6 @@
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
     <Compile Include="SnappingCalculator.cs" />
-    <Compile Include="TextDocument.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />

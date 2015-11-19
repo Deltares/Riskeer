@@ -9,7 +9,7 @@ namespace Core.Common.Utils.Tests
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            var docBase = new SimpleTextDocumentBase();
+            var docBase = new TextDocumentBase();
 
             // assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
@@ -24,7 +24,7 @@ namespace Core.Common.Utils.Tests
         public void ReadOnlyConstructor_ExpectedValues(bool isReadOnly)
         {
             // call
-            var docBase = new SimpleTextDocumentBase(isReadOnly);
+            var docBase = new TextDocumentBase(isReadOnly);
 
             // assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
@@ -33,11 +33,21 @@ namespace Core.Common.Utils.Tests
             Assert.IsNull(docBase.Content);
         }
 
-        private class SimpleTextDocumentBase : TextDocumentBase
+        [Test]
+        public void ToString_ReturnsName()
         {
-            public SimpleTextDocumentBase() {}
+            // setup
+            const string text = "Test";
+            var doc = new TextDocumentBase
+            {
+                Name = text
+            };
 
-            public SimpleTextDocumentBase(bool isReadOnly) : base(isReadOnly) {}
+            // call
+            var toString = doc.ToString();
+
+            // assert
+            Assert.AreEqual(text, toString);
         }
     }
 }

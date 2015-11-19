@@ -6,7 +6,7 @@ using Core.Plugins.CommonTools.Gui.Properties;
 namespace Core.Plugins.CommonTools.Gui.Property
 {
     [ResourcesDisplayName(typeof(Resources), "TextDocumentProperties_DisplayName")]
-    public class TextDocumentProperties : ObjectProperties<TextDocument>
+    public class TextDocumentProperties : ObjectProperties<TextDocumentBase>
     {
         [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
