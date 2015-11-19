@@ -339,7 +339,6 @@ namespace Core.Common.Utils.Tests.Reflection
             return moduleBuilder.Assembly;
         }
 
-        [Entity(FireOnCollectionChange = false)]
         internal class CloneTestClass
         {
             public long Id { get; set; }
@@ -351,14 +350,6 @@ namespace Core.Common.Utils.Tests.Reflection
             }
         }
 
-        [Entity(FireOnCollectionChange = false)]
-        internal class SuperCloneTestClassWithReference : SuperCloneTestClass
-        {
-            public string OtherName { get; set; }
-            public CloneTestClass Peer { get; set; }
-        }
-
-        [Entity(FireOnCollectionChange = false)]
         internal class SuperCloneTestClass : CloneTestClass
         {
             public string OtherName { get; set; }

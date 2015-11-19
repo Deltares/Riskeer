@@ -1,10 +1,8 @@
-using Core.Common.Utils.Aop;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 
 namespace Core.GIS.SharpMapTestUtils.TestClasses
 {
-    [Entity(FireOnCollectionChange = false)]
     public class SampleFeature : IFeature
     {
         [FeatureAttribute]
@@ -30,6 +28,7 @@ namespace Core.GIS.SharpMapTestUtils.TestClasses
         #region IFeature members
 
         public string Name { get; set; }
+
         public IGeometry Geometry { get; set; }
 
         public IFeatureAttributeCollection Attributes { get; set; }

@@ -123,8 +123,6 @@
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewNodePresenterBaseTest.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewControllerTest.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewTest.cs" />
-    <Compile Include="Controls\Swf\TestClasses\Child.cs" />
-    <Compile Include="Controls\Swf\TestClasses\Parent.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

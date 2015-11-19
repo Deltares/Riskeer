@@ -6,11 +6,10 @@ using Core.Common.Base.Tests.TestObjects;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Utils.Collections;
+using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Child = Core.Common.Base.Tests.Controls.Swf.TestClasses.Child;
-using Parent = Core.Common.Base.Tests.Controls.Swf.TestClasses.Parent;
 
 namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
@@ -655,6 +654,28 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             Assert.IsTrue(controller.CanDeleteNode(treeNode));
 
             mocks.VerifyAll();
+        }
+
+        private class Parent
+        {
+            public Parent()
+            {
+                Children = new EventedList<Child>();
+            }
+
+            public IEventedList<Child> Children { get; set; }
+
+            public string Name { get; set; }
+        }
+
+        private class Child
+        {
+            private string Name { get; set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
         }
     }
 }

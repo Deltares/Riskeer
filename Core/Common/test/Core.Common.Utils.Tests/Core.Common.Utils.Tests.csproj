@@ -91,7 +91,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aop\EntityAttributeTest.cs" />
     <Compile Include="Aop\InvokeRequiredAttributeTest.cs" />
     <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
     <Compile Include="Aop\TestClasses\DllImports.cs" />

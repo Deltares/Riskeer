@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Base.Tests.TestObjects
 {
-    [Entity]
     public class Child : Observable
     {
         public Child()

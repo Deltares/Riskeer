@@ -118,8 +118,6 @@
     </Compile>
     <Compile Include="Aop\EventSettings.cs" />
     <Compile Include="Aop\ICustomNotifyCollectionChange.cs" />
-    <Compile Include="Aop\ManualAspectInitializer.cs" />
-    <Compile Include="Aop\EntityAttribute.cs" />
     <Compile Include="Aop\Markers\NoNotifyCollectionChangeAttribute.cs" />
     <Compile Include="Aop\Markers\NoNotifyPropertyChangeAttribute.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttribute.cs" />

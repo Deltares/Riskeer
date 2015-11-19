@@ -238,7 +238,6 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
         #region Test Classes
 
-        [Entity(FireOnCollectionChange = false)]
         private class TestPerson : IObservable
         {
             private readonly IList<IObserver> observers = new List<IObserver>();
@@ -269,7 +268,6 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             #endregion
         }
 
-        [Entity]
         private class TestGroup : IObservable
         {
             private readonly IList<IObserver> observers = new List<IObserver>();
