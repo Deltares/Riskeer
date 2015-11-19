@@ -1,8 +1,5 @@
-﻿using Core.Common.Utils.Aop;
-
-namespace Core.Common.Utils
+﻿namespace Core.Common.Utils
 {
-    [Entity(FireOnCollectionChange = false)]
     public class TextDocument
     {
         private readonly bool readOnly;

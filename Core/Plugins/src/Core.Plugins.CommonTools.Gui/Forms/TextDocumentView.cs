@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms
 {
     public partial class TextDocumentView : UserControl, ISearchableView
     {
-        private static readonly Bitmap TextDocumentImage = Resources.TextDocument;
-        private TextDocument textDocument;
-
         private bool textModified;
-
+        private bool settingContent;
         private string characters = "";
-        private bool settingContent = false;
+        private TextDocument textDocument;
 
         public TextDocumentView()
         {
@@ -46,47 +41,24 @@ namespace Core.Plugins.CommonTools.Gui.Forms
             }
             set
             {
-                if (textDocument != null)
-                {
-                    ((INotifyPropertyChange) textDocument).PropertyChanged -= TextDocumentView_PropertyChanged;
-                }
-
                 textDocument = value as TextDocument;
 
                 if (textDocument != null)
                 {
                     textBox.Text = textDocument.Content;
                     textBox.ReadOnly = textDocument.ReadOnly;
-                    ((INotifyPropertyChange) textDocument).PropertyChanged += TextDocumentView_PropertyChanged;
-                }
-
-                /*if (textDocument == null)
-                {
-                    //special null treatment just assigning null to datasource gives exception...
-                    //http://stackoverflow.com/questions/220392/cannot-bind-to-the-property-or-column-name-on-the-datasource-parameter-name-dat
-                    textDocumentBindingSource.DataSource = typeof(TextDocument);    
+                    textBox.SelectionStart = textBox.TextLength; // Set caret to end position
                 }
                 else
                 {
-                    textDocumentBindingSource.DataSource = textDocument;    
-                }*/
-
-                if (value == null)
-                {
-                    return;
+                    textBox.Text = "";
                 }
-
-                //textBox.Lines = new[] { textDocument.Content }; // TODO: improve it!
-                textBox.SelectionStart = textBox.TextLength; //set caret to end position
             }
         }
 
         public Image Image
         {
-            get
-            {
-                return TextDocumentImage;
-            }
+            get { return Resources.TextDocument; }
             set {}
         }
 
@@ -105,7 +77,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms
             textBox.SelectionLength = text.Length;
         }
 
-        public IEnumerable<System.Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
+        public IEnumerable<Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
         {
             var lines = textDocument.Content.Split(new[]
             {
@@ -113,7 +85,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms
                 "\n",
                 "\n\r"
             }, StringSplitOptions.RemoveEmptyEntries);
-            return lines.Where(l => caseSensitive ? l.Contains(text) : l.ToLower().Contains(text.ToLower())).Select(l => new System.Tuple<string, object>(l, l));
+            return lines.Where(l => caseSensitive ? l.Contains(text) : l.ToLower().Contains(text.ToLower())).Select(l => new Tuple<string, object>(l, l));
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -131,22 +103,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
 
                 textModified = false;
             }
-        }
-
-        private void TextDocumentView_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Content" && !settingContent && !IsDisposed)
-            {
-                SetContent();
-            }
-        }
-
-        [InvokeRequired]
-        private void SetContent()
-        {
-            settingContent = true;
-            textBox.Text = textDocument.Content;
-            settingContent = false;
         }
 
         private void TextBoxTextChanged(object sender, EventArgs e)

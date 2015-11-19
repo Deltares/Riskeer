@@ -12,7 +12,6 @@ namespace Core.Common.Utils.Tests
             var docBase = new TextDocument();
 
             // assert
-            Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
             Assert.IsFalse(docBase.ReadOnly);
             Assert.IsNull(docBase.Name);
             Assert.IsNull(docBase.Content);
@@ -27,7 +26,6 @@ namespace Core.Common.Utils.Tests
             var docBase = new TextDocument(isReadOnly);
 
             // assert
-            Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
             Assert.AreEqual(isReadOnly, docBase.ReadOnly);
             Assert.IsNull(docBase.Name);
             Assert.IsNull(docBase.Content);
