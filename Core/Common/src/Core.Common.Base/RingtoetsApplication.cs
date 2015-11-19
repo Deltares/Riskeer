@@ -202,8 +202,6 @@ namespace Core.Common.Base
             // load all assemblies from current assembly directory
             AssemblyUtils.LoadAllAssembliesFromDirectory(Path.GetFullPath(Path.GetDirectoryName(GetType().Assembly.Location))).ToList();
 
-            SetLanguageAndRegionalSettions();
-
             //Disabled trace logging this causes focus bugs combined with avalon dock (KeyPreview debug messages)
             //InitializeLogging();
 

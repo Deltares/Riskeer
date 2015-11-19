@@ -86,8 +86,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public MainWindow(RingtoetsGui gui)
         {
-            RingtoetsApplication.SetLanguageAndRegionalSettions(Properties.Settings.Default);
-
             Gui = gui;
 
             InitializeComponent();
