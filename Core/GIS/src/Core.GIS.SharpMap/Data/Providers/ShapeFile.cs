@@ -445,7 +445,7 @@ namespace Core.GIS.SharpMap.Data.Providers
         }
 
         /// <summary>
-        ///Swaps the byte order of an int32
+        /// Swaps the byte order of an int32
         /// </summary>
         /// <param name="i">Integer to swap</param>
         /// <returns>Byte Order swapped int32</returns>

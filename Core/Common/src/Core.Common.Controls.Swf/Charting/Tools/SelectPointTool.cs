@@ -18,27 +18,27 @@ using Steema.TeeChart.Tools;
 namespace Core.Common.Controls.Swf.Charting.Tools
 {
     /// <summary>
-    ///Describes the possible values of the <see cref="NearestPoint.Style"/> property. 
+    /// Describes the possible values of the <see cref="NearestPoint.Style"/> property. 
     /// </summary>
     public enum NearestPointStyles
     {
         /// <summary>
-        ///No shape is drawn. 
+        /// No shape is drawn. 
         /// </summary>
         None,
 
         /// <summary>
-        ///Shape is a circle.
+        /// Shape is a circle.
         /// </summary>
         Circle,
 
         /// <summary>
-        ///Shape is a rectangle. 
+        /// Shape is a rectangle. 
         /// </summary>
         Rectangle,
 
         /// <summary>
-        ///Shape is a diamond. 
+        /// Shape is a diamond. 
         /// </summary>
         Diamond
     };
@@ -265,7 +265,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 //// delete selected point from the series
                 //Series.Delete(selectedPointIndex);
                 //selectedPointIndex = -1;
-                ////todo make sure event is fired, either from tool or series object.
+                //// todo make sure event is fired, either from tool or series object.
             }
         }
 

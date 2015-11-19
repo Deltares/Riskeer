@@ -217,7 +217,7 @@ namespace Core.GIS.NetTopologySuite.Geometries
         }
 
         /// <summary>
-        ///This method exposes the internal Array of Coordinate Objects.       
+        /// This method exposes the internal Array of Coordinate Objects.       
         /// </summary>
         /// <returns></returns>
         public ICoordinate[] ToCoordinateArray()

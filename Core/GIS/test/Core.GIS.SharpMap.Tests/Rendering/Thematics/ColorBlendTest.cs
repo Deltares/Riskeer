@@ -6,7 +6,7 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
     [TestFixture]
     public class ColorBlendTest
     {
-        ///Equals is implemented to make databinding work..in ThemeEditor
+        /// Equals is implemented to make databinding work..in ThemeEditor
         [Test]
         public void Equals()
         {

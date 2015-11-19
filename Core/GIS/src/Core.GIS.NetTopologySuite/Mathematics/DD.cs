@@ -630,7 +630,7 @@ namespace Core.GIS.NetTopologySuite.Mathematics
         // * @param y the value to divide by
         // * @return this object, divided by y
         // */
-        ////public DD SelfDivide(double y)
+        /// public DD SelfDivide(double y)
         //{
         //    return SelfDivide(y, 0.0);
         //}

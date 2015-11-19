@@ -549,8 +549,8 @@ namespace Core.Common.Controls.Swf.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Verschil:
-        ///horizontaal: {0}
-        ///verticaal: {1}.
+        /// horizontaal: {0}
+        /// verticaal: {1}.
         /// </summary>
         internal static string RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_ {
             get {
@@ -735,7 +735,7 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wilt u de waarde corrigeren? 
         ///
-        ///Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen..
+        /// Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen..
         /// </summary>
         internal static string TableViewExceptionMessageController_GetLocalizedString_ {
             get {
@@ -969,8 +969,8 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. 
         ///
-        ///Error:
-        ///{0}.
+        /// Error:
+        /// {0}.
         /// </summary>
         internal static string WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_ {
             get {

@@ -7,8 +7,8 @@ namespace Core.GIS.SharpMap.Extensions.Layers
 {
     public class DefaultTileFetcher : ITileFetcher
     {
-        ///TODO: go back to BruTile RequestHelper.FetchImage someday. Placed here to fix a proxy issue 
-        ///TODO: which exists in our current version of BruTile. Fixed on BruTile nightly.
+        // TODO: go back to BruTile RequestHelper.FetchImage someday. Placed here to fix a proxy issue 
+        // TODO: which exists in our current version of BruTile. Fixed on BruTile nightly.
         public byte[] FetchImageBytes(TileIndex index, Uri url)
         {
             WebResponse webResponse = null;

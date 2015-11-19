@@ -69,7 +69,7 @@ namespace Core.GIS.NetTopologySuite.Utilities.RToolsUtil
         }
 
         /// <summary>
-        ///A static instance you can use without creating your own.
+        /// A static instance you can use without creating your own.
         /// </summary>
         public static Logger Log
         {

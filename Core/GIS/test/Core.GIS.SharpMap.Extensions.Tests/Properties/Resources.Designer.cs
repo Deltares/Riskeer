@@ -59,15 +59,15 @@ namespace Core.GIS.SharpMap.Extensions.Tests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to #
-        ///# This file derived from a subset of definitions from the &quot;epsg&quot; directory
-        ///# distributed with ArcGIS.  This file only contains definitions that aren&apos;t
-        ///# real EPSG definitions.  The definitions were &quot;morphed&quot; into OGR WKT format,
-        ///# and the authority clause added during processing. 
-        ///#
-        ///# NOTE: I&apos;m not too clear on what version of ArcGIS these definitions were
-        ///# derived from. 
-        ///#
-        ///31491,PROJCS[&quot;Germany_Zone_1&quot;,GEOGCS[&quot;GCS_Deutsches_Hauptdreiecksnetz&quot;,DATUM[&quot;D_Deutsches_Hauptdreiecksnetz&quot;,SPHEROID[&quot;Bessel_1841&quot;, [rest of string was truncated]&quot;;.
+        /// # This file derived from a subset of definitions from the &quot;epsg&quot; directory
+        /// # distributed with ArcGIS.  This file only contains definitions that aren&apos;t
+        /// # real EPSG definitions.  The definitions were &quot;morphed&quot; into OGR WKT format,
+        /// # and the authority clause added during processing. 
+        /// #
+        /// # NOTE: I&apos;m not too clear on what version of ArcGIS these definitions were
+        /// # derived from. 
+        /// #
+        /// 31491,PROJCS[&quot;Germany_Zone_1&quot;,GEOGCS[&quot;GCS_Deutsches_Hauptdreiecksnetz&quot;,DATUM[&quot;D_Deutsches_Hauptdreiecksnetz&quot;,SPHEROID[&quot;Bessel_1841&quot;, [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string esri_extra {
             get {
@@ -77,10 +77,10 @@ namespace Core.GIS.SharpMap.Extensions.Tests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &quot;COORD_REF_SYS_CODE&quot;,&quot;COORD_REF_SYS_NAME&quot;,&quot;DATUM_CODE&quot;,&quot;DATUM_NAME&quot;,&quot;GREENWICH_DATUM&quot;,&quot;UOM_CODE&quot;,&quot;ELLIPSOID_CODE&quot;,&quot;PRIME_MERIDIAN_CODE&quot;,&quot;SHOW_CRS&quot;,&quot;DEPRECATED&quot;,&quot;COORD_SYS_CODE&quot;,&quot;COORD_OP_METHOD_CODE&quot;,&quot;DX&quot;,&quot;DY&quot;,&quot;DZ&quot;,&quot;RX&quot;,&quot;RY&quot;,&quot;RZ&quot;,&quot;DS&quot;
-        ///3819,HD1909,1024,Hungarian Datum 1909,1024,9122,7004,8901,1,0,6422,9607,595.48,121.69,515.35,-4.115,2.9383,-0.853,-3.408
-        ///3821,TWD67,1025,Taiwan Datum 1967,1025,9122,7050,8901,1,0,6422,,,,,,,,
-        ///3824,TWD97,1026,Taiwan Datum 1997,1026,9122,7019,8901,1,0,6422,9603,0,0,0,,,,
-        ///3889,IG [rest of string was truncated]&quot;;.
+        /// 3819,HD1909,1024,Hungarian Datum 1909,1024,9122,7004,8901,1,0,6422,9607,595.48,121.69,515.35,-4.115,2.9383,-0.853,-3.408
+        /// 3821,TWD67,1025,Taiwan Datum 1967,1025,9122,7050,8901,1,0,6422,,,,,,,,
+        /// 3824,TWD97,1026,Taiwan Datum 1997,1026,9122,7019,8901,1,0,6422,9603,0,0,0,,,,
+        /// 3889,IG [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string gcs {
             get {
