@@ -134,7 +134,6 @@ namespace Application.Ringtoets
 
                     log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project___0__, gui.Application.Project.Name);
                     gui.Application.SaveProject();
-                    // Necessary for persisting the output of the activity run (e.g. netCDF files). 
                     log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project___0__, gui.Application.Project.Name);
                 }
             };
