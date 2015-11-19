@@ -116,7 +116,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RunningActivityLogAppender.cs" />
     <Compile Include="Workflow\Activity.cs" />
     <Compile Include="Workflow\ActivityEventArgs.cs" />
     <Compile Include="Workflow\ActivityRunner.cs" />
