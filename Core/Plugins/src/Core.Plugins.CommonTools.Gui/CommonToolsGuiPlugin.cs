@@ -70,7 +70,7 @@ namespace Core.Plugins.CommonTools.Gui
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<Url, UrlProperties>();
-            yield return new PropertyInfo<TextDocumentBase, TextDocumentProperties>();
+            yield return new PropertyInfo<TextDocument, TextDocumentProperties>();
             yield return new PropertyInfo<Project, ProjectProperties>();
             yield return new PropertyInfo<TreeFolder, TreeFolderProperties>();
             yield return new PropertyInfo<IChart, ChartProperties>();
@@ -83,7 +83,7 @@ namespace Core.Plugins.CommonTools.Gui
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
-            yield return new ViewInfo<TextDocumentBase, TextDocumentView>
+            yield return new ViewInfo<TextDocument, TextDocumentView>
             {
                 Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""
             };

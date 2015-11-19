@@ -3,15 +3,15 @@
 namespace Core.Common.Utils
 {
     [Entity(FireOnCollectionChange = false)]
-    public class TextDocumentBase
+    public class TextDocument
     {
         private readonly bool readOnly;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextDocumentBase"/> class.
+        /// Initializes a new instance of the <see cref="TextDocument"/> class.
         /// </summary>
         /// <param name="isReadOnly">Set the value of <see cref="ReadOnly"/> to this value.</param>
-        public TextDocumentBase(bool isReadOnly = false)
+        public TextDocument(bool isReadOnly = false)
         {
             readOnly = isReadOnly;
         }

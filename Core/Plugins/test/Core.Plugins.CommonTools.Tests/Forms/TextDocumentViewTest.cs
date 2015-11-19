@@ -10,7 +10,7 @@ namespace Core.Plugins.CommonTools.Tests.Forms
         [Test]
         public void SetNullDataInDocumentView()
         {
-            var textDocument = new TextDocumentBase(true)
+            var textDocument = new TextDocument(true)
             {
                 Content = "Lorem ipsum"
             };

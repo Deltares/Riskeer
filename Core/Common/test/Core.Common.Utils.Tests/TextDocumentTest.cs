@@ -3,13 +3,13 @@ using NUnit.Framework;
 
 namespace Core.Common.Utils.Tests
 {
-    public class TextDocumentBaseTest
+    public class TextDocumentTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            var docBase = new TextDocumentBase();
+            var docBase = new TextDocument();
 
             // assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
@@ -24,7 +24,7 @@ namespace Core.Common.Utils.Tests
         public void ReadOnlyConstructor_ExpectedValues(bool isReadOnly)
         {
             // call
-            var docBase = new TextDocumentBase(isReadOnly);
+            var docBase = new TextDocument(isReadOnly);
 
             // assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
@@ -38,7 +38,7 @@ namespace Core.Common.Utils.Tests
         {
             // setup
             const string text = "Test";
-            var doc = new TextDocumentBase
+            var doc = new TextDocument
             {
                 Name = text
             };

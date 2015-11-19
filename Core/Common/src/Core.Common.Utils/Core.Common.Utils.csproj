@@ -143,7 +143,7 @@
     <Compile Include="ResourcesDescriptionAttribute.cs" />
     <Compile Include="ResourcesDisplayNameAttribute.cs" />
     <Compile Include="SettingsHelper.cs" />
-    <Compile Include="TextDocumentBase.cs" />
+    <Compile Include="TextDocument.cs" />
     <Compile Include="TimeNavigatableLabelFormatProvider.cs" />
     <Compile Include="Collections\INotifyCollectionChanged.cs" />
     <Compile Include="Collections\INotifyCollectionChanging.cs" />

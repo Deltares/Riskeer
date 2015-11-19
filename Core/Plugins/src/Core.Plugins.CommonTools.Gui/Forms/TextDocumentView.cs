@@ -14,7 +14,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms
     public partial class TextDocumentView : UserControl, ISearchableView
     {
         private static readonly Bitmap TextDocumentImage = Resources.TextDocument;
-        private TextDocumentBase textDocument;
+        private TextDocument textDocument;
 
         private bool textModified;
 
@@ -51,7 +51,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms
                     ((INotifyPropertyChange) textDocument).PropertyChanged -= TextDocumentView_PropertyChanged;
                 }
 
-                textDocument = value as TextDocumentBase;
+                textDocument = value as TextDocument;
 
                 if (textDocument != null)
                 {
