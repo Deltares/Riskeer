@@ -337,10 +337,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             Assert.AreSame(observableSoilProfileList, importedItem);
-            Assert.AreEqual(0.0, observableSoilProfileList[0].Layers.ElementAt(0).DryUnitWeight);
-            Assert.AreEqual(0.0, observableSoilProfileList[1].Layers.ElementAt(1).DryUnitWeight);
-            Assert.AreEqual(2, observableSoilProfileList.Count);
-            Assert.AreEqual(4, progress);
+            Assert.AreEqual(0, observableSoilProfileList.Count);
 
             mocks.VerifyAll();
         }

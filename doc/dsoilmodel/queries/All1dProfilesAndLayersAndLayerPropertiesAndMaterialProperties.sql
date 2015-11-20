@@ -17,9 +17,9 @@ JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID
 LEFT JOIN (
 	SELECT 
 		m.MA_ID, 
-		sum(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) AbovePhreaticLevel,
-		sum(case when pn.PN_Name = 'BelowPhreaticLevel' then pv.PV_Value end) BelowPhreaticLevel,
-		sum(case when pn.PN_Name = 'DryUnitWeight' then pv.PV_Value end) DryUnitWeight
+		max(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) AbovePhreaticLevel,
+		max(case when pn.PN_Name = 'BelowPhreaticLevel' then pv.PV_Value end) BelowPhreaticLevel,
+		max(case when pn.PN_Name = 'DryUnitWeight' then pv.PV_Value end) DryUnitWeight
 	FROM ParameterNames as pn
 	JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID
 	JOIN Materials as m ON m.MA_ID = pv.MA_ID
@@ -27,7 +27,7 @@ LEFT JOIN (
 LEFT JOIN (
 	SELECT 
 		pv.SL1D_ID, 
-		sum(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) IsAquifer
+		max(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) IsAquifer
 	FROM ParameterNames as pn
 	JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID
 	GROUP BY pv.SL1D_ID) as lpv ON lpv.SL1D_ID = l.SL1D_ID

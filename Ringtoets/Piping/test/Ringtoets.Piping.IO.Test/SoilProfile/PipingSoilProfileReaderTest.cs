@@ -65,6 +65,22 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
+        public void Constructor_EmptyDatabase_HasNextFalse()
+        {
+            // Setup
+            var dbName = "emptyschema.soil";
+            var dbFile = Path.Combine(testDataPath, dbName);
+
+
+            // Call
+            using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
+            {
+                // Assert
+                Assert.IsFalse(pipingSoilProfileReader.HasNext);
+            }
+        }
+
+        [Test]
         public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
@@ -194,6 +210,57 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.AbovePhreaticLevel));
                 CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.BelowPhreaticLevel));
                 CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.DryUnitWeight));
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithInvalidBottom_ReturnsNoProfile()
+        {
+            // Setup
+            var testFile = "invalidBottom1dProfile.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
+                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, "Profile", "Bottom");
+                Assert.AreEqual(message, exceptionMessage);
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithLayerWithInvalidTop_ReturnsNoProfile()
+        {
+            // Setup
+            var testFile = "invalidTop1dProfile.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
+                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, "Profile", "Top");
+                Assert.AreEqual(message, exceptionMessage);
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithLayerWithInvalidLayerProperty_ReturnsNoProfile()
+        {
+            // Setup
+            var testFile = "incorrectValue2dProperty.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
+                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, "Profile", "DryUnitWeight");
+                Assert.AreEqual(message, exceptionMessage);
             }
         }
 
