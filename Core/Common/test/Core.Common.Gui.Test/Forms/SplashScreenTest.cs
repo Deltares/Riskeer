@@ -1,10 +1,9 @@
-﻿//using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using NUnit.Framework;
 using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
-//using Application = System.Windows.Forms.Application;
+using Application = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Tests.Forms
 {
@@ -37,29 +36,32 @@ namespace Core.Common.Gui.Tests.Forms
             Assert.AreEqual(strLicense, GetLabelText(screen, "labelLicense"));
             Assert.AreEqual(strCopyright, GetLabelText(screen, "labelCopyright"));
             Assert.AreEqual(strProgressText, GetLabelText(screen, "labelProgressMessage"));
+
+            screen.Close();
         }
 
-        /*
         [Test]
         [RequiresSTA]
-        public void TestProgressBarFillsUp()
+        public void TestProgressBarVisible()
         {
             var screen = new SplashScreen();
-
             screen.Show();
-            var counter = 0;
-            //            screen.ContentRendered += (sender, args) => counter++;
+            Assert.IsTrue(screen.HasProgress, "Initially, the progress should be visible");
+            Assert.IsTrue(GetIsControlVisible(screen, "progressBar"));
+            Assert.IsTrue(GetIsControlVisible(screen, "labelProgressMessage"));
+            Assert.IsTrue(GetIsControlVisible(screen, "labelProgressBar"));
 
-            for (var i = 0; i <= 99; i++)
-            {
-                screen.ProgressValuePercent = i;
-                Thread.Sleep(20);
-                Application.DoEvents();
-            }
+            screen.HasProgress = false;
+            Application.DoEvents(); // creating space for lazy-updating to do its work
+            Assert.IsFalse(screen.HasProgress, "HasProgres is changed to FALSE by now");
 
-//            Assert.AreEqual(100, counter);
+            Assert.IsFalse(GetIsControlVisible(screen, "progressBar"));
+            Assert.IsFalse(GetIsControlVisible(screen, "labelProgressMessage"));
+            Assert.IsFalse(GetIsControlVisible(screen, "labelProgressBar"));
+
+            screen.Close();
         }
-  */
+
         private FrameworkElement FindControlRecursively(FrameworkElement parent, string name)
         {
             var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
@@ -77,11 +79,17 @@ namespace Core.Common.Gui.Tests.Forms
 
             return foundChild;
         }
-      
+
         private string GetLabelText(FrameworkElement parent, string labelName)
         {
             var label = FindControlRecursively(parent, labelName);
             return (label as Label).Content.ToString();
+        }
+
+        private bool GetIsControlVisible(FrameworkElement parent, string ctrlName)
+        {
+            var ctrl = FindControlRecursively(parent, ctrlName);
+            return (ctrl as Control).IsVisible;
         }
     }
 }

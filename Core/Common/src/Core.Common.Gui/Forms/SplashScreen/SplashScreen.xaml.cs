@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Media;
 using Core.Common.Base;
 using log4net;
 
@@ -16,6 +17,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         private string companyText;
         private string copyrightText;
         private string versionText;
+        private bool hasProgress;
 
         public SplashScreen()
         {
@@ -23,12 +25,29 @@ namespace Core.Common.Gui.Forms.SplashScreen
 
             progressBar.Maximum = 100; // classic percentage approach, there is no need for the splash screen to be more precise
 
+            HasProgress = true;
             ProgressValuePercent = 0;
             ProgressText = "";
             CompanyText = "";
             CopyrightText = "";
             LicenseText = "";
             VersionText = "";
+        }
+
+        /// <summary>
+        /// Defines if the progress bar and and progress label should be visible in the window
+        /// </summary>
+        public bool HasProgress
+        {
+            get
+            {
+                return hasProgress;
+            }
+            set
+            {
+                hasProgress = value;
+                InvalidateVisual();
+            }
         }
 
         /// <summary>
@@ -141,6 +160,11 @@ namespace Core.Common.Gui.Forms.SplashScreen
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
+
+            var progressVisibility = (HasProgress) ? (Visibility.Visible) : (Visibility.Hidden);
+            progressBar.Visibility = progressVisibility;
+            labelProgressBar.Visibility = progressVisibility;
+            labelProgressMessage.Visibility = progressVisibility;
 
             if (progressBar.Value != ProgressValuePercent)
             {

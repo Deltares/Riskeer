@@ -27,6 +27,5 @@
         <Label x:Name="labelLicense" Content="{x:Static Properties:Resources.SplashScreen_Free}" Height="18px" HorizontalAlignment="Left" Margin="97,335,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial"/>
         <Label x:Name="labelCopyrightTitle" Content="{x:Static Properties:Resources.SplashScreen_CopyRights}" Height="18px" HorizontalAlignment="Left" Margin="13,353,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" />
         <Label x:Name="labelCopyright" Content="© Deltares 2009-2015" Height="18px" HorizontalAlignment="Left" Padding="0" Margin="97,353,0,0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial"/>
-
     </Grid>
 </Window>
