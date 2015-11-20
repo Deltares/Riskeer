@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Plugin.Test
             DataItemInfo duneAssessmentDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DuneAssessmentSection));
             Assert.AreEqual("Duintraject", duneAssessmentDataItemDefinition.Name);
             Assert.AreEqual("Algemeen", duneAssessmentDataItemDefinition.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, duneAssessmentDataItemDefinition.Image);
             Assert.IsNull(duneAssessmentDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(null));
             Assert.IsNull(duneAssessmentDataItemDefinition.AddExampleData);

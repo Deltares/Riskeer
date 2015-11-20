@@ -34,7 +34,7 @@ namespace Ringtoets.Demo.Test.Commands
         }
 
         [Test]
-        public void Execute_GuiIsProperlyInitialized_AddNewDemoProjectToRootProject()
+        public void Execute_GuiIsProperlyInitialized_AddNewDikeAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
             var project = new Project();
@@ -49,8 +49,10 @@ namespace Ringtoets.Demo.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var command = new AddNewDemoDikeAssessmentSectionCommand();
-            command.Gui = guiMock;
+            var command = new AddNewDemoDikeAssessmentSectionCommand
+            {
+                Gui = guiMock
+            };
 
             project.Attach(observerMock);
 
