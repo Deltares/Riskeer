@@ -392,7 +392,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(2, failureMechanism.Calculations.Count);
-            Assert.AreEqual("Piping (1)", failureMechanism.Calculations.ElementAt(1).Name);
+            Assert.AreEqual("Berekening (1)", failureMechanism.Calculations.ElementAt(1).Name);
             mocks.VerifyAll();
         }
 
