@@ -4,7 +4,6 @@ using System.Linq;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtils;
-using Core.Common.Utils.Aop;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
@@ -238,39 +237,15 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
         #region Test Classes
 
-        private class TestPerson : IObservable
+        private class TestPerson : Observable
         {
-            private readonly IList<IObserver> observers = new List<IObserver>();
             public string Name { get; set; }
 
             public TestGroup TestGroup { get; set; }
-
-            #region IObservable
-
-            public void Attach(IObserver observer)
-            {
-                observers.Add(observer);
-            }
-
-            public void Detach(IObserver observer)
-            {
-                observers.Remove(observer);
-            }
-
-            public void NotifyObservers()
-            {
-                foreach (var observer in observers)
-                {
-                    observer.UpdateObserver();
-                }
-            }
-
-            #endregion
         }
 
-        private class TestGroup : IObservable
+        private class TestGroup : Observable
         {
-            private readonly IList<IObserver> observers = new List<IObserver>();
             public TestGroup()
             {
                 Children = new ObservableList<TestPerson>();
@@ -278,30 +253,10 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             }
 
             public string Name { get; set; }
+
             public ObservableList<TestPerson> Children { get; set; }
+
             public ObservableList<TestPerson> Adults { get; set; }
-
-            #region IObservable
-
-            public void Attach(IObserver observer)
-            {
-                observers.Add(observer);
-            }
-
-            public void Detach(IObserver observer)
-            {
-                observers.Remove(observer);
-            }
-
-            public void NotifyObservers()
-            {
-                foreach (var observer in observers)
-                {
-                    observer.UpdateObserver();
-                }
-            }
-
-            #endregion
         }
 
         private class GroupNodePresenterUsingCollection : TreeViewNodePresenterBase<TestGroup>
