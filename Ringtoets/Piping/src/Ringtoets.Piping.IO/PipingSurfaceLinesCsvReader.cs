@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.IO
         /// Gets the 3D surface line points.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
-        /// <param name="surfaceLineName"></param>
+        /// <param name="surfaceLineName">The name of the surface line for which geometry points are retrieved.</param>
         /// <returns>Set of all 3D world coordinate points.</returns>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.IO
         /// Parses the world coordinate values and handles parse errors.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
-        /// <param name="surfaceLineName"></param>
+        /// <param name="surfaceLineName">The name of the surface line whose coordinate values are being parsed.</param>
         /// <returns></returns>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">

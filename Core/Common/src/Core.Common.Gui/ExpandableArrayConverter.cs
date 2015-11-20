@@ -16,7 +16,7 @@ namespace Core.Common.Gui
             var array = value as Array;
             if (destinationType == typeof(string) && array != null)
             {
-                return string.Format(Resources.ExpandableArrayConverter_ConvertTo_Aantal_0_, array.GetLength(0));
+                return string.Format(Resources.ExpandableArrayConverter_ConvertTo_Count_0_, array.GetLength(0));
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
@@ -73,11 +73,12 @@ namespace Core.Common.Gui
             {
                 var array = (Array)instance;
                 array.SetValue(value, index);
-                OnValueChanged(array, EventArgs.Empty); // This line is also available in the C# .Net version of this class
+                // This class is based on the System.ComponentModel.ArrayConverter.ArrayPropertyDescriptor,
+                // and there the SetValue also called OnValueChanged. Copying that behavior here as well.
+                OnValueChanged(array, EventArgs.Empty);
             }
         }
 
         #endregion
-
     }
 }

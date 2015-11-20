@@ -770,7 +770,7 @@
   <data name="Ringtoets" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ringtoets.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExpandableArrayConverter_ConvertTo_Aantal_0_" xml:space="preserve">
+  <data name="ExpandableArrayConverter_ConvertTo_Count_0_" xml:space="preserve">
     <value>Aantal ({0})</value>
   </data>
   <data name="DesignVariableTypeConverter_DestributionType_DisplayName" xml:space="preserve">

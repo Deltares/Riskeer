@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
 
             var secondSurfaceLine = importTargetArray[1];
-            Assert.AreEqual("ArtificalLocal", secondSurfaceLine.Name);
+            Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
             Assert.AreEqual(3, secondSurfaceLine.Points.Count());
             Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
 
@@ -452,7 +452,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(2, observableSurfaceLinesList.Count,
                 "Ensure only the two valid surfacelines have been imported.");
             Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "Rotterdam1"));
-            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "ArtificalLocal"));
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "ArtifcialLocal"));
 
             Assert.AreEqual(5, progressCallCount,
                 "Expect 1 call for each surfaceline (3 in total) +1 for 0/N progress, and 1 for putting data in model.");

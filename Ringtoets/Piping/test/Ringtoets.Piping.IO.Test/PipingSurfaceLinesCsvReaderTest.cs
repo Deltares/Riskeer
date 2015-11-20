@@ -564,7 +564,7 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
-                                                    path, "ArtificalLocal");
+                                                    path, "ArtifcialLocal");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -622,7 +622,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 #region 2nd surfaceline
 
-                Assert.AreEqual("ArtificalLocal", surfaceLine2.Name);
+                Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
                 Assert.AreEqual(3, surfaceLine2.Points.Count());
                 Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
                 Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
