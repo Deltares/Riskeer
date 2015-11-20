@@ -4,6 +4,8 @@ using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
@@ -16,12 +18,12 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingFailureMechanism()
         {
-            SectionDivisions = new InputPlaceholder("Vakindeling");
+            SectionDivisions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_SectionDevisions_DisplayName);
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
-            BoundaryConditions = new InputPlaceholder("Randvoorwaarden");
+            BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             Calculations = new List<PipingData> { new PipingData() };
-            AssessmentResult = new OutputPlaceholder("Oordeel");
+            AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
 
         /// <summary>

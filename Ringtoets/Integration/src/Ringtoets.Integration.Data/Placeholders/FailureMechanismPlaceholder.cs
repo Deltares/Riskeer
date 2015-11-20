@@ -1,6 +1,8 @@
 ﻿using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.Integration.Data.Placeholders
 {
     /// <summary>
@@ -14,10 +16,10 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// <param name="name">The placeholder's name.</param>
         public FailureMechanismPlaceholder(string name) : base(name)
         {
-            SectionDivisions = new InputPlaceholder("Vakindeling");
-            Locations = new InputPlaceholder("Locaties");
-            BoundaryConditions = new InputPlaceholder("Randvoorwaarden");
-            AssessmentResult = new OutputPlaceholder("Oordeel");
+            SectionDivisions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_SectionDevisions_DisplayName);
+            Locations = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_Locations_DisplayName);
+            BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
+            AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
 
         /// <summary>
