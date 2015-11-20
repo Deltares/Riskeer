@@ -359,7 +359,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een onafgehandelde exceptie is opgetreden. Ringtoets moet herstart worden..
+        ///   Looks up a localized string similar to Er is een kritieke fout opgetreden. Ringtoets moet herstart worden..
         /// </summary>
         internal static string ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoets_needs_to_be_restarted__ {
             get {
@@ -549,8 +549,8 @@ namespace Core.Common.Controls.Swf.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Verschil:
-        /// horizontaal: {0}
-        /// verticaal: {1}.
+        ///horizontaal: {0}
+        ///verticaal: {1}.
         /// </summary>
         internal static string RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_ {
             get {
@@ -735,7 +735,7 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wilt u de waarde corrigeren? 
         ///
-        /// Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen..
+        ///Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen..
         /// </summary>
         internal static string TableViewExceptionMessageController_GetLocalizedString_ {
             get {
@@ -810,7 +810,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klembord bevat geen tekst. Hierdoor kan het niet worden geplakt op het rooster..
+        ///   Looks up a localized string similar to Klembord bevat geen tekst. Hierdoor kan het niet in de tabel worden geplakt..
         /// </summary>
         internal static string TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_ {
             get {
@@ -969,8 +969,8 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. 
         ///
-        /// Error:
-        /// {0}.
+        ///Error:
+        ///{0}.
         /// </summary>
         internal static string WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_ {
             get {

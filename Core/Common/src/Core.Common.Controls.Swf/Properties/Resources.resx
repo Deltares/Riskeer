@@ -285,7 +285,7 @@ verticaal: {1}</value>
 </value>
   </data>
   <data name="ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoets_needs_to_be_restarted__" xml:space="preserve">
-    <value>Een onafgehandelde exceptie is opgetreden. Ringtoets moet herstart worden.</value>
+    <value>Er is een kritieke fout opgetreden. Ringtoets moet herstart worden.</value>
   </data>
   <data name="AllFilesFilter" xml:space="preserve">
     <value>Alle bestanden (*.*)|*.*</value>
@@ -360,7 +360,7 @@ Error:
     <value>Kan alleen in rechthoekige selectie plakken.</value>
   </data>
   <data name="TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_" xml:space="preserve">
-    <value>Klembord bevat geen tekst. Hierdoor kan het niet worden geplakt op het rooster.</value>
+    <value>Klembord bevat geen tekst. Hierdoor kan het niet in de tabel worden geplakt.</value>
   </data>
   <data name="TableViewExceptionMessageController_GetLocalizedString_" xml:space="preserve">
     <value>Wilt u de waarde corrigeren? 

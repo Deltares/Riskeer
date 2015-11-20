@@ -152,7 +152,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afwerking van {0} is mislukt..
+        ///   Looks up a localized string similar to Afronden van {0} is mislukt..
         /// </summary>
         internal static string ActivityRunner_RunActivity_Finishing_of__0__has_failed_ {
             get {
@@ -216,7 +216,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registreren &quot;exporter&quot; {0}.
+        ///   Looks up a localized string similar to Registreren van exporteer routine {0}..
         /// </summary>
         internal static string RingtoetsApplication_RegisterExporters_Registering_exporter__0_ {
             get {
@@ -225,7 +225,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registratie van de &quot;exporters&quot;....
+        ///   Looks up a localized string similar to Registratie van de exporteer routines....
         /// </summary>
         internal static string RingtoetsApplication_RegisterExporters_Registering_exporters____ {
             get {
@@ -234,7 +234,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registreren &quot;importer&quot; {0}.
+        ///   Looks up a localized string similar to Registreren van importeer routine {0}..
         /// </summary>
         internal static string RingtoetsApplication_RegisterImporters_Registering_importer__0_ {
             get {
@@ -243,7 +243,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registreren &quot;importers&quot;....
+        ///   Looks up a localized string similar to Registratie van de importeer routines....
         /// </summary>
         internal static string RingtoetsApplication_RegisterImporters_Registering_importers____ {
             get {

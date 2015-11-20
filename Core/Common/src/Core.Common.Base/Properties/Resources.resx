@@ -145,16 +145,16 @@
     <value>Alle plugins zijn geactiveerd.</value>
   </data>
   <data name="RingtoetsApplication_RegisterImporters_Registering_importer__0_" xml:space="preserve">
-    <value>Registreren "importer" {0}</value>
+    <value>Registreren van importeer routine {0}.</value>
   </data>
   <data name="RingtoetsApplication_RegisterExporters_Registering_exporters____" xml:space="preserve">
-    <value>Registratie van de "exporters"...</value>
+    <value>Registratie van de exporteer routines...</value>
   </data>
   <data name="RingtoetsApplication_RegisterExporters_Registering_exporter__0_" xml:space="preserve">
-    <value>Registreren "exporter" {0}</value>
+    <value>Registreren van exporteer routine {0}.</value>
   </data>
   <data name="RingtoetsApplication_RegisterImporters_Registering_importers____" xml:space="preserve">
-    <value>Registreren "importers"...</value>
+    <value>Registratie van de importeer routines...</value>
   </data>
   <data name="Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute" xml:space="preserve">
     <value>Activiteit is '{0}'. 'Initialize()' moet aangeroepen worden voor 'Execute()'.</value>
@@ -187,7 +187,7 @@
     <value>Uitvoering van {0} is mislukt.</value>
   </data>
   <data name="ActivityRunner_RunActivity_Finishing_of__0__has_failed_" xml:space="preserve">
-    <value>Afwerking van {0} is mislukt.</value>
+    <value>Afronden van {0} is mislukt.</value>
   </data>
   <data name="ActivityRunner_RunActivity_Clean_up_of__0__has_failed_" xml:space="preserve">
     <value>Opschonen van {0} is mislukt.</value>

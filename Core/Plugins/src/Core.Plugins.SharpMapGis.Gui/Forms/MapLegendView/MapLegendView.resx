@@ -117,18 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>160, 17</value>
-  </metadata>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="toolStrip1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonAddWmsLayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALQSURBVDhPhZJ7TI1xGMff4d/8YzMZmWyWZLRJiuxMF0qU
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAALQSURBVDhPhZJ7TI1xGMff4d/8YzMZmWyWZLRJiuxMF0qU
         nJY1m0PFW5GMmrSQSyldzlplWtdlRBfVSdONN+VylDqlKRXK6jTV5tZFs/XRe2LtsPHdvnv27LfP9/fs
         2SP8KVHanhEoOQyIkt2Yn2TX4Fuz0fzX0791Uav0v9V6YvLbxBOGvnbRPtDLozeNxD+JJOi+M6oCzxkr
         8MxVoBA3EHrHm1+oIJyfgbtG08egF/hM16dhtB/HyG4ZJaPxFcVtOZx+4I76+QUDHKYJmoNlpXYGTY1Q
@@ -150,15 +150,15 @@
     <value>23, 22</value>
   </data>
   <data name="buttonAddWmsLayer.Text" xml:space="preserve">
-    <value>Voeg nieuwe "Wms"-laag toe...</value>
+    <value>Nieuwe WMS-laag toe...</value>
   </data>
   <data name="buttonAddWmsLayer.ToolTipText" xml:space="preserve">
-    <value>Voeg nieuwe "Wms"-laag toe...</value>
+    <value>Nieuwe WMS-laag...</value>
   </data>
   <data name="buttonAddLayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGqSURBVDhPrZHNK4RBHMfnH1g5CeHiIlKraEO05SZlCzka
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAGqSURBVDhPrZHNK4RBHMfnH1g5CeHiIlKraEO05SZlCzka
         8rK4PBdRkkfCwbJPsrWFmgO1UnpYaS2H3YvEweMl7XFXWXLQXuTma2ae9bI9i5JvfZqZw+f3m98M+ff4
         TmehRhSTEIUi0F2gAYETLuaE022HstmBtPIZdr4M9UQBi7EvaBLNUKGdqFIeCQ5Z5Y2LFdn1T7Ls/K1s
         FhDyZCiL7DsdBeVzUp3D53T5ORpH5bOOcZT0zMwOI5CLeIDA0Ajuzmasxe7vDCSibUg9MKRSuonYxzWO
@@ -175,15 +175,15 @@
     <value>23, 22</value>
   </data>
   <data name="buttonAddLayer.Text" xml:space="preserve">
-    <value>Voeg nieuwe laag toe...</value>
+    <value>Nieuwe kaartlaag...</value>
   </data>
   <data name="buttonAddLayer.ToolTipText" xml:space="preserve">
-    <value>Voeg nieuwe laag toe...</value>
+    <value>Nieuwe kaartlaag...</value>
   </data>
   <data name="buttonRemoveLayer.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGkSURBVDhPrZExSAJhGIYvtN22VqGWanAuq6M5QYigtqMa
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAGkSURBVDhPrZExSAJhGIYvtN22VqGWanAuq6M5QYigtqMa
         xOmIypq8JYcoOCJBiOKvFGyJAwmEInQRK6JriZZAhSwKyiGrybfvv7vKOI2IPnjgX573+15+4d8nehKB
         kpFN0hJkjuaHlOSI8DMRYsADeXcUlvI17HwNSl4Gu2J1qAaqrkDNK4Y8mwra5cTFurH1T7KxualsBnA5
         nG4gR09CkKinpBHU0x8jVEKhrvOEbHVmHuhJFwpJAboq4OZ00R52e6OjmB1B5Y6hUtFM+LugEgoqumTI
@@ -200,10 +200,10 @@
     <value>23, 22</value>
   </data>
   <data name="buttonRemoveLayer.Text" xml:space="preserve">
-    <value>Verwijder geselecteerde laag</value>
+    <value>Verwijder geselecteerde kaartlaag</value>
   </data>
   <data name="buttonRemoveLayer.ToolTipText" xml:space="preserve">
-    <value>Verwijder geselecteerde laag</value>
+    <value>Verwijder geselecteerde kaartlaag</value>
   </data>
   <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -230,9 +230,9 @@
   <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <metadata name="contextMenuLayer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="contextMenuLayer.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>25, 15</value>
-  </metadata>
+  </data>
   <data name="contextMenuLayerOpenAttributeTable.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 22</value>
   </data>
@@ -362,9 +362,9 @@
   <data name="&gt;&gt;TreeView.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="contextMenuWmsLayer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="contextMenuWmsLayer.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>259, 17</value>
-  </metadata>
+  </data>
   <data name="contextMenuWmsLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 26</value>
   </data>
@@ -380,9 +380,9 @@
   <data name="zoomToLayerToolStripMenuItem.Text" xml:space="preserve">
     <value>Zoom naar laag</value>
   </data>
-  <metadata name="contextMenuMap.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="contextMenuMap.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>426, 17</value>
-  </metadata>
+  </data>
   <data name="contextMenuMap.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 120</value>
   </data>
@@ -396,7 +396,7 @@
     <value>268, 22</value>
   </data>
   <data name="addLayerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Voeg laag toe</value>
+    <value>Voeg kaartlaag toe</value>
   </data>
   <data name="addLayergroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>268, 22</value>
@@ -417,7 +417,7 @@
     <value>268, 22</value>
   </data>
   <data name="zoomToMapExtentsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Inzoomen tot de kaart</value>
+    <value>Zoomen tot kaartbereik</value>
   </data>
   <data name="changeCoordinateSystemToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>268, 22</value>
@@ -425,9 +425,9 @@
   <data name="changeCoordinateSystemToolStripMenuItem.Text" xml:space="preserve">
     <value>Veranderen kaartcoördinatenstelsel...</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>

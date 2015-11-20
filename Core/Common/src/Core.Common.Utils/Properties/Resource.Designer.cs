@@ -197,8 +197,8 @@ namespace Core.Common.Utils.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Kon {0} niet vinden, dan wel laden.
-        /// Fout: {1} - {2}
-        /// Bestand: {3}\{0}.
+        ///Fout: {1} - {2}
+        ///Bestand: {3}\{0}.
         /// </summary>
         internal static string NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_ {
             get {
@@ -234,7 +234,7 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exceptie opgetreden..
+        ///   Looks up a localized string similar to Kritieke fout opgetreden..
         /// </summary>
         internal static string TypeUtils_CallMethod_Exception_occured {
             get {

@@ -267,7 +267,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De beschikbare &quot;featue attribute data&quot;..
+        ///   Looks up a localized string similar to De beschikbare gegevens van de feature..
         /// </summary>
         public static string FeatureDataRowProperties_Data_Description {
             get {

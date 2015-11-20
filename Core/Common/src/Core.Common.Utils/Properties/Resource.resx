@@ -165,7 +165,7 @@ Bestand: {3}\{0}</value>
     <value>Geen 'default constructor' gevonden voor type {0}.</value>
   </data>
   <data name="TypeUtils_CallMethod_Exception_occured" xml:space="preserve">
-    <value>Exceptie opgetreden.</value>
+    <value>Kritieke fout opgetreden.</value>
   </data>
   <data name="TypeUtils_GetMemberNameFromMemberExpression__member__not_a_valid_expression_for_this_method" xml:space="preserve">
     <value>Parameter 'member' is geen geldige expressie voor deze methode.</value>

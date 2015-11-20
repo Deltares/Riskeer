@@ -164,7 +164,7 @@
     <value>Opties</value>
   </data>
   <data name="App_HandleException_" xml:space="preserve">
-    <value>======== EXCEPTIE #{0}: ========
+    <value>======== KRITIEKE FOUT #{0}: ========
 {1}{2}</value>
   </data>
   <data name="Edit_UndoHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -213,13 +213,13 @@
     <value>..\Resources\FindView.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewList_Close_View_is_being_closed_while_it_is_being_opened_" xml:space="preserve">
-    <value>Weergave wordt gesloten terwijl hij aan het openen is!</value>
+    <value>Documentvenster wordt gesloten tijdens het openen.</value>
   </data>
   <data name="ViewList_DockingManagerViewBarClosing_Closing_view___0_" xml:space="preserve">
-    <value>Bezig met sluiten van de weergave: {0}.</value>
+    <value>Documentvenster {0} wordt gesloten.</value>
   </data>
   <data name="GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected__impossible" xml:space="preserve">
-    <value>Geen van de "radiobuttons" is geselecteerd: onmogelijk</value>
+    <value>Geen van de keuzeopties is geselecteerd: onmogelijk</value>
   </data>
   <data name="new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -237,7 +237,7 @@
     <value>..\Resources\link_break.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="App_AppDomain_UnhandledException_Unknown_exception_" xml:space="preserve">
-    <value>Onbekende exceptie!</value>
+    <value>Onbekende kritieke fout opgetreden.</value>
   </data>
   <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
     <value>Weergeven/Verbergen</value>
@@ -252,7 +252,7 @@
     <value>Algemeen</value>
   </data>
   <data name="AvalonDockDockingManager_Add_View_was_already_added__activate_it_instead_of_add" xml:space="preserve">
-    <value>Weergave is al toegevoegd. Activeer de weergave in plaats van het toe te voegen.</value>
+    <value>Documentvenster is al toegevoegd. Activeer de weergave in plaats van het toe te voegen.</value>
   </data>
   <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -261,13 +261,13 @@
     <value>Opslaan</value>
   </data>
   <data name="ViewList_ForceViewCleanup_A_view_within_0_has_no_value" xml:space="preserve">
-    <value>Onverwacht gedrag van de samengestelde weergave. Een weergave binnen de samengestelde weergave '{0}' heeft geen waarde.</value>
+    <value>Onverwacht gedrag van het samengestelde documentvenster. Een documentvenster binnen het samengestelde documentvenster '{0}' heeft geen waarde.</value>
   </data>
   <data name="RingtoetsGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
     <value>Standaardschermen aan het maken...</value>
   </data>
   <data name="RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
-    <value>Exceptie tijdens deactivering van de grafische interface plugin.</value>
+    <value>Kritieke fout opgetrede tijdens deactivering van de grafische interface plugin.</value>
   </data>
   <data name="ProgressDialog_SetButtonState_Cancelling___" xml:space="preserve">
     <value>Annuleren...</value>
@@ -279,7 +279,7 @@
     <value>Starten van de toepassing...</value>
   </data>
   <data name="App_RunRingtoets_Activity___0___ended_with_status__1_" xml:space="preserve">
-    <value>Activiteit '{0}' eindigde met status {1}.</value>
+    <value>Activiteit '{0}' is beëindigd met status {1}.</value>
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Berichten</value>
@@ -378,7 +378,7 @@
     <value>Geen enkele "importer" is beschikbaar voor dit "item" ({0}).</value>
   </data>
   <data name="ViewResolver_OpenViewForData_No_view_registered_for____0_" xml:space="preserve">
-    <value>Geen weergave geregistreerd voor: {0}.</value>
+    <value>Geen documentvenster geregistreerd voor: {0}.</value>
   </data>
   <data name="Loading_project_from_selected_file" xml:space="preserve">
     <value>Laden van Ringtoets project vanaf geselecteerd bestand.</value>
@@ -561,7 +561,7 @@
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewResolver_CreateViewForData_More_than_one_view_for_data" xml:space="preserve">
-    <value>Meer dan één weergave voor de gegevens.</value>
+    <value>Meer dan één documentvenster voor de gegevens.</value>
   </data>
   <data name="bug" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bug.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -576,7 +576,7 @@
     <value>..\Resources\chart_organisation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewList_Insert_No_default_location_specified__Cannot_add_a_view_without_location_parameter_" xml:space="preserve">
-    <value>Er is geen standaardlocatie opgegeven. Kan geen weergave toevoegen zonder de locatie parameter.</value>
+    <value>Er is geen standaardlocatie opgegeven. Kan geen documentvenster toevoegen zonder de locatie parameter.</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Fout</value>
@@ -624,7 +624,7 @@
     <value>..\Resources\application_import_blue_Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ViewList_ActivateView_Item_not_found_in_list_of_views" xml:space="preserve">
-    <value>Weergave is niet gevonden tussen alle mogelijke weergaven.</value>
+    <value>Documentvenster is niet gevonden tussen alle mogelijke documentvensters.</value>
   </data>
   <data name="folder_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_database.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -729,7 +729,7 @@
     <value>Het aantal geselecteerde gegevenstypes moet 1 zijn.</value>
   </data>
   <data name="AvalonDockDockingManager_AddToolView_View_location__0__is_not_implemented_yet" xml:space="preserve">
-    <value>Weergave locatie {0} is nog niet geïmplementeerd.</value>
+    <value>Locatie {0} is niet geldig voor het documentvenster.</value>
   </data>
   <data name="chart_pie" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_pie.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -789,7 +789,7 @@
     <value>Nieuwe map toevoegen</value>
   </data>
   <data name="GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
-    <value>Er moet een project zijn om een "item" te kunnen toevoegen.</value>
+    <value>Er moet een project zijn om gegevens te kunnen toevoegen.</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed" xml:space="preserve">
     <value>Exporteren mislukt.</value>
