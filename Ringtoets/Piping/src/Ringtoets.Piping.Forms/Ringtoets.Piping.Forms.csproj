@@ -117,6 +117,10 @@
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Placeholder\Ringtoets.Common.Placeholder.csproj">
+      <Project>{e38c11e0-4384-44dd-9f5b-ee73d79fd7f5}</Project>
+      <Name>Ringtoets.Common.Placeholder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.Calculation</Name>

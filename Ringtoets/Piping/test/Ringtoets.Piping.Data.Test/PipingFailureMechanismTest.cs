@@ -25,10 +25,14 @@ namespace Ringtoets.Piping.Data.Test
 
             // assert
             Assert.IsInstanceOf<IFailureMechanism>(piping);
+            Assert.AreEqual("Vakindeling", piping.SectionDivisions.Name);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);
             Assert.AreEqual(1, piping.Calculations.Count);
+            Assert.AreEqual("Randvoorwaarden", piping.BoundaryConditions.Name);
+
+            Assert.AreEqual("Oordeel", piping.AssessmentResult.Name);
         }
 
         [Test]

@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Helpers;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -34,18 +36,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism, ITreeNode node)
         {
-            yield return failureMechanism.SoilProfiles;
-            yield return failureMechanism.SurfaceLines;
-
-            foreach (var calculation in failureMechanism.Calculations)
-            {
-                yield return new PipingCalculationInputs
-                {
-                    PipingData = calculation,
-                    AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
-                    AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
-                };
-            }
+            yield return new CategoryTreeFolder("Invoer", GetInputs(failureMechanism), TreeFolderCategory.Input);
+            yield return new CategoryTreeFolder("Berekeningen", GetCalculations(failureMechanism));
+            yield return new CategoryTreeFolder("Uitvoer", GetOutputs(failureMechanism), TreeFolderCategory.Output);
         }
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
@@ -74,15 +67,15 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                  });
 
             var clearOutputNode = rootMenu.AddMenuItem(Resources.Clear_all_output,
-                                 Resources.PipingFailureMechanism_Clear_all_output_Tooltip,
-                                 Resources.PipingOutputClear, (o, args) =>
-                                 {
-                                     foreach (var calc in failureMechanism.Calculations)
-                                     {
-                                         calc.ClearOutput();
-                                         calc.NotifyObservers();
-                                     }
-                                 });
+                                                       Resources.PipingFailureMechanism_Clear_all_output_Tooltip,
+                                                       Resources.PipingOutputClear, (o, args) =>
+                                                       {
+                                                           foreach (var calc in failureMechanism.Calculations)
+                                                           {
+                                                               calc.ClearOutput();
+                                                               calc.NotifyObservers();
+                                                           }
+                                                       });
 
             if (!failureMechanism.Calculations.Any(c => c.HasOutput))
             {
@@ -91,6 +84,29 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
 
             return rootMenu;
+        }
+
+        private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism)
+        {
+            yield return failureMechanism.SectionDivisions;
+            yield return failureMechanism.SoilProfiles;
+            yield return failureMechanism.SurfaceLines;
+            yield return failureMechanism.BoundaryConditions;
+        }
+
+        private IEnumerable GetCalculations(PipingFailureMechanism failureMechanism)
+        {
+            return failureMechanism.Calculations.Select(calculation => new PipingCalculationInputs
+            {
+                PipingData = calculation,
+                AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
+                AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
+            });
+        }
+
+        private IEnumerable GetOutputs(PipingFailureMechanism failureMechanism)
+        {
+            yield return failureMechanism.AssessmentResult;
         }
     }
 }

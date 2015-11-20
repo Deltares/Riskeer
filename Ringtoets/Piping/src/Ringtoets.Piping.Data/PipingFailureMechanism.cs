@@ -2,25 +2,32 @@
 using Core.Common.Base;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Placeholder;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : IObservable, IFailureMechanism
+    public class PipingFailureMechanism : Observable, IFailureMechanism
     {
-        private readonly IList<IObserver> observers = new List<IObserver>();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
         public PipingFailureMechanism()
         {
+            SectionDivisions = new InputPlaceholder("Vakindeling");
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
+            BoundaryConditions = new InputPlaceholder("Randvoorwaarden");
             Calculations = new List<PipingData> { new PipingData() };
+            AssessmentResult = new OutputPlaceholder("Oordeel");
         }
+
+        /// <summary>
+        /// Gets the subdivision of the assessment section for which the piping failure mechanism is calculating.
+        /// </summary>
+        public InputPlaceholder SectionDivisions { get; private set; }
 
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
@@ -33,26 +40,18 @@ namespace Ringtoets.Piping.Data
         public IEnumerable<PipingSoilProfile> SoilProfiles { get; private set; }
 
         /// <summary>
+        /// Gets the boundary conditions applying to the piping failure mechanism.
+        /// </summary>
+        public InputPlaceholder BoundaryConditions { get; private set; }
+
+        /// <summary>
         /// Gets all available piping calculations.
         /// </summary>
         public ICollection<PipingData> Calculations { get; private set; }
 
-        public void Attach(IObserver observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in observers)
-            {
-                observer.UpdateObserver();
-            }
-        }
+        /// <summary>
+        /// Gets the calculation results for this failure mechanism.
+        /// </summary>
+        public OutputPlaceholder AssessmentResult { get; set; }
     }
 }

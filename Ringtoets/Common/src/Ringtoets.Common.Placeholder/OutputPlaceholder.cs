@@ -1,6 +1,4 @@
-﻿using Ringtoets.Common.Placeholder;
-
-namespace Ringtoets.Integration.Data.Placeholders
+﻿namespace Ringtoets.Common.Placeholder
 {
     /// <summary>
     /// Defines a placeholder for output objects.

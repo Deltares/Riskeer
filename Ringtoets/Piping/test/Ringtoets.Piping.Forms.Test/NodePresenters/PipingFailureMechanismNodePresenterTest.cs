@@ -6,6 +6,8 @@ using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
@@ -73,18 +75,38 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(5, children.Length);
-            Assert.AreSame(pipingFailureMechanism.SoilProfiles, children[0]);
-            Assert.AreSame(pipingFailureMechanism.SurfaceLines, children[1]);
-            var pipingCalculationInputsChildObjects = children.Skip(2)
-                                                              .Take(pipingFailureMechanism.Calculations.Count)
-                                                              .Cast<PipingCalculationInputs>()
-                                                              .ToArray();
-            CollectionAssert.AreEqual(pipingFailureMechanism.Calculations, pipingCalculationInputsChildObjects.Select(pci => pci.PipingData).ToArray());
-            foreach (var pipingData in pipingCalculationInputsChildObjects)
+            Assert.AreEqual(3, children.Length);
+            var inputsFolder = (CategoryTreeFolder)children[0];
+            Assert.AreEqual("Invoer", inputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+            CollectionAssert.AreEqual(new object[]
+            {
+                pipingFailureMechanism.SectionDivisions,
+                pipingFailureMechanism.SurfaceLines,
+                pipingFailureMechanism.SoilProfiles,
+                pipingFailureMechanism.BoundaryConditions
+            }, inputsFolder.Contents);
+
+            var calculationsFolder = (CategoryTreeFolder)children[1];
+            Assert.AreEqual("Berekeningen", calculationsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
+            var pipingCalculationChildObjects = calculationsFolder.Contents.Cast<PipingCalculationInputs>()
+                                                                        .Take(pipingFailureMechanism.Calculations.Count)
+                                                                        .ToArray();
+            CollectionAssert.AreEqual(pipingFailureMechanism.Calculations, pipingCalculationChildObjects.Select(pci => pci.PipingData).ToArray());
+            foreach (var pipingData in pipingCalculationChildObjects)
             {
                 Assert.AreSame(pipingFailureMechanism.SurfaceLines, pipingData.AvailablePipingSurfaceLines);
+                Assert.AreSame(pipingFailureMechanism.SoilProfiles, pipingData.AvailablePipingSoilProfiles);
             }
+
+            var outputsFolder = (CategoryTreeFolder)children[2];
+            Assert.AreEqual("Uitvoer", outputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
+            CollectionAssert.AreEqual(new object[]
+            {
+                pipingFailureMechanism.AssessmentResult
+            }, outputsFolder.Contents);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 

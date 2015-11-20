@@ -4,7 +4,6 @@ using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Placeholder;
-using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.NodePresenters

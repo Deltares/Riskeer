@@ -3,7 +3,7 @@
 using Core.Common.Base;
 
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data.Properties;
 
 namespace Ringtoets.Integration.Data
