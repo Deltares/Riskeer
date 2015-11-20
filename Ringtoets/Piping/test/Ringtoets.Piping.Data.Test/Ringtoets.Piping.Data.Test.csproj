@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Calculation\Math2DTest.cs" />
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
-    <Compile Include="PipingDataTest.cs" />
+    <Compile Include="PipingCalculationDataTest.cs" />
     <Compile Include="PipingFailureMechanismTest.cs" />
     <Compile Include="PipingOutputTest.cs" />
     <Compile Include="PipingSoilLayerTest.cs" />

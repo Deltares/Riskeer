@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
-using Core.Common.Base;
+﻿using Core.Common.Base;
+
+using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class holds the information which can be made visible in the graphical interface of the application.
     /// </summary>
-    public class PipingData : IObservable
+    public class PipingCalculationData : Observable
     {
-        private readonly IList<IObserver> observers = new List<IObserver>();
-
         /// <summary>
-        /// Constructs a new instance of <see cref="PipingData"/> with default values set for some of the parameters.
+        /// Constructs a new instance of <see cref="PipingCalculationData"/> with default values set for some of the parameters.
         /// </summary>
-        public PipingData()
+        public PipingCalculationData()
         {
-            Name = "Piping";
+            Name = Resources.PipingCalculationData_DefaultName;
 
             // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
             UpliftModelFactor = 1.0;
@@ -38,6 +38,9 @@ namespace Ringtoets.Piping.Data
             Diameter70 = new LognormalDistribution();
             DarcyPermeability = new LognormalDistribution();
             ThicknessAquiferLayer = new LognormalDistribution();
+
+            Comments = new InputPlaceholder(Resources.Comments_DisplayName);
+            CalculationReport = new PlaceholderWithReadonlyName(Resources.CalculationReport_DisplayName);
         }
 
         /// <summary>
@@ -195,7 +198,7 @@ namespace Ringtoets.Piping.Data
         public PipingOutput Output { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether the <see cref="PipingData"/> has <see cref="Output"/>.
+        /// Gets a value indicating whether the <see cref="PipingCalculationData"/> has <see cref="Output"/>.
         /// </summary>
         public bool HasOutput
         {
@@ -206,29 +209,21 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets the user notes for this calculation.
+        /// </summary>
+        public PlaceholderWithReadonlyName Comments { get; private set; }
+
+        /// <summary>
+        /// Gets the calculation report for the calculation that generated <see cref="Output"/>.
+        /// </summary>
+        public PlaceholderWithReadonlyName CalculationReport { get; private set; }
+
+        /// <summary>
         /// Clears the <see cref="Output"/>.
         /// </summary>
         public void ClearOutput()
         {
             Output = null;
-        }
-
-        public void Attach(IObserver observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in observers)
-            {
-                observer.UpdateObserver();
-            }
         }
     }
 }

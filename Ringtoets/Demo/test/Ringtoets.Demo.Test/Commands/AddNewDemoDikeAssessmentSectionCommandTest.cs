@@ -75,7 +75,7 @@ namespace Ringtoets.Demo.Test.Commands
             mocks.VerifyAll();
         }
 
-        private void AssertCalculationAbleToCalculate(PipingData calculation)
+        private void AssertCalculationAbleToCalculate(PipingCalculationData calculation)
         {
             Assert.AreEqual(1.0, calculation.UpliftModelFactor, 1e-3);
             Assert.AreEqual(1.0, calculation.SellmeijerModelFactor, 1e-3);

@@ -14,7 +14,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetThicknessCoverageLayer_ValidPipingData_CreateDesignVariableForThicknessCoverageLayer()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(pipingData);
@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetPhreaticLevelExit_ValidPipingData_CreateDesignVariableForPhreaticLevelExit()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var freaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(pipingData);
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetDampingFactorExit_ValidPipingData_CreateDesignVariableForDampingFactorExit()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(pipingData);
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetSeepageLength_ValidPipingData_CreateDesignVariableForSeepageLength()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var seepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(pipingData);
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetDiameter70_ValidPipingData_CreateDesignVariableForDiameter70()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var d70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(pipingData);
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetDarcyPermeability_ValidPipingData_CreateDesignVariableForDarcyPermeability()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var darcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(pipingData);
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetThicknessAquiferLayer_ValidPipingData_CreateDesignVariableForThicknessAquiferLayer()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var thicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(pipingData);

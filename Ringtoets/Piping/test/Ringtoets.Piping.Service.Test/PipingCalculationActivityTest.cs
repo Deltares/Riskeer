@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
 
             // Call
             var activity = new PipingCalculationActivity(pipingData);

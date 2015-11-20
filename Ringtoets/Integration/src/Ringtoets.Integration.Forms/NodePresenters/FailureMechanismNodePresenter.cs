@@ -8,6 +8,8 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.Properties;
 
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
 namespace Ringtoets.Integration.Forms.NodePresenters
 {
     public class FailureMechanismNodePresenter : RingtoetsNodePresenterBase<FailureMechanismPlaceholder>
@@ -21,8 +23,8 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override IEnumerable GetChildNodeObjects(FailureMechanismPlaceholder nodeData, ITreeNode node)
         {
-            yield return new CategoryTreeFolder("Invoer", GetInputs(nodeData), TreeFolderCategory.Input);
-            yield return new CategoryTreeFolder("Uitvoer", GetOutputs(nodeData), TreeFolderCategory.Output);
+            yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(nodeData), TreeFolderCategory.Input);
+            yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(nodeData), TreeFolderCategory.Output);
         }
 
         private IEnumerable GetInputs(FailureMechanismPlaceholder nodeData)

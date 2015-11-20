@@ -22,7 +22,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var pipingCalculationInputs = new PipingCalculationInputs
             {
                 AvailablePipingSoilProfiles = new[] { new TestPipingSoilProfile()  },
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     SoilProfile = new TestPipingSoilProfile()
                 }
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var pipingCalculationInputs = new PipingCalculationInputs
             {
                 AvailablePipingSoilProfiles = new[] { soilProfile },
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     SoilProfile = soilProfile
                 }

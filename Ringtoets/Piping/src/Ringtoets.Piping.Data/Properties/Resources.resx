@@ -150,4 +150,13 @@
   <data name="RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor de dwarsdoorsnede heeft geen waarde.</value>
   </data>
+  <data name="PipingCalculationData_DefaultName" xml:space="preserve">
+    <value>Berekening</value>
+  </data>
+  <data name="Comments_DisplayName" xml:space="preserve">
+    <value>Commentaar</value>
+  </data>
+  <data name="CalculationReport_DisplayName" xml:space="preserve">
+    <value>Berekeningsverslag</value>
+  </data>
 </root>

@@ -15,7 +15,7 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
-    /// This class presents the data on <see cref="PipingData"/> as a node in a <see cref="ITreeView"/> and
+    /// This class presents the data on <see cref="PipingCalculationData"/> as a node in a <see cref="ITreeView"/> and
     /// implements the way the user can interact with the node.
     /// </summary>
     public class PipingCalculationInputsNodePresenter : RingtoetsNodePresenterBase<PipingCalculationInputs>
@@ -33,10 +33,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationInputs pipingCalculationInputs, ITreeNode node)
         {
+            yield return pipingCalculationInputs.PipingData.Comments;
             var pipingOutput = pipingCalculationInputs.PipingData.Output;
             if (pipingOutput != null)
             {
                 yield return pipingOutput;
+                yield return pipingCalculationInputs.PipingData.CalculationReport;
             }
         }
 
@@ -58,7 +60,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationInputs nodeData)
         {
-            PipingData pipingData = nodeData.PipingData;
+            PipingCalculationData pipingData = nodeData.PipingData;
 
             var contextMenu = new ContextMenuStrip();
             contextMenu.AddMenuItem(Resources.Validate,

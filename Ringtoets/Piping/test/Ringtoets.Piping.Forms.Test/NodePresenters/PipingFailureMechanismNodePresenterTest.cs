@@ -68,8 +68,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.Calculations.Add(new PipingData());
-            pipingFailureMechanism.Calculations.Add(new PipingData());
+            pipingFailureMechanism.Calculations.Add(new PipingCalculationData());
+            pipingFailureMechanism.Calculations.Add(new PipingCalculationData());
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock).OfType<object>().ToArray();
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Calculations.Add(new PipingData
+            dataMock.Calculations.Add(new PipingCalculationData
             {
                 Output = new TestPipingOutput()
             });
@@ -474,11 +474,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Calculations.Add(new PipingData
+            dataMock.Calculations.Add(new PipingCalculationData
             {
                 Output = new TestPipingOutput()
             });
-            dataMock.Calculations.Add(new PipingData
+            dataMock.Calculations.Add(new PipingCalculationData
             {
                 Output = new TestPipingOutput()
             });

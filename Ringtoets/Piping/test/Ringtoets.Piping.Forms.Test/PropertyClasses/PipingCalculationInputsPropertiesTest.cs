@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     IsAquifer = true
                 }
             });
-            var pipingData = new PipingData
+            var pipingData = new PipingCalculationData
             {
                 Name = name,
                 SurfaceLine = surfaceLine,
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             pipingData.Attach(projectObserver);
 
             var properties = new PipingCalculationInputsProperties
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             pipingData.Attach(projectObserver);
 
             Random random = new Random(22);

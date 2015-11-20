@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GivenContextOfPipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(int propertyIndexToChange)
         {
             // Scenario
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             var calculationInputs = new PipingCalculationInputs
             {
                 PipingData = pipingData

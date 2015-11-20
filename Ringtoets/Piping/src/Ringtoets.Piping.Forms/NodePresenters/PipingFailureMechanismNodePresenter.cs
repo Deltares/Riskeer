@@ -15,6 +15,9 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
 
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
@@ -36,9 +39,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism, ITreeNode node)
         {
-            yield return new CategoryTreeFolder("Invoer", GetInputs(failureMechanism), TreeFolderCategory.Input);
-            yield return new CategoryTreeFolder("Berekeningen", GetCalculations(failureMechanism));
-            yield return new CategoryTreeFolder("Uitvoer", GetOutputs(failureMechanism), TreeFolderCategory.Output);
+            yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism), TreeFolderCategory.Input);
+            yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Calculations_DisplayName, GetCalculations(failureMechanism));
+            yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output);
         }
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
@@ -49,9 +52,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                  Resources.PipingFailureMechanism_Add_Piping_Calculation_Tooltip,
                                  Resources.PipingIcon, (o, args) =>
                                  {
-                                     var pipingData = new PipingData
+                                     var pipingData = new PipingCalculationData
                                      {
-                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, "Piping", pd => pd.Name)
+                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationData_DefaultName, pd => pd.Name)
                                      };
                                      failureMechanism.Calculations.Add(pipingData);
                                      failureMechanism.NotifyObservers();

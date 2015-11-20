@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var pipingCalculationInputs = new PipingCalculationInputs
             {
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     Output = new TestPipingOutput()
                 }

@@ -61,6 +61,33 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekeningen.
+        /// </summary>
+        public static string FailureMechanism_Calculations_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Calculations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoer.
+        /// </summary>
+        public static string FailureMechanism_Inputs_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Inputs_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitvoer.
+        /// </summary>
+        public static string FailureMechanism_Outputs_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Outputs_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap GeneralFolderIcon {

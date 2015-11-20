@@ -21,7 +21,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var pipingCalculationInputs = new PipingCalculationInputs
             {
                 AvailablePipingSurfaceLines = new[] { new RingtoetsPipingSurfaceLine() },
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     SurfaceLine = new RingtoetsPipingSurfaceLine()
                 }
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var pipingCalculationInputs = new PipingCalculationInputs
             {
                 AvailablePipingSurfaceLines = new[] { surfaceLine },
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     SurfaceLine = surfaceLine
                 }

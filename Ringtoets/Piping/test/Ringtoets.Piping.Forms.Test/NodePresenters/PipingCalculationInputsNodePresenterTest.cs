@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
+
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using Core.Common.TestUtils;
@@ -58,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var pipingCalculationInputs = new PipingCalculationInputs
             {
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     Name = nodeName,
                     AssessmentLevel = 2.0
@@ -85,18 +87,20 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var pipingCalculationInputs = new PipingCalculationInputs
             {
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
                 }
             };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(1, children.Count());
-            CollectionAssert.AllItemsAreInstancesOfType(children, typeof(PipingOutput));
+            Assert.AreEqual(3, children.Length);
+            Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
+            Assert.AreSame(pipingCalculationInputs.PipingData.Output, children[1]);
+            Assert.AreSame(pipingCalculationInputs.PipingData.CalculationReport, children[2]);
             mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -111,14 +115,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var pipingCalculationInputs = new PipingCalculationInputs
             {
-                PipingData = new PipingData()
+                PipingData = new PipingCalculationData()
             };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(0, children.Count());
+            Assert.AreEqual(1, children.Length);
+            Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
             mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -164,7 +169,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var pipingData = new PipingData
+            var pipingData = new PipingCalculationData
             {
                 Name = "<Original name>"
             };
@@ -296,7 +301,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
             var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
-            dataMock.PipingData = new PipingData();
+            dataMock.PipingData = new PipingCalculationData();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -328,7 +333,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
             var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
-            dataMock.PipingData = new PipingData();
+            dataMock.PipingData = new PipingCalculationData();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -353,7 +358,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
             var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
-            dataMock.PipingData = new PipingData
+            dataMock.PipingData = new PipingCalculationData
             {
                 Output = new TestPipingOutput()
             };
@@ -453,7 +458,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mockRepository.ReplayAll();
 
             var calculateContextMenuItemIndex = 1;
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             pipingData.Attach(observer);
             
             var activityRunner = new ActivityRunner();
@@ -480,14 +485,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 var msgs = messages.GetEnumerator();
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Piping' gestart om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Berekening' gestart om: ", msgs.Current);
                 for (int i = 0; i < expectedValidationMessageCount; i++)
                 {
                     Assert.IsTrue(msgs.MoveNext());
                     StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
                 }
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Piping' beëindigd om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Berekening' beëindigd om: ", msgs.Current);
             });
             Assert.IsNull(pipingData.Output);
             mockRepository.VerifyAll();// Expect no calls on observer as no calculation has been performed
@@ -502,7 +507,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
 
             var validateContextMenuItemIndex = 0;
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             var observer = mockRepository.StrictMock<IObserver>();
             var nodePresenter = new PipingCalculationInputsNodePresenter();
             observer.Expect(o => o.UpdateObserver()).Repeat.Never();
@@ -525,7 +530,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Given
             var calculateContextMenuItemIndex = 1;
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             var validPipingInput = new TestPipingInput();
             pipingData.AssessmentLevel = validPipingInput.AssessmentLevel;
             pipingData.BeddingAngle = validPipingInput.BeddingAngle;
@@ -579,14 +584,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 var msgs = messages.GetEnumerator();
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Piping' gestart om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Berekening' gestart om: ", msgs.Current);
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Piping' beëindigd om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Berekening' beëindigd om: ", msgs.Current);
 
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Berekening van 'Piping' gestart om: ", msgs.Current);
+                StringAssert.StartsWith("Berekening van 'Berekening' gestart om: ", msgs.Current);
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Berekening van 'Piping' beëindigd om: ", msgs.Current);
+                StringAssert.StartsWith("Berekening van 'Berekening' beëindigd om: ", msgs.Current);
             });
             Assert.IsNotNull(pipingData.Output);
             mockRepository.VerifyAll();
@@ -597,7 +602,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Given
             int clearOutputItemPosition = 2;
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             pipingData.Output = new TestPipingOutput();

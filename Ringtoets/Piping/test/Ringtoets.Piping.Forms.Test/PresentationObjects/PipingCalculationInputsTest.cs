@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var presentationObject = new PipingCalculationInputs
             {
-                PipingData = new PipingData()
+                PipingData = new PipingCalculationData()
             };
             presentationObject.Attach(observer);
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var presentationObject = new PipingCalculationInputs
             {
-                PipingData = new PipingData()
+                PipingData = new PipingCalculationData()
             };
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingData();
+            var pipingData = new PipingCalculationData();
             var presentationObject = new PipingCalculationInputs
             {
                 PipingData = pipingData
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var inputs = new PipingCalculationInputs
             {
-                PipingData = new PipingData
+                PipingData = new PipingCalculationData
                 {
                     Output = new TestPipingOutput()
                 }

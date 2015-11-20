@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Service.Test
         public void PerformValidatedCalculation_ValidPipingDataNoOutput_ShouldSetOutput()
         {
             // Setup
-            PipingData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
+            PipingCalculationData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
 
             // Precondition
             Assert.IsNull(validPipingData.Output);
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var output = new TestPipingOutput();
 
-            PipingData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
+            PipingCalculationData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
             validPipingData.Output = output;
 
             // Call

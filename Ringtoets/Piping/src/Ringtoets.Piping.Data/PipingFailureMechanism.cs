@@ -22,7 +22,7 @@ namespace Ringtoets.Piping.Data
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
-            Calculations = new List<PipingData> { new PipingData() };
+            Calculations = new List<PipingCalculationData> { new PipingCalculationData() };
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
 
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets all available piping calculations.
         /// </summary>
-        public ICollection<PipingData> Calculations { get; private set; }
+        public ICollection<PipingCalculationData> Calculations { get; private set; }
 
         /// <summary>
         /// Gets the calculation results for this failure mechanism.

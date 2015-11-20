@@ -15,15 +15,15 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public static class PipingCalculationService
     {
-        private static readonly ILog pipingDataLogger = LogManager.GetLogger(typeof(PipingData));
+        private static readonly ILog pipingDataLogger = LogManager.GetLogger(typeof(PipingCalculationData));
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="pipingData"/>. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="pipingData">The <see cref="PipingData"/> for which to validate the values.</param>
+        /// <param name="pipingData">The <see cref="PipingCalculationData"/> for which to validate the values.</param>
         /// <returns>False if <paramref name="pipingData"/> contains validation errors; True otherwise.</returns>
-        public static bool Validate(PipingData pipingData)
+        public static bool Validate(PipingCalculationData pipingData)
         {
             pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));
@@ -38,13 +38,13 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Performs a piping calculation based on the supplied <see cref="PipingData"/> and sets <see cref="PipingData.Output"/>
+        /// Performs a piping calculation based on the supplied <see cref="PipingCalculationData"/> and sets <see cref="PipingCalculationData.Output"/>
         /// to the <see cref="PipingCalculationResult"/> if the calculation was successful. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="pipingData">The <see cref="PipingData"/> to base the input for the calculation upon.</param>
+        /// <param name="pipingData">The <see cref="PipingCalculationData"/> to base the input for the calculation upon.</param>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        public static void Calculate(PipingData pipingData)
+        public static void Calculate(PipingCalculationData pipingData)
         {
             pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_started_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static PipingCalculationInput CreateInputFromData(PipingData pipingData)
+        private static PipingCalculationInput CreateInputFromData(PipingCalculationData pipingData)
         {
             return new PipingCalculationInput(
                 pipingData.WaterVolumetricWeight,

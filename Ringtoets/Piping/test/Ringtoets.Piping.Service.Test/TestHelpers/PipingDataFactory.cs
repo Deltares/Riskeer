@@ -5,12 +5,12 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
 {
     public static class PipingDataFactory
     {
-        public static PipingData CreateCalculationWithInvalidData()
+        public static PipingCalculationData CreateCalculationWithInvalidData()
         {
-            return new PipingData();
+            return new PipingCalculationData();
         }
 
-        public static PipingData CreateCalculationWithValidInput()
+        public static PipingCalculationData CreateCalculationWithValidInput()
         {
             var random = new Random(22);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
                     IsAquifer = true
                 }
             });
-            return new PipingData
+            return new PipingCalculationData
             {
                 AssessmentLevel = 1.0,
                 BeddingAngle = 1.0,
