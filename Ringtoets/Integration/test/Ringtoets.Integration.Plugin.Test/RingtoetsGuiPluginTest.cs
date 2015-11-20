@@ -10,6 +10,7 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Integration.Forms.PropertyClasses;

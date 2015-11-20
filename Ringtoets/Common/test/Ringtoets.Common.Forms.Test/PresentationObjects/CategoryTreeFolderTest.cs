@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class CategoryTreeFolderTest

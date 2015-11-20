@@ -3,7 +3,7 @@ using System.Linq;
 
 using Core.Common.Controls;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Object that allows for grouping child nodes of <see cref="ITreeNode"/> instances.

@@ -63,6 +63,36 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GeneralFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("GeneralFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InputFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("InputFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap OutputFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap receipt_text {
             get {
                 object obj = ResourceManager.GetObject("receipt_text", resourceCulture);

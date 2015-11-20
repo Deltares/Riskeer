@@ -9,9 +9,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Forms.NodePresenters;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.NodePresenters;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 

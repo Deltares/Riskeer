@@ -4,8 +4,8 @@ using System.Drawing;
 using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.NodePresenters;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.NodePresenters

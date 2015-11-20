@@ -4,12 +4,11 @@ using System.Drawing;
 
 using Core.Common.Controls;
 
-using Ringtoets.Common.Forms.NodePresenters;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PresentationObjects;
 
-using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.NodePresenters
+namespace Ringtoets.Common.Forms.NodePresenters
 {
     /// <summary>
     /// Node presenter for <see cref="CategoryTreeFolder"/>.
@@ -32,11 +31,11 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             switch (category)
             {
                 case TreeFolderCategory.General:
-                    return RingtoetsFormsResources.GeneralFolderIcon;
+                    return RingtoetsCommonFormsResources.GeneralFolderIcon;
                 case TreeFolderCategory.Input:
-                    return RingtoetsFormsResources.InputFolderIcon;
+                    return RingtoetsCommonFormsResources.InputFolderIcon;
                 case TreeFolderCategory.Output:
-                    return RingtoetsFormsResources.OutputFolderIcon;
+                    return RingtoetsCommonFormsResources.OutputFolderIcon;
                 default:
                     throw new NotImplementedException();
             }

@@ -80,7 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ContextMenuStripExtensionsTest.cs" />
+    <Compile Include="NodePresenters\CategoryTreeFolderNodePresenterTest.cs" />
     <Compile Include="NodePresenters\RingtoetsNodePresenterBaseTest.cs" />
+    <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +93,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
+      <Name>Core.Common.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>

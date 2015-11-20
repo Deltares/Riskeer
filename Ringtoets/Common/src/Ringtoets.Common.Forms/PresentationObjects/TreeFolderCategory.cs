@@ -1,4 +1,4 @@
-﻿namespace Ringtoets.Integration.Forms.PresentationObjects
+﻿namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// All type categories supported by <see cref="CategoryTreeFolder"/>.

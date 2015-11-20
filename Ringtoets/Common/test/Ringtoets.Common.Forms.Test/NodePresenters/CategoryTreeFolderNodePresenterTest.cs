@@ -10,12 +10,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Forms.NodePresenters;
-using Ringtoets.Integration.Forms.NodePresenters;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PresentationObjects;
 
-using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.NodePresenters
+namespace Ringtoets.Common.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class CategoryTreeFolderNodePresenterTest

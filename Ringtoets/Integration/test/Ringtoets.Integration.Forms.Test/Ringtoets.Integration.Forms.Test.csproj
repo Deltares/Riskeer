@@ -54,10 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NodePresenters\AssessmentSectionBaseNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\CategoryTreeFolderNodePresenterTest.cs" />
     <Compile Include="NodePresenters\FailureMechanismNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PlaceholderWithReadonlyNameNodePresenterTest.cs" />
-    <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DikeAssessmentSectionPropertiesTest.cs" />
   </ItemGroup>
