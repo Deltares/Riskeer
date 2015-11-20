@@ -230,18 +230,6 @@ namespace Core.Common.Utils.Tests.Collections.Generic
 
             public event NotifyCollectionChangingEventHandler CollectionChanging;
 #pragma warning restore 67
-
-            public bool SkipChildItemEventBubbling
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
-            }
         }
 
         private class MockClassWithTwoProperties : INotifyPropertyChange

@@ -32,40 +32,7 @@ namespace Core.Common.Utils.Collections.Generic
         private PropertyChangedEventHandler Item_PropertyChangedDelegate;
         private NotifyCollectionChangingEventHandler Item_CollectionChangingDelegate;
         private NotifyCollectionChangedEventHandler Item_CollectionChangedDelegate;
-        private bool skipChildItemEventBubbling;
         public bool HasParent { get; set; }
-
-        bool INotifyCollectionChange.SkipChildItemEventBubbling
-        {
-            get
-            {
-                return skipChildItemEventBubbling;
-            }
-            set
-            {
-                if (skipChildItemEventBubbling == value)
-                {
-                    return;
-                }
-
-                skipChildItemEventBubbling = value;
-
-                if (Count > 0)
-                {
-                    foreach (var item in list)
-                    {
-                        if (value)
-                        {
-                            UnsubscribeEvents(item);
-                        }
-                        else
-                        {
-                            SubscribeEvents(item);
-                        }
-                    }
-                }
-            }
-        }
 
         #region Constructors
 
@@ -508,11 +475,6 @@ namespace Core.Common.Utils.Collections.Generic
         /// <param name="item">The item to detach the handlers from</param>
         private void SubscribeEvents(object item)
         {
-            if (((INotifyCollectionChange) this).SkipChildItemEventBubbling)
-            {
-                return;
-            }
-
             var notifyPropertyChange = item as INotifyPropertyChange;
             if (notifyPropertyChange != null)
             {

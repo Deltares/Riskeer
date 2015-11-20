@@ -1736,8 +1736,6 @@ namespace Core.GIS.SharpMap.Map
         public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
         public virtual event NotifyCollectionChangingEventHandler CollectionChanging;
 
-        bool INotifyCollectionChange.SkipChildItemEventBubbling { get; set; }
-
         public virtual bool HasDefaultEnvelopeSet
         {
             get

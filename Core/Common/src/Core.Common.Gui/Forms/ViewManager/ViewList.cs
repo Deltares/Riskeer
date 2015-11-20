@@ -76,8 +76,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public Action<IView> UpdateViewNameAction { get; set; }
 
-        public bool SkipChildItemEventBubbling { get; set; }
-
         public IView ActiveView
         {
             get

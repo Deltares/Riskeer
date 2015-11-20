@@ -37,19 +37,8 @@ namespace Core.Plugins.CommonTools.Tests
         }
 
         public int Count { get; private set; }
-        public bool IsReadOnly { get; private set; }
 
-        public bool SkipChildItemEventBubbling
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool IsReadOnly { get; private set; }
 
         public bool IgnoreActivation { get; set; }
 

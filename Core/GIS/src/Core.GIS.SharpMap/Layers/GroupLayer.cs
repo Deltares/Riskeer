@@ -216,8 +216,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        bool INotifyCollectionChange.SkipChildItemEventBubbling { get; set; }
-
         public virtual IEnumerable<ILayer> GetAllLayers(bool includeGroupLayers)
         {
             return SharpMap.Map.Map.GetLayers(Layers, includeGroupLayers, true);
