@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRenamceTo_Always_ReturnFalse()
+        public void CanRenameTo_Always_ReturnFalse()
         {
             // Setup
             var nodePresenter = new FailureMechanismNodePresenter();
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_Always_ReturnEmptyEnumerable()
+        public void GetChildNodeObjects_Always_ReturnInputAndOutput()
         {
             // Setup
             var nodePresenter = new FailureMechanismNodePresenter();

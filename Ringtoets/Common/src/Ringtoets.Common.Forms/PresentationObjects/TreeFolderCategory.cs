@@ -6,7 +6,7 @@
     public enum TreeFolderCategory
     {
         /// <summary>
-        /// Folderc ontents to not have a particular meaning.
+        /// Folder contents to not have a particular meaning.
         /// </summary>
         General,
         /// <summary>
