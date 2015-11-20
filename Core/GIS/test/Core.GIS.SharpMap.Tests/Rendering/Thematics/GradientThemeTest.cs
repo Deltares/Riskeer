@@ -261,7 +261,7 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
         }
 
         [Test]
-        public void GradientThemeBubblesPropertyChangesOfGradientThemeItems()
+        public void GradientThemeItems_PropertyHasChanged_EventBubbledByGradientTheme()
         {
             var counter = 0;
             var gradientThemeItem = new GradientThemeItem();

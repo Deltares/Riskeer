@@ -5,23 +5,26 @@
         private readonly bool readOnly;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextDocument"/> class.
+        /// Creates a new text document.
         /// </summary>
-        /// <param name="isReadOnly">Set the value of <see cref="ReadOnly"/> to this value.</param>
+        /// <param name="isReadOnly">Optional: a value indicating whether or not the text document is readonly. Default: <c>false</c>.</param>
         public TextDocument(bool isReadOnly = false)
         {
             readOnly = isReadOnly;
         }
 
         /// <summary>
-        /// Gets or sets the text document contents.
+        /// Gets or sets the contents of the text document.
         /// </summary>
         public string Content { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the text document.
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Indicates if <see cref="Content"/> can be modified or not.
+        /// Gets a value indicating whether or not the text document is readonly.
         /// </summary>
         public bool ReadOnly
         {

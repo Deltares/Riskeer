@@ -10,7 +10,7 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
     public class CustomThemeTest
     {
         [Test]
-        public void CustomThemeBubblesPropertyChangesOfDefaultStyle()
+        public void DefaultStyle_PropertyHasChanged_EventBubbledByCustomTheme()
         {
             var counter = 0;
             var defaultStyle = new VectorStyle();

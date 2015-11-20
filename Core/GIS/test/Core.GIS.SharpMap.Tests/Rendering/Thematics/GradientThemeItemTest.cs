@@ -10,12 +10,12 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
     public class GradientThemeItemTest
     {
         [Test]
-        public void GradientThemeItemBubblesPropertyChangesOfStyle()
+        public void Style_PropertyHasChanged_EventBubbledByGradientThemeItem()
         {
             var counter = 0;
             var gradientThemeItem = new GradientThemeItem(new VectorStyle(), "", "");
 
-            ((INotifyPropertyChanged)gradientThemeItem).PropertyChanged += (sender, e) =>
+            ((INotifyPropertyChanged) gradientThemeItem).PropertyChanged += (sender, e) =>
             {
                 if (sender is IStyle)
                 {

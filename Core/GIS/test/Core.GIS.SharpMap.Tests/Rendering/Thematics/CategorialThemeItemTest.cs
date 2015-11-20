@@ -10,7 +10,7 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
     public class CategorialThemeItemTest
     {
         [Test]
-        public void CategorialThemeItemBubblesPropertyChangesOfStyle()
+        public void Style_PropertyHasChanged_EventBubbledByCategorialThemeItem()
         {
             var counter = 0;
             var categorialThemeItem = new CategorialThemeItem("", new VectorStyle());

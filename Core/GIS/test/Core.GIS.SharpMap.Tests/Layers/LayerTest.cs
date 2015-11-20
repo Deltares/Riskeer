@@ -11,7 +11,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
     public class LayerTest
     {
         [Test]
-        public void LayerBubblesPropertyChangesOfTheme()
+        public void Theme_PropertyHasChanged_EventBubbledByLayer()
         {
             var counter = 0;
             var theme = new CategorialTheme();
@@ -31,7 +31,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
         }
 
         [Test]
-        public void LayerBubblesPropertyChangesOfLabelLayer()
+        public void LabelLayer_PropertyHasChanged_EventBubbledByLayer()
         {
             var counter = 0;
             var labelLayer = new LabelLayer();

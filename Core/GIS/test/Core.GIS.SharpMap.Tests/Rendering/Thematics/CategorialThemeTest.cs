@@ -160,7 +160,7 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
         #endregion
 
         [Test]
-        public void CategorialThemeBubblesPropertyChangesOfCategorialThemeItems()
+        public void CategorialThemeItems_PropertyHasChanged_EventBubbledByCategorialTheme()
         {
             var counter = 0;
             var categorialThemeItem = new CategorialThemeItem();
@@ -180,7 +180,7 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
         }
 
         [Test]
-        public void CategorialThemeBubblesPropertyChangesOfDefaultStyle()
+        public void DefaultStyle_PropertyHasChanged_EventBubbledByCategorialTheme()
         {
             var counter = 0;
             var defaultStyle = new VectorStyle();

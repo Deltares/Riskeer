@@ -202,7 +202,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
         }
 
         [Test]
-        public void VectorLayersBubblesPropertyChangesOfStyle()
+        public void Style_PropertyHasChanged_EventBubbledByVectorLayer()
         {
             var counter = 0;
             var style = new VectorStyle();
