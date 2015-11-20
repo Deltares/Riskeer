@@ -58,6 +58,10 @@ namespace Core.Common.Base
 
             ActivityRunner = new ActivityRunner();
 
+            if (RunningActivityLogAppender.Instance != null)
+            {
+                RunningActivityLogAppender.Instance.ActivityRunner = ActivityRunner;
+            }
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainAssemblyResolve;
 
             Settings = ConfigurationManager.AppSettings;
@@ -439,6 +443,12 @@ namespace Core.Common.Base
                     Plugins.Clear();
 
                     Plugins = null;
+
+                    if (RunningActivityLogAppender.Instance != null)
+                    {
+                        RunningActivityLogAppender.Instance.ActivityRunner = null;
+                        RunningActivityLogAppender.Instance = null;
+                    }
                 }
             }
             disposed = true;
