@@ -72,9 +72,11 @@ namespace Ringtoets.Integration.Plugin.Test
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
 
                 // assert
-                Assert.AreEqual(2, nodePresenters.Length);
+                Assert.AreEqual(4, nodePresenters.Length);
                 Assert.IsTrue(nodePresenters.Any(np => np is AssessmentSectionBaseNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PlaceholderWithReadonlyNameNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is FailureMechanismNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is CategoryTreeFolderNodePresenter));
             }
             mocks.VerifyAll();
         }

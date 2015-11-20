@@ -50,6 +50,7 @@
     <Compile Include="AssessmentSectionBaseTest.cs" />
     <Compile Include="DikeAssessmentSectionTest.cs" />
     <Compile Include="DuneAssessmentSectionTest.cs" />
+    <Compile Include="Placeholders\FailureMechanismPlaceholderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

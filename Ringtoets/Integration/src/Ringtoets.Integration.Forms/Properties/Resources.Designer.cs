@@ -128,9 +128,39 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap GenericInputIcon {
+        internal static System.Drawing.Bitmap GeneralFolderIcon {
             get {
-                object obj = ResourceManager.GetObject("GenericInputIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("GeneralFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GenericInputOutputIcon {
+            get {
+                object obj = ResourceManager.GetObject("GenericInputOutputIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InputFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("InputFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OutputFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

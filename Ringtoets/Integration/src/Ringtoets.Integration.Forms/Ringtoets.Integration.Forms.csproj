@@ -49,7 +49,11 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="NodePresenters\AssessmentSectionBaseNodePresenter.cs" />
+    <Compile Include="NodePresenters\CategoryTreeFolderNodePresenter.cs" />
+    <Compile Include="NodePresenters\FailureMechanismNodePresenter.cs" />
     <Compile Include="NodePresenters\PlaceholderWithReadonlyNameNodePresenter.cs" />
+    <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
+    <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -118,6 +122,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\control-record.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_input.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_output.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

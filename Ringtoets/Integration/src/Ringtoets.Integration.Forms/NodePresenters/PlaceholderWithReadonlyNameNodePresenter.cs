@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 using Core.Common.Controls;
 
@@ -24,13 +23,9 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         private static Bitmap GetIconForPlaceholder(PlaceholderWithReadonlyName nodeData)
         {
-            if (nodeData is InputPlaceholder)
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
-                return Resources.GenericInputIcon;
-            }
-            if (nodeData is FailureMechanismPlaceholder)
-            {
-                return Resources.FailureMechanismIcon;
+                return Resources.GenericInputOutputIcon;
             }
             return Resources.PlaceholderIcon;
         }

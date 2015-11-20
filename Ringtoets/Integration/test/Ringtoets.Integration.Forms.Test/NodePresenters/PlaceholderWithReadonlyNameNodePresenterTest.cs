@@ -72,12 +72,12 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(dataObject.Name, nodeToUpdate.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), nodeToUpdate.ForegroundColor);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputIcon, nodeToUpdate.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, nodeToUpdate.Image);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void UpdateNode_ValidFailureMechanismPlaceholderData_UpdateTreeNode()
+        public void UpdateNode_ValidOutputPlaceholderData_UpdateTreeNode()
         {
             // Setup
             var mocks = new MockRepository();
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodeToUpdate = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var dataObject = new FailureMechanismPlaceholder("test");
+            var dataObject = new OutputPlaceholder("test");
 
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter();
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(dataObject.Name, nodeToUpdate.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), nodeToUpdate.ForegroundColor);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, nodeToUpdate.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, nodeToUpdate.Image);
             mocks.VerifyAll();
         }
 

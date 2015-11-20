@@ -31,7 +31,9 @@ namespace Ringtoets.Integration.Plugin
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new AssessmentSectionBaseNodePresenter();
+            yield return new FailureMechanismNodePresenter();
             yield return new PlaceholderWithReadonlyNameNodePresenter();
+            yield return new CategoryTreeFolderNodePresenter();
         }
     }
 }
