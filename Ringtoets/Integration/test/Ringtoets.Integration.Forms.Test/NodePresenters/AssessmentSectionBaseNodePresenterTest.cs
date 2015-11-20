@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.Base;
@@ -61,34 +60,34 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void GetChildNodeObjects_DataIsDikeAssessmentSection_ReturnDikeInputsAndFailureMechanisms()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionBaseTester();
-
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
 
-            assessmentSection.FailureMechanismsInjectionPoint = new[]
+            var failureMechanismCollection = new[]
             {
                 mocks.StrictMock<IFailureMechanism>(),
                 mocks.StrictMock<IFailureMechanism>(),
                 mocks.StrictMock<IFailureMechanism>(),
                 mocks.StrictMock<IFailureMechanism>(),
             };
+
+            assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(failureMechanismCollection);
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter();
 
-
-
-
             // Call
-            var children = nodePresenter.GetChildNodeObjects(assessmentSection, nodeMock).Cast<object>().AsList();
+            var children = nodePresenter.GetChildNodeObjects(assessmentSectionMock, nodeMock).Cast<object>().AsList();
 
             // Assert
             Assert.AreEqual(7, children.Count);
-            Assert.AreSame(assessmentSection.ReferenceLine, children[0]);
-            Assert.AreSame(assessmentSection.FailureMechanismContribution, children[1]);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, children[2]);
-            CollectionAssert.AreEqual(assessmentSection.GetFailureMechanisms(), children.Skip(3));
+            Assert.AreSame(assessmentSectionMock.ReferenceLine, children[0]);
+            Assert.AreSame(assessmentSectionMock.FailureMechanismContribution, children[1]);
+            Assert.AreSame(assessmentSectionMock.HydraulicBoundaryDatabase, children[2]);
+
+            CollectionAssert.AreEqual(failureMechanismCollection, children.Skip(3));
+
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -363,22 +362,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();
-        }
-
-        private class AssessmentSectionBaseTester : AssessmentSectionBase
-        {
-            public AssessmentSectionBaseTester()
-            {
-                FailureMechanismsInjectionPoint = new IFailureMechanism[0];
-            }
-
-            public IEnumerable<IFailureMechanism> FailureMechanismsInjectionPoint { get; set; }
-
-            public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                return FailureMechanismsInjectionPoint;
-
-            }
         }
     }
 }
