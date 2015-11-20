@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Asfaltbekledingen.
+        ///   Looks up a localized string similar to Dijken - Asfaltbekledingen.
         /// </summary>
         internal static string AsphaltRevetmentFailureMechanism_DisplayName {
             get {
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Grasbekledingen.
+        ///   Looks up a localized string similar to Dijken - Grasbekledingen.
         /// </summary>
         internal static string GrassRevetmentFailureMechanism_DisplayName {
             get {
@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Steenbekledingen.
+        ///   Looks up a localized string similar to Dijken - Steenbekledingen.
         /// </summary>
         internal static string StoneRevetmentFailureMechanism_DisplayName {
             get {

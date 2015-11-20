@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.Plugin.Test
     public class PipingGuiPluginTest
     {
         [Test]
-        [STAThread] // For creation of XAML UI component
+        [STAThread] // For creation of XAML UI component (PipingRibbon)
         public void DefaultConstructor_ExpectedValues()
         {
             // call

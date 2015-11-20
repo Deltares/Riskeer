@@ -33,9 +33,9 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual("Kunstwerken - Overslag en overloop", section.OvertoppingFailureMechanism.Name);
             Assert.AreEqual("Kunstwerken - Niet sluiten", section.ClosingFailureMechanism.Name);
             Assert.AreEqual("Kunstwerken - Constructief falen", section.FailingOfConstructionFailureMechanism.Name);
-            Assert.AreEqual("Kunstwerken - Steenbekledingen", section.StoneRevetmentFailureMechanism.Name);
-            Assert.AreEqual("Kunstwerken - Asfaltbekledingen", section.AsphaltRevetmentFailureMechanism.Name);
-            Assert.AreEqual("Kunstwerken - Grasbekledingen", section.GrassRevetmentFailureMechanism.Name);
+            Assert.AreEqual("Dijken - Steenbekledingen", section.StoneRevetmentFailureMechanism.Name);
+            Assert.AreEqual("Dijken - Asfaltbekledingen", section.AsphaltRevetmentFailureMechanism.Name);
+            Assert.AreEqual("Dijken - Grasbekledingen", section.GrassRevetmentFailureMechanism.Name);
         }
 
         [Test]

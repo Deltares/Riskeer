@@ -21,7 +21,7 @@ namespace Ringtoets.Common.Forms.Test.Extensions
             const string menuItemsTooltip = "<menu.Items[0].ToolTip>";
 
             // Call
-            var newItem = menu.AddMenuItem(menuItemsText, menuItemsTooltip, FormsResources.receipt_text, (sender, args) => callCount++);
+            var newItem = menu.AddMenuItem(menuItemsText, menuItemsTooltip, FormsResources.GeneralFolderIcon, (sender, args) => callCount++);
 
             // Assert
             Assert.AreEqual(1, menu.Items.Count);
@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.Test.Extensions
             Assert.AreSame(newItem, addedMenuItem);
             Assert.AreEqual(menuItemsText, addedMenuItem.Text);
             Assert.AreEqual(menuItemsTooltip, addedMenuItem.ToolTipText);
-            Assert.IsNotNull((Image)addedMenuItem.Image);
+            Assert.IsNotNull(addedMenuItem.Image);
 
             addedMenuItem.PerformClick();
             Assert.AreEqual(1, callCount);
