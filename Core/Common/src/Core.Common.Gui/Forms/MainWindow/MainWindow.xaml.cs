@@ -16,6 +16,8 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
@@ -1295,7 +1297,9 @@ namespace Core.Common.Gui.Forms.MainWindow
                 LicenseText = Gui.Application.Settings["license"],
                 CompanyText = SettingsHelper.ApplicationCompany,
                 AllowsTransparency = false,
-                WindowStyle = WindowStyle.SingleBorderWindow
+                WindowStyle = WindowStyle.SingleBorderWindow,
+                Title = Properties.Resources.Ribbon_About,
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Core.Common.Gui;component/Resources/information.png", UriKind.Absolute))
             };
 
             aboutDialog.PreviewKeyDown += (s, ev) =>
@@ -1308,7 +1312,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             };
 
             aboutDialog.ShowDialog();
-            
         }
     }
 }
