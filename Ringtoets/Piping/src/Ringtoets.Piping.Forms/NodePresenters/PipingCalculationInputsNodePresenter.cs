@@ -34,6 +34,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override IEnumerable GetChildNodeObjects(PipingCalculationInputs pipingCalculationInputs, ITreeNode node)
         {
             yield return pipingCalculationInputs.PipingData.Comments;
+            yield return new PipingInputParametersContext
+            {
+                WrappedPipingInputParameters = pipingCalculationInputs.PipingData.InputParameters,
+                AvailablePipingSurfaceLines = pipingCalculationInputs.AvailablePipingSurfaceLines,
+                AvailablePipingSoilProfiles = pipingCalculationInputs.AvailablePipingSoilProfiles
+            };
             var pipingOutput = pipingCalculationInputs.PipingData.Output;
             if (pipingOutput != null)
             {

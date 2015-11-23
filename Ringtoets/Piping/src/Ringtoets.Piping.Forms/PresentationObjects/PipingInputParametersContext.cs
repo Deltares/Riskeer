@@ -1,29 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Core.Common.Base;
+
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="PipingData"/>
-    /// in order to prepare it for performing a calculation.
+    /// A presentation layer object wrapping an instance of <see cref="WrappedPipingInputParameters"/>
+    /// and allowing for selecting a surfaceline or soil profile based on data available
+    /// in a piping failure mechanism.
     /// </summary>
-    public class PipingCalculationInputs : IObservable
+    public class PipingInputParametersContext : IObservable
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationInputs"/> class.
-        /// </summary>
-        public PipingCalculationInputs()
+        public PipingInputParametersContext()
         {
             AvailablePipingSurfaceLines = Enumerable.Empty<RingtoetsPipingSurfaceLine>();
             AvailablePipingSoilProfiles = Enumerable.Empty<PipingSoilProfile>();
         }
 
         /// <summary>
-        /// Gets or sets the piping data to be configured.
+        /// Gets or sets the wrapped piping input parameters instance.
         /// </summary>
-        public PipingCalculationData PipingData { get; set; }
+        public PipingInputParameters WrappedPipingInputParameters { get; set; }
 
         /// <summary>
         /// Gets or sets the available piping surface lines in order for the user to select
@@ -33,35 +33,23 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         /// <summary>
         /// Gets or sets the available piping soil profiles in order for the user to select
-        /// one to set <see cref="Data.PipingInputParameters.SoilProfile"/>.
+        /// one to set <see cref="PipingInputParameters.SoilProfile"/>.
         /// </summary>
         public IEnumerable<PipingSoilProfile> AvailablePipingSoilProfiles { get; set; }
 
-        #region IObservable
-
         public void Attach(IObserver observer)
         {
-            PipingData.Attach(observer);
+            WrappedPipingInputParameters.Attach(observer);
         }
 
         public void Detach(IObserver observer)
         {
-            PipingData.Detach(observer);
+            WrappedPipingInputParameters.Detach(observer);
         }
 
         public void NotifyObservers()
         {
-            PipingData.NotifyObservers();
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Clears the output of the <see cref="PipingCalculationInputs"/>.
-        /// </summary>
-        public void ClearOutput()
-        {
-            PipingData.ClearOutput();
+            WrappedPipingInputParameters.NotifyObservers();
         }
     }
 }

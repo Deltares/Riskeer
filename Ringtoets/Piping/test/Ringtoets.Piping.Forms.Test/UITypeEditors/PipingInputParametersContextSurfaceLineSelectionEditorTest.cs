@@ -4,7 +4,6 @@ using System.Windows.Forms.Design;
 using Core.Common.Utils.PropertyBag.Dynamic;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -13,27 +12,27 @@ using Ringtoets.Piping.Forms.UITypeEditors;
 namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class PipingCalculationInputSoilProfileSelectionEditorTest
+    public class PipingInputParametersContextSurfaceLineSelectionEditorTest
     {
         [Test]
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var pipingCalculationInputs = new PipingCalculationInputs
+            var inputParametersContext = new PipingInputParametersContext
             {
-                AvailablePipingSoilProfiles = new[] { new TestPipingSoilProfile()  },
-                PipingData = new PipingCalculationData
+                AvailablePipingSurfaceLines = new[] { new RingtoetsPipingSurfaceLine() },
+                WrappedPipingInputParameters = new PipingInputParameters
                 {
-                    SoilProfile = new TestPipingSoilProfile()
+                    SurfaceLine = new RingtoetsPipingSurfaceLine()
                 }
             };
 
-            var properties = new PipingCalculationInputsProperties
+            var properties = new PipingInputParametersContextProperties
             {
-                Data = pipingCalculationInputs
+                Data = inputParametersContext
             };
 
-            var editor = new PipingCalculationInputsSoilProfileSelectionEditor();
+            var editor = new PipingInputParametersContextSurfaceLineSelectionEditor();
             var someValue = new object();
             var mockRepository = new MockRepository();
             var provider = mockRepository.DynamicMock<IServiceProvider>();
@@ -60,22 +59,22 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var soilProfile = new TestPipingSoilProfile();
-            var pipingCalculationInputs = new PipingCalculationInputs
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var inputParametersContext = new PipingInputParametersContext
             {
-                AvailablePipingSoilProfiles = new[] { soilProfile },
-                PipingData = new PipingCalculationData
+                AvailablePipingSurfaceLines = new[] { surfaceLine },
+                WrappedPipingInputParameters = new PipingInputParameters
                 {
-                    SoilProfile = soilProfile
+                    SurfaceLine = surfaceLine
                 }
             };
 
-            var properties = new PipingCalculationInputsProperties
+            var properties = new PipingInputParametersContextProperties
             {
-                Data = pipingCalculationInputs
+                Data = inputParametersContext
             };
 
-            var editor = new PipingCalculationInputsSoilProfileSelectionEditor();
+            var editor = new PipingInputParametersContextSurfaceLineSelectionEditor();
             var someValue = new object();
             var mockRepository = new MockRepository();
             var provider = mockRepository.DynamicMock<IServiceProvider>();
@@ -93,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var result = editor.EditValue(context, provider, someValue);
 
             // Assert
-            Assert.AreSame(soilProfile, result);
+            Assert.AreSame(surfaceLine, result);
 
             mockRepository.VerifyAll();
         }

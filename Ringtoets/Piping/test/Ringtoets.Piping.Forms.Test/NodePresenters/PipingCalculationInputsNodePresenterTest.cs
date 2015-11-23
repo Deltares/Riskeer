@@ -62,8 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 PipingData = new PipingCalculationData
                 {
-                    Name = nodeName,
-                    AssessmentLevel = 2.0
+                    Name = nodeName
                 }
             };
 
@@ -90,17 +89,23 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 PipingData = new PipingCalculationData
                 {
                     Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-                }
+                },
+                AvailablePipingSurfaceLines = new[]{new RingtoetsPipingSurfaceLine()},
+                AvailablePipingSoilProfiles = new[]{new TestPipingSoilProfile()}
             };
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(3, children.Length);
+            Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
-            Assert.AreSame(pipingCalculationInputs.PipingData.Output, children[1]);
-            Assert.AreSame(pipingCalculationInputs.PipingData.CalculationReport, children[2]);
+            var pipingInputParametersContext = (PipingInputParametersContext)children[1];
+            Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputParametersContext.WrappedPipingInputParameters);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputParametersContext.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputParametersContext.AvailablePipingSoilProfiles);
+            Assert.AreSame(pipingCalculationInputs.PipingData.Output, children[2]);
+            Assert.AreSame(pipingCalculationInputs.PipingData.CalculationReport, children[3]);
             mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -122,8 +127,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(1, children.Length);
+            Assert.AreEqual(2, children.Length);
             Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
+            var pipingInputParametersContext = (PipingInputParametersContext)children[1];
+            Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputParametersContext.WrappedPipingInputParameters);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputParametersContext.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputParametersContext.AvailablePipingSoilProfiles);
             mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -532,29 +541,29 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingCalculationData();
             var validPipingInput = new TestPipingInput();
-            pipingData.AssessmentLevel = validPipingInput.AssessmentLevel;
-            pipingData.BeddingAngle = validPipingInput.BeddingAngle;
-            pipingData.DampingFactorExit.Mean = validPipingInput.DampingFactorExit;
-            pipingData.DarcyPermeability.Mean = validPipingInput.DarcyPermeability;
-            pipingData.Diameter70.Mean = validPipingInput.Diameter70;
-            pipingData.ExitPointXCoordinate = validPipingInput.ExitPointXCoordinate;
-            pipingData.Gravity = validPipingInput.Gravity;
-            pipingData.MeanDiameter70 = validPipingInput.MeanDiameter70;
-            pipingData.PhreaticLevelExit.Mean = validPipingInput.PhreaticLevelExit;
-            pipingData.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
-            pipingData.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
-            pipingData.SandParticlesVolumicWeight = validPipingInput.SandParticlesVolumicWeight;
-            pipingData.SeepageLength.Mean = validPipingInput.SeepageLength;
-            pipingData.SellmeijerModelFactor = validPipingInput.SellmeijerModelFactor;
-            pipingData.SellmeijerReductionFactor = validPipingInput.SellmeijerReductionFactor;
-            pipingData.ThicknessAquiferLayer.Mean = validPipingInput.ThicknessAquiferLayer;
-            pipingData.ThicknessCoverageLayer.Mean = validPipingInput.ThicknessCoverageLayer;
-            pipingData.UpliftModelFactor = validPipingInput.UpliftModelFactor;
-            pipingData.WaterVolumetricWeight = validPipingInput.WaterVolumetricWeight;
-            pipingData.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
-            pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
-            pipingData.SurfaceLine = validPipingInput.SurfaceLine;
-            pipingData.SoilProfile = validPipingInput.SoilProfile;
+            pipingData.InputParameters.AssessmentLevel = validPipingInput.AssessmentLevel;
+            pipingData.InputParameters.BeddingAngle = validPipingInput.BeddingAngle;
+            pipingData.InputParameters.DampingFactorExit.Mean = validPipingInput.DampingFactorExit;
+            pipingData.InputParameters.DarcyPermeability.Mean = validPipingInput.DarcyPermeability;
+            pipingData.InputParameters.Diameter70.Mean = validPipingInput.Diameter70;
+            pipingData.InputParameters.ExitPointXCoordinate = validPipingInput.ExitPointXCoordinate;
+            pipingData.InputParameters.Gravity = validPipingInput.Gravity;
+            pipingData.InputParameters.MeanDiameter70 = validPipingInput.MeanDiameter70;
+            pipingData.InputParameters.PhreaticLevelExit.Mean = validPipingInput.PhreaticLevelExit;
+            pipingData.InputParameters.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
+            pipingData.InputParameters.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
+            pipingData.InputParameters.SandParticlesVolumicWeight = validPipingInput.SandParticlesVolumicWeight;
+            pipingData.InputParameters.SeepageLength.Mean = validPipingInput.SeepageLength;
+            pipingData.InputParameters.SellmeijerModelFactor = validPipingInput.SellmeijerModelFactor;
+            pipingData.InputParameters.SellmeijerReductionFactor = validPipingInput.SellmeijerReductionFactor;
+            pipingData.InputParameters.ThicknessAquiferLayer.Mean = validPipingInput.ThicknessAquiferLayer;
+            pipingData.InputParameters.ThicknessCoverageLayer.Mean = validPipingInput.ThicknessCoverageLayer;
+            pipingData.InputParameters.UpliftModelFactor = validPipingInput.UpliftModelFactor;
+            pipingData.InputParameters.WaterVolumetricWeight = validPipingInput.WaterVolumetricWeight;
+            pipingData.InputParameters.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
+            pipingData.InputParameters.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
+            pipingData.InputParameters.SurfaceLine = validPipingInput.SurfaceLine;
+            pipingData.InputParameters.SoilProfile = validPipingInput.SoilProfile;
 
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

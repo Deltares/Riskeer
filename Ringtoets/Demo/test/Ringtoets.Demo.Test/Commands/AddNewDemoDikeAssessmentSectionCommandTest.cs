@@ -77,31 +77,8 @@ namespace Ringtoets.Demo.Test.Commands
 
         private void AssertCalculationAbleToCalculate(PipingCalculationData calculation)
         {
-            Assert.AreEqual(1.0, calculation.UpliftModelFactor, 1e-3);
-            Assert.AreEqual(1.0, calculation.SellmeijerModelFactor, 1e-3);
-
-            Assert.AreEqual(10.0, calculation.WaterVolumetricWeight, 1e-3);
-            Assert.AreEqual(0.0, calculation.AssessmentLevel, 1e-3);
-            Assert.AreEqual(0.0, calculation.PiezometricHeadExit, 1e-3);
-            Assert.AreEqual(0.0, calculation.PiezometricHeadPolder, 1e-3);
-            Assert.AreEqual(0.3, calculation.SellmeijerReductionFactor, 1e-3);
-            Assert.AreEqual(16.5, calculation.SandParticlesVolumicWeight, 1e-3);
-            Assert.AreEqual(0.25, calculation.WhitesDragCoefficient, 1e-3);
-            Assert.AreEqual(1.33e-6, calculation.WaterKinematicViscosity, 1e-3);
-            Assert.AreEqual(9.81, calculation.Gravity, 1e-3);
-            Assert.AreEqual(0.000208, calculation.MeanDiameter70, 1e-3);
-            Assert.AreEqual(37, calculation.BeddingAngle, 1e-3);
-
-            Assert.AreEqual("PK001_0001", calculation.SurfaceLine.Name);
-            Assert.AreEqual("AD640M00_Segment_36005_1D2", calculation.SoilProfile.Name);
-
-            Assert.AreEqual(3.666, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(calculation).GetDesignValue(), 1e-3);
-            Assert.AreEqual(-1.645, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(calculation).GetDesignValue(), 1e-3);
-            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(calculation).GetDesignValue(), 1e-3);
-            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(calculation).GetDesignValue(), 1e-3);
-            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(calculation).GetDesignValue(), 1e-3);
-            Assert.AreEqual(2.345, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(calculation).GetDesignValue(), 1e-3);
-            Assert.AreEqual(2.345, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(calculation).GetDesignValue(), 1e-3);
+            PipingInputParameters inputParameters = calculation.InputParameters;
+            AssertExpectedPipingInputParameters(inputParameters);
 
             Assert.IsTrue(PipingCalculationService.Validate(calculation));
             PipingCalculationService.Calculate(calculation);
@@ -112,6 +89,35 @@ namespace Ringtoets.Demo.Test.Commands
             Assert.AreEqual(5.6044, calculation.Output.UpliftZValue, 1e-3);
             Assert.AreEqual(0.0016, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
             Assert.AreEqual(-1.6387, calculation.Output.SellmeijerZValue, 1e-3);
+        }
+
+        private static void AssertExpectedPipingInputParameters(PipingInputParameters inputParameters)
+        {
+            Assert.AreEqual(1.0, inputParameters.UpliftModelFactor, 1e-3);
+            Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);
+
+            Assert.AreEqual(10.0, inputParameters.WaterVolumetricWeight, 1e-3);
+            Assert.AreEqual(0.0, inputParameters.AssessmentLevel, 1e-3);
+            Assert.AreEqual(0.0, inputParameters.PiezometricHeadExit, 1e-3);
+            Assert.AreEqual(0.0, inputParameters.PiezometricHeadPolder, 1e-3);
+            Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor, 1e-3);
+            Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight, 1e-3);
+            Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);
+            Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity, 1e-3);
+            Assert.AreEqual(9.81, inputParameters.Gravity, 1e-3);
+            Assert.AreEqual(0.000208, inputParameters.MeanDiameter70, 1e-3);
+            Assert.AreEqual(37, inputParameters.BeddingAngle, 1e-3);
+
+            Assert.AreEqual("PK001_0001", inputParameters.SurfaceLine.Name);
+            Assert.AreEqual("AD640M00_Segment_36005_1D2", inputParameters.SoilProfile.Name);
+
+            Assert.AreEqual(3.666, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(-1.645, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(2.345, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(2.345, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(), 1e-3);
         }
     }
 }

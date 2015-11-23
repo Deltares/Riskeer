@@ -1,10 +1,7 @@
-﻿using System;
-
-using Core.Common.Base;
+﻿using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
-using Ringtoets.Piping.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -27,53 +24,12 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual("Berekening", defaultConstructed.Name);
 
-            Assert.IsInstanceOf<NormalDistribution>(defaultConstructed.PhreaticLevelExit);
-            Assert.AreEqual(0, defaultConstructed.PhreaticLevelExit.Mean);
-            Assert.AreEqual(1, defaultConstructed.PhreaticLevelExit.StandardDeviation);
-
-            double defaultLogNormalMean = Math.Exp(-0.5);
-            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.DampingFactorExit);
-            Assert.AreEqual(1, defaultConstructed.DampingFactorExit.Mean);
-            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.DampingFactorExit.StandardDeviation);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessCoverageLayer);
-            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.ThicknessCoverageLayer.Mean);
-            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.ThicknessCoverageLayer.StandardDeviation);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.SeepageLength);
-            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.SeepageLength.Mean);
-            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.SeepageLength.StandardDeviation);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.Diameter70);
-            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.Diameter70.Mean);
-            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.Diameter70.StandardDeviation);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.DarcyPermeability);
-            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.DarcyPermeability.Mean);
-            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.DarcyPermeability.StandardDeviation);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessAquiferLayer);
-            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.ThicknessAquiferLayer.Mean);
-            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.ThicknessAquiferLayer.StandardDeviation);
-
-            Assert.AreEqual(0, defaultConstructed.PiezometricHeadExit);
-            Assert.AreEqual(0, defaultConstructed.PiezometricHeadPolder);
-            Assert.AreEqual(0, defaultConstructed.AssessmentLevel);
-            Assert.IsNull(defaultConstructed.SurfaceLine);
-            Assert.IsNull(defaultConstructed.SoilProfile);
-
-            Assert.AreEqual(1.0, defaultConstructed.UpliftModelFactor);
-            Assert.AreEqual(1, defaultConstructed.SellmeijerModelFactor);
-            Assert.AreEqual(0.3, defaultConstructed.CriticalHeaveGradient);
-            Assert.AreEqual(0.3, defaultConstructed.SellmeijerReductionFactor);
-            Assert.AreEqual(9.81, defaultConstructed.Gravity);
-            Assert.AreEqual(1.33e-6, defaultConstructed.WaterKinematicViscosity);
-            Assert.AreEqual(10.0, defaultConstructed.WaterVolumetricWeight);
-            Assert.AreEqual(16.5, defaultConstructed.SandParticlesVolumicWeight);
-            Assert.AreEqual(0.25, defaultConstructed.WhitesDragCoefficient);
-            Assert.AreEqual(37, defaultConstructed.BeddingAngle);
-            Assert.AreEqual(2.08e-4, defaultConstructed.MeanDiameter70);
-
             Assert.AreEqual("Commentaar", defaultConstructed.Comments.Name);
-            Assert.AreEqual("Berekeningsverslag", defaultConstructed.CalculationReport.Name);
+            Assert.IsInstanceOf<PipingInputParameters>(defaultConstructed.InputParameters);
 
+            Assert.IsFalse(defaultConstructed.HasOutput);
             Assert.IsNull(defaultConstructed.Output);
+            Assert.AreEqual("Berekeningsverslag", defaultConstructed.CalculationReport.Name);
         }
 
         [Test]

@@ -1,28 +1,28 @@
 ﻿using Core.Common.Base;
+
 using NUnit.Framework;
 
 using Rhino.Mocks;
-using Ringtoets.Piping.Calculation.TestUtil;
-using Ringtoets.Piping.Data;
 
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingCalculationInputsTest
+    public class PipingInputParametersContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void DefaultConstructpr_ExpectedValues()
         {
             // Call
-            var presentationObject = new PipingCalculationInputs();
+            var context = new PipingInputParametersContext();
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(presentationObject);
-            Assert.IsNull(presentationObject.PipingData);
-            CollectionAssert.IsEmpty(presentationObject.AvailablePipingSurfaceLines);
-            CollectionAssert.IsEmpty(presentationObject.AvailablePipingSoilProfiles);
+            Assert.IsInstanceOf<IObservable>(context);
+            Assert.IsNull(context.WrappedPipingInputParameters);
+            CollectionAssert.IsEmpty(context.AvailablePipingSurfaceLines);
+            CollectionAssert.IsEmpty(context.AvailablePipingSoilProfiles);
         }
 
         [Test]
@@ -34,9 +34,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationInputs
+            var presentationObject = new PipingInputParametersContext
             {
-                PipingData = new PipingCalculationData()
+                WrappedPipingInputParameters = new PipingInputParameters()
             };
             presentationObject.Attach(observer);
 
@@ -55,9 +55,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationInputs
+            var presentationObject = new PipingInputParametersContext
             {
-                PipingData = new PipingCalculationData()
+                WrappedPipingInputParameters = new PipingInputParameters()
             };
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
@@ -78,10 +78,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
-            var presentationObject = new PipingCalculationInputs
+            var pipingData = new PipingInputParameters();
+            var presentationObject = new PipingInputParametersContext
             {
-                PipingData = pipingData
+                WrappedPipingInputParameters = pipingData
             };
             presentationObject.Attach(observer);
 
@@ -90,25 +90,6 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearOutput_Always_SetsOutputToNull()
-        {
-            // Setup
-            var inputs = new PipingCalculationInputs
-            {
-                PipingData = new PipingCalculationData
-                {
-                    Output = new TestPipingOutput()
-                }
-            };
-
-            // Call
-            inputs.ClearOutput();
-
-            // Assert
-            Assert.IsNull(inputs.PipingData.Output);
         }
     }
 }

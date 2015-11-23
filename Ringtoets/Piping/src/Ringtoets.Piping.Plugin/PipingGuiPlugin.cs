@@ -24,6 +24,7 @@ namespace Ringtoets.Piping.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<PipingCalculationInputs, PipingCalculationInputsProperties>();
+            yield return new PropertyInfo<PipingInputParametersContext, PipingInputParametersContextProperties>();
             yield return new PropertyInfo<PipingOutput, PipingOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
@@ -35,6 +36,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 RunActivityAction = Gui.Application.ActivityRunner.Enqueue
             };
+            yield return new PipingInputParametersContextNodePresenter();
             yield return new PipingFailureMechanismNodePresenter
             {
                 RunActivityAction = Gui.Application.ActivityRunner.Enqueue

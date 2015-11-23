@@ -45,13 +45,19 @@ namespace Ringtoets.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(4, propertyInfos.Length);
+                Assert.AreEqual(5, propertyInfos.Length);
 
                 var pipingDataProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingCalculationInputs));
                 Assert.AreEqual(typeof(PipingCalculationInputsProperties), pipingDataProperties.PropertyType);
                 Assert.IsNull(pipingDataProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingDataProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingDataProperties.AfterCreate);
+
+                var pipingInputParametersContextProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingInputParametersContext));
+                Assert.AreEqual(typeof(PipingInputParametersContextProperties), pipingInputParametersContextProperties.PropertyType);
+                Assert.IsNull(pipingInputParametersContextProperties.AdditionalDataCheck);
+                Assert.IsNull(pipingInputParametersContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(pipingInputParametersContextProperties.AfterCreate);
 
                 var pipingOutputProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingOutput));
                 Assert.AreEqual(typeof(PipingOutputProperties), pipingOutputProperties.PropertyType);
@@ -93,12 +99,13 @@ namespace Ringtoets.Piping.Plugin.Test
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
 
                 // assert
-                Assert.AreEqual(7, nodePresenters.Length);
+                Assert.AreEqual(8, nodePresenters.Length);
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingCalculationInputsNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is PipingInputParametersContextNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingFailureMechanismNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingOutputNodePresenter));
             }

@@ -14,13 +14,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetThicknessCoverageLayer_ValidPipingData_CreateDesignVariableForThicknessCoverageLayer()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(pipingData);
+            var thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.ThicknessCoverageLayer, thicknessCoverageLayer.Distribution);
+            Assert.AreSame(inputParameters.ThicknessCoverageLayer, thicknessCoverageLayer.Distribution);
             Assert.AreEqual(0.05, thicknessCoverageLayer.Percentile);
         }
 
@@ -28,13 +28,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetPhreaticLevelExit_ValidPipingData_CreateDesignVariableForPhreaticLevelExit()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var freaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(pipingData);
+            var freaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.PhreaticLevelExit, freaticLevelExit.Distribution);
+            Assert.AreSame(inputParameters.PhreaticLevelExit, freaticLevelExit.Distribution);
             Assert.AreEqual(0.05, freaticLevelExit.Percentile);
         }
 
@@ -42,13 +42,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetDampingFactorExit_ValidPipingData_CreateDesignVariableForDampingFactorExit()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(pipingData);
+            var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.DampingFactorExit, dampingFactorExit.Distribution);
+            Assert.AreSame(inputParameters.DampingFactorExit, dampingFactorExit.Distribution);
             Assert.AreEqual(0.95, dampingFactorExit.Percentile);
         }
 
@@ -60,13 +60,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetSeepageLength_ValidPipingData_CreateDesignVariableForSeepageLength()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var seepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(pipingData);
+            var seepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.SeepageLength, seepageLength.Distribution);
+            Assert.AreSame(inputParameters.SeepageLength, seepageLength.Distribution);
             Assert.AreEqual(0.05, seepageLength.Percentile);
         }
 
@@ -74,13 +74,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetDiameter70_ValidPipingData_CreateDesignVariableForDiameter70()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var d70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(pipingData);
+            var d70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.Diameter70, d70.Distribution);
+            Assert.AreSame(inputParameters.Diameter70, d70.Distribution);
             Assert.AreEqual(0.05, d70.Percentile);
         }
 
@@ -88,13 +88,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetDarcyPermeability_ValidPipingData_CreateDesignVariableForDarcyPermeability()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var darcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(pipingData);
+            var darcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.DarcyPermeability, darcyPermeability.Distribution);
+            Assert.AreSame(inputParameters.DarcyPermeability, darcyPermeability.Distribution);
             Assert.AreEqual(0.95, darcyPermeability.Percentile);
         }
 
@@ -102,13 +102,13 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         public void GetThicknessAquiferLayer_ValidPipingData_CreateDesignVariableForThicknessAquiferLayer()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var inputParameters = new PipingInputParameters();
 
             // Call
-            var thicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(pipingData);
+            var thicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters);
 
             // Assert
-            Assert.AreSame(pipingData.ThicknessAquiferLayer, thicknessAquiferLayer.Distribution);
+            Assert.AreSame(inputParameters.ThicknessAquiferLayer, thicknessAquiferLayer.Distribution);
             Assert.AreEqual(0.95, thicknessAquiferLayer.Percentile);
         }
 

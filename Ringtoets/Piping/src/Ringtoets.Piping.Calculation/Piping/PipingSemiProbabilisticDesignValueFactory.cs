@@ -11,27 +11,27 @@ namespace Ringtoets.Piping.Calculation.Piping
         #region General parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.ThicknessCoverageLayer"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.ThicknessCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingCalculationData pipingData)
+        public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.ThicknessCoverageLayer, 0.05);
+            return CreateDesignVariable(parameters.ThicknessCoverageLayer, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.PhreaticLevelExit"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.PhreaticLevelExit"/>.
         /// </summary>
-        public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingCalculationData pipingData)
+        public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.PhreaticLevelExit, 0.05);
+            return CreateDesignVariable(parameters.PhreaticLevelExit, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.DampingFactorExit"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.DampingFactorExit"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDampingFactorExit(PipingCalculationData pipingData)
+        public static DesignVariable<LognormalDistribution> GetDampingFactorExit(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.DampingFactorExit, 0.95);
+            return CreateDesignVariable(parameters.DampingFactorExit, 0.95);
         }
 
         #endregion
@@ -39,35 +39,35 @@ namespace Ringtoets.Piping.Calculation.Piping
         #region Piping parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.SeepageLength"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.SeepageLength"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetSeepageLength(PipingCalculationData pipingData)
+        public static DesignVariable<LognormalDistribution> GetSeepageLength(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.SeepageLength, 0.05);
+            return CreateDesignVariable(parameters.SeepageLength, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.Diameter70"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.Diameter70"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDiameter70(PipingCalculationData pipingData)
+        public static DesignVariable<LognormalDistribution> GetDiameter70(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.Diameter70, 0.05);
+            return CreateDesignVariable(parameters.Diameter70, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.DarcyPermeability"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.DarcyPermeability"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDarcyPermeability(PipingCalculationData pipingData)
+        public static DesignVariable<LognormalDistribution> GetDarcyPermeability(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.DarcyPermeability, 0.95);
+            return CreateDesignVariable(parameters.DarcyPermeability, 0.95);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingCalculationData.ThicknessAquiferLayer"/>.
+        /// Creates the design variable for <see cref="PipingInputParameters.ThicknessAquiferLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetThicknessAquiferLayer(PipingCalculationData pipingData)
+        public static DesignVariable<LognormalDistribution> GetThicknessAquiferLayer(PipingInputParameters parameters)
         {
-            return CreateDesignVariable(pipingData.ThicknessAquiferLayer, 0.95);
+            return CreateDesignVariable(parameters.ThicknessAquiferLayer, 0.95);
         }
 
         #endregion

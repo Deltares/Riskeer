@@ -124,21 +124,21 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         #region Integration tests
 
         [Test]
-        [TestCase(1, TestName = "PipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(1)")]
-        [TestCase(2, TestName = "PipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(2)")]
-        public void GivenContextOfPipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(int propertyIndexToChange)
+        [TestCase(1)]
+        [TestCase(2)]
+        public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputParametersUpdatesObservers(int propertyIndexToChange)
         {
             // Scenario
-            var pipingData = new PipingCalculationData();
-            var calculationInputs = new PipingCalculationInputs
+            var inputParameters = new PipingInputParameters();
+            var inputParametersContext = new PipingInputParametersContext
             {
-                PipingData = pipingData
+                WrappedPipingInputParameters = inputParameters
             };
-            var calculationInputsProperties = new PipingCalculationInputsProperties
+            var inputParameterContextProperties = new PipingInputParametersContextProperties
             {
-                Data = calculationInputs
+                Data = inputParametersContext
             };
-            var dynamicPropertyBag = new DynamicPropertyBag(calculationInputsProperties);
+            var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
 
             var mocks = new MockRepository();
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
@@ -148,9 +148,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            pipingData.Attach(observer);
+            inputParameters.Attach(observer);
 
-            DesignVariable<LognormalDistribution> dampingFactorExit = calculationInputsProperties.DampingFactorExit;
+            DesignVariable<LognormalDistribution> dampingFactorExit = inputParameterContextProperties.DampingFactorExit;
             var properties = new LognormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExit);
 
             // Precondition
@@ -164,10 +164,10 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             switch (propertyIndexToChange)
             {
                 case 1:
-                    Assert.AreEqual(newValue, pipingData.DampingFactorExit.Mean);
+                    Assert.AreEqual(newValue, inputParameters.DampingFactorExit.Mean);
                     break;
                 case 2:
-                    Assert.AreEqual(newValue, pipingData.DampingFactorExit.StandardDeviation);
+                    Assert.AreEqual(newValue, inputParameters.DampingFactorExit.StandardDeviation);
                     break;
             }
             mocks.VerifyAll();

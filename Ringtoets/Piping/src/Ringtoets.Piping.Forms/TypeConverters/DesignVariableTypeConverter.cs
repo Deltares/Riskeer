@@ -18,7 +18,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// Base class for shared implementation of <see cref="TypeConverter"/> to provide probabilistic
     /// distributions to the property editor.
     /// </summary>
-    /// <typeparam name="T">Type of distributionci</typeparam>
+    /// <typeparam name="T">Type of distribution</typeparam>
     public abstract class DesignVariableTypeConverter<T> : TypeConverter where T:IDistribution
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
@@ -102,9 +102,9 @@ namespace Ringtoets.Piping.Forms.TypeConverters
 
             // Note: If this type converter is going to be reused for other classes, we 
             //       might want to reconsider how we want to propagate IObservable updates!
-            var pipingCalculationInputProperties = dynamicPropertyBag.WrappedObject as PipingCalculationInputsProperties;
-            return pipingCalculationInputProperties != null ?
-                       ((PipingCalculationInputs)pipingCalculationInputProperties.Data).PipingData :
+            var inputParameterContextProperties = dynamicPropertyBag.WrappedObject as PipingInputParametersContextProperties;
+            return inputParameterContextProperties != null ?
+                       ((PipingInputParametersContext)inputParameterContextProperties.Data).WrappedPipingInputParameters:
                        null;
         }
 

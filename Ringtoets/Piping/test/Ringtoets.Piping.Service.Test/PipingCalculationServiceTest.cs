@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var invalidPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            invalidPipingData.BeddingAngle = -1;
+            invalidPipingData.InputParameters.BeddingAngle = -1;
 
             // Call
             Action call = () => PipingCalculationService.Calculate(invalidPipingData);

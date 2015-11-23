@@ -1,7 +1,6 @@
 ﻿using Core.Common.Base;
 
 using Ringtoets.Common.Placeholder;
-using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -18,28 +17,8 @@ namespace Ringtoets.Piping.Data
         {
             Name = Resources.PipingCalculationData_DefaultName;
 
-            // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
-            UpliftModelFactor = 1.0;
-            SellmeijerModelFactor = 1.0;
-            WaterVolumetricWeight = 10.0;
-            WhitesDragCoefficient = 0.25;
-            SandParticlesVolumicWeight = 16.5;
-            WaterKinematicViscosity = 1.33e-6;
-            Gravity = 9.81;
-            MeanDiameter70 = 2.08e-4;
-            BeddingAngle = 37.0;
-            SellmeijerReductionFactor = 0.3;
-            CriticalHeaveGradient = 0.3;
-
-            PhreaticLevelExit = new NormalDistribution();
-            DampingFactorExit = new LognormalDistribution { Mean = 1.0 };
-            ThicknessCoverageLayer = new LognormalDistribution();
-            SeepageLength = new LognormalDistribution();
-            Diameter70 = new LognormalDistribution();
-            DarcyPermeability = new LognormalDistribution();
-            ThicknessAquiferLayer = new LognormalDistribution();
-
             Comments = new InputPlaceholder(Resources.Comments_DisplayName);
+            InputParameters = new PipingInputParameters();
             CalculationReport = new PlaceholderWithReadonlyName(Resources.CalculationReport_DisplayName);
         }
 
@@ -49,153 +28,14 @@ namespace Ringtoets.Piping.Data
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the reduction factor Sellmeijer.
+        /// Gets the user notes for this calculation.
         /// </summary>
-        public double SellmeijerReductionFactor { get; set; }
+        public PlaceholderWithReadonlyName Comments { get; private set; }
 
         /// <summary>
-        /// Gets or sets the volumetric weight of water.
-        /// [kN/m³]
+        /// Gets the input parameters to perform a piping calculation with.
         /// </summary>
-        public double WaterVolumetricWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m³]
-        /// </summary>
-        public double SandParticlesVolumicWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the White's drag coefficient.
-        /// </summary>
-        public double WhitesDragCoefficient { get; set; }
-
-        /// <summary>
-        /// Gets or sets the kinematic viscosity of water at 10 degrees Celsius.
-        /// [m²/s]
-        /// </summary>
-        public double WaterKinematicViscosity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the gravitational acceleration.
-        /// [m/s²]
-        /// </summary>
-        public double Gravity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double MeanDiameter70 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the angle of the force balance representing the amount in which sand grains resist rolling.
-        /// [°]
-        /// </summary>
-        public double BeddingAngle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for uplift.
-        /// </summary>
-        public double UpliftModelFactor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the outside high water level.
-        /// [m]
-        /// </summary>
-        public double AssessmentLevel { get; set; }
-
-        /// <summary>
-        /// Gets or sets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadExit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the piezometric head in the hinterland.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadPolder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for Sellmeijer.
-        /// </summary>
-        public double SellmeijerModelFactor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the x coordinate of the exit point.
-        /// [m]
-        /// </summary>
-        public double ExitPointXCoordinate { get; set; }
-
-        #region Probabilistic parameters
-
-        /// <summary>
-        /// Gets or sets the phreatic level at the exit point.
-        /// [m]
-        /// </summary>
-        public NormalDistribution PhreaticLevelExit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the horizontal distance between entree and exit point.
-        /// [m]
-        /// </summary>
-        public LognormalDistribution SeepageLength { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
-        /// [m]
-        /// </summary>
-        public LognormalDistribution Diameter70 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Darcy-speed with which water flows through the aquifer layer.
-        /// [m/s]
-        /// </summary>
-        public LognormalDistribution DarcyPermeability { get; set; }
-
-        /// <summary>
-        /// Gets or sets the thickness of the aquifer layer.
-        /// [m]
-        /// </summary>
-        public LognormalDistribution ThicknessAquiferLayer { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total thickness of the coverage layer at the exit point.
-        /// [m]
-        /// </summary>
-        public LognormalDistribution ThicknessCoverageLayer { get; set; }
-
-        /// <summary>
-        /// Gets or sets the damping factor at the exit point.
-        /// </summary>
-        public LognormalDistribution DampingFactorExit { get; set; }
-
-        #endregion
-
-        #region Constants
-
-        /// <summary>
-        /// Gets or sets the critical exit gradient for heave.
-        /// </summary>
-        public double CriticalHeaveGradient { get; private set; }
-
-        #endregion
-
-        /// <summary>
-        /// Gets or sets the surface line.
-        /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
-
-        /// <summary>
-        /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
-        /// </summary>
-        public PipingSoilProfile SoilProfile { get; set; }
-
-        /// <summary>
-        /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a Piping calculation.
-        /// </summary>
-        public PipingOutput Output { get; set; }
+        public PipingInputParameters InputParameters { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the <see cref="PipingCalculationData"/> has <see cref="Output"/>.
@@ -209,9 +49,9 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the user notes for this calculation.
+        /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a Piping calculation.
         /// </summary>
-        public PlaceholderWithReadonlyName Comments { get; private set; }
+        public PipingOutput Output { get; set; }
 
         /// <summary>
         /// Gets the calculation report for the calculation that generated <see cref="Output"/>.
