@@ -10,7 +10,6 @@ namespace Core.Common.Utils.IO
     /// </summary>
     public class FileWatcher : ICloneable
     {
-        //todo consider making projectlocation static property.
         private static string projectLocation;
         private readonly FileSystemWatcher fileWatcher;
         protected string filePath;

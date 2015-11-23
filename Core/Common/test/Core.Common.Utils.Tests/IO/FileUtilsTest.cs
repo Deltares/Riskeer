@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Core.Common.TestUtils;
@@ -14,6 +13,7 @@ namespace Core.Common.Utils.Tests.IO
     {
         private readonly string fileWithContentPath = TestHelper.GetTestDataPath(TestDataPath.Common.CoreCommonUtilsTests, "File_with_content.txt");
         private const int allowedTimeForDelete = 2000;
+        private const string expectedChecksumForFileWithContent = "ec6ff8d1dbda4ecf65665fd7a3a057f2";
 
         private static bool DoesDirectoryExistsAfterTimeout(string directory)
         {
@@ -47,71 +47,56 @@ namespace Core.Common.Utils.Tests.IO
 
             Assert.IsTrue(FileUtils.IsSubdirectory(rootDir, "D:/habitat/kaarten/"));
 
-            Assert.IsTrue(FileUtils.IsSubdirectory(rootDir, "D:\\habitat\\kaarten"));
+            Assert.IsTrue(FileUtils.IsSubdirectory(rootDir, @"D:\habitat\kaarten"));
         }
 
         [Test]
-        public void IsSubDirectoryOrEqualsTest()
+        public void GetRelativePath_UsingSubfolder_ReturnsAbsolutePath()
         {
-            const string rootDir = "D:/Habitat";
-
-            Assert.IsFalse(FileUtils.IsSubdirectoryOrEquals(rootDir, "D:/Habitat Kaarten/"));
-
-            Assert.IsTrue(FileUtils.IsSubdirectoryOrEquals(rootDir, "D:/Habitat/Kaarten/"));
-
-            Assert.IsTrue(
-                FileUtils.IsSubdirectoryOrEquals(rootDir, "D:/Habitat/Natura2000 presentation 3.prj_data/109/kaart.bil"));
-
-            Assert.IsFalse(FileUtils.IsSubdirectoryOrEquals(rootDir, "C:/Habitat/Kaarten/"));
-
-            Assert.IsTrue(FileUtils.IsSubdirectoryOrEquals(rootDir, "D:/habitat/kaarten/"));
-
-            Assert.IsTrue(FileUtils.IsSubdirectoryOrEquals(rootDir, rootDir));
-        }
-
-        [Test]
-        public void GetRelativePath()
-        {
-            string projectpath = @"c:\project\composite\";
-            string fullpath = @"c:\project\model1\model1.mdl";
+            const string projectpath = @"c:\project\composite\";
+            const string fullpath = @"c:\project\model1\model1.mdl";
 
             Assert.AreEqual(@"..\model1\model1.mdl", FileUtils.GetRelativePath(projectpath, fullpath));
         }
 
         [Test]
-        public void GetRelativePathOnDifferentDisks()
+        public void GetRelativePath_UsingOtherCasing_ReturnsAbsolutePath()
         {
-            string projectpath = @"c:\project\composite\";
-            string fullpath = @"d:\project\model1\model1.mdl";
+            const string projectpath = @"c:\Project\composite\";
+            const string fullpath = @"c:\project\model1\model1.mdl";
+
+            Assert.AreEqual(@"..\model1\model1.mdl", FileUtils.GetRelativePath(projectpath, fullpath));
+        }
+
+        [Test]
+        public void GetRelativePath_OnDifferentDrives_RetunsFullPath()
+        {
+            const string projectpath = @"c:\project\composite\";
+            const string fullpath = @"d:\project\model1\model1.mdl";
 
             Assert.AreEqual(@"d:\project\model1\model1.mdl", FileUtils.GetRelativePath(projectpath, fullpath));
         }
 
         [Test]
-        public void ConvertToRelativePath()
+        public void GetRelativePath_UsingFileInfo_ReturnsAbsolutePath()
         {
-            FileInfo info = new FileInfo("./data/myfile.myext");
-            string fullpath = @"c:\Project\data\myfile.myext";
-            string projectpath = @"c:\project";
+            var info = new FileInfo("./data/myfile.myext");
+           
+            const string fullpath = @"c:\project\data\myfile.myext";
+            const string projectpath = @"c:\project";
+            var result = FileUtils.GetRelativePath(projectpath, fullpath);
+            var resultFile = new FileInfo(result);
 
-            string result = FileUtils.GetRelativePath(projectpath, fullpath);
-            FileInfo resultFile = new FileInfo(result);
-            Assert.AreEqual(info.FullName, resultFile.FullName);
-
-            fullpath = @"c:\project\data\myfile.myext";
-            projectpath = "c:/project";
-            result = FileUtils.GetRelativePath(projectpath, fullpath);
-            resultFile = new FileInfo(result);
             Assert.AreEqual(info.FullName, resultFile.FullName);
         }
 
         [Test]
         public void GetRelativePath_UsingRelativeFolderPath_ReturnsFullFilePath()
         {
-            string filePath = "myfolder\\myfile.txt";
-            string folderPath = "otherfolder";
+            const string filePath = @"myfolder\myfile.txt";
+            const string folderPath = "otherfolder";
 
-            string result = FileUtils.GetRelativePath(folderPath, filePath);
+            var result = FileUtils.GetRelativePath(folderPath, filePath);
 
             Assert.AreEqual(filePath, result);
         }
@@ -119,47 +104,53 @@ namespace Core.Common.Utils.Tests.IO
         [Test]
         public void GetRelativePath_UsingAbsoluteFolderPath_ReturnsRelativeFilePath()
         {
-            string filePath = "C:\\myfolder\\myfile.txt";
-            string folderPath = "C:\\myfolder";
+            const string filePath = @"C:\myfolder\myfile.txt";
+            const string folderPath = @"C:\myfolder";
+            var result = FileUtils.GetRelativePath(folderPath, filePath);
 
-            string result = FileUtils.GetRelativePath(folderPath, filePath);
+            Assert.AreEqual(@"myfile.txt", result);
+        }
 
-            Assert.AreEqual(".\\myfile.txt", result);
+        [Test]
+        public void GetRelativePath_UsingAbsoluteFolderPathInAdjacentFolder_ReturnsRelativeFilePath()
+        {
+            const string filePath = @"C:\folder\myfile.txt";
+            const string folderPath = @"C:\myfolder";
+            var result = FileUtils.GetRelativePath(folderPath, filePath);
+
+            Assert.AreEqual(@"..\folder\myfile.txt", result);
         }
 
         [Test]
         public void GetRelativePath_UsingNetworkPathPath_ReturnsRelativeFilePath()
         {
-            string filePath = "\\\\myfolder\\myfile.txt";
-            string folderPath = "\\\\myfolder";
+            const string filePath = @"\\myfolder\myfile.txt";
+            const string folderPath = @"\\myfolder";
+            var result = FileUtils.GetRelativePath(folderPath, filePath);
 
-            string result = FileUtils.GetRelativePath(folderPath, filePath);
-
-            Assert.AreEqual(".\\myfile.txt", result);
+            Assert.AreEqual(@".\myfile.txt", result);
         }
 
         [Test]
-        public void CompareDirectories()
+        public void GetRelativePath_UsingNetworkPathPathFromAdjacentFolder_ReturnsRelativeFilePath()
         {
-            Assert.IsTrue(FileUtils.CompareDirectories(@"./data/myfile.myext", @"data\myfile.myext"));
+            const string filePath = @"\\share\folder\myfile.txt";
+            const string folderPath = @"\\share\myfolder";
+            var result = FileUtils.GetRelativePath(folderPath, filePath);
+
+            Assert.AreEqual(@"..\folder\myfile.txt", result);
         }
 
-        //Todo Bad design here (http://forums.whirlpool.net.au/forum-replies-archive.cfm/887699.html)
         [Test]
-        public void CanCopy()
+        public void CompareDirectories__ReturnsTrue()
         {
-            //create file
-            try
-            {
-                FileInfo fi = new FileInfo("CanCopy.txt");
-                fi.Create();
-                Assert.IsTrue(FileUtils.CanCopy(fi.Name, TestHelper.GetCurrentMethodName()));
-                fi.Delete();
-            }
-            catch (IOException e)
-            {
-                Debug.WriteLine(e);
-            }
+            Assert.IsTrue(FileUtils.CompareDirectories("./data/myfile.myext", @"data\myfile.myext"));
+        }
+
+        [Test]
+        public void CompareDirectories_UsingExtensivePath_ReturnsTrue()
+        {
+            Assert.IsTrue(FileUtils.CompareDirectories("./data/myfile.myext", @"data\..\data\myfile.myext"));
         }
         
         [Test]
@@ -278,7 +269,7 @@ namespace Core.Common.Utils.Tests.IO
             // assert
             Assert.AreEqual(32, checkSum.Length,
                             "A 128bit hash should yield 16 bytes of data. Printed in hex, gives 2*16 = 32 characters.");
-            Assert.AreEqual(ExpectedChecksumForFileWithContent, checkSum);
+            Assert.AreEqual(expectedChecksumForFileWithContent, checkSum);
         }
 
         [Test]
@@ -288,10 +279,8 @@ namespace Core.Common.Utils.Tests.IO
             var testPath = TestHelper.GetTestDataPath(TestDataPath.Common.CoreCommonUtilsTests, "Test.txt");
 
             // call & assert
-            Assert.IsTrue(FileUtils.VerifyChecksum(fileWithContentPath, ExpectedChecksumForFileWithContent));
-            Assert.IsFalse(FileUtils.VerifyChecksum(testPath, ExpectedChecksumForFileWithContent));
+            Assert.IsTrue(FileUtils.VerifyChecksum(fileWithContentPath, expectedChecksumForFileWithContent));
+            Assert.IsFalse(FileUtils.VerifyChecksum(testPath, expectedChecksumForFileWithContent));
         }
-
-        private const string ExpectedChecksumForFileWithContent = "ec6ff8d1dbda4ecf65665fd7a3a057f2";
     }
 }

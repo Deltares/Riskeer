@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Threading;
 using Core.Common.Utils.Properties;
 using log4net;
-using NDepend.Helpers.FileDirectoryPath;
 
 namespace Core.Common.Utils.IO
 {
@@ -19,26 +16,12 @@ namespace Core.Common.Utils.IO
         private static readonly ILog Log = LogManager.GetLogger(typeof(FileUtils));
 
         /// <summary>
-        /// Copy all files and folders in a directory to another directory
-        /// 
-        /// TODO: make it copy directory or file, change sourceDirectory, targetDirectory to sourcePath, targetPath
-        /// or rename this method to Copy
-        /// </summary>
-        /// <param name="sourceDirectory"></param>
-        /// <param name="targetDirectory"></param>
-        /// <param name="ignorePath"></param>
-        public static void CopyDirectory(string sourceDirectory, string targetDirectory, string ignorePath = "")
-        {
-            var diSource = new DirectoryInfo(sourceDirectory);
-            var diTarget = new DirectoryInfo(targetDirectory);
-
-            CopyAll(diSource, diTarget, ignorePath);
-        }
-
-        /// <summary>
         /// Copies the source file to the target destination; if the file
-        /// already exists, it will be overwritten
+        /// already exists, it will be overwritten by default
         /// </summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="targetPath"></param>
+        /// <param name="overwrite"></param>
         public static void CopyFile(string sourcePath, string targetPath, bool overwrite = true)
         {
             var sourceFullPath = Path.GetFullPath(sourcePath);
@@ -62,12 +45,12 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Copy files in a directory and its subdirectories to another directory.
+        /// Copy files in a directory (and its subdirectories) to another directory.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <param name="ignorePath"></param>
-        public static void CopyAll(DirectoryInfo source, DirectoryInfo target, string ignorePath)
+        public static void CopyAll(DirectoryInfo source, DirectoryInfo target, string ignorePath = "")
         {
             foreach (var diSourceSubDir in source.GetDirectories().Where(diSourceSubDir => diSourceSubDir.Name != ignorePath))
             {
@@ -119,48 +102,34 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// check if the search item path is a subdirectory of the rootDir
+        /// Check if the search item path is a subdirectory of the <paramref name="rootDir"/>
         /// </summary>
         /// <param name="rootDir"></param>
         /// <param name="searchItem"></param>
         /// <returns></returns>
         public static bool IsSubdirectory(string rootDir, string searchItem)
         {
-            if (rootDir.StartsWith("\\\\")) //network disk?
+            if (rootDir.StartsWith(@"\\")) //network disk?
             {
                 return searchItem.StartsWith(rootDir, StringComparison.InvariantCultureIgnoreCase);
             }
-            else
+
+            var rootDirAbsolute = Path.GetFullPath(rootDir);
+            if (!rootDirAbsolute.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
-                var root = new DirectoryPathAbsolute(rootDir);
-                var search = new DirectoryPathAbsolute(searchItem);
-                return search.IsChildDirectoryOf(root);
+                rootDirAbsolute += Path.DirectorySeparatorChar;
             }
-        }
+            var searchDirAbsolute = Path.GetFullPath(searchItem);
+            if (!searchDirAbsolute.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                searchDirAbsolute += Path.DirectorySeparatorChar;
+            }
 
-        /// <summary>
-        /// Check if the searchItem is part of the rootDir, or equal to.
-        /// </summary>
-        /// <param name="rootDir"></param>
-        /// <param name="searchItem"></param>
-        /// <returns></returns>
-        public static bool IsSubdirectoryOrEquals(string rootDir, string searchItem)
-        {
-            DirectoryInfo di1 = new DirectoryInfo(rootDir);
-            DirectoryInfo di2 = new DirectoryInfo(searchItem);
-
-            return di2.FullName == di1.FullName ||
-                   IsSubdirectory(rootDir, searchItem);
-        }
-
-        /// <summary>
-        /// Returns if the supplied path is a directory
-        /// </summary>
-        /// <param name="path">Path to check</param>
-        /// <returns>Path is directory</returns>
-        public static bool IsDirectory(string path)
-        {
-            return (File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory;
+            if (searchDirAbsolute.Length <= rootDirAbsolute.Length)
+            {
+                return false;
+            }
+            return searchDirAbsolute.IndexOf(rootDirAbsolute, StringComparison.InvariantCultureIgnoreCase) == 0;
         }
 
         /// <summary>
@@ -171,15 +140,17 @@ namespace Core.Common.Utils.IO
         /// <returns></returns>
         public static bool CompareDirectories(string rootDir, string searchItem)
         {
-            var root = new FilePathAbsolute(Path.GetFullPath(rootDir));
-            var search = new FilePathAbsolute(Path.GetFullPath(searchItem));
+            var root = Path.GetFullPath(rootDir);
+            var search = Path.GetFullPath(searchItem);
             return (root == search);
         }
 
         /// <summary>
         /// Returns a relative path string from a full path.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="rootDir"></param>
+        /// <param name="filePath"></param>
+        /// <returns>Relative path <paramref name="filePath"/> from <paramref name="rootDir"/></returns>
         public static string GetRelativePath(string rootDir, string filePath)
         {
             if (rootDir == null || filePath == null)
@@ -194,10 +165,15 @@ namespace Core.Common.Utils.IO
 
             try
             {
-                var filePathAbsolute = new FilePathAbsolute(filePath);
-                var directoryPathAbsolute = new DirectoryPathAbsolute(rootDir);
-                FilePathRelative filePathRelative = filePathAbsolute.GetPathRelativeFrom(directoryPathAbsolute);
-                return filePathRelative.Path;
+                // Folders must end in a slash
+                if (!rootDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                {
+                    rootDir += Path.DirectorySeparatorChar;
+                }
+
+                var folderUri = new Uri(rootDir);
+                var pathUri = new Uri(filePath);
+                return Uri.UnescapeDataString(folderUri.MakeRelativeUri(pathUri).ToString().Replace('/', Path.DirectorySeparatorChar));
             }
             catch (Exception)
             {
@@ -303,63 +279,6 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Check if one or more files can be copied
-        /// 
-        /// Todo: Is this function necessary? Probably better design to just copy and handle errors
-        /// </summary>
-        /// <param name="files"></param>
-        /// <param name="targetDir"></param>
-        /// <returns></returns>
-        public static bool CanCopy(IEnumerable<string> files, string targetDir)
-        {
-            //todo check if targetdir is readonly
-
-            //check if targetdrive has enough space
-            long spaceRequired = 0;
-
-            foreach (string file in files)
-            {
-                FileInfo fi = new FileInfo(file);
-                spaceRequired += fi.Length;
-            }
-            string driveName = targetDir.Substring(0, 1);
-            DriveInfo di = new DriveInfo(driveName);
-            if (spaceRequired > di.AvailableFreeSpace)
-            {
-                return false;
-            }
-
-            //check if files exist with the same name
-            foreach (string file in files)
-            {
-                var info = new FileInfo(Path.Combine(targetDir, Path.GetFileName(file)));
-                if (info.Exists)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// check if file can be copied to another folder
-        /// 
-        /// Todo: Is this function necessary? Probably better design to just copy and handle errors
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="targetDir"></param>
-        /// <returns></returns>
-        public static bool CanCopy(string name, string targetDir)
-        {
-            string[] files = new string[]
-            {
-                name
-            };
-            return CanCopy(files, targetDir);
-        }
-
-        /// <summary>
         /// Check if the content of two files are equal.
         /// </summary>
         /// <param name="file1Path">first file path</param>
@@ -376,7 +295,7 @@ namespace Core.Common.Utils.IO
             }
 
             const int bytesToRead = sizeof(Int64);
-            var iterations = (int) Math.Ceiling((double) first.Length/bytesToRead);
+            var iterations = (int)Math.Ceiling((double)first.Length / bytesToRead);
             using (FileStream fs1 = first.OpenRead())
             {
                 using (FileStream fs2 = second.OpenRead())
@@ -398,7 +317,7 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Checks if the extension of a file belongs to the filefilter
+        /// Checks if the extension of a file belongs to the <paramref name="fileFilter"/>
         /// </summary>
         /// <param name="fileFilter">"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</param>
         /// <param name="path">Path to a file or filename including extension</param>
@@ -415,6 +334,7 @@ namespace Core.Common.Utils.IO
         /// <summary>
         /// Deletes the given file or directory if it exists
         /// </summary>
+        /// <param name="path">Path of the file or directory to delete</param>
         public static void DeleteIfExists(string path)
         {
             if (!File.Exists(path) & !Directory.Exists(path))
@@ -445,25 +365,16 @@ namespace Core.Common.Utils.IO
             }
         }
 
-        public static IList<string> GetDirectoriesRelative(string path)
-        {
-            var q = from subdir in Directory.GetDirectories(path)
-                    select GetRelativePath(Path.GetFullPath(path), Path.GetFullPath(subdir));
-
-            return q.ToList();
-        }
-
+        /// <summary>
+        /// Checks if <paramref name="fileName"/> could be a valid file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static bool IsValidFileName(string fileName)
         {
             return fileName != null
                    && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0
                    && fileName.Trim().Length > 0;
-        }
-
-        public static IEnumerable<char> GetReducedInvalidFileNameChars()
-        {
-            // reduce by excluding 'exotic' characters with ASCII code < 32
-            return Path.GetInvalidFileNameChars().Where(c => c > 31);
         }
 
         /// <summary>
@@ -481,48 +392,10 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Blocks until the file is not locked any more.
-        /// </summary>
-        /// <param name="fullPath"></param>
-        /// <param name="maxTries"></param>
-        /// <param name="waitTimePerTryInMillis"></param>
-        public static bool WaitForFile(string fullPath, int maxTries = 5, int waitTimePerTryInMillis = 500)
-        {
-            // from: http://stackoverflow.com/questions/50744/wait-until-file-is-unlocked-in-net
-            var numTries = 0;
-            while (true)
-            {
-                ++numTries;
-                try
-                {
-                    // Attempt to open the file exclusively.
-                    using (var fs = new FileStream(fullPath, FileMode.Open,
-                                                   FileAccess.ReadWrite,
-                                                   FileShare.None, 100))
-                    {
-                        fs.ReadByte();
-                        break; // If we got this far the file is ready
-                    }
-                }
-                catch (Exception)
-                {
-                    if (numTries > maxTries)
-                    {
-                        return false;
-                    }
-
-                    // Wait for the lock to be released
-                    Thread.Sleep(waitTimePerTryInMillis);
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
         /// Computes the checksum for a given file.
         /// </summary>
         /// <param name="filePath">The file path.</param>
-        /// <returns>The </returns>
+        /// <returns>The checksum</returns>
         /// <remarks>Uses the MD5 checksum algorithm.</remarks>
         public static string GetChecksum(string filePath)
         {
