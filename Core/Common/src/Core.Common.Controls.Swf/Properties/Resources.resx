@@ -308,9 +308,6 @@ Error:
   <data name="TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class" xml:space="preserve">
     <value>OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse.</value>
   </data>
-  <data name="TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data" xml:space="preserve">
-    <value>Niet in staat om node presenter te vinden voor 'null' object.</value>
-  </data>
   <data name="TreeViewController_TreeViewController_Tree_view_can_t_be_null" xml:space="preserve">
     <value>Structuurweergave mag niet leeg zijn.</value>
   </data>
@@ -420,5 +417,8 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   </data>
   <data name="TableView_SetCellValueInternal_No_conversion_from_string_possible" xml:space="preserve">
     <value>Geen conversie van het type 'string' mogelijk.</value>
+  </data>
+  <data name="TreeView_Error_Unable_to_resolve_node_presenter_for_null_data" xml:space="preserve">
+    <value>Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object.</value>
   </data>
 </root>

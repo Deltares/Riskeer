@@ -76,14 +76,6 @@
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpVectorBindings, Version=0.3.1.27844, Culture=neutral, PublicKeyToken=a8855419d33ac940, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Common\SharpMap.Extensions\SharpVectorBindings.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpVectorCss, Version=0.3.1.27844, Culture=neutral, PublicKeyToken=a8855419d33ac940, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Common\SharpMap.Extensions\SharpVectorCss.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

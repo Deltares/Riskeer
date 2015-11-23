@@ -127,7 +127,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
             if (node.Tag == null)
             {
-                throw new InvalidOperationException(Resources.TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data);
+                throw new InvalidOperationException(Resources.TreeView_Error_Unable_to_resolve_node_presenter_for_null_data);
             }
 
             node.Presenter.OnNodeChecked(node);

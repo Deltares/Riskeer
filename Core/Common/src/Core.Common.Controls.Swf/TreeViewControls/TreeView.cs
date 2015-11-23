@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
 using log4net;
-using ValidationAspects;
 
 namespace Core.Common.Controls.Swf.TreeViewControls
 {
@@ -241,8 +240,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         public void EnsureVisible(object item) {}
 
-        public ITreeNodePresenter GetTreeViewNodePresenter([NotNull] object nodeData, ITreeNode node)
+        public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, ITreeNode node)
         {
+            if (nodeData == null)
+            {
+                throw new ArgumentNullException("nodeData", Resources.TreeView_Error_Unable_to_resolve_node_presenter_for_null_data);
+            }
             return controller.ResolveNodePresenterForData(nodeData, node == null ? null : node.Parent);
         }
 

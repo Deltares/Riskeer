@@ -920,20 +920,20 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object..
+        /// </summary>
+        internal static string TreeView_Error_Unable_to_resolve_node_presenter_for_null_data {
+            get {
+                return ResourceManager.GetString("TreeView_Error_Unable_to_resolve_node_presenter_for_null_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout tijdens slepen/neerzetten: {0}..
         /// </summary>
         internal static string TreeView_TreeViewDragDrop_Error_during_drag_drop_0_ {
             get {
                 return ResourceManager.GetString("TreeView_TreeViewDragDrop_Error_during_drag_drop_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niet in staat om node presenter te vinden voor &apos;null&apos; object..
-        /// </summary>
-        internal static string TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data {
-            get {
-                return ResourceManager.GetString("TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data", resourceCulture);
             }
         }
         

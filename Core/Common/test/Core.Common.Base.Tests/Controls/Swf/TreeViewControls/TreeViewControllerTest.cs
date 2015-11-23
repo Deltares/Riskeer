@@ -143,7 +143,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
         }
 
         [Test]
-        [ExpectedException(ExpectedMessage = "Niet in staat om node presenter te vinden voor 'null' object.")]
+        [ExpectedException(ExpectedMessage = "Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object.")]
         public void TestOnNodeCheckedWithNodeWithoutTagValue()
         {
             var mocks = new MockRepository();
