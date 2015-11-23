@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Forms
                 previousSelectedItemIndex = listViewItemTypes.SelectedIndices[0];
 
                 selectedItemName = SelectedItem.Text;
-                newItemName = Resources.SelectItemDialog_listViewItemTypes_SelectedIndexChanged_New_ + selectedItemName;
+                newItemName = Resources.SelectItemDialog_listViewItemTypes_SelectedIndexChanged_New + selectedItemName;
             }
 
             if (string.IsNullOrEmpty(newItemName))

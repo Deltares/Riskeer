@@ -379,10 +379,10 @@
   <data name="ProjectExplorer_TreeViewOnBeforeWaitUntilAllEventsAreProcessed_MainWindow_must_be_visible_when_WaitUntilAllEventsAreProcessed_is_called_on_project_tree_view_" xml:space="preserve">
     <value>Het MainWindow moet zichtbaar zijn wanneer WaitUntilAllEventsAreProcessed wordt aangeroepen.</value>
   </data>
-  <data name="ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data___0_" xml:space="preserve">
+  <data name="ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data_0_" xml:space="preserve">
     <value>Kan geen projectitem vinden voor de data van dit scherm: {0}</value>
   </data>
-  <data name="ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_" xml:space="preserve">
+  <data name="ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item_0_" xml:space="preserve">
     <value>Kan geen bijbehorende knoop vinden in de projectverkenner voor item: {0}</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">

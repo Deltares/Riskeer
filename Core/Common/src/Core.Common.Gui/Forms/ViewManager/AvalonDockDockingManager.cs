@@ -122,7 +122,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             if (views.Contains(view))
             {
-                throw new InvalidOperationException(Resources.AvalonDockDockingManager_Add_View_was_already_added__activate_it_instead_of_add);
+                throw new InvalidOperationException(Resources.AvalonDockDockingManager_Add_View_was_already_added_activate_it_instead_of_add);
             }
 
             var control = view as Control;
@@ -499,7 +499,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
             else
             {
-                throw new NotImplementedException(string.Format(Resources.AvalonDockDockingManager_AddToolView_View_location__0__is_not_implemented_yet, location));
+                throw new NotImplementedException(string.Format(Resources.AvalonDockDockingManager_AddToolView_View_location_0_is_not_implemented_yet, location));
             }
 
             if (anchorablePane == null) {}

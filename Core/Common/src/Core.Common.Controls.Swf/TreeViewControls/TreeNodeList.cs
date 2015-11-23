@@ -133,7 +133,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException(Resources.TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_);
+            throw new NotImplementedException(Resources.TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented);
         }
 
         #endregion

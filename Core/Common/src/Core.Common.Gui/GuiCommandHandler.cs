@@ -98,7 +98,7 @@ namespace Core.Common.Gui
         {
             if (gui.Application.Project != null)
             {
-                Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project_);
+                Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project);
 
                 // DO NOT REMOVE CODE BELOW. If the views are not cleaned up here we access disposable stuff like in issue 4161.
                 // SO VIEWS SHOULD ALWAYS BE CLOSED!
@@ -148,7 +148,7 @@ namespace Core.Common.Gui
             }
             catch (Exception)
             {
-                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on__0__, gui.Selection);
+                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, gui.Selection);
             }
         }
 
@@ -160,7 +160,7 @@ namespace Core.Common.Gui
             }
             catch (Exception)
             {
-                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on__0__, gui.Selection);
+                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, gui.Selection);
             }
         }
 
@@ -214,7 +214,7 @@ namespace Core.Common.Gui
 
             if (!logFileOpened)
             {
-                MessageBox.Show(Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file__opening_log_file_directory_instead_, Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
+                MessageBox.Show(Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
                 Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
             }
         }
@@ -464,7 +464,7 @@ namespace Core.Common.Gui
 
             if (project == null)
             {
-                gui.MainWindow.Title = string.Format(Resources.GuiCommandHandler_UpdateGui__no_project_opened_____0_, mainWindowTitle);
+                gui.MainWindow.Title = string.Format(Resources.GuiCommandHandler_UpdateGui_no_project_opened_0_, mainWindowTitle);
                 return;
             }
 

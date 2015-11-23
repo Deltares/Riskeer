@@ -65,7 +65,7 @@ namespace Core.Common.Gui
             if (instance != null)
             {
                 instance = null; // reset to that the consequent creations won't fail.
-                throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__ + instanceCreationStackTrace);
+                throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace+ instanceCreationStackTrace);
             }
 
             instance = this;
@@ -240,16 +240,16 @@ namespace Core.Common.Gui
             }
             else
             {
-                log.Info(Resources.RingtoetsGui_Run_Starting_application____);
+                log.Info(Resources.RingtoetsGui_Run_Starting_application);
 
                 application.Run();
             }
 
-            log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface____);
+            log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface);
 
             Initialize();
 
-            log.InfoFormat(Resources.RingtoetsGui_Run_Started_in__0_f2__sec, (DateTime.Now - startTime).TotalSeconds);
+            log.InfoFormat(Resources.RingtoetsGui_Run_Started_in_0_f2_sec, (DateTime.Now - startTime).TotalSeconds);
 
             runFinished = true;
 
@@ -690,7 +690,7 @@ namespace Core.Common.Gui
 
                 if (!runFinished) // splash screen was closed before gui started.
                 {
-                    log.Info(Resources.RingtoetsGui_ShowSplashScreen_User_has_cancelled_start__exiting____);
+                    log.Info(Resources.RingtoetsGui_ShowSplashScreen_User_has_cancelled_start_Exiting);
                     SkipDialogsOnExit = true;
                     Environment.Exit(1);
                 }
@@ -764,16 +764,16 @@ namespace Core.Common.Gui
 
         private void InitializeWindows()
         {
-            log.Info(Resources.RingtoetsGui_InitializeWindows_Initializing_windows____);
+            log.Info(Resources.RingtoetsGui_InitializeWindows_Initializing_windows);
 
             InitializeMainWindow();
 
-            log.Info(Resources.RingtoetsGui_InitializeWindows_Creating_default_tool_windows____);
+            log.Info(Resources.RingtoetsGui_InitializeWindows_Creating_default_tool_windows);
             InitToolWindows();
 
             UpdateTitle();
 
-            log.Info(Resources.RingtoetsGui_InitializeWindows_All_windows_are_created_);
+            log.Info(Resources.RingtoetsGui_InitializeWindows_All_windows_are_created);
         }
 
         private void UpdateTitle()
@@ -811,7 +811,7 @@ namespace Core.Common.Gui
         // TODO: incapsulate any knowledge of the plugin XML inside plugin configurator, the rest of the system should not know about it!
         private void InitToolWindows()
         {
-            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_document_window_manager____);
+            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_document_window_manager);
 
             var allowedDocumentWindowLocations = new[]
             {
@@ -858,7 +858,7 @@ namespace Core.Common.Gui
 
             toolWindowViews.CollectionChanged += ToolWindowViewsOnCollectionChanged;
 
-            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_tool_window_manager____);
+            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_tool_window_manager);
 
             mainWindow.InitializeToolWindows();
 
@@ -920,14 +920,14 @@ namespace Core.Common.Gui
 
         private void InitializeMenusAndToolbars()
         {
-            log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____);
+            log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars);
             mainWindow.SuspendLayout();
 
             // Validate once when loading is completed
             mainWindow.ValidateItems();
 
             mainWindow.ResumeLayout();
-            log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_);
+            log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready);
         }
 
         private void ActivatePlugins()

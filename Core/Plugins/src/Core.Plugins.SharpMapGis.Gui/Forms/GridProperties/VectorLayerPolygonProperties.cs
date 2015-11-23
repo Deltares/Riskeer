@@ -67,7 +67,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
                 }
                 catch (CoordinateTransformException e)
                 {
-                    var message = string.Format(Resources.VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_, e.Message);
+                    var message = string.Format(Resources.VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_, e.Message);
                     MessageBox.Show(message,
                                     Resources.MapProperties_CoordinateSystem_Coordinate_transformation_error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

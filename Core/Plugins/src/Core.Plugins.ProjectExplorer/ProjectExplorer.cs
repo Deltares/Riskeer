@@ -84,7 +84,7 @@ namespace Core.Plugins.ProjectExplorer
 
             if (nodeToSelect == null)
             {
-                log.DebugFormat(Resources.ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_, o);
+                log.DebugFormat(Resources.ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item_0_, o);
                 return;
             }
 
@@ -118,7 +118,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            log.WarnFormat(Resources.ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data___0_, gui.DocumentViews.ActiveView.Data);
+            log.WarnFormat(Resources.ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data_0_, gui.DocumentViews.ActiveView.Data);
         }
     }
 }

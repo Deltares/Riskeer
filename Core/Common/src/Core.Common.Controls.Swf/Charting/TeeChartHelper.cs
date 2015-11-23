@@ -55,7 +55,7 @@ namespace Core.Common.Controls.Swf.Charting
                 }
             }
             //THIS is done because Tool.GetFirstLastSeries(series, out tmpMin, out tmpMax)) is not documented (unable to find)
-            Assert.IsTrue(result >= -1, Resources.TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__);
+            Assert.IsTrue(result >= -1, Resources.TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_);
             return result;
         }
 

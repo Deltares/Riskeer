@@ -380,7 +380,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             string addAttributeCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute;
             string deleteAttributeCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attribute;
             string zoomToItemCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item;
-            string openViewCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___;
+            string openViewCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view;
 
             if (CanAddDeleteAttributes)
             {
@@ -390,7 +390,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                     {
                         Name = addAttributeItemName,
                         Text = addAttributeCaption,
-                        Image = Resources.table_add
+                        Image = Resources.TableAdd
                     };
                     btnAddAttribute.Click += AddAttributeItemClick;
                     btnAddAttribute.Tag = TableView;
@@ -413,7 +413,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 {
                     Name = zoomItemName,
                     Text = zoomToItemCaption,
-                    Image = Resources.magnifier__arrow
+                    Image = Resources.MagnifierArrow
                 };
                 btnzoomToMenuItem.Click += BtnZoomToClick;
                 btnzoomToMenuItem.Tag = TableView;
@@ -440,7 +440,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 {
                     var addAttributeItem = new TableViewColumnMenuItem(addAttributeCaption)
                     {
-                        Image = Resources.table_add
+                        Image = Resources.TableAdd
                     };
                     addAttributeItem.Click += AddAttributeItemClick;
                     TableView.ColumnMenuItems.Add(addAttributeItem);
@@ -449,7 +449,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 {
                     var deleteAttributeItem = new TableViewColumnMenuItem(deleteAttributeCaption)
                     {
-                        Image = Resources.table_delete
+                        Image = Resources.TableDelete
                     };
                     deleteAttributeItem.Showing += DeleteAttributeItemShowing;
                     deleteAttributeItem.Click += DeleteAttributeItemClick;
@@ -466,7 +466,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 var zoomToMenuItem = new TableViewColumnMenuItem(zoomToItemCaption)
                 {
-                    Image = Resources.magnifier__arrow
+                    Image = Resources.MagnifierArrow
                 };
                 zoomToMenuItem.Click += BtnZoomToClick;
                 TableView.ColumnMenuItems.Add(zoomToMenuItem);

@@ -137,7 +137,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
             {
                 if (iSeries != null && iSeries != value)
                 {
-                    throw new ArgumentException(String.Format(Resources.ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series, iSeries));
+                    throw new ArgumentException(String.Format(Resources.ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts_0_as_series, iSeries));
                 }
                 lastSelectedSeries = value;
             }
@@ -204,7 +204,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     return matchingSeries;
                 }
             }
-            throw new ArgumentException(Resources.ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series__not_related_to_any_known_ChartSeries);
+            throw new ArgumentException(Resources.ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series_Not_related_to_any_known_ChartSeries);
         }
 
         /// <summary>

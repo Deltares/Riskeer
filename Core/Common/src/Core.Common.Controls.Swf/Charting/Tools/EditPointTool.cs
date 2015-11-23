@@ -154,7 +154,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     SelectedPointIndex = -1;
                     return;
                 }
-                throw new NotImplementedException(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_);
+                throw new NotImplementedException(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource);
             }
         }
 
@@ -340,7 +340,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 case DragStyle.Y:
                     return Cursors.SizeNS;
                 default:
-                    throw new NotImplementedException(String.Format(Resources.EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_, dragStyle));
+                    throw new NotImplementedException(String.Format(Resources.EditPointTool_GetCursorIcon_No_cursor_assigned_for_0_, dragStyle));
             }
         }
 

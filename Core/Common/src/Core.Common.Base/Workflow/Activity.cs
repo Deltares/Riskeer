@@ -74,7 +74,7 @@ namespace Core.Common.Base.Workflow
 
             if (Status != ActivityStatus.Executed && Status != ActivityStatus.Initialized)
             {
-                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Can_t_call_Execute___for_activity_in__0__state_, Status));
+                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Can_t_call_Execute_for_activity_in_0_state, Status));
             }
 
             try

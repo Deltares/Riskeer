@@ -23,7 +23,7 @@ namespace Core.Common.Utils.ComponentModel
             var propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(Resource.Could_not_find_property__0__on_type__1_, propertyName,
+                throw new MissingMemberException(string.Format(Resource.Could_not_find_property_0_on_type_1_, propertyName,
                                                                obj.GetType()));
             }
 
@@ -38,7 +38,7 @@ namespace Core.Common.Utils.ComponentModel
             if (validationMethod == null)
             {
                 throw new MissingMethodException(
-                    String.Format(Resource.DynamicReadOnlyAttribute_IsDynamicReadOnly__0__uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute, obj));
+                    String.Format(Resource.DynamicReadOnlyAttribute_IsDynamicReadOnly_0_uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute, obj));
             }
 
             var shouldBeReadOnly = (bool) validationMethod.Invoke(obj, new[]
@@ -61,12 +61,12 @@ namespace Core.Common.Utils.ComponentModel
 
             if (!validationMethods.Any())
             {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found__or_not_public___class___0_, type));
+                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found_or_not_public_class_0_, type));
             }
 
             if (validationMethods.Count() > 1)
             {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class___0_, type));
+                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class_0_, type));
             }
 
             var validationMethod = validationMethods.First();
@@ -74,17 +74,17 @@ namespace Core.Common.Utils.ComponentModel
             // check return type and arguments
             if (validationMethod.ReturnType != typeof(bool))
             {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type__class___0_, type));
+                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type_class_0_, type));
             }
 
             if (validationMethod.GetParameters().Length != 1)
             {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments__should_be_1_of_type_string__class___0_, type));
+                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_, type));
             }
 
             if (validationMethod.GetParameters()[0].ParameterType != typeof(string))
             {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type__should_be_of_type_string__class___0_, type));
+                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_, type));
             }
 
             return validationMethod;

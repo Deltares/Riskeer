@@ -80,7 +80,7 @@ namespace Core.Common.Utils.IO
             }
             foreach (var fi in source.GetFiles())
             {
-                Log.DebugFormat(Resource.FileUtils_CopyAll_Copying__0___1_, target.FullName, fi.Name);
+                Log.DebugFormat(Resource.FileUtils_CopyAll_Copying_0_1_, target.FullName, fi.Name);
 
                 if (!target.Exists)
                 {

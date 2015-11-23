@@ -8,7 +8,7 @@ namespace Core.Common.Controls.Swf.Table
         public override string GetLocalizedString(GridStringId id)
         {
             return id == GridStringId.ColumnViewExceptionMessage
-                       ? Resources.TableViewExceptionMessageController_GetLocalizedString_
+                       ? Resources.TableViewExceptionMessageController_GetLocalizedString
                        : base.GetLocalizedString(id);
         }
     }

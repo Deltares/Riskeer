@@ -320,7 +320,7 @@ namespace Core.Common.Controls.Swf.Charting
                 case ".bmp":
                     return ImageFormat.Bmp;
                 default:
-                    throw new ArgumentException(string.Format(Resources.Chart_GetImageFormatByExtension_Extension___0___not_supported, ext), "filename");
+                    throw new ArgumentException(string.Format(Resources.Chart_GetImageFormatByExtension_Extension_0_not_supported, ext), "filename");
             }
         }
 
@@ -352,7 +352,7 @@ namespace Core.Common.Controls.Swf.Charting
                     format = chart.Export.Image.EPS;
                     break;
                 default:
-                    throw new ArgumentException(string.Format(Resources.Chart_GetImageFormatByExtension_Extension___0___not_supported, ext), "filename");
+                    throw new ArgumentException(string.Format(Resources.Chart_GetImageFormatByExtension_Extension_0_not_supported, ext), "filename");
             }
             return format;
         }

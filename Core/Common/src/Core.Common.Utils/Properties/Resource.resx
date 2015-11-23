@@ -132,28 +132,28 @@
   <data name="InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_" xml:space="preserve">
     <value>Thread synchronisatiefout (aanroep {1}): {0}</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_IsDynamicReadOnly__0__uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute" xml:space="preserve">
+  <data name="DynamicReadOnlyAttribute_IsDynamicReadOnly_0_uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute" xml:space="preserve">
     <value>{0} gebruikt DynanamicReadOnlyAttribute, maar heeft geen methode gemarkeerd met DynamicReadOnlyValidationMethodAttribute.</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found__or_not_public___class___0_" xml:space="preserve">
+  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found_or_not_public_class_0_" xml:space="preserve">
     <value>DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class___0_" xml:space="preserve">
+  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class_0_" xml:space="preserve">
     <value>Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {0}.</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type__class___0_" xml:space="preserve">
+  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type_class_0_" xml:space="preserve">
     <value>DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments__should_be_1_of_type_string__class___0_" xml:space="preserve">
+  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_" xml:space="preserve">
     <value>DynamicReadOnlyValidationMethod heeft een incorrecte aantal argumenten. Zou er één moeten zijn. Klasse: {0}</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type__should_be_of_type_string__class___0_" xml:space="preserve">
+  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_" xml:space="preserve">
     <value>Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {0}</value>
   </data>
-  <data name="Could_not_find_property__0__on_type__1_" xml:space="preserve">
+  <data name="Could_not_find_property_0_on_type_1_" xml:space="preserve">
     <value>Kon eigenschap {0} van type {1} niet vinden.</value>
   </data>
-  <data name="DynamicVisibleAttribute_IsDynamicVisible__0__uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute" xml:space="preserve">
+  <data name="DynamicVisibleAttribute_IsDynamicVisible_0_uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute" xml:space="preserve">
     <value>{0} gebruikt DynamicVisibleAttribute, maar heeft geen methode gemarkeerd met DynamicVisibleValidationMethodAttribute.</value>
   </data>
   <data name="NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_" xml:space="preserve">
@@ -161,19 +161,19 @@
 Fout: {1} - {2}
 Bestand: {3}\{0}</value>
   </data>
-  <data name="TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_" xml:space="preserve">
+  <data name="TypeUtils_CreateInstance_No_default_constructor_available_for_type_0_" xml:space="preserve">
     <value>Geen 'default constructor' gevonden voor type {0}.</value>
   </data>
   <data name="TypeUtils_CallMethod_Exception_occured" xml:space="preserve">
     <value>Kritieke fout opgetreden.</value>
   </data>
-  <data name="TypeUtils_GetMemberNameFromMemberExpression__member__not_a_valid_expression_for_this_method" xml:space="preserve">
+  <data name="TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method" xml:space="preserve">
     <value>Parameter 'member' is geen geldige expressie voor deze methode.</value>
   </data>
-  <data name="ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__" xml:space="preserve">
+  <data name="ParseHelper_ParseHelper_Cannot_find_method_0_TryParse_string_out_0_" xml:space="preserve">
     <value>Kan methode {0}.TryParse(string, out {0}) niet vinden.</value>
   </data>
-  <data name="ValidationReport_ToString__0___severity___1____2__error_s____3__warning_s____4__info_" xml:space="preserve">
+  <data name="ValidationReport_ToString_0_severity_1_2_error_s_3_warnings_4_info" xml:space="preserve">
     <value>{0}, ernst: {1} ({2} fout(en), {3} waarschuwing(en), {4} info).</value>
   </data>
   <data name="InvokeRequiredAttribute_LogInvokeError_skipping" xml:space="preserve">
@@ -182,13 +182,13 @@ Bestand: {3}\{0}</value>
   <data name="InvokeRequiredAttribute_LogInvokeError_aborted" xml:space="preserve">
     <value>afgebroken</value>
   </data>
-  <data name="FileUtils_CopyAll_Copying__0___1_" xml:space="preserve">
+  <data name="FileUtils_CopyAll_Copying_0_1_" xml:space="preserve">
     <value>Kopiëren van {0}\{1}</value>
   </data>
-  <data name="AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for__0_____1_" xml:space="preserve">
+  <data name="AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for_0_1_" xml:space="preserve">
     <value>Kon 'Assembly' informatie niet lezen voor {0} : {1}</value>
   </data>
-  <data name="TypeUtils_GetMemberName___0____is_not_a_valid_expression_for_this_method" xml:space="preserve">
+  <data name="TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method" xml:space="preserve">
     <value>'{0}' is geen geldige expressie voor deze methode.</value>
   </data>
 </root>

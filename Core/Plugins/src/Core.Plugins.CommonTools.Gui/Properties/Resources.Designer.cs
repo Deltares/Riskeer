@@ -537,18 +537,18 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lettertype kan niet leeg zijn..
         /// </summary>
-        public static string ChartProperties_FontValid_Font_can_not_be_empty_ {
+        public static string ChartProperties_FontValid_Font_can_not_be_empty {
             get {
-                return ResourceManager.GetString("ChartProperties_FontValid_Font_can_not_be_empty_", resourceCulture);
+                return ResourceManager.GetString("ChartProperties_FontValid_Font_can_not_be_empty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lettertype grootte valt niet binnen grenzen (3-200).
         /// </summary>
-        public static string ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_ {
+        public static string ChartProperties_FontValid_Font_size_is_not_within_limits_3_200 {
             get {
-                return ResourceManager.GetString("ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_", resourceCulture);
+                return ResourceManager.GetString("ChartProperties_FontValid_Font_size_is_not_within_limits_3_200", resourceCulture);
             }
         }
         

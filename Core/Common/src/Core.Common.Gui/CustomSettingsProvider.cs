@@ -58,7 +58,7 @@ namespace Core.Common.Gui
             }
             catch
             {
-                log.ErrorFormat(Resources.PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to__0_, SettingsFileName);
+                log.ErrorFormat(Resources.PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_, SettingsFileName);
             }
         }
 
@@ -171,7 +171,7 @@ namespace Core.Common.Gui
             //Determine if the setting is marked as Roaming
             if ((from DictionaryEntry d in prop.Attributes select (Attribute) d.Value).OfType<SettingsManageabilityAttribute>().Any())
             {
-                throw new NotImplementedException(String.Format(Resources.PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported, prop.Name));
+                throw new NotImplementedException(String.Format(Resources.PortableSettingsProvider_ThrowIfRoaming_Setting_0_is_roaming_This_is_not_supported, prop.Name));
             }
         }
     }

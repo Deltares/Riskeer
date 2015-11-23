@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             }
             else
             {
-                throw new Exception(Resources.GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected__impossible);
+                throw new Exception(Resources.GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected_impossible);
             }
 
             return format + numDecimals;
@@ -191,7 +191,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
 
         private void RadioButtonCompactNotationCheckedChanged(object sender, EventArgs e)
         {
-            lblDecimalsOrSignificants.Text = radioButtonCompactNotation.Checked ? Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits_ : Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_____Decimal_places_;
+            lblDecimalsOrSignificants.Text = radioButtonCompactNotation.Checked ? Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits: Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Decimal_places;
             UpdateRealNumberFormattingSample();
         }
 

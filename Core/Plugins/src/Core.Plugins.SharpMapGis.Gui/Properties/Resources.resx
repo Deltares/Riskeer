@@ -124,13 +124,13 @@
   <data name="LocationAndTimeDependentFunctionEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\feature_coverage_with_time_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="polygon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Polygon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polygon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="layers_ungroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LayersUngroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\layers-ungroup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="layers-stack-arrange-back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LayersStackArrangeBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\layers-stack-arrange-back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_LineWidth_Description" xml:space="preserve">
@@ -142,22 +142,22 @@
   <data name="VectorLayerPointProperties_DisplayName" xml:space="preserve">
     <value>Vectorlaag (punt)</value>
   </data>
-  <data name="down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="grid_2d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Grid2d" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grid_2d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CurvePointSmallRemove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CurvePointSmallRemove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pencil_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PencilLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pencil_large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pencil_ruler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PencilRuler" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pencil-ruler.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="map__pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="MapPencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ShowProfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -166,10 +166,10 @@
   <data name="VectorStyleProperties_DisplayName" xml:space="preserve">
     <value>Vectorstijl</value>
   </data>
-  <data name="cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\cut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="layers-stack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LayersStack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\layers-stack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Common_Name_DisplayName" xml:space="preserve">
@@ -178,7 +178,7 @@
   <data name="VectorStyleProperties_DashStyle_Description" xml:space="preserve">
     <value>Lijnstijl voor de omtrek van de vector.</value>
   </data>
-  <data name="table_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TableDelete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Categories_General" xml:space="preserve">
@@ -199,13 +199,13 @@
   <data name="PointStyleProperties_EnableOutline_Description" xml:space="preserve">
     <value>Bepaal of u wel of niet de omtrek van het punt wilt laten zien.</value>
   </data>
-  <data name="operation_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="OperationLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\operation_large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PointStyleProperties_OutlineWidth_DisplayName" xml:space="preserve">
     <value>Omtrekbreedte</value>
   </data>
-  <data name="selection_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="SelectionSelect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\selection-select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FunctionGrid2D" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -214,7 +214,7 @@
   <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\deletehs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="table" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LayerProperties_DisplayName" xml:space="preserve">
@@ -232,7 +232,7 @@
   <data name="PointStyleProperties_Shape_Description" xml:space="preserve">
     <value>Vorm voor de symbolen van het punt.</value>
   </data>
-  <data name="globe__pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="GlobePencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\globe--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QueryTimeSeriesMapCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -247,16 +247,16 @@
   <data name="MapPanZoomImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapPanZoomImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Gradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Select" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MapZoomToExtentsImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapZoomToExtentsImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="grid_2d_Invalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Grid2dInvalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\grid_2d_invalid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_OutlineWidth_Description" xml:space="preserve">
@@ -268,13 +268,13 @@
   <data name="FeatureDataRowProperties_DisplayName" xml:space="preserve">
     <value>Onderdeelgegevens</value>
   </data>
-  <data name="polygonsetvalue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PolygonSetValue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polygonsetvalue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GroupLayerProperties_DisplayName" xml:space="preserve">
     <value>Groep-laag</value>
   </data>
-  <data name="linetool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LineTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\linetool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MoveSingle" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -283,7 +283,7 @@
   <data name="VectorLayerPolygonProperties_DisplayName" xml:space="preserve">
     <value>Vector laag (polygoon)</value>
   </data>
-  <data name="paintcan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PaintCan" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\paintcan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerLineProperties_DisplayName" xml:space="preserve">
@@ -316,7 +316,7 @@
   <data name="PointStyleProperties_OutlineDashStyle_DisplayName" xml:space="preserve">
     <value>Omtrekstijl</value>
   </data>
-  <data name="crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LineStyleProperies_Width_DisplayName" xml:space="preserve">
@@ -340,7 +340,7 @@
         /xsPLTn6+8bszy+7S8B3Lndj3JC7T6FQKH4BrluPod3v93kAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\theme.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PolygonStyleProperties_FillColor_Description" xml:space="preserve">
@@ -352,10 +352,10 @@
   <data name="ScaleBarIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scaleBarIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tag_export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TagExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\tag-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tag_minus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TagMinus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\tag--minus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GroupLayerProperties_NumberOfLayers_Description" xml:space="preserve">
@@ -373,7 +373,7 @@
   <data name="GroupLayerProperties_NumberOfLayers_DisplayName" xml:space="preserve">
     <value>Aantal lagen</value>
   </data>
-  <data name="discretization_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Discretization_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\discretization_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorStyleProperties_EnableOutline_Description" xml:space="preserve">
@@ -382,7 +382,7 @@
   <data name="PointStyleProperties_OutlineColor_Description" xml:space="preserve">
     <value>Kleur van de omtrek van het punt.</value>
   </data>
-  <data name="magnifier__arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="MagnifierArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifier--arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LocationAndTimeDependentFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -394,7 +394,7 @@
   <data name="VectorLayerProperties_SymbolScale_DisplayName" xml:space="preserve">
     <value>Symboolschaal</value>
   </data>
-  <data name="arrow_circle_double" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ArrowCircleDouble" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow-circle-double.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LegendIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -403,7 +403,7 @@
   <data name="PointStyleProperties_ShapeSize_Description" xml:space="preserve">
     <value>Grootte van aanwijs symbolen.</value>
   </data>
-  <data name="geometries" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Geometries" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\geometries.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LocationDependentFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -412,7 +412,7 @@
   <data name="FeatureDataRowProperties_Data_Description" xml:space="preserve">
     <value>De beschikbare gegevens van de feature.</value>
   </data>
-  <data name="zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Properties" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -427,7 +427,7 @@
   <data name="GroupLayerProperties_Name_Description" xml:space="preserve">
     <value>Naam van de groepslaag.</value>
   </data>
-  <data name="discretization" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Discretization" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\discretization.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LineStyleProperies_Color_Description" xml:space="preserve">
@@ -436,7 +436,7 @@
   <data name="PointStyleProperties_OutlineColor_DisplayName" xml:space="preserve">
     <value>Omtrekkleur</value>
   </data>
-  <data name="points" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Points" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_FillColor_Description" xml:space="preserve">
@@ -480,7 +480,7 @@
   <data name="VectorLayerProperties_OutlineColor_Description" xml:space="preserve">
     <value>Kleur van de omtrek van de lijn.</value>
   </data>
-  <data name="tag_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TagImport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\tag-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NorthArrowIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -498,7 +498,7 @@
   <data name="ThemeItemProperties_Label_Description" xml:space="preserve">
     <value>Tekst van label wordt getoond aan de gebruiker.</value>
   </data>
-  <data name="contrast_low" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="ContrastLow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\contrast_low.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LegendToolProperties_DisplayName" xml:space="preserve">
@@ -516,7 +516,7 @@
   <data name="CurvePointSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CurvePointSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lassoselect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LassoSelect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lassoselect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PointStyleProperties_Symbol_Description" xml:space="preserve">
@@ -531,7 +531,7 @@
   <data name="PointStyleProperties_Shape_DisplayName" xml:space="preserve">
     <value>Puntvorm</value>
   </data>
-  <data name="table_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TableAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -566,67 +566,67 @@
   <data name="LegendToolProperties_Font_Description" xml:space="preserve">
     <value>Lettertype dat gebruikt wordt in de kaartlegenda.</value>
   </data>
-  <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="layers-stack-arrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="LayersStackArrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\layers-stack-arrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="folder--plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="FolderPlus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="magnifier_history" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="MagnifierHistory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifier-history.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="disabled_operation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="DisabledOperation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\disabled_operation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pipette" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Pipette" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pipette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="document_Export1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="DocumentExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="document_Import1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="DocumentImport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="eraser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Eraser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eraser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="unstrucWater" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="UnstrucWater" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unstrucWater.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spatial_operation_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="SpatialOperationOutput" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow-turn-270-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="spatial_operation_parameter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="SpatialOperationParameter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\block--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="marker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Marker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\marker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="unstruc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Unstruc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unstruc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="layer_select_point" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="layerSelectPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\layer_select_point.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_" xml:space="preserve">
+  <data name="MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s_from_file_0_1_" xml:space="preserve">
     <value>Kan met dit bestand ({0}) geen lagen aanmaken: {1}</value>
   </data>
   <data name="MapAddLayerCommand_TryAddLayerFromFile_Layer_creation_failed" xml:space="preserve">
     <value>Laag aanmaken is mislukt</value>
   </data>
-  <data name="MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system___0_" xml:space="preserve">
+  <data name="MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system_0_" xml:space="preserve">
     <value>Kan kaart niet converteren naar geselecteerde coördinatenstelsel: {0}</value>
   </data>
   <data name="MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system" xml:space="preserve">
     <value>Coördinatenstelsel van de kaart</value>
   </data>
-  <data name="MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_" xml:space="preserve">
+  <data name="MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_" xml:space="preserve">
     <value>Kan de kaart niet converteren naar het coördinatenstelsel: {0}</value>
   </data>
   <data name="MapProperties_CoordinateSystem_Coordinate_transformation_error" xml:space="preserve">
@@ -647,10 +647,10 @@
   <data name="MapProperties_ShowGrid_DisplayName" xml:space="preserve">
     <value>Raster weergeven</value>
   </data>
-  <data name="MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty" xml:space="preserve">
+  <data name="MapProperties_ShowGrid_Showing_latitude_longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty" xml:space="preserve">
     <value>Weergegeven breedtegraad-/lengtegraadraster wordt alleen ondersteund als coördinatenstelsel van de kaart niet leeg is</value>
   </data>
-  <data name="VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_" xml:space="preserve">
+  <data name="VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_" xml:space="preserve">
     <value>Kan de kaart niet converteren naar het coördinatenstelsel: {0}</value>
   </data>
   <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute" xml:space="preserve">
@@ -662,7 +662,7 @@
   <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item" xml:space="preserve">
     <value>Zoom naar item</value>
   </data>
-  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___" xml:space="preserve">
+  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view" xml:space="preserve">
     <value>Weergave openen...</value>
   </data>
   <data name="Ribbon_View_MapContents_Header" xml:space="preserve">

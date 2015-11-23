@@ -119,7 +119,7 @@ namespace Core.Common.Utils
 
                     if (tryParseMethod == null)
                     {
-                        throw new InvalidOperationException(String.Format(Resource.ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__, type.FullName));
+                        throw new InvalidOperationException(String.Format(Resource.ParseHelper_ParseHelper_Cannot_find_method_0_TryParse_string_out_0_, type.FullName));
                     }
                     _parser = Expression.Lambda<Func<string, T, T, T>>(
                         Expression.Condition(
@@ -156,7 +156,7 @@ namespace Core.Common.Utils
 
                     if (tryParseMethod == null)
                     {
-                        throw new InvalidOperationException(String.Format(Resource.ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__, typeof(TBase).FullName));
+                        throw new InvalidOperationException(String.Format(Resource.ParseHelper_ParseHelper_Cannot_find_method_0_TryParse_string_out_0_, typeof(TBase).FullName));
                     }
                     ParameterExpression target = Expression.Parameter(typeof(string), "target");
                     ParameterExpression defaultValue = Expression.Parameter(typeof(TBase?), "defaultValue");

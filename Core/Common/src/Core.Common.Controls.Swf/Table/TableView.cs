@@ -414,7 +414,7 @@ namespace Core.Common.Controls.Swf.Table
                     dxGridView.UnselectCell(cell.RowIndex, gridColumn);
                     break;
                 default:
-                    throw new NotSupportedException(string.Format(Resources.TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_TableView, e.Action));
+                    throw new NotSupportedException(string.Format(Resources.TableView_SelectedCellsCollectionChanged_Action_0_is_not_supported_by_the_TableView, e.Action));
             }
         }
 
@@ -753,7 +753,7 @@ namespace Core.Common.Controls.Swf.Table
             string errorText;
             if (!tableViewValidator.ValidateRow(rowIndex, out errorText))
             {
-                Log.ErrorFormat(Resources.TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_, rowIndex, errorText);
+                Log.ErrorFormat(Resources.TableView_ValidateAndCommitRow_Can_not_set_value_for_row_0_reason_1_, rowIndex, errorText);
                 dxGridView.CancelUpdateCurrentRow();
                 tableViewValidator.RefreshRowData();
                 dxGridView.DeleteRow(rowIndex);
@@ -784,14 +784,14 @@ namespace Core.Common.Controls.Swf.Table
                                      : value;
             if (objectValue == null)
             {
-                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_, rowIndex, col.AbsoluteIndex, Resources.TableView_SetCellValueInternal_No_conversion_from_string_possible);
+                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell_0_1_reason_2_, rowIndex, col.AbsoluteIndex, Resources.TableView_SetCellValueInternal_No_conversion_from_string_possible);
                 return false;
             }
 
             string error;
             if (!tableViewValidator.ValidateCell(new TableViewCell(rowIndex, GetColumnByDxColumn(col)), objectValue, out error))
             {
-                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_, rowIndex, col.AbsoluteIndex, error);
+                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell_0_1_reason_2_, rowIndex, col.AbsoluteIndex, error);
                 return false;
             }
 
@@ -830,7 +830,7 @@ namespace Core.Common.Controls.Swf.Table
                     }
                 }
 
-                Log.WarnFormat(Resources.TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste, cellValue, columnType);
+                Log.WarnFormat(Resources.TableView_ConvertToColumnValue_Unable_to_convert_string_0_to_1_for_paste, cellValue, columnType);
                 return null;
             }
         }
@@ -1652,7 +1652,7 @@ namespace Core.Common.Controls.Swf.Table
             dxGridView.BeginSelection();
             if (RowSelect)
             {
-                throw new InvalidOperationException(Resources.TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled__Use_SelectRow_instead_);
+                throw new InvalidOperationException(Resources.TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled_Use_SelectRow_instead);
             }
 
             if (clearOldSelection)
@@ -1858,7 +1858,7 @@ namespace Core.Common.Controls.Swf.Table
             }
             else
             {
-                throw new ArgumentException(string.Format(Resources.TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_, columnType));
+                throw new ArgumentException(string.Format(Resources.TableView_AddUnboundColumn_Unbound_columns_of_type_0_not_supported, columnType));
             }
             if (editor != null)
             {

@@ -208,10 +208,10 @@ namespace Core.Common.Base
 
             isRunning = true;
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Creating_new_project____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Creating_new_project);
             CreateNewProject();
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Activating_plugins____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Activating_plugins);
             ActivatePlugins();
 
             RegisterImporters();
@@ -225,7 +225,7 @@ namespace Core.Common.Base
 
             stopwatch.Stop();
 
-            log.InfoFormat(Properties.Resources.RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds, stopwatch.ElapsedMilliseconds/1000.0);
+            log.InfoFormat(Properties.Resources.RingtoetsApplication_Run_Ringtoets_is_ready_started_in_0_F3_seconds, stopwatch.ElapsedMilliseconds/1000.0);
 
             if (AfterRun != null)
             {
@@ -252,7 +252,7 @@ namespace Core.Common.Base
         {
             if (!isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
             }
 
             projectBeingCreated = new Project();
@@ -267,7 +267,7 @@ namespace Core.Common.Base
         {
             if (!isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
             }
 
             // TODO: implement and remove Project = new Project();
@@ -335,7 +335,7 @@ namespace Core.Common.Base
 
         private void ActivatePlugins()
         {
-            log.Debug(Properties.Resources.RingtoetsApplication_Run_Activating_plugins____);
+            log.Debug(Properties.Resources.RingtoetsApplication_Run_Activating_plugins);
 
             // Activate all plugins
             foreach (var plugin in Plugins)
@@ -356,7 +356,7 @@ namespace Core.Common.Base
                 Environment.CurrentDirectory = cwd;
             }
 
-            log.Debug(Properties.Resources.RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_);
+            log.Debug(Properties.Resources.RingtoetsApplication_ActivatePlugins_All_plugins_were_activated);
         }
 
         /// <summary>
@@ -398,25 +398,25 @@ namespace Core.Common.Base
 
         private void RegisterImporters()
         {
-            log.Debug(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importers____);
+            log.Debug(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importers);
 
             foreach (var fileImporter in Plugins.SelectMany(plugin => plugin.GetFileImporters()))
             {
                 fileImporters.Add(fileImporter);
 
-                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importer__0_, fileImporter.Name);
+                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importer_0_, fileImporter.Name);
             }
         }
 
         private void RegisterExporters()
         {
-            log.Debug(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporters____);
+            log.Debug(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporters);
 
             foreach (var fileExporter in Plugins.SelectMany(plugin => plugin.GetFileExporters()))
             {
                 fileExporters.Add(fileExporter);
 
-                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporter__0_, fileExporter.Name);
+                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporter_0_, fileExporter.Name);
             }
         }
 

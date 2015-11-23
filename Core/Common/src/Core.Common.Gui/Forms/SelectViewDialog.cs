@@ -66,7 +66,7 @@ namespace Core.Common.Gui.Forms
 
             if (itemAsString == DefaultViewName)
             {
-                string defaultIndicatorText = Resources.SelectViewDialog_listBox_DrawItem_____Default_;
+                string defaultIndicatorText = Resources.SelectViewDialog_listBox_DrawItem_Default;
                 var defaultItemFont = new Font(lbFont.FontFamily, lbFont.Size, FontStyle.Bold);
 
                 var itemSize = e.Graphics.MeasureString(itemAsString, defaultItemFont);

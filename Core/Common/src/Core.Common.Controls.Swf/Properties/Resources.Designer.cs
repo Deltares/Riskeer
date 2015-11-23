@@ -119,29 +119,28 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Extensie ({0}) wordt niet ondersteund..
         /// </summary>
-        internal static string Chart_GetImageFormatByExtension_Extension___0___not_supported {
+        internal static string Chart_GetImageFormatByExtension_Extension_0_not_supported {
             get {
-                return ResourceManager.GetString("Chart_GetImageFormatByExtension_Extension___0___not_supported", resourceCulture);
+                return ResourceManager.GetString("Chart_GetImageFormatByExtension_Extension_0_not_supported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Invoerformaat wordt niet ondersteund. Y moet numeriek zijn maar is van type: {0}..
         /// </summary>
-        internal static string ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0__ {
+        internal static string ChartSeries_Add_Input_format_not_supported_y_must_be_numeric_but_is_of_type_0_ {
             get {
-                return ResourceManager.GetString("ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0_" +
-                        "_", resourceCulture);
+                return ResourceManager.GetString("ChartSeries_Add_Input_format_not_supported_y_must_be_numeric_but_is_of_type_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ongeldig argument voor databron van gegevensreeks. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund..
         /// </summary>
-        internal static string ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IEnumerable__IList_and_IListSource_are_supported {
+        internal static string ChartSeries_DataSource_Invalid_argument_for_series_datasource_Are_you_passing_IEnumerable_IList_and_IListSource_are_supported {
             get {
-                return ResourceManager.GetString("ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IE" +
-                        "numerable__IList_and_IListSource_are_supported", resourceCulture);
+                return ResourceManager.GetString("ChartSeries_DataSource_Invalid_argument_for_series_datasource_Are_you_passing_IEn" +
+                        "umerable_IList_and_IListSource_are_supported", resourceCulture);
             }
         }
         
@@ -157,19 +156,19 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Onbekende TeeChart gegevensreeks: houdt geen verband met een bekende ChartSeries..
         /// </summary>
-        internal static string ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series__not_related_to_any_known_ChartSeries {
+        internal static string ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series_Not_related_to_any_known_ChartSeries {
             get {
                 return ResourceManager.GetString("ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series_" +
-                        "_not_related_to_any_known_ChartSeries", resourceCulture);
+                        "Not_related_to_any_known_ChartSeries", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dit programma accepteert alleen {0} als gegevensreeks..
         /// </summary>
-        internal static string ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series {
+        internal static string ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts_0_as_series {
             get {
-                return ResourceManager.GetString("ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series", resourceCulture);
+                return ResourceManager.GetString("ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts_0_as_series", resourceCulture);
             }
         }
         
@@ -332,9 +331,9 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geen cursor toegewezen aan {0}..
         /// </summary>
-        internal static string EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_ {
+        internal static string EditPointTool_GetCursorIcon_No_cursor_assigned_for_0_ {
             get {
-                return ResourceManager.GetString("EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_", resourceCulture);
+                return ResourceManager.GetString("EditPointTool_GetCursorIcon_No_cursor_assigned_for_0_", resourceCulture);
             }
         }
         
@@ -361,19 +360,19 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een kritieke fout opgetreden. Ringtoets moet herstart worden..
         /// </summary>
-        internal static string ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoets_needs_to_be_restarted__ {
+        internal static string ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred_Ringtoets_needs_to_be_restarted {
             get {
-                return ResourceManager.GetString("ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoet" +
-                        "s_needs_to_be_restarted__", resourceCulture);
+                return ResourceManager.GetString("ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred_Ringtoets" +
+                        "_needs_to_be_restarted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Exporteer als afbeelding....
         /// </summary>
-        internal static string Export_as_Image___ {
+        internal static string Export_as_Image {
             get {
-                return ResourceManager.GetString("Export_as_Image___", resourceCulture);
+                return ResourceManager.GetString("Export_as_Image", resourceCulture);
             }
         }
         
@@ -398,28 +397,27 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} exemplaren van {1} zijn met {2} vervangen..
         /// </summary>
-        internal static string FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_ {
+        internal static string FindAndReplaceControl_buttonReplaceAll_Click_Replaced_0_occurrences_of_1_with_2_ {
             get {
-                return ResourceManager.GetString("FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with" +
-                        "__2_", resourceCulture);
+                return ResourceManager.GetString("FindAndReplaceControl_buttonReplaceAll_Click_Replaced_0_occurrences_of_1_with_2_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Einde van document is bereikt..
         /// </summary>
-        internal static string FindAndReplaceControl_FindNext_End_of_document_has_been_reached_ {
+        internal static string FindAndReplaceControl_FindNext_End_of_document_has_been_reached {
             get {
-                return ResourceManager.GetString("FindAndReplaceControl_FindNext_End_of_document_has_been_reached_", resourceCulture);
+                return ResourceManager.GetString("FindAndReplaceControl_FindNext_End_of_document_has_been_reached", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is geen tekst om te zoeken..
         /// </summary>
-        internal static string FindAndReplaceControl_FindNext_There_is_no_text_to_search_ {
+        internal static string FindAndReplaceControl_FindNext_There_is_no_text_to_search {
             get {
-                return ResourceManager.GetString("FindAndReplaceControl_FindNext_There_is_no_text_to_search_", resourceCulture);
+                return ResourceManager.GetString("FindAndReplaceControl_FindNext_There_is_no_text_to_search", resourceCulture);
             }
         }
         
@@ -475,9 +473,9 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verwijderen is niet geïmplementeerd voor dit type databron..
         /// </summary>
-        internal static string KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_ {
+        internal static string KeyEvent_Deletion_not_implemented_for_this_type_of_datasource {
             get {
-                return ResourceManager.GetString("KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_", resourceCulture);
+                return ResourceManager.GetString("KeyEvent_Deletion_not_implemented_for_this_type_of_datasource", resourceCulture);
             }
         }
         
@@ -541,9 +539,9 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} tot {1}.
         /// </summary>
-        internal static string RangeLabel__0__till__1_ {
+        internal static string RangeLabel_0_till_1_ {
             get {
-                return ResourceManager.GetString("RangeLabel__0__till__1_", resourceCulture);
+                return ResourceManager.GetString("RangeLabel_0_till_1_", resourceCulture);
             }
         }
         
@@ -589,9 +587,9 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ongebonden kolommen van type {0} worden niet ondersteund..
         /// </summary>
-        internal static string TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_ {
+        internal static string TableView_AddUnboundColumn_Unbound_columns_of_type_0_not_supported {
             get {
-                return ResourceManager.GetString("TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_", resourceCulture);
+                return ResourceManager.GetString("TableView_AddUnboundColumn_Unbound_columns_of_type_0_not_supported", resourceCulture);
             }
         }
         
@@ -625,38 +623,38 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan tekenreeks {0} niet omzetten naar {1} om te plakken..
         /// </summary>
-        internal static string TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste {
+        internal static string TableView_ConvertToColumnValue_Unable_to_convert_string_0_to_1_for_paste {
             get {
-                return ResourceManager.GetString("TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste", resourceCulture);
+                return ResourceManager.GetString("TableView_ConvertToColumnValue_Unable_to_convert_string_0_to_1_for_paste", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Niet in staat om cellen te selecteren wanneer tableView RowSelect ingeschakeld is. Gebruik in plaats daarvan SelectRow..
         /// </summary>
-        internal static string TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled__Use_SelectRow_instead_ {
+        internal static string TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled_Use_SelectRow_instead {
             get {
                 return ResourceManager.GetString("TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled" +
-                        "__Use_SelectRow_instead_", resourceCulture);
+                        "_Use_SelectRow_instead", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Actie {0} wordt niet ondersteund door de TableView..
         /// </summary>
-        internal static string TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_TableView {
+        internal static string TableView_SelectedCellsCollectionChanged_Action_0_is_not_supported_by_the_TableView {
             get {
-                return ResourceManager.GetString("TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_Table" +
-                        "View", resourceCulture);
+                return ResourceManager.GetString("TableView_SelectedCellsCollectionChanged_Action_0_is_not_supported_by_the_TableVi" +
+                        "ew", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan waarde in cel [{0}, {1}] niet instellen. Reden: {2}..
         /// </summary>
-        internal static string TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_ {
+        internal static string TableView_SetCellValueInternal_Can_not_set_value_into_cell_0_1_reason_2_ {
             get {
-                return ResourceManager.GetString("TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_", resourceCulture);
+                return ResourceManager.GetString("TableView_SetCellValueInternal_Can_not_set_value_into_cell_0_1_reason_2_", resourceCulture);
             }
         }
         
@@ -717,18 +715,18 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan waarde voor rij {0} niet instellen. Reden: {1}..
         /// </summary>
-        internal static string TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_ {
+        internal static string TableView_ValidateAndCommitRow_Can_not_set_value_for_row_0_reason_1_ {
             get {
-                return ResourceManager.GetString("TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_", resourceCulture);
+                return ResourceManager.GetString("TableView_ValidateAndCommitRow_Can_not_set_value_for_row_0_reason_1_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;aangepast&gt;.
         /// </summary>
-        internal static string TableViewColumn_SetXtraGridCustomFormatterCore__custom_ {
+        internal static string TableViewColumn_SetXtraGridCustomFormatterCore_custom {
             get {
-                return ResourceManager.GetString("TableViewColumn_SetXtraGridCustomFormatterCore__custom_", resourceCulture);
+                return ResourceManager.GetString("TableViewColumn_SetXtraGridCustomFormatterCore_custom", resourceCulture);
             }
         }
         
@@ -737,18 +735,18 @@ namespace Core.Common.Controls.Swf.Properties {
         ///
         ///Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen..
         /// </summary>
-        internal static string TableViewExceptionMessageController_GetLocalizedString_ {
+        internal static string TableViewExceptionMessageController_GetLocalizedString {
             get {
-                return ResourceManager.GetString("TableViewExceptionMessageController_GetLocalizedString_", resourceCulture);
+                return ResourceManager.GetString("TableViewExceptionMessageController_GetLocalizedString", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan niet plakken in een gefilterde tableview..
         /// </summary>
-        internal static string TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview_ {
+        internal static string TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview {
             get {
-                return ResourceManager.GetString("TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview_", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview", resourceCulture);
             }
         }
         
@@ -764,10 +762,10 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen waardes om te plakken (kopteksten worden overgeslagen)..
         /// </summary>
-        internal static string TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipped__ {
+        internal static string TableViewPasteController_CanPaste_There_are_no_values_to_paste_Headers_are_skipped {
             get {
-                return ResourceManager.GetString("TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipp" +
-                        "ed__", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_CanPaste_There_are_no_values_to_paste_Headers_are_skippe" +
+                        "d", resourceCulture);
             }
         }
         
@@ -784,47 +782,47 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan de waarde in cel [{0}, {1}] niet plakken. Rij {0} wordt overgeslagen..
         /// </summary>
-        internal static string TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1____Row__0__will_be_skipped {
+        internal static string TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell_0_1_Row_0_will_be_skipped {
             get {
-                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1__" +
-                        "__Row__0__will_be_skipped", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell_0_1_Row_0_" +
+                        "will_be_skipped", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Plakken waarden mislukt: {0}..
         /// </summary>
-        internal static string TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_ {
+        internal static string TableViewPasteController_PasteCellsToRow_Pasting_values_failed_0_ {
             get {
-                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Pasting_values_failed_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ongeldig geplakte rij {0} wordt overgeslagen..
         /// </summary>
-        internal static string TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting {
+        internal static string TableViewPasteController_PasteCellsToRow_Skipping_invalid_row_0_from_pasting {
             get {
-                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Skipping_invalid_row_0_from_pasting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Klembord bevat geen tekst. Hierdoor kan het niet in de tabel worden geplakt..
         /// </summary>
-        internal static string TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_ {
+        internal static string TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text_so_it_cannot_be_pasted_to_the_grid {
             get {
-                return ResourceManager.GetString("TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__" +
-                        "so_it_cannot_be_pasted_to_the_grid_", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text_s" +
+                        "o_it_cannot_be_pasted_to_the_grid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ongeldig rijnummer {0}..
         /// </summary>
-        internal static string TableViewPasteController_PasteValuesCore_Invalid_row_number__0_ {
+        internal static string TableViewPasteController_PasteValuesCore_Invalid_row_number_0_ {
             get {
-                return ResourceManager.GetString("TableViewPasteController_PasteValuesCore_Invalid_row_number__0_", resourceCulture);
+                return ResourceManager.GetString("TableViewPasteController_PasteValuesCore_Invalid_row_number_0_", resourceCulture);
             }
         }
         
@@ -858,9 +856,9 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Zou geen indices lager dan -1 moeten teruggeven!.
         /// </summary>
-        internal static string TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__ {
+        internal static string TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_ {
             get {
-                return ResourceManager.GetString("TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__", resourceCulture);
+                return ResourceManager.GetString("TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_", resourceCulture);
             }
         }
         
@@ -886,18 +884,18 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De methode of operatie is niet geïmplementeerd..
         /// </summary>
-        internal static string TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_ {
+        internal static string TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented {
             get {
-                return ResourceManager.GetString("TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_", resourceCulture);
+                return ResourceManager.GetString("TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u het volgende item wilt verwijderen: {0}.
         /// </summary>
-        internal static string TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_ {
+        internal static string TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_ {
             get {
-                return ResourceManager.GetString("TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_", resourceCulture);
+                return ResourceManager.GetString("TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_", resourceCulture);
             }
         }
         
@@ -949,10 +947,10 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenchap van een TreeView heeft toegevoegd..
         /// </summary>
-        internal static string TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView {
+        internal static string TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView {
             get {
-                return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_ad" +
-                        "ded_it_to_Presenters_collection_of_a_TreeView", resourceCulture);
+                return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added" +
+                        "_it_to_Presenters_collection_of_a_TreeView", resourceCulture);
             }
         }
         

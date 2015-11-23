@@ -306,7 +306,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 return;
             }
 
-            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_, SelectedNode.Text);
+            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, SelectedNode.Text);
             if (MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;

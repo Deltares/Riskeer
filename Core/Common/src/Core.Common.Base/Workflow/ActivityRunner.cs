@@ -123,7 +123,7 @@ namespace Core.Common.Base.Workflow
                     todoTasks.RemoveAt(0);
                 }
 
-                Debug.WriteLine(Resources.ActivityRunner_StartTaskIfPossible_Run_activity__0_, (taskToRun.Activity.Name));
+                Debug.WriteLine(Resources.ActivityRunner_StartTaskIfPossible_Run_activity_0_, (taskToRun.Activity.Name));
 
                 if (beforeActualRun != null)
                 {
@@ -139,8 +139,8 @@ namespace Core.Common.Base.Workflow
             var task = (AsyncActivityRunner) sender;
 
             Debug.WriteLine(task.Activity.Status == ActivityStatus.Cancelled
-                ? string.Format(Resources.ActivityRunner_Completed_Cancelled_activity__0_, task.Activity.Name)
-                : string.Format(Resources.ActivityRunner_Completed_Finished_activity__0_, task.Activity.Name));
+                ? string.Format(Resources.ActivityRunner_Completed_Cancelled_activity_0_, task.Activity.Name)
+                : string.Format(Resources.ActivityRunner_Completed_Finished_activity_0_, task.Activity.Name));
 
             try
             {
@@ -190,8 +190,8 @@ namespace Core.Common.Base.Workflow
             if (!sender.CompletedSuccesfully)
             {
                 log.Error(String.IsNullOrEmpty(sender.Activity.Name) 
-                    ? Resources.ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity__ 
-                    : String.Format(Resources.ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity__0___, sender.Activity.Name), sender.Exception);
+                    ? Resources.ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity 
+                    : String.Format(Resources.ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity_0_, sender.Activity.Name), sender.Exception);
             }
 
             if (ActivityCompleted != null)
@@ -244,7 +244,7 @@ namespace Core.Common.Base.Workflow
                 activities.Add(activity);
             }
 
-            Debug.WriteLine(string.Format(Resources.ActivityRunner_Enqueue_Enqueued_activity__0_, activity.Name));
+            Debug.WriteLine(string.Format(Resources.ActivityRunner_Enqueue_Enqueued_activity_0_, activity.Name));
 
             //TODO: it might already be running so running would not be changed.
             //fix and review
@@ -259,14 +259,14 @@ namespace Core.Common.Base.Workflow
 
                 if (activity.Status == ActivityStatus.Failed)
                 {
-                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Initialization_of__0__has_failed_, activity.Name));
+                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Initialization_of_0_has_failed, activity.Name));
                 }
 
                 while (activity.Status != ActivityStatus.Done)
                 {
                     if (activity.Status == ActivityStatus.Cancelled)
                     {
-                        log.WarnFormat(Resources.ActivityRunner_RunActivity_Execution_of__0__has_been_canceled_, activity.Name);
+                        log.WarnFormat(Resources.ActivityRunner_RunActivity_Execution_of_0_has_been_canceled, activity.Name);
                         break;
                     }
 
@@ -277,7 +277,7 @@ namespace Core.Common.Base.Workflow
 
                     if (activity.Status == ActivityStatus.Failed)
                     {
-                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of__0__has_failed_, activity.Name));
+                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of_0_has_failed, activity.Name));
                     }
                 }
 
@@ -287,7 +287,7 @@ namespace Core.Common.Base.Workflow
 
                     if (activity.Status == ActivityStatus.Failed)
                     {
-                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Finishing_of__0__has_failed_, activity.Name));
+                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Finishing_of_0_has_failed, activity.Name));
                     }
                 }
 
@@ -295,7 +295,7 @@ namespace Core.Common.Base.Workflow
 
                 if (activity.Status == ActivityStatus.Failed)
                 {
-                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Clean_up_of__0__has_failed_, activity.Name));
+                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Clean_up_of_0_has_failed, activity.Name));
                 }
             }
             catch (Exception exception)
@@ -314,7 +314,7 @@ namespace Core.Common.Base.Workflow
                 }
                 catch (Exception)
                 {
-                    log.ErrorFormat(Resources.ActivityRunner_RunActivity_Clean_up_of__0__has_failed_, activity.Name);
+                    log.ErrorFormat(Resources.ActivityRunner_RunActivity_Clean_up_of_0_has_failed, activity.Name);
                 }
             }
         }

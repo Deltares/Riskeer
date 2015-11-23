@@ -270,7 +270,7 @@ namespace Core.Common.Utils.Reflection
                 return GetMemberNameFromMemberExpression(unary.Operand as MemberExpression);
             }
 
-            var message = string.Format(Resource.TypeUtils_GetMemberName___0____is_not_a_valid_expression_for_this_method, e);
+            var message = string.Format(Resource.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method, e);
             throw new ArgumentException(message);
         }
 
@@ -480,7 +480,7 @@ namespace Core.Common.Utils.Reflection
 
             if (defaultConstructor == null)
             {
-                throw new NotImplementedException(string.Format(Resource.TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_, type));
+                throw new NotImplementedException(string.Format(Resource.TypeUtils_CreateInstance_No_default_constructor_available_for_type_0_, type));
             }
 
             return (T) Activator.CreateInstance(type, true);
@@ -562,7 +562,7 @@ namespace Core.Common.Utils.Reflection
             {
                 return member.Member.Name;
             }
-            throw new ArgumentException(Resource.TypeUtils_GetMemberNameFromMemberExpression__member__not_a_valid_expression_for_this_method);
+            throw new ArgumentException(Resource.TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method);
         }
 
         private static FieldInfo GetFieldInfo(Type type, string fieldName)

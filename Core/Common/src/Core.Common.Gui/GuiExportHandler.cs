@@ -80,8 +80,8 @@ namespace Core.Common.Gui
             //if there is only one available exporter use that.
             if (fileExporters.Count == 0)
             {
-                MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available_);
-                log.Warn(String.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item___0___available_, sourceType));
+                MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available);
+                log.Warn(String.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, sourceType));
                 return null;
             }
 

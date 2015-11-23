@@ -104,14 +104,14 @@ namespace Core.Common.Controls.Swf
 
             if (string.IsNullOrEmpty(textToSearch))
             {
-                Log.Warn(Resources.FindAndReplaceControl_FindNext_There_is_no_text_to_search_);
+                Log.Warn(Resources.FindAndReplaceControl_FindNext_There_is_no_text_to_search);
                 return;
             }
 
             var nextMatch = matches.OfType<Match>().FirstOrDefault(m => m.Index > GetCurrentPosition());
             if (nextMatch == null)
             {
-                Log.Info(Resources.FindAndReplaceControl_FindNext_End_of_document_has_been_reached_);
+                Log.Info(Resources.FindAndReplaceControl_FindNext_End_of_document_has_been_reached);
                 nextMatch = matches.OfType<Match>().FirstOrDefault();
             }
 
@@ -181,7 +181,7 @@ namespace Core.Common.Controls.Swf
             {
                 ReplaceText(match.Index, match.Length, replaceTextBox.Text);
             }
-            Log.InfoFormat(Resources.FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_, matches.Count, findTextBox.Text, replaceTextBox.Text);
+            Log.InfoFormat(Resources.FindAndReplaceControl_buttonReplaceAll_Click_Replaced_0_occurrences_of_1_with_2_, matches.Count, findTextBox.Text, replaceTextBox.Text);
         }
 
         private void button_KeyDown(object sender, KeyEventArgs e)

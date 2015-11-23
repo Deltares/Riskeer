@@ -863,19 +863,19 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan geen projectitem vinden voor de data van dit scherm: {0}.
         /// </summary>
-        public static string ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data___0_ {
+        public static string ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data_0_ {
             get {
                 return ResourceManager.GetString("ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_v" +
-                        "iew_data___0_", resourceCulture);
+                        "iew_data_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan geen bijbehorende knoop vinden in de projectverkenner voor item: {0}.
         /// </summary>
-        public static string ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_ {
+        public static string ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item_0_ {
             get {
-                return ResourceManager.GetString("ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_", resourceCulture);
+                return ResourceManager.GetString("ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item_0_", resourceCulture);
             }
         }
         

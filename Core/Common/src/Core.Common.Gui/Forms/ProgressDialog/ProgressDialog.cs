@@ -89,7 +89,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         {
             if (cancelling)
             {
-                btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancelling___;
+                btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancelling;
                 btnCancel.Enabled = false;
             }
             else

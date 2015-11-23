@@ -395,7 +395,7 @@ namespace Core.Common.Controls.Swf.Table
 
             dxFormatInfo.FormatType = FormatType.Custom;
             dxFormatInfo.Format = new TableViewCellFormatterProvider(value);
-            dxFormatInfo.FormatString = Resources.TableViewColumn_SetXtraGridCustomFormatterCore__custom_; //must be non null/empty for custom formatting to work
+            dxFormatInfo.FormatString = Resources.TableViewColumn_SetXtraGridCustomFormatterCore_custom; //must be non null/empty for custom formatting to work
         }
 
         private FormatType GetFormatType(string value)

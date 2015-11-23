@@ -26,7 +26,7 @@ namespace Core.Common.Gui.Forms
             }
             else
             {
-                log.WarnFormat(Resources.RichTextView_RichTextView_The_license_file__0__cannot_be_found_on_the_computer_, Path.GetFileName(path));
+                log.WarnFormat(Resources.RichTextView_RichTextView_The_license_file_0_cannot_be_found_on_the_computer, Path.GetFileName(path));
             }
             Name = name;
             Text = name;

@@ -63,7 +63,7 @@ namespace Core.Common.Controls.Swf
                 Filter = filter,
                 FilterIndex = 1,
                 RestoreDirectory = true,
-                Title = Resources.Export_as_Image___
+                Title = Resources.Export_as_Image
             };
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK)

@@ -276,7 +276,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (!checkUseSettings || Convert.ToBoolean((object) Gui.Application.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
-                log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page____);
+                log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
             }
         }
@@ -835,7 +835,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             catch (InvalidOperationException)
             {
                 // the xml was not valid. Too bad.
-                log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout__The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
+                log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
                 return;
             }
 
@@ -865,7 +865,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             catch (Exception)
             {
-                log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state__The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
+                log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state_The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
             }
         }
 
@@ -969,8 +969,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             resetUIButton.ToolTip = new ScreenTip
             {
-                Title = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_Reset_layout__restart_,
-                Text = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_Ringtoets_,
+                Title = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_Reset_layout_restart,
+                Text = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on_the_default_layout_will_be_used_when_restarting_Ringtoets,
                 MaxWidth = 250
             };
         }

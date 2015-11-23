@@ -49,8 +49,8 @@ namespace Core.Common.Gui
             //if there is only one available exporter use that.
             if (importers.Count == 0)
             {
-                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_);
-                Log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item___0___, target);
+                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item);
+                Log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_, target);
                 return null;
             }
 

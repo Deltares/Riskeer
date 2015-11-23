@@ -259,7 +259,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 }
                 else
                 {
-                    throw new NotImplementedException(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_);
+                    throw new NotImplementedException(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource);
                 }
 
                 //// delete selected point from the series

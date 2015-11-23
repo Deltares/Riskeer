@@ -223,9 +223,9 @@ namespace Core.Common.Gui.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ({0} meer problemen...).
         /// </summary>
-        internal static string ValidationReportControl_AddReport___0__more_issues____ {
+        internal static string ValidationReportControl_AddReport_0_more_issues {
             get {
-                return ResourceManager.GetString("ValidationReportControl_AddReport___0__more_issues____", resourceCulture);
+                return ResourceManager.GetString("ValidationReportControl_AddReport_0_more_issues", resourceCulture);
             }
         }
     }

@@ -275,7 +275,7 @@ namespace Core.Common.Utils.Reflection
                 }
                 catch (Exception exception)
                 {
-                    log.ErrorFormat(Resource.AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for__0_____1_, assemblyName, exception.Message);
+                    log.ErrorFormat(Resource.AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for_0_1_, assemblyName, exception.Message);
                     continue;
                 }
 

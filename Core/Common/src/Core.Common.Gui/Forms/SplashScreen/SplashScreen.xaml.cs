@@ -149,7 +149,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         public void Shutdown()
         {
             Focusable = false;
-            log.Info(Properties.Resources.SplashScreen_Shutdown_Hiding_splash_screen____);
+            log.Info(Properties.Resources.SplashScreen_Shutdown_Hiding_splash_screen);
             Close();
         }
 

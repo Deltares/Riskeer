@@ -72,109 +72,109 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan Execute() niet aanroepen voor activiteit met de &apos;{0}&apos; status..
         /// </summary>
-        internal static string Activity_Execute_Can_t_call_Execute___for_activity_in__0__state_ {
+        internal static string Activity_Execute_Can_t_call_Execute_for_activity_in_0_state {
             get {
-                return ResourceManager.GetString("Activity_Execute_Can_t_call_Execute___for_activity_in__0__state_", resourceCulture);
+                return ResourceManager.GetString("Activity_Execute_Can_t_call_Execute_for_activity_in_0_state", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; geannuleerd..
         /// </summary>
-        internal static string ActivityRunner_Completed_Cancelled_activity__0_ {
+        internal static string ActivityRunner_Completed_Cancelled_activity_0_ {
             get {
-                return ResourceManager.GetString("ActivityRunner_Completed_Cancelled_activity__0_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_Completed_Cancelled_activity_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; voltooid..
         /// </summary>
-        internal static string ActivityRunner_Completed_Finished_activity__0_ {
+        internal static string ActivityRunner_Completed_Finished_activity_0_ {
             get {
-                return ResourceManager.GetString("ActivityRunner_Completed_Finished_activity__0_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_Completed_Finished_activity_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; in wachtrij gezet..
         /// </summary>
-        internal static string ActivityRunner_Enqueue_Enqueued_activity__0_ {
+        internal static string ActivityRunner_Enqueue_Enqueued_activity_0_ {
             get {
-                return ResourceManager.GetString("ActivityRunner_Enqueue_Enqueued_activity__0_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_Enqueue_Enqueued_activity_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Een fout is opgetreden tijdens het uitvoeren van een achtergrond activiteit:.
         /// </summary>
-        internal static string ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity__ {
+        internal static string ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity {
             get {
                 return ResourceManager.GetString("ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activi" +
-                        "ty__", resourceCulture);
+                        "ty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Een fout is opgetreden tijdens het uitvoeren van activiteit {0}:.
         /// </summary>
-        internal static string ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity__0___ {
+        internal static string ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity_0_ {
             get {
-                return ResourceManager.GetString("ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity__0___", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Opschonen van {0} is mislukt..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Clean_up_of__0__has_failed_ {
+        internal static string ActivityRunner_RunActivity_Clean_up_of_0_has_failed {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Clean_up_of__0__has_failed_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_RunActivity_Clean_up_of_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Uitvoering van {0} is geannuleerd..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Execution_of__0__has_been_canceled_ {
+        internal static string ActivityRunner_RunActivity_Execution_of_0_has_been_canceled {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Execution_of__0__has_been_canceled_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_RunActivity_Execution_of_0_has_been_canceled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Uitvoering van {0} is mislukt..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Execution_of__0__has_failed_ {
+        internal static string ActivityRunner_RunActivity_Execution_of_0_has_failed {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Execution_of__0__has_failed_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_RunActivity_Execution_of_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Afronden van {0} is mislukt..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Finishing_of__0__has_failed_ {
+        internal static string ActivityRunner_RunActivity_Finishing_of_0_has_failed {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Finishing_of__0__has_failed_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_RunActivity_Finishing_of_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Initialisatie van {0} is mislukt..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Initialization_of__0__has_failed_ {
+        internal static string ActivityRunner_RunActivity_Initialization_of_0_has_failed {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Initialization_of__0__has_failed_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_RunActivity_Initialization_of_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Uitvoeren activiteit {0}..
         /// </summary>
-        internal static string ActivityRunner_StartTaskIfPossible_Run_activity__0_ {
+        internal static string ActivityRunner_StartTaskIfPossible_Run_activity_0_ {
             get {
-                return ResourceManager.GetString("ActivityRunner_StartTaskIfPossible_Run_activity__0_", resourceCulture);
+                return ResourceManager.GetString("ActivityRunner_StartTaskIfPossible_Run_activity_0_", resourceCulture);
             }
         }
         
@@ -190,19 +190,19 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Alle plugins zijn geactiveerd..
         /// </summary>
-        internal static string RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_ {
+        internal static string RingtoetsApplication_ActivatePlugins_All_plugins_were_activated {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_ActivatePlugins_All_plugins_were_activated", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &apos;Run()&apos; moet eerst worden aangeroepen voordat het project kan worden geopend..
         /// </summary>
-        internal static string RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened {
+        internal static string RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_c" +
-                        "an_be_opened", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can" +
+                        "_be_opened", resourceCulture);
             }
         }
         
@@ -218,45 +218,45 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Registreren van exporteer routine {0}..
         /// </summary>
-        internal static string RingtoetsApplication_RegisterExporters_Registering_exporter__0_ {
+        internal static string RingtoetsApplication_RegisterExporters_Registering_exporter_0_ {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterExporters_Registering_exporter__0_", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_RegisterExporters_Registering_exporter_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Registratie van de exporteer routines....
         /// </summary>
-        internal static string RingtoetsApplication_RegisterExporters_Registering_exporters____ {
+        internal static string RingtoetsApplication_RegisterExporters_Registering_exporters {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterExporters_Registering_exporters____", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_RegisterExporters_Registering_exporters", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Registreren van importeer routine {0}..
         /// </summary>
-        internal static string RingtoetsApplication_RegisterImporters_Registering_importer__0_ {
+        internal static string RingtoetsApplication_RegisterImporters_Registering_importer_0_ {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importer__0_", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importer_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Registratie van de importeer routines....
         /// </summary>
-        internal static string RingtoetsApplication_RegisterImporters_Registering_importers____ {
+        internal static string RingtoetsApplication_RegisterImporters_Registering_importers {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importers____", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importers", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activeer plugins....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Activating_plugins____ {
+        internal static string RingtoetsApplication_Run_Activating_plugins {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Activating_plugins____", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_Run_Activating_plugins", resourceCulture);
             }
         }
         
@@ -272,18 +272,18 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Nieuw project aanmaken....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Creating_new_project____ {
+        internal static string RingtoetsApplication_Run_Creating_new_project {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Creating_new_project____", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_Run_Creating_new_project", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets is klaar, opstarttijd van {0:F3} seconden..
         /// </summary>
-        internal static string RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds {
+        internal static string RingtoetsApplication_Run_Ringtoets_is_ready_started_in_0_F3_seconds {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__seconds", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_Run_Ringtoets_is_ready_started_in_0_F3_seconds", resourceCulture);
             }
         }
         

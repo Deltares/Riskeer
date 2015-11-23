@@ -63,9 +63,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap arrow_circle_double {
+        public static System.Drawing.Bitmap ArrowCircleDouble {
             get {
-                object obj = ResourceManager.GetObject("arrow_circle_double", resourceCulture);
+                object obj = ResourceManager.GetObject("ArrowCircleDouble", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -119,9 +119,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap contrast_low {
+        public static System.Drawing.Bitmap ContrastLow {
             get {
-                object obj = ResourceManager.GetObject("contrast_low", resourceCulture);
+                object obj = ResourceManager.GetObject("ContrastLow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -139,9 +139,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap crop {
+        public static System.Drawing.Bitmap Crop {
             get {
-                object obj = ResourceManager.GetObject("crop", resourceCulture);
+                object obj = ResourceManager.GetObject("Crop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -169,9 +169,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap cut {
+        public static System.Drawing.Bitmap Cut {
             get {
-                object obj = ResourceManager.GetObject("cut", resourceCulture);
+                object obj = ResourceManager.GetObject("Cut", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -189,9 +189,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap disabled_operation {
+        public static System.Drawing.Bitmap DisabledOperation {
             get {
-                object obj = ResourceManager.GetObject("disabled_operation", resourceCulture);
+                object obj = ResourceManager.GetObject("DisabledOperation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -199,9 +199,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap discretization {
+        public static System.Drawing.Bitmap Discretization {
             get {
-                object obj = ResourceManager.GetObject("discretization", resourceCulture);
+                object obj = ResourceManager.GetObject("Discretization", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -209,9 +209,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap discretization_empty {
+        public static System.Drawing.Bitmap Discretization_empty {
             get {
-                object obj = ResourceManager.GetObject("discretization_empty", resourceCulture);
+                object obj = ResourceManager.GetObject("Discretization_empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -219,9 +219,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap document_Export1 {
+        public static System.Drawing.Bitmap DocumentExport {
             get {
-                object obj = ResourceManager.GetObject("document_Export1", resourceCulture);
+                object obj = ResourceManager.GetObject("DocumentExport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -229,9 +229,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap document_Import1 {
+        public static System.Drawing.Bitmap DocumentImport {
             get {
-                object obj = ResourceManager.GetObject("document_Import1", resourceCulture);
+                object obj = ResourceManager.GetObject("DocumentImport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -239,9 +239,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap down {
+        public static System.Drawing.Bitmap Down {
             get {
-                object obj = ResourceManager.GetObject("down", resourceCulture);
+                object obj = ResourceManager.GetObject("Down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -249,9 +249,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap eraser {
+        public static System.Drawing.Bitmap Eraser {
             get {
-                object obj = ResourceManager.GetObject("eraser", resourceCulture);
+                object obj = ResourceManager.GetObject("Eraser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -259,9 +259,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap exclamation {
+        public static System.Drawing.Bitmap Exclamation {
             get {
-                object obj = ResourceManager.GetObject("exclamation", resourceCulture);
+                object obj = ResourceManager.GetObject("Exclamation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -296,9 +296,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap folder__plus {
+        public static System.Drawing.Bitmap FolderPlus {
             get {
-                object obj = ResourceManager.GetObject("folder--plus", resourceCulture);
+                object obj = ResourceManager.GetObject("FolderPlus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -316,9 +316,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap geometries {
+        public static System.Drawing.Bitmap Geometries {
             get {
-                object obj = ResourceManager.GetObject("geometries", resourceCulture);
+                object obj = ResourceManager.GetObject("Geometries", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -326,9 +326,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap globe__pencil {
+        public static System.Drawing.Bitmap GlobePencil {
             get {
-                object obj = ResourceManager.GetObject("globe__pencil", resourceCulture);
+                object obj = ResourceManager.GetObject("GlobePencil", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -336,9 +336,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap gradient {
+        public static System.Drawing.Bitmap Gradient {
             get {
-                object obj = ResourceManager.GetObject("gradient", resourceCulture);
+                object obj = ResourceManager.GetObject("Gradient", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -346,9 +346,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap grid_2d {
+        public static System.Drawing.Bitmap Grid2d {
             get {
-                object obj = ResourceManager.GetObject("grid_2d", resourceCulture);
+                object obj = ResourceManager.GetObject("Grid2d", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -356,9 +356,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap grid_2d_Invalid {
+        public static System.Drawing.Bitmap Grid2dInvalid {
             get {
-                object obj = ResourceManager.GetObject("grid_2d_Invalid", resourceCulture);
+                object obj = ResourceManager.GetObject("Grid2dInvalid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -402,19 +402,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap lassoselect {
+        public static System.Drawing.Bitmap LassoSelect {
             get {
-                object obj = ResourceManager.GetObject("lassoselect", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap layer_select_point {
-            get {
-                object obj = ResourceManager.GetObject("layer_select_point", resourceCulture);
+                object obj = ResourceManager.GetObject("LassoSelect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -449,9 +439,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap layers_stack {
+        public static System.Drawing.Bitmap layerSelectPoint {
             get {
-                object obj = ResourceManager.GetObject("layers-stack", resourceCulture);
+                object obj = ResourceManager.GetObject("layerSelectPoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -459,9 +449,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap layers_stack_arrange {
+        public static System.Drawing.Bitmap LayersStack {
             get {
-                object obj = ResourceManager.GetObject("layers-stack-arrange", resourceCulture);
+                object obj = ResourceManager.GetObject("LayersStack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -469,9 +459,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap layers_stack_arrange_back {
+        public static System.Drawing.Bitmap LayersStackArrange {
             get {
-                object obj = ResourceManager.GetObject("layers-stack-arrange-back", resourceCulture);
+                object obj = ResourceManager.GetObject("LayersStackArrange", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -479,9 +469,19 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap layers_ungroup {
+        public static System.Drawing.Bitmap LayersStackArrangeBack {
             get {
-                object obj = ResourceManager.GetObject("layers_ungroup", resourceCulture);
+                object obj = ResourceManager.GetObject("LayersStackArrangeBack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LayersUngroup {
+            get {
+                object obj = ResourceManager.GetObject("LayersUngroup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -607,9 +607,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap linetool {
+        public static System.Drawing.Bitmap LineTool {
             get {
-                object obj = ResourceManager.GetObject("linetool", resourceCulture);
+                object obj = ResourceManager.GetObject("LineTool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -657,9 +657,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap magnifier__arrow {
+        public static System.Drawing.Bitmap MagnifierArrow {
             get {
-                object obj = ResourceManager.GetObject("magnifier__arrow", resourceCulture);
+                object obj = ResourceManager.GetObject("MagnifierArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -667,9 +667,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap magnifier_history {
+        public static System.Drawing.Bitmap MagnifierHistory {
             get {
-                object obj = ResourceManager.GetObject("magnifier_history", resourceCulture);
+                object obj = ResourceManager.GetObject("MagnifierHistory", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -685,21 +685,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap map__pencil {
-            get {
-                object obj = ResourceManager.GetObject("map__pencil", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan met dit bestand ({0}) geen lagen aanmaken: {1}.
         /// </summary>
-        public static string MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_ {
+        public static string MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s_from_file_0_1_ {
             get {
-                return ResourceManager.GetString("MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_", resourceCulture);
+                return ResourceManager.GetString("MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s_from_file_0_1_", resourceCulture);
             }
         }
         
@@ -715,10 +705,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan kaart niet converteren naar geselecteerde coördinatenstelsel: {0}.
         /// </summary>
-        public static string MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system___0_ {
+        public static string MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system_0_ {
             get {
                 return ResourceManager.GetString("MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordin" +
-                        "ate_system___0_", resourceCulture);
+                        "ate_system_0_", resourceCulture);
             }
         }
         
@@ -742,11 +732,21 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MapPencil {
+            get {
+                object obj = ResourceManager.GetObject("MapPencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan de kaart niet converteren naar het coördinatenstelsel: {0}.
         /// </summary>
-        public static string MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_ {
+        public static string MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_ {
             get {
-                return ResourceManager.GetString("MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_", resourceCulture);
+                return ResourceManager.GetString("MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_", resourceCulture);
             }
         }
         
@@ -816,10 +816,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weergegeven breedtegraad-/lengtegraadraster wordt alleen ondersteund als coördinatenstelsel van de kaart niet leeg is.
         /// </summary>
-        public static string MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty {
+        public static string MapProperties_ShowGrid_Showing_latitude_longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty {
             get {
-                return ResourceManager.GetString("MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_m" +
-                        "ap_coordinate_system_is_non_empty", resourceCulture);
+                return ResourceManager.GetString("MapProperties_ShowGrid_Showing_latitude_longitude_grid_is_supported_only_when_map" +
+                        "_coordinate_system_is_non_empty", resourceCulture);
             }
         }
         
@@ -886,9 +886,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap marker {
+        public static System.Drawing.Bitmap Marker {
             get {
-                object obj = ResourceManager.GetObject("marker", resourceCulture);
+                object obj = ResourceManager.GetObject("Marker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -936,9 +936,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap operation_large {
+        public static System.Drawing.Bitmap OperationLarge {
             get {
-                object obj = ResourceManager.GetObject("operation_large", resourceCulture);
+                object obj = ResourceManager.GetObject("OperationLarge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -946,9 +946,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap paintcan {
+        public static System.Drawing.Bitmap PaintCan {
             get {
-                object obj = ResourceManager.GetObject("paintcan", resourceCulture);
+                object obj = ResourceManager.GetObject("PaintCan", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -956,9 +956,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap pencil_large {
+        public static System.Drawing.Bitmap PencilLarge {
             get {
-                object obj = ResourceManager.GetObject("pencil_large", resourceCulture);
+                object obj = ResourceManager.GetObject("PencilLarge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -966,9 +966,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap pencil_ruler {
+        public static System.Drawing.Bitmap PencilRuler {
             get {
-                object obj = ResourceManager.GetObject("pencil_ruler", resourceCulture);
+                object obj = ResourceManager.GetObject("PencilRuler", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -976,9 +976,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap pipette {
+        public static System.Drawing.Bitmap Pipette {
             get {
-                object obj = ResourceManager.GetObject("pipette", resourceCulture);
+                object obj = ResourceManager.GetObject("Pipette", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -986,9 +986,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap points {
+        public static System.Drawing.Bitmap Points {
             get {
-                object obj = ResourceManager.GetObject("points", resourceCulture);
+                object obj = ResourceManager.GetObject("Points", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1149,9 +1149,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap polygon {
+        public static System.Drawing.Bitmap Polygon {
             get {
-                object obj = ResourceManager.GetObject("polygon", resourceCulture);
+                object obj = ResourceManager.GetObject("Polygon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1159,9 +1159,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap polygonsetvalue {
+        public static System.Drawing.Bitmap PolygonSetValue {
             get {
-                object obj = ResourceManager.GetObject("polygonsetvalue", resourceCulture);
+                object obj = ResourceManager.GetObject("PolygonSetValue", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1497,9 +1497,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap select {
+        public static System.Drawing.Bitmap Select {
             get {
-                object obj = ResourceManager.GetObject("select", resourceCulture);
+                object obj = ResourceManager.GetObject("Select", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1507,9 +1507,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap selection_select {
+        public static System.Drawing.Bitmap SelectionSelect {
             get {
-                object obj = ResourceManager.GetObject("selection_select", resourceCulture);
+                object obj = ResourceManager.GetObject("SelectionSelect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1536,9 +1536,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap spatial_operation_output {
+        public static System.Drawing.Bitmap SpatialOperationOutput {
             get {
-                object obj = ResourceManager.GetObject("spatial_operation_output", resourceCulture);
+                object obj = ResourceManager.GetObject("SpatialOperationOutput", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1546,9 +1546,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap spatial_operation_parameter {
+        public static System.Drawing.Bitmap SpatialOperationParameter {
             get {
-                object obj = ResourceManager.GetObject("spatial_operation_parameter", resourceCulture);
+                object obj = ResourceManager.GetObject("SpatialOperationParameter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1556,9 +1556,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap table {
+        public static System.Drawing.Bitmap Table {
             get {
-                object obj = ResourceManager.GetObject("table", resourceCulture);
+                object obj = ResourceManager.GetObject("Table", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1566,9 +1566,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap table_add {
+        public static System.Drawing.Bitmap TableAdd {
             get {
-                object obj = ResourceManager.GetObject("table_add", resourceCulture);
+                object obj = ResourceManager.GetObject("TableAdd", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1576,9 +1576,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap table_delete {
+        public static System.Drawing.Bitmap TableDelete {
             get {
-                object obj = ResourceManager.GetObject("table_delete", resourceCulture);
+                object obj = ResourceManager.GetObject("TableDelete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1586,9 +1586,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap tag_export {
+        public static System.Drawing.Bitmap TagExport {
             get {
-                object obj = ResourceManager.GetObject("tag_export", resourceCulture);
+                object obj = ResourceManager.GetObject("TagExport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1596,9 +1596,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap tag_import {
+        public static System.Drawing.Bitmap TagImport {
             get {
-                object obj = ResourceManager.GetObject("tag_import", resourceCulture);
+                object obj = ResourceManager.GetObject("TagImport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1606,9 +1606,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap tag_minus {
+        public static System.Drawing.Bitmap TagMinus {
             get {
-                object obj = ResourceManager.GetObject("tag_minus", resourceCulture);
+                object obj = ResourceManager.GetObject("TagMinus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1616,9 +1616,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap theme {
+        public static System.Drawing.Bitmap Theme {
             get {
-                object obj = ResourceManager.GetObject("theme", resourceCulture);
+                object obj = ResourceManager.GetObject("Theme", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1653,9 +1653,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap unstruc {
+        public static System.Drawing.Bitmap Unstruc {
             get {
-                object obj = ResourceManager.GetObject("unstruc", resourceCulture);
+                object obj = ResourceManager.GetObject("Unstruc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1663,9 +1663,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap unstrucWater {
+        public static System.Drawing.Bitmap UnstrucWater {
             get {
-                object obj = ResourceManager.GetObject("unstrucWater", resourceCulture);
+                object obj = ResourceManager.GetObject("UnstrucWater", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1673,9 +1673,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap up {
+        public static System.Drawing.Bitmap Up {
             get {
-                object obj = ResourceManager.GetObject("up", resourceCulture);
+                object obj = ResourceManager.GetObject("Up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1703,9 +1703,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weergave openen....
         /// </summary>
-        public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___ {
+        public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view {
             get {
-                return ResourceManager.GetString("VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___", resourceCulture);
+                return ResourceManager.GetString("VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view", resourceCulture);
             }
         }
         
@@ -1739,10 +1739,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan de kaart niet converteren naar het coördinatenstelsel: {0}.
         /// </summary>
-        public static string VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_ {
+        public static string VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_ {
             get {
                 return ResourceManager.GetString("VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_sy" +
-                        "stem___0_", resourceCulture);
+                        "stem_0_", resourceCulture);
             }
         }
         
@@ -1902,9 +1902,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap zoom {
+        public static System.Drawing.Bitmap Zoom {
             get {
-                object obj = ResourceManager.GetObject("zoom", resourceCulture);
+                object obj = ResourceManager.GetObject("Zoom", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

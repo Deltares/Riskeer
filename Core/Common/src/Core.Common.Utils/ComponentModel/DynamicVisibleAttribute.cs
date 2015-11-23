@@ -24,7 +24,7 @@ namespace Core.Common.Utils.ComponentModel
             var propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(Resource.Could_not_find_property__0__on_type__1_, propertyName,
+                throw new MissingMemberException(string.Format(Resource.Could_not_find_property_0_on_type_1_, propertyName,
                                                                obj.GetType()));
             }
 
@@ -39,7 +39,7 @@ namespace Core.Common.Utils.ComponentModel
             if (validationMethod == null)
             {
                 throw new MissingMethodException(
-                    String.Format(Resource.DynamicVisibleAttribute_IsDynamicVisible__0__uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute, obj));
+                    String.Format(Resource.DynamicVisibleAttribute_IsDynamicVisible_0_uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute, obj));
             }
 
             return (bool) validationMethod.Invoke(obj, new[]

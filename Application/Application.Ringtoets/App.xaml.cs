@@ -59,12 +59,12 @@ namespace Application.Ringtoets
         {
             RingtoetsApplication.SetLanguageAndRegionalSettions(Settings.Default);
 
-            log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets____);
+            log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
         }
 
         public static void RunRingtoets()
         {
-            log.Info(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_Ringtoets_Gui____);
+            log.Info(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_Ringtoets_Gui);
 
             var loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var startupDirectory = Directory.GetCurrentDirectory();
@@ -101,7 +101,7 @@ namespace Application.Ringtoets
                 }
                 else
                 {
-                    log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Specified_project___0___was_not_found_, projectFilePath);
+                    log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Specified_project_0_was_not_found_, projectFilePath);
                 }
             }
 
@@ -111,7 +111,7 @@ namespace Application.Ringtoets
                 {
                     if (gui.Application.Project == null)
                     {
-                        log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_No_project_found__load_project_first);
+                        log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_No_project_found_load_project_first);
                         return;
                     }
 
@@ -123,18 +123,18 @@ namespace Application.Ringtoets
                     if (activity == null)
                     {
                         log.ErrorFormat(
-                            Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_,
+                            Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity_0_not_found_in_project_Typo_or_did_you_forget_to_load_a_project,
                             runActivity);
                         return;
                     }
 
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_activity___0__, runActivity);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_activity_0_, runActivity);
                     gui.Application.RunActivity(activity);
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity___0___ended_with_status__1_, runActivity, activity.Status);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity_0_ended_with_status_1_, runActivity, activity.Status);
 
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project___0__, gui.Application.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project_0_, gui.Application.Project.Name);
                     gui.Application.SaveProject();
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project___0__, gui.Application.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project_0_, gui.Application.Project.Name);
                 }
             };
 
@@ -208,7 +208,7 @@ namespace Application.Ringtoets
                 {
                     if (!AcquireSingleInstancePerUserMutex())
                     {
-                        MessageBox.Show(Core.Common.Gui.Properties.Resources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Please_close_the_other_instance_first_);
+                        MessageBox.Show(Core.Common.Gui.Properties.Resources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first);
                         Shutdown(1);
                         return true; //done here
                     }
@@ -327,7 +327,7 @@ namespace Application.Ringtoets
                 previousExceptionsCount++;
                 var s = previousExceptionsText;
                 previousExceptionsText =
-                    string.Format(Core.Common.Gui.Properties.Resources.App_HandleException_,
+                    string.Format(Core.Common.Gui.Properties.Resources.App_HandleException_0_,
                                   previousExceptionsCount,
                                   dialog.ExceptionText,
                                   s);

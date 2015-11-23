@@ -54,7 +54,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
                 if (viewInfoList.Count == 0)
                 {
-                    Log.DebugFormat(Resources.ViewResolver_OpenViewForData_No_view_registered_for____0_, data);
+                    Log.DebugFormat(Resources.ViewResolver_OpenViewForData_No_view_registered_for_0_, data);
                     return false;
                 }
 

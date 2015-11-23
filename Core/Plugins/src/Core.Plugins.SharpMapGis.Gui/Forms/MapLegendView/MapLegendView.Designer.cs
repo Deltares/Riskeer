@@ -128,7 +128,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // 
             // contextMenuLayerOpenAttributeTable
             // 
-            this.contextMenuLayerOpenAttributeTable.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.table;
+            this.contextMenuLayerOpenAttributeTable.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.Table;
             this.contextMenuLayerOpenAttributeTable.Name = "contextMenuLayerOpenAttributeTable";
             resources.ApplyResources(this.contextMenuLayerOpenAttributeTable, "contextMenuLayerOpenAttributeTable");
             this.contextMenuLayerOpenAttributeTable.Click += new System.EventHandler(this.ContextMenuOpenLayerAttributeTableClick);
@@ -164,20 +164,20 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.toolStripSeparator6,
             this.bringForwardToolStripMenuItem,
             this.sendBackwardToolStripMenuItem});
-            this.orderToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_stack;
+            this.orderToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.LayersStack;
             this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
             resources.ApplyResources(this.orderToolStripMenuItem, "orderToolStripMenuItem");
             // 
             // bringToFrontToolStripMenuItem
             // 
-            this.bringToFrontToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_stack_arrange;
+            this.bringToFrontToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.LayersStackArrange;
             this.bringToFrontToolStripMenuItem.Name = "bringToFrontToolStripMenuItem";
             resources.ApplyResources(this.bringToFrontToolStripMenuItem, "bringToFrontToolStripMenuItem");
             this.bringToFrontToolStripMenuItem.Click += new System.EventHandler(this.BringToFrontToolStripMenuItemClick);
             // 
             // sendToBackToolStripMenuItem
             // 
-            this.sendToBackToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_stack_arrange_back;
+            this.sendToBackToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.LayersStackArrangeBack;
             this.sendToBackToolStripMenuItem.Name = "sendToBackToolStripMenuItem";
             resources.ApplyResources(this.sendToBackToolStripMenuItem, "sendToBackToolStripMenuItem");
             this.sendToBackToolStripMenuItem.Click += new System.EventHandler(this.SendToBackToolStripMenuItemClick);
@@ -208,7 +208,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // 
             // zoomToMapExtentsToolStripMenuItem1
             // 
-            this.zoomToMapExtentsToolStripMenuItem1.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_ungroup;
+            this.zoomToMapExtentsToolStripMenuItem1.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.LayersUngroup;
             this.zoomToMapExtentsToolStripMenuItem1.Name = "zoomToMapExtentsToolStripMenuItem1";
             resources.ApplyResources(this.zoomToMapExtentsToolStripMenuItem1, "zoomToMapExtentsToolStripMenuItem1");
             // 
@@ -306,7 +306,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // 
             // changeCoordinateSystemToolStripMenuItem
             // 
-            this.changeCoordinateSystemToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.globe__pencil;
+            this.changeCoordinateSystemToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.GlobePencil;
             this.changeCoordinateSystemToolStripMenuItem.Name = "changeCoordinateSystemToolStripMenuItem";
             resources.ApplyResources(this.changeCoordinateSystemToolStripMenuItem, "changeCoordinateSystemToolStripMenuItem");
             this.changeCoordinateSystemToolStripMenuItem.Click += new System.EventHandler(this.ChangeCoordinateSystemToolStripMenuItem_Click);

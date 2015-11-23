@@ -174,13 +174,13 @@ namespace Core.Plugins.CommonTools.Gui.Property.Charting
         {
             if (font == null)
             {
-                Log.Error(Resources.ChartProperties_FontValid_Font_can_not_be_empty_);
+                Log.Error(Resources.ChartProperties_FontValid_Font_can_not_be_empty);
                 return false;
             }
 
             if (font.Size < 3 || font.Size > 200)
             {
-                Log.Error(Resources.ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_);
+                Log.Error(Resources.ChartProperties_FontValid_Font_size_is_not_within_limits_3_200);
                 return false;
             }
 

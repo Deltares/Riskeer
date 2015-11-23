@@ -37,11 +37,7 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.AccessibleDescription = null;
-            this.toolStrip1.AccessibleName = null;
             resources.ApplyResources(this.toolStrip1, "toolStrip1");
-            this.toolStrip1.BackgroundImage = null;
-            this.toolStrip1.Font = null;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonScrollToItemInActiveView});
@@ -50,10 +46,7 @@
             // 
             // buttonScrollToItemInActiveView
             // 
-            this.buttonScrollToItemInActiveView.AccessibleDescription = null;
-            this.buttonScrollToItemInActiveView.AccessibleName = null;
             resources.ApplyResources(this.buttonScrollToItemInActiveView, "buttonScrollToItemInActiveView");
-            this.buttonScrollToItemInActiveView.BackgroundImage = null;
             this.buttonScrollToItemInActiveView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.buttonScrollToItemInActiveView.Name = "buttonScrollToItemInActiveView";
             this.buttonScrollToItemInActiveView.Tag = "LocateActiveViewItem";
@@ -61,23 +54,15 @@
             // 
             // treeViewPanel
             // 
-            this.treeViewPanel.AccessibleDescription = null;
-            this.treeViewPanel.AccessibleName = null;
             resources.ApplyResources(this.treeViewPanel, "treeViewPanel");
-            this.treeViewPanel.BackgroundImage = null;
-            this.treeViewPanel.Font = null;
             this.treeViewPanel.Name = "treeViewPanel";
             // 
             // ProjectExplorer
             // 
-            this.AccessibleDescription = null;
-            this.AccessibleName = null;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = null;
             this.Controls.Add(this.treeViewPanel);
             this.Controls.Add(this.toolStrip1);
-            this.Font = null;
             this.Name = "ProjectExplorer";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

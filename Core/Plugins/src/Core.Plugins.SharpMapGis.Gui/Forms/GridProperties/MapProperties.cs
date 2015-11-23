@@ -53,7 +53,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
                 }
                 catch (CoordinateTransformException e)
                 {
-                    var message = string.Format(Resources.MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_, e.Message);
+                    var message = string.Format(Resources.MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_, e.Message);
                     MessageBox.Show(message,
                                     Resources.MapProperties_CoordinateSystem_Coordinate_transformation_error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -73,7 +73,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             {
                 if (data.CoordinateSystem == null)
                 {
-                    Log.DebugFormat(Resources.MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty);
+                    Log.DebugFormat(Resources.MapProperties_ShowGrid_Showing_latitude_longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty);
 
                     return;
                 }

@@ -92,7 +92,7 @@ namespace Core.Common.Controls.Swf.Charting.Series
                 }
                 catch (InvalidCastException ex)
                 {
-                    throw new ArgumentException(Resources.ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IEnumerable__IList_and_IListSource_are_supported, ex);
+                    throw new ArgumentException(Resources.ChartSeries_DataSource_Invalid_argument_for_series_datasource_Are_you_passing_IEnumerable_IList_and_IListSource_are_supported, ex);
                 }
             }
         }
@@ -398,7 +398,7 @@ namespace Core.Common.Controls.Swf.Charting.Series
 
             if (!yIsNumeric)
             {
-                throw new NotSupportedException(String.Format(Resources.ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0__, y.GetType()));
+                throw new NotSupportedException(String.Format(Resources.ChartSeries_Add_Input_format_not_supported_y_must_be_numeric_but_is_of_type_0_, y.GetType()));
             }
 
             double yValue = Convert.ToDouble(y);

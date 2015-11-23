@@ -234,7 +234,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             if (defaultLocation == null)
             {
                 throw new InvalidOperationException(
-                    Resources.ViewList_Insert_No_default_location_specified__Cannot_add_a_view_without_location_parameter_);
+                    Resources.ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_parameter_);
             }
 
             Insert(index, view, (ViewLocation) defaultLocation);
@@ -365,7 +365,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             if (ViewResolver.IsViewOpening)
             {
-                throw new InvalidOperationException(Resources.ViewList_Close_View_is_being_closed_while_it_is_being_opened_);
+                throw new InvalidOperationException(Resources.ViewList_Close_View_is_being_closed_while_it_is_being_opened);
             }
 
             if (!Contains(view))
@@ -442,7 +442,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private void DockingManagerViewBarClosing(object sender, DockTabClosingEventArgs e)
         {
-            Log.DebugFormat(Resources.ViewList_DockingManagerViewBarClosing_Closing_view___0_, e.View);
+            Log.DebugFormat(Resources.ViewList_DockingManagerViewBarClosing_Closing_view_0_, e.View);
             Close(e.View, false, true);
         }
 

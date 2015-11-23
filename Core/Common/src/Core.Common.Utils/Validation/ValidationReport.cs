@@ -161,7 +161,7 @@ namespace Core.Common.Utils.Validation
 
         public override string ToString()
         {
-            return string.Format(Resource.ValidationReport_ToString__0___severity___1____2__error_s____3__warning_s____4__info_,
+            return string.Format(Resource.ValidationReport_ToString_0_severity_1_2_error_s_3_warnings_4_info,
                                  Category, Severity,
                                  ErrorCount, WarningCount, InfoCount);
         }
