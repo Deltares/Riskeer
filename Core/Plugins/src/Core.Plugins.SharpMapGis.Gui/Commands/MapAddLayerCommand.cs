@@ -91,7 +91,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
             catch (Exception e)
             {
-                var message = string.Format(Resources.MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file_0_1_, file, e.Message);
+                var message = string.Format(Resources.MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s_from_file_0_1_, file, e.Message);
                 log.Error(message);
                 MessageBox.Show(message, Resources.MapAddLayerCommand_TryAddLayerFromFile_Layer_creation_failed,
                                 MessageBoxButtons.OK);
