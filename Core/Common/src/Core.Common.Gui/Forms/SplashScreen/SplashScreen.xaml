@@ -19,13 +19,17 @@
         <Label x:Name="labelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" Margin="5,249,0,0" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" BorderBrush="Black" RenderTransformOrigin="0.51,-1.4"/>
         <Label x:Name="labelProgressBar" Content="0 %" Margin="0,274,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Padding="0" Height="18px" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Right" Width="455"
                x:FieldModifier="protected" />
-        <Label x:Name="labelVersionTitle"  Content="{x:Static Properties:Resources.SplashScreen_Version}" Height="18px" HorizontalAlignment="Left" Margin="13,299,0,0" Padding="0"  VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold"/>
-        <Label x:Name="labelVersion" Content="1.0.0.0" Height="18px" HorizontalAlignment="Left" Margin="97,299,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" />
-        <Label x:Name="labelCompanyTitle" Content="{x:Static Properties:Resources.SplashScreen_Company}" Height="18px" HorizontalAlignment="Left" Margin="13,317,0,0" VerticalAlignment="Top" Padding="0" FontSize="10pt" FontFamily="Arial" FontWeight="Bold"/>
-        <Label x:Name="labelCompany" Content="Deltares" Height="18px" HorizontalAlignment="Left" Margin="97,317,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial"/>
-        <Label x:Name="labelLicenseTitle" Content="{x:Static Properties:Resources.SplashScreen_License}" Height="18px" HorizontalAlignment="Left" Margin="13,335,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold"/>
-        <Label x:Name="labelLicense" Content="{x:Static Properties:Resources.SplashScreen_Free}" Height="18px" HorizontalAlignment="Left" Margin="97,335,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial"/>
-        <Label x:Name="labelCopyrightTitle" Content="{x:Static Properties:Resources.SplashScreen_CopyRights}" Height="18px" HorizontalAlignment="Left" Margin="13,353,0,0" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" />
-        <Label x:Name="labelCopyright" Content="© Deltares 2009-2015" Height="18px" HorizontalAlignment="Left" Padding="0" Margin="97,353,0,0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial"/>
+        <Border x:Name="labelsBox" Margin="10,300,230,16" >
+            <Grid>
+                <Label x:Name="labelVersionTitle"  Content="{x:Static Properties:Resources.SplashScreen_Version}" Height="18px" HorizontalAlignment="Left" Padding="0"  VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold"/>
+                <Label x:Name="labelVersion" Content="1.0.0.0" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,0,0,0" />
+                <Label x:Name="labelCompanyTitle" Content="{x:Static Properties:Resources.SplashScreen_Company}" Height="18px" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Margin="0,18,0,0"/>
+                <Label x:Name="labelCompany" Content="Deltares" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,18,0,0"/>
+                <Label x:Name="labelLicenseTitle" Content="{x:Static Properties:Resources.SplashScreen_License}" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Margin="0,36,0,0"/>
+                <Label x:Name="labelLicense" Content="{x:Static Properties:Resources.SplashScreen_Free}" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,36,0,0"/>
+                <Label x:Name="labelCopyrightTitle" Content="{x:Static Properties:Resources.SplashScreen_CopyRights}" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Margin="0,54,0,0" />
+                <Label x:Name="labelCopyright" Content="© Deltares 2009-2015" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,54,0,0"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

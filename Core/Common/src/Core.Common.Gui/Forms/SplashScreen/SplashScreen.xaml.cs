@@ -162,9 +162,16 @@ namespace Core.Common.Gui.Forms.SplashScreen
             base.OnRender(drawingContext);
 
             var progressVisibility = (HasProgress) ? (Visibility.Visible) : (Visibility.Hidden);
+            
             progressBar.Visibility = progressVisibility;
             labelProgressBar.Visibility = progressVisibility;
             labelProgressMessage.Visibility = progressVisibility;
+
+            if (!HasProgress)
+            {
+                // missing progress bar leaves a gap between dike-picture above and labels below, fixing it by setting a new margin
+                labelsBox.Margin = new Thickness(labelsBox.Margin.Left, progressBar.Margin.Top, labelsBox.Margin.Right, labelsBox.Margin.Bottom);
+            }
 
             if (progressBar.Value != ProgressValuePercent)
             {

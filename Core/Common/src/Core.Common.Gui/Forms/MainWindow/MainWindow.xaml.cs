@@ -951,13 +951,12 @@ namespace Core.Common.Gui.Forms.MainWindow
             FileManualButton.IsEnabled = File.Exists(ConfigurationManager.AppSettings["manualFileName"]);
 
             // TODO: Enable as soon as relevant/implemented
-            AboutButton.IsEnabled = false;
             LicenseButton.IsEnabled = false;
             FeedbackButton.IsEnabled = false;
 
             ButtonQuickAccessOpenProject.IsEnabled = false;
             ButtonQuickAccessSaveProject.IsEnabled = false;
-            
+
             UpdateMainWindowRibbonElements();
             UpdateRibbonExtensions();
 
@@ -1172,16 +1171,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 InitMessagesWindowOrActivate();
                 ButtonShowMessages.IsChecked = true;
             }
-
-/*
-            if (Gui.ToolWindowViews != null)
-            {
-                ButtonShowProperties.IsChecked = Gui.ToolWindowViews.Contains(PropertyGrid);
-            }
-
-            if()
-            ValidateMainWindowRibbonItems();
-*/
         }
 
         private void OnFileHelpStartPage_Clicked(object sender, RoutedEventArgs e)
@@ -1294,6 +1283,32 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void ButtonResetUILayout_Click(object sender, RoutedEventArgs e)
         {
             resetDefaultLayout = resetUIButton.IsChecked ?? false;
+        }
+
+        private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)
+        {
+            var aboutDialog = new SplashScreen.SplashScreen()
+            {
+                HasProgress = false,
+                VersionText = SettingsHelper.ApplicationVersion,
+                CopyrightText = Gui.Application.Settings["copyright"],
+                LicenseText = Gui.Application.Settings["license"],
+                CompanyText = SettingsHelper.ApplicationCompany,
+                AllowsTransparency = false,
+                WindowStyle = WindowStyle.SingleBorderWindow
+            };
+
+            aboutDialog.PreviewKeyDown += (s, ev) =>
+            {
+                if (ev.Key == Key.Escape)
+                {
+                    ev.Handled = true;
+                    aboutDialog.Close();
+                }
+            };
+
+            aboutDialog.ShowDialog();
+            
         }
     }
 }
