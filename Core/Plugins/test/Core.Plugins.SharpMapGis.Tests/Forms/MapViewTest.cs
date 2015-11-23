@@ -18,7 +18,6 @@ using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
-using SharpTestsEx;
 
 namespace Core.Plugins.SharpMapGis.Tests.Forms
 {
@@ -37,7 +36,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             mapView.Map.Layers.First().Visible = false;
 
             // TODO: currently second refresh can happen because of timer in MapControl - timer must be replaced by local Map / Layer / MapControl custom event
-            refreshCount.Should("map should be refreshed once when layer property changes").Be.LessThanOrEqualTo(2);
+            Assert.LessOrEqual(refreshCount, 2, "map should be refreshed once when layer property changes");
         }
 
         [Test]

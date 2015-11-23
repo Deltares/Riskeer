@@ -1,6 +1,5 @@
 ﻿using Core.GIS.SharpMap.Extensions.Layers;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.GIS.SharpMap.Extensions.Tests.Layers
 {
@@ -25,12 +24,10 @@ namespace Core.GIS.SharpMap.Extensions.Tests.Layers
         [Test]
         public void CacheDirectoryIsDefined()
         {
-            new BingLayer
+            StringAssert.EndsWith(@"cache_bing_aerial", new BingLayer
             {
                 MapType = "Aerial"
-            }.CacheLocation
-             .Should("Cache directory is defined")
-             .EndWith(@"cache_bing_aerial");
+            }.CacheLocation, "Cache directory is defined");
         }
     }
 }

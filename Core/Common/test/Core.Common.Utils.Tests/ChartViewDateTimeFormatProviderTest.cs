@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Threading;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Utils.Tests
 {
@@ -22,7 +21,7 @@ namespace Core.Common.Utils.Tests
             provider.CustomDateTimeFormatInfo = CultureInfo.InvariantCulture.DateTimeFormat;
             var outputString = provider.GetRangeLabel(new DateTime(2010, 1, 1), new DateTime(2010, 1, 1));
 
-            outputString.Should("Datetime formatted output not as expected").Be.EqualTo("(Friday, 01 January 2010)");
+            Assert.AreEqual("(Friday, 01 January 2010)", outputString, "Datetime formatted output not as expected");
 
             Thread.CurrentThread.CurrentCulture = oldCulture;
             Thread.CurrentThread.CurrentUICulture = oldCultureUI;

@@ -11,7 +11,6 @@ using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
 using Core.Plugins.SharpMapGis.Gui;
 using NUnit.Framework;
-using SharpTestsEx;
 using Control = System.Windows.Controls.Control;
 
 namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
@@ -188,7 +187,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
-                gui.Selection.Should().Be.EqualTo(gui.Application.Project);
+                Assert.AreEqual(gui.Application.Project, gui.Selection);
             }
         }
 
@@ -221,7 +220,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 var treeView = projectExplorer.TreeView;
                 treeView.SelectedNode = treeView.Nodes[0]; // project node
 
-                gui.Selection.Should().Be.EqualTo(app.Project);
+                Assert.AreEqual(app.Project, gui.Selection);
             }
         }
 

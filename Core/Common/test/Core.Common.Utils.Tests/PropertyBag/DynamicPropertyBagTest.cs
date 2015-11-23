@@ -6,7 +6,6 @@ using Core.Common.Utils.ComponentModel;
 using Core.Common.Utils.PropertyBag;
 using Core.Common.Utils.PropertyBag.Dynamic;
 using NUnit.Framework;
-using SharpTestsEx;
 using CategoryComponentModelAttribute = System.ComponentModel.CategoryAttribute;
 
 namespace Core.Common.Utils.Tests.PropertyBag
@@ -19,8 +18,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestProperties());
 
-            dynamicPropertyBag.Properties.Count
-                              .Should("Expected property count wrong").Be.EqualTo(4);
+            Assert.AreEqual(4, dynamicPropertyBag.Properties.Count, "Expected property count wrong");
         }
 
         [Test]
@@ -44,11 +42,9 @@ namespace Core.Common.Utils.Tests.PropertyBag
             }
 
             // asserts
-            nameProperty.Attributes.Any(x => x.GetType() == typeof(CategoryComponentModelAttribute))
-                        .Should("Static Category attribute not copied!").Be.True();
+            Assert.IsTrue(nameProperty.Attributes.Any(x => x.GetType() == typeof(CategoryComponentModelAttribute)), "Static Category attribute not copied!");
 
-            descriptionProperty.Attributes
-                               .Should("Static ReadOnly attribute not copied!").Contain(ReadOnlyAttribute.Yes);
+            CollectionAssert.Contains(descriptionProperty.Attributes, ReadOnlyAttribute.Yes, "Static ReadOnly attribute not copied!");
         }
 
         [Test]
@@ -68,11 +64,9 @@ namespace Core.Common.Utils.Tests.PropertyBag
             namePropertyDescriptor.GetValue(dynamicPropertyBag);
 
             // asserts
-            namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute())
-                                  .Should("Dynamic ReadOnly attribute was not added").Be.True();
+            Assert.IsTrue(namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute()),"Dynamic ReadOnly attribute was not added");
 
-            namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true))
-                                  .Should("Inactive dynamic ReadOnly attribute was resolved to static attribute: wrong.").Be.False();
+            Assert.IsFalse(namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true)), "Inactive dynamic ReadOnly attribute was resolved to static attribute: wrong.");
         }
 
         [Test]
@@ -87,11 +81,9 @@ namespace Core.Common.Utils.Tests.PropertyBag
             namePropertyDescriptor.GetValue(dynamicPropertyBag);
 
             // asserts
-            namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute())
-                                  .Should("Dynamic ReadOnly attribute was not added").Be.True();
+            Assert.IsTrue(namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute()), "Dynamic ReadOnly attribute was not added");
 
-            namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true))
-                                  .Should("Dynamic ReadOnly attribute was not resolved to static attribute: wrong.").Be.True();
+            Assert.IsTrue(namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true)), "Dynamic ReadOnly attribute was not resolved to static attribute: wrong.");
         }
 
         [Test]
@@ -163,7 +155,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
             var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag);
 
             // check the object properties are wrapped in a dynamic property bag
-            wrappedValue.Should("Object properties wrapped in dynamic property bag").Be.OfType<DynamicPropertyBag>();
+            Assert.IsInstanceOf<DynamicPropertyBag>(wrappedValue, "Object properties wrapped in dynamic property bag");
         }
 
         [Test]
@@ -182,8 +174,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
             var expected = "newName";
             propertyGrid.SelectedGridItem.PropertyDescriptor.SetValue(null, expected);
 
-            testProperties.Name
-                          .Should("Name not correctly set").Be.EqualTo(expected);
+            Assert.AreEqual(expected, testProperties.Name, "Name not correctly set");
         }
 
         [Test]

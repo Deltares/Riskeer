@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Application.Ringtoets;
 using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-using SharpTestsEx;
 
 namespace Core.Common.Tests.Gui
 {
@@ -18,7 +16,7 @@ namespace Core.Common.Tests.Gui
         {
             var handler = new GuiExportHandler(FileExportersGetter, null);
 
-            handler.GetSupportedExportersForItem("string item").Should().Not.Be.Empty();
+            CollectionAssert.IsNotEmpty(handler.GetSupportedExportersForItem("string item"));
         }
 
         [Test]
@@ -39,7 +37,7 @@ namespace Core.Common.Tests.Gui
             {
                 exporter
             }, null);
-            handler.GetSupportedExportersForItem("string").Should().Be.Empty();
+            CollectionAssert.IsEmpty(handler.GetSupportedExportersForItem("string"));
 
             mocks.BackToRecordAll();
 
@@ -51,7 +49,7 @@ namespace Core.Common.Tests.Gui
 
             mocks.ReplayAll();
 
-            handler.GetSupportedExportersForItem("string").Should().Not.Be.Empty();
+            CollectionAssert.IsNotEmpty(handler.GetSupportedExportersForItem("string"));
 
             mocks.VerifyAll();
         }

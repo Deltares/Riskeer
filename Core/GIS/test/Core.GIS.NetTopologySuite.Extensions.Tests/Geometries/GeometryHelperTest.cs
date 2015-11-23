@@ -6,7 +6,6 @@ using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.NetTopologySuite.IO;
 using Core.GIS.NetTopologySuite.Utilities;
 using NUnit.Framework;
-using SharpTestsEx;
 using Assert = NUnit.Framework.Assert;
 
 namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
@@ -35,9 +34,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
 
             var feature1 = GeometryHelper.GetNearestFeature(new Coordinate(1, 1), features, 3);
 
-            feature1
-                .Should("the last feature is chosen if more than 1 featres with the same distance are found")
-                .Be.EqualTo(features[2]);
+            Assert.AreEqual(features[2], feature1, "the last feature is chosen if more than 1 features with the same distance are found");
         }
 
         [Test]
@@ -61,9 +58,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
 
             var feature2 = GeometryHelper.GetNearestFeature(new Coordinate(1, 1), features, 0.5);
 
-            feature2
-                .Should("tolerance is too small")
-                .Be.Null();
+            Assert.IsNull(feature2, "tolerance is too small");
         }
 
         [Test]

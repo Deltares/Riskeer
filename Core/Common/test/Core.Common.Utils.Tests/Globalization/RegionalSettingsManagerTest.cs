@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Threading;
 using Core.Common.Utils.Globalization;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Utils.Tests.Globalization
 {
@@ -19,11 +18,9 @@ namespace Core.Common.Utils.Tests.Globalization
 
             RegionalSettingsManager.Language = "ru-RU";
 
-            languageChangedCallCount
-                .Should("event is fired when language is changed").Be.EqualTo(1);
+            Assert.AreEqual(1, languageChangedCallCount, "event is fired when language is changed");
 
-            RegionalSettingsManager.Language
-                                   .Should().Be.EqualTo("ru-RU");
+            Assert.AreEqual("ru-RU", RegionalSettingsManager.Language);
         }
 
         [Test]
@@ -42,11 +39,8 @@ namespace Core.Common.Utils.Tests.Globalization
 
             var currentNumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat;
 
-            str
-                .Should().Be.EqualTo("1000000" + currentNumberFormat.NumberDecimalSeparator + "0");
-
-            formatChangedCallCount
-                .Should().Be.EqualTo(1);
+            Assert.AreEqual("1000000" + currentNumberFormat.NumberDecimalSeparator + "0", str);
+            Assert.AreEqual(1, formatChangedCallCount);
         }
 
         [Test]

@@ -22,8 +22,8 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using NUnit.Framework;
+using PostSharp.Reflection;
 using Rhino.Mocks;
-using SharpTestsEx;
 
 namespace Core.Common.Base.Tests.Controls.Swf.Table
 {
@@ -573,7 +573,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             tableView.Columns[1].CustomFormatter = new AddDashTestFormatter();
             tableView.Columns[1].Editor = comboBoxTypeEditor; // inject it under the 2nd column
 
-            WindowsFormsTestHelper.ShowModal(tableView, f => tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("-item type1-"));
+            WindowsFormsTestHelper.ShowModal(tableView, f => Assert.AreEqual("-item type1-", tableView.GetCellDisplayText(0, 1)));
         }
 
         [Test]
@@ -626,9 +626,9 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
 
             WindowsFormsTestHelper.ShowModal(tableView, f =>
             {
-                var dxColumn = tableView.Columns[1].FieldValue<GridColumn>("dxColumn");
+                var dxColumn = (GridColumn) TypeUtils.GetField(tableView.Columns[1], "dxColumn");
                 var dxEditor = (RepositoryItemComboBox) dxColumn.ColumnEdit;
-                TypeUtils.GetPropertyValue(dxEditor.Items[0], "DisplayText").Should().Be.EqualTo("[item type1]");
+                Assert.AreEqual("[item type1]",TypeUtils.GetPropertyValue(dxEditor.Items[0], "DisplayText"));
             });
         }
 
@@ -683,7 +683,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             // * Table view should show to entries using 'AddDashTestFormatter' in 2nd column only.
             // * Editor of 2nd column should show entries using 'AddBrackerTestFormatter'.
             // * Transitioning between editing (dropdown box visible) and non-editing (no dropdown box visible) should work with the correct custom formatter.
-            WindowsFormsTestHelper.ShowModal(tableView, f => tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("-item type1-"));
+            WindowsFormsTestHelper.ShowModal(tableView, f => Assert.AreEqual("-item type1-", tableView.GetCellDisplayText(0, 1)));
         }
 
         [Test]
@@ -700,8 +700,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
                 Data = table
             };
 
-            tableView.SelectedCells
-                     .Should().Be.Empty();
+            CollectionAssert.IsEmpty(tableView.SelectedCells);
         }
 
         [Test]
@@ -1377,12 +1376,12 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             tableView.GetColumnByName("DateOfBirth").DisplayFormat = dtFormat1;
             tableView.GetColumnByName("DateOfDeath").DisplayFormat = dtFormat2;
 
-            tableView.GetColumnByName("Name").DisplayFormat.Should().Be.EqualTo("Name = {0}");
+            Assert.AreEqual("Name = {0}", tableView.GetColumnByName("Name").DisplayFormat);
 
-            tableView.GetCellDisplayText(0, 0).Should().Be.EqualTo("Name = Aaltje");
-            tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("012");
-            tableView.GetCellDisplayText(0, 2).Should().Be.EqualTo(dateOfBirth.ToString(dtFormat1));
-            tableView.GetCellDisplayText(0, 3).Should().Be.EqualTo(dateOfDeath.ToString(dtFormat2));
+            Assert.AreEqual("Name = Aaltje", tableView.GetCellDisplayText(0, 0));
+            Assert.AreEqual("012", tableView.GetCellDisplayText(0, 1));
+            Assert.AreEqual(dateOfBirth.ToString(dtFormat1), tableView.GetCellDisplayText(0, 2));
+            Assert.AreEqual(dateOfDeath.ToString(dtFormat2), tableView.GetCellDisplayText(0, 3));
         }
 
         [Test]
@@ -1416,12 +1415,12 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             tableView.GetColumnByName("DateOfBirth").DisplayFormat = dtFormat1;
             tableView.GetColumnByName("DateOfDeath").CustomFormatter = dtFormatter;
 
-            tableView.GetColumnByName("Name").DisplayFormat.Should().Be.EqualTo("Name = {0}");
+            Assert.AreEqual("Name = {0}", tableView.GetColumnByName("Name").DisplayFormat);
 
-            tableView.GetCellDisplayText(0, 0).Should().Be.EqualTo("Name = Aaltje");
-            tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("012");
-            tableView.GetCellDisplayText(0, 2).Should().Be.EqualTo(dateOfBirth.ToString(dtFormat1));
-            tableView.GetCellDisplayText(0, 3).Should().Be.EqualTo(dtFormatter.Format("", dateOfDeath, null));
+            Assert.AreEqual("Name = Aaltje", tableView.GetCellDisplayText(0, 0));
+            Assert.AreEqual("012", tableView.GetCellDisplayText(0, 1));
+            Assert.AreEqual(dateOfBirth.ToString(dtFormat1), tableView.GetCellDisplayText(0, 2));
+            Assert.AreEqual(dtFormatter.Format("", dateOfDeath, null), tableView.GetCellDisplayText(0, 3));
         }
 
         [Test]
@@ -1449,7 +1448,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             nameColumn.DisplayFormat = "Name = {0}";
             nameColumn.CustomFormatter = new NameTableCellFormatter();
 
-            tableView.GetCellDisplayText(0, 0).Should().Be.EqualTo("Name with custom formatter : Aaltje");
+            Assert.AreEqual("Name with custom formatter : Aaltje", tableView.GetCellDisplayText(0, 0));
         }
 
         [Test]

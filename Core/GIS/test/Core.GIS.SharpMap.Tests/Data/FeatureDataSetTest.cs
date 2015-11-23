@@ -2,7 +2,6 @@ using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Data;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.GIS.SharpMap.Tests.Data
 {
@@ -25,21 +24,16 @@ namespace Core.GIS.SharpMap.Tests.Data
             // now access it using IFeature iterfaces
             IFeature f1 = feature1;
 
-            f1.Attributes.Count
-              .Should().Be.EqualTo(2);
+            Assert.AreEqual(2, f1.Attributes.Count);
 
-            f1.Attributes.Keys
-              .Should().Have.SameSequenceAs(new[]
+            CollectionAssert.AreEqual(new[]
               {
                   "name",
                   "attribute1"
-              });
+              },f1.Attributes.Keys);
 
-            f1.Attributes["name"]
-                .Should().Be.EqualTo("feature1");
-
-            f1.Attributes["attribute1"]
-                .Should().Be.EqualTo(1);
+            Assert.AreEqual("feature1", f1.Attributes["name"]);
+            Assert.AreEqual(1, f1.Attributes["attribute1"]);
         }
     }
 }

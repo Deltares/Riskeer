@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Utils.Tests.Collections
 {
@@ -20,12 +19,10 @@ namespace Core.Common.Utils.Tests.Collections
             //has two
             IEnumerable two = Enumerable.Range(1, 2);
 
-            two.HasExactlyOneValue()
-               .Should().Be.False();
+            Assert.IsFalse(two.HasExactlyOneValue());
 
             //has none
-            Enumerable.Empty<double>().HasExactlyOneValue()
-                      .Should().Be.False();
+            Assert.IsFalse(Enumerable.Empty<double>().HasExactlyOneValue());
         }
 
         [Test]
@@ -39,24 +36,11 @@ namespace Core.Common.Utils.Tests.Collections
             };
             var results = items.Plus(4);
 
-            results.Should().Have.SameSequenceAs(new[]
-            {
-                1,
-                2,
-                3,
-                4
-            });
+            CollectionAssert.AreEqual(Enumerable.Range(1,4), results);
 
             results = items.Plus(4, 5);
 
-            results.Should().Have.SameSequenceAs(new[]
-            {
-                1,
-                2,
-                3,
-                4,
-                5
-            });
+            CollectionAssert.AreEqual(Enumerable.Range(1, 5), results);
         }
 
         [Test]
@@ -73,8 +57,7 @@ namespace Core.Common.Utils.Tests.Collections
 
             items.ForEach(results.Add);
 
-            results
-                .Should("elements should be equal").Have.SameSequenceAs(items);
+            CollectionAssert.AreEqual(items, results, "elements should be equal");
         }
 
         [Test]
@@ -96,13 +79,8 @@ namespace Core.Common.Utils.Tests.Collections
                 resultIndices.Add(i);
             });
 
-            resultElements.Should().Have.SameSequenceAs(items);
-            resultIndices.Should().Have.SameSequenceAs(new[]
-            {
-                0,
-                1,
-                2
-            });
+            CollectionAssert.AreEqual(items, resultElements);
+            CollectionAssert.AreEqual(Enumerable.Range(0,3), resultIndices);
         }
 
         [Test]

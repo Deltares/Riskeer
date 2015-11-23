@@ -1,6 +1,5 @@
 using Core.Common.Controls.Swf.TreeViewControls;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
@@ -28,7 +27,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
             var node = node12.GetParentOfLevel(0);
 
-            node.Should().Be.EqualTo(node1);
+            Assert.AreEqual(node1, node);
         }
     
         [Test]

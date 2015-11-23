@@ -4,7 +4,6 @@ using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
-using SharpTestsEx;
 using Point = Core.GIS.NetTopologySuite.Geometries.Point;
 
 namespace Core.GIS.SharpMap.Tests.Layers
@@ -50,8 +49,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
                 {
                     callCount++;
 
-                    feature
-                        .Should().Be.OfType<SimpleFeature>();
+                    Assert.IsInstanceOf<SimpleFeature>(feature);
 
                     return ((SimpleFeature) feature).Data.ToString();
                 }
@@ -59,8 +57,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
 
             labelLayer.Render();
 
-            callCount
-                .Should("labels of 2 simple feature rendered").Be.EqualTo(2);
+            Assert.AreEqual(2, callCount, "labels of 2 simple feature rendered");
         }
 
         private class SimpleFeature : Feature

@@ -12,7 +12,6 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.UI.Forms;
 using Core.GIS.SharpMap.UI.Tools;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.GIS.SharpMap.UI.Tests.Tools
 {
@@ -56,8 +55,7 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
 
                 mapControl.Map.Layers.Clear();
 
-                selectTool.Selection
-                          .Should("selection is cleared on layer remove").Be.Empty();
+                CollectionAssert.IsEmpty(selectTool.Selection, "selection is cleared on layer remove");
             }
 
             WindowsFormsTestHelper.CloseAll();
@@ -108,8 +106,7 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
                 mapControl.Map.Layers.Remove(groupLayer);
                 mapControl.Map.NotifyObservers();
 
-                selectTool.Selection
-                          .Should("selection is cleared on layer remove").Be.Empty();
+                CollectionAssert.IsEmpty(selectTool.Selection, "selection is cleared on layer remove");
             }
 
             WindowsFormsTestHelper.CloseAll();
@@ -349,8 +346,7 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
 
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>());
 
-                selectTool.Selection.Count()
-                          .Should("selection are 3 features in 2 layers, 2 features in layer1, 1 feature in layer 2").Be.EqualTo(3);
+                Assert.AreEqual(3, selectTool.Selection.Count(), "selection are 3 features in 2 layers, 2 features in layer1, 1 feature in layer 2");
             }
         }
 
@@ -416,13 +412,11 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
 
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>(), layer1);
 
-                selectTool.Selection.Count()
-                          .Should("selection are 3 features in 2 layers, but only select the 2 features in layer1!").Be.EqualTo(2);
+                Assert.AreEqual(2, selectTool.Selection.Count(), "selection are 3 features in 2 layers, but only select the 2 features in layer1!");
 
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>(), layer2);
 
-                selectTool.Selection.Count()
-                          .Should("selection are 3 features in 2 layers, but only select the 1 feature in layer2!").Be.EqualTo(1);
+                Assert.AreEqual(1, selectTool.Selection.Count(), "selection are 3 features in 2 layers, but only select the 1 feature in layer2!");
             }
         }
 
@@ -479,8 +473,7 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
 
                 var message =
                     string.Format("selection are all {1} features in 2 layers, but only select the first {0} features!", maxSelectableFeatures, ofSelectedFeatures.Count());
-                selectTool.Selection.Count()
-                          .Should(message).Be.EqualTo(maxSelectableFeatures);
+                Assert.AreEqual(maxSelectableFeatures, selectTool.Selection.Count());
             }
         }
 

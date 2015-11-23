@@ -1,6 +1,5 @@
 using Core.GIS.SharpMap.Data;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.GIS.SharpMap.Tests.Data
 {
@@ -19,8 +18,7 @@ namespace Core.GIS.SharpMap.Tests.Data
             // now add column and check if it is available via accessor
             table.Columns.Add("Name", typeof(string));
 
-            accessor.Count
-                    .Should().Be.EqualTo(1);
+            Assert.AreEqual(1, accessor.Count);
         }
     }
 }

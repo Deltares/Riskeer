@@ -11,7 +11,6 @@ using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
-using SharpTestsEx;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
@@ -60,7 +59,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
         [Test]
         public void HideSelectionIsFalseByDefault()
         {
-            new TreeView().HideSelection.Should().Be.False();
+            Assert.IsFalse(new TreeView().HideSelection);
         }
 
         [Test]
@@ -240,8 +239,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             node1.Nodes.Add(node2);
             node1.Nodes.Add(node3);
 
-            node1.Nodes.Count
-                 .Should().Be.EqualTo(2);
+            Assert.AreEqual(2, node1.Nodes.Count);
         }
 
         [Test]
@@ -259,8 +257,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
             node1.Expand();
 
-            node1.Nodes.Count
-                 .Should().Be.EqualTo(2);
+            Assert.AreEqual(2, node1.Nodes.Count);
         }
 
         [Test]
@@ -279,8 +276,8 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             // set data to tree view
             treeView.Data = rootObject;
 
-            treeView.SelectedNode.Should().Not.Be.Null();
-            treeView.SelectedNode.Tag.Should().Be.SameInstanceAs(rootObject);
+            Assert.NotNull(treeView.SelectedNode);
+            Assert.AreSame(rootObject, treeView.SelectedNode.Tag);
         }
 
         /// <summary>
@@ -311,7 +308,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
                 treeView.Refresh();
 
                 // asserts
-                treeView.Nodes[0].Nodes[0].IsExpanded.Should("node remains expanded").Be.True();
+                Assert.IsTrue(treeView.Nodes[0].Nodes[0].IsExpanded, "node remains expanded");
             }
             finally
             {

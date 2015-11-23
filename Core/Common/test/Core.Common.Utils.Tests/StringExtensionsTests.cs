@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Utils.Tests
 {
@@ -11,17 +10,17 @@ namespace Core.Common.Utils.Tests
         [Test]
         public void Parse()
         {
-            "12.34".Parse<double>(CultureInfo.InvariantCulture).Should().Be.EqualTo(12.34);
+            Assert.AreEqual(12.34, "12.34".Parse<double>(CultureInfo.GetCultureInfo("nl-NL")));
 
-            "1234".Parse<int>().Should().Be.EqualTo(1234);
+            Assert.AreEqual(1234, "1234".Parse<int>());
 
-            "asdf".Parse<int>().Should().Be.EqualTo(0); // i.e. default(int)
+            Assert.AreEqual(0, "asdf".Parse<int>()); // i.e. default(int)
 
-            "1234".Parse<int?>().Should().Be.EqualTo(1234);
+            Assert.AreEqual(1234, "1234".Parse<int?>());
 
-            "asdf".Parse<int?>().Should().Be.EqualTo(null);
+            Assert.IsNull("asdf".Parse<int?>());
 
-            "2001-02-03".Parse<DateTime?>().Should().Be.EqualTo(new DateTime(2001, 2, 3));
+            Assert.AreEqual(new DateTime(2001, 2, 3), "2001-02-03".Parse<DateTime?>());
         }
 
         [Test]

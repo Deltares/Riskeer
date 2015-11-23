@@ -12,7 +12,6 @@ using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Styles;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.GIS.SharpMap.Tests.Layers
 {
@@ -144,16 +143,13 @@ namespace Core.GIS.SharpMap.Tests.Layers
             };
             map.Render();
 
-            callCount
-                .Should("labels are rendered for 2 features of the vector layer").Be.EqualTo(2);
+            Assert.AreEqual(2, callCount, "labels are rendered for 2 features of the vector layer");
         }
 
         [Test]
         public void LabelsLayerIsInitializedAndOffByDefault()
         {
-            var layer = new VectorLayer();
-            layer.LabelLayer.Visible
-                 .Should("label layer is off by default").Be.False();
+            Assert.IsFalse(new VectorLayer().LabelLayer.Visible, "label layer is off by default");
         }
 
         [Test]
@@ -197,8 +193,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
             };
             map.Render();
 
-            callCount
-                .Should("labels are not rendered when label layer is not visible").Be.EqualTo(0);
+            Assert.AreEqual(0, callCount, "labels are not rendered when label layer is not visible");
         }
 
         [Test]

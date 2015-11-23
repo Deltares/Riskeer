@@ -8,7 +8,6 @@ using Core.Common.Tests.TestObjects;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Tests.Gui
 {
@@ -278,9 +277,9 @@ namespace Core.Common.Tests.Gui
 
             var returnedViews = viewResolver.GetViewsForData(wrapper); // <-- must trigger IViewProvider.IsViewForData()
 
-            returnedViews.Count.Should("number of compatible views").Be.EqualTo(1);
+            Assert.AreEqual(1, returnedViews.Count, "number of compatible views");
 
-            returnedViews.First().Should("correct view is returned back").Be.EqualTo(view);
+            Assert.AreSame(view, returnedViews.First(), "correct view is returned back");
         }
 
         [Test]

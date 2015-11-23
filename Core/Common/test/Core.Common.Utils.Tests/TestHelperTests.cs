@@ -8,7 +8,6 @@ using Core.Common.Utils.Tests.Properties;
 
 using log4net;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Utils.Tests
 {
@@ -85,16 +84,11 @@ namespace Core.Common.Utils.Tests
                 0.25
             });
 
-            colorRed.Name
-                    .Should().Be.EqualTo("Red");
-            colorYellow1.Name
-                        .Should().Be.EqualTo("fffcfe00");
-            colorYellow2.Name
-                        .Should().Be.EqualTo("fffcfe00");
-            colorYellow3.Name
-                        .Should().Be.EqualTo("fffcfe00");
-            colorGreen.Name
-                      .Should().Be.EqualTo("ff008000");
+            Assert.AreEqual("Red", colorRed.Name);
+            Assert.AreEqual("fffcfe00", colorYellow1.Name);
+            Assert.AreEqual("fffcfe00", colorYellow2.Name);
+            Assert.AreEqual("fffcfe00", colorYellow3.Name);
+            Assert.AreEqual("ff008000", colorGreen.Name);
 
             // dump all colors to html file for visual test
             const string path = "GetPerformanceColors.html";

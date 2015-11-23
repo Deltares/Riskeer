@@ -3,7 +3,6 @@ using Core.Common.Tests.TestObjects;
 using Core.Common.TestUtils;
 using log4net.Core;
 using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Core.Common.Tests.Gui
 {
@@ -54,7 +53,7 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void CheckViewPropertyEditorIsInitialized()
         {
-            ViewPropertyEditor.Gui.Should().Not.Be.Null();
+            Assert.NotNull(ViewPropertyEditor.Gui);
         }
     }
 }
