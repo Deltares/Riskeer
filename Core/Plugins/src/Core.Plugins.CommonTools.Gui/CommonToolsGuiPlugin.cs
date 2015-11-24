@@ -117,8 +117,8 @@ namespace Core.Plugins.CommonTools.Gui
 
             InitializeChartLegendView();
 
-            Gui.Application.ProjectClosing += ApplicationProjectClosing;
-            Gui.Application.ProjectOpening += ApplicationProjectOpening;
+            Gui.ApplicationCore.ProjectClosing += ApplicationProjectClosing;
+            Gui.ApplicationCore.ProjectOpening += ApplicationProjectOpening;
 
             if (Gui != null && Gui.DocumentViews != null)
             {

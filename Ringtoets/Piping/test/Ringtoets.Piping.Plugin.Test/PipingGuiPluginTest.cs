@@ -86,12 +86,12 @@ namespace Ringtoets.Piping.Plugin.Test
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication
+            var applicationCore = new ApplicationCore
             {
                 ActivityRunner = activityRunnerStub
             };
 
-            guiStub.Application = application;
+            guiStub.ApplicationCore = applicationCore;
 
             using (var guiPlugin = new PipingGuiPlugin
             {

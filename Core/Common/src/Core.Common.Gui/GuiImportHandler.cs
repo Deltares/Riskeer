@@ -82,7 +82,7 @@ namespace Core.Common.Gui
             var targetType = target == null ? null : target.GetType();
 
             IList<IFileImporter> importers = new List<IFileImporter>();
-            foreach (IFileImporter importer in gui.Application.FileImporters)
+            foreach (IFileImporter importer in gui.ApplicationCore.FileImporters)
             {
                 importer.TargetDataDirectory = ProjectDataDirectory;
 
@@ -147,7 +147,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return Path.GetDirectoryName(gui.Application.ProjectFilePath);
+                return Path.GetDirectoryName(gui.ApplicationCore.ProjectFilePath);
             }
         }
 
@@ -155,7 +155,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return gui.Application.ActivityRunner;
+                return gui.ApplicationCore.ActivityRunner;
             }
         }
 

@@ -58,7 +58,7 @@ namespace Application.Ringtoets
 
         static App()
         {
-            RingtoetsApplication.SetLanguageAndRegionalSettions(Settings.Default);
+            ApplicationCore.SetLanguageAndRegionalSettions(Settings.Default);
 
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
         }
@@ -75,9 +75,9 @@ namespace Application.Ringtoets
             }
 
             
-            //gui.Application.ProjectRepositoryFactory.SpeedUpSessionCreationUsingParallelThread = true;
-            //gui.Application.ProjectRepositoryFactory.SpeedUpConfigurationCreationUsingCaching = true;
-            //gui.Application.ProjectRepositoryFactory.ConfigurationCacheDirectory = gui.Application.GetUserSettingsDirectoryPath();
+            //gui.ApplicationCore.ProjectRepositoryFactory.SpeedUpSessionCreationUsingParallelThread = true;
+            //gui.ApplicationCore.ProjectRepositoryFactory.SpeedUpConfigurationCreationUsingCaching = true;
+            //gui.ApplicationCore.ProjectRepositoryFactory.ConfigurationCacheDirectory = gui.ApplicationCore.GetUserSettingsDirectoryPath();
             System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException, true);
 
             // handle exception from UI thread
@@ -110,7 +110,7 @@ namespace Application.Ringtoets
             {
                 if (runActivity != null)
                 {
-                    if (gui.Application.Project == null)
+                    if (gui.ApplicationCore.Project == null)
                     {
                         log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_No_project_found_load_project_first);
                         return;
@@ -118,7 +118,7 @@ namespace Application.Ringtoets
 
                     // search project for activities specified by the argument
                     var activity =
-                        gui.Application.Project.Items
+                        gui.ApplicationCore.Project.Items
                            .OfType<IActivity>()
                            .FirstOrDefault(a => a.Name == runActivity);
                     if (activity == null)
@@ -130,12 +130,12 @@ namespace Application.Ringtoets
                     }
 
                     log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_activity_0_, runActivity);
-                    gui.Application.RunActivity(activity);
+                    gui.ApplicationCore.RunActivity(activity);
                     log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity_0_ended_with_status_1_, runActivity, activity.Status);
 
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project_0_, gui.Application.Project.Name);
-                    gui.Application.SaveProject();
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project_0_, gui.Application.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project_0_, gui.ApplicationCore.Project.Name);
+                    gui.ApplicationCore.SaveProject();
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project_0_, gui.ApplicationCore.Project.Name);
                 }
             };
 
@@ -179,7 +179,7 @@ namespace Application.Ringtoets
                     ,new DemoProjectGuiPlugin()
 #endif
                 },
-                Application =
+                ApplicationCore =
                 {
                     Plugins =
                     {

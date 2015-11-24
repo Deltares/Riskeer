@@ -21,9 +21,9 @@ namespace Core.Plugins.ProjectExplorer.Tests
 
             mocks.ReplayAll();
 
-            var app = new RingtoetsApplication { UserSettings = settings };
+            var applicationCore = new ApplicationCore { UserSettings = settings };
 
-            gui.Application = app;
+            gui.ApplicationCore = applicationCore;
 
             var pluginGui = new ProjectExplorerGuiPlugin
             {

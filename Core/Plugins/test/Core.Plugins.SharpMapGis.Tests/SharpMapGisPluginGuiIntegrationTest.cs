@@ -23,7 +23,7 @@ namespace Core.Plugins.SharpMapGis.Tests
         {
             using (var gui = new RingtoetsGui())
             {
-                gui.Application.Plugins.Add(new SharpMapGisApplicationPlugin());
+                gui.ApplicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Run();
 
@@ -55,7 +55,7 @@ namespace Core.Plugins.SharpMapGis.Tests
                 map.Layers.Add(layer);
                 map.NotifyObservers();
 
-                gui.Application.Project.Items.Add(map);
+                gui.ApplicationCore.Project.Items.Add(map);
 
                 gui.CommandHandler.OpenView(map);
 
@@ -87,7 +87,7 @@ namespace Core.Plugins.SharpMapGis.Tests
         {
             using (var gui = new RingtoetsGui())
             {
-                gui.Application.Plugins.Add(new SharpMapGisApplicationPlugin());
+                gui.ApplicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Run();
 
@@ -118,7 +118,7 @@ namespace Core.Plugins.SharpMapGis.Tests
                 };
                 map.Layers.Add(layer);
 
-                gui.Application.Project.Items.Add(map);
+                gui.ApplicationCore.Project.Items.Add(map);
 
                 gui.CommandHandler.OpenView(map);
 

@@ -19,7 +19,7 @@ using log4net;
 
 namespace Core.Common.Base
 {
-    public class RingtoetsApplication : IDisposable
+    public class ApplicationCore : IDisposable
     {
         public event Action AfterRun;
 
@@ -31,12 +31,12 @@ namespace Core.Common.Base
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsApplication));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ApplicationCore));
 
         public Action WaitMethod;
 
         private Project project;
-        private RingtoetsApplicationSettings userSettings;
+        private ApplicationCoreSettings userSettings;
 
         private bool isRunning;
 
@@ -47,7 +47,7 @@ namespace Core.Common.Base
 
         private bool disposed;
 
-        public RingtoetsApplication()
+        public ApplicationCore()
         {
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
@@ -115,7 +115,7 @@ namespace Core.Common.Base
             }
             set
             {
-                userSettings = new RingtoetsApplicationSettings(value); // small hack, wrap settings so that we will know when they are changed.
+                userSettings = new ApplicationCoreSettings(value); // small hack, wrap settings so that we will know when they are changed.
             }
         }
 
@@ -177,7 +177,7 @@ namespace Core.Common.Base
         {
             if (isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_Run_Application_is_already_running);
+                throw new InvalidOperationException(Properties.Resources.ApplicationCore_Run_Application_is_already_running);
             }
 
             initializing = true;
@@ -185,11 +185,11 @@ namespace Core.Common.Base
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_starting);
+            log.Info(Properties.Resources.ApplicationCore_Run_starting);
 
             if (running)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_Run_Application_is_already_running);
+                throw new InvalidOperationException(Properties.Resources.ApplicationCore_Run_Application_is_already_running);
             }
 
             running = true;
@@ -202,17 +202,17 @@ namespace Core.Common.Base
 
             LogSystemInfo();
 
-            Plugins.ForEach(p => p.Application = this);
+            Plugins.ForEach(p => p.ApplicationCore = this);
 
             isRunning = true;
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Creating_new_project);
+            log.Info(Properties.Resources.ApplicationCore_Run_Creating_new_project);
             CreateNewProject();
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Activating_plugins);
+            log.Info(Properties.Resources.ApplicationCore_Run_Activating_plugins);
             ActivatePlugins();
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated);
+            log.Info(Properties.Resources.ApplicationCore_Run_Waiting_until_all_plugins_are_activated);
 
             Project = projectBeingCreated; // opens project in application
 
@@ -220,7 +220,7 @@ namespace Core.Common.Base
 
             stopwatch.Stop();
 
-            log.InfoFormat(Properties.Resources.RingtoetsApplication_Run_Ringtoets_is_ready_started_in_0_F3_seconds, stopwatch.ElapsedMilliseconds/1000.0);
+            log.InfoFormat(Properties.Resources.ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds, stopwatch.ElapsedMilliseconds/1000.0);
 
             if (AfterRun != null)
             {
@@ -247,7 +247,7 @@ namespace Core.Common.Base
         {
             if (!isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
+                throw new InvalidOperationException(Properties.Resources.ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
             }
 
             projectBeingCreated = new Project();
@@ -262,7 +262,7 @@ namespace Core.Common.Base
         {
             if (!isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
+                throw new InvalidOperationException(Properties.Resources.ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
             }
 
             // TODO: implement and remove Project = new Project();
@@ -330,7 +330,7 @@ namespace Core.Common.Base
 
         private void ActivatePlugins()
         {
-            log.Debug(Properties.Resources.RingtoetsApplication_Run_Activating_plugins);
+            log.Debug(Properties.Resources.ApplicationCore_Run_Activating_plugins);
 
             // Activate all plugins
             foreach (var plugin in Plugins)
@@ -351,7 +351,7 @@ namespace Core.Common.Base
                 Environment.CurrentDirectory = cwd;
             }
 
-            log.Debug(Properties.Resources.RingtoetsApplication_ActivatePlugins_All_plugins_were_activated);
+            log.Debug(Properties.Resources.ApplicationCore_ActivatePlugins_All_plugins_were_activated);
         }
 
         /// <summary>
@@ -374,7 +374,7 @@ namespace Core.Common.Base
 
         private static void LogSystemInfo()
         {
-            log.DebugFormat(Properties.Resources.RingtoetsApplication_LogSystemInfo_Environmental_variables_);
+            log.DebugFormat(Properties.Resources.ApplicationCore_LogSystemInfo_Environmental_variables_);
 
             var culture = Thread.CurrentThread.CurrentCulture;
             log.DebugFormat("{0} = {1}", "CURRENT_THREAD_CULTURE", culture.EnglishName);
@@ -425,7 +425,7 @@ namespace Core.Common.Base
             disposed = true;
         }
 
-        ~RingtoetsApplication()
+        ~ApplicationCore()
         {
             Dispose(false);
         }

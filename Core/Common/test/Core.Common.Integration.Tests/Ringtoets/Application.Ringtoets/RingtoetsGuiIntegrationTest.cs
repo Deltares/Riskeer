@@ -29,10 +29,10 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -56,10 +56,10 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -67,10 +67,10 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 Action onShown = delegate
                 {
                     var testActivity = new TestActivity();
-                    gui.Application.ActivityRunner.Enqueue(testActivity);
+                    gui.ApplicationCore.ActivityRunner.Enqueue(testActivity);
                     try
                     {
-                        while (!gui.Application.ActivityRunner.IsRunningActivity(testActivity))
+                        while (!gui.ApplicationCore.ActivityRunner.IsRunningActivity(testActivity))
                         {
                             Thread.Sleep(0);
                         }
@@ -84,7 +84,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                         testActivity.Done = true;
                     }
 
-                    while (gui.Application.ActivityRunner.IsRunningActivity(testActivity))
+                    while (gui.ApplicationCore.ActivityRunner.IsRunningActivity(testActivity))
                     {
                         Thread.Sleep(0);
                     }
@@ -113,10 +113,10 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
 
                 gui.Run();
             }
@@ -133,17 +133,17 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Plugins.Add(new CommonToolsGuiPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();
 
-                Action onShown = () => TestHelper.AssertIsFasterThan(300, gui.Application.CreateNewProject);
+                Action onShown = () => TestHelper.AssertIsFasterThan(300, gui.ApplicationCore.CreateNewProject);
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
             }
@@ -154,25 +154,25 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();
 
-                app.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
+                applicationCore.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
 
                 gui.MainWindow.Show();
 
                 for (int i = 0; i < 20; i++)
                 {
                     var map = new Map();
-                    app.Project.Items.Add(map);
+                    applicationCore.Project.Items.Add(map);
                     gui.CommandHandler.OpenView(map);
                 }
-                app.SaveProjectAs(TestHelper.GetCurrentMethodName() + ".dsproj");
+                applicationCore.SaveProjectAs(TestHelper.GetCurrentMethodName() + ".dsproj");
 
                 TestHelper.AssertIsFasterThan(200, gui.Exit);
             }
@@ -187,7 +187,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
-                Assert.AreEqual(gui.Application.Project, gui.Selection);
+                Assert.AreEqual(gui.ApplicationCore.Project, gui.Selection);
             }
         }
 
@@ -210,7 +210,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -220,7 +220,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 var treeView = projectExplorer.TreeView;
                 treeView.SelectedNode = treeView.Nodes[0]; // project node
 
-                Assert.AreEqual(app.Project, gui.Selection);
+                Assert.AreEqual(applicationCore.Project, gui.Selection);
             }
         }
 
@@ -251,10 +251,10 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var app = gui.Application;
+                var applicationCore = gui.ApplicationCore;
 
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();

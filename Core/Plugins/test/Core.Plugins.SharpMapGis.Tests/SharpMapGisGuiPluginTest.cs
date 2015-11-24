@@ -40,9 +40,9 @@ namespace Core.Plugins.SharpMapGis.Tests
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication { Project = project };
+            var applicationCore = new ApplicationCore { Project = project };
 
-            gui.Application = application;
+            gui.ApplicationCore = applicationCore;
 
             sharpMapGisPluginGui.Gui = gui;
 

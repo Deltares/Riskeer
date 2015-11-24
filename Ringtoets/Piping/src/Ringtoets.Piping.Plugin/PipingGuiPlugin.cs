@@ -34,12 +34,12 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PipingCalculationInputsNodePresenter
             {
-                RunActivityAction = Gui.Application.ActivityRunner.Enqueue
+                RunActivityAction = Gui.ApplicationCore.ActivityRunner.Enqueue
             };
             yield return new PipingInputContextNodePresenter();
             yield return new PipingFailureMechanismNodePresenter
             {
-                RunActivityAction = Gui.Application.ActivityRunner.Enqueue
+                RunActivityAction = Gui.ApplicationCore.ActivityRunner.Enqueue
             };
             yield return new PipingSurfaceLineCollectionNodePresenter
             {

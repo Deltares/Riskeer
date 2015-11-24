@@ -18,7 +18,7 @@ namespace Core.Plugins.ProjectExplorer
     {
         private readonly TreeView treeView;
         private GuiPlugin guiPlugin;
-        private RingtoetsApplication app;
+        private ApplicationCore applicationCore;
         private IGui gui;
         private Project project;
 
@@ -59,7 +59,7 @@ namespace Core.Plugins.ProjectExplorer
             {
                 guiPlugin = value;
 
-                app = guiPlugin.Gui.Application;
+                applicationCore = guiPlugin.Gui.ApplicationCore;
                 gui = guiPlugin.Gui;
 
                 gui.SelectionChanged += GuiSelectionChanged;
@@ -131,7 +131,7 @@ namespace Core.Plugins.ProjectExplorer
             {
                 buttonFolderAdd.Enabled = true;
 
-                buttonFolderAddNewItem.Enabled = app.Plugins.Any(p => p.GetDataItemInfos().Any());
+                buttonFolderAddNewItem.Enabled = applicationCore.Plugins.Any(p => p.GetDataItemInfos().Any());
 
                 buttonFolderDelete.Available = treeView.SelectedNodeCanDelete();
                 buttonFolderRename.Enabled = treeView.SelectedNodeCanRename();
@@ -151,7 +151,7 @@ namespace Core.Plugins.ProjectExplorer
                 gui.SelectionChanged -= GuiSelectionChanged;
             }
 
-            if (app != null)
+            if (applicationCore != null)
             {
                 UnsubscribeProjectEvents();
             }
@@ -161,7 +161,7 @@ namespace Core.Plugins.ProjectExplorer
 
             base.Dispose();
 
-            app = null;
+            applicationCore = null;
         }
 
         public void EnsureVisible(object item) {}
@@ -242,18 +242,18 @@ namespace Core.Plugins.ProjectExplorer
 
         private void SubscribeProjectEvents()
         {
-            app.ProjectOpened += AppProjectOpened;
+            applicationCore.ProjectOpened += ApplicationCoreProjectOpened;
         }
 
         private void UnsubscribeProjectEvents()
         {
             if (project != null)
             {
-                app.ProjectOpened -= AppProjectOpened;
+                applicationCore.ProjectOpened -= ApplicationCoreProjectOpened;
             }
         }
 
-        private void AppProjectOpened(Project project)
+        private void ApplicationCoreProjectOpened(Project project)
         {
             Project = project;
         }

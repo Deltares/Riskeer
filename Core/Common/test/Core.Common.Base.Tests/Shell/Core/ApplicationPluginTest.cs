@@ -13,7 +13,7 @@ namespace Core.Common.Base.Tests.Shell.Core
             var applicationPlugin = new SimpleApplicationPlugin();
 
             // assert
-            Assert.IsNull(applicationPlugin.Application);
+            Assert.IsNull(applicationPlugin.ApplicationCore);
         }
 
         [Test]

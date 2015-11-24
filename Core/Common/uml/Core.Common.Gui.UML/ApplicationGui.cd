@@ -14,7 +14,7 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Core.Common.Base.RingtoetsApplication">
+  <Class Name="Core.Common.Base.ApplicationCore">
     <Position X="5.25" Y="7.75" Width="4" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />

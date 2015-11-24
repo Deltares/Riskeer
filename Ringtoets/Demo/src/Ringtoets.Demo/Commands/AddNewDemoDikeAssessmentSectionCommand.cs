@@ -29,7 +29,7 @@ namespace Ringtoets.Demo.Commands
 
         public void Execute(params object[] arguments)
         {
-            var project = Gui.Application.Project;
+            var project = Gui.ApplicationCore.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();
         }

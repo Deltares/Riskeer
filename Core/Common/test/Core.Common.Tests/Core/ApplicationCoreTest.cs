@@ -7,15 +7,15 @@ using Rhino.Mocks;
 namespace Core.Common.Tests.Core
 {
     [TestFixture]
-    public class RingtoetsApplicationTest
+    public class ApplicationCoreTest
     {
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void ApplicationShouldRunBeforeProjectCanBeOpened()
         {
-            using (var app = new RingtoetsApplication())
+            using (var applicationCore = new ApplicationCore())
             {
-                app.OpenProject(null);
+                applicationCore.OpenProject(null);
             }
         }
 
@@ -23,9 +23,9 @@ namespace Core.Common.Tests.Core
         [ExpectedException(typeof(InvalidOperationException))]
         public void ApplicationShouldRunBeforeProjectCanBeCreated()
         {
-            using (var app = new RingtoetsApplication())
+            using (var applicationCore = new ApplicationCore())
             {
-                app.OpenProject(null);
+                applicationCore.OpenProject(null);
             }
         }
 
@@ -33,10 +33,10 @@ namespace Core.Common.Tests.Core
         [ExpectedException(typeof(InvalidOperationException))]
         public void ApplicationRunCanBeCalledOnlyOnce()
         {
-            using (var app = new RingtoetsApplication())
+            using (var applicationCore = new ApplicationCore())
             {
-                app.Run();
-                app.Run();
+                applicationCore.Run();
+                applicationCore.Run();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Core.Common.Tests.Core
 
             var plugin = mocks.StrictMock<ApplicationPlugin>();
 
-            Expect.Call(plugin.Application = null).IgnoreArguments();
+            Expect.Call(plugin.ApplicationCore = null).IgnoreArguments();
             Expect.Call(plugin.Deactivate);
             Expect.Call(plugin.GetDataItemInfos()).Return(new List<DataItemInfo>()).Repeat.Any();
 
@@ -56,12 +56,12 @@ namespace Core.Common.Tests.Core
 
             mocks.ReplayAll();
 
-            using (var ringtoetsApplication = new RingtoetsApplication())
+            using (var applicationCore = new ApplicationCore())
             {
-                ringtoetsApplication.Plugins.Add(plugin);
-                ringtoetsApplication.Run();
+                applicationCore.Plugins.Add(plugin);
+                applicationCore.Run();
 
-                ringtoetsApplication.Dispose();
+                applicationCore.Dispose();
 
                 mocks.VerifyAll();
             }

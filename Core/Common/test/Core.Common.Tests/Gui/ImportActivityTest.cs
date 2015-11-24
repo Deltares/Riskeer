@@ -35,12 +35,12 @@ namespace Core.Common.Tests.Gui
 
             mockRepository.ReplayAll();
 
-            var app = new RingtoetsApplication
+            var applicationCore = new ApplicationCore
             {
                 Project = project
             };
 
-            gui.Application = app;
+            gui.ApplicationCore = applicationCore;
 
             // expect some reporting while processing each file
             fileImportActivity.OnImportFinished += (sender, importedObject, theImporter) =>
@@ -52,7 +52,7 @@ namespace Core.Common.Tests.Gui
             fileImportActivity.Initialize();
             fileImportActivity.Execute();
 
-            Assert.AreEqual(3, app.Project.Items.Count);
+            Assert.AreEqual(3, applicationCore.Project.Items.Count);
 
             mockRepository.VerifyAll();
         }

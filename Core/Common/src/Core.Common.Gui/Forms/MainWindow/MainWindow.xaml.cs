@@ -272,7 +272,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void ShowStartPage(bool checkUseSettings = true)
         {
-            if (!checkUseSettings || Convert.ToBoolean((object) Gui.Application.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
+            if (!checkUseSettings || Convert.ToBoolean((object) Gui.ApplicationCore.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
                 log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
@@ -650,8 +650,8 @@ namespace Core.Common.Gui.Forms.MainWindow
                 ButtonShowProperties.IsChecked = Gui.ToolWindowViews.Contains(PropertyGrid);
             }
 
-            var appHasProject = (Gui.Application.Project != null);
-            var isActivityRunning = Gui.Application.IsActivityRunning();
+            var appHasProject = (Gui.ApplicationCore.Project != null);
+            var isActivityRunning = Gui.ApplicationCore.IsActivityRunning();
 
             // filemenu items dependent on existence of project and if processes are running
             /*
@@ -737,7 +737,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             /*
             if (actionSuccesful)
             {
-                AddNewMruItem(Gui.Application.ProjectFilePath);
+                AddNewMruItem(Gui.ApplicationCore.ProjectFilePath);
                 CommitMruToSettings();
             }
             ValidateItems();
@@ -778,7 +778,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private string GetLayoutFilePath(string perspective)
         {
-            string localUserSettingsDirectory = Gui.Application.GetUserSettingsDirectoryPath();
+            string localUserSettingsDirectory = Gui.ApplicationCore.GetUserSettingsDirectoryPath();
             string layoutFileName = GetLayoutFileName(perspective);
             return Path.Combine(localUserSettingsDirectory, layoutFileName);
         }
@@ -947,7 +947,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             AddRecentlyOpenedProjectsToFileMenu();
 
-            SetColorTheme((string) Gui.Application.UserSettings["colorTheme"]);
+            SetColorTheme((string) Gui.ApplicationCore.UserSettings["colorTheme"]);
             FileManualButton.IsEnabled = File.Exists(ConfigurationManager.AppSettings["manualFileName"]);
 
             // TODO: Enable as soon as relevant/implemented
@@ -1100,8 +1100,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             return new GeneralOptionsControl
             {
-                UserSettings = Gui.Application.UserSettings,
-                ColorTheme = (string) Gui.Application.UserSettings["colorTheme"],
+                UserSettings = Gui.ApplicationCore.UserSettings,
+                ColorTheme = (string) Gui.ApplicationCore.UserSettings["colorTheme"],
                 OnAcceptChanges = ApplyColorTheme
             };
         }
@@ -1138,7 +1138,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 DockingManager.Theme = new GenericTheme();
             }
 
-            Gui.Application.UserSettings["colorTheme"] = colorTheme;
+            Gui.ApplicationCore.UserSettings["colorTheme"] = colorTheme;
         }
 
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
@@ -1215,8 +1215,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OpenStartPage()
         {
-            var welcomePageName = (string) Gui.Application.UserSettings["startPageName"];
-            var welcomePageUrl = Gui.Application.Settings["startPageUrl"];
+            var welcomePageName = (string) Gui.ApplicationCore.UserSettings["startPageName"];
+            var welcomePageUrl = Gui.ApplicationCore.Settings["startPageUrl"];
 
             var url = new Url(welcomePageName, welcomePageUrl);
             Gui.CommandHandler.OpenView(url);
@@ -1291,8 +1291,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 HasProgress = false,
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = Gui.Application.Settings["copyright"],
-                LicenseText = Gui.Application.Settings["license"],
+                CopyrightText = Gui.ApplicationCore.Settings["copyright"],
+                LicenseText = Gui.ApplicationCore.Settings["license"],
                 CompanyText = SettingsHelper.ApplicationCompany,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,

@@ -41,18 +41,18 @@ namespace Core.Common.Tests.Gui
         public void DisposingGuiDisposesApplication()
         {
             // Setup
-            var ringtoetsApplication = new RingtoetsApplication();
+            var applicationCore = new ApplicationCore();
 
-            gui.Application = ringtoetsApplication;
+            gui.ApplicationCore = applicationCore;
 
             // Precondition
-            Assert.IsNotNull(ringtoetsApplication.Plugins);
+            Assert.IsNotNull(applicationCore.Plugins);
 
             // Call
             gui.Dispose();
 
             // Assert
-            Assert.IsNull(ringtoetsApplication.Plugins);
+            Assert.IsNull(applicationCore.Plugins);
         }
 
         [Test]

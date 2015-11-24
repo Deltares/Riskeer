@@ -37,12 +37,12 @@ namespace Ringtoets.Demo.Test.Commands
             mocks.ReplayAll();
 
             var project = new Project();
-            var ringtoetsApplication = new RingtoetsApplication
+            var applicationCore = new ApplicationCore
             {
                 Project = project
             };
 
-            guiMock.Application = ringtoetsApplication;
+            guiMock.ApplicationCore = applicationCore;
 
             var command = new AddNewDemoDuneAssessmentSectionCommand
             {

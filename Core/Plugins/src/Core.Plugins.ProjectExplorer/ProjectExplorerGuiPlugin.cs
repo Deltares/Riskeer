@@ -43,9 +43,9 @@ namespace Core.Plugins.ProjectExplorer
                 UpdateProjectTreeViewWithRegisteredNodePresenters();
 
                 // todo redesign user settings to expand settings per plugin
-                //var isSorted = Gui.Application.Settings["IsProjectExplorerSorted"];
+                //var isSorted = Gui.ApplicationCore.Settings["IsProjectExplorerSorted"];
                 //projectExplorer.ProjectTreeView.IsSorted = (isSorted == null || bool.Parse(isSorted));
-                ProjectExplorer.ProjectTreeView.Project = Gui.Application.Project;
+                ProjectExplorer.ProjectTreeView.Project = Gui.ApplicationCore.Project;
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
             }
 
@@ -61,11 +61,11 @@ namespace Core.Plugins.ProjectExplorer
 
             InitializeProjectTreeView();
 
-            Gui.Application.ProjectOpened += ApplicationProjectOpened;
-            Gui.Application.ProjectClosing += ApplicationProjectClosed;
+            Gui.ApplicationCore.ProjectOpened += ApplicationProjectOpened;
+            Gui.ApplicationCore.ProjectClosing += ApplicationProjectClosed;
 
-            Gui.Application.ProjectSaving += ApplicationOnProjectSaving;
-            Gui.Application.ProjectSaved += ApplicationProjectSaved;
+            Gui.ApplicationCore.ProjectSaving += ApplicationOnProjectSaving;
+            Gui.ApplicationCore.ProjectSaved += ApplicationProjectSaved;
         }
 
         public override void Dispose()
@@ -84,10 +84,10 @@ namespace Core.Plugins.ProjectExplorer
         public override void Deactivate()
         {
             base.Deactivate();
-            Gui.Application.ProjectOpened -= ApplicationProjectOpened;
-            Gui.Application.ProjectClosing -= ApplicationProjectClosed;
-            Gui.Application.ProjectSaving -= ApplicationOnProjectSaving;
-            Gui.Application.ProjectSaved -= ApplicationProjectSaved;
+            Gui.ApplicationCore.ProjectOpened -= ApplicationProjectOpened;
+            Gui.ApplicationCore.ProjectClosing -= ApplicationProjectClosed;
+            Gui.ApplicationCore.ProjectSaving -= ApplicationOnProjectSaving;
+            Gui.ApplicationCore.ProjectSaved -= ApplicationProjectSaved;
             Gui.ToolWindowViews.Remove(ProjectExplorer);
 
             //should the 'instance' be set to null as well???

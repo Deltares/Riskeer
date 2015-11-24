@@ -41,7 +41,7 @@ namespace Core.Common.Gui
         private static RingtoetsGui instance;
         private static string instanceCreationStackTrace;
 
-        private RingtoetsApplication application;
+        private ApplicationCore applicationCore;
         private MainWindow mainWindow;
 
         private object selection;
@@ -72,7 +72,7 @@ namespace Core.Common.Gui
             instanceCreationStackTrace = new StackTrace().ToString();
             ViewPropertyEditor.Gui = this;
 
-            Application = new RingtoetsApplication
+            ApplicationCore = new ApplicationCore
             {
                 IsProjectCreatedInTemporaryDirectory = true,
                 WaitMethod = () => System.Windows.Forms.Application.DoEvents()
@@ -80,10 +80,10 @@ namespace Core.Common.Gui
 
             Plugins = new List<GuiPlugin>();
 
-            application.UserSettings = Settings.Default;
-            application.Settings = ConfigurationManager.AppSettings;
+            applicationCore.UserSettings = Settings.Default;
+            applicationCore.Settings = ConfigurationManager.AppSettings;
 
-            application.Resources = new ResourceManager(typeof(Resources));
+            applicationCore.Resources = new ResourceManager(typeof(Resources));
 
             CommandHandler = new GuiCommandHandler(this);
 
@@ -94,33 +94,33 @@ namespace Core.Common.Gui
 
         public Action OnMainWindowLoaded { get; set; }
 
-        public RingtoetsApplication Application
+        public ApplicationCore ApplicationCore
         {
             get
             {
-                return application;
+                return applicationCore;
             }
             set
             {
-                if (application != null)
+                if (applicationCore != null)
                 {
-                    Application.ProjectClosing -= ApplicationProjectClosing;
-                    Application.ProjectOpened -= ApplicationProjectOpened;
-                    Application.ProjectSaved -= ApplicationProjectSaved;
-                    Application.ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
-                    Application.ActivityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
+                    ApplicationCore.ProjectClosing -= ApplicationProjectClosing;
+                    ApplicationCore.ProjectOpened -= ApplicationProjectOpened;
+                    ApplicationCore.ProjectSaved -= ApplicationProjectSaved;
+                    ApplicationCore.ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
+                    ApplicationCore.ActivityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
                 }
 
-                application = value;
+                applicationCore = value;
 
-                if (application != null)
+                if (applicationCore != null)
                 {
                     // subscribe to application events so that we can handle opening, closing, renamig of views on project changes
-                    Application.ProjectClosing += ApplicationProjectClosing;
-                    Application.ProjectOpened += ApplicationProjectOpened;
-                    Application.ProjectSaved += ApplicationProjectSaved;
-                    Application.ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
-                    Application.ActivityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
+                    ApplicationCore.ProjectClosing += ApplicationProjectClosing;
+                    ApplicationCore.ProjectOpened += ApplicationProjectOpened;
+                    ApplicationCore.ProjectSaved += ApplicationProjectSaved;
+                    ApplicationCore.ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
+                    ApplicationCore.ActivityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
                 }
             }
         }
@@ -236,13 +236,13 @@ namespace Core.Common.Gui
 
             if (!String.IsNullOrEmpty(projectPath))
             {
-                application.Run(projectPath);
+                applicationCore.Run(projectPath);
             }
             else
             {
                 log.Info(Resources.RingtoetsGui_Run_Starting_application);
 
-                application.Run();
+                applicationCore.Run();
             }
 
             log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface);
@@ -280,9 +280,9 @@ namespace Core.Common.Gui
 
             mainWindow.ClearDocumentTabs();
 
-            mainWindow.SaveLayout(); // save before Application.Exit
+            mainWindow.SaveLayout(); // save before ApplicationCore.Exit
 
-            Application.Exit();
+            ApplicationCore.Exit();
 
             // close faster (hide main window)
             mainWindow.Visible = false;
@@ -329,17 +329,17 @@ namespace Core.Common.Gui
 
                 try
                 {
-                    if (Application != null)
+                    if (ApplicationCore != null)
                     {
-                        if (Application.ActivityRunner.IsRunning)
+                        if (ApplicationCore.ActivityRunner.IsRunning)
                         {
-                            Application.ActivityRunner.CancelAll();
-                            while (Application.ActivityRunner.IsRunning)
+                            ApplicationCore.ActivityRunner.CancelAll();
+                            while (ApplicationCore.ActivityRunner.IsRunning)
                             {
                                 System.Windows.Forms.Application.DoEvents();
                             }
                         }
-                        Application.CloseProject(); // lots of unsubscribe logic in plugins reacts on this
+                        ApplicationCore.CloseProject(); // lots of unsubscribe logic in plugins reacts on this
                     }
                 }
                 finally
@@ -404,14 +404,14 @@ namespace Core.Common.Gui
 
                     MessageWindowLogAppender.MessageWindow = null;
 
-                    if (Application != null)
+                    if (ApplicationCore != null)
                     {
-                        Application.Dispose();
+                        ApplicationCore.Dispose();
                     }
 
                     RemoveLogging();
 
-                    Application = null;
+                    ApplicationCore = null;
                 }
             }
 
@@ -524,7 +524,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            if (!Application.IsActivityRunning())
+            if (!ApplicationCore.IsActivityRunning())
             {
                 ResumeUI();
             }
@@ -564,18 +564,18 @@ namespace Core.Common.Gui
                 progressDialog = new ProgressDialog();
                 progressDialog.CancelClicked += delegate
                 {
-                    Application.ActivityRunner.CancelAll();
+                    ApplicationCore.ActivityRunner.CancelAll();
 
                     // wait until all import activities are finished
-                    while (Application.IsActivityRunning())
+                    while (ApplicationCore.IsActivityRunning())
                     {
                         System.Windows.Forms.Application.DoEvents();
                     }
                 };
-                progressDialog.Data = Application.ActivityRunner.Activities;
+                progressDialog.Data = ApplicationCore.ActivityRunner.Activities;
             }
 
-            if (Application.ActivityRunner.IsRunning)
+            if (ApplicationCore.ActivityRunner.IsRunning)
             {
                 if (!progressDialog.Visible)
                 {
@@ -676,8 +676,8 @@ namespace Core.Common.Gui
             splashScreen = new SplashScreen()
             {
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = Application.Settings["copyright"],
-                LicenseText = Application.Settings["license"],
+                CopyrightText = ApplicationCore.Settings["copyright"],
+                LicenseText = ApplicationCore.Settings["license"],
                 CompanyText = SettingsHelper.ApplicationCompany
             };
 
@@ -696,7 +696,7 @@ namespace Core.Common.Gui
                 }
             };
 
-            object showSplashScreen = Application.UserSettings["showSplashScreen"];
+            object showSplashScreen = ApplicationCore.UserSettings["showSplashScreen"];
             if (showSplashScreen != null && bool.Parse(showSplashScreen.ToString()))
             {
                 splashScreen.Show();
@@ -780,12 +780,12 @@ namespace Core.Common.Gui
         {
             //NOTE: DUPLICATED BY GuiCommandHandler::UpdateGui --> todo, remove the duplication
 
-            string mainWindowTitle = Application.Settings["mainWindowTitle"];
+            string mainWindowTitle = ApplicationCore.Settings["mainWindowTitle"];
 
             string projectTitle = "<None>";
-            if (Application.Project != null)
+            if (ApplicationCore.Project != null)
             {
-                projectTitle = Application.Project.Name;
+                projectTitle = ApplicationCore.Project.Name;
             }
 
             // TODO: this must be moved to MainWindow which should listen to project changes
@@ -962,10 +962,10 @@ namespace Core.Common.Gui
         {
             StringCollection defaultViews;
             StringCollection defaultViewDataTypes;
-            if (Application.UserSettings["defaultViews"] != null)
+            if (ApplicationCore.UserSettings["defaultViews"] != null)
             {
-                defaultViews = (StringCollection) Application.UserSettings["defaultViews"];
-                defaultViewDataTypes = (StringCollection) Application.UserSettings["defaultViewDataTypes"];
+                defaultViews = (StringCollection) ApplicationCore.UserSettings["defaultViews"];
+                defaultViewDataTypes = (StringCollection) ApplicationCore.UserSettings["defaultViewDataTypes"];
             }
             else
             {
@@ -998,8 +998,8 @@ namespace Core.Common.Gui
                 defaultViewDataTypes.Add(objectType.ToString());
             }
 
-            Application.UserSettings["defaultViews"] = defaultViews;
-            Application.UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
+            ApplicationCore.UserSettings["defaultViews"] = defaultViews;
+            ApplicationCore.UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
         }
 
         ~RingtoetsGui()

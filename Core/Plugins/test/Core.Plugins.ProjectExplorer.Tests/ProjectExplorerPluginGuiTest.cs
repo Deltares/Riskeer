@@ -14,7 +14,7 @@ namespace Core.Plugins.ProjectExplorer.Tests
     {
         private IGui gui;
         private MockRepository mocks;
-        private RingtoetsApplication app;
+        private ApplicationCore applicationCore;
         private ITreeNodePresenter mockNodePresenter;
         private ProjectExplorerGuiPlugin projectExplorerPluginGui;
 
@@ -50,7 +50,7 @@ namespace Core.Plugins.ProjectExplorer.Tests
 
             mocks.ReplayAll();
 
-            app = new RingtoetsApplication
+            applicationCore = new ApplicationCore
             {
                 Project = new Project(),
                 Plugins = { plugin },
@@ -58,8 +58,8 @@ namespace Core.Plugins.ProjectExplorer.Tests
                 Settings = new NameValueCollection { { "IsProjectExplorerSorted", "false" } }
             };
 
-            gui.Application = app;
-            plugin.Application = app;
+            gui.ApplicationCore = applicationCore;
+            plugin.ApplicationCore = applicationCore;
         }
 
         [TearDown]

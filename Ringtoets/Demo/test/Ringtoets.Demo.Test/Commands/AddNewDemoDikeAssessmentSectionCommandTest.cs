@@ -43,12 +43,12 @@ namespace Ringtoets.Demo.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var ringtoetsApplication = new RingtoetsApplication
+            var applicationCore = new ApplicationCore
             {
                 Project = project
             };
 
-            guiMock.Application = ringtoetsApplication;
+            guiMock.ApplicationCore = applicationCore;
 
             var command = new AddNewDemoDikeAssessmentSectionCommand
             {

@@ -127,9 +127,9 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
 
             mocks.ReplayAll();
 
-            var app = new RingtoetsApplication { Project = new Project() };
+            var applicationCore = new ApplicationCore { Project = new Project() };
 
-            gui.Application = app;
+            gui.ApplicationCore = applicationCore;
 
             guiPlugin.Gui = gui;
 

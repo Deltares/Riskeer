@@ -179,93 +179,93 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} van {1}.
-        /// </summary>
-        internal static string FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_ {
-            get {
-                return ResourceManager.GetString("FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle plugins zijn geactiveerd..
         /// </summary>
-        internal static string RingtoetsApplication_ActivatePlugins_All_plugins_were_activated {
+        internal static string ApplicationCore_ActivatePlugins_All_plugins_were_activated {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_ActivatePlugins_All_plugins_were_activated", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_ActivatePlugins_All_plugins_were_activated", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &apos;Run()&apos; moet eerst worden aangeroepen voordat het project kan worden geopend..
         /// </summary>
-        internal static string RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened {
+        internal static string ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_CreateNewProject_Run_must_be_called_first_before_project_can" +
-                        "_be_opened", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_o" +
+                        "pened", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Omgevingsvariabelen:.
         /// </summary>
-        internal static string RingtoetsApplication_LogSystemInfo_Environmental_variables_ {
+        internal static string ApplicationCore_LogSystemInfo_Environmental_variables_ {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_LogSystemInfo_Environmental_variables_", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_LogSystemInfo_Environmental_variables_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activeer plugins....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Activating_plugins {
+        internal static string ApplicationCore_Run_Activating_plugins {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Activating_plugins", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_Run_Activating_plugins", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets wordt al uitgevoerd en kan daarom niet nog een keer gestart worden..
         /// </summary>
-        internal static string RingtoetsApplication_Run_Application_is_already_running {
+        internal static string ApplicationCore_Run_Application_is_already_running {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Application_is_already_running", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_Run_Application_is_already_running", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nieuw project aanmaken....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Creating_new_project {
+        internal static string ApplicationCore_Run_Creating_new_project {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Creating_new_project", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_Run_Creating_new_project", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets is klaar, opstarttijd van {0:F3} seconden..
         /// </summary>
-        internal static string RingtoetsApplication_Run_Ringtoets_is_ready_started_in_0_F3_seconds {
+        internal static string ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Ringtoets_is_ready_started_in_0_F3_seconds", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets wordt gestart....
         /// </summary>
-        internal static string RingtoetsApplication_Run_starting {
+        internal static string ApplicationCore_Run_starting {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_starting", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_Run_starting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Wachten tot alle plugins zijn geactiveerd....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated {
+        internal static string ApplicationCore_Run_Waiting_until_all_plugins_are_activated {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated", resourceCulture);
+                return ResourceManager.GetString("ApplicationCore_Run_Waiting_until_all_plugins_are_activated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} van {1}.
+        /// </summary>
+        internal static string FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_ {
+            get {
+                return ResourceManager.GetString("FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_", resourceCulture);
             }
         }
     }

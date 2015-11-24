@@ -22,7 +22,7 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets or sets Application wrapped by the current Gui.
         /// </summary>
-        RingtoetsApplication Application { get; set; }
+        ApplicationCore ApplicationCore { get; set; }
 
         /// <summary>
         /// Gets or sets CommandHandler.
@@ -89,13 +89,13 @@ namespace Core.Common.Gui
         GuiPlugin GetPluginGuiForType(Type type);
 
         /// <summary>
-        /// Runs gui. Internally it runs <see cref="Application"/>, initializes all user interface components, including 
+        /// Runs gui. Internally it runs <see cref="ApplicationCore"/>, initializes all user interface components, including 
         /// those loaded from plugins. After that it creates and shows main window.
         /// </summary>
         void Run();
 
         /// <summary>
-        /// Runs gui and opens a given project in gui.Application.
+        /// Runs gui and opens a given project in gui.ApplicationCore.
         /// </summary>
         /// <param name="projectPath">Path to the project to be opened.</param>
         void Run(string projectPath);

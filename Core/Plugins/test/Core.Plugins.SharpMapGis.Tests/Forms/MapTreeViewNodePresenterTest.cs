@@ -45,10 +45,10 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             //create mocks because we are only testing presenter here
             var guiPlugin = mocks.Stub<GuiPlugin>();
             var gui = mocks.Stub<IGui>();
-            var app = mocks.Stub<RingtoetsApplication>();
+            var applicationCore = mocks.Stub<ApplicationCore>();
             tv = mocks.Stub<ITreeView>();
 
-            gui.Application = app;
+            gui.ApplicationCore = applicationCore;
             Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
             {
                 guiPlugin

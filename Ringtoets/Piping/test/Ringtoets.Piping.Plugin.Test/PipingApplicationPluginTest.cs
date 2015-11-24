@@ -12,10 +12,10 @@ namespace Ringtoets.Piping.Plugin.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            var ringtoetsApplicationPlugin = new PipingApplicationPlugin();
+            var pipingApplicationPlugin = new PipingApplicationPlugin();
 
             // assert
-            Assert.IsInstanceOf<ApplicationPlugin>(ringtoetsApplicationPlugin);
+            Assert.IsInstanceOf<ApplicationPlugin>(pipingApplicationPlugin);
         }
 
         [Test]

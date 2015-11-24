@@ -34,8 +34,8 @@ namespace Core.Common.Gui
         {
             this.gui = gui;
 
-            this.gui.Application.ProjectOpened += ApplicationProjectOpened;
-            this.gui.Application.ProjectClosing += ApplicationProjectClosing;
+            this.gui.ApplicationCore.ProjectOpened += ApplicationProjectOpened;
+            this.gui.ApplicationCore.ProjectClosing += ApplicationProjectClosing;
 
             guiImportHandler = CreateGuiImportHandler();
             guiExportHandler = CreateGuiExportHandler();
@@ -50,7 +50,7 @@ namespace Core.Common.Gui
             }
 
             Log.Info(Resources.Opening_new_project);
-            gui.Application.CreateNewProject();
+            gui.ApplicationCore.CreateNewProject();
             Log.Info(Resources.New_project_successfully_opened);
 
             RefreshGui();
@@ -86,7 +86,7 @@ namespace Core.Common.Gui
 
             var result = false;
 
-            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => result = gui.Application.OpenProject(filePath));
+            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => result = gui.ApplicationCore.OpenProject(filePath));
 
             RefreshGui();
 
@@ -95,7 +95,7 @@ namespace Core.Common.Gui
 
         public bool TryCloseProject()
         {
-            if (gui.Application.Project != null)
+            if (gui.ApplicationCore.Project != null)
             {
                 Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project);
 
@@ -104,10 +104,10 @@ namespace Core.Common.Gui
                 // remove views before closing project. 
                 if (!ViewList.DoNotDisposeViewsOnRemove)
                 {
-                    RemoveAllViewsForItem(gui.Application.Project);
+                    RemoveAllViewsForItem(gui.ApplicationCore.Project);
                 }
 
-                gui.Application.CloseProject();
+                gui.ApplicationCore.CloseProject();
 
                 RefreshGui();
 
@@ -231,7 +231,7 @@ namespace Core.Common.Gui
 
         public void AddNewItem(object parent)
         {
-            if (gui.Application.Project == null)
+            if (gui.ApplicationCore.Project == null)
             {
                 Log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
@@ -290,8 +290,8 @@ namespace Core.Common.Gui
 
         public void Dispose()
         {
-            gui.Application.ProjectOpened -= ApplicationProjectOpened;
-            gui.Application.ProjectClosing -= ApplicationProjectClosing;
+            gui.ApplicationCore.ProjectOpened -= ApplicationProjectOpened;
+            gui.ApplicationCore.ProjectClosing -= ApplicationProjectClosing;
         }
 
         private GuiImportHandler CreateGuiImportHandler()
@@ -301,7 +301,7 @@ namespace Core.Common.Gui
 
         private GuiExportHandler CreateGuiExportHandler()
         {
-            return new GuiExportHandler(delegate { return gui.Application.FileExporters; }, o => gui.DocumentViewsResolver.CreateViewForData(o));
+            return new GuiExportHandler(delegate { return gui.ApplicationCore.FileExporters; }, o => gui.DocumentViewsResolver.CreateViewForData(o));
         }
 
         private void ApplicationProjectClosing(Project project)
@@ -335,7 +335,7 @@ namespace Core.Common.Gui
         private void ProjectCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             // Don't remove views during run-time of models:
-            if (gui.Application.ActivityRunner.IsRunning)
+            if (gui.ApplicationCore.ActivityRunner.IsRunning)
             {
                 return;
             }
@@ -352,12 +352,12 @@ namespace Core.Common.Gui
         private void AddProjectToMruList()
         {
             var mruList = (StringCollection) Core.Common.Gui.Properties.Settings.Default["mruList"];
-            if (mruList.Contains(gui.Application.ProjectFilePath))
+            if (mruList.Contains(gui.ApplicationCore.ProjectFilePath))
             {
-                mruList.Remove(gui.Application.ProjectFilePath);
+                mruList.Remove(gui.ApplicationCore.ProjectFilePath);
             }
 
-            mruList.Insert(0, gui.Application.ProjectFilePath);
+            mruList.Insert(0, gui.ApplicationCore.ProjectFilePath);
         }
         
         private static void UnselectActiveControlToForceBinding()
@@ -374,7 +374,7 @@ namespace Core.Common.Gui
 
         private IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object parent)
         {
-            return gui.Application.Plugins
+            return gui.ApplicationCore.Plugins
                       .SelectMany(p => p.GetDataItemInfos())
                       .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(parent));
         }
@@ -435,8 +435,8 @@ namespace Core.Common.Gui
 
         public void AddItemToProject(object newItem)
         {
-            gui.Application.Project.Items.Add(newItem);
-            gui.Application.Project.NotifyObservers();
+            gui.ApplicationCore.Project.Items.Add(newItem);
+            gui.ApplicationCore.Project.NotifyObservers();
         }
 
         [InvokeRequired]
@@ -452,13 +452,13 @@ namespace Core.Common.Gui
         [InvokeRequired]
         private void RefreshGui()
         {
-            var project = gui.Application.Project;
+            var project = gui.ApplicationCore.Project;
 
             // Set the gui selection to the current project
             gui.Selection = project;
 
-            var mainWindowTitle = gui.Application.Settings != null
-                                      ? gui.Application.Settings["mainWindowTitle"]
+            var mainWindowTitle = gui.ApplicationCore.Settings != null
+                                      ? gui.ApplicationCore.Settings["mainWindowTitle"]
                                       : "Ringtoets";
 
             if (project == null)

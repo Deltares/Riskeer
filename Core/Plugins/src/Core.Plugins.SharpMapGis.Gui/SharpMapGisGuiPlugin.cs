@@ -135,11 +135,11 @@ namespace Core.Plugins.SharpMapGis.Gui
             gui.SelectionChanged += GuiSelectionChanged;
             gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
             gui.DocumentViews.ChildViewChanged += DocumentViewsActiveViewChanged;
-            gui.Application.ProjectClosing += ApplicationProjectClosing;
+            gui.ApplicationCore.ProjectClosing += ApplicationProjectClosing;
 
-            if (gui.Application.ActivityRunner != null)
+            if (gui.ApplicationCore.ActivityRunner != null)
             {
-                gui.Application.ActivityRunner.ActivityCompleted += ActivityRunnerOnActivityCompleted;
+                gui.ApplicationCore.ActivityRunner.ActivityCompleted += ActivityRunnerOnActivityCompleted;
             }
         }
 
@@ -155,14 +155,14 @@ namespace Core.Plugins.SharpMapGis.Gui
                     documentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
                 }
 
-                var application = gui.Application;
-                if (gui.Application != null)
+                var applicationCore = gui.ApplicationCore;
+                if (gui.ApplicationCore != null)
                 {
-                    application.ProjectClosing -= ApplicationProjectClosing;
+                    applicationCore.ProjectClosing -= ApplicationProjectClosing;
 
-                    if (application.ActivityRunner != null)
+                    if (applicationCore.ActivityRunner != null)
                     {
-                        application.ActivityRunner.ActivityCompleted -= ActivityRunnerOnActivityCompleted;
+                        applicationCore.ActivityRunner.ActivityCompleted -= ActivityRunnerOnActivityCompleted;
                     }
                 }
             }

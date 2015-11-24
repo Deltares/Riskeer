@@ -99,8 +99,8 @@
     </Compile>
     <Compile Include="ApplicationPlugin.cs" />
     <Compile Include="DataItemInfo.cs" />
-    <Compile Include="RingtoetsApplication.cs" />
-    <Compile Include="RingtoetsApplicationSettings.cs" />
+    <Compile Include="ApplicationCore.cs" />
+    <Compile Include="ApplicationCoreSettings.cs" />
     <Compile Include="RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="IFileExporter.cs" />
     <Compile Include="IFileImporter.cs" />

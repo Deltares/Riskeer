@@ -10,7 +10,7 @@ namespace Core.Common.Tests.Core
         [Test]
         public void CheckForValidAssembly()
         {
-            AssemblyUtils.AssemblyInfo info = AssemblyUtils.GetAssemblyInfo((typeof(RingtoetsApplication)).Assembly);
+            AssemblyUtils.AssemblyInfo info = AssemblyUtils.GetAssemblyInfo((typeof(ApplicationCore)).Assembly);
 
             Assert.AreEqual("Core.Common.Base", info.Title);
             Assert.IsNotNull(info.Version);

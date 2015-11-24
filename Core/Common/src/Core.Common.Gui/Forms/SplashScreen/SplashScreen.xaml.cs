@@ -10,7 +10,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
     /// </summary>
     public partial class SplashScreen
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsApplication));
+        private static readonly ILog log = LogManager.GetLogger(typeof(SplashScreen));
         private string progressText;
         private int progressValuePercent;
         private string licenseText;

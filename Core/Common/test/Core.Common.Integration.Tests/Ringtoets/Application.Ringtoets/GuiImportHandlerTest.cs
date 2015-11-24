@@ -5,10 +5,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
-using Core.Common.TestUtils;
-using Core.Plugins.CommonTools;
-using Core.Plugins.SharpMapGis;
-using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
@@ -20,31 +16,12 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
     {
         private MockRepository mocks;
         private IGui gui;
-        private RingtoetsApplication realApp;
-
-        private readonly ApplicationPlugin commonToolsPlugin = new CommonToolsApplicationPlugin();
 
         [SetUp]
         public void SetUp()
         {
-            LogHelper.SetLoggingLevel(Level.Error);
-
             mocks = new MockRepository();
-
             gui = mocks.Stub<IGui>();
-
-            realApp = new RingtoetsApplication();
-            realApp.Plugins.Add(commonToolsPlugin);
-            realApp.Plugins.Add(new SharpMapGisApplicationPlugin());
-            realApp.Run();
-
-            gui.Application = realApp;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            realApp.Dispose();
         }
 
         [Test]
@@ -55,6 +32,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             messageBox.Expect(mb => mb.Show(null, null, MessageBoxButtons.OK)).Return(DialogResult.OK).IgnoreArguments()
                       .Repeat.Once();
             messageBox.Replay();
+
+            gui.ApplicationCore = new ApplicationCore();
 
             var importHandler = new GuiImportHandler(gui);
 
@@ -98,9 +77,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore { Plugins = { plugin } };
 
-            gui.Application = application;
+            gui.ApplicationCore = applicationCore;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -144,9 +123,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore { Plugins = { plugin } };
 
-            gui.Application = application;
+            gui.ApplicationCore = applicationCore;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -193,9 +172,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore { Plugins = { plugin } };
 
-            gui.Application = application;
+            gui.ApplicationCore = applicationCore;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -225,9 +204,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore { Plugins = { plugin } };
 
-            gui.Application = application;
+            gui.ApplicationCore = applicationCore;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -278,9 +257,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var application = new RingtoetsApplication { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore { Plugins = { plugin } };
 
-            gui.Application = application;
+            gui.ApplicationCore = applicationCore;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
