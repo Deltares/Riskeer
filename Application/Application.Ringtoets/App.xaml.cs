@@ -21,7 +21,6 @@ using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
 using Core.Plugins.SharpMapGis.Gui;
 using log4net;
-using NDesk.Options;
 
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
@@ -44,7 +43,9 @@ namespace Application.Ringtoets
 
         private static RingtoetsGui gui;
 
-        private static int waitForProcessId = -1; // start Ringtoets after this process will exit (used during restart)
+        // Start application after this process will exit (used during restart)
+        private const string aurgumentWaitForProcess = "--wait-for-process=";
+        private static int waitForProcessId = -1; 
 
         private static string projectFilePath;
 
@@ -154,6 +155,8 @@ namespace Application.Ringtoets
 
         private void App_Startup(object sender, StartupEventArgs e)
         {
+            ParseArguments(e.Args);
+
             WaitForPreviousInstanceToExit();
             if (ShutdownIfNotFirstInstance())
             {
@@ -161,7 +164,7 @@ namespace Application.Ringtoets
             }
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
-            ParseArguments(e.Args);
+            
 
             gui = new RingtoetsGui
             {
@@ -225,9 +228,13 @@ namespace Application.Ringtoets
             return false;
         }
 
+        /// <summary>
+        /// If variable waitForProcessId > -1, the application will hold until 
+        /// the process with that ID has exited. 
+        /// </summary>
         private static void WaitForPreviousInstanceToExit()
         {
-            // wait until previous version of Ringtoets has exited
+            // Wait until previous version of Ringtoets has exited
             if (waitForProcessId == -1)
             {
                 return;
@@ -357,34 +364,32 @@ namespace Application.Ringtoets
 
         private static void Restart()
         {
-            Process.Start(typeof(App).Assembly.Location, "--wait-for-process=" + Process.GetCurrentProcess().Id);
+            Process.Start(typeof(App).Assembly.Location, aurgumentWaitForProcess + Process.GetCurrentProcess().Id);
             Environment.Exit(1);
         }
 
+        /// <summary>
+        /// Parses the process' start-up parameters
+        /// </summary>
+        /// <param name="arguments"></param>
         private static void ParseArguments(IEnumerable<string> arguments)
         {
-            var p = new OptionSet
+
+            var waitForProcess = arguments.FirstOrDefault(args => args.IndexOf(aurgumentWaitForProcess, StringComparison.InvariantCultureIgnoreCase) == 0);
+            if ( ! string.IsNullOrEmpty(waitForProcess))
             {
+                // Get process by id
+                try
                 {
-                    "<>", delegate(string projectPath)
+                    var pid = int.Parse(waitForProcess.Remove(0, aurgumentWaitForProcess.Length));
+                    if (pid > 0)
                     {
-                        if (Path.GetExtension(projectPath) == ".dsproj")
-                        {
-                            projectFilePath = projectPath;
-                        }
+                        waitForProcessId = pid;
                     }
-                },
-                {
-                    "r|run-activity=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_activity_or_model_available_in_the_project_, v => runActivity = v
-                },
-                {
-                    "p|project=", delegate(string projectPath) { projectFilePath = projectPath; }
-                },
-                {
-                    "w|wait-for-process=", delegate(string pid) { waitForProcessId = int.Parse(pid); }
                 }
-            };
-            p.Parse(arguments);
+                catch {}
+            }
+
         }
     }
 }
