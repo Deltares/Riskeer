@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 using Core.Common.TestUtils;
 using Core.Common.Utils.IO;
 using Core.Common.Utils.Tests.Properties;
@@ -161,6 +162,123 @@ namespace Core.Common.Utils.Tests
 
             // Assert
             Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertContextMenuStripContainsItem_MenuNull_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.AssertContextMenuStripContainsItem(null, 0, "", "", null);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertContextMenuStripContainsItem_NoMenuItemAtPosition_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.AssertContextMenuStripContainsItem(new ContextMenuStrip(), 0, "", "", null);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertContextMenuStripContainsItem_MenuItemWithDifferentText_ThrowsAssertionException()
+        {
+            // Setup
+            var contextMenuStrip = new ContextMenuStrip();
+            var testItem = CreateContextMenuItem();
+            contextMenuStrip.Items.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertContextMenuStripContainsItem_MenuItemWithDifferentToolTip_ThrowsAssertionException()
+        {
+            // Setup
+            var contextMenuStrip = new ContextMenuStrip();
+            var testItem = CreateContextMenuItem();
+            contextMenuStrip.Items.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertContextMenuStripContainsItem_MenuItemWithDifferentImage_ThrowsAssertionException()
+        {
+            // Setup
+            var contextMenuStrip = new ContextMenuStrip();
+            var testItem = CreateContextMenuItem();
+            contextMenuStrip.Items.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, Resources.acorn);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssertContextMenuStripContainsItem_MenuItemWithDifferentEnabeldState_NoExceptions(bool enabled)
+        {
+            // Setup
+            var contextMenuStrip = new ContextMenuStrip();
+            var testItem = CreateContextMenuItem();
+            testItem.Enabled = enabled;
+            contextMenuStrip.Items.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertContextMenuStripContainsItem_SameMenuItemProperties_NoExceptions()
+        {
+            // Setup
+            var contextMenuStrip = new ContextMenuStrip();
+            var testItem = CreateContextMenuItem();
+            contextMenuStrip.Items.Add(testItem);
+
+            // Call & Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image);
+        }
+
+        private static ToolStripMenuItem CreateContextMenuItem()
+        {
+            return new ToolStripMenuItem
+            {
+                Text = @"aText",
+                ToolTipText = @"aToolTipText",
+                Image = Resources.abacus
+            };
         }
     }
 }

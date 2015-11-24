@@ -307,18 +307,20 @@ namespace Core.Common.TestUtils
         /// <param name="text">The text expected for the menu item.</param>
         /// <param name="toolTip">The tooltip expected for the menu item.</param>
         /// <param name="icon">The image expected for the menu item.</param>
+        /// <param name="enabled">Optional: the expected enabled state of the menu item. Default: <c>true</c>.</param>
         /// <exception cref="AssertionException">When <paramref name="menu"/> does not contain a menu item at
         /// position with the right <paramref name="text"/>, <paramref name="toolTip"/> or <paramref name="icon"/>.
         /// </exception>
-        public static void AssertContextMenuStripContainsItem(ContextMenuStrip menu, int position, string text, string toolTip, Image icon)
+        public static void AssertContextMenuStripContainsItem(ContextMenuStrip menu, int position, string text, string toolTip, Image icon, bool enabled = true)
         {
             Assert.IsNotNull(menu);
-            Assert.IsNotNull(menu.Items[position]);
+            Assert.Less(position, menu.Items.Count);
 
             var item = menu.Items[position];
 
             Assert.AreEqual(text, item.Text);
             Assert.AreEqual(toolTip, item.ToolTipText);
+            Assert.AreEqual(enabled, item.Enabled);
             AssertImagesAreEqual(icon, item.Image);
         }
 

@@ -122,40 +122,25 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonFolderAddNewItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 22</value>
+    <value>144, 22</value>
   </data>
   <data name="buttonFolderAddNewItem.Text" xml:space="preserve">
     <value>Nieuw &amp;Item...</value>
   </data>
   <data name="buttonFolderAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="buttonFolderAdd.Text" xml:space="preserve">
     <value>T&amp;oevoegen</value>
   </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
-  </data>
-  <data name="buttonFolderImportFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="buttonFolderImportFolder.Text" xml:space="preserve">
-    <value>I&amp;mporteren...</value>
-  </data>
-  <data name="buttonFolderExportFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="buttonFolderExportFolder.Text" xml:space="preserve">
-    <value>E&amp;xporteren...</value>
-  </data>
   <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+    <value>155, 6</value>
   </data>
   <data name="buttonFolderDelete.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
   <data name="buttonFolderDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="buttonFolderDelete.Text" xml:space="preserve">
     <value>&amp;Verwijderen</value>
@@ -164,37 +149,52 @@
     <value />
   </data>
   <data name="buttonFolderRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="buttonFolderRename.Text" xml:space="preserve">
     <value>&amp;Hernoemen</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+    <value>155, 6</value>
   </data>
   <data name="buttonFolderExpandAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="buttonFolderExpandAll.Text" xml:space="preserve">
     <value>Alles &amp;uitklappen</value>
   </data>
   <data name="buttonFolderCollapseAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="buttonFolderCollapseAll.Text" xml:space="preserve">
     <value>Alles &amp;inklappen</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+    <value>155, 6</value>
+  </data>
+  <data name="buttonFolderImportFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 22</value>
+  </data>
+  <data name="buttonFolderImportFolder.Text" xml:space="preserve">
+    <value>I&amp;mporteren...</value>
+  </data>
+  <data name="buttonFolderExportFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 22</value>
+  </data>
+  <data name="buttonFolderExportFolder.Text" xml:space="preserve">
+    <value>E&amp;xporteren...</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 6</value>
   </data>
   <data name="buttonFolderProperties.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="buttonFolderProperties.Text" xml:space="preserve">
     <value>&amp;Eigenschappen</value>
   </data>
   <data name="contextMenuProject.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 226</value>
+    <value>159, 226</value>
   </data>
   <data name="&gt;&gt;contextMenuProject.Name" xml:space="preserve">
     <value>contextMenuProject</value>
@@ -218,13 +218,13 @@
     <value>buttonFolderAdd</value>
   </data>
   <data name="&gt;&gt;buttonFolderAdd.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.938, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderAddNewItem.Name" xml:space="preserve">
     <value>buttonFolderAddNewItem</value>
   </data>
   <data name="&gt;&gt;buttonFolderAddNewItem.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.938, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
@@ -236,7 +236,7 @@
     <value>buttonFolderImportFolder</value>
   </data>
   <data name="&gt;&gt;buttonFolderImportFolder.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.938, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderExportFolder.Name" xml:space="preserve">
     <value>buttonFolderExportFolder</value>
@@ -272,13 +272,13 @@
     <value>buttonFolderExpandAll</value>
   </data>
   <data name="&gt;&gt;buttonFolderExpandAll.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.938, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderCollapseAll.Name" xml:space="preserve">
     <value>buttonFolderCollapseAll</value>
   </data>
   <data name="&gt;&gt;buttonFolderCollapseAll.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.938, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
     <value>toolStripSeparator7</value>
@@ -290,192 +290,12 @@
     <value>buttonFolderProperties</value>
   </data>
   <data name="&gt;&gt;buttonFolderProperties.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.938, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ProjectTreeView</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonCompositeModelAddNewModel.Text" xml:space="preserve">
-    <value>&amp;Nieuw Model toevoegen...</value>
-  </data>
-  <data name="buttonCompositeModelClearModelOutput.Text" xml:space="preserve">
-    <value>Modeluitvoer wissen</value>
-  </data>
-  <data name="buttonCompositeModelCollapseAll.Text" xml:space="preserve">
-    <value>Alles &amp;inklappen</value>
-  </data>
-  <data name="buttonCompositeModelCopy.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>CTRL + C</value>
-  </data>
-  <data name="buttonCompositeModelCopy.Text" xml:space="preserve">
-    <value>&amp;Kopiëren</value>
-  </data>
-  <data name="buttonCompositeModelCut.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>CTRL + X</value>
-  </data>
-  <data name="buttonCompositeModelCut.Text" xml:space="preserve">
-    <value>&amp;Knippen</value>
-  </data>
-  <data name="buttonCompositeModelDelete.Text" xml:space="preserve">
-    <value>&amp;Verwijderen</value>
-  </data>
-  <data name="buttonCompositeModelExpandAll.Text" xml:space="preserve">
-    <value>Alles &amp;Uitklappen</value>
-  </data>
-  <data name="buttonCompositeModelExport.Text" xml:space="preserve">
-    <value>E&amp;xporteren...</value>
-  </data>
-  <data name="buttonCompositeModelImport.Text" xml:space="preserve">
-    <value>I&amp;mporteren...</value>
-  </data>
-  <data name="buttonCompositeModelOpen.Text" xml:space="preserve">
-    <value>&amp;Open</value>
-  </data>
-  <data name="buttonCompositeModelOpenWith.Text" xml:space="preserve">
-    <value>Open &amp;met</value>
-  </data>
-  <data name="buttonCompositeModelPaste.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>CTRL + V</value>
-  </data>
-  <data name="buttonCompositeModelPaste.Text" xml:space="preserve">
-    <value>&amp;Plakken</value>
-  </data>
-  <data name="buttonCompositeModelProperties.Text" xml:space="preserve">
-    <value>&amp;Eigenschappen</value>
-  </data>
-  <data name="buttonCompositeModelRename.Text" xml:space="preserve">
-    <value>&amp;Hernoemen</value>
-  </data>
-  <data name="buttonCompositeModelRun.Text" xml:space="preserve">
-    <value>&amp;Model berekenen</value>
-  </data>
-  <data name="buttonCompositeModelStop.Text" xml:space="preserve">
-    <value>&amp;Stop berekenen model</value>
-  </data>
-  <data name="buttonDataItemCopy.Text" xml:space="preserve">
-    <value>&amp;Kopiëren</value>
-  </data>
-  <data name="buttonDataItemCut.Text" xml:space="preserve">
-    <value>&amp;Knippen</value>
-  </data>
-  <data name="buttonDataItemDelete.Text" xml:space="preserve">
-    <value>&amp;Verwijderen</value>
-  </data>
-  <data name="buttonDataItemEventedListAdapterExport.Text" xml:space="preserve">
-    <value>E&amp;xporteren...</value>
-  </data>
-  <data name="buttonDataItemEventedListAdapterImport.Text" xml:space="preserve">
-    <value>I&amp;mporteren...</value>
-  </data>
-  <data name="buttonDataItemExport.Text" xml:space="preserve">
-    <value>E&amp;xporteren...</value>
-  </data>
-  <data name="buttonDataItemImport.Text" xml:space="preserve">
-    <value>I&amp;mporteren...</value>
-  </data>
-  <data name="buttonDataItemLink.Text" xml:space="preserve">
-    <value>&amp;Koppelen</value>
-  </data>
-  <data name="buttonDataItemOpen.Text" xml:space="preserve">
-    <value>&amp;Open</value>
-  </data>
-  <data name="buttonDataItemOpenWith.Text" xml:space="preserve">
-    <value>Openen &amp;met...</value>
-  </data>
-  <data name="buttonDataItemPaste.Text" xml:space="preserve">
-    <value>Plakken</value>
-  </data>
-  <data name="buttonDataItemProperties.Text" xml:space="preserve">
-    <value>&amp;Eigenschappen</value>
-  </data>
-  <data name="buttonDataItemRename.Text" xml:space="preserve">
-    <value>&amp;Hernoemen</value>
-  </data>
-  <data name="buttonDataItemUnlink.Text" xml:space="preserve">
-    <value>&amp;Ontkoppelen</value>
-  </data>
-  <data name="buttonFolderAddNewFolder.Text" xml:space="preserve">
-    <value>Nieuwe &amp;Folder</value>
-  </data>
-  <data name="buttonFolderAddNewModel.Text" xml:space="preserve">
-    <value>&amp;Nieuw Model...</value>
-  </data>
-  <data name="buttonFolderClearModelOutput.Text" xml:space="preserve">
-    <value>Alle modeluitvoer wissen</value>
-  </data>
-  <data name="buttonFolderCopy.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>CTRL + C</value>
-  </data>
-  <data name="buttonFolderCopy.Text" xml:space="preserve">
-    <value>&amp;Kopiëren</value>
-  </data>
-  <data name="buttonFolderCut.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>CTRL + X</value>
-  </data>
-  <data name="buttonFolderCut.Text" xml:space="preserve">
-    <value>&amp;Knippen</value>
-  </data>
-  <data name="buttonFolderPaste.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>CTRL + V</value>
-  </data>
-  <data name="buttonFolderPaste.Text" xml:space="preserve">
-    <value>Plakken</value>
-  </data>
-  <data name="buttonFolderRunAllModels.Text" xml:space="preserve">
-    <value>&amp;Alle modellen berekenen</value>
-  </data>
-  <data name="buttonFolderStopAllModels.Text" xml:space="preserve">
-    <value>&amp;Stop berekenen van alle modellen</value>
-  </data>
-  <data name="buttonModelClearModelOutput.Text" xml:space="preserve">
-    <value>Modeluitvoer wissen</value>
-  </data>
-  <data name="buttonModelCollapseAll.Text" xml:space="preserve">
-    <value>Alles &amp;inklappen</value>
-  </data>
-  <data name="buttonModelCopy.Text" xml:space="preserve">
-    <value>&amp;Kopiëren</value>
-  </data>
-  <data name="buttonModelCut.Text" xml:space="preserve">
-    <value>&amp;Knippen</value>
-  </data>
-  <data name="buttonModelDelete.Text" xml:space="preserve">
-    <value>&amp;Verwijderen</value>
-  </data>
-  <data name="buttonModelExpandAll.Text" xml:space="preserve">
-    <value>Alles &amp;uitklappen</value>
-  </data>
-  <data name="buttonModelOpen.Text" xml:space="preserve">
-    <value>&amp;Open</value>
-  </data>
-  <data name="buttonModelOpenWith.Text" xml:space="preserve">
-    <value>Openen &amp;met...</value>
-  </data>
-  <data name="buttonModelProperties.Text" xml:space="preserve">
-    <value>&amp;Eigenschappen</value>
-  </data>
-  <data name="buttonModelRename.Text" xml:space="preserve">
-    <value>&amp;Hernoemen</value>
-  </data>
-  <data name="buttonModelStart.Text" xml:space="preserve">
-    <value>&amp;Model berekenen</value>
-  </data>
-  <data name="buttonModelStop.Text" xml:space="preserve">
-    <value>&amp;Stop berekenen model</value>
-  </data>
-  <data name="contextMenuModelDataItem_LinkTo.Text" xml:space="preserve">
-    <value>Koppelen</value>
-  </data>
-  <data name="contextMenuModelDataItem_Unlink.Text" xml:space="preserve">
-    <value>Ontkoppelen</value>
-  </data>
-  <data name="menuModelExport.Text" xml:space="preserve">
-    <value>E&amp;xporteren...</value>
-  </data>
-  <data name="menuModelImport.Text" xml:space="preserve">
-    <value>I&amp;mporteren...</value>
   </data>
 </root>

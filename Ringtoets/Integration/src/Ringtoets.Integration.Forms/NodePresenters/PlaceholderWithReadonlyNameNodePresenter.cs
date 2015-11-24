@@ -49,13 +49,13 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                 contextMenu.AddMenuItem(
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open,
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip,
-                    RingtoetsCommonFormsResources.OpenIcon, null);
+                    RingtoetsCommonFormsResources.OpenIcon, null).Enabled = false;
                 contextMenu.AddSeperator();
 
                 contextMenu.AddMenuItem(
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
-                    RingtoetsCommonFormsResources.ClearIcon, null);
+                    RingtoetsCommonFormsResources.ClearIcon, null).Enabled = false;
                 contextMenu.AddSeperator();
             }
 
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                 contextMenu.AddMenuItem(
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Import,
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Import_ToolTip,
-                    RingtoetsCommonFormsResources.ImportIcon, null);
+                    RingtoetsCommonFormsResources.ImportIcon, null).Enabled = false;
             }
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                 contextMenu.AddMenuItem(
                     RingtoetsCommonFormsResources.FailureMechanism_Export,
                     RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip,
-                    RingtoetsCommonFormsResources.ExportIcon, null);
+                    RingtoetsCommonFormsResources.ExportIcon, null).Enabled = false;
                 contextMenu.AddSeperator();
 
                 contextMenu.AddMenuItem(

@@ -33,19 +33,19 @@ namespace Core.Plugins.ProjectExplorer
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectTreeView));
             this.contextMenuProject = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonFolderAdd = new ClonableToolStripMenuItem();
-            this.buttonFolderAddNewItem = new ClonableToolStripMenuItem();
+            this.buttonFolderAdd = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.buttonFolderAddNewItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonFolderImportFolder = new ClonableToolStripMenuItem();
+            this.buttonFolderImportFolder = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.buttonFolderExportFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonFolderDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFolderRename = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonFolderExpandAll = new ClonableToolStripMenuItem();
-            this.buttonFolderCollapseAll = new ClonableToolStripMenuItem();
+            this.buttonFolderExpandAll = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.buttonFolderCollapseAll = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonFolderProperties = new ClonableToolStripMenuItem();
+            this.buttonFolderProperties = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.contextMenuProject.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,9 +53,6 @@ namespace Core.Plugins.ProjectExplorer
             // 
             this.contextMenuProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonFolderAdd,
-            this.toolStripSeparator4,
-            this.buttonFolderImportFolder,
-            this.buttonFolderExportFolder,
             this.toolStripSeparator18,
             this.buttonFolderDelete,
             this.buttonFolderRename,
@@ -63,6 +60,9 @@ namespace Core.Plugins.ProjectExplorer
             this.buttonFolderExpandAll,
             this.buttonFolderCollapseAll,
             this.toolStripSeparator7,
+            this.buttonFolderImportFolder,
+            this.buttonFolderExportFolder,
+            this.toolStripSeparator4,
             this.buttonFolderProperties});
             this.contextMenuProject.Name = "contextMenuProject";
             resources.ApplyResources(this.contextMenuProject, "contextMenuProject");

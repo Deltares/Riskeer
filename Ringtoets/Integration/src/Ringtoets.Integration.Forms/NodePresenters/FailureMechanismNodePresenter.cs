@@ -43,11 +43,11 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
                 RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon, null);
+                RingtoetsCommonFormsResources.CalculateAllIcon, null).Enabled = false;
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.Clear_all_output,
                 RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                RingtoetsCommonFormsResources.ClearIcon, null);
+                RingtoetsCommonFormsResources.ClearIcon, null).Enabled = false;
             contextMenu.AddSeperator();
 
             contextMenu.AddMenuItem(
@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanism_Export,
                 RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip,
-                RingtoetsCommonFormsResources.ExportIcon, null);
+                RingtoetsCommonFormsResources.ExportIcon, null).Enabled = false;
             contextMenu.AddSeperator();
 
             contextMenu.AddMenuItem(
