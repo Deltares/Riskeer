@@ -9,12 +9,12 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="PipingSoilProfile"/> from a collection.
     /// </summary>
-    public class PipingInputParametersContextSoilProfileSelectionEditor : PipingInputParametersContextSelectionEditor<PipingSoilProfile>
+    public class PipingInputContextSoilProfileSelectionEditor : PipingInputContextSelectionEditor<PipingSoilProfile>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputParametersContextSoilProfileSelectionEditor"/>.
+        /// Creates a new instance of <see cref="PipingInputContextSoilProfileSelectionEditor"/>.
         /// </summary>
-        public PipingInputParametersContextSoilProfileSelectionEditor()
+        public PipingInputContextSoilProfileSelectionEditor()
         {
             DisplayMember = TypeUtils.GetMemberName<PipingSoilProfile>(sl => sl.Name);
         }

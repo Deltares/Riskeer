@@ -21,7 +21,7 @@ using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingCalculationInputsNodePresenterTest
+    public class PipingCalculationNodePresenterTest
     {
         private MockRepository mockRepository;
 
@@ -100,10 +100,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
-            var pipingInputParametersContext = (PipingInputParametersContext)children[1];
-            Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputParametersContext.WrappedPipingInputParameters);
-            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputParametersContext.AvailablePipingSurfaceLines);
-            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputParametersContext.AvailablePipingSoilProfiles);
+            var pipingInputContext = (PipingInputContext)children[1];
+            Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputContext.WrappedPipingInput);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
             Assert.AreSame(pipingCalculationInputs.PipingData.Output, children[2]);
             Assert.AreSame(pipingCalculationInputs.PipingData.CalculationReport, children[3]);
             mockRepository.VerifyAll(); // Expect no calls on tree node
@@ -132,10 +132,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
-            var pipingInputParametersContext = (PipingInputParametersContext)children[1];
-            Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputParametersContext.WrappedPipingInputParameters);
-            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputParametersContext.AvailablePipingSurfaceLines);
-            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputParametersContext.AvailablePipingSoilProfiles);
+            var pipingInputContext = (PipingInputContext)children[1];
+            Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputContext.WrappedPipingInput);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
 
             Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
             Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);

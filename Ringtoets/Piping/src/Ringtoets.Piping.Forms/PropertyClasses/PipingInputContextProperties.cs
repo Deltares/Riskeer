@@ -15,41 +15,41 @@ using Ringtoets.Piping.Forms.UITypeEditors;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
-    public class PipingInputParametersContextProperties : ObjectProperties<PipingInputParametersContext>
+    public class PipingInputContextProperties : ObjectProperties<PipingInputContext>
     {
         #region General
 
-        [Editor(typeof(PipingInputParametersContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_SurfaceLine_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_SurfaceLine_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SurfaceLine_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SurfaceLine_Description")]
         public RingtoetsPipingSurfaceLine SurfaceLine
         {
             get
             {
-                return data.WrappedPipingInputParameters.SurfaceLine;
+                return data.WrappedPipingInput.SurfaceLine;
             }
             set
             {
-                data.WrappedPipingInputParameters.SurfaceLine = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.SurfaceLine = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
-        [Editor(typeof(PipingInputParametersContextSoilProfileSelectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(PipingInputContextSoilProfileSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_SoilProfile_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_SoilProfile_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SoilProfile_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SoilProfile_Description")]
         public PipingSoilProfile SoilProfile
         {
             get
             {
-                return data.WrappedPipingInputParameters.SoilProfile;
+                return data.WrappedPipingInput.SoilProfile;
             }
             set
             {
-                data.WrappedPipingInputParameters.SoilProfile = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.SoilProfile = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -58,34 +58,34 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Model Factors
 
         [ResourcesCategory(typeof(Resources), "Categories_ModelFactors")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_UpliftModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_UpliftModelFactor_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_UpliftModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_UpliftModelFactor_Description")]
         public double UpliftModelFactor
         {
             get
             {
-                return data.WrappedPipingInputParameters.UpliftModelFactor;
+                return data.WrappedPipingInput.UpliftModelFactor;
             }
             set
             {
-                data.WrappedPipingInputParameters.UpliftModelFactor = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.UpliftModelFactor = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_ModelFactors")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_SellmeijerModelFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_SellmeijerModelFactor_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SellmeijerModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SellmeijerModelFactor_Description")]
         public double SellmeijerModelFactor
         {
             get
             {
-                return data.WrappedPipingInputParameters.SellmeijerModelFactor;
+                return data.WrappedPipingInput.SellmeijerModelFactor;
             }
             set
             {
-                data.WrappedPipingInputParameters.SellmeijerModelFactor = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.SellmeijerModelFactor = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -94,19 +94,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Heave
 
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_CriticalHeaveGradient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_CriticalHeaveGradient_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_CriticalHeaveGradient_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_CriticalHeaveGradient_Description")]
         public double CriticalHeaveGradient
         {
             get
             {
-                return data.WrappedPipingInputParameters.CriticalHeaveGradient;
+                return data.WrappedPipingInput.CriticalHeaveGradient;
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PiezometricHeadExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PiezometricHeadExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
         public double PiezometricHeadExitHeave
         {
             get
@@ -121,8 +121,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_ThicknessCoverageLayer_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_ThicknessCoverageLayer_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessCoverageLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_ThicknessCoverageLayer_Description")]
         public DesignVariable<LognormalDistribution> ThicknessCoverageLayerHeave
         {
             get
@@ -136,8 +136,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PiezometricHeadPolder_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PiezometricHeadPolder_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadPolder_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadPolder_Description")]
         public double PiezometricHeadPolderHeave
         {
             get
@@ -152,8 +152,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_DampingFactorExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_DampingFactorExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_DampingFactorExit_Description")]
         public DesignVariable<LognormalDistribution> DampingFactorExitHeave
         {
             get
@@ -168,8 +168,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(NormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PhreaticLevelExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PhreaticLevelExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PhreaticLevelExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PhreaticLevelExit_Description")]
         public DesignVariable<NormalDistribution> PhreaticLevelExitHeave
         {
             get
@@ -187,8 +187,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Uplift 
 
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_WaterVolumetricWeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_WaterVolumetricWeight_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_WaterVolumetricWeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_WaterVolumetricWeight_Description")]
         public double WaterVolumetricWeightUplift
         {
             get
@@ -202,8 +202,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_AssessmentLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_AssessmentLevel_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_AssessmentLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_AssessmentLevel_Description")]
         public double AssessmentLevelUplift
         {
             get
@@ -217,8 +217,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PiezometricHeadExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PiezometricHeadExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
         public double PiezometricHeadExitUplift
         {
             get
@@ -233,8 +233,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_DampingFactorExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_DampingFactorExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_DampingFactorExit_Description")]
         public DesignVariable<LognormalDistribution> DampingFactorExitUplift
         {
             get
@@ -249,8 +249,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(NormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PhreaticLevelExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PhreaticLevelExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PhreaticLevelExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PhreaticLevelExit_Description")]
         public DesignVariable<NormalDistribution> PhreaticLevelExitUplift
         {
             get
@@ -264,8 +264,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PiezometricHeadPolder_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PiezometricHeadPolder_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadPolder_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadPolder_Description")]
         public double PiezometricHeadPolderUplift
         {
             get
@@ -283,8 +283,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Sellmeijer
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_AssessmentLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_AssessmentLevel_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_AssessmentLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_AssessmentLevel_Description")]
         public double AssessmentLevelSellmeijer
         {
             get
@@ -299,8 +299,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(NormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_PhreaticLevelExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_PhreaticLevelExit_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PhreaticLevelExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PhreaticLevelExit_Description")]
         public DesignVariable<NormalDistribution> PhreaticLevelExitSellmeijer
         {
             get
@@ -314,25 +314,25 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_SellmeijerReductionFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_SellmeijerReductionFactor_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SellmeijerReductionFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SellmeijerReductionFactor_Description")]
         public double SellmeijerReductionFactor
         {
             get
             {
-                return data.WrappedPipingInputParameters.SellmeijerReductionFactor;
+                return data.WrappedPipingInput.SellmeijerReductionFactor;
             }
             set
             {
-                data.WrappedPipingInputParameters.SellmeijerReductionFactor = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.SellmeijerReductionFactor = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_ThicknessCoverageLayer_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_ThicknessCoverageLayer_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessCoverageLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_ThicknessCoverageLayer_Description")]
         public DesignVariable<LognormalDistribution> ThicknessCoverageLayerSellmeijer
         {
             get
@@ -347,73 +347,73 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_SeepageLength_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_SeepageLength_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SeepageLength_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SeepageLength_Description")]
         public DesignVariable<LognormalDistribution> SeepageLength
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.SeepageLength = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.SeepageLength = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_SandParticlesVolumicWeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_SandParticlesVolumicWeight_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SandParticlesVolumicWeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SandParticlesVolumicWeight_Description")]
         public double SandParticlesVolumicWeight
         {
             get
             {
-                return data.WrappedPipingInputParameters.SandParticlesVolumicWeight;
+                return data.WrappedPipingInput.SandParticlesVolumicWeight;
             }
             set
             {
-                data.WrappedPipingInputParameters.SandParticlesVolumicWeight = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.SandParticlesVolumicWeight = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_WhitesDragCoefficient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_WhitesDragCoefficient_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_WhitesDragCoefficient_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_WhitesDragCoefficient_Description")]
         public double WhitesDragCoefficient
         {
             get
             {
-                return data.WrappedPipingInputParameters.WhitesDragCoefficient;
+                return data.WrappedPipingInput.WhitesDragCoefficient;
             }
             set
             {
-                data.WrappedPipingInputParameters.WhitesDragCoefficient = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.WhitesDragCoefficient = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_Diameter70_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_Diameter70_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_Diameter70_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_Diameter70_Description")]
         public DesignVariable<LognormalDistribution> Diameter70
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.Diameter70 = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.Diameter70 = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_WaterVolumetricWeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_WaterVolumetricWeight_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_WaterVolumetricWeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_WaterVolumetricWeight_Description")]
         public double WaterVolumetricWeightSellmeijer
         {
             get
@@ -428,99 +428,99 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_DarcyPermeability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_DarcyPermeability_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_DarcyPermeability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_DarcyPermeability_Description")]
         public DesignVariable<LognormalDistribution> DarcyPermeability
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.DarcyPermeability = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.DarcyPermeability = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_WaterKinematicViscosity_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_WaterKinematicViscosity_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_WaterKinematicViscosity_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_WaterKinematicViscosity_Description")]
         public double WaterKinematicViscosity
         {
             get
             {
-                return data.WrappedPipingInputParameters.WaterKinematicViscosity;
+                return data.WrappedPipingInput.WaterKinematicViscosity;
             }
             set
             {
-                data.WrappedPipingInputParameters.WaterKinematicViscosity = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.WaterKinematicViscosity = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_Gravity_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_Gravity_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_Gravity_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_Gravity_Description")]
         public double Gravity
         {
             get
             {
-                return data.WrappedPipingInputParameters.Gravity;
+                return data.WrappedPipingInput.Gravity;
             }
             set
             {
-                data.WrappedPipingInputParameters.Gravity = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.Gravity = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_ThicknessAquiferLayer_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_ThicknessAquiferLayer_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessAquiferLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_ThicknessAquiferLayer_Description")]
         public DesignVariable<LognormalDistribution> ThicknessAquiferLayer
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.ThicknessAquiferLayer = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.ThicknessAquiferLayer = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_MeanDiameter70_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_MeanDiameter70_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_MeanDiameter70_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_MeanDiameter70_Description")]
         public double MeanDiameter70
         {
             get
             {
-                return data.WrappedPipingInputParameters.MeanDiameter70;
+                return data.WrappedPipingInput.MeanDiameter70;
             }
             set
             {
-                data.WrappedPipingInputParameters.MeanDiameter70 = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.MeanDiameter70 = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInputParameters_BeddingAngle_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInputParameters_BeddingAngle_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_BeddingAngle_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_BeddingAngle_Description")]
         public double BeddingAngle
         {
             get
             {
-                return data.WrappedPipingInputParameters.BeddingAngle;
+                return data.WrappedPipingInput.BeddingAngle;
             }
             set
             {
-                data.WrappedPipingInputParameters.BeddingAngle = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.BeddingAngle = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -546,12 +546,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInputParameters.WaterVolumetricWeight;
+                return data.WrappedPipingInput.WaterVolumetricWeight;
             }
             set
             {
-                data.WrappedPipingInputParameters.WaterVolumetricWeight = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.WaterVolumetricWeight = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -559,12 +559,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInputParameters.PiezometricHeadPolder;
+                return data.WrappedPipingInput.PiezometricHeadPolder;
             }
             set
             {
-                data.WrappedPipingInputParameters.PiezometricHeadPolder = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.PiezometricHeadPolder = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -572,12 +572,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInputParameters.AssessmentLevel;
+                return data.WrappedPipingInput.AssessmentLevel;
             }
             set
             {
-                data.WrappedPipingInputParameters.AssessmentLevel = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.AssessmentLevel = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -585,12 +585,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInputParameters.PiezometricHeadExit;
+                return data.WrappedPipingInput.PiezometricHeadExit;
             }
             set
             {
-                data.WrappedPipingInputParameters.PiezometricHeadExit = value;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.PiezometricHeadExit = value;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -598,12 +598,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.DampingFactorExit = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.DampingFactorExit = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -611,12 +611,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.PhreaticLevelExit = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.PhreaticLevelExit = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
 
@@ -624,12 +624,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedPipingInputParameters);
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedPipingInput);
             }
             set
             {
-                data.WrappedPipingInputParameters.ThicknessCoverageLayer = value.Distribution;
-                data.WrappedPipingInputParameters.NotifyObservers();
+                data.WrappedPipingInput.ThicknessCoverageLayer = value.Distribution;
+                data.WrappedPipingInput.NotifyObservers();
             }
         }
     }

@@ -9,13 +9,13 @@ using Ringtoets.Piping.Data.Probabilistics;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingInputParametersTest
+    public class PipingInputTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var inputParameters = new PipingInputParameters();
+            var inputParameters = new PipingInput();
 
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);

@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual("Berekening", defaultConstructed.Name);
 
             Assert.AreEqual("Commentaar", defaultConstructed.Comments.Name);
-            Assert.IsInstanceOf<PipingInputParameters>(defaultConstructed.InputParameters);
+            Assert.IsInstanceOf<PipingInput>(defaultConstructed.InputParameters);
 
             Assert.IsFalse(defaultConstructed.HasOutput);
             Assert.IsNull(defaultConstructed.Output);

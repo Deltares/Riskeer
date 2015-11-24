@@ -15,7 +15,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
     /// edit-control used for piping input data.
     /// </summary>
     /// <typeparam name="T">The type of items that populate the list-edit control.</typeparam>
-    public class PipingInputParametersContextSelectionEditor<T> : UITypeEditor where T : class
+    public class PipingInputContextSelectionEditor<T> : UITypeEditor where T : class
     {
         private IWindowsFormsEditorService editorService;
 
@@ -75,9 +75,9 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// </summary>
         /// <param name="context">The context from which the object is obtained.</param>
         /// <returns>The object which' properties populates the dropdown editor.</returns>
-        protected static PipingInputParametersContextProperties GetPropertiesObject(ITypeDescriptorContext context)
+        protected static PipingInputContextProperties GetPropertiesObject(ITypeDescriptorContext context)
         {
-            return (PipingInputParametersContextProperties)((DynamicPropertyBag)context.Instance).WrappedObject;
+            return (PipingInputContextProperties)((DynamicPropertyBag)context.Instance).WrappedObject;
         }
 
         private ListBox CreateSelectionControl(ITypeDescriptorContext context)

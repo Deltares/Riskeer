@@ -16,16 +16,16 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingInputParametersContextPropertiesTest
+    public class PipingInputContextPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new PipingInputParametersContextProperties();
+            var properties = new PipingInputContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingInputParametersContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingInputContext>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -43,15 +43,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     IsAquifer = true
                 }
             });
-            var inputParameters = new PipingInputParameters
+            var inputParameters = new PipingInput
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile
             };
 
-            var properties = new PipingInputParametersContextProperties
+            var properties = new PipingInputContextProperties
             {
-                Data = new PipingInputParametersContext{WrappedPipingInputParameters = inputParameters}
+                Data = new PipingInputContext{WrappedPipingInput = inputParameters}
             };
 
             // Call & Assert
@@ -99,12 +99,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var inputParameters = new PipingInputParameters();
+            var inputParameters = new PipingInput();
             inputParameters.Attach(projectObserver);
 
-            var properties = new PipingInputParametersContextProperties
+            var properties = new PipingInputContextProperties
             {
-                Data = new PipingInputParametersContext{WrappedPipingInputParameters = inputParameters}
+                Data = new PipingInputContext{WrappedPipingInput = inputParameters}
             };
 
             // Call & Assert
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var inputParameters = new PipingInputParameters();
+            var inputParameters = new PipingInput();
             inputParameters.Attach(projectObserver);
 
             Random random = new Random(22);
@@ -155,9 +155,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
 
             // Call
-            new PipingInputParametersContextProperties
+            new PipingInputContextProperties
             {
-                Data = new PipingInputParametersContext{WrappedPipingInputParameters = inputParameters},
+                Data = new PipingInputContext{WrappedPipingInput = inputParameters},
                 AssessmentLevelSellmeijer = assessmentLevel,
                 WaterVolumetricWeightUplift = waterVolumetricWeight,
                 UpliftModelFactor = upliftModelFactor,

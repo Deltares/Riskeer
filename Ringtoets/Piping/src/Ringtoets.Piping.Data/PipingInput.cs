@@ -7,12 +7,12 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Class that holds all piping calculation input parameters.
     /// </summary>
-    public class PipingInputParameters : Observable
+    public class PipingInput : Observable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingInputParameters"/> class.
+        /// Initializes a new instance of the <see cref="PipingInput"/> class.
         /// </summary>
-        public PipingInputParameters()
+        public PipingInput()
         {
             // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
             UpliftModelFactor = 1.0;

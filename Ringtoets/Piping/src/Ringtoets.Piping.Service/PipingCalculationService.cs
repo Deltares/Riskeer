@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static PipingCalculationInput CreateInputFromData(PipingInputParameters inputParameters)
+        private static PipingCalculationInput CreateInputFromData(PipingInput inputParameters)
         {
             return new PipingCalculationInput(
                 inputParameters.WaterVolumetricWeight,

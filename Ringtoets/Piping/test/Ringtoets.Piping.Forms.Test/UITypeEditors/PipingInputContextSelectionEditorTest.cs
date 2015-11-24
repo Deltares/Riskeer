@@ -9,13 +9,13 @@ using Ringtoets.Piping.Forms.UITypeEditors;
 namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class PipingInputParametersContextSelectionEditorTest
+    public class PipingInputContextSelectionEditorTest
     {
         [Test]
         public void GetEditStyle_Always_ReturnDropDown()
         {
             // Setup
-            var editor = new PipingInputParametersContextSelectionEditor<object>();
+            var editor = new PipingInputContextSelectionEditor<object>();
 
             // Call
             var editStyle = editor.GetEditStyle();
@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_NoProviderNoContext_ReturnsOriginalValue()
         {
             // Setup
-            var editor = new PipingInputParametersContextSelectionEditor<object>();
+            var editor = new PipingInputContextSelectionEditor<object>();
             var someValue = new object();
 
             // Call
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_NoContext_ReturnsOriginalValue()
         {
             // Setup
-            var editor = new PipingInputParametersContextSelectionEditor<object>();
+            var editor = new PipingInputContextSelectionEditor<object>();
             var someValue = new object();
             var mockRepository = new MockRepository();
             var provider = mockRepository.DynamicMock<IServiceProvider>();
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_Always_ReturnsOriginalValue()
         {
             // Setup
-            var editor = new PipingInputParametersContextSelectionEditor<object>();
+            var editor = new PipingInputContextSelectionEditor<object>();
             var someValue = new object();
             var mockRepository = new MockRepository();
             var provider = mockRepository.DynamicMock<IServiceProvider>();

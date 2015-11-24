@@ -65,7 +65,7 @@
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineException.cs" />
     <Compile Include="PipingCalculationData.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
-    <Compile Include="PipingInputParameters.cs" />
+    <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />
     <Compile Include="PipingSoilLayer.cs" />
     <Compile Include="PipingSoilProfile.cs" />

@@ -78,8 +78,8 @@ namespace Ringtoets.Demo.Test.Commands
 
         private void AssertCalculationAbleToCalculate(PipingCalculationData calculation)
         {
-            PipingInputParameters inputParameters = calculation.InputParameters;
-            AssertExpectedPipingInputParameters(inputParameters);
+            PipingInput inputParameters = calculation.InputParameters;
+            AssertExpectedPipingInput(inputParameters);
 
             Assert.IsTrue(PipingCalculationService.Validate(calculation));
             PipingCalculationService.Calculate(calculation);
@@ -92,7 +92,7 @@ namespace Ringtoets.Demo.Test.Commands
             Assert.AreEqual(-1.6387, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
-        private static void AssertExpectedPipingInputParameters(PipingInputParameters inputParameters)
+        private static void AssertExpectedPipingInput(PipingInput inputParameters)
         {
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor, 1e-3);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);

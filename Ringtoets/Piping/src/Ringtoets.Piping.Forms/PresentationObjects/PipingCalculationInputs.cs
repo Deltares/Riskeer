@@ -27,13 +27,13 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         /// <summary>
         /// Gets or sets the available piping surface lines in order for the user to select
-        /// one to set <see cref="PipingInputParameters.SurfaceLine"/>.
+        /// one to set <see cref="PipingInput.SurfaceLine"/>.
         /// </summary>
         public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; set; }
 
         /// <summary>
         /// Gets or sets the available piping soil profiles in order for the user to select
-        /// one to set <see cref="Data.PipingInputParameters.SoilProfile"/>.
+        /// one to set <see cref="Data.PipingInput.SoilProfile"/>.
         /// </summary>
         public IEnumerable<PipingSoilProfile> AvailablePipingSoilProfiles { get; set; }
 

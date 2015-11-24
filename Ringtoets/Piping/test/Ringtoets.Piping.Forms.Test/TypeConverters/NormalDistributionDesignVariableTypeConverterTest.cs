@@ -125,15 +125,15 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         [Test]
         [TestCase(1)]
         [TestCase(2)]
-        public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputParametersUpdatesObservers(int propertyIndexToChange)
+        public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputUpdatesObservers(int propertyIndexToChange)
         {
             // Scenario
-            var inputParameters = new PipingInputParameters();
-            var inputParametersContext = new PipingInputParametersContext
+            var inputParameters = new PipingInput();
+            var inputParametersContext = new PipingInputContext
             {
-                WrappedPipingInputParameters = inputParameters
+                WrappedPipingInput = inputParameters
             };
-            var inputParameterContextProperties = new PipingInputParametersContextProperties
+            var inputParameterContextProperties = new PipingInputContextProperties
             {
                 Data = inputParametersContext
             };

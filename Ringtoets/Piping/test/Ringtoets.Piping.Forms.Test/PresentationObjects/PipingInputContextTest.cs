@@ -10,17 +10,17 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingInputParametersContextTest
+    public class PipingInputContextTest
     {
         [Test]
         public void DefaultConstructpr_ExpectedValues()
         {
             // Call
-            var context = new PipingInputParametersContext();
+            var context = new PipingInputContext();
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
-            Assert.IsNull(context.WrappedPipingInputParameters);
+            Assert.IsNull(context.WrappedPipingInput);
             CollectionAssert.IsEmpty(context.AvailablePipingSurfaceLines);
             CollectionAssert.IsEmpty(context.AvailablePipingSoilProfiles);
         }
@@ -34,9 +34,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var presentationObject = new PipingInputParametersContext
+            var presentationObject = new PipingInputContext
             {
-                WrappedPipingInputParameters = new PipingInputParameters()
+                WrappedPipingInput = new PipingInput()
             };
             presentationObject.Attach(observer);
 
@@ -55,9 +55,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingInputParametersContext
+            var presentationObject = new PipingInputContext
             {
-                WrappedPipingInputParameters = new PipingInputParameters()
+                WrappedPipingInput = new PipingInput()
             };
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
@@ -78,10 +78,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingInputParameters();
-            var presentationObject = new PipingInputParametersContext
+            var pipingData = new PipingInput();
+            var presentationObject = new PipingInputContext
             {
-                WrappedPipingInputParameters = pipingData
+                WrappedPipingInput = pipingData
             };
             presentationObject.Attach(observer);
 

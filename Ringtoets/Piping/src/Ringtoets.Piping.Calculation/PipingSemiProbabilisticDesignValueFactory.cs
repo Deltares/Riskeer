@@ -11,25 +11,25 @@ namespace Ringtoets.Piping.Calculation
         #region General parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.ThicknessCoverageLayer"/>.
+        /// Creates the design variable for <see cref="PipingInput.ThicknessCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingInputParameters parameters)
+        public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.ThicknessCoverageLayer, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.PhreaticLevelExit"/>.
+        /// Creates the design variable for <see cref="PipingInput.PhreaticLevelExit"/>.
         /// </summary>
-        public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInputParameters parameters)
+        public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.PhreaticLevelExit, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.DampingFactorExit"/>.
+        /// Creates the design variable for <see cref="PipingInput.DampingFactorExit"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDampingFactorExit(PipingInputParameters parameters)
+        public static DesignVariable<LognormalDistribution> GetDampingFactorExit(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.DampingFactorExit, 0.95);
         }
@@ -39,33 +39,33 @@ namespace Ringtoets.Piping.Calculation
         #region Piping parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.SeepageLength"/>.
+        /// Creates the design variable for <see cref="PipingInput.SeepageLength"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetSeepageLength(PipingInputParameters parameters)
+        public static DesignVariable<LognormalDistribution> GetSeepageLength(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.SeepageLength, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.Diameter70"/>.
+        /// Creates the design variable for <see cref="PipingInput.Diameter70"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDiameter70(PipingInputParameters parameters)
+        public static DesignVariable<LognormalDistribution> GetDiameter70(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.Diameter70, 0.05);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.DarcyPermeability"/>.
+        /// Creates the design variable for <see cref="PipingInput.DarcyPermeability"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetDarcyPermeability(PipingInputParameters parameters)
+        public static DesignVariable<LognormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.DarcyPermeability, 0.95);
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInputParameters.ThicknessAquiferLayer"/>.
+        /// Creates the design variable for <see cref="PipingInput.ThicknessAquiferLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetThicknessAquiferLayer(PipingInputParameters parameters)
+        public static DesignVariable<LognormalDistribution> GetThicknessAquiferLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.ThicknessAquiferLayer, 0.95);
         }

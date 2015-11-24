@@ -61,7 +61,7 @@
     <Compile Include="NodePresenters\EmptyPipingCalculationReportNodePresenter.cs" />
     <Compile Include="NodePresenters\EmptyPipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingInputParametersContextNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingInputContextNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingCalculationInputsNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
     <Compile Include="PresentationObjects\PipingCalculationInputs.cs" />
     <Compile Include="PresentationObjects\PipingCalculationsTreeFolder.cs" />
-    <Compile Include="PresentationObjects\PipingInputParametersContext.cs" />
+    <Compile Include="PresentationObjects\PipingInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,7 +80,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\PipingCalculationInputsProperties.cs" />
-    <Compile Include="PropertyClasses\PipingInputParametersContextProperties.cs" />
+    <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
     <Compile Include="PropertyClasses\PipingSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />
@@ -91,9 +91,9 @@
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptor.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverter.cs" />
-    <Compile Include="UITypeEditors\PipingInputParametersContextSelectionEditor.cs" />
-    <Compile Include="UITypeEditors\PipingInputParametersContextSoilProfileSelectionEditor.cs" />
-    <Compile Include="UITypeEditors\PipingInputParametersContextSurfaceLineSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\PipingInputContextSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>

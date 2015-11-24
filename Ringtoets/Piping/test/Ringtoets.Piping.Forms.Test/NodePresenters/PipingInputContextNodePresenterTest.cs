@@ -14,17 +14,17 @@ using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingInputParametersContextNodePresenterTest
+    public class PipingInputContextNodePresenterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new PipingInputParametersContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter();
 
             // Assert
-            Assert.IsInstanceOf<RingtoetsNodePresenterBase<PipingInputParametersContext>>(nodePresenter);
-            Assert.AreEqual(typeof(PipingInputParametersContext), nodePresenter.NodeTagType);
+            Assert.IsInstanceOf<RingtoetsNodePresenterBase<PipingInputContext>>(nodePresenter);
+            Assert.AreEqual(typeof(PipingInputContext), nodePresenter.NodeTagType);
             Assert.IsNull(nodePresenter.TreeView);
         }
 
@@ -37,9 +37,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var currentNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodeData = new PipingInputParametersContext();
+            var nodeData = new PipingInputContext();
 
-            var nodePresenter = new PipingInputParametersContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter();
 
             // Call
             nodePresenter.UpdateNode(parentNode, currentNode, nodeData);
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var currentNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingInputParametersContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter();
 
             // Call
             var isRenameAllowed = nodePresenter.CanRenameNode(currentNode);
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var currentNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingInputParametersContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter();
 
             // Call
             var isRenameAllowed = nodePresenter.CanRenameNodeTo(currentNode, "new name");
@@ -94,9 +94,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var currentNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodeData = new PipingInputParametersContext();
+            var nodeData = new PipingInputContext();
 
-            var nodePresenter = new PipingInputParametersContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter();
 
             // Call
             var isRemoveAllowed = nodePresenter.CanRemove(currentNode, nodeData);

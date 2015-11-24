@@ -7,11 +7,11 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
-    /// Node presenter for <see cref="PipingInputParametersContext"/> instances.
+    /// Node presenter for <see cref="PipingInputContext"/> instances.
     /// </summary>
-    public class PipingInputParametersContextNodePresenter : RingtoetsNodePresenterBase<PipingInputParametersContext>
+    public class PipingInputContextNodePresenter : RingtoetsNodePresenterBase<PipingInputContext>
     {
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingInputParametersContext nodeData)
+        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingInputContext nodeData)
         {
             node.Text = "Invoer";
             node.Image = Resources.PipingInputIcon;

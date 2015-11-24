@@ -317,444 +317,444 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PipingInputIcon {
-            get {
-                object obj = ResourceManager.GetObject("PipingInputIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Peil dat gebruikt moet worden in de toetsing..
         /// </summary>
-        public static string PipingInputParameters_AssessmentLevel_Description {
+        public static string PipingInput_AssessmentLevel_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_AssessmentLevel_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_AssessmentLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Toetspeil.
         /// </summary>
-        public static string PipingInputParameters_AssessmentLevel_DisplayName {
+        public static string PipingInput_AssessmentLevel_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_AssessmentLevel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_AssessmentLevel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel de korrels weerstand bieden tegen rollen; ook beddingshoek genoemd..
         /// </summary>
-        public static string PipingInputParameters_BeddingAngle_Description {
+        public static string PipingInput_BeddingAngle_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_BeddingAngle_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_BeddingAngle_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rolweerstandshoek [º].
         /// </summary>
-        public static string PipingInputParameters_BeddingAngle_DisplayName {
+        public static string PipingInput_BeddingAngle_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_BeddingAngle_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_BeddingAngle_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kritiek verhang met betrekking tot heave..
         /// </summary>
-        public static string PipingInputParameters_CriticalHeaveGradient_Description {
+        public static string PipingInput_CriticalHeaveGradient_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_CriticalHeaveGradient_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_CriticalHeaveGradient_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kritiek verhang m.b.t. heave.
         /// </summary>
-        public static string PipingInputParameters_CriticalHeaveGradient_DisplayName {
+        public static string PipingInput_CriticalHeaveGradient_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_CriticalHeaveGradient_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_CriticalHeaveGradient_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
-        public static string PipingInputParameters_DampingFactorExit_Description {
+        public static string PipingInput_DampingFactorExit_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_DampingFactorExit_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_DampingFactorExit_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor bij uittredepunt.
         /// </summary>
-        public static string PipingInputParameters_DampingFactorExit_DisplayName {
+        public static string PipingInput_DampingFactorExit_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_DampingFactorExit_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_DampingFactorExit_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt..
         /// </summary>
-        public static string PipingInputParameters_DarcyPermeability_Description {
+        public static string PipingInput_DarcyPermeability_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_DarcyPermeability_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_DarcyPermeability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Doorlatendheid aquifer [m/s].
         /// </summary>
-        public static string PipingInputParameters_DarcyPermeability_DisplayName {
+        public static string PipingInput_DarcyPermeability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_DarcyPermeability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_DarcyPermeability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de aquifer, bepaald zonder fijne fractie (&lt; 63µm)..
         /// </summary>
-        public static string PipingInputParameters_Diameter70_Description {
+        public static string PipingInput_Diameter70_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_Diameter70_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_Diameter70_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 70%-fraktiel van de korreldiameter in de bovenste zandlaag [m].
         /// </summary>
-        public static string PipingInputParameters_Diameter70_DisplayName {
+        public static string PipingInput_Diameter70_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_Diameter70_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_Diameter70_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De x-coordinaat van het uittredepunt..
         /// </summary>
-        public static string PipingInputParameters_ExitPointXCoordinate_Description {
+        public static string PipingInput_ExitPointXCoordinate_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_ExitPointXCoordinate_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ExitPointXCoordinate_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to X-coordinaat uittredepunt.
         /// </summary>
-        public static string PipingInputParameters_ExitPointXCoordinate_DisplayName {
+        public static string PipingInput_ExitPointXCoordinate_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_ExitPointXCoordinate_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ExitPointXCoordinate_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Valversnelling.
         /// </summary>
-        public static string PipingInputParameters_Gravity_Description {
+        public static string PipingInput_Gravity_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_Gravity_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_Gravity_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Valversnelling [m/s²].
         /// </summary>
-        public static string PipingInputParameters_Gravity_DisplayName {
+        public static string PipingInput_Gravity_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_Gravity_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_Gravity_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
         /// </summary>
-        public static string PipingInputParameters_MeanDiameter70_Description {
+        public static string PipingInput_MeanDiameter70_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_MeanDiameter70_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_MeanDiameter70_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m].
         /// </summary>
-        public static string PipingInputParameters_MeanDiameter70_DisplayName {
+        public static string PipingInput_MeanDiameter70_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_MeanDiameter70_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_MeanDiameter70_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Freatische waterstand bij uittredepunt..
         /// </summary>
-        public static string PipingInputParameters_PhreaticLevelExit_Description {
+        public static string PipingInput_PhreaticLevelExit_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_PhreaticLevelExit_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_PhreaticLevelExit_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Freatische waterstand bij uittredepunt [m+NAP].
         /// </summary>
-        public static string PipingInputParameters_PhreaticLevelExit_DisplayName {
+        public static string PipingInput_PhreaticLevelExit_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_PhreaticLevelExit_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_PhreaticLevelExit_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte bij uittredepunt..
         /// </summary>
-        public static string PipingInputParameters_PiezometricHeadExit_Description {
+        public static string PipingInput_PiezometricHeadExit_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_PiezometricHeadExit_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_PiezometricHeadExit_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte bij uittredepunt [m+NAP].
         /// </summary>
-        public static string PipingInputParameters_PiezometricHeadExit_DisplayName {
+        public static string PipingInput_PiezometricHeadExit_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_PiezometricHeadExit_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_PiezometricHeadExit_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte in achterland..
         /// </summary>
-        public static string PipingInputParameters_PiezometricHeadPolder_Description {
+        public static string PipingInput_PiezometricHeadPolder_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_PiezometricHeadPolder_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_PiezometricHeadPolder_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte in achterland [m+NAP].
         /// </summary>
-        public static string PipingInputParameters_PiezometricHeadPolder_DisplayName {
+        public static string PipingInput_PiezometricHeadPolder_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_PiezometricHeadPolder_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_PiezometricHeadPolder_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het (ondergedempelde) volumegewicht van zandkorrelmateriaal van een zandlaag..
         /// </summary>
-        public static string PipingInputParameters_SandParticlesVolumicWeight_Description {
+        public static string PipingInput_SandParticlesVolumicWeight_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SandParticlesVolumicWeight_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SandParticlesVolumicWeight_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van de zandkorrels onder water [kN/m³].
         /// </summary>
-        public static string PipingInputParameters_SandParticlesVolumicWeight_DisplayName {
+        public static string PipingInput_SandParticlesVolumicWeight_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SandParticlesVolumicWeight_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SandParticlesVolumicWeight_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt..
         /// </summary>
-        public static string PipingInputParameters_SeepageLength_Description {
+        public static string PipingInput_SeepageLength_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SeepageLength_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SeepageLength_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kwelweglengte [m].
         /// </summary>
-        public static string PipingInputParameters_SeepageLength_DisplayName {
+        public static string PipingInput_SeepageLength_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SeepageLength_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SeepageLength_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen..
         /// </summary>
-        public static string PipingInputParameters_SellmeijerModelFactor_Description {
+        public static string PipingInput_SellmeijerModelFactor_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SellmeijerModelFactor_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SellmeijerModelFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Modelfactor piping toegepast op Sellmeijermodel.
         /// </summary>
-        public static string PipingInputParameters_SellmeijerModelFactor_DisplayName {
+        public static string PipingInput_SellmeijerModelFactor_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SellmeijerModelFactor_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SellmeijerModelFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reductiefactor Sellmeijer..
         /// </summary>
-        public static string PipingInputParameters_SellmeijerReductionFactor_Description {
+        public static string PipingInput_SellmeijerReductionFactor_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SellmeijerReductionFactor_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SellmeijerReductionFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reductiefactor Sellmeijer.
         /// </summary>
-        public static string PipingInputParameters_SellmeijerReductionFactor_DisplayName {
+        public static string PipingInput_SellmeijerReductionFactor_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SellmeijerReductionFactor_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SellmeijerReductionFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De ondergrondschematisering dat voor de piping berekening gebruikt wordt..
         /// </summary>
-        public static string PipingInputParameters_SoilProfile_Description {
+        public static string PipingInput_SoilProfile_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SoilProfile_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SoilProfile_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ondergrondschematisering.
         /// </summary>
-        public static string PipingInputParameters_SoilProfile_DisplayName {
+        public static string PipingInput_SoilProfile_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SoilProfile_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SoilProfile_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De profielmeting die voor de piping berekening gebruikt wordt..
         /// </summary>
-        public static string PipingInputParameters_SurfaceLine_Description {
+        public static string PipingInput_SurfaceLine_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SurfaceLine_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SurfaceLine_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Profielmeting.
         /// </summary>
-        public static string PipingInputParameters_SurfaceLine_DisplayName {
+        public static string PipingInput_SurfaceLine_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_SurfaceLine_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_SurfaceLine_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag..
         /// </summary>
-        public static string PipingInputParameters_ThicknessAquiferLayer_Description {
+        public static string PipingInput_ThicknessAquiferLayer_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_ThicknessAquiferLayer_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ThicknessAquiferLayer_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dikte watervoerend pakket [m].
         /// </summary>
-        public static string PipingInputParameters_ThicknessAquiferLayer_DisplayName {
+        public static string PipingInput_ThicknessAquiferLayer_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_ThicknessAquiferLayer_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ThicknessAquiferLayer_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Totale deklaagdikte bij uittredepunt..
         /// </summary>
-        public static string PipingInputParameters_ThicknessCoverageLayer_Description {
+        public static string PipingInput_ThicknessCoverageLayer_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_ThicknessCoverageLayer_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ThicknessCoverageLayer_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Totale deklaagdikte bij uittredepunt [m].
         /// </summary>
-        public static string PipingInputParameters_ThicknessCoverageLayer_DisplayName {
+        public static string PipingInput_ThicknessCoverageLayer_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_ThicknessCoverageLayer_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_ThicknessCoverageLayer_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen..
         /// </summary>
-        public static string PipingInputParameters_UpliftModelFactor_Description {
+        public static string PipingInput_UpliftModelFactor_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_UpliftModelFactor_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_UpliftModelFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Modelfactor opbarsten [m+NAP].
         /// </summary>
-        public static string PipingInputParameters_UpliftModelFactor_DisplayName {
+        public static string PipingInput_UpliftModelFactor_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_UpliftModelFactor_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_UpliftModelFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius..
         /// </summary>
-        public static string PipingInputParameters_WaterKinematicViscosity_Description {
+        public static string PipingInput_WaterKinematicViscosity_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_WaterKinematicViscosity_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_WaterKinematicViscosity_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius [m²/s].
         /// </summary>
-        public static string PipingInputParameters_WaterKinematicViscosity_DisplayName {
+        public static string PipingInput_WaterKinematicViscosity_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_WaterKinematicViscosity_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_WaterKinematicViscosity_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van water..
         /// </summary>
-        public static string PipingInputParameters_WaterVolumetricWeight_Description {
+        public static string PipingInput_WaterVolumetricWeight_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_WaterVolumetricWeight_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_WaterVolumetricWeight_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
         /// </summary>
-        public static string PipingInputParameters_WaterVolumetricWeight_DisplayName {
+        public static string PipingInput_WaterVolumetricWeight_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_WaterVolumetricWeight_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_WaterVolumetricWeight_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Sleepkrachtfactor volgens White..
         /// </summary>
-        public static string PipingInputParameters_WhitesDragCoefficient_Description {
+        public static string PipingInput_WhitesDragCoefficient_Description {
             get {
-                return ResourceManager.GetString("PipingInputParameters_WhitesDragCoefficient_Description", resourceCulture);
+                return ResourceManager.GetString("PipingInput_WhitesDragCoefficient_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Coëfficiënt van White.
         /// </summary>
-        public static string PipingInputParameters_WhitesDragCoefficient_DisplayName {
+        public static string PipingInput_WhitesDragCoefficient_DisplayName {
             get {
-                return ResourceManager.GetString("PipingInputParameters_WhitesDragCoefficient_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInput_WhitesDragCoefficient_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PipingInputIcon {
+            get {
+                object obj = ResourceManager.GetObject("PipingInputIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
