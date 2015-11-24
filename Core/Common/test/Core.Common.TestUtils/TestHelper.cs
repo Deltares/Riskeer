@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using Core.Common.Utils.IO;
 using log4net.Appender;
 using log4net.Config;
@@ -295,6 +296,30 @@ namespace Core.Common.TestUtils
             IEnumerable<byte> expectedImageBytes = GetImageAsByteArray(expectedImage);
             IEnumerable<byte> actualImageBytes = GetImageAsByteArray(actualImage);
             CollectionAssert.AreEqual(expectedImageBytes, actualImageBytes);
+        }
+
+        /// <summary>
+        /// Asserts that a <see cref="ContextMenuStrip"/> contains an item at the given <see cref="position"/>
+        /// with the correct properties.
+        /// </summary>
+        /// <param name="menu">The <see cref="ContextMenuStrip"/> containing an item at position <paramref name="position"/>.</param>
+        /// <param name="position">The position of the menu item in <paramref name="menu"/>.</param>
+        /// <param name="text">The text expected for the menu item.</param>
+        /// <param name="toolTip">The tooltip expected for the menu item.</param>
+        /// <param name="icon">The image expected for the menu item.</param>
+        /// <exception cref="AssertionException">When <paramref name="menu"/> does not contain a menu item at
+        /// position with the right <paramref name="text"/>, <paramref name="toolTip"/> or <paramref name="icon"/>.
+        /// </exception>
+        public static void AssertContextMenuStripContainsItem(ContextMenuStrip menu, int position, string text, string toolTip, Image icon)
+        {
+            Assert.IsNotNull(menu);
+            Assert.IsNotNull(menu.Items[position]);
+
+            var item = menu.Items[position];
+
+            Assert.AreEqual(text, item.Text);
+            Assert.AreEqual(toolTip, item.ToolTipText);
+            AssertImagesAreEqual(icon, item.Image);
         }
 
         private static string GetCurrentTestClassMethodName()

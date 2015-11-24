@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Linq;
-
+using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.TestUtils;
 
@@ -14,6 +14,7 @@ using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.NodePresenters;
 
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.NodePresenters
 {
@@ -118,6 +119,32 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             Assert.AreEqual("Uitvoer", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
             Assert.AreEqual(new[]{failureMechanism.AssessmentResult}, outputFolder.Contents);
+        }
+
+        [Test]
+        public void GetContextMenu_Always_ReturnsContextMenuWithItems()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+
+            var nodePresenter = new FailureMechanismNodePresenter();
+            var failureMechanism = new FailureMechanismPlaceholder("test");
+
+            // Call
+            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+
+            // Assert
+            Assert.AreEqual(9, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsCommonFormsResources.FailureMechanism_Expand_all, RingtoetsCommonFormsResources.FailureMechanism_Expand_all_ToolTip, RingtoetsCommonFormsResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.FailureMechanism_Collapse_all, RingtoetsCommonFormsResources.FailureMechanism_Collapse_all_ToolTip, RingtoetsCommonFormsResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsCommonFormsResources.FailureMechanism_Export, RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip, RingtoetsCommonFormsResources.ExportIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 8, RingtoetsCommonFormsResources.FailureMechanism_Properties, RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip, RingtoetsCommonFormsResources.PropertiesIcon);
+
+            CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2], menu.Items[5],menu.Items[7]}, typeof(ToolStripSeparator));
         }
     }
 }
