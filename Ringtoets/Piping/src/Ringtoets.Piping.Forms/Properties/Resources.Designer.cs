@@ -88,6 +88,42 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heave.
+        /// </summary>
+        public static string Categories_Heave {
+            get {
+                return ResourceManager.GetString("Categories_Heave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactoren.
+        /// </summary>
+        public static string Categories_ModelFactors {
+            get {
+                return ResourceManager.GetString("Categories_ModelFactors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sellmeijer.
+        /// </summary>
+        public static string Categories_Sellmeijer {
+            get {
+                return ResourceManager.GetString("Categories_Sellmeijer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opbarsten.
+        /// </summary>
+        public static string Categories_Uplift {
+            get {
+                return ResourceManager.GetString("Categories_Uplift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wis alle uitvoer.
         /// </summary>
         public static string Clear_all_output {

@@ -149,15 +149,15 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             inputParameters.Attach(observer);
 
-            DesignVariable<NormalDistribution> designVariable = inputParameterContextProperties.PhreaticLevelExit;
-            PropertyDescriptorCollection properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, designVariable);
+            DesignVariable<NormalDistribution> phreaticLevelExitHeave = inputParameterContextProperties.PhreaticLevelExitHeave;
+            PropertyDescriptorCollection properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, phreaticLevelExitHeave);
 
             // Precondition
             Assert.IsNotNull(properties);
 
             // Event
             const double newValue = 2.3;
-            properties[propertyIndexToChange].SetValue(designVariable, newValue);
+            properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, newValue);
 
             // Result
             switch (propertyIndexToChange)

@@ -55,25 +55,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExit.Distribution);
-            Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExit.Distribution);
-            Assert.AreSame(inputParameters.ThicknessCoverageLayer, properties.ThicknessCoverageLayer.Distribution);
+            Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExitHeave.Distribution);
+            Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExitSellmeijer.Distribution);
+            Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExitUplift.Distribution);
+            Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExitUplift.Distribution);
+            Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExitHeave.Distribution);
+            Assert.AreSame(inputParameters.ThicknessCoverageLayer, properties.ThicknessCoverageLayerHeave.Distribution);
+            Assert.AreSame(inputParameters.ThicknessCoverageLayer, properties.ThicknessCoverageLayerSellmeijer.Distribution);
             Assert.AreSame(inputParameters.SeepageLength, properties.SeepageLength.Distribution);
             Assert.AreSame(inputParameters.Diameter70, properties.Diameter70.Distribution);
             Assert.AreSame(inputParameters.DarcyPermeability, properties.DarcyPermeability.Distribution);
             Assert.AreSame(inputParameters.ThicknessAquiferLayer, properties.ThicknessAquiferLayer.Distribution);
 
             Assert.AreEqual(inputParameters.UpliftModelFactor, properties.UpliftModelFactor);
-            Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
-            Assert.AreEqual(inputParameters.PiezometricHeadPolder, properties.PiezometricHeadPolder);
-            Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
+            Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExitHeave);
+            Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExitUplift);
+            Assert.AreEqual(inputParameters.PiezometricHeadPolder, properties.PiezometricHeadPolderHeave);
+            Assert.AreEqual(inputParameters.PiezometricHeadPolder, properties.PiezometricHeadPolderUplift);
+            Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevelSellmeijer);
+            Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevelUplift);
             Assert.AreEqual(inputParameters.SellmeijerModelFactor, properties.SellmeijerModelFactor);
 
             Assert.AreEqual(inputParameters.CriticalHeaveGradient, properties.CriticalHeaveGradient);
             Assert.AreEqual(inputParameters.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
             Assert.AreEqual(inputParameters.Gravity, properties.Gravity);
             Assert.AreEqual(inputParameters.WaterKinematicViscosity, properties.WaterKinematicViscosity);
-            Assert.AreEqual(inputParameters.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+            Assert.AreEqual(inputParameters.WaterVolumetricWeight, properties.WaterVolumetricWeightSellmeijer);
+            Assert.AreEqual(inputParameters.WaterVolumetricWeight, properties.WaterVolumetricWeightUplift);
             Assert.AreEqual(inputParameters.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(inputParameters.WhitesDragCoefficient, properties.WhitesDragCoefficient);
             Assert.AreEqual(inputParameters.BeddingAngle, properties.BeddingAngle);
@@ -101,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call & Assert
             const double assessmentLevel = 0.12;
-            properties.AssessmentLevel = assessmentLevel;
+            properties.AssessmentLevelSellmeijer = assessmentLevel;
             Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel);
             mocks.VerifyAll();
         }
@@ -112,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 21;
+            int numberProperties = 22;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -121,6 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Random random = new Random(22);
 
+            double assessmentLevel = random.NextDouble();
             double waterVolumetricWeight = random.NextDouble();
             double upliftModelFactor = random.NextDouble();
             double piezometricHeadExit = random.NextDouble();
@@ -149,13 +158,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             new PipingInputParametersContextProperties
             {
                 Data = new PipingInputParametersContext{WrappedPipingInputParameters = inputParameters},
-                WaterVolumetricWeight = waterVolumetricWeight,
+                AssessmentLevelSellmeijer = assessmentLevel,
+                WaterVolumetricWeightUplift = waterVolumetricWeight,
                 UpliftModelFactor = upliftModelFactor,
-                PiezometricHeadExit = piezometricHeadExit,
-                DampingFactorExit = new LognormalDistributionDesignVariable(dampingFactorExit),
-                PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
-                PiezometricHeadPolder = piezometricHeadPolder,
-                ThicknessCoverageLayer = new LognormalDistributionDesignVariable(thicknessCoverageLayer),
+                PiezometricHeadExitUplift = piezometricHeadExit,
+                DampingFactorExitHeave = new LognormalDistributionDesignVariable(dampingFactorExit),
+                PhreaticLevelExitHeave = new NormalDistributionDesignVariable(phreaticLevelExit),
+                PiezometricHeadPolderHeave = piezometricHeadPolder,
+                ThicknessCoverageLayerSellmeijer = new LognormalDistributionDesignVariable(thicknessCoverageLayer),
                 SellmeijerModelFactor = sellmeijerModelFactor,
                 SellmeijerReductionFactor = sellmeijerReductionFactor,
                 SeepageLength = new LognormalDistributionDesignVariable(seepageLength),
@@ -173,6 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Assert
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel);
             Assert.AreEqual(waterVolumetricWeight, inputParameters.WaterVolumetricWeight);
             Assert.AreEqual(upliftModelFactor, inputParameters.UpliftModelFactor);
             Assert.AreEqual(piezometricHeadExit, inputParameters.PiezometricHeadExit);
