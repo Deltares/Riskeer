@@ -72,13 +72,8 @@ namespace Core.Common.Gui
             instanceCreationStackTrace = new StackTrace().ToString();
             ViewPropertyEditor.Gui = this;
 
-            ApplicationCore = new ApplicationCore
-            {
-                IsProjectCreatedInTemporaryDirectory = true,
-                WaitMethod = () => System.Windows.Forms.Application.DoEvents()
-            };
-
             Plugins = new List<GuiPlugin>();
+            ApplicationCore = new ApplicationCore();
 
             applicationCore.UserSettings = Settings.Default;
             applicationCore.Settings = ConfigurationManager.AppSettings;

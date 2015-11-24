@@ -21,8 +21,6 @@ namespace Core.Common.Base
 {
     public class ApplicationCore : IDisposable
     {
-        public event Action AfterRun;
-
         // TODO: migrate into ProjectService
         public event Action<Project> ProjectOpening;
         public event Action<Project> ProjectOpened;
@@ -31,7 +29,7 @@ namespace Core.Common.Base
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(ApplicationCore));
+        private readonly ILog log = LogManager.GetLogger(typeof(ApplicationCore));
 
         public Action WaitMethod;
 
@@ -65,8 +63,6 @@ namespace Core.Common.Base
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
         }
-
-        public bool IsProjectCreatedInTemporaryDirectory { get; set; }
 
         public Project Project
         {
@@ -197,9 +193,6 @@ namespace Core.Common.Base
             // load all assemblies from current assembly directory
             AssemblyUtils.LoadAllAssembliesFromDirectory(Path.GetFullPath(Path.GetDirectoryName(GetType().Assembly.Location))).ToList();
 
-            //Disabled trace logging this causes focus bugs combined with avalon dock (KeyPreview debug messages)
-            //InitializeLogging();
-
             LogSystemInfo();
 
             Plugins.ForEach(p => p.ApplicationCore = this);
@@ -221,11 +214,6 @@ namespace Core.Common.Base
             stopwatch.Stop();
 
             log.InfoFormat(Properties.Resources.ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds, stopwatch.ElapsedMilliseconds/1000.0);
-
-            if (AfterRun != null)
-            {
-                AfterRun();
-            }
         }
 
         public void CloseProject()
@@ -272,8 +260,6 @@ namespace Core.Common.Base
 
         public void Exit()
         {
-            Trace.Listeners.Clear();
-
             if (Project != null)
             {
                 CloseProject();
@@ -354,17 +340,6 @@ namespace Core.Common.Base
             log.Debug(Properties.Resources.ApplicationCore_ActivatePlugins_All_plugins_were_activated);
         }
 
-        /// <summary>
-        /// Initialize the log4net part
-        /// </summary>
-        protected static void InitializeLogging()
-        {
-            if (!Trace.Listeners.Cast<TraceListener>().Any(tl => tl is RingtoetsTraceListener))
-            {
-                Trace.Listeners.Add(new RingtoetsTraceListener());
-            }
-        }
-
         private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
             //HACK : this is needed because of issue 4382...the black boxes in PG. It seem like the assembly for 
@@ -372,7 +347,7 @@ namespace Core.Common.Base
             return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
         }
 
-        private static void LogSystemInfo()
+        private void LogSystemInfo()
         {
             log.DebugFormat(Properties.Resources.ApplicationCore_LogSystemInfo_Environmental_variables_);
 
@@ -429,48 +404,5 @@ namespace Core.Common.Base
         {
             Dispose(false);
         }
-
-        #region Nested type: RingtoetsTraceListener
-
-        internal class RingtoetsTraceListener : TraceListener
-        {
-            private static ILog log;
-            private static bool logTraceMessages = true;
-
-            public RingtoetsTraceListener()
-            {
-                log = LogManager.GetLogger(GetType());
-            }
-
-            public static bool LogTraceMessages
-            {
-                get
-                {
-                    return logTraceMessages;
-                }
-                set
-                {
-                    logTraceMessages = value;
-                }
-            }
-
-            public override void Write(string message)
-            {
-                if (logTraceMessages)
-                {
-                    WriteLine(message);
-                }
-            }
-
-            public override void WriteLine(string message)
-            {
-                if (logTraceMessages)
-                {
-                    log.Debug(message);
-                }
-            }
-        }
-
-        #endregion
     }
 }
