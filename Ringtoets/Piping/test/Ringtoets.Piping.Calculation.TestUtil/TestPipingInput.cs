@@ -107,11 +107,11 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Returns the current set value as a <see cref="PipingCalculationInput"/>
+        /// Returns the current set value as a <see cref="PipingCalculatorInput"/>
         /// </summary>
-        public PipingCalculationInput AsRealInput()
+        public PipingCalculatorInput AsRealInput()
         {
-            return new PipingCalculationInput(
+            return new PipingCalculatorInput(
                 WaterVolumetricWeight,
                 UpliftModelFactor,
                 AssessmentLevel,

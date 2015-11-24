@@ -57,10 +57,10 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="PipingCalculation.cs" />
-    <Compile Include="PipingCalculationException.cs" />
-    <Compile Include="PipingCalculationInput.cs" />
-    <Compile Include="PipingCalculationResult.cs" />
+    <Compile Include="PipingCalculator.cs" />
+    <Compile Include="PipingCalculatorException.cs" />
+    <Compile Include="PipingCalculatorInput.cs" />
+    <Compile Include="PipingCalculatorResult.cs" />
     <Compile Include="PipingProfileCreator.cs" />
     <Compile Include="PipingProfileCreatorException.cs" />
     <Compile Include="PipingSemiProbabilisticDesignValueFactory.cs" />

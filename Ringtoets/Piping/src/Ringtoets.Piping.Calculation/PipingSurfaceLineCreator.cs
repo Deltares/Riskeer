@@ -8,7 +8,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
-    /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculation"/>.
+    /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculator"/>.
     /// </summary>
     internal static class PipingSurfaceLineCreator
     {

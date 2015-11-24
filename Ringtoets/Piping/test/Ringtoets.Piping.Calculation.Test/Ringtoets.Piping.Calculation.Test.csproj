@@ -53,10 +53,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingCalculationExceptionTest.cs" />
-    <Compile Include="PipingCalculationInputTest.cs" />
-    <Compile Include="PipingCalculationResultTest.cs" />
-    <Compile Include="PipingCalculationTest.cs" />
+    <Compile Include="PipingCalculatorExceptionTest.cs" />
+    <Compile Include="PipingCalculatorInputTest.cs" />
+    <Compile Include="PipingCalculatorResultTest.cs" />
+    <Compile Include="PipingCalculatorTest.cs" />
     <Compile Include="PipingProfileCreatorExceptionTest.cs" />
     <Compile Include="PipingProfileCreatorTest.cs" />
     <Compile Include="PipingSemiProbabilisticDesignValueFactoryTest.cs" />

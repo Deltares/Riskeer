@@ -4,16 +4,16 @@ using NUnit.Framework;
 
 namespace Ringtoets.Piping.Calculation.Test
 {
-    public class PipingCalculationExceptionTest
+    public class PipingCalculatorExceptionTest
     {
         [Test]
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(PipingCalculationException).FullName);
+            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(PipingCalculatorException).FullName);
 
             // Call
-            var exception = new PipingCalculationException();
+            var exception = new PipingCalculatorException();
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var expectedMessage ="Some exception message";
 
             // Call
-            var exception = new PipingCalculationException(expectedMessage);
+            var exception = new PipingCalculatorException(expectedMessage);
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var expectedInnerException = new Exception();
 
             // Call
-            var exception = new PipingCalculationException(expectedMessage, expectedInnerException);
+            var exception = new PipingCalculatorException(expectedMessage, expectedInnerException);
 
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);

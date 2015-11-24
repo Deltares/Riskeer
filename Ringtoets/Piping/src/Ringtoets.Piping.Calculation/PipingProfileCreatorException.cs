@@ -3,7 +3,7 @@
 namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
-    /// Exception thrown when something went wrong in the <see cref="PipingCalculation"/>
+    /// Exception thrown when something went wrong in the <see cref="PipingCalculator"/>
     /// </summary>
     public class PipingProfileCreatorException : Exception
     {

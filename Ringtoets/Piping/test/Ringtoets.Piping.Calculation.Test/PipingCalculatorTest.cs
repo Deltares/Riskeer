@@ -10,14 +10,14 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Calculation.Test
 {
     [TestFixture]
-    public class PipingCalculationTest
+    public class PipingCalculatorTest
     {
         [Test]
         public void Calculate_CompleteValidInput_ReturnsResultWithNoNaN()
         {
-            PipingCalculationInput input = new TestPipingInput().AsRealInput();
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
 
-            PipingCalculationResult actual = new PipingCalculation(input).Calculate();
+            PipingCalculatorResult actual = new PipingCalculator(input).Calculate();
 
             Assert.IsNotNull(actual);
             Assert.IsFalse(double.IsNaN(actual.UpliftZValue));
@@ -32,8 +32,8 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_CompleteValidInput_ReturnsNoValidationMessages()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput().AsRealInput();
-            var calculation = new PipingCalculation(input);
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -49,12 +49,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_ZeroOrNegativeSeepageLength_ValidationMessageForPipingLength(double seepageLength)
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 SeepageLength = seepageLength
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -71,12 +71,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_ZeroOrNegativeAquiferThickness_ValidationMessageForDAquifer(double aquiferThickness)
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 ThicknessAquiferLayer = aquiferThickness
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -92,12 +92,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_NegativeBeddingAngle_ValidationMessageForBeddingAngle(double beddingAngle)
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 BeddingAngle = beddingAngle
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -113,13 +113,13 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_PiezometricHeadExitSameAsPhreaticLevelExit_ValidationMessageForPhiExitAndHExit(double level)
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 PiezometricHeadExit = level,
                 PhreaticLevelExit = level
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -134,12 +134,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_PhreaticLevelExitZero_TwoValidationMessageForRExit()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 DampingFactorExit = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -153,12 +153,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_ThicknessCoverageLayerZero_ValidationMessageForDTotal()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 ThicknessCoverageLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -172,12 +172,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_ThicknessAquiferLayerZero_ValidationMessageForDAquifer()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 ThicknessAquiferLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -191,12 +191,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_VolumetricWeightWaterZero_ValidationMessageForVolumetricWeightWater()
         {                                                                                                                                                                                
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 WaterVolumetricWeight = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -214,7 +214,7 @@ namespace Ringtoets.Piping.Calculation.Test
             double assessmentLevel, double phreaticLevelExit, double sellmeijerReductionFactor, double thicknessCoverageLayer)
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 AssessmentLevel = assessmentLevel,
                 PhreaticLevelExit = phreaticLevelExit,
@@ -222,7 +222,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessCoverageLayer = thicknessCoverageLayer
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -236,12 +236,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_NoSurfaceLineSet_ValidationMessageForHavingNoSurfaceLineSelected()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 SurfaceLine = null,
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -255,12 +255,12 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_NoSoilProfileSet_ValidationMessageForHavingNoSoilProfileSelected()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 SoilProfile = null,
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_SoilProfileWithoutAquiferSet_ValidationWithDefaultNullReferenceMessage()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 SoilProfile = new PipingSoilProfile(String.Empty, -1.0,new []
                 {
@@ -282,7 +282,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 })
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Calculation.Test
         {
             // Setup
             var top = 0;
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 SoilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
                 {
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 })
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -323,7 +323,7 @@ namespace Ringtoets.Piping.Calculation.Test
         public void Validate_AssessmentLevelPhreaticLevelExitSellmeijerReductionFactorThicknessCoverageLayerZero_ValidationMessageForHRiverHExitRcDTotalAndDTotal()
         {
             // Setup
-            PipingCalculationInput input = new TestPipingInput
+            PipingCalculatorInput input = new TestPipingInput
             {
                 AssessmentLevel = 0,
                 PhreaticLevelExit = 0,
@@ -331,7 +331,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessCoverageLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculation(input);
+            var calculation = new PipingCalculator(input);
 
             // Call
             List<string> validationMessages = calculation.Validate();

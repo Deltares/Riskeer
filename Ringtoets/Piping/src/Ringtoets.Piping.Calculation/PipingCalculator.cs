@@ -12,34 +12,34 @@ namespace Ringtoets.Piping.Calculation
     /// This class represents a combination of piping sub-calculations, which together can be used
     /// to assess based on piping.
     /// </summary>
-    public class PipingCalculation
+    public class PipingCalculator
     {
-        private readonly PipingCalculationInput input;
+        private readonly PipingCalculatorInput input;
 
         /// <summary>
-        /// Constructs a new <see cref="PipingCalculation"/>. The <paramref name="input"/> is used to
+        /// Constructs a new <see cref="PipingCalculator"/>. The <paramref name="input"/> is used to
         /// obtain the parameters used in the different sub calculations.
         /// </summary>
-        /// <param name="input">The <see cref="PipingCalculationInput"/> containing all the values required
+        /// <param name="input">The <see cref="PipingCalculatorInput"/> containing all the values required
         /// for performing a piping calculation.</param>
-        public PipingCalculation(PipingCalculationInput input)
+        public PipingCalculator(PipingCalculatorInput input)
         {
             this.input = input;
         }
 
         /// <summary>
-        /// Performs the actual sub calculations and returns a <see cref="PipingCalculationResult"/>, which
+        /// Performs the actual sub calculations and returns a <see cref="PipingCalculatorResult"/>, which
         /// contains the results of all sub calculations.
         /// </summary>
-        /// <returns>A <see cref="PipingCalculationResult"/> containing the results of the sub calculations.</returns>
-        /// <exception cref="PipingCalculationException">Thrown when any of the invocations of the sub-calculations from the kernel throws an Exception.</exception>
-        public PipingCalculationResult Calculate()
+        /// <returns>A <see cref="PipingCalculatorResult"/> containing the results of the sub calculations.</returns>
+        /// <exception cref="PipingCalculatorException">Thrown when any of the invocations of the sub-calculations from the kernel throws an Exception.</exception>
+        public PipingCalculatorResult Calculate()
         {
             var upliftResult = CalculateUplift();
             var heaveResult = CalculateHeave();
             var sellmeijerResult = CalculateSellmeijer();
 
-            return new PipingCalculationResult(
+            return new PipingCalculatorResult(
                 upliftResult.Zu,
                 upliftResult.FoSu,
                 heaveResult.Zh,
@@ -50,8 +50,8 @@ namespace Ringtoets.Piping.Calculation
         }
 
         /// <summary>
-        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="PipingCalculationInput"/>
-        /// which was provided to this <see cref="PipingCalculation"/> and are determined by the Piping kernel.
+        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="PipingCalculatorInput"/>
+        /// which was provided to this <see cref="PipingCalculator"/> and are determined by the Piping kernel.
         /// </summary>
         public List<string> Validate()
         {
@@ -141,11 +141,11 @@ namespace Ringtoets.Piping.Calculation
             }
             catch (PipingException<Sellmeijer2011Calculator> e)
             {
-                throw new PipingCalculationException(e.Message, e);
+                throw new PipingCalculatorException(e.Message, e);
             }
             catch (PipingException<SellmeijerBaseCalculator> e)
             {
-                throw new PipingCalculationException(e.Message, e);
+                throw new PipingCalculatorException(e.Message, e);
             }
 
             return sellmeijerCalculator;
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Calculation
             }
             catch (PipingException<HeaveCalculator> e)
             {
-                throw new PipingCalculationException(e.Message, e);
+                throw new PipingCalculatorException(e.Message, e);
             }
 
             return heaveCalculator;
@@ -178,11 +178,11 @@ namespace Ringtoets.Piping.Calculation
             }
             catch (WTIUpliftCalculatorException e)
             {
-                throw new PipingCalculationException(e.Message, e);
+                throw new PipingCalculatorException(e.Message, e);
             }
             catch (PipingException<EffectiveThicknessCalculator> e)
             {
-                throw new PipingCalculationException(e.Message, e);
+                throw new PipingCalculatorException(e.Message, e);
             }
 
             return upliftCalculator;

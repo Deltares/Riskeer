@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Ringtoets.Piping.Calculation.Test
 {
-    public class PipingCalculationResultTest
+    public class PipingCalculatorResultTest
     {
         [Test]
         public void GivenSomeValues_WhenConstructedWithValues_ThenPropertiesAreSet()
@@ -17,7 +17,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var zsValue = random.NextDouble();
             var foSsValue = random.NextDouble();
 
-            var actual = new PipingCalculationResult(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
+            var actual = new PipingCalculatorResult(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
 
             Assert.That(actual.UpliftZValue, Is.EqualTo(zuValue));
             Assert.That(actual.UpliftFactorOfSafety, Is.EqualTo(foSuValue));

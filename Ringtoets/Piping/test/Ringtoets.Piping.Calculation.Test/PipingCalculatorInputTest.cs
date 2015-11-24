@@ -6,7 +6,7 @@ using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Test
 {
-    public class PipingCalculationInputTest
+    public class PipingCalculatorInputTest
     {
         [Test]
         public void GivenSomeRandomValues_WhenPipingCalculationInputConstructedFromInput_ThenPropertiesAreSet()
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 } 
             });
 
-            var input = new PipingCalculationInput(
+            var input = new PipingCalculatorInput(
                 volumetricWeightOfWaterValue,
                 modelFactorUpliftValue,
                 hRiverValue,

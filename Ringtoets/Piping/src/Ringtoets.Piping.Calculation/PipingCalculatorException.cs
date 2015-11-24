@@ -3,23 +3,23 @@
 namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
-    /// Exception thrown when something went wrong in the <see cref="PipingCalculation"/>
+    /// Exception thrown when something went wrong in the <see cref="PipingCalculator"/>
     /// </summary>
-    public class PipingCalculationException : Exception
+    public class PipingCalculatorException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationException"/> class.
+        /// Initializes a new instance of the <see cref="PipingCalculatorException"/> class.
         /// </summary>
-        public PipingCalculationException()
+        public PipingCalculatorException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationException"/> class 
+        /// Initializes a new instance of the <see cref="PipingCalculatorException"/> class 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public PipingCalculationException(string message) : base (message)
+        public PipingCalculatorException(string message) : base (message)
         {
         }
 
@@ -30,6 +30,6 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a 
         /// null reference if no inner exception is specified.</param>
-        public PipingCalculationException(string message, Exception innerException) : base(message, innerException) {}
+        public PipingCalculatorException(string message, Exception innerException) : base(message, innerException) {}
     }
 }

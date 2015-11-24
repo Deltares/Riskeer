@@ -5,7 +5,7 @@ namespace Ringtoets.Piping.Calculation
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.
     /// </summary>
-    public class PipingCalculationInput
+    public class PipingCalculatorInput
     {
         private readonly double waterVolumetricWeight;
         private readonly double upliftModelFactor;
@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Calculation
         private readonly PipingSoilProfile soilProfile;
 
         /// <summary>
-        /// Constructs a new <see cref="PipingCalculationInput"/>, which contains values for the parameters used
+        /// Constructs a new <see cref="PipingCalculatorInput"/>, which contains values for the parameters used
         /// in the piping sub calculations.
         /// </summary>
         /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m³]</param>
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
-        public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        public PipingCalculatorInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.upliftModelFactor = upliftModelFactor;

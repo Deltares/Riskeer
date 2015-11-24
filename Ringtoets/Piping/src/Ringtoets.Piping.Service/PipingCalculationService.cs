@@ -9,7 +9,7 @@ using Ringtoets.Piping.Service.Properties;
 namespace Ringtoets.Piping.Service
 {
     /// <summary>
-    /// This class is responsible for invoking operations on the <see cref="PipingCalculation"/>. Error and status information is 
+    /// This class is responsible for invoking operations on the <see cref="PipingCalculator"/>. Error and status information is 
     /// logged during the execution of the operation. At the end of an operation, a <see cref="PipingCalculationResult"/> is returned,
     /// representing the result of the operation.
     /// </summary>
@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Service
             pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));
 
-            var validationResults = new PipingCalculation(CreateInputFromData(pipingData.InputParameters)).Validate();
+            var validationResults = new PipingCalculator(CreateInputFromData(pipingData.InputParameters)).Validate();
             LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
 
             pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                var pipingResult = new PipingCalculation(CreateInputFromData(pipingData.InputParameters)).Calculate();
+                var pipingResult = new PipingCalculator(CreateInputFromData(pipingData.InputParameters)).Calculate();
 
                 pipingData.Output = new PipingOutput(pipingResult.UpliftZValue,
                                                      pipingResult.UpliftFactorOfSafety,
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Service
                                                      pipingResult.SellmeijerZValue,
                                                      pipingResult.SellmeijerFactorOfSafety);
             }
-            catch (PipingCalculationException e)
+            catch (PipingCalculatorException e)
             {
                 LogMessagesAsError(Resources.Error_in_piping_calculation_0, e.Message);
             }
@@ -79,9 +79,9 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static PipingCalculationInput CreateInputFromData(PipingInput inputParameters)
+        private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
         {
-            return new PipingCalculationInput(
+            return new PipingCalculatorInput(
                 inputParameters.WaterVolumetricWeight,
                 inputParameters.UpliftModelFactor,
                 inputParameters.AssessmentLevel,
