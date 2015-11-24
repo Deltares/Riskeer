@@ -302,13 +302,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(16, addCalculationItem.Image.Height);
 
             var runAllItem = contextMenu.Items[contextMenuCalculateIndex];
-            Assert.AreEqual("Alles berekenen", runAllItem.Text);
+            Assert.AreEqual("Alles be&rekenen", runAllItem.Text);
             Assert.AreEqual("Valideer en voer alle berekeningen binnen het piping faalmechanisme uit.", runAllItem.ToolTipText);
             Assert.AreEqual(16, runAllItem.Image.Width);
             Assert.AreEqual(16, runAllItem.Image.Height);
 
             var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.AreEqual("Wis alle uitvoer", clearOutputItem.Text);
+            Assert.AreEqual("&Wis alle uitvoer", clearOutputItem.Text);
             Assert.AreEqual(16, clearOutputItem.Image.Width);
             Assert.AreEqual(16, clearOutputItem.Image.Height);
 
