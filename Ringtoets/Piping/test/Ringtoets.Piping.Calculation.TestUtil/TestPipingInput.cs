@@ -1,6 +1,5 @@
 using System;
 
-using Ringtoets.Piping.Calculation.Piping;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.TestUtil

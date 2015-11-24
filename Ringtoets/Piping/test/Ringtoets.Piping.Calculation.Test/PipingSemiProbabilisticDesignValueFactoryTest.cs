@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
 
-using Ringtoets.Piping.Calculation.Piping;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.Test.Piping
+namespace Ringtoets.Piping.Calculation.Test
 {
     [TestFixture]
     public class PipingSemiProbabilisticDesignValueFactoryTest

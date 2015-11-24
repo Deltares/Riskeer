@@ -6,7 +6,7 @@ using Deltares.WTIPiping;
 
 using Ringtoets.Piping.Calculation.Properties;
 
-namespace Ringtoets.Piping.Calculation.Piping
+namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
     /// This class represents a combination of piping sub-calculations, which together can be used

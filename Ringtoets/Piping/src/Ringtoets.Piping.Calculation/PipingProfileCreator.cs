@@ -1,7 +1,8 @@
 ﻿using Deltares.WTIPiping;
+
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.Piping
+namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
     /// Creates <see cref="PipingProfile"/> instances which are required by the <see cref="PipingCalculation"/>.

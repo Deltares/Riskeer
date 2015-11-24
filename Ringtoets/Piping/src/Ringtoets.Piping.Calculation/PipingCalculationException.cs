@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ringtoets.Piping.Calculation.Piping
+namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
     /// Exception thrown when something went wrong in the <see cref="PipingCalculation"/>

@@ -1,6 +1,6 @@
 ﻿using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.Piping
+namespace Ringtoets.Piping.Calculation
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.

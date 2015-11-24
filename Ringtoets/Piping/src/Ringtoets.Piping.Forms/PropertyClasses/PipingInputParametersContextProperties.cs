@@ -5,7 +5,7 @@ using System.Drawing.Design;
 using Core.Common.Gui;
 using Core.Common.Utils;
 
-using Ringtoets.Piping.Calculation.Piping;
+using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;

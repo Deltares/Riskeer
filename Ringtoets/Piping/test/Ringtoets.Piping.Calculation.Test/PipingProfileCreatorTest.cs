@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Deltares.WTIPiping;
+
 using NUnit.Framework;
 
-using Ringtoets.Piping.Calculation.Piping;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.Test.Piping
+namespace Ringtoets.Piping.Calculation.Test
 {
     public class PipingProfileCreatorTest
     {

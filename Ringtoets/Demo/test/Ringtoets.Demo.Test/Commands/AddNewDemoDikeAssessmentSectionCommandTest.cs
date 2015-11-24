@@ -10,7 +10,7 @@ using Rhino.Mocks;
 
 using Ringtoets.Demo.Commands;
 using Ringtoets.Integration.Data;
-using Ringtoets.Piping.Calculation.Piping;
+using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 
