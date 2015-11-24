@@ -92,8 +92,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism)
         {
             yield return failureMechanism.SectionDivisions;
-            yield return failureMechanism.SoilProfiles;
             yield return failureMechanism.SurfaceLines;
+            yield return failureMechanism.SoilProfiles;
             yield return failureMechanism.BoundaryConditions;
         }
 
