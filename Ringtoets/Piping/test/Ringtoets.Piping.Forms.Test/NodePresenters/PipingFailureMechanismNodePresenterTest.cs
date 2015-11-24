@@ -13,7 +13,8 @@ using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
+
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -363,7 +364,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);
-            Assert.AreEqual(Resources.PipingFailureMechanism_Clear_all_output_Tooltip, clearOutputItem.ToolTipText);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }

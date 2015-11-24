@@ -145,4 +145,85 @@
   <data name="FailureMechanism_Outputs_DisplayName" xml:space="preserve">
     <value>Uitvoer</value>
   </data>
+  <data name="Calculate_all" xml:space="preserve">
+    <value>Alles berekenen</value>
+  </data>
+  <data name="Clear_all_output" xml:space="preserve">
+    <value>Wis alle uitvoer</value>
+  </data>
+  <data name="FailureMechanism_InputsOutputs_Erase" xml:space="preserve">
+    <value>&amp;Wissen</value>
+  </data>
+  <data name="FailureMechanism_InputsOutputs_Erase_ToolTip" xml:space="preserve">
+    <value>Wis de huidige gegevens.</value>
+  </data>
+  <data name="FailureMechanism_Export" xml:space="preserve">
+    <value>&amp;Exporteren...</value>
+  </data>
+  <data name="FailureMechanism_Export_ToolTip" xml:space="preserve">
+    <value>Exporteer gegevens naar een bestand.</value>
+  </data>
+  <data name="FailureMechanism_InputsOutputs_Import" xml:space="preserve">
+    <value>&amp;Importeren...</value>
+  </data>
+  <data name="FailureMechanism_InputsOutputs_Import_ToolTip" xml:space="preserve">
+    <value>Importeer gegevens vanuit een bestand.</value>
+  </data>
+  <data name="FailureMechanism_InputsOutputs_Open" xml:space="preserve">
+    <value>&amp;Openen</value>
+  </data>
+  <data name="FailureMechanism_InputsOutputs_Open_ToolTip" xml:space="preserve">
+    <value>Open de gegevens in een nieuw documentvenster.</value>
+  </data>
+  <data name="FailureMechanism_Properties" xml:space="preserve">
+    <value>Ei&amp;genschappen</value>
+  </data>
+  <data name="FailureMechanism_Properties_ToolTip" xml:space="preserve">
+    <value>Laat de eigenschappen zien in het eigenschappenvenster.</value>
+  </data>
+  <data name="EraseIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\cross-script.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PropertiesIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\property.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CalculateAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\playall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calculate_all_ToolTip" xml:space="preserve">
+    <value>Valideer en voer alle berekeningen binnen het faalmechanisme uit.</value>
+  </data>
+  <data name="ClearOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Clear_all_output_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van alle berekeningen binnen het faalmechanisme.</value>
+  </data>
+  <data name="CollapseAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-stop-090.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExpandAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-stop-270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanism_Collapse_all" xml:space="preserve">
+    <value>Alles i&amp;nklappen</value>
+  </data>
+  <data name="FailureMechanism_Collapse_all_ToolTip" xml:space="preserve">
+    <value>Klap deze knoop en al zijn kinderen in.</value>
+  </data>
+  <data name="FailureMechanism_Expand_all" xml:space="preserve">
+    <value>Alles ui&amp;tklappen</value>
+  </data>
+  <data name="FailureMechanism_Expand_all_ToolTip" xml:space="preserve">
+    <value>Klap deze knoop en al zijn kinderen uit.</value>
+  </data>
 </root>

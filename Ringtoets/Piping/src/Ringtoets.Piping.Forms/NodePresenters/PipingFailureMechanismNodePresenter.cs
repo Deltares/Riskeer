@@ -59,9 +59,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                      failureMechanism.Calculations.Add(pipingData);
                                      failureMechanism.NotifyObservers();
                                  });
-            rootMenu.AddMenuItem(Resources.CalculateAll,
+            rootMenu.AddMenuItem(RingtoetsCommonFormsResources.Calculate_all,
                                  Resources.PipingFailureMechanism_Calculate_Tooltip,
-                                 Resources.PlayAll, (o, args) =>
+                                 RingtoetsCommonFormsResources.CalculateAllIcon, (o, args) =>
                                  {
                                      foreach (var calc in failureMechanism.Calculations)
                                      {
@@ -69,9 +69,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                      }
                                  });
 
-            var clearOutputNode = rootMenu.AddMenuItem(Resources.Clear_all_output,
-                                                       Resources.PipingFailureMechanism_Clear_all_output_Tooltip,
-                                                       Resources.PipingOutputClear, (o, args) =>
+            var clearOutputNode = rootMenu.AddMenuItem(RingtoetsCommonFormsResources.Clear_all_output,
+                                                       RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
+                                                       RingtoetsCommonFormsResources.ClearOutputIcon, (o, args) =>
                                                        {
                                                            foreach (var calc in failureMechanism.Calculations)
                                                            {

@@ -91,6 +91,33 @@
   <ItemGroup>
     <None Include="Resources\folder_output.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cross-script.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\property.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table-export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table-import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-stop-270.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-stop-090.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_delete.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

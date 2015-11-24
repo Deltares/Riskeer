@@ -168,13 +168,9 @@
     <None Include="Resources\chart_curve.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PlayAll.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\blue-document-list.png" />
     <None Include="Resources\control-record.png" />
     <Content Include="Resources\PlayHS.png" />
-    <None Include="Resources\table_delete.png" />
     <None Include="Resources\table.png" />
   </ItemGroup>
   <ItemGroup />

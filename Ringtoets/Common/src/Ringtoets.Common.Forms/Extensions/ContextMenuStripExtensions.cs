@@ -17,7 +17,7 @@ namespace Ringtoets.Common.Forms.Extensions
         /// <param name="tooltip">Value for <see cref="ToolStripItem.ToolTipText"/>.</param>
         /// <param name="icon">Value for <see cref="ToolStripItem.Image"/>.</param>
         /// <param name="clickHandler">Method to handle the user clicking on the item..</param>
-        /// <returns>The newly created menu item.</returns>
+        /// <returns>The newly created <see cref="ToolStripItem"/>.</returns>
         public static ToolStripItem AddMenuItem(this ContextMenuStrip parentMenu, string text, string tooltip, Image icon, EventHandler clickHandler)
         {
             var newItem = new ToolStripMenuItem(text)
@@ -30,6 +30,17 @@ namespace Ringtoets.Common.Forms.Extensions
             parentMenu.Items.Add(newItem);
 
             return newItem;
+        }
+
+        /// <summary>
+        /// Adds a new <see cref="ToolStripSeparator"/> with all standard parameters.
+        /// </summary>
+        /// <param name="parentMenu">The parent menu to which the new item is added.</param>
+        public static void AddSeperator(this ContextMenuStrip parentMenu)
+        {
+            var newItem = new ToolStripSeparator();
+
+            parentMenu.Items.Add(newItem);
         }
     }
 }

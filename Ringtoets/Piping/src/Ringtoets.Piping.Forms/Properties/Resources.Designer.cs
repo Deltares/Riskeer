@@ -70,15 +70,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alles berekenen.
-        /// </summary>
-        public static string CalculateAll {
-            get {
-                return ResourceManager.GetString("CalculateAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
@@ -120,15 +111,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string Categories_Uplift {
             get {
                 return ResourceManager.GetString("Categories_Uplift", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wis alle uitvoer.
-        /// </summary>
-        public static string Clear_all_output {
-            get {
-                return ResourceManager.GetString("Clear_all_output", resourceCulture);
             }
         }
         
@@ -312,15 +294,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingFailureMechanism_Calculate_Tooltip {
             get {
                 return ResourceManager.GetString("PipingFailureMechanism_Calculate_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen het faalmechanisme..
-        /// </summary>
-        public static string PipingFailureMechanism_Clear_all_output_Tooltip {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_Clear_all_output_Tooltip", resourceCulture);
             }
         }
         
@@ -914,16 +887,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap PipingOutputClear {
-            get {
-                object obj = ResourceManager.GetObject("PipingOutputClear", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap PipingOutputIcon {
             get {
                 object obj = ResourceManager.GetObject("PipingOutputIcon", resourceCulture);
@@ -1038,16 +1001,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static System.Drawing.Bitmap Play {
             get {
                 object obj = ResourceManager.GetObject("Play", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PlayAll {
-            get {
-                object obj = ResourceManager.GetObject("PlayAll", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

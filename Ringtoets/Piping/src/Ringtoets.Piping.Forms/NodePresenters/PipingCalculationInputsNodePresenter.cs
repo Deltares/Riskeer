@@ -13,6 +13,8 @@ using Ringtoets.Piping.Service;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
@@ -113,7 +115,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
             var clearOutputItem = contextMenu.AddMenuItem(Resources.Clear_output,
                                     null,
-                                    Resources.PipingOutputClear,
+                                    RingtoetsFormsResources.ClearOutputIcon,
                                     (o, args) =>
                                     {
                                         pipingData.ClearOutput();
