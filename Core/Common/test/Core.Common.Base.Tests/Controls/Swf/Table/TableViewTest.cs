@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +21,6 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using NUnit.Framework;
-using PostSharp.Reflection;
 using Rhino.Mocks;
 
 namespace Core.Common.Base.Tests.Controls.Swf.Table
