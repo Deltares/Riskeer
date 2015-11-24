@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -215,6 +216,45 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsCommonFormsResources.FailureMechanism_Properties, RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip, RingtoetsCommonFormsResources.PropertiesIcon);
 
             CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3], menu.Items[5] }, typeof(ToolStripSeparator));
+        }
+
+        [Test]
+        public void GetContextMenu_OutputPlaceholderShowPropertiesClickedWithHandler_CallsShowProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            commandHandlerMock.Expect(ch => ch.ShowProperties());
+
+            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(commandHandlerMock);
+            var placeholderData = new OutputPlaceholder("test");
+
+            mocks.ReplayAll();
+
+            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, placeholderData).Items[6];
+
+            // Call
+            showPropertiesMenuItem.PerformClick();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_OutputPlaceholderShowPropertiesClickedWithoutHandler_NoExceptions()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+
+            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter();
+            var placeholderData = new OutputPlaceholder("test");
+
+            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, placeholderData).Items[6];
+
+            // Call & Assert
+            showPropertiesMenuItem.PerformClick();
         }
     }
 }

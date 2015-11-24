@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -14,6 +16,13 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 {
     public class FailureMechanismNodePresenter : RingtoetsNodePresenterBase<FailureMechanismPlaceholder>
     {
+        private IGuiCommandHandler guiHandler;
+
+        public FailureMechanismNodePresenter(IGuiCommandHandler guiHandler = null)
+        {
+            this.guiHandler = guiHandler;
+        }
+
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, FailureMechanismPlaceholder nodeData)
         {
             node.Text = nodeData.Name;
@@ -44,11 +53,11 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanism_Expand_all,
                 RingtoetsCommonFormsResources.FailureMechanism_Expand_all_ToolTip,
-                RingtoetsCommonFormsResources.ExpandAllIcon, null);
+                RingtoetsCommonFormsResources.ExpandAllIcon, ExpandAllItemClicked);
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanism_Collapse_all,
                 RingtoetsCommonFormsResources.FailureMechanism_Collapse_all_ToolTip,
-                RingtoetsCommonFormsResources.CollapseAllIcon, null);
+                RingtoetsCommonFormsResources.CollapseAllIcon, CollapseAllItemClicked);
             contextMenu.AddSeperator();
 
             contextMenu.AddMenuItem(
@@ -60,9 +69,27 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanism_Properties,
                 RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip,
-                RingtoetsCommonFormsResources.PropertiesIcon, null);
+                RingtoetsCommonFormsResources.PropertiesIcon, PropertiesItemClicked);
 
             return contextMenu;
+        }
+
+        private void PropertiesItemClicked(object sender, EventArgs eventArgs)
+        {
+            if (guiHandler != null)
+            {
+                guiHandler.ShowProperties();
+            }
+        }
+
+        private void CollapseAllItemClicked(object sender, EventArgs eventArgs)
+        {
+            TreeView.CollapseAll(TreeView.SelectedNode);
+        }
+
+        private void ExpandAllItemClicked(object sender, EventArgs eventArgs)
+        {
+            TreeView.ExpandAll(TreeView.SelectedNode);
         }
 
         private IEnumerable GetInputs(FailureMechanismPlaceholder nodeData)

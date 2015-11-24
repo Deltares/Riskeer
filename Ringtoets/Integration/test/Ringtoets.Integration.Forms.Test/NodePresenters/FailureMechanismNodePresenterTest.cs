@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -145,6 +146,45 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(menu, 8, RingtoetsCommonFormsResources.FailureMechanism_Properties, RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip, RingtoetsCommonFormsResources.PropertiesIcon);
 
             CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2], menu.Items[5],menu.Items[7]}, typeof(ToolStripSeparator));
+        }
+
+        [Test]
+        public void GetContextMenu_ShowPropertiesClickedWithHandler_CallsShowProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            commandHandlerMock.Expect(ch => ch.ShowProperties());
+
+            var nodePresenter = new FailureMechanismNodePresenter(commandHandlerMock);
+            var failureMechanism = new FailureMechanismPlaceholder("test");
+
+            mocks.ReplayAll();
+
+            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, failureMechanism).Items[8];
+
+            // Call
+            showPropertiesMenuItem.PerformClick();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_ShowPropertiesClickedWithoutHandler_NoExceptions()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+
+            var nodePresenter = new FailureMechanismNodePresenter();
+            var failureMechanism = new FailureMechanismPlaceholder("test");
+
+            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, failureMechanism).Items[8];
+
+            // Call & Assert
+            showPropertiesMenuItem.PerformClick();
         }
     }
 }

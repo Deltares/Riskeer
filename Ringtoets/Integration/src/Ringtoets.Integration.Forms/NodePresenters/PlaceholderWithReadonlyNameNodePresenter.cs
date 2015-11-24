@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Placeholder;
@@ -15,6 +17,13 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// </summary>
     public class PlaceholderWithReadonlyNameNodePresenter : RingtoetsNodePresenterBase<PlaceholderWithReadonlyName>
     {
+        private IGuiCommandHandler guiHandler;
+
+        public PlaceholderWithReadonlyNameNodePresenter(IGuiCommandHandler guiHandler = null)
+        {
+            this.guiHandler = guiHandler;
+        }
+
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PlaceholderWithReadonlyName nodeData)
         {
             node.Text = nodeData.Name;
@@ -69,9 +78,17 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                 contextMenu.AddMenuItem(
                     RingtoetsCommonFormsResources.FailureMechanism_Properties,
                     RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip,
-                    RingtoetsCommonFormsResources.PropertiesIcon, null);
+                    RingtoetsCommonFormsResources.PropertiesIcon, PropertiesItemClicked);
             }
             return contextMenu;
+        }
+
+        private void PropertiesItemClicked(object sender, EventArgs eventArgs)
+        {
+            if (guiHandler != null)
+            {
+                guiHandler.ShowProperties();
+            }
         }
     }
 }
