@@ -279,6 +279,16 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PipingCalculationReportIcon {
+            get {
+                object obj = ResourceManager.GetObject("PipingCalculationReportIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekening toevoegen.
         /// </summary>
         public static string PipingFailureMechanism_Add_Piping_Calculation {

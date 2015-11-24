@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
 
                 // assert
-                Assert.AreEqual(8, nodePresenters.Length);
+                Assert.AreEqual(10, nodePresenters.Length);
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));
@@ -108,6 +108,8 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingInputParametersContextNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingFailureMechanismNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingOutputNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is EmptyPipingOutputNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is EmptyPipingCalculationReportNodePresenter));
             }
             mocks.VerifyAll();
         }

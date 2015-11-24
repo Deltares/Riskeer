@@ -7,6 +7,9 @@ using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
+    /// <summary>
+    /// Node presenter for <see cref="PipingOutput"/> instances.
+    /// </summary>
     public class PipingOutputNodePresenter : RingtoetsNodePresenterBase<PipingOutput>
     {
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingOutput nodeData)

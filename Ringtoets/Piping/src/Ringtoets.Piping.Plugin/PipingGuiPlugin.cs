@@ -52,6 +52,8 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PipingSoilProfileNodePresenter();
             yield return new PipingOutputNodePresenter();
+            yield return new EmptyPipingOutputNodePresenter();
+            yield return new EmptyPipingCalculationReportNodePresenter();
         }
     }
 }

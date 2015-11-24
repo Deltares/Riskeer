@@ -57,7 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\NamingHelperTest.cs" />
+    <Compile Include="NodePresenters\EmptyPipingCalculationReportNodePresenterTest.cs" />
+    <Compile Include="NodePresenters\EmptyPipingOutputNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingInputParametersContextNodePresenterTest.cs" />
+    <Compile Include="PresentationObjects\PipingCalculationsTreeFolderTest.cs" />
     <Compile Include="PropertyClasses\PipingInputParametersContextPropertiesTest.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingCalculationInputsNodePresenterTest.cs" />

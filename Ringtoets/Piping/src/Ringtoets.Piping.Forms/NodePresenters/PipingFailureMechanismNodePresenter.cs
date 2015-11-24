@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism, ITreeNode node)
         {
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism), TreeFolderCategory.Input);
-            yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Calculations_DisplayName, GetCalculations(failureMechanism));
+            yield return new PipingCalculationsTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Calculations_DisplayName, failureMechanism);
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output);
         }
 
@@ -95,16 +95,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             yield return failureMechanism.SurfaceLines;
             yield return failureMechanism.SoilProfiles;
             yield return failureMechanism.BoundaryConditions;
-        }
-
-        private IEnumerable GetCalculations(PipingFailureMechanism failureMechanism)
-        {
-            return failureMechanism.Calculations.Select(calculation => new PipingCalculationInputs
-            {
-                PipingData = calculation,
-                AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
-                AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
-            });
         }
 
         private IEnumerable GetOutputs(PipingFailureMechanism failureMechanism)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
@@ -40,11 +41,15 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 AvailablePipingSurfaceLines = pipingCalculationInputs.AvailablePipingSurfaceLines,
                 AvailablePipingSoilProfiles = pipingCalculationInputs.AvailablePipingSoilProfiles
             };
-            var pipingOutput = pipingCalculationInputs.PipingData.Output;
-            if (pipingOutput != null)
+            if (pipingCalculationInputs.PipingData.HasOutput)
             {
-                yield return pipingOutput;
+                yield return pipingCalculationInputs.PipingData.Output;
                 yield return pipingCalculationInputs.PipingData.CalculationReport;
+            }
+            else
+            {
+                yield return new EmptyPipingOutput();
+                yield return new EmptyPipingCalculationReport();
             }
         }
 
@@ -56,6 +61,28 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public override bool CanRenameNodeTo(ITreeNode node, string newName)
         {
             return true;
+        }
+
+        protected override bool CanRemove(object parentNodeData, PipingCalculationInputs nodeData)
+        {
+            var calculationsFolder = parentNodeData as PipingCalculationsTreeFolder;
+            if (calculationsFolder != null)
+            {
+                return calculationsFolder.Contents.OfType<PipingCalculationInputs>().Contains(nodeData);
+            }
+            return base.CanRemove(parentNodeData, nodeData);
+        }
+
+        protected override bool RemoveNodeData(object parentNodeData, PipingCalculationInputs nodeData)
+        {
+            var calculationsFolder = parentNodeData as PipingCalculationsTreeFolder;
+            if (calculationsFolder != null)
+            {
+                var succesfullyRemovedData = calculationsFolder.ParentFailureMechanism.Calculations.Remove(nodeData.PipingData);
+                calculationsFolder.ParentFailureMechanism.NotifyObservers();
+                return succesfullyRemovedData;
+            }
+            return base.RemoveNodeData(parentNodeData, nodeData);
         }
 
         protected override void OnNodeRenamed(PipingCalculationInputs pipingCalculationInputs, string newName)

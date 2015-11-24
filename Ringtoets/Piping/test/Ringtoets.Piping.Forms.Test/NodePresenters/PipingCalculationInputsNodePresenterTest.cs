@@ -123,16 +123,22 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 PipingData = new PipingCalculationData()
             };
 
+            // Precondition
+            Assert.IsFalse(pipingCalculationInputs.PipingData.HasOutput);
+
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationInputs.PipingData.Comments, children[0]);
             var pipingInputParametersContext = (PipingInputParametersContext)children[1];
             Assert.AreSame(pipingCalculationInputs.PipingData.InputParameters, pipingInputParametersContext.WrappedPipingInputParameters);
             CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSurfaceLines, pipingInputParametersContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationInputs.AvailablePipingSoilProfiles, pipingInputParametersContext.AvailablePipingSoilProfiles);
+
+            Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
+            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
             mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -425,7 +431,39 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRemove_Always_ReturnTrue()
+        public void CanRemove_ParentIsPipingCalculationsTreeFolder_ReturnTrue()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingCalculationsFolder = new PipingCalculationsTreeFolder("Berekeningen", pipingFailureMechanism);
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
+
+            // Call
+            bool removalAllowed = nodePresenter.CanRemove(pipingCalculationsFolder, pipingCalculationsFolder.Contents.OfType<object>().First());
+
+            // Assert
+            Assert.IsTrue(removalAllowed);
+        }
+
+        [Test]
+        public void CanRemove_ParentIsPipingCalculationsTreeFolderForCalculationNotInFolder_ReturnFalse()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingCalculationsFolder = new PipingCalculationsTreeFolder("Berekeningen", pipingFailureMechanism);
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
+
+            // Call
+            bool removalAllowed = nodePresenter.CanRemove(pipingCalculationsFolder, new PipingCalculationInputs());
+
+            // Assert
+            Assert.IsFalse(removalAllowed);
+        }
+
+        [Test]
+        public void CanRemove_EverythingElse_ReturnFalse()
         {
             // Setup
             var dataMock = mockRepository.StrictMock<object>();
@@ -440,6 +478,42 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsFalse(removalAllowed);
             mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void RemoveNodeData_ParentIsPipingCalculationsTreeFolder_RemoveCalculationFromFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var elementToBeRemoved = new PipingCalculationData();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.Calculations.Add(elementToBeRemoved);
+            pipingFailureMechanism.Calculations.Add(new PipingCalculationData());
+            pipingFailureMechanism.Attach(observer);
+
+            var pipingCalculationsFolder = new PipingCalculationsTreeFolder("Berekeningen", pipingFailureMechanism);
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
+
+            // Precondition
+            var treeElementToRemove = pipingCalculationsFolder.Contents.OfType<object>().ElementAt(1);
+            Assert.IsTrue(nodePresenter.CanRemove(pipingCalculationsFolder, treeElementToRemove));
+            Assert.AreEqual(3, pipingFailureMechanism.Calculations.Count);
+
+            // Call
+            bool removalSuccesful = nodePresenter.RemoveNodeData(pipingCalculationsFolder, treeElementToRemove);
+
+            // Assert
+            Assert.IsTrue(removalSuccesful);
+            Assert.AreEqual(2, pipingFailureMechanism.Calculations.Count);
+            CollectionAssert.DoesNotContain(pipingFailureMechanism.Calculations, elementToBeRemoved);
+
+            mocks.VerifyAll();
         }
 
         [Test]
