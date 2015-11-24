@@ -4,17 +4,12 @@ using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Gui;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-
 using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test
@@ -84,16 +79,24 @@ namespace Ringtoets.Piping.Plugin.Test
         {
             // setup
             var mocks = new MockRepository();
-            var application = mocks.Stub<IApplication>();
-            application.Stub(a => a.ActivityRunner).Return(mocks.Stub<IActivityRunner>());
+            var activityRunnerStub = mocks.Stub<IActivityRunner>();
 
             var guiStub = mocks.Stub<IGui>();
             guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
-            guiStub.Application = application;
 
             mocks.ReplayAll();
 
-            using (var guiPlugin = new PipingGuiPlugin { Gui = guiStub })
+            var application = new RingtoetsApplication
+            {
+                ActivityRunner = activityRunnerStub
+            };
+
+            guiStub.Application = application;
+
+            using (var guiPlugin = new PipingGuiPlugin
+            {
+                Gui = guiStub
+            })
             {
                 // call
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();

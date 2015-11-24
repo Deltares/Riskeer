@@ -144,18 +144,6 @@
   <data name="RingtoetsApplication_ActivatePlugins_All_plugins_were_activated" xml:space="preserve">
     <value>Alle plugins zijn geactiveerd.</value>
   </data>
-  <data name="RingtoetsApplication_RegisterImporters_Registering_importer_0_" xml:space="preserve">
-    <value>Registreren van importeer routine {0}.</value>
-  </data>
-  <data name="RingtoetsApplication_RegisterExporters_Registering_exporters" xml:space="preserve">
-    <value>Registratie van de exporteer routines...</value>
-  </data>
-  <data name="RingtoetsApplication_RegisterExporters_Registering_exporter_0_" xml:space="preserve">
-    <value>Registreren van exporteer routine {0}.</value>
-  </data>
-  <data name="RingtoetsApplication_RegisterImporters_Registering_importers" xml:space="preserve">
-    <value>Registratie van de importeer routines...</value>
-  </data>
   <data name="Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute" xml:space="preserve">
     <value>Activiteit is '{0}'. 'Initialize()' moet aangeroepen worden voor 'Execute()'.</value>
   </data>

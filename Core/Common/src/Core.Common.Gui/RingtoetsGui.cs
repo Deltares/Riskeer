@@ -41,7 +41,7 @@ namespace Core.Common.Gui
         private static RingtoetsGui instance;
         private static string instanceCreationStackTrace;
 
-        private IApplication application;
+        private RingtoetsApplication application;
         private MainWindow mainWindow;
 
         private object selection;
@@ -94,7 +94,7 @@ namespace Core.Common.Gui
 
         public Action OnMainWindowLoaded { get; set; }
 
-        public IApplication Application
+        public RingtoetsApplication Application
         {
             get
             {

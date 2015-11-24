@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -126,13 +125,12 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
             Expect.Call(gui.DocumentViews).Repeat.Any().Return(mocks.Stub<IViewList>());
 
-            var app = mocks.Stub<IApplication>();
-            var project = new Project();
-            Expect.Call(app.Project).Repeat.Any().Return(project);
-            Expect.Call(app.FileExporters).Repeat.Any().Return(new List<IFileExporter>());
+            mocks.ReplayAll();
+
+            var app = new RingtoetsApplication { Project = new Project() };
+
             gui.Application = app;
 
-            mocks.ReplayAll();
             guiPlugin.Gui = gui;
 
             guiPlugin.Activate();

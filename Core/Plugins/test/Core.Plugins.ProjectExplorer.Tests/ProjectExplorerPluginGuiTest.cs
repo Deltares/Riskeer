@@ -12,46 +12,34 @@ namespace Core.Plugins.ProjectExplorer.Tests
     [TestFixture]
     public class ProjectExplorerPluginGuiTest
     {
-        private readonly MockRepository mocks = new MockRepository();
-        private IApplication app;
         private IGui gui;
-
+        private MockRepository mocks;
+        private RingtoetsApplication app;
         private ITreeNodePresenter mockNodePresenter;
         private ProjectExplorerGuiPlugin projectExplorerPluginGui;
 
         [SetUp]
         public void SetUp()
         {
-            app = mocks.Stub<IApplication>();
+            mocks = new MockRepository();
             gui = mocks.Stub<IGui>();
 
             var settings = mocks.Stub<ApplicationSettingsBase>();
             var plugin = mocks.Stub<ApplicationPlugin>();
             var pluginGui = mocks.Stub<GuiPlugin>();
-
             projectExplorerPluginGui = new ProjectExplorerGuiPlugin
             {
                 Gui = gui
             };
 
             settings["showHiddenDataItems"] = true;
-            app.UserSettings = settings;
 
-            app.Settings = new NameValueCollection();
-            app.Settings["IsProjectExplorerSorted"] = "false";
-
-            var project = new Project();
-            Expect.Call(app.Project).Return(project).Repeat.Any();
-
-            gui.Application = app;
             Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>());
             Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>());
             Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
             {
                 projectExplorerPluginGui, pluginGui
             }).Repeat.Any();
-
-            plugin.Application = app;
 
             //create and register a custom np
             mockNodePresenter = mocks.Stub<ITreeNodePresenter>();
@@ -60,20 +48,24 @@ namespace Core.Plugins.ProjectExplorer.Tests
                 mockNodePresenter
             });
 
-            app.Stub(a => a.Plugins).Return(new[]
-            {
-                plugin
-            });
-            app.Stub(a => a.ProjectOpened += null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectOpened -= null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectClosing += null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectClosing -= null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectSaving += null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectSaving -= null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectSaved += null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectSaved -= null).IgnoreArguments().Repeat.Any();
-
             mocks.ReplayAll();
+
+            app = new RingtoetsApplication
+            {
+                Project = new Project(),
+                Plugins = { plugin },
+                UserSettings = settings,
+                Settings = new NameValueCollection { { "IsProjectExplorerSorted", "false" } }
+            };
+
+            gui.Application = app;
+            plugin.Application = app;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
         }
 
         [Test]

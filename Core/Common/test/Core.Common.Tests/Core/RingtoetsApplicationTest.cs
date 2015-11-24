@@ -50,8 +50,6 @@ namespace Core.Common.Tests.Core
             Expect.Call(plugin.Application = null).IgnoreArguments();
             Expect.Call(plugin.Deactivate);
             Expect.Call(plugin.GetDataItemInfos()).Return(new List<DataItemInfo>()).Repeat.Any();
-            Expect.Call(plugin.GetFileImporters()).Return(new List<IFileImporter>());
-            Expect.Call(plugin.GetFileExporters()).Return(new List<IFileExporter>());
 
             plugin.Activate();
             LastCall.Repeat.Once();

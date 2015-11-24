@@ -1,13 +1,8 @@
-﻿using System.Linq;
-
-using Core.Common.Base;
+﻿using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Demo.Commands;
 using Ringtoets.Integration.Data;
 
@@ -34,17 +29,20 @@ namespace Ringtoets.Demo.Test.Commands
         public void Execute_GuiIsProperlyInitialized_AddNewDuneAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
-            var project = new Project();
-
             var mocks = new MockRepository();
-            var applicationMock = mocks.Stub<IApplication>();
-            applicationMock.Stub(a => a.Project).Return(project);
             var guiMock = mocks.Stub<IGui>();
-            guiMock.Application = applicationMock;
-
             var observerMock = mocks.StrictMock<IObserver>();
+
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
+
+            var project = new Project();
+            var ringtoetsApplication = new RingtoetsApplication
+            {
+                Project = project
+            };
+
+            guiMock.Application = ringtoetsApplication;
 
             var command = new AddNewDemoDuneAssessmentSectionCommand
             {
@@ -58,7 +56,7 @@ namespace Ringtoets.Demo.Test.Commands
 
             // Assert
             Assert.AreEqual(1, project.Items.Count);
-            var demoAssessmentSection = (DuneAssessmentSection)project.Items[0];
+            var demoAssessmentSection = (DuneAssessmentSection) project.Items[0];
             Assert.AreEqual("Demo duintraject", demoAssessmentSection.Name);
             mocks.VerifyAll();
         }

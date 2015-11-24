@@ -22,7 +22,7 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets or sets Application wrapped by the current Gui.
         /// </summary>
-        IApplication Application { get; set; }
+        RingtoetsApplication Application { get; set; }
 
         /// <summary>
         /// Gets or sets CommandHandler.

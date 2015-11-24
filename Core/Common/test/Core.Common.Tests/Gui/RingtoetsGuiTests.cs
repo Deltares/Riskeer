@@ -1,5 +1,5 @@
+using Core.Common.Base;
 using Core.Common.Gui;
-using Core.Common.Tests.TestObjects;
 using Core.Common.TestUtils;
 using log4net.Core;
 using NUnit.Framework;
@@ -40,14 +40,19 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void DisposingGuiDisposesApplication()
         {
-            var testApplication = new TestApplication();
-            gui.Application = testApplication;
+            // Setup
+            var ringtoetsApplication = new RingtoetsApplication();
 
-            //action!
+            gui.Application = ringtoetsApplication;
+
+            // Precondition
+            Assert.IsNotNull(ringtoetsApplication.Plugins);
+
+            // Call
             gui.Dispose();
 
-            //assert
-            Assert.AreEqual(1, testApplication.DisposeCallCount);
+            // Assert
+            Assert.IsNull(ringtoetsApplication.Plugins);
         }
 
         [Test]

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui;
@@ -12,32 +11,21 @@ namespace Core.Plugins.SharpMapGis.Tests
     [TestFixture]
     public class SharpMapGisGuiPluginTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void Setup()
-        {
-            mocks = new MockRepository();
-        }
-
         /// <summary>
         /// Returns a contextmenu in case the data is a vectorlayer.
         /// </summary>
         [Test]
         public void GetContextMenuTest()
         {
+            var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var viewManager = mocks.Stub<IViewList>();
-            var application = mocks.Stub<IApplication>();
             var project = new Project();
             var sharpMapGisPluginGui = new SharpMapGisGuiPlugin
             {
                 Gui = gui
             };
 
-            Expect.Call(application.Project).Return(project).Repeat.Any();
-            Expect.Call(application.FileExporters).Return(new List<IFileExporter>()).Repeat.Any();
-            gui.Application = application;
             Expect.Call(gui.ToolWindowViews).Return(viewManager).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewManager).Repeat.Any();
             Expect.Call(gui.Plugins).Return(new[]
@@ -51,6 +39,10 @@ namespace Core.Plugins.SharpMapGis.Tests
             var vectorLayer = new VectorLayer("testLayer");
 
             mocks.ReplayAll();
+
+            var application = new RingtoetsApplication { Project = project };
+
+            gui.Application = application;
 
             sharpMapGisPluginGui.Gui = gui;
 

@@ -102,7 +102,6 @@
     <Compile Include="RingtoetsApplication.cs" />
     <Compile Include="RingtoetsApplicationSettings.cs" />
     <Compile Include="RingtoetsUserDataFolderConverter.cs" />
-    <Compile Include="IApplication.cs" />
     <Compile Include="IFileExporter.cs" />
     <Compile Include="IFileImporter.cs" />
     <Compile Include="IObservable.cs" />

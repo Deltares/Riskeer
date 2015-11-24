@@ -1,13 +1,9 @@
 ﻿using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Demo.Commands;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Calculation;
@@ -40,14 +36,19 @@ namespace Ringtoets.Demo.Test.Commands
             var project = new Project();
 
             var mocks = new MockRepository();
-            var applicationMock = mocks.Stub<IApplication>();
-            applicationMock.Stub(a => a.Project).Return(project);
+
             var guiMock = mocks.Stub<IGui>();
-            guiMock.Application = applicationMock;
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
+
+            var ringtoetsApplication = new RingtoetsApplication
+            {
+                Project = project
+            };
+
+            guiMock.Application = ringtoetsApplication;
 
             var command = new AddNewDemoDikeAssessmentSectionCommand
             {

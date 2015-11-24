@@ -18,7 +18,7 @@ namespace Core.Plugins.ProjectExplorer
     {
         private readonly TreeView treeView;
         private GuiPlugin guiPlugin;
-        private IApplication app;
+        private RingtoetsApplication app;
         private IGui gui;
         private Project project;
 

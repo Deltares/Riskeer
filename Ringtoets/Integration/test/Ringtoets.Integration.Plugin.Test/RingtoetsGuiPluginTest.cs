@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Gui;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
@@ -58,16 +54,24 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // setup
             var mocks = new MockRepository();
-            var application = mocks.Stub<IApplication>();
-            application.Stub(a => a.ActivityRunner).Return(mocks.Stub<IActivityRunner>());
+            var activityRunnerStub = mocks.Stub<IActivityRunner>();
 
             var guiStub = mocks.Stub<IGui>();
             guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
-            guiStub.Application = application;
 
             mocks.ReplayAll();
 
-            using (var guiPlugin = new RingtoetsGuiPlugin { Gui = guiStub })
+            var application = new RingtoetsApplication
+            {
+                ActivityRunner = activityRunnerStub
+            };
+
+            guiStub.Application = application;
+
+            using (var guiPlugin = new RingtoetsGuiPlugin
+            {
+                Gui = guiStub
+            })
             {
                 // call
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();

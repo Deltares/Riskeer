@@ -45,7 +45,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             //create mocks because we are only testing presenter here
             var guiPlugin = mocks.Stub<GuiPlugin>();
             var gui = mocks.Stub<IGui>();
-            var app = mocks.Stub<IApplication>();
+            var app = mocks.Stub<RingtoetsApplication>();
             tv = mocks.Stub<ITreeView>();
 
             gui.Application = app;

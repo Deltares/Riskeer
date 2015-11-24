@@ -9,25 +9,21 @@ namespace Core.Plugins.ProjectExplorer.Tests
     [TestFixture]
     public class ProjectTreeViewTest
     {
-        private static readonly MockRepository mocks = new MockRepository();
-
-        [SetUp]
-        public void SetUp() {}
-
-        [Test]
+       [Test]
         public void Init()
         {
+            var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
-            var app = mocks.StrictMock<IApplication>();
+            var documentViews = mocks.Stub<IViewList>();
             var settings = mocks.Stub<ApplicationSettingsBase>();
 
-            var documentViews = mocks.Stub<IViewList>();
-            gui.Application = app;
             Expect.Call(gui.DocumentViews).Return(documentViews).Repeat.Any();
 
-            // in case of mock
-            Expect.Call(app.UserSettings).Return(settings).Repeat.Any();
             mocks.ReplayAll();
+
+            var app = new RingtoetsApplication { UserSettings = settings };
+
+            gui.Application = app;
 
             var pluginGui = new ProjectExplorerGuiPlugin
             {
@@ -35,7 +31,10 @@ namespace Core.Plugins.ProjectExplorer.Tests
             };
 
             var projectTreeView = new ProjectTreeView(pluginGui);
+
             Assert.IsNotNull(projectTreeView);
+
+            mocks.VerifyAll();
         }
     }
 }

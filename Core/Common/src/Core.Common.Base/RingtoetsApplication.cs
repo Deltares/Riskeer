@@ -19,7 +19,7 @@ using log4net;
 
 namespace Core.Common.Base
 {
-    public class RingtoetsApplication : IApplication
+    public class RingtoetsApplication : IDisposable
     {
         public event Action AfterRun;
 
@@ -32,8 +32,6 @@ namespace Core.Common.Base
         public event Action<Project> ProjectSaved;
 
         private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsApplication));
-        private readonly IList<IFileImporter> fileImporters = new List<IFileImporter>();
-        private readonly IList<IFileExporter> fileExporters = new List<IFileExporter>();
 
         public Action WaitMethod;
 
@@ -105,7 +103,7 @@ namespace Core.Common.Base
             }
         }
 
-        public IList<ApplicationPlugin> Plugins { get; set; }
+        public IList<ApplicationPlugin> Plugins { get; private set; }
 
         public IActivityRunner ActivityRunner { get; set; }
 
@@ -129,7 +127,7 @@ namespace Core.Common.Base
         {
             get
             {
-                return fileImporters;
+                return Plugins.SelectMany(plugin => plugin.GetFileImporters());
             }
         }
 
@@ -137,7 +135,7 @@ namespace Core.Common.Base
         {
             get
             {
-                return fileExporters;
+                return Plugins.SelectMany(plugin => plugin.GetFileExporters());
             }
         }
 
@@ -213,9 +211,6 @@ namespace Core.Common.Base
 
             log.Info(Properties.Resources.RingtoetsApplication_Run_Activating_plugins);
             ActivatePlugins();
-
-            RegisterImporters();
-            RegisterExporters();
 
             log.Info(Properties.Resources.RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated);
 
@@ -393,30 +388,6 @@ namespace Core.Common.Base
             foreach (DictionaryEntry pair in Environment.GetEnvironmentVariables())
             {
                 log.DebugFormat("{0} = {1}", pair.Key, pair.Value);
-            }
-        }
-
-        private void RegisterImporters()
-        {
-            log.Debug(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importers);
-
-            foreach (var fileImporter in Plugins.SelectMany(plugin => plugin.GetFileImporters()))
-            {
-                fileImporters.Add(fileImporter);
-
-                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importer_0_, fileImporter.Name);
-            }
-        }
-
-        private void RegisterExporters()
-        {
-            log.Debug(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporters);
-
-            foreach (var fileExporter in Plugins.SelectMany(plugin => plugin.GetFileExporters()))
-            {
-                fileExporters.Add(fileExporter);
-
-                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporter_0_, fileExporter.Name);
             }
         }
 

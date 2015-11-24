@@ -1,4 +1,3 @@
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Gui;
@@ -15,13 +14,9 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void FileImportActivity()
         {
-            // wrap importer by activity
             var gui = mockRepository.Stub<IGui>();
-            var app = mockRepository.Stub<IApplication>();
-            var project = new Project("test");
 
-            gui.Application = app;
-            app.Expect(a => a.Project).Return(project).Repeat.Any();
+            var project = new Project("test");
 
             var importer = mockRepository.Stub<IFileImporter>();
             var fileImportActivity = new FileImportActivity(importer)
@@ -40,6 +35,13 @@ namespace Core.Common.Tests.Gui
 
             mockRepository.ReplayAll();
 
+            var app = new RingtoetsApplication
+            {
+                Project = project
+            };
+
+            gui.Application = app;
+
             // expect some reporting while processing each file
             fileImportActivity.OnImportFinished += (sender, importedObject, theImporter) =>
             {
@@ -50,7 +52,9 @@ namespace Core.Common.Tests.Gui
             fileImportActivity.Initialize();
             fileImportActivity.Execute();
 
-            Assert.AreEqual(3, app.Project.Items.Count());
+            Assert.AreEqual(3, app.Project.Items.Count);
+
+            mockRepository.VerifyAll();
         }
     }
 }

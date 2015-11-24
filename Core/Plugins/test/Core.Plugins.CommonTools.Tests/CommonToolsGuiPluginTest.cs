@@ -21,7 +21,7 @@ namespace Core.Plugins.CommonTools.Tests
         public void ChartLegendViewIsUpdatedForCurrentActiveView()
         {
             var gui = mocks.Stub<IGui>();
-            gui.Application = mocks.Stub<IApplication>();
+            gui.Application = mocks.Stub<RingtoetsApplication>();
             var pluginGui = new CommonToolsGuiPlugin();
             var mainWindow = mocks.Stub<IMainWindow>();
             var toolWindowViews = new TestViewList();

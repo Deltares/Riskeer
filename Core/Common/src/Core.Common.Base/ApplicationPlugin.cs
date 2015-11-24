@@ -10,7 +10,7 @@ namespace Core.Common.Base
         /// <summary>
         /// Gets or sets the application.
         /// </summary>
-        public virtual IApplication Application { get; set; }
+        public virtual RingtoetsApplication Application { get; set; }
 
         /// <summary>
         /// Activates the application plugin.

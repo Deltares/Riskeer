@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -21,7 +20,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
     {
         private MockRepository mocks;
         private IGui gui;
-        private IApplication realApp;
+        private RingtoetsApplication realApp;
 
         private readonly ApplicationPlugin commonToolsPlugin = new CommonToolsApplicationPlugin();
 
@@ -69,28 +68,21 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         [Test]
         public void FileFilteringWorks()
         {
-            var application = mocks.Stub<IApplication>();
+            var plugin = mocks.Stub<ApplicationPlugin>();
             var fileImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
-            var plugin = mocks.Stub<ApplicationPlugin>();
 
-            application.Stub(a => a.Plugins).Return(new[]
-            {
-                plugin
-            });
-            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
-            gui.Application = application;
-
-            IEnumerable<IFileImporter> importers = new[]
+            plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 targetItemImporter,
                 fileImporter
-            };
+            }).Repeat.Any();
 
             fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
             {
                 typeof(Int64)
             }).Repeat.Any();
+
             fileImporter.Expect(fi => fi.FileFilter).Return("known|*.bla").Repeat.Any();
             fileImporter.Expect(fi => fi.Name).Return("1").Repeat.Any();
             fileImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
@@ -99,13 +91,16 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 typeof(Int64)
             }).Repeat.Any();
+
             targetItemImporter.Expect(fi => fi.FileFilter).Return("known|*.ext").Repeat.Any();
             targetItemImporter.Expect(fi => fi.Name).Return("2").Repeat.Any();
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-
             mocks.ReplayAll();
+
+            var application = new RingtoetsApplication { Plugins = { plugin } };
+
+            gui.Application = application;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -131,33 +126,27 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         [Test]
         public void NonRootLevelImportersAreNotReturnedForNullType()
         {
-            var application = mocks.Stub<IApplication>();
+            var plugin = mocks.Stub<ApplicationPlugin>();
             var fileImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter2 = mocks.Stub<IFileImporter>();
-            var plugin = mocks.Stub<ApplicationPlugin>();
 
-            application.Stub(a => a.Plugins).Return(new[]
-            {
-                plugin
-            });
-            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
-            gui.Application = application;
-
-            IEnumerable<IFileImporter> importers = new[]
+            plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 fileImporter,
                 targetItemImporter,
                 targetItemImporter2
-            };
+            });
 
             fileImporter.Expect(fi => fi.CanImportOnRootLevel).Return(false);
             targetItemImporter.Expect(fi => fi.CanImportOnRootLevel).Return(false);
             targetItemImporter2.Expect(fi => fi.CanImportOnRootLevel).Return(true);
 
-            application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-
             mocks.ReplayAll();
+
+            var application = new RingtoetsApplication { Plugins = { plugin } };
+
+            gui.Application = application;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -172,19 +161,17 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         [Test]
         public void TargetItemFileImporterAreReturnedWhenMatch()
         {
-            var application = mocks.Stub<IApplication>();
+            var plugin = mocks.Stub<ApplicationPlugin>();
             var fileImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var targetItemImporterWhereCanImportIsFalse = mocks.Stub<IFileImporter>();
-            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
-            gui.Application = application;
 
-            IEnumerable<IFileImporter> importers = new[]
+            plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 fileImporter,
                 targetItemImporter,
                 targetItemImporterWhereCanImportIsFalse
-            };
+            });
 
             fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
             {
@@ -204,9 +191,11 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             });
             targetItemImporterWhereCanImportIsFalse.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(false).Repeat.Any();
 
-            application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-
             mocks.ReplayAll();
+
+            var application = new RingtoetsApplication { Plugins = { plugin } };
+
+            gui.Application = application;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -218,26 +207,15 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         }
 
         [Test]
-        public void TargetItemFileImporterCanMatchOnSubtype()
+        public void TargetItemFileImporterCanMatchOnSubtype() // Note: Test verifies that an importer for type A matches on type B if B implements A
         {
-            //test verifies that an importer for type A matches on type B if B implements A
-
-            var application = mocks.Stub<IApplication>();
-            var targetItemImporter = mocks.Stub<IFileImporter>();
             var plugin = mocks.Stub<ApplicationPlugin>();
+            var targetItemImporter = mocks.Stub<IFileImporter>();
 
-            application.Stub(a => a.Plugins).Return(new[]
-            {
-                plugin
-            });
-            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
-
-            gui.Application = application;
-
-            IEnumerable<IFileImporter> importers = new[]
+            plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 targetItemImporter
-            };
+            });
 
             targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
             {
@@ -245,9 +223,11 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             });
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-
             mocks.ReplayAll();
+
+            var application = new RingtoetsApplication { Plugins = { plugin } };
+
+            gui.Application = application;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
@@ -265,34 +245,28 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         [Test]
         public void AllPluginsAreSearchedForFileImportersAndOnlyMatchingImportersAreReturned()
         {
-            var application = mocks.Stub<IApplication>();
+            var plugin = mocks.Stub<ApplicationPlugin>();
             var fileImporter1 = mocks.Stub<IFileImporter>();
             var fileImporter2 = mocks.Stub<IFileImporter>();
             var fileImporter3 = mocks.Stub<IFileImporter>();
-            var plugin1 = mocks.Stub<ApplicationPlugin>();
 
-            application.Stub(a => a.Plugins).Return(new[]
-            {
-                plugin1
-            });
-            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
-            gui.Application = application;
-
-            IEnumerable<IFileImporter> importers = new[]
+            plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 fileImporter1,
                 fileImporter2,
                 fileImporter3
-            };
+            });
 
             fileImporter1.Expect(fi => fi.SupportedItemTypes).Return(new[]
             {
                 typeof(Int32)
             });
+
             fileImporter2.Expect(fi => fi.SupportedItemTypes).Return(new[]
             {
                 typeof(Int64)
             });
+
             fileImporter3.Expect(fi => fi.SupportedItemTypes).Return(new[]
             {
                 typeof(Int16)
@@ -302,9 +276,11 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             fileImporter2.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
             fileImporter3.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            application.Expect(a => a.FileImporters).Repeat.Any().Return(importers).Repeat.Once();
-
             mocks.ReplayAll();
+
+            var application = new RingtoetsApplication { Plugins = { plugin } };
+
+            gui.Application = application;
 
             var guiImportHandler = new GuiImportHandler(gui);
 
