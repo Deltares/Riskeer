@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<PipingCalculationInputs, PipingCalculationInputsProperties>();
+            yield return new PropertyInfo<PipingCalculationContext, PipingCalculationContextProperties>();
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingOutput, PipingOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new PipingCalculationInputsNodePresenter
+            yield return new PipingCalculationContextNodePresenter
             {
                 RunActivityAction = Gui.ApplicationCore.ActivityRunner.Enqueue
             };

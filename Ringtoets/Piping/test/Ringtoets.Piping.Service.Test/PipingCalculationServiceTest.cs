@@ -19,11 +19,11 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var pipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            pipingData.Name = name;
+            PipingCalculation pipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            pipingCalculation.Name = name;
 
             // Call
-            Action call = () => PipingCalculationService.Validate(pipingData);
+            Action call = () => PipingCalculationService.Validate(pipingCalculation);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -35,56 +35,56 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Validate_InValidPipingDataWithOutput_ReturnsFalseNoOutputChange()
+        public void Validate_InValidPipingCalculationWithOutput_ReturnsFalseNoOutputChange()
         {
             // Setup
             var output = new TestPipingOutput();
-            var invalidPipingData = PipingDataFactory.CreateCalculationWithInvalidData();
-            invalidPipingData.Output = output;
+            PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
+            invalidPipingCalculation.Output = output;
 
             // Call
-            var isValid = PipingCalculationService.Validate(invalidPipingData);
+            var isValid = PipingCalculationService.Validate(invalidPipingCalculation);
 
             // Assert
             Assert.IsFalse(isValid);
-            Assert.AreSame(output, invalidPipingData.Output);
+            Assert.AreSame(output, invalidPipingCalculation.Output);
         }
 
         [Test]
-        public void Calculate_InValidPipingDataWithOutput_LogsError()
+        public void Calculate_InValidPipingCalculationWithOutput_LogsError()
         {
             // Setup
-            var invalidPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            invalidPipingData.InputParameters.BeddingAngle = -1;
+            PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            invalidPipingCalculation.InputParameters.BeddingAngle = -1;
 
             // Call
-            Action call = () => PipingCalculationService.Calculate(invalidPipingData);
+            Action call = () => PipingCalculationService.Calculate(invalidPipingCalculation);
 
             // Assert
 
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", invalidPipingData.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", invalidPipingCalculation.Name), msgs[0]);
                 StringAssert.StartsWith("Piping berekening niet gelukt: ", msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", invalidPipingData.Name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs[2]);
             });
         }
 
         [Test]
-        public void PerformValidatedCalculation_ValidPipingData_LogStartAndEndOfValidatingInputsAndCalculation()
+        public void PerformValidatedCalculation_ValidPipingCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
         {
             // Setup
             const string name = "<very nice name>";
 
-            var pipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            pipingData.Name = name;
+            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validPipingCalculation.Name = name;
 
             // Call
             Action call = () =>
             {
-                Assert.IsTrue(PipingCalculationService.Validate(pipingData));
-                PipingCalculationService.Calculate(pipingData);
+                Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
+                PipingCalculationService.Calculate(validPipingCalculation);
             };
 
             // Assert
@@ -100,37 +100,37 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void PerformValidatedCalculation_ValidPipingDataNoOutput_ShouldSetOutput()
+        public void PerformValidatedCalculation_ValidPipingCalculationNoOutput_ShouldSetOutput()
         {
             // Setup
-            PipingCalculationData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
 
             // Precondition
-            Assert.IsNull(validPipingData.Output);
+            Assert.IsNull(validPipingCalculation.Output);
 
             // Call
-            Assert.IsTrue(PipingCalculationService.Validate(validPipingData));
-            PipingCalculationService.Calculate(validPipingData);
+            Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
+            PipingCalculationService.Calculate(validPipingCalculation);
 
             // Assert
-            Assert.IsNotNull(validPipingData.Output);
+            Assert.IsNotNull(validPipingCalculation.Output);
         }
 
         [Test]
-        public void PerformValidatedCalculation_ValidPipingDataWithOutput_ShouldChangeOutput()
+        public void PerformValidatedCalculation_ValidPipingCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
             var output = new TestPipingOutput();
 
-            PipingCalculationData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Output = output;
+            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validPipingCalculation.Output = output;
 
             // Call
-            Assert.IsTrue(PipingCalculationService.Validate(validPipingData));
-            PipingCalculationService.Calculate(validPipingData);
+            Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
+            PipingCalculationService.Calculate(validPipingCalculation);
 
             // Assert
-            Assert.AreNotSame(output, validPipingData.Output);
+            Assert.AreNotSame(output, validPipingCalculation.Output);
         }
     }
 }

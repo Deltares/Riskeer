@@ -15,45 +15,45 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public static class PipingCalculationService
     {
-        private static readonly ILog pipingDataLogger = LogManager.GetLogger(typeof(PipingCalculationData));
+        private static readonly ILog pipingCalculationLogger = LogManager.GetLogger(typeof(PipingCalculation));
 
         /// <summary>
-        /// Performs validation over the values on the given <paramref name="pipingData"/>. Error and status information is logged during
+        /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="pipingData">The <see cref="PipingCalculationData"/> for which to validate the values.</param>
-        /// <returns>False if <paramref name="pipingData"/> contains validation errors; True otherwise.</returns>
-        public static bool Validate(PipingCalculationData pipingData)
+        /// <param name="calculation">The <see cref="PipingCalculation"/> for which to validate the values.</param>
+        /// <returns>False if <paramref name="calculation"/> contains validation errors; True otherwise.</returns>
+        public static bool Validate(PipingCalculation calculation)
         {
-            pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
-                                                pipingData.Name, DateTimeService.CurrentTimeAsString));
+            pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
+                                                       calculation.Name, DateTimeService.CurrentTimeAsString));
 
-            var validationResults = new PipingCalculator(CreateInputFromData(pipingData.InputParameters)).Validate();
+            var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters)).Validate();
             LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
 
-            pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
-                                                pipingData.Name, DateTimeService.CurrentTimeAsString));
+            pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
+                                                calculation.Name, DateTimeService.CurrentTimeAsString));
 
             return validationResults.Count == 0;
         }
 
         /// <summary>
-        /// Performs a piping calculation based on the supplied <see cref="PipingCalculationData"/> and sets <see cref="PipingCalculationData.Output"/>
+        /// Performs a piping calculation based on the supplied <see cref="PipingCalculation"/> and sets <see cref="PipingCalculation.Output"/>
         /// to the <see cref="PipingCalculationResult"/> if the calculation was successful. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="pipingData">The <see cref="PipingCalculationData"/> to base the input for the calculation upon.</param>
+        /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        public static void Calculate(PipingCalculationData pipingData)
+        public static void Calculate(PipingCalculation calculation)
         {
-            pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_started_Time_1_,
-                                                pipingData.Name, DateTimeService.CurrentTimeAsString));
+            pipingCalculationLogger.Info(String.Format(Resources.Calculation_Subject_0_started_Time_1_,
+                                                       calculation.Name, DateTimeService.CurrentTimeAsString));
 
             try
             {
-                var pipingResult = new PipingCalculator(CreateInputFromData(pipingData.InputParameters)).Calculate();
+                var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters)).Calculate();
 
-                pipingData.Output = new PipingOutput(pipingResult.UpliftZValue,
+                calculation.Output = new PipingOutput(pipingResult.UpliftZValue,
                                                      pipingResult.UpliftFactorOfSafety,
                                                      pipingResult.HeaveZValue,
                                                      pipingResult.HeaveFactorOfSafety,
@@ -66,8 +66,8 @@ namespace Ringtoets.Piping.Service
             }
             finally
             {
-                pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_ended_Time_1_,
-                                                    pipingData.Name, DateTimeService.CurrentTimeAsString));
+                pipingCalculationLogger.Info(String.Format(Resources.Calculation_Subject_0_ended_Time_1_,
+                                                    calculation.Name, DateTimeService.CurrentTimeAsString));
             }
         }
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Service
         {
             foreach (var errorMessage in errorMessages)
             {
-                pipingDataLogger.Error(string.Format(format, errorMessage));
+                pipingCalculationLogger.Error(string.Format(format, errorMessage));
             }
         }
 

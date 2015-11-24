@@ -47,10 +47,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
-            var pipingData = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            nodePresenter.UpdateNode(null, pipingNode, pipingData);
+            nodePresenter.UpdateNode(null, pipingNode, failureMechanism);
 
             // Assert
             Assert.AreEqual("Dijken - Piping", pipingNode.Text);
@@ -69,8 +69,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.Calculations.Add(new PipingCalculationData());
-            pipingFailureMechanism.Calculations.Add(new PipingCalculationData());
+            pipingFailureMechanism.Calculations.Add(new PipingCalculation());
+            pipingFailureMechanism.Calculations.Add(new PipingCalculation());
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock).OfType<object>().ToArray();
@@ -91,14 +91,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var calculationsFolder = (CategoryTreeFolder)children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
-            var pipingCalculationChildObjects = calculationsFolder.Contents.Cast<PipingCalculationInputs>()
+            var pipingCalculationChildObjects = calculationsFolder.Contents.Cast<PipingCalculationContext>()
                                                                         .Take(pipingFailureMechanism.Calculations.Count)
                                                                         .ToArray();
-            CollectionAssert.AreEqual(pipingFailureMechanism.Calculations, pipingCalculationChildObjects.Select(pci => pci.PipingData).ToArray());
-            foreach (var pipingData in pipingCalculationChildObjects)
+            CollectionAssert.AreEqual(pipingFailureMechanism.Calculations, pipingCalculationChildObjects.Select(pci => pci.WrappedPipingCalculation).ToArray());
+            foreach (var pipingCalculationContext in pipingCalculationChildObjects)
             {
-                Assert.AreSame(pipingFailureMechanism.SurfaceLines, pipingData.AvailablePipingSurfaceLines);
-                Assert.AreSame(pipingFailureMechanism.SoilProfiles, pipingData.AvailablePipingSoilProfiles);
+                Assert.AreSame(pipingFailureMechanism.SurfaceLines, pipingCalculationContext.AvailablePipingSurfaceLines);
+                Assert.AreSame(pipingFailureMechanism.SoilProfiles, pipingCalculationContext.AvailablePipingSoilProfiles);
             }
 
             var outputsFolder = (CategoryTreeFolder)children[2];
@@ -347,7 +347,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Calculations.Add(new PipingCalculationData
+            dataMock.Calculations.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_ClickOnAddCalculationItem_NewPipingDataInstanceAddedToCalculationAndNotifyObservers()
+        public void GetContextMenu_ClickOnAddCalculationItem_NewPipingCalculationInstanceAddedToFailureMechanismAndNotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -467,7 +467,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GivenMultiplePipingDataWithOutput_WhenClearingOutputFromContextMenu_ThenPipingDataOutputCleared()
+        public void GivenMultiplePipingCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenPipingOutputCleared()
         {
             // Given
             var mocks = new MockRepository();
@@ -475,11 +475,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Calculations.Add(new PipingCalculationData
+            dataMock.Calculations.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });
-            dataMock.Calculations.Add(new PipingCalculationData
+            dataMock.Calculations.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });

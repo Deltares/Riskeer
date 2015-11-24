@@ -234,6 +234,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Piping.
+        /// </summary>
+        public static string PipingCalculationContextProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculationContextProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van de piping berekening..
         /// </summary>
         public static string PipingCalculationData_Name_Description {
@@ -248,15 +257,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingCalculationData_Name_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationData_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Piping.
-        /// </summary>
-        public static string PipingCalculationInputsProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingCalculationInputsProperties_DisplayName", resourceCulture);
             }
         }
         

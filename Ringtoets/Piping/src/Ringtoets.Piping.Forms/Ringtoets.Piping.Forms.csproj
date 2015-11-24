@@ -63,14 +63,14 @@
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingInputContextNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingCalculationInputsNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingCalculationContextNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineNodePresenter.cs" />
     <Compile Include="PresentationObjects\EmptyPipingCalculationReport.cs" />
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
-    <Compile Include="PresentationObjects\PipingCalculationInputs.cs" />
+    <Compile Include="PresentationObjects\PipingCalculationContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationsTreeFolder.cs" />
     <Compile Include="PresentationObjects\PipingInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,7 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\PipingCalculationInputsProperties.cs" />
+    <Compile Include="PropertyClasses\PipingCalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
     <Compile Include="PropertyClasses\PipingSoilProfileProperties.cs" />

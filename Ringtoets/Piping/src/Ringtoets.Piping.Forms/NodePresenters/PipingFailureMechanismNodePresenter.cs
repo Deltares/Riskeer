@@ -52,11 +52,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                  Resources.PipingFailureMechanism_Add_Piping_Calculation_Tooltip,
                                  Resources.PipingIcon, (o, args) =>
                                  {
-                                     var pipingData = new PipingCalculationData
+                                     var calculation = new PipingCalculation
                                      {
                                          Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationData_DefaultName, pd => pd.Name)
                                      };
-                                     failureMechanism.Calculations.Add(pipingData);
+                                     failureMechanism.Calculations.Add(calculation);
                                      failureMechanism.NotifyObservers();
                                  });
             rootMenu.AddMenuItem(RingtoetsCommonFormsResources.Calculate_all,

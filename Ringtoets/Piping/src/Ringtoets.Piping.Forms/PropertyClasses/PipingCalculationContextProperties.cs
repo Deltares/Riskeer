@@ -6,8 +6,8 @@ using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
-    [ResourcesDisplayName(typeof(Resources), "PipingCalculationInputsProperties_DisplayName")]
-    public class PipingCalculationInputsProperties : ObjectProperties<PipingCalculationInputs>
+    [ResourcesDisplayName(typeof(Resources), "PipingCalculationContextProperties_DisplayName")]
+    public class PipingCalculationContextProperties : ObjectProperties<PipingCalculationContext>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingCalculationData_Name_DisplayName")]
@@ -16,12 +16,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.Name;
+                return data.WrappedPipingCalculation.Name;
             }
             set
             {
-                data.PipingData.Name = value;
-                data.PipingData.NotifyObservers();
+                data.WrappedPipingCalculation.Name = value;
+                data.WrappedPipingCalculation.NotifyObservers();
             }
         }
     }

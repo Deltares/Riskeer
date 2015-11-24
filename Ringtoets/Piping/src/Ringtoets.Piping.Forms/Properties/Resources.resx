@@ -196,7 +196,7 @@
   <data name="PipingInput_PiezometricHeadPolder_DisplayName" xml:space="preserve">
     <value>Stijghoogte in achterland [m+NAP]</value>
   </data>
-  <data name="PipingCalculationInputsProperties_DisplayName" xml:space="preserve">
+  <data name="PipingCalculationContextProperties_DisplayName" xml:space="preserve">
     <value>Piping</value>
   </data>
   <data name="PipingInput_SandParticlesVolumicWeight_Description" xml:space="preserve">

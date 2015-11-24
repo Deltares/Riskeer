@@ -63,7 +63,7 @@
     </Compile>
     <Compile Include="Calculation\Math2D.cs" />
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineException.cs" />
-    <Compile Include="PipingCalculationData.cs" />
+    <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />

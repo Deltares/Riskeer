@@ -143,13 +143,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_WithParentNotContainingPipingData_ThrowsNullReferenceException()
+        public void RemoveNodeData_WithParentNotContainingPipingCalculation_ThrowsNullReferenceException()
         {
             // Setup
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(new PipingCalculationInputs(), new TestPipingOutput());
+            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(new PipingCalculationContext(), new TestPipingOutput());
 
             // Assert
             Assert.Throws<NullReferenceException>(removeAction);
@@ -161,19 +161,19 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var nodePresenter = new PipingOutputNodePresenter();
 
-            var pipingCalculationInputs = new PipingCalculationInputs
+            var pipingCalculationContext = new PipingCalculationContext
             {
-                PipingData = new PipingCalculationData
+                WrappedPipingCalculation = new PipingCalculation
                 {
                     Output = new TestPipingOutput()
                 }
             };
 
             // Call
-            nodePresenter.RemoveNodeData(pipingCalculationInputs, new TestPipingOutput());
+            nodePresenter.RemoveNodeData(pipingCalculationContext, new TestPipingOutput());
 
             // Assert
-            Assert.IsNull(pipingCalculationInputs.PipingData.Output);
+            Assert.IsNull(pipingCalculationContext.WrappedPipingCalculation.Output);
         }
     }
 }

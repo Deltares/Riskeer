@@ -76,7 +76,7 @@ namespace Ringtoets.Demo.Test.Commands
             mocks.VerifyAll();
         }
 
-        private void AssertCalculationAbleToCalculate(PipingCalculationData calculation)
+        private void AssertCalculationAbleToCalculate(PipingCalculation calculation)
         {
             PipingInput inputParameters = calculation.InputParameters;
             AssertExpectedPipingInput(inputParameters);

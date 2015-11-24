@@ -26,7 +26,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingDataAndObserverAttached_NotifyObserver()
+        public void NotifyObservers_HasPipingInputAndObserverAttached_NotifyObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingDataAndObserverDetached_NoCallsOnObserver()
+        public void NotifyObservers_HasPipingInputAndObserverDetached_NoCallsOnObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void PipingDataNotifyObservers_AttachedOnPipingCalculationInputs_ObserverNotified()
+        public void PipingInputNotifyObservers_AttachedOnPipingCalculationContext_ObserverNotified()
         {
             // Setup
             var mocks = new MockRepository();
@@ -78,15 +78,15 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingInput();
+            var pipingInput = new PipingInput();
             var presentationObject = new PipingInputContext
             {
-                WrappedPipingInput = pipingData
+                WrappedPipingInput = pipingInput
             };
             presentationObject.Attach(observer);
 
             // Call
-            pipingData.NotifyObservers();
+            pipingInput.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();

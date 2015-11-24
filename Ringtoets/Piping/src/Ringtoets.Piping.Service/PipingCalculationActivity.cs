@@ -8,40 +8,40 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public class PipingCalculationActivity : Activity
     {
-        private readonly PipingCalculationData pipingData;
+        private readonly PipingCalculation calculation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
         /// </summary>
-        /// <param name="pipingData">The piping data used for the calculation.</param>
-        public PipingCalculationActivity(PipingCalculationData pipingData)
+        /// <param name="calculation">The piping data used for the calculation.</param>
+        public PipingCalculationActivity(PipingCalculation calculation)
         {
-            this.pipingData = pipingData;
+            this.calculation = calculation;
         }
 
         public override string Name
         {
             get
             {
-                return pipingData.Name;
+                return calculation.Name;
             }
         }
 
         protected override void OnInitialize()
         {
-            if (!PipingCalculationService.Validate(pipingData))
+            if (!PipingCalculationService.Validate(calculation))
             {
                 Status = ActivityStatus.Failed;
             }
             else
             {
-                pipingData.Output = null;
+                calculation.Output = null;
             }
         }
 
         protected override void OnExecute()
         {
-            PipingCalculationService.Calculate(pipingData);
+            PipingCalculationService.Calculate(calculation);
             Status = ActivityStatus.Done;
         }
 
@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Service
 
         protected override void OnFinish()
         {
-            pipingData.NotifyObservers();
+            calculation.NotifyObservers();
         }
     }
 }

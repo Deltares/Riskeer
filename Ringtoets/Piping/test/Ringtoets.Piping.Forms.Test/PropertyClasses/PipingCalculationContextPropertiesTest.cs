@@ -10,16 +10,16 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingCalculationInputsPropertiesTest
+    public class PipingCalculationContextPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new PipingCalculationInputsProperties();
+            var properties = new PipingCalculationContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingCalculationInputs>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingCalculationContext>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -28,16 +28,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "<very cool name>";
-            var pipingData = new PipingCalculationData
+            var calculation = new PipingCalculation
             {
                 Name = name
             };
 
-            var properties = new PipingCalculationInputsProperties
+            var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationInputs
+                Data = new PipingCalculationContext
                 {
-                    PipingData = pipingData
+                    WrappedPipingCalculation = calculation
                 }
             };
 
@@ -54,21 +54,21 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
-            pipingData.Attach(projectObserver);
+            var calculation = new PipingCalculation();
+            calculation.Attach(projectObserver);
 
-            var properties = new PipingCalculationInputsProperties
+            var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationInputs
+                Data = new PipingCalculationContext
                 {
-                    PipingData = pipingData
+                    WrappedPipingCalculation = calculation
                 }
             };
 
             // Call & Assert
             const string newName = "haha";
             properties.Name = newName;
-            Assert.AreEqual(newName, pipingData.Name);
+            Assert.AreEqual(newName, calculation.Name);
             mocks.VerifyAll();
         }
 
@@ -82,21 +82,21 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
-            pipingData.Attach(projectObserver);
+            var calculation = new PipingCalculation();
+            calculation.Attach(projectObserver);
 
             // Call
-            new PipingCalculationInputsProperties
+            new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationInputs
+                Data = new PipingCalculationContext
                 {
-                    PipingData = pipingData
+                    WrappedPipingCalculation = calculation
                 },
                 Name = string.Empty
             };
 
             // Assert
-            Assert.AreEqual(string.Empty, pipingData.Name);
+            Assert.AreEqual(string.Empty, calculation.Name);
 
             mocks.VerifyAll();
         }

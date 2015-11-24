@@ -25,10 +25,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override bool RemoveNodeData(object parentNodeData, PipingOutput nodeData)
         {
-            var pipingCalculationInputs = (PipingCalculationInputs)parentNodeData;
+            var pipingCalculationContext = (PipingCalculationContext)parentNodeData;
 
-            pipingCalculationInputs.ClearOutput();
-            pipingCalculationInputs.NotifyObservers();
+            pipingCalculationContext.ClearOutput();
+            pipingCalculationContext.NotifyObservers();
 
             return true;
         }

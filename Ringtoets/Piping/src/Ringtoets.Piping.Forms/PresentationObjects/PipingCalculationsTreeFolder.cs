@@ -24,11 +24,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         public PipingFailureMechanism ParentFailureMechanism { get; private set; }
 
-        private static IEnumerable<PipingCalculationInputs> WrapCalculationsInPresentationObjects(PipingFailureMechanism failureMechanism)
+        private static IEnumerable<PipingCalculationContext> WrapCalculationsInPresentationObjects(PipingFailureMechanism failureMechanism)
         {
-            return failureMechanism.Calculations.Select(calculation => new PipingCalculationInputs
+            return failureMechanism.Calculations.Select(calculation => new PipingCalculationContext
             {
-                PipingData = calculation,
+                WrappedPipingCalculation = calculation,
                 AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
                 AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
             });

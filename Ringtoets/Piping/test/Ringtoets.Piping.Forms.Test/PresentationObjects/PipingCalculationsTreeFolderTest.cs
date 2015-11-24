@@ -29,16 +29,16 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<CategoryTreeFolder>(calculationsFolder);
             Assert.AreEqual(folderName, calculationsFolder.Name);
             Assert.AreSame(failureMechanism, calculationsFolder.ParentFailureMechanism);
-            var calculationInputPresentationObjects = calculationsFolder.Contents
-                                                                        .OfType<PipingCalculationInputs>()
-                                                                        .ToArray();
-            foreach (var pipingCalculationInputs in calculationInputPresentationObjects)
+            var calculationPresentationObjects = calculationsFolder.Contents
+                                                                   .OfType<PipingCalculationContext>()
+                                                                   .ToArray();
+            foreach (var pipingCalculationContext in calculationPresentationObjects)
             {
-                CollectionAssert.AreEqual(failureMechanism.SurfaceLines, pipingCalculationInputs.AvailablePipingSurfaceLines);
-                CollectionAssert.AreEqual(failureMechanism.SoilProfiles, pipingCalculationInputs.AvailablePipingSoilProfiles);
+                CollectionAssert.AreEqual(failureMechanism.SurfaceLines, pipingCalculationContext.AvailablePipingSurfaceLines);
+                CollectionAssert.AreEqual(failureMechanism.SoilProfiles, pipingCalculationContext.AvailablePipingSoilProfiles);
             }
-            CollectionAssert.AreEqual(failureMechanism.Calculations, calculationInputPresentationObjects
-                                                                         .Select(pci => pci.PipingData)
+            CollectionAssert.AreEqual(failureMechanism.Calculations, calculationPresentationObjects
+                                                                         .Select(pci => pci.WrappedPipingCalculation)
                                                                          .ToArray());
             Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
         }

@@ -10,7 +10,7 @@ namespace Ringtoets.Piping.Calculation.Test
         #region General parameters
 
         [Test]
-        public void GetThicknessCoverageLayer_ValidPipingData_CreateDesignVariableForThicknessCoverageLayer()
+        public void GetThicknessCoverageLayer_ValidPipingCalculation_CreateDesignVariableForThicknessCoverageLayer()
         {
             // Setup
             var inputParameters = new PipingInput();
@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
-        public void GetPhreaticLevelExit_ValidPipingData_CreateDesignVariableForPhreaticLevelExit()
+        public void GetPhreaticLevelExit_ValidPipingCalculation_CreateDesignVariableForPhreaticLevelExit()
         {
             // Setup
             var inputParameters = new PipingInput();
@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
-        public void GetDampingFactorExit_ValidPipingData_CreateDesignVariableForDampingFactorExit()
+        public void GetDampingFactorExit_ValidPipingCalculation_CreateDesignVariableForDampingFactorExit()
         {
             // Setup
             var inputParameters = new PipingInput();
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Calculation.Test
         #region Piping parameters
 
         [Test]
-        public void GetSeepageLength_ValidPipingData_CreateDesignVariableForSeepageLength()
+        public void GetSeepageLength_ValidPipingCalculation_CreateDesignVariableForSeepageLength()
         {
             // Setup
             var inputParameters = new PipingInput();
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
-        public void GetDiameter70_ValidPipingData_CreateDesignVariableForDiameter70()
+        public void GetDiameter70_ValidPipingCalculation_CreateDesignVariableForDiameter70()
         {
             // Setup
             var inputParameters = new PipingInput();
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
-        public void GetDarcyPermeability_ValidPipingData_CreateDesignVariableForDarcyPermeability()
+        public void GetDarcyPermeability_ValidPipingCalculation_CreateDesignVariableForDarcyPermeability()
         {
             // Setup
             var inputParameters = new PipingInput();
@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
-        public void GetThicknessAquiferLayer_ValidPipingData_CreateDesignVariableForThicknessAquiferLayer()
+        public void GetThicknessAquiferLayer_ValidPipingCalculation_CreateDesignVariableForThicknessAquiferLayer()
         {
             // Setup
             var inputParameters = new PipingInput();

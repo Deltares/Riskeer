@@ -10,23 +10,23 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingCalculationInputsTest
+    public class PipingCalculationContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var presentationObject = new PipingCalculationInputs();
+            var presentationObject = new PipingCalculationContext();
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
-            Assert.IsNull(presentationObject.PipingData);
+            Assert.IsNull(presentationObject.WrappedPipingCalculation);
             CollectionAssert.IsEmpty(presentationObject.AvailablePipingSurfaceLines);
             CollectionAssert.IsEmpty(presentationObject.AvailablePipingSoilProfiles);
         }
 
         [Test]
-        public void NotifyObservers_HasPipingDataAndObserverAttached_NotifyObserver()
+        public void NotifyObservers_HasPipingCalculationAndObserverAttached_NotifyObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -34,9 +34,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationInputs
+            var presentationObject = new PipingCalculationContext
             {
-                PipingData = new PipingCalculationData()
+                WrappedPipingCalculation = new PipingCalculation()
             };
             presentationObject.Attach(observer);
 
@@ -48,16 +48,16 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingDataAndObserverDetached_NoCallsOnObserver()
+        public void NotifyObservers_HasPipingCalculationAndObserverDetached_NoCallsOnObserver()
         {
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationInputs
+            var presentationObject = new PipingCalculationContext
             {
-                PipingData = new PipingCalculationData()
+                WrappedPipingCalculation = new PipingCalculation()
             };
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void PipingDataNotifyObservers_AttachedOnPipingCalculationInputs_ObserverNotified()
+        public void PipingCalculationNotifyObservers_AttachedOnPipingCalculationContext_ObserverNotified()
         {
             // Setup
             var mocks = new MockRepository();
@@ -78,15 +78,15 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
-            var presentationObject = new PipingCalculationInputs
+            var calculation = new PipingCalculation();
+            var presentationObject = new PipingCalculationContext
             {
-                PipingData = pipingData
+                WrappedPipingCalculation = calculation
             };
             presentationObject.Attach(observer);
 
             // Call
-            pipingData.NotifyObservers();
+            calculation.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();
@@ -96,9 +96,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var inputs = new PipingCalculationInputs
+            var inputs = new PipingCalculationContext
             {
-                PipingData = new PipingCalculationData
+                WrappedPipingCalculation = new PipingCalculation
                 {
                     Output = new TestPipingOutput()
                 }
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             inputs.ClearOutput();
 
             // Assert
-            Assert.IsNull(inputs.PipingData.Output);
+            Assert.IsNull(inputs.WrappedPipingCalculation.Output);
         }
     }
 }

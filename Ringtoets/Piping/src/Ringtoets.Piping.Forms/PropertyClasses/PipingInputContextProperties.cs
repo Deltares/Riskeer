@@ -527,7 +527,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 #endregion
 
         /// <summary>
-        /// Gets the available surface lines on <see cref="PipingCalculationInputs"/>.
+        /// Gets the available surface lines on <see cref="PipingCalculationContext"/>.
         /// </summary>
         public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
         {
@@ -535,7 +535,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the available soil profiles on <see cref="PipingCalculationInputs"/>.
+        /// Gets the available soil profiles on <see cref="PipingCalculationContext"/>.
         /// </summary>
         public IEnumerable<PipingSoilProfile> GetAvailableSoilProfiles()
         {

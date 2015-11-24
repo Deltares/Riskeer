@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var pipingCalculationInputs = new PipingInputContext
+            var pipingInputContext = new PipingInputContext
             {
                 AvailablePipingSoilProfiles = new[] { new TestPipingSoilProfile()  },
                 WrappedPipingInput = new PipingInput
@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
             var properties = new PipingInputContextProperties
             {
-                Data = pipingCalculationInputs
+                Data = pipingInputContext
             };
 
             var editor = new PipingInputContextSoilProfileSelectionEditor();

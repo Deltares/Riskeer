@@ -8,12 +8,12 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information which can be made visible in the graphical interface of the application.
     /// </summary>
-    public class PipingCalculationData : Observable
+    public class PipingCalculation : Observable
     {
         /// <summary>
-        /// Constructs a new instance of <see cref="PipingCalculationData"/> with default values set for some of the parameters.
+        /// Constructs a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
         /// </summary>
-        public PipingCalculationData()
+        public PipingCalculation()
         {
             Name = Resources.PipingCalculationData_DefaultName;
 
@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
         public PipingInput InputParameters { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether the <see cref="PipingCalculationData"/> has <see cref="Output"/>.
+        /// Gets a value indicating whether the <see cref="PipingCalculation"/> has <see cref="Output"/>.
         /// </summary>
         public bool HasOutput
         {

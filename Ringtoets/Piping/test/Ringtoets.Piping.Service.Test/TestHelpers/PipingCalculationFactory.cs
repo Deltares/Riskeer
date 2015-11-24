@@ -3,14 +3,14 @@ using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Service.Test.TestHelpers
 {
-    public static class PipingDataFactory
+    public static class PipingCalculationFactory
     {
-        public static PipingCalculationData CreateCalculationWithInvalidData()
+        public static PipingCalculation CreateCalculationWithInvalidData()
         {
-            return new PipingCalculationData();
+            return new PipingCalculation();
         }
 
-        public static PipingCalculationData CreateCalculationWithValidInput()
+        public static PipingCalculation CreateCalculationWithValidInput()
         {
             var random = new Random(22);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
                     IsAquifer = true
                 }
             });
-            return new PipingCalculationData
+            return new PipingCalculation
             {
                 InputParameters =
                 {

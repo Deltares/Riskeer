@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DefaultConstructor_DefaultPropertyValuesAreSet()
         {
             // Call
-            var defaultConstructed = new PipingCalculationData();
+            var defaultConstructed = new PipingCalculation();
 
             // Assert
             Assert.AreEqual("Berekening", defaultConstructed.Name);
@@ -41,12 +41,12 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
+            var calculation = new PipingCalculation();
             
-            pipingData.Attach(observer);
+            calculation.Attach(observer);
 
             // Call & Assert
-            pipingData.NotifyObservers();
+            calculation.NotifyObservers();
         }
 
         [Test]
@@ -57,13 +57,13 @@ namespace Ringtoets.Piping.Data.Test
             observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mockRepository.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
+            var calculation = new PipingCalculation();
             
-            pipingData.Attach(observer);
-            pipingData.Detach(observer);
+            calculation.Attach(observer);
+            calculation.Detach(observer);
 
             // Call & Assert
-            pipingData.NotifyObservers();
+            calculation.NotifyObservers();
         }
 
         [Test]
@@ -78,13 +78,13 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
+            var calculation = new PipingCalculation();
 
-            pipingData.Attach(observerA);
-            pipingData.Attach(observerB);
+            calculation.Attach(observerA);
+            calculation.Attach(observerB);
 
             // Call & Assert
-            pipingData.NotifyObservers();
+            calculation.NotifyObservers();
         }
 
         [Test]
@@ -99,14 +99,14 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var pipingData = new PipingCalculationData();
+            var calculation = new PipingCalculation();
 
-            pipingData.Attach(observerA);
-            pipingData.Attach(observerB);
-            pipingData.Detach(observerA);
+            calculation.Attach(observerA);
+            calculation.Attach(observerB);
+            calculation.Detach(observerA);
 
             // Call & Assert
-            pipingData.NotifyObservers();
+            calculation.NotifyObservers();
         }
 
         [Test]
@@ -115,17 +115,17 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var observer = mockRepository.StrictMock<IObserver>();
 
-            var pipingData = new PipingCalculationData();
+            var calculation = new PipingCalculation();
 
             // Call & Assert
-            pipingData.Detach(observer);
+            calculation.Detach(observer);
         }
 
         [Test]
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var data = new PipingCalculationData
+            var data = new PipingCalculation
             {
                 Output = new TestPipingOutput()
             };
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var data = new PipingCalculationData
+            var data = new PipingCalculation
             {
                 Output = null
             };
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var data = new PipingCalculationData
+            var data = new PipingCalculation
             {
                 Output = new TestPipingOutput()
             };

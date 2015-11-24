@@ -20,27 +20,27 @@ namespace Ringtoets.Piping.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var pipingData = new PipingCalculationData();
+            var calculation = new PipingCalculation();
 
             // Call
-            var activity = new PipingCalculationActivity(pipingData);
+            var activity = new PipingCalculationActivity(calculation);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
-            Assert.AreEqual(pipingData.Name, activity.Name);
+            Assert.AreEqual(calculation.Name, activity.Name);
             CollectionAssert.IsEmpty(activity.DependsOn);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityStatus.None, activity.Status);
         }
 
         [Test]
-        public void Initialize_ValidPipingDataWithOutput_LogValidationStartAndEndedAndClearOutput()
+        public void Initialize_ValidPipingCalculationWithOutput_LogValidationStartAndEndedAndClearOutput()
         {
             // Setup
-            var validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Output = new TestPipingOutput();
+            var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validPipingCalculation.Output = new TestPipingOutput();
 
-            var activity = new PipingCalculationActivity(validPipingData);
+            var activity = new PipingCalculationActivity(validPipingCalculation);
 
             // Call
             Action call = () => activity.Initialize();
@@ -50,23 +50,23 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", validPipingData.Name), msgs.First());
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", validPipingData.Name), msgs.Last());
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", validPipingCalculation.Name), msgs.First());
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", validPipingCalculation.Name), msgs.Last());
             });
             Assert.AreEqual(ActivityStatus.Initialized, activity.Status);
-            Assert.IsNull(validPipingData.Output);
+            Assert.IsNull(validPipingCalculation.Output);
         }
 
         [Test]
-        public void Initialize_InvalidPipingDataWithOutput_LogValidationStartAndEndWithErrors()
+        public void Initialize_InvalidPipingCalculationWithOutput_LogValidationStartAndEndWithErrors()
         {
             // Setup
             var originalOutput = new TestPipingOutput();
 
-            var invalidPipingData = PipingDataFactory.CreateCalculationWithInvalidData();
-            invalidPipingData.Output = originalOutput;
+            var invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
+            invalidPipingCalculation.Output = originalOutput;
 
-            var activity = new PipingCalculationActivity(invalidPipingData);
+            var activity = new PipingCalculationActivity(invalidPipingCalculation);
 
             // Call
             Action call = () => activity.Initialize();
@@ -77,25 +77,25 @@ namespace Ringtoets.Piping.Service.Test
                 var msgs = messages.ToArray();
                 Assert.Greater(msgs.Length, 2, "Expecting more than 2 messages");
 
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidPipingData.Name), msgs.First());
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidPipingCalculation.Name), msgs.First());
                 foreach (var expectedValidationErrorMessage in msgs.Skip(1).Take(msgs.Length-2))
                 {
                     StringAssert.StartsWith("Validatie mislukt: ", expectedValidationErrorMessage);
                 }
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidPipingData.Name), msgs.Last());
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs.Last());
             });
             Assert.AreEqual(ActivityStatus.Failed, activity.Status);
-            Assert.AreEqual(originalOutput, invalidPipingData.Output);
+            Assert.AreEqual(originalOutput, invalidPipingCalculation.Output);
         }
 
         [Test]
-        public void Execute_ValidPipingDataAndInitialized_PerformPipingCalculationAndLogStartAndEnd()
+        public void Execute_ValidPipingCalculationAndInitialized_PerformPipingCalculationAndLogStartAndEnd()
         {
             // Setup
-            var validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Output = null;
+            var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validPipingCalculation.Output = null;
 
-            var activity = new PipingCalculationActivity(validPipingData);
+            var activity = new PipingCalculationActivity(validPipingCalculation);
             activity.Initialize();
 
             // Call
@@ -106,15 +106,15 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", validPipingData.Name), msgs.First());
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", validPipingData.Name), msgs.Last());
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", validPipingCalculation.Name), msgs.First());
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", validPipingCalculation.Name), msgs.Last());
             });
             Assert.AreEqual(ActivityStatus.Done, activity.Status);
-            Assert.IsNotNull(validPipingData.Output);
+            Assert.IsNotNull(validPipingCalculation.Output);
         }
 
         [Test]
-        public void OnFinish_ValidPipingDataAndExecuted_NotifyObserversOfPipingData()
+        public void OnFinish_ValidPipingCalculationAndExecuted_NotifyObserversOfPipingCalculation()
         {
             // Setup
             var mocks = new MockRepository();
@@ -122,11 +122,11 @@ namespace Ringtoets.Piping.Service.Test
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Output = null;
-            validPipingData.Attach(observerMock);
+            var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validPipingCalculation.Output = null;
+            validPipingCalculation.Attach(observerMock);
 
-            var activity = new PipingCalculationActivity(validPipingData);
+            var activity = new PipingCalculationActivity(validPipingCalculation);
             activity.Initialize();
             activity.Execute();
 

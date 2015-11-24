@@ -34,13 +34,13 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var pipingNode = mocks.StrictMock<ITreeNode>();
-            var pipingData = mocks.StrictMock<object>();
+            var nodeData = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
             var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
 
             // Call
-            nodePresenter.UpdateNode(parentNode, pipingNode, pipingData);
+            nodePresenter.UpdateNode(parentNode, pipingNode, nodeData);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on mocks

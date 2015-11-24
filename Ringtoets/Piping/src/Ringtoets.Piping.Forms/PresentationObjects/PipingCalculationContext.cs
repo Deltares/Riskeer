@@ -6,15 +6,15 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="PipingData"/>
+    /// Presentation object for all data required to configure an instance of <see cref="WrappedPipingCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class PipingCalculationInputs : IObservable
+    public class PipingCalculationContext : IObservable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationInputs"/> class.
+        /// Initializes a new instance of the <see cref="PipingCalculationContext"/> class.
         /// </summary>
-        public PipingCalculationInputs()
+        public PipingCalculationContext()
         {
             AvailablePipingSurfaceLines = Enumerable.Empty<RingtoetsPipingSurfaceLine>();
             AvailablePipingSoilProfiles = Enumerable.Empty<PipingSoilProfile>();
@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets or sets the piping data to be configured.
         /// </summary>
-        public PipingCalculationData PipingData { get; set; }
+        public PipingCalculation WrappedPipingCalculation { get; set; }
 
         /// <summary>
         /// Gets or sets the available piping surface lines in order for the user to select
@@ -41,27 +41,27 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         public void Attach(IObserver observer)
         {
-            PipingData.Attach(observer);
+            WrappedPipingCalculation.Attach(observer);
         }
 
         public void Detach(IObserver observer)
         {
-            PipingData.Detach(observer);
+            WrappedPipingCalculation.Detach(observer);
         }
 
         public void NotifyObservers()
         {
-            PipingData.NotifyObservers();
+            WrappedPipingCalculation.NotifyObservers();
         }
 
         #endregion
 
         /// <summary>
-        /// Clears the output of the <see cref="PipingCalculationInputs"/>.
+        /// Clears the output of the <see cref="PipingCalculationContext"/>.
         /// </summary>
         public void ClearOutput()
         {
-            PipingData.ClearOutput();
+            WrappedPipingCalculation.ClearOutput();
         }
     }
 }
