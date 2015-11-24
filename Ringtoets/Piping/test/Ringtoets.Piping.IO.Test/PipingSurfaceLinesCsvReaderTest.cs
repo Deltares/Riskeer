@@ -215,7 +215,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
+                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -393,7 +393,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
+                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

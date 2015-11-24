@@ -133,10 +133,10 @@
     <value>Het bestand op '{0}' is leeg.</value>
   </data>
   <data name="Error_File_0_has_not_double_SurfaceLineName_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft voor dwarsdoorsnede {1} een waarde die niet omgezet kan worden naar een getal.</value>
+    <value>Het bestand '{0}' heeft voor profielmeting {1} een waarde die niet omgezet kan worden naar een getal.</value>
   </data>
   <data name="Error_File_0_parsing_causes_overflow_SurfaceLineName_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft voor dwarsdoorsnede {1} een waarde die te groot of te klein is om ingelezen te worden.</value>
+    <value>Het bestand '{0}' heeft voor profielmeting {1} een waarde die te groot of te klein is om ingelezen te worden.</value>
   </data>
   <data name="Error_General_IO_File_0_ErrorMessage_1_" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand '{0}': {1}</value>
@@ -157,19 +157,19 @@
     <value>Kon geen ondergrond profielen verkrijgen van de database '{0}'.</value>
   </data>
   <data name="PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_" xml:space="preserve">
-    <value>Ondergrondprofiel '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
+    <value>Ondergrondschematisering '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
-    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
+    <value>Het bestand op '{0}' is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry" xml:space="preserve">
-    <value>Dwarsdoorsnede {1} van bestand '{0}' heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
+    <value>Profielmeting {1} van bestand '{0}' heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_" xml:space="preserve">
     <value>Het bestand '{0}' heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2}).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet" xml:space="preserve">
-    <value>In het bestand '{0}', voor dwarsdoorsnede {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+    <value>In het bestand '{0}', voor profielmeting {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID" xml:space="preserve">
     <value>Het bestand '{0}' heeft geen ID op regel {1}.</value>

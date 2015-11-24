@@ -112,8 +112,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(1, returnedContextMenu.Items.Count);
             var importItem = returnedContextMenu.Items[0];
-            Assert.AreEqual("Importeer ondergrondprofielen", importItem.Text);
-            Assert.AreEqual("Importeer nieuwe ondergrondprofielen van een *.soil bestand.", importItem.ToolTipText);
+            Assert.AreEqual("Importeer ondergrondschematiseringen", importItem.Text);
+            Assert.AreEqual("Importeer nieuwe ondergrondschematiseringen van een *.soil bestand.", importItem.ToolTipText);
             Assert.AreEqual(16, importItem.Image.Width);
             Assert.AreEqual(16, importItem.Image.Height);
             mocks.VerifyAll(); // Expect no calls on arguments

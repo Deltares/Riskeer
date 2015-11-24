@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(validFilePath, observableSurfaceLinesList);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Dwarsdoorsnede Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Profielmeting Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", 1);
             Assert.AreSame(observableSurfaceLinesList, importedItem);
             var importTargetArray = observableSurfaceLinesList.ToArray();
             Assert.AreEqual(1, importTargetArray.Length);

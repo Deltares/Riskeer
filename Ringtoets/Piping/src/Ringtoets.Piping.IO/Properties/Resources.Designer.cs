@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft voor dwarsdoorsnede {1} een waarde die niet omgezet kan worden naar een getal..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft voor profielmeting {1} een waarde die niet omgezet kan worden naar een getal..
         /// </summary>
         public static string Error_File_0_has_not_double_SurfaceLineName_1_ {
             get {
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft voor dwarsdoorsnede {1} een waarde die te groot of te klein is om ingelezen te worden..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft voor profielmeting {1} een waarde die te groot of te klein is om ingelezen te worden..
         /// </summary>
         public static string Error_File_0_parsing_causes_overflow_SurfaceLineName_1_ {
             get {
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrondprofiel &apos;{0}&apos; in database bevat geen geldige waarde in kolom &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Ondergrondschematisering &apos;{0}&apos; in database bevat geen geldige waarde in kolom &apos;{1}&apos;..
         /// </summary>
         public static string PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_ {
             get {
@@ -215,7 +215,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
+        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_File_0_invalid_header {
             get {
@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dwarsdoorsnede {1} van bestand &apos;{0}&apos; heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel)..
+        ///   Looks up a localized string similar to Profielmeting {1} van bestand &apos;{0}&apos; heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel)..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry {
             get {
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In het bestand &apos;{0}&apos;, voor dwarsdoorsnede {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
+        ///   Looks up a localized string similar to In het bestand &apos;{0}&apos;, voor profielmeting {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet {
             get {

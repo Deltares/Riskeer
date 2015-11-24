@@ -4,6 +4,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Properties;
+
 using log4net;
 
 using Ringtoets.Piping.Data;
@@ -204,7 +206,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             if (consecutiveDuplicatePointIndices.Any())
             {
-                log.WarnFormat("Dwarsdoorsnede {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", ringtoetsPipingSurfaceLine.Name);
+                log.WarnFormat(Resources.PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored,
+                               ringtoetsPipingSurfaceLine.Name);
                 ringtoetsPipingSurfaceLine.SetGeometry(readPoints.Where((p, index) => !consecutiveDuplicatePointIndices.Contains(index)));
             }
         }

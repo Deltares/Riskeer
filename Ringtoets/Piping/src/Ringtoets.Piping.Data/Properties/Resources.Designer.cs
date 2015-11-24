@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een punt in de geometrie voor de dwarsdoorsnede heeft geen waarde..
+        ///   Looks up a localized string similar to Een punt in de geometrie voor de profielmeting heeft geen waarde..
         /// </summary>
         internal static string RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null {
             get {
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen hoogte bepalen op het punt L={0}, omdate de dwarsdoorsnede verticaal loopt op dat punt..
+        ///   Looks up a localized string similar to Kan geen hoogte bepalen op het punt L={0}, omdat de profielmeting verticaal loopt op dat punt..
         /// </summary>
         internal static string RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l {
             get {
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De geometrie die opgegeven werd voor de dwarsdoorsnede heeft geen waarde..
+        ///   Looks up a localized string similar to De geometrie die opgegeven werd voor de profielmeting heeft geen waarde..
         /// </summary>
         internal static string RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null {
             get {

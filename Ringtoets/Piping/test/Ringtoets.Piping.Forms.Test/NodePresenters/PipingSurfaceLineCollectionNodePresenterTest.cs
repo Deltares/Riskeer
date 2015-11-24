@@ -309,8 +309,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(1, returnedContextMenu.Items.Count);
             var importItem = returnedContextMenu.Items[0];
-            Assert.AreEqual("Importeer dwarsdoorsnedes", importItem.Text);
-            Assert.AreEqual("Importeer nieuwe dwarsdoorsnedes van een *.csv bestand.", importItem.ToolTipText);
+            Assert.AreEqual("Importeer profielmetingen", importItem.Text);
+            Assert.AreEqual("Importeer nieuwe profielmetingen van een *.csv bestand.", importItem.ToolTipText);
             Assert.AreEqual(16, importItem.Image.Width);
             Assert.AreEqual(16, importItem.Image.Height);
             mocks.VerifyAll(); // Expect no calls on arguments

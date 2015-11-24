@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            Assert.AreEqual("Ondergrondprofiel '' in database bevat geen geldige waarde in kolom 'Bottom'.", exception.Message);
+            Assert.AreEqual("Ondergrondschematisering '' in database bevat geen geldige waarde in kolom 'Bottom'.", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            Assert.AreEqual("Ondergrondprofiel '' in database bevat geen geldige waarde in kolom 'IsAquifer'.", exception.Message);
+            Assert.AreEqual("Ondergrondschematisering '' in database bevat geen geldige waarde in kolom 'IsAquifer'.", exception.Message);
 
             mocks.VerifyAll();
         }

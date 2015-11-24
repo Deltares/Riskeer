@@ -827,4 +827,7 @@
   <data name="GuiCommandHandler_TryCloseProject_Closing_current_project" xml:space="preserve">
     <value>Sluiten van huidig project.</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
+    <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
+  </data>
 </root>

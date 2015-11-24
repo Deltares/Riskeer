@@ -305,7 +305,7 @@
     <value>Z-waarde opbarsten</value>
   </data>
   <data name="PipingSurfaceLinesCollection_DisplayName" xml:space="preserve">
-    <value>Dwarsdoorsneden</value>
+    <value>Profielmetingen</value>
   </data>
   <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Piping</value>
@@ -320,43 +320,43 @@
     <value>..\Resources\table-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Import_SurfaceLines" xml:space="preserve">
-    <value>Importeer dwarsdoorsnedes</value>
+    <value>Importeer profielmetingen</value>
   </data>
   <data name="Import_SurfaceLines_Tooltip" xml:space="preserve">
-    <value>Importeer nieuwe dwarsdoorsnedes van een *.csv bestand.</value>
+    <value>Importeer nieuwe profielmetingen van een *.csv bestand.</value>
   </data>
   <data name="PipingSoilProfilesCollection_DisplayName" xml:space="preserve">
-    <value>Ondergrondprofielen</value>
+    <value>Ondergrondschematiseringen</value>
   </data>
   <data name="Import_SoilProfiles" xml:space="preserve">
-    <value>Importeer ondergrondprofielen</value>
+    <value>Importeer ondergrondschematiseringen</value>
   </data>
   <data name="Import_SoilProfiles_Tooltip" xml:space="preserve">
-    <value>Importeer nieuwe ondergrondprofielen van een *.soil bestand.</value>
+    <value>Importeer nieuwe ondergrondschematiseringen van een *.soil bestand.</value>
   </data>
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Name_Description" xml:space="preserve">
-    <value>Naam van de dwarsdoorsnede</value>
+    <value>Naam van de profielmeting</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Points_Description" xml:space="preserve">
-    <value>De punten die de geometrie van de dwarsdoorsnede definiëren.</value>
+    <value>De punten die de geometrie van de profielmeting definiëren.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Points_DisplayName" xml:space="preserve">
     <value>Geometriepunten</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_DisplayName" xml:space="preserve">
-    <value>Dwarsdoorsnede</value>
+    <value>Profielmeting</value>
   </data>
   <data name="PipingInputParameters_SurfaceLine_Description" xml:space="preserve">
-    <value>De dwarsdoorsnede die voor de piping berekening gebruikt wordt.</value>
+    <value>De profielmeting die voor de piping berekening gebruikt wordt.</value>
   </data>
   <data name="PipingInputParameters_SurfaceLine_DisplayName" xml:space="preserve">
-    <value>Dwarsdoorsnede</value>
+    <value>Profielmeting</value>
   </data>
   <data name="PipingCalculationData_Name_Description" xml:space="preserve">
     <value>Naam van de piping berekening.</value>
@@ -371,13 +371,13 @@
     <value>Bodemniveau</value>
   </data>
   <data name="PipingSoilProfile_Name_Description" xml:space="preserve">
-    <value>De naam van het ondergrondprofiel.</value>
+    <value>De naam van de ondergrondschematisering.</value>
   </data>
   <data name="PipingSoilProfile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="PipingSoilProfileProperties_DisplayName" xml:space="preserve">
-    <value>Ondergrondprofiel</value>
+    <value>Ondergrondschematisering</value>
   </data>
   <data name="PipingSoilProfile_Tops_Description" xml:space="preserve">
     <value>De niveaus van de bovenkant van de lagen binnen dit profiel.</value>
@@ -386,10 +386,10 @@
     <value>Topniveaus</value>
   </data>
   <data name="PipingInputParameters_SoilProfile_Description" xml:space="preserve">
-    <value>Het ondergrondprofiel dat voor de piping berekening gebruikt wordt.</value>
+    <value>De ondergrondschematisering dat voor de piping berekening gebruikt wordt.</value>
   </data>
   <data name="PipingInputParameters_SoilProfile_DisplayName" xml:space="preserve">
-    <value>Ondergrondprofiel</value>
+    <value>Ondergrondschematisering</value>
   </data>
   <data name="PipingFailureMechanism_Add_Piping_Calculation" xml:space="preserve">
     <value>Berekening toevoegen</value>
