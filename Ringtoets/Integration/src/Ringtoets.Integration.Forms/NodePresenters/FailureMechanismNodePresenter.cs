@@ -38,13 +38,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             contextMenu.AddMenuItem(
                 RingtoetsCommonFormsResources.Clear_all_output,
                 RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                RingtoetsCommonFormsResources.ClearOutputIcon, null);
-            contextMenu.AddSeperator();
-
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanism_Export,
-                RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip,
-                RingtoetsCommonFormsResources.ExportIcon, null);
+                RingtoetsCommonFormsResources.ClearIcon, null);
             contextMenu.AddSeperator();
 
             contextMenu.AddMenuItem(
@@ -55,6 +49,12 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                 RingtoetsCommonFormsResources.FailureMechanism_Collapse_all,
                 RingtoetsCommonFormsResources.FailureMechanism_Collapse_all_ToolTip,
                 RingtoetsCommonFormsResources.CollapseAllIcon, null);
+            contextMenu.AddSeperator();
+
+            contextMenu.AddMenuItem(
+                RingtoetsCommonFormsResources.FailureMechanism_Export,
+                RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip,
+                RingtoetsCommonFormsResources.ExportIcon, null);
             contextMenu.AddSeperator();
 
             contextMenu.AddMenuItem(

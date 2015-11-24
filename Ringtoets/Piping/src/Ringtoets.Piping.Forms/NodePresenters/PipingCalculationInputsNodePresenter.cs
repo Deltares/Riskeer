@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
             var clearOutputItem = contextMenu.AddMenuItem(Resources.Clear_output,
                                     null,
-                                    RingtoetsFormsResources.ClearOutputIcon,
+                                    RingtoetsFormsResources.ClearIcon,
                                     (o, args) =>
                                     {
                                         pipingData.ClearOutput();

@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
             var clearOutputNode = rootMenu.AddMenuItem(RingtoetsCommonFormsResources.Clear_all_output,
                                                        RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                                                       RingtoetsCommonFormsResources.ClearOutputIcon, (o, args) =>
+                                                       RingtoetsCommonFormsResources.ClearIcon, (o, args) =>
                                                        {
                                                            foreach (var calc in failureMechanism.Calculations)
                                                            {

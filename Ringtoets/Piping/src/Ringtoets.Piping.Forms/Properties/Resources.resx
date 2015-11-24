@@ -440,7 +440,7 @@
     <value>De berekening heeft geen uitvoer om te wissen.</value>
   </data>
   <data name="Clear_output" xml:space="preserve">
-    <value>Wis uitvoer</value>
+    <value>&amp;Wis uitvoer</value>
   </data>
   <data name="ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
     <value>Er zijn geen berekeningen met uitvoer om te wissen.</value>

@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis uitvoer.
+        ///   Looks up a localized string similar to &amp;Wis uitvoer.
         /// </summary>
         public static string Clear_output {
             get {

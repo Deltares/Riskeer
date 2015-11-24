@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alles berekenen.
+        ///   Looks up a localized string similar to Alles be&amp;rekenen.
         /// </summary>
         public static string Calculate_all {
             get {
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle uitvoer.
+        ///   Looks up a localized string similar to &amp;Wis alle uitvoer.
         /// </summary>
         public static string Clear_all_output {
             get {
@@ -109,9 +109,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap ClearOutputIcon {
+        public static System.Drawing.Bitmap ClearIcon {
             get {
-                object obj = ResourceManager.GetObject("ClearOutputIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("ClearIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -122,16 +122,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static System.Drawing.Bitmap CollapseAllIcon {
             get {
                 object obj = ResourceManager.GetObject("CollapseAllIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap EraseIcon {
-            get {
-                object obj = ResourceManager.GetObject("EraseIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -238,7 +228,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis de huidige gegevens..
+        ///   Looks up a localized string similar to Wis de gegevens..
         /// </summary>
         public static string FailureMechanism_InputsOutputs_Erase_ToolTip {
             get {
