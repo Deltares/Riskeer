@@ -52,7 +52,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.messageWindowData = new MessageWindowData();
+            this.messageWindowData = new Core.Common.Gui.Forms.MessageWindow.MessageWindowData();
             this.contextMenu.SuspendLayout();
             this.messagesToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -92,9 +92,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
             // 
             this.levelImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("levelImages.ImageStream")));
             this.levelImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.levelImages.Images.SetKeyName(0, "error.png");
-            this.levelImages.Images.SetKeyName(1, "info.png");
-            this.levelImages.Images.SetKeyName(2, "warning.png");
+            this.levelImages.Images.SetKeyName(0, "exclamation.png");
+            this.levelImages.Images.SetKeyName(1, "information.png");
+            this.levelImages.Images.SetKeyName(2, "error.png");
             this.levelImages.Images.SetKeyName(3, "debug.png");
             // 
             // messagesToolStrip

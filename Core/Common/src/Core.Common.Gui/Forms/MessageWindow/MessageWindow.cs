@@ -26,16 +26,16 @@ namespace Core.Common.Gui.Forms.MessageWindow
             levelImageName = new Dictionary<string, string>();
 
             // order is the same as in log4j Level (check sources of log4net)
-            levelImageName[Level.Off.ToString()] = "error.png";
-            levelImageName[Level.Emergency.ToString()] = "error.png";
-            levelImageName[Level.Fatal.ToString()] = "error.png";
-            levelImageName[Level.Alert.ToString()] = "error.png";
-            levelImageName[Level.Critical.ToString()] = "error.png";
-            levelImageName[Level.Severe.ToString()] = "error.png";
-            levelImageName[Level.Error.ToString()] = "error.png";
-            levelImageName[Level.Warn.ToString()] = "warning.png";
-            levelImageName[Level.Notice.ToString()] = "warning.png";
-            levelImageName[Level.Info.ToString()] = "info.png";
+            levelImageName[Level.Off.ToString()] = "exclamation.png";
+            levelImageName[Level.Emergency.ToString()] = "exclamation.png";
+            levelImageName[Level.Fatal.ToString()] = "exclamation.png";
+            levelImageName[Level.Alert.ToString()] = "exclamation.png";
+            levelImageName[Level.Critical.ToString()] = "exclamation.png";
+            levelImageName[Level.Severe.ToString()] = "exclamation.png";
+            levelImageName[Level.Error.ToString()] = "exclamation.png";
+            levelImageName[Level.Warn.ToString()] = "error.png";
+            levelImageName[Level.Notice.ToString()] = "error.png";
+            levelImageName[Level.Info.ToString()] = "information.png";
             levelImageName[Level.Debug.ToString()] = "debug.png";
             levelImageName[Level.Fine.ToString()] = "debug.png";
             levelImageName[Level.Trace.ToString()] = "debug.png";
