@@ -50,7 +50,7 @@ namespace Core.Common.Gui
             }
 
             Log.Info(Resources.Opening_new_project);
-            gui.ApplicationCore.CreateNewProject();
+            gui.ApplicationCore.Project = new Project();
             Log.Info(Resources.New_project_successfully_opened);
 
             RefreshGui();

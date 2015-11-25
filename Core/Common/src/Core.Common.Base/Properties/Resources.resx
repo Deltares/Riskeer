@@ -135,9 +135,6 @@
   <data name="ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened" xml:space="preserve">
     <value>'Run()' moet eerst worden aangeroepen voordat het project kan worden geopend.</value>
   </data>
-  <data name="ApplicationCore_LogSystemInfo_Environmental_variables_" xml:space="preserve">
-    <value>Omgevingsvariabelen:</value>
-  </data>
   <data name="ApplicationCore_ActivatePlugins_All_plugins_were_activated" xml:space="preserve">
     <value>Alle plugins zijn geactiveerd.</value>
   </data>

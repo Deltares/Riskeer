@@ -198,15 +198,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Omgevingsvariabelen:.
-        /// </summary>
-        internal static string ApplicationCore_LogSystemInfo_Environmental_variables_ {
-            get {
-                return ResourceManager.GetString("ApplicationCore_LogSystemInfo_Environmental_variables_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Activeer plugins....
         /// </summary>
         internal static string ApplicationCore_Run_Activating_plugins {

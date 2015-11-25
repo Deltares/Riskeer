@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-using System.Threading;
 using Core.Common.Base.Workflow;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
@@ -39,9 +36,6 @@ namespace Core.Common.Base
         private bool isRunning;
 
         private bool running;
-
-        private Project projectBeingCreated;
-        private bool initializing;
 
         private bool disposed;
 
@@ -178,28 +172,20 @@ namespace Core.Common.Base
 
             isRunning = true;
 
-            initializing = true;
-
             log.Info(Properties.Resources.ApplicationCore_Run_starting);
 
             // load all assemblies from current assembly directory
             AssemblyUtils.LoadAllAssembliesFromDirectory(Path.GetFullPath(Path.GetDirectoryName(GetType().Assembly.Location))).ToList();
 
-            LogSystemInfo();
-
             Plugins.ForEach(p => p.ApplicationCore = this);
-
-            log.Info(Properties.Resources.ApplicationCore_Run_Creating_new_project);
-            CreateNewProject();
 
             log.Info(Properties.Resources.ApplicationCore_Run_Activating_plugins);
             ActivatePlugins();
 
             log.Info(Properties.Resources.ApplicationCore_Run_Waiting_until_all_plugins_are_activated);
 
-            Project = projectBeingCreated; // opens project in application
-
-            initializing = false;
+            log.Info(Properties.Resources.ApplicationCore_Run_Creating_new_project);
+            Project = new Project();
         }
 
         public void CloseProject()
@@ -215,21 +201,6 @@ namespace Core.Common.Base
         public void SaveProject()
         {
             // TODO: implement
-        }
-
-        public void CreateNewProject()
-        {
-            if (!isRunning)
-            {
-                throw new InvalidOperationException(Properties.Resources.ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
-            }
-
-            projectBeingCreated = new Project();
-
-            if (!initializing) // open in app
-            {
-                Project = projectBeingCreated;
-            }
         }
 
         public bool OpenProject(string path)
@@ -333,25 +304,6 @@ namespace Core.Common.Base
             return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
         }
 
-        private void LogSystemInfo()
-        {
-            log.DebugFormat(Properties.Resources.ApplicationCore_LogSystemInfo_Environmental_variables_);
-
-            var culture = Thread.CurrentThread.CurrentCulture;
-            log.DebugFormat("{0} = {1}", "CURRENT_THREAD_CULTURE", culture.EnglishName);
-            log.DebugFormat("{0} = {1}", "NUMBER_DECIMAL_DIGITS", culture.NumberFormat.NumberDecimalDigits);
-            log.DebugFormat("{0} = {1}", "NUMBER_DECIMAL_SEPARATOR", culture.NumberFormat.NumberDecimalSeparator);
-            log.DebugFormat("{0} = {1}", "FULL_DATE_TIME_PATTERN", culture.DateTimeFormat.FullDateTimePattern);
-            log.DebugFormat("{0} = {1}", "DATE_SEPARATOR", culture.DateTimeFormat.DateSeparator);
-            log.DebugFormat("{0} = {1}", "OS_VERSION", Environment.OSVersion);
-            log.DebugFormat("{0} = {1}", "OS_VERSION_NUMBER", Environment.Version);
-
-            foreach (DictionaryEntry pair in Environment.GetEnvironmentVariables())
-            {
-                log.DebugFormat("{0} = {1}", pair.Key, pair.Value);
-            }
-        }
-
         private void Dispose(bool disposing)
         {
             if (!disposed)
@@ -359,8 +311,6 @@ namespace Core.Common.Base
                 if (disposing)
                 {
                     CloseProject();
-
-                    projectBeingCreated = null;
 
                     foreach (var plugin in Plugins)
                     {

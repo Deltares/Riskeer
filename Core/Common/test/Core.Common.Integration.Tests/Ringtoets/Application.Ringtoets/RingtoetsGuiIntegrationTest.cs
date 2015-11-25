@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading;
+using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
@@ -143,7 +144,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
                 gui.Run();
 
-                Action onShown = () => TestHelper.AssertIsFasterThan(300, gui.ApplicationCore.CreateNewProject);
+                Action onShown = () => TestHelper.AssertIsFasterThan(300, () => gui.ApplicationCore.Project = new Project());
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
             }
