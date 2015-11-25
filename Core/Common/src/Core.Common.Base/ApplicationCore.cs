@@ -11,20 +11,12 @@ namespace Core.Common.Base
 {
     public class ApplicationCore : IDisposable
     {
-        // TODO: migrate into ProjectService
-        public event Action<Project> ProjectSaving;
-        public event Action<Project> ProjectSaveFailed;
-        public event Action<Project> ProjectSaved;
-
         private readonly ActivityRunner activityRunner;
         private readonly List<ApplicationPlugin> plugins;
 
         public Action WaitMethod;
 
-        private Project project;
         private ApplicationCoreSettings userSettings;
-
-        private bool disposed;
 
         public ApplicationCore()
         {
@@ -129,11 +121,6 @@ namespace Core.Common.Base
         }
 
         public void SaveProjectAs(string path)
-        {
-            // TODO: implement
-        }
-
-        public void SaveProject()
         {
             // TODO: implement
         }

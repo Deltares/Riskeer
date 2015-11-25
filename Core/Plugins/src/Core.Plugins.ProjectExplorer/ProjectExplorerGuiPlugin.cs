@@ -63,9 +63,6 @@ namespace Core.Plugins.ProjectExplorer
 
             Gui.ProjectOpened += ApplicationProjectOpened;
             Gui.ProjectClosing += ApplicationProjectClosed;
-
-            Gui.ApplicationCore.ProjectSaving += ApplicationOnProjectSaving;
-            Gui.ApplicationCore.ProjectSaved += ApplicationProjectSaved;
         }
 
         public override void Dispose()
@@ -86,8 +83,6 @@ namespace Core.Plugins.ProjectExplorer
             base.Deactivate();
             Gui.ProjectOpened -= ApplicationProjectOpened;
             Gui.ProjectClosing -= ApplicationProjectClosed;
-            Gui.ApplicationCore.ProjectSaving -= ApplicationOnProjectSaving;
-            Gui.ApplicationCore.ProjectSaved -= ApplicationProjectSaved;
             Gui.ToolWindowViews.Remove(ProjectExplorer);
 
             //should the 'instance' be set to null as well???
@@ -110,16 +105,6 @@ namespace Core.Plugins.ProjectExplorer
             pluginGuis
                 .SelectMany(pluginGui => pluginGui.GetProjectTreeViewNodePresenters())
                 .ForEach(np => projectTreeViewNodePresenters.Add(np));
-        }
-
-        private void ApplicationProjectSaved(Project project)
-        {
-            // Place for actions after project is already saved
-        }
-
-        private void ApplicationOnProjectSaving(Project project)
-        {
-            // Place for actions after project is about to be saved
         }
 
         private void ApplicationProjectClosed(Project project)

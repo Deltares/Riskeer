@@ -103,7 +103,6 @@ namespace Core.Common.Gui
             {
                 if (applicationCore != null)
                 {
-                    ApplicationCore.ProjectSaved -= ApplicationProjectSaved;
                     ApplicationCore.ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
                     ApplicationCore.ActivityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
                 }
@@ -113,7 +112,6 @@ namespace Core.Common.Gui
                 if (applicationCore != null)
                 {
                     // subscribe to application events so that we can handle opening, closing, renamig of views on project changes
-                    ApplicationCore.ProjectSaved += ApplicationProjectSaved;
                     ApplicationCore.ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
                     ApplicationCore.ActivityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
                 }
@@ -528,11 +526,6 @@ namespace Core.Common.Gui
             plugin.Dispose();
 
             Plugins.Remove(plugin);
-        }
-
-        private void ApplicationProjectSaved(Project obj)
-        {
-            ResumeUI();
         }
 
         private void ResumeUI()

@@ -11,7 +11,6 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Workflow;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -54,7 +53,6 @@ namespace Application.Ringtoets
         private static string previousExceptionsText = "";
 
         private static int previousExceptionsCount;
-        private static string runActivity;
 
         static App()
         {
@@ -104,39 +102,6 @@ namespace Application.Ringtoets
                     log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Specified_project_0_was_not_found_, projectFilePath);
                 }
             }
-
-            gui.OnMainWindowLoaded = () =>
-            {
-                if (runActivity != null)
-                {
-                    if (gui.Project == null)
-                    {
-                        log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_No_project_found_load_project_first);
-                        return;
-                    }
-
-                    // search project for activities specified by the argument
-                    var activity =
-                        gui.Project.Items
-                           .OfType<IActivity>()
-                           .FirstOrDefault(a => a.Name == runActivity);
-                    if (activity == null)
-                    {
-                        log.ErrorFormat(
-                            Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity_0_not_found_in_project_Typo_or_did_you_forget_to_load_a_project,
-                            runActivity);
-                        return;
-                    }
-
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_activity_0_, runActivity);
-                    gui.ApplicationCore.RunActivity(activity);
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity_0_ended_with_status_1_, runActivity, activity.Status);
-
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project_0_, gui.Project.Name);
-                    gui.ApplicationCore.SaveProject();
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project_0_, gui.Project.Name);
-                }
-            };
 
             // Ringtoets started, clean-up all possible memory
             GC.Collect();

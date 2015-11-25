@@ -126,52 +126,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; is beëindigd met status {1}..
-        /// </summary>
-        public static string App_RunRingtoets_Activity_0_ended_with_status_1_ {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Activity_0_ended_with_status_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; is niet gevonden in het project! Typefout of bent u misschien vergeten om een project te laden?.
-        /// </summary>
-        public static string App_RunRingtoets_Activity_0_not_found_in_project_Typo_or_did_you_forget_to_load_a_project {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Activity_0_not_found_in_project_Typo_or_did_you_forget_to_load_a" +
-                        "_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen project gevonden. Laad het project eerst..
-        /// </summary>
-        public static string App_RunRingtoets_No_project_found_load_project_first {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_No_project_found_load_project_first", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opgeslagen project &apos;{0}&apos;.
-        /// </summary>
-        public static string App_RunRingtoets_Saved_project_0_ {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Saved_project_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan van project &apos;{0}&apos;.
-        /// </summary>
-        public static string App_RunRingtoets_Saving_project_0_ {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Saving_project_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het opgegeven project ({0}) was niet gevonden..
         /// </summary>
         public static string App_RunRingtoets_Specified_project_0_was_not_found_ {
@@ -181,16 +135,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starten van activiteit &apos;{0}&apos;.
-        /// </summary>
-        public static string App_RunRingtoets_Starting_activity_0_ {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Starting_activity_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De grafische interface van Ringtoets wordt gestart....
+        ///   Looks up a localized string similar to Ringtoets wordt gestart....
         /// </summary>
         public static string App_RunRingtoets_Starting_Ringtoets_Gui {
             get {
