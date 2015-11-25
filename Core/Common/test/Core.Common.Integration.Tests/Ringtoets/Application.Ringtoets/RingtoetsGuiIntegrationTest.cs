@@ -173,7 +173,6 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                     gui.Project.Items.Add(map);
                     gui.CommandHandler.OpenView(map);
                 }
-                applicationCore.SaveProjectAs(TestHelper.GetCurrentMethodName() + ".dsproj");
 
                 TestHelper.AssertIsFasterThan(200, gui.Exit);
             }

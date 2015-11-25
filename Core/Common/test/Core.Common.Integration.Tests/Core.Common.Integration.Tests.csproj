@@ -85,7 +85,6 @@
     <Compile Include="Ringtoets\Application.Ringtoets\RingtoetsGuiIntegrationTest.cs">
     </Compile>
     <Compile Include="Ringtoets\Application.Ringtoets\GuiImportHandlerTest.cs" />
-    <Compile Include="Ringtoets\Common.Core\ApplicationCoreIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

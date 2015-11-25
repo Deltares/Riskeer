@@ -544,7 +544,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            if (!ApplicationCore.IsActivityRunning())
+            if (!ApplicationCore.ActivityRunner.IsRunning)
             {
                 ResumeUI();
             }
@@ -587,7 +587,7 @@ namespace Core.Common.Gui
                     ApplicationCore.ActivityRunner.CancelAll();
 
                     // wait until all import activities are finished
-                    while (ApplicationCore.IsActivityRunning())
+                    while (ApplicationCore.ActivityRunner.IsRunning)
                     {
                         System.Windows.Forms.Application.DoEvents();
                     }

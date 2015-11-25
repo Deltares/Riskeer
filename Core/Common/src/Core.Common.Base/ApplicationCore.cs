@@ -14,8 +14,6 @@ namespace Core.Common.Base
         private readonly ActivityRunner activityRunner;
         private readonly List<ApplicationPlugin> plugins;
 
-        public Action WaitMethod;
-
         private ApplicationCoreSettings userSettings;
 
         public ApplicationCore()
@@ -120,54 +118,12 @@ namespace Core.Common.Base
             applicationPlugin.Deactivate();
         }
 
-        public void SaveProjectAs(string path)
-        {
-            // TODO: implement
-        }
-
         public void Exit()
         {
             if (userSettings.IsDirty)
             {
                 UserSettings.Save();
             }
-        }
-
-        public bool IsActivityRunning()
-        {
-            return ActivityRunner.IsRunning;
-        }
-
-        public void RunActivity(IActivity activity)
-        {
-            if (WaitMethod == null) //typically in console
-            {
-                Workflow.ActivityRunner.RunActivity(activity); //run sync
-                return;
-            }
-
-            RunActivityInBackground(activity);
-            while (ActivityRunner.IsRunningActivity(activity))
-            {
-                WaitMethod();
-            }
-        }
-
-        public void RunActivityInBackground(IActivity activity)
-        {
-            ActivityRunner.Enqueue(activity);
-        }
-
-        public void StopActivity(IActivity activity)
-        {
-            ActivityRunner.Cancel(activity);
-            //CurrentActivities.Abort(activity);
-            activity.Cancel();
-        }
-
-        public bool IsActivityRunningOrWaiting(IActivity activity)
-        {
-            return ActivityRunner.Activities.Contains(activity);
         }
 
         public void Dispose()
