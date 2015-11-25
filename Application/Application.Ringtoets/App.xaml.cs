@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -13,21 +14,20 @@ using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
-using Core.Common.Gui.Properties;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Properties;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
 using Core.Plugins.SharpMapGis.Gui;
 using log4net;
-
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
-
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Ringtoets.Demo;
+
 #endif
 
 namespace Application.Ringtoets
@@ -39,13 +39,13 @@ namespace Application.Ringtoets
     {
         private delegate void ExceptionDelegate(Exception exception, bool isTerminating);
 
+        // Start application after this process will exit (used during restart)
+        private const string argumentWaitForProcess = "--wait-for-process=";
+
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
 
         private static RingtoetsGui gui;
-
-        // Start application after this process will exit (used during restart)
-        private const string aurgumentWaitForProcess = "--wait-for-process=";
-        private static int waitForProcessId = -1; 
+        private static int waitForProcessId = -1;
 
         private static string projectFilePath;
 
@@ -74,7 +74,6 @@ namespace Application.Ringtoets
                 Environment.CurrentDirectory = loaderDirectory;
             }
 
-            
             //gui.ApplicationCore.ProjectRepositoryFactory.SpeedUpSessionCreationUsingParallelThread = true;
             //gui.ApplicationCore.ProjectRepositoryFactory.SpeedUpConfigurationCreationUsingCaching = true;
             //gui.ApplicationCore.ProjectRepositoryFactory.ConfigurationCacheDirectory = gui.ApplicationCore.GetUserSettingsDirectoryPath();
@@ -164,7 +163,6 @@ namespace Application.Ringtoets
             }
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
-            
 
             gui = new RingtoetsGui
             {
@@ -176,7 +174,7 @@ namespace Application.Ringtoets
                     new RingtoetsGuiPlugin(),
                     new PipingGuiPlugin()
 #if INCLUDE_DEMOPROJECT
-                    ,new DemoProjectGuiPlugin()
+                    , new DemoProjectGuiPlugin()
 #endif
                 }
             };
@@ -240,7 +238,11 @@ namespace Application.Ringtoets
                 var process = Process.GetProcessById(waitForProcessId);
                 process.WaitForExit();
             }
-            catch {}
+            catch
+            {
+                // Because the process may already be closed, the following exceptions are ignored
+                // ArgumentException, InvalidOperationException, Win32Exception, and SystemException
+            }
         }
 
         private static bool AcquireSingleInstancePerUserMutex()
@@ -359,32 +361,33 @@ namespace Application.Ringtoets
 
         private static void Restart()
         {
-            Process.Start(typeof(App).Assembly.Location, aurgumentWaitForProcess + Process.GetCurrentProcess().Id);
+            Process.Start(typeof(App).Assembly.Location, argumentWaitForProcess + Process.GetCurrentProcess().Id);
             Environment.Exit(1);
         }
 
         /// <summary>
         /// Parses the process' start-up parameters
         /// </summary>
-        /// <param name="arguments"></param>
+        /// <param name="arguments">List of start-up parameters</param>
         private static void ParseArguments(IEnumerable<string> arguments)
         {
-
-            var waitForProcess = arguments.FirstOrDefault(args => args.IndexOf(aurgumentWaitForProcess, StringComparison.InvariantCultureIgnoreCase) == 0);
-            if ( ! string.IsNullOrEmpty(waitForProcess))
-            {
-                // Get process by id
-                try
+            var argumentWaitForProcessRegex = new Regex("^(" + argumentWaitForProcess + @")(\d+)$", RegexOptions.IgnoreCase);
+            var waitForProcess =
+                from arg in arguments
+                let matches = argumentWaitForProcessRegex.Match(arg)
+                select new
                 {
-                    var pid = int.Parse(waitForProcess.Remove(0, aurgumentWaitForProcess.Length));
-                    if (pid > 0)
-                    {
-                        waitForProcessId = pid;
-                    }
+                    matches.Groups[2].Value
+                };
+            if (waitForProcess.Count() == 1)
+            {
+                // Get id of previous process
+                var pid = int.Parse(waitForProcess.First().Value);
+                if (pid > 0)
+                {
+                    waitForProcessId = pid;
                 }
-                catch {}
             }
-
         }
     }
 }

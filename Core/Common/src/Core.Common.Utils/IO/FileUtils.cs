@@ -19,9 +19,9 @@ namespace Core.Common.Utils.IO
         /// Copies the source file to the target destination; if the file
         /// already exists, it will be overwritten by default
         /// </summary>
-        /// <param name="sourcePath"></param>
-        /// <param name="targetPath"></param>
-        /// <param name="overwrite"></param>
+        /// <param name="sourcePath">Source file path</param>
+        /// <param name="targetPath">Destination file path</param>
+        /// <param name="overwrite">True if the destination file should be overwritten when it exists, false otherwise</param>
         public static void CopyFile(string sourcePath, string targetPath, bool overwrite = true)
         {
             var sourceFullPath = Path.GetFullPath(sourcePath);
@@ -47,9 +47,9 @@ namespace Core.Common.Utils.IO
         /// <summary>
         /// Copy files in a directory (and its subdirectories) to another directory.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="ignorePath"></param>
+        /// <param name="source">Source directory</param>
+        /// <param name="target">Destination directory</param>
+        /// <param name="ignorePath">Exclude folder from being copied</param>
         public static void CopyAll(DirectoryInfo source, DirectoryInfo target, string ignorePath = "")
         {
             foreach (var diSourceSubDir in source.GetDirectories().Where(diSourceSubDir => diSourceSubDir.Name != ignorePath))
@@ -114,35 +114,37 @@ namespace Core.Common.Utils.IO
                 return searchItem.StartsWith(rootDir, StringComparison.InvariantCultureIgnoreCase);
             }
 
-            var rootDirAbsolute = Path.GetFullPath(rootDir);
-            if (!rootDirAbsolute.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                rootDirAbsolute += Path.DirectorySeparatorChar;
-            }
-            var searchDirAbsolute = Path.GetFullPath(searchItem);
-            if (!searchDirAbsolute.EndsWith(Path.DirectorySeparatorChar.ToString()))
-            {
-                searchDirAbsolute += Path.DirectorySeparatorChar;
-            }
+            var rootDirAbsolute = AppendDirectorySeparatorIfMissing(Path.GetFullPath(rootDir));
+            var searchDirAbsolute = AppendDirectorySeparatorIfMissing(Path.GetFullPath(searchItem));
 
-            if (searchDirAbsolute.Length <= rootDirAbsolute.Length)
+            return searchDirAbsolute.Length > rootDirAbsolute.Length && searchDirAbsolute.StartsWith(rootDirAbsolute, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Ensures a closing directory separator in <paramref name="directory"/>
+        /// </summary>
+        /// <param name="directory">Directory to ensure closing directory separator</param>
+        /// <returns><paramref name="directory"/> with closing directory separator</returns>
+        public static string AppendDirectorySeparatorIfMissing(string directory)
+        {
+            if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
-                return false;
+                directory += Path.DirectorySeparatorChar;
             }
-            return searchDirAbsolute.IndexOf(rootDirAbsolute, StringComparison.InvariantCultureIgnoreCase) == 0;
+            return directory;
         }
 
         /// <summary>
         /// Compares two directory strings
         /// </summary>
-        /// <param name="rootDir"></param>
-        /// <param name="searchItem"></param>
-        /// <returns></returns>
+        /// <param name="rootDir">Directory path</param>
+        /// <param name="searchItem">Directory path to compare</param>
+        /// <returns>True if the string paths are equal</returns>
         public static bool CompareDirectories(string rootDir, string searchItem)
         {
             var root = Path.GetFullPath(rootDir);
             var search = Path.GetFullPath(searchItem);
-            return (root == search);
+            return root == search;
         }
 
         /// <summary>
@@ -166,10 +168,7 @@ namespace Core.Common.Utils.IO
             try
             {
                 // Folders must end in a slash
-                if (!rootDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                {
-                    rootDir += Path.DirectorySeparatorChar;
-                }
+                rootDir = AppendDirectorySeparatorIfMissing(rootDir);
 
                 var folderUri = new Uri(rootDir);
                 var pathUri = new Uri(filePath);
@@ -295,7 +294,7 @@ namespace Core.Common.Utils.IO
             }
 
             const int bytesToRead = sizeof(Int64);
-            var iterations = (int)Math.Ceiling((double)first.Length / bytesToRead);
+            var iterations = (int) Math.Ceiling((double) first.Length/bytesToRead);
             using (FileStream fs1 = first.OpenRead())
             {
                 using (FileStream fs2 = second.OpenRead())
@@ -368,8 +367,8 @@ namespace Core.Common.Utils.IO
         /// <summary>
         /// Checks if <paramref name="fileName"/> could be a valid file
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
+        /// <param name="fileName">File name to check</param>
+        /// <returns>True if fileName could be used as a valid file name, false otherwise</returns>
         public static bool IsValidFileName(string fileName)
         {
             return fileName != null
