@@ -48,12 +48,6 @@ namespace Core.Common.Base
         string FileFilter { get; }
 
         /// <summary>
-        /// Path where external data files can be copied into
-        /// </summary>
-        /// <remarks>Optional, used only when external files need to be copied into the project "as is"</remarks> 
-        string TargetDataDirectory { get; set; }
-
-        /// <summary>
         /// Whether or not an import task should be cancelled
         /// </summary>
         /// <remarks>This property must be observed by the importer (thread-safe); when it is true the importer must stop current import task</remarks>

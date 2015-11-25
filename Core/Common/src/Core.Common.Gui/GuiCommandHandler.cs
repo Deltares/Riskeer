@@ -352,15 +352,15 @@ namespace Core.Common.Gui
         
         private void AddProjectToMruList()
         {
-            var mruList = (StringCollection) Core.Common.Gui.Properties.Settings.Default["mruList"];
-            if (mruList.Contains(gui.ApplicationCore.ProjectFilePath))
+            var mruList = (StringCollection) Settings.Default["mruList"];
+            if (mruList.Contains(gui.ProjectFilePath))
             {
-                mruList.Remove(gui.ApplicationCore.ProjectFilePath);
+                mruList.Remove(gui.ProjectFilePath);
             }
 
-            mruList.Insert(0, gui.ApplicationCore.ProjectFilePath);
+            mruList.Insert(0, gui.ProjectFilePath);
         }
-        
+
         private static void UnselectActiveControlToForceBinding()
         {
             var elementWithFocus = Keyboard.FocusedElement;

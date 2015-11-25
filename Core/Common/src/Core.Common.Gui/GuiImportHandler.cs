@@ -84,8 +84,6 @@ namespace Core.Common.Gui
             IList<IFileImporter> importers = new List<IFileImporter>();
             foreach (IFileImporter importer in gui.ApplicationCore.FileImporters)
             {
-                importer.TargetDataDirectory = ProjectDataDirectory;
-
                 if (targetType == null && !importer.CanImportOnRootLevel)
                 {
                     //this importer requires something to import into, but we're importing globally (into project or folder), so skip it
@@ -141,14 +139,6 @@ namespace Core.Common.Gui
             }
 
             return null;
-        }
-
-        private string ProjectDataDirectory
-        {
-            get
-            {
-                return Path.GetDirectoryName(gui.ApplicationCore.ProjectFilePath);
-            }
         }
 
         private IActivityRunner ActivityRunner

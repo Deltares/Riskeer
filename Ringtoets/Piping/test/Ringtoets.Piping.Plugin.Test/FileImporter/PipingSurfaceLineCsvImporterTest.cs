@@ -42,7 +42,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv", 
                 PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
-            Assert.IsNull(importer.TargetDataDirectory);
             Assert.IsFalse(importer.ShouldCancel);
             Assert.IsNull(importer.ProgressChanged);
             Assert.IsFalse(importer.OpenViewAfterImport);

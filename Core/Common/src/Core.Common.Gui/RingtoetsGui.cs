@@ -89,6 +89,8 @@ namespace Core.Common.Gui
             ProjectOpened += ApplicationProjectOpened;
         }
 
+        public string ProjectFilePath { get; set; }
+
         public bool SkipDialogsOnExit { get; set; }
 
         public Action OnMainWindowLoaded { get; set; }

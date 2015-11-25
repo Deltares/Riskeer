@@ -60,8 +60,6 @@ namespace Core.Common.Base
 
         public NameValueCollection Settings { get; set; }
 
-        public string ProjectFilePath{ get; private set; }
-
         public IEnumerable<IFileImporter> FileImporters
         {
             get

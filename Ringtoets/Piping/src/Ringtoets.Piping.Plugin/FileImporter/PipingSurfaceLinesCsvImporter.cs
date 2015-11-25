@@ -84,7 +84,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public string TargetDataDirectory { get; set; }
         public bool ShouldCancel { get; set; }
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 

@@ -37,6 +37,11 @@ namespace Core.Common.Gui
         Project Project { get; set; }
 
         /// <summary>
+        /// Gets or sets the project path of the <see cref="IGui"/>.
+        /// </summary>
+        string ProjectFilePath { get; set; }
+
+        /// <summary>
         /// Gets or sets CommandHandler.
         /// </summary>
         IGuiCommandHandler CommandHandler { get; set; }
