@@ -2096,15 +2096,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verbergen opstartscherm....
-        /// </summary>
-        public static string SplashScreen_Shutdown_Hiding_splash_screen {
-            get {
-                return ResourceManager.GetString("SplashScreen_Shutdown_Hiding_splash_screen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opstarten....
         /// </summary>
         public static string SplashScreen_Starting {

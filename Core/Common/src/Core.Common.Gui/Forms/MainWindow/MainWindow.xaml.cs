@@ -1307,7 +1307,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 if (ev.Key == Key.Escape)
                 {
                     ev.Handled = true;
-                    aboutDialog.Close();
+                    aboutDialog.Shutdown();
                 }
             };
 
