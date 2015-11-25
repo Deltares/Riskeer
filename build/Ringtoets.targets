@@ -3,6 +3,10 @@
         <SolutionDir>$(MSBuildStartupDirectory)</SolutionDir>
    </PropertyGroup>
   
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|x86'">
+		<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+	</PropertyGroup>
+  
   <!-- use this user.targets file as a custom user file to re-define e.g. InstallDir -->
   <!-- <Import Project="$(SolutionDir)\build\user.targets" Condition="Exists('$(SolutionDir)\build\user.targets')"/> -->
 
