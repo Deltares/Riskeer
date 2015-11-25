@@ -60,7 +60,6 @@ namespace Core.Plugins.ProjectExplorer.Tests
             applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
-            plugin.ApplicationCore = applicationCore;
         }
 
         [TearDown]

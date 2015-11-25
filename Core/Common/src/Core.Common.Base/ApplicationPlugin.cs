@@ -8,11 +8,6 @@ namespace Core.Common.Base
     public abstract class ApplicationPlugin
     {
         /// <summary>
-        /// Gets or sets the application.
-        /// </summary>
-        public virtual ApplicationCore ApplicationCore { get; set; }
-
-        /// <summary>
         /// Activates the application plugin.
         /// </summary>
         public virtual void Activate()

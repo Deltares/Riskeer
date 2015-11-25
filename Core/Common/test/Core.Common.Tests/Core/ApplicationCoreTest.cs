@@ -17,8 +17,6 @@ namespace Core.Common.Tests.Core
 
             using (var applicationCore = new ApplicationCore())
             {
-                Expect.Call(plugin.ApplicationCore = applicationCore).IgnoreArguments();
-                Expect.Call(plugin.ApplicationCore = null).IgnoreArguments();
                 Expect.Call(plugin.Deactivate);
                 Expect.Call(plugin.GetDataItemInfos()).Return(new List<DataItemInfo>()).Repeat.Any();
 

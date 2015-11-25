@@ -7,16 +7,6 @@ namespace Core.Common.Base.Tests.Shell.Core
     public class ApplicationPluginTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // call
-            var applicationPlugin = new SimpleApplicationPlugin();
-
-            // assert
-            Assert.IsNull(applicationPlugin.ApplicationCore);
-        }
-
-        [Test]
         public void GetFileImporters_ReturnEmptyEnummerable()
         {
             // setup

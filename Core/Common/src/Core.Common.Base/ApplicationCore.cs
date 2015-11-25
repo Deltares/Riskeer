@@ -13,7 +13,6 @@ namespace Core.Common.Base
     public class ApplicationCore : IDisposable
     {
         // TODO: migrate into ProjectService
-        public event Action<Project> ProjectOpening;
         public event Action<Project> ProjectOpened;
         public event Action<Project> ProjectClosing;
         public event Action<Project> ProjectSaving;
@@ -60,11 +59,6 @@ namespace Core.Common.Base
                     {
                         ProjectClosing(project);
                     }
-                }
-
-                if (value != null && ProjectOpening != null)
-                {
-                    ProjectOpening(value);
                 }
 
                 project = value;
@@ -157,16 +151,12 @@ namespace Core.Common.Base
         {
             plugins.Add(applicationPlugin);
 
-            applicationPlugin.ApplicationCore = this;
-
             applicationPlugin.Activate();
         }
 
         public void RemovePlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Remove(applicationPlugin);
-
-            applicationPlugin.ApplicationCore = null;
 
             applicationPlugin.Deactivate();
         }
