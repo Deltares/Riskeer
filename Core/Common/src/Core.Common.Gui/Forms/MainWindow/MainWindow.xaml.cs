@@ -1297,7 +1297,9 @@ namespace Core.Common.Gui.Forms.MainWindow
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,
                 Title = Properties.Resources.Ribbon_About,
-                Icon = new BitmapImage(new Uri("pack://application:,,,/Core.Common.Gui;component/Resources/information.png", UriKind.Absolute))
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Core.Common.Gui;component/Resources/information.png", UriKind.Absolute)),
+                ShowInTaskbar = false,
+                Owner = this
             };
 
             aboutDialog.PreviewKeyDown += (s, ev) =>

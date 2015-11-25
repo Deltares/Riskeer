@@ -85,6 +85,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             this.MinimizeBox = false;
             this.Name = "OptionsDialog";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 

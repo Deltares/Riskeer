@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Controls.Swf;
 using Core.Common.Gui.Properties;
 using log4net.Core;
 
@@ -262,7 +263,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
             form.Controls.Add(textDocumentView);
             form.Select();
-            form.ShowDialog();
+            ModalHelper.ShowModal(form);
         }
 
         private class MessageData

@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using Core.Common.Base;
 using log4net;
 
 namespace Core.Common.Gui.Forms.SplashScreen
