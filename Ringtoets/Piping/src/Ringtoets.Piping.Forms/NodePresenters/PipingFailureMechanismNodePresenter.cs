@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -63,7 +64,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                  Resources.PipingFailureMechanism_Calculate_Tooltip,
                                  RingtoetsCommonFormsResources.CalculateAllIcon, (o, args) =>
                                  {
-                                     foreach (var calc in failureMechanism.Calculations)
+                                     foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
                                      {
                                          RunActivityAction(new PipingCalculationActivity(calc));
                                      }
@@ -73,14 +74,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                                        RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
                                                        RingtoetsCommonFormsResources.ClearIcon, (o, args) =>
                                                        {
-                                                           foreach (var calc in failureMechanism.Calculations)
+                                                           foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
                                                            {
                                                                calc.ClearOutput();
                                                                calc.NotifyObservers();
                                                            }
                                                        });
 
-            if (!failureMechanism.Calculations.Any(c => c.HasOutput))
+            if (!GetAllPipingCalculationsResursively(failureMechanism).Any(c => c.HasOutput))
             {
                 clearOutputNode.Enabled = false;
                 clearOutputNode.ToolTipText = Resources.ClearOutput_No_calculation_with_output_to_clear;
@@ -100,6 +101,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         private IEnumerable GetOutputs(PipingFailureMechanism failureMechanism)
         {
             yield return failureMechanism.AssessmentResult;
+        }
+
+        private static IEnumerable<PipingCalculation> GetAllPipingCalculationsResursively(PipingFailureMechanism failureMechanism)
+        {
+            return failureMechanism.Calculations.GetPipingCalculations().ToArray();
         }
     }
 }

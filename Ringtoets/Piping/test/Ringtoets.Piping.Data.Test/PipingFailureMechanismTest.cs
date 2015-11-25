@@ -1,4 +1,6 @@
-﻿using Core.Common.Base;
+﻿using System.Collections.Generic;
+
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -126,6 +128,68 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             pipingFailureMechanism.Detach(observer);
+        }
+
+        [Test]
+        public void Calculations_AddPipingCalculation_ItemIsAddedToCollection()
+        {
+            // Setup
+            var calculation = new PipingCalculation();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            failureMechanism.Calculations.Add(calculation);
+
+            // Assert
+            CollectionAssert.Contains(failureMechanism.Calculations, calculation);
+        }
+
+        [Test]
+        public void Calculations_RemovePipingCalculation_ItemIsRemovedFromCollection()
+        {
+            // Setup
+            var calculation = new PipingCalculation();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Calculations.Add(calculation);
+
+            // Call
+            failureMechanism.Calculations.Remove(calculation);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.Calculations, calculation);
+        }
+
+        [Test]
+        public void Calculations_AddPipingCalculationFolder_ItemIsAddedToCollection()
+        {
+            // Setup
+            var folder = new PipingCalculationGroup();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            failureMechanism.Calculations.Add(folder);
+
+            // Assert
+            CollectionAssert.Contains(failureMechanism.Calculations, folder);
+        }
+
+        [Test]
+        public void Calculations_RemovePipingCalculationFolder_ItemIsRemovedFromCollection()
+        {
+            // Setup
+            var folder = new PipingCalculationGroup();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Calculations.Add(folder);
+
+            // Call
+            failureMechanism.Calculations.Remove(folder);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.Calculations, folder);
         }
     }
 }

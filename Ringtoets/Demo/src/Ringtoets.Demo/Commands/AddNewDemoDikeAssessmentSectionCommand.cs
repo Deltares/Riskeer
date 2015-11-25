@@ -6,6 +6,7 @@ using System.Reflection;
 using Core.Common.Gui;
 
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Demo.Commands
@@ -60,7 +61,7 @@ namespace Ringtoets.Demo.Commands
                 surfaceLinesImporter.ImportItem(tempPath.FilePath, pipingFailureMechanism.SoilProfiles);
             }
 
-            var calculation = pipingFailureMechanism.Calculations.First();
+            var calculation = pipingFailureMechanism.Calculations.GetPipingCalculations().First();
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
         }

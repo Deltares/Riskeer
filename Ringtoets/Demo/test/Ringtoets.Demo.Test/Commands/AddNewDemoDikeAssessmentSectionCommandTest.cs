@@ -69,7 +69,7 @@ namespace Ringtoets.Demo.Test.Commands
             Assert.AreEqual(4, surfaceLines.Length);
 
             Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.Calculations.Count);
-            var calculation = demoAssessmentSection.PipingFailureMechanism.Calculations.First();
+            var calculation = demoAssessmentSection.PipingFailureMechanism.Calculations.GetPipingCalculations().First();
             AssertCalculationAbleToCalculate(calculation);
             mocks.VerifyAll();
         }

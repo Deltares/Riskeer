@@ -5,7 +5,7 @@ using Ringtoets.Piping.Calculation.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
-    public class PipingCalculationDataTest
+    public class PipingCalculationTest
     {
         private MockRepository mockRepository;
 
@@ -19,17 +19,19 @@ namespace Ringtoets.Piping.Data.Test
         public void DefaultConstructor_DefaultPropertyValuesAreSet()
         {
             // Call
-            var defaultConstructed = new PipingCalculation();
+            var calculation = new PipingCalculation();
 
             // Assert
-            Assert.AreEqual("Berekening", defaultConstructed.Name);
+            Assert.IsInstanceOf<IPipingCalculationItem>(calculation);
 
-            Assert.AreEqual("Commentaar", defaultConstructed.Comments.Name);
-            Assert.IsInstanceOf<PipingInput>(defaultConstructed.InputParameters);
+            Assert.AreEqual("Berekening", calculation.Name);
 
-            Assert.IsFalse(defaultConstructed.HasOutput);
-            Assert.IsNull(defaultConstructed.Output);
-            Assert.AreEqual("Berekeningsverslag", defaultConstructed.CalculationReport.Name);
+            Assert.AreEqual("Commentaar", calculation.Comments.Name);
+            Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
+
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.Output);
+            Assert.AreEqual("Berekeningsverslag", calculation.CalculationReport.Name);
         }
 
         [Test]

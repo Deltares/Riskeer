@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -24,14 +23,25 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         public PipingFailureMechanism ParentFailureMechanism { get; private set; }
 
-        private static IEnumerable<PipingCalculationContext> WrapCalculationsInPresentationObjects(PipingFailureMechanism failureMechanism)
+        private static IEnumerable WrapCalculationsInPresentationObjects(PipingFailureMechanism failureMechanism)
         {
-            return failureMechanism.Calculations.Select(calculation => new PipingCalculationContext
+            foreach (var calculationItem in failureMechanism.Calculations)
             {
-                WrappedPipingCalculation = calculation,
-                AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
-                AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
-            });
+                var pipingCalculation = calculationItem as PipingCalculation;
+                if (pipingCalculation != null)
+                {
+                    yield return new PipingCalculationContext
+                    {
+                        WrappedPipingCalculation = pipingCalculation,
+                        AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
+                        AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
+                    };
+                }
+                else
+                {
+                    yield return calculationItem;
+                }
+            }
         }
     }
 }

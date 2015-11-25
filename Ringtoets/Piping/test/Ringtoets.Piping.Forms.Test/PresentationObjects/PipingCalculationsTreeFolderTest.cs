@@ -14,7 +14,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingCalculationsTreeFolderTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void ParameteredConstructor_FailureMechanismWithOneCalculation_ExpectedValues()
         {
             // Setup
             const string folderName = "Berekeningen";
@@ -29,9 +29,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<CategoryTreeFolder>(calculationsFolder);
             Assert.AreEqual(folderName, calculationsFolder.Name);
             Assert.AreSame(failureMechanism, calculationsFolder.ParentFailureMechanism);
-            var calculationPresentationObjects = calculationsFolder.Contents
-                                                                   .OfType<PipingCalculationContext>()
-                                                                   .ToArray();
+
+            object[] contentsAsArray = calculationsFolder.Contents.OfType<object>().ToArray();
+            Assert.AreEqual(1, contentsAsArray.Length);
+            var calculationPresentationObjects = contentsAsArray.Cast<PipingCalculationContext>()
+                                                                .ToArray();
             foreach (var pipingCalculationContext in calculationPresentationObjects)
             {
                 CollectionAssert.AreEqual(failureMechanism.SurfaceLines, pipingCalculationContext.AvailablePipingSurfaceLines);
@@ -41,6 +43,31 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                          .Select(pci => pci.WrappedPipingCalculation)
                                                                          .ToArray());
             Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
+        }
+
+        [Test]
+        public void ParameteredConstructor_FailureMechanismWithOneEmptyCalculationGroup_ExpectedValues()
+        {
+            // Setup
+            const string folderName = "Berekeningen";
+
+            var group = new PipingCalculationGroup();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Calculations.Clear();
+            failureMechanism.Calculations.Add(group);
+
+            // Call
+            var calculationsFolder = new PipingCalculationsTreeFolder(folderName, failureMechanism);
+
+            // Assert
+            Assert.IsInstanceOf<CategoryTreeFolder>(calculationsFolder);
+            Assert.AreEqual(folderName, calculationsFolder.Name);
+            Assert.AreSame(failureMechanism, calculationsFolder.ParentFailureMechanism);
+
+            object[] contentsAsArray = calculationsFolder.Contents.OfType<object>().ToArray();
+            Assert.AreEqual(1, contentsAsArray.Length);
+            CollectionAssert.AreEqual(new[]{group}, contentsAsArray);
         }
 
         private void AddTestSurfaceLines(PipingFailureMechanism failureMechanism)
