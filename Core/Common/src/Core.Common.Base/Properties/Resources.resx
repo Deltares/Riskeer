@@ -126,17 +126,8 @@
   <data name="ApplicationCore_Run_Creating_new_project" xml:space="preserve">
     <value>Nieuw project aanmaken...</value>
   </data>
-  <data name="ApplicationCore_Run_Activating_plugins" xml:space="preserve">
-    <value>Activeer plugins...</value>
-  </data>
-  <data name="ApplicationCore_Run_Waiting_until_all_plugins_are_activated" xml:space="preserve">
-    <value>Wachten tot alle plugins zijn geactiveerd...</value>
-  </data>
   <data name="ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened" xml:space="preserve">
     <value>'Run()' moet eerst worden aangeroepen voordat het project kan worden geopend.</value>
-  </data>
-  <data name="ApplicationCore_ActivatePlugins_All_plugins_were_activated" xml:space="preserve">
-    <value>Alle plugins zijn geactiveerd.</value>
   </data>
   <data name="Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute" xml:space="preserve">
     <value>Activiteit is '{0}'. 'Initialize()' moet aangeroepen worden voor 'Execute()'.</value>

@@ -53,10 +53,11 @@ namespace Core.Plugins.ProjectExplorer.Tests
             applicationCore = new ApplicationCore
             {
                 Project = new Project(),
-                Plugins = { plugin },
                 UserSettings = settings,
                 Settings = new NameValueCollection { { "IsProjectExplorerSorted", "false" } }
             };
+
+            applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
             plugin.ApplicationCore = applicationCore;

@@ -179,30 +179,12 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle plugins zijn geactiveerd..
-        /// </summary>
-        internal static string ApplicationCore_ActivatePlugins_All_plugins_were_activated {
-            get {
-                return ResourceManager.GetString("ApplicationCore_ActivatePlugins_All_plugins_were_activated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &apos;Run()&apos; moet eerst worden aangeroepen voordat het project kan worden geopend..
         /// </summary>
         internal static string ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened {
             get {
                 return ResourceManager.GetString("ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_o" +
                         "pened", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activeer plugins....
-        /// </summary>
-        internal static string ApplicationCore_Run_Activating_plugins {
-            get {
-                return ResourceManager.GetString("ApplicationCore_Run_Activating_plugins", resourceCulture);
             }
         }
         
@@ -230,15 +212,6 @@ namespace Core.Common.Base.Properties {
         internal static string ApplicationCore_Run_starting {
             get {
                 return ResourceManager.GetString("ApplicationCore_Run_starting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wachten tot alle plugins zijn geactiveerd....
-        /// </summary>
-        internal static string ApplicationCore_Run_Waiting_until_all_plugins_are_activated {
-            get {
-                return ResourceManager.GetString("ApplicationCore_Run_Waiting_until_all_plugins_are_activated", resourceCulture);
             }
         }
         

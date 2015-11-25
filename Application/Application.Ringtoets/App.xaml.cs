@@ -178,20 +178,15 @@ namespace Application.Ringtoets
 #if INCLUDE_DEMOPROJECT
                     ,new DemoProjectGuiPlugin()
 #endif
-                },
-                ApplicationCore =
-                {
-                    Plugins =
-                    {
-                        new CommonToolsApplicationPlugin(),
-#if INCLUDE_DEMOPROJECT
-                        new SharpMapGisApplicationPlugin(),
-#endif
-                        new RingtoetsApplicationPlugin(),
-                        new PipingApplicationPlugin()
-                    }
                 }
             };
+
+            gui.ApplicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+#if INCLUDE_DEMOPROJECT
+            gui.ApplicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
+#endif
+            gui.ApplicationCore.AddPlugin(new RingtoetsApplicationPlugin());
+            gui.ApplicationCore.AddPlugin(new PipingApplicationPlugin());
 
             var mainWindow = new MainWindow(gui);
             gui.MainWindow = mainWindow;

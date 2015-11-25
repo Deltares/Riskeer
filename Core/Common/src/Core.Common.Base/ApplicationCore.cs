@@ -9,7 +9,6 @@ using System.Resources;
 using Core.Common.Base.Workflow;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
-using Core.Common.Utils.Collections;
 using Core.Common.Utils.Globalization;
 using Core.Common.Utils.Reflection;
 using log4net;
@@ -28,6 +27,8 @@ namespace Core.Common.Base
 
         private readonly ILog log = LogManager.GetLogger(typeof(ApplicationCore));
 
+        private readonly List<ApplicationPlugin> plugins;
+
         public Action WaitMethod;
 
         private Project project;
@@ -35,16 +36,14 @@ namespace Core.Common.Base
 
         private bool isRunning;
 
-        private bool running;
-
         private bool disposed;
 
         public ApplicationCore()
         {
+            plugins = new List<ApplicationPlugin>();
+
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
-
-            Plugins = new List<ApplicationPlugin>();
 
             ActivityRunner = new ActivityRunner();
 
@@ -93,7 +92,13 @@ namespace Core.Common.Base
             }
         }
 
-        public IList<ApplicationPlugin> Plugins { get; private set; }
+        public IEnumerable<ApplicationPlugin> Plugins 
+        {
+            get
+            {
+                return plugins;
+            }
+        }
 
         public IActivityRunner ActivityRunner { get; set; }
 
@@ -157,6 +162,24 @@ namespace Core.Common.Base
             return SettingsHelper.GetApplicationLocalUserSettingsDirectory();
         }
 
+        public void AddPlugin(ApplicationPlugin applicationPlugin)
+        {
+            plugins.Add(applicationPlugin);
+
+            applicationPlugin.ApplicationCore = this;
+
+            applicationPlugin.Activate();
+        }
+
+        public void RemovePlugin(ApplicationPlugin applicationPlugin)
+        {
+            plugins.Remove(applicationPlugin);
+
+            applicationPlugin.ApplicationCore = null;
+
+            applicationPlugin.Deactivate();
+        }
+
         public void Run(string projectPath)
         {
             Run();
@@ -176,13 +199,6 @@ namespace Core.Common.Base
 
             // load all assemblies from current assembly directory
             AssemblyUtils.LoadAllAssembliesFromDirectory(Path.GetFullPath(Path.GetDirectoryName(GetType().Assembly.Location))).ToList();
-
-            Plugins.ForEach(p => p.ApplicationCore = this);
-
-            log.Info(Properties.Resources.ApplicationCore_Run_Activating_plugins);
-            ActivatePlugins();
-
-            log.Info(Properties.Resources.ApplicationCore_Run_Waiting_until_all_plugins_are_activated);
 
             log.Info(Properties.Resources.ApplicationCore_Run_Creating_new_project);
             Project = new Project();
@@ -271,32 +287,6 @@ namespace Core.Common.Base
             GC.SuppressFinalize(this);
         }
 
-        private void ActivatePlugins()
-        {
-            log.Debug(Properties.Resources.ApplicationCore_Run_Activating_plugins);
-
-            // Activate all plugins
-            foreach (var plugin in Plugins)
-            {
-                string cwdOld = ".";
-
-                var assembly = plugin.GetType().Assembly;
-                if (!assembly.IsDynamic())
-                {
-                    cwdOld = Path.GetDirectoryName(assembly.Location);
-                }
-
-                var cwd = Environment.CurrentDirectory;
-                Environment.CurrentDirectory = cwdOld;
-
-                plugin.Activate();
-
-                Environment.CurrentDirectory = cwd;
-            }
-
-            log.Debug(Properties.Resources.ApplicationCore_ActivatePlugins_All_plugins_were_activated);
-        }
-
         private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
         {
             //HACK : this is needed because of issue 4382...the black boxes in PG. It seem like the assembly for 
@@ -312,19 +302,15 @@ namespace Core.Common.Base
                 {
                     CloseProject();
 
-                    foreach (var plugin in Plugins)
+                    foreach (var plugin in Plugins.ToList())
                     {
-                        plugin.Deactivate();
+                        RemovePlugin(plugin);
                     }
 
                     foreach (var disposable in Plugins.OfType<IDisposable>())
                     {
                         disposable.Dispose();
                     }
-
-                    Plugins.Clear();
-
-                    Plugins = null;
 
                     if (RunningActivityLogAppender.Instance != null)
                     {
@@ -333,6 +319,7 @@ namespace Core.Common.Base
                     }
                 }
             }
+
             disposed = true;
         }
 

@@ -32,8 +32,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
-                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -59,8 +59,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
-                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -116,8 +116,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
-                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
 
                 gui.Run();
             }
@@ -136,8 +136,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
-                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Plugins.Add(new CommonToolsGuiPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
@@ -157,8 +157,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
-                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
+                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();
@@ -254,8 +254,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.Plugins.Add(new SharpMapGisApplicationPlugin());
-                applicationCore.Plugins.Add(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();

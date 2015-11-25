@@ -51,6 +51,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             var fileImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
 
+            plugin.Expect(p => p.Activate()).Repeat.Once();
             plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 targetItemImporter,
@@ -77,7 +78,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore();
+
+            applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
 
@@ -110,6 +113,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter2 = mocks.Stub<IFileImporter>();
 
+            plugin.Expect(p => p.Activate()).Repeat.Once();
             plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 fileImporter,
@@ -123,7 +127,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore();
+
+            applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
 
@@ -145,6 +151,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var targetItemImporterWhereCanImportIsFalse = mocks.Stub<IFileImporter>();
 
+            plugin.Expect(p => p.Activate()).Repeat.Once();
             plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 fileImporter,
@@ -172,7 +179,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore();
+
+            applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
 
@@ -191,6 +200,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             var plugin = mocks.Stub<ApplicationPlugin>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
 
+            plugin.Expect(p => p.Activate()).Repeat.Once();
             plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 targetItemImporter
@@ -204,7 +214,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore();
+
+            applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
 
@@ -229,6 +241,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             var fileImporter2 = mocks.Stub<IFileImporter>();
             var fileImporter3 = mocks.Stub<IFileImporter>();
 
+            plugin.Expect(p => p.Activate()).Repeat.Once();
             plugin.Expect(p => p.GetFileImporters()).Return(new[]
             {
                 fileImporter1,
@@ -257,7 +270,9 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Plugins = { plugin } };
+            var applicationCore = new ApplicationCore();
+
+            applicationCore.AddPlugin(plugin);
 
             gui.ApplicationCore = applicationCore;
 

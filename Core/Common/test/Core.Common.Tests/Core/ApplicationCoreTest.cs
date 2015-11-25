@@ -47,18 +47,19 @@ namespace Core.Common.Tests.Core
 
             var plugin = mocks.StrictMock<ApplicationPlugin>();
 
-            Expect.Call(plugin.ApplicationCore = null).IgnoreArguments();
-            Expect.Call(plugin.Deactivate);
-            Expect.Call(plugin.GetDataItemInfos()).Return(new List<DataItemInfo>()).Repeat.Any();
-
-            plugin.Activate();
-            LastCall.Repeat.Once();
-
-            mocks.ReplayAll();
-
             using (var applicationCore = new ApplicationCore())
             {
-                applicationCore.Plugins.Add(plugin);
+                Expect.Call(plugin.ApplicationCore = applicationCore).IgnoreArguments();
+                Expect.Call(plugin.ApplicationCore = null).IgnoreArguments();
+                Expect.Call(plugin.Deactivate);
+                Expect.Call(plugin.GetDataItemInfos()).Return(new List<DataItemInfo>()).Repeat.Any();
+
+                plugin.Activate();
+
+                LastCall.Repeat.Once();
+
+                mocks.ReplayAll();
+                applicationCore.AddPlugin(plugin);
                 applicationCore.Run();
 
                 applicationCore.Dispose();
