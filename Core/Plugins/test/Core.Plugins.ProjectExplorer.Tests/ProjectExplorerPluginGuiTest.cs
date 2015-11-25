@@ -35,6 +35,7 @@ namespace Core.Plugins.ProjectExplorer.Tests
 
             settings["showHiddenDataItems"] = true;
 
+            Expect.Call(gui.UserSettings).Return(settings);
             Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>());
             Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>());
             Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
@@ -53,11 +54,7 @@ namespace Core.Plugins.ProjectExplorer.Tests
 
             mocks.ReplayAll();
 
-            applicationCore = new ApplicationCore
-            {
-                UserSettings = settings,
-                Settings = new NameValueCollection { { "IsProjectExplorerSorted", "false" } }
-            };
+            applicationCore = new ApplicationCore();
 
             applicationCore.AddPlugin(plugin);
 

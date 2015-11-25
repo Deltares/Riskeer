@@ -163,7 +163,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
                 gui.Run();
 
-                applicationCore.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
+                gui.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
 
                 gui.MainWindow.Show();
 

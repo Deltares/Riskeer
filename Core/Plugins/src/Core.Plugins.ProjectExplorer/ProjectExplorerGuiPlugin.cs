@@ -42,9 +42,6 @@ namespace Core.Plugins.ProjectExplorer
 
                 UpdateProjectTreeViewWithRegisteredNodePresenters();
 
-                // todo redesign user settings to expand settings per plugin
-                //var isSorted = Gui.ApplicationCore.Settings["IsProjectExplorerSorted"];
-                //projectExplorer.ProjectTreeView.IsSorted = (isSorted == null || bool.Parse(isSorted));
                 ProjectExplorer.ProjectTreeView.Project = Gui.Project;
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
             }

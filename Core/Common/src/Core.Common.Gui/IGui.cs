@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Core.Common.Base;
 using Core.Common.Gui.Forms.MainWindow;
 
@@ -75,6 +76,11 @@ namespace Core.Common.Gui
         /// List of plugins.
         /// </summary>
         IList<GuiPlugin> Plugins { get; }
+
+        /// <summary>
+        /// Gets the user settings of the <see cref="IGui"/>.
+        /// </summary>
+        ApplicationSettingsBase UserSettings { get; }
 
         /// <summary>
         /// Suspends view removal on item delete. Useful to avoid unnecessary checks (faster item removal).

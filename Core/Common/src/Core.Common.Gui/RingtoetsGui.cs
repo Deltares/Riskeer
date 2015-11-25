@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
@@ -14,6 +15,7 @@ using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
@@ -24,8 +26,6 @@ using Core.GIS.SharpMap.UI.Helpers;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using MainWindow = Core.Common.Gui.Forms.MainWindow.MainWindow;
-using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
 
 namespace Core.Common.Gui
 {
@@ -35,10 +35,15 @@ namespace Core.Common.Gui
     public class RingtoetsGui : IGui, IDisposable
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
+
+        public event Action<Project> ProjectOpened;
+        public event Action<Project> ProjectClosing;
         private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsGui));
 
         private static RingtoetsGui instance;
         private static string instanceCreationStackTrace;
+
+        private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
 
         private ApplicationCore applicationCore;
         private MainWindow mainWindow;
@@ -49,8 +54,6 @@ namespace Core.Common.Gui
         private ViewList toolWindowViews;
         private AvalonDockDockingManager toolWindowViewsDockingManager;
 
-        private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
-
         private SplashScreen splashScreen;
         private ProgressDialog progressDialog;
 
@@ -59,8 +62,8 @@ namespace Core.Common.Gui
         private bool isExiting;
         private Project project;
 
-        public event Action<Project> ProjectOpened;
-        public event Action<Project> ProjectClosing;
+        private bool userSettingsDirty;
+        private ApplicationSettingsBase userSettings;
 
         public RingtoetsGui()
         {
@@ -68,7 +71,7 @@ namespace Core.Common.Gui
             if (instance != null)
             {
                 instance = null; // reset to that the consequent creations won't fail.
-                throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace+ instanceCreationStackTrace);
+                throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
 
             instance = this;
@@ -78,22 +81,23 @@ namespace Core.Common.Gui
             Plugins = new List<GuiPlugin>();
             ApplicationCore = new ApplicationCore();
 
-            applicationCore.UserSettings = Settings.Default;
+            UserSettings = Settings.Default;
+
             applicationCore.Settings = ConfigurationManager.AppSettings;
 
             CommandHandler = new GuiCommandHandler(this);
 
-            System.Windows.Forms.Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
 
             ProjectClosing += ApplicationProjectClosing;
             ProjectOpened += ApplicationProjectOpened;
         }
 
-        public string ProjectFilePath { get; set; }
-
         public bool SkipDialogsOnExit { get; set; }
 
         public Action OnMainWindowLoaded { get; set; }
+
+        public string ProjectFilePath { get; set; }
 
         public ApplicationCore ApplicationCore
         {
@@ -237,6 +241,30 @@ namespace Core.Common.Gui
 
         public IList<GuiPlugin> Plugins { get; private set; }
 
+        public ApplicationSettingsBase UserSettings
+        {
+            get
+            {
+                return userSettings;
+            }
+            private set
+            {
+                if (userSettings != null)
+                {
+                    userSettings.PropertyChanged -= UserSettingsPropertyChanged;
+                }
+
+                userSettings = value;
+
+                if (userSettings != null)
+                {
+                    userSettings.PropertyChanged += UserSettingsPropertyChanged;
+                }
+
+                userSettingsDirty = false;
+            }
+        }
+
         public bool IsViewRemoveOnItemDeleteSuspended { get; set; }
 
         public void Dispose()
@@ -308,7 +336,12 @@ namespace Core.Common.Gui
 
             mainWindow.SaveLayout(); // save before ApplicationCore.Exit
 
-            ApplicationCore.Exit();
+            if (userSettingsDirty)
+            {
+                UserSettings.Save();
+            }
+
+            UserSettings = null;
 
             // close faster (hide main window)
             mainWindow.Visible = false;
@@ -362,7 +395,7 @@ namespace Core.Common.Gui
                             ApplicationCore.ActivityRunner.CancelAll();
                             while (ApplicationCore.ActivityRunner.IsRunning)
                             {
-                                System.Windows.Forms.Application.DoEvents();
+                                Application.DoEvents();
                             }
                         }
                     }
@@ -442,7 +475,7 @@ namespace Core.Common.Gui
                 }
             }
 
-            System.Windows.Forms.Application.ApplicationExit -= HandleApplicationExit;
+            Application.ApplicationExit -= HandleApplicationExit;
 
             // prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
             var systemAssembly = typeof(Component).Assembly;
@@ -512,6 +545,11 @@ namespace Core.Common.Gui
 
             instanceCreationStackTrace = "";
             instance = null;
+        }
+
+        private void UserSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            userSettingsDirty = true;
         }
 
         private void DeactivatePlugin(GuiPlugin plugin)
@@ -591,7 +629,7 @@ namespace Core.Common.Gui
                     // wait until all import activities are finished
                     while (ApplicationCore.ActivityRunner.IsRunning)
                     {
-                        System.Windows.Forms.Application.DoEvents();
+                        Application.DoEvents();
                     }
                 };
                 progressDialog.Data = ApplicationCore.ActivityRunner.Activities;
@@ -671,7 +709,7 @@ namespace Core.Common.Gui
 
             InitializeMenusAndToolbars();
 
-            System.Windows.Forms.Application.ApplicationExit += HandleApplicationExit;
+            Application.ApplicationExit += HandleApplicationExit;
 
             CopyDefaultViewsFromUserSettings();
 
@@ -695,7 +733,7 @@ namespace Core.Common.Gui
 
         private void ShowSplashScreen()
         {
-            splashScreen = new SplashScreen()
+            splashScreen = new SplashScreen
             {
                 VersionText = SettingsHelper.ApplicationVersion,
                 CopyrightText = ApplicationCore.Settings["copyright"],
@@ -718,7 +756,7 @@ namespace Core.Common.Gui
                 }
             };
 
-            object showSplashScreen = ApplicationCore.UserSettings["showSplashScreen"];
+            object showSplashScreen = UserSettings["showSplashScreen"];
             if (showSplashScreen != null && bool.Parse(showSplashScreen.ToString()))
             {
                 splashScreen.Show();
@@ -984,10 +1022,10 @@ namespace Core.Common.Gui
         {
             StringCollection defaultViews;
             StringCollection defaultViewDataTypes;
-            if (ApplicationCore.UserSettings["defaultViews"] != null)
+            if (UserSettings["defaultViews"] != null)
             {
-                defaultViews = (StringCollection) ApplicationCore.UserSettings["defaultViews"];
-                defaultViewDataTypes = (StringCollection) ApplicationCore.UserSettings["defaultViewDataTypes"];
+                defaultViews = (StringCollection) UserSettings["defaultViews"];
+                defaultViewDataTypes = (StringCollection) UserSettings["defaultViewDataTypes"];
             }
             else
             {
@@ -1020,8 +1058,8 @@ namespace Core.Common.Gui
                 defaultViewDataTypes.Add(objectType.ToString());
             }
 
-            ApplicationCore.UserSettings["defaultViews"] = defaultViews;
-            ApplicationCore.UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
+            UserSettings["defaultViews"] = defaultViews;
+            UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
         }
 
         ~RingtoetsGui()

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using Core.Common.Base.Workflow;
@@ -15,16 +14,12 @@ namespace Core.Common.Base
         private readonly ActivityRunner activityRunner;
         private readonly List<ApplicationPlugin> plugins;
 
-        private bool userSettingsDirty;
-        private ApplicationSettingsBase userSettings;
-
         public ApplicationCore()
         {
             plugins = new List<ApplicationPlugin>();
             activityRunner = new ActivityRunner();
 
             Settings = ConfigurationManager.AppSettings;
-            UserSettings = Properties.Settings.Default;
 
             if (RunningActivityLogAppender.Instance != null)
             {
@@ -45,30 +40,6 @@ namespace Core.Common.Base
             get
             {
                 return activityRunner;
-            }
-        }
-
-        public ApplicationSettingsBase UserSettings
-        {
-            get
-            {
-                return userSettings;
-            }
-            set
-            {
-                if (userSettings != null)
-                {
-                    userSettings.PropertyChanged -= UserSettingsPropertyChanged;
-                }
-
-                userSettings = value;
-
-                if (userSettings != null)
-                {
-                    userSettings.PropertyChanged += UserSettingsPropertyChanged;
-                }
-
-                userSettingsDirty = false;
             }
         }
 
@@ -130,14 +101,6 @@ namespace Core.Common.Base
             applicationPlugin.Deactivate();
         }
 
-        public void Exit()
-        {
-            if (userSettingsDirty)
-            {
-                UserSettings.Save();
-            }
-        }
-
         public void Dispose()
         {
             foreach (var plugin in Plugins.ToList())
@@ -149,11 +112,6 @@ namespace Core.Common.Base
             {
                 RunningActivityLogAppender.Instance.ActivityRunner = null;
             }
-        }
-
-        private void UserSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            userSettingsDirty = true;
         }
     }
 }

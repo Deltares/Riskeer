@@ -17,11 +17,12 @@ namespace Core.Plugins.ProjectExplorer.Tests
             var documentViews = mocks.Stub<IViewList>();
             var settings = mocks.Stub<ApplicationSettingsBase>();
 
+            Expect.Call(gui.UserSettings).Return(settings).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(documentViews).Repeat.Any();
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { UserSettings = settings };
+            var applicationCore = new ApplicationCore();
 
             gui.ApplicationCore = applicationCore;
 

@@ -272,7 +272,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void ShowStartPage(bool checkUseSettings = true)
         {
-            if (!checkUseSettings || Convert.ToBoolean((object) Gui.ApplicationCore.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
+            if (!checkUseSettings || Convert.ToBoolean((object) Gui.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
                 log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
@@ -947,7 +947,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             AddRecentlyOpenedProjectsToFileMenu();
 
-            SetColorTheme((string) Gui.ApplicationCore.UserSettings["colorTheme"]);
+            SetColorTheme((string) Gui.UserSettings["colorTheme"]);
             FileManualButton.IsEnabled = File.Exists(ConfigurationManager.AppSettings["manualFileName"]);
 
             // TODO: Enable as soon as relevant/implemented
@@ -1100,8 +1100,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             return new GeneralOptionsControl
             {
-                UserSettings = Gui.ApplicationCore.UserSettings,
-                ColorTheme = (string) Gui.ApplicationCore.UserSettings["colorTheme"],
+                UserSettings = Gui.UserSettings,
+                ColorTheme = (string) Gui.UserSettings["colorTheme"],
                 OnAcceptChanges = ApplyColorTheme
             };
         }
@@ -1138,7 +1138,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 DockingManager.Theme = new GenericTheme();
             }
 
-            Gui.ApplicationCore.UserSettings["colorTheme"] = colorTheme;
+            Gui.UserSettings["colorTheme"] = colorTheme;
         }
 
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
@@ -1215,7 +1215,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OpenStartPage()
         {
-            var welcomePageName = (string) Gui.ApplicationCore.UserSettings["startPageName"];
+            var welcomePageName = (string) Gui.UserSettings["startPageName"];
             var welcomePageUrl = Gui.ApplicationCore.Settings["startPageUrl"];
 
             var url = new Url(welcomePageName, welcomePageUrl);
