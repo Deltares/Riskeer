@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using Core.Common.Base.Workflow;
@@ -14,7 +15,8 @@ namespace Core.Common.Base
         private readonly ActivityRunner activityRunner;
         private readonly List<ApplicationPlugin> plugins;
 
-        private ApplicationCoreSettings userSettings;
+        private bool userSettingsDirty;
+        private ApplicationSettingsBase userSettings;
 
         public ApplicationCore()
         {
@@ -30,7 +32,7 @@ namespace Core.Common.Base
             }
         }
 
-        public IEnumerable<ApplicationPlugin> Plugins 
+        public IEnumerable<ApplicationPlugin> Plugins
         {
             get
             {
@@ -54,7 +56,19 @@ namespace Core.Common.Base
             }
             set
             {
-                userSettings = new ApplicationCoreSettings(value); // small hack, wrap settings so that we will know when they are changed.
+                if (userSettings != null)
+                {
+                    userSettings.PropertyChanged -= UserSettingsPropertyChanged;
+                }
+
+                userSettings = value;
+
+                if (userSettings != null)
+                {
+                    userSettings.PropertyChanged += UserSettingsPropertyChanged;
+                }
+
+                userSettingsDirty = false;
             }
         }
 
@@ -118,7 +132,7 @@ namespace Core.Common.Base
 
         public void Exit()
         {
-            if (userSettings.IsDirty)
+            if (userSettingsDirty)
             {
                 UserSettings.Save();
             }
@@ -135,6 +149,11 @@ namespace Core.Common.Base
             {
                 RunningActivityLogAppender.Instance.ActivityRunner = null;
             }
+        }
+
+        private void UserSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            userSettingsDirty = true;
         }
     }
 }

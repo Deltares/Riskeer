@@ -88,7 +88,6 @@
   <ItemGroup>
     <Compile Include="Core\AssemblyInfoTest.cs" />
     <Compile Include="Core\ApplicationCoreTest.cs" />
-    <Compile Include="Core\ApplicationCoreSettingsTest.cs" />
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialogTest.cs" />
