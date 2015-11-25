@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-
-using Core.Common.Base;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
