@@ -35,7 +35,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Defines if the progress bar and and progress label should be visible in the window
+        /// Defines if the progress bar and progress label should be visible in the window.
         /// </summary>
         public bool HasProgress
         {
@@ -161,29 +161,6 @@ namespace Core.Common.Gui.Forms.SplashScreen
         {
             base.OnRender(drawingContext);
 
-            var progressVisibility = (HasProgress) ? (Visibility.Visible) : (Visibility.Hidden);
-            
-            progressBar.Visibility = progressVisibility;
-            labelProgressBar.Visibility = progressVisibility;
-            labelProgressMessage.Visibility = progressVisibility;
-
-            if (!HasProgress)
-            {
-                // missing progress bar leaves a gap between dike-picture above and labels below, fixing it by setting a new margin
-                labelsBox.Margin = new Thickness(labelsBox.Margin.Left, progressBar.Margin.Top, labelsBox.Margin.Right, labelsBox.Margin.Bottom);
-            }
-
-            if (progressBar.Value != ProgressValuePercent)
-            {
-                progressBar.Value = ProgressValuePercent;
-                labelProgressBar.Content = string.Format("{0} %", ProgressValuePercent);
-            }
-
-            if (labelProgressMessage.Content.ToString() != ProgressText)
-            {
-                labelProgressMessage.Content = ProgressText;
-            }
-
             if (labelLicense.Content.ToString() != LicenseText)
             {
                 labelLicense.Content = LicenseText;
@@ -202,6 +179,28 @@ namespace Core.Common.Gui.Forms.SplashScreen
             if (labelVersion.Content.ToString() != VersionText)
             {
                 labelVersion.Content = VersionText;
+            }
+
+            var progressVisibility = HasProgress ? Visibility.Visible : Visibility.Hidden;
+            
+            progressBar.Visibility = progressVisibility;
+            labelProgressBar.Visibility = progressVisibility;
+            labelProgressMessage.Visibility = progressVisibility;
+
+            if (!HasProgress)
+            {
+                return; // no need to update progress related labels below
+            }
+
+            if (progressBar.Value != ProgressValuePercent)
+            {
+                progressBar.Value = ProgressValuePercent;
+                labelProgressBar.Content = string.Format("{0} %", ProgressValuePercent);
+            }
+
+            if (labelProgressMessage.Content.ToString() != ProgressText)
+            {
+                labelProgressMessage.Content = ProgressText;
             }
         }
     }

@@ -19,7 +19,7 @@
         <Label x:Name="labelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" Margin="5,249,0,0" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" BorderBrush="Black" RenderTransformOrigin="0.51,-1.4"/>
         <Label x:Name="labelProgressBar" Content="0 %" Margin="0,274,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Padding="0" Height="18px" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Right" Width="455"
                x:FieldModifier="protected" />
-        <Border x:Name="labelsBox" Margin="10,300,230,16" >
+        <Border x:Name="labelsBox" Margin="10,0,230,16" Height="72" VerticalAlignment="Bottom" >
             <Grid>
                 <Label x:Name="labelVersionTitle"  Content="{x:Static Properties:Resources.SplashScreen_Version}" Height="18px" HorizontalAlignment="Left" Padding="0"  VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold"/>
                 <Label x:Name="labelVersion" Content="1.0.0.0" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,0,0,0" />

@@ -53,7 +53,7 @@ namespace Core.Common.Gui.Tests.Forms
 
             screen.HasProgress = false;
             Application.DoEvents(); // creating space for lazy-updating to do its work
-            Assert.IsFalse(screen.HasProgress, "HasProgres is changed to FALSE by now");
+            Assert.IsFalse(screen.HasProgress, "HasProgress is changed to FALSE by now");
 
             Assert.IsFalse(GetIsControlVisible(screen, "progressBar"));
             Assert.IsFalse(GetIsControlVisible(screen, "labelProgressMessage"));
@@ -82,14 +82,14 @@ namespace Core.Common.Gui.Tests.Forms
 
         private string GetLabelText(FrameworkElement parent, string labelName)
         {
-            var label = FindControlRecursively(parent, labelName);
-            return (label as Label).Content.ToString();
+            var label = FindControlRecursively(parent, labelName) as Label;
+            return (label != null) ? label.Content.ToString() : "";
         }
 
         private bool GetIsControlVisible(FrameworkElement parent, string ctrlName)
         {
-            var ctrl = FindControlRecursively(parent, ctrlName);
-            return (ctrl as Control).IsVisible;
+            var ctrl = FindControlRecursively(parent, ctrlName) as Control;
+            return ctrl != null && ctrl.IsVisible;
         }
     }
 }
