@@ -224,8 +224,9 @@ editbin /LARGEADDRESSAWARE $(TargetFileName)
 
 copy "$(SolutionDir)\lib\*.dll" .\
 
-    if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
-    xcopy /s /y "$(SolutionDir)\packages\GDAL.Native.1.9.2\gdal\*.*" "$(TargetDir)gdal"</PostBuildEvent>
+if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
+xcopy /s /y "$(SolutionDir)packages\GDAL.Native.1.9.2\gdal\data\*.*" "$(TargetDir)gdal\data\"
+xcopy /s /y "$(SolutionDir)packages\GDAL.Native.1.9.2\gdal\x86\*.*" "$(TargetDir)gdal\x86\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <ExternalDependencies>lib\Ringtoets\Application.Ringtoets</ExternalDependencies>
