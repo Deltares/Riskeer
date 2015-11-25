@@ -24,6 +24,7 @@ namespace Core.Plugins.ProjectExplorer.Tests
             mocks = new MockRepository();
             gui = mocks.Stub<IGui>();
 
+            var project = new Project();
             var settings = mocks.Stub<ApplicationSettingsBase>();
             var plugin = mocks.Stub<ApplicationPlugin>();
             var pluginGui = mocks.Stub<GuiPlugin>();
@@ -41,6 +42,8 @@ namespace Core.Plugins.ProjectExplorer.Tests
                 projectExplorerPluginGui, pluginGui
             }).Repeat.Any();
 
+            gui.Project = project;
+
             //create and register a custom np
             mockNodePresenter = mocks.Stub<ITreeNodePresenter>();
             Expect.Call(pluginGui.GetProjectTreeViewNodePresenters()).Return(new[]
@@ -52,7 +55,6 @@ namespace Core.Plugins.ProjectExplorer.Tests
 
             applicationCore = new ApplicationCore
             {
-                Project = new Project(),
                 UserSettings = settings,
                 Settings = new NameValueCollection { { "IsProjectExplorerSorted", "false" } }
             };

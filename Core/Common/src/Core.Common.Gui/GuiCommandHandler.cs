@@ -34,8 +34,8 @@ namespace Core.Common.Gui
         {
             this.gui = gui;
 
-            this.gui.ApplicationCore.ProjectOpened += ApplicationProjectOpened;
-            this.gui.ApplicationCore.ProjectClosing += ApplicationProjectClosing;
+            this.gui.ProjectOpened += ApplicationProjectOpened;
+            this.gui.ProjectClosing += ApplicationProjectClosing;
 
             guiImportHandler = CreateGuiImportHandler();
             guiExportHandler = CreateGuiExportHandler();
@@ -50,7 +50,7 @@ namespace Core.Common.Gui
             }
 
             Log.Info(Resources.Opening_new_project);
-            gui.ApplicationCore.Project = new Project();
+            gui.Project = new Project();
             Log.Info(Resources.New_project_successfully_opened);
 
             RefreshGui();
@@ -87,7 +87,7 @@ namespace Core.Common.Gui
             var result = false;
 
             // TODO: Implement logic for opening the project from the provided file path
-            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => gui.ApplicationCore.Project = new Project());
+            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => gui.Project = new Project());
 
             RefreshGui();
 
@@ -96,7 +96,7 @@ namespace Core.Common.Gui
 
         public bool TryCloseProject()
         {
-            if (gui.ApplicationCore.Project != null)
+            if (gui.Project != null)
             {
                 Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project);
 
@@ -105,10 +105,10 @@ namespace Core.Common.Gui
                 // remove views before closing project. 
                 if (!ViewList.DoNotDisposeViewsOnRemove)
                 {
-                    RemoveAllViewsForItem(gui.ApplicationCore.Project);
+                    RemoveAllViewsForItem(gui.Project);
                 }
 
-                gui.ApplicationCore.CloseProject();
+                gui.Project = null;
 
                 RefreshGui();
 
@@ -232,7 +232,7 @@ namespace Core.Common.Gui
 
         public void AddNewItem(object parent)
         {
-            if (gui.ApplicationCore.Project == null)
+            if (gui.Project == null)
             {
                 Log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
@@ -291,8 +291,8 @@ namespace Core.Common.Gui
 
         public void Dispose()
         {
-            gui.ApplicationCore.ProjectOpened -= ApplicationProjectOpened;
-            gui.ApplicationCore.ProjectClosing -= ApplicationProjectClosing;
+            gui.ProjectOpened -= ApplicationProjectOpened;
+            gui.ProjectClosing -= ApplicationProjectClosing;
         }
 
         private GuiImportHandler CreateGuiImportHandler()
@@ -436,8 +436,8 @@ namespace Core.Common.Gui
 
         public void AddItemToProject(object newItem)
         {
-            gui.ApplicationCore.Project.Items.Add(newItem);
-            gui.ApplicationCore.Project.NotifyObservers();
+            gui.Project.Items.Add(newItem);
+            gui.Project.NotifyObservers();
         }
 
         [InvokeRequired]
@@ -453,7 +453,7 @@ namespace Core.Common.Gui
         [InvokeRequired]
         private void RefreshGui()
         {
-            var project = gui.ApplicationCore.Project;
+            var project = gui.Project;
 
             // Set the gui selection to the current project
             gui.Selection = project;

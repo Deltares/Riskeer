@@ -135,7 +135,7 @@ namespace Core.Plugins.SharpMapGis.Gui
             gui.SelectionChanged += GuiSelectionChanged;
             gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
             gui.DocumentViews.ChildViewChanged += DocumentViewsActiveViewChanged;
-            gui.ApplicationCore.ProjectClosing += ApplicationProjectClosing;
+            gui.ProjectClosing += ApplicationProjectClosing;
 
             if (gui.ApplicationCore.ActivityRunner != null)
             {
@@ -154,12 +154,11 @@ namespace Core.Plugins.SharpMapGis.Gui
                     documentViews.ChildViewChanged -= DocumentViewsActiveViewChanged;
                     documentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
                 }
+                gui.ProjectClosing -= ApplicationProjectClosing;
 
                 var applicationCore = gui.ApplicationCore;
                 if (gui.ApplicationCore != null)
                 {
-                    applicationCore.ProjectClosing -= ApplicationProjectClosing;
-
                     if (applicationCore.ActivityRunner != null)
                     {
                         applicationCore.ActivityRunner.ActivityCompleted -= ActivityRunnerOnActivityCompleted;

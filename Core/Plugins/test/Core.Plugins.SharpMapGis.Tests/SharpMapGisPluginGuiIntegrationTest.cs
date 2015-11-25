@@ -54,7 +54,7 @@ namespace Core.Plugins.SharpMapGis.Tests
                 map.Layers.Add(layer);
                 map.NotifyObservers();
 
-                gui.ApplicationCore.Project.Items.Add(map);
+                gui.Project.Items.Add(map);
 
                 gui.CommandHandler.OpenView(map);
 
@@ -117,7 +117,7 @@ namespace Core.Plugins.SharpMapGis.Tests
                 };
                 map.Layers.Add(layer);
 
-                gui.ApplicationCore.Project.Items.Add(map);
+                gui.Project.Items.Add(map);
 
                 gui.CommandHandler.OpenView(map);
 

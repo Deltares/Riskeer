@@ -117,8 +117,6 @@ namespace Core.Plugins.CommonTools.Gui
 
             InitializeChartLegendView();
 
-            Gui.ApplicationCore.ProjectClosing += ApplicationProjectClosing;
-
             if (Gui != null && Gui.DocumentViews != null)
             {
                 if (Gui.DocumentViews.ActiveView != null)
@@ -240,8 +238,6 @@ namespace Core.Plugins.CommonTools.Gui
         {
             Gui.MainWindow.ValidateItems();
         }
-
-        private void ApplicationProjectClosing(Project project) {}
 
         private void InitializeTableView()
         {

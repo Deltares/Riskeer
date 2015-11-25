@@ -650,7 +650,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 ButtonShowProperties.IsChecked = Gui.ToolWindowViews.Contains(PropertyGrid);
             }
 
-            var appHasProject = (Gui.ApplicationCore.Project != null);
+            var appHasProject = Gui.Project != null;
             var isActivityRunning = Gui.ApplicationCore.IsActivityRunning();
 
             // filemenu items dependent on existence of project and if processes are running

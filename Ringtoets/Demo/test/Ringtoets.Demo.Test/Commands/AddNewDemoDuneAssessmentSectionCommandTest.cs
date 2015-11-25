@@ -30,18 +30,18 @@ namespace Ringtoets.Demo.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var guiMock = mocks.Stub<IGui>();
-            var observerMock = mocks.StrictMock<IObserver>();
 
+            var guiMock = mocks.Stub<IGui>();
+
+            var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
 
             var project = new Project();
-            var applicationCore = new ApplicationCore
-            {
-                Project = project
-            };
+            var applicationCore = new ApplicationCore();
 
+            guiMock.Project = project;
             guiMock.ApplicationCore = applicationCore;
 
             var command = new AddNewDemoDuneAssessmentSectionCommand

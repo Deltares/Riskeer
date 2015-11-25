@@ -45,7 +45,7 @@ namespace Core.Plugins.ProjectExplorer
                 // todo redesign user settings to expand settings per plugin
                 //var isSorted = Gui.ApplicationCore.Settings["IsProjectExplorerSorted"];
                 //projectExplorer.ProjectTreeView.IsSorted = (isSorted == null || bool.Parse(isSorted));
-                ProjectExplorer.ProjectTreeView.Project = Gui.ApplicationCore.Project;
+                ProjectExplorer.ProjectTreeView.Project = Gui.Project;
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
             }
 
@@ -61,8 +61,8 @@ namespace Core.Plugins.ProjectExplorer
 
             InitializeProjectTreeView();
 
-            Gui.ApplicationCore.ProjectOpened += ApplicationProjectOpened;
-            Gui.ApplicationCore.ProjectClosing += ApplicationProjectClosed;
+            Gui.ProjectOpened += ApplicationProjectOpened;
+            Gui.ProjectClosing += ApplicationProjectClosed;
 
             Gui.ApplicationCore.ProjectSaving += ApplicationOnProjectSaving;
             Gui.ApplicationCore.ProjectSaved += ApplicationProjectSaved;
@@ -84,8 +84,8 @@ namespace Core.Plugins.ProjectExplorer
         public override void Deactivate()
         {
             base.Deactivate();
-            Gui.ApplicationCore.ProjectOpened -= ApplicationProjectOpened;
-            Gui.ApplicationCore.ProjectClosing -= ApplicationProjectClosed;
+            Gui.ProjectOpened -= ApplicationProjectOpened;
+            Gui.ProjectClosing -= ApplicationProjectClosed;
             Gui.ApplicationCore.ProjectSaving -= ApplicationOnProjectSaving;
             Gui.ApplicationCore.ProjectSaved -= ApplicationProjectSaved;
             Gui.ToolWindowViews.Remove(ProjectExplorer);

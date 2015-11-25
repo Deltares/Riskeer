@@ -110,7 +110,8 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
 
         private MapLegendView CreateMapLegendView()
         {
-            IGui gui = mocks.Stub<IGui>();
+            var project = new Project();
+            var gui = mocks.Stub<IGui>();
 
             //create stubbed version of plugingui
             SharpMapGisGuiPlugin guiPlugin = new SharpMapGisGuiPlugin();
@@ -123,11 +124,13 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
                 guiPlugin
             }).Repeat.Any();
             Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
-            Expect.Call(gui.DocumentViews).Repeat.Any().Return(mocks.Stub<IViewList>());
+            Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
+
+            gui.Project = project;
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Project = new Project() };
+            var applicationCore = new ApplicationCore();
 
             gui.ApplicationCore = applicationCore;
 

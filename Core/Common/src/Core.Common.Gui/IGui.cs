@@ -17,12 +17,24 @@ namespace Core.Common.Gui
     /// </summary>
     public interface IGui
     {
+        #region Public properties
+
+        event Action<Project> ProjectOpened;
+        event Action<Project> ProjectClosing;
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         /// Gets or sets Application wrapped by the current Gui.
         /// </summary>
         ApplicationCore ApplicationCore { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project of the <see cref="IGui"/>.
+        /// </summary>
+        Project Project { get; set; }
 
         /// <summary>
         /// Gets or sets CommandHandler.

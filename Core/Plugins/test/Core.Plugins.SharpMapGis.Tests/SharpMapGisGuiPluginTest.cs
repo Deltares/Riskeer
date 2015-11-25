@@ -33,6 +33,8 @@ namespace Core.Plugins.SharpMapGis.Tests
                 sharpMapGisPluginGui
             }).Repeat.Any();
 
+            gui.Project = project;
+
             var layerNode = new TreeNode();
             var treeView = new TreeView();
             treeView.Nodes.Add(layerNode);
@@ -40,7 +42,7 @@ namespace Core.Plugins.SharpMapGis.Tests
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore { Project = project };
+            var applicationCore = new ApplicationCore();
 
             gui.ApplicationCore = applicationCore;
 

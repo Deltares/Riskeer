@@ -7,7 +7,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
@@ -58,6 +57,10 @@ namespace Core.Common.Gui
         private bool settingSelection;
         private bool runFinished;
         private bool isExiting;
+        private Project project;
+
+        public event Action<Project> ProjectOpened;
+        public event Action<Project> ProjectClosing;
 
         public RingtoetsGui()
         {
@@ -81,6 +84,9 @@ namespace Core.Common.Gui
             CommandHandler = new GuiCommandHandler(this);
 
             System.Windows.Forms.Application.EnableVisualStyles();
+
+            ProjectClosing += ApplicationProjectClosing;
+            ProjectOpened += ApplicationProjectOpened;
         }
 
         public bool SkipDialogsOnExit { get; set; }
@@ -97,8 +103,6 @@ namespace Core.Common.Gui
             {
                 if (applicationCore != null)
                 {
-                    ApplicationCore.ProjectClosing -= ApplicationProjectClosing;
-                    ApplicationCore.ProjectOpened -= ApplicationProjectOpened;
                     ApplicationCore.ProjectSaved -= ApplicationProjectSaved;
                     ApplicationCore.ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
                     ApplicationCore.ActivityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
@@ -109,11 +113,37 @@ namespace Core.Common.Gui
                 if (applicationCore != null)
                 {
                     // subscribe to application events so that we can handle opening, closing, renamig of views on project changes
-                    ApplicationCore.ProjectClosing += ApplicationProjectClosing;
-                    ApplicationCore.ProjectOpened += ApplicationProjectOpened;
                     ApplicationCore.ProjectSaved += ApplicationProjectSaved;
                     ApplicationCore.ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
                     ApplicationCore.ActivityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
+                }
+            }
+        }
+
+        public Project Project
+        {
+            get
+            {
+                return project;
+            }
+            set
+            {
+                if (project != null)
+                {
+                    if (ProjectClosing != null)
+                    {
+                        ProjectClosing(project);
+                    }
+                }
+
+                project = value;
+
+                if (project != null)
+                {
+                    if (ProjectOpened != null)
+                    {
+                        ProjectOpened(project);
+                    }
                 }
             }
         }
@@ -232,13 +262,13 @@ namespace Core.Common.Gui
             if (!string.IsNullOrEmpty(projectPath))
             {
                 // TODO: Implement logic for opening the project from the provided file path
-                applicationCore.Project = new Project();
+                Project = new Project();
             }
             else
             {
                 log.Info(Resources.RingtoetsGui_Run_Starting_application);
 
-                applicationCore.Project = new Project();
+                Project = new Project();
             }
 
             log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface);
@@ -335,11 +365,12 @@ namespace Core.Common.Gui
                                 System.Windows.Forms.Application.DoEvents();
                             }
                         }
-                        ApplicationCore.CloseProject(); // lots of unsubscribe logic in plugins reacts on this
                     }
                 }
                 finally
                 {
+                    Project = null;
+
                     if (ToolWindowViews != null)
                     {
                         ToolWindowViews.Clear();
@@ -779,9 +810,9 @@ namespace Core.Common.Gui
             string mainWindowTitle = ApplicationCore.Settings["mainWindowTitle"];
 
             string projectTitle = "<None>";
-            if (ApplicationCore.Project != null)
+            if (Project != null)
             {
-                projectTitle = ApplicationCore.Project.Name;
+                projectTitle = Project.Name;
             }
 
             // TODO: this must be moved to MainWindow which should listen to project changes

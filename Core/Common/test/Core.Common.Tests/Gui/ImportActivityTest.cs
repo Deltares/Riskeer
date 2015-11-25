@@ -1,6 +1,5 @@
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
-using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -14,8 +13,6 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void FileImportActivity()
         {
-            var gui = mockRepository.Stub<IGui>();
-
             var project = new Project("test");
 
             var importer = mockRepository.Stub<IFileImporter>();
@@ -35,13 +32,6 @@ namespace Core.Common.Tests.Gui
 
             mockRepository.ReplayAll();
 
-            var applicationCore = new ApplicationCore
-            {
-                Project = project
-            };
-
-            gui.ApplicationCore = applicationCore;
-
             // expect some reporting while processing each file
             fileImportActivity.OnImportFinished += (sender, importedObject, theImporter) =>
             {
@@ -52,7 +42,7 @@ namespace Core.Common.Tests.Gui
             fileImportActivity.Initialize();
             fileImportActivity.Execute();
 
-            Assert.AreEqual(3, applicationCore.Project.Items.Count);
+            Assert.AreEqual(3, project.Items.Count);
 
             mockRepository.VerifyAll();
         }

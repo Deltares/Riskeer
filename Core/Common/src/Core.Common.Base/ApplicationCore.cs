@@ -5,7 +5,6 @@ using System.Configuration;
 using System.Linq;
 using Core.Common.Base.Workflow;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Globalization;
 
 namespace Core.Common.Base
@@ -13,8 +12,6 @@ namespace Core.Common.Base
     public class ApplicationCore : IDisposable
     {
         // TODO: migrate into ProjectService
-        public event Action<Project> ProjectOpened;
-        public event Action<Project> ProjectClosing;
         public event Action<Project> ProjectSaving;
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
@@ -40,36 +37,6 @@ namespace Core.Common.Base
             if (RunningActivityLogAppender.Instance != null)
             {
                 RunningActivityLogAppender.Instance.ActivityRunner = ActivityRunner;
-            }
-        }
-
-        public Project Project
-        {
-            get
-            {
-                return project;
-            }
-
-            [InvokeRequired]
-            set
-            {
-                if (project != null)
-                {
-                    if (ProjectClosing != null)
-                    {
-                        ProjectClosing(project);
-                    }
-                }
-
-                project = value;
-
-                if (project != null)
-                {
-                    if (ProjectOpened != null)
-                    {
-                        ProjectOpened(project);
-                    }
-                }
             }
         }
 
@@ -161,11 +128,6 @@ namespace Core.Common.Base
             applicationPlugin.Deactivate();
         }
 
-        public void CloseProject()
-        {
-            Project = null;
-        }
-
         public void SaveProjectAs(string path)
         {
             // TODO: implement
@@ -178,11 +140,6 @@ namespace Core.Common.Base
 
         public void Exit()
         {
-            if (Project != null)
-            {
-                CloseProject();
-            }
-
             if (userSettings.IsDirty)
             {
                 UserSettings.Save();
@@ -228,8 +185,6 @@ namespace Core.Common.Base
 
         public void Dispose()
         {
-            CloseProject();
-
             foreach (var plugin in Plugins.ToList())
             {
                 RemovePlugin(plugin);

@@ -144,7 +144,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
                 gui.Run();
 
-                Action onShown = () => TestHelper.AssertIsFasterThan(300, () => gui.ApplicationCore.Project = new Project());
+                Action onShown = () => TestHelper.AssertIsFasterThan(300, () => gui.Project = new Project());
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
             }
@@ -170,7 +170,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 for (int i = 0; i < 20; i++)
                 {
                     var map = new Map();
-                    applicationCore.Project.Items.Add(map);
+                    gui.Project.Items.Add(map);
                     gui.CommandHandler.OpenView(map);
                 }
                 applicationCore.SaveProjectAs(TestHelper.GetCurrentMethodName() + ".dsproj");
@@ -188,7 +188,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
-                Assert.AreEqual(gui.ApplicationCore.Project, gui.Selection);
+                Assert.AreEqual(gui.Project, gui.Selection);
             }
         }
 
@@ -211,8 +211,6 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
-                var applicationCore = gui.ApplicationCore;
-
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -221,7 +219,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 var treeView = projectExplorer.TreeView;
                 treeView.SelectedNode = treeView.Nodes[0]; // project node
 
-                Assert.AreEqual(applicationCore.Project, gui.Selection);
+                Assert.AreEqual(gui.Project, gui.Selection);
             }
         }
 

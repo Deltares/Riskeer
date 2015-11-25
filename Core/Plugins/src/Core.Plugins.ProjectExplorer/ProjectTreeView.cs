@@ -242,14 +242,14 @@ namespace Core.Plugins.ProjectExplorer
 
         private void SubscribeProjectEvents()
         {
-            applicationCore.ProjectOpened += ApplicationCoreProjectOpened;
+            gui.ProjectOpened += ApplicationCoreProjectOpened;
         }
 
         private void UnsubscribeProjectEvents()
         {
             if (project != null)
             {
-                applicationCore.ProjectOpened -= ApplicationCoreProjectOpened;
+                gui.ProjectOpened -= ApplicationCoreProjectOpened;
             }
         }
 

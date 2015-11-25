@@ -33,21 +33,19 @@ namespace Ringtoets.Demo.Test.Commands
         public void Execute_GuiIsProperlyInitialized_AddNewDikeAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
-            var project = new Project();
-
             var mocks = new MockRepository();
 
             var guiMock = mocks.Stub<IGui>();
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore
-            {
-                Project = project
-            };
+            var project = new Project();
+            var applicationCore = new ApplicationCore();
 
+            guiMock.Project = project;
             guiMock.ApplicationCore = applicationCore;
 
             var command = new AddNewDemoDikeAssessmentSectionCommand

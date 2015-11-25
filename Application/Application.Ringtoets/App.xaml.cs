@@ -109,7 +109,7 @@ namespace Application.Ringtoets
             {
                 if (runActivity != null)
                 {
-                    if (gui.ApplicationCore.Project == null)
+                    if (gui.Project == null)
                     {
                         log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_No_project_found_load_project_first);
                         return;
@@ -117,7 +117,7 @@ namespace Application.Ringtoets
 
                     // search project for activities specified by the argument
                     var activity =
-                        gui.ApplicationCore.Project.Items
+                        gui.Project.Items
                            .OfType<IActivity>()
                            .FirstOrDefault(a => a.Name == runActivity);
                     if (activity == null)
@@ -132,9 +132,9 @@ namespace Application.Ringtoets
                     gui.ApplicationCore.RunActivity(activity);
                     log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Activity_0_ended_with_status_1_, runActivity, activity.Status);
 
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project_0_, gui.ApplicationCore.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saving_project_0_, gui.Project.Name);
                     gui.ApplicationCore.SaveProject();
-                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project_0_, gui.ApplicationCore.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Saved_project_0_, gui.Project.Name);
                 }
             };
 
