@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
+using Core.GIS.SharpMap.UI.Tools.Decorations;
 using Core.Plugins.SharpMapGis.Gui.Commands;
 using Fluent;
 
@@ -46,9 +47,9 @@ namespace Core.Plugins.SharpMapGis.Gui
             commandShowMapContents = new ShowMapContentsCommand();
 
             // map decorations
-            showNorthArrow = new ShowNorthArrowCommand();
-            showMapLegend = new ShowMapLegendCommand();
-            showScaleBar = new ShowScaleBarCommand();
+            showNorthArrow = new LayoutComponentToolCommand<NorthArrowTool>();
+            showMapLegend = new LayoutComponentToolCommand<LegendTool>();
+            showScaleBar = new LayoutComponentToolCommand<ScaleBarTool>();
 
             // map interaction
             selectButton = new SelectCommand();

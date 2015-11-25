@@ -250,7 +250,7 @@ namespace Core.GIS.SharpMap.UI.Tools.Decorations
             }
         }
 
-        public bool Selected { get; private set; }
+        public bool Selected { get; set; }
 
         public override void OnKeyDown(KeyEventArgs e)
         {
