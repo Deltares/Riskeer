@@ -176,19 +176,11 @@ namespace Core.Common.Base
                 throw new InvalidOperationException(Properties.Resources.ApplicationCore_Run_Application_is_already_running);
             }
 
+            isRunning = true;
+
             initializing = true;
 
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             log.Info(Properties.Resources.ApplicationCore_Run_starting);
-
-            if (running)
-            {
-                throw new InvalidOperationException(Properties.Resources.ApplicationCore_Run_Application_is_already_running);
-            }
-
-            running = true;
 
             // load all assemblies from current assembly directory
             AssemblyUtils.LoadAllAssembliesFromDirectory(Path.GetFullPath(Path.GetDirectoryName(GetType().Assembly.Location))).ToList();
@@ -196,8 +188,6 @@ namespace Core.Common.Base
             LogSystemInfo();
 
             Plugins.ForEach(p => p.ApplicationCore = this);
-
-            isRunning = true;
 
             log.Info(Properties.Resources.ApplicationCore_Run_Creating_new_project);
             CreateNewProject();
@@ -210,10 +200,6 @@ namespace Core.Common.Base
             Project = projectBeingCreated; // opens project in application
 
             initializing = false;
-
-            stopwatch.Stop();
-
-            log.InfoFormat(Properties.Resources.ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds, stopwatch.ElapsedMilliseconds/1000.0);
         }
 
         public void CloseProject()

@@ -132,9 +132,6 @@
   <data name="ApplicationCore_Run_Waiting_until_all_plugins_are_activated" xml:space="preserve">
     <value>Wachten tot alle plugins zijn geactiveerd...</value>
   </data>
-  <data name="ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds" xml:space="preserve">
-    <value>Ringtoets is klaar, opstarttijd van {0:F3} seconden.</value>
-  </data>
   <data name="ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened" xml:space="preserve">
     <value>'Run()' moet eerst worden aangeroepen voordat het project kan worden geopend.</value>
   </data>

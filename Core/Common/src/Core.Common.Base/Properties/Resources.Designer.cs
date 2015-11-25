@@ -234,15 +234,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets is klaar, opstarttijd van {0:F3} seconden..
-        /// </summary>
-        internal static string ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds {
-            get {
-                return ResourceManager.GetString("ApplicationCore_Run_Ringtoets_is_ready_started_in_0_F3_seconds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ringtoets wordt gestart....
         /// </summary>
         internal static string ApplicationCore_Run_starting {
