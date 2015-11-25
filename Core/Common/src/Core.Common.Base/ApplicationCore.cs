@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
-using System.Reflection;
 using Core.Common.Base.Workflow;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
@@ -21,6 +20,7 @@ namespace Core.Common.Base
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
 
+        private readonly ActivityRunner activityRunner;
         private readonly List<ApplicationPlugin> plugins;
 
         public Action WaitMethod;
@@ -33,20 +33,15 @@ namespace Core.Common.Base
         public ApplicationCore()
         {
             plugins = new List<ApplicationPlugin>();
+            activityRunner = new ActivityRunner();
 
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
-
-            ActivityRunner = new ActivityRunner();
 
             if (RunningActivityLogAppender.Instance != null)
             {
                 RunningActivityLogAppender.Instance.ActivityRunner = ActivityRunner;
             }
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainAssemblyResolve;
-
-            Settings = ConfigurationManager.AppSettings;
-            UserSettings = Properties.Settings.Default;
         }
 
         public Project Project
@@ -92,7 +87,13 @@ namespace Core.Common.Base
             }
         }
 
-        public IActivityRunner ActivityRunner { get; set; }
+        public IActivityRunner ActivityRunner
+        {
+            get
+            {
+                return activityRunner;
+            }
+        }
 
         public ApplicationSettingsBase UserSettings
         {
@@ -237,44 +238,17 @@ namespace Core.Common.Base
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            CloseProject();
 
-        private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            //HACK : this is needed because of issue 4382...the black boxes in PG. It seem like the assembly for 
-            //enum types like AggregationOptions cannot be found without this 
-            return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!disposed)
+            foreach (var plugin in Plugins.ToList())
             {
-                if (disposing)
-                {
-                    CloseProject();
-
-                    foreach (var plugin in Plugins.ToList())
-                    {
-                        RemovePlugin(plugin);
-                    }
-
-                    if (RunningActivityLogAppender.Instance != null)
-                    {
-                        RunningActivityLogAppender.Instance.ActivityRunner = null;
-                        RunningActivityLogAppender.Instance = null;
-                    }
-                }
+                RemovePlugin(plugin);
             }
 
-            disposed = true;
-        }
-
-        ~ApplicationCore()
-        {
-            Dispose(false);
+            if (RunningActivityLogAppender.Instance != null)
+            {
+                RunningActivityLogAppender.Instance.ActivityRunner = null;
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using NUnit.Framework;
@@ -79,17 +78,13 @@ namespace Ringtoets.Piping.Plugin.Test
         {
             // setup
             var mocks = new MockRepository();
-            var activityRunnerStub = mocks.Stub<IActivityRunner>();
 
             var guiStub = mocks.Stub<IGui>();
             guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore
-            {
-                ActivityRunner = activityRunnerStub
-            };
+            var applicationCore = new ApplicationCore();
 
             guiStub.ApplicationCore = applicationCore;
 
