@@ -179,43 +179,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;Run()&apos; moet eerst worden aangeroepen voordat het project kan worden geopend..
-        /// </summary>
-        internal static string ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened {
-            get {
-                return ResourceManager.GetString("ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_o" +
-                        "pened", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ringtoets wordt al uitgevoerd en kan daarom niet nog een keer gestart worden..
-        /// </summary>
-        internal static string ApplicationCore_Run_Application_is_already_running {
-            get {
-                return ResourceManager.GetString("ApplicationCore_Run_Application_is_already_running", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw project aanmaken....
-        /// </summary>
-        internal static string ApplicationCore_Run_Creating_new_project {
-            get {
-                return ResourceManager.GetString("ApplicationCore_Run_Creating_new_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ringtoets wordt gestart....
-        /// </summary>
-        internal static string ApplicationCore_Run_starting {
-            get {
-                return ResourceManager.GetString("ApplicationCore_Run_starting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} van {1}.
         /// </summary>
         internal static string FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_ {

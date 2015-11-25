@@ -2,16 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
 using Core.Common.Base.Workflow;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Globalization;
-using Core.Common.Utils.Reflection;
-using log4net;
 
 namespace Core.Common.Base
 {
@@ -25,16 +21,12 @@ namespace Core.Common.Base
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
 
-        private readonly ILog log = LogManager.GetLogger(typeof(ApplicationCore));
-
         private readonly List<ApplicationPlugin> plugins;
 
         public Action WaitMethod;
 
         private Project project;
         private ApplicationCoreSettings userSettings;
-
-        private bool isRunning;
 
         private bool disposed;
 
@@ -134,8 +126,6 @@ namespace Core.Common.Base
             }
         }
 
-        public ResourceManager Resources { get; set; }
-
         public static void SetLanguageAndRegionalSettions(ApplicationSettingsBase tempUserSettings = null)
         {
             var settings = ConfigurationManager.AppSettings;
@@ -180,30 +170,6 @@ namespace Core.Common.Base
             applicationPlugin.Deactivate();
         }
 
-        public void Run(string projectPath)
-        {
-            Run();
-            OpenProject(projectPath);
-        }
-
-        public void Run()
-        {
-            if (isRunning)
-            {
-                throw new InvalidOperationException(Properties.Resources.ApplicationCore_Run_Application_is_already_running);
-            }
-
-            isRunning = true;
-
-            log.Info(Properties.Resources.ApplicationCore_Run_starting);
-
-            // load all assemblies from current assembly directory
-            AssemblyUtils.LoadAllAssembliesFromDirectory(Path.GetFullPath(Path.GetDirectoryName(GetType().Assembly.Location))).ToList();
-
-            log.Info(Properties.Resources.ApplicationCore_Run_Creating_new_project);
-            Project = new Project();
-        }
-
         public void CloseProject()
         {
             Project = null;
@@ -217,18 +183,6 @@ namespace Core.Common.Base
         public void SaveProject()
         {
             // TODO: implement
-        }
-
-        public bool OpenProject(string path)
-        {
-            if (!isRunning)
-            {
-                throw new InvalidOperationException(Properties.Resources.ApplicationCore_CreateNewProject_Run_must_be_called_first_before_project_can_be_opened);
-            }
-
-            // TODO: implement and remove Project = new Project();
-            Project = new Project();
-            return false;
         }
 
         public void Exit()
@@ -305,11 +259,6 @@ namespace Core.Common.Base
                     foreach (var plugin in Plugins.ToList())
                     {
                         RemovePlugin(plugin);
-                    }
-
-                    foreach (var disposable in Plugins.OfType<IDisposable>())
-                    {
-                        disposable.Dispose();
                     }
 
                     if (RunningActivityLogAppender.Instance != null)

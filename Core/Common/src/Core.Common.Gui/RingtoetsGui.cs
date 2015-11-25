@@ -78,8 +78,6 @@ namespace Core.Common.Gui
             applicationCore.UserSettings = Settings.Default;
             applicationCore.Settings = ConfigurationManager.AppSettings;
 
-            applicationCore.Resources = new ResourceManager(typeof(Resources));
-
             CommandHandler = new GuiCommandHandler(this);
 
             System.Windows.Forms.Application.EnableVisualStyles();
@@ -229,15 +227,18 @@ namespace Core.Common.Gui
 
             ShowSplashScreen();
 
-            if (!String.IsNullOrEmpty(projectPath))
+            log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
+
+            if (!string.IsNullOrEmpty(projectPath))
             {
-                applicationCore.Run(projectPath);
+                // TODO: Implement logic for opening the project from the provided file path
+                applicationCore.Project = new Project();
             }
             else
             {
                 log.Info(Resources.RingtoetsGui_Run_Starting_application);
 
-                applicationCore.Run();
+                applicationCore.Project = new Project();
             }
 
             log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface);

@@ -275,6 +275,9 @@
   <data name="MessageWindow_showDetailsToolStripMenuItem_Click_Message_details" xml:space="preserve">
     <value>Berichtdetails</value>
   </data>
+  <data name="RingtoetsGui_Run_Creating_new_project" xml:space="preserve">
+    <value>Nieuw project aanmaken...</value>
+  </data>
   <data name="RingtoetsGui_Run_Starting_application" xml:space="preserve">
     <value>Starten van de toepassing...</value>
   </data>
@@ -615,7 +618,7 @@
     <value>Berekenen activiteit of model is beschikbaar in het project.</value>
   </data>
   <data name="App_RunRingtoets_Starting_Ringtoets_Gui" xml:space="preserve">
-    <value>Ringtoets' grafische interface wordt gestart...</value>
+    <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
     <value>Kon de gevraagde "dock" opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen.</value>

@@ -86,7 +86,8 @@ namespace Core.Common.Gui
 
             var result = false;
 
-            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => result = gui.ApplicationCore.OpenProject(filePath));
+            // TODO: Implement logic for opening the project from the provided file path
+            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => gui.ApplicationCore.Project = new Project());
 
             RefreshGui();
 

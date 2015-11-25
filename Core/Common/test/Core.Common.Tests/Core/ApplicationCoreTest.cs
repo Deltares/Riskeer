@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
@@ -9,37 +8,6 @@ namespace Core.Common.Tests.Core
     [TestFixture]
     public class ApplicationCoreTest
     {
-        [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void ApplicationShouldRunBeforeProjectCanBeOpened()
-        {
-            using (var applicationCore = new ApplicationCore())
-            {
-                applicationCore.OpenProject(null);
-            }
-        }
-
-        [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void ApplicationShouldRunBeforeProjectCanBeCreated()
-        {
-            using (var applicationCore = new ApplicationCore())
-            {
-                applicationCore.OpenProject(null);
-            }
-        }
-
-        [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void ApplicationRunCanBeCalledOnlyOnce()
-        {
-            using (var applicationCore = new ApplicationCore())
-            {
-                applicationCore.Run();
-                applicationCore.Run();
-            }
-        }
-
         [Test]
         public void ActivatePlugins()
         {
@@ -59,9 +27,8 @@ namespace Core.Common.Tests.Core
                 LastCall.Repeat.Once();
 
                 mocks.ReplayAll();
-                applicationCore.AddPlugin(plugin);
-                applicationCore.Run();
 
+                applicationCore.AddPlugin(plugin);
                 applicationCore.Dispose();
 
                 mocks.VerifyAll();
