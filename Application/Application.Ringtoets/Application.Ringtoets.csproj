@@ -222,10 +222,7 @@ IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32
 :endvsvars
 editbin /LARGEADDRESSAWARE $(TargetFileName)
 
-copy "$(SolutionDir)\lib\Ringtoets\Application.Ringtoets\license.lic" .\
-
 xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap\*" .\
-xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap.Extensions\*" .\
 
 copy "$(SolutionDir)\lib\*.dll" .\
 
