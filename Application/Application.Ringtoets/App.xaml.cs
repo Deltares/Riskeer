@@ -33,7 +33,7 @@ using Ringtoets.Demo;
 namespace Application.Ringtoets
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for App.xaml.
     /// </summary>
     public partial class App
     {
@@ -240,8 +240,7 @@ namespace Application.Ringtoets
             }
             catch
             {
-                // Because the process may already be closed, the following exceptions are ignored
-                // ArgumentException, InvalidOperationException, Win32Exception, and SystemException
+                //Ignored, because the process may already be closed
             }
         }
 
@@ -366,20 +365,21 @@ namespace Application.Ringtoets
         }
 
         /// <summary>
-        /// Parses the process' start-up parameters
+        /// Parses the process' start-up parameters.
         /// </summary>
-        /// <param name="arguments">List of start-up parameters</param>
+        /// <param name="arguments">List of start-up parameters.</param>
         private static void ParseArguments(IEnumerable<string> arguments)
         {
-            var argumentWaitForProcessRegex = new Regex("^(" + argumentWaitForProcess + @")(\d+)$", RegexOptions.IgnoreCase);
+            var argumentWaitForProcessRegex = new Regex("^" + argumentWaitForProcess + @"(?<processId>\d+)$", RegexOptions.IgnoreCase);
             var waitForProcess =
-                from arg in arguments
-                let matches = argumentWaitForProcessRegex.Match(arg)
-                select new
+                arguments.Select(arg => new
                 {
-                    matches.Groups[2].Value
-                };
-            if (waitForProcess.Count() == 1)
+                    arg, matches = argumentWaitForProcessRegex.Match(arg)
+                }).Select(@t => new
+                {
+                    @t.matches.Groups["processId"].Value
+                });
+            if (waitForProcess.Any())
             {
                 // Get id of previous process
                 var pid = int.Parse(waitForProcess.First().Value);

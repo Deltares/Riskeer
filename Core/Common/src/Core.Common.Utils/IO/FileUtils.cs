@@ -17,11 +17,11 @@ namespace Core.Common.Utils.IO
 
         /// <summary>
         /// Copies the source file to the target destination; if the file
-        /// already exists, it will be overwritten by default
+        /// already exists, it will be overwritten by default.
         /// </summary>
-        /// <param name="sourcePath">Source file path</param>
-        /// <param name="targetPath">Destination file path</param>
-        /// <param name="overwrite">True if the destination file should be overwritten when it exists, false otherwise</param>
+        /// <param name="sourcePath">Source file path.</param>
+        /// <param name="targetPath">Destination file path.</param>
+        /// <param name="overwrite">True if the destination file should be overwritten when it exists, false otherwise.</param>
         public static void CopyFile(string sourcePath, string targetPath, bool overwrite = true)
         {
             var sourceFullPath = Path.GetFullPath(sourcePath);
@@ -47,9 +47,9 @@ namespace Core.Common.Utils.IO
         /// <summary>
         /// Copy files in a directory (and its subdirectories) to another directory.
         /// </summary>
-        /// <param name="source">Source directory</param>
-        /// <param name="target">Destination directory</param>
-        /// <param name="ignorePath">Exclude folder from being copied</param>
+        /// <param name="source">Source directory.</param>
+        /// <param name="target">Destination directory.</param>
+        /// <param name="ignorePath">Exclude folder from being copied.</param>
         public static void CopyAll(DirectoryInfo source, DirectoryInfo target, string ignorePath = "")
         {
             foreach (var diSourceSubDir in source.GetDirectories().Where(diSourceSubDir => diSourceSubDir.Name != ignorePath))
@@ -102,11 +102,11 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Check if the search item path is a subdirectory of the <paramref name="rootDir"/>
+        /// Check if the search item path is a subdirectory of the <paramref name="rootDir"/>.
         /// </summary>
-        /// <param name="rootDir"></param>
-        /// <param name="searchItem"></param>
-        /// <returns></returns>
+        /// <param name="rootDir">Directory path.</param>
+        /// <param name="searchItem">Name of the supposed child directory.</param>
+        /// <returns>True if <paramref name="searchItem"/> is a direct child of <paramref name="rootDir"/>, false otherwise.</returns>
         public static bool IsSubdirectory(string rootDir, string searchItem)
         {
             if (rootDir.StartsWith(@"\\")) //network disk?
@@ -121,10 +121,10 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Ensures a closing directory separator in <paramref name="directory"/>
+        /// Ensures a closing directory separator in <paramref name="directory"/>.
         /// </summary>
-        /// <param name="directory">Directory to ensure closing directory separator</param>
-        /// <returns><paramref name="directory"/> with closing directory separator</returns>
+        /// <param name="directory">Directory to ensure closing directory separator.</param>
+        /// <returns><paramref name="directory"/> with closing directory separator.</returns>
         public static string AppendDirectorySeparatorIfMissing(string directory)
         {
             if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
@@ -135,11 +135,11 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Compares two directory strings
+        /// Compares two directory strings.
         /// </summary>
-        /// <param name="rootDir">Directory path</param>
-        /// <param name="searchItem">Directory path to compare</param>
-        /// <returns>True if the string paths are equal</returns>
+        /// <param name="rootDir">Directory path.</param>
+        /// <param name="searchItem">Directory path to compare.</param>
+        /// <returns>True if the string paths are equal.</returns>
         public static bool CompareDirectories(string rootDir, string searchItem)
         {
             var root = Path.GetFullPath(rootDir);
@@ -150,9 +150,9 @@ namespace Core.Common.Utils.IO
         /// <summary>
         /// Returns a relative path string from a full path.
         /// </summary>
-        /// <param name="rootDir"></param>
-        /// <param name="filePath"></param>
-        /// <returns>Relative path <paramref name="filePath"/> from <paramref name="rootDir"/></returns>
+        /// <param name="rootDir">Directory path.</param>
+        /// <param name="filePath">Directory path to make relative to <paramref name="rootDir"/>.</param>
+        /// <returns>Relative path <paramref name="filePath"/> from <paramref name="rootDir"/>.</returns>
         public static string GetRelativePath(string rootDir, string filePath)
         {
             if (rootDir == null || filePath == null)
@@ -182,10 +182,10 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Create dir if not exists
+        /// Create dir if not exists.
         /// </summary>
-        /// <param name="path">File path to a directory</param>
-        /// <param name="deleteIfExists">Optional flag to delete the specified directory if it does exist when set to true</param>
+        /// <param name="path">File path to a directory.</param>
+        /// <param name="deleteIfExists">Optional flag to delete the specified directory if it does exist when set to true.</param>
         /// <exception cref="IOException"> When:
         ///   The directory specified by <paramref name="path"/> is read-only
         /// Furthermore when <paramref name="deleteIfExists"/> is true:
@@ -220,7 +220,7 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Initializes filesystemwatcher
+        /// Initializes filesystemwatcher.
         /// </summary>
         /// <returns></returns>
         public static FileSystemWatcher CreateWatcher()
@@ -238,7 +238,7 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Checks wether the path is a valid relative path
+        /// Checks wether the path is a valid relative path.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -267,9 +267,9 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Creates a temporary directory
+        /// Creates a temporary directory.
         /// </summary>
-        /// <returns>path to temporary directory</returns>
+        /// <returns>Path to temporary directory.</returns>
         public static string CreateTempDirectory()
         {
             string path = Path.GetFileNameWithoutExtension(Path.GetRandomFileName());
@@ -280,8 +280,8 @@ namespace Core.Common.Utils.IO
         /// <summary>
         /// Check if the content of two files are equal.
         /// </summary>
-        /// <param name="file1Path">first file path</param>
-        /// <param name="file2Path">second file path</param>
+        /// <param name="file1Path">First file path.</param>
+        /// <param name="file2Path">Second file path.</param>
         /// <returns></returns>
         public static bool FilesAreEqual(string file1Path, string file2Path)
         {
@@ -316,10 +316,10 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Checks if the extension of a file belongs to the <paramref name="fileFilter"/>
+        /// Checks if the extension of a file belongs to the <paramref name="fileFilter"/>.
         /// </summary>
-        /// <param name="fileFilter">"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</param>
-        /// <param name="path">Path to a file or filename including extension</param>
+        /// <param name="fileFilter">"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2".</param>
+        /// <param name="path">Path to a file or filename including extension.</param>
         /// <returns></returns>
         public static bool FileMatchesFileFilterByExtension(string fileFilter, string path)
         {
@@ -331,9 +331,9 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Deletes the given file or directory if it exists
+        /// Deletes the given file or directory if it exists.
         /// </summary>
-        /// <param name="path">Path of the file or directory to delete</param>
+        /// <param name="path">Path of the file or directory to delete.</param>
         public static void DeleteIfExists(string path)
         {
             if (!File.Exists(path) & !Directory.Exists(path))
@@ -365,10 +365,10 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Checks if <paramref name="fileName"/> could be a valid file
+        /// Checks if <paramref name="fileName"/> could be a valid file.
         /// </summary>
-        /// <param name="fileName">File name to check</param>
-        /// <returns>True if fileName could be used as a valid file name, false otherwise</returns>
+        /// <param name="fileName">File name to check.</param>
+        /// <returns>True if fileName could be used as a valid file name, false otherwise.</returns>
         public static bool IsValidFileName(string fileName)
         {
             return fileName != null
@@ -377,10 +377,10 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Checks if directory is empty
+        /// Checks if directory is empty.
         /// </summary>
-        /// <param name="path">The path to the directory</param>
-        /// <returns>true is directory exists and is empty, false otherwise</returns>
+        /// <param name="path">The path to the directory.</param>
+        /// <returns>true is directory exists and is empty, false otherwise.</returns>
         public static bool IsDirectoryEmpty(string path)
         {
             if (!Directory.Exists(path))
@@ -394,7 +394,7 @@ namespace Core.Common.Utils.IO
         /// Computes the checksum for a given file.
         /// </summary>
         /// <param name="filePath">The file path.</param>
-        /// <returns>The checksum</returns>
+        /// <returns>The checksum.</returns>
         /// <remarks>Uses the MD5 checksum algorithm.</remarks>
         public static string GetChecksum(string filePath)
         {
