@@ -336,21 +336,17 @@ namespace Application.Ringtoets
         private static void ParseArguments(IEnumerable<string> arguments)
         {
             var argumentWaitForProcessRegex = new Regex("^" + argumentWaitForProcess + @"(?<processId>\d+)$", RegexOptions.IgnoreCase);
-            var waitForProcess =
-                arguments.Select(arg => new
-                {
-                    arg, matches = argumentWaitForProcessRegex.Match(arg)
-                }).Select(@t => new
-                {
-                    @t.matches.Groups["processId"].Value
-                });
-            if (waitForProcess.Any())
+            foreach (var arg in arguments)
             {
-                // Get id of previous process
-                var pid = int.Parse(waitForProcess.First().Value);
-                if (pid > 0)
+                var match = argumentWaitForProcessRegex.Match(arg);
+                if (match.Success)
                 {
-                    waitForProcessId = pid;
+                    var pid = int.Parse(match.Groups["processId"].Value);
+                    if (pid > 0)
+                    {
+                        waitForProcessId = pid;
+                        break;
+                    }
                 }
             }
         }
