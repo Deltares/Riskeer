@@ -290,8 +290,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(PipingIOResources.Error_File_0_does_not_exist,
-                                                     corruptPath);
+            var internalErrorMessage = PipingIOResources.Error_File_does_not_exist;
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -322,8 +321,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(PipingIOResources.Error_File_0_empty,
-                                                     corruptPath);
+            var internalErrorMessage = PipingIOResources.Error_File_empty;
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -354,8 +352,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(PipingIOResources.PipingSurfaceLinesCsvReader_File_0_invalid_header,
-                                                     corruptPath);
+            var internalErrorMessage = PipingIOResources.PipingSurfaceLinesCsvReader_File_invalid_header;
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -395,8 +392,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Action call = () => importedItem = importer.ImportItem(copyTargetPath, observableSurfaceLinesList);
 
                 // Assert
-                var internalErrorMessage = String.Format(PipingIOResources.Error_File_0_does_not_exist,
-                                                         copyTargetPath);
+                var internalErrorMessage = PipingIOResources.Error_File_does_not_exist;
                 var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                                        copyTargetPath, internalErrorMessage);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -442,8 +438,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(PipingIOResources.Error_File_0_has_not_double_SurfaceLineName_1_,
-                                                     corruptPath, "InvalidRow");
+            var internalErrorMessage = String.Format(PipingIOResources.Error_File_has_not_double_SurfaceLineName_0_,
+                                                     "InvalidRow");
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_,
                                                    corruptPath, 2, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -486,8 +482,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(path, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
-                                                     path, "Rotterdam1");
+            var internalErrorMessage = String.Format(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry,
+                                                     "Rotterdam1");
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_,
                                                    path, 1, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);

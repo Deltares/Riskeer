@@ -154,8 +154,8 @@ namespace Ringtoets.Piping.IO
             {
                 if (lCoordinates[i - 1] > lCoordinates[i])
                 {
-                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
-                                                filePath, surfaceLine.Name);
+                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry,
+                                                surfaceLine.Name);
                     throw new LineParseException(message);
                 }
             }
@@ -180,8 +180,8 @@ namespace Ringtoets.Piping.IO
         {
             if (!readText.Contains(separator))
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_,
-                                            filePath, lineNumber, separator);
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_,
+                                            lineNumber, separator);
                 throw new LineParseException(message);
             }
             return readText.Split(separator)
@@ -209,8 +209,8 @@ namespace Ringtoets.Piping.IO
             var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
             if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet,
-                                            filePath, surfaceLineName);
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet,
+                                            surfaceLineName);
                 throw new LineParseException(message);
             }
 
@@ -231,7 +231,7 @@ namespace Ringtoets.Piping.IO
         /// <summary>
         /// Gets the name of the surface line.
         /// </summary>
-        /// <param name="tokenizedString">The tokenized string from which the name should be extrated.</param>
+        /// <param name="tokenizedString">The tokenized string from which the name should be extracted.</param>
         /// <returns>The name of the surface line.</returns>
         /// <exception cref="LineParseException">Id value is null or empty.</exception>
         private string GetSurfaceLineName(IList<string> tokenizedString)
@@ -239,8 +239,8 @@ namespace Ringtoets.Piping.IO
             var name = tokenizedString.Any() ? tokenizedString[0].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID,
-                                            filePath, lineNumber);
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID,
+                                            lineNumber);
                 throw new LineParseException(message);
             }
             return name;
@@ -268,14 +268,14 @@ namespace Ringtoets.Piping.IO
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.Error_File_0_has_not_double_SurfaceLineName_1_,
-                                            filePath, surfaceLineName);
+                var message = string.Format(Resources.Error_File_has_not_double_SurfaceLineName_0_,
+                                            surfaceLineName);
                 throw new LineParseException(message, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.Error_File_0_parsing_causes_overflow_SurfaceLineName_1_,
-                                            filePath, surfaceLineName);
+                var message = string.Format(Resources.Error_File_parsing_causes_overflow_SurfaceLineName_0_,
+                                            surfaceLineName);
                 throw new LineParseException(message, e);
             }
         }
@@ -295,17 +295,15 @@ namespace Ringtoets.Piping.IO
             }
             catch (FileNotFoundException e)
             {
-                var message = string.Format(Resources.Error_File_0_does_not_exist, path);
-                throw new CriticalFileReadException(message, e);
+                throw new CriticalFileReadException(Resources.Error_File_does_not_exist, e);
             }
             catch (DirectoryNotFoundException e)
             {
-                var message = string.Format(Resources.Error_Directory_in_Path_0_missing, path);
-                throw new CriticalFileReadException(message, e);
+                throw new CriticalFileReadException(Resources.Error_Directory_missing, e);
             }
             catch (IOException e)
             {
-                var message = string.Format(Resources.Error_General_IO_File_0_ErrorMessage_1_, path, e.Message);
+                var message = string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message);
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -323,14 +321,12 @@ namespace Ringtoets.Piping.IO
             {
                 if (!IsHeaderValid(header))
                 {
-                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_File_0_invalid_header, filePath);
-                    throw new CriticalFileReadException(message);
+                    throw new CriticalFileReadException(Resources.PipingSurfaceLinesCsvReader_File_invalid_header);
                 }
             }
             else
             {
-                var message = string.Format(Resources.Error_File_0_empty, filePath);
-                throw new CriticalFileReadException(message);
+                throw new CriticalFileReadException(Resources.Error_File_empty);
             }
         }
 
@@ -371,12 +367,12 @@ namespace Ringtoets.Piping.IO
             }
             catch (OutOfMemoryException e)
             {
-                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, currentLine);
+                var message = string.Format(Resources.Error_File_contains_Line_0_too_big, currentLine);
                 throw new CriticalFileReadException(message, e);
             }
             catch (IOException e)
             {
-                var message = string.Format(Resources.Error_General_IO_File_0_ErrorMessage_1_, filePath, e.Message);
+                var message = string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message);
                 throw new CriticalFileReadException(message, e);
             }
         }

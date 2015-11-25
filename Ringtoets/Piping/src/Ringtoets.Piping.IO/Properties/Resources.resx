@@ -120,26 +120,26 @@
   <data name="Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_" xml:space="preserve">
     <value>Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
   </data>
-  <data name="Error_Directory_in_Path_0_missing" xml:space="preserve">
-    <value>Het bestandspad '{0}' verwijst naar een map die niet bestaat.</value>
+  <data name="Error_Directory_missing" xml:space="preserve">
+    <value>Het bestandspad verwijst naar een map die niet bestaat.</value>
   </data>
-  <data name="Error_File_0_contains_Line_1_too_big" xml:space="preserve">
-    <value>Het bestand op '{0}' heeft op regel {1} teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
+  <data name="Error_File_contains_Line_0_too_big" xml:space="preserve">
+    <value>Het bestand heeft op regel {0} teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
   </data>
-  <data name="Error_File_0_does_not_exist" xml:space="preserve">
-    <value>Het bestand op '{0}' bestaat niet.</value>
+  <data name="Error_File_does_not_exist" xml:space="preserve">
+    <value>Het bestand bestaat niet.</value>
   </data>
-  <data name="Error_File_0_empty" xml:space="preserve">
-    <value>Het bestand op '{0}' is leeg.</value>
+  <data name="Error_File_empty" xml:space="preserve">
+    <value>Het bestand is leeg.</value>
   </data>
-  <data name="Error_File_0_has_not_double_SurfaceLineName_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft voor profielmeting {1} een waarde die niet omgezet kan worden naar een getal.</value>
+  <data name="Error_File_has_not_double_SurfaceLineName_0_" xml:space="preserve">
+    <value>Het bestand heeft voor profielmeting {0} een waarde die niet omgezet kan worden naar een getal.</value>
   </data>
-  <data name="Error_File_0_parsing_causes_overflow_SurfaceLineName_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft voor profielmeting {1} een waarde die te groot of te klein is om ingelezen te worden.</value>
+  <data name="Error_File_parsing_causes_overflow_SurfaceLineName_0_" xml:space="preserve">
+    <value>Het bestand heeft voor profielmeting {0} een waarde die te groot of te klein is om ingelezen te worden.</value>
   </data>
-  <data name="Error_General_IO_File_0_ErrorMessage_1_" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand '{0}': {1}</value>
+  <data name="Error_General_IO_ErrorMessage_0_" xml:space="preserve">
+    <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand: {0}</value>
   </data>
   <data name="Error_Path_cannot_contain_Characters_0_" xml:space="preserve">
     <value>Bestandspad mag niet de volgende tekens bevatten: {0}</value>
@@ -154,31 +154,31 @@
     <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>
   </data>
   <data name="Error_SoilProfile_read_from_database" xml:space="preserve">
-    <value>Kon geen ondergrond profielen verkrijgen van de database '{0}'.</value>
+    <value>Kon geen ondergrond profielen verkrijgen van de database.</value>
   </data>
   <data name="PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_" xml:space="preserve">
     <value>Ondergrondschematisering '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
-    <value>Het bestand op '{0}' is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
+  <data name="PipingSurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
+    <value>Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry" xml:space="preserve">
-    <value>Profielmeting {1} van bestand '{0}' heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry" xml:space="preserve">
+    <value>Profielmeting {0} van bestand heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2}).</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_" xml:space="preserve">
+    <value>Het bestand heeft op regel {0} geen verwacht scheidingsteken (het karakter: {1}).</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet" xml:space="preserve">
-    <value>In het bestand '{0}', voor profielmeting {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet" xml:space="preserve">
+    <value>In het bestand voor profielmeting {0} ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID" xml:space="preserve">
-    <value>Het bestand '{0}' heeft geen ID op regel {1}.</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID" xml:space="preserve">
+    <value>Het bestand heeft geen ID op regel {0}.</value>
   </data>
   <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
     <value>Kan de geometrie van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
   </data>
-  <data name="PipingSoilProfileReader_Database_File_0_incorrect_version_requires_Version_1_" xml:space="preserve">
-    <value>De database '{0}' heeft niet de vereiste versie informatie. Vereiste versie is '{1}'.</value>
+  <data name="PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_" xml:space="preserve">
+    <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
   </data>
   <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
     <value>De segmenten van de geometrie van de laag vormen geen lus.</value>

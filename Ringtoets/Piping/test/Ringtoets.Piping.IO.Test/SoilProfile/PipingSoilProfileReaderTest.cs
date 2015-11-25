@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_File_0_does_not_exist, testFile), exception.Message);
+            Assert.AreEqual(Resources.Error_File_does_not_exist, exception.Message);
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_File_0_incorrect_version_requires_Version_1_, dbName, version), exception.Message);
+            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version), exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 

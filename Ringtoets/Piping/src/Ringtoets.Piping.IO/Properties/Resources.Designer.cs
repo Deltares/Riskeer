@@ -70,65 +70,65 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestandspad &apos;{0}&apos; verwijst naar een map die niet bestaat..
+        ///   Looks up a localized string similar to Het bestandspad verwijst naar een map die niet bestaat..
         /// </summary>
-        public static string Error_Directory_in_Path_0_missing {
+        public static string Error_Directory_missing {
             get {
-                return ResourceManager.GetString("Error_Directory_in_Path_0_missing", resourceCulture);
+                return ResourceManager.GetString("Error_Directory_missing", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; heeft op regel {1} teveel tekst om in het RAM geheugen opgeslagen te worden..
+        ///   Looks up a localized string similar to Het bestand heeft op regel {0} teveel tekst om in het RAM geheugen opgeslagen te worden..
         /// </summary>
-        public static string Error_File_0_contains_Line_1_too_big {
+        public static string Error_File_contains_Line_0_too_big {
             get {
-                return ResourceManager.GetString("Error_File_0_contains_Line_1_too_big", resourceCulture);
+                return ResourceManager.GetString("Error_File_contains_Line_0_too_big", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to Het bestand bestaat niet..
         /// </summary>
-        public static string Error_File_0_does_not_exist {
+        public static string Error_File_does_not_exist {
             get {
-                return ResourceManager.GetString("Error_File_0_does_not_exist", resourceCulture);
+                return ResourceManager.GetString("Error_File_does_not_exist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is leeg..
+        ///   Looks up a localized string similar to Het bestand is leeg..
         /// </summary>
-        public static string Error_File_0_empty {
+        public static string Error_File_empty {
             get {
-                return ResourceManager.GetString("Error_File_0_empty", resourceCulture);
+                return ResourceManager.GetString("Error_File_empty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft voor profielmeting {1} een waarde die niet omgezet kan worden naar een getal..
+        ///   Looks up a localized string similar to Het bestand heeft voor profielmeting {0} een waarde die niet omgezet kan worden naar een getal..
         /// </summary>
-        public static string Error_File_0_has_not_double_SurfaceLineName_1_ {
+        public static string Error_File_has_not_double_SurfaceLineName_0_ {
             get {
-                return ResourceManager.GetString("Error_File_0_has_not_double_SurfaceLineName_1_", resourceCulture);
+                return ResourceManager.GetString("Error_File_has_not_double_SurfaceLineName_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft voor profielmeting {1} een waarde die te groot of te klein is om ingelezen te worden..
+        ///   Looks up a localized string similar to Het bestand heeft voor profielmeting {0} een waarde die te groot of te klein is om ingelezen te worden..
         /// </summary>
-        public static string Error_File_0_parsing_causes_overflow_SurfaceLineName_1_ {
+        public static string Error_File_parsing_causes_overflow_SurfaceLineName_0_ {
             get {
-                return ResourceManager.GetString("Error_File_0_parsing_causes_overflow_SurfaceLineName_1_", resourceCulture);
+                return ResourceManager.GetString("Error_File_parsing_causes_overflow_SurfaceLineName_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand &apos;{0}&apos;: {1}.
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand: {0}.
         /// </summary>
-        public static string Error_General_IO_File_0_ErrorMessage_1_ {
+        public static string Error_General_IO_ErrorMessage_0_ {
             get {
-                return ResourceManager.GetString("Error_General_IO_File_0_ErrorMessage_1_", resourceCulture);
+                return ResourceManager.GetString("Error_General_IO_ErrorMessage_0_", resourceCulture);
             }
         }
         
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon geen ondergrond profielen verkrijgen van de database &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Kon geen ondergrond profielen verkrijgen van de database..
         /// </summary>
         public static string Error_SoilProfile_read_from_database {
             get {
@@ -197,11 +197,11 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De database &apos;{0}&apos; heeft niet de vereiste versie informatie. Vereiste versie is &apos;{1}&apos;..
+        ///   Looks up a localized string similar to De database heeft niet de vereiste versie informatie. Vereiste versie is &apos;{0}&apos;..
         /// </summary>
-        public static string PipingSoilProfileReader_Database_File_0_incorrect_version_requires_Version_1_ {
+        public static string PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_ {
             get {
-                return ResourceManager.GetString("PipingSoilProfileReader_Database_File_0_incorrect_version_requires_Version_1_", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_", resourceCulture);
             }
         }
         
@@ -215,49 +215,48 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_File_0_invalid_header {
+        public static string PipingSurfaceLinesCsvReader_File_invalid_header {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_File_0_invalid_header", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_File_invalid_header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2})..
+        ///   Looks up a localized string similar to Het bestand heeft op regel {0} geen verwacht scheidingsteken (het karakter: {1})..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_ {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_ {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft geen ID op regel {1}..
+        ///   Looks up a localized string similar to Het bestand heeft geen ID op regel {0}..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielmeting {1} van bestand &apos;{0}&apos; heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel)..
+        ///   Looks up a localized string similar to In het bestand voor profielmeting {0} ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geome" +
-                        "try", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coor" +
+                        "dinate_triplet", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In het bestand &apos;{0}&apos;, voor profielmeting {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
+        ///   Looks up a localized string similar to Profielmeting {0} van bestand heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel)..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_co" +
-                        "ordinate_triplet", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry", resourceCulture);
             }
         }
         

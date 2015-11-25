@@ -125,8 +125,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_does_not_exist, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.Error_File_does_not_exist, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
         }
@@ -147,8 +146,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_Directory_in_Path_0_missing, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.Error_Directory_missing, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
         }
@@ -169,8 +167,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_empty, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.Error_File_empty, exception.Message);
             }
         }
 
@@ -190,8 +187,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_File_0_invalid_header, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header, exception.Message);
             }
         }
 
@@ -215,7 +211,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
+                var expectedMessage = string.Format("Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -303,8 +299,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_does_not_exist, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.Error_File_does_not_exist, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
         }
@@ -325,8 +320,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_Directory_in_Path_0_missing, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.Error_Directory_missing, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
         }
@@ -347,8 +341,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_empty, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.Error_File_empty, exception.Message);
             }
         }
 
@@ -368,8 +361,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_File_0_invalid_header, path);
-                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.AreEqual(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header, exception.Message);
             }
         }
 
@@ -393,7 +385,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
+                var expectedMessage = string.Format("Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -417,7 +409,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_has_not_double_SurfaceLineName_1_, path, "InvalidSurfaceLine");
+                var expectedMessage = string.Format(IOResources.Error_File_has_not_double_SurfaceLineName_0_, "InvalidSurfaceLine");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -445,7 +437,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_parsing_causes_overflow_SurfaceLineName_1_, path, "InvalidSurfaceLine");
+                var expectedMessage = string.Format(IOResources.Error_File_parsing_causes_overflow_SurfaceLineName_0_, "InvalidSurfaceLine");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
@@ -468,11 +460,11 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID, path, 2);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID,  2);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
-                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID, path, 3);
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID, 3);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -494,7 +486,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_, path, 2, ';');
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_, 2, ';');
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -515,7 +507,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_, path, 2, ';');
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_, 2, ';');
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -537,12 +529,12 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 // 1st row lacks 1 coordinate value:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet, path, "LacksOneCoordinate");
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet, "LacksOneCoordinate");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
                 exception = Assert.Throws<LineParseException>(call);
-                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet, path, "LacksTwoCoordinates");
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet, "LacksTwoCoordinates");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -563,8 +555,8 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
-                                                    path, "ArtifcialLocal");
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry,
+                                                    "ArtifcialLocal");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

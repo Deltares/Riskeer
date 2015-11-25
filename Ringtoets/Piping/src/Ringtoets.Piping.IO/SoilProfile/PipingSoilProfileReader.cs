@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             if (!File.Exists(databaseFilePath))
             {
-                throw new CriticalFileReadException(string.Format(Resources.Error_File_0_does_not_exist, databaseFilePath));
+                throw new CriticalFileReadException(Resources.Error_File_does_not_exist);
             }
 
             databaseFileName = Path.GetFileName(databaseFilePath);
@@ -387,8 +387,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 Dispose();
                 throw new CriticalFileReadException(string.Format(
-                    Resources.PipingSoilProfileReader_Database_File_0_incorrect_version_requires_Version_1_,
-                    databaseFileName,
+                    Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
                     databaseRequiredVersion));
             }
             dataReader.NextResult();
