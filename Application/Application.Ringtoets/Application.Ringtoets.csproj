@@ -222,8 +222,6 @@ IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32
 :endvsvars
 editbin /LARGEADDRESSAWARE $(TargetFileName)
 
-xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap\*" .\
-
 copy "$(SolutionDir)\lib\*.dll" .\
 
     if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
