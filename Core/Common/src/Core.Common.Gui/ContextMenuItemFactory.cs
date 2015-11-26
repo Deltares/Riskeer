@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui
@@ -15,7 +16,7 @@ namespace Core.Common.Gui
 
         public ToolStripItem CreateExportItem(object item)
         {
-            var exporters = gui.ApplicationCore.FileExporters.Where(fe => fe.CanExportFor(item));
+            var exporters = gui.ApplicationCore.GetSupportedExportersForItem(item);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
@@ -29,7 +30,7 @@ namespace Core.Common.Gui
 
         public ToolStripItem CreateImportItem(object item)
         {
-            var importers = gui.ApplicationCore.FileImporters.Where(fe => fe.CanImportOn(item));
+            var importers = gui.ApplicationCore.GetImporters(item);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
