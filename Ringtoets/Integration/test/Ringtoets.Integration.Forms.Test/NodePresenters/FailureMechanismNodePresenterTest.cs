@@ -153,60 +153,13 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
 
             // Assert
-            Assert.AreEqual(8, menu.Items.Count);
+            Assert.AreEqual(6, menu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsCommonFormsResources.FailureMechanism_Expand_all, RingtoetsCommonFormsResources.FailureMechanism_Expand_all_ToolTip, RingtoetsCommonFormsResources.ExpandAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.FailureMechanism_Collapse_all, RingtoetsCommonFormsResources.FailureMechanism_Collapse_all_ToolTip, RingtoetsCommonFormsResources.CollapseAllIcon);
 
-            CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2], menu.Items[5],menu.Items[6]}, typeof(ToolStripSeparator));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_ShowPropertiesClickedWithHandler_CallsShowProperties()
-        {
-            // Setup
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(new object())).IgnoreArguments().Return(new ContextMenuStrip());
-
-            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.ShowProperties());
-
-            var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider, commandHandlerMock);
-            var failureMechanism = new FailureMechanismPlaceholder("test");
-
-            mocks.ReplayAll();
-
-            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, failureMechanism).Items[7];
-
-            // Call
-            showPropertiesMenuItem.PerformClick();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_ShowPropertiesClickedWithoutHandler_NoExceptions()
-        {
-            // Setup
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(new object())).IgnoreArguments().Return(new ContextMenuStrip());
-
-            var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
-            var failureMechanism = new FailureMechanismPlaceholder("test");
-
-            mocks.ReplayAll();
-
-            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, failureMechanism).Items[7];
-
-            // Call & Assert
-            showPropertiesMenuItem.PerformClick();
+            CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2], menu.Items[5]}, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }

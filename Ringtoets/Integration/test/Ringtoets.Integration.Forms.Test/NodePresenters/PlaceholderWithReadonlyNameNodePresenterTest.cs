@@ -206,12 +206,12 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
 
             // Assert
-            Assert.AreEqual(6, menu.Items.Count);
+            Assert.AreEqual(4, menu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip, RingtoetsCommonFormsResources.OpenIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
 
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3], menu.Items[4] }, typeof(ToolStripSeparator));
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3] }, typeof(ToolStripSeparator));
             
             mocks.VerifyAll();
         }
@@ -233,59 +233,12 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
 
             // Assert
-            Assert.AreEqual(6, menu.Items.Count);
+            Assert.AreEqual(4, menu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip, RingtoetsCommonFormsResources.OpenIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
 
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3], menu.Items[4] }, typeof(ToolStripSeparator));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_OutputPlaceholderShowPropertiesClickedWithHandler_CallsShowProperties()
-        {
-            // Setup
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
-
-            commandHandlerMock.Expect(ch => ch.ShowProperties());
-            contextMenuProvider.Expect(cmp => cmp.Get(new object())).IgnoreArguments().Return(new ContextMenuStrip());
-
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider, commandHandlerMock);
-            var placeholderData = new OutputPlaceholder("test");
-
-            mocks.ReplayAll();
-
-            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, placeholderData).Items[5];
-
-            // Call
-            showPropertiesMenuItem.PerformClick();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_OutputPlaceholderShowPropertiesClickedWithoutHandler_NoExceptions()
-        {
-            // Setup
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
-
-            contextMenuProvider.Expect(cmp => cmp.Get(new object())).IgnoreArguments().Return(new ContextMenuStrip());
-
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new OutputPlaceholder("test");
-
-            mocks.ReplayAll();
-
-            var showPropertiesMenuItem = nodePresenter.GetContextMenu(nodeMock, placeholderData).Items[5];
-
-            // Call & Assert
-            showPropertiesMenuItem.PerformClick();
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3]}, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
