@@ -10,11 +10,11 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Properties;
+using Core.Common.Utils.Globalization;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
@@ -26,7 +26,6 @@ using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Ringtoets.Demo;
-
 #endif
 
 namespace Application.Ringtoets
@@ -56,7 +55,7 @@ namespace Application.Ringtoets
 
         static App()
         {
-            ApplicationCore.SetLanguageAndRegionalSettions(Settings.Default);
+            SetLanguageAndRegionalSettings();
 
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
         }
@@ -359,6 +358,24 @@ namespace Application.Ringtoets
                         waitForProcessId = pid;
                         break;
                     }
+                }
+            }
+        }
+
+        private static void SetLanguageAndRegionalSettings()
+        {
+            var language = ConfigurationManager.AppSettings["language"];
+            if (language != null)
+            {
+                RegionalSettingsManager.Language = language;
+            }
+
+            if (Settings.Default.Properties.Count > 0)
+            {
+                var realNumberFormat = Settings.Default["realNumberFormat"];
+                if (realNumberFormat != null)
+                {
+                    RegionalSettingsManager.RealNumberFormat = (string)realNumberFormat;
                 }
             }
         }

@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using Core.Common.Base.Workflow;
-using Core.Common.Utils;
-using Core.Common.Utils.Globalization;
 
 namespace Core.Common.Base
 {
@@ -54,32 +51,6 @@ namespace Core.Common.Base
             {
                 return Plugins.SelectMany(plugin => plugin.GetFileExporters());
             }
-        }
-
-        public static void SetLanguageAndRegionalSettions(ApplicationSettingsBase tempUserSettings = null)
-        {
-            var settings = ConfigurationManager.AppSettings;
-
-            var language = settings["language"];
-
-            if (language != null)
-            {
-                RegionalSettingsManager.Language = language;
-            }
-
-            if (tempUserSettings != null && tempUserSettings.Properties.Count > 0)
-            {
-                var realNumberFormat = tempUserSettings["realNumberFormat"];
-                if (realNumberFormat != null)
-                {
-                    RegionalSettingsManager.RealNumberFormat = (string) realNumberFormat;
-                }
-            }
-        }
-
-        public string GetUserSettingsDirectoryPath()
-        {
-            return SettingsHelper.GetApplicationLocalUserSettingsDirectory();
         }
 
         public void AddPlugin(ApplicationPlugin applicationPlugin)

@@ -778,7 +778,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private string GetLayoutFilePath(string perspective)
         {
-            string localUserSettingsDirectory = Gui.ApplicationCore.GetUserSettingsDirectoryPath();
+            string localUserSettingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
             string layoutFileName = GetLayoutFileName(perspective);
             return Path.Combine(localUserSettingsDirectory, layoutFileName);
         }
