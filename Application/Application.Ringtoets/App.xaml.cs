@@ -131,12 +131,12 @@ namespace Application.Ringtoets
 
             var applicationCore = new ApplicationCore();
 
-            gui.ApplicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+            applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
 #if INCLUDE_DEMOPROJECT
-            gui.ApplicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
+            applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
 #endif
-            gui.ApplicationCore.AddPlugin(new RingtoetsApplicationPlugin());
-            gui.ApplicationCore.AddPlugin(new PipingApplicationPlugin());
+            applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
+            applicationCore.AddPlugin(new PipingApplicationPlugin());
 
             var settings = new GuiCoreSettings
             {
