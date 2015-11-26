@@ -623,9 +623,6 @@
   <data name="OrgChartHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OrgChartHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiCommandHandler_UpdateGui_no_project_opened_0_" xml:space="preserve">
-    <value>&lt; geen project geopend &gt; - {0}</value>
-  </data>
   <data name="brick_link" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick_link.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -811,5 +808,11 @@
   </data>
   <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
     <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
+  </data>
+  <data name="RingtoetsGui_UpdateTitle_Unknown" xml:space="preserve">
+    <value>Onbekend</value>
+  </data>
+  <data name="MainWindow_LicenseView_Name" xml:space="preserve">
+    <value>Licentie</value>
   </data>
 </root>

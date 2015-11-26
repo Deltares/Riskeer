@@ -272,7 +272,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void ShowStartPage(bool checkUseSettings = true)
         {
-            if (!checkUseSettings || Convert.ToBoolean((object) Gui.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
+            if (!checkUseSettings || Convert.ToBoolean(Gui.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
                 log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
@@ -948,7 +948,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             AddRecentlyOpenedProjectsToFileMenu();
 
             SetColorTheme((string) Gui.UserSettings["colorTheme"]);
-            FileManualButton.IsEnabled = File.Exists(ConfigurationManager.AppSettings["manualFileName"]);
+            FileManualButton.IsEnabled = File.Exists(Gui.FixedSettings.ManualFilePath);
 
             // TODO: Enable as soon as relevant/implemented
             LicenseButton.IsEnabled = false;
@@ -1180,19 +1180,19 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileHelpLicense_Clicked(object sender, RoutedEventArgs e)
         {
-            var licensePageName = ConfigurationManager.AppSettings["licensePageName"];
+            var licensePageName = Properties.Resources.MainWindow_LicenseView_Name;
+
             foreach (var view in Gui.DocumentViews.OfType<RichTextView>())
             {
                 if (view.Text == licensePageName)
                 {
                     Gui.DocumentViews.ActiveView = view;
+
                     return;
                 }
             }
 
-            var licensePagePath = ConfigurationManager.AppSettings["licensePagePath"];
-            var license = new RichTextView(licensePageName, licensePagePath);
-            Gui.DocumentViews.Add(license);
+            Gui.DocumentViews.Add(new RichTextView(licensePageName, Gui.FixedSettings.LicenseFilePath));
         }
 
         private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e)
@@ -1206,7 +1206,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileManual_Clicked(object sender, RoutedEventArgs e)
         {
-            var manualFileName = ConfigurationManager.AppSettings["manualFileName"];
+            var manualFileName = Gui.FixedSettings.ManualFilePath;
+
             if (File.Exists(manualFileName))
             {
                 Process.Start(manualFileName);
@@ -1216,9 +1217,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OpenStartPage()
         {
             var welcomePageName = (string) Gui.UserSettings["startPageName"];
-            var welcomePageUrl = Gui.ApplicationCore.Settings["startPageUrl"];
+            var welcomePageUrl = Gui.FixedSettings.StartPageUrl;
 
             var url = new Url(welcomePageName, welcomePageUrl);
+
             Gui.CommandHandler.OpenView(url);
         }
 
@@ -1291,8 +1293,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 HasProgress = false,
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = Gui.ApplicationCore.Settings["copyright"],
-                LicenseText = Gui.ApplicationCore.Settings["license"],
+                CopyrightText = Gui.FixedSettings.Copyright,
+                LicenseText = Gui.FixedSettings.LicenseDescription,
                 CompanyText = SettingsHelper.ApplicationCompany,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,

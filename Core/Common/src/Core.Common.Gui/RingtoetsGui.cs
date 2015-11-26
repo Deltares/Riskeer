@@ -65,7 +65,7 @@ namespace Core.Common.Gui
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
 
-        public RingtoetsGui()
+        public RingtoetsGui(GuiCoreSettings fixedSettings = null)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (instance != null)
@@ -73,6 +73,8 @@ namespace Core.Common.Gui
                 instance = null; // reset to that the consequent creations won't fail.
                 throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
+
+            FixedSettings = fixedSettings ?? new GuiCoreSettings();
 
             instance = this;
             instanceCreationStackTrace = new StackTrace().ToString();
@@ -82,8 +84,6 @@ namespace Core.Common.Gui
             ApplicationCore = new ApplicationCore();
 
             UserSettings = Settings.Default;
-
-            applicationCore.Settings = ConfigurationManager.AppSettings;
 
             CommandHandler = new GuiCommandHandler(this);
 
@@ -240,6 +240,8 @@ namespace Core.Common.Gui
         }
 
         public IList<GuiPlugin> Plugins { get; private set; }
+
+        public GuiCoreSettings FixedSettings { get; private set; }
 
         public ApplicationSettingsBase UserSettings
         {
@@ -736,8 +738,8 @@ namespace Core.Common.Gui
             splashScreen = new SplashScreen
             {
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = ApplicationCore.Settings["copyright"],
-                LicenseText = ApplicationCore.Settings["license"],
+                CopyrightText = FixedSettings.Copyright,
+                LicenseText = FixedSettings.LicenseDescription,
                 CompanyText = SettingsHelper.ApplicationCompany
             };
 
@@ -836,22 +838,14 @@ namespace Core.Common.Gui
             log.Info(Resources.RingtoetsGui_InitializeWindows_All_windows_are_created);
         }
 
-        private void UpdateTitle()
+        public void UpdateTitle()
         {
-            //NOTE: DUPLICATED BY GuiCommandHandler::UpdateGui --> todo, remove the duplication
-
-            string mainWindowTitle = ApplicationCore.Settings["mainWindowTitle"];
-
-            string projectTitle = "<None>";
-            if (Project != null)
-            {
-                projectTitle = Project.Name;
-            }
-
-            // TODO: this must be moved to MainWindow which should listen to project changes
             if (mainWindow != null)
             {
-                mainWindow.Title = projectTitle + " - " + mainWindowTitle;
+                mainWindow.Title = string.Format("{0} - {1} {2}",
+                                                 Project != null ? Project.Name : Resources.RingtoetsGui_UpdateTitle_Unknown,
+                                                 FixedSettings.MainWindowTitle,
+                                                 SettingsHelper.ApplicationVersion);
             }
         }
 

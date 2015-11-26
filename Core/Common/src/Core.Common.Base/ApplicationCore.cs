@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using Core.Common.Base.Workflow;
@@ -18,8 +17,6 @@ namespace Core.Common.Base
         {
             plugins = new List<ApplicationPlugin>();
             activityRunner = new ActivityRunner();
-
-            Settings = ConfigurationManager.AppSettings;
 
             if (RunningActivityLogAppender.Instance != null)
             {
@@ -42,8 +39,6 @@ namespace Core.Common.Base
                 return activityRunner;
             }
         }
-
-        public NameValueCollection Settings { get; set; }
 
         public IEnumerable<IFileImporter> FileImporters
         {

@@ -129,7 +129,19 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
-            gui = new RingtoetsGui
+            var settings = new GuiCoreSettings
+            {
+                StartPageUrl = "http://www.helpdeskwater.nl",
+                SupportEmailAddress = "support@deltaressystems.nl",
+                SupportPhoneNumber = "+31 (0)88 335 8100",
+                Copyright = "© Deltares 2015",
+                LicenseDescription = "Free",
+                MainWindowTitle = "Ringtoets",
+                LicenseFilePath = "License.rtf",
+                ManualFilePath = "Ringtoets_Manual.pdf"
+            };
+
+            gui = new RingtoetsGui(settings)
             {
                 Plugins =
                 {

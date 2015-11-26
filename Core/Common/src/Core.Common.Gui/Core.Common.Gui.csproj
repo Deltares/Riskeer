@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="CustomSettingsProvider.cs" />
+    <Compile Include="GuiCoreSettings.cs" />
     <Compile Include="RingtoetsGui.cs" />
     <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />

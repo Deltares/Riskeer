@@ -1029,15 +1029,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt; geen project geopend &gt; - {0}.
-        /// </summary>
-        public static string GuiCommandHandler_UpdateGui_no_project_opened_0_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_UpdateGui_no_project_opened_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exporteren mislukt..
         /// </summary>
         public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed {
@@ -1226,6 +1217,15 @@ namespace Core.Common.Gui.Properties {
         public static string MainWindow_AddNewMruItem_Can_t_open_project {
             get {
                 return ResourceManager.GetString("MainWindow_AddNewMruItem_Can_t_open_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licentie.
+        /// </summary>
+        public static string MainWindow_LicenseView_Name {
+            get {
+                return ResourceManager.GetString("MainWindow_LicenseView_Name", resourceCulture);
             }
         }
         
@@ -1952,6 +1952,15 @@ namespace Core.Common.Gui.Properties {
         public static string RingtoetsGui_ShowSplashScreen_User_has_cancelled_start_Exiting {
             get {
                 return ResourceManager.GetString("RingtoetsGui_ShowSplashScreen_User_has_cancelled_start_Exiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onbekend.
+        /// </summary>
+        public static string RingtoetsGui_UpdateTitle_Unknown {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_UpdateTitle_Unknown", resourceCulture);
             }
         }
         

@@ -453,22 +453,11 @@ namespace Core.Common.Gui
         [InvokeRequired]
         private void RefreshGui()
         {
-            var project = gui.Project;
-
             // Set the gui selection to the current project
-            gui.Selection = project;
+            gui.Selection = gui.Project;
 
-            var mainWindowTitle = gui.ApplicationCore.Settings != null
-                                      ? gui.ApplicationCore.Settings["mainWindowTitle"]
-                                      : "Ringtoets";
-
-            if (project == null)
-            {
-                gui.MainWindow.Title = string.Format(Resources.GuiCommandHandler_UpdateGui_no_project_opened_0_, mainWindowTitle);
-                return;
-            }
-
-            gui.MainWindow.Title = project.Name + " - " + mainWindowTitle;
+            // Update the window title
+            gui.UpdateTitle();
         }
 
         public void UpdateObserver()

@@ -78,7 +78,12 @@ namespace Core.Common.Gui
         IList<GuiPlugin> Plugins { get; }
 
         /// <summary>
-        /// Gets the user settings of the <see cref="IGui"/>.
+        /// Gets the fixed settings of the <see cref="IGui"/>.
+        /// </summary>
+        GuiCoreSettings FixedSettings { get; }
+
+        /// <summary>
+        /// Gets the user specific settings of the <see cref="IGui"/>.
         /// </summary>
         ApplicationSettingsBase UserSettings { get; }
 
@@ -122,6 +127,11 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="projectPath">Path to the project to be opened.</param>
         void Run(string projectPath);
+
+        /// <summary>
+        /// Updates the title of the main window.
+        /// </summary>
+        void UpdateTitle();
 
         #endregion
 
