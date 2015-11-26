@@ -16,7 +16,7 @@ namespace Core.Common.Gui
 
         public ToolStripItem CreateExportItem(object item)
         {
-            var exporters = gui.ApplicationCore.GetSupportedExportersForItem(item);
+            var exporters = gui.ApplicationCore.GetSupportedFileExporters(item);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
@@ -30,7 +30,7 @@ namespace Core.Common.Gui
 
         public ToolStripItem CreateImportItem(object item)
         {
-            var importers = gui.ApplicationCore.GetImporters(item);
+            var importers = gui.ApplicationCore.GetSupportedFileImporters(item);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,

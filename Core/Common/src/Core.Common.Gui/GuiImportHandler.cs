@@ -45,9 +45,9 @@ namespace Core.Common.Gui
         {
             var selectImporterDialog = new SelectItemDialog();
 
-            IList<IFileImporter> importers = gui.ApplicationCore.GetImporters(target);
+            var importers = gui.ApplicationCore.GetSupportedFileImporters(target);
             //if there is only one available exporter use that.
-            if (importers.Count == 0)
+            if (!importers.Any())
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item);
                 Log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_, target);
@@ -55,9 +55,9 @@ namespace Core.Common.Gui
             }
 
             //if there is only one available importer use that.
-            if (importers.Count == 1)
+            if (importers.Count() == 1)
             {
-                return importers[0];
+                return importers.ElementAt(0);
             }
 
             foreach (IFileImporter importer in importers)
@@ -89,20 +89,20 @@ namespace Core.Common.Gui
 
             Image itemImage = Resources.brick;
 
-            IList<IFileImporter> importers = gui.ApplicationCore.GetImporters(target);
+            var importers = gui.ApplicationCore.GetSupportedFileImporters(target);
 
             importers =
                 importers.Where(
                     importer => FileUtils.FileMatchesFileFilterByExtension(importer.FileFilter, files.First())).ToList();
 
             //if there is only one available importer use that.))
-            if (importers.Count == 0)
+            if (!importers.Any())
             {
                 return null;
             }
-            if (importers.Count == 1)
+            if (importers.Count() == 1)
             {
-                return importers[0];
+                return importers.ElementAt(0);
             }
 
             foreach (IFileImporter importer in importers)

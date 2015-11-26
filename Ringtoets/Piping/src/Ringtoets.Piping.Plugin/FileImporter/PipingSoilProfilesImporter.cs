@@ -55,14 +55,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public bool CanImportOnRootLevel
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         public string FileFilter
         {
             get

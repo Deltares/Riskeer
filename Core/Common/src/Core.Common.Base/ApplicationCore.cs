@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Workflow;
+using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Base
 {
@@ -18,14 +19,6 @@ namespace Core.Common.Base
             if (RunningActivityLogAppender.Instance != null)
             {
                 RunningActivityLogAppender.Instance.ActivityRunner = ActivityRunner;
-            }
-        }
-
-        internal IEnumerable<ApplicationPlugin> Plugins
-        {
-            get
-            {
-                return plugins;
             }
         }
 
@@ -53,7 +46,7 @@ namespace Core.Common.Base
 
         public virtual void Dispose()
         {
-            foreach (var plugin in Plugins.ToList())
+            foreach (var plugin in plugins.ToList())
             {
                 RemovePlugin(plugin);
             }
@@ -62,6 +55,45 @@ namespace Core.Common.Base
             {
                 RunningActivityLogAppender.Instance.ActivityRunner = null;
             }
+        }
+
+        public IEnumerable<IFileImporter> GetSupportedFileImporters(object target)
+        {
+            if (target == null)
+            {
+                return Enumerable.Empty<IFileImporter>();
+            }
+
+            var targetType = target.GetType();
+
+            return plugins.SelectMany(plugin => plugin.GetFileImporters())
+                          .Where(fileImporter => fileImporter.SupportedItemTypes.Any(t => t == targetType || targetType.Implements(t))
+                                                 && fileImporter.CanImportOn(target));
+        }
+
+        public IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
+        {
+            if (source == null)
+            {
+                return Enumerable.Empty<IFileExporter>();
+            }
+
+            var sourceType = source.GetType();
+
+            return plugins.SelectMany(plugin => plugin.GetFileExporters())
+                          .Where(fileExporter => fileExporter.SourceTypes().Any(t => t == sourceType || sourceType.Implements(t))
+                                                 && fileExporter.CanExportFor(source));
+        }
+
+        public IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object target)
+        {
+            if (target == null)
+            {
+                return Enumerable.Empty<DataItemInfo>();
+            }
+
+            return plugins.SelectMany(p => p.GetDataItemInfos())
+                          .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(target));
         }
     }
 }

@@ -32,16 +32,6 @@ namespace Core.Common.Base
         IEnumerable<Type> SupportedItemTypes { get; }
 
         /// <summary>
-        /// Indicates whether or not the importer can import at root level (folder/project). If true, the
-        /// importer will always show up in the project->import list. If false this importer can only be
-        /// retrieved by supported type, eg, in code. Use false for partial/composite importers and importers
-        /// called from map tools etc. If true for TargetFileImporter, the importer is assumed to support
-        /// both *new* and *into* modes.
-        /// </summary>
-        /// <remarks>HACK: REMOVE IT, KEEP DESIGN SIMPLE!</remarks>
-        bool CanImportOnRootLevel { get; }
-
-        /// <summary>
         /// The file filter of the importer
         /// </summary>
         /// <example>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</example>
