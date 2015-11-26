@@ -237,7 +237,7 @@ namespace Core.Common.Gui
                 Log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
 
-            var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfos(parent).ToList());
+            var selectDataDialog = CreateSelectionDialogWithItems(gui.ApplicationCore.GetSupportedDataItemInfos(parent).ToList());
 
             if (selectDataDialog.ShowDialog(gui.MainWindow as Form) == DialogResult.OK)
             {
@@ -373,16 +373,9 @@ namespace Core.Common.Gui
             // add more if more cases are found (like a pure wpf case, for example)
         }
 
-        private IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object parent)
-        {
-            return gui.ApplicationCore.Plugins
-                      .SelectMany(p => p.GetDataItemInfos())
-                      .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(parent));
-        }
-
         private IEnumerable<DataItemInfo> GetSupportedDataItemInfosByValueTypes(object parent, IEnumerable<Type> valueTypes)
         {
-            return GetSupportedDataItemInfos(parent).Where(dii => valueTypes.Contains(dii.ValueType));
+            return gui.ApplicationCore.GetSupportedDataItemInfos(parent).Where(dii => valueTypes.Contains(dii.ValueType));
         }
 
         private SelectItemDialog CreateSelectionDialogWithItems(IList<DataItemInfo> dataItemInfos)

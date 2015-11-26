@@ -1,7 +1,6 @@
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
-using Core.Common.Utils.Collections;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -44,25 +43,18 @@ namespace Core.Common.Tests.Gui
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationPlugin = mocks.Stub<ApplicationPlugin>();
+            var applicationCore = mocks.Stub<ApplicationCore>();
+
+            applicationCore.Expect(ac => ac.Dispose()).Repeat.Once();
 
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
-
-            applicationCore.AddPlugin(applicationPlugin);
-
             gui.ApplicationCore = applicationCore;
-
-            // Precondition
-            Assert.AreEqual(1, applicationCore.Plugins.Count());
 
             // Call
             gui.Dispose();
 
             // Assert
-            Assert.AreEqual(0, applicationCore.Plugins.Count());
-
             mocks.VerifyAll();
         }
 

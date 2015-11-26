@@ -21,7 +21,7 @@ namespace Core.Common.Base
             }
         }
 
-        public IEnumerable<ApplicationPlugin> Plugins
+        internal IEnumerable<ApplicationPlugin> Plugins
         {
             get
             {
@@ -51,7 +51,7 @@ namespace Core.Common.Base
             applicationPlugin.Deactivate();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             foreach (var plugin in Plugins.ToList())
             {

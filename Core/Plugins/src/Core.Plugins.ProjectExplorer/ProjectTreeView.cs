@@ -131,7 +131,7 @@ namespace Core.Plugins.ProjectExplorer
             {
                 buttonFolderAdd.Enabled = true;
 
-                buttonFolderAddNewItem.Enabled = applicationCore.Plugins.Any(p => p.GetDataItemInfos().Any());
+                buttonFolderAddNewItem.Enabled = applicationCore.GetSupportedDataItemInfos(nodeTag).Any();
 
                 buttonFolderDelete.Available = treeView.SelectedNodeCanDelete();
                 buttonFolderRename.Enabled = treeView.SelectedNodeCanRename();

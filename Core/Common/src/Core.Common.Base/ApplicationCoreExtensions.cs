@@ -38,5 +38,12 @@ namespace Core.Common.Base
                                   .Where(e => e.SourceTypes().Any(type => type == sourceType || type.IsAssignableFrom(sourceType)) &&
                                               e.CanExportFor(itemToExport));
         }
+
+        public static IEnumerable<DataItemInfo> GetSupportedDataItemInfos(this ApplicationCore applicationCore, object parent)
+        {
+            return applicationCore.Plugins
+                                  .SelectMany(p => p.GetDataItemInfos())
+                                  .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(parent));
+        }
     }
 }
