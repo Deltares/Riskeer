@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -6,7 +7,6 @@ using Core.Common.Base.Workflow;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Gui.Forms.ProgressDialog
 {
@@ -14,7 +14,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
     {
         public event EventHandler<EventArgs> CancelClicked;
         private BindingList<ActivityInfo> bindingList;
-        private IEventedList<IActivity> data;
+        private IEnumerable<IActivity> data;
 
         public ProgressDialog()
         {
@@ -23,7 +23,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             StartPosition = FormStartPosition.Manual;
         }
 
-        public IEventedList<IActivity> Data
+        public IEnumerable<IActivity> Data
         {
             get
             {
@@ -101,9 +101,10 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void WireBindingList()
         {
-            if (data is INotifyPropertyChanged)
+            var notifyCollectionChanged = data as INotifyCollectionChanged;
+            if (notifyCollectionChanged != null)
             {
-                data.CollectionChanged += DataCollectionChanged;
+                notifyCollectionChanged.CollectionChanged += DataCollectionChanged;
             }
         }
 

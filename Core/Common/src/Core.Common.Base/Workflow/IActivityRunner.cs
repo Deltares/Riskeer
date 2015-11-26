@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Common.Utils.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Core.Common.Base.Workflow
 {
@@ -20,7 +20,7 @@ namespace Core.Common.Base.Workflow
         /// <summary>
         /// All activities (todo and running)
         /// </summary>
-        IEventedList<IActivity> Activities { get; }
+        IEnumerable<IActivity> Activities { get; }
 
         /// <summary>
         /// Determines whether some activity is running

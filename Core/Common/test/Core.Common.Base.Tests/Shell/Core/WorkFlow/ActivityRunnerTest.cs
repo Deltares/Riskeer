@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using Core.Common.Base.Workflow;
 using NUnit.Framework;
 
@@ -20,7 +21,7 @@ namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
                 Thread.Sleep(0);
             }
 
-            Assert.AreEqual(0, runner.Activities.Count, "Activity is removed from the list of running activities after it is finished");
+            Assert.AreEqual(0, runner.Activities.Count(), "Activity is removed from the list of running activities after it is finished");
         }
 
         [Test]
@@ -40,7 +41,7 @@ namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
 
             Thread.Sleep(200); // HACK: API should allow some other way
 
-            Assert.AreEqual(0, runner.Activities.Count);
+            Assert.AreEqual(0, runner.Activities.Count());
         }
 
         [Test]
@@ -62,7 +63,7 @@ namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
 
             Thread.Sleep(200); // HACK: API should allow some other way
 
-            Assert.AreEqual(0, runner.Activities.Count);
+            Assert.AreEqual(0, runner.Activities.Count());
         }
 
         private class SimpleActivity : Activity

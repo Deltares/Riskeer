@@ -39,10 +39,10 @@ namespace Core.Common.Base.Workflow
         }
 
         /// <summary>
-        /// Provides an evented summary of the current activities (running and todo). 
+        /// Provides a summary of the current activities (running and todo). 
         /// DO NOT ADD TO THIS LIST useEnqueue instead
         /// </summary>
-        public IEventedList<IActivity> Activities
+        public IEnumerable<IActivity> Activities
         {
             get
             {

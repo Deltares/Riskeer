@@ -24,14 +24,6 @@ namespace Core.Common.Base
         }
 
         /// <summary>
-        /// Data items which can be provided by the application plugin.
-        /// </summary>
-        public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
-        {
-            yield break;
-        }
-
-        /// <summary>
         /// File importers which can be provided by the application plugin.
         /// </summary>
         public virtual IEnumerable<IFileImporter> GetFileImporters()
@@ -43,6 +35,14 @@ namespace Core.Common.Base
         /// File exporters which can be provided by the application plugin.
         /// </summary>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
+        {
+            yield break;
+        }
+
+        /// <summary>
+        /// Data items which can be provided by the application plugin.
+        /// </summary>
+        public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield break;
         }
