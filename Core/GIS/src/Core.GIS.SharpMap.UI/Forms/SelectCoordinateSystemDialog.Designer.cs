@@ -53,7 +53,7 @@
             this.treeViewProjections.Location = new System.Drawing.Point(0, 26);
             this.treeViewProjections.Name = "treeViewProjections";
             this.treeViewProjections.SelectedImageIndex = 0;
-            this.treeViewProjections.Size = new System.Drawing.Size(502, 406);
+            this.treeViewProjections.Size = new System.Drawing.Size(519, 406);
             this.treeViewProjections.StateImageList = this.imageList;
             this.treeViewProjections.TabIndex = 1;
             // 
@@ -75,7 +75,7 @@
             this.textBoxSrs.Multiline = true;
             this.textBoxSrs.Name = "textBoxSrs";
             this.textBoxSrs.ReadOnly = true;
-            this.textBoxSrs.Size = new System.Drawing.Size(407, 432);
+            this.textBoxSrs.Size = new System.Drawing.Size(399, 432);
             this.textBoxSrs.TabIndex = 0;
             // 
             // textBoxFilter
@@ -83,7 +83,7 @@
             this.textBoxFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxFilter.Location = new System.Drawing.Point(0, 0);
             this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(502, 20);
+            this.textBoxFilter.Size = new System.Drawing.Size(510, 20);
             this.textBoxFilter.TabIndex = 0;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
@@ -105,7 +105,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBoxSrs);
             this.splitContainer1.Size = new System.Drawing.Size(913, 432);
-            this.splitContainer1.SplitterDistance = 502;
+            this.splitContainer1.SplitterDistance = 510;
             this.splitContainer1.TabIndex = 4;
             // 
             // buttonCancel
@@ -140,8 +140,9 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectCoordinateSystemDialog";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Choose coordinate system";
             this.splitContainer1.Panel1.ResumeLayout(false);

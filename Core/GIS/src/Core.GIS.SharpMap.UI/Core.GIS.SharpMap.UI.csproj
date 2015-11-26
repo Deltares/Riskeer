@@ -210,6 +210,7 @@
     <Resource Include="Resources\import.png" />
     <None Include="Resources\grid_2d1.png" />
     <None Include="Resources\gradient.png" />
+    <None Include="Resources\globe--pencil.ico" />
     <Content Include="Resources\radio_off.png" />
     <Content Include="Resources\radio_on.png" />
     <None Include="Resources\slidertop.png" />
