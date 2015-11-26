@@ -651,7 +651,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             var appHasProject = Gui.Project != null;
-            var isActivityRunning = Gui.ApplicationCore.ActivityRunner.IsRunning;
+            var isActivityRunning = Gui.ActivityRunner.IsRunning;
 
             // filemenu items dependent on existence of project and if processes are running
             /*

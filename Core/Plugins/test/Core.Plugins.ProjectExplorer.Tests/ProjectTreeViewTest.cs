@@ -16,15 +16,13 @@ namespace Core.Plugins.ProjectExplorer.Tests
             var gui = mocks.Stub<IGui>();
             var documentViews = mocks.Stub<IViewList>();
             var settings = mocks.Stub<ApplicationSettingsBase>();
+            var applicationCore = new ApplicationCore();
 
+            Expect.Call(gui.ApplicationCore).Return(applicationCore).Repeat.Any();
             Expect.Call(gui.UserSettings).Return(settings).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(documentViews).Repeat.Any();
 
             mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
-
-            gui.ApplicationCore = applicationCore;
 
             var pluginGui = new ProjectExplorerGuiPlugin
             {

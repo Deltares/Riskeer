@@ -68,10 +68,10 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 Action onShown = delegate
                 {
                     var testActivity = new TestActivity();
-                    gui.ApplicationCore.ActivityRunner.Enqueue(testActivity);
+                    gui.ActivityRunner.Enqueue(testActivity);
                     try
                     {
-                        while (!gui.ApplicationCore.ActivityRunner.IsRunningActivity(testActivity))
+                        while (!gui.ActivityRunner.IsRunningActivity(testActivity))
                         {
                             Thread.Sleep(0);
                         }
@@ -85,7 +85,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                         testActivity.Done = true;
                     }
 
-                    while (gui.ApplicationCore.ActivityRunner.IsRunningActivity(testActivity))
+                    while (gui.ActivityRunner.IsRunningActivity(testActivity))
                     {
                         Thread.Sleep(0);
                     }

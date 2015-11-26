@@ -34,8 +34,10 @@ namespace Ringtoets.Demo.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-
             var guiMock = mocks.Stub<IGui>();
+
+            var applicationCore = new ApplicationCore();
+            Expect.Call(guiMock.ApplicationCore).Return(applicationCore).Repeat.Any();
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
@@ -43,10 +45,8 @@ namespace Ringtoets.Demo.Test.Commands
             mocks.ReplayAll();
 
             var project = new Project();
-            var applicationCore = new ApplicationCore();
 
             guiMock.Project = project;
-            guiMock.ApplicationCore = applicationCore;
 
             var command = new AddNewDemoDikeAssessmentSectionCommand
             {

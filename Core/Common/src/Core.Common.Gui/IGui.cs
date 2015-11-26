@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using Core.Common.Base;
+using Core.Common.Base.Workflow;
 using Core.Common.Gui.Forms.MainWindow;
 
 namespace Core.Common.Gui
@@ -16,7 +17,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Provides graphical user interface logic required to work with an application.
     /// </summary>
-    public interface IGui
+    public interface IGui : IDisposable
     {
         #region Public properties
 
@@ -28,9 +29,14 @@ namespace Core.Common.Gui
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets Application wrapped by the current Gui.
+        /// Gets the <see cref="ApplicationCore"/> of the <see cref="IGui"/>.
         /// </summary>
-        ApplicationCore ApplicationCore { get; set; }
+        ApplicationCore ApplicationCore { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IActivityRunner"/> of the <see cref="IGui"/>.
+        /// </summary>
+        IActivityRunner ActivityRunner { get; }
 
         /// <summary>
         /// Gets or sets the project of the <see cref="IGui"/>.

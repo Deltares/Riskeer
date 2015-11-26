@@ -1,7 +1,5 @@
 using Core.Common.Base;
 using Core.Common.Gui;
-using Core.Common.TestUtils;
-using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -10,34 +8,6 @@ namespace Core.Common.Tests.Gui
     [TestFixture]
     public class RingtoetsGuiTests
     {
-        private RingtoetsGui gui;
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            LogHelper.ConfigureLogging();
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            LogHelper.ResetLogging();
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            LogHelper.SetLoggingLevel(Level.Error);
-
-            gui = new RingtoetsGui();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            gui.Dispose();
-        }
-
         [Test]
         public void DisposingGuiDisposesApplication()
         {
@@ -49,7 +19,7 @@ namespace Core.Common.Tests.Gui
 
             mocks.ReplayAll();
 
-            gui.ApplicationCore = applicationCore;
+            var gui = new RingtoetsGui(applicationCore);
 
             // Call
             gui.Dispose();
@@ -61,7 +31,10 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void CheckViewPropertyEditorIsInitialized()
         {
-            Assert.NotNull(ViewPropertyEditor.Gui);
+            using (var gui = new RingtoetsGui())
+            {
+                Assert.NotNull(ViewPropertyEditor.Gui);
+            }
         }
     }
 }

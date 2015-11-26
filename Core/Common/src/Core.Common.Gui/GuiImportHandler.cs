@@ -123,7 +123,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return gui.ApplicationCore.ActivityRunner;
+                return gui.ActivityRunner;
             }
         }
 

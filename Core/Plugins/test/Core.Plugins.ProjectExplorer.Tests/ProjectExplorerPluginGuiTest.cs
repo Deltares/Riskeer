@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -25,7 +24,6 @@ namespace Core.Plugins.ProjectExplorer.Tests
             gui = mocks.Stub<IGui>();
 
             var project = new Project();
-            var settings = mocks.Stub<ApplicationSettingsBase>();
             var plugin = mocks.Stub<ApplicationPlugin>();
             var pluginGui = mocks.Stub<GuiPlugin>();
             projectExplorerPluginGui = new ProjectExplorerGuiPlugin
@@ -33,11 +31,14 @@ namespace Core.Plugins.ProjectExplorer.Tests
                 Gui = gui
             };
 
-            settings["showHiddenDataItems"] = true;
-
-            Expect.Call(gui.UserSettings).Return(settings);
-            Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>());
-            Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>());
+            gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
+            gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything).Repeat.Any();
+            gui.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
+            gui.Expect(g => g.ProjectClosing += Arg<Action<Project>>.Is.Anything).Repeat.Any();
+            gui.Expect(g => g.ProjectClosing -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
+            Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
+            Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
             Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
             {
                 projectExplorerPluginGui, pluginGui
@@ -52,13 +53,12 @@ namespace Core.Plugins.ProjectExplorer.Tests
                 mockNodePresenter
             });
 
+            applicationCore = new ApplicationCore();
+            gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
+
             mocks.ReplayAll();
 
-            applicationCore = new ApplicationCore();
-
-            applicationCore.AddPlugin(plugin);
-
-            gui.ApplicationCore = applicationCore;
+            gui.ApplicationCore.AddPlugin(plugin);
         }
 
         [TearDown]

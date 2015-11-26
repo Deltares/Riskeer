@@ -2,7 +2,6 @@
 using Core.Common.Base;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Gui;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
@@ -21,13 +20,14 @@ namespace Core.Plugins.CommonTools.Tests
         public void ChartLegendViewIsUpdatedForCurrentActiveView()
         {
             var gui = mocks.Stub<IGui>();
-            gui.ApplicationCore = mocks.Stub<ApplicationCore>();
+            var applicationCore = mocks.Stub<ApplicationCore>();
             var pluginGui = new CommonToolsGuiPlugin();
             var mainWindow = mocks.Stub<IMainWindow>();
             var toolWindowViews = new TestViewList();
             var documentViews = new TestViewList();
             var chartView = new ChartView();
 
+            gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
             gui.Expect(g => g.DocumentViews).Return(documentViews).Repeat.Any();
             gui.Expect(g => g.ToolWindowViews).Return(toolWindowViews).Repeat.Any();
             gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.Any();

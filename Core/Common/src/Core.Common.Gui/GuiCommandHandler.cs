@@ -336,7 +336,7 @@ namespace Core.Common.Gui
         private void ProjectCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             // Don't remove views during run-time of models:
-            if (gui.ApplicationCore.ActivityRunner.IsRunning)
+            if (gui.ActivityRunner.IsRunning)
             {
                 return;
             }

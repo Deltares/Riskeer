@@ -112,6 +112,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
         {
             var project = new Project();
             var gui = mocks.Stub<IGui>();
+            var applicationCore = new ApplicationCore();
 
             //create stubbed version of plugingui
             SharpMapGisGuiPlugin guiPlugin = new SharpMapGisGuiPlugin();
@@ -119,6 +120,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             IGisGuiService gisService = mocks.Stub<IGisGuiService>();
             guiPlugin.GisGuiService = gisService;
 
+            Expect.Call(gui.ApplicationCore).Return(applicationCore).Repeat.Any();
             Expect.Call(gui.Plugins).Return(new[]
             {
                 guiPlugin
@@ -129,10 +131,6 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             gui.Project = project;
 
             mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
-
-            gui.ApplicationCore = applicationCore;
 
             guiPlugin.Gui = gui;
 

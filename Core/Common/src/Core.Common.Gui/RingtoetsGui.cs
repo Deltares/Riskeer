@@ -45,8 +45,8 @@ namespace Core.Common.Gui
 
         private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
 
-        private ApplicationCore applicationCore;
         private MainWindow mainWindow;
+        private readonly ApplicationCore applicationCore;
 
         private object selection;
 
@@ -61,12 +61,13 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
         private Project project;
+        private IActivityRunner activityRunner;
         private ContextMenuItemFactory contextMenuItemFactory;
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
 
-        public RingtoetsGui(GuiCoreSettings fixedSettings = null)
+        public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (instance != null)
@@ -75,6 +76,7 @@ namespace Core.Common.Gui
                 throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
 
+            ApplicationCore = applicationCore ?? new ApplicationCore();
             FixedSettings = fixedSettings ?? new GuiCoreSettings();
 
             instance = this;
@@ -82,7 +84,6 @@ namespace Core.Common.Gui
             ViewPropertyEditor.Gui = this;
 
             Plugins = new List<GuiPlugin>();
-            ApplicationCore = new ApplicationCore();
 
             UserSettings = Settings.Default;
 
@@ -94,6 +95,8 @@ namespace Core.Common.Gui
             ProjectOpened += ApplicationProjectOpened;
 
             contextMenuItemFactory = new ContextMenuItemFactory(this);
+
+            ActivityRunner = new ActivityRunner();
         }
 
         public bool SkipDialogsOnExit { get; set; }
@@ -102,27 +105,33 @@ namespace Core.Common.Gui
 
         public string ProjectFilePath { get; set; }
 
-        public ApplicationCore ApplicationCore
+        public ApplicationCore ApplicationCore { get; private set; }
+
+        public IActivityRunner ActivityRunner
         {
             get
             {
-                return applicationCore;
+                return activityRunner;
             }
-            set
+            private set
             {
-                if (applicationCore != null)
+                if (activityRunner != null)
                 {
-                    ApplicationCore.ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
-                    ApplicationCore.ActivityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
+                    activityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
+                    activityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
                 }
 
-                applicationCore = value;
+                activityRunner = value;
 
-                if (applicationCore != null)
+                if (RunningActivityLogAppender.Instance != null)
                 {
-                    // subscribe to application events so that we can handle opening, closing, renamig of views on project changes
-                    ApplicationCore.ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
-                    ApplicationCore.ActivityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
+                    RunningActivityLogAppender.Instance.ActivityRunner = value;
+                }
+
+                if (activityRunner != null)
+                {
+                    activityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
+                    activityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
                 }
             }
         }
@@ -393,12 +402,13 @@ namespace Core.Common.Gui
 
                 try
                 {
-                    if (ApplicationCore != null)
+                    if (ActivityRunner != null)
                     {
-                        if (ApplicationCore.ActivityRunner.IsRunning)
+                        if (ActivityRunner.IsRunning)
                         {
-                            ApplicationCore.ActivityRunner.CancelAll();
-                            while (ApplicationCore.ActivityRunner.IsRunning)
+                            ActivityRunner.CancelAll();
+
+                            while (ActivityRunner.IsRunning)
                             {
                                 Application.DoEvents();
                             }
@@ -408,6 +418,8 @@ namespace Core.Common.Gui
                 finally
                 {
                     Project = null;
+
+                    ActivityRunner = null;
 
                     if (ToolWindowViews != null)
                     {
@@ -475,8 +487,6 @@ namespace Core.Common.Gui
                     }
 
                     RemoveLogging();
-
-                    ApplicationCore = null;
                 }
             }
 
@@ -589,7 +599,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            if (!ApplicationCore.ActivityRunner.IsRunning)
+            if (!ActivityRunner.IsRunning)
             {
                 ResumeUI();
             }
@@ -629,18 +639,18 @@ namespace Core.Common.Gui
                 progressDialog = new ProgressDialog();
                 progressDialog.CancelClicked += delegate
                 {
-                    ApplicationCore.ActivityRunner.CancelAll();
+                    ActivityRunner.CancelAll();
 
                     // wait until all import activities are finished
-                    while (ApplicationCore.ActivityRunner.IsRunning)
+                    while (ActivityRunner.IsRunning)
                     {
                         Application.DoEvents();
                     }
                 };
-                progressDialog.Data = ApplicationCore.ActivityRunner.Activities;
+                progressDialog.Data = ActivityRunner.Activities;
             }
 
-            if (ApplicationCore.ActivityRunner.IsRunning)
+            if (ActivityRunner.IsRunning)
             {
                 if (!progressDialog.Visible)
                 {

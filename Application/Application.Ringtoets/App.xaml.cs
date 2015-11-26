@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -128,6 +129,15 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
+            var applicationCore = new ApplicationCore();
+
+            gui.ApplicationCore.AddPlugin(new CommonToolsApplicationPlugin());
+#if INCLUDE_DEMOPROJECT
+            gui.ApplicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
+#endif
+            gui.ApplicationCore.AddPlugin(new RingtoetsApplicationPlugin());
+            gui.ApplicationCore.AddPlugin(new PipingApplicationPlugin());
+
             var settings = new GuiCoreSettings
             {
                 StartPageUrl = "http://www.helpdeskwater.nl",
@@ -140,7 +150,7 @@ namespace Application.Ringtoets
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
 
-            gui = new RingtoetsGui(settings)
+            gui = new RingtoetsGui(applicationCore, settings)
             {
                 Plugins =
                 {
@@ -154,13 +164,6 @@ namespace Application.Ringtoets
 #endif
                 }
             };
-
-            gui.ApplicationCore.AddPlugin(new CommonToolsApplicationPlugin());
-#if INCLUDE_DEMOPROJECT
-            gui.ApplicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
-#endif
-            gui.ApplicationCore.AddPlugin(new RingtoetsApplicationPlugin());
-            gui.ApplicationCore.AddPlugin(new PipingApplicationPlugin());
 
             var mainWindow = new MainWindow(gui);
             gui.MainWindow = mainWindow;

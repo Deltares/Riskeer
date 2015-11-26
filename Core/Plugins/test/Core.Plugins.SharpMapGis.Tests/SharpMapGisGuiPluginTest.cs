@@ -21,11 +21,13 @@ namespace Core.Plugins.SharpMapGis.Tests
             var gui = mocks.Stub<IGui>();
             var viewManager = mocks.Stub<IViewList>();
             var project = new Project();
+            var applicationCore = new ApplicationCore();
             var sharpMapGisPluginGui = new SharpMapGisGuiPlugin
             {
                 Gui = gui
             };
 
+            Expect.Call(gui.ApplicationCore).Return(applicationCore).Repeat.Any();
             Expect.Call(gui.ToolWindowViews).Return(viewManager).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewManager).Repeat.Any();
             Expect.Call(gui.Plugins).Return(new[]
@@ -41,10 +43,6 @@ namespace Core.Plugins.SharpMapGis.Tests
             var vectorLayer = new VectorLayer("testLayer");
 
             mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
-
-            gui.ApplicationCore = applicationCore;
 
             sharpMapGisPluginGui.Gui = gui;
 

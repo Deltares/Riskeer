@@ -53,15 +53,14 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // setup
             var mocks = new MockRepository();
+            var applicationCore = new ApplicationCore();
 
             var guiStub = mocks.DynamicMultiMock<IGui>(typeof(IGui), typeof(IContextMenuProvider));
             guiStub.Expect(gs => gs.CommandHandler).Return(mocks.Stub<IGuiCommandHandler>()).Repeat.Twice();
 
+            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
+
             mocks.ReplayAll();
-
-            var applicationCore = new ApplicationCore();
-
-            guiStub.ApplicationCore = applicationCore;
 
             using (var guiPlugin = new RingtoetsGuiPlugin
             {

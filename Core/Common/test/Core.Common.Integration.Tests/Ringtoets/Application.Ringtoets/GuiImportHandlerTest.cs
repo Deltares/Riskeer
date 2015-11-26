@@ -29,9 +29,11 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             MessageBox.CustomMessageBox = messageBox;
             messageBox.Expect(mb => mb.Show(null, null, MessageBoxButtons.OK)).Return(DialogResult.OK).IgnoreArguments()
                       .Repeat.Once();
-            messageBox.Replay();
 
-            gui.ApplicationCore = new ApplicationCore();
+            var applicationCore = new ApplicationCore();
+            gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
+
+            mocks.ReplayAll();
 
             var importHandler = new GuiImportHandler(gui);
 
@@ -74,13 +76,12 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             targetItemImporter.Expect(fi => fi.Name).Return("2").Repeat.Any();
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
+            var applicationCore = new ApplicationCore();
+            gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
+
             mocks.ReplayAll();
 
-            var applicationCore = new ApplicationCore();
-
             applicationCore.AddPlugin(plugin);
-
-            gui.ApplicationCore = applicationCore;
 
             var guiImportHandler = new GuiImportHandler(gui);
 

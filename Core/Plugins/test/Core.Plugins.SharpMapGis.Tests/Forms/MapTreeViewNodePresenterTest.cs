@@ -48,7 +48,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             var applicationCore = mocks.Stub<ApplicationCore>();
             tv = mocks.Stub<ITreeView>();
 
-            gui.ApplicationCore = applicationCore;
+            Expect.Call(gui.ApplicationCore).Return(applicationCore).Repeat.Any();
             Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
             {
                 guiPlugin
