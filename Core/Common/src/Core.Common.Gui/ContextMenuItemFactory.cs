@@ -45,12 +45,18 @@ namespace Core.Common.Gui
         public ToolStripItem CreatePropertiesItem(object item)
         {
             var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).Where(pi => pi.ObjectType == item.GetType());
-            var newItem = new ToolStripMenuItem(Resources.Properties_Title)
+            var newItem = new ToolStripMenuItem(Resources.Properties)
             {
                 ToolTipText = Resources.Properties_ToolTip,
                 Image = Resources.PropertiesIcon,
                 Enabled = propertyInfos.Any()
             };
+
+            var guiCommandHandler = gui.CommandHandler;
+            if (guiCommandHandler != null)
+            {
+                newItem.Click += (s,e) => guiCommandHandler.ShowProperties();
+            }
 
             return newItem;
         }
