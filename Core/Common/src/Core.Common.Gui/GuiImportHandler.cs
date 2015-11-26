@@ -45,7 +45,7 @@ namespace Core.Common.Gui
         {
             var selectImporterDialog = new SelectItemDialog();
 
-            IList<IFileImporter> importers = GetImporters(target);
+            IList<IFileImporter> importers = gui.ApplicationCore.GetImporters(target);
             //if there is only one available exporter use that.
             if (importers.Count == 0)
             {
@@ -77,28 +77,6 @@ namespace Core.Common.Gui
             return null;
         }
 
-        public IList<IFileImporter> GetImporters(object target)
-        {
-            var targetType = target == null ? null : target.GetType();
-
-            IList<IFileImporter> importers = new List<IFileImporter>();
-            foreach (IFileImporter importer in gui.ApplicationCore.FileImporters)
-            {
-                if (targetType == null && !importer.CanImportOnRootLevel)
-                {
-                    //this importer requires something to import into, but we're importing globally (into project or folder), so skip it
-                    continue;
-                }
-
-                // filter importers only to those which can import into targetType
-                if ((targetType == null) || (importer.SupportedItemTypes.Any(t => (t == targetType) || targetType.Implements(t)) && importer.CanImportOn(target)))
-                {
-                    importers.Add(importer);
-                }
-            }
-            return importers;
-        }
-
         /// <summary>
         /// Typically used after drop action of files from outsite the application
         /// </summary>
@@ -111,7 +89,7 @@ namespace Core.Common.Gui
 
             Image itemImage = Resources.brick;
 
-            IList<IFileImporter> importers = GetImporters(target);
+            IList<IFileImporter> importers = gui.ApplicationCore.GetImporters(target);
 
             importers =
                 importers.Where(

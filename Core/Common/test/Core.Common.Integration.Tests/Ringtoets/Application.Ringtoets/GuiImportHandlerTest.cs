@@ -133,9 +133,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             gui.ApplicationCore = applicationCore;
 
-            var guiImportHandler = new GuiImportHandler(gui);
-
-            var fileImporters = guiImportHandler.GetImporters(null);
+            var fileImporters = applicationCore.GetImporters(null);
 
             Assert.AreEqual(1, fileImporters.Count);
             Assert.AreSame(targetItemImporter2, fileImporters.First());
@@ -185,9 +183,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             gui.ApplicationCore = applicationCore;
 
-            var guiImportHandler = new GuiImportHandler(gui);
-
-            var fileImporters = guiImportHandler.GetImporters((long) 1.0);
+            var fileImporters = applicationCore.GetImporters((long)1.0);
 
             Assert.AreEqual(2, fileImporters.Count);
 
@@ -220,10 +216,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             gui.ApplicationCore = applicationCore;
 
-            var guiImportHandler = new GuiImportHandler(gui);
-
             //get importers for subtype
-            var fileImporters = guiImportHandler.GetImporters(new List<int>());
+            var fileImporters = applicationCore.GetImporters(new List<int>());
 
             Assert.AreEqual(new[]
             {
@@ -276,9 +270,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 
             gui.ApplicationCore = applicationCore;
 
-            var guiImportHandler = new GuiImportHandler(gui);
-
-            var fileImporters = guiImportHandler.GetImporters((long) 1.0);
+            var fileImporters = applicationCore.GetImporters((long) 1.0);
 
             Assert.AreEqual(1, fileImporters.Count);
 

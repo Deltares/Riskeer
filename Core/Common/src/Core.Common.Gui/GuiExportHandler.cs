@@ -34,16 +34,6 @@ namespace Core.Common.Gui
             GetExporterDialog(exporter, item);
         }
 
-        public IList<IFileExporter> GetSupportedExportersForItem(object itemToExport)
-        {
-            var sourceType = itemToExport.GetType();
-
-            return FileExportersGetter(itemToExport)
-                .Where(e => e.SourceTypes().Any(type => type == sourceType || type.IsAssignableFrom(sourceType)) &&
-                            e.CanExportFor(itemToExport))
-                .ToList();
-        }
-
         public void GetExporterDialog(IFileExporter exporter, object selectedItem)
         {
             var view = ViewGetter(exporter) as IDialog;
@@ -75,10 +65,10 @@ namespace Core.Common.Gui
             var sourceType = itemToExport.GetType();
             var selectExporterDialog = new SelectItemDialog();
 
-            var fileExporters = GetSupportedExportersForItem(itemToExport);
+            var fileExporters = FileExportersGetter(itemToExport);
 
             //if there is only one available exporter use that.
-            if (fileExporters.Count == 0)
+            if (!fileExporters.Any())
             {
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available);
                 log.Warn(String.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, sourceType));
@@ -86,9 +76,9 @@ namespace Core.Common.Gui
             }
 
             //if there is only one available exporter use that.
-            if (fileExporters.Count == 1)
+            if (fileExporters.Count() == 1)
             {
-                return fileExporters[0];
+                return fileExporters.ElementAt(0);
             }
 
             foreach (var fileExporter in fileExporters)

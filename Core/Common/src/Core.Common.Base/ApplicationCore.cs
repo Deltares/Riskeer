@@ -37,22 +37,6 @@ namespace Core.Common.Base
             }
         }
 
-        public IEnumerable<IFileImporter> FileImporters
-        {
-            get
-            {
-                return Plugins.SelectMany(plugin => plugin.GetFileImporters());
-            }
-        }
-
-        public IEnumerable<IFileExporter> FileExporters
-        {
-            get
-            {
-                return Plugins.SelectMany(plugin => plugin.GetFileExporters());
-            }
-        }
-
         public void AddPlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Add(applicationPlugin);

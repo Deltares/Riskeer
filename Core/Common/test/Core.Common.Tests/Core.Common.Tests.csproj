@@ -92,7 +92,6 @@
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialogTest.cs" />
     <Compile Include="Gui\Forms\PropertyGridView\PropertyResolverTest.cs" />
-    <Compile Include="Gui\GuiExportHandlerTest.cs" />
     <Compile Include="Gui\RingtoetsGuiTests.cs" />
     <Compile Include="Gui\ImportActivityTest.cs" />
     <Compile Include="Gui\Log4netTest.cs" />

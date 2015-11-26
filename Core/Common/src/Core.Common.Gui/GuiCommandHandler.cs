@@ -130,7 +130,7 @@ namespace Core.Common.Gui
 
         public bool CanImportToGuiSelection()
         {
-            return guiImportHandler.GetImporters(gui.Selection).Any();
+            return gui.ApplicationCore.GetImporters(gui.Selection).Any();
         }
 
         public void ImportOn(object target, IFileImporter importer = null)
@@ -302,7 +302,7 @@ namespace Core.Common.Gui
 
         private GuiExportHandler CreateGuiExportHandler()
         {
-            return new GuiExportHandler(delegate { return gui.ApplicationCore.FileExporters; }, o => gui.DocumentViewsResolver.CreateViewForData(o));
+            return new GuiExportHandler(o => gui.ApplicationCore.GetSupportedExportersForItem(o), o => gui.DocumentViewsResolver.CreateViewForData(o));
         }
 
         private void ApplicationProjectClosing(Project project)
