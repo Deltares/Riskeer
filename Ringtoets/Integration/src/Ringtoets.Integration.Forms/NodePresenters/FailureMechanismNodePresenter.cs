@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
@@ -16,11 +14,13 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 {
     public class FailureMechanismNodePresenter : RingtoetsNodePresenterBase<FailureMechanismPlaceholder>
     {
-        private IGuiCommandHandler guiHandler;
+        private readonly IGuiCommandHandler guiHandler;
+        private readonly IContextMenuProvider contextMenuProvider;
 
-        public FailureMechanismNodePresenter(IGuiCommandHandler guiHandler = null)
+        public FailureMechanismNodePresenter(IContextMenuProvider contextMenuProvider, IGuiCommandHandler guiHandler = null)
         {
             this.guiHandler = guiHandler;
+            this.contextMenuProvider = contextMenuProvider;
         }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, FailureMechanismPlaceholder nodeData)
@@ -38,58 +38,9 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, FailureMechanismPlaceholder nodeData)
         {
-            var contextMenu = new ContextMenuStrip();
-
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
-                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon, null).Enabled = false;
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.Clear_all_output,
-                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                RingtoetsCommonFormsResources.ClearIcon, null).Enabled = false;
-            contextMenu.AddSeperator();
-
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanism_Expand_all,
-                RingtoetsCommonFormsResources.FailureMechanism_Expand_all_ToolTip,
-                RingtoetsCommonFormsResources.ExpandAllIcon, ExpandAllItemClicked);
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanism_Collapse_all,
-                RingtoetsCommonFormsResources.FailureMechanism_Collapse_all_ToolTip,
-                RingtoetsCommonFormsResources.CollapseAllIcon, CollapseAllItemClicked);
-            contextMenu.AddSeperator();
-
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanism_Export,
-                RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip,
-                RingtoetsCommonFormsResources.ExportIcon, null).Enabled = false;
-            contextMenu.AddSeperator();
-
-            contextMenu.AddMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanism_Properties,
-                RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip,
-                RingtoetsCommonFormsResources.PropertiesIcon, PropertiesItemClicked);
+            var contextMenu = ContextMenu.FailureMechanismContextMenu.CreateContextMenu(guiHandler, TreeView, nodeData, contextMenuProvider);
 
             return contextMenu;
-        }
-
-        private void PropertiesItemClicked(object sender, EventArgs eventArgs)
-        {
-            if (guiHandler != null)
-            {
-                guiHandler.ShowProperties();
-            }
-        }
-
-        private void CollapseAllItemClicked(object sender, EventArgs eventArgs)
-        {
-            TreeView.CollapseAll(TreeView.SelectedNode);
-        }
-
-        private void ExpandAllItemClicked(object sender, EventArgs eventArgs)
-        {
-            TreeView.ExpandAll(TreeView.SelectedNode);
         }
 
         private IEnumerable GetInputs(FailureMechanismPlaceholder nodeData)

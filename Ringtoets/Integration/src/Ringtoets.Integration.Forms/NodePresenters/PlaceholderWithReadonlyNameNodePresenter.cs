@@ -1,11 +1,10 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Placeholder;
+using Ringtoets.Integration.Forms.ContextMenu;
 using Ringtoets.Integration.Forms.Properties;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -18,10 +17,12 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     public class PlaceholderWithReadonlyNameNodePresenter : RingtoetsNodePresenterBase<PlaceholderWithReadonlyName>
     {
         private IGuiCommandHandler guiHandler;
+        private IContextMenuProvider contextMenuProvider;
 
-        public PlaceholderWithReadonlyNameNodePresenter(IGuiCommandHandler guiHandler = null)
+        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuProvider contextMenuProvider, IGuiCommandHandler guiHandler = null)
         {
             this.guiHandler = guiHandler;
+            this.contextMenuProvider = contextMenuProvider;
         }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PlaceholderWithReadonlyName nodeData)
@@ -42,53 +43,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PlaceholderWithReadonlyName nodeData)
         {
-            var contextMenu = new ContextMenuStrip();
-
-            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
-            {
-                contextMenu.AddMenuItem(
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open,
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip,
-                    RingtoetsCommonFormsResources.OpenIcon, null).Enabled = false;
-                contextMenu.AddSeperator();
-
-                contextMenu.AddMenuItem(
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
-                    RingtoetsCommonFormsResources.ClearIcon, null).Enabled = false;
-                contextMenu.AddSeperator();
-            }
-
-            if (nodeData is InputPlaceholder)
-            {
-                contextMenu.AddMenuItem(
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Import,
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Import_ToolTip,
-                    RingtoetsCommonFormsResources.ImportIcon, null).Enabled = false;
-            }
-
-            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
-            {
-                contextMenu.AddMenuItem(
-                    RingtoetsCommonFormsResources.FailureMechanism_Export,
-                    RingtoetsCommonFormsResources.FailureMechanism_Export_ToolTip,
-                    RingtoetsCommonFormsResources.ExportIcon, null).Enabled = false;
-                contextMenu.AddSeperator();
-
-                contextMenu.AddMenuItem(
-                    RingtoetsCommonFormsResources.FailureMechanism_Properties,
-                    RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip,
-                    RingtoetsCommonFormsResources.PropertiesIcon, PropertiesItemClicked);
-            }
-            return contextMenu;
-        }
-
-        private void PropertiesItemClicked(object sender, EventArgs eventArgs)
-        {
-            if (guiHandler != null)
-            {
-                guiHandler.ShowProperties();
-            }
+            return PlaceholderWithReadonlyNameContextMenu.CreateContextMenu(nodeData, guiHandler, contextMenuProvider);
         }
     }
 }

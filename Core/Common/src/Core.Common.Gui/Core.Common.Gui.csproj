@@ -133,6 +133,8 @@
     <Compile Include="CustomSettingsProvider.cs" />
     <Compile Include="GuiCoreSettings.cs" />
     <Compile Include="RingtoetsGui.cs" />
+    <Compile Include="ContextMenuItemFactory.cs" />
+    <Compile Include="IContextMenuProvider.cs" />
     <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />
@@ -361,6 +363,8 @@
     <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\table-import.png" />
+    <None Include="Resources\table-export.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\MainWindow\MainWindow.xaml">

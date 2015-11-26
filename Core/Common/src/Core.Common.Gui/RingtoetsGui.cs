@@ -32,7 +32,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for a given IApplication.
     /// </summary>
-    public class RingtoetsGui : IGui, IDisposable
+    public class RingtoetsGui : IGui, IContextMenuProvider, IDisposable
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
 
@@ -61,6 +61,7 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
         private Project project;
+        private ContextMenuItemFactory contextMenuItemFactory;
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
@@ -91,6 +92,8 @@ namespace Core.Common.Gui
 
             ProjectClosing += ApplicationProjectClosing;
             ProjectOpened += ApplicationProjectOpened;
+
+            contextMenuItemFactory = new ContextMenuItemFactory(this);
         }
 
         public bool SkipDialogsOnExit { get; set; }
@@ -1059,6 +1062,14 @@ namespace Core.Common.Gui
         ~RingtoetsGui()
         {
             Dispose(false);
+        }
+
+        public ContextMenuStrip Get(object obj)
+        {
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+            contextMenu.Items.Add(contextMenuItemFactory.CreateImportItem(obj));
+            contextMenu.Items.Add(contextMenuItemFactory.CreateExportItem(obj));
+            return contextMenu;
         }
     }
 }

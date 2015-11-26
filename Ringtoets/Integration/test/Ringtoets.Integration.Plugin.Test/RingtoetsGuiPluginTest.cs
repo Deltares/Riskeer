@@ -54,8 +54,8 @@ namespace Ringtoets.Integration.Plugin.Test
             // setup
             var mocks = new MockRepository();
 
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
+            var guiStub = mocks.DynamicMultiMock<IGui>(typeof(IGui), typeof(IContextMenuProvider));
+            guiStub.Expect(gs => gs.CommandHandler).Return(mocks.Stub<IGuiCommandHandler>()).Repeat.Twice();
 
             mocks.ReplayAll();
 

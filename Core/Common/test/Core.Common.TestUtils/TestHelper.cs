@@ -291,7 +291,7 @@ namespace Core.Common.TestUtils
                 return;
             }
             Assert.IsNotNull(actualImage);
-
+            
             Assert.AreEqual(expectedImage.Size, actualImage.Size);
             IEnumerable<byte> expectedImageBytes = GetImageAsByteArray(expectedImage);
             IEnumerable<byte> actualImageBytes = GetImageAsByteArray(actualImage);
@@ -635,7 +635,7 @@ namespace Core.Common.TestUtils
         {
             using (var stream = new MemoryStream())
             {
-                expectedImage.Save(stream, ImageFormat.Bmp);
+                expectedImage.Save(stream, expectedImage.RawFormat);
                 var length = stream.Length;
                 var imageBytes = new byte[length];
                 stream.Read(imageBytes, 0, (int)length);
