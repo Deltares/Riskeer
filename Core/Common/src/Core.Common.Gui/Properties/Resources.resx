@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Properties" xml:space="preserve">
+  <data name="Properties_Title" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
   <data name="App_RunRingtoets_Specified_project_0_was_not_found_" xml:space="preserve">
@@ -832,5 +832,14 @@
   </data>
   <data name="Import_ToolTip" xml:space="preserve">
     <value>Importeer gegevens vanuit een bestand.</value>
+  </data>
+  <data name="Properties_ToolTip" xml:space="preserve">
+    <value>Laat de eigenschappen zien in het eigenschappenvenster.</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Ei&amp;genschappen</value>
+  </data>
+  <data name="PropertiesIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\property.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

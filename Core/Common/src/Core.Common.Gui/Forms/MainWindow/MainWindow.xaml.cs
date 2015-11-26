@@ -261,7 +261,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 propertyGrid = new PropertyGridView.PropertyGridView(Gui);
             }
 
-            propertyGrid.Text = Properties.Resources.Properties;
+            propertyGrid.Text = Properties.Resources.Properties_Title;
             propertyGrid.Data = propertyGrid.GetObjectProperties(Gui.Selection);
 
             Gui.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);

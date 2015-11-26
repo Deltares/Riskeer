@@ -363,6 +363,7 @@
     <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\property.png" />
     <None Include="Resources\table-import.png" />
     <None Include="Resources\table-export.png" />
   </ItemGroup>

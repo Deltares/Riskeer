@@ -159,7 +159,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsCommonFormsResources.FailureMechanism_Expand_all, RingtoetsCommonFormsResources.FailureMechanism_Expand_all_ToolTip, RingtoetsCommonFormsResources.ExpandAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.FailureMechanism_Collapse_all, RingtoetsCommonFormsResources.FailureMechanism_Collapse_all_ToolTip, RingtoetsCommonFormsResources.CollapseAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7, RingtoetsCommonFormsResources.FailureMechanism_Properties, RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip, RingtoetsCommonFormsResources.PropertiesIcon);
 
             CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2], menu.Items[5],menu.Items[6]}, typeof(ToolStripSeparator));
 

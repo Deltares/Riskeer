@@ -20,10 +20,10 @@ namespace Core.Common.Gui
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
-                Image = Resources.ExportIcon
+                Image = Resources.ExportIcon,
+                Enabled = exporters.Any()
             };
 
-            newItem.Enabled = exporters.Any();
 
             return newItem;
         }
@@ -34,10 +34,23 @@ namespace Core.Common.Gui
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
-                Image = Resources.ImportIcon
+                Image = Resources.ImportIcon,
+                Enabled = importers.Any()
             };
 
-            newItem.Enabled = importers.Any();
+
+            return newItem;
+        }
+
+        public ToolStripItem CreatePropertiesItem(object item)
+        {
+            var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).Where(pi => pi.ObjectType == item.GetType());
+            var newItem = new ToolStripMenuItem(Resources.Properties_Title)
+            {
+                ToolTipText = Resources.Properties_ToolTip,
+                Image = Resources.PropertiesIcon,
+                Enabled = propertyInfos.Any()
+            };
 
             return newItem;
         }

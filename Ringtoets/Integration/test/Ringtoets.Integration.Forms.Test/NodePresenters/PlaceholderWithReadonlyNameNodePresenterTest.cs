@@ -210,7 +210,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip, RingtoetsCommonFormsResources.OpenIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.FailureMechanism_Properties, RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip, RingtoetsCommonFormsResources.PropertiesIcon);
 
             CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3], menu.Items[4] }, typeof(ToolStripSeparator));
             
@@ -238,7 +237,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip, RingtoetsCommonFormsResources.OpenIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.FailureMechanism_Properties, RingtoetsCommonFormsResources.FailureMechanism_Properties_ToolTip, RingtoetsCommonFormsResources.PropertiesIcon);
 
             CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1], menu.Items[3], menu.Items[4] }, typeof(ToolStripSeparator));
 

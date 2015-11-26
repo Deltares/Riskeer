@@ -25,12 +25,6 @@ namespace Ringtoets.Integration.Forms.ContextMenu
                     Resources.FailureMechanism_InputsOutputs_Erase_ToolTip,
                     Resources.ClearIcon, null).Enabled = false;
                 contextMenu.InsertSeperator(3);
-
-                contextMenu.AddSeperator();
-                contextMenu.AddMenuItem(
-                    Resources.FailureMechanism_Properties,
-                    Resources.FailureMechanism_Properties_ToolTip,
-                    Resources.PropertiesIcon, (s, e) => ShowProperties(guiHandler));
             }
             return contextMenu;
         }

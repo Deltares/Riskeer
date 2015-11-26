@@ -192,24 +192,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Exporteren....
-        /// </summary>
-        public static string FailureMechanism_Export {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Export", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Exporteer gegevens naar een bestand..
-        /// </summary>
-        public static string FailureMechanism_Export_ToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Export_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string FailureMechanism_Inputs_DisplayName {
@@ -278,24 +260,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_Outputs_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Outputs_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ei&amp;genschappen.
-        /// </summary>
-        public static string FailureMechanism_Properties {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Properties", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Laat de eigenschappen zien in het eigenschappenvenster..
-        /// </summary>
-        public static string FailureMechanism_Properties_ToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Properties_ToolTip", resourceCulture);
             }
         }
         

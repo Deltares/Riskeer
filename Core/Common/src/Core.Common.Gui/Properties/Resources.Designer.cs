@@ -1602,11 +1602,29 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen.
+        ///   Looks up a localized string similar to Ei&amp;genschappen.
         /// </summary>
         public static string Properties {
             get {
                 return ResourceManager.GetString("Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eigenschappen.
+        /// </summary>
+        public static string Properties_Title {
+            get {
+                return ResourceManager.GetString("Properties_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laat de eigenschappen zien in het eigenschappenvenster..
+        /// </summary>
+        public static string Properties_ToolTip {
+            get {
+                return ResourceManager.GetString("Properties_ToolTip", resourceCulture);
             }
         }
         
@@ -1616,6 +1634,16 @@ namespace Core.Common.Gui.Properties {
         public static System.Drawing.Bitmap PropertiesHS {
             get {
                 object obj = ResourceManager.GetObject("PropertiesHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PropertiesIcon {
+            get {
+                object obj = ResourceManager.GetObject("PropertiesIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1069,6 +1069,8 @@ namespace Core.Common.Gui
             ContextMenuStrip contextMenu = new ContextMenuStrip();
             contextMenu.Items.Add(contextMenuItemFactory.CreateImportItem(obj));
             contextMenu.Items.Add(contextMenuItemFactory.CreateExportItem(obj));
+            contextMenu.Items.Add(new ToolStripSeparator());
+            contextMenu.Items.Add(contextMenuItemFactory.CreatePropertiesItem(obj));
             return contextMenu;
         }
     }

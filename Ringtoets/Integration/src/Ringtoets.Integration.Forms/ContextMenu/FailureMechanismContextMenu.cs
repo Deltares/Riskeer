@@ -34,12 +34,6 @@ namespace Ringtoets.Integration.Forms.ContextMenu
                 Resources.CollapseAllIcon, (s,e) => CollapseAllItemClicked(treeView));
             contextMenu.InsertSeperator(5);
 
-            contextMenu.AddSeperator();
-            contextMenu.AddMenuItem(
-                Resources.FailureMechanism_Properties,
-                Resources.FailureMechanism_Properties_ToolTip,
-                Resources.PropertiesIcon, (s, e) => ShowProperties(commandHandler));
-
             return contextMenu;
         }
 
