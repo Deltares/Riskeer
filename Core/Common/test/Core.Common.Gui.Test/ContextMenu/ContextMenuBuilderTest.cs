@@ -102,6 +102,45 @@ namespace Core.Common.Gui.Tests.ContextMenu
             Assert.AreEqual(Resources.Collapse_all, collapseAll.Text);
             Assert.AreEqual(Resources.Collapse_all_ToolTip, collapseAll.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, collapseAll.Image);
+        }
+
+        [Test]
+        public void AddOpenItem_WithoutGuiWhenBuild_ContextMenuEmpty()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+
+            // Call
+            var result = builder.AddOpenItem().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.IsEmpty(result.Items);
+        }
+
+        [Test]
+        public void AddOpenItem_WithGuiWhenBuild_ItemAddedToContextMenu()
+        {
+            // Setup
+            var guiStub = mocks.StrictMock<IGui>();
+            guiStub.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
+            var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = builder.AddOpenItem().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            var export = result.Items[0];
+            Assert.AreEqual(Resources.Open, export.Text);
+            Assert.AreEqual(Resources.Open_ToolTip, export.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.OpenIcon, export.Image);
+
+            mocks.VerifyAll();
         } 
 
         [Test]
@@ -124,8 +163,9 @@ namespace Core.Common.Gui.Tests.ContextMenu
             // Setup
             var guiStub = mocks.StrictMock<IGui>();
             guiStub.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            guiStub.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
             var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+
+            mocks.ReplayAll();
 
             // Call
             var result = builder.AddExportItem().Build();
@@ -138,6 +178,8 @@ namespace Core.Common.Gui.Tests.ContextMenu
             Assert.AreEqual(Resources.Export, export.Text);
             Assert.AreEqual(Resources.Export_ToolTip, export.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ExportIcon, export.Image);
+
+            mocks.VerifyAll();
         } 
 
         [Test]
@@ -160,8 +202,9 @@ namespace Core.Common.Gui.Tests.ContextMenu
             // Setup
             var guiStub = mocks.StrictMock<IGui>();
             guiStub.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            guiStub.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
             var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+
+            mocks.ReplayAll();
 
             // Call
             var result = builder.AddImportItem().Build();
@@ -174,6 +217,8 @@ namespace Core.Common.Gui.Tests.ContextMenu
             Assert.AreEqual(Resources.Import, import.Text);
             Assert.AreEqual(Resources.Import_ToolTip, import.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ImportIcon, import.Image);
+
+            mocks.VerifyAll();
         } 
 
         [Test]

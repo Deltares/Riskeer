@@ -61,39 +61,68 @@ namespace Core.Common.Gui.Tests.ContextMenu
         }
 
         [Test]
-        public void CreateExportItem_NoImportersForType_Disabled()
+        public void CreateOpenItem_NoViewersForType_Disabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
             treeNodeMock.Tag = "";
-            var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
-            guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
+            guiMock.Expect(g => g.Plugins).Return(pluginList);
+
             var contextMenuFactory = new GuiContextMenuItemFactory(guiMock, treeNodeMock);
 
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreateExportItem();
+            var item = contextMenuFactory.CreateOpenItem();
 
             // Assert
-            Assert.AreEqual(Properties.Resources.Export, item.Text);
-            Assert.AreEqual(Properties.Resources.Export_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Properties.Resources.ExportIcon, item.Image);
+            Assert.AreEqual(Resources.Open, item.Text);
+            Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
             Assert.IsFalse(item.Enabled);
         }
 
         [Test]
-        public void CreateExportItem_ImportersForType_Enabled()
+        public void CreateOpentem_ImportersForType_Enabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
             treeNodeMock.Tag = 0;
+            guiMock.Expect(g => g.Plugins).Return(pluginList);
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock, treeNodeMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            var item = contextMenuFactory.CreateOpenItem();
+
+            // Assert
+            Assert.AreEqual(Resources.Open, item.Text);
+            Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
+            Assert.IsTrue(item.Enabled);
+        }
+
+        [Test]
+        public void CreateExportItem_NoImporterExportersForType_Disabled()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
             var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
+            var data = 0;
+            treeNodeMock.Tag = data;
+
+            var testApplicationPlugin = new TestApplicationPlugin();
+            testApplicationPlugin.ExporterMock = mocks.StrictMock<IFileExporter>();
+            testApplicationPlugin.ExporterMock.Expect(e => e.SourceTypes()).Return(new Type[0]);
+
+            applicationCore.AddPlugin(testApplicationPlugin);
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
+
             var contextMenuFactory = new GuiContextMenuItemFactory(guiMock, treeNodeMock);
 
             mocks.ReplayAll();
@@ -102,10 +131,46 @@ namespace Core.Common.Gui.Tests.ContextMenu
             var item = contextMenuFactory.CreateExportItem();
 
             // Assert
-            Assert.AreEqual(Properties.Resources.Export, item.Text);
-            Assert.AreEqual(Properties.Resources.Export_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Properties.Resources.ExportIcon, item.Image);
+            Assert.AreEqual(Resources.Export, item.Text);
+            Assert.AreEqual(Resources.Export_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.ExportIcon, item.Image);
+            Assert.IsFalse(item.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportItem_ExportersForType_Enabled()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            var applicationCore = new ApplicationCore();
+            var data = 0;
+            treeNodeMock.Tag = data;
+
+            var testApplicationPlugin = new TestApplicationPlugin();
+            testApplicationPlugin.ExporterMock = mocks.StrictMock<IFileExporter>();
+            testApplicationPlugin.ExporterMock.Expect(e => e.SourceTypes()).Return(new[] { data.GetType() });
+            testApplicationPlugin.ExporterMock.Expect(e => e.CanExportFor(data)).Return(true);
+
+            applicationCore.AddPlugin(testApplicationPlugin);
+            guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock, treeNodeMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            var item = contextMenuFactory.CreateExportItem();
+
+            // Assert
+            Assert.AreEqual(Resources.Export, item.Text);
+            Assert.AreEqual(Resources.Export_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.ExportIcon, item.Image);
             Assert.IsTrue(item.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -114,9 +179,15 @@ namespace Core.Common.Gui.Tests.ContextMenu
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
-            treeNodeMock.Tag = "";
             var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
+            var data = 0;
+            treeNodeMock.Tag = data;
+
+            var testApplicationPlugin = new TestApplicationPlugin();
+            testApplicationPlugin.ImporterMock = mocks.StrictMock<IFileImporter>();
+            testApplicationPlugin.ImporterMock.Expect(e => e.SupportedItemTypes).Return(new Type[0]) ;
+
+            applicationCore.AddPlugin(testApplicationPlugin);
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
             var contextMenuFactory = new GuiContextMenuItemFactory(guiMock, treeNodeMock);
 
@@ -126,10 +197,12 @@ namespace Core.Common.Gui.Tests.ContextMenu
             var item = contextMenuFactory.CreateImportItem();
 
             // Assert
-            Assert.AreEqual(Properties.Resources.Import, item.Text);
-            Assert.AreEqual(Properties.Resources.Import_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Properties.Resources.ImportIcon, item.Image);
+            Assert.AreEqual(Resources.Import, item.Text);
+            Assert.AreEqual(Resources.Import_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.ImportIcon, item.Image);
             Assert.IsFalse(item.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -138,9 +211,16 @@ namespace Core.Common.Gui.Tests.ContextMenu
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
-            treeNodeMock.Tag = 0;
             var applicationCore = new ApplicationCore();
-            applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
+            var data = 0;
+            treeNodeMock.Tag = data;
+
+            var testApplicationPlugin = new TestApplicationPlugin();
+            testApplicationPlugin.ImporterMock = mocks.StrictMock<IFileImporter>();
+            testApplicationPlugin.ImporterMock.Expect(e => e.SupportedItemTypes).Return(new[] { data.GetType() });
+            testApplicationPlugin.ImporterMock.Expect(e => e.CanImportOn(data)).Return(true);
+
+            applicationCore.AddPlugin(testApplicationPlugin);
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
             var contextMenuFactory = new GuiContextMenuItemFactory(guiMock, treeNodeMock);
 
@@ -150,10 +230,12 @@ namespace Core.Common.Gui.Tests.ContextMenu
             var item = contextMenuFactory.CreateImportItem();
 
             // Assert
-            Assert.AreEqual(Properties.Resources.Import, item.Text);
-            Assert.AreEqual(Properties.Resources.Import_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Properties.Resources.ImportIcon, item.Image);
+            Assert.AreEqual(Resources.Import, item.Text);
+            Assert.AreEqual(Resources.Import_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.ImportIcon, item.Image);
             Assert.IsTrue(item.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -173,9 +255,9 @@ namespace Core.Common.Gui.Tests.ContextMenu
             var item = contextMenuFactory.CreatePropertiesItem();
 
             // Assert
-            Assert.AreEqual(Properties.Resources.Properties, item.Text);
-            Assert.AreEqual(Properties.Resources.Properties_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Properties.Resources.PropertiesIcon, item.Image);
+            Assert.AreEqual(Resources.Properties, item.Text);
+            Assert.AreEqual(Resources.Properties_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.PropertiesIcon, item.Image);
             Assert.IsTrue(item.Enabled);
 
             mocks.VerifyAll();
@@ -198,9 +280,9 @@ namespace Core.Common.Gui.Tests.ContextMenu
             var item = contextMenuFactory.CreatePropertiesItem();
 
             // Assert
-            Assert.AreEqual(Properties.Resources.Properties, item.Text);
-            Assert.AreEqual(Properties.Resources.Properties_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Properties.Resources.PropertiesIcon, item.Image);
+            Assert.AreEqual(Resources.Properties, item.Text);
+            Assert.AreEqual(Resources.Properties_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.PropertiesIcon, item.Image);
             Assert.IsFalse(item.Enabled);
 
             mocks.VerifyAll();
@@ -253,34 +335,17 @@ namespace Core.Common.Gui.Tests.ContextMenu
 
     public class TestApplicationPlugin : ApplicationPlugin
     {
-        private readonly IFileExporter exporterMock;
-        private readonly IFileImporter importerMock;
-
-        public TestApplicationPlugin(MockRepository mocks)
-        {
-            var typeList = new[]
-            {
-                0.GetType(),
-                "".GetType()
-            };
-            exporterMock = mocks.DynamicMock<IFileExporter>();
-            exporterMock.Expect(e => e.CanExportFor(0)).Return(true);
-            exporterMock.Expect(e => e.CanExportFor("")).Return(false);
-            exporterMock.Expect(e => e.SourceTypes()).Return(typeList);
-            importerMock = mocks.DynamicMock<IFileImporter>();
-            importerMock.Expect(e => e.CanImportOn(0)).Return(true);
-            importerMock.Expect(e => e.CanImportOn("")).Return(false);
-            importerMock.Expect(e => e.SupportedItemTypes).Return(typeList);
-        }
-
+        public IFileExporter ExporterMock { get; set; }
+        public IFileImporter ImporterMock { get; set; }
+        
         public override IEnumerable<IFileExporter> GetFileExporters()
         {
-            yield return exporterMock;
+            yield return ExporterMock;
         }
 
         public override IEnumerable<IFileImporter> GetFileImporters()
         {
-            yield return importerMock;
+            yield return ImporterMock;
         }
     }
 
@@ -291,6 +356,14 @@ namespace Core.Common.Gui.Tests.ContextMenu
             yield return new PropertyInfo
             {
                 ObjectType = typeof(int)
+            };
+        }
+
+        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        {
+            yield return new ViewInfo
+            {
+                DataType = typeof(int)
             };
         }
     }

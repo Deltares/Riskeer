@@ -117,26 +117,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CollapseAllIcon {
-            get {
-                object obj = ResourceManager.GetObject("CollapseAllIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ExpandAllIcon {
-            get {
-                object obj = ResourceManager.GetObject("ExpandAllIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekeningen.
         /// </summary>
         public static string FailureMechanism_Calculations_DisplayName {
@@ -173,42 +153,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Importeren....
-        /// </summary>
-        public static string FailureMechanism_InputsOutputs_Import {
-            get {
-                return ResourceManager.GetString("FailureMechanism_InputsOutputs_Import", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeer gegevens vanuit een bestand..
-        /// </summary>
-        public static string FailureMechanism_InputsOutputs_Import_ToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_InputsOutputs_Import_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Openen.
-        /// </summary>
-        public static string FailureMechanism_InputsOutputs_Open {
-            get {
-                return ResourceManager.GetString("FailureMechanism_InputsOutputs_Open", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open de gegevens in een nieuw documentvenster..
-        /// </summary>
-        public static string FailureMechanism_InputsOutputs_Open_ToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_InputsOutputs_Open_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Uitvoer.
         /// </summary>
         public static string FailureMechanism_Outputs_DisplayName {
@@ -233,16 +177,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static System.Drawing.Bitmap InputFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("InputFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap OpenIcon {
-            get {
-                object obj = ResourceManager.GetObject("OpenIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

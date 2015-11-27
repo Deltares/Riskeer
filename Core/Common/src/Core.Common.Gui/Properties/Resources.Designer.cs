@@ -1503,11 +1503,39 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Openen.
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open de gegevens in een nieuw documentvenster..
+        /// </summary>
+        public static string Open_ToolTip {
+            get {
+                return ResourceManager.GetString("Open_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap openfolderHS {
             get {
                 object obj = ResourceManager.GetObject("openfolderHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap OpenIcon {
+            get {
+                object obj = ResourceManager.GetObject("OpenIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

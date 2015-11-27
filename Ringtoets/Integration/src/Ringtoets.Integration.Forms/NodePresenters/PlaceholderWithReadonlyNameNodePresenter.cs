@@ -45,13 +45,6 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
-                var openItem = new ToolStripMenuItem
-                {
-                    Text = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open,
-                    ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip,
-                    Image = RingtoetsCommonFormsResources.OpenIcon,
-                    Enabled = false
-                };
                 var clearItem = new ToolStripMenuItem
                 {
                     Text = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
@@ -60,7 +53,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                     Enabled = false
                 };
 
-                menuBuilder.AddCustomItem(openItem)
+                menuBuilder.AddOpenItem()
                            .AddCustomItem(clearItem)
                            .AddSeparator();
             }

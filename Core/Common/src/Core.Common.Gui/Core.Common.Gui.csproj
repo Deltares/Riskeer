@@ -365,6 +365,7 @@
     <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\arrow.png" />
     <None Include="Resources\arrow-stop-090.png" />
     <None Include="Resources\arrow-stop-270.png" />
     <None Include="Resources\table_delete.png" />

@@ -57,6 +57,20 @@ namespace Core.Common.Gui.ContextMenu
         }
 
         /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
+        /// <remarks>If the <see cref="IGui"/> was not passed on construction, this method will not add an item.</remarks>
+        public ContextMenuBuilder AddOpenItem()
+        {
+            if (guiItemsFactory != null)
+            {
+                AddItem(guiItemsFactory.CreateOpenItem());
+            }
+            return this;
+        }
+
+        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="ITreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>

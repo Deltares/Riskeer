@@ -95,15 +95,6 @@
     <None Include="Resources\cross-script.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\arrow-stop-270.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\arrow-stop-090.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\PlayAll.png" />
   </ItemGroup>
   <ItemGroup>

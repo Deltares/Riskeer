@@ -42,6 +42,25 @@ namespace Core.Common.Gui.ContextMenu
         }
 
         /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of opening a view 
+        /// for the data of the <see cref="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateOpenItem()
+        {
+            var data = treeNode.Tag;
+            var viewers = gui.Plugins.SelectMany(p => p.GetViewInfoObjects()).Where(pi => pi.DataType == data.GetType()); ;
+            var newItem = new ToolStripMenuItem(Resources.Open)
+            {
+                ToolTipText = Resources.Open_ToolTip,
+                Image = Resources.OpenIcon,
+                Enabled = viewers.Any()
+            };
+
+            return newItem;
+        }
+
+        /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of exporting 
         /// the data of the <see cref="ITreeNode"/>.
         /// </summary>
