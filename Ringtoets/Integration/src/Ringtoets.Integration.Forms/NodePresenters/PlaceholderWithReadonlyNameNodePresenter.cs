@@ -16,12 +16,10 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// </summary>
     public class PlaceholderWithReadonlyNameNodePresenter : RingtoetsNodePresenterBase<PlaceholderWithReadonlyName>
     {
-        private IGuiCommandHandler guiHandler;
-        private IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
-        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider, IGuiCommandHandler guiHandler = null)
+        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
-            this.guiHandler = guiHandler;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }
 

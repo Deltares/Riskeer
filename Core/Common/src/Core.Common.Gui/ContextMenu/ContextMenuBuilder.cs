@@ -24,17 +24,14 @@ namespace Core.Common.Gui.ContextMenu
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
         /// require this type of information.</param>
         /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
         public ContextMenuBuilder(IGui gui, ITreeNode treeNode)
         {
-            if (treeNode == null)
-            {
-                throw new ArgumentNullException("treeNode", Resources.ContextMenuBuilder_ContextMenuBuilder_Can_not_build_context_menu_for_empty_tree_node);
-            }
             if (gui != null)
             {
-                guiItemsFactory = new GuiContextMenuItemFactory(gui);
+                guiItemsFactory = new GuiContextMenuItemFactory(gui, treeNode);
             }
-            treeViewItemsFactory = new TreeViewContextMenuItemFactory();
+            treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             contextMenu = new ContextMenuStrip();
             this.treeNode = treeNode;
         }
@@ -45,7 +42,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
         public ContextMenuBuilder AddExpandAllItem()
         {
-            AddItem(treeViewItemsFactory.CreateExpandAllItem(treeNode));
+            AddItem(treeViewItemsFactory.CreateExpandAllItem());
             return this;
         }
 
@@ -55,7 +52,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
         public ContextMenuBuilder AddCollapseAllItem()
         {
-            AddItem(treeViewItemsFactory.CreateCollapseAllItem(treeNode));
+            AddItem(treeViewItemsFactory.CreateCollapseAllItem());
             return this;
         }
 
@@ -68,7 +65,7 @@ namespace Core.Common.Gui.ContextMenu
         {
             if (guiItemsFactory != null)
             {
-                AddItem(guiItemsFactory.CreateExportItem(treeNode));
+                AddItem(guiItemsFactory.CreateExportItem());
             }
             return this;
         }
@@ -82,7 +79,7 @@ namespace Core.Common.Gui.ContextMenu
         {
             if (guiItemsFactory != null)
             {
-                AddItem(guiItemsFactory.CreateImportItem(treeNode));
+                AddItem(guiItemsFactory.CreateImportItem());
             }
             return this;
         }
@@ -96,7 +93,7 @@ namespace Core.Common.Gui.ContextMenu
         {
             if (guiItemsFactory != null)
             {
-                AddItem(guiItemsFactory.CreatePropertiesItem(treeNode));
+                AddItem(guiItemsFactory.CreatePropertiesItem());
             }
             return this;
         }

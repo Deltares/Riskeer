@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui.Properties;
 
@@ -11,14 +12,28 @@ namespace Core.Common.Gui.ContextMenu
     /// </summary>
     internal class TreeViewContextMenuItemFactory
     {
+        private readonly ITreeNode treeNode;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="treeNode"/>.
+        /// </summary>
+        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
+        public TreeViewContextMenuItemFactory(ITreeNode treeNode)
+        {
+            if (treeNode == null)
+            {
+                throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
+            }
+            this.treeNode = treeNode;
+        }
+
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of expanding
-        /// the <paramref name="treeNode"/>.
+        /// the <see name="ITreeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create the <see cref="ToolStripItem"/>
-        /// and which to expand if clicked.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreateExpandAllItem(ITreeNode treeNode)
+        public ToolStripItem CreateExpandAllItem()
         {
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Expand_all)
             {
@@ -31,12 +46,10 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of collapsing
-        /// the <paramref name="treeNode"/>.
+        /// the <see name="ITreeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create the <see cref="ToolStripItem"/>
-        /// and which to collapse if clicked.</param>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreateCollapseAllItem(ITreeNode treeNode)
+        public ToolStripItem CreateCollapseAllItem()
         {
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Collapse_all)
             {

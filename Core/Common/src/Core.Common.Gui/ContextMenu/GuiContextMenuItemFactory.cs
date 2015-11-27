@@ -14,31 +14,39 @@ namespace Core.Common.Gui.ContextMenu
     internal class GuiContextMenuItemFactory
     {
         private readonly IGui gui;
+        private readonly ITreeNode treeNode;
 
         /// <summary>
         /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the <paramref name="gui"/> to create
         /// <see cref="ToolStripItem"/>.
         /// </summary>
         /// <param name="gui">The <see cref="IGui"/> which contains information for creating the <see cref="ToolStripItem"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="gui"/> is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IGui gui)
+        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <list type="bullet">
+        /// <item><paramref name="gui"/> is <c>null</c></item>
+        /// <item><paramref name="treeNode"/> is <c>null</c></item>
+        /// </list></exception>
+        public GuiContextMenuItemFactory(IGui gui, ITreeNode treeNode)
         {
             if (gui == null)
             {
-                throw new ArgumentNullException("gui", Resources.GuiContextMenuItemFactory_GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
+                throw new ArgumentNullException("gui", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
+            if (treeNode == null)
+            {
+                throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
+            }
+            this.treeNode = treeNode;
             this.gui = gui;
         }
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of exporting 
-        /// the data of the given <paramref name="treeNode"/>.
+        /// the data of the <see cref="ITreeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create the <see cref="ToolStripItem"/>
-        /// and for which to export its data if clicked.</param>
-        /// <returns></returns>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreateExportItem(ITreeNode treeNode)
+        public ToolStripItem CreateExportItem()
         {
             var data = treeNode.Tag;
             var exporters = gui.ApplicationCore.GetSupportedFileExporters(data);
@@ -54,13 +62,10 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of importing
-        /// the data of the given <paramref name="treeNode"/>.
+        /// the data of the given <see cref="ITreeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create the <see cref="ToolStripItem"/>
-        /// and for which to import its data if clicked.</param>
-        /// <returns></returns>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreateImportItem(ITreeNode treeNode)
+        public ToolStripItem CreateImportItem()
         {
             var data = treeNode.Tag;
             var importers = gui.ApplicationCore.GetSupportedFileImporters(data);
@@ -76,13 +81,10 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of showing
-        /// the properties of the data of the given <paramref name="treeNode"/>.
+        /// the properties of the data of the given <see cref="ITreeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create the <see cref="ToolStripItem"/>
-        /// and for which to show the properties of its data if clicked.</param>
-        /// <returns></returns>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreatePropertiesItem(ITreeNode treeNode)
+        public ToolStripItem CreatePropertiesItem()
         {
             var data = treeNode.Tag;
             var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).Where(pi => pi.ObjectType == data.GetType());

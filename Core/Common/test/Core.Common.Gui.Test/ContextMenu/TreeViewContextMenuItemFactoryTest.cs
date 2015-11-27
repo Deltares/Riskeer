@@ -1,4 +1,5 @@
-﻿using Core.Common.Controls;
+﻿using System;
+using Core.Common.Controls;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtils;
@@ -19,6 +20,28 @@ namespace Core.Common.Gui.Tests.ContextMenu
         }
 
         [Test]
+        public void Constructor_WithoutTreeNode_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new TreeViewContextMenuItemFactory(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node, message);
+            StringAssert.EndsWith("treeNode", message);
+        }
+
+        [Test]
+        public void Constructor_WithTreeNode_NewInstance()
+        {
+            // Call
+            var result = new TreeViewContextMenuItemFactory(mocks.StrictMock<ITreeNode>());
+
+            // Assert
+            Assert.IsInstanceOf<TreeViewContextMenuItemFactory>(result);
+        }
+
+        [Test]
         public void CreateExpandAllItem_Always_ItemWithExpandFunction()
         {
             // Setup
@@ -29,10 +52,10 @@ namespace Core.Common.Gui.Tests.ContextMenu
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory();
+            var factory = new TreeViewContextMenuItemFactory(treeNodeMock);
 
             // Call
-            var item = factory.CreateExpandAllItem(treeNodeMock);
+            var item = factory.CreateExpandAllItem();
             item.PerformClick();
 
             // Assert
@@ -54,10 +77,10 @@ namespace Core.Common.Gui.Tests.ContextMenu
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory();
+            var factory = new TreeViewContextMenuItemFactory(treeNodeMock);
 
             // Call
-            var item = factory.CreateCollapseAllItem(treeNodeMock);
+            var item = factory.CreateCollapseAllItem();
             item.PerformClick();
 
             // Assert

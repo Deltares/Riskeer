@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new AssessmentSectionBaseNodePresenter();
             yield return new FailureMechanismNodePresenter((IContextMenuBuilderProvider)Gui);
-            yield return new PlaceholderWithReadonlyNameNodePresenter((IContextMenuBuilderProvider)Gui, Gui.CommandHandler);
+            yield return new PlaceholderWithReadonlyNameNodePresenter((IContextMenuBuilderProvider)Gui);
             yield return new CategoryTreeFolderNodePresenter();
         }
     }
