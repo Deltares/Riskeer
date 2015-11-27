@@ -15,11 +15,11 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 {
     public class FailureMechanismNodePresenter : RingtoetsNodePresenterBase<FailureMechanismPlaceholder>
     {
-        private readonly IContextMenuProvider contextMenuProvider;
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
-        public FailureMechanismNodePresenter(IContextMenuProvider contextMenuProvider)
+        public FailureMechanismNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
-            this.contextMenuProvider = contextMenuProvider;
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, FailureMechanismPlaceholder nodeData)
@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, FailureMechanismPlaceholder nodeData)
         {
-            ContextMenuBuilder menuBuilder = contextMenuProvider.Get(sender);
+            ContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(sender);
             
             var calculateItem = new ToolStripMenuItem
             {

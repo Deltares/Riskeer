@@ -17,6 +17,7 @@ using Ringtoets.Integration.Forms.NodePresenters;
 
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using CommonResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.NodePresenters
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
             // Call
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
@@ -48,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void UpdateNode_ValidNodeData_UpdateTreeNode()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var nodeToUpdate = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
@@ -71,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void UpdateNode_ValidInputPlaceholderData_UpdateTreeNode()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var nodeToUpdate = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
@@ -94,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void UpdateNode_ValidOutputPlaceholderData_UpdateTreeNode()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var nodeToUpdate = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
@@ -117,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void CanRenameNode_Always_ReturnFalse()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
 
             // Call
@@ -131,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void CanRenamceTo_Always_ReturnFalse()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
 
             // Call
@@ -145,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
 
             // Call
@@ -159,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void GetChildNodeObjects_Always_ReturnEmptyEnumerable()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
 
             // Call
@@ -174,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock)); ;
 
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
@@ -196,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock)); ;
 
@@ -224,7 +225,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
@@ -241,6 +242,40 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip, RingtoetsCommonFormsResources.OpenIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
+
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2] }, typeof(ToolStripSeparator));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_PlaceholderWithReadonlyNameWithGui_ReturnsContextMenuWithItems()
+        {
+            // Setup
+            var nodeMock = mocks.Stub<ITreeNode>();
+            var guiMock = mocks.DynamicMock<IGui>();
+            var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
+            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
+            guiMock.Expect(g => g.CommandHandler).Return(guiHandlerMock);
+            guiMock.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
+
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+
+            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
+            var placeholderData = new PlaceholderWithReadonlyName("test");
+
+            mocks.ReplayAll();
+
+            // Call
+            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
+
+            // Assert
+            Assert.AreEqual(4, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0, CommonResources.Import, CommonResources.Import_ToolTip, CommonResources.ImportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1, CommonResources.Export, CommonResources.Export_ToolTip, CommonResources.ExportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, CommonResources.Properties, CommonResources.Properties_ToolTip, CommonResources.PropertiesIcon, false);
 
             CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2] }, typeof(ToolStripSeparator));
 

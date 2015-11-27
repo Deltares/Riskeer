@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -36,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
 
             // Assert
@@ -47,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void UpdateNode_ValidOutputPlaceholderData_UpdateTreeNode()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var nodeToUpdate = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
@@ -70,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void CanRenameNode_Always_ReturnFalse()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
 
             // Call
@@ -84,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void CanRenameTo_Always_ReturnFalse()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
 
             // Call
@@ -98,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
 
             // Call
@@ -112,7 +113,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void GetChildNodeObjects_Always_ReturnInputAndOutput()
         {
             // Setup
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
             var failureMechanism = new FailureMechanismPlaceholder("test");
 
@@ -142,7 +143,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuProvider>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
@@ -154,10 +155,51 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
 
             // Assert
-            Assert.AreEqual(3, menu.Items.Count);
+            Assert.AreEqual(6, menu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, CommonResources.Expand_all, CommonResources.Expand_all_ToolTip, CommonResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4, CommonResources.Collapse_all, CommonResources.Collapse_all_ToolTip, CommonResources.CollapseAllIcon);
+
+            CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2], menu.Items[5]}, typeof(ToolStripSeparator));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_WithGui_ReturnsContextMenuWithCommonItems()
+        {
+            // Setup
+            var nodeMock = mocks.Stub<ITreeNode>();
+            var guiMock = mocks.DynamicMock<IGui>();
+            var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
+            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
+            guiMock.Expect(g => g.CommandHandler).Return(guiHandlerMock);
+            guiMock.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
+
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+
+            var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
+            var failureMechanism = new FailureMechanismPlaceholder("test");
+            nodeMock.Tag = failureMechanism;
+
+            mocks.ReplayAll();
+
+            // Call
+            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+
+            // Assert
+            Assert.AreEqual(10, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, CommonResources.Expand_all, CommonResources.Expand_all_ToolTip, CommonResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4, CommonResources.Collapse_all, CommonResources.Collapse_all_ToolTip, CommonResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonResources.Import, CommonResources.Import_ToolTip, CommonResources.ImportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonResources.Export, CommonResources.Export_ToolTip, CommonResources.ExportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9, CommonResources.Properties, CommonResources.Properties_ToolTip, CommonResources.PropertiesIcon, false);
 
             CollectionAssert.AllItemsAreInstancesOfType(new []{menu.Items[2]}, typeof(ToolStripSeparator));
 

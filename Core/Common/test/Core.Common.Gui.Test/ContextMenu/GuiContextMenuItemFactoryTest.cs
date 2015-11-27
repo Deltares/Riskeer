@@ -6,7 +6,7 @@ using Core.Common.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Gui.Tests
+namespace Core.Common.Gui.Tests.ContextMenu
 {
     [TestFixture]
     public class ContextMenuItemFactoryTest
@@ -33,7 +33,7 @@ namespace Core.Common.Gui.Tests
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Tests
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -81,7 +81,7 @@ namespace Core.Common.Gui.Tests
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -105,7 +105,7 @@ namespace Core.Common.Gui.Tests
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -128,7 +128,7 @@ namespace Core.Common.Gui.Tests
             treeNodeMock.Tag = 0;
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(null);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -153,7 +153,7 @@ namespace Core.Common.Gui.Tests
             treeNodeMock.Tag = "";
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(null);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Tests
             treeNodeMock.Tag = 0;
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(null);
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
@@ -201,7 +201,7 @@ namespace Core.Common.Gui.Tests
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(commandHandlerMock);
             commandHandlerMock.Expect(ch => ch.ShowProperties());
-            var contextMenuFactory = new ContextMenuItemFactory(guiMock);
+            var contextMenuFactory = new GuiContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 

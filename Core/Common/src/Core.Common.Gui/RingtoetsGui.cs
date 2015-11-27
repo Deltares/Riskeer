@@ -33,7 +33,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for a given IApplication.
     /// </summary>
-    public class RingtoetsGui : IGui, IContextMenuProvider, IDisposable
+    public class RingtoetsGui : IGui, IContextMenuBuilderProvider, IDisposable
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
 
@@ -1072,9 +1072,9 @@ namespace Core.Common.Gui
             Dispose(false);
         }
 
-        public ContextMenuBuilder Get(ITreeNode obj)
+        public ContextMenuBuilder Get(ITreeNode treeNode)
         {
-            return new ContextMenuBuilder(this, obj);
+            return new ContextMenuBuilder(this, treeNode);
         }
     }
 }

@@ -530,6 +530,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan geen contextmenu opbouwen voor een lege knoop..
+        /// </summary>
+        public static string ContextMenuBuilder_ContextMenuBuilder_Can_not_build_context_menu_for_empty_tree_node {
+            get {
+                return ResourceManager.GetString("ContextMenuBuilder_ContextMenuBuilder_Can_not_build_context_menu_for_empty_tree_n" +
+                        "ode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap control_play {
@@ -1109,6 +1119,16 @@ namespace Core.Common.Gui.Properties {
         public static string GuiCommandHandler_TryCloseProject_Closing_current_project {
             get {
                 return ResourceManager.GetString("GuiCommandHandler_TryCloseProject_Closing_current_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen GUI-afhankelijk element in het contextmenu creëren zonder een GUI..
+        /// </summary>
+        public static string GuiContextMenuItemFactory_GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui {
+            get {
+                return ResourceManager.GetString("GuiContextMenuItemFactory_GuiContextMenuItemFactory_Can_not_create_gui_context_me" +
+                        "nu_items_without_gui", resourceCulture);
             }
         }
         

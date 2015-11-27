@@ -860,4 +860,10 @@
   <data name="Expand_all_ToolTip" xml:space="preserve">
     <value>Klap deze knoop en al zijn kinderen uit.</value>
   </data>
+  <data name="ContextMenuBuilder_ContextMenuBuilder_Can_not_build_context_menu_for_empty_tree_node" xml:space="preserve">
+    <value>Kan geen contextmenu opbouwen voor een lege knoop.</value>
+  </data>
+  <data name="GuiContextMenuItemFactory_GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui" xml:space="preserve">
+    <value>Kan geen GUI-afhankelijk element in het contextmenu creëren zonder een GUI.</value>
+  </data>
 </root>
