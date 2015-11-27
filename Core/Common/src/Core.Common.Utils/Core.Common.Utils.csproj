@@ -40,7 +40,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\bin\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -55,7 +55,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DebugSymbols>false</DebugSymbols>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\..\bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <DocumentationFile>
@@ -71,7 +71,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
     <DebugSymbols>false</DebugSymbols>
-    <OutputPath>bin\CreateInstallerWithDemoProject\</OutputPath>
+    <OutputPath>..\..\..\..\bin\CreateInstallerWithDemoProject\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Optimize>true</Optimize>

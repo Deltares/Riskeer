@@ -35,17 +35,11 @@
   <Target Name="AfterClean">    
     <Delete Files="$(OutDir)\$(TargetFileName)" Condition="Exists('$(OutDir)\$(TargetFileName)')" />
 
-    <RemoveDir Directories="$(InstallDir)\plugins" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(InstallDir)\plugins')" />
-    <RemoveDir Directories="$(ProjectDir)\bin" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(ProjectDir)\bin')" />
-   <!-- <RemoveDir Directories="$(OutDir)\PostSharp.$(TargetFileName)" Condition="Exists('$(OutDir)\PostSharp.$(TargetFileName)')" />  -->   
+    <RemoveDir Directories="$(SolutionDir)\bin" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(SolutionDir)\bin')" />
 
     <Delete Files="$(IntermediateOutputPath)\time_before" Condition="Exists('$(IntermediateOutputPath)\time_before')" />
     <Delete Files="$(IntermediateOutputPath)\time_after"  Condition="Exists('$(IntermediateOutputPath)\time_after')" />
-<!--    
-    <RemoveDir Directories="$(ProjectDir)\bin" Condition="'$(StartUsingCommandLine)' == 'true' and '$(CustomOutDir)'=='' and Exists('$(ProjectDir)\bin')" />
-    <RemoveDir Directories="$(ProjectDir)\obj" Condition="'$(StartUsingCommandLine)' == 'true' and '$(CustomOutDir)'=='' and Exists('$(ProjectDir)\obj')" />
-    <RemoveDir Directories="$(IntermediateOutputPath)" Condition="Exists('$(IntermediateOutputPath)')" />
--->
+
   </Target>
 
   <Target Name="BeforeRebuild" DependsOnTargets="AfterClean" />    

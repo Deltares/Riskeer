@@ -99,10 +99,10 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\Application.Ringtoets\bin;</DefineConstants>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\bin;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\Application.Ringtoets\bin -cg RingtoetsApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\bin -cg RingtoetsApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
 $(ProjectDir)..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--
