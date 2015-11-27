@@ -259,6 +259,84 @@ namespace Core.Common.Gui.Tests.ContextMenu
             TestHelper.AssertImagesAreEqual(Resources.PropertiesIcon, properties.Image);
 
             mocks.VerifyAll();
-        } 
+        }
+
+        [Test]
+        public void AddCustomItem_NoItemWhenBuild_ContextMenuEmpty()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+
+            // Call
+            var result = builder.AddCustomItem(null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.IsEmpty(result.Items);
+        }
+
+        [Test]
+        public void AddCustomItem_WhenBuild_ItemAddedToContextMenu()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+            var item = new ToolStripMenuItem();
+            // Call
+            var result = builder.AddCustomItem(item).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            
+            Assert.AreSame(item, result.Items[0]);
+        }
+
+        [Test]
+        public void AddSeparator_NoItemsWhenBuild_EmptyContextMenu()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+
+            // Call
+            var result = builder.AddSeparator().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.IsEmpty(result.Items);
+        }
+
+        [Test]
+        public void AddSeparator_ItemAddedWhenBuild_SeparatorAdded()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+            
+            builder.AddCustomItem(new ToolStripMenuItem());
+
+            // Call
+            var result = builder.AddSeparator().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(2, result.Items.Count);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
+        }
+
+        [Test]
+        public void AddSeparator_ItemAndSeparatorAddedWhenBuild_NoSeparatorAdded()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+
+            builder.AddCustomItem(new ToolStripMenuItem()).AddSeparator();
+
+            // Call
+            var result = builder.AddSeparator().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(2, result.Items.Count);
+        }
     }
 }
