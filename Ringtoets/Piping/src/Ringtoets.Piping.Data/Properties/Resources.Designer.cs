@@ -133,11 +133,20 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening.
+        ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
-        internal static string PipingCalculationData_DefaultName {
+        internal static string PipingCalculation_DefaultName {
             get {
-                return ResourceManager.GetString("PipingCalculationData_DefaultName", resourceCulture);
+                return ResourceManager.GetString("PipingCalculation_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe map.
+        /// </summary>
+        internal static string PipingCalculationGroup_DefaultName {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_DefaultName", resourceCulture);
             }
         }
         

@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(calculation);
 
-            Assert.AreEqual("Berekening", calculation.Name);
+            Assert.AreEqual("Nieuwe berekening", calculation.Name);
 
             Assert.AreEqual("Commentaar", calculation.Comments.Name);
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);

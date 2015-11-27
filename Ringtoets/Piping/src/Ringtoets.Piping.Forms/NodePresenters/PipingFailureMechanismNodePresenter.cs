@@ -49,13 +49,24 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             var rootMenu = new ContextMenuStrip();
 
-            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_Piping_Calculation,
-                                 Resources.PipingFailureMechanism_Add_Piping_Calculation_Tooltip,
+            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_PipingCalculation,
+                                 Resources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
                                  Resources.PipingIcon, (o, args) =>
                                  {
                                      var calculation = new PipingCalculation
                                      {
-                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationData_DefaultName, pd => pd.Name)
+                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
+                                     };
+                                     failureMechanism.Calculations.Add(calculation);
+                                     failureMechanism.NotifyObservers();
+                                 });
+            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_PipingCalculationGroup,
+                                 Resources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
+                                 Resources.AddFolderIcon, (o, args) =>
+                                 {
+                                     var calculation = new PipingCalculationGroup
+                                     {
+                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
                                      };
                                      failureMechanism.Calculations.Add(calculation);
                                      failureMechanism.NotifyObservers();

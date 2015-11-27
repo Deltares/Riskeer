@@ -15,14 +15,26 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
+            // Setup
+            var surfacelines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+            var calculation = new PipingCalculation();
+
             // Call
-            var presentationObject = new PipingCalculationContext();
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
-            Assert.IsNull(presentationObject.WrappedPipingCalculation);
-            CollectionAssert.IsEmpty(presentationObject.AvailablePipingSurfaceLines);
-            CollectionAssert.IsEmpty(presentationObject.AvailablePipingSoilProfiles);
+            Assert.IsInstanceOf<PipingContext<PipingCalculation>>(presentationObject);
+            Assert.AreSame(calculation, presentationObject.WrappedData);
+            Assert.AreSame(surfacelines, presentationObject.AvailablePipingSurfaceLines);
+            Assert.AreSame(profiles, presentationObject.AvailablePipingSoilProfiles);
         }
 
         [Test]
@@ -34,10 +46,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationContext
+            var surfacelines = new[]
             {
-                WrappedPipingCalculation = new PipingCalculation()
+                new RingtoetsPipingSurfaceLine()
             };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+            var calculation = new PipingCalculation();
+
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles);
             presentationObject.Attach(observer);
 
             // Call
@@ -55,10 +74,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationContext
+            var surfacelines = new[]
             {
-                WrappedPipingCalculation = new PipingCalculation()
+                new RingtoetsPipingSurfaceLine()
             };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+            var calculation = new PipingCalculation();
+
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles);
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 
@@ -78,11 +104,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculation();
-            var presentationObject = new PipingCalculationContext
+            var surfacelines = new[]
             {
-                WrappedPipingCalculation = calculation
+                new RingtoetsPipingSurfaceLine()
             };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+            var calculation = new PipingCalculation();
+
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles);
             presentationObject.Attach(observer);
 
             // Call
@@ -96,19 +128,28 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var inputs = new PipingCalculationContext
+            // Setup
+            var surfacelines = new[]
             {
-                WrappedPipingCalculation = new PipingCalculation
-                {
-                    Output = new TestPipingOutput()
-                }
+                new RingtoetsPipingSurfaceLine()
+            };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+            var calculation = new PipingCalculation
+            {
+                Output = new TestPipingOutput()
             };
 
             // Call
-            inputs.ClearOutput();
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles);
+
+            // Call
+            presentationObject.ClearOutput();
 
             // Assert
-            Assert.IsNull(inputs.WrappedPipingCalculation.Output);
+            Assert.IsNull(presentationObject.WrappedData.Output);
         }
     }
 }

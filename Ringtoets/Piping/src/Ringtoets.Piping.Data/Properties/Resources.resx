@@ -150,13 +150,16 @@
   <data name="RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor de profielmeting heeft geen waarde.</value>
   </data>
-  <data name="PipingCalculationData_DefaultName" xml:space="preserve">
-    <value>Berekening</value>
+  <data name="PipingCalculation_DefaultName" xml:space="preserve">
+    <value>Nieuwe berekening</value>
   </data>
   <data name="Comments_DisplayName" xml:space="preserve">
     <value>Commentaar</value>
   </data>
   <data name="CalculationReport_DisplayName" xml:space="preserve">
     <value>Berekeningsverslag</value>
+  </data>
+  <data name="PipingCalculationGroup_DefaultName" xml:space="preserve">
+    <value>Nieuwe map</value>
   </data>
 </root>

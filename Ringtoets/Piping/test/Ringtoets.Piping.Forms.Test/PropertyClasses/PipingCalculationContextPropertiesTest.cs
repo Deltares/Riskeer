@@ -1,4 +1,6 @@
-﻿using Core.Common.Base;
+﻿using System.Linq;
+
+using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -35,10 +37,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationContext
-                {
-                    WrappedPipingCalculation = calculation
-                }
+                Data = new PipingCalculationContext(calculation,
+                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                    Enumerable.Empty<PipingSoilProfile>())
             };
 
             // Call & Assert
@@ -59,10 +60,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationContext
-                {
-                    WrappedPipingCalculation = calculation
-                }
+                Data = new PipingCalculationContext(calculation,
+                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                    Enumerable.Empty<PipingSoilProfile>())
             };
 
             // Call & Assert
@@ -85,18 +85,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculation = new PipingCalculation();
             calculation.Attach(projectObserver);
 
-            // Call
-            new PipingCalculationContextProperties
+            var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationContext
-                {
-                    WrappedPipingCalculation = calculation
-                },
-                Name = string.Empty
+                Data = new PipingCalculationContext(calculation,
+                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                    Enumerable.Empty<PipingSoilProfile>())
             };
 
+            // Call
+            const string newName = "Some new cool pretty name";
+            properties.Name = newName;
+
             // Assert
-            Assert.AreEqual(string.Empty, calculation.Name);
+            Assert.AreEqual(newName, calculation.Name);
 
             mocks.VerifyAll();
         }

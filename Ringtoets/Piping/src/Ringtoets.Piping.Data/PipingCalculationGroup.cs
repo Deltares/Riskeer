@@ -3,6 +3,8 @@ using System.Linq;
 
 using Core.Common.Base;
 
+using Ringtoets.Piping.Data.Properties;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
@@ -15,7 +17,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingCalculationGroup()
         {
-            Name = "Berekening groep";
+            Name = Resources.PipingCalculationGroup_DefaultName;
             Children = new List<IPipingCalculationItem>();
         }
 

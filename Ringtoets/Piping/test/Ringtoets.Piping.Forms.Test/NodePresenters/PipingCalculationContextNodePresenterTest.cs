@@ -21,7 +21,7 @@ using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingCalculationNodePresenterTest
+    public class PipingCalculationContextNodePresenterTest
     {
         private MockRepository mockRepository;
 
@@ -58,21 +58,20 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
-            var pipingCalculationContext = new PipingCalculationContext
+            var calculation = new PipingCalculation
             {
-                WrappedPipingCalculation = new PipingCalculation
-                {
-                    Name = nodeName
-                }
+                Name = nodeName
             };
+            var pipingCalculationContext = new PipingCalculationContext(calculation,
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<PipingSoilProfile>());
 
             // Call
             nodePresenter.UpdateNode(null, pipingNode, pipingCalculationContext);
 
             // Assert
             Assert.AreEqual(nodeName, pipingNode.Text);
-            Assert.AreEqual(16, pipingNode.Image.Height);
-            Assert.AreEqual(16, pipingNode.Image.Width);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.PipingIcon, pipingNode.Image);
         }
 
         [Test]
@@ -84,28 +83,32 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
-            var pipingCalculationContext = new PipingCalculationContext
+            var calculation = new PipingCalculation
             {
-                WrappedPipingCalculation = new PipingCalculation
-                {
-                    Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-                },
-                AvailablePipingSurfaceLines = new[]{new RingtoetsPipingSurfaceLine()},
-                AvailablePipingSoilProfiles = new[]{new TestPipingSoilProfile()}
+                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
             };
+            var pipingCalculationContext = new PipingCalculationContext(calculation,
+                                                                        new[]
+                                                                        {
+                                                                            new RingtoetsPipingSurfaceLine()
+                                                                        },
+                                                                        new[]
+                                                                        {
+                                                                            new TestPipingSoilProfile()
+                                                                        });
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingCalculationContext).OfType<object>().ToArray();
 
             // Assert
             Assert.AreEqual(4, children.Length);
-            Assert.AreSame(pipingCalculationContext.WrappedPipingCalculation.Comments, children[0]);
+            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
             var pipingInputContext = (PipingInputContext)children[1];
-            Assert.AreSame(pipingCalculationContext.WrappedPipingCalculation.InputParameters, pipingInputContext.WrappedPipingInput);
+            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedPipingInput);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
-            Assert.AreSame(pipingCalculationContext.WrappedPipingCalculation.Output, children[2]);
-            Assert.AreSame(pipingCalculationContext.WrappedPipingCalculation.CalculationReport, children[3]);
+            Assert.AreSame(pipingCalculationContext.WrappedData.Output, children[2]);
+            Assert.AreSame(pipingCalculationContext.WrappedData.CalculationReport, children[3]);
             mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -118,22 +121,22 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
-            var pipingCalculationContext = new PipingCalculationContext
-            {
-                WrappedPipingCalculation = new PipingCalculation()
-            };
+            var pipingCalculationContext = new PipingCalculationContext(new PipingCalculation(),
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<PipingSoilProfile>());
+            
 
             // Precondition
-            Assert.IsFalse(pipingCalculationContext.WrappedPipingCalculation.HasOutput);
+            Assert.IsFalse(pipingCalculationContext.WrappedData.HasOutput);
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingCalculationContext).OfType<object>().ToArray();
 
             // Assert
             Assert.AreEqual(4, children.Length);
-            Assert.AreSame(pipingCalculationContext.WrappedPipingCalculation.Comments, children[0]);
+            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
             var pipingInputContext = (PipingInputContext)children[1];
-            Assert.AreSame(pipingCalculationContext.WrappedPipingCalculation.InputParameters, pipingInputContext.WrappedPipingInput);
+            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedPipingInput);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
 
@@ -188,10 +191,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 Name = "<Original name>"
             };
-            var pipingCalculationsInputs = new PipingCalculationContext
-            {
-                WrappedPipingCalculation = calculation
-            };
+            var pipingCalculationsInputs = new PipingCalculationContext(calculation,
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<PipingSoilProfile>());
             pipingCalculationsInputs.Attach(observerMock);
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
@@ -225,26 +227,28 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanDrag_Always_ReturnNone()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
-            mockRepository.ReplayAll();
+            var nodeData = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
             // Call
-            DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
+            DragOperations dragAllowed = nodePresenter.CanDrag(nodeData);
 
             // Assert
             Assert.AreEqual(DragOperations.None, dragAllowed);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanDrop_Always_ReturnNone()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
             var sourceMock = mockRepository.StrictMock<ITreeNode>();
             var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
+                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                               Enumerable.Empty<PipingSoilProfile>());
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
@@ -261,10 +265,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanInsert_Always_ReturnFalse()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
             var sourceMock = mockRepository.StrictMock<ITreeNode>();
             var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
+                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                               Enumerable.Empty<PipingSoilProfile>());
             mockRepository.ReplayAll();
+
+
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
@@ -280,10 +288,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnDragDrop_Always_DoNothing()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
             var sourceParentNodeMock = mockRepository.StrictMock<ITreeNode>();
             var targetParentNodeDataMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
+                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                               Enumerable.Empty<PipingSoilProfile>());
             mockRepository.ReplayAll();
+
+
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
@@ -298,7 +310,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnNodeSelected_Always_DoNothing()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
+                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                               Enumerable.Empty<PipingSoilProfile>());
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
@@ -315,20 +329,23 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
-            dataMock.WrappedPipingCalculation = new PipingCalculation();
+            mockRepository.ReplayAll();
+
+            var nodeData = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
-            mockRepository.ReplayAll();
-
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
 
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(3, contextMenu.Items.Count);
-            Assert.AreEqual(RingtoetsFormsResources.Validate, contextMenu.Items[contextMenuValidateIndex].Text);
+            var validateItem = contextMenu.Items[contextMenuValidateIndex];
+            Assert.AreEqual(RingtoetsFormsResources.Validate, validateItem.Text);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidationIcon, validateItem.Image);
 
             ToolStripItem calculatePipingItem = contextMenu.Items[contextMenuCalculateIndex];
             Assert.AreEqual(RingtoetsFormsResources.Calculate, calculatePipingItem.Text);
@@ -347,15 +364,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
-            dataMock.WrappedPipingCalculation = new PipingCalculation();
+            mockRepository.ReplayAll();
+
+            var nodeData = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
-            mockRepository.ReplayAll();
-
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
 
             // Assert
             Assert.IsNotNull(contextMenu);
@@ -372,18 +390,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
-            dataMock.WrappedPipingCalculation = new PipingCalculation
+            mockRepository.ReplayAll();
+
+            var calculation = new PipingCalculation
             {
                 Output = new TestPipingOutput()
             };
+            var nodeData = new PipingCalculationContext(calculation,
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
+            
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
-            mockRepository.ReplayAll();
-
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
 
             // Assert
             Assert.IsNotNull(contextMenu);
@@ -399,10 +420,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
             var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
             mockRepository.ReplayAll();
+
+            var dataMock = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
@@ -417,9 +441,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnCollectionChange_Always_DoNothing()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>();
             var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangingEventArgs>();
             mockRepository.ReplayAll();
+
+            var dataMock = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
@@ -455,8 +482,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
+            var calculationContext = new PipingCalculationContext(new PipingCalculation(),
+                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingSoilProfile>());
+
             // Call
-            bool removalAllowed = nodePresenter.CanRemove(pipingCalculationsFolder, new PipingCalculationContext());
+            bool removalAllowed = nodePresenter.CanRemove(pipingCalculationsFolder, calculationContext);
 
             // Assert
             Assert.IsFalse(removalAllowed);
@@ -467,8 +498,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var dataMock = mockRepository.StrictMock<object>();
-            var nodeMock = mockRepository.StrictMock<PipingCalculationContext>();
             mockRepository.ReplayAll();
+
+            var nodeMock = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
 
@@ -550,7 +584,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 RunActivityAction = activity => activityRunner.Enqueue(activity)
             };
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext { WrappedPipingCalculation = calculation });
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext(calculation,
+                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                     Enumerable.Empty<PipingSoilProfile>()));
             
             // When
             Action action = () =>
@@ -568,14 +604,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 var msgs = messages.GetEnumerator();
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Berekening' gestart om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
                 for (int i = 0; i < expectedValidationMessageCount; i++)
                 {
                     Assert.IsTrue(msgs.MoveNext());
                     StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
                 }
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Berekening' beëindigd om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
             });
             Assert.IsNull(calculation.Output);
             mockRepository.VerifyAll();// Expect no calls on observer as no calculation has been performed
@@ -598,7 +634,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext { WrappedPipingCalculation = calculation });
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext(calculation,
+                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                     Enumerable.Empty<PipingSoilProfile>()));
 
             // When
             Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
@@ -648,7 +686,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var activityRunner = new ActivityRunner();
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext { WrappedPipingCalculation = calculation });
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext(calculation,
+                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                     Enumerable.Empty<PipingSoilProfile>()));
             nodePresenter.RunActivityAction = activity => activityRunner.Enqueue(activity);
 
             // When
@@ -667,14 +707,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 var msgs = messages.GetEnumerator();
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Berekening' gestart om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Validatie van 'Berekening' beëindigd om: ", msgs.Current);
+                StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
 
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Berekening van 'Berekening' gestart om: ", msgs.Current);
+                StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", msgs.Current);
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Berekening van 'Berekening' beëindigd om: ", msgs.Current);
+                StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
             });
             Assert.IsNotNull(calculation.Output);
             mockRepository.VerifyAll();
@@ -694,7 +734,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationContextNodePresenter();
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext { WrappedPipingCalculation = calculation });
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationContext(calculation,
+                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                     Enumerable.Empty<PipingSoilProfile>()));
 
             // When
             contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();

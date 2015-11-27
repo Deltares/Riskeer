@@ -40,22 +40,21 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 CollectionAssert.AreEqual(failureMechanism.SoilProfiles, pipingCalculationContext.AvailablePipingSoilProfiles);
             }
             CollectionAssert.AreEqual(failureMechanism.Calculations, calculationPresentationObjects
-                                                                         .Select(pci => pci.WrappedPipingCalculation)
+                                                                         .Select(pci => pci.WrappedData)
                                                                          .ToArray());
             Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
         }
 
         [Test]
-        public void ParameteredConstructor_FailureMechanismWithOneEmptyCalculationGroup_ExpectedValues()
+        public void ParameteredConstructor_FailureMechanismWithOneCalculationGroup_ExpectedValues()
         {
             // Setup
             const string folderName = "Berekeningen";
-
-            var group = new PipingCalculationGroup();
-
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(group);
+            failureMechanism.Calculations.Add(new PipingCalculationGroup());
+            AddTestSurfaceLines(failureMechanism);
+            AddTestSoilProfiles(failureMechanism);
 
             // Call
             var calculationsFolder = new PipingCalculationsTreeFolder(folderName, failureMechanism);
@@ -67,7 +66,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             object[] contentsAsArray = calculationsFolder.Contents.OfType<object>().ToArray();
             Assert.AreEqual(1, contentsAsArray.Length);
-            CollectionAssert.AreEqual(new[]{group}, contentsAsArray);
+            var groupPresentationObjects = contentsAsArray.Cast<PipingCalculationGroupContext>()
+                                                          .ToArray();
+            foreach (var groupContext in groupPresentationObjects)
+            {
+                CollectionAssert.AreEqual(failureMechanism.SurfaceLines, groupContext.AvailablePipingSurfaceLines);
+                CollectionAssert.AreEqual(failureMechanism.SoilProfiles, groupContext.AvailablePipingSoilProfiles);
+            }
+            CollectionAssert.AreEqual(failureMechanism.Calculations, groupPresentationObjects
+                                                                         .Select(gc => gc.WrappedData)
+                                                                         .ToArray());
+            Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
         }
 
         private void AddTestSurfaceLines(PipingFailureMechanism failureMechanism)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using NUnit.Framework;
@@ -143,37 +144,25 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_WithParentNotContainingPipingCalculation_ThrowsNullReferenceException()
-        {
-            // Setup
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(new PipingCalculationContext(), new TestPipingOutput());
-
-            // Assert
-            Assert.Throws<NullReferenceException>(removeAction);
-        }
-
-        [Test]
         public void RemoveNodeData_WithParentContainingOutput_OutputCleared()
         {
             // Setup
             var nodePresenter = new PipingOutputNodePresenter();
 
-            var pipingCalculationContext = new PipingCalculationContext
+            var calculation = new PipingCalculation
             {
-                WrappedPipingCalculation = new PipingCalculation
-                {
-                    Output = new TestPipingOutput()
-                }
+                Output = new TestPipingOutput()
             };
+            var pipingCalculationContext = new PipingCalculationContext(calculation,
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<PipingSoilProfile>());
 
             // Call
-            nodePresenter.RemoveNodeData(pipingCalculationContext, new TestPipingOutput());
+            nodePresenter.RemoveNodeData(pipingCalculationContext, calculation.Output);
 
             // Assert
-            Assert.IsNull(pipingCalculationContext.WrappedPipingCalculation.Output);
+            Assert.IsNull(calculation.Output);
+            Assert.IsFalse(calculation.HasOutput);
         }
     }
 }

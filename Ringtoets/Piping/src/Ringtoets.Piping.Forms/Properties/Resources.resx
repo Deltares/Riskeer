@@ -266,13 +266,13 @@
     <value>Piping resultaat</value>
   </data>
   <data name="PipingOutput_HeaveFactorOfSafety_Description" xml:space="preserve">
-    <value>Veiligheidsfactor heave</value>
+    <value>Veiligheidsfactor heave.</value>
   </data>
   <data name="PipingOutput_HeaveFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor heave</value>
   </data>
   <data name="PipingOutput_HeaveZValue_Description" xml:space="preserve">
-    <value>Z-waarde heave</value>
+    <value>Z-waarde heave.</value>
   </data>
   <data name="PipingOutput_HeaveZValue_DisplayName" xml:space="preserve">
     <value>Z-waarde heave</value>
@@ -281,13 +281,13 @@
     <value>Piping resultaten</value>
   </data>
   <data name="PipingOutput_SellmeijerFactorOfSafety_Description" xml:space="preserve">
-    <value>Veiligheidsfactor Sellmeijer</value>
+    <value>Veiligheidsfactor Sellmeijer.</value>
   </data>
   <data name="PipingOutput_SellmeijerFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor Sellmeijer</value>
   </data>
   <data name="PipingOutput_SellmeijerZValue_Description" xml:space="preserve">
-    <value>Z-waarde Sellmeijer</value>
+    <value>Z-waarde Sellmeijer.</value>
   </data>
   <data name="PipingOutput_SellmeijerZValue_DisplayName" xml:space="preserve">
     <value>Z-waarde Sellmeijer</value>
@@ -299,7 +299,7 @@
     <value>Veiligheidsfactor opbarsten</value>
   </data>
   <data name="PipingOutput_UpliftZValue_Description" xml:space="preserve">
-    <value>Z-waarde opbarsten</value>
+    <value>Z-waarde opbarsten.</value>
   </data>
   <data name="PipingOutput_UpliftZValue_DisplayName" xml:space="preserve">
     <value>Z-waarde opbarsten</value>
@@ -338,7 +338,7 @@
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Name_Description" xml:space="preserve">
-    <value>Naam van de profielmeting</value>
+    <value>Naam van de profielmeting.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -358,10 +358,10 @@
   <data name="PipingInput_SurfaceLine_DisplayName" xml:space="preserve">
     <value>Profielmeting</value>
   </data>
-  <data name="PipingCalculationData_Name_Description" xml:space="preserve">
+  <data name="PipingCalculation_Name_Description" xml:space="preserve">
     <value>Naam van de piping berekening.</value>
   </data>
-  <data name="PipingCalculationData_Name_DisplayName" xml:space="preserve">
+  <data name="PipingCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="PipingSoilProfile_Bottom_Description" xml:space="preserve">
@@ -391,10 +391,10 @@
   <data name="PipingInput_SoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisering</value>
   </data>
-  <data name="PipingFailureMechanism_Add_Piping_Calculation" xml:space="preserve">
+  <data name="PipingFailureMechanism_Add_PipingCalculation" xml:space="preserve">
     <value>Berekening toevoegen</value>
   </data>
-  <data name="PipingFailureMechanism_Add_Piping_Calculation_Tooltip" xml:space="preserve">
+  <data name="PipingFailureMechanism_Add_PipingCalculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe piping berekening toe aan het faalmechanisme.</value>
   </data>
   <data name="Calculate" xml:space="preserve">
@@ -471,5 +471,38 @@
   </data>
   <data name="PipingCalculationReportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\control-record.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipingFailureMechanism_Add_PipingCalculationGroup" xml:space="preserve">
+    <value>Map toevoegen</value>
+  </data>
+  <data name="PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip" xml:space="preserve">
+    <value>Voeg een nieuwe berekeningsmap toe aan het faalmechanisme.</value>
+  </data>
+  <data name="ValidationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipingCalculationGroupContextProperties_DisplayName" xml:space="preserve">
+    <value>Berekeningsmap</value>
+  </data>
+  <data name="PipingCalculationGroup_Name_Description" xml:space="preserve">
+    <value>Naam van de berekeningsmap.</value>
+  </data>
+  <data name="PipingCalculationGroup_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null" xml:space="preserve">
+    <value>{0} mag niet 'null' zijn.</value>
+  </data>
+  <data name="PipingContext_DataDescription_WrappedData" xml:space="preserve">
+    <value>Het piping data object</value>
+  </data>
+  <data name="PipingContext_DataDescription_Surfacelines" xml:space="preserve">
+    <value>De verzameling van profielmetingen</value>
+  </data>
+  <data name="PipingContext_DataDescription_Soilprofiles" xml:space="preserve">
+    <value>De verzameling van ondergrondschematiseringen</value>
   </data>
 </root>

@@ -30,23 +30,23 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationContext pipingCalculationContext)
         {
-            node.Text = pipingCalculationContext.WrappedPipingCalculation.Name;
+            node.Text = pipingCalculationContext.WrappedData.Name;
             node.Image = Resources.PipingIcon;
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationContext pipingCalculationContext)
         {
-            yield return pipingCalculationContext.WrappedPipingCalculation.Comments;
+            yield return pipingCalculationContext.WrappedData.Comments;
             yield return new PipingInputContext
             {
-                WrappedPipingInput = pipingCalculationContext.WrappedPipingCalculation.InputParameters,
+                WrappedPipingInput = pipingCalculationContext.WrappedData.InputParameters,
                 AvailablePipingSurfaceLines = pipingCalculationContext.AvailablePipingSurfaceLines,
                 AvailablePipingSoilProfiles = pipingCalculationContext.AvailablePipingSoilProfiles
             };
-            if (pipingCalculationContext.WrappedPipingCalculation.HasOutput)
+            if (pipingCalculationContext.WrappedData.HasOutput)
             {
-                yield return pipingCalculationContext.WrappedPipingCalculation.Output;
-                yield return pipingCalculationContext.WrappedPipingCalculation.CalculationReport;
+                yield return pipingCalculationContext.WrappedData.Output;
+                yield return pipingCalculationContext.WrappedData.CalculationReport;
             }
             else
             {
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var calculationsFolder = parentNodeData as PipingCalculationsTreeFolder;
             if (calculationsFolder != null)
             {
-                var succesfullyRemovedData = calculationsFolder.ParentFailureMechanism.Calculations.Remove(nodeData.WrappedPipingCalculation);
+                var succesfullyRemovedData = calculationsFolder.ParentFailureMechanism.Calculations.Remove(nodeData.WrappedData);
                 calculationsFolder.ParentFailureMechanism.NotifyObservers();
                 return succesfullyRemovedData;
             }
@@ -89,18 +89,18 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override void OnNodeRenamed(PipingCalculationContext pipingCalculationContext, string newName)
         {
-            pipingCalculationContext.WrappedPipingCalculation.Name = newName;
-            pipingCalculationContext.WrappedPipingCalculation.NotifyObservers();
+            pipingCalculationContext.WrappedData.Name = newName;
+            pipingCalculationContext.WrappedData.NotifyObservers();
         }
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationContext nodeData)
         {
-            PipingCalculation calculation = nodeData.WrappedPipingCalculation;
+            PipingCalculation calculation = nodeData.WrappedData;
 
             var contextMenu = new ContextMenuStrip();
             contextMenu.AddMenuItem(Resources.Validate,
                                     null,
-                                    null,
+                                    Resources.ValidationIcon,
                                     (o, args) =>
                                     {
                                         PipingCalculationService.Validate(calculation);

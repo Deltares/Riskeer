@@ -10,18 +10,18 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class PipingCalculationContextProperties : ObjectProperties<PipingCalculationContext>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingCalculationData_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingCalculationData_Name_Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingCalculation_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingCalculation_Name_Description")]
         public string Name
         {
             get
             {
-                return data.WrappedPipingCalculation.Name;
+                return data.WrappedData.Name;
             }
             set
             {
-                data.WrappedPipingCalculation.Name = value;
-                data.WrappedPipingCalculation.NotifyObservers();
+                data.WrappedData.Name = value;
+                data.WrappedData.NotifyObservers();
             }
         }
     }

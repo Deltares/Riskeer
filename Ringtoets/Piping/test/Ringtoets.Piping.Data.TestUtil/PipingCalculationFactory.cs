@@ -1,7 +1,6 @@
 ﻿using System;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Service.Test.TestHelpers
+namespace Ringtoets.Piping.Data.TestUtil
 {
     public static class PipingCalculationFactory
     {

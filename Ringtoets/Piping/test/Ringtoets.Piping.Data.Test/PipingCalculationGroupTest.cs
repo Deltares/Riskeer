@@ -18,7 +18,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(group);
             Assert.IsInstanceOf<Observable>(group);
-            Assert.AreEqual("Berekening groep", group.Name);
+            Assert.AreEqual("Nieuwe map", group.Name);
             Assert.IsFalse(group.HasOutput);
             CollectionAssert.IsEmpty(group.Children);
         }

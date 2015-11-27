@@ -61,6 +61,16 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AddFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("AddFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekenen.
         /// </summary>
         public static string Calculate {
@@ -234,6 +244,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam van de piping berekening..
+        /// </summary>
+        public static string PipingCalculation_Name_Description {
+            get {
+                return ResourceManager.GetString("PipingCalculation_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string PipingCalculation_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculation_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Piping.
         /// </summary>
         public static string PipingCalculationContextProperties_DisplayName {
@@ -243,20 +271,29 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de piping berekening..
+        ///   Looks up a localized string similar to Naam van de berekeningsmap..
         /// </summary>
-        public static string PipingCalculationData_Name_Description {
+        public static string PipingCalculationGroup_Name_Description {
             get {
-                return ResourceManager.GetString("PipingCalculationData_Name_Description", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationGroup_Name_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
-        public static string PipingCalculationData_Name_DisplayName {
+        public static string PipingCalculationGroup_Name_DisplayName {
             get {
-                return ResourceManager.GetString("PipingCalculationData_Name_DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationGroup_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningsmap.
+        /// </summary>
+        public static string PipingCalculationGroupContextProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroupContextProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -271,20 +308,74 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
+        /// </summary>
+        public static string PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
+            get {
+                return ResourceManager.GetString("PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verzameling van ondergrondschematiseringen.
+        /// </summary>
+        public static string PipingContext_DataDescription_Soilprofiles {
+            get {
+                return ResourceManager.GetString("PipingContext_DataDescription_Soilprofiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verzameling van profielmetingen.
+        /// </summary>
+        public static string PipingContext_DataDescription_Surfacelines {
+            get {
+                return ResourceManager.GetString("PipingContext_DataDescription_Surfacelines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het piping data object.
+        /// </summary>
+        public static string PipingContext_DataDescription_WrappedData {
+            get {
+                return ResourceManager.GetString("PipingContext_DataDescription_WrappedData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekening toevoegen.
         /// </summary>
-        public static string PipingFailureMechanism_Add_Piping_Calculation {
+        public static string PipingFailureMechanism_Add_PipingCalculation {
             get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_Piping_Calculation", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Voeg een nieuwe piping berekening toe aan het faalmechanisme..
         /// </summary>
-        public static string PipingFailureMechanism_Add_Piping_Calculation_Tooltip {
+        public static string PipingFailureMechanism_Add_PipingCalculation_Tooltip {
             get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_Piping_Calculation_Tooltip", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculation_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map toevoegen.
+        /// </summary>
+        public static string PipingFailureMechanism_Add_PipingCalculationGroup {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculationGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan het faalmechanisme..
+        /// </summary>
+        public static string PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip", resourceCulture);
             }
         }
         
@@ -768,7 +859,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsfactor heave.
+        ///   Looks up a localized string similar to Veiligheidsfactor heave..
         /// </summary>
         public static string PipingOutput_HeaveFactorOfSafety_Description {
             get {
@@ -786,7 +877,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Z-waarde heave.
+        ///   Looks up a localized string similar to Z-waarde heave..
         /// </summary>
         public static string PipingOutput_HeaveZValue_Description {
             get {
@@ -813,7 +904,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsfactor Sellmeijer.
+        ///   Looks up a localized string similar to Veiligheidsfactor Sellmeijer..
         /// </summary>
         public static string PipingOutput_SellmeijerFactorOfSafety_Description {
             get {
@@ -831,7 +922,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Z-waarde Sellmeijer.
+        ///   Looks up a localized string similar to Z-waarde Sellmeijer..
         /// </summary>
         public static string PipingOutput_SellmeijerZValue_Description {
             get {
@@ -867,7 +958,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Z-waarde opbarsten.
+        ///   Looks up a localized string similar to Z-waarde opbarsten..
         /// </summary>
         public static string PipingOutput_UpliftZValue_Description {
             get {
@@ -1069,7 +1160,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de profielmeting.
+        ///   Looks up a localized string similar to Naam van de profielmeting..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_Name_Description {
             get {
@@ -1128,6 +1219,16 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string Validate {
             get {
                 return ResourceManager.GetString("Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ValidationIcon {
+            get {
+                object obj = ResourceManager.GetObject("ValidationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

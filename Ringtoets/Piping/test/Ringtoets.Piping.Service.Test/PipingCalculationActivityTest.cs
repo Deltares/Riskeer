@@ -9,7 +9,7 @@ using Rhino.Mocks;
 
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Service.Test.TestHelpers;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {

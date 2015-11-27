@@ -28,14 +28,18 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             foreach (var calculationItem in failureMechanism.Calculations)
             {
                 var pipingCalculation = calculationItem as PipingCalculation;
+                var pipingCalculationGroup = calculationItem as PipingCalculationGroup;
                 if (pipingCalculation != null)
                 {
-                    yield return new PipingCalculationContext
-                    {
-                        WrappedPipingCalculation = pipingCalculation,
-                        AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
-                        AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
-                    };
+                    yield return new PipingCalculationContext(pipingCalculation,
+                                                              failureMechanism.SurfaceLines,
+                                                              failureMechanism.SoilProfiles);
+                }
+                else if (pipingCalculationGroup != null)
+                {
+                    yield return new PipingCalculationGroupContext(pipingCalculationGroup,
+                                                                   failureMechanism.SurfaceLines,
+                                                                   failureMechanism.SoilProfiles);
                 }
                 else
                 {

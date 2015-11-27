@@ -6,8 +6,7 @@ using Ringtoets.Piping.Calculation.TestUtil;
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data;
-
-using Ringtoets.Piping.Service.Test.TestHelpers;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {

@@ -15,7 +15,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingCalculation()
         {
-            Name = Resources.PipingCalculationData_DefaultName;
+            Name = Resources.PipingCalculation_DefaultName;
 
             Comments = new InputPlaceholder(Resources.Comments_DisplayName);
             InputParameters = new PipingInput();
