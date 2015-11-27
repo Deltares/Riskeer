@@ -14,7 +14,6 @@ namespace Core.Common.Gui.ContextMenu
         private readonly GuiContextMenuItemFactory guiItemsFactory;
         private readonly TreeViewContextMenuItemFactory treeViewItemsFactory;
         private readonly ContextMenuStrip contextMenu;
-        private readonly ITreeNode treeNode;
 
         /// <summary>
         /// Creates a new instance of <see cref="ContextMenuBuilder"/>, which uses the given <paramref name="gui"/> to 
@@ -33,7 +32,6 @@ namespace Core.Common.Gui.ContextMenu
             }
             treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             contextMenu = new ContextMenuStrip();
-            this.treeNode = treeNode;
         }
 
         /// <summary>
@@ -130,9 +128,9 @@ namespace Core.Common.Gui.ContextMenu
         /// <summary>
         /// Adds a custom item to the <see cref="ContextMenuStrip"/>.
         /// </summary>
-        /// <param name="item">The custom <see cref="ToolStripMenuItem"/> to add to the <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="item">The custom <see cref="StrictContextMenuItem"/> to add to the <see cref="ContextMenuStrip"/>.</param>
         /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        public ContextMenuBuilder AddCustomItem(ToolStripMenuItem item)
+        public ContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
         {
             AddItem(item);
             return this;

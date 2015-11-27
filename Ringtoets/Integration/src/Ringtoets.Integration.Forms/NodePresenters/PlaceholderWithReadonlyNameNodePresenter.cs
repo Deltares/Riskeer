@@ -45,11 +45,12 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
-                var clearItem = new ToolStripMenuItem
+                var clearItem = new StrictContextMenuItem(
+                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
+                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
+                    RingtoetsCommonFormsResources.ClearIcon,
+                    null)
                 {
-                    Text = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
-                    ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
-                    Image = RingtoetsCommonFormsResources.ClearIcon,
                     Enabled = false
                 };
 

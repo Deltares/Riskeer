@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
-
-using Ringtoets.Common.Forms.Extensions;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -28,6 +28,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingFailureMechanismNodePresenter : RingtoetsNodePresenterBase<PipingFailureMechanism>
     {
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { get; set; }
+
         /// <summary>
         /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
         /// </summary>
@@ -49,58 +51,95 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
         {
-            var rootMenu = new ContextMenuStrip();
+            if (ContextMenuBuilderProvider == null)
+            {
+                return null;
+            }
 
-            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_PipingCalculation,
-                                 Resources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
-                                 Resources.PipingIcon, (o, args) =>
-                                 {
-                                     var calculation = new PipingCalculation
-                                     {
-                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
-                                     };
-                                     failureMechanism.Calculations.Add(calculation);
-                                     failureMechanism.NotifyObservers();
-                                 });
-            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_PipingCalculationGroup,
-                                 Resources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
-                                 Resources.AddFolderIcon, (o, args) =>
-                                 {
-                                     var calculation = new PipingCalculationGroup
-                                     {
-                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
-                                     };
-                                     failureMechanism.Calculations.Add(calculation);
-                                     failureMechanism.NotifyObservers();
-                                 });
-            rootMenu.AddMenuItem(RingtoetsCommonFormsResources.Calculate_all,
-                                 Resources.PipingFailureMechanism_Calculate_Tooltip,
-                                 RingtoetsCommonFormsResources.CalculateAllIcon, (o, args) =>
-                                 {
-                                     foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
-                                     {
-                                         RunActivityAction(new PipingCalculationActivity(calc));
-                                     }
-                                 });
+            var addCalculationItem = new StrictContextMenuItem(
+                Resources.PipingFailureMechanism_Add_PipingCalculation,
+                Resources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
+                Resources.PipingIcon,
+                (s, e) => AddCalculation(failureMechanism)
+                );
 
-            var clearOutputNode = rootMenu.AddMenuItem(RingtoetsCommonFormsResources.Clear_all_output,
-                                                       RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                                                       RingtoetsCommonFormsResources.ClearIcon, (o, args) =>
-                                                       {
-                                                           foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
-                                                           {
-                                                               calc.ClearOutput();
-                                                               calc.NotifyObservers();
-                                                           }
-                                                       });
+            var addCalculationGroupItem = new StrictContextMenuItem(
+                Resources.PipingFailureMechanism_Add_PipingCalculationGroup,
+                Resources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
+                Resources.AddFolderIcon,
+                (o, args) => AddCalculationGroup(failureMechanism)
+                );
+
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_all,
+                Resources.PipingFailureMechanism_Calculate_Tooltip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (o, args) => CalculateAll(failureMechanism)
+                );
+
+            var clearAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Clear_all_output,
+                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
+                RingtoetsCommonFormsResources.ClearIcon,
+                (o, args) => ClearAll(failureMechanism)
+                );
 
             if (!GetAllPipingCalculationsResursively(failureMechanism).Any(c => c.HasOutput))
             {
-                clearOutputNode.Enabled = false;
-                clearOutputNode.ToolTipText = Resources.ClearOutput_No_calculation_with_output_to_clear;
+                clearAllItem.Enabled = false;
+                clearAllItem.ToolTipText = Resources.ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return rootMenu;
+            return ContextMenuBuilderProvider.Get(sender)
+                                             .AddCustomItem(addCalculationItem)
+                                             .AddCustomItem(addCalculationGroupItem)
+                                             .AddSeparator()
+                                             .AddCustomItem(calculateAllItem)
+                                             .AddCustomItem(clearAllItem)
+                                             .AddSeparator()
+                                             .AddExpandAllItem()
+                                             .AddCollapseAllItem()
+                                             .AddSeparator()
+                                             .AddImportItem()
+                                             .AddExportItem()
+                                             .Build();
+        }
+
+        private static void ClearAll(PipingFailureMechanism failureMechanism)
+        {
+            foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
+            {
+                calc.ClearOutput();
+                calc.NotifyObservers();
+            }
+        }
+
+        private void CalculateAll(PipingFailureMechanism failureMechanism)
+        {
+            foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
+            {
+                RunActivityAction(new PipingCalculationActivity(calc));
+            }
+        }
+
+        private static void AddCalculationGroup(PipingFailureMechanism failureMechanism)
+        {
+            var calculation = new PipingCalculationGroup
+            {
+                Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
+            };
+            failureMechanism.Calculations.Add(calculation);
+            failureMechanism.NotifyObservers();
+        }
+
+        private static void AddCalculation(PipingFailureMechanism failureMechanism)
+        {
+            var calculation = new PipingCalculation
+            {
+                Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
+            };
+            failureMechanism.Calculations.Add(calculation);
+            failureMechanism.NotifyObservers();
         }
 
         private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism)

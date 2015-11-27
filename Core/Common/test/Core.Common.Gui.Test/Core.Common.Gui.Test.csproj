@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextMenu\ContextMenuBuilderTest.cs" />
+    <Compile Include="ContextMenu\StrictContextMenuItemTest.cs" />
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
     <Compile Include="ExpandableArrayConverterTest.cs" />

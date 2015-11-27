@@ -38,19 +38,21 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, FailureMechanismPlaceholder nodeData)
         {
             ContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(sender);
-            
-            var calculateItem = new ToolStripMenuItem
+
+            var calculateItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_all,
+                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                null)
             {
-                Text = RingtoetsCommonFormsResources.Calculate_all,
-                ToolTipText = RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                Image = RingtoetsCommonFormsResources.CalculateAllIcon,
                 Enabled = false
             };
-            var clearOutputItem = new ToolStripMenuItem
+            var clearOutputItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Clear_all_output,
+                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
+                RingtoetsCommonFormsResources.ClearIcon, null
+                )
             {
-                Text = RingtoetsCommonFormsResources.Clear_all_output,
-                ToolTipText = RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                Image = RingtoetsCommonFormsResources.ClearIcon,
                 Enabled = false
             };
             var contextMenu = menuBuilder.AddCustomItem(calculateItem)

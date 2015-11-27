@@ -131,6 +131,9 @@
     </Compile>
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
+    <Compile Include="ContextMenu\StrictContextMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactory.cs" />
     <Compile Include="CustomSettingsProvider.cs" />
     <Compile Include="GuiCoreSettings.cs" />

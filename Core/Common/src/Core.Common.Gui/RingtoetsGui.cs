@@ -45,9 +45,9 @@ namespace Core.Common.Gui
         private static string instanceCreationStackTrace;
 
         private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
+        private readonly ApplicationCore applicationCore;
 
         private MainWindow mainWindow;
-        private readonly ApplicationCore applicationCore;
 
         private object selection;
 
@@ -279,6 +279,19 @@ namespace Core.Common.Gui
 
         public bool IsViewRemoveOnItemDeleteSuspended { get; set; }
 
+        public IContextMenuBuilderProvider ContextMenuProvider
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        public ContextMenuBuilder Get(ITreeNode treeNode)
+        {
+            return new ContextMenuBuilder(this, treeNode);
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -379,6 +392,17 @@ namespace Core.Common.Gui
             }
 
             return null;
+        }
+
+        public void UpdateTitle()
+        {
+            if (mainWindow != null)
+            {
+                mainWindow.Title = string.Format("{0} - {1} {2}",
+                                                 Project != null ? Project.Name : Resources.RingtoetsGui_UpdateTitle_Unknown,
+                                                 FixedSettings.MainWindowTitle,
+                                                 SettingsHelper.ApplicationVersion);
+            }
         }
 
         protected virtual void Dispose(bool disposing)
@@ -849,17 +873,6 @@ namespace Core.Common.Gui
             log.Info(Resources.RingtoetsGui_InitializeWindows_All_windows_are_created);
         }
 
-        public void UpdateTitle()
-        {
-            if (mainWindow != null)
-            {
-                mainWindow.Title = string.Format("{0} - {1} {2}",
-                                                 Project != null ? Project.Name : Resources.RingtoetsGui_UpdateTitle_Unknown,
-                                                 FixedSettings.MainWindowTitle,
-                                                 SettingsHelper.ApplicationVersion);
-            }
-        }
-
         private void ActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
         {
             if (e.View == null || mainWindow == null || mainWindow.IsWindowDisposed)
@@ -1070,11 +1083,6 @@ namespace Core.Common.Gui
         ~RingtoetsGui()
         {
             Dispose(false);
-        }
-
-        public ContextMenuBuilder Get(ITreeNode treeNode)
-        {
-            return new ContextMenuBuilder(this, treeNode);
         }
     }
 }

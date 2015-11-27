@@ -280,7 +280,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
-            var item = new ToolStripMenuItem();
+            var item = new StrictContextMenuItem(null,null,null,null);
             // Call
             var result = builder.AddCustomItem(item).Build();
 
@@ -310,8 +310,8 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
-            
-            builder.AddCustomItem(new ToolStripMenuItem());
+
+            builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null));
 
             // Call
             var result = builder.AddSeparator().Build();
@@ -329,7 +329,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
 
-            builder.AddCustomItem(new ToolStripMenuItem()).AddSeparator();
+            builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null)).AddSeparator();
 
             // Call
             var result = builder.AddSeparator().Build();

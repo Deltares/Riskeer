@@ -2,8 +2,11 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
@@ -18,6 +21,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -26,8 +30,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
         private const int contextMenuAddCalculationIndex = 0;
         private const int contextMenuAddFolderIndex = 1;
-        private const int contextMenuCalculateIndex = 2;
-        private const int contextMenuClearIndex = 3;
+        private const int contextMenuClearIndex = 4;
 
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -284,164 +287,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_PipingFailureMechanism_ReturnsContextMenuWithFourItems()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodeData = new PipingFailureMechanism();
-            ((PipingCalculation)nodeData.Calculations.First()).Output = new TestPipingOutput();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
-
-            // Assert
-            Assert.AreEqual(4, contextMenu.Items.Count);
-            var addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
-            Assert.AreEqual("Berekening toevoegen", addCalculationItem.Text);
-            Assert.AreEqual("Voeg een nieuwe piping berekening toe aan het faalmechanisme.", addCalculationItem.ToolTipText);
-            Assert.AreEqual(16, addCalculationItem.Image.Width);
-            Assert.AreEqual(16, addCalculationItem.Image.Height);
-
-            var addFolderItem = contextMenu.Items[contextMenuAddFolderIndex];
-            Assert.AreEqual("Map toevoegen", addFolderItem.Text);
-            Assert.AreEqual("Voeg een nieuwe berekeningsmap toe aan het faalmechanisme.", addFolderItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.AddFolderIcon, addFolderItem.Image);
-
-            var runAllItem = contextMenu.Items[contextMenuCalculateIndex];
-            Assert.AreEqual("Alles be&rekenen", runAllItem.Text);
-            Assert.AreEqual("Valideer en voer alle berekeningen binnen het piping faalmechanisme uit.", runAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, runAllItem.Image);
-
-            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.AreEqual("&Wis alle uitvoer", clearOutputItem.Text);
-            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen het faalmechanisme.", clearOutputItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, clearOutputItem.Image);
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_PipingFailureMechanismNoOutput_ClearAllOutputDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            mocks.ReplayAll();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.AreEqual(4, contextMenu.Items.Count);
-
-            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.IsFalse(clearOutputItem.Enabled);
-            Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-        
-        [Test]
-        public void GetContextMenu_PipingFailureMechanismWithOutput_ClearAllOutputEnabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Calculations.Add(new PipingCalculation
-            {
-                Output = new TestPipingOutput()
-            });
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            mocks.ReplayAll();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.AreEqual(4, contextMenu.Items.Count);
-
-            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.IsTrue(clearOutputItem.Enabled);
-            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_ClickOnAddCalculationItem_NewPipingCalculationInstanceAddedToFailureMechanismAndNotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Precondition
-            Assert.AreEqual(1, failureMechanism.Calculations.Count);
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
-            var addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
-            addCalculationItem.PerformClick();
-
-            // Assert
-            Assert.AreEqual(2, failureMechanism.Calculations.Count);
-            IPipingCalculationItem addedItem = failureMechanism.Calculations.ElementAt(1);
-            Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name);
-            Assert.IsInstanceOf<PipingCalculation>(addedItem);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_ClickOnAddFolderItem_NewPipingCalculationGroupInstanceAddedToFailureMechanismAndNotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(new PipingCalculationGroup());
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Precondition
-            Assert.AreEqual(1, failureMechanism.Calculations.Count);
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
-            var addCalculationItem = contextMenu.Items[contextMenuAddFolderIndex];
-            addCalculationItem.PerformClick();
-
-            // Assert
-            Assert.AreEqual(2, failureMechanism.Calculations.Count);
-            IPipingCalculationItem addedItem = failureMechanism.Calculations.ElementAt(1);
-            Assert.AreEqual("Nieuwe map (1)", addedItem.Name);
-            Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
@@ -518,6 +363,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
 
+            var nodeMock = mocks.Stub<ITreeNode>();
+            var guiMock = mocks.StrictMock<IGui>();
+            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore()).Repeat.Twice();
+
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             dataMock.Calculations.Add(new PipingCalculation
             {
@@ -530,10 +382,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             dataMock.Calculations.ElementAt(0).Attach(observer);
             dataMock.Calculations.ElementAt(1).Attach(observer);
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, dataMock);
+            var nodePresenter = new PipingFailureMechanismNodePresenter
+            {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
 
             mocks.ReplayAll();
+
+            var contextMenuAdapter = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // When
             contextMenuAdapter.Items[contextMenuClearIndex].PerformClick();
@@ -541,6 +397,237 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Then
             CollectionAssert.IsEmpty(dataMock.Calculations.Where(c => c.HasOutput));
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_NullGui_ReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var failureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            // Call
+            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+
+            // Assert
+            Assert.IsNull(menu);
+        }
+
+        [Test]
+        public void GetContextMenu_NoGui_ReturnsEmptyContextMenu()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
+            var failureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            // Call
+            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+
+            // Assert
+            Assert.AreEqual(9, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip, PipingFormsResources.AddFolderIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsFormsResources.Calculate_all, PipingFormsResources.PipingFailureMechanism_Calculate_Tooltip, RingtoetsFormsResources.CalculateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon);
+
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[5], menu.Items[8] }, typeof(ToolStripSeparator));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_WithGui_ReturnsContextMenuWithCommonItems()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.Stub<ITreeNode>();
+            var guiMock = mocks.StrictMock<IGui>();
+            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore()).Repeat.Twice();
+
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter
+            {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
+            var failureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+            nodeMock.Tag = failureMechanism;
+
+            mocks.ReplayAll();
+
+            // Call
+            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+
+            // Assert
+            Assert.AreEqual(11, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip, PipingFormsResources.AddFolderIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsFormsResources.Calculate_all, PipingFormsResources.PipingFailureMechanism_Calculate_Tooltip, RingtoetsFormsResources.CalculateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, false);
+
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[5], menu.Items[8] }, typeof(ToolStripSeparator));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_PipingFailureMechanismNoOutput_ClearAllOutputDisabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter
+            {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            Assert.AreEqual(9, contextMenu.Items.Count);
+
+            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+            Assert.IsFalse(clearOutputItem.Enabled);
+            Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
+
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+        
+        [Test]
+        public void GetContextMenu_PipingFailureMechanismWithOutput_ClearAllOutputEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+
+            dataMock.Calculations.Add(new PipingCalculation
+            {
+                Output = new TestPipingOutput()
+            });
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter
+            {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            Assert.AreEqual(9, contextMenu.Items.Count);
+
+            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+            Assert.IsTrue(clearOutputItem.Enabled);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
+
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void GetContextMenu_ClickOnAddCalculationItem_NewPipingCalculationInstanceAddedToFailureMechanismAndNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var observerMock = mocks.StrictMock<IObserver>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+
+            observerMock.Expect(o => o.UpdateObserver());
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observerMock);
+            var nodePresenter = new PipingFailureMechanismNodePresenter
+            {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
+
+            // Precondition
+            Assert.AreEqual(1, failureMechanism.Calculations.Count);
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            var addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
+            addCalculationItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.Calculations.Count);
+            IPipingCalculationItem addedItem = failureMechanism.Calculations.ElementAt(1);
+            Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name);
+            Assert.IsInstanceOf<PipingCalculation>(addedItem);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_ClickOnAddFolderItem_NewPipingCalculationGroupInstanceAddedToFailureMechanismAndNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var observerMock = mocks.StrictMock<IObserver>();
+            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+
+            observerMock.Expect(o => o.UpdateObserver());
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observerMock);
+            failureMechanism.Calculations.Clear();
+            failureMechanism.Calculations.Add(new PipingCalculationGroup());
+            var nodePresenter = new PipingFailureMechanismNodePresenter
+            {
+                ContextMenuBuilderProvider = contextMenuProvider
+            };
+
+            // Precondition
+            Assert.AreEqual(1, failureMechanism.Calculations.Count);
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            var addCalculationItem = contextMenu.Items[contextMenuAddFolderIndex];
+            addCalculationItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.Calculations.Count);
+            IPipingCalculationItem addedItem = failureMechanism.Calculations.ElementAt(1);
+            Assert.AreEqual("Nieuwe map (1)", addedItem.Name);
+            Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
             mocks.VerifyAll();
         }
     }

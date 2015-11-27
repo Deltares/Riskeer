@@ -39,9 +39,10 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PipingCalculationGroupContextNodePresenter();
             yield return new PipingInputContextNodePresenter();
-            yield return new PipingFailureMechanismNodePresenter
+            yield return new PipingFailureMechanismNodePresenter()
             {
-                RunActivityAction = Gui.ActivityRunner.Enqueue
+                RunActivityAction = Gui.ActivityRunner.Enqueue,
+                ContextMenuBuilderProvider = Gui.ContextMenuProvider
             };
             yield return new PipingSurfaceLineCollectionNodePresenter
             {

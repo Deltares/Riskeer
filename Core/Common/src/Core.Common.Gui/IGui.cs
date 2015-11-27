@@ -105,6 +105,11 @@ namespace Core.Common.Gui
         /// </summary>
         object Selection { get; set; }
 
+        /// <summary>
+        /// Gets the <see cref="IContextMenuBuilderProvider"/> of the <see cref="IGui"/>
+        /// </summary>
+        IContextMenuBuilderProvider ContextMenuProvider { get; }
+
         #endregion
 
         #region Public Methods
