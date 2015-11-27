@@ -2,7 +2,7 @@
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Reflection
+namespace Core.Common.Utils.Test.Reflection
 {
     [TestFixture]
     public class TypeExtensionsTest

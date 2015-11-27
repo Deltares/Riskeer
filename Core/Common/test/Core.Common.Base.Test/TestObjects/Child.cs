@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Utils.Collections.Generic;
 
-namespace Core.Common.Base.Tests.TestObjects
+namespace Core.Common.Base.Test.TestObjects
 {
     public class Child : Observable
     {

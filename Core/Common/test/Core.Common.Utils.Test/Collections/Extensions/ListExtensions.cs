@@ -2,7 +2,7 @@
 using Core.Common.Utils.Collections.Extensions;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Collections.Extensions
+namespace Core.Common.Utils.Test.Collections.Extensions
 {
     [TestFixture]
     public class ListExtensionsTest

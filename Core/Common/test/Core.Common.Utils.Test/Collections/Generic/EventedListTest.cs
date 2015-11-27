@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtils;
@@ -6,7 +5,7 @@ using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Collections.Generic
+namespace Core.Common.Utils.Test.Collections.Generic
 {
     [TestFixture]
     public class EventedListTest

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Common.Base.Tests.TestObjects
+namespace Core.Common.Base.Test.TestObjects
 {
     public class Parent : Observable
     {

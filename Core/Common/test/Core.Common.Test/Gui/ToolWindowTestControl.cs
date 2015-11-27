@@ -2,7 +2,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 
-namespace Core.Common.Tests.Gui
+namespace Core.Common.Test.Gui
 {
     public partial class ToolWindowTestControl : UserControl, IView
     {

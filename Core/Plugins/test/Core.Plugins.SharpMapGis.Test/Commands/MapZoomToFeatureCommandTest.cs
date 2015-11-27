@@ -10,7 +10,7 @@ using Core.Plugins.SharpMapGis.Gui.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.SharpMapGis.Tests.Commands
+namespace Core.Plugins.SharpMapGis.Test.Commands
 {
     [TestFixture]
     public class MapZoomToFeatureCommandTest

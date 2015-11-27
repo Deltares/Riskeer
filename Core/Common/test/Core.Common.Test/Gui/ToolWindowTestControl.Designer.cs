@@ -1,4 +1,4 @@
-namespace Core.Common.Tests.Gui
+namespace Core.Common.Test.Gui
 {
     partial class ToolWindowTestControl
     {

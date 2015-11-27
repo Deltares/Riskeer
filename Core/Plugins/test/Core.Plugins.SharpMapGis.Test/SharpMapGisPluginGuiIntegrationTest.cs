@@ -12,7 +12,7 @@ using Core.Plugins.SharpMapGis.Gui;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 using NUnit.Framework;
 
-namespace Core.Plugins.SharpMapGis.Tests
+namespace Core.Plugins.SharpMapGis.Test
 {
     [TestFixture]
     public class SharpMapGisPluginGuiIntegrationTest

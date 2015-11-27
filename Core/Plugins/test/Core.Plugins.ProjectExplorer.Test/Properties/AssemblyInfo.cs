@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
-[assembly: AssemblyTitle("Core.Plugins.ProjectExplorer.Tests")]
-[assembly: AssemblyProduct("Core.Plugins.ProjectExplorer.Tests")]
+[assembly: AssemblyTitle("Core.Plugins.ProjectExplorer.Test")]
+[assembly: AssemblyProduct("Core.Plugins.ProjectExplorer.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

@@ -3,7 +3,7 @@ using Core.Common.Base.Workflow;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
+namespace Core.Common.Base.Test.Shell.Core.WorkFlow
 {
     [TestFixture]
     public class ActivityTest

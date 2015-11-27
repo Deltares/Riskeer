@@ -19,7 +19,7 @@ using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.SharpMapGis.Tests.Forms
+namespace Core.Plugins.SharpMapGis.Test.Forms
 {
     [TestFixture]
     public class MapViewTest

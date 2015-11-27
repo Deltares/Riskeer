@@ -8,8 +8,8 @@
     <ProjectGuid>{7F937E31-02CA-41D9-B7D4-1079CF452C72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Common.Utils.Tests</RootNamespace>
-    <AssemblyName>Core.Common.Utils.Tests</AssemblyName>
+    <RootNamespace>Core.Common.Utils.Test</RootNamespace>
+    <AssemblyName>Core.Common.Utils.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

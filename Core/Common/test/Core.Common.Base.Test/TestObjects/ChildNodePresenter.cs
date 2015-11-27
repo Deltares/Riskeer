@@ -3,7 +3,7 @@ using System.Collections;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 
-namespace Core.Common.Base.Tests.TestObjects
+namespace Core.Common.Base.Test.TestObjects
 {
     public class ChildNodePresenter : TreeViewNodePresenterBase<Child>
     {

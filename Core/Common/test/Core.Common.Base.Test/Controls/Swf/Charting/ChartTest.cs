@@ -5,7 +5,7 @@ using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Tests.Controls.Swf.Charting
+namespace Core.Common.Base.Test.Controls.Swf.Charting
 {
     [TestFixture]
     public class ChartTest

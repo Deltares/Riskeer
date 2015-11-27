@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Core.Plugins.SharpMapGis.Tests.Forms {
+namespace Core.Plugins.SharpMapGis.Test.Forms {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

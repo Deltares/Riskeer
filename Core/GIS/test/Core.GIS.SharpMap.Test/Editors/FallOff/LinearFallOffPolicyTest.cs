@@ -4,7 +4,7 @@ using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Editors.FallOff;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Editors.FallOff
+namespace Core.GIS.SharpMap.Test.Editors.FallOff
 {
     [TestFixture]
     public class LinearFallOffPolicyTest

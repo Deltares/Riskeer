@@ -2,7 +2,7 @@
 using Core.Plugins.SharpMapGis.Gui.Forms.GridProperties;
 using NUnit.Framework;
 
-namespace Core.Plugins.SharpMapGis.Tests.Forms.GridProperties
+namespace Core.Plugins.SharpMapGis.Test.Forms.GridProperties
 {
     [TestFixture]
     public class VectorStylePropertiesTest

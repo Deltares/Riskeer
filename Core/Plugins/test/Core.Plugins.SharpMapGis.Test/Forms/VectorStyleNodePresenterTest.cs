@@ -4,7 +4,7 @@ using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.SharpMapGis.Tests.Forms
+namespace Core.Plugins.SharpMapGis.Test.Forms
 {
     [TestFixture]
     public class VectorStyleNodePresenterTest

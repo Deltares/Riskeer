@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
-namespace Core.Common.Base.Tests.Controls.Swf
+namespace Core.Common.Base.Test.Controls.Swf
 {
     [TestFixture]
     public class MessageBoxTest

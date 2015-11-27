@@ -6,7 +6,7 @@ using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.ProjectExplorer.Tests
+namespace Core.Plugins.ProjectExplorer.Test
 {
     [TestFixture]
     public class ProjectExplorerPluginGuiTest

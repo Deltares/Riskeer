@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Tests.TestObjects
+﻿namespace Core.Common.Test.TestObjects
 {
     partial class TestReusableView
     {

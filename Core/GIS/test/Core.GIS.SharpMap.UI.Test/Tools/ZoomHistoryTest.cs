@@ -3,7 +3,7 @@ using Core.GIS.SharpMap.UI.Forms;
 using Core.GIS.SharpMap.UI.Tools.Zooming;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.UI.Tests.Tools
+namespace Core.GIS.SharpMap.UI.Test.Tools
 {
     [TestFixture]
     public class ZoomHistoryTest

@@ -8,8 +8,8 @@
     <ProjectGuid>{0C76DD99-AC5D-47C0-B76F-CE70092A9AC7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.GIS.SharpMap.Tests</RootNamespace>
-    <AssemblyName>Core.GIS.SharpMap.Tests</AssemblyName>
+    <RootNamespace>Core.GIS.SharpMap.Test</RootNamespace>
+    <AssemblyName>Core.GIS.SharpMap.Test</AssemblyName>
     <StartupObject>
     </StartupObject>
     <SccProjectName>

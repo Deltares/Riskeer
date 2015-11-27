@@ -4,7 +4,7 @@ using Core.Common.Base.Workflow;
 using NUnit.Framework;
 using WindowsFormApplication = System.Windows.Forms.Application;
 
-namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
+namespace Core.Common.Base.Test.Shell.Core.WorkFlow
 {
     [TestFixture]
     public class BackgroundWorkerTest

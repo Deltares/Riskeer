@@ -4,7 +4,7 @@ using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.NetTopologySuite.IO;
 using NUnit.Framework;
 
-namespace Core.GIS.NetTopologySuite.Tests.IO
+namespace Core.GIS.NetTopologySuite.Test.IO
 {
     [TestFixture]
     public class WKBWriterTest

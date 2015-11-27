@@ -1,7 +1,7 @@
 ﻿using Core.GIS.SharpMap.UI.Helpers;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.UI.Tests.Helpers
+namespace Core.GIS.SharpMap.UI.Test.Helpers
 {
     [TestFixture]
     public class MapCursorsTest

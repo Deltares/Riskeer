@@ -5,7 +5,7 @@ using Core.Common.Utils.Collections.Generic;
 using log4net.Core;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Collections.Generic
+namespace Core.Common.Utils.Test.Collections.Generic
 {
     [TestFixture]
     public class EnumerableListTest

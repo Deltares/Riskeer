@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
-using Core.Common.Base.Tests.Properties;
+using Core.Common.Base.Test.Properties;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Tests.Shell.Core
+namespace Core.Common.Base.Test.Shell.Core
 {
     [TestFixture]
     public class DataItemInfoTest

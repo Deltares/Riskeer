@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using Core.Common.Utils.Aop;
-using Core.Common.Utils.Tests.Aop.TestClasses;
+using Core.Common.Utils.Test.Aop.TestClasses;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Aop
+namespace Core.Common.Utils.Test.Aop
 {
     [TestFixture]
     public class TraceDllImportCallsAttributeTest

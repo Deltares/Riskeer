@@ -5,12 +5,11 @@ using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.TestUtils;
 using Core.Common.Utils.IO;
-using Core.Common.Utils.Tests.Properties;
-
+using Core.Common.Utils.Test.Properties;
 using log4net;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests
+namespace Core.Common.Utils.Test
 {
     [TestFixture]
     public class TestHelperTests

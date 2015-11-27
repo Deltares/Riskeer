@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Core.Common.Utils.Aop;
 
-namespace Core.Common.Utils.Tests.Aop.TestClasses
+namespace Core.Common.Utils.Test.Aop.TestClasses
 {
     [TraceDllImportCalls]
     public class DllImports

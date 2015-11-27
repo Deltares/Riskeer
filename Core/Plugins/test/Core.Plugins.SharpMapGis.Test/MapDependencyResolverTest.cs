@@ -1,7 +1,7 @@
 using Core.GIS.SharpMap.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.SharpMapGis.Tests
+namespace Core.Plugins.SharpMapGis.Test
 {
     [TestFixture]
     public class MapDependencyResolverTest

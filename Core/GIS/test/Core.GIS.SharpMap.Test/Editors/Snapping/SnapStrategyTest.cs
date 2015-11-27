@@ -9,7 +9,7 @@ using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.GIS.SharpMap.Tests.Editors.Snapping
+namespace Core.GIS.SharpMap.Test.Editors.Snapping
 {
     [TestFixture]
     public class SnapStrategyTest

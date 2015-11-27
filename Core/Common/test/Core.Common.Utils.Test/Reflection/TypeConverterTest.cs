@@ -4,7 +4,7 @@ using Core.Common.TestUtils;
 using log4net;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Reflection
+namespace Core.Common.Utils.Test.Reflection
 {
     [TestFixture]
     public class TypeConverterTest

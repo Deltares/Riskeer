@@ -9,7 +9,7 @@ using Core.GIS.SharpMap.UI.Tools;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.GIS.SharpMap.UI.Tests.Tools
+namespace Core.GIS.SharpMap.UI.Test.Tools
 {
     [TestFixture]
     public class DeleteToolTest

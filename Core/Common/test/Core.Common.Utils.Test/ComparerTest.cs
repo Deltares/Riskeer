@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests
+namespace Core.Common.Utils.Test
 {
     [TestFixture]
     public class ComparerTest

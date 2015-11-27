@@ -9,7 +9,7 @@ using Core.GIS.SharpMapTestUtils.TestClasses;
 using NUnit.Framework;
 using Point = Core.GIS.NetTopologySuite.Geometries.Point;
 
-namespace Core.GIS.SharpMap.Tests.Editors
+namespace Core.GIS.SharpMap.Test.Editors
 {
     [TestFixture]
     public class PointInteractorTest

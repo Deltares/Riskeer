@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
-[assembly: AssemblyTitle("Core.Common.Integration.Tests")]
-[assembly: AssemblyProduct("Core.Common.Integration.Tests")]
+[assembly: AssemblyTitle("Core.Common.Integration.Test")]
+[assembly: AssemblyProduct("Core.Common.Integration.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

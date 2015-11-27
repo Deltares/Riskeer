@@ -10,7 +10,7 @@ using Core.GIS.SharpMap.UI.Forms;
 using Core.GIS.SharpMapTestUtils.TestClasses;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Editors
+namespace Core.GIS.SharpMap.Test.Editors
 {
     /// <summary>
     /// For more basec test of FeatureMutator please refer to PointInteractorTest

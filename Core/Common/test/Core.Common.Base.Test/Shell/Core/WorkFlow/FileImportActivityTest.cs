@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
+namespace Core.Common.Base.Test.Shell.Core.WorkFlow
 {
     [TestFixture]
     public class FileImportActivityTest

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.General
+namespace Core.Common.Utils.Test.General
 {
     [TestFixture]
     public class TypeConverterTest

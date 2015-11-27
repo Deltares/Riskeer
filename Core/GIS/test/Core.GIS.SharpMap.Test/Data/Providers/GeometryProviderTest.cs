@@ -6,7 +6,7 @@ using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Data.Providers
+namespace Core.GIS.SharpMap.Test.Data.Providers
 {
     [TestFixture]
     public class GeometryProviderTest

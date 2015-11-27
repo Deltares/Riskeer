@@ -5,7 +5,7 @@ using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
 
-namespace Core.Common.Tests.TestObjects
+namespace Core.Common.Test.TestObjects
 {
     /// <summary>
     /// Docking manager for test...does nothing

@@ -1,22 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E0990383-FB2E-47D1-99CD-9B9FA2929E5B}</ProjectGuid>
+    <ProjectGuid>{A6A434E0-AE5A-4D5B-97D7-532B00FBDFE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Common.Tests</RootNamespace>
-    <AssemblyName>Core.Common.Tests</AssemblyName>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RootNamespace>Core.Common.Integration.Test</RootNamespace>
+    <AssemblyName>Core.Common.Integration.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UpgradeBackupLocation />
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -32,6 +31,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -39,7 +39,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;</DefineConstants>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -47,12 +47,12 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
     <OutputPath>bin\CreateInstallerWithDemoProject\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -76,93 +76,64 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Xceed.Wpf.AvalonDock">
-      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\AssemblyInfoTest.cs" />
-    <Compile Include="Core\ApplicationCoreTest.cs" />
-    <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
-    <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
-    <Compile Include="Gui\Forms\ProgressDialogTest.cs" />
-    <Compile Include="Gui\Forms\PropertyGridView\PropertyResolverTest.cs" />
-    <Compile Include="Gui\RingtoetsGuiTests.cs" />
-    <Compile Include="Gui\ImportActivityTest.cs" />
-    <Compile Include="Gui\Log4netTest.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="Ringtoets\Application.Ringtoets\RingtoetsGuiIntegrationTest.cs">
     </Compile>
-    <Compile Include="TestObjects\TestReusableView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TestObjects\TestReusableView.Designer.cs">
-      <DependentUpon>TestReusableView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TestObjects\TestDockingManager.cs" />
-    <Compile Include="Gui\ToolWindowTestControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Gui\ToolWindowTestControl.Designer.cs">
-      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\ViewListTest.cs" />
-    <Compile Include="TestObjects\TestView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TestObjects\TestView.Designer.cs">
-      <DependentUpon>TestView.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Ringtoets\Application.Ringtoets\GuiImportHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestObjects\TestSettings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>TestSettings.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
-    <None Include="TestObjects\TestSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>TestSettings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Gui\ToolWindowTestControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestObjects\TestView.resx">
-      <DependentUpon>TestView.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Gui\Resources\image1.png" />
-    <Content Include="Gui\Resources\image2.png" />
-    <Content Include="Gui\Resources\image3.png" />
-    <None Include="Gui\Resources\image6.png" />
-    <None Include="Gui\Resources\image4.png" />
-    <None Include="Gui\Resources\image5.png" />
-    <Content Include="Gui\Resources\image7.png" />
-    <Content Include="Gui\Resources\image8.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
+      <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
+      <Name>Core.GIS.GeoAPI.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
+      <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
+      <Name>Core.GIS.GeoAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
+      <Project>{5770DAA9-84E5-4770-AF43-F6B815894368}</Project>
+      <Name>Core.GIS.NetTopologySuite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
+      <Project>{a3c9df74-978a-44b1-b55d-a72ac4221e3a}</Project>
+      <Name>Core.GIS.SharpMap.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.UI\Core.GIS.SharpMap.UI.csproj">
+      <Project>{dd1cc1db-4bf9-4c88-a100-733d84795f3a}</Project>
+      <Name>Core.GIS.SharpMap.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
+      <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
+      <Name>Core.GIS.SharpMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj">
+      <Project>{93e73fab-fae8-49c6-9abb-27d24df761f6}</Project>
+      <Name>Core.Plugins.CommonTools.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
+      <Project>{befdcc44-2638-4972-b353-42d14c7da2c6}</Project>
+      <Name>Core.Plugins.CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
+      <Project>{ed20dba9-d577-423f-a68d-a0a8130fb10b}</Project>
+      <Name>Core.Plugins.ProjectExplorer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.SharpMapGis.Gui\Core.Plugins.SharpMapGis.Gui.csproj">
+      <Project>{0bc3751e-ec42-40a0-a7d3-b7c2aa66976e}</Project>
+      <Name>Core.Plugins.SharpMapGis.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
+      <Project>{696daaee-d1d8-42d0-86ac-471b970fb17e}</Project>
+      <Name>Core.Plugins.SharpMapGis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Application\Application.Ringtoets\Application.Ringtoets.csproj">
-      <Project>{4a7d6720-4aa1-4f0b-a796-a0436db3d7d7}</Project>
+      <Project>{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}</Project>
       <Name>Application.Ringtoets</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
@@ -173,29 +144,26 @@
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
-      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
-      <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{befdcc44-2638-4972-b353-42d14c7da2c6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
-      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
-      <Name>Core.Common.TestUtils</Name>
+    <ProjectReference Include="..\..\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
+      <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+    <ProjectReference Include="..\..\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -216,7 +184,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -225,14 +192,11 @@
   </Target>
   -->
   <PropertyGroup>
+    <ExternalDependencies1>lib\Common\SharpMap.Extensions</ExternalDependencies1>
+  </PropertyGroup>
+  <Import Project="..\..\..\..\build\Ringtoets.targets" />
+  <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
   </PropertyGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties InternalTargetFrameworkVersion="3.5" />
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

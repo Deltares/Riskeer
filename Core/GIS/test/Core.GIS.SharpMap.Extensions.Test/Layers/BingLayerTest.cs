@@ -1,7 +1,7 @@
 ﻿using Core.GIS.SharpMap.Extensions.Layers;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Extensions.Tests.Layers
+namespace Core.GIS.SharpMap.Extensions.Test.Layers
 {
     [TestFixture]
     public class BingLayerTest

@@ -27,7 +27,7 @@ namespace Core.Common.Base
             var daysToKeepLogFiles = 30;
 
             // HACK: don't keep log files for tests
-            if (settingsDirectory.ToLower().Contains("tests"))
+            if (settingsDirectory.ToLower().Contains("test"))
             {
                 daysToKeepLogFiles = 0;
             }

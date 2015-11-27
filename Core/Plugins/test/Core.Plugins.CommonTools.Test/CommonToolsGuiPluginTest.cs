@@ -9,7 +9,7 @@ using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Tests
+namespace Core.Plugins.CommonTools.Test
 {
     [TestFixture]
     public class CommonToolsGuiPluginTest

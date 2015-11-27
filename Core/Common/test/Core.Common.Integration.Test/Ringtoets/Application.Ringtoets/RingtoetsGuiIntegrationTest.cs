@@ -14,7 +14,7 @@ using Core.Plugins.SharpMapGis.Gui;
 using NUnit.Framework;
 using Control = System.Windows.Controls.Control;
 
-namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
+namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
     public class RingtoetsGuiIntegrationTest

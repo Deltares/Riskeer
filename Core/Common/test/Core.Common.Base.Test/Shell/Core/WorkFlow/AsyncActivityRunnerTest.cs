@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using WindowsFormsApplication = System.Windows.Forms.Application;
 
-namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
+namespace Core.Common.Base.Test.Shell.Core.WorkFlow
 {
     [TestFixture]
     public class AsyncActivityRunnerTest

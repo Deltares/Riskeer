@@ -5,7 +5,7 @@ using NUnit.Framework;
 using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
 using Application = System.Windows.Forms.Application;
 
-namespace Core.Common.Gui.Tests.Forms
+namespace Core.Common.Gui.Test.Forms
 {
     [TestFixture]
     public class SplashScreenTest

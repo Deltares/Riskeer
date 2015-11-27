@@ -3,7 +3,7 @@ using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Data;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Data
+namespace Core.GIS.SharpMap.Test.Data
 {
     [TestFixture]
     public class FeatureDataSetTest

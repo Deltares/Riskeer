@@ -5,7 +5,7 @@ using Core.Common.Base.Workflow;
 using Core.Common.Gui.Forms.ProgressDialog;
 using NUnit.Framework;
 
-namespace Core.Common.Tests.Gui.Forms
+namespace Core.Common.Test.Gui.Forms
 {
     [TestFixture]
     public class ProgressDialogTest

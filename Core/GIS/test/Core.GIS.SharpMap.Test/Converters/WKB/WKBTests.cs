@@ -3,7 +3,7 @@ using Core.GIS.SharpMap.Converters.WellKnownBinary;
 using Core.GIS.SharpMap.Converters.WellKnownText;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Converters.WKB
+namespace Core.GIS.SharpMap.Test.Converters.WKB
 {
     [TestFixture]
     public class WKBTests

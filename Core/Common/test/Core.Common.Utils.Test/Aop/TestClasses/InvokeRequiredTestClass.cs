@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Threading;
 using Core.Common.Utils.Aop;
 
-namespace Core.Common.Utils.Tests.Aop.TestClasses
+namespace Core.Common.Utils.Test.Aop.TestClasses
 {
     public class InvokeRequiredTestClass : ISynchronizeInvoke, IDisposable
     {

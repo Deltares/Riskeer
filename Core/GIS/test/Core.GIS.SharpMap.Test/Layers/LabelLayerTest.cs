@@ -6,7 +6,7 @@ using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
 using Point = Core.GIS.NetTopologySuite.Geometries.Point;
 
-namespace Core.GIS.SharpMap.Tests.Layers
+namespace Core.GIS.SharpMap.Test.Layers
 {
     [TestFixture]
     public class LabelLayerTest

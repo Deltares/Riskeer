@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
-[assembly: AssemblyTitle("NetTopologySuite.Extensions.Tests")]
+[assembly: AssemblyTitle("NetTopologySuite.Extensions.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Deltares")]
-[assembly: AssemblyProduct("NetTopologySuite.Extensions.Tests")]
+[assembly: AssemblyProduct("NetTopologySuite.Extensions.Test")]
 [assembly: AssemblyCopyright("Copyright © Deltares 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

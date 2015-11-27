@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base.Tests.Controls.Swf.Table.TestClasses;
+using Core.Common.Base.Test.Controls.Swf.Table.TestClasses;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Editors;
 using Core.Common.Controls.Swf.Table;
@@ -23,7 +23,7 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Base.Tests.Controls.Swf.Table
+namespace Core.Common.Base.Test.Controls.Swf.Table
 {
     [TestFixture]
     public class TableViewTest

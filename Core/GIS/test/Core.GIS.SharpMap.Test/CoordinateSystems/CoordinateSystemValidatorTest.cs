@@ -3,7 +3,7 @@ using Core.GIS.SharpMap.CoordinateSystems;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.CoordinateSystems
+namespace Core.GIS.SharpMap.Test.CoordinateSystems
 {
     [TestFixture]
     public class CoordinateSystemValidatorTest

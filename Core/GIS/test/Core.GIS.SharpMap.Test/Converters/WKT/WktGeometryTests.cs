@@ -3,7 +3,7 @@ using Core.GIS.SharpMap.Converters.Geometries;
 using Core.GIS.SharpMap.Converters.WellKnownText;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Converters.WKT
+namespace Core.GIS.SharpMap.Test.Converters.WKT
 {
     [TestFixture]
     public class WktGeometryTests

@@ -4,7 +4,7 @@ using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Utils.PropertyBag.Dynamic;
 using NUnit.Framework;
 
-namespace Core.Common.Tests.Gui.Forms.PropertyGridView
+namespace Core.Common.Test.Gui.Forms.PropertyGridView
 {
     [TestFixture]
     public class PropertyResolverTest

@@ -3,7 +3,7 @@ using Core.Common.Base.Workflow;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Tests.Gui
+namespace Core.Common.Test.Gui
 {
     [TestFixture]
     public class ImportActivityTest

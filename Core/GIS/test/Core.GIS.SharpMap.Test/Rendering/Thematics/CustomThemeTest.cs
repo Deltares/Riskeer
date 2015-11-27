@@ -4,7 +4,7 @@ using Core.GIS.SharpMap.Rendering.Thematics;
 using Core.GIS.SharpMap.Styles;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
+namespace Core.GIS.SharpMap.Test.Rendering.Thematics
 {
     [TestFixture]
     public class CustomThemeTest

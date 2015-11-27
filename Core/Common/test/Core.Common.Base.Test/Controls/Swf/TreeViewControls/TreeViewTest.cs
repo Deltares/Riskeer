@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base.Tests.TestObjects;
+using Core.Common.Base.Test.TestObjects;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.TreeViewControls;
@@ -14,7 +14,7 @@ using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
-namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
+namespace Core.Common.Base.Test.Controls.Swf.TreeViewControls
 {
     [TestFixture]
     public class TreeViewTest

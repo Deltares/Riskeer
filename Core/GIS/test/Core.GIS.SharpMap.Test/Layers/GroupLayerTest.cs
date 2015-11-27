@@ -5,7 +5,7 @@ using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.GIS.SharpMap.Tests.Layers
+namespace Core.GIS.SharpMap.Test.Layers
 {
     [TestFixture]
     public class GroupLayerTest

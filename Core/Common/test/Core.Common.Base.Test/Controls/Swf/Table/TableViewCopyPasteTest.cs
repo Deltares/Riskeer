@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Tests.Controls.Swf.Table.TestClasses;
+using Core.Common.Base.Test.Controls.Swf.Table.TestClasses;
 using Core.Common.Controls.Swf.Table;
 using Core.Common.TestUtils;
 using Core.Common.Utils;
 using DevExpress.XtraGrid;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Tests.Controls.Swf.Table
+namespace Core.Common.Base.Test.Controls.Swf.Table
 {
     [TestFixture]
     public class TableViewCopyPasteTest

@@ -5,7 +5,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Tests.Core
+namespace Core.Common.Test.Core
 {
     [TestFixture]
     public class ApplicationCoreTest

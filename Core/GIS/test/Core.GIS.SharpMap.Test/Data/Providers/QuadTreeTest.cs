@@ -5,7 +5,7 @@ using Core.Common.TestUtils;
 using Core.GIS.SharpMap.Data.Providers.EGIS.ShapeFileLib;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Data.Providers
+namespace Core.GIS.SharpMap.Test.Data.Providers
 {
     [TestFixture]
     public class QuadTreeTest

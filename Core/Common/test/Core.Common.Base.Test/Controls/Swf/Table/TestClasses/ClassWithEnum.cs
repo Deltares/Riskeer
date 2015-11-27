@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Core.Common.Base.Tests.Controls.Swf.Table.TestClasses
+namespace Core.Common.Base.Test.Controls.Swf.Table.TestClasses
 {
     internal class ClassWithEnum
     {

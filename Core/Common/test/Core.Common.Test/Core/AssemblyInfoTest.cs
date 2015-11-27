@@ -2,7 +2,7 @@ using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
-namespace Core.Common.Tests.Core
+namespace Core.Common.Test.Core
 {
     [TestFixture]
     public class AssemblyInfoTest

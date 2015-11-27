@@ -7,7 +7,7 @@ using Core.GIS.NetTopologySuite.IO;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using NUnit.Framework;
 
-namespace Core.GIS.NetTopologySuite.Tests.Geometry
+namespace Core.GIS.NetTopologySuite.Test.Geometry
 {
     [TestFixture]
     public class GeometryTest

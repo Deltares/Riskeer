@@ -5,7 +5,7 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Rendering.Thematics;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Layers
+namespace Core.GIS.SharpMap.Test.Layers
 {
     [TestFixture]
     public class LayerTest

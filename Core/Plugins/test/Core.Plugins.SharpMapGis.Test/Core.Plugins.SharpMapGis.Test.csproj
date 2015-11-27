@@ -8,8 +8,8 @@
     <ProjectGuid>{4FDA4BD2-2C84-4C7C-9908-818884D52DBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Plugins.SharpMapGis.Tests</RootNamespace>
-    <AssemblyName>Core.Plugins.SharpMapGis.Tests</AssemblyName>
+    <RootNamespace>Core.Plugins.SharpMapGis.Test</RootNamespace>
+    <AssemblyName>Core.Plugins.SharpMapGis.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>

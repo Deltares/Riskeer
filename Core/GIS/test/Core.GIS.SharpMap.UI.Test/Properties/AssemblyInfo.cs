@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
-[assembly: AssemblyTitle("SharpMap.UI.Tests")]
+[assembly: AssemblyTitle("SharpMap.UI.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Deltares")]
-[assembly: AssemblyProduct("SharpMap.UI.Tests")]
+[assembly: AssemblyProduct("SharpMap.UI.Test")]
 [assembly: AssemblyCopyright("Copyright © Deltares 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

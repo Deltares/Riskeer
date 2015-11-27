@@ -4,7 +4,7 @@ using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Data.Providers;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Data.Providers
+namespace Core.GIS.SharpMap.Test.Data.Providers
 {
     [TestFixture]
     public class ShapeFileTests

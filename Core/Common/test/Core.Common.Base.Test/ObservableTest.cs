@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Base.Tests
+namespace Core.Common.Base.Test
 {
     [TestFixture]
     public class ObservableTest

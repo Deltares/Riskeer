@@ -1,16 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
-namespace Core.Common.Utils.Tests.Reflection
+namespace Core.Common.Utils.Test.Reflection
 {
     [TestFixture]
     public class TypeUtilsTest

@@ -8,7 +8,7 @@ using Core.GIS.NetTopologySuite.Utilities;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
-namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
+namespace Core.Gis.NetTopologySuite.Extensions.Test.Geometries
 {
     [TestFixture]
     public class GeometryHelperTest

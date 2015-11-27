@@ -4,7 +4,7 @@ using System.Threading;
 using Core.Common.Utils.Globalization;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Globalization
+namespace Core.Common.Utils.Test.Globalization
 {
     [TestFixture]
     public class RegionalSettingsManagerTest

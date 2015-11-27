@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Core.Common.Gui.Tests")]
-[assembly: AssemblyProduct("Core.Common.Gui.Tests")]
+[assembly: AssemblyTitle("Core.Common.Gui.Test")]
+[assembly: AssemblyProduct("Core.Common.Gui.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

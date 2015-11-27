@@ -7,7 +7,7 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.UI.Forms;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.UI.Tests.Forms
+namespace Core.GIS.SharpMap.UI.Test.Forms
 {
     [TestFixture]
     public class MapControlTest

@@ -6,7 +6,7 @@ using Core.GIS.SharpMap.UI.Tools;
 using Core.GIS.SharpMap.UI.Tools.Zooming;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.UI.Tests.Forms
+namespace Core.GIS.SharpMap.UI.Test.Forms
 {
     [TestFixture]
     public class GeometryEditorTests

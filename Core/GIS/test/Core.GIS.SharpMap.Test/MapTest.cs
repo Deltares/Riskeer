@@ -20,7 +20,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using GeometryFactory = Core.GIS.SharpMap.Converters.Geometries.GeometryFactory;
 
-namespace Core.GIS.SharpMap.Tests
+namespace Core.GIS.SharpMap.Test
 {
     [TestFixture]
     public class MapTest

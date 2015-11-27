@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 
-namespace Core.Common.Tests.TestObjects
+namespace Core.Common.Test.TestObjects
 {
     public partial class TestView : UserControl, IView
     {

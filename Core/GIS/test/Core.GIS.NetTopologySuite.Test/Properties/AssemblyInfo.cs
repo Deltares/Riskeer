@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("NetTopologySuite.Tests")]
+[assembly: AssemblyTitle("NetTopologySuite.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Deltares")]
-[assembly: AssemblyProduct("NetTopologySuite.Tests")]
+[assembly: AssemblyProduct("NetTopologySuite.Test")]
 [assembly: AssemblyCopyright("Copyright © Deltares 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

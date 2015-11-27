@@ -5,7 +5,7 @@ using System.Linq;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Collections
+namespace Core.Common.Utils.Test.Collections
 {
     [TestFixture]
     public class EnumerableExtensionsTest

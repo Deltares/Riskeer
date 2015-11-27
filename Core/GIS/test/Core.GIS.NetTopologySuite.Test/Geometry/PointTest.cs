@@ -1,7 +1,7 @@
 using Core.GIS.NetTopologySuite.Geometries;
 using NUnit.Framework;
 
-namespace Core.GIS.NetTopologySuite.Tests.Geometry
+namespace Core.GIS.NetTopologySuite.Test.Geometry
 {
     [TestFixture]
     public class PointTest

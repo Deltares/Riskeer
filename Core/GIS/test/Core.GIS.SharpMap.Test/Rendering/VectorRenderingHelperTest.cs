@@ -4,7 +4,7 @@ using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Rendering;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Rendering
+namespace Core.GIS.SharpMap.Test.Rendering
 {
     [TestFixture]
     public class VectorRenderingHelperTest

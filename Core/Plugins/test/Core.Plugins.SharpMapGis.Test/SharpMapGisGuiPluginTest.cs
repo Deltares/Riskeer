@@ -6,7 +6,7 @@ using Core.Plugins.SharpMapGis.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.SharpMapGis.Tests
+namespace Core.Plugins.SharpMapGis.Test
 {
     [TestFixture]
     public class SharpMapGisGuiPluginTest

@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
-namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
+namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
     public class GuiImportHandlerTest

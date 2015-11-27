@@ -5,7 +5,7 @@ using Core.Common.TestUtils;
 using Core.Common.Utils.IO;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.IO
+namespace Core.Common.Utils.Test.IO
 {
     /// <summary/>
     [TestFixture]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Base.Tests.Shell.Core
+namespace Core.Common.Base.Test.Shell.Core
 {
     [TestFixture]
     public class ObservableListTest

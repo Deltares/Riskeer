@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Core.Common.Tests.TestObjects {
+namespace Core.Common.Test.TestObjects {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

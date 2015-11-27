@@ -3,7 +3,7 @@ using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Extensions.Tests.CoordinateSystems
+namespace Core.GIS.SharpMap.Extensions.Test.CoordinateSystems
 {
     [TestFixture]
     public class GeodeticDistanceTest

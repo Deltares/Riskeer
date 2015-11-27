@@ -2,7 +2,7 @@ using System.Linq;
 using Core.Common.Utils.Validation;
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Tests.Validation
+namespace Core.Common.Utils.Test.Validation
 {
     [TestFixture]
     public class ValidationReportTest

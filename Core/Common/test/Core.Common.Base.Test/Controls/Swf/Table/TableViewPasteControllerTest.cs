@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Tests.Controls.Swf.Table.TestClasses;
+using Core.Common.Base.Test.Controls.Swf.Table.TestClasses;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Editors;
 using Core.Common.Controls.Swf.Table;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Tests.Controls.Swf.Table
+namespace Core.Common.Base.Test.Controls.Swf.Table
 {
     [TestFixture]
     public class TableViewPasteControllerTest

@@ -8,7 +8,7 @@ using Core.Common.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Gui.Tests.ContextMenu
+namespace Core.Common.Gui.Test.ContextMenu
 {
     [TestFixture]
     public class ContextMenuItemFactoryTest

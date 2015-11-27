@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Tests
+namespace Core.Common.Gui.Test
 {
     [TestFixture]
     public class ExpandableArrayConverterTest

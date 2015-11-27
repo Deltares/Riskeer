@@ -5,7 +5,7 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Styles;
 using NUnit.Framework;
 
-namespace Core.GIS.SharpMap.Tests.Editors
+namespace Core.GIS.SharpMap.Test.Editors
 {
     [TestFixture]
     public class FeatureInteractorTest

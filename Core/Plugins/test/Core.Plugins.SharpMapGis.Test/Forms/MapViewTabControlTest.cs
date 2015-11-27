@@ -9,7 +9,7 @@ using Core.GIS.SharpMap.Api.Layers;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 using NUnit.Framework;
 
-namespace Core.Plugins.SharpMapGis.Tests.Forms
+namespace Core.Plugins.SharpMapGis.Test.Forms
 {
     [TestFixture]
     public class MapViewTabControlTest

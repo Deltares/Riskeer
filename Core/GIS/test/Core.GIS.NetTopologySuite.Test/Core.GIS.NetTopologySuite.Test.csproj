@@ -5,18 +5,17 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{93708508-7B00-4A26-80DA-C73A7251BCF6}</ProjectGuid>
+    <ProjectGuid>{FBA4B48A-CF75-4958-B1E5-412B75D29416}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.GIS.SharpMap.UI.Tests</RootNamespace>
-    <AssemblyName>Core.GIS.SharpMap.UI.Tests</AssemblyName>
+    <RootNamespace>Core.GIS.NetTopologySuite.Test</RootNamespace>
+    <AssemblyName>Core.GIS.NetTopologySuite.Test</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -39,14 +38,14 @@
     <WarningLevel>0</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>0</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <WarningLevel>0</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
@@ -59,16 +58,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,28 +72,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\GeometryEditorTests.cs">
-    </Compile>
-    <Compile Include="Forms\MapControlTest.cs" />
-    <Compile Include="Helpers\MapCursorsTest.cs" />
+    <Compile Include="Geometry\GeometryTest.cs" />
+    <Compile Include="Geometry\LineStringTest.cs" />
+    <Compile Include="Geometry\MultiPointTest.cs" />
+    <Compile Include="Geometry\PointTest.cs" />
+    <Compile Include="Geometry\PolygonTest.cs" />
+    <Compile Include="IO\WKBWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\CurvePointToolTest.cs" />
-    <Compile Include="Tools\DeleteToolTest.cs" />
-    <Compile Include="Tools\SelectToolTest.cs" />
-    <Compile Include="Tools\ZoomHistoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
+      <Name>Core.Common.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
-      <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
+      <Project>{a3c9df74-978a-44b1-b55d-a72ac4221e3a}</Project>
       <Name>Core.GIS.SharpMap.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.GIS.SharpMap.Extensions\Core.GIS.SharpMap.Extensions.csproj">
-      <Project>{A4140C12-53F5-438C-8D24-9E48C504FECF}</Project>
-      <Name>Core.GIS.SharpMap.Extensions</Name>
+    <ProjectReference Include="..\..\src\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
+      <Project>{C83777FC-AABB-47D9-911F-D76255D4D541}</Project>
+      <Name>Core.GIS.SharpMap</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
@@ -116,25 +105,13 @@
       <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
       <Name>Core.GIS.GeoAPI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.GIS.NetTopologySuite.Extensions\Core.GIS.NetTopologySuite.Extensions.csproj">
-      <Project>{8A3636FB-31B4-4F4B-9165-F718F87A92DF}</Project>
-      <Name>Core.GIS.NetTopologySuite.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
+    <ProjectReference Include="..\..\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
       <Project>{5770DAA9-84E5-4770-AF43-F6B815894368}</Project>
       <Name>Core.GIS.NetTopologySuite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.GIS.SharpMap.UI\Core.GIS.SharpMap.UI.csproj">
-      <Project>{DD1CC1DB-4BF9-4C88-A100-733D84795F3A}</Project>
-      <Name>Core.GIS.SharpMap.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
-      <Project>{C83777FC-AABB-47D9-911F-D76255D4D541}</Project>
-      <Name>Core.GIS.SharpMap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
-      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
-      <Name>Core.Common.TestUtils</Name>
+    <ProjectReference Include="..\Core.GIS.SharpMapTestUtils\Core.GIS.SharpMapTestUtils.csproj">
+      <Project>{0A82E7D2-26F8-4A30-9787-7EEABCD7F470}</Project>
+      <Name>Core.GIS.SharpMapTestUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +145,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -181,12 +157,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <ExternalDependencies>lib\Common\SharpMap.Extensions</ExternalDependencies>
-    <ExternalDependencies2>lib\Common\SharpMap\**</ExternalDependencies2>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <MonoDevelop>
