@@ -1,4 +1,6 @@
-﻿using Core.Common.Controls;
+﻿using System.Drawing;
+
+using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
@@ -16,6 +18,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             node.Text = nodeData.Name;
             node.Image = Resources.PipingSurfaceLineIcon;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
     }
 }

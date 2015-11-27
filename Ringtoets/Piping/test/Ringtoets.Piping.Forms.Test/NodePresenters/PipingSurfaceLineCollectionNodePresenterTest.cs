@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls;
+using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -12,7 +13,7 @@ using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
 
-using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -47,10 +48,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
+            Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), surfaceLinesCollectionNodeMock.ForegroundColor);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Height);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Width);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, surfaceLinesCollectionNodeMock.Image);
         }
 
         [Test]
@@ -69,10 +69,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
+            Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), surfaceLinesCollectionNodeMock.ForegroundColor);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Height);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Width);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, surfaceLinesCollectionNodeMock.Image);
         }
 
         [Test]
@@ -80,7 +79,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();

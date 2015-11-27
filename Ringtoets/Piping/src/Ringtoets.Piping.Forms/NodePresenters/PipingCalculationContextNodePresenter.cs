@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Workflow;
@@ -32,6 +33,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             node.Text = pipingCalculationContext.WrappedData.Name;
             node.Image = Resources.PipingIcon;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationContext pipingCalculationContext)

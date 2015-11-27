@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Drawing;
 
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -19,6 +20,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         {
             node.Text = nodeData.Name;
             node.Image = RingtoetsFormsResources.AssessmentSectionFolderIcon;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
         protected override IEnumerable GetChildNodeObjects(AssessmentSectionBase nodeData)

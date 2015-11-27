@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -46,6 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var pipingNode = mocks.Stub<ITreeNode>();
+            pipingNode.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
@@ -57,8 +59,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual("Dijken - Piping", pipingNode.Text);
-            Assert.AreEqual(16, pipingNode.Image.Height);
-            Assert.AreEqual(16, pipingNode.Image.Width);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), pipingNode.ForegroundColor);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, pipingNode.Image);
         }
 
         [Test]

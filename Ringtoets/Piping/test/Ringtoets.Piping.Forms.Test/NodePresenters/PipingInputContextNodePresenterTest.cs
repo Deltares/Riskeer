@@ -1,4 +1,6 @@
-﻿using Core.Common.Controls;
+﻿using System.Drawing;
+
+using Core.Common.Controls;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -35,6 +37,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var currentNode = mocks.Stub<ITreeNode>();
+            currentNode.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
 
             var nodeData = new PipingInputContext();
@@ -46,6 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual("Invoer", currentNode.Text);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), currentNode.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, currentNode.Image);
             mocks.VerifyAll();
         }

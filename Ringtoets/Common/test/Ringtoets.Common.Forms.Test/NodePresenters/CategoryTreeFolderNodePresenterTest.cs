@@ -41,6 +41,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var currentNode = mocks.Stub<ITreeNode>();
+            currentNode.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
 
             var nodePresenter = new CategoryTreeFolderNodePresenter();
@@ -51,6 +52,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(folder.Name, currentNode.Text);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), currentNode.ForegroundColor);
             TestHelper.AssertImagesAreEqual(GetExpectedIconForCategory(category), currentNode.Image);
             mocks.VerifyAll();
         }

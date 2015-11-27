@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -36,6 +37,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             node.Text = Resources.PipingFailureMechanism_DisplayName;
             node.Image = Resources.PipingIcon;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism)

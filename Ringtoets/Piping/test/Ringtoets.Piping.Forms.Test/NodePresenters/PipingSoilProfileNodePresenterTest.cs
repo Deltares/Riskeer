@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+
 using Core.Common.Controls;
+using Core.Common.TestUtils;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
+
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -32,6 +38,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var parentNodeMock = mocks.StrictMock<ITreeNode>();
             var dataNodeMock = mocks.Stub<ITreeNode>();
+            dataNodeMock.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
 
             const string name = "<insert name here>";
@@ -53,8 +60,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(name, dataNodeMock.Text);
-            Assert.AreEqual(16, dataNodeMock.Image.Height);
-            Assert.AreEqual(16, dataNodeMock.Image.Width);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataNodeMock.ForegroundColor);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingSoilProfileIcon, dataNodeMock.Image);
             mocks.VerifyAll();
         }
     }

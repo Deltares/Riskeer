@@ -1,4 +1,6 @@
-﻿using Core.Common.Controls;
+﻿using System.Drawing;
+
+using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
@@ -16,6 +18,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             node.Text = Resources.PipingOutput_DisplayName;
             node.Image = Resources.PipingOutputIcon;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
         protected override bool CanRemove(object parentNodeData, PipingOutput nodeData)

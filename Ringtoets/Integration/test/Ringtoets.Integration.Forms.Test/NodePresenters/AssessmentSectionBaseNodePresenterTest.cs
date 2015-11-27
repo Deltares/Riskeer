@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
 
 using NUnit.Framework;
@@ -12,6 +14,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
+
+using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.NodePresenters
 {
@@ -52,8 +56,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(projectName, projectNode.Text);
-            Assert.AreEqual(16, projectNode.Image.Height);
-            Assert.AreEqual(16, projectNode.Image.Width);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), projectNode.ForegroundColor);
+            TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.AssessmentSectionFolderIcon, projectNode.Image);
         }
 
         [Test]

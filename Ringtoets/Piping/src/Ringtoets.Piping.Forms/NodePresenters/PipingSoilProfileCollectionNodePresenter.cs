@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         private static Color GetTextColor(object nodeData)
         {
             var pipingSoilProfiles = (IEnumerable<PipingSoilProfile>) nodeData;
-            return Color.FromKnownColor(pipingSoilProfiles.Any() ? KnownColor.Black : KnownColor.GrayText);
+            return Color.FromKnownColor(pipingSoilProfiles.Any() ? KnownColor.ControlText : KnownColor.GrayText);
         }
 
         private ContextMenuStrip CreateContextMenu()

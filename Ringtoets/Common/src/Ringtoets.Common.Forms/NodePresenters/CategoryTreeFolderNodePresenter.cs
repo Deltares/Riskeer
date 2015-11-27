@@ -19,6 +19,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
         {
             node.Text = nodeData.Name;
             node.Image = GetFolderIcon(nodeData.Category);
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
         protected override IEnumerable GetChildNodeObjects(CategoryTreeFolder nodeData)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -43,6 +44,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             node.Text = nodeData.WrappedData.Name;
             node.Image = PipingFormsResources.FolderIcon;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
         protected override void OnNodeRenamed(PipingCalculationGroupContext nodeData, string newName)

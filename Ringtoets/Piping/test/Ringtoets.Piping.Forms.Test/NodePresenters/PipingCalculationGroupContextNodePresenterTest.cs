@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -55,6 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var parentNode = mocks.StrictMock<ITreeNode>();
             var node = mocks.Stub<ITreeNode>();
+            node.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
             
             var group = new PipingCalculationGroup();
@@ -69,6 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(group.Name, node.Text);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), node.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, node.Image);
             mocks.VerifyAll();
         }

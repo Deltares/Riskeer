@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls;
+using Core.Common.TestUtils;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
+
 using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
@@ -27,7 +30,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void UpdateNode_WithData_InitializeNode()
+        public void UpdateNode_WithEmptyCollection_InitializeNodeWithGreyedText()
         {
             // Setup
             var mocks = new MockRepository();
@@ -44,8 +47,31 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, soilProfileCollectionNodeStub.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), soilProfileCollectionNodeStub.ForegroundColor);
-            Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Height);
-            Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Width);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FolderIcon, soilProfileCollectionNodeStub.Image);
+        }
+
+        [Test]
+        public void UpdateNode_WithData_InitializeNode()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var soilProfileCollectionNodeStub = mocks.Stub<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
+
+            IEnumerable<PipingSoilProfile> soilProfilesCollection = new []
+            {
+                new TestPipingSoilProfile()
+            };
+
+            // Call
+            nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfilesCollection);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, soilProfileCollectionNodeStub.Text);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), soilProfileCollectionNodeStub.ForegroundColor);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FolderIcon, soilProfileCollectionNodeStub.Image);
         }
 
         [Test]
@@ -53,7 +79,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter();

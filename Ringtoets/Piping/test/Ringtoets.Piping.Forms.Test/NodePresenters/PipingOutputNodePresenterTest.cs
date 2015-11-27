@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.TestUtils;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -10,6 +13,8 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Test.Helper;
+
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -36,6 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var mocks = new MockRepository();
             var pipingNode = mocks.Stub<ITreeNode>();
+            pipingNode.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
 
             var nodePresenter = new PipingOutputNodePresenter();
@@ -47,8 +53,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(outputName, pipingNode.Text);
-            Assert.AreEqual(16, pipingNode.Image.Height);
-            Assert.AreEqual(16, pipingNode.Image.Width);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), pipingNode.ForegroundColor);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingOutputIcon, pipingNode.Image);
         }
 
         [Test]
