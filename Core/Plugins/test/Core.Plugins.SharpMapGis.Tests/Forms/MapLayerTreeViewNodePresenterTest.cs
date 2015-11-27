@@ -173,7 +173,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
                 Theme = gradientTheme
             };
 
-            var result = mapLayerNodePresenter.GetChildNodeObjects(vectorLayer, null);
+            var result = mapLayerNodePresenter.GetChildNodeObjects(vectorLayer);
             var enumerator = result.GetEnumerator();
 
             Assert.IsTrue(enumerator.MoveNext());

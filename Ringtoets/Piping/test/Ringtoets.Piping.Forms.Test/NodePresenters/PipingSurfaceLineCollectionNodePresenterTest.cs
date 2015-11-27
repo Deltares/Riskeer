@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(surfaceLinesCollection, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(surfaceLinesCollection);
 
             // Assert
             CollectionAssert.AreEqual(surfaceLinesCollection, children);

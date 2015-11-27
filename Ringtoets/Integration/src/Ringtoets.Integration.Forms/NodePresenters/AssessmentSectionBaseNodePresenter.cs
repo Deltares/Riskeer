@@ -21,7 +21,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             node.Image = RingtoetsFormsResources.AssessmentSectionFolderIcon;
         }
 
-        protected override IEnumerable GetChildNodeObjects(AssessmentSectionBase nodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(AssessmentSectionBase nodeData)
         {
             yield return nodeData.ReferenceLine;
             yield return nodeData.FailureMechanismContribution;

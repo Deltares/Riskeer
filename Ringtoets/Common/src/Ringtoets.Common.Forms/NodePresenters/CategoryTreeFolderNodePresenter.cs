@@ -21,7 +21,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
             node.Image = GetFolderIcon(nodeData.Category);
         }
 
-        protected override IEnumerable GetChildNodeObjects(CategoryTreeFolder nodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(CategoryTreeFolder nodeData)
         {
             return nodeData.Contents;
         }

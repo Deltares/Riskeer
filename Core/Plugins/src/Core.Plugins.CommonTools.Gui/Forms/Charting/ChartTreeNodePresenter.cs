@@ -34,7 +34,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             chart.Title = newName;
         }
 
-        public override IEnumerable GetChildNodeObjects(IChart chart, ITreeNode node)
+        public override IEnumerable GetChildNodeObjects(IChart chart)
         {
             return chart.Series.Cast<object>();
         }

@@ -266,7 +266,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
                 node.Text = nodeData.Name;
             }
 
-            public override IEnumerable GetChildNodeObjects(TestGroup parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(TestGroup parentNodeData)
             {
                 return parentNodeData.Children;
             }
@@ -279,7 +279,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
                 node.Text = nodeData.Name;
             }
 
-            public override IEnumerable GetChildNodeObjects(TestGroup parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(TestGroup parentNodeData)
             {
                 return parentNodeData.Children;
             }

@@ -17,7 +17,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             node.Image = GetImage(data);
         }
 
-        public override IEnumerable GetChildNodeObjects(TreeFolder parentNodeData, ITreeNode node)
+        public override IEnumerable GetChildNodeObjects(TreeFolder parentNodeData)
         {
             return parentNodeData.ChildItems;
         }

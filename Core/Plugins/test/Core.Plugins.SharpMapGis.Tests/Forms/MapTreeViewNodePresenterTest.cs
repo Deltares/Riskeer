@@ -32,7 +32,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             });
 
             var mapTreeViewNodePresenter = new MapTreeViewNodePresenter(guiPlugin);
-            var childNodes = mapTreeViewNodePresenter.GetChildNodeObjects(map, null);
+            var childNodes = mapTreeViewNodePresenter.GetChildNodeObjects(map);
 
             var enumerator = childNodes.GetEnumerator();
             Assert.IsTrue(enumerator.MoveNext());

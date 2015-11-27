@@ -446,7 +446,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
                 node.Text = nodeData.Name;
             }
 
-            public override IEnumerable GetChildNodeObjects(Parent parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(Parent parentNodeData)
             {
                 // always returns a single child with the same name
                 yield return new Child

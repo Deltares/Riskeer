@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(dataMock, nodeMock).OfType<object>().ToArray();
+            var children = nodePresenter.GetChildNodeObjects(dataMock).OfType<object>().ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(children);

@@ -12,6 +12,7 @@ using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -62,7 +63,6 @@ namespace Core.Common.Gui
         private bool isExiting;
         private Project project;
         private IActivityRunner activityRunner;
-        private ContextMenuItemFactory contextMenuItemFactory;
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
@@ -93,8 +93,6 @@ namespace Core.Common.Gui
 
             ProjectClosing += ApplicationProjectClosing;
             ProjectOpened += ApplicationProjectOpened;
-
-            contextMenuItemFactory = new ContextMenuItemFactory(this);
 
             ActivityRunner = new ActivityRunner();
         }
@@ -1074,14 +1072,9 @@ namespace Core.Common.Gui
             Dispose(false);
         }
 
-        public ContextMenuStrip Get(object obj)
+        public ContextMenuBuilder Get(ITreeNode obj)
         {
-            ContextMenuStrip contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add(contextMenuItemFactory.CreateImportItem(obj));
-            contextMenu.Items.Add(contextMenuItemFactory.CreateExportItem(obj));
-            contextMenu.Items.Add(new ToolStripSeparator());
-            contextMenu.Items.Add(contextMenuItemFactory.CreatePropertiesItem(obj));
-            return contextMenu;
+            return new ContextMenuBuilder(this, obj);
         }
     }
 }

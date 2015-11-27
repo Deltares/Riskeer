@@ -39,7 +39,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             node.IsVisible = layer.ShowInTreeView;
         }
 
-        public override IEnumerable GetChildNodeObjects(ILayer mapLayer, ITreeNode node)
+        public override IEnumerable GetChildNodeObjects(ILayer mapLayer)
         {
             var legend = new MapLayerLegend(mapLayer);
 

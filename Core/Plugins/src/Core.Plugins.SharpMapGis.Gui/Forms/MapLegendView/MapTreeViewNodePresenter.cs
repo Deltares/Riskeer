@@ -57,7 +57,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        public override IEnumerable GetChildNodeObjects(Map map, ITreeNode node)
+        public override IEnumerable GetChildNodeObjects(Map map)
         {
             return map.Layers.Where(l => l.ShowInTreeView);
         }

@@ -144,7 +144,7 @@ namespace Core.Common.Controls.Swf
         {
             private static readonly Bitmap ComputerIcon = Resources.computer;
 
-            public override IEnumerable GetChildNodeObjects(ComputerInfo parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(ComputerInfo parentNodeData)
             {
                 foreach (var logicalDrive in Environment.GetLogicalDrives())
                 {
@@ -165,7 +165,7 @@ namespace Core.Common.Controls.Swf
             private static readonly Bitmap FolderIcon = Resources.folder;
             public string SearchPattern { get; set; }
 
-            public override IEnumerable GetChildNodeObjects(DirectoryInfo parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(DirectoryInfo parentNodeData)
             {
                 var childDirectories = Enumerable.Empty<DirectoryInfo>();
                 try
@@ -207,7 +207,7 @@ namespace Core.Common.Controls.Swf
             private static readonly Bitmap DriveIcon = Resources.drive;
             public string SearchPattern { get; set; }
 
-            public override IEnumerable GetChildNodeObjects(DriveInfo parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(DriveInfo parentNodeData)
             {
                 var list = new List<FileSystemInfo>();
                 if (parentNodeData.IsReady)

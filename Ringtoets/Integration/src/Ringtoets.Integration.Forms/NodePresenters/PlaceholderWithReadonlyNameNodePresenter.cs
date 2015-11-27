@@ -2,9 +2,9 @@
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Placeholder;
-using Ringtoets.Integration.Forms.ContextMenu;
 using Ringtoets.Integration.Forms.Properties;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -43,7 +43,35 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PlaceholderWithReadonlyName nodeData)
         {
-            return PlaceholderWithReadonlyNameContextMenu.CreateContextMenu(nodeData, guiHandler, contextMenuProvider);
+            ContextMenuBuilder menuBuilder = contextMenuProvider.Get(sender);
+
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
+            {
+                var openItem = new ToolStripMenuItem
+                {
+                    Text = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open,
+                    ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Open_ToolTip,
+                    Image = RingtoetsCommonFormsResources.OpenIcon,
+                    Enabled = false
+                };
+                var clearItem = new ToolStripMenuItem
+                {
+                    Text = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
+                    ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
+                    Image = RingtoetsCommonFormsResources.ClearIcon,
+                    Enabled = false
+                };
+
+                menuBuilder.AddCustomItem(openItem)
+                           .AddCustomItem(clearItem)
+                           .AddSeparator();
+            }
+
+            return menuBuilder.AddImportItem()
+                              .AddExportItem()
+                              .AddSeparator()
+                              .AddPropertiesItem()
+                              .Build();
         }
     }
 }

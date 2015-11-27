@@ -178,7 +178,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             LastCall.On(treeview).IgnoreArguments();
 
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>());
+            Expect.Call(nodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
             Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -234,7 +234,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             LastCall.On(treeview).IgnoreArguments();
 
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>());
+            Expect.Call(nodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
             Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
 
             // Property changed is bubbled to nodePresenter => expect 1 call during parent.Name = "Test"
@@ -295,7 +295,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(new[]
             {
                 child1,
                 child2
@@ -352,7 +352,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             treeView.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments().Repeat.Once();
 
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Twice();
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Twice();
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
             mocks.ReplayAll();
 
@@ -387,13 +387,13 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(parent.Children).Repeat.Any();
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(parent.Children).Repeat.Any();
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
             Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(5);
-            Expect.Call(childNodePresenter.GetChildNodeObjects(parent, null)).Return(parent.Children).Repeat.Any();
-            Expect.Call(childNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
+            Expect.Call(childNodePresenter.GetChildNodeObjects(parent)).Return(parent.Children).Repeat.Any();
+            Expect.Call(childNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -414,7 +414,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             // simulate removing child2 from parent by changing the number of children returned by the parent node presenter
             parentNodePresenter.BackToRecord(BackToRecordOptions.All);
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(new[]
             {
                 child1
             });
@@ -444,7 +444,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(new[]
             {
                 child1,
                 child2
@@ -453,7 +453,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
             Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(6);
-            Expect.Call(childNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
+            Expect.Call(childNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -499,7 +499,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
             nodePresenter.TreeView = treeview;
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(tag, null)).IgnoreArguments().Return(new[]
+            Expect.Call(nodePresenter.GetChildNodeObjects(tag)).IgnoreArguments().Return(new[]
             {
                 new object()
             });
@@ -553,14 +553,14 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(new[]
             {
                 child
             }).Repeat.Any();
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
-            Expect.Call(childNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
+            Expect.Call(childNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
 
             // expect 1 update call for the parent & child
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();

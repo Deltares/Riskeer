@@ -46,7 +46,7 @@ namespace Core.Common.Base.Tests.TestObjects
             }
         }
 
-        public override IEnumerable GetChildNodeObjects(Child parentNodeData, ITreeNode node)
+        public override IEnumerable GetChildNodeObjects(Child parentNodeData)
         {
             return parentNodeData.Children;
         }

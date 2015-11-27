@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.Image = Resources.FolderIcon;
         }
 
-        protected override IEnumerable GetChildNodeObjects(IEnumerable<RingtoetsPipingSurfaceLine> nodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
             foreach (var pipingSurfaceLine in nodeData)
             {

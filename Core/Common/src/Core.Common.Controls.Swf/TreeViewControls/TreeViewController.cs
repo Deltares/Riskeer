@@ -223,7 +223,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                     return;
                 }
 
-                var childNodeObjects = nodePresenter.GetChildNodeObjects(treeNode.Tag, treeNode);
+                var childNodeObjects = nodePresenter.GetChildNodeObjects(treeNode.Tag);
                 if (childNodeObjects == null)
                 {
                     return;
@@ -360,7 +360,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         private IEnumerable<object> GetChildNodeObjects(ITreeNode treeNode)
         {
-            return (AskNodePresenter(treeNode, p => p.GetChildNodeObjects(treeNode.Tag, treeNode), null) ??
+            return (AskNodePresenter(treeNode, p => p.GetChildNodeObjects(treeNode.Tag), null) ??
                     new object[0]).OfType<object>();
         }
 

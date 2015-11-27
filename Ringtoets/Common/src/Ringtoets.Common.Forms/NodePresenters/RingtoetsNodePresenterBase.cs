@@ -33,9 +33,9 @@ namespace Ringtoets.Common.Forms.NodePresenters
             UpdateNode(parentNode, node, (T)nodeData);
         }
 
-        public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        public IEnumerable GetChildNodeObjects(object parentNodeData)
         {
-            return GetChildNodeObjects((T)parentNodeData, node).Cast<object>();
+            return GetChildNodeObjects((T)parentNodeData).Cast<object>();
         }
 
         public virtual bool CanRenameNode(ITreeNode node)
@@ -118,8 +118,8 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.GetChildNodeObjects"/>.
         /// </summary>
-        /// <seealso cref="GetChildNodeObjects(object, ITreeNode)"/>
-        protected virtual IEnumerable GetChildNodeObjects(T nodeData, ITreeNode node)
+        /// <seealso cref="GetChildNodeObjects"/>
+        protected virtual IEnumerable GetChildNodeObjects(T nodeData)
         {
             return Enumerable.Empty<object>();
         }

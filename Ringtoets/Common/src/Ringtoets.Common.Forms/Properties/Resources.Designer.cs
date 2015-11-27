@@ -137,57 +137,11 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ExportIcon {
-            get {
-                object obj = ResourceManager.GetObject("ExportIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekeningen.
         /// </summary>
         public static string FailureMechanism_Calculations_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Calculations_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alles i&amp;nklappen.
-        /// </summary>
-        public static string FailureMechanism_Collapse_all {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Collapse_all", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klap deze knoop en al zijn kinderen in..
-        /// </summary>
-        public static string FailureMechanism_Collapse_all_ToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Collapse_all_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alles ui&amp;tklappen.
-        /// </summary>
-        public static string FailureMechanism_Expand_all {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Expand_all", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klap deze knoop en al zijn kinderen uit..
-        /// </summary>
-        public static string FailureMechanism_Expand_all_ToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Expand_all_ToolTip", resourceCulture);
             }
         }
         
@@ -276,16 +230,6 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap ImportIcon {
-            get {
-                object obj = ResourceManager.GetObject("ImportIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap InputFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("InputFolderIcon", resourceCulture);
@@ -309,16 +253,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static System.Drawing.Bitmap OutputFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PropertiesIcon {
-            get {
-                object obj = ResourceManager.GetObject("PropertiesIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

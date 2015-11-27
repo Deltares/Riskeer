@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.ForegroundColor = GetTextColor(pipingSoilProfiles);
         }
 
-        protected override IEnumerable GetChildNodeObjects(IEnumerable<PipingSoilProfile> pipingSoilProfiles, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(IEnumerable<PipingSoilProfile> pipingSoilProfiles)
         {
             foreach (PipingSoilProfile profile in pipingSoilProfiles)
             {

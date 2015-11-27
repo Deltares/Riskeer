@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.Image = Resources.PipingIcon;
         }
 
-        protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism)
         {
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism), TreeFolderCategory.Input);
             yield return new PipingCalculationsTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Calculations_DisplayName, failureMechanism);

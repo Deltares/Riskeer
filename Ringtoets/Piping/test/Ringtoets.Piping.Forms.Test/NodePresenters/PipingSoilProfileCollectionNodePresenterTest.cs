@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(soilProfilesCollection, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(soilProfilesCollection);
 
             // Assert
             CollectionAssert.AreEqual(soilProfilesCollection, children);

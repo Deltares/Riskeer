@@ -130,10 +130,11 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\MainWindowCommands.cs" />
+    <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
     <Compile Include="CustomSettingsProvider.cs" />
     <Compile Include="GuiCoreSettings.cs" />
     <Compile Include="RingtoetsGui.cs" />
-    <Compile Include="ContextMenuItemFactory.cs" />
+    <Compile Include="ContextMenu\ContextMenuItemFactory.cs" />
     <Compile Include="IContextMenuProvider.cs" />
     <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
@@ -363,6 +364,9 @@
     <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\arrow-stop-090.png" />
+    <None Include="Resources\arrow-stop-270.png" />
+    <None Include="Resources\table_delete.png" />
     <None Include="Resources\property.png" />
     <None Include="Resources\table-import.png" />
     <None Include="Resources\table-export.png" />

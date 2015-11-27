@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Controls;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -27,6 +28,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = "";
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
@@ -35,7 +38,7 @@ namespace Core.Common.Gui.Tests
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreateExportItem("");
+            var item = contextMenuFactory.CreateExportItem(treeNodeMock);
 
             // Assert
             Assert.AreEqual(Properties.Resources.Export, item.Text);
@@ -49,6 +52,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = 0;
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
@@ -57,7 +62,7 @@ namespace Core.Common.Gui.Tests
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreateExportItem(0);
+            var item = contextMenuFactory.CreateExportItem(treeNodeMock);
 
             // Assert
             Assert.AreEqual(Properties.Resources.Export, item.Text);
@@ -71,6 +76,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = "";
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
@@ -79,7 +86,7 @@ namespace Core.Common.Gui.Tests
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreateImportItem("");
+            var item = contextMenuFactory.CreateImportItem(treeNodeMock);
 
             // Assert
             Assert.AreEqual(Properties.Resources.Import, item.Text);
@@ -93,6 +100,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = 0;
             var applicationCore = new ApplicationCore();
             applicationCore.AddPlugin(new TestApplicationPlugin(mocks));
             guiMock.Expect(g => g.ApplicationCore).Return(applicationCore);
@@ -101,7 +110,7 @@ namespace Core.Common.Gui.Tests
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreateImportItem(0);
+            var item = contextMenuFactory.CreateImportItem(treeNodeMock);
 
             // Assert
             Assert.AreEqual(Properties.Resources.Import, item.Text);
@@ -115,6 +124,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = 0;
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(null);
             var contextMenuFactory = new ContextMenuItemFactory(guiMock);
@@ -122,7 +133,7 @@ namespace Core.Common.Gui.Tests
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreatePropertiesItem(0);
+            var item = contextMenuFactory.CreatePropertiesItem(treeNodeMock);
 
             // Assert
             Assert.AreEqual(Properties.Resources.Properties, item.Text);
@@ -138,6 +149,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = "";
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(null);
             var contextMenuFactory = new ContextMenuItemFactory(guiMock);
@@ -145,7 +158,7 @@ namespace Core.Common.Gui.Tests
             mocks.ReplayAll();
 
             // Call
-            var item = contextMenuFactory.CreatePropertiesItem("");
+            var item = contextMenuFactory.CreatePropertiesItem(treeNodeMock);
 
             // Assert
             Assert.AreEqual(Properties.Resources.Properties, item.Text);
@@ -161,13 +174,15 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = 0;
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(null);
             var contextMenuFactory = new ContextMenuItemFactory(guiMock);
 
             mocks.ReplayAll();
 
-            var item = contextMenuFactory.CreatePropertiesItem(0);
+            var item = contextMenuFactory.CreatePropertiesItem(treeNodeMock);
             
             // Call & Assert
             item.PerformClick();
@@ -180,6 +195,8 @@ namespace Core.Common.Gui.Tests
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
+            var treeNodeMock = mocks.Stub<ITreeNode>();
+            treeNodeMock.Tag = 0;
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             guiMock.Expect(g => g.Plugins).Return(pluginList);
             guiMock.Expect(g => g.CommandHandler).Return(commandHandlerMock);
@@ -188,7 +205,7 @@ namespace Core.Common.Gui.Tests
 
             mocks.ReplayAll();
 
-            var item = contextMenuFactory.CreatePropertiesItem(0);
+            var item = contextMenuFactory.CreatePropertiesItem(treeNodeMock);
             
             // Call & Assert
             item.PerformClick();

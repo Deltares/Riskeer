@@ -33,13 +33,12 @@ namespace Core.Common.Controls
         /// <summary>
         /// Returns array of child objects for <paramref name="parentNodeData"/> for which nodes should be added.
         /// </summary>
-        /// <param name="parentNodeData">The data belonging to the parent node specified by <paramref name="node"/></param>
-        /// <param name="node">The parent node whose child object should be returned</param>
+        /// <param name="parentNodeData">The data belonging to the parent node.</param>
         /// <returns>
         ///   The collection of child objects.
         ///   Post condition: Shall not return null.
         /// </returns>
-        IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node);
+        IEnumerable GetChildNodeObjects(object parentNodeData);
 
         /// <summary>
         /// Indicates whether the node text property is editable.

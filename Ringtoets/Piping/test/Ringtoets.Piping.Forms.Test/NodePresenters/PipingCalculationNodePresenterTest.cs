@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingCalculationContext, nodeMock).OfType<object>().ToArray();
+            var children = nodePresenter.GetChildNodeObjects(pipingCalculationContext).OfType<object>().ToArray();
 
             // Assert
             Assert.AreEqual(4, children.Length);
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsFalse(pipingCalculationContext.WrappedPipingCalculation.HasOutput);
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingCalculationContext, nodeMock).OfType<object>().ToArray();
+            var children = nodePresenter.GetChildNodeObjects(pipingCalculationContext).OfType<object>().ToArray();
 
             // Assert
             Assert.AreEqual(4, children.Length);

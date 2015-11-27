@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodePresenter = new CategoryTreeFolderNodePresenter();
 
             // Call
-            IEnumerable children = nodePresenter.GetChildNodeObjects(folder, node);
+            IEnumerable children = nodePresenter.GetChildNodeObjects(folder);
 
             // Assert
             CollectionAssert.AreEqual(folder.Contents, children);

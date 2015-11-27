@@ -502,6 +502,34 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alles i&amp;nklappen.
+        /// </summary>
+        public static string Collapse_all {
+            get {
+                return ResourceManager.GetString("Collapse_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klap deze knoop en al zijn kinderen in..
+        /// </summary>
+        public static string Collapse_all_ToolTip {
+            get {
+                return ResourceManager.GetString("Collapse_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CollapseAllIcon {
+            get {
+                object obj = ResourceManager.GetObject("CollapseAllIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap control_play {
@@ -748,11 +776,39 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alles ui&amp;tklappen.
+        /// </summary>
+        public static string Expand_all {
+            get {
+                return ResourceManager.GetString("Expand_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klap deze knoop en al zijn kinderen uit..
+        /// </summary>
+        public static string Expand_all_ToolTip {
+            get {
+                return ResourceManager.GetString("Expand_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aantal ({0}).
         /// </summary>
         public static string ExpandableArrayConverter_ConvertTo_Count_0_ {
             get {
                 return ResourceManager.GetString("ExpandableArrayConverter_ConvertTo_Count_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ExpandAllIcon {
+            get {
+                object obj = ResourceManager.GetObject("ExpandAllIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

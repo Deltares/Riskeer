@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             pipingFailureMechanism.Calculations.Add(new PipingCalculation());
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock).OfType<object>().ToArray();
+            var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism).OfType<object>().ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);

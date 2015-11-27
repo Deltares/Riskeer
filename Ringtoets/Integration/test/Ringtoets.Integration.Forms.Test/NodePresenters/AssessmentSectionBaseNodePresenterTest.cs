@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodePresenter = new AssessmentSectionBaseNodePresenter();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(assessmentSectionMock, nodeMock).Cast<object>().AsList();
+            var children = nodePresenter.GetChildNodeObjects(assessmentSectionMock).Cast<object>().AsList();
 
             // Assert
             Assert.AreEqual(7, children.Count);

@@ -16,7 +16,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             GuiPlugin = guiPlugin;
         }
 
-        public override IEnumerable GetChildNodeObjects(Project project, ITreeNode node)
+        public override IEnumerable GetChildNodeObjects(Project project)
         {
             return project.Items;
         }

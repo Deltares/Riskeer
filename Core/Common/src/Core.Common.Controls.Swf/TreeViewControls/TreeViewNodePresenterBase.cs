@@ -22,7 +22,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         public abstract void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData);
 
-        public virtual IEnumerable GetChildNodeObjects(T parentNodeData, ITreeNode node)
+        public virtual IEnumerable GetChildNodeObjects(T parentNodeData)
         {
             return new object[0];
         }
@@ -84,9 +84,9 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             UpdateNode(parentNode, node, data);
         }
 
-        IEnumerable ITreeNodePresenter.GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        IEnumerable ITreeNodePresenter.GetChildNodeObjects(object parentNodeData)
         {
-            return GetChildNodeObjects((T) parentNodeData, node);
+            return GetChildNodeObjects((T) parentNodeData);
         }
 
         /// <returns>Will return false.</returns>
@@ -184,7 +184,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                             var indexOf = IndexInParent(presenter, parentNode, e.Item);
                             if (indexOf >= 0)
                             {
-                                ((TreeNode) parentNode).HasChildren = presenter.GetChildNodeObjects(parentNode.Tag, parentNode).GetEnumerator().MoveNext();
+                                ((TreeNode) parentNode).HasChildren = presenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
                                 OnCollectionChanged((T) e.Item, parentNode, e, indexOf);
                                 return; // only one Node per tag is supported for now
                             }
@@ -209,7 +209,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                                 {
                                     return;
                                 }
-                                ((TreeNode) parentNode).HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag, parentNode).GetEnumerator().MoveNext();
+                                ((TreeNode) parentNode).HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
                                 OnCollectionChanged((T) e.Item, parentNode, e, -1);
                             }
                         }
@@ -305,7 +305,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         private static int IndexInParent(ITreeNodePresenter presenter, ITreeNode parentNode, object item)
         {
-            var childItems = presenter.GetChildNodeObjects(parentNode.Tag, parentNode).OfType<object>().ToList();
+            var childItems = presenter.GetChildNodeObjects(parentNode.Tag).OfType<object>().ToList();
             var i = 0;
             foreach (var childItem in childItems)
             {

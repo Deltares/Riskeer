@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.Image = Resources.PipingIcon;
         }
 
-        protected override IEnumerable GetChildNodeObjects(PipingCalculationContext pipingCalculationContext, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(PipingCalculationContext pipingCalculationContext)
         {
             yield return pipingCalculationContext.WrappedPipingCalculation.Comments;
             yield return new PipingInputContext
