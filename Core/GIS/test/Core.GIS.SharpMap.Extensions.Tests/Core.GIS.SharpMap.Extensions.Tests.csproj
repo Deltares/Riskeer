@@ -167,11 +167,6 @@
   <PropertyGroup>
     <ExternalDependencies>lib\Common\SharpMap.Extensions\**</ExternalDependencies>
   </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
-    xcopy /s /y "$(SolutionDir)\packages\GDAL.Native.1.9.2\gdal\*.*" "$(TargetDir)gdal"</PostBuildEvent>
-  </PropertyGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5" />

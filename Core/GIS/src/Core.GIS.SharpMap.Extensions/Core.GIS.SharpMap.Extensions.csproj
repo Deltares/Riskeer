@@ -196,9 +196,4 @@
   </Target>
   -->
   <Import Project="..\..\..\..\build\Ringtoets.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
-    xcopy /s /y "$(SolutionDir)\packages\GDAL.Native.1.9.2\gdal\*.*" "$(TargetDir)gdal"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
