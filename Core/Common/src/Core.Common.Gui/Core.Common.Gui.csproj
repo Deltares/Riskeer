@@ -136,6 +136,13 @@
     </Compile>
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactory.cs" />
     <Compile Include="CustomSettingsProvider.cs" />
+    <Compile Include="Forms\ProgressDialog\ActivityProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog\ActivityProgressDialog.Designer.cs">
+      <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog\ProgressReporter.cs" />
     <Compile Include="GuiCoreSettings.cs" />
     <Compile Include="RingtoetsGui.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />
@@ -338,6 +345,9 @@
       <DependentUpon>OptionsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressDialog\ActivityProgressDialog.resx">
+      <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressDialog\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -368,6 +378,7 @@
     <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Busy indicator.gif" />
     <None Include="Resources\arrow.png" />
     <None Include="Resources\arrow-stop-090.png" />
     <None Include="Resources\arrow-stop-270.png" />
