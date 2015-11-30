@@ -179,12 +179,12 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - {1} van {2}.
+        ///   Looks up a localized string similar to Stap {0} van {1}  |  {2}.
         /// </summary>
-        internal static string FileImportActivity_ImportFromFile_ProgressText_0_CurrentProgress_1_of_TotalProgress_2 {
+        internal static string FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2 {
             get {
-                return ResourceManager.GetString("FileImportActivity_ImportFromFile_ProgressText_0_CurrentProgress_1_of_TotalProgre" +
-                        "ss_2", resourceCulture);
+                return ResourceManager.GetString("FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__P" +
+                        "rogressText_2", resourceCulture);
             }
         }
         

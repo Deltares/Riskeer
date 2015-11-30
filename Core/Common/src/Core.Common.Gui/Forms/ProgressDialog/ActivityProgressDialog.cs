@@ -131,7 +131,11 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 labelActivityProgressText.Visible = !progressTextNullOrEmpty;
 
                 // Update the activity progress text label
-                labelActivityProgressText.Text = progressTextNullOrEmpty ? "" : activity.ProgressText;
+                labelActivityProgressText.Text = !progressTextNullOrEmpty
+                                                     ? activity.ProgressText.Length <= 75
+                                                           ? activity.ProgressText
+                                                           : activity.ProgressText.Take(75) + "..."
+                                                     : "";
             });
         }
     }

@@ -71,9 +71,9 @@
             this.labelActivityDescription.AutoSize = true;
             this.labelActivityDescription.Location = new System.Drawing.Point(36, 20);
             this.labelActivityDescription.Name = "labelActivityDescription";
-            this.labelActivityDescription.Size = new System.Drawing.Size(87, 13);
+            this.labelActivityDescription.Size = new System.Drawing.Size(77, 13);
             this.labelActivityDescription.TabIndex = 3;
-            this.labelActivityDescription.Text = "Uitvoeren \"taak\"";
+            this.labelActivityDescription.Text = "Uitvoeren taak";
             // 
             // pictureBoxActivityDescription
             // 
@@ -98,9 +98,9 @@
             this.labelActivityProgressText.AutoSize = true;
             this.labelActivityProgressText.Location = new System.Drawing.Point(61, 40);
             this.labelActivityProgressText.Name = "labelActivityProgressText";
-            this.labelActivityProgressText.Size = new System.Drawing.Size(74, 13);
+            this.labelActivityProgressText.Size = new System.Drawing.Size(128, 13);
             this.labelActivityProgressText.TabIndex = 6;
-            this.labelActivityProgressText.Text = "Stap 1 van 10";
+            this.labelActivityProgressText.Text = "Stap 1 van 10  |  Subtaak";
             // 
             // ActivityProgressDialog
             // 
