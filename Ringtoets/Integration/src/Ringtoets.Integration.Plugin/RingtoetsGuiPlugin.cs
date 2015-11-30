@@ -34,7 +34,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new AssessmentSectionBaseNodePresenter();
             yield return new FailureMechanismNodePresenter((IContextMenuBuilderProvider)Gui);
             yield return new PlaceholderWithReadonlyNameNodePresenter((IContextMenuBuilderProvider)Gui);
-            yield return new CategoryTreeFolderNodePresenter();
+            yield return new CategoryTreeFolderNodePresenter
+            {
+                ContextMenuBuilderProvider = (IContextMenuBuilderProvider)Gui
+            };
         }
     }
 }

@@ -18,6 +18,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingSurfaceLineCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<RingtoetsPipingSurfaceLine>>
     {
+        /// <summary>
+        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
+        /// </summary>
         public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)

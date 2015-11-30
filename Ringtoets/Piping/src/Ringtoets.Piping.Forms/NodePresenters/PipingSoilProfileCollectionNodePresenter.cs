@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
-
+using Core.Common.Gui;
 using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
@@ -20,17 +20,16 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     public class PipingSoilProfileCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<PipingSoilProfile>>
     {
         /// <summary>
-        /// Sets the action to be performed when importing <see cref="PipingSoilProfile"/> instances
-        /// to <see cref="PipingFailureMechanism.SoilProfiles"/>.
+        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
         /// </summary>
-        public Action ImportSoilProfilesAction { private get; set; }
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<PipingSoilProfile> pipingSoilProfiles)
         {
             node.Text = Resources.PipingSoilProfilesCollection_DisplayName;
             node.Image = Resources.FolderIcon;
 
-            node.ForegroundColor = GetTextColor(pipingSoilProfiles);
+            node.ForegroundColor = Color.FromKnownColor(pipingSoilProfiles.Any() ? KnownColor.ControlText : KnownColor.GrayText);
         }
 
         protected override IEnumerable GetChildNodeObjects(IEnumerable<PipingSoilProfile> pipingSoilProfiles)
@@ -43,36 +42,18 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, IEnumerable<PipingSoilProfile> nodeData)
         {
-            if (ImportSoilProfilesAction != null)
+            if (ContextMenuBuilderProvider == null)
             {
-                return CreateContextMenu();
+                return null;
             }
-            return null;
-        }
-
-        private static Color GetTextColor(object nodeData)
-        {
-            var pipingSoilProfiles = (IEnumerable<PipingSoilProfile>) nodeData;
-            return Color.FromKnownColor(pipingSoilProfiles.Any() ? KnownColor.ControlText : KnownColor.GrayText);
-        }
-
-        private ContextMenuStrip CreateContextMenu()
-        {
-            var strip = new ContextMenuStrip();
-            if (ImportSoilProfilesAction != null)
-            {
-                strip.AddMenuItem(
-                    Resources.Import_SoilProfiles,
-                    Resources.Import_SoilProfiles_Tooltip,
-                    Resources.ImportIcon,
-                    ImportSoilProfilesOnClick);
-            }
-            return strip;
-        }
-
-        private void ImportSoilProfilesOnClick(object sender, EventArgs e)
-        {
-            ImportSoilProfilesAction();
+            return ContextMenuBuilderProvider
+                .Get(sender)
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddImportItem()
+                .AddExportItem()
+                .Build();
         }
     }
 }

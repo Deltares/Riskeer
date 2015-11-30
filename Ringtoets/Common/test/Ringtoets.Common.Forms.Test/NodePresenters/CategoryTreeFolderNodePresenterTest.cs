@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 
 using Core.Common.Controls;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -117,6 +120,43 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Assert
             CollectionAssert.AreEqual(folder.Contents, children);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu()
+        {
+            // Setup
+            var folder = new CategoryTreeFolder("", new object[0]);
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var menuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            menuBuilderProviderMock.Expect(mbp => mbp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+
+            mocks.ReplayAll();
+
+            var nodePresenter = new CategoryTreeFolderNodePresenter
+            {
+                ContextMenuBuilderProvider = menuBuilderProviderMock
+            };
+
+            // Call
+            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, folder);
+
+            // Assert
+            Assert.AreEqual(2, returnedContextMenu.Items.Count);
+            var expandAllItem = returnedContextMenu.Items[0];
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Expand_all, expandAllItem.Text);
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Expand_all_ToolTip, expandAllItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExpandAllIcon, expandAllItem.Image);
+            Assert.IsTrue(expandAllItem.Enabled);
+
+            var collapseAllItem = returnedContextMenu.Items[1];
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Collapse_all, collapseAllItem.Text);
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Collapse_all_ToolTip, collapseAllItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.CollapseAllIcon, collapseAllItem.Image);
+            Assert.IsTrue(collapseAllItem.Enabled);
+
             mocks.VerifyAll();
         }
 
