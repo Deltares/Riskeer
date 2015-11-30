@@ -136,11 +136,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
             gui.DocumentViews.ChildViewChanged += DocumentViewsActiveViewChanged;
             gui.ProjectClosing += ApplicationProjectClosing;
-
-            if (gui.ActivityRunner != null)
-            {
-                gui.ActivityRunner.ActivityCompleted += ActivityRunnerOnActivityCompleted;
-            }
         }
 
         public override void Dispose()
@@ -155,14 +150,6 @@ namespace Core.Plugins.SharpMapGis.Gui
                     documentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
                 }
                 gui.ProjectClosing -= ApplicationProjectClosing;
-
-                if (gui.ApplicationCore != null)
-                {
-                    if (gui.ActivityRunner != null)
-                    {
-                        gui.ActivityRunner.ActivityCompleted -= ActivityRunnerOnActivityCompleted;
-                    }
-                }
             }
 
             gui = null;
@@ -294,19 +281,6 @@ namespace Core.Plugins.SharpMapGis.Gui
         private static void MapControlOnToolActivated(object sender, EventArgs<IMapTool> eventArgs)
         {
             RefreshRibbonItems();
-        }
-
-        private void ActivityRunnerOnActivityCompleted(object sender, ActivityEventArgs e)
-        {
-            if (mapLegendView == null)
-            {
-                return;
-            }
-
-            // Force a refresh of the map legend view (tree view)
-            mapLegendView.Data = null;
-
-            UpdateMapLegendView();
         }
 
         private static void UpdateMapLegendView()

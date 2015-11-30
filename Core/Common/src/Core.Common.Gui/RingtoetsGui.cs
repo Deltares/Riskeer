@@ -112,23 +112,11 @@ namespace Core.Common.Gui
             }
             private set
             {
-                if (activityRunner != null)
-                {
-                    activityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
-                    activityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
-                }
-
                 activityRunner = value;
 
                 if (RunningActivityLogAppender.Instance != null)
                 {
                     RunningActivityLogAppender.Instance.ActivityRunner = value;
-                }
-
-                if (activityRunner != null)
-                {
-                    activityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
-                    activityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
                 }
             }
         }
@@ -584,32 +572,6 @@ namespace Core.Common.Gui
             {
                 mainWindow.ValidateItems();
             }
-        }
-
-        [InvokeRequired]
-        private void ActivityRunnerIsRunningChanged(object sender, EventArgs e)
-        {
-            if (isExiting)
-            {
-                return;
-            }
-
-            if (!ActivityRunner.IsRunning)
-            {
-                ResumeUI();
-            }
-        }
-
-        [InvokeRequired]
-        private void ActivityRunnerActivityCompleted(object sender, ActivityEventArgs e)
-        {
-            if (MainWindow == null || MainWindow.PropertyGrid == null)
-            {
-                return;
-            }
-
-            // Force refresh of propertygrid (not done automaticly because events are disabled during import)
-            MainWindow.PropertyGrid.Data = MainWindow.PropertyGrid.GetObjectProperties(Selection);
         }
 
         private void ApplicationProjectOpened(Project project)
