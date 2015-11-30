@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -147,19 +148,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<IEnumerable<PipingSoilProfile>>();
-            var menuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            menuBuilderProviderMock.Expect(mbp => mbp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(commandHandlerMock, nodeMock));
-
-            commandHandlerMock.Expect(ch => ch.CanExportFromGuiSelection()).Return(importExportEnabled);
-            commandHandlerMock.Expect(ch => ch.CanImportToGuiSelection()).Return(importExportEnabled);
-
-            mocks.ReplayAll();
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter
             {
-                ContextMenuBuilderProvider = menuBuilderProviderMock
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, importExportEnabled)
             };
+
+            mocks.ReplayAll();
 
             // Call
             var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);

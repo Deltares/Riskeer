@@ -5,7 +5,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
-
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
@@ -28,6 +29,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
         /// </summary>
         public Action<IActivity> RunActivityAction { private get; set; }
+        /// <summary>
+        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationContext pipingCalculationContext)
         {
@@ -97,17 +102,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationContext nodeData)
         {
-            PipingCalculation calculation = nodeData.WrappedData;
+            if (ContextMenuBuilderProvider == null)
+            {
+                return null;
+            }
 
-            var contextMenu = new ContextMenuStrip();
-            contextMenu.AddMenuItem(Resources.Validate,
+            PipingCalculation calculation = nodeData.WrappedData;
+            var validateItem = new StrictContextMenuItem(Resources.Validate,
                                     null,
                                     Resources.ValidationIcon,
                                     (o, args) =>
                                     {
                                         PipingCalculationService.Validate(calculation);
                                     });
-            contextMenu.AddMenuItem(Resources.Calculate,
+            var calculateItem = new StrictContextMenuItem(Resources.Calculate,
                                     null,
                                     Resources.Play,
                                     (o, args) =>
@@ -115,7 +123,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                         RunActivityAction(new PipingCalculationActivity(calculation));
                                     });
 
-            var clearOutputItem = contextMenu.AddMenuItem(Resources.Clear_output,
+            var clearOutputItem = new StrictContextMenuItem(Resources.Clear_output,
                                     null,
                                     RingtoetsFormsResources.ClearIcon,
                                     (o, args) =>
@@ -130,7 +138,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 clearOutputItem.ToolTipText = Resources.ClearOutput_No_output_to_clear;
             }
 
-            return contextMenu;
+            return ContextMenuBuilderProvider
+                .Get(sender)
+                .AddCustomItem(validateItem)
+                .AddCustomItem(calculateItem)
+                .AddCustomItem(clearOutputItem)
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
     }
 }

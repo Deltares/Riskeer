@@ -35,7 +35,8 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PipingCalculationContextNodePresenter
             {
-                RunActivityAction = ActivityProgressDialogRunner.Run
+                RunActivityAction = ActivityProgressDialogRunner.Run,
+                ContextMenuBuilderProvider = Gui.ContextMenuProvider
             };
             yield return new PipingCalculationGroupContextNodePresenter();
             yield return new PipingInputContextNodePresenter();
