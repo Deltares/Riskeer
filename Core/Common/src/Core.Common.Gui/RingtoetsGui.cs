@@ -56,7 +56,6 @@ namespace Core.Common.Gui
         private AvalonDockDockingManager toolWindowViewsDockingManager;
 
         private SplashScreen splashScreen;
-        private ProgressDialog progressDialog;
 
         private bool settingSelection;
         private bool runFinished;
@@ -493,12 +492,6 @@ namespace Core.Common.Gui
 
                     DocumentViewsResolver = null;
 
-                    if (progressDialog != null)
-                    {
-                        progressDialog.Dispose();
-                        progressDialog = null;
-                    }
-
                     splashScreen = null;
 
                     MessageWindowLogAppender.MessageWindow = null;
@@ -625,8 +618,6 @@ namespace Core.Common.Gui
             {
                 ResumeUI();
             }
-
-            UpdateProgressDialog();
         }
 
         [InvokeRequired]
@@ -639,54 +630,6 @@ namespace Core.Common.Gui
 
             // Force refresh of propertygrid (not done automaticly because events are disabled during import)
             MainWindow.PropertyGrid.Data = MainWindow.PropertyGrid.GetObjectProperties(Selection);
-        }
-
-        private void UpdateProgressDialog()
-        {
-            //popping a dialog on buildserver causes error
-            //Showing a modal dialog box or form when the application is not running in UserInteractive mode is not a valid operation.
-            //hence this check
-            if (!Environment.UserInteractive)
-            {
-                return;
-            }
-
-            if (isExiting)
-            {
-                return;
-            }
-
-            if (progressDialog == null || progressDialog.IsDisposed)
-            {
-                progressDialog = new ProgressDialog();
-                progressDialog.CancelClicked += delegate
-                {
-                    ActivityRunner.CancelAll();
-
-                    // wait until all import activities are finished
-                    while (ActivityRunner.IsRunning)
-                    {
-                        Application.DoEvents();
-                    }
-                };
-                progressDialog.Data = ActivityRunner.Activities;
-            }
-
-            if (ActivityRunner.IsRunning)
-            {
-                if (!progressDialog.Visible)
-                {
-                    mainWindow.Enabled = false;
-                    progressDialog.Show(mainWindow);
-                    progressDialog.CenterToParent();
-                }
-            }
-            else
-            {
-                mainWindow.Enabled = true;
-                progressDialog.Hide();
-                progressDialog.Visible = false;
-            }
         }
 
         private void ApplicationProjectOpened(Project project)
