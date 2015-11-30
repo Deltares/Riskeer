@@ -108,7 +108,11 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void CancelActivities()
         {
+            // Cancel all activities in the queue
             cancellationTokenSource.Cancel();
+
+            // Cancel the currently running activity
+            runningActivity.Cancel();
 
             // Update the activity counter label
             labelActivityCounter.Text = Resources.ActivityProgressDialog_CancelActivities_Quit_after_finishing_current_activity;
