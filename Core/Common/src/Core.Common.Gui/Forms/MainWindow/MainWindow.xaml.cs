@@ -650,18 +650,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 ButtonShowProperties.IsChecked = Gui.ToolWindowViews.Contains(PropertyGrid);
             }
 
-            var appHasProject = Gui.Project != null;
-            var isActivityRunning = Gui.ActivityRunner.IsRunning;
-
-            // filemenu items dependent on existence of project and if processes are running
-            /*
-            ButtonMenuFileNewProject.IsEnabled = !isActivityRunning;
-            ButtonMenuFileOpenProject.IsEnabled = !isActivityRunning;
-            ButtonMenuFileSaveProject.IsEnabled = appHasProject && !isActivityRunning;
-            ButtonMenuFileSaveProjectAs.IsEnabled = appHasProject && !isActivityRunning;
-            ButtonMenuFileCloseProject.IsEnabled = appHasProject && !isActivityRunning;
-             * */
-
             // TODO: remove when implemented
             ButtonMenuFileOpenProject.IsEnabled = false;
             ButtonMenuFileSaveProject.IsEnabled = false;

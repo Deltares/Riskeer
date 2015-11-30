@@ -421,88 +421,68 @@ namespace Core.Common.Gui
 
                 Selection = null;
 
-                try
+                Project = null;
+
+                if (ToolWindowViews != null)
                 {
-                    if (ActivityRunner != null)
-                    {
-                        if (ActivityRunner.IsRunning)
-                        {
-                            ActivityRunner.CancelAll();
-
-                            while (ActivityRunner.IsRunning)
-                            {
-                                Application.DoEvents();
-                            }
-                        }
-                    }
+                    ToolWindowViews.Clear();
                 }
-                finally
+
+                if (CommandHandler != null)
                 {
-                    Project = null;
-
-                    ActivityRunner = null;
-
-                    if (ToolWindowViews != null)
-                    {
-                        ToolWindowViews.Clear();
-                    }
-
-                    if (CommandHandler != null)
-                    {
-                        CommandHandler.Dispose();
-                        CommandHandler = null;
-                    }
-
-                    if (Plugins != null)
-                    {
-                        foreach (var plugin in Plugins.ToList())
-                        {
-                            DeactivatePlugin(plugin);
-                        }
-
-                        Plugins = null;
-                    }
-
-                    if (toolWindowViews != null)
-                    {
-                        toolWindowViews.Clear();
-                        toolWindowViews.Dispose();
-                        toolWindowViews = null;
-                    }
-
-                    if (documentViews != null)
-                    {
-                        documentViews.Clear();
-                        documentViews.Dispose();
-                        documentViews = null;
-                    }
-
-                    if (toolWindowViewsDockingManager != null)
-                    {
-                        toolWindowViewsDockingManager.Dispose();
-                        toolWindowViewsDockingManager = null;
-                    }
-
-                    // Dispose managed resources. TODO: double check if we need to dispose managed resources?
-                    if (mainWindow != null && !mainWindow.IsWindowDisposed)
-                    {
-                        mainWindow.Dispose();
-                        mainWindow = null;
-                    }
-
-                    DocumentViewsResolver = null;
-
-                    splashScreen = null;
-
-                    MessageWindowLogAppender.MessageWindow = null;
-
-                    if (ApplicationCore != null)
-                    {
-                        ApplicationCore.Dispose();
-                    }
-
-                    RemoveLogging();
+                    CommandHandler.Dispose();
+                    CommandHandler = null;
                 }
+
+                if (Plugins != null)
+                {
+                    foreach (var plugin in Plugins.ToList())
+                    {
+                        DeactivatePlugin(plugin);
+                    }
+
+                    Plugins = null;
+                }
+
+                if (toolWindowViews != null)
+                {
+                    toolWindowViews.Clear();
+                    toolWindowViews.Dispose();
+                    toolWindowViews = null;
+                }
+
+                if (documentViews != null)
+                {
+                    documentViews.Clear();
+                    documentViews.Dispose();
+                    documentViews = null;
+                }
+
+                if (toolWindowViewsDockingManager != null)
+                {
+                    toolWindowViewsDockingManager.Dispose();
+                    toolWindowViewsDockingManager = null;
+                }
+
+                // Dispose managed resources. TODO: double check if we need to dispose managed resources?
+                if (mainWindow != null && !mainWindow.IsWindowDisposed)
+                {
+                    mainWindow.Dispose();
+                    mainWindow = null;
+                }
+
+                DocumentViewsResolver = null;
+
+                splashScreen = null;
+
+                MessageWindowLogAppender.MessageWindow = null;
+
+                if (ApplicationCore != null)
+                {
+                    ApplicationCore.Dispose();
+                }
+
+                RemoveLogging();
             }
 
             Application.ApplicationExit -= HandleApplicationExit;

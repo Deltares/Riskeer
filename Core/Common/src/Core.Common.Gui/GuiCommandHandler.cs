@@ -345,21 +345,12 @@ namespace Core.Common.Gui
 
         private void ProjectCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            // Don't remove views during run-time of models:
-            if (gui.ActivityRunner.IsRunning)
-            {
-                return;
-            }
             if (e.Action == NotifyCollectionChangeAction.Remove)
             {
                 RemoveAllViewsForItem(e.Item);
             }
-            if (e.Action == NotifyCollectionChangeAction.Replace)
-            {
-                //throw new NotImplementedException();
-            }
         }
-        
+
         private void AddProjectToMruList()
         {
             var mruList = (StringCollection) Settings.Default["mruList"];

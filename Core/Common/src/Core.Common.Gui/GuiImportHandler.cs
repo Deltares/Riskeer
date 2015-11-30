@@ -118,14 +118,6 @@ namespace Core.Common.Gui
             return null;
         }
 
-        private IActivityRunner ActivityRunner
-        {
-            get
-            {
-                return gui.ActivityRunner;
-            }
-        }
-
         private void ImportToItem(object item)
         {
             var importer = GetSupportedImporterForTargetType(item);
