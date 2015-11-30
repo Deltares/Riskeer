@@ -33,20 +33,23 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelActivityCounter = new System.Windows.Forms.Label();
             this.labelActivityDescription = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBoxActivityDescription = new System.Windows.Forms.PictureBox();
+            this.pictureBoxActivityProgressText = new System.Windows.Forms.PictureBox();
+            this.labelActivityProgressText = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityDescription)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityProgressText)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 70);
+            this.progressBar.Location = new System.Drawing.Point(12, 90);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(391, 23);
             this.progressBar.TabIndex = 0;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(415, 70);
+            this.buttonCancel.Location = new System.Drawing.Point(415, 90);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -57,7 +60,7 @@
             // labelActivityCounter
             // 
             this.labelActivityCounter.AutoSize = true;
-            this.labelActivityCounter.Location = new System.Drawing.Point(13, 51);
+            this.labelActivityCounter.Location = new System.Drawing.Point(13, 71);
             this.labelActivityCounter.Name = "labelActivityCounter";
             this.labelActivityCounter.Size = new System.Drawing.Size(68, 13);
             this.labelActivityCounter.TabIndex = 2;
@@ -72,21 +75,41 @@
             this.labelActivityDescription.TabIndex = 3;
             this.labelActivityDescription.Text = "Uitvoeren \"taak\"";
             // 
-            // pictureBox1
+            // pictureBoxActivityDescription
             // 
-            this.pictureBox1.Image = global::Core.Common.Gui.Properties.Resources.Busy_indicator;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxActivityDescription.Image = global::Core.Common.Gui.Properties.Resources.Busy_indicator;
+            this.pictureBoxActivityDescription.Location = new System.Drawing.Point(16, 18);
+            this.pictureBoxActivityDescription.Name = "pictureBoxActivityDescription";
+            this.pictureBoxActivityDescription.Size = new System.Drawing.Size(16, 16);
+            this.pictureBoxActivityDescription.TabIndex = 4;
+            this.pictureBoxActivityDescription.TabStop = false;
+            // 
+            // pictureBoxActivityProgressText
+            // 
+            this.pictureBoxActivityProgressText.Image = global::Core.Common.Gui.Properties.Resources.arrow_000_medium;
+            this.pictureBoxActivityProgressText.Location = new System.Drawing.Point(39, 38);
+            this.pictureBoxActivityProgressText.Name = "pictureBoxActivityProgressText";
+            this.pictureBoxActivityProgressText.Size = new System.Drawing.Size(16, 16);
+            this.pictureBoxActivityProgressText.TabIndex = 5;
+            this.pictureBoxActivityProgressText.TabStop = false;
+            // 
+            // labelActivityProgressText
+            // 
+            this.labelActivityProgressText.AutoSize = true;
+            this.labelActivityProgressText.Location = new System.Drawing.Point(61, 40);
+            this.labelActivityProgressText.Name = "labelActivityProgressText";
+            this.labelActivityProgressText.Size = new System.Drawing.Size(74, 13);
+            this.labelActivityProgressText.TabIndex = 6;
+            this.labelActivityProgressText.Text = "Stap 1 van 10";
             // 
             // ActivityProgressDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 106);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(502, 124);
+            this.Controls.Add(this.labelActivityProgressText);
+            this.Controls.Add(this.pictureBoxActivityProgressText);
+            this.Controls.Add(this.pictureBoxActivityDescription);
             this.Controls.Add(this.labelActivityDescription);
             this.Controls.Add(this.labelActivityCounter);
             this.Controls.Add(this.buttonCancel);
@@ -102,7 +125,8 @@
             this.Text = "Voortgang";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActivityProgressDialogFormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityDescription)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityProgressText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,6 +138,8 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelActivityCounter;
         private System.Windows.Forms.Label labelActivityDescription;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxActivityDescription;
+        private System.Windows.Forms.PictureBox pictureBoxActivityProgressText;
+        private System.Windows.Forms.Label labelActivityProgressText;
     }
 }

@@ -12,8 +12,10 @@ namespace Core.Common.Gui.Forms.ProgressDialog
     public partial class ActivityProgressDialog : Form
     {
         private Task task;
+        private IActivity runningActivity;
         private readonly IEnumerable<IActivity> activities;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private readonly ProgressReporter progressReporter = new ProgressReporter();
 
         public ActivityProgressDialog(IEnumerable<IActivity> activities)
         {
@@ -27,7 +29,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
             base.OnShown(e);
 
             var activityCount = activities.Count();
-            var progressReporter = new ProgressReporter();
             var cancellationToken = cancellationTokenSource.Token;
 
             // Run all activities as part of a task
@@ -38,19 +39,32 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     // Check for cancellation
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    var activity = activities.ElementAt(i);
+                    runningActivity = activities.ElementAt(i);
 
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the activity description label
-                        labelActivityDescription.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_activity_with_name_0, activity.Name);
+                        labelActivityDescription.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_activity_with_name_0, runningActivity.Name);
+
+                        // Update the visibility of the activity progress text related controls
+                        pictureBoxActivityProgressText.Visible = false;
+                        labelActivityProgressText.Visible = false;
 
                         // Update the activity counter label
                         labelActivityCounter.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1, i + 1, activityCount);
                     });
 
-                    // Run the activity
-                    ActivityRunner.RunActivity(activity);
+                    try
+                    {
+                        runningActivity.ProgressChanged += ActivityOnProgressChanged;
+
+                        // Run the activity
+                        ActivityRunner.RunActivity(runningActivity);
+                    }
+                    finally
+                    {
+                        runningActivity.ProgressChanged -= ActivityOnProgressChanged;
+                    }
 
                     progressReporter.ReportProgress(() =>
                     {
@@ -98,6 +112,19 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
             // Update the activity counter label
             labelActivityCounter.Text = Resources.ActivityProgressDialog_CancelActivities_Quit_after_finishing_current_activity;
+        }
+
+        private void ActivityOnProgressChanged(object sender, EventArgs e)
+        {
+            progressReporter.ReportProgress(() =>
+            {
+                // Update the visibility of the activity progress text related controls
+                pictureBoxActivityProgressText.Visible = true;
+                labelActivityProgressText.Visible = true;
+
+                // Update the activity progress text label
+                labelActivityProgressText.Text = string.Format(((IActivity) sender).ProgressText);
+            });
         }
     }
 }

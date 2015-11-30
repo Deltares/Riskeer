@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.IO;
-using Core.Common.Utils.Reflection;
 using log4net;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
@@ -170,7 +169,7 @@ namespace Core.Common.Gui
 
             importActivity.OnImportFinished += ImportActivityOnImportFinished;
 
-            ActivityRunner.Enqueue(importActivity);
+            ActivityProgressDialogRunner.Run(importActivity);
         }
 
         private void ImportActivityOnImportFinished(FileImportActivity fileImportActivity, object importedObject, IFileImporter importer)
@@ -220,7 +219,7 @@ namespace Core.Common.Gui
             };
 
             importActivity.OnImportFinished += ImportActivityOnImportFinished;
-            ActivityRunner.Enqueue(importActivity);
+            ActivityProgressDialogRunner.Run(importActivity);
         }
     }
 }

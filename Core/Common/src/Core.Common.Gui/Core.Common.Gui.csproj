@@ -379,6 +379,7 @@
     <Content Include="nl\Xceed.Wpf.AvalonDock.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\arrow-000-medium.png" />
     <None Include="Resources\Busy indicator.gif" />
     <None Include="Resources\arrow.png" />
     <None Include="Resources\arrow-stop-090.png" />

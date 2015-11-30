@@ -241,6 +241,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap arrow_000_medium {
+            get {
+                object obj = ResourceManager.GetObject("arrow_000_medium", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documentvenster is al toegevoegd. Activeer de weergave in plaats van het toe te voegen..
         /// </summary>
         public static string AvalonDockDockingManager_Add_View_was_already_added_activate_it_instead_of_add {
