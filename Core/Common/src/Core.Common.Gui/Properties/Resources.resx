@@ -578,8 +578,8 @@
   <data name="RingtoetsGui_InitializeWindows_All_windows_are_created" xml:space="preserve">
     <value>Alle vensters zijn gemaakt.</value>
   </data>
-  <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from" xml:space="preserve">
-    <value>Selecteer een bestand om eruit te importeren...</value>
+  <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from" xml:space="preserve">
+    <value>Selecteer een bestand met {0} om eruit te importeren...</value>
   </data>
   <data name="RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars" xml:space="preserve">
     <value>Menu's en werkbalken instellen...</value>
@@ -776,8 +776,8 @@
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting" xml:space="preserve">
     <value>Exporteren afgerond.</value>
   </data>
-  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to" xml:space="preserve">
-    <value>Selecteer een bestand om naartoe te exporteren.</value>
+  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to" xml:space="preserve">
+    <value>Selecteer een bestand met {0} om naartoe te exporteren.</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting" xml:space="preserve">
     <value>Exporteren gestart.</value>

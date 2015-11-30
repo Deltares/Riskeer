@@ -1196,11 +1196,12 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een bestand om naartoe te exporteren..
+        ///   Looks up a localized string similar to Selecteer een bestand met {0} om naartoe te exporteren..
         /// </summary>
-        public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to {
+        public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_expo" +
+                        "rt_to", resourceCulture);
             }
         }
         
@@ -1234,12 +1235,12 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een bestand om eruit te importeren....
+        ///   Looks up a localized string similar to Selecteer een bestand met {0} om eruit te importeren....
         /// </summary>
-        public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from {
+        public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from {
             get {
-                return ResourceManager.GetString("GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_" +
+                        "import_from", resourceCulture);
             }
         }
         

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui.Properties;
@@ -13,32 +12,22 @@ namespace Core.Common.Gui.ContextMenu
     /// </summary>
     internal class GuiContextMenuItemFactory
     {
-        private readonly IGui gui;
-        private readonly ITreeNode treeNode;
+        private readonly IGuiCommandHandler commandHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the <paramref name="gui"/> to create
-        /// <see cref="ToolStripItem"/>.
+        /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the 
+        /// <paramref name="commandHandler"/> to create <see cref="ToolStripItem"/>.
         /// </summary>
-        /// <param name="gui">The <see cref="IGui"/> which contains information for creating the <see cref="ToolStripItem"/>.</param>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <list type="bullet">
-        /// <item><paramref name="gui"/> is <c>null</c></item>
-        /// <item><paramref name="treeNode"/> is <c>null</c></item>
-        /// </list></exception>
-        public GuiContextMenuItemFactory(IGui gui, ITreeNode treeNode)
+        /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> which contains information for creating the 
+        /// <see cref="ToolStripItem"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="commandHandler"/> is <c>null</c>.</exception>
+        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler)
         {
-            if (gui == null)
+            if (commandHandler == null)
             {
-                throw new ArgumentNullException("gui", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
+                throw new ArgumentNullException("commandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
-            if (treeNode == null)
-            {
-                throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
-            }
-            this.treeNode = treeNode;
-            this.gui = gui;
+            this.commandHandler = commandHandler;
         }
 
         /// <summary>
@@ -48,14 +37,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateOpenItem()
         {
-            var data = treeNode.Tag;
-            var viewers = gui.Plugins.SelectMany(p => p.GetViewInfoObjects()).Where(pi => pi.DataType == data.GetType()); ;
+            bool canOpenView = commandHandler.CanOpenDefaultViewForSelection();
             var newItem = new ToolStripMenuItem(Resources.Open)
             {
                 ToolTipText = Resources.Open_ToolTip,
                 Image = Resources.OpenIcon,
-                Enabled = viewers.Any()
+                Enabled = canOpenView
             };
+            newItem.Click += (s, e) => commandHandler.OpenDefaultViewForSelection();
 
             return newItem;
         }
@@ -67,14 +56,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExportItem()
         {
-            var data = treeNode.Tag;
-            var exporters = gui.ApplicationCore.GetSupportedFileExporters(data);
+            bool canExport = commandHandler.CanExportFromGuiSelection();
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
                 Image = Resources.ExportIcon,
-                Enabled = exporters.Any()
+                Enabled = canExport
             };
+            newItem.Click += (s, e) => commandHandler.ExportSelectedItem();
 
             return newItem;
         }
@@ -86,14 +75,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
         {
-            var data = treeNode.Tag;
-            var importers = gui.ApplicationCore.GetSupportedFileImporters(data);
+            bool canImport = commandHandler.CanImportToGuiSelection();
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
                 Image = Resources.ImportIcon,
-                Enabled = importers.Any()
+                Enabled = canImport
             };
+            newItem.Click += (s,e) => commandHandler.ImportToGuiSelection();
 
             return newItem;
         }
@@ -105,21 +94,15 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreatePropertiesItem()
         {
-            var data = treeNode.Tag;
-            var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).Where(pi => pi.ObjectType == data.GetType());
+            bool canShowProperties = commandHandler.CanShowPropertiesForGuiSelection();
             var newItem = new ToolStripMenuItem(Resources.Properties)
             {
                 ToolTipText = Resources.Properties_ToolTip,
                 Image = Resources.PropertiesIcon,
-                Enabled = propertyInfos.Any()
+                Enabled = canShowProperties
             };
-
-            var guiCommandHandler = gui.CommandHandler;
-            if (guiCommandHandler != null)
-            {
-                newItem.Click += (s, e) => guiCommandHandler.ShowProperties();
-            }
-
+            newItem.Click += (s, e) => commandHandler.ShowProperties();
+            
             return newItem;
         }
     }

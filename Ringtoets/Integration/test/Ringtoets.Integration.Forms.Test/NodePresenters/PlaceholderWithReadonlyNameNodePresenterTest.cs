@@ -251,14 +251,10 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.Stub<ITreeNode>();
-            var guiMock = mocks.DynamicMock<IGui>();
             var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            guiMock.Expect(g => g.CommandHandler).Return(guiHandlerMock);
-            guiMock.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
 
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
 
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
             var placeholderData = new InputPlaceholder("test");
@@ -287,14 +283,10 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.Stub<ITreeNode>();
-            var guiMock = mocks.DynamicMock<IGui>();
             var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            guiMock.Expect(g => g.CommandHandler).Return(guiHandlerMock);
-            guiMock.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
 
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
 
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
             var placeholderData = new OutputPlaceholder("test");
@@ -323,14 +315,10 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var nodeMock = mocks.Stub<ITreeNode>();
-            var guiMock = mocks.DynamicMock<IGui>();
             var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            guiMock.Expect(g => g.CommandHandler).Return(guiHandlerMock);
-            guiMock.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
 
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
 
             var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
             var placeholderData = new PlaceholderWithReadonlyName("test");

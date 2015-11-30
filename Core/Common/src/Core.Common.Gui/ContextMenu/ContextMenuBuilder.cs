@@ -16,19 +16,19 @@ namespace Core.Common.Gui.ContextMenu
         private readonly ContextMenuStrip contextMenu;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ContextMenuBuilder"/>, which uses the given <paramref name="gui"/> to 
+        /// Creates a new instance of <see cref="ContextMenuBuilder"/>, which uses the given <paramref name="commandHandler"/> to 
         /// create a <see cref="ContextMenuStrip"/> for the given <paramref name="treeNode"/>.
         /// </summary>
-        /// <param name="gui">The <see cref="IGui"/> from which to obtain information to render and bind actions
+        /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> from which to obtain information to render and bind actions
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
         /// require this type of information.</param>
         /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
-        public ContextMenuBuilder(IGui gui, ITreeNode treeNode)
+        public ContextMenuBuilder(IGuiCommandHandler commandHandler, ITreeNode treeNode)
         {
-            if (gui != null)
+            if (commandHandler != null)
             {
-                guiItemsFactory = new GuiContextMenuItemFactory(gui, treeNode);
+                guiItemsFactory = new GuiContextMenuItemFactory(commandHandler);
             }
             treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             contextMenu = new ContextMenuStrip();

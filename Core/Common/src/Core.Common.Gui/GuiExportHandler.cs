@@ -98,10 +98,11 @@ namespace Core.Common.Gui
         {
             log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
 
+            var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exporter.Name);
             var dlg = new SaveFileDialog
             {
                 Filter = exporter.FileFilter,
-                Title = Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to,
+                Title = windowTitle,
                 FilterIndex = 2
             };
             if (dlg.ShowDialog() == DialogResult.OK)

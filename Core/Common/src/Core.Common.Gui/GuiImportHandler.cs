@@ -198,11 +198,12 @@ namespace Core.Common.Gui
         /// <returns></returns>
         private void GetImportedItemsUsingFileOpenDialog(IFileImporter importer, object target)
         {
+            var windowTitle = string.Format(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from, importer.Name);
             var dialog = new OpenFileDialog
             {
                 Filter = importer.FileFilter,
                 Multiselect = true,
-                Title = Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from,
+                Title = windowTitle,
                 RestoreDirectory = true
             };
 

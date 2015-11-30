@@ -133,6 +133,16 @@ namespace Core.Common.Gui
             return gui.ApplicationCore.GetSupportedFileImporters(gui.Selection).Any();
         }
 
+        public bool CanExportFromGuiSelection()
+        {
+            return gui.ApplicationCore.GetSupportedFileExporters(gui.Selection).Any();
+        }
+
+        public bool CanShowPropertiesForGuiSelection()
+        {
+            return gui.Plugins.SelectMany(p => p.GetPropertyInfos()).Any(pi => pi.ObjectType == gui.Selection.GetType());
+        }
+
         public void ImportOn(object target, IFileImporter importer = null)
         {
             try

@@ -46,7 +46,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_Gui_NewInstance()
         {
             // Call
-            var builder = new ContextMenuBuilder(MockRepository.GenerateMock<IGui>(), MockRepository.GenerateMock<ITreeNode>());
+            var builder = new ContextMenuBuilder(MockRepository.GenerateMock<IGuiCommandHandler>(), MockRepository.GenerateMock<ITreeNode>());
 
             // Assert
             Assert.IsInstanceOf<ContextMenuBuilder>(builder);
@@ -122,9 +122,9 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddOpenItem_WithGuiWhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var guiStub = mocks.StrictMock<IGui>();
-            guiStub.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
-            var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewForSelection()).Return(true);
+            var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
 
@@ -161,9 +161,9 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddExportItem_WithGuiWhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var guiStub = mocks.StrictMock<IGui>();
-            guiStub.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            commandHandlerMock.Expect(ch => ch.CanExportFromGuiSelection()).Return(true);
+            var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
 
@@ -200,9 +200,9 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddImportItem_WithGuiWhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var guiStub = mocks.StrictMock<IGui>();
-            guiStub.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            commandHandlerMock.Expect(ch => ch.CanImportToGuiSelection()).Return(true);
+            var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
 
@@ -239,10 +239,9 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddPropertiesItem_WithGuiWhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var guiStub = mocks.StrictMock<IGui>();
-            guiStub.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
-            guiStub.Expect(g => g.CommandHandler).Return(null);
-            var builder = new ContextMenuBuilder(guiStub, MockRepository.GenerateMock<ITreeNode>());
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            commandHandlerMock.Expect(ch => ch.CanShowPropertiesForGuiSelection()).Return(true);
+            var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
 

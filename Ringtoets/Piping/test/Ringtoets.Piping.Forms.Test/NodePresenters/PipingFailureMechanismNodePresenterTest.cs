@@ -362,13 +362,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
-
             var nodeMock = mocks.Stub<ITreeNode>();
-            var guiMock = mocks.StrictMock<IGui>();
-            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore()).Repeat.Twice();
 
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             dataMock.Calculations.Add(new PipingCalculation
@@ -420,7 +417,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoGui_ReturnsEmptyContextMenu()
+        public void GetContextMenu_NoGuiCommandHandler_ReturnsEmptyContextMenu()
         {
             // Setup
             var mocks = new MockRepository();
@@ -458,11 +455,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.Stub<ITreeNode>();
-            var guiMock = mocks.StrictMock<IGui>();
-            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore()).Repeat.Twice();
+            var commandHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
 
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(commandHandlerMock, nodeMock));
 
             var nodePresenter = new PipingFailureMechanismNodePresenter
             {

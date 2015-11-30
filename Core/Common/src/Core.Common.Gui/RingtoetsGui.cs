@@ -289,7 +289,7 @@ namespace Core.Common.Gui
 
         public ContextMenuBuilder Get(ITreeNode treeNode)
         {
-            return new ContextMenuBuilder(this, treeNode);
+            return new ContextMenuBuilder(CommandHandler, treeNode);
         }
 
         public void Dispose()

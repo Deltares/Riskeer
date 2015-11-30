@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoGui_ReturnsContextMenuWithItems()
+        public void GetContextMenu_NoGuiCommandHandler_ReturnsContextMenuWithItems()
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
@@ -168,18 +168,14 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_WithGui_ReturnsContextMenuWithCommonItems()
+        public void GetContextMenu_WithGuiCommandHandler_ReturnsContextMenuWithCommonItems()
         {
             // Setup
             var nodeMock = mocks.Stub<ITreeNode>();
-            var guiMock = mocks.DynamicMock<IGui>();
             var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-            guiMock.Expect(g => g.ApplicationCore).Return(new ApplicationCore());
-            guiMock.Expect(g => g.CommandHandler).Return(guiHandlerMock);
-            guiMock.Expect(g => g.Plugins).Return(new GuiPlugin[0]);
 
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiMock, nodeMock));
+            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
 
             var nodePresenter = new FailureMechanismNodePresenter(contextMenuProvider);
             var failureMechanism = new FailureMechanismPlaceholder("test");

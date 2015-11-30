@@ -98,6 +98,17 @@ namespace Core.Common.Gui
         /// </summary>
         bool CanImportToGuiSelection();
 
+        /// <summary>
+        /// Indicates if there are exporters for the current Gui.Selection
+        /// </summary>
+        bool CanExportFromGuiSelection();
+
+        /// <summary>
+        /// Indicates if there is a property view object for the current <see cref="IGui.Selection"/>.
+        /// </summary>
+        /// <returns><c>true</c> if a property view is defined, <c>false</c> otherwise.</returns>
+        bool CanShowPropertiesForGuiSelection();
+
         object GetDataOfActiveView();
 
         void OpenLogFileExternal();

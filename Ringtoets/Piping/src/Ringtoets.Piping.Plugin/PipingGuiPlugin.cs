@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PipingSurfaceLineCollectionNodePresenter
             {
-                ImportSurfaceLinesAction = Gui.CommandHandler.ImportToGuiSelection
+                ContextMenuBuilderProvider = Gui.ContextMenuProvider
             };
             yield return new PipingSurfaceLineNodePresenter();
             yield return new PipingSoilProfileCollectionNodePresenter

@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingFailureMechanismNodePresenter : RingtoetsNodePresenterBase<PipingFailureMechanism>
     {
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { get; set; }
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
 
         /// <summary>
         /// Injection points for a method to cause a collection of <see cref="IActivity"/> to be scheduled for execution.
