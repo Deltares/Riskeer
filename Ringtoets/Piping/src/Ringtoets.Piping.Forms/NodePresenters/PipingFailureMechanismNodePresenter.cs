@@ -31,9 +31,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public IContextMenuBuilderProvider ContextMenuBuilderProvider { get; set; }
 
         /// <summary>
-        /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
+        /// Injection points for a method to cause a collection of <see cref="IActivity"/> to be scheduled for execution.
         /// </summary>
-        public Action<IActivity> RunActivityAction { private get; set; }
+        public Action<IEnumerable<IActivity>> RunActivitiesAction { private get; set; }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
         {
@@ -116,10 +116,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         private void CalculateAll(PipingFailureMechanism failureMechanism)
         {
-            foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
-            {
-                RunActivityAction(new PipingCalculationActivity(calc));
-            }
+            RunActivitiesAction(GetAllPipingCalculationsResursively(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
         private static void AddCalculationGroup(PipingFailureMechanism failureMechanism)

@@ -2,7 +2,7 @@
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
-
+using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
@@ -35,13 +35,13 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PipingCalculationContextNodePresenter
             {
-                RunActivityAction = Gui.ActivityRunner.Enqueue
+                RunActivityAction = ActivityProgressDialogRunner.Run
             };
             yield return new PipingCalculationGroupContextNodePresenter();
             yield return new PipingInputContextNodePresenter();
-            yield return new PipingFailureMechanismNodePresenter()
+            yield return new PipingFailureMechanismNodePresenter
             {
-                RunActivityAction = Gui.ActivityRunner.Enqueue,
+                RunActivitiesAction = ActivityProgressDialogRunner.Run,
                 ContextMenuBuilderProvider = Gui.ContextMenuProvider
             };
             yield return new PipingSurfaceLineCollectionNodePresenter

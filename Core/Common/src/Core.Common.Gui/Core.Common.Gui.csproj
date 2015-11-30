@@ -129,6 +129,7 @@
     <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
     <Compile Include="ContextMenu\StrictContextMenuItem.cs">
