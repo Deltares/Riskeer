@@ -133,11 +133,12 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens het inlezen van &apos;{0}&apos; waardoor import niet uitgevoerd kan worden: {1}.
+        ///   Looks up a localized string similar to {0}
+        ///Het bestand wordt overgeslagen..
         /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_ {
+        public static string PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped", resourceCulture);
             }
         }
         
@@ -160,12 +161,13 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een leesfout opgetreden bij profielmeting {1} van bestand &apos;{0}&apos; en is overgeslagen: {2}.
+        ///   Looks up a localized string similar to {0}
+        ///Deze profielmeting wordt overgeslagen..
         /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_ {
+        public static string PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLi" +
-                        "nesNumber_1_Message_2_", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceL" +
+                        "ine_skipped", resourceCulture);
             }
         }
         

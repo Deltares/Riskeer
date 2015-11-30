@@ -162,8 +162,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (LineParseException e)
                 {
-                    var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_,
-                                                path, i + 1, e.Message);
+                    var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
+                                                e.Message);
                     log.Error(message);
                 }
                 NotifyProgress(stepName, i + 1, itemCount);
@@ -205,8 +205,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private PipingReadResult<RingtoetsPipingSurfaceLine> HandleCriticalError(string path, Exception e)
         {
-            var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
-                                        path, e.Message);
+            var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                                        e.Message);
             log.Error(message);
             return new PipingReadResult<RingtoetsPipingSurfaceLine>(true);
         }

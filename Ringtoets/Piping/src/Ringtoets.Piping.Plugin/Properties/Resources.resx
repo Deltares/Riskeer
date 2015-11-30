@@ -132,11 +132,13 @@
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_" xml:space="preserve">
     <value>Inlezen '{0}'</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
+  <data name="PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
+    <value>{0}
+Het bestand wordt overgeslagen.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_" xml:space="preserve">
-    <value>Er is een leesfout opgetreden bij profielmeting {1} van bestand '{0}' en is overgeslagen: {2}</value>
+  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
+    <value>{0}
+Deze profielmeting wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
