@@ -44,7 +44,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the activity description label
-                        labelActivityDescription.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_activity_with_name_0, runningActivity.Name);
+                        labelActivityDescription.Text = string.Format(runningActivity.Name);
 
                         // Update the visibility of the activity progress text related controls
                         pictureBoxActivityProgressText.Visible = false;
@@ -116,14 +116,22 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void ActivityOnProgressChanged(object sender, EventArgs e)
         {
+            var activity = sender as IActivity;
+            if (activity == null)
+            {
+                return;
+            }
+
             progressReporter.ReportProgress(() =>
             {
+                var progressTextNullOrEmpty = string.IsNullOrEmpty(activity.ProgressText);
+
                 // Update the visibility of the activity progress text related controls
-                pictureBoxActivityProgressText.Visible = true;
-                labelActivityProgressText.Visible = true;
+                pictureBoxActivityProgressText.Visible = !progressTextNullOrEmpty;
+                labelActivityProgressText.Visible = !progressTextNullOrEmpty;
 
                 // Update the activity progress text label
-                labelActivityProgressText.Text = string.Format(((IActivity) sender).ProgressText);
+                labelActivityProgressText.Text = progressTextNullOrEmpty ? "" : activity.ProgressText;
             });
         }
     }

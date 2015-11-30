@@ -153,10 +153,13 @@
   <data name="ActivityRunner_RunActivity_Clean_up_of_0_has_failed" xml:space="preserve">
     <value>Opschonen van {0} is mislukt.</value>
   </data>
-  <data name="FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_" xml:space="preserve">
-    <value>{0} van {1}</value>
+  <data name="FileImportActivity_ImportFromFile_ProgressText_0_CurrentProgress_1_of_TotalProgress_2" xml:space="preserve">
+    <value>{0} - {1} van {2}</value>
   </data>
   <data name="ActivityRunner_StartTaskIfPossible_Run_activity_0_" xml:space="preserve">
     <value>Uitvoeren activiteit {0}.</value>
+  </data>
+  <data name="FileImportActivity_Name_Import_using_importer_with_name_0" xml:space="preserve">
+    <value>Importeren {0}</value>
   </data>
 </root>

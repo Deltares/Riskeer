@@ -124,13 +124,13 @@
     <value>DSoilModel bestand</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan faalmechanisme...</value>
+    <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ImportItem_Import_cancelled" xml:space="preserve">
     <value>Profielmetingen importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_" xml:space="preserve">
-    <value>Inlezen {0}...</value>
+    <value>Inlezen '{0}'</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
@@ -139,13 +139,13 @@
     <value>Er is een leesfout opgetreden bij profielmeting {1} van bestand '{0}' en is overgeslagen: {2}</value>
   </data>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan faalmechanisme...</value>
+    <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
   </data>
   <data name="PipingSoilProfilesImporter_ImportItem_Import_cancelled" xml:space="preserve">
     <value>Ondergrondschematiseringen importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Reading_database" xml:space="preserve">
-    <value>Inlezen van de D-Soil Model database...</value>
+    <value>Inlezen van de D-Soil Model database</value>
   </data>
   <data name="PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
@@ -154,6 +154,6 @@
     <value>Er is een leesfout opgetreden bij ondergrondschematisering van bestand '{0}' en is overgeslagen: {1}</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadingSoilProfiles" xml:space="preserve">
-    <value>Inlezen van de ondergrondschematisering uit de D-Soil Model database...</value>
+    <value>Inlezen van de ondergrondschematisering uit de D-Soil Model database</value>
   </data>
 </root>

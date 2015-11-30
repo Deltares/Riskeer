@@ -11,7 +11,6 @@ namespace Core.Common.Base.Workflow
         private readonly object target;
         private readonly IFileImporter importer;
         private bool shouldCancel;
-        private string progressText;
 
         /// <summary>
         /// One Activity (thread) for a serial file import.
@@ -58,7 +57,6 @@ namespace Core.Common.Base.Workflow
             if (Files == null)
             {
                 ImportFromFile(null);
-                Name = importer.Name; // changed during progress
             }
             else
             {
@@ -88,6 +86,14 @@ namespace Core.Common.Base.Workflow
 
         protected override void OnFinish() {}
 
+        public override string Name
+        {
+            get
+            {
+                return string.Format(Resources.FileImportActivity_Name_Import_using_importer_with_name_0, importer.Name.ToLower());
+            }
+        }
+
         private void ImportFromFile(string fileName)
         {
             if (shouldCancel)
@@ -95,14 +101,9 @@ namespace Core.Common.Base.Workflow
                 return;
             }
 
-            Name = importer.Name;
-
             importer.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
             {
-                Name = string.Format("{0} - {1}", importer.Name, currentStepName);
-                progressText = string.Format(Resources.FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_, currentStep, totalSteps);
-
-                SetProgressText(progressText);
+                SetProgressText(string.Format(Resources.FileImportActivity_ImportFromFile_ProgressText_0_CurrentProgress_1_of_TotalProgress_2, currentStepName, currentStep, totalSteps));
             };
 
             var item = importer.ImportItem(fileName, target);

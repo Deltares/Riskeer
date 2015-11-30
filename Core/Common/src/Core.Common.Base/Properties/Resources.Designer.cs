@@ -179,11 +179,21 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} van {1}.
+        ///   Looks up a localized string similar to {0} - {1} van {2}.
         /// </summary>
-        internal static string FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_ {
+        internal static string FileImportActivity_ImportFromFile_ProgressText_0_CurrentProgress_1_of_TotalProgress_2 {
             get {
-                return ResourceManager.GetString("FileImportActivity_ImportFromFile_CurrentProgress_0_of_TotalProgress_1_", resourceCulture);
+                return ResourceManager.GetString("FileImportActivity_ImportFromFile_ProgressText_0_CurrentProgress_1_of_TotalProgre" +
+                        "ss_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeren {0}.
+        /// </summary>
+        internal static string FileImportActivity_Name_Import_using_importer_with_name_0 {
+            get {
+                return ResourceManager.GetString("FileImportActivity_Name_Import_using_importer_with_name_0", resourceCulture);
             }
         }
     }

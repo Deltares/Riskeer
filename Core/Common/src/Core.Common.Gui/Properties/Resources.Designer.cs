@@ -89,15 +89,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren &apos;{0}&apos;.
-        /// </summary>
-        public static string ActivityProgressDialog_OnShown_Executing_activity_with_name_0 {
-            get {
-                return ResourceManager.GetString("ActivityProgressDialog_OnShown_Executing_activity_with_name_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stap {0} van {1}.
         /// </summary>
         public static string ActivityProgressDialog_OnShown_Executing_step_0_of_1 {
