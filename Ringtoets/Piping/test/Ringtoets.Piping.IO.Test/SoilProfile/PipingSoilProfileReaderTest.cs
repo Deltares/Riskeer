@@ -41,7 +41,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(Resources.Error_Path_must_be_specified, exception.Message);
+            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                fileName, Resources.Error_Path_must_be_specified);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]

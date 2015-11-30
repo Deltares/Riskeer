@@ -575,10 +575,7 @@ namespace Core.Common.TestUtils
         {
             foreach (string message in messages)
             {
-                if (!renderedMessages.Contains(message))
-                {
-                    Assert.Fail("Message \"{0}\" not found in messages of log4net", message);
-                }
+                CollectionAssert.Contains(renderedMessages, message);
             }
         }
 

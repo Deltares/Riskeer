@@ -123,8 +123,8 @@
   <data name="Error_Directory_missing" xml:space="preserve">
     <value>Het bestandspad verwijst naar een map die niet bestaat.</value>
   </data>
-  <data name="Error_File_contains_Line_0_too_big" xml:space="preserve">
-    <value>Het bestand heeft op regel {0} teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
+  <data name="Error_Line_too_big_for_RAM" xml:space="preserve">
+    <value>Regel bevat teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
   </data>
   <data name="Error_File_does_not_exist" xml:space="preserve">
     <value>Het bestand bestaat niet.</value>
@@ -132,11 +132,11 @@
   <data name="Error_File_empty" xml:space="preserve">
     <value>Het bestand is leeg.</value>
   </data>
-  <data name="Error_File_has_not_double_SurfaceLineName_0_" xml:space="preserve">
-    <value>Het bestand heeft voor profielmeting {0} een waarde die niet omgezet kan worden naar een getal.</value>
+  <data name="Error_SurfaceLine_has_not_double" xml:space="preserve">
+    <value>Profielmeting heeft een waarde die niet omgezet kan worden naar een getal.</value>
   </data>
-  <data name="Error_File_parsing_causes_overflow_SurfaceLineName_0_" xml:space="preserve">
-    <value>Het bestand heeft voor profielmeting {0} een waarde die te groot of te klein is om ingelezen te worden.</value>
+  <data name="Error_SurfaceLine_parsing_causes_overflow" xml:space="preserve">
+    <value>Profielmeting heeft een waarde die te groot of te klein is om ingelezen te worden.</value>
   </data>
   <data name="Error_General_IO_ErrorMessage_0_" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand: {0}</value>
@@ -162,17 +162,17 @@
   <data name="PipingSurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry" xml:space="preserve">
-    <value>Profielmeting {0} van bestand heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry" xml:space="preserve">
+    <value>Profielmeting heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_" xml:space="preserve">
-    <value>Het bestand heeft op regel {0} geen verwacht scheidingsteken (het karakter: {1}).</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
+    <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet" xml:space="preserve">
-    <value>In het bestand voor profielmeting {0} ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet" xml:space="preserve">
+    <value>Voor profielmeting ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID" xml:space="preserve">
-    <value>Het bestand heeft geen ID op regel {0}.</value>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
+    <value>Regel heeft geen ID.</value>
   </data>
   <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
     <value>Kan de geometrie van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
@@ -194,5 +194,11 @@
   </data>
   <data name="SoilLayer2DReader_Could_not_parse_point_location" xml:space="preserve">
     <value>Coördinaat van een punt bevat ongeldige waarde.</value>
+  </data>
+  <data name="TextFile_On_LineNumber_0_" xml:space="preserve">
+    <value>op regel {0}</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
+    <value>profielmeting '{0}'</value>
   </data>
 </root>

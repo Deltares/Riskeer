@@ -50,6 +50,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Builders\FileReaderErrorMessageBuilder.cs" />
     <Compile Include="Builders\SoilLayer1D.cs" />
     <Compile Include="Builders\SoilProfileBuilderException.cs" />
     <Compile Include="Builders\SoilLayer2D.cs" />

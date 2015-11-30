@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO
@@ -19,7 +20,8 @@ namespace Ringtoets.Piping.IO
         {
             if (String.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentException(Resources.Error_Path_must_be_specified);
+                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_be_specified);
+                throw new ArgumentException(message);
             }
 
             string name;
@@ -29,12 +31,15 @@ namespace Ringtoets.Piping.IO
             }
             catch (ArgumentException e)
             {
-                throw new ArgumentException(String.Format(Resources.Error_Path_cannot_contain_Characters_0_,
-                                                          String.Join(", ", Path.GetInvalidFileNameChars())), e);
+                var message = new FileReaderErrorMessageBuilder(path)
+                    .Build(String.Format(Resources.Error_Path_cannot_contain_Characters_0_,
+                                         String.Join(", ", Path.GetInvalidFileNameChars())));
+                throw new ArgumentException(message, e);
             }
             if (String.Empty == name)
             {
-                throw new ArgumentException(Resources.Error_Path_must_not_point_to_folder);
+                var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_folder);
+                throw new ArgumentException(message);
             }
         }
     }

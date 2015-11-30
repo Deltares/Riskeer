@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 
 using Ringtoets.Piping.Data;
-
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Checks if the geometry dfining the surface line is valid.
+        /// Checks if the geometry defining the surface line is valid.
         /// </summary>
         /// <param name="surfaceLine">The surface line to be checked.</param>
         /// <exception cref="LineParseException">Surface line geometry is invalid</exception>
@@ -154,9 +154,7 @@ namespace Ringtoets.Piping.IO
             {
                 if (lCoordinates[i - 1] > lCoordinates[i])
                 {
-                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry,
-                                                surfaceLine.Name);
-                    throw new LineParseException(message);
+                    throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
                 }
             }
         }
@@ -180,9 +178,8 @@ namespace Ringtoets.Piping.IO
         {
             if (!readText.Contains(separator))
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_,
-                                            lineNumber, separator);
-                throw new LineParseException(message);
+                throw CreateLineParseException(lineNumber, string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_,
+                                                                         separator));
             }
             return readText.Split(separator)
                            .TakeWhile(text => !String.IsNullOrEmpty(text))
@@ -209,9 +206,7 @@ namespace Ringtoets.Piping.IO
             var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
             if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet,
-                                            surfaceLineName);
-                throw new LineParseException(message);
+                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
             }
 
             int coordinateCount = worldCoordinateValues.Length / expectedValuesForPoint;
@@ -239,9 +234,7 @@ namespace Ringtoets.Piping.IO
             var name = tokenizedString.Any() ? tokenizedString[0].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID,
-                                            lineNumber);
-                throw new LineParseException(message);
+                throw CreateLineParseException(lineNumber, Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
             }
             return name;
         }
@@ -268,15 +261,11 @@ namespace Ringtoets.Piping.IO
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.Error_File_has_not_double_SurfaceLineName_0_,
-                                            surfaceLineName);
-                throw new LineParseException(message, e);
+                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.Error_SurfaceLine_has_not_double, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.Error_File_parsing_causes_overflow_SurfaceLineName_0_,
-                                            surfaceLineName);
-                throw new LineParseException(message, e);
+                throw CreateLineParseException(lineNumber, surfaceLineName, Resources.Error_SurfaceLine_parsing_causes_overflow, e);
             }
         }
 
@@ -295,15 +284,17 @@ namespace Ringtoets.Piping.IO
             }
             catch (FileNotFoundException e)
             {
-                throw new CriticalFileReadException(Resources.Error_File_does_not_exist, e);
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_File_does_not_exist);
+                throw new CriticalFileReadException(message, e);
             }
             catch (DirectoryNotFoundException e)
             {
-                throw new CriticalFileReadException(Resources.Error_Directory_missing, e);
+                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Directory_missing);
+                throw new CriticalFileReadException(message, e);
             }
             catch (IOException e)
             {
-                var message = string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message);
+                var message = new FileReaderErrorMessageBuilder(path).Build(string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -321,13 +312,60 @@ namespace Ringtoets.Piping.IO
             {
                 if (!IsHeaderValid(header))
                 {
-                    throw new CriticalFileReadException(Resources.PipingSurfaceLinesCsvReader_File_invalid_header);
+                    throw CreateCriticalFileReadException(currentLine, Resources.PipingSurfaceLinesCsvReader_File_invalid_header);
                 }
             }
             else
             {
-                throw new CriticalFileReadException(Resources.Error_File_empty);
+                throw CreateCriticalFileReadException(currentLine, Resources.Error_File_empty);
             }
+        }
+
+        /// <summary>
+        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
+        /// </summary>
+        /// <param name="currentLine">The line number being read.</param>
+        /// <param name="criticalErrorMessage">The critical error message.</param>
+        /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
+        /// <exception cref="CriticalFileReadException">Calling this method causes this exception to be thrown.</exception>
+        private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
+        {
+            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                     .Build(criticalErrorMessage);
+            return new CriticalFileReadException(message, innerException);
+        }
+
+        /// <summary>
+        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// </summary>
+        /// <param name="currentLine">The line number being read.</param>
+        /// <param name="lineParseErrorMessage">The critical error message.</param>
+        /// <exception cref="CriticalFileReadException">Calling this method causes this exception to be thrown.</exception>
+        private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage)
+        {
+            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                     .Build(lineParseErrorMessage);
+            return new LineParseException(message);
+        }
+
+        /// <summary>
+        /// Throws a configured instance of <see cref="LineParseException"/>.
+        /// </summary>
+        /// <param name="currentLine">The line number being read.</param>
+        /// <param name="surfaceLineName">The name of the surfaceline being read.</param>
+        /// <param name="lineParseErrorMessage">The critical error message.</param>
+        /// /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
+        /// <exception cref="CriticalFileReadException">Calling this method causes this exception to be thrown.</exception>
+        private LineParseException CreateLineParseException(int currentLine, string surfaceLineName, string lineParseErrorMessage, Exception innerException = null)
+        {
+            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            string subjectDescription = string.Format(Resources.PipingSurfaceLinesCsvReader_SurfaceLineName_0_, surfaceLineName);
+            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                     .WithSubject(subjectDescription)
+                                                                     .Build(lineParseErrorMessage);
+            return new LineParseException(message, innerException);
         }
 
         /// <summary>
@@ -367,12 +405,11 @@ namespace Ringtoets.Piping.IO
             }
             catch (OutOfMemoryException e)
             {
-                var message = string.Format(Resources.Error_File_contains_Line_0_too_big, currentLine);
-                throw new CriticalFileReadException(message, e);
+                throw CreateCriticalFileReadException(currentLine, Resources.Error_File_does_not_exist, e);
             }
             catch (IOException e)
             {
-                var message = string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message);
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }

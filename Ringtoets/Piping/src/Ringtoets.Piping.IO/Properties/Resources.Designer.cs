@@ -79,15 +79,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft op regel {0} teveel tekst om in het RAM geheugen opgeslagen te worden..
-        /// </summary>
-        public static string Error_File_contains_Line_0_too_big {
-            get {
-                return ResourceManager.GetString("Error_File_contains_Line_0_too_big", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bestand bestaat niet..
         /// </summary>
         public static string Error_File_does_not_exist {
@@ -106,29 +97,20 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft voor profielmeting {0} een waarde die niet omgezet kan worden naar een getal..
-        /// </summary>
-        public static string Error_File_has_not_double_SurfaceLineName_0_ {
-            get {
-                return ResourceManager.GetString("Error_File_has_not_double_SurfaceLineName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft voor profielmeting {0} een waarde die te groot of te klein is om ingelezen te worden..
-        /// </summary>
-        public static string Error_File_parsing_causes_overflow_SurfaceLineName_0_ {
-            get {
-                return ResourceManager.GetString("Error_File_parsing_causes_overflow_SurfaceLineName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand: {0}.
         /// </summary>
         public static string Error_General_IO_ErrorMessage_0_ {
             get {
                 return ResourceManager.GetString("Error_General_IO_ErrorMessage_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel bevat teveel tekst om in het RAM geheugen opgeslagen te worden..
+        /// </summary>
+        public static string Error_Line_too_big_for_RAM {
+            get {
+                return ResourceManager.GetString("Error_Line_too_big_for_RAM", resourceCulture);
             }
         }
         
@@ -179,6 +161,24 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profielmeting heeft een waarde die niet omgezet kan worden naar een getal..
+        /// </summary>
+        public static string Error_SurfaceLine_has_not_double {
+            get {
+                return ResourceManager.GetString("Error_SurfaceLine_has_not_double", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profielmeting heeft een waarde die te groot of te klein is om ingelezen te worden..
+        /// </summary>
+        public static string Error_SurfaceLine_parsing_causes_overflow {
+            get {
+                return ResourceManager.GetString("Error_SurfaceLine_parsing_causes_overflow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan de geometrie van laag nummer &apos;{0}&apos; in profiel &apos;{1}&apos; niet interpreteren..
         /// </summary>
         public static string PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_ {
@@ -224,39 +224,48 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft op regel {0} geen verwacht scheidingsteken (het karakter: {1})..
+        ///   Looks up a localized string similar to Regel heeft geen ID..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_ {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_lacks_separator_1_", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft geen ID op regel {0}..
+        ///   Looks up a localized string similar to Regel ontbreekt het verwachte scheidingsteken (het karakter: {0})..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_ {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_Line_0_no_ID", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In het bestand voor profielmeting {0} ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
+        ///   Looks up a localized string similar to Profielmeting heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel)..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coordinate_triplet {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_SurfaceLineName_0_lacks_values_for_coor" +
-                        "dinate_triplet", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielmeting {0} van bestand heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel)..
+        ///   Looks up a localized string similar to Voor profielmeting ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
         /// </summary>
-        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry {
+        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLineName_0_has_reclining_geometry", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_trip" +
+                        "let", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to profielmeting &apos;{0}&apos;.
+        /// </summary>
+        public static string PipingSurfaceLinesCsvReader_SurfaceLineName_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_SurfaceLineName_0_", resourceCulture);
             }
         }
         
@@ -293,6 +302,15 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string SoilLayer2DReader_Geometry_is_null {
             get {
                 return ResourceManager.GetString("SoilLayer2DReader_Geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to op regel {0}.
+        /// </summary>
+        public static string TextFile_On_LineNumber_0_ {
+            get {
+                return ResourceManager.GetString("TextFile_On_LineNumber_0_", resourceCulture);
             }
         }
     }

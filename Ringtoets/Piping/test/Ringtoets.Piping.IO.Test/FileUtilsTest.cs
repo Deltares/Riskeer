@@ -34,7 +34,8 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("Bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.", invalidPath);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -50,8 +51,8 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = String.Format("Bestandspad mag niet de volgende tekens bevatten: {0}",
-                                                string.Join(", ", invalidFileNameChars));
+            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
+                                                invalidPath, string.Join(", ", invalidFileNameChars));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -66,7 +67,8 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("Bestandspad mag niet naar een map verwijzen.", exception.Message);
+            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", folderPath);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
     }
 }
