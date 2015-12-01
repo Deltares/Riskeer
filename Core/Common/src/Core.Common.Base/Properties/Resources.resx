@@ -123,38 +123,17 @@
   <data name="Activity_Execute_Can_t_call_Execute_for_activity_in_0_state" xml:space="preserve">
     <value>Kan Execute() niet aanroepen voor activiteit met de '{0}' status.</value>
   </data>
-  <data name="ActivityRunner_Completed_Cancelled_activity_0_" xml:space="preserve">
-    <value>Activiteit '{0}' geannuleerd.</value>
-  </data>
-  <data name="ActivityRunner_Completed_Finished_activity_0_" xml:space="preserve">
-    <value>Activiteit '{0}' voltooid.</value>
-  </data>
-  <data name="ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity" xml:space="preserve">
-    <value>Een fout is opgetreden tijdens het uitvoeren van een achtergrond activiteit:</value>
-  </data>
-  <data name="ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity_0_" xml:space="preserve">
-    <value>Een fout is opgetreden tijdens het uitvoeren van activiteit {0}:</value>
-  </data>
-  <data name="ActivityRunner_Enqueue_Enqueued_activity_0_" xml:space="preserve">
-    <value>Activiteit '{0}' in wachtrij gezet.</value>
-  </data>
-  <data name="ActivityRunner_RunActivity_Initialization_of_0_has_failed" xml:space="preserve">
+  <data name="Activity_Run_Initialization_of_0_has_failed" xml:space="preserve">
     <value>Initialisatie van {0} is mislukt.</value>
   </data>
-  <data name="ActivityRunner_RunActivity_Execution_of_0_has_been_canceled" xml:space="preserve">
+  <data name="Activity_Run_Execution_of_0_has_been_canceled" xml:space="preserve">
     <value>Uitvoering van {0} is geannuleerd.</value>
   </data>
-  <data name="ActivityRunner_RunActivity_Execution_of_0_has_failed" xml:space="preserve">
+  <data name="Activity_Run_Execution_of_0_has_failed" xml:space="preserve">
     <value>Uitvoering van {0} is mislukt.</value>
-  </data>
-  <data name="ActivityRunner_RunActivity_Finishing_of_0_has_failed" xml:space="preserve">
-    <value>Afronden van {0} is mislukt.</value>
   </data>
   <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
-  </data>
-  <data name="ActivityRunner_StartTaskIfPossible_Run_activity_0_" xml:space="preserve">
-    <value>Uitvoeren activiteit {0}.</value>
   </data>
   <data name="FileImportActivity_Name_Import_using_importer_with_name_0" xml:space="preserve">
     <value>Importeren {0}</value>

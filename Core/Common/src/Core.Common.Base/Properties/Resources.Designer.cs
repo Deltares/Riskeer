@@ -79,93 +79,29 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; geannuleerd..
-        /// </summary>
-        internal static string ActivityRunner_Completed_Cancelled_activity_0_ {
-            get {
-                return ResourceManager.GetString("ActivityRunner_Completed_Cancelled_activity_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; voltooid..
-        /// </summary>
-        internal static string ActivityRunner_Completed_Finished_activity_0_ {
-            get {
-                return ResourceManager.GetString("ActivityRunner_Completed_Finished_activity_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activiteit &apos;{0}&apos; in wachtrij gezet..
-        /// </summary>
-        internal static string ActivityRunner_Enqueue_Enqueued_activity_0_ {
-            get {
-                return ResourceManager.GetString("ActivityRunner_Enqueue_Enqueued_activity_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een fout is opgetreden tijdens het uitvoeren van een achtergrond activiteit:.
-        /// </summary>
-        internal static string ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity {
-            get {
-                return ResourceManager.GetString("ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activi" +
-                        "ty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Een fout is opgetreden tijdens het uitvoeren van activiteit {0}:.
-        /// </summary>
-        internal static string ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity_0_ {
-            get {
-                return ResourceManager.GetString("ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Uitvoering van {0} is geannuleerd..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Execution_of_0_has_been_canceled {
+        internal static string Activity_Run_Execution_of_0_has_been_canceled {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Execution_of_0_has_been_canceled", resourceCulture);
+                return ResourceManager.GetString("Activity_Run_Execution_of_0_has_been_canceled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Uitvoering van {0} is mislukt..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Execution_of_0_has_failed {
+        internal static string Activity_Run_Execution_of_0_has_failed {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Execution_of_0_has_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afronden van {0} is mislukt..
-        /// </summary>
-        internal static string ActivityRunner_RunActivity_Finishing_of_0_has_failed {
-            get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Finishing_of_0_has_failed", resourceCulture);
+                return ResourceManager.GetString("Activity_Run_Execution_of_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Initialisatie van {0} is mislukt..
         /// </summary>
-        internal static string ActivityRunner_RunActivity_Initialization_of_0_has_failed {
+        internal static string Activity_Run_Initialization_of_0_has_failed {
             get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Initialization_of_0_has_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitvoeren activiteit {0}..
-        /// </summary>
-        internal static string ActivityRunner_StartTaskIfPossible_Run_activity_0_ {
-            get {
-                return ResourceManager.GetString("ActivityRunner_StartTaskIfPossible_Run_activity_0_", resourceCulture);
+                return ResourceManager.GetString("Activity_Run_Initialization_of_0_has_failed", resourceCulture);
             }
         }
         

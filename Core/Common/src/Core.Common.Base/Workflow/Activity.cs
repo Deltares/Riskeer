@@ -54,12 +54,12 @@ namespace Core.Common.Base.Workflow
 
                 if (Status == ActivityStatus.Failed)
                 {
-                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Initialization_of_0_has_failed, Name));
+                    throw new Exception(string.Format(Resources.Activity_Run_Initialization_of_0_has_failed, Name));
                 }
 
                 if (Status == ActivityStatus.Cancelled)
                 {
-                    log.WarnFormat(Resources.ActivityRunner_RunActivity_Execution_of_0_has_been_canceled, Name);
+                    log.WarnFormat(Resources.Activity_Run_Execution_of_0_has_been_canceled, Name);
                     return;
                 }
 
@@ -67,7 +67,7 @@ namespace Core.Common.Base.Workflow
 
                 if (Status == ActivityStatus.Failed)
                 {
-                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of_0_has_failed, Name));
+                    throw new Exception(string.Format(Resources.Activity_Run_Execution_of_0_has_failed, Name));
                 }
             }
             catch (Exception exception)
