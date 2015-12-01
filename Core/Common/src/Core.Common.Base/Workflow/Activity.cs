@@ -8,8 +8,6 @@ namespace Core.Common.Base.Workflow
 {
     public abstract class Activity : IActivity
     {
-        public virtual event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
-
         public string Log { get; set; }
 
         public event EventHandler ProgressChanged;
@@ -35,17 +33,9 @@ namespace Core.Common.Base.Workflow
             }
             protected set
             {
-                if (value == status)
+                if (value != status)
                 {
-                    return;
-                }
-
-                var oldStatus = status;
-                status = value;
-
-                if (StatusChanged != null)
-                {
-                    StatusChanged(this, new ActivityStatusChangedEventArgs(oldStatus, status));
+                    status = value;
                 }
             }
         }

@@ -25,11 +25,6 @@ namespace Core.Common.Base.Workflow
         event EventHandler ProgressChanged;
 
         /// <summary>
-        /// Event to be fired on every <see cref="Status"/> change.
-        /// </summary>
-        event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
-            
-        /// <summary>
         /// Returns current status of the activity (executing, cancelling, etc.)
         /// </summary>
         ActivityStatus Status { get; }
