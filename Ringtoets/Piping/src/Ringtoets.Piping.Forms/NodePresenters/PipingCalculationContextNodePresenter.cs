@@ -25,9 +25,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     public class PipingCalculationContextNodePresenter : RingtoetsNodePresenterBase<PipingCalculationContext>
     {
         /// <summary>
-        /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
+        /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.
         /// </summary>
-        public Action<IActivity> RunActivityAction { private get; set; }
+        public Action<Activity> RunActivityAction { private get; set; }
+
         /// <summary>
         /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
         /// </summary>

@@ -498,8 +498,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
-            
-            var activitesToRun = new List<IActivity>();
+
+            var activitesToRun = new List<Activity>();
 
             var nodePresenter = new PipingCalculationGroupContextNodePresenter
             {

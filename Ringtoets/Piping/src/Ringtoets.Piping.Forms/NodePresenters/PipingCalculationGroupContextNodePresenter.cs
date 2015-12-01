@@ -26,9 +26,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     public class PipingCalculationGroupContextNodePresenter : RingtoetsNodePresenterBase<PipingCalculationGroupContext>
     {
         /// <summary>
-        /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
+        /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.
         /// </summary>
-        public Action<IActivity> RunActivityAction { private get; set; }
+        public Action<Activity> RunActivityAction { private get; set; }
 
         public override bool CanRenameNode(ITreeNode node)
         {

@@ -12,7 +12,7 @@ namespace Core.Common.Base.Workflow
     /// <para>Regular workflow for an activity with an error occurring: [Initialize/Execute/Finish] -> ! Exception / Error ! -> Cleanup.</para> 
     /// <para>Regular workflow for an activity being cancelled: [Initialize/Execute/Finish] -> ! Cancel ! -> Cleanup.</para>
     /// </example>
-    public abstract class Activity : IActivity
+    public abstract class Activity
     {
         public event EventHandler ProgressChanged;
         private static readonly ILog log = LogManager.GetLogger(typeof(Activity));
@@ -27,9 +27,9 @@ namespace Core.Common.Base.Workflow
 
         public virtual string Name { get; set; }
 
-        public virtual ActivityStatus Status { get; protected set; }
+        public ActivityStatus Status { get; protected set; }
 
-        public virtual string ProgressText
+        public string ProgressText
         {
             get
             {

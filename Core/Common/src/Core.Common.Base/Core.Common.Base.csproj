@@ -114,7 +114,6 @@
     <Compile Include="Workflow\Activity.cs" />
     <Compile Include="Workflow\ActivityStatus.cs" />
     <Compile Include="Workflow\FileImportActivity.cs" />
-    <Compile Include="Workflow\IActivity.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

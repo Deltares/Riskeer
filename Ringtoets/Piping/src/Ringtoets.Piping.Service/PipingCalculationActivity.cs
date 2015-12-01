@@ -4,7 +4,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Service
 {
     /// <summary>
-    /// <see cref="IActivity"/> for running a piping calculation.
+    /// <see cref="Activity"/> for running a piping calculation.
     /// </summary>
     public class PipingCalculationActivity : Activity
     {

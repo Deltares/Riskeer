@@ -13,16 +13,16 @@ namespace Core.Common.Gui.Forms.ProgressDialog
     public partial class ActivityProgressDialog : Form
     {
         private Task task;
-        private IActivity runningActivity;
-        private readonly IEnumerable<IActivity> activities;
+        private Activity runningActivity;
+        private readonly IEnumerable<Activity> activities;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ProgressReporter progressReporter = new ProgressReporter();
 
-        public ActivityProgressDialog(IEnumerable<IActivity> activities)
+        public ActivityProgressDialog(IEnumerable<Activity> activities)
         {
             InitializeComponent();
 
-            this.activities = activities ?? Enumerable.Empty<IActivity>();
+            this.activities = activities ?? Enumerable.Empty<Activity>();
         }
 
         protected override void OnShown(EventArgs e)
@@ -131,7 +131,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         private void ActivityOnProgressChanged(object sender, EventArgs e)
         {
-            var activity = sender as IActivity;
+            var activity = sender as Activity;
             if (activity == null)
             {
                 return;

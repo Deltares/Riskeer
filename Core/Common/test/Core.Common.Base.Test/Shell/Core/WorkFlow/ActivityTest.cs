@@ -14,7 +14,6 @@ namespace Core.Common.Base.Test.Shell.Core.WorkFlow
             var activity = new SimpleActivity();
 
             // assert
-            Assert.IsInstanceOf<IActivity>(activity);
             Assert.IsNull(activity.Name);
             Assert.AreEqual(ActivityStatus.None, activity.Status);
             Assert.IsNull(activity.ProgressText);

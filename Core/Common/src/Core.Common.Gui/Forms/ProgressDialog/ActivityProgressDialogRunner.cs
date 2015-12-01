@@ -6,12 +6,12 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 {
     public static class ActivityProgressDialogRunner
     {
-        public static void Run(IActivity activity)
+        public static void Run(Activity activity)
         {
             Run(new[] { activity });
         }
 
-        public static void Run(IEnumerable<IActivity> activities)
+        public static void Run(IEnumerable<Activity> activities)
         {
             ModalHelper.ShowModal(new ActivityProgressDialog(activities));
         }

@@ -31,9 +31,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
 
         /// <summary>
-        /// Injection points for a method to cause a collection of <see cref="IActivity"/> to be scheduled for execution.
+        /// Injection points for a method to cause a collection of <see cref="Activity"/> to be scheduled for execution.
         /// </summary>
-        public Action<IEnumerable<IActivity>> RunActivitiesAction { private get; set; }
+        public Action<IEnumerable<Activity>> RunActivitiesAction { private get; set; }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
         {
