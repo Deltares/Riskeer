@@ -47,8 +47,6 @@ namespace Core.Common.Base.Workflow
                     }
                 }
             }
-
-            Status = ActivityStatus.Done;
         }
 
         protected override void OnCancel()

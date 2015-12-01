@@ -57,23 +57,17 @@ namespace Core.Common.Base.Workflow
                     throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Initialization_of_0_has_failed, Name));
                 }
 
-                while (Status != ActivityStatus.Done)
+                if (Status == ActivityStatus.Cancelled)
                 {
-                    if (Status == ActivityStatus.Cancelled)
-                    {
-                        log.WarnFormat(Resources.ActivityRunner_RunActivity_Execution_of_0_has_been_canceled, Name);
-                        break;
-                    }
+                    log.WarnFormat(Resources.ActivityRunner_RunActivity_Execution_of_0_has_been_canceled, Name);
+                    return;
+                }
 
-                    if (Status != ActivityStatus.WaitingForData)
-                    {
-                        Execute();
-                    }
+                Execute();
 
-                    if (Status == ActivityStatus.Failed)
-                    {
-                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of_0_has_failed, Name));
-                    }
+                if (Status == ActivityStatus.Failed)
+                {
+                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of_0_has_failed, Name));
                 }
             }
             catch (Exception exception)
@@ -120,7 +114,6 @@ namespace Core.Common.Base.Workflow
                 OnProgressChanged();
 
                 if (Status == ActivityStatus.Failed ||
-                    Status == ActivityStatus.Done ||
                     Status == ActivityStatus.Cancelled)
                 {
                     // keep this status

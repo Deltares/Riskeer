@@ -26,17 +26,12 @@ namespace Core.Common.Base.Workflow
         Executing,
 
         /// <summary>
-        /// Activity has executed. A possible next step could be another execute or finish 
+        /// Activity has executed.
         /// </summary>
         Executed,
 
         /// <summary>
-        /// Activity has executed and done its last execute step
-        /// </summary>
-        Done,
-
-        /// <summary>
-        /// Activity is finishing. 
+        /// Activity is finishing.
         /// </summary>
         Finishing,
 
@@ -58,11 +53,6 @@ namespace Core.Common.Base.Workflow
         /// <summary>
         /// Activity execution has been cancelled.
         /// </summary>
-        Cancelled,
-
-        /// <summary>
-        /// Activity can't progress yet.
-        /// </summary>
-        WaitingForData
+        Cancelled
     }
 }

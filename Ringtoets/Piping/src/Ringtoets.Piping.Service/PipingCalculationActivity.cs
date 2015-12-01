@@ -42,7 +42,6 @@ namespace Ringtoets.Piping.Service
         protected override void OnExecute()
         {
             PipingCalculationService.Calculate(calculation);
-            Status = ActivityStatus.Done;
         }
 
         protected override void OnCancel()
