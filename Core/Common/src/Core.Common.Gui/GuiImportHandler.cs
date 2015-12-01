@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,7 +8,6 @@ using Core.Common.Controls;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.IO;
 using log4net;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
@@ -157,28 +155,7 @@ namespace Core.Common.Gui
                 }
             }
 
-            var importActivity = new FileImportActivity(importer, target);
-
-            importActivity.OnImportFinished += ImportActivityOnImportFinished;
-
-            ActivityProgressDialogRunner.Run(importActivity);
-        }
-
-        private void ImportActivityOnImportFinished(FileImportActivity fileImportActivity, object importedObject, IFileImporter importer)
-        {
-            Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            if (importer.OpenViewAfterImport)
-            {
-                OpenViewForImportedObject(importedObject);
-            }
-        }
-
-        [InvokeRequired]
-        private void OpenViewForImportedObject(object importedObject)
-        {
-            gui.Selection = importedObject;
-            gui.CommandHandler.OpenViewForSelection();
+            ActivityProgressDialogRunner.Run(new FileImportActivity(importer, target));
         }
 
         /// <summary>
@@ -205,13 +182,10 @@ namespace Core.Common.Gui
 
             Log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
 
-            var importActivity = new FileImportActivity(importer, target)
+            ActivityProgressDialogRunner.Run(new FileImportActivity(importer, target)
             {
                 Files = dialog.FileNames.ToArray()
-            };
-
-            importActivity.OnImportFinished += ImportActivityOnImportFinished;
-            ActivityProgressDialogRunner.Run(importActivity);
+            });
         }
     }
 }

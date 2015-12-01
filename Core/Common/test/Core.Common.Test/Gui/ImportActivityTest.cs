@@ -26,17 +26,20 @@ namespace Core.Common.Test.Gui
                 }
             };
 
-            Expect.Call(importer.ImportItem("test1")).Repeat.Once().Return(new object());
-            Expect.Call(importer.ImportItem("test2")).Repeat.Once().Return(new object());
-            Expect.Call(importer.ImportItem("test3")).Repeat.Once().Return(new object());
+            Expect.Call(importer.ImportItem("test1")).Repeat.Once().Return(new object()).WhenCalled(o =>
+            {
+                project.Items.Add(o);
+            });
+            Expect.Call(importer.ImportItem("test2")).Repeat.Once().Return(new object()).WhenCalled(o =>
+            {
+                project.Items.Add(o);
+            });
+            Expect.Call(importer.ImportItem("test3")).Repeat.Once().Return(new object()).WhenCalled(o =>
+            {
+                project.Items.Add(o);
+            });
 
             mockRepository.ReplayAll();
-
-            // expect some reporting while processing each file
-            fileImportActivity.OnImportFinished += (sender, importedObject, theImporter) =>
-            {
-                project.Items.Add(importedObject);
-            };
 
             fileImportActivity.Run();
 

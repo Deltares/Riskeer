@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
-using System.Threading;
 using Core.Common.Base;
-using Core.Common.Base.Workflow;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
 using Core.GIS.SharpMap.Map;
@@ -163,27 +161,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
                 Assert.AreEqual(gui.Project, gui.Selection);
             }
-        }
-
-        private class TestActivity : Activity
-        {
-            public bool Done { get; set; }
-
-            protected override void OnInitialize()
-            {
-                while (!Done)
-                {
-                    Thread.Sleep(0);
-                }
-
-                Status = ActivityStatus.Done;
-            }
-
-            protected override void OnExecute() {}
-
-            protected override void OnCancel() {}
-
-            protected override void OnFinish() {}
         }
 
         private static void StartWithCommonPlugins()

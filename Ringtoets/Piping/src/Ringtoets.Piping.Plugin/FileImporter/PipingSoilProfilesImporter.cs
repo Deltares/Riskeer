@@ -67,14 +67,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         public bool ShouldCancel { get; set; }
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 
-        public bool OpenViewAfterImport
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         public bool CanImportOn(object targetObject)
         {
             return targetObject is ICollection<PipingSoilProfile>;

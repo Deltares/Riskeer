@@ -51,7 +51,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
             Assert.IsFalse(importer.ShouldCancel);
             Assert.IsNull(importer.ProgressChanged);
-            Assert.IsFalse(importer.OpenViewAfterImport);
         }
 
         [Test]

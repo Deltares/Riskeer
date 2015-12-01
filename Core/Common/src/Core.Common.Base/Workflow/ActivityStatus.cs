@@ -46,16 +46,6 @@ namespace Core.Common.Base.Workflow
         Finished,
 
         /// <summary>
-        /// Cleaning all resources.
-        /// </summary>
-        Cleaning,
-
-        /// <summary>
-        /// Execution and cleaning resources are finished.
-        /// </summary>
-        Cleaned,
-
-        /// <summary>
         /// Activity has run but failed to complete.
         /// </summary>
         Failed,

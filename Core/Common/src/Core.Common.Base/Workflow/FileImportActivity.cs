@@ -4,10 +4,6 @@ namespace Core.Common.Base.Workflow
 {
     public class FileImportActivity : Activity
     {
-        public event OnImportFinishedEventHandler OnImportFinished;
-
-        public delegate void OnImportFinishedEventHandler(FileImportActivity fileImportActivity, object importedObject, IFileImporter importer);
-
         private readonly object target;
         private readonly IFileImporter importer;
         private bool shouldCancel;
@@ -85,13 +81,7 @@ namespace Core.Common.Base.Workflow
                 ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName);
             };
 
-            var item = importer.ImportItem(fileName, target);
-
-            //item might be null (for example when importing a wrong version of project)
-            if (OnImportFinished != null && item != null)
-            {
-                OnImportFinished(this, item, importer);
-            }
+            importer.ImportItem(fileName, target);
         }
     }
 }

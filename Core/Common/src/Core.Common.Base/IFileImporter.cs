@@ -49,11 +49,6 @@ namespace Core.Common.Base
         ImportProgressChangedDelegate ProgressChanged { get; set; }
 
         /// <summary>
-        /// Should the view for the imported item (if any) be automatically opened after import?
-        /// </summary>
-        bool OpenViewAfterImport { get; }
-
-        /// <summary>
         /// Indicates if this importer can import on the <paramref name="targetObject"></paramref>
         /// </summary>
         /// <param name="targetObject">Target object to check</param>
