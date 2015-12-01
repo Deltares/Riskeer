@@ -13,7 +13,7 @@ namespace Core.Common.Utils.Aop
     /// </summary>
     [Serializable]
     [Synchronization]
-    public class InvokeRequiredAttribute : MethodInterceptionAspect
+    public class InvokeRequiredAttribute : MethodInterceptionAspect, ISynchronizeInvoke
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(InvokeRequiredAttribute));
 
@@ -106,6 +106,26 @@ namespace Core.Common.Utils.Aop
                 }
             }
         }
+
+
+
+
+        public IAsyncResult BeginInvoke(Delegate method, object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object EndInvoke(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Invoke(Delegate method, object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool InvokeRequired { get; private set; }
     }
 
     //In seperate class to make sure you don't need a postsharp reference to fill in
