@@ -320,30 +320,41 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(5, contextMenu.Items.Count);
 
-            ToolStripItem addFolderItem = contextMenu.Items[contextMenuAddCalculationGroupIndex];
-            Assert.AreEqual("Map toevoegen", addFolderItem.Text);
-            Assert.AreEqual("Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.", addFolderItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.AddFolderIcon, addFolderItem.Image);
+            TestHelper.AssertContextMenuStripContainsItem(
+                contextMenu, 
+                contextMenuAddCalculationGroupIndex,
+                "Map toevoegen", 
+                "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                PipingFormsResources.AddFolderIcon);
 
-            ToolStripItem addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
-            Assert.AreEqual("Berekening toevoegen", addCalculationItem.Text);
-            Assert.AreEqual("Voeg een nieuwe berekening toe aan deze berekeningsmap.", addCalculationItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, addCalculationItem.Image);
+            TestHelper.AssertContextMenuStripContainsItem(
+                contextMenu,
+                contextMenuAddCalculationIndex,
+                "Berekening toevoegen",
+                "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                PipingFormsResources.PipingIcon);
 
-            ToolStripItem validateAllItem = contextMenu.Items[contextMenuValidateAllIndex];
-            Assert.AreEqual("Valideren", validateAllItem.Text);
-            Assert.AreEqual("Valideer alle berekeningen binnen deze berekeningsmap.", validateAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.ValidationIcon, validateAllItem.Image);
+            TestHelper.AssertContextMenuStripContainsItem(
+                contextMenu,
+                contextMenuValidateAllIndex,
+                "Valideren",
+                "Valideer alle berekeningen binnen deze berekeningsmap.",
+                PipingFormsResources.ValidationIcon);
 
-            ToolStripItem calculateAllItem = contextMenu.Items[contextMenuCalculateAllIndex];
-            Assert.AreEqual("Alles be&rekenen", calculateAllItem.Text);
-            Assert.AreEqual("Valideer en voer alle berekeningen binnen deze berekeningsmap uit.", calculateAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, calculateAllItem.Image);
+            TestHelper.AssertContextMenuStripContainsItem(
+                contextMenu,
+                contextMenuCalculateAllIndex,
+                "Alles be&rekenen",
+                "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
+                RingtoetsFormsResources.CalculateAllIcon);
 
-            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearOutputIndex];
-            Assert.AreEqual("&Wis alle uitvoer", clearOutputItem.Text);
-            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.", clearOutputItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, clearOutputItem.Image);
+            TestHelper.AssertContextMenuStripContainsItem(
+                contextMenu,
+                contextMenuClearOutputIndex,
+                "&Wis alle uitvoer",
+                "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
+                RingtoetsFormsResources.ClearIcon);
+
             mocks.VerifyAll();
         }
 

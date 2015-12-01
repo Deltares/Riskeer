@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
 
@@ -16,6 +17,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
 
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.NodePresenters
 {
@@ -366,6 +368,56 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_NoMenuBuilderProvider_ReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = nodePresenter.GetContextMenu(nodeMock, new DikeAssessmentSection());
+
+            // Assert
+            Assert.IsNull(result);
+
+            mocks.ReplayAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems(bool commonItemsEnabled)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter
+            {
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, true)
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, new DikeAssessmentSection());
+
+            // Assert
+            Assert.AreEqual(7, contextMenu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 4, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 6, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[2]);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[5]);
         }
     }
 }

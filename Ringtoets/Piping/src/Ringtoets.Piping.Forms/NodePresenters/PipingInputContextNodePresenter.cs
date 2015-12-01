@@ -33,8 +33,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
             return ContextMenuBuilderProvider
                 .Get(sender)
-                .AddExportItem()
                 .AddImportItem()
+                .AddExportItem()
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();

@@ -332,7 +332,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_WithPipingCalculation_ContextMenuWithElevenItems()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetContextMenu_WithPipingCalculation_ContextMenuWithElevenItems(bool commonItemsEnabled)
         {
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
@@ -343,7 +345,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter
             {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, nodeMock, true)
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, nodeMock, commonItemsEnabled)
             };
 
             mockRepository.ReplayAll();
@@ -355,73 +357,18 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(11, contextMenu.Items.Count);
 
-            ToolStripItem validateItem = contextMenu.Items[contextMenuValidateIndex];
-            Assert.AreEqual(PipingFormsResources.Validate, validateItem.Text);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.ValidationIcon, validateItem.Image);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex, PipingFormsResources.Validate, null, PipingFormsResources.ValidationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, PipingFormsResources.Calculate, null, PipingFormsResources.Play);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuExpandIndex, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCollapseIndex, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportIndex, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuExportIndex, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon, commonItemsEnabled);
 
-            ToolStripItem calculatePipingItem = contextMenu.Items[contextMenuCalculateIndex];
-            Assert.AreEqual(PipingFormsResources.Calculate, calculatePipingItem.Text);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.Play, calculatePipingItem.Image);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[3]);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[6]);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[9]);
 
-            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.AreEqual(PipingFormsResources.Clear_output, clearOutputItem.Text);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ClearIcon, clearOutputItem.Image);
-
-            ToolStripItem expandItem = contextMenu.Items[contextMenuExpandIndex];
-            Assert.AreEqual(CoreCommonGuiResources.Expand_all, expandItem.Text);
-            Assert.AreEqual(CoreCommonGuiResources.Expand_all_ToolTip, expandItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExpandAllIcon, expandItem.Image);
-
-            ToolStripItem collapseItem = contextMenu.Items[contextMenuCollapseIndex];
-            Assert.AreEqual(CoreCommonGuiResources.Collapse_all, collapseItem.Text);
-            Assert.AreEqual(CoreCommonGuiResources.Collapse_all_ToolTip, collapseItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.CollapseAllIcon, collapseItem.Image);
-
-            ToolStripItem importItem = contextMenu.Items[contextMenuImportIndex];
-            Assert.AreEqual(CoreCommonGuiResources.Import, importItem.Text);
-            Assert.AreEqual(CoreCommonGuiResources.Import_ToolTip, importItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ImportIcon, importItem.Image);
-
-            ToolStripItem exportItem = contextMenu.Items[contextMenuExportIndex];
-            Assert.AreEqual(CoreCommonGuiResources.Export, exportItem.Text);
-            Assert.AreEqual(CoreCommonGuiResources.Export_ToolTip, exportItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportItem.Image);
-
-            ToolStripItem propertiesItem = contextMenu.Items[contextMenuPropertiesIndex];
-            Assert.AreEqual(CoreCommonGuiResources.Properties, propertiesItem.Text);
-            Assert.AreEqual(CoreCommonGuiResources.Properties_ToolTip, propertiesItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.PropertiesIcon, propertiesItem.Image);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
-        {
-            // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
-
-            var nodeData = new PipingCalculationContext(new PipingCalculation(),
-                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>());
-
-            var nodePresenter = new PipingCalculationContextNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, nodeMock, true)
-            };
-
-            mockRepository.ReplayAll();
-
-            // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
-
-            // Assert
-            Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(11, contextMenu.Items.Count);
-
-            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.IsFalse(clearOutputItem.Enabled);
-            Assert.AreEqual(PipingFormsResources.ClearOutput_No_output_to_clear, clearOutputItem.ToolTipText);
             mockRepository.VerifyAll();
         }
 
@@ -447,6 +394,36 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsNull(contextMenu);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_WithProviderPipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
+        {
+            // Setup
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+
+            var nodeData = new PipingCalculationContext(new PipingCalculation(),
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
+
+            var nodePresenter = new PipingCalculationContextNodePresenter
+            {
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, nodeMock, true)
+            };
+
+            mockRepository.ReplayAll();
+
+            // Call
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
+
+            // Assert
+            Assert.IsNotNull(contextMenu);
+            Assert.AreEqual(11, contextMenu.Items.Count);
+
+            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+            Assert.IsFalse(clearOutputItem.Enabled);
+            Assert.AreEqual(PipingFormsResources.ClearOutput_No_output_to_clear, clearOutputItem.ToolTipText);
             mockRepository.VerifyAll();
         }
 

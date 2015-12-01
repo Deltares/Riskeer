@@ -16,6 +16,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Test.Helper;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -199,7 +200,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var nodePresenter = new PipingOutputNodePresenter
             {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock)
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, true)
             };
 
             mocks.ReplayAll();
@@ -214,17 +215,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNull(result.Items[0].ToolTipText);
             TestHelper.AssertImagesAreEqual(Common.Forms.Properties.Resources.ClearIcon, result.Items[0].Image);
 
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Properties.Resources.Clear_output, null, Common.Forms.Properties.Resources.ClearIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 2, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 4, CommonGuiResources.Properties, CommonGuiResources.Properties_ToolTip, CommonGuiResources.PropertiesIcon);
+
             Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
-
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export, result.Items[2].Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export_ToolTip, result.Items[2].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExportIcon, result.Items[2].Image);
-
             Assert.IsInstanceOf<ToolStripSeparator>(result.Items[3]);
-
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties, result.Items[4].Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties_ToolTip, result.Items[4].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.PropertiesIcon, result.Items[4].Image);
         }
 
         [Test]

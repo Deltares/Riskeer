@@ -67,6 +67,7 @@
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
     <Compile Include="ExpandableArrayConverterTest.cs" />
     <Compile Include="Forms\SplashScreenTest.cs" />
+    <Compile Include="GuiCommandHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestContextMenuBuilderProviderTest.cs" />
   </ItemGroup>

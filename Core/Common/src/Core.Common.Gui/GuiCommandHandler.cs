@@ -10,6 +10,7 @@ using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
@@ -140,7 +141,7 @@ namespace Core.Common.Gui
 
         public bool CanShowPropertiesForGuiSelection()
         {
-            return gui.Plugins.SelectMany(p => p.GetPropertyInfos()).Any(pi => pi.ObjectType == gui.Selection.GetType());
+            return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), gui.Selection) != null;
         }
 
         public void ImportOn(object target, IFileImporter importer = null)

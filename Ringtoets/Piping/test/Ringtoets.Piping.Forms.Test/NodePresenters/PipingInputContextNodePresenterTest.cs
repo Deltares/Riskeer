@@ -13,6 +13,7 @@ using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -149,19 +150,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(4, result.Items.Count);
 
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export, result.Items[0].Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export_ToolTip, result.Items[0].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExportIcon, result.Items[0].Image);
-
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Import, result.Items[1].Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Import_ToolTip, result.Items[1].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ImportIcon, result.Items[1].Image);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(result, 1, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(result, 3, CommonGuiResources.Properties, CommonGuiResources.Properties_ToolTip, CommonGuiResources.PropertiesIcon, false);
 
             Assert.IsInstanceOf<ToolStripSeparator>(result.Items[2]);
-
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties, result.Items[3].Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties_ToolTip, result.Items[3].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.PropertiesIcon, result.Items[3].Image);
         }
     }
 }

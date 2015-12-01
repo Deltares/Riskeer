@@ -85,6 +85,10 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtils\Core.Common.Gui.TestUtils.csproj">
+      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
+      <Name>Core.Common.Gui.TestUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtils</Name>

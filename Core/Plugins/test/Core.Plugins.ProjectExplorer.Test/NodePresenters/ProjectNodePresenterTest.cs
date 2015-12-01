@@ -8,6 +8,8 @@ using Core.Plugins.ProjectExplorer.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 
+using CommonGuiResources = Core.Common.Gui.Properties.Resources;
+
 namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
 {
     [TestFixture]
@@ -36,13 +38,15 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems(bool commonItemsEnabled)
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var nodePresenter = new ProjectNodePresenter
             {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock)
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
             };
 
             mocks.ReplayAll();
@@ -53,37 +57,12 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             // Assert
             Assert.AreEqual(9, result.Items.Count);
 
-            Assert.AreEqual(Resources.AddItem, result.Items[0].Text);
-            Assert.IsNull(result.Items[0].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Resources.plus, result.Items[0].Image);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
-
-            ToolStripItem expandItem = result.Items[2];
-            Assert.AreEqual(Common.Gui.Properties.Resources.Expand_all, expandItem.Text);
-            Assert.AreEqual(Common.Gui.Properties.Resources.Expand_all_ToolTip, expandItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Common.Gui.Properties.Resources.ExpandAllIcon, expandItem.Image);
-
-            ToolStripItem collapseItem = result.Items[3];
-            Assert.AreEqual(Common.Gui.Properties.Resources.Collapse_all, collapseItem.Text);
-            Assert.AreEqual(Common.Gui.Properties.Resources.Collapse_all_ToolTip, collapseItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Common.Gui.Properties.Resources.CollapseAllIcon, collapseItem.Image);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[4]);
-
-            Assert.AreEqual(Common.Gui.Properties.Resources.Export, result.Items[5].Text);
-            Assert.AreEqual(Common.Gui.Properties.Resources.Export_ToolTip, result.Items[5].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Common.Gui.Properties.Resources.ExportIcon, result.Items[5].Image);
-
-            Assert.AreEqual(Common.Gui.Properties.Resources.Import, result.Items[6].Text);
-            Assert.AreEqual(Common.Gui.Properties.Resources.Import_ToolTip, result.Items[6].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Common.Gui.Properties.Resources.ImportIcon, result.Items[6].Image);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[7]);
-
-            Assert.AreEqual(Common.Gui.Properties.Resources.Properties, result.Items[8].Text);
-            Assert.AreEqual(Common.Gui.Properties.Resources.Properties_ToolTip, result.Items[8].ToolTipText);
-            TestHelper.AssertImagesAreEqual(Common.Gui.Properties.Resources.PropertiesIcon, result.Items[8].Image);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, null, Resources.plus);
+            TestHelper.AssertContextMenuStripContainsItem(result, 2, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 3, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 5, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 6, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 8, CommonGuiResources.Properties, CommonGuiResources.Properties_ToolTip, CommonGuiResources.PropertiesIcon, commonItemsEnabled);
         }
     }
 }
