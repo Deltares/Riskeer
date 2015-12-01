@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -400,7 +401,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var nodePresenter = new AssessmentSectionBaseNodePresenter
             {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, true)
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
             };
 
             mocks.ReplayAll();
@@ -412,11 +413,11 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             Assert.AreEqual(9, contextMenu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, CoreCommonGuiResources.Delete, CoreCommonGuiResources.Delete_ToolTip, CoreCommonGuiResources.DeleteIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 6, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 8, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 6, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 8, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon, commonItemsEnabled);
 
             Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[1]);
             Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[4]);

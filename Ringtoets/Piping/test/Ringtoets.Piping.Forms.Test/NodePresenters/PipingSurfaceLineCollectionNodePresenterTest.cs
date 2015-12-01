@@ -5,8 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
@@ -18,6 +16,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -310,7 +309,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu(bool importExportEnabled)
+        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu(bool commonItemsEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -319,7 +318,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
             {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, importExportEnabled)
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
             };
 
             mocks.ReplayAll();
@@ -329,29 +328,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(5, returnedContextMenu.Items.Count);
-            var expandAllItem = returnedContextMenu.Items[0];
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Expand_all, expandAllItem.Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Expand_all_ToolTip, expandAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExpandAllIcon, expandAllItem.Image);
-            Assert.IsTrue(expandAllItem.Enabled);
 
-            var collapseAllItem = returnedContextMenu.Items[1];
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Collapse_all, collapseAllItem.Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Collapse_all_ToolTip, collapseAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.CollapseAllIcon, collapseAllItem.Image);
-            Assert.IsTrue(collapseAllItem.Enabled);
-
-            var importItem = returnedContextMenu.Items[3];
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Import, importItem.Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Import_ToolTip, importItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ImportIcon, importItem.Image);
-            Assert.AreEqual(importExportEnabled, importItem.Enabled);
-
-            var exportItem = returnedContextMenu.Items[4];
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export, exportItem.Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export_ToolTip, exportItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExportIcon, exportItem.Image);
-            Assert.AreEqual(importExportEnabled, exportItem.Enabled);
+            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 0, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 1, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 3, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 4, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, commonItemsEnabled);
 
             Assert.IsInstanceOf<ToolStripSeparator>(returnedContextMenu.Items[2]);
 

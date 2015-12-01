@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Common.Controls;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
@@ -42,14 +43,27 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void CreateExpandAllItem_Always_ItemWithExpandFunction()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateExpandAllItem_DependingOnChildNodes_ItemWithExpandFunctionWillBeEnabled(bool enabled)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
-            treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
-            treeViewMock.Expect(tv => tv.ExpandAll(treeNodeMock));
+            if (enabled)
+            {
+                treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
+                treeViewMock.Expect(tv => tv.ExpandAll(treeNodeMock));
+            }
 
+            var children = new List<ITreeNode>();
+
+            if (enabled)
+            {
+                children.Add(mocks.StrictMock<ITreeNode>());
+            }
+
+            treeNodeMock.Expect(tn => tn.Nodes).Return(children);
             mocks.ReplayAll();
 
             var factory = new TreeViewContextMenuItemFactory(treeNodeMock);
@@ -59,21 +73,35 @@ namespace Core.Common.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(item.Text, Resources.Expand_all);
-            Assert.AreEqual(item.ToolTipText, Resources.Expand_all_ToolTip);
-            TestHelper.AssertImagesAreEqual(item.Image, Resources.ExpandAllIcon);
+            Assert.AreEqual(Resources.Expand_all, item.Text);
+            Assert.AreEqual(Resources.Expand_all_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.ExpandAllIcon, item.Image);
+            Assert.AreEqual(enabled, item.Enabled);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateCollapseAllItem_Always_ItemWithCollapseFunction()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateCollapseAllItem_DependingOnChildNodes_ItemWithCollapseFunctionWillBeEnabled(bool enabled)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
-            treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
-            treeViewMock.Expect(tv => tv.CollapseAll(treeNodeMock));
+            if (enabled)
+            {
+                treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
+                treeViewMock.Expect(tv => tv.CollapseAll(treeNodeMock));
+            }
+            var children = new List<ITreeNode>();
+
+            if (enabled)
+            {
+                children.Add(mocks.StrictMock<ITreeNode>());
+            }
+
+            treeNodeMock.Expect(tn => tn.Nodes).Return(children);
 
             mocks.ReplayAll();
 
@@ -84,9 +112,10 @@ namespace Core.Common.Gui.Test.ContextMenu
             item.PerformClick();
 
             // Assert
-            Assert.AreEqual(item.Text, Resources.Collapse_all);
-            Assert.AreEqual(item.ToolTipText, Resources.Collapse_all_ToolTip);
-            TestHelper.AssertImagesAreEqual(item.Image, Resources.CollapseAllIcon);
+            Assert.AreEqual(Resources.Collapse_all, item.Text);
+            Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
+            Assert.AreEqual(enabled, item.Enabled);
 
             mocks.VerifyAll();
         }

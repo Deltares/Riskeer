@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui.Properties;
@@ -35,10 +37,12 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExpandAllItem()
         {
+            IList<ITreeNode> children = treeNode.Nodes;
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Expand_all)
             {
                 ToolTipText = Resources.Expand_all_ToolTip,
-                Image = Resources.ExpandAllIcon
+                Image = Resources.ExpandAllIcon,
+                Enabled = children != null && children.Any()
             };
             toolStripMenuItem.Click += (s, e) => treeNode.TreeView.ExpandAll(treeNode);
             return toolStripMenuItem;
@@ -51,10 +55,12 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateCollapseAllItem()
         {
+            IList<ITreeNode> children = treeNode.Nodes;
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Collapse_all)
             {
                 ToolTipText = Resources.Collapse_all_ToolTip,
-                Image = Resources.CollapseAllIcon
+                Image = Resources.CollapseAllIcon,
+                Enabled = children != null && children.Any()
             };
             toolStripMenuItem.Click += (s, e) => treeNode.TreeView.CollapseAll(treeNode);
             return toolStripMenuItem;

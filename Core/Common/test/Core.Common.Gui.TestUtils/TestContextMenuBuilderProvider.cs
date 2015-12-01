@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Common.Controls;
 using Core.Common.Gui.ContextMenu;
 using Rhino.Mocks;
@@ -17,6 +18,8 @@ namespace Core.Common.Gui.TestUtils
         /// <param name="node">The <see cref="ITreeNode"/> to pass to the <see cref="ContextMenuBuilder"/>.</param>
         /// <param name="itemsEnabled">Value indicating whether following option should be available.
         /// <list type="bullet">
+        /// <item>collapse all</item>
+        /// <item>expand all</item>
         /// <item>export</item>
         /// <item>import</item>
         /// <item>show properties</item>
@@ -36,6 +39,13 @@ namespace Core.Common.Gui.TestUtils
             commandHandlerMock.Expect(ch => ch.CanImportToGuiSelection()).Return(itemsEnabled).Repeat.Any();
             commandHandlerMock.Expect(ch => ch.CanShowPropertiesForGuiSelection()).Return(itemsEnabled).Repeat.Any();
             commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewForSelection()).Return(itemsEnabled).Repeat.Any();
+
+            var childs = new List<ITreeNode>();
+            if (itemsEnabled)
+            {
+                childs.Add(node);
+            }
+            node.Expect(n => n.Nodes).Return(childs).Repeat.Any();
 
             menuBuilderProviderMock.Expect(mbp => mbp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(commandHandlerMock, node));
             return menuBuilderProviderMock;

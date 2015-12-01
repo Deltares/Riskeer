@@ -6,6 +6,7 @@ using System.Drawing;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -16,6 +17,7 @@ using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.NodePresenters
 {
@@ -124,38 +126,30 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu(bool commonItemsEnabled)
         {
             // Setup
             var folder = new CategoryTreeFolder("", new object[0]);
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var menuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
-            menuBuilderProviderMock.Expect(mbp => mbp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
-
-            mocks.ReplayAll();
 
             var nodePresenter = new CategoryTreeFolderNodePresenter
             {
-                ContextMenuBuilderProvider = menuBuilderProviderMock
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
             };
+
+            mocks.ReplayAll();
 
             // Call
             var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, folder);
 
             // Assert
             Assert.AreEqual(2, returnedContextMenu.Items.Count);
-            var expandAllItem = returnedContextMenu.Items[0];
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Expand_all, expandAllItem.Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Expand_all_ToolTip, expandAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExpandAllIcon, expandAllItem.Image);
-            Assert.IsTrue(expandAllItem.Enabled);
 
-            var collapseAllItem = returnedContextMenu.Items[1];
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Collapse_all, collapseAllItem.Text);
-            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Collapse_all_ToolTip, collapseAllItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.CollapseAllIcon, collapseAllItem.Image);
-            Assert.IsTrue(collapseAllItem.Enabled);
+            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 0, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 1, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
 
             mocks.VerifyAll();
         }

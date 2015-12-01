@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -80,13 +81,24 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(1, result.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Delete, Resources.Delete_ToolTip, Resources.DeleteIcon);
-        } 
+        }
 
         [Test]
-        public void AddExpandAllItem_WhenBuild_ItemAddedToContextMenu()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddExpandAllItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
         {
             // Setup
-            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            IList<ITreeNode> childs = new List<ITreeNode>();
+            if (enabled)
+            {
+                childs.Add(treeNodeMock);
+            }
+            treeNodeMock.Expect(tn => tn.Nodes).Return(childs);
+            var builder = new ContextMenuBuilder(null, treeNodeMock);
+
+            mocks.ReplayAll();
 
             // Call
             var result = builder.AddExpandAllItem().Build();
@@ -95,14 +107,25 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Expand_all, Resources.Expand_all_ToolTip, Resources.ExpandAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Expand_all, Resources.Expand_all_ToolTip, Resources.ExpandAllIcon, enabled);
         } 
 
         [Test]
-        public void AddCollapseAllItem_WhenBuild_ItemAddedToContextMenu()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddCollapseAllItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
         {
             // Setup
-            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            IList<ITreeNode> childs = new List<ITreeNode>();
+            if (enabled)
+            {
+                childs.Add(treeNodeMock);
+            }
+            treeNodeMock.Expect(tn => tn.Nodes).Return(childs);
+            var builder = new ContextMenuBuilder(null, treeNodeMock);
+
+            mocks.ReplayAll();
 
             // Call
             var result = builder.AddCollapseAllItem().Build();
@@ -111,7 +134,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Collapse_all, Resources.Collapse_all_ToolTip, Resources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Collapse_all, Resources.Collapse_all_ToolTip, Resources.CollapseAllIcon, enabled);
         }
 
         [Test]

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
@@ -59,8 +60,8 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             Assert.AreEqual(9, result.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, null, Resources.plus);
-            TestHelper.AssertContextMenuStripContainsItem(result, 2, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(result, 3, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(result, 2, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 3, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon, commonItemsEnabled);
             TestHelper.AssertContextMenuStripContainsItem(result, 5, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, commonItemsEnabled);
             TestHelper.AssertContextMenuStripContainsItem(result, 6, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, commonItemsEnabled);
             TestHelper.AssertContextMenuStripContainsItem(result, 8, CommonGuiResources.Properties, CommonGuiResources.Properties_ToolTip, CommonGuiResources.PropertiesIcon, commonItemsEnabled);

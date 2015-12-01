@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -362,8 +363,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, PipingFormsResources.Calculate, null, PipingFormsResources.Play);
 
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuDeleteIndex, CoreCommonGuiResources.Delete, CoreCommonGuiResources.Delete_ToolTip, CoreCommonGuiResources.DeleteIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuExpandIndex, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCollapseIndex, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuExpandIndex, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCollapseIndex, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportIndex, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuExportIndex, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, commonItemsEnabled);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon, commonItemsEnabled);

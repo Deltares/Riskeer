@@ -417,11 +417,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoGuiCommandHandler_ReturnsEmptyContextMenu()
+        public void GetContextMenu_NoGuiCommandHandler_ReturnsNineItems()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
+            nodeMock.Expect(n => n.Nodes).Return(new ITreeNode[0]).Repeat.Any();
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
@@ -441,8 +442,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 1, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip, PipingFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsFormsResources.Calculate_all, PipingFormsResources.PipingFailureMechanism_Calculate_Tooltip, RingtoetsFormsResources.CalculateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon, false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon, false);
 
             CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[5], menu.Items[8] }, typeof(ToolStripSeparator));
 
@@ -452,7 +453,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetContextMenu_WithGui_ReturnsContextMenuWithCommonItems(bool importExportEnabled)
+        public void GetContextMenu_WithGui_ReturnsContextMenuWithCommonItems(bool commonItemsEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -460,7 +461,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             
             var nodePresenter = new PipingFailureMechanismNodePresenter
             {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, importExportEnabled)
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
             };
             var failureMechanism = mocks.StrictMock<PipingFailureMechanism>();
             nodeMock.Tag = failureMechanism;
@@ -476,10 +477,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 1, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip, PipingFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsFormsResources.Calculate_all, PipingFormsResources.PipingFailureMechanism_Calculate_Tooltip, RingtoetsFormsResources.CalculateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 9, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, importExportEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, importExportEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, commonItemsEnabled);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, commonItemsEnabled);
 
             CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[5], menu.Items[8] }, typeof(ToolStripSeparator));
 
@@ -494,6 +495,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            nodeMock.Expect(n => n.Nodes).Return(new ITreeNode[0]).Repeat.Any();
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
             var nodePresenter = new PipingFailureMechanismNodePresenter
@@ -524,6 +526,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            nodeMock.Expect(n => n.Nodes).Return(new ITreeNode[0]).Repeat.Any();
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
             dataMock.Calculations.Add(new PipingCalculation
@@ -558,19 +561,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var observerMock = mocks.StrictMock<IObserver>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
             observerMock.Expect(o => o.UpdateObserver());
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
-            mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observerMock);
             var nodePresenter = new PipingFailureMechanismNodePresenter
             {
-                ContextMenuBuilderProvider = contextMenuProvider
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, true)
             };
 
+            mocks.ReplayAll();
             // Precondition
             Assert.AreEqual(1, failureMechanism.Calculations.Count);
 
@@ -594,11 +595,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var observerMock = mocks.StrictMock<IObserver>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-
+            
             observerMock.Expect(o => o.UpdateObserver());
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
-            mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observerMock);
@@ -606,8 +604,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             failureMechanism.Calculations.Add(new PipingCalculationGroup());
             var nodePresenter = new PipingFailureMechanismNodePresenter
             {
-                ContextMenuBuilderProvider = contextMenuProvider
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, true)
             };
+
+            mocks.ReplayAll();
 
             // Precondition
             Assert.AreEqual(1, failureMechanism.Calculations.Count);
