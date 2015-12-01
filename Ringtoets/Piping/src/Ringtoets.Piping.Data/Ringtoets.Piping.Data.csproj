@@ -88,6 +88,7 @@
     <Compile Include="Probabilistics\NormalDistribution.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariable.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistribution.cs" />
+    <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariable.cs" />
     <Compile Include="RingtoetsPipingSurfaceLine.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

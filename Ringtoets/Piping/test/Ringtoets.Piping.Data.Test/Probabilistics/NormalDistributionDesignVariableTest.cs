@@ -7,24 +7,24 @@ using Ringtoets.Piping.Data.Probabilistics;
 namespace Ringtoets.Piping.Data.Test.Probabilistics
 {
     [TestFixture]
-    public class LognormalDistributionDesignVariableTest
+    public class NormalDistributionDesignVariableTest
     {
         [Test]
         public void ParameterdConstructor_ValidLognormalDistribution_ExpectedValues()
         {
             // Setup
-            var lognormalDistribution = new LognormalDistribution();
+            var normalDistribution = new NormalDistribution();
 
             // Call
-            var designValue = new LognormalDistributionDesignVariable(lognormalDistribution);
+            var designValue = new NormalDistributionDesignVariable(normalDistribution);
 
             // Assert
-            Assert.AreSame(lognormalDistribution, designValue.Distribution);
+            Assert.AreSame(normalDistribution, designValue.Distribution);
             Assert.AreEqual(0.5, designValue.Percentile);
         }
 
         /// <summary>
-        /// Tests the <see cref="LognormalDistributionDesignVariable.GetDesignValue"/>
+        /// Tests the <see cref="NormalDistributionDesignVariable.GetDesignValue"/>
         /// against the values calculated with the excel sheet in WTI-33 (timestamp: 27-11-2015 10:27).
         /// </summary>
         /// <param name="expectedValue">MEAN.</param>
@@ -32,25 +32,25 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         /// <param name="percentile">Percentile.</param>
         /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
-        [TestCase(75, 70, 0.95, 89.49908018)]
-        [TestCase(75, 70, 0.5, 74.53764421)]
-        [TestCase(75, 70, 0.05, 62.07729055)]
-        [TestCase(75, 123.45, 0.95, 94.5366392)]
-        [TestCase(75, 1.2345, 0.95, 76.84147913)]
-        [TestCase(123.45, 70, 0.95, 137.6747689)]
-        [TestCase(1.2345, 70, 0.95, 4.541270837)]
-        public void GetDesignVariable_ValidLognormalDistribution_ReturnExpectedValue(
+        [TestCase(75, 70, 0.95, 88.76183279)]
+        [TestCase(75, 70, 0.5, 75)]
+        [TestCase(75, 70, 0.05, 61.23816721)]
+        [TestCase(75, 123.45, 0.95, 93.27564881)]
+        [TestCase(75, 1.2345, 0.95, 76.82756488)]
+        [TestCase(123.45, 70, 0.95, 137.2118328)]
+        [TestCase(1.2345, 70, 0.95, 14.99633279)]
+        public void GetDesignVariable_ValidNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)
         {
             // Setup
-            var lognormalDistribution = new LognormalDistribution
+            var normalDistribution = new NormalDistribution
             {
                 Mean = expectedValue,
                 StandardDeviation = Math.Sqrt(variance)
             };
 
-            var designVariable = new LognormalDistributionDesignVariable(lognormalDistribution)
+            var designVariable = new NormalDistributionDesignVariable(normalDistribution)
             {
                 Percentile = percentile
             };

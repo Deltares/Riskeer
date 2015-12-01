@@ -410,10 +410,10 @@
     <value>Lognormale verdeling</value>
   </data>
   <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
-    <value>μ</value>
+    <value>Verwachtingswaarde</value>
   </data>
   <data name="Probabilistics_StandardDeviation_Symbol" xml:space="preserve">
-    <value>σ</value>
+    <value>Standaardafwijking</value>
   </data>
   <data name="Probabilistics_Mean_description_for_Distribution_0_" xml:space="preserve">
     <value>De gemiddelde waarde van de {0}.</value>
@@ -431,7 +431,7 @@
     <value>Verschoven lognormale verdeling</value>
   </data>
   <data name="Probabilistics_Shift_Description" xml:space="preserve">
-    <value>De verschuiving van de lognormale verdeling.</value>
+    <value>De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.</value>
   </data>
   <data name="PipingOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

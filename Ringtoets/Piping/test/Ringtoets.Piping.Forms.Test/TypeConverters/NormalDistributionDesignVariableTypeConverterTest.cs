@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var result = converter.ConvertTo(designVariable, typeof(string));
 
             // Assert
-            var expectedText = string.Format("{0} (\u03BC = {1}, \u03C3 = {2})",
+            var expectedText = string.Format("{0} (Verwachtingswaarde = {1}, Standaardafwijking = {2})",
                                              designVariable.GetDesignValue(), distribution.Mean, distribution.StandardDeviation);
             Assert.AreEqual(expectedText, result);
         }
@@ -101,14 +101,14 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
-            Assert.AreEqual("\u03BC", meanPropertyDescriptor.DisplayName);
+            Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanPropertyDescriptor.Description);
 
             var stdPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
-            Assert.AreEqual("\u03C3", stdPropertyDescriptor.DisplayName);
+            Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
             Assert.AreEqual("De standaardafwijking van de normale verdeling.", stdPropertyDescriptor.Description);
 
             var designValuePropertyDescriptor = properties[3];

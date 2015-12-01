@@ -1115,7 +1115,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to μ.
+        ///   Looks up a localized string similar to Verwachtingswaarde.
         /// </summary>
         public static string Probabilistics_Mean_Symbol {
             get {
@@ -1124,7 +1124,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verschuiving van de lognormale verdeling..
+        ///   Looks up a localized string similar to De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is..
         /// </summary>
         public static string Probabilistics_Shift_Description {
             get {
@@ -1151,7 +1151,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to σ.
+        ///   Looks up a localized string similar to Standaardafwijking.
         /// </summary>
         public static string Probabilistics_StandardDeviation_Symbol {
             get {

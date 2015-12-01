@@ -80,7 +80,9 @@
     <Compile Include="Probabilistics\DesignVariableTest.cs" />
     <Compile Include="Probabilistics\LognormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\LognormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Point3DTest.cs" />

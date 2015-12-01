@@ -93,6 +93,7 @@
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptorItemTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverterTest.cs" />
+    <Compile Include="TypeConverters\ShiftedLognormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
