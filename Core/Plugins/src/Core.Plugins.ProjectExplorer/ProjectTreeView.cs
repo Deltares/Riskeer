@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -14,7 +13,7 @@ namespace Core.Plugins.ProjectExplorer
     /// <summary>
     /// TODO: extract Clipboard-related methods into Ringtoets Clipboard class
     /// </summary>
-    public partial class ProjectTreeView : UserControl, IView
+    public class ProjectTreeView : UserControl, IView
     {
         private readonly TreeView treeView;
         private GuiPlugin guiPlugin;
@@ -31,8 +30,6 @@ namespace Core.Plugins.ProjectExplorer
 
         public ProjectTreeView()
         {
-            InitializeComponent();
-
             treeView = new TreeView
             {
                 AllowDrop = true
@@ -51,10 +48,6 @@ namespace Core.Plugins.ProjectExplorer
 
         public GuiPlugin GuiPlugin
         {
-            get
-            {
-                return guiPlugin;
-            }
             set
             {
                 guiPlugin = value;
@@ -80,10 +73,6 @@ namespace Core.Plugins.ProjectExplorer
 
         public Project Project
         {
-            get
-            {
-                return project;
-            }
             set
             {
                 Data = value;
@@ -235,21 +224,6 @@ namespace Core.Plugins.ProjectExplorer
             Project = project;
         }
 
-        private void buttonsAddNewDataClick(object sender, EventArgs e)
-        {
-            gui.CommandHandler.AddNewItem(gui.Selection);
-        }
-
-        /// <summary>
-        /// Delete dataitem from the project.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void deleteMenuItemClick(object sender, EventArgs e)
-        {
-            treeView.TryDeleteSelectedNodeData();
-        }
-
         private void TreeViewDoubleClick(object sender, EventArgs e)
         {
             if (!Equals(gui.Selection, TreeView.SelectedNode.Tag))
@@ -258,36 +232,6 @@ namespace Core.Plugins.ProjectExplorer
                 gui.Selection = TreeView.SelectedNode.Tag;
             }
             gui.CommandHandler.OpenViewForSelection();
-        }
-
-        private void buttonFolderImportClick(object sender, EventArgs e)
-        {
-            gui.CommandHandler.ImportToGuiSelection();
-        }
-
-        private void buttonsRenameClick(object sender, EventArgs e)
-        {
-            treeView.StartLabelEdit();
-        }
-
-        private void buttonsPropertiesClick(object sender, EventArgs e)
-        {
-            gui.CommandHandler.ShowProperties();
-        }
-
-        private void ButtonExportClick(object sender, EventArgs e)
-        {
-            gui.CommandHandler.ExportSelectedItem();
-        }
-
-        private void buttonFolderExpandAll_Click(object sender, EventArgs e)
-        {
-            treeView.ExpandAll(treeView.SelectedNode);
-        }
-
-        private void buttonFolderCollapseAll_Click(object sender, EventArgs e)
-        {
-            treeView.CollapseAll(treeView.SelectedNode);
         }
 
         ~ProjectTreeView()
