@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Workflow;
+using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.ProgressDialog

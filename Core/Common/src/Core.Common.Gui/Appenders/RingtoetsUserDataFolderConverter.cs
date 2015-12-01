@@ -3,7 +3,7 @@ using System.IO;
 using Core.Common.Utils;
 using log4net.Util;
 
-namespace Core.Common.Base
+namespace Core.Common.Gui.Appenders
 {
     //special folders not in latests stable (1.2.10) version of log4net hence this for DS user dir.
     //Any arguments are ignored and just just return c:\user\muurman\appdata\deltares\ds1.0.0.0\
@@ -43,13 +43,3 @@ namespace Core.Common.Base
         }
     }
 }
-
-/* Example: 
- * <file type="log4net.Util.PatternString">
-        <converter>
-          <name value="dsuserdata" />
-          <type value="Core.Common.Base.RingtoetsUserDataFolderConverter,Ringtoets.Core" />
-        </converter>
-        <conversionPattern value="%dsuserdata\log-file.txt" />
-      </file>
- */

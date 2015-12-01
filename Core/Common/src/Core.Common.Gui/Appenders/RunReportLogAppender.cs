@@ -2,7 +2,7 @@
 using log4net.Appender;
 using log4net.Core;
 
-namespace Core.Common.Base
+namespace Core.Common.Gui.Appenders
 {
     public class RunReportLogAppender : AppenderSkeleton
     {

@@ -96,7 +96,6 @@
     <Compile Include="ApplicationPlugin.cs" />
     <Compile Include="DataItemInfo.cs" />
     <Compile Include="ApplicationCore.cs" />
-    <Compile Include="RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="IFileExporter.cs" />
     <Compile Include="IFileImporter.cs" />
     <Compile Include="IObservable.cs" />
@@ -110,7 +109,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RunReportLogAppender.cs" />
     <Compile Include="Workflow\Activity.cs" />
     <Compile Include="Workflow\ActivityStatus.cs" />
     <Compile Include="Workflow\FileImportActivity.cs" />

@@ -138,6 +138,8 @@
     <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
+    <Compile Include="Appenders\RunReportLogAppender.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
