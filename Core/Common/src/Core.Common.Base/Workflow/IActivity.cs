@@ -17,6 +17,8 @@ namespace Core.Common.Base.Workflow
         /// </summary>
         string Name { get; set; }
 
+        string Log { get; set; }
+
         /// <summary>
         /// Event to be fired when we want to publish changes in <see cref="ProgressText"/>.
         /// </summary>

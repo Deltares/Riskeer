@@ -8,8 +8,6 @@ using Core.Common.TestUtils;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -647,14 +645,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var calculateContextMenuItemIndex = 1;
             var calculation = new PipingCalculation();
             calculation.Attach(observer);
-            
-            var activityRunner = new ActivityRunner();
 
             ITreeNode treeNodeMock = mockRepository.StrictMock<ITreeNode>();
 
             var nodePresenter = new PipingCalculationContextNodePresenter
             {
-                RunActivityAction = activity => activityRunner.Enqueue(activity),
+                RunActivityAction = ActivityRunner.RunActivity,
                 ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, treeNodeMock, true)
             };
 
@@ -669,11 +665,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Action action = () =>
             {
                 contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
-                while (activityRunner.IsRunning)
-                {
-                    // Do something useful while waiting for calculation to finish...
-                    Application.DoEvents();
-                }
             };
 
             // Then
@@ -773,22 +764,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var activityRunner = new ActivityRunner();
-
             var contextMenuAdapter = nodePresenter.GetContextMenu(treeNodeMock, new PipingCalculationContext(calculation,
                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                      Enumerable.Empty<PipingSoilProfile>()));
-            nodePresenter.RunActivityAction = activity => activityRunner.Enqueue(activity);
+            nodePresenter.RunActivityAction = ActivityRunner.RunActivity;
 
             // When
             Action action = () =>
             {
                 contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
-                while (activityRunner.IsRunning)
-                {
-                    // Do something useful while waiting for calculation to finish...
-                    Application.DoEvents();
-                }
             };
 
             // Then

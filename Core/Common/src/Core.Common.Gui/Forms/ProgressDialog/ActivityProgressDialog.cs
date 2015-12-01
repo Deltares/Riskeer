@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Gui.Properties;
 
@@ -56,6 +57,11 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
                     try
                     {
+                        if (RunReportLogAppender.Instance != null)
+                        {
+                            RunReportLogAppender.Instance.AppendMessageLineAction = message => runningActivity.Log += message;
+                        }
+
                         runningActivity.ProgressChanged += ActivityOnProgressChanged;
 
                         // Run the activity
@@ -63,6 +69,11 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     }
                     finally
                     {
+                        if (RunReportLogAppender.Instance != null)
+                        {
+                            RunReportLogAppender.Instance.AppendMessageLineAction = null;
+                        }
+
                         runningActivity.ProgressChanged -= ActivityOnProgressChanged;
                     }
 

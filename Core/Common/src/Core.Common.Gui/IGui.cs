@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using Core.Common.Base;
-using Core.Common.Base.Workflow;
 using Core.Common.Gui.Forms.MainWindow;
 
 namespace Core.Common.Gui
@@ -32,11 +31,6 @@ namespace Core.Common.Gui
         /// Gets the <see cref="ApplicationCore"/> of the <see cref="IGui"/>.
         /// </summary>
         ApplicationCore ApplicationCore { get; }
-
-        /// <summary>
-        /// Gets the <see cref="IActivityRunner"/> of the <see cref="IGui"/>.
-        /// </summary>
-        IActivityRunner ActivityRunner { get; }
 
         /// <summary>
         /// Gets or sets the project of the <see cref="IGui"/>.

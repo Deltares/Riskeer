@@ -10,6 +10,8 @@ namespace Core.Common.Base.Workflow
     {
         public virtual event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
 
+        public string Log { get; set; }
+
         public event EventHandler ProgressChanged;
         private static readonly ILog log = LogManager.GetLogger(typeof(Activity));
         private string progressText;
@@ -17,6 +19,7 @@ namespace Core.Common.Base.Workflow
 
         protected Activity()
         {
+            Log = "";
             DependsOn = new EventedList<IActivity>();
         }
 

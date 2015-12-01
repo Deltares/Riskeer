@@ -15,12 +15,10 @@ using Core.Common.Controls.Swf;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
-using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Reflection;
 using Core.GIS.SharpMap.UI.Helpers;
@@ -33,7 +31,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for a given IApplication.
     /// </summary>
-    public class RingtoetsGui : IGui, IContextMenuBuilderProvider, IDisposable
+    public class RingtoetsGui : IGui, IContextMenuBuilderProvider
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
 
@@ -61,7 +59,6 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
         private Project project;
-        private IActivityRunner activityRunner;
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
@@ -92,8 +89,6 @@ namespace Core.Common.Gui
 
             ProjectClosing += ApplicationProjectClosing;
             ProjectOpened += ApplicationProjectOpened;
-
-            ActivityRunner = new ActivityRunner();
         }
 
         public bool SkipDialogsOnExit { get; set; }
@@ -103,23 +98,6 @@ namespace Core.Common.Gui
         public string ProjectFilePath { get; set; }
 
         public ApplicationCore ApplicationCore { get; private set; }
-
-        public IActivityRunner ActivityRunner
-        {
-            get
-            {
-                return activityRunner;
-            }
-            private set
-            {
-                activityRunner = value;
-
-                if (RunningActivityLogAppender.Instance != null)
-                {
-                    RunningActivityLogAppender.Instance.ActivityRunner = value;
-                }
-            }
-        }
 
         public Project Project
         {

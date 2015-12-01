@@ -86,12 +86,10 @@ namespace Ringtoets.Piping.Plugin.Test
             // setup
             var mocks = new MockRepository();
             var applicationCore = new ApplicationCore();
-            var activityRunner = new ActivityRunner();
 
             var guiStub = mocks.Stub<IGui>();
             guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
             Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
-            Expect.Call(guiStub.ActivityRunner).Return(activityRunner).Repeat.Any();
 
             mocks.ReplayAll();
 

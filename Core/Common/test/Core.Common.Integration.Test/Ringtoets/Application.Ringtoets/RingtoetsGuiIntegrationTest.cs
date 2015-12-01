@@ -43,63 +43,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
-        public void ProgressDialogIsModal()
-        {
-            if (!Environment.UserInteractive)
-            {
-                return; //progress dialog stuff isn't processed on non-interactive environment (see RingtoetsGui::UpdateProgressDialog)
-            }
-
-            if (GuiTestHelper.IsBuildServer)
-            {
-                return; // bleh (fails if users log in etc..)
-            }
-
-            using (var gui = new RingtoetsGui())
-            {
-                var applicationCore = gui.ApplicationCore;
-
-                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
-                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-                gui.Run();
-
-                var mainWindow = (Control) gui.MainWindow;
-                Action onShown = delegate
-                {
-                    var testActivity = new TestActivity();
-                    gui.ActivityRunner.Enqueue(testActivity);
-                    try
-                    {
-                        while (!gui.ActivityRunner.IsRunningActivity(testActivity))
-                        {
-                            Thread.Sleep(0);
-                        }
-
-                        System.Windows.Forms.Application.DoEvents();
-
-                        Assert.IsFalse(mainWindow.IsEnabled);
-                    }
-                    finally
-                    {
-                        testActivity.Done = true;
-                    }
-
-                    while (gui.ActivityRunner.IsRunningActivity(testActivity))
-                    {
-                        Thread.Sleep(0);
-                    }
-
-                    System.Windows.Forms.Application.DoEvents();
-
-                    Assert.IsTrue(mainWindow.IsEnabled);
-                };
-
-                WpfTestHelper.ShowModal(mainWindow, onShown);
-            }
-        }
-
-        [Test]
         public void ClosingEmptyProjectShouldNotGiveException()
         {
             using (var gui = new RingtoetsGui())

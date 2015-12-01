@@ -110,19 +110,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RunningActivityLogAppender.cs" />
+    <Compile Include="RunReportLogAppender.cs" />
     <Compile Include="Workflow\Activity.cs" />
-    <Compile Include="Workflow\ActivityEventArgs.cs" />
     <Compile Include="Workflow\ActivityRunner.cs" />
     <Compile Include="Workflow\ActivityStatus.cs" />
     <Compile Include="Workflow\ActivityStatusChangedEventArgs.cs" />
-    <Compile Include="Workflow\AsyncActivityRunner.cs" />
-    <Compile Include="Workflow\BackgroundWorker.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Workflow\FileImportActivity.cs" />
     <Compile Include="Workflow\IActivity.cs" />
-    <Compile Include="Workflow\IActivityRunner.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

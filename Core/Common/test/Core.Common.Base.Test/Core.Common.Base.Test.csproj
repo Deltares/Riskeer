@@ -127,13 +127,10 @@
     <Compile Include="Shell\Core\DataItemInfoTest.cs" />
     <Compile Include="Shell\Core\ObservableListTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\ActivityTest.cs" />
-    <Compile Include="Shell\Core\WorkFlow\BackgroundWorkerTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\FileImportActivityTest.cs" />
     <Compile Include="Shell\Gui\ExpandableArrayConverterTest.cs" />
     <Compile Include="Shell\Gui\MapLayerProviderHelperTest.cs" />
     <Compile Include="Controls\Swf\WindowsFormsHelperTests.cs" />
-    <Compile Include="Shell\Core\WorkFlow\ActivityRunnerTest.cs" />
-    <Compile Include="Shell\Core\WorkFlow\AsyncActivityRunnerTest.cs" />
     <Compile Include="Shell\Core\ProjectTest.cs" />
     <Compile Include="Shell\Core\UrlTest.cs" />
     <Compile Include="Controls\Swf\FileSystemTreeViewTest.cs" />
