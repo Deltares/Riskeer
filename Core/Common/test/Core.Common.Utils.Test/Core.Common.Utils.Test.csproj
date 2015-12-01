@@ -54,7 +54,7 @@
     <OutputPath>bin\ReleaseForCodeCoverage\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-	<DebugType>pdbonly</DebugType>
+    <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -92,8 +92,6 @@
   <ItemGroup>
     <Compile Include="Aop\InvokeRequiredAttributeTest.cs" />
     <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
-    <Compile Include="Aop\TestClasses\DllImports.cs" />
-    <Compile Include="Aop\TraceDllImportCallsAttributeTest.cs" />
     <Compile Include="ChartViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Collections\EnumerableExtensionsTest.cs" />
     <Compile Include="Collections\Extensions\ListExtensions.cs" />
