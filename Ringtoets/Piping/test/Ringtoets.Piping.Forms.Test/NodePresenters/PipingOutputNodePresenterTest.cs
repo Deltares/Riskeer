@@ -226,6 +226,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties_ToolTip, result.Items[4].ToolTipText);
             TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.PropertiesIcon, result.Items[4].Image);
         }
+
         [Test]
         public void GetContextMenu_ClearItemClicked_OutputCleared()
         {

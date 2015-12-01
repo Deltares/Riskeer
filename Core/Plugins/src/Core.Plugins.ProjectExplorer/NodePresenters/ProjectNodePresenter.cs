@@ -13,6 +13,16 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
 {
     public class ProjectNodePresenter : TreeViewNodePresenterBase<Project>
     {
+        /// <summary>
+        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+
+        /// <summary>
+        /// Sets the <see cref="IGuiCommandHandler"/> to be used for binding items to actions in the <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        public IGuiCommandHandler CommandHandler { private get; set; }
+
         public override IEnumerable GetChildNodeObjects(Project project)
         {
             return project.Items;
@@ -37,7 +47,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
                 Resources.AddItem,
                 null,
                 Resources.plus,
-                (s,e) => CommandHandler.AddNewItem(nodeData));
+                (s, e) => CommandHandler.AddNewItem(nodeData));
 
             return ContextMenuBuilderProvider
                 .Get(sender)
@@ -86,8 +96,5 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
                 node.Text = item.Name;
             }
         }
-
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
-        public IGuiCommandHandler CommandHandler { private get; set; }
     }
 }
