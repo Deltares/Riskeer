@@ -9,6 +9,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -261,8 +262,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            var internalErrorMessage = string.Format(RingtoetsIOResources.Error_SoilProfile_read_from_database,
-                                                     Path.GetFileName(corruptPath));
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(RingtoetsIOResources.Error_SoilProfile_read_from_database);
             var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -299,8 +299,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            var internalErrorMessage = string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_,
-                                                     "Profile","IntersectionX");
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
+                .WithSubject("ondergrondschematisering 'Profile'")
+                .Build(string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_,
+                                     "IntersectionX"));
             var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
                                                    corruptPath, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);

@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
@@ -27,7 +29,13 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (InvalidCastException e)
             {
-                throw new CriticalFileReadException(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, e);
+                var messageBuilder = new FileReaderErrorMessageBuilder(reader.Path);
+                if (!string.IsNullOrEmpty(ProfileName))
+                {
+                    messageBuilder.WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, ProfileName));
+                }
+                var message = messageBuilder.Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(message, e);
             }
         }
 

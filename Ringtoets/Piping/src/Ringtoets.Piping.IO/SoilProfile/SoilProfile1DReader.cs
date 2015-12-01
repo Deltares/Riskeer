@@ -36,14 +36,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 reader.MoveNext();
             }
 
-            return Build(soilProfileBuilder, profileName);
+            return Build(soilProfileBuilder, reader.Path, profileName);
         }
 
         /// <summary>
         /// Builds a <see cref="SoilLayer1D"/> from the given <paramref name="soilProfileBuilder"/>.
         /// </summary>
         /// <exception cref="PipingSoilProfileReadException">Thrown when building the <see cref="PipingSoilProfile"/> failed.</exception>
-        private static PipingSoilProfile Build(SoilProfileBuilder1D soilProfileBuilder, string profileName)
+        private static PipingSoilProfile Build(SoilProfileBuilder1D soilProfileBuilder, string path, string profileName)
         {
             try
             {
@@ -51,7 +51,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SoilProfileBuilderException e)
             {
-                throw new PipingSoilProfileReadException(profileName, e.Message, e);
+                var message = new FileReaderErrorMessageBuilder(path)
+                    .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                    .Build(e.Message);
+                throw new PipingSoilProfileReadException(profileName, message, e);
             }
         }
 
@@ -95,7 +98,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, profileName, readColumn);
+                    var message = new FileReaderErrorMessageBuilder(reader.Path)
+                        .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                        .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
                     throw new PipingSoilProfileReadException(profileName, message, e);
                 }
             }
@@ -139,7 +144,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, profileName, readColumn);
+                    var message = new FileReaderErrorMessageBuilder(reader.Path)
+                        .WithSubject(String.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                        .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
                     throw new PipingSoilProfileReadException(profileName, message, e);
                 }
             }

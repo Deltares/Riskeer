@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.IO;
-using System.Xml;
+
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
@@ -49,11 +48,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SoilProfileBuilderException e)
             {
-                throw new PipingSoilProfileReadException(criticalProperties.ProfileName, e.Message, e);
+                throw CreatePipingSoilProfileReadException(reader.Path, criticalProperties.ProfileName, e);
             }
             catch (ArgumentException e)
             {
-                throw new PipingSoilProfileReadException(criticalProperties.ProfileName, e.Message, e);
+                throw CreatePipingSoilProfileReadException(reader.Path, criticalProperties.ProfileName, e);
             }
         }
 
@@ -81,7 +80,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SoilLayer2DConversionException e)
             {
-                throw new PipingSoilProfileReadException(profileName, e.Message, e);
+                throw CreatePipingSoilProfileReadException(reader.Path, profileName, e);
             }
 
             if (pipingSoilLayer != null)
@@ -108,42 +107,24 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (InvalidCastException e)
             {
-                var message = string.Format(
-                    Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, 
-                    profileName, 
-                    SoilProfileDatabaseColumns.LayerGeometry
-                );
-                throw new PipingSoilProfileReadException(profileName, message, e);
+                throw CreatePipingSoilProfileReadException(reader.Path, profileName, e);
             }
         }
-        
 
-        private class RequiredProfileProperties
+        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, string errorMessage, Exception innerException)
         {
-            internal readonly double IntersectionX;
+            var message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(errorMessage);
+            return new PipingSoilProfileReadException(profileName, message, innerException);
+        }
 
-            /// <summary>
-            /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
-            /// that are required to create a complete <see cref="PipingSoilProfile"/>. If these properties
-            /// cannot be read, then the reader can proceed to the next profile.
-            /// </summary>
-            /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the required profile property values from.</param>
-            /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
-            /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
-            /// casted to the expected column types.</exception>
-            internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
-            {
-                string readColumn = SoilProfileDatabaseColumns.IntersectionX;
-                try
-                {
-                    IntersectionX = reader.Read<double>(readColumn);
-                }
-                catch (InvalidCastException e)
-                {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, profileName, readColumn);
-                    throw new PipingSoilProfileReadException(profileName, message, e);
-                }
-            }
+        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
+        {
+            var message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(innerException.Message);
+            return new PipingSoilProfileReadException(profileName, message, innerException);
         }
 
         private class LayerProperties
@@ -180,8 +161,36 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
                 catch (InvalidCastException e)
                 {
-                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, profileName, readColumn);
-                    throw new PipingSoilProfileReadException(profileName, message, e);
+                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn);
+                    throw CreatePipingSoilProfileReadException(reader.Path, profileName, message, e);
+                }
+            }
+        }
+
+        private class RequiredProfileProperties
+        {
+            internal readonly double IntersectionX;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
+            /// that are required to create a complete <see cref="PipingSoilProfile"/>. If these properties
+            /// cannot be read, then the reader can proceed to the next profile.
+            /// </summary>
+            /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the required profile property values from.</param>
+            /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
+            /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
+            /// casted to the expected column types.</exception>
+            internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
+            {
+                string readColumn = SoilProfileDatabaseColumns.IntersectionX;
+                try
+                {
+                    IntersectionX = reader.Read<double>(readColumn);
+                }
+                catch (InvalidCastException e)
+                {
+                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn);
+                    throw CreatePipingSoilProfileReadException(reader.Path, profileName, message, e);
                 }
             }
         }

@@ -156,8 +156,8 @@
   <data name="Error_SoilProfile_read_from_database" xml:space="preserve">
     <value>Kon geen ondergrond profielen verkrijgen van de database.</value>
   </data>
-  <data name="PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_" xml:space="preserve">
-    <value>Ondergrondschematisering '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
+  <data name="PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
+    <value>Ondergrondschematisering bevat geen geldige waarde in kolom '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
@@ -200,5 +200,8 @@
   </data>
   <data name="PipingSurfaceLinesCsvReader_SurfaceLineName_0_" xml:space="preserve">
     <value>profielmeting '{0}'</value>
+  </data>
+  <data name="PipingSoilProfileReader_SoilProfileName_0_" xml:space="preserve">
+    <value>ondergrondschematisering '{0}'</value>
   </data>
 </root>

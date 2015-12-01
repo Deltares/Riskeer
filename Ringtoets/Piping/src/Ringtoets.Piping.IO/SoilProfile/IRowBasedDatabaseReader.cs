@@ -31,5 +31,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <returns>The value in the column, or <c>null</c> if the value was <see cref="DBNull.Value"/>.</returns>
         /// <exception cref="InvalidCastException">Thrown when the value in the column could not be casted to type <typeparamref name="T"/>.</exception>
         T? ReadOrNull<T>(string columnName) where T : struct;
+
+        /// <summary>
+        /// Gets the path of the database being read.
+        /// </summary>
+        string Path { get; }
     }
 }

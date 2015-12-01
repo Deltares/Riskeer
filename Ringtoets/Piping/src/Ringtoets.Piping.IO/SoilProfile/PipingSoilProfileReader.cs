@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
@@ -17,7 +18,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private const string pipingMechanismName = "Piping";
         private const string mechanismParameterName = "mechanism";
 
-        private readonly string databaseFileName;
+        private readonly string fullFilePath;
 
         private SQLiteConnection connection;
         private SQLiteDataReader dataReader;
@@ -47,10 +48,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             if (!File.Exists(databaseFilePath))
             {
-                throw new CriticalFileReadException(Resources.Error_File_does_not_exist);
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.Error_File_does_not_exist);
+                throw new CriticalFileReadException(message);
             }
 
-            databaseFileName = Path.GetFileName(databaseFilePath);
+            fullFilePath = databaseFilePath;
             OpenConnection(databaseFilePath);
             InitializeReader();
         }
@@ -86,7 +88,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (InvalidCastException e)
             {
-                throw new CriticalFileReadException(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, e);
+                var message = new FileReaderErrorMessageBuilder(fullFilePath).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(message, e);
             }
         }
 
@@ -124,6 +127,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 return null;
             }
             return (T) valueObject;
+        }
+
+        public string Path
+        {
+            get
+            {
+                return fullFilePath;
+            }
         }
 
         /// <summary>
@@ -371,8 +382,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 catch (SQLiteException e)
                 {
                     Dispose();
-                    var exception = new CriticalFileReadException(string.Format(Resources.Error_SoilProfile_read_from_database, databaseFileName), e);
-                    throw exception;
+                    var message = new FileReaderErrorMessageBuilder(fullFilePath).Build(Resources.Error_SoilProfile_read_from_database);
+                    throw new CriticalFileReadException(message, e);
                 }
             }
         }

@@ -206,11 +206,20 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisering &apos;{0}&apos; in database bevat geen geldige waarde in kolom &apos;{1}&apos;..
+        ///   Looks up a localized string similar to Ondergrondschematisering bevat geen geldige waarde in kolom &apos;{0}&apos;..
         /// </summary>
-        public static string PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_ {
+        public static string PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_ {
             get {
-                return ResourceManager.GetString("PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ondergrondschematisering &apos;{0}&apos;.
+        /// </summary>
+        public static string PipingSoilProfileReader_SoilProfileName_0_ {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileReader_SoilProfileName_0_", resourceCulture);
             }
         }
         

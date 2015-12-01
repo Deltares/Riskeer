@@ -2,6 +2,8 @@
 using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 
@@ -24,7 +26,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidCriticalProperty_ThrowsCriticalFileReadException()
         {
             // Setup
+            const string profileName = "<profile name>";
+            const string path = "A";
+
+            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName);
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Throw(new InvalidCastException());
+            reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
 
@@ -33,7 +40,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.", exception.Message);
+            var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }
@@ -42,8 +52,12 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidRequiredProperty_ThrowsPipingSoilProfileReadException()
         {
             // Setup
+            const string profileName = "<profile name>";
+            const string path = "A";
+
+            reader.Expect(r => r.Path).Return(path);
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("").Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.Bottom)).Throw(new InvalidCastException());
 
             mocks.ReplayAll();
@@ -53,7 +67,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            Assert.AreEqual("Ondergrondschematisering '' in database bevat geen geldige waarde in kolom 'Bottom'.", exception.Message);
+            var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .Build("Ondergrondschematisering bevat geen geldige waarde in kolom 'Bottom'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }
@@ -62,7 +79,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_ZeroLayerCount_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            SetExpectations(0, "", 0.0, 0.0, 1.0, 0.0, 0.0, 0.0);
+            const string profileName = "<very cool name>";
+            const string path = "A";
+
+            SetExpectations(0, profileName, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0);
+            reader.Expect(r => r.Path).Return(path);
 
             mocks.ReplayAll();
 
@@ -71,7 +92,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            Assert.AreEqual("Geen lagen gevonden voor het profiel.", exception.Message);
+            var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .Build("Geen lagen gevonden voor het profiel.");
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }
@@ -80,6 +104,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_InvalidIsAquifer_ReturnsProfileWithNullValuesOnLayer()
         {
             // Setup
+            const string path = "A";
+            const string profileName = "<name>";
+
+            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(profileName);
+            reader.Expect(r => r.Path).Return(path);
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
             reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
             mocks.ReplayAll();
@@ -89,7 +118,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            Assert.AreEqual("Ondergrondschematisering '' in database bevat geen geldige waarde in kolom 'IsAquifer'.", exception.Message);
+            var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .Build("Ondergrondschematisering bevat geen geldige waarde in kolom 'IsAquifer'.");
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }

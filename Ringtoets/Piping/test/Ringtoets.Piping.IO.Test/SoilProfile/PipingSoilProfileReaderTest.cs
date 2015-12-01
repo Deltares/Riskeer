@@ -6,6 +6,7 @@ using System.Linq;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
@@ -28,7 +29,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(Resources.Error_File_does_not_exist, exception.Message);
+            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(Resources.Error_File_does_not_exist);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -62,8 +64,24 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_SoilProfile_read_from_database, dbName), exception.Message);
+            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(String.Format(Resources.Error_SoilProfile_read_from_database, dbName));
+            Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ParameteredConstructor_PathToExistingFile_ExpectedValues()
+        {
+            // Setup
+            var dbName = "emptyschema.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            // Call
+            using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
+            {
+                // Assert
+                Assert.AreEqual(dbFile, pipingSoilProfileReader.Path);
+            }
         }
 
         [Test]
@@ -149,14 +167,18 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var testFile = "invalid2dGeometry.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
             {
                 // Call
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
-                Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
+                var expectedMessage = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .Build(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
+                Assert.AreEqual(expectedMessage, exception.Message);
 
                 // Call
                 var pipingSoilProfile = pipingSoilProfilesReader.ReadProfile();
@@ -174,14 +196,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var testFile = "vertical2dGeometry.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
             {
                 // Call
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
-                var message = String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2);
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .Build(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2));
                 Assert.AreEqual(message, exception.Message);
 
                 // Call
@@ -220,14 +245,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var testFile = "invalidBottom1dProfile.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
             {
                 // Call
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, "Profile", "Bottom");
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Bottom"));
                 Assert.AreEqual(message, exceptionMessage);
             }
         }
@@ -237,14 +265,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var testFile = "invalidTop1dProfile.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
             {
                 // Call
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, "Profile", "Top");
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Top"));
                 Assert.AreEqual(message, exceptionMessage);
             }
         }
@@ -254,14 +285,17 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             var testFile = "incorrectValue2dProperty.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            string databaseFilePath = Path.Combine(testDataPath, testFile);
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(databaseFilePath))
             {
                 // Call
                 TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
-                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_Column_1_, "Profile", "DryUnitWeight");
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath)
+                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "DryUnitWeight"));
                 Assert.AreEqual(message, exceptionMessage);
             }
         }
@@ -333,7 +367,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             PipingSoilProfileReader pipingSoilProfilesReader = null;
-            PipingSoilProfile profile = null;
+            PipingSoilProfile profile;
             try
             {
                 pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
