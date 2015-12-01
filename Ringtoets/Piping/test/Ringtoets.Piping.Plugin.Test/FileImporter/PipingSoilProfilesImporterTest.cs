@@ -122,8 +122,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_, validFilePath, String.Empty);
-                StringAssert.StartsWith(message, messageArray[0]);
+                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+                StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.AreSame(observableList, importedItem);
             CollectionAssert.IsEmpty(observableList);
@@ -164,8 +164,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_, invalidFilePath, String.Empty);
-                StringAssert.StartsWith(message, messageArray[0]);
+                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+                StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.AreSame(observableList, importedItem);
             CollectionAssert.IsEmpty(observableList);
@@ -263,8 +263,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(RingtoetsIOResources.Error_SoilProfile_read_from_database);
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_,
-                                                   corruptPath, internalErrorMessage);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
+                                                   internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.AreSame(observableSoilProfileList, importedItem);
             CollectionAssert.IsEmpty(observableSoilProfileList,
@@ -303,8 +303,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 .WithSubject("ondergrondschematisering 'Profile'")
                 .Build(string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_,
                                      "IntersectionX"));
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
-                                                   corruptPath, internalErrorMessage);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
+                                                   internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
 
             Assert.AreSame(observableSoilProfileList, importedItem);

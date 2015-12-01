@@ -119,8 +119,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleException(string path, Exception e)
         {
-            var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_,
-                                        path, e.Message);
+            var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
+                                        e.Message);
             log.Error(message);
         }
 
@@ -143,13 +143,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (PipingSoilProfileReadException e)
                 {
-                    var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
-                                                path, e.Message);
+                    var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
+                                                e.Message);
                     log.Error(message);
                 }
                 catch (CriticalFileReadException e)
                 {
-                    var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
+                    var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
                                                 path, e.Message);
                     log.Error(message);
                     return new PipingReadResult<PipingSoilProfile>(true);
