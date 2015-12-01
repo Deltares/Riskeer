@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.IO;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;

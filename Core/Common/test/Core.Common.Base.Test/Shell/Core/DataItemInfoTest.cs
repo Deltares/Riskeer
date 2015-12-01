@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Core.Common.Base.Plugin;
 using Core.Common.Base.Test.Properties;
 using NUnit.Framework;
 

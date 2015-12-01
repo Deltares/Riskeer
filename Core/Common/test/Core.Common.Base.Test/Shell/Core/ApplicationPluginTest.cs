@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Core.Common.Base.Plugin;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Shell.Core

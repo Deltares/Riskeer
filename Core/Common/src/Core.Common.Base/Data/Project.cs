@@ -1,6 +1,6 @@
 using Core.Common.Utils.Collections.Generic;
 
-namespace Core.Common.Base
+namespace Core.Common.Base.Data
 {
     /// <summary>
     /// Container of all data and tasks.

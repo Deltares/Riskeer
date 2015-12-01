@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Base.Workflow;
+using Core.Common.Base.Service;
 using Core.Common.Controls.Swf;
 
 namespace Core.Common.Gui.Forms.ProgressDialog

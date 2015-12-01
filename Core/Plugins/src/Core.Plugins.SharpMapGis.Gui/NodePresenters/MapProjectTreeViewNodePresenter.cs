@@ -1,5 +1,6 @@
 using System.Drawing;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api.Layers;

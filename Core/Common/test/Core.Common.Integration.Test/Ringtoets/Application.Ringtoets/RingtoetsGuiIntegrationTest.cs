@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
 using Core.GIS.SharpMap.Map;

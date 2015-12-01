@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Base.Plugin;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
 

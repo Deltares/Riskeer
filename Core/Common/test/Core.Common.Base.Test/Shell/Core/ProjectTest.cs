@@ -1,3 +1,4 @@
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 

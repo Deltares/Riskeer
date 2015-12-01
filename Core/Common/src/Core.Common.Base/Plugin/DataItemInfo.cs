@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 
-namespace Core.Common.Base
+namespace Core.Common.Base.Plugin
 {
     /// <summary>
     /// Information for creating data objects

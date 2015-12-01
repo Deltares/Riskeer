@@ -2,7 +2,7 @@ using System;
 using Core.Common.Base.Properties;
 using log4net;
 
-namespace Core.Common.Base.Workflow
+namespace Core.Common.Base.Service
 {
     /// <summary>
     /// Defines basic activity which can be executed as part of the workflow.
@@ -35,7 +35,7 @@ namespace Core.Common.Base.Workflow
             {
                 return progressText;
             }
-            set
+            protected set
             {
                 progressText = value;
 

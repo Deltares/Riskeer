@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Core.Common.Base.IO;
 
-namespace Core.Common.Base
+namespace Core.Common.Base.Plugin
 {
     /// <summary>
     /// Template class for application plugin definitions.

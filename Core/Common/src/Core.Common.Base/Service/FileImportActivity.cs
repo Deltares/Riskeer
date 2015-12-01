@@ -1,6 +1,7 @@
+using Core.Common.Base.IO;
 using Core.Common.Base.Properties;
 
-namespace Core.Common.Base.Workflow
+namespace Core.Common.Base.Service
 {
     public class FileImportActivity : Activity
     {

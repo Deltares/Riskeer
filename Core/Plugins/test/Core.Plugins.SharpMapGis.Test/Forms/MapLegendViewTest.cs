@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Plugin;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Reflection;

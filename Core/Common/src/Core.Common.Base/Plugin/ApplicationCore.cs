@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.IO;
 using Core.Common.Utils.Reflection;
 
-namespace Core.Common.Base
+namespace Core.Common.Base.Plugin
 {
     public class ApplicationCore : IDisposable
     {

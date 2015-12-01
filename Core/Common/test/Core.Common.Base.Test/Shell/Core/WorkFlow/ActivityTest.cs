@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Common.Base.Workflow;
+using Core.Common.Base.Service;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Shell.Core.WorkFlow

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.IO;
 using Core.Common.Gui.Properties;
 
 using log4net;

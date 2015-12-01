@@ -1,5 +1,6 @@
 using System.Configuration;
 using Core.Common.Base;
+using Core.Common.Base.Plugin;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;

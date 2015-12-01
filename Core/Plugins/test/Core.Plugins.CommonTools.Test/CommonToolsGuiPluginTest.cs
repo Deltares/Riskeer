@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Plugin;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;

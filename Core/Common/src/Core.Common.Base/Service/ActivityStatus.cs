@@ -1,4 +1,4 @@
-namespace Core.Common.Base.Workflow
+namespace Core.Common.Base.Service
 {
     /// <summary>
     /// Defines possible states of the activity.

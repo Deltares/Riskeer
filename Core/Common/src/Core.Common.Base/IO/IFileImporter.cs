@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Core.Common.Base
+namespace Core.Common.Base.IO
 {
     public delegate void ImportProgressChangedDelegate(string currentStepName, int currentStep, int totalSteps);
 

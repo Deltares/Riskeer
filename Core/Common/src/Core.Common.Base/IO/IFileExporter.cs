@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Core.Common.Base
+namespace Core.Common.Base.IO
 {
     /// <summary>
     /// Interface for data export to external formats.

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Plugin;
 using NUnit.Framework;
 using Ringtoets.Piping.Plugin.FileImporter;
 

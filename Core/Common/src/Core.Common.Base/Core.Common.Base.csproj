@@ -93,25 +93,25 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="ApplicationPlugin.cs" />
-    <Compile Include="DataItemInfo.cs" />
-    <Compile Include="ApplicationCore.cs" />
-    <Compile Include="IFileExporter.cs" />
-    <Compile Include="IFileImporter.cs" />
+    <Compile Include="Plugin\ApplicationPlugin.cs" />
+    <Compile Include="Plugin\DataItemInfo.cs" />
+    <Compile Include="Plugin\ApplicationCore.cs" />
+    <Compile Include="IO\IFileExporter.cs" />
+    <Compile Include="IO\IFileImporter.cs" />
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
     <Compile Include="Observable.cs" />
     <Compile Include="ObservableList.cs" />
-    <Compile Include="Project.cs" />
+    <Compile Include="Data\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Workflow\Activity.cs" />
-    <Compile Include="Workflow\ActivityStatus.cs" />
-    <Compile Include="Workflow\FileImportActivity.cs" />
+    <Compile Include="Service\Activity.cs" />
+    <Compile Include="Service\ActivityStatus.cs" />
+    <Compile Include="Service\FileImportActivity.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

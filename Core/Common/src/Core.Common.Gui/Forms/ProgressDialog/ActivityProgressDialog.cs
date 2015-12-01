@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Core.Common.Base.Workflow;
+using Core.Common.Base.Service;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Properties;
 

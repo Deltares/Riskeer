@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Charting;

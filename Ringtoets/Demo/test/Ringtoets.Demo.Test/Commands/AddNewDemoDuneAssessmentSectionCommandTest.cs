@@ -1,4 +1,6 @@
 ﻿using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Plugin;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using NUnit.Framework;
