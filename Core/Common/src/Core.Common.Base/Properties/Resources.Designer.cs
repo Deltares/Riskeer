@@ -125,15 +125,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opschonen van {0} is mislukt..
-        /// </summary>
-        internal static string ActivityRunner_RunActivity_Clean_up_of_0_has_failed {
-            get {
-                return ResourceManager.GetString("ActivityRunner_RunActivity_Clean_up_of_0_has_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Uitvoering van {0} is geannuleerd..
         /// </summary>
         internal static string ActivityRunner_RunActivity_Execution_of_0_has_been_canceled {

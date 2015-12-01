@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Service.Test
             activity.PerformExecute();
 
             // Call
-            activity.PerformFinish();
+            activity.Finish();
 
             // Assert
             mocks.VerifyAll();
@@ -148,11 +148,6 @@ namespace Ringtoets.Piping.Service.Test
             public void PerformExecute()
             {
                 Execute();
-            }
-
-            public void PerformFinish()
-            {
-                Finish();
             }
         }
     }

@@ -75,48 +75,24 @@ namespace Core.Common.Base.Workflow
                         throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of_0_has_failed, Name));
                     }
                 }
-
-                if (Status != ActivityStatus.Cancelled)
-                {
-                    Finish();
-
-                    if (Status == ActivityStatus.Failed)
-                    {
-                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Finishing_of_0_has_failed, Name));
-                    }
-                }
-
-                Cleanup();
-
-                if (Status == ActivityStatus.Failed)
-                {
-                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Clean_up_of_0_has_failed, Name));
-                }
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.Message); //for build server debugging
                 log.Error(exception.Message);
-            }
-            finally
-            {
-                try
-                {
-                    if (Status != ActivityStatus.Cleaned)
-                    {
-                        Cleanup();
-                    }
-                }
-                catch (Exception)
-                {
-                    log.ErrorFormat(Resources.ActivityRunner_RunActivity_Clean_up_of_0_has_failed, Name);
-                }
             }
         }
 
         public void Cancel()
         {
             ChangeState(OnCancel, ActivityStatus.Cancelling, ActivityStatus.Cancelled);
+        }
+
+        public void Finish()
+        {
+            if (Status != ActivityStatus.Failed && Status != ActivityStatus.Cancelled)
+            {
+                ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
+            }
         }
 
         protected void Initialize()
@@ -161,23 +137,6 @@ namespace Core.Common.Base.Workflow
             Status = ActivityStatus.Executed;
         }
 
-        protected void Cleanup()
-        {
-            if (Status != ActivityStatus.Cancelled || Status != ActivityStatus.Failed)
-            {
-                ChangeState(OnCleanUp, ActivityStatus.Cleaning, ActivityStatus.Cleaned);
-            }
-            else
-            {
-                ChangeState(OnCleanUp, Status, Status);
-            }
-        }
-
-        protected void Finish()
-        {
-            ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
-        }
-
         protected void OnProgressChanged()
         {
             if (ProgressChanged != null)
@@ -219,11 +178,6 @@ namespace Core.Common.Base.Workflow
         /// after this method has been called.
         /// </summary>
         protected abstract void OnCancel();
-
-        /// <summary>
-        /// Performs clean-up of all internal resources.
-        /// </summary>
-        protected abstract void OnCleanUp();
 
         private void ChangeState(Action transitionAction, ActivityStatus statusBefore, ActivityStatus statusAfter)
         {

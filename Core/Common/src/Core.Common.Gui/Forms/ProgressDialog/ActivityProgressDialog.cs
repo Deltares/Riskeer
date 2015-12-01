@@ -85,8 +85,18 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 }
             }, cancellationToken);
 
-            // Close the dialog when all activities are ran
-            progressReporter.RegisterContinuation(task, Close);
+            // Afterwards, perform actions that (might) affect the UI thread
+            progressReporter.RegisterContinuation(task, () =>
+            {
+                // Finish all activities
+                foreach (var activity in activities)
+                {
+                    activity.Finish();
+                }
+
+                // Close the dialog
+                Close();
+            });
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

@@ -50,11 +50,6 @@ namespace Ringtoets.Piping.Service
             // Unable to cancel a running kernel, so nothing can be done.
         }
 
-        protected override void OnCleanUp()
-        {
-            // Nothing to clean up.
-        }
-
         protected override void OnFinish()
         {
             calculation.NotifyObservers();

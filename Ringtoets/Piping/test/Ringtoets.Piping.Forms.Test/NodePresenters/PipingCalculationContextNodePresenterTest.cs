@@ -626,7 +626,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter
             {
-                RunActivityAction = activity => activity.Run(),
+                RunActivityAction = activity =>
+                {
+                    activity.Run();
+                    activity.Finish();
+                },
                 ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, treeNodeMock, true)
             };
 
@@ -743,7 +747,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuAdapter = nodePresenter.GetContextMenu(treeNodeMock, new PipingCalculationContext(calculation,
                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                      Enumerable.Empty<PipingSoilProfile>()));
-            nodePresenter.RunActivityAction = activity => activity.Run();
+            nodePresenter.RunActivityAction = activity =>
+            {
+                activity.Run();
+                activity.Finish();
+            };
 
             // When
             Action action = () =>

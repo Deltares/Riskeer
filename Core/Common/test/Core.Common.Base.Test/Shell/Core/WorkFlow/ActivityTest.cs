@@ -60,11 +60,6 @@ namespace Core.Common.Base.Test.Shell.Core.WorkFlow
                 OnCancelInjection();
             }
 
-            protected override void OnCleanUp()
-            {
-                throw new NotImplementedException();
-            }
-
             protected override void OnFinish()
             {
                 throw new NotImplementedException();

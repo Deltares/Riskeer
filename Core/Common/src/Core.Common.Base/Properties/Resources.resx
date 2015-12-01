@@ -150,9 +150,6 @@
   <data name="ActivityRunner_RunActivity_Finishing_of_0_has_failed" xml:space="preserve">
     <value>Afronden van {0} is mislukt.</value>
   </data>
-  <data name="ActivityRunner_RunActivity_Clean_up_of_0_has_failed" xml:space="preserve">
-    <value>Opschonen van {0} is mislukt.</value>
-  </data>
   <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
   </data>

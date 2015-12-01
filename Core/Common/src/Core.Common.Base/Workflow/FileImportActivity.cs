@@ -63,8 +63,6 @@ namespace Core.Common.Base.Workflow
             importer.ShouldCancel = true;
         }
 
-        protected override void OnCleanUp() {}
-
         protected override void OnFinish() {}
 
         public override string Name

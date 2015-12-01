@@ -183,8 +183,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
             protected override void OnCancel() {}
 
-            protected override void OnCleanUp() {}
-
             protected override void OnFinish() {}
         }
 
