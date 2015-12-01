@@ -23,25 +23,6 @@ namespace Core.Common.Base.Workflow
 
         public string[] Files { get; set; }
 
-        public IFileImporter FileImporter
-        {
-            get
-            {
-                return importer;
-            }
-        }
-
-        /// <summary>
-        /// The target object that is currently imported on.
-        /// </summary>
-        public object Target
-        {
-            get
-            {
-                return target;
-            }
-        }
-
         protected override void OnInitialize()
         {
             if (importer.ShouldCancel)

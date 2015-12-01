@@ -15,7 +15,7 @@ namespace Core.Common.Base.Workflow
         /// <summary>
         /// Name of the activity
         /// </summary>
-        string Name { get; set; }
+        string Name { get; }
 
         string Log { get; set; }
 

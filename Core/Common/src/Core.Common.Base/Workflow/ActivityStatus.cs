@@ -2,8 +2,6 @@ namespace Core.Common.Base.Workflow
 {
     /// <summary>
     /// Defines possible states of the activity.
-    /// 
-    /// TODO: migrate to WWF-based implementaiton in .NET 3.5
     /// </summary>
     public enum ActivityStatus
     {
@@ -77,18 +75,4 @@ namespace Core.Common.Base.Workflow
         /// </summary>
         WaitingForData
     }
-
-    /* 
-    WWF defines the following statuses for Activity:
-    
-    public enum ActivityStatus
-    {
-        Initialized, // Represents the status when an activity is being initialized. 
-        Executing, // Represents the status when an activity is executing. 
-        Canceling, // Represents the status when an activity is in the process of being canceled. 
-        Closed, // Represents the status when an activity is closed. 
-        Compensating, // Represents the status when an activity is compensating. 
-        Faulting // Represents the status when an activity is faulting. 
-    } 
-     */
 }

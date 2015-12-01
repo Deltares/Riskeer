@@ -1,44 +1,25 @@
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.Properties;
-using Core.Common.Utils.Collections.Generic;
 using log4net;
 
 namespace Core.Common.Base.Workflow
 {
     public abstract class Activity : IActivity
     {
-        public string Log { get; set; }
-
         public event EventHandler ProgressChanged;
         private static readonly ILog log = LogManager.GetLogger(typeof(Activity));
         private string progressText;
-        private ActivityStatus status;
 
         protected Activity()
         {
             Log = "";
-            DependsOn = new EventedList<IActivity>();
         }
+
+        public string Log { get; set; }
 
         public virtual string Name { get; set; }
 
-        public virtual IEventedList<IActivity> DependsOn { get; set; }
-
-        public virtual ActivityStatus Status
-        {
-            get
-            {
-                return status;
-            }
-            protected set
-            {
-                if (value != status)
-                {
-                    status = value;
-                }
-            }
-        }
+        public virtual ActivityStatus Status { get; protected set; }
 
         public virtual string ProgressText
         {
@@ -46,11 +27,6 @@ namespace Core.Common.Base.Workflow
             {
                 return progressText;
             }
-        }
-
-        public virtual IEnumerable<object> GetDirectChildren()
-        {
-            throw new NotImplementedException();
         }
 
         public virtual void Initialize()
@@ -108,7 +84,7 @@ namespace Core.Common.Base.Workflow
             }
             else
             {
-                ChangeState(OnCleanUp, status, status);
+                ChangeState(OnCleanUp, Status, Status);
             }
         }
 
@@ -117,12 +93,7 @@ namespace Core.Common.Base.Workflow
             ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
         }
 
-        public virtual object DeepClone()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected virtual void OnProgressChanged()
+        protected void OnProgressChanged()
         {
             if (ProgressChanged != null)
             {
