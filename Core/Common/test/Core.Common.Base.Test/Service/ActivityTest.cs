@@ -1,8 +1,7 @@
-﻿using System;
-using Core.Common.Base.Service;
+﻿using Core.Common.Base.Service;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Test.Shell.Core.WorkFlow
+namespace Core.Common.Base.Test.Service
 {
     [TestFixture]
     public class ActivityTest
@@ -24,6 +23,7 @@ namespace Core.Common.Base.Test.Shell.Core.WorkFlow
         {
             // setup & call
             const string someName = "Some name";
+
             var activity = new SimpleActivity
             {
                 Name = someName
@@ -35,34 +35,20 @@ namespace Core.Common.Base.Test.Shell.Core.WorkFlow
 
         private class SimpleActivity : Activity
         {
-            /// <summary>
-            /// Sets the implementation of <see cref="OnInitialize"/>.
-            /// </summary>
-            public Action OnInitializeInjection { private get; set; }
-
-            /// <summary>
-            /// Sets the implementation of <see cref="OnCancel"/>.
-            /// </summary>
-            public Action OnCancelInjection { private get; set; }
-
             protected override void OnInitialize()
             {
-                OnInitializeInjection();
             }
 
             protected override void OnExecute()
             {
-                throw new NotImplementedException();
             }
 
             protected override void OnCancel()
             {
-                OnCancelInjection();
             }
 
             protected override void OnFinish()
             {
-                throw new NotImplementedException();
             }
         }
     }

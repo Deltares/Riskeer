@@ -1,7 +1,6 @@
-using Core.Common.Utils;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Test.Shell.Core
+namespace Core.Common.Utils.Test
 {
     [TestFixture]
     public class UrlTest

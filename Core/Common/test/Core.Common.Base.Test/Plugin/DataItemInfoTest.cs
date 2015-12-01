@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
 using Core.Common.Base.Plugin;
-using Core.Common.Base.Test.Properties;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Test.Shell.Core
+namespace Core.Common.Base.Test.Plugin
 {
     [TestFixture]
     public class DataItemInfoTest
@@ -50,7 +49,7 @@ namespace Core.Common.Base.Test.Shell.Core
                 ValueType = typeof(double),
                 Name = "Some double",
                 Category = "Nice category",
-                Image = new Bitmap(Resources.alarm_clock_blue),
+                Image = new Bitmap(16, 16),
                 AdditionalOwnerCheck = o => true,
                 CreateData = o => 1.2,
                 AddExampleData = delegate { addExampleDataCalled = true; }
@@ -76,7 +75,7 @@ namespace Core.Common.Base.Test.Shell.Core
             {
                 Name = "Some integer",
                 Category = "Better category",
-                Image = new Bitmap(Resources.alarm_clock_blue),
+                Image = new Bitmap(16, 16),
                 AdditionalOwnerCheck = o => false,
                 CreateData = o => -1,
                 AddExampleData = delegate { addExampleDataNotCalled = false; }
@@ -102,7 +101,7 @@ namespace Core.Common.Base.Test.Shell.Core
             {
                 Name = "Some integer",
                 Category = "Better category",
-                Image = new Bitmap(Resources.alarm_clock_blue),
+                Image = new Bitmap(16, 16),
                 AdditionalOwnerCheck = o => false,
                 CreateData = o => -1,
                 AddExampleData = delegate { addExampleDataCalled = true; }
@@ -129,7 +128,7 @@ namespace Core.Common.Base.Test.Shell.Core
             {
                 Name = "Some integer",
                 Category = "Better category",
-                Image = new Bitmap(Resources.alarm_clock_blue)
+                Image = new Bitmap(16, 16)
             };
 
             // call

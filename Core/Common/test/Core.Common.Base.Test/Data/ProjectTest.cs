@@ -2,7 +2,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Base.Test.Shell.Core
+namespace Core.Common.Base.Test.Data
 {
     [TestFixture]
     public class ProjectTest
