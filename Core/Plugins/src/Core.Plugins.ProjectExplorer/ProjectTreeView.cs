@@ -64,11 +64,8 @@ namespace Core.Plugins.ProjectExplorer
 
                 gui.SelectionChanged += GuiSelectionChanged;
 
-                // nodepresenters alter default behaviour of treeview to suite project dataobject 
-                var projectNodePresenter = new ProjectNodePresenter(guiPlugin);
                 var treeFolderNodePresenter = new TreeFolderNodePresenter(guiPlugin);
 
-                treeView.NodePresenters.Add(projectNodePresenter);
                 treeView.NodePresenters.Add(treeFolderNodePresenter);
             }
         }
@@ -123,26 +120,6 @@ namespace Core.Plugins.ProjectExplorer
 
         public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
-
-        public ContextMenuStrip GetContextMenu(object nodeTag)
-        {
-            //TODO: let go of menu's here but compose a menu on the fly based on selection.
-            if (nodeTag is Project)
-            {
-                buttonFolderAdd.Enabled = true;
-
-                buttonFolderAddNewItem.Enabled = applicationCore.GetSupportedDataItemInfos(nodeTag).Any();
-
-                buttonFolderDelete.Available = treeView.SelectedNodeCanDelete();
-                buttonFolderRename.Enabled = treeView.SelectedNodeCanRename();
-
-                buttonFolderImportFolder.Enabled = gui.CommandHandler.CanImportToGuiSelection();
-
-                return contextMenuProject;
-            }
-
-            return null;
-        }
         
         public new void Dispose()
         {

@@ -1,21 +1,18 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
-using Core.Common.Gui.Swf;
+using Core.Common.Gui.ContextMenu;
 using Core.Plugins.ProjectExplorer.Properties;
 
 namespace Core.Plugins.ProjectExplorer.NodePresenters
 {
-    public class ProjectNodePresenter : TreeViewNodePresenterBaseForPluginGui<Project>
+    public class ProjectNodePresenter : TreeViewNodePresenterBase<Project>
     {
-        public ProjectNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin)
-        {
-            GuiPlugin = guiPlugin;
-        }
-
         public override IEnumerable GetChildNodeObjects(Project project)
         {
             return project.Items;
@@ -28,6 +25,32 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             node.Image = image;
 
             node.Tag = project;
+        }
+
+        public override ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        {
+            if (ContextMenuBuilderProvider == null)
+            {
+                return null;
+            }
+            var addItem = new StrictContextMenuItem(
+                Resources.AddItem,
+                null,
+                Resources.plus,
+                (s,e) => CommandHandler.AddNewItem(nodeData));
+
+            return ContextMenuBuilderProvider
+                .Get(sender)
+                .AddCustomItem(addItem)
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddExportItem()
+                .AddImportItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         public override DragOperations CanDrag(Project nodeData)
@@ -63,5 +86,8 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
                 node.Text = item.Name;
             }
         }
+
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public IGuiCommandHandler CommandHandler { private get; set; }
     }
 }

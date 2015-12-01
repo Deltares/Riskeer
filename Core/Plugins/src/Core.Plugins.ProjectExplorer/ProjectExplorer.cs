@@ -73,11 +73,6 @@ namespace Core.Plugins.ProjectExplorer
             base.Dispose();
         }
 
-        public ContextMenuStrip GetContextMenu(ITreeNode sender, object o)
-        {
-            return ProjectTreeView.GetContextMenu(o);
-        }
-
         public void ScrollTo(object o)
         {
             var nodeToSelect = TreeView.GetNodeByTag(o);

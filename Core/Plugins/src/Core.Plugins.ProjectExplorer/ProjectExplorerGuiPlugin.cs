@@ -6,6 +6,7 @@ using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Utils.Collections;
+using Core.Plugins.ProjectExplorer.NodePresenters;
 
 namespace Core.Plugins.ProjectExplorer
 {
@@ -25,6 +26,15 @@ namespace Core.Plugins.ProjectExplorer
             {
                 return new Ribbon();
             }
+        }
+
+        public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
+        {
+            yield return new ProjectNodePresenter
+            {
+                ContextMenuBuilderProvider = Gui.ContextMenuProvider,
+                CommandHandler = Gui.CommandHandler
+            };
         }
 
         public static ProjectExplorerGuiPlugin Instance { get; private set; }
@@ -83,14 +93,6 @@ namespace Core.Plugins.ProjectExplorer
             Gui.ToolWindowViews.Remove(ProjectExplorer);
 
             //should the 'instance' be set to null as well???
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override ContextMenuStrip GetContextMenu(object sender, object nodeTag)
-        {
-            return ProjectExplorer != null ? ProjectExplorer.ProjectTreeView.GetContextMenu(nodeTag) : null;
         }
 
         private void FillProjectTreeViewNodePresentersFromPlugins()

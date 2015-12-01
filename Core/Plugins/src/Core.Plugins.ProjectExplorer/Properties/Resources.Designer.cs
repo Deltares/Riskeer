@@ -71,6 +71,15 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuwe &amp;Item....
+        /// </summary>
+        public static string AddItem {
+            get {
+                return ResourceManager.GetString("AddItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap application_form {
@@ -915,6 +924,15 @@ namespace Core.Plugins.ProjectExplorer.Properties {
             get {
                 object obj = ResourceManager.GetObject("RelationshipsHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Hernoemen.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
             }
         }
         
