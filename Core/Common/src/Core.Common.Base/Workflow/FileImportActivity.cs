@@ -84,7 +84,7 @@ namespace Core.Common.Base.Workflow
 
             importer.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
             {
-                SetProgressText(string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName));
+                ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName);
             };
 
             var item = importer.ImportItem(fileName, target);

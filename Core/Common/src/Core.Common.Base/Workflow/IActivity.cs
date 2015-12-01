@@ -35,6 +35,11 @@ namespace Core.Common.Base.Workflow
         string ProgressText { get; }
 
         /// <summary>
+        /// Runs the activity.
+        /// </summary>
+        void Run();
+
+        /// <summary>
         /// Initializes activity. If initialization step is successful, <see cref="Status"/> 
         /// will change to <see cref="ActivityStatus.Initialized"/>.
         /// </summary>

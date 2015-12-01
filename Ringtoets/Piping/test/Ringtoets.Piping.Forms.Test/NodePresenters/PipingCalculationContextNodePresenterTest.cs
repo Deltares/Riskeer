@@ -7,7 +7,6 @@ using Core.Common.Utils.Collections;
 using Core.Common.TestUtils;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Workflow;
 using Core.Common.Gui.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -650,7 +649,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationContextNodePresenter
             {
-                RunActivityAction = ActivityRunner.RunActivity,
+                RunActivityAction = activity => activity.Run(),
                 ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mockRepository, treeNodeMock, true)
             };
 
@@ -767,7 +766,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuAdapter = nodePresenter.GetContextMenu(treeNodeMock, new PipingCalculationContext(calculation,
                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                      Enumerable.Empty<PipingSoilProfile>()));
-            nodePresenter.RunActivityAction = ActivityRunner.RunActivity;
+            nodePresenter.RunActivityAction = activity => activity.Run();
 
             // When
             Action action = () =>

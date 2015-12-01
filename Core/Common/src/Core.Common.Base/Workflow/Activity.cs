@@ -27,6 +27,83 @@ namespace Core.Common.Base.Workflow
             {
                 return progressText;
             }
+            set
+            {
+                progressText = value;
+
+                if (ProgressChanged != null)
+                {
+                    ProgressChanged(this, null);
+                }
+            }
+        }
+
+        public void Run()
+        {
+            try
+            {
+                Initialize();
+
+                if (Status == ActivityStatus.Failed)
+                {
+                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Initialization_of_0_has_failed, Name));
+                }
+
+                while (Status != ActivityStatus.Done)
+                {
+                    if (Status == ActivityStatus.Cancelled)
+                    {
+                        log.WarnFormat(Resources.ActivityRunner_RunActivity_Execution_of_0_has_been_canceled, Name);
+                        break;
+                    }
+
+                    if (Status != ActivityStatus.WaitingForData)
+                    {
+                        Execute();
+                    }
+
+                    if (Status == ActivityStatus.Failed)
+                    {
+                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Execution_of_0_has_failed, Name));
+                    }
+                }
+
+                if (Status != ActivityStatus.Cancelled)
+                {
+                    Finish();
+
+                    if (Status == ActivityStatus.Failed)
+                    {
+                        throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Finishing_of_0_has_failed, Name));
+                    }
+                }
+
+                Cleanup();
+
+                if (Status == ActivityStatus.Failed)
+                {
+                    throw new Exception(string.Format(Resources.ActivityRunner_RunActivity_Clean_up_of_0_has_failed, Name));
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message); //for build server debugging
+                log.Error(exception.Message);
+            }
+            finally
+            {
+                try
+                {
+                    if (Status != ActivityStatus.Cleaned)
+                    {
+                        Cleanup();
+                    }
+                }
+                catch (Exception)
+                {
+                    log.ErrorFormat(Resources.ActivityRunner_RunActivity_Clean_up_of_0_has_failed, Name);
+                }
+            }
         }
 
         public virtual void Initialize()
@@ -98,16 +175,6 @@ namespace Core.Common.Base.Workflow
             if (ProgressChanged != null)
             {
                 ProgressChanged(this, EventArgs.Empty);
-            }
-        }
-
-        protected void SetProgressText(string progressText)
-        {
-            this.progressText = progressText;
-
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(this, null);
             }
         }
 

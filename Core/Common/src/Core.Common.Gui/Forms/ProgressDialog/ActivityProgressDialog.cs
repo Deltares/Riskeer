@@ -65,7 +65,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                         runningActivity.ProgressChanged += ActivityOnProgressChanged;
 
                         // Run the activity
-                        ActivityRunner.RunActivity(runningActivity);
+                        runningActivity.Run();
                     }
                     finally
                     {
