@@ -455,7 +455,6 @@
     <Resource Include="Resources\data_item.png" />
     <Resource Include="Resources\data_item_error.png" />
     <Resource Include="Resources\data_item_link.png" />
-    <Resource Include="Resources\delete.png" />
     <Resource Include="Resources\DeleteHS.png" />
     <Resource Include="Resources\DocumentHS.png" />
     <Resource Include="Resources\edit-redo.png" />

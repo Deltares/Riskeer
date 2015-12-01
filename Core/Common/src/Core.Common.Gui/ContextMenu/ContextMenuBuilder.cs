@@ -35,6 +35,16 @@ namespace Core.Common.Gui.ContextMenu
         }
 
         /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
+        public ContextMenuBuilder AddDeleteItem()
+        {
+            AddItem(treeViewItemsFactory.CreateDeleteItem());
+            return this;
+        }
+
+        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which expands the <see cref="ITreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>

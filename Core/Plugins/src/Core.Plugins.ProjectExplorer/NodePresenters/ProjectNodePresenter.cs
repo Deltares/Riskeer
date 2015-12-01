@@ -56,8 +56,8 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
                 .AddExpandAllItem()
                 .AddCollapseAllItem()
                 .AddSeparator()
-                .AddExportItem()
                 .AddImportItem()
+                .AddExportItem()
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();

@@ -30,11 +30,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         private const int contextMenuValidateIndex = 0;
         private const int contextMenuCalculateIndex = 1;
         private const int contextMenuClearIndex = 2;
-        private const int contextMenuExpandIndex = 4;
-        private const int contextMenuCollapseIndex = 5;
-        private const int contextMenuImportIndex = 7;
-        private const int contextMenuExportIndex = 8;
-        private const int contextMenuPropertiesIndex = 10;
+        private const int contextMenuDeleteIndex = 4;
+        private const int contextMenuExpandIndex = 6;
+        private const int contextMenuCollapseIndex = 7;
+        private const int contextMenuImportIndex = 9;
+        private const int contextMenuExportIndex = 10;
+        private const int contextMenuPropertiesIndex = 12;
 
         [SetUp]
         public void SetUp()
@@ -355,10 +356,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(11, contextMenu.Items.Count);
+            Assert.AreEqual(13, contextMenu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex, PipingFormsResources.Validate, null, PipingFormsResources.ValidationIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex, PipingFormsResources.Calculate, null, PipingFormsResources.Play);
+
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuDeleteIndex, CoreCommonGuiResources.Delete, CoreCommonGuiResources.Delete_ToolTip, CoreCommonGuiResources.DeleteIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuExpandIndex, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCollapseIndex, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportIndex, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
@@ -366,8 +369,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuPropertiesIndex, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon, commonItemsEnabled);
 
             Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[3]);
-            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[6]);
-            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[9]);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[5]);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[8]);
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[11]);
 
             mockRepository.VerifyAll();
         }
@@ -419,7 +423,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(11, contextMenu.Items.Count);
+            Assert.AreEqual(13, contextMenu.Items.Count);
 
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsFalse(clearOutputItem.Enabled);
@@ -453,7 +457,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(11, contextMenu.Items.Count);
+            Assert.AreEqual(13, contextMenu.Items.Count);
 
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);

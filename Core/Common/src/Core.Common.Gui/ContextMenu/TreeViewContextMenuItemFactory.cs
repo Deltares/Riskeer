@@ -59,5 +59,21 @@ namespace Core.Common.Gui.ContextMenu
             toolStripMenuItem.Click += (s, e) => treeNode.TreeView.CollapseAll(treeNode);
             return toolStripMenuItem;
         }
+
+        /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of deleting
+        /// the current <see name="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateDeleteItem()
+        {
+            var toolStripMenuItem = new ToolStripMenuItem(Resources.Delete)
+            {
+                ToolTipText = Resources.Delete_ToolTip,
+                Image = Resources.DeleteIcon
+            };
+            toolStripMenuItem.Click += (s, e) => treeNode.TreeView.TryDeleteSelectedNodeData();
+            return toolStripMenuItem;
+        }
     }
 }

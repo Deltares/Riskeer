@@ -77,6 +77,8 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             }
             return ContextMenuBuilderProvider
                 .Get(sender)
+                .AddDeleteItem()
+                .AddSeparator()
                 .AddExpandAllItem()
                 .AddCollapseAllItem()
                 .AddSeparator()
