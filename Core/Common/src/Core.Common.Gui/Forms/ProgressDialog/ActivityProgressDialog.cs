@@ -80,7 +80,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the progress bar
-                        progressBar.Value = 100 / activityCount * (i + 1);
+                        progressBar.Value = (int) Math.Round(100.0 / activityCount * (i + 1));
                     });
                 }
             }, cancellationToken);

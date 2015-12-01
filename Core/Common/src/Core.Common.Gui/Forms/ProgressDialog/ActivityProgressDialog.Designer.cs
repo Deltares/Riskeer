@@ -43,8 +43,10 @@
             // progressBar
             // 
             this.progressBar.Location = new System.Drawing.Point(12, 90);
+            this.progressBar.MarqueeAnimationSpeed = 0;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(391, 23);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 0;
             // 
             // buttonCancel
@@ -123,7 +125,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Voortgang";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActivityProgressDialogFormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityDescription)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityProgressText)).EndInit();
