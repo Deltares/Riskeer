@@ -38,9 +38,7 @@ namespace Core.Common.Test.Gui
                 project.Items.Add(importedObject);
             };
 
-            fileImportActivity.Initialize();
-            fileImportActivity.Initialize();
-            fileImportActivity.Execute();
+            fileImportActivity.Run();
 
             Assert.AreEqual(3, project.Items.Count);
 

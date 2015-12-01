@@ -17,13 +17,23 @@ namespace Core.Common.Base.Test.Shell.Core.WorkFlow
 
             importerStub.ShouldCancel = true; // Fake the importer being cancelled
 
-            var fileImportActivity = new FileImportActivity(importerStub);
+            var fileImportActivity = new FileImportTestActivity(importerStub);
 
-            fileImportActivity.Initialize();
+            fileImportActivity.PerformInitialize();
 
             Assert.IsFalse(importerStub.ShouldCancel); // ShouldCancel should be reset
 
             mockRepository.VerifyAll();
+        }
+
+        private class FileImportTestActivity : FileImportActivity
+        {
+            public FileImportTestActivity(IFileImporter importer, object target = null) : base(importer, target) { }
+
+            public void PerformInitialize()
+            {
+                Initialize();
+            }
         }
     }
 }

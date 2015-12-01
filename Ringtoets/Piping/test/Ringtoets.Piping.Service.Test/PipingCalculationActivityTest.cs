@@ -39,10 +39,10 @@ namespace Ringtoets.Piping.Service.Test
             var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = new TestPipingOutput();
 
-            var activity = new PipingCalculationActivity(validPipingCalculation);
+            var activity = new PipingCalculationTestActivity(validPipingCalculation);
 
             // Call
-            Action call = () => activity.Initialize();
+            Action call = () => activity.PerformInitialize();
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -65,10 +65,10 @@ namespace Ringtoets.Piping.Service.Test
             var invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
             invalidPipingCalculation.Output = originalOutput;
 
-            var activity = new PipingCalculationActivity(invalidPipingCalculation);
+            var activity = new PipingCalculationTestActivity(invalidPipingCalculation);
 
             // Call
-            Action call = () => activity.Initialize();
+            Action call = () => activity.PerformInitialize();
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -94,11 +94,11 @@ namespace Ringtoets.Piping.Service.Test
             var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = null;
 
-            var activity = new PipingCalculationActivity(validPipingCalculation);
-            activity.Initialize();
+            var activity = new PipingCalculationTestActivity(validPipingCalculation);
+            activity.PerformInitialize();
 
             // Call
-            Action call = () => activity.Execute();
+            Action call = () => activity.PerformExecute();
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -125,15 +125,35 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observerMock);
 
-            var activity = new PipingCalculationActivity(validPipingCalculation);
-            activity.Initialize();
-            activity.Execute();
+            var activity = new PipingCalculationTestActivity(validPipingCalculation);
+            activity.PerformInitialize();
+            activity.PerformExecute();
 
             // Call
-            activity.Finish();
+            activity.PerformFinish();
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private class PipingCalculationTestActivity : PipingCalculationActivity
+        {
+            public PipingCalculationTestActivity(PipingCalculation calculation) : base(calculation) { }
+
+            public void PerformInitialize()
+            {
+                Initialize();
+            }
+
+            public void PerformExecute()
+            {
+                Execute();
+            }
+
+            public void PerformFinish()
+            {
+                Finish();
+            }
         }
     }
 }

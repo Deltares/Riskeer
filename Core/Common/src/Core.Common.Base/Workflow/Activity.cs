@@ -4,6 +4,14 @@ using log4net;
 
 namespace Core.Common.Base.Workflow
 {
+    /// <summary>
+    /// Defines basic activity which can be executed as part of the workflow.
+    /// </summary>
+    /// <example>
+    /// <para>Regular workflow for an activity is: Initialize -> Execute -> Finish -> Cleanup.</para>
+    /// <para>Regular workflow for an activity with an error occurring: [Initialize/Execute/Finish] -> ! Exception / Error ! -> Cleanup.</para> 
+    /// <para>Regular workflow for an activity being cancelled: [Initialize/Execute/Finish] -> ! Cancel ! -> Cleanup.</para>
+    /// </example>
     public abstract class Activity : IActivity
     {
         public event EventHandler ProgressChanged;
@@ -106,12 +114,17 @@ namespace Core.Common.Base.Workflow
             }
         }
 
-        public virtual void Initialize()
+        public void Cancel()
+        {
+            ChangeState(OnCancel, ActivityStatus.Cancelling, ActivityStatus.Cancelled);
+        }
+
+        protected void Initialize()
         {
             ChangeState(OnInitialize, ActivityStatus.Initializing, ActivityStatus.Initialized);
         }
 
-        public virtual void Execute()
+        protected void Execute()
         {
             if (Status == ActivityStatus.Finished || Status == ActivityStatus.Cancelled || Status == ActivityStatus.Failed || Status == ActivityStatus.None)
             {
@@ -148,12 +161,7 @@ namespace Core.Common.Base.Workflow
             Status = ActivityStatus.Executed;
         }
 
-        public virtual void Cancel()
-        {
-            ChangeState(OnCancel, ActivityStatus.Cancelling, ActivityStatus.Cancelled);
-        }
-
-        public virtual void Cleanup()
+        protected void Cleanup()
         {
             if (Status != ActivityStatus.Cancelled || Status != ActivityStatus.Failed)
             {
@@ -165,7 +173,7 @@ namespace Core.Common.Base.Workflow
             }
         }
 
-        public virtual void Finish()
+        protected void Finish()
         {
             ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
         }
