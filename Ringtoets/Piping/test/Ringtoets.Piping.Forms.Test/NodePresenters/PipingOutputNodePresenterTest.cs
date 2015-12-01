@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -169,6 +170,86 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsNull(calculation.Output);
             Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        public void GetContextMenu_NoMenuBuilderProvider_ReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodePresenter = new PipingOutputNodePresenter();
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = nodePresenter.GetContextMenu(nodeMock, new TestPipingOutput());
+
+            // Assert
+            Assert.IsNull(result);
+
+            mocks.ReplayAll();
+        }
+
+        [Test]
+        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodePresenter = new PipingOutputNodePresenter
+            {
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock)
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = nodePresenter.GetContextMenu(nodeMock, new TestPipingOutput());
+
+            // Assert
+            Assert.AreEqual(5, result.Items.Count);
+
+            Assert.AreEqual(Properties.Resources.Clear_output, result.Items[0].Text);
+            Assert.IsNull(result.Items[0].ToolTipText);
+            TestHelper.AssertImagesAreEqual(Common.Forms.Properties.Resources.ClearIcon, result.Items[0].Image);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
+
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export, result.Items[2].Text);
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Export_ToolTip, result.Items[2].ToolTipText);
+            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.ExportIcon, result.Items[2].Image);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[3]);
+
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties, result.Items[4].Text);
+            Assert.AreEqual(Core.Common.Gui.Properties.Resources.Properties_ToolTip, result.Items[4].ToolTipText);
+            TestHelper.AssertImagesAreEqual(Core.Common.Gui.Properties.Resources.PropertiesIcon, result.Items[4].Image);
+        }
+        [Test]
+        public void GetContextMenu_ClearItemClicked_OutputCleared()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeMock = mocks.StrictMock<ITreeView>();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            treeMock.Expect(t => t.TryDeleteSelectedNodeData());
+            nodeMock.Expect(n => n.TreeView).Return(treeMock);
+
+            var nodePresenter = new PipingOutputNodePresenter
+            {
+                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock)
+            };
+
+            mocks.ReplayAll();
+
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, new TestPipingOutput());
+
+            // Call
+            contextMenu.Items[0].PerformClick();
+            
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

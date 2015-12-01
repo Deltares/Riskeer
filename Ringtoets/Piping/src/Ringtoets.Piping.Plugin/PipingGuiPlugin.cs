@@ -58,7 +58,10 @@ namespace Ringtoets.Piping.Plugin
                 ContextMenuBuilderProvider = Gui.ContextMenuProvider
             };
             yield return new PipingSoilProfileNodePresenter();
-            yield return new PipingOutputNodePresenter();
+            yield return new PipingOutputNodePresenter
+            {
+                ContextMenuBuilderProvider = Gui.ContextMenuProvider
+            };
             yield return new EmptyPipingOutputNodePresenter();
             yield return new EmptyPipingCalculationReportNodePresenter();
         }

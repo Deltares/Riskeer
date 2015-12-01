@@ -1,11 +1,13 @@
 ﻿using System.Drawing;
-
+using System.Windows.Forms;
 using Core.Common.Controls;
-
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
+using RingtoestFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -14,6 +16,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingOutputNodePresenter : RingtoetsNodePresenterBase<PipingOutput>
     {
+        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingOutput nodeData)
         {
             node.Text = Resources.PipingOutput_DisplayName;
@@ -26,9 +30,33 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return true;
         }
 
+        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingOutput nodeData)
+        {
+            if (ContextMenuBuilderProvider == null)
+            {
+                return null;
+            }
+
+            StrictContextMenuItem clearItem = new StrictContextMenuItem(
+                Resources.Clear_output, 
+                null,
+                RingtoestFormsResources.ClearIcon,
+                (s, e) => sender.TreeView.TryDeleteSelectedNodeData()
+            );
+
+            return ContextMenuBuilderProvider
+                .Get(sender)
+                .AddCustomItem(clearItem)
+                .AddSeparator()
+                .AddExportItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
+        }
+
         protected override bool RemoveNodeData(object parentNodeData, PipingOutput nodeData)
         {
-            var pipingCalculationContext = (PipingCalculationContext)parentNodeData;
+            var pipingCalculationContext = (PipingCalculationContext) parentNodeData;
 
             pipingCalculationContext.ClearOutput();
             pipingCalculationContext.NotifyObservers();
