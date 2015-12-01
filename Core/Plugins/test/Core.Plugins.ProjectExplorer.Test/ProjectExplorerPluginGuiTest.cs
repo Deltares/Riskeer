@@ -43,6 +43,8 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 projectExplorerPluginGui, pluginGui
             }).Repeat.Any();
+            Expect.Call(gui.ContextMenuProvider).Return(mocks.StrictMock<IContextMenuBuilderProvider>()).Repeat.Any();
+            gui.CommandHandler = mocks.StrictMock<IGuiCommandHandler>();
 
             gui.Project = project;
 
