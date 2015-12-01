@@ -505,4 +505,7 @@
   <data name="PipingContext_DataDescription_Soilprofiles" xml:space="preserve">
     <value>De verzameling van ondergrondschematiseringen</value>
   </data>
+  <data name="PipingInputContextNodePresenter_NodeDisplayName" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
 </root>

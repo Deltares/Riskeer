@@ -9,7 +9,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
-    /// A node presenter for <see cref="EmptyPipingOutput"/> instances implemented to mimicks 
+    /// A node presenter for <see cref="EmptyPipingOutput"/> instances implemented to mimics 
     /// the looks of <see cref="PipingOutputNodePresenter"/> to provide a uniform look and feel.
     /// </summary>
     public class EmptyPipingOutputNodePresenter : RingtoetsNodePresenterBase<EmptyPipingOutput>

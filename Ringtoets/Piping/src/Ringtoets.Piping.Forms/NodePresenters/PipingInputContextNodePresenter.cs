@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingInputContext nodeData)
         {
-            node.Text = "Invoer";
+            node.Text = Resources.PipingInputContextNodePresenter_NodeDisplayName;
             node.Image = Resources.PipingInputIcon;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }

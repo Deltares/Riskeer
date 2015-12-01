@@ -55,6 +55,6 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the calculation results for this failure mechanism.
         /// </summary>
-        public OutputPlaceholder AssessmentResult { get; set; }
+        public OutputPlaceholder AssessmentResult { get; private set; }
     }
 }

@@ -71,7 +71,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
@@ -130,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             // Call
-            var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
+            bool renameAllowed = nodePresenter.CanRenameNode(nodeMock);
 
             // Assert
             Assert.IsFalse(renameAllowed);
@@ -148,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             // Call
-            var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
+            bool renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
 
             // Assert
             Assert.IsFalse(renameAllowed);
@@ -386,7 +385,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mocks.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenuAdapter = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // When
             contextMenuAdapter.Items[contextMenuClearIndex].PerformClick();
@@ -410,7 +409,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ContextMenuStrip menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
 
             // Assert
             Assert.IsNull(menu);
@@ -433,7 +432,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ContextMenuStrip menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
 
             // Assert
             Assert.AreEqual(9, menu.Items.Count);
@@ -470,7 +469,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ContextMenuStrip menu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
 
             // Assert
             Assert.AreEqual(11, menu.Items.Count);
@@ -506,12 +505,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
             Assert.AreEqual(9, contextMenu.Items.Count);
 
-            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsFalse(clearOutputItem.Enabled);
             Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
 
@@ -541,12 +540,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
             Assert.AreEqual(9, contextMenu.Items.Count);
 
-            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);
             Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
 
@@ -577,8 +576,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(1, failureMechanism.Calculations.Count);
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
-            var addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ToolStripItem addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
             addCalculationItem.PerformClick();
 
             // Assert
@@ -615,8 +614,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(1, failureMechanism.Calculations.Count);
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
-            var addCalculationItem = contextMenu.Items[contextMenuAddFolderIndex];
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ToolStripItem addCalculationItem = contextMenu.Items[contextMenuAddFolderIndex];
             addCalculationItem.PerformClick();
 
             // Assert

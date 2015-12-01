@@ -13,7 +13,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
     /// A node presenter for <see cref="EmptyPipingCalculationReport"/> instances implemented 
-    /// to mimicks the looks of the node presenter for <see cref="PipingCalculation.CalculationReport"/> 
+    /// to mimics the looks of the node presenter for <see cref="PipingCalculation.CalculationReport"/> 
     /// to provide a uniform look and feel.
     /// </summary>
     public class EmptyPipingCalculationReportNodePresenter : RingtoetsNodePresenterBase<EmptyPipingCalculationReport>
