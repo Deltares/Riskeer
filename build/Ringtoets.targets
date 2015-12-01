@@ -2,8 +2,8 @@
    <PropertyGroup Condition="('$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*')">
         <SolutionDir>$(MSBuildStartupDirectory)</SolutionDir>
    </PropertyGroup>
-  
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|x86'">
+ 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' != 'Debug|x86' and '$(Configuration)|$(Platform)' != 'ReleaseForCodeCoverage|x86'">
 		<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
 	</PropertyGroup>
   
@@ -35,7 +35,7 @@
   <Target Name="AfterClean">    
     <Delete Files="$(OutDir)\$(TargetFileName)" Condition="Exists('$(OutDir)\$(TargetFileName)')" />
 
-    <RemoveDir Directories="$(SolutionDir)\bin" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(SolutionDir)\bin')" />
+    <RemoveDir Directories="$(SolutionDir)bin" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(SolutionDir)bin')" />
 
     <Delete Files="$(IntermediateOutputPath)\time_before" Condition="Exists('$(IntermediateOutputPath)\time_before')" />
     <Delete Files="$(IntermediateOutputPath)\time_after"  Condition="Exists('$(IntermediateOutputPath)\time_after')" />
