@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -13,17 +15,40 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class PipingSurfaceLineNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+        
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
             // Call
-            var nodePresenter = new PipingSurfaceLineNodePresenter();
+            TestDelegate test = () => new PipingCalculationContextNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CoreCommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_NewInstance()
+        {
+            // Call
+            var nodePresenter = new PipingSurfaceLineNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<RingtoetsPipingSurfaceLine>>(nodePresenter);
@@ -42,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             const string name = "<insert name here>";
             var surfaceLine = new RingtoetsPipingSurfaceLine { Name = name };
 
-            var nodePresenter = new PipingSurfaceLineNodePresenter();
+            var nodePresenter = new PipingSurfaceLineNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.UpdateNode(parentNodeMock, dataNodeMock, surfaceLine);

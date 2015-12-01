@@ -16,12 +16,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingOutputNodePresenter : RingtoetsNodePresenterBase<PipingOutput>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public PipingOutputNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingOutput nodeData)
+        {
+            UpdateNode(node);
+        }
+
+        protected static void UpdateNode(ITreeNode node)
         {
             node.Text = Resources.PipingOutput_DisplayName;
             node.Image = Resources.PipingOutputIcon;
@@ -35,19 +37,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingOutput nodeData)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
-
             StrictContextMenuItem clearItem = new StrictContextMenuItem(
-                Resources.Clear_output, 
+                Resources.Clear_output,
                 null,
                 RingtoestFormsResources.ClearIcon,
                 (s, e) => sender.TreeView.TryDeleteSelectedNodeData()
-            );
+                );
 
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddCustomItem(clearItem)
                 .AddSeparator()

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls;
-
+using Core.Common.Gui;
 using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.NodePresenters;
@@ -13,7 +13,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Service;
-
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -24,6 +23,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingCalculationGroupContextNodePresenter : RingtoetsNodePresenterBase<PipingCalculationGroupContext>
     {
+        public PipingCalculationGroupContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+
         /// <summary>
         /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.
         /// </summary>

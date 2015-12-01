@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.Controls;
+using Core.Common.Gui;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.Collections;
 
 using NUnit.Framework;
@@ -16,11 +18,33 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
     [TestFixture]
     public class RingtoetsNodePresenterBaseTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
+        [Test]
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new SimpleRingtoetsNodePresenterBase<double>(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(Resources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<double>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<double>(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.AreEqual(typeof(double), nodePresenter.NodeTagType);
@@ -37,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodeData = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.UpdateNode(parentNode, pipingNode, nodeData);
@@ -55,7 +79,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(dataMock).OfType<object>().ToArray();
@@ -73,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -91,7 +115,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -109,7 +133,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             TestDelegate call = () => { nodePresenter.OnNodeRenamed(dataMock, "<Insert New Name Here>"); };
@@ -129,7 +153,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -146,7 +170,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -166,7 +190,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -186,7 +210,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -206,7 +230,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -223,7 +247,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
@@ -240,7 +264,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<object>();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             mocks.ReplayAll();
 
@@ -262,7 +286,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -280,7 +304,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -297,7 +321,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(null, dataMock);
@@ -311,7 +335,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void RemoveNodeData_Always_ThrowInvalidOperationException()
         {
             // Setup
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>();
+            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
 
             // Call
             TestDelegate call = () => nodePresenter.RemoveNodeData(null, new object());
@@ -324,6 +348,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         private class SimpleRingtoetsNodePresenterBase<T> : RingtoetsNodePresenterBase<T>
         {
             protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData) {}
+            public SimpleRingtoetsNodePresenterBase(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
         }
     }
 }

@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
@@ -14,15 +14,31 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
 {
     public class ProjectNodePresenter : TreeViewNodePresenterBase<Project>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private readonly IGuiCommandHandler commandHandler;
 
         /// <summary>
-        /// Sets the <see cref="IGuiCommandHandler"/> to be used for binding items to actions in the <see cref="ContextMenuStrip"/>.
+        /// Creates a new instance of <see cref="ProjectNodePresenter"/>, which uses the 
+        /// <paramref name="contextMenuBuilderProvider"/> and <paramref name="commandHandler"/> 
+        /// to create and bind its <see cref="ContextMenuStrip"/>.
         /// </summary>
-        public IGuiCommandHandler CommandHandler { private get; set; }
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
+        /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> to defer the add
+        /// item action to.</param>
+        public ProjectNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider, IGuiCommandHandler commandHandler)
+        {
+            if (contextMenuBuilderProvider == null)
+            {
+                throw new ArgumentNullException("contextMenuBuilderProvider", Common.Gui.Properties.Resources.NodePresenter_ContextMenuBuilderProvider_required);
+            }
+            if (commandHandler == null)
+            {
+                throw new ArgumentNullException("commandHandler", Common.Gui.Properties.Resources.NodePresenter_CommandHandler_required);
+            }
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
+            this.commandHandler = commandHandler;
+        }
 
         public override IEnumerable GetChildNodeObjects(Project project)
         {
@@ -40,17 +56,13 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
 
         public override ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
             var addItem = new StrictContextMenuItem(
                 Resources.AddItem,
                 null,
                 Resources.plus,
-                (s, e) => CommandHandler.AddNewItem(nodeData));
+                (s, e) => commandHandler.AddNewItem(nodeData));
 
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddCustomItem(addItem)
                 .AddSeparator()

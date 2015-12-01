@@ -15,12 +15,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 {
     public class FailureMechanismNodePresenter : RingtoetsNodePresenterBase<FailureMechanismPlaceholder>
     {
-        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
-
-        public FailureMechanismNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider)
-        {
-            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
-        }
+        public FailureMechanismNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, FailureMechanismPlaceholder nodeData)
         {

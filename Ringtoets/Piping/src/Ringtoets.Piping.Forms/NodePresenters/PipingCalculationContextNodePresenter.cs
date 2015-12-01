@@ -9,11 +9,9 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Service;
-
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
-
+using Ringtoets.Piping.Service;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
@@ -24,15 +22,22 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingCalculationContextNodePresenter : RingtoetsNodePresenterBase<PipingCalculationContext>
     {
+        public PipingCalculationContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+
         /// <summary>
         /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.
         /// </summary>
         public Action<Activity> RunActivityAction { private get; set; }
 
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public override bool CanRenameNode(ITreeNode node)
+        {
+            return true;
+        }
+
+        public override bool CanRenameNodeTo(ITreeNode node, string newName)
+        {
+            return true;
+        }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationContext pipingCalculationContext)
         {
@@ -60,16 +65,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 yield return new EmptyPipingOutput();
                 yield return new EmptyPipingCalculationReport();
             }
-        }
-
-        public override bool CanRenameNode(ITreeNode node)
-        {
-            return true;
-        }
-
-        public override bool CanRenameNodeTo(ITreeNode node, string newName)
-        {
-            return true;
         }
 
         protected override bool CanRemove(object parentNodeData, PipingCalculationContext nodeData)
@@ -102,35 +97,24 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationContext nodeData)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
-
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(Resources.Validate,
-                                    null,
-                                    Resources.ValidationIcon,
-                                    (o, args) =>
-                                    {
-                                        PipingCalculationService.Validate(calculation);
-                                    });
+                                                         null,
+                                                         Resources.ValidationIcon,
+                                                         (o, args) => { PipingCalculationService.Validate(calculation); });
             var calculateItem = new StrictContextMenuItem(Resources.Calculate,
-                                    null,
-                                    Resources.Play,
-                                    (o, args) =>
-                                    {
-                                        RunActivityAction(new PipingCalculationActivity(calculation));
-                                    });
+                                                          null,
+                                                          Resources.Play,
+                                                          (o, args) => { RunActivityAction(new PipingCalculationActivity(calculation)); });
 
             var clearOutputItem = new StrictContextMenuItem(Resources.Clear_output,
-                                    null,
-                                    RingtoetsFormsResources.ClearIcon,
-                                    (o, args) =>
-                                    {
-                                        calculation.ClearOutput();
-                                        calculation.NotifyObservers();
-                                    });
+                                                            null,
+                                                            RingtoetsFormsResources.ClearIcon,
+                                                            (o, args) =>
+                                                            {
+                                                                calculation.ClearOutput();
+                                                                calculation.NotifyObservers();
+                                                            });
 
             if (!calculation.HasOutput)
             {
@@ -138,7 +122,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 clearOutputItem.ToolTipText = Resources.ClearOutput_No_output_to_clear;
             }
 
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddCustomItem(validateItem)
                 .AddCustomItem(calculateItem)

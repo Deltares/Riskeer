@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
@@ -19,11 +21,33 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     [TestFixture]
     public class PipingSoilProfileCollectionNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
             // Call
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
+            TestDelegate test = () => new PipingSoilProfileCollectionNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CoreCommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_NewInstance()
+        {
+            // Call
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter(mockRepository.StrictMock<IContextMenuBuilderProvider>());
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
@@ -39,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var soilProfileCollectionNodeStub = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             IEnumerable<PipingSoilProfile> soilProfilesCollection = new PipingSoilProfile[0];
 
@@ -60,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var soilProfileCollectionNodeStub = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             IEnumerable<PipingSoilProfile> soilProfilesCollection = new []
             {
@@ -83,7 +107,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             IEnumerable<object> soilProfilesCollection = new []
             {
@@ -100,58 +124,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_DefaultScenario_ReturnNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<IEnumerable<PipingSoilProfile>>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.IsNull(contextMenu);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_NoContextMenuBuilderProviderSet_ReturnsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<IEnumerable<PipingSoilProfile>>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
-
-            // Call
-            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.IsNull(returnedContextMenu);
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu(bool commonItemsEnabled)
+        public void GetContextMenu_Always_ContextMenuWithFiveItems(bool commonItemsEnabled)
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<IEnumerable<PipingSoilProfile>>();
 
-            var nodePresenter = new PipingSoilProfileCollectionNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
-            };
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
 
             mocks.ReplayAll();
 

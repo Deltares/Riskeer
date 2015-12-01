@@ -8,7 +8,6 @@ using Core.Common.Base.Service;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -16,7 +15,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
-
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -28,10 +26,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingFailureMechanismNodePresenter : RingtoetsNodePresenterBase<PipingFailureMechanism>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public PipingFailureMechanismNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         /// <summary>
         /// Injection points for a method to cause a collection of <see cref="Activity"/> to be scheduled for execution.
@@ -54,11 +49,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
-
             var addCalculationItem = new StrictContextMenuItem(
                 Resources.PipingFailureMechanism_Add_PipingCalculation,
                 Resources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
@@ -93,7 +83,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 clearAllItem.ToolTipText = Resources.ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return ContextMenuBuilderProvider.Get(sender)
+            return contextMenuBuilderProvider.Get(sender)
                                              .AddCustomItem(addCalculationItem)
                                              .AddCustomItem(addCalculationGroupItem)
                                              .AddSeparator()

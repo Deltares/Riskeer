@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Utils.Collections;
 
 using Ringtoets.Common.Forms.Properties;
@@ -18,6 +19,23 @@ namespace Ringtoets.Common.Forms.NodePresenters
     /// <typeparam name="T">The data object class corresponding with the node.</typeparam>
     public abstract class RingtoetsNodePresenterBase<T> : ITreeNodePresenter
     {
+        protected readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RingtoetsNodePresenterBase{T}"/>, which uses the 
+        /// <paramref name="contextMenuBuilderProvider"/> to create and bind its <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
+        /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        public RingtoetsNodePresenterBase(IContextMenuBuilderProvider contextMenuBuilderProvider)
+        {
+            if (contextMenuBuilderProvider == null)
+            {
+                throw new ArgumentNullException("contextMenuBuilderProvider", Core.Common.Gui.Properties.Resources.NodePresenter_ContextMenuBuilderProvider_required);
+            }
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
+        }
+
         public ITreeView TreeView { get; set; }
 
         public Type NodeTagType

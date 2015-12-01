@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
@@ -19,10 +17,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingSoilProfileCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<PipingSoilProfile>>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public PipingSoilProfileCollectionNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<PipingSoilProfile> pipingSoilProfiles)
         {
@@ -42,11 +37,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, IEnumerable<PipingSoilProfile> nodeData)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddExpandAllItem()
                 .AddCollapseAllItem()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
@@ -26,11 +28,33 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
     [TestFixture]
     public class AssessmentSectionBaseNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
             // Call
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            TestDelegate test = () => new AssessmentSectionBaseNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CoreCommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_NewInstance()
+        {
+            // Call
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
@@ -48,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var projectNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             var assessmentSection = new DikeAssessmentSection
             {
@@ -70,8 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-
+            
             var failureMechanismCollection = new[]
             {
                 mocks.StrictMock<IFailureMechanism>(),
@@ -83,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(failureMechanismCollection);
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(assessmentSectionMock).Cast<object>().AsList();
@@ -107,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -125,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -144,7 +167,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             var assessmentSection = new DikeAssessmentSection();
             assessmentSection.Attach(assessmentSectionObserver);
@@ -166,7 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -183,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -203,7 +226,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -223,7 +246,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -243,7 +266,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -260,48 +283,10 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_Always_ReturnsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var assessmentSection = new DikeAssessmentSection();
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
-
-            // Assert
-            Assert.IsNull(contextMenu);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnPropertyChange_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
-
-            // Call
-            nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -316,7 +301,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -334,7 +319,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(nodeMock, dataMock);
@@ -361,7 +346,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             project.Items.Add(assessmentSection);
             project.Attach(observerMock);
 
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             bool removalSuccesful = nodePresenter.RemoveNodeData(project, assessmentSection);
@@ -373,36 +358,33 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoMenuBuilderProvider_ReturnsNull()
+        public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
             var mocks = new MockRepository();
+            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new AssessmentSectionBaseNodePresenter();
-
+            var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
+
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            var result = nodePresenter.GetContextMenu(nodeMock, new DikeAssessmentSection());
+            nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
 
             // Assert
-            Assert.IsNull(result);
-
-            mocks.ReplayAll();
+            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems(bool commonItemsEnabled)
+        public void GetContextMenu_Always_ReturnsNineItems(bool commonItemsEnabled)
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new AssessmentSectionBaseNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
-            };
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
 
             mocks.ReplayAll();
 

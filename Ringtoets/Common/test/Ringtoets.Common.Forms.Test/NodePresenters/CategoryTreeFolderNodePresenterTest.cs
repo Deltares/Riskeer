@@ -24,11 +24,33 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
     [TestFixture]
     public class CategoryTreeFolderNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
+        [Test]
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new CategoryTreeFolderNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CoreCommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new CategoryTreeFolderNodePresenter();
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<CategoryTreeFolder>>(nodePresenter);
@@ -49,7 +71,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             currentNode.ForegroundColor = Color.AliceBlue;
             mocks.ReplayAll();
 
-            var nodePresenter = new CategoryTreeFolderNodePresenter();
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
             var folder = new CategoryTreeFolder("Cool name", new object[0], category);
 
             // Call
@@ -66,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void CanRenamedNode_Always_ReturnFalse()
         {
             // Setup
-            var nodePresenter = new CategoryTreeFolderNodePresenter();
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenamingAllowed = nodePresenter.CanRenameNode(null);
@@ -79,7 +101,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void CanRenamedNodeTo_Always_ReturnFalse()
         {
             // Setup
-            var nodePresenter = new CategoryTreeFolderNodePresenter();
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenamingAllowed = nodePresenter.CanRenameNodeTo(null, "");
@@ -92,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var nodePresenter = new CategoryTreeFolderNodePresenter();
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenamingAllowed = nodePresenter.CanRemove(null, null);
@@ -114,8 +136,8 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
                 new object(),
                 new object()
             });
-            
-            var nodePresenter = new CategoryTreeFolderNodePresenter();
+
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             IEnumerable children = nodePresenter.GetChildNodeObjects(folder);
@@ -135,10 +157,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
 
-            var nodePresenter = new CategoryTreeFolderNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
-            };
+            var nodePresenter = new CategoryTreeFolderNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
 
             mocks.ReplayAll();
 

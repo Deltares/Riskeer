@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 using Core.Plugins.ProjectExplorer.NodePresenters;
@@ -26,30 +28,47 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoContextMenuProvider_ReturnsNull()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
-            // Setup
-            var presenter = new ProjectNodePresenter();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-
             // Call
-            var result = presenter.GetContextMenu(nodeMock, new Project());
+            TestDelegate test = () => new ProjectNodePresenter(null, null);
 
             // Assert
-            Assert.IsNull(result);
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_NoCommandHandlerProvider_ArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new ProjectNodePresenter(mocks.StrictMock<IContextMenuBuilderProvider>(), null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CommonGuiResources.NodePresenter_CommandHandler_required, message);
+            StringAssert.EndsWith("commandHandler", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_NewInstance()
+        {
+            // Call
+            var result = new ProjectNodePresenter(mocks.StrictMock<IContextMenuBuilderProvider>(), mocks.StrictMock<IGuiCommandHandler>());
+            
+            // Assert
+            Assert.IsInstanceOf<ProjectNodePresenter>(result);
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems(bool commonItemsEnabled)
+        public void GetContextMenu_Always_ReturnsFourItems(bool commonItemsEnabled)
         {
             // Setup
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new ProjectNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
-            };
+            var nodePresenter = new ProjectNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled), mocks.StrictMock<IGuiCommandHandler>());
 
             mocks.ReplayAll();
 

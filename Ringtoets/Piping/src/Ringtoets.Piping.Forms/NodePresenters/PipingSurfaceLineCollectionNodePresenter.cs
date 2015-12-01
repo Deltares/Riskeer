@@ -7,7 +7,6 @@ using Core.Common.Controls;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
@@ -18,10 +17,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingSurfaceLineCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<RingtoetsPipingSurfaceLine>>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public PipingSurfaceLineCollectionNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
@@ -37,11 +33,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddExpandAllItem()
                 .AddCollapseAllItem()

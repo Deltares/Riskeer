@@ -6,7 +6,6 @@ using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Forms.Properties;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.NodePresenters
@@ -16,27 +15,13 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// </summary>
     public class PlaceholderWithReadonlyNameNodePresenter : RingtoetsNodePresenterBase<PlaceholderWithReadonlyName>
     {
-        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
-
-        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider)
-        {
-            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
-        }
+        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PlaceholderWithReadonlyName nodeData)
         {
             node.Text = nodeData.Name;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
             node.Image = GetIconForPlaceholder(nodeData);
-        }
-
-        private static Bitmap GetIconForPlaceholder(PlaceholderWithReadonlyName nodeData)
-        {
-            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
-            {
-                return Resources.GenericInputOutputIcon;
-            }
-            return Resources.PlaceholderIcon;
         }
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PlaceholderWithReadonlyName nodeData)
@@ -64,6 +49,15 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                               .AddSeparator()
                               .AddPropertiesItem()
                               .Build();
+        }
+
+        private static Bitmap GetIconForPlaceholder(PlaceholderWithReadonlyName nodeData)
+        {
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
+            {
+                return Resources.GenericInputOutputIcon;
+            }
+            return Resources.PlaceholderIcon;
         }
     }
 }

@@ -31,15 +31,10 @@ namespace Ringtoets.Integration.Plugin
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new AssessmentSectionBaseNodePresenter {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
-            };
+            yield return new AssessmentSectionBaseNodePresenter(Gui.ContextMenuProvider);
             yield return new FailureMechanismNodePresenter(Gui.ContextMenuProvider);
             yield return new PlaceholderWithReadonlyNameNodePresenter(Gui.ContextMenuProvider);
-            yield return new CategoryTreeFolderNodePresenter
-            {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
-            };
+            yield return new CategoryTreeFolderNodePresenter(Gui.ContextMenuProvider);
         }
     }
 }

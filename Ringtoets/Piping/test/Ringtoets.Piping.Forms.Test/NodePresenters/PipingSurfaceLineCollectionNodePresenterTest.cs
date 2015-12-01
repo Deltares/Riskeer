@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
@@ -23,11 +24,33 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     [TestFixture]
     public class PipingSurfaceLineCollectionNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
             // Call
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            TestDelegate test = () => new PipingSurfaceLineCollectionNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CoreCommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_ExpectedValues()
+        {
+            // Call
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
@@ -43,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var surfaceLinesCollectionNodeMock = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLinesCollection = new[]{ new RingtoetsPipingSurfaceLine() };
 
@@ -64,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var surfaceLinesCollectionNodeMock = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLinesCollection = Enumerable.Empty<RingtoetsPipingSurfaceLine>();
 
@@ -84,7 +107,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLinesCollection = new[]
             {
@@ -108,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -126,7 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -144,7 +167,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             TestDelegate call = () => { nodePresenter.OnNodeRenamed(dataMock, "<Insert New Name Here>"); };
@@ -164,7 +187,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -181,7 +204,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -201,7 +224,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -221,7 +244,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -241,7 +264,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -258,7 +281,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
@@ -268,58 +291,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_DefaultScenario_ReturnNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.IsNull(contextMenu);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_NoContextMenuBuilderProviderSet_ReturnsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
-
-            // Call
-            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.IsNull(returnedContextMenu);
-
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GetContextMenu_ContextMenuBuilderProviderSet_HaveImportSurfaceLinesItemInContextMenu(bool commonItemsEnabled)
+        public void GetContextMenu_Always_ContextMenuWithFiveItems(bool commonItemsEnabled)
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled)
-            };
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
 
             mocks.ReplayAll();
 
@@ -349,7 +330,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -367,7 +348,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -385,7 +366,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(nodeMock, dataMock);
@@ -404,7 +385,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // call
             TestDelegate call = () => nodePresenter.RemoveNodeData(parentNodeDataMock, dataMock);

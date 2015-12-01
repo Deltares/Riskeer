@@ -1,6 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 using Core.Common.Controls;
+using Core.Common.Gui;
+using Core.Common.Gui.Properties;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -18,11 +21,34 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     [TestFixture]
     public class EmptyPipingCalculationReportNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
             // Call
-            var nodePresenter = new EmptyPipingCalculationReportNodePresenter();
+            TestDelegate test = () => new EmptyPipingCalculationReportNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(Resources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_NewInstance()
+        {
+            // Call
+            var nodePresenter = new EmptyPipingCalculationReportNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<EmptyPipingCalculationReport>>(nodePresenter);
@@ -39,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var reportNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new EmptyPipingCalculationReportNodePresenter();
+            var nodePresenter = new EmptyPipingCalculationReportNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.UpdateNode(parentNode, reportNode, new EmptyPipingCalculationReport());
@@ -59,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var reportNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new EmptyPipingCalculationReportNodePresenter();
+            var nodePresenter = new EmptyPipingCalculationReportNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenamingAllowed = nodePresenter.CanRenameNode(reportNode);
@@ -77,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var reportNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new EmptyPipingCalculationReportNodePresenter();
+            var nodePresenter = new EmptyPipingCalculationReportNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenamingAllowed = nodePresenter.CanRenameNode(reportNode);

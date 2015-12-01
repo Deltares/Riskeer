@@ -57,8 +57,10 @@ namespace Ringtoets.Integration.Plugin.Test
             var applicationCore = new ApplicationCore();
 
             var guiStub = mocks.DynamicMultiMock<IGui>(typeof(IGui), typeof(IContextMenuBuilderProvider));
+            var contextMenuProviderMock = mocks.DynamicMock<IContextMenuBuilderProvider>();
 
             Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
+            Expect.Call(guiStub.ContextMenuProvider).Return(contextMenuProviderMock).Repeat.Any();
 
             mocks.ReplayAll();
 

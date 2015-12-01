@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
@@ -20,11 +22,33 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     [TestFixture]
     public class PipingInputContextNodePresenterTest
     {
+        private MockRepository mockRepository;
+        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+        }
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
         {
             // Call
-            var nodePresenter = new PipingInputContextNodePresenter();
+            TestDelegate test = () => new PipingInputContextNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CommonGuiResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_WithParamsSet_ExpectedValues()
+        {
+            // Call
+            var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<PipingInputContext>>(nodePresenter);
@@ -44,7 +68,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodeData = new PipingInputContext();
 
-            var nodePresenter = new PipingInputContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             nodePresenter.UpdateNode(parentNode, currentNode, nodeData);
@@ -64,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var currentNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingInputContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenameAllowed = nodePresenter.CanRenameNode(currentNode);
@@ -82,7 +106,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var currentNode = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingInputContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRenameAllowed = nodePresenter.CanRenameNodeTo(currentNode, "new name");
@@ -102,7 +126,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodeData = new PipingInputContext();
 
-            var nodePresenter = new PipingInputContextNodePresenter();
+            var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
             var isRemoveAllowed = nodePresenter.CanRemove(currentNode, nodeData);
@@ -113,36 +137,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoMenuBuilderProvider_ReturnsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new PipingInputContextNodePresenter();
-
-            mocks.ReplayAll();
-
-            // Call
-            var result = nodePresenter.GetContextMenu(nodeMock, new PipingInputContext());
-
-            // Assert
-            Assert.IsNull(result);
-
-            mocks.ReplayAll();
-        }
-
-        [Test]
         public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new PipingInputContextNodePresenter
-            {
-                ContextMenuBuilderProvider = TestContextMenuBuilderProvider.Create(mocks, nodeMock)
-            };
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodePresenter = new PipingInputContextNodePresenter(TestContextMenuBuilderProvider.Create(mockRepository, nodeMock));
 
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             // Call
             var result = nodePresenter.GetContextMenu(nodeMock, new PipingInputContext());

@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.PresentationObjects;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.NodePresenters
@@ -15,10 +14,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
     /// </summary>
     public class CategoryTreeFolderNodePresenter : RingtoetsNodePresenterBase<CategoryTreeFolder>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public CategoryTreeFolderNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, CategoryTreeFolder nodeData)
         {
@@ -34,7 +30,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, CategoryTreeFolder nodeData)
         {
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddExpandAllItem()
                 .AddCollapseAllItem()

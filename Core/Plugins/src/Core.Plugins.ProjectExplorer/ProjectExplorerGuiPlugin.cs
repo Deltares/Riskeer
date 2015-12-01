@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -31,11 +29,7 @@ namespace Core.Plugins.ProjectExplorer
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new ProjectNodePresenter
-            {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider,
-                CommandHandler = Gui.CommandHandler
-            };
+            yield return new ProjectNodePresenter(Gui.ContextMenuProvider, Gui.CommandHandler);
         }
 
         public static ProjectExplorerGuiPlugin Instance { get; private set; }

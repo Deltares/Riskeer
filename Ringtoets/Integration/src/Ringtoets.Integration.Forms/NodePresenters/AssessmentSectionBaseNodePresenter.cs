@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -16,10 +15,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// </summary>
     public class AssessmentSectionBaseNodePresenter : RingtoetsNodePresenterBase<AssessmentSectionBase>
     {
-        /// <summary>
-        /// Sets the <see cref="IContextMenuBuilderProvider"/> to be used for creating the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        public IContextMenuBuilderProvider ContextMenuBuilderProvider { private get; set; }
+        public AssessmentSectionBaseNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -72,11 +68,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, AssessmentSectionBase nodeData)
         {
-            if (ContextMenuBuilderProvider == null)
-            {
-                return null;
-            }
-            return ContextMenuBuilderProvider
+            return contextMenuBuilderProvider
                 .Get(sender)
                 .AddDeleteItem()
                 .AddSeparator()

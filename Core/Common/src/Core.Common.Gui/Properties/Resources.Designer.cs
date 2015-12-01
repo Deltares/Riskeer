@@ -1540,6 +1540,24 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NodePresenter_CommandHandler_required.
+        /// </summary>
+        public static string NodePresenter_CommandHandler_required {
+            get {
+                return ResourceManager.GetString("NodePresenter_CommandHandler_required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een ContextMenuBuilderProvider nodig..
+        /// </summary>
+        public static string NodePresenter_ContextMenuBuilderProvider_required {
+            get {
+                return ResourceManager.GetString("NodePresenter_ContextMenuBuilderProvider_required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap note {
@@ -2392,15 +2410,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("StopHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

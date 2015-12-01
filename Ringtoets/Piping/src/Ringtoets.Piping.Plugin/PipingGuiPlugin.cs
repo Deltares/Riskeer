@@ -33,37 +33,23 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new PipingCalculationContextNodePresenter
+            yield return new PipingCalculationContextNodePresenter(Gui.ContextMenuProvider)
             {
-                RunActivityAction = ActivityProgressDialogRunner.Run,
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
+                RunActivityAction = ActivityProgressDialogRunner.Run
             };
-            yield return new PipingCalculationGroupContextNodePresenter();
-            yield return new PipingInputContextNodePresenter
+            yield return new PipingCalculationGroupContextNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingInputContextNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingFailureMechanismNodePresenter(Gui.ContextMenuProvider)
             {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
+                RunActivitiesAction = ActivityProgressDialogRunner.Run
             };
-            yield return new PipingFailureMechanismNodePresenter
-            {
-                RunActivitiesAction = ActivityProgressDialogRunner.Run,
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
-            };
-            yield return new PipingSurfaceLineCollectionNodePresenter
-            {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
-            };
-            yield return new PipingSurfaceLineNodePresenter();
-            yield return new PipingSoilProfileCollectionNodePresenter
-            {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
-            };
-            yield return new PipingSoilProfileNodePresenter();
-            yield return new PipingOutputNodePresenter
-            {
-                ContextMenuBuilderProvider = Gui.ContextMenuProvider
-            };
-            yield return new EmptyPipingOutputNodePresenter();
-            yield return new EmptyPipingCalculationReportNodePresenter();
+            yield return new PipingSurfaceLineCollectionNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingSurfaceLineNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingSoilProfileCollectionNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingSoilProfileNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingOutputNodePresenter(Gui.ContextMenuProvider);
+            yield return new EmptyPipingOutputNodePresenter(Gui.ContextMenuProvider);
+            yield return new EmptyPipingCalculationReportNodePresenter(Gui.ContextMenuProvider);
         }
     }
 }

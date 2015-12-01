@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
-
 using Core.Common.Controls;
-
+using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -14,10 +13,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class EmptyPipingOutputNodePresenter : RingtoetsNodePresenterBase<EmptyPipingOutput>
     {
+        public EmptyPipingOutputNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, EmptyPipingOutput nodeData)
         {
             var dummyOutput = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            new PipingOutputNodePresenter().UpdateNode(parentNode, node, dummyOutput);
+            new PipingOutputNodePresenter(contextMenuBuilderProvider).UpdateNode(parentNode, node, dummyOutput);
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
         }
     }
