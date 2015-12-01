@@ -109,6 +109,7 @@
     <Compile Include="WindowsFormsTestHelper.Designer.cs">
       <DependentUpon>WindowsFormsTestHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="WindowsFormsTestHelperTest.cs" />
     <Compile Include="WpfTestHelper.xaml.cs">
       <DependentUpon>WpfTestHelper.xaml</DependentUpon>
     </Compile>

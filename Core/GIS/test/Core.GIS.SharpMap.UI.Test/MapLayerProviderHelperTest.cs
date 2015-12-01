@@ -8,7 +8,7 @@ using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Base.Test.Shell.Gui
+namespace Core.GIS.SharpMap.UI.Test
 {
     [TestFixture]
     public class MapLayerProviderHelperTest
@@ -19,7 +19,7 @@ namespace Core.Common.Base.Test.Shell.Gui
             var mocks = new MockRepository();
 
             var layerProvider = mocks.StrictMock<IMapLayerProvider>();
-            var dummyItemGroupLayer = mocks.Stub<GroupLayer>();
+            var dummyItemGroupLayer = mocks.Stub<IGroupLayer>();
             var dummyItemLayer = mocks.Stub<ILayer>();
             var dummyItem = mocks.StrictMock<IDummyItem>();
             var dummyItemName = "Dummy item";

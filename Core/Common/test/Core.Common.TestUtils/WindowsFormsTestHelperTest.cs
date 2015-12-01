@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.TestUtils;
 using NUnit.Framework;
 
-namespace Core.Common.Base.Test.TestUtils
+namespace Core.Common.TestUtils
 {
     [TestFixture]
     public class WindowsFormsTestHelperTest
