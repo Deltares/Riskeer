@@ -126,9 +126,6 @@
   <data name="EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0" xml:space="preserve">
     <value>Parameter 'GroupSize' moet groter zijn dan 0.</value>
   </data>
-  <data name="ZipFileUtils_StreamUtilsCopy_Buffer_is_too_small_Should_be_at_least_0_" xml:space="preserve">
-    <value>De buffer is te klein: buffer moet minstens {0} byte groot zijn.</value>
-  </data>
   <data name="InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_" xml:space="preserve">
     <value>Thread synchronisatiefout (aanroep {1}): {0}</value>
   </data>

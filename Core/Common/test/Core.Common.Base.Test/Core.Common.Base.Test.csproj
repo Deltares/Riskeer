@@ -98,25 +98,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Swf\Charting\ChartTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Series\AreaChartSeriesTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Series\BarSeriesTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Series\LineChartSeriesTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Series\PointChartSeriesTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Series\PolygonChartSeriesTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Series\TeeChartSeriesDecoratorTest.cs" />
-    <Compile Include="Controls\Swf\FindAndReplaceControlTest.cs" />
-    <Compile Include="Controls\Swf\MessageBoxTest.cs" />
-    <Compile Include="Controls\Swf\Table\TableViewPasteControllerTest.cs" />
-    <Compile Include="Controls\Swf\Table\TableViewCopyPasteTest.cs" />
-    <Compile Include="Controls\Swf\Table\TestClasses\ClassWithEnum.cs" />
-    <Compile Include="Controls\Swf\Table\TestClasses\Person.cs" />
-    <Compile Include="Controls\Swf\Table\TableViewTest.cs" />
-    <Compile Include="Controls\Swf\TreeViewControls\TreeNodeTest.cs" />
-    <Compile Include="Controls\Swf\TreeViewControls\TreeNodeGraphicExtensionsTest.cs" />
-    <Compile Include="Controls\Swf\TreeViewControls\TreeViewNodePresenterBaseTest.cs" />
-    <Compile Include="Controls\Swf\TreeViewControls\TreeViewControllerTest.cs" />
-    <Compile Include="Controls\Swf\TreeViewControls\TreeViewTest.cs" />
     <Compile Include="ObservableTest.cs" />
     <Compile Include="Service\ActivityTest.cs" />
     <Compile Include="Service\FileImportActivityTest.cs" />
@@ -125,17 +106,11 @@
     <Compile Include="ObservableListTest.cs" />
     <Compile Include="Shell\Gui\ExpandableArrayConverterTest.cs" />
     <Compile Include="Shell\Gui\MapLayerProviderHelperTest.cs" />
-    <Compile Include="Controls\Swf\WindowsFormsHelperTests.cs" />
     <Compile Include="Data\ProjectTest.cs" />
-    <Compile Include="Controls\Swf\FileSystemTreeViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell\Gui\Swf\ControlExtensionTest.cs" />
     <Compile Include="TestObjects\Child.cs" />
-    <Compile Include="TestObjects\ChildNodePresenter.cs" />
-    <Compile Include="TestObjects\MockTestNode.cs" />
     <Compile Include="TestObjects\Parent.cs" />
-    <Compile Include="TestObjects\ParentNodePresenter.cs" />
-    <Compile Include="TestObjects\TestClasses.cs" />
     <Compile Include="TestUtils\WindowsFormsTestHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +164,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
