@@ -327,7 +327,7 @@ namespace Ringtoets.Piping.IO
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="criticalErrorMessage">The critical error message.</param>
         /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
-        /// <exception cref="CriticalFileReadException">Calling this method causes this exception to be thrown.</exception>
+        /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
@@ -341,7 +341,7 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="lineParseErrorMessage">The critical error message.</param>
-        /// <exception cref="CriticalFileReadException">Calling this method causes this exception to be thrown.</exception>
+        /// <returns>New <see cref="LineParseException"/> with message set.</returns>
         private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage)
         {
             string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
@@ -356,8 +356,8 @@ namespace Ringtoets.Piping.IO
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="surfaceLineName">The name of the surfaceline being read.</param>
         /// <param name="lineParseErrorMessage">The critical error message.</param>
-        /// /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
-        /// <exception cref="CriticalFileReadException">Calling this method causes this exception to be thrown.</exception>
+        /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
+        /// <returns>New <see cref="LineParseException"/> with message and inner exceptions set.</returns>
         private LineParseException CreateLineParseException(int currentLine, string surfaceLineName, string lineParseErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
