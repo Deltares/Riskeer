@@ -2,9 +2,9 @@
 
 using NUnit.Framework;
 
-using Ringtoets.Piping.Forms.Helpers;
+using Ringtoets.Common.Forms.Helpers;
 
-namespace Ringtoets.Piping.Forms.Test.Helpers
+namespace Ringtoets.Common.Forms.Test.Helpers
 {
     [TestFixture]
     public class NamingHelperTest

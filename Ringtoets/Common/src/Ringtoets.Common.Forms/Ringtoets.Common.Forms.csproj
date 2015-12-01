@@ -58,6 +58,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Extensions\ContextMenuStripExtensions.cs" />
+    <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="NodePresenters\CategoryTreeFolderNodePresenter.cs" />
     <Compile Include="NodePresenters\RingtoetsNodePresenterBase.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />

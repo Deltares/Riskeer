@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Core.Common.Base;
 
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -21,15 +23,32 @@ namespace Ringtoets.Integration.Plugin
                 Name = RingtoetsFormsResources.DikeAssessmentSection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                CreateData = owner => new DikeAssessmentSection()
+                CreateData = owner =>
+                {
+                    var project = (Project)owner;
+                    var dikeAssessmentSection = new DikeAssessmentSection();
+                    dikeAssessmentSection.Name = GetUniqueForAssessmentSectionName(project, dikeAssessmentSection.Name);
+                    return dikeAssessmentSection;
+                }
             };
             yield return new DataItemInfo<DuneAssessmentSection>
             {
                 Name = RingtoetsFormsResources.DuneAssessmentSection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                CreateData = owner => new DuneAssessmentSection()
+                CreateData = owner =>
+                {
+                    var project = (Project)owner;
+                    var duneAssessmentSection = new DuneAssessmentSection();
+                    duneAssessmentSection.Name = GetUniqueForAssessmentSectionName(project, duneAssessmentSection.Name);
+                    return duneAssessmentSection;
+                }
             };
+        }
+
+        private static string GetUniqueForAssessmentSectionName(Project project, string baseName)
+        {
+            return NamingHelper.GetUniqueName(project.Items.OfType<AssessmentSectionBase>(), baseName, a => a.Name);
         }
     }
 }

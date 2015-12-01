@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Plugin.Test
             Assert.AreEqual("Algemeen", dikeAssessmentSectionDataItemDefinition.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
             Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSectionDataItemDefinition.CreateData(null));
+            Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSectionDataItemDefinition.CreateData(new Project()));
             Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AddExampleData);
 
             DataItemInfo duneAssessmentDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DuneAssessmentSection));
@@ -48,8 +48,54 @@ namespace Ringtoets.Integration.Plugin.Test
             Assert.AreEqual("Algemeen", duneAssessmentDataItemDefinition.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, duneAssessmentDataItemDefinition.Image);
             Assert.IsNull(duneAssessmentDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(null));
+            Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(new Project()));
             Assert.IsNull(duneAssessmentDataItemDefinition.AddExampleData);
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionType.Dike)]
+        [TestCase(AssessmentSectionType.Dune)]
+        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName(AssessmentSectionType type)
+        {
+            // Setup
+            var project = new Project();
+
+            var plugin = new RingtoetsApplicationPlugin();
+            AddAssessmentSectionToProject(project, plugin, type);
+
+            // Call
+            AddAssessmentSectionToProject(project, plugin, type);
+
+            // Assert
+            CollectionAssert.AllItemsAreUnique(project.Items.Cast<AssessmentSectionBase>().Select(section => section.Name));
+        }
+
+        private void AddAssessmentSectionToProject(Project project, RingtoetsApplicationPlugin plugin, AssessmentSectionType type)
+        {
+            object itemToAdd = null;
+            switch (type)
+            {
+                case AssessmentSectionType.Dike:
+                    itemToAdd = plugin.GetDataItemInfos().First(di => di.ValueType == typeof(DikeAssessmentSection)).CreateData(project);
+                    break;
+                case AssessmentSectionType.Dune:
+                    itemToAdd = plugin.GetDataItemInfos().First(di => di.ValueType == typeof(DuneAssessmentSection)).CreateData(project);
+                    break;
+            }
+
+            project.Items.Add(itemToAdd);
+        }
+
+        public enum AssessmentSectionType
+        {
+            /// <summary>
+            /// Type value representing <see cref="DikeAssessmentSection"/> instances.
+            /// </summary>
+            Dike,
+            /// <summary>
+            /// Type value representing <see cref="DuneAssessmentSection"/> instances.
+            /// </summary>
+            Dune
         }
     }
 }

@@ -64,7 +64,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="NodePresenters\EmptyPipingCalculationReportNodePresenterTest.cs" />
     <Compile Include="NodePresenters\EmptyPipingOutputNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingCalculationGroupContextNodePresenterTest.cs" />
