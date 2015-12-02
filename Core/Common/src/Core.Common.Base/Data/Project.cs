@@ -3,19 +3,19 @@ using Core.Common.Utils.Collections.Generic;
 namespace Core.Common.Base.Data
 {
     /// <summary>
-    /// Container of all data and tasks.
+    /// Class that holds all items in a project.
     /// </summary>
     public class Project : Observable
     {
         /// <summary>
-        /// Creates instance of the Project.
+        /// Constructs a new <see cref="Project"/>. 
         /// </summary>
         public Project() : this("Project") {}
 
         /// <summary>
-        /// Creates instance of the project using the supplied <paramref name="name"/>.
+        /// Constructs a new <see cref="Project"/>. 
         /// </summary>
-        /// <param name="name">Readable name of the project.</param>
+        /// <param name="name">The name of the <see cref="Project"/>.</param>
         public Project(string name)
         {
             Name = name;
@@ -24,17 +24,17 @@ namespace Core.Common.Base.Data
         }
 
         /// <summary>
-        /// Gets or sets a readable name of the project.
+        /// Gets or sets the name of the <see cref="Project"/>.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets description of the project.
+        /// Gets or sets the description of the <see cref="Project"/>.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// The items in the project.
+        /// Gets or sets the items of the <see cref="Project"/>.
         /// </summary>
         public IEventedList<object> Items { get; private set; }
     }

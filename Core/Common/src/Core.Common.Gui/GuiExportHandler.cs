@@ -84,7 +84,7 @@ namespace Core.Common.Gui
 
             foreach (var fileExporter in fileExporters)
             {
-                selectExporterDialog.AddItemType(fileExporter.Name, fileExporter.Category, fileExporter.Icon ?? brickImage, null);
+                selectExporterDialog.AddItemType(fileExporter.Name, fileExporter.Category, fileExporter.Image ?? brickImage, null);
             }
 
             if (selectExporterDialog.ShowDialog() == DialogResult.OK)

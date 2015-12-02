@@ -133,7 +133,7 @@ namespace Core.Common.Gui.Swf.Validation
             }
 
             var fileImporter = issue.ViewData as IFileImporter;
-            if (fileImporter != null && fileImporter.CanImportOn(issue.Subject))
+            if (fileImporter != null && fileImporter.CanImportFor(issue.Subject))
             {
                 Gui.CommandHandler.ImportOn(issue.Subject, fileImporter);
             }

@@ -52,17 +52,11 @@ namespace Core.Common.Test.Core
                 fileImporterWhereCanImportIsFalse
             });
 
-            fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
-            {
-                typeof(Int64)
-            });
-            fileImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
+            fileImporter.Expect(fi => fi.SupportedItemType).Return(typeof(Int64));
+            fileImporter.Expect(fi => fi.CanImportFor(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            fileImporterWhereCanImportIsFalse.Expect(fi => fi.SupportedItemTypes).Return(new[]
-            {
-                typeof(Int64)
-            });
-            fileImporterWhereCanImportIsFalse.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(false).Repeat.Any();
+            fileImporterWhereCanImportIsFalse.Expect(fi => fi.SupportedItemType).Return(typeof(Int64));
+            fileImporterWhereCanImportIsFalse.Expect(fi => fi.CanImportFor(null)).IgnoreArguments().Return(false).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -91,11 +85,8 @@ namespace Core.Common.Test.Core
                 fileImporter
             });
 
-            fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
-            {
-                typeof(IList<int>)
-            });
-            fileImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
+            fileImporter.Expect(fi => fi.SupportedItemType).Return(typeof(IList<int>)).Repeat.Any();
+            fileImporter.Expect(fi => fi.CanImportFor(null)).IgnoreArguments().Return(true).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -129,24 +120,13 @@ namespace Core.Common.Test.Core
                 fileImporter3
             });
 
-            fileImporter1.Expect(fi => fi.SupportedItemTypes).Return(new[]
-            {
-                typeof(Int32)
-            });
+            fileImporter1.Expect(fi => fi.SupportedItemType).Return(typeof(Int32)).Repeat.Any();
+            fileImporter2.Expect(fi => fi.SupportedItemType).Return(typeof(Int64)).Repeat.Any();
+            fileImporter3.Expect(fi => fi.SupportedItemType).Return(typeof(Int16)).Repeat.Any();
 
-            fileImporter2.Expect(fi => fi.SupportedItemTypes).Return(new[]
-            {
-                typeof(Int64)
-            });
-
-            fileImporter3.Expect(fi => fi.SupportedItemTypes).Return(new[]
-            {
-                typeof(Int16)
-            });
-
-            fileImporter1.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
-            fileImporter2.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
-            fileImporter3.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
+            fileImporter1.Expect(fi => fi.CanImportFor(null)).IgnoreArguments().Return(true).Repeat.Any();
+            fileImporter2.Expect(fi => fi.CanImportFor(null)).IgnoreArguments().Return(true).Repeat.Any();
+            fileImporter3.Expect(fi => fi.CanImportFor(null)).IgnoreArguments().Return(true).Repeat.Any();
 
             mocks.ReplayAll();
 

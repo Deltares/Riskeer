@@ -57,14 +57,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public IEnumerable<Type> SupportedItemTypes
+        public Type SupportedItemType
         {
             get
             {
-                return new[]
-                {
-                    typeof(ICollection<RingtoetsPipingSurfaceLine>)
-                };
+                return typeof(ICollection<RingtoetsPipingSurfaceLine>);
             }
         }
 
@@ -81,20 +78,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 
-        public bool CanImportOn(object targetObject)
+        public bool CanImportFor(object targetItem)
         {
-            return targetObject is ICollection<RingtoetsPipingSurfaceLine>;
+            return targetItem is ICollection<RingtoetsPipingSurfaceLine>;
         }
 
-        public object ImportItem(string path, object target = null)
+        public object ImportItem(string filePath, object targetItem = null)
         {
-            var importResult = ReadPipingSurfaceLines(path);
+            var importResult = ReadPipingSurfaceLines(filePath);
 
             if (!importResult.CriticalErrorOccurred)
             {
                 if (!ShouldCancel)
                 {
-                    AddImportedDataToModel(target, importResult.ImportedItems);
+                    AddImportedDataToModel(targetItem, importResult.ImportedItems);
                 }
                 else
                 {
@@ -102,7 +99,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
             }
 
-            return target;
+            return targetItem;
         }
 
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)

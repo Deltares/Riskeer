@@ -47,8 +47,8 @@ namespace Core.Common.Base.Plugin
             var targetType = target.GetType();
 
             return plugins.SelectMany(plugin => plugin.GetFileImporters())
-                          .Where(fileImporter => fileImporter.SupportedItemTypes.Any(t => t == targetType || targetType.Implements(t))
-                                                 && fileImporter.CanImportOn(target));
+                          .Where(fileImporter => (fileImporter.SupportedItemType == targetType || targetType.Implements(fileImporter.SupportedItemType))
+                                                 && fileImporter.CanImportFor(target));
         }
 
         public IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
@@ -61,7 +61,7 @@ namespace Core.Common.Base.Plugin
             var sourceType = source.GetType();
 
             return plugins.SelectMany(plugin => plugin.GetFileExporters())
-                          .Where(fileExporter => fileExporter.SourceTypes().Any(t => t == sourceType || sourceType.Implements(t))
+                          .Where(fileExporter => (fileExporter.SupportedItemType == sourceType || sourceType.Implements(fileExporter.SupportedItemType))
                                                  && fileExporter.CanExportFor(source));
         }
 

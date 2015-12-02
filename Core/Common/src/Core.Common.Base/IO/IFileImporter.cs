@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace Core.Common.Base.IO
@@ -7,56 +6,64 @@ namespace Core.Common.Base.IO
     public delegate void ImportProgressChangedDelegate(string currentStepName, int currentStep, int totalSteps);
 
     /// <summary>
-    /// Interface for data import from external formats
+    /// Interface for data import from external formats.
     /// </summary>
     public interface IFileImporter
     {
         /// <summary>
-        /// The name of the importer
+        /// Gets the name of the <see cref="IFileImporter"/>.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// The category of the importer
+        /// Gets the category of the <see cref="IFileImporter"/>.
         /// </summary>
         string Category { get; }
 
         /// <summary>
-        /// The image of the importer
+        /// Gets the image of the <see cref="IFileImporter"/>.
         /// </summary>
+        /// <remarks>This image can be used in selection and progress dialogs.</remarks>
         Bitmap Image { get; }
 
         /// <summary>
-        /// The data types supported by the importer
+        /// Gets the <see cref="Type"/> of the items supported by the <see cref="IFileImporter"/>.
         /// </summary>
-        IEnumerable<Type> SupportedItemTypes { get; }
+        Type SupportedItemType { get; }
 
         /// <summary>
-        /// The file filter of the importer
+        /// Gets the file filter of the <see cref="IFileImporter"/>.
         /// </summary>
-        /// <example>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</example>
+        /// <example>
+        /// "My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2".
+        /// </example>
         string FileFilter { get; }
 
         /// <summary>
-        /// Whether or not an import task should be cancelled
+        /// Performs an import on <paramref name="targetItem"/> from a file with path <paramref name="filePath"/>
+        /// and returns <paramref name="targetItem"/>.
         /// </summary>
-        /// <remarks>This property must be observed by the importer (thread-safe); when it is true the importer must stop current import task</remarks>
-        bool ShouldCancel { get; set; }
+        /// <param name="filePath">The path of the file to import the data from.</param>
+        /// <param name="targetItem">The item to perform the import on.</param>
+        /// <returns></returns>
+        object ImportItem(string filePath, object targetItem);
 
         /// <summary>
-        /// Fired when progress has been changed
+        /// This method checks if an import can be performed on <paramref name="targetItem"/>.
+        /// </summary>
+        /// <param name="targetItem">The target item to check.</param>
+        /// <returns><c>true</c> if an import can be performed on <paramref name="targetItem"/>. <c>false</c> otherwise.</returns>
+        bool CanImportFor(object targetItem);
+
+        /// <summary>
+        /// Fired when progress has been changed.
         /// </summary>
         ImportProgressChangedDelegate ProgressChanged { set; }
 
         /// <summary>
-        /// Indicates if this importer can import on the <paramref name="targetObject"></paramref>
+        /// Whether or not an import task should be cancelled.
         /// </summary>
-        /// <param name="targetObject">Target object to check</param>
-        bool CanImportOn(object targetObject);
-
-        /// <summary>
-        /// Imports data from the file with path <paramref name="path"/>
-        /// </summary>
-        object ImportItem(string path, object target);
+        /// <remarks>This property must be observed by the importer (thread-safe); when it is true the importer must stop current import task.</remarks>
+        bool ShouldCancel { get; set; }
     }
 }

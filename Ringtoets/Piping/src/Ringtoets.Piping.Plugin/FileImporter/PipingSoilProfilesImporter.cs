@@ -45,14 +45,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public IEnumerable<Type> SupportedItemTypes
+        public Type SupportedItemType
         {
             get
             {
-                return new[]
-                {
-                    typeof(ICollection<PipingSoilProfile>)
-                };
+                return typeof(ICollection<PipingSoilProfile>);
             }
         }
 
@@ -69,20 +66,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 
-        public bool CanImportOn(object targetObject)
+        public bool CanImportFor(object targetItem)
         {
-            return targetObject is ICollection<PipingSoilProfile>;
+            return targetItem is ICollection<PipingSoilProfile>;
         }
 
-        public object ImportItem(string path, object target = null)
+        public object ImportItem(string filePath, object targetItem = null)
         {
-            var importResult = ReadSoilProfiles(path);
+            var importResult = ReadSoilProfiles(filePath);
 
             if (!importResult.CriticalErrorOccurred)
             {
                 if (!ShouldCancel)
                 {
-                    AddImportedDataToModel(target, importResult);
+                    AddImportedDataToModel(targetItem, importResult);
                 }
                 else
                 {
@@ -90,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
             }
 
-            return target;
+            return targetItem;
         }
 
         private PipingReadResult<PipingSoilProfile> ReadSoilProfiles(string path)

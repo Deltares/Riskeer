@@ -48,14 +48,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            CollectionAssert.AreEqual(new[] { typeof(ICollection<PipingSoilProfile>) }, importer.SupportedItemTypes);
+            Assert.AreEqual(typeof(ICollection<PipingSoilProfile>), importer.SupportedItemType);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
             Assert.IsFalse(importer.ShouldCancel);
             Assert.IsNull(importer.ProgressChanged);
         }
 
         [Test]
-        public void CanImportOn_TargetIsCollectionOfPipingSoilProfile_ReturnTrue()
+        public void CanImportFor_TargetIsCollectionOfPipingSoilProfile_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSoilProfilesImporter();
 
             // Call
-            var importAllowed = importer.CanImportOn(validTarget);
+            var importAllowed = importer.CanImportFor(validTarget);
 
             // Assert
             Assert.IsTrue(importAllowed);
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CanImportOn_InvalidTarget_ReturnFalse()
+        public void CanImportFor_InvalidTarget_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSoilProfilesImporter();
 
             // Call
-            var importAllowed = importer.CanImportOn(invalidTarget);
+            var importAllowed = importer.CanImportFor(invalidTarget);
 
             // Assert
             Assert.IsFalse(importAllowed);
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportOn(observableList));
+            Assert.IsTrue(importer.CanImportFor(observableList));
 
             object importedItem = null;
 
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportOn(observableList));
+            Assert.IsTrue(importer.CanImportFor(observableList));
 
             object importedItem = null;
 
@@ -189,7 +189,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importTarget = piping.SoilProfiles;
 
             // Precondition
-            Assert.IsTrue(importer.CanImportOn(importTarget));
+            Assert.IsTrue(importer.CanImportFor(importTarget));
 
             // Call
             var importedItem = importer.ImportItem(validFilePath, importTarget);
@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportOn(observableList));
+            Assert.IsTrue(importer.CanImportFor(observableList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             importer.ShouldCancel = true;

@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            CollectionAssert.AreEqual(new[] { typeof(ICollection<RingtoetsPipingSurfaceLine>) }, importer.SupportedItemTypes);
+            Assert.AreEqual(typeof(ICollection<RingtoetsPipingSurfaceLine>), importer.SupportedItemType);
             var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv", 
                 PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CanImportOn_TargetIsCollectionOfPipingSurfaceLines_ReturnTrue()
+        public void CanImportFor_TargetIsCollectionOfPipingSurfaceLines_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter();
 
             // Call
-            var importAllowed = importer.CanImportOn(validTarget);
+            var importAllowed = importer.CanImportFor(validTarget);
 
             // Assert
             Assert.IsTrue(importAllowed);
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CanImportOn_InvalidTarget_ReturnFalse()
+        public void CanImportFor_InvalidTarget_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter();
 
             // Call
-            var importAllowed = importer.CanImportOn(invalidTarget);
+            var importAllowed = importer.CanImportFor(invalidTarget);
 
             // Assert
             Assert.IsFalse(importAllowed);
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             importer.ShouldCancel = true;
@@ -479,7 +479,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(path));
 
             // Call
