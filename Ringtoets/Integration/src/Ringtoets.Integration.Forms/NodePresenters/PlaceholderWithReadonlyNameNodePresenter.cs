@@ -26,7 +26,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PlaceholderWithReadonlyName nodeData)
         {
-            ContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(sender);
+            IContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(sender);
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {

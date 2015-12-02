@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Core.Common.Gui.TestUtils;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
 
@@ -29,13 +27,11 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
     public class AssessmentSectionBaseNodePresenterTest
     {
         private MockRepository mockRepository;
-        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
         }
 
         [Test]
@@ -53,6 +49,11 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         [Test]
         public void Constructor_WithParamsSet_NewInstance()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            
+            mockRepository.ReplayAll();
+
             // Call
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
@@ -60,6 +61,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
             Assert.AreEqual(typeof(AssessmentSectionBase), nodePresenter.NodeTagType);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -70,6 +73,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             var mocks = new MockRepository();
             var projectNode = mocks.Stub<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -94,6 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             
             var failureMechanismCollection = new[]
             {
@@ -104,6 +110,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             };
 
             assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(failureMechanismCollection);
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -128,6 +135,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -146,6 +155,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -164,7 +175,10 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -187,6 +201,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -204,6 +220,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -224,6 +242,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -244,6 +264,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -264,6 +286,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -281,6 +305,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -299,6 +325,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -317,6 +345,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -334,8 +364,9 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-
             var observerMock = mocks.StrictMock<IObserver>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             observerMock.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
@@ -365,6 +396,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<DikeAssessmentSection>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
@@ -377,33 +410,36 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GetContextMenu_Always_ReturnsNineItems(bool commonItemsEnabled)
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new AssessmentSectionBaseNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
+
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
+            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
+
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, new DikeAssessmentSection());
+            nodePresenter.GetContextMenu(nodeMock, new DikeAssessmentSection());
 
             // Assert
-            Assert.AreEqual(9, contextMenu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, CoreCommonGuiResources.Delete, CoreCommonGuiResources.Delete_ToolTip, CoreCommonGuiResources.DeleteIcon);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 6, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 8, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesIcon, commonItemsEnabled);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[1]);
-            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[4]);
-            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[7]);
+            mocks.VerifyAll();
         }
     }
 }

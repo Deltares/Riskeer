@@ -25,13 +25,11 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
     public class CategoryTreeFolderNodePresenterTest
     {
         private MockRepository mockRepository;
-        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
         }
 
         [Test]
@@ -50,12 +48,16 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<CategoryTreeFolder>>(nodePresenter);
             Assert.AreEqual(typeof(CategoryTreeFolder), nodePresenter.NodeTagType);
             Assert.IsNull(nodePresenter.TreeView);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -65,11 +67,12 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void UpdateNode_ForCategory_InitializeNode(TreeFolderCategory category)
         {
             // Setup
-            var mocks = new MockRepository();
-            var parentNode = mocks.StrictMock<ITreeNode>();
-            var currentNode = mocks.Stub<ITreeNode>();
+            var parentNode = mockRepository.StrictMock<ITreeNode>();
+            var currentNode = mockRepository.Stub<ITreeNode>();
             currentNode.ForegroundColor = Color.AliceBlue;
-            mocks.ReplayAll();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
 
             var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
             var folder = new CategoryTreeFolder("Cool name", new object[0], category);
@@ -81,13 +84,16 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
             Assert.AreEqual(folder.Name, currentNode.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), currentNode.ForegroundColor);
             TestHelper.AssertImagesAreEqual(GetExpectedIconForCategory(category), currentNode.Image);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanRenamedNode_Always_ReturnFalse()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
@@ -95,12 +101,16 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRenamingAllowed);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanRenamedNodeTo_Always_ReturnFalse()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
@@ -108,12 +118,16 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRenamingAllowed);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
@@ -121,15 +135,15 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRenamingAllowed);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void GetChildNodeObjects_FolderHasContents_ReturnContents()
         {
             // Setup
-            var mocks = new MockRepository();
-            var node = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var folder = new CategoryTreeFolder("", new[]
             {
@@ -144,7 +158,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Assert
             CollectionAssert.AreEqual(folder.Contents, children);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -154,23 +168,25 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         {
             // Setup
             var folder = new CategoryTreeFolder("", new object[0]);
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
 
-            var nodePresenter = new CategoryTreeFolderNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            mocks.ReplayAll();
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
+
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new CategoryTreeFolderNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, folder);
+            nodePresenter.GetContextMenu(nodeMock, folder);
 
             // Assert
-            Assert.AreEqual(2, returnedContextMenu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 0, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 1, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
-
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         private Image GetExpectedIconForCategory(TreeFolderCategory category)

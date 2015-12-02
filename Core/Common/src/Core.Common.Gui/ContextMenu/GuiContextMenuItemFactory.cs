@@ -13,6 +13,7 @@ namespace Core.Common.Gui.ContextMenu
     internal class GuiContextMenuItemFactory
     {
         private readonly IGuiCommandHandler commandHandler;
+        private readonly ITreeNode treeNode;
 
         /// <summary>
         /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the 
@@ -21,13 +22,18 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> which contains information for creating the 
         /// <see cref="ToolStripItem"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="commandHandler"/> is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler)
+        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, ITreeNode treeNode)
         {
             if (commandHandler == null)
             {
                 throw new ArgumentNullException("commandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
+            if (treeNode == null)
+            {
+                throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
+            }
             this.commandHandler = commandHandler;
+            this.treeNode = treeNode;
         }
 
         /// <summary>
@@ -37,14 +43,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateOpenItem()
         {
-            bool canOpenView = commandHandler.CanOpenDefaultViewForSelection();
+            bool canOpenView = commandHandler.CanOpenDefaultViewFor(treeNode.Tag);
             var newItem = new ToolStripMenuItem(Resources.Open)
             {
                 ToolTipText = Resources.Open_ToolTip,
                 Image = Resources.OpenIcon,
                 Enabled = canOpenView
             };
-            newItem.Click += (s, e) => commandHandler.OpenDefaultViewForSelection();
+            newItem.Click += (s, e) => commandHandler.OpenView(treeNode.Tag);
 
             return newItem;
         }
@@ -56,14 +62,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExportItem()
         {
-            bool canExport = commandHandler.CanExportFromGuiSelection();
+            bool canExport = commandHandler.CanExportFrom(treeNode.Tag);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
                 Image = Resources.ExportIcon,
                 Enabled = canExport
             };
-            newItem.Click += (s, e) => commandHandler.ExportSelectedItem();
+            newItem.Click += (s, e) => commandHandler.ExportFrom(treeNode.Tag);
 
             return newItem;
         }
@@ -75,14 +81,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
         {
-            bool canImport = commandHandler.CanImportToGuiSelection();
+            bool canImport = commandHandler.CanImportOn(treeNode.Tag);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
                 Image = Resources.ImportIcon,
                 Enabled = canImport
             };
-            newItem.Click += (s,e) => commandHandler.ImportToGuiSelection();
+            newItem.Click += (s, e) => commandHandler.ImportOn(treeNode.Tag);
 
             return newItem;
         }
@@ -94,14 +100,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreatePropertiesItem()
         {
-            bool canShowProperties = commandHandler.CanShowPropertiesForGuiSelection();
+            bool canShowProperties = commandHandler.CanShowPropertiesFor(treeNode.Tag);
             var newItem = new ToolStripMenuItem(Resources.Properties)
             {
                 ToolTipText = Resources.Properties_ToolTip,
                 Image = Resources.PropertiesIcon,
                 Enabled = canShowProperties
             };
-            newItem.Click += (s, e) => commandHandler.ShowProperties();
+            newItem.Click += (s, e) => commandHandler.ShowPropertiesFor(treeNode.Tag);
             
             return newItem;
         }

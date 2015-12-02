@@ -19,15 +19,16 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             var gui = mocks.DynamicMock<IGui>();
+            var anObject = new AnObject();
             gui.Expect(g => g.Plugins).Return(new GuiPlugin[] {new TestGuiPlugin()});
-            gui.Expect(g => g.Selection).Return(new AnObject());
+            gui.Expect(g => g.Selection).Return(anObject);
 
             mocks.ReplayAll();
 
             var guiCommandHandler = new GuiCommandHandler(gui);
 
             // Call
-            var canShowProperties = guiCommandHandler.CanShowPropertiesForGuiSelection();
+            var canShowProperties = guiCommandHandler.CanShowPropertiesFor(anObject);
 
             // Assert
             Assert.IsTrue(canShowProperties);
@@ -40,15 +41,16 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             var gui = mocks.DynamicMock<IGui>();
+            var aSubObject = new ASubObject();
             gui.Expect(g => g.Plugins).Return(new GuiPlugin[] {new TestGuiPlugin()});
-            gui.Expect(g => g.Selection).Return(new ASubObject());
+            gui.Expect(g => g.Selection).Return(aSubObject);
 
             mocks.ReplayAll();
 
             var guiCommandHandler = new GuiCommandHandler(gui);
 
             // Call
-            var canShowProperties = guiCommandHandler.CanShowPropertiesForGuiSelection();
+            var canShowProperties = guiCommandHandler.CanShowPropertiesFor(aSubObject);
 
             // Assert
             Assert.IsTrue(canShowProperties);

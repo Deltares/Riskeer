@@ -171,172 +171,89 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_PlaceholderWithReadonlyNameNoGui_ReturnsEmptyContextMenu()
+        public void GetContextMenu_OutputPlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock)); ;
 
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new PlaceholderWithReadonlyName("test");
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
+            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuBuilderProviderMock);
+
             // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
+            nodePresenter.GetContextMenu(nodeMock, new OutputPlaceholder("test"));
 
             // Assert
-            Assert.AreEqual(0, menu.Items.Count);
-
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetContextMenu_InputPlaceHolderNoGui_ReturnsContextMenuWithItems()
+        public void GetContextMenu_InputPlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock)); ;
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new InputPlaceholder("test");
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
+            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuBuilderProviderMock);
+
             // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
+            nodePresenter.GetContextMenu(nodeMock, new InputPlaceholder("test"));
 
             // Assert
-            Assert.AreEqual(2, menu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1] }, typeof(ToolStripSeparator));
-            
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetContextMenu_OutputPlaceHolderNoGui_ReturnsContextMenuWithItems()
+        public void GetContextMenu_PlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new OutputPlaceholder("test");
-
-            mocks.ReplayAll();
-
-            // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
-
-            // Assert
-            Assert.AreEqual(2, menu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[1] }, typeof(ToolStripSeparator));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_InputPlaceHolderWithGui_ReturnsContextMenuWithItems()
-        {
-            // Setup
-            var nodeMock = mocks.Stub<ITreeNode>();
-            var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
-
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new InputPlaceholder("test");
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
-            // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
-
-            // Assert
-            Assert.AreEqual(7, menu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0, CommonResources.Open, CommonResources.Open_ToolTip, CommonResources.OpenIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3, CommonResources.Import, CommonResources.Import_ToolTip, CommonResources.ImportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 4, CommonResources.Export, CommonResources.Export_ToolTip, CommonResources.ExportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonResources.Properties, CommonResources.Properties_ToolTip, CommonResources.PropertiesIcon, false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[5] }, typeof(ToolStripSeparator));
-            
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_OutputPlaceHolderWithGui_ReturnsContextMenuWithItems()
-        {
-            // Setup
-            var nodeMock = mocks.Stub<ITreeNode>();
-            var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
-
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new OutputPlaceholder("test");
-
-            mocks.ReplayAll();
+            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
+            nodePresenter.GetContextMenu(nodeMock, new PlaceholderWithReadonlyName("test"));
 
             // Assert
-            Assert.AreEqual(7, menu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0, CommonResources.Open, CommonResources.Open_ToolTip, CommonResources.OpenIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase, RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3, CommonResources.Import, CommonResources.Import_ToolTip, CommonResources.ImportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 4, CommonResources.Export, CommonResources.Export_ToolTip, CommonResources.ExportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6, CommonResources.Properties, CommonResources.Properties_ToolTip, CommonResources.PropertiesIcon, false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[5] }, typeof(ToolStripSeparator));
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetContextMenu_PlaceholderWithReadonlyNameWithGui_ReturnsContextMenuWithItems()
-        {
-            // Setup
-            var nodeMock = mocks.Stub<ITreeNode>();
-            var guiHandlerMock = mocks.DynamicMock<IGuiCommandHandler>();
-
-            var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(guiHandlerMock, nodeMock));
-
-            var nodePresenter = new PlaceholderWithReadonlyNameNodePresenter(contextMenuProvider);
-            var placeholderData = new PlaceholderWithReadonlyName("test");
-
-            mocks.ReplayAll();
-
-            // Call
-            var menu = nodePresenter.GetContextMenu(nodeMock, placeholderData);
-
-            // Assert
-            Assert.AreEqual(4, menu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 0, CommonResources.Import, CommonResources.Import_ToolTip, CommonResources.ImportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 1, CommonResources.Export, CommonResources.Export_ToolTip, CommonResources.ExportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3, CommonResources.Properties, CommonResources.Properties_ToolTip, CommonResources.PropertiesIcon, false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2] }, typeof(ToolStripSeparator));
-
             mocks.VerifyAll();
         }
     }

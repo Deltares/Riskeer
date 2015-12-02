@@ -5,7 +5,9 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtils;
+using Core.Common.Gui.TestUtils.ContextMenu;
 using Core.Common.TestUtils;
 using Core.Plugins.ProjectExplorer.NodePresenters;
 using Core.Plugins.ProjectExplorer.Properties;
@@ -62,28 +64,58 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GetContextMenu_Always_ReturnsFourItems(bool commonItemsEnabled)
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var nodePresenter = new ProjectNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled), mocks.StrictMock<IGuiCommandHandler>());
+            var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
+
+            var nodePresenter = new ProjectNodePresenter(contextMenuBuilderProviderMock, guiCommandHandlerMock);
+
+            // Call
+            nodePresenter.GetContextMenu(nodeMock, new Project());
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_Always_AddsAddItem()
+        {
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            var nodePresenter = new ProjectNodePresenter(contextMenuBuilderProviderMock, guiCommandHandlerMock);
 
             // Call
             var result = nodePresenter.GetContextMenu(nodeMock, new Project());
 
             // Assert
-            Assert.AreEqual(9, result.Items.Count);
-
+            mocks.VerifyAll(); 
             TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, null, Resources.plus);
-            TestHelper.AssertContextMenuStripContainsItem(result, 2, CommonGuiResources.Expand_all, CommonGuiResources.Expand_all_ToolTip, CommonGuiResources.ExpandAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(result, 3, CommonGuiResources.Collapse_all, CommonGuiResources.Collapse_all_ToolTip, CommonGuiResources.CollapseAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(result, 5, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(result, 6, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(result, 8, CommonGuiResources.Properties, CommonGuiResources.Properties_ToolTip, CommonGuiResources.PropertiesIcon, commonItemsEnabled);
         }
     }
 }

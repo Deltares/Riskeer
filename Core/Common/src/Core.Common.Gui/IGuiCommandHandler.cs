@@ -51,11 +51,6 @@ namespace Core.Common.Gui
         /// </summary>
         void OpenSelectViewDialog();
 
-        /// <summary>
-        /// Opens the default view for the current selection
-        /// </summary>
-        void OpenDefaultViewForSelection();
-
         void OpenViewForSelection(Type viewType = null);
 
         void OpenView(object dataObject, Type viewType = null);
@@ -74,8 +69,9 @@ namespace Core.Common.Gui
 
         /// <summary>
         /// </summary>
-        /// <returns>true if there is a default vioew for the current selection</returns>
-        bool CanOpenDefaultViewForSelection();
+        /// <param name="obj"></param>
+        /// <returns>true if there is a default view for the current selection</returns>
+        bool CanOpenDefaultViewFor(object obj);
 
         /// <summary>
         /// </summary>
@@ -84,31 +80,30 @@ namespace Core.Common.Gui
 
         void AddItemToProject(object item);
 
-        void ExportSelectedItem();
-
         /// <summary>
         /// Activates the propertyGrid toolbox
         /// </summary>
-        void ShowProperties();
-
-        // TODO: move to import plugin
-        void ImportToGuiSelection();
+        /// <param name="obj"></param>
+        void ShowPropertiesFor(object obj);
 
         /// <summary>
         /// Indicates if there are importers for the current Gui.Selection
         /// </summary>
-        bool CanImportToGuiSelection();
+        /// <param name="obj"></param>
+        bool CanImportOn(object obj);
 
         /// <summary>
         /// Indicates if there are exporters for the current Gui.Selection
         /// </summary>
-        bool CanExportFromGuiSelection();
+        /// <param name="obj"></param>
+        bool CanExportFrom(object obj);
 
         /// <summary>
         /// Indicates if there is a property view object for the current <see cref="IGui.Selection"/>.
         /// </summary>
+        /// <param name="obj"></param>
         /// <returns><c>true</c> if a property view is defined, <c>false</c> otherwise.</returns>
-        bool CanShowPropertiesForGuiSelection();
+        bool CanShowPropertiesFor(object obj);
 
         object GetDataOfActiveView();
 

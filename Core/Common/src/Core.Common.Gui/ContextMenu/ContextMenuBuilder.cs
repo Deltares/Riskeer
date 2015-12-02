@@ -9,7 +9,7 @@ namespace Core.Common.Gui.ContextMenu
     /// This class represents a builder which can be used to create a context menu, which's items require information
     /// on the <see cref="IGui"/> in order to render or perform actions.
     /// </summary>
-    public class ContextMenuBuilder
+    public class ContextMenuBuilder : IContextMenuBuilder
     {
         private readonly GuiContextMenuItemFactory guiItemsFactory;
         private readonly TreeViewContextMenuItemFactory treeViewItemsFactory;
@@ -23,110 +23,68 @@ namespace Core.Common.Gui.ContextMenu
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
         /// require this type of information.</param>
         /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="treeNode"/> is <c>null</c></item>
+        /// <item><paramref name="commandHandler"/> is <c>null</c></item>
+        /// </list></exception>
         public ContextMenuBuilder(IGuiCommandHandler commandHandler, ITreeNode treeNode)
         {
             if (commandHandler != null)
             {
-                guiItemsFactory = new GuiContextMenuItemFactory(commandHandler);
+                guiItemsFactory = new GuiContextMenuItemFactory(commandHandler, treeNode);
             }
             treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             contextMenu = new ContextMenuStrip();
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        public ContextMenuBuilder AddDeleteItem()
+        public IContextMenuBuilder AddDeleteItem()
         {
             AddItem(treeViewItemsFactory.CreateDeleteItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which expands the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        public ContextMenuBuilder AddExpandAllItem()
+        public IContextMenuBuilder AddExpandAllItem()
         {
             AddItem(treeViewItemsFactory.CreateExpandAllItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which collapses the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        public ContextMenuBuilder AddCollapseAllItem()
+        public IContextMenuBuilder AddCollapseAllItem()
         {
             AddItem(treeViewItemsFactory.CreateCollapseAllItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        /// <remarks>If the <see cref="IGui"/> was not passed on construction, this method will not add an item.</remarks>
-        public ContextMenuBuilder AddOpenItem()
+        public IContextMenuBuilder AddOpenItem()
         {
-            if (guiItemsFactory != null)
-            {
-                AddItem(guiItemsFactory.CreateOpenItem());
-            }
+            CheckGuiItemsFactory();
+            AddItem(guiItemsFactory.CreateOpenItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        /// <remarks>If the <see cref="IGui"/> was not passed on construction, this method will not add an item.</remarks>
-        public ContextMenuBuilder AddExportItem()
+        public IContextMenuBuilder AddExportItem()
         {
-            if (guiItemsFactory != null)
-            {
-                AddItem(guiItemsFactory.CreateExportItem());
-            }
+            CheckGuiItemsFactory();
+            AddItem(guiItemsFactory.CreateExportItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports the data of the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        /// <remarks>If the <see cref="IGui"/> was not passed on construction, this method will not add an item.</remarks>
-        public ContextMenuBuilder AddImportItem()
+        public IContextMenuBuilder AddImportItem()
         {
-            if (guiItemsFactory != null)
-            {
-                AddItem(guiItemsFactory.CreateImportItem());
-            }
+            CheckGuiItemsFactory();
+            AddItem(guiItemsFactory.CreateImportItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        /// <remarks>If the <see cref="IGui"/> was not passed on construction, this method will not add an item.</remarks>
-        public ContextMenuBuilder AddPropertiesItem()
+        public IContextMenuBuilder AddPropertiesItem()
         {
-            if (guiItemsFactory != null)
-            {
-                AddItem(guiItemsFactory.CreatePropertiesItem());
-            }
+            CheckGuiItemsFactory();
+            AddItem(guiItemsFactory.CreatePropertiesItem());
             return this;
         }
 
-        /// <summary>
-        /// Adds a <see cref="ToolStripSeparator"/> to the <see cref="ContextMenuStrip"/>. A <see cref="ToolStripSeparator"/>
-        /// is only added if the last item that was added to the <see cref="ContextMenuStrip"/> exists and is not a 
-        /// <see cref="ToolStripSeparator"/>.
-        /// </summary>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        public ContextMenuBuilder AddSeparator()
+        public IContextMenuBuilder AddSeparator()
         {
             if (MayAddSeparator())
             {
@@ -135,25 +93,31 @@ namespace Core.Common.Gui.ContextMenu
             return this;
         }
 
-        /// <summary>
-        /// Adds a custom item to the <see cref="ContextMenuStrip"/>.
-        /// </summary>
-        /// <param name="item">The custom <see cref="StrictContextMenuItem"/> to add to the <see cref="ContextMenuStrip"/>.</param>
-        /// <returns>The <see cref="ContextMenuBuilder"/> itself, so that operations can be easily chained.</returns>
-        public ContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
+        public IContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
         {
             AddItem(item);
             return this;
         }
 
-        /// <summary>
-        /// Obtain the <see cref="ContextMenuStrip"/>, which has been constructed by using the other methods of
-        /// <see cref="ContextMenuBuilder"/>.
-        /// </summary>
-        /// <returns>The constructed <see cref="ContextMenuStrip"/>.</returns>
         public ContextMenuStrip Build()
         {
+            if (contextMenu.Items.Count > 0)
+            {
+                var lastIndex = contextMenu.Items.Count - 1;
+                if (contextMenu.Items[lastIndex] is ToolStripSeparator)
+                {
+                    contextMenu.Items.RemoveAt(lastIndex);
+                }
+            }
             return contextMenu;
+        }
+
+        private void CheckGuiItemsFactory()
+        {
+            if (guiItemsFactory == null)
+            {
+                throw new InvalidOperationException(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
+            }
         }
 
         private bool MayAddSeparator()

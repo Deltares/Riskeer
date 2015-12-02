@@ -21,7 +21,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="text">The text of the <see cref="StrictContextMenuItem"/>.</param>
         /// <param name="toolTip">The tooltip of the <see cref="StrictContextMenuItem"/>.</param>
         /// <param name="image">The icon used for the <see cref="StrictContextMenuItem"/>.</param>
-        /// <param name="clickHandler">The handler for a mouse click on the 
+        /// <param name="clickHandler">The handler for a mouse click on the created
         /// <see cref="StrictContextMenuItem"/>.</param>
         public StrictContextMenuItem(string text, string toolTip, Image image, EventHandler clickHandler)
         {

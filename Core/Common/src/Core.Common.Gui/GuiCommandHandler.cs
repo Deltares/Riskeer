@@ -127,22 +127,23 @@ namespace Core.Common.Gui
             return gui.DocumentViews.ActiveView != null ? gui.DocumentViews.ActiveView.Data : null;
         }
 
-        public void ShowProperties()
+        public void ShowPropertiesFor(object obj)
         {
             ((MainWindow) gui.MainWindow).InitPropertiesWindowAndActivate();
+            gui.Selection = obj;
         }
 
-        public bool CanImportToGuiSelection()
+        public bool CanImportOn(object obj)
         {
             return gui.ApplicationCore.GetSupportedFileImporters(gui.Selection).Any();
         }
 
-        public bool CanExportFromGuiSelection()
+        public bool CanExportFrom(object obj)
         {
             return gui.ApplicationCore.GetSupportedFileExporters(gui.Selection).Any();
         }
 
-        public bool CanShowPropertiesForGuiSelection()
+        public bool CanShowPropertiesFor(object obj)
         {
             return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), gui.Selection) != null;
         }
@@ -166,18 +167,6 @@ namespace Core.Common.Gui
             }
         }
 
-        public void ImportToGuiSelection()
-        {
-            try
-            {
-                guiImportHandler.ImportDataTo(gui.Selection);
-            }
-            catch (Exception)
-            {
-                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, gui.Selection);
-            }
-        }
-
         public bool CanOpenSelectViewDialog()
         {
             return gui.Selection != null && gui.DocumentViewsResolver.GetViewInfosFor(gui.Selection).Count() > 1;
@@ -188,14 +177,9 @@ namespace Core.Common.Gui
             gui.DocumentViewsResolver.OpenViewForData(gui.Selection, null, true);
         }
 
-        public bool CanOpenDefaultViewForSelection()
+        public bool CanOpenDefaultViewFor(object obj)
         {
-            return gui.DocumentViewsResolver.GetDefaultViewType(gui.Selection) != null;
-        }
-
-        public void OpenDefaultViewForSelection()
-        {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection);
+            return gui.DocumentViewsResolver.GetDefaultViewType(obj) != null;
         }
 
         public void OpenView(object dataObject, Type viewType = null)
@@ -263,17 +247,6 @@ namespace Core.Common.Gui
                     OpenViewForSelection();
                 }
             }
-        }
-
-        public void ExportSelectedItem()
-        {
-            var selectedObject = gui.Selection;
-            if (selectedObject == null)
-            {
-                return;
-            }
-
-            guiExportHandler.ExportFrom(selectedObject);
         }
 
         public void ExportFrom(object data, IFileExporter exporter = null)

@@ -138,17 +138,16 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void AddOpenItem_WithoutGuiWhenBuild_ContextMenuEmpty()
+        public void AddOpenItem_WithoutGuiWhenBuild_InvalidOperationException()
         {
             // Setup
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
 
             // Call
-            var result = builder.AddOpenItem().Build();
+            TestDelegate test = () => builder.AddOpenItem().Build();
 
             // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.IsEmpty(result.Items);
+            Assert.Throws<InvalidOperationException>(test);
         }
 
         [Test]
@@ -158,7 +157,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewForSelection()).Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(null)).IgnoreArguments().Return(enabled);
             var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
@@ -182,11 +181,10 @@ namespace Core.Common.Gui.Test.ContextMenu
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
 
             // Call
-            var result = builder.AddExportItem().Build();
+            TestDelegate test = () => builder.AddExportItem().Build();
 
             // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.IsEmpty(result.Items);
+            Assert.Throws<InvalidOperationException>(test);
         }
 
         [Test]
@@ -196,7 +194,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanExportFromGuiSelection()).Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanExportFrom(null)).IgnoreArguments().Return(enabled);
             var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
@@ -220,11 +218,10 @@ namespace Core.Common.Gui.Test.ContextMenu
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
 
             // Call
-            var result = builder.AddImportItem().Build();
+            TestDelegate test = () => builder.AddImportItem().Build();
 
             // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.IsEmpty(result.Items);
+            Assert.Throws<InvalidOperationException>(test);
         }
 
         [Test]
@@ -234,7 +231,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanImportToGuiSelection()).Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanImportOn(null)).IgnoreArguments().Return(enabled);
             var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
@@ -258,11 +255,10 @@ namespace Core.Common.Gui.Test.ContextMenu
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
 
             // Call
-            var result = builder.AddPropertiesItem().Build();
+            TestDelegate test = () => builder.AddPropertiesItem().Build();
 
             // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.IsEmpty(result.Items);
+            Assert.Throws<InvalidOperationException>(test);
         } 
 
         [Test]
@@ -272,7 +268,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanShowPropertiesForGuiSelection()).Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(null)).IgnoreArguments().Return(enabled);
             var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
 
             mocks.ReplayAll();
@@ -334,7 +330,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void AddSeparator_ItemAddedWhenBuild_SeparatorAdded()
+        public void AddSeparator_ItemAddedWhenBuild_SeparatorNotAdded()
         {
             // Setup
             var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
@@ -346,7 +342,26 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(2, result.Items.Count);
+            Assert.AreEqual(1, result.Items.Count);
+
+            Assert.IsInstanceOf<StrictContextMenuItem>(result.Items[0]);
+        }
+
+        [Test]
+        public void AddSeparator_ItemThenSeparatorThenItemAddedWhenBuild_SeparatorAdded()
+        {
+            // Setup
+            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+
+            var someItem = new StrictContextMenuItem(null, null, null, null);
+            var someOtherItem = new StrictContextMenuItem(null, null, null, null);
+
+            // Call
+            var result = builder.AddCustomItem(someItem).AddSeparator().AddCustomItem(someOtherItem).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(3, result.Items.Count);
 
             Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
         }
@@ -364,7 +379,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(2, result.Items.Count);
+            Assert.AreEqual(1, result.Items.Count);
         }
     }
 }

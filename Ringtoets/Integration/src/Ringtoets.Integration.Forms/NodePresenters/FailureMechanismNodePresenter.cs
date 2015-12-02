@@ -32,8 +32,6 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, FailureMechanismPlaceholder nodeData)
         {
-            ContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(sender);
-
             var calculateItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
                 RingtoetsCommonFormsResources.Calculate_all_ToolTip,
@@ -50,19 +48,19 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             {
                 Enabled = false
             };
-            var contextMenu = menuBuilder.AddCustomItem(calculateItem)
-                                         .AddCustomItem(clearOutputItem)
-                                         .AddSeparator()
-                                         .AddExpandAllItem()
-                                         .AddCollapseAllItem()
-                                         .AddSeparator()
-                                         .AddImportItem()
-                                         .AddExportItem()
-                                         .AddSeparator()
-                                         .AddPropertiesItem()
-                                         .Build();
 
-            return contextMenu;
+            return contextMenuBuilderProvider.Get(sender)
+                                             .AddCustomItem(calculateItem)
+                                             .AddCustomItem(clearOutputItem)
+                                             .AddSeparator()
+                                             .AddExpandAllItem()
+                                             .AddCollapseAllItem()
+                                             .AddSeparator()
+                                             .AddImportItem()
+                                             .AddExportItem()
+                                             .AddSeparator()
+                                             .AddPropertiesItem()
+                                             .Build();
         }
 
         private IEnumerable GetInputs(FailureMechanismPlaceholder nodeData)

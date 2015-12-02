@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtils;

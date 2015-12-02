@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
@@ -290,34 +291,33 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
+
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GetContextMenu_Always_ContextMenuWithFiveItems(bool commonItemsEnabled)
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock, commonItemsEnabled));
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            mocks.ReplayAll();
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            Assert.AreEqual(5, returnedContextMenu.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 0, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 1, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 3, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, commonItemsEnabled);
-            TestHelper.AssertContextMenuStripContainsItem(returnedContextMenu, 4, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, commonItemsEnabled);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(returnedContextMenu.Items[2]);
-
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]

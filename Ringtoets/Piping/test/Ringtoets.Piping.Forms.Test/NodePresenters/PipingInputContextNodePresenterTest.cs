@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
@@ -23,13 +24,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     public class PipingInputContextNodePresenterTest
     {
         private MockRepository mockRepository;
-        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
         }
 
         [Test]
@@ -47,6 +46,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         [Test]
         public void Constructor_WithParamsSet_ExpectedValues()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
             // Call
             var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
@@ -60,11 +64,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_WithInputParametersData_InitializeNode()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parentNode = mocks.StrictMock<ITreeNode>();
-            var currentNode = mocks.Stub<ITreeNode>();
+            var parentNode = mockRepository.StrictMock<ITreeNode>();
+            var currentNode = mockRepository.Stub<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             currentNode.ForegroundColor = Color.AliceBlue;
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var nodeData = new PipingInputContext();
 
@@ -77,16 +81,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual("Invoer", currentNode.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), currentNode.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, currentNode.Image);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanRenameNode_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var currentNode = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var currentNode = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
@@ -95,16 +99,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRenameAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
+            mockRepository.VerifyAll(); // Expect no calls on mocks.
         }
 
         [Test]
         public void CanRenameNodeTo_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var currentNode = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var currentNode = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
@@ -113,16 +117,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRenameAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
+            mockRepository.VerifyAll(); // Expect no calls on mocks.
         }
 
         [Test]
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var currentNode = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var currentNode = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodeData = new PipingInputContext();
 
@@ -133,29 +137,34 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRemoveAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
+            mockRepository.VerifyAll(); // Expect no calls on mocks.
         }
 
         [Test]
-        public void GetContextMenu_MenuBuilderProvider_ReturnsFourItems()
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
-            var nodePresenter = new PipingInputContextNodePresenter(TestContextMenuBuilderProvider.Create(mockRepository, nodeMock));
+
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
             mockRepository.ReplayAll();
 
+            var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
+
             // Call
-            var result = nodePresenter.GetContextMenu(nodeMock, new PipingInputContext());
+            nodePresenter.GetContextMenu(nodeMock, new PipingInputContext());
 
             // Assert
-            Assert.AreEqual(4, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, CommonGuiResources.Import, CommonGuiResources.Import_ToolTip, CommonGuiResources.ImportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(result, 1, CommonGuiResources.Export, CommonGuiResources.Export_ToolTip, CommonGuiResources.ExportIcon, false);
-            TestHelper.AssertContextMenuStripContainsItem(result, 3, CommonGuiResources.Properties, CommonGuiResources.Properties_ToolTip, CommonGuiResources.PropertiesIcon, false);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[2]);
+            mockRepository.VerifyAll();
         }
     }
 }

@@ -253,7 +253,7 @@ namespace Core.Common.Gui
             }
         }
 
-        public ContextMenuBuilder Get(ITreeNode treeNode)
+        public IContextMenuBuilder Get(ITreeNode treeNode)
         {
             return new ContextMenuBuilder(CommandHandler, treeNode);
         }

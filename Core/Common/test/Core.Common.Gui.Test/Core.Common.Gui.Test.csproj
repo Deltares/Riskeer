@@ -62,7 +62,6 @@
     <Compile Include="Forms\SplashScreenTest.cs" />
     <Compile Include="GuiCommandHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestContextMenuBuilderProviderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
