@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Base.Service;
-using Core.Common.Controls;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.IO;
 using log4net;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
@@ -31,7 +26,7 @@ namespace Core.Common.Gui
 
         public void ImportUsingImporter(IFileImporter importer, object target)
         {
-            ConfigureImporterAndRun(importer, target);
+            GetImportedItemsUsingFileOpenDialog(importer, target);
         }
 
         public void ImportDataTo(object target)
@@ -75,48 +70,6 @@ namespace Core.Common.Gui
             return null;
         }
 
-        /// <summary>
-        /// Typically used after drop action of files from outsite the application
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="files"></param>
-        /// <returns></returns>
-        public IFileImporter GetSupportedImporterForTargetTypeAndSelectedFiles(object target, IEnumerable<string> files)
-        {
-            var selectImporterDialog = new SelectItemDialog();
-
-            Image itemImage = Resources.brick;
-
-            var importers = gui.ApplicationCore.GetSupportedFileImporters(target);
-
-            importers =
-                importers.Where(
-                    importer => FileUtils.FileMatchesFileFilterByExtension(importer.FileFilter, files.First())).ToList();
-
-            //if there is only one available importer use that.))
-            if (!importers.Any())
-            {
-                return null;
-            }
-            if (importers.Count() == 1)
-            {
-                return importers.ElementAt(0);
-            }
-
-            foreach (IFileImporter importer in importers)
-            {
-                selectImporterDialog.AddItemType(importer.Name, Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import, itemImage, null);
-            }
-
-            if (selectImporterDialog.ShowDialog() == DialogResult.OK)
-            {
-                var importerName = selectImporterDialog.SelectedItemTypeName;
-                return importers.First(i => i.Name == importerName);
-            }
-
-            return null;
-        }
-
         private void ImportToItem(object item)
         {
             var importer = GetSupportedImporterForTargetType(item);
@@ -125,38 +78,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            ConfigureImporterAndRun(importer, item);
-        }
-
-        private void ConfigureImporterAndRun(IFileImporter importer, object target)
-        {
-            using (var view = gui.DocumentViewsResolver.CreateViewForData(importer))
-            {
-                if (view == null)
-                {
-                    GetImportedItemsUsingFileOpenDialog(importer, target);
-                    return;
-                }
-
-                var importerDialog = view as IDialog;
-                if (importerDialog == null)
-                {
-                    return;
-                }
-
-                if (importerDialog.ShowModal() != DialogResult.OK)
-                {
-                    return;
-                }
-
-                //TODO : move to view provider..when the view is create the importer is there
-                if (importerDialog is IConfigureDialog)
-                {
-                    ((IConfigureDialog) (importerDialog)).Configure(importer);
-                }
-            }
-
-            ActivityProgressDialogRunner.Run(new FileImportActivity(importer, target));
+            GetImportedItemsUsingFileOpenDialog(importer, item);
         }
 
         /// <summary>
@@ -183,10 +105,7 @@ namespace Core.Common.Gui
 
             Log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
 
-            ActivityProgressDialogRunner.Run(new FileImportActivity(importer, target)
-            {
-                Files = dialog.FileNames.ToArray()
-            });
+            ActivityProgressDialogRunner.Run(new FileImportActivity(importer, target, dialog.FileNames.ToArray()));
         }
     }
 }

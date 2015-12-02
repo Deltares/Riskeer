@@ -15,7 +15,7 @@ namespace Core.Common.Base.Service
     public abstract class Activity
     {
         public event EventHandler ProgressChanged;
-        private static readonly ILog log = LogManager.GetLogger(typeof(Activity));
+        private readonly ILog log = LogManager.GetLogger(typeof(Activity));
         private string progressText;
 
         protected Activity()
@@ -39,10 +39,7 @@ namespace Core.Common.Base.Service
             {
                 progressText = value;
 
-                if (ProgressChanged != null)
-                {
-                    ProgressChanged(this, null);
-                }
+                OnProgressChanged();
             }
         }
 
@@ -111,7 +108,6 @@ namespace Core.Common.Base.Service
                 Status = ActivityStatus.Executing;
 
                 OnExecute();
-                OnProgressChanged();
 
                 if (Status == ActivityStatus.Failed ||
                     Status == ActivityStatus.Cancelled)
@@ -130,7 +126,7 @@ namespace Core.Common.Base.Service
             Status = ActivityStatus.Executed;
         }
 
-        protected void OnProgressChanged()
+        private void OnProgressChanged()
         {
             if (ProgressChanged != null)
             {
@@ -155,8 +151,6 @@ namespace Core.Common.Base.Service
         /// <remarks>
         /// <para>Set <see cref="Status"/> to <see cref="ActivityStatus.Failed"/>
         /// when an error has occurred while executing.</para>
-        /// <para>Set <see cref="Status"/> to <see cref="ActivityStatus.Done"/>
-        /// when execution has finished without errors.</para>
         /// </remarks>
         protected abstract void OnExecute();
 

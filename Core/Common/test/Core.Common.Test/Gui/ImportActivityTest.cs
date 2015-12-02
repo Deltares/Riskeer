@@ -1,4 +1,3 @@
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Service;
@@ -15,28 +14,25 @@ namespace Core.Common.Test.Gui
         [Test]
         public void FileImportActivity()
         {
+            var target = new object();
             var project = new Project("test");
-
             var importer = mockRepository.Stub<IFileImporter>();
-            var fileImportActivity = new FileImportActivity(importer)
+            var fileImportActivity = new FileImportActivity(importer, target, new[]
             {
-                Files = new[]
-                {
-                    "test1",
-                    "test2",
-                    "test3"
-                }
-            };
+                "test1",
+                "test2",
+                "test3"
+            });
 
-            Expect.Call(importer.ImportItem("test1")).Repeat.Once().Return(new object()).WhenCalled(o =>
+            Expect.Call(importer.ImportItem("test1", target)).Repeat.Once().Return(new object()).WhenCalled(o =>
             {
                 project.Items.Add(o);
             });
-            Expect.Call(importer.ImportItem("test2")).Repeat.Once().Return(new object()).WhenCalled(o =>
+            Expect.Call(importer.ImportItem("test2", target)).Repeat.Once().Return(new object()).WhenCalled(o =>
             {
                 project.Items.Add(o);
             });
-            Expect.Call(importer.ImportItem("test3")).Repeat.Once().Return(new object()).WhenCalled(o =>
+            Expect.Call(importer.ImportItem("test3", target)).Repeat.Once().Return(new object()).WhenCalled(o =>
             {
                 project.Items.Add(o);
             });

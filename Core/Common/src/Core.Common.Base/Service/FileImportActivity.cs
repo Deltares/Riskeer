@@ -1,3 +1,4 @@
+using System;
 using Core.Common.Base.IO;
 using Core.Common.Base.Properties;
 
@@ -7,21 +8,46 @@ namespace Core.Common.Base.Service
     {
         private readonly object target;
         private readonly IFileImporter importer;
+        private readonly string[] files;
         private bool shouldCancel;
 
         /// <summary>
         /// One Activity (thread) for a serial file import.
         /// </summary>
-        public FileImportActivity(IFileImporter importer, object target = null)
+        public FileImportActivity(IFileImporter importer, object target, string[] files)
         {
+            if (importer == null)
+            {
+                throw new ArgumentException("importer");
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentException("target");
+            }
+
+            if (files == null)
+            {
+                throw new ArgumentException("files");
+            }
+
             this.importer = importer;
             this.target = target;
+            this.files = files;
         }
 
-        public string[] Files { get; set; }
+        public override string Name
+        {
+            get
+            {
+                return importer.Name;
+            }
+        }
 
         protected override void OnInitialize()
         {
+            shouldCancel = false;
+
             if (importer.ShouldCancel)
             {
                 importer.ShouldCancel = false;
@@ -30,43 +56,25 @@ namespace Core.Common.Base.Service
 
         protected override void OnExecute()
         {
-            shouldCancel = false;
+            foreach (var fileName in files)
+            {
+                ImportFromFile(fileName);
 
-            if (Files == null)
-            {
-                ImportFromFile(null);
-            }
-            else
-            {
-                foreach (var fileName in Files)
+                if (shouldCancel)
                 {
-                    ImportFromFile(fileName);
-
-                    if (shouldCancel)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
 
         protected override void OnCancel()
         {
-            //todo update in the current thread by using a delegate.
             shouldCancel = true;
 
             importer.ShouldCancel = true;
         }
 
         protected override void OnFinish() {}
-
-        public override string Name
-        {
-            get
-            {
-                return string.Format(Resources.FileImportActivity_Name_Import_using_importer_with_name_0, importer.Name.ToLower());
-            }
-        }
 
         private void ImportFromFile(string fileName)
         {
@@ -75,10 +83,7 @@ namespace Core.Common.Base.Service
                 return;
             }
 
-            importer.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
-            {
-                ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName);
-            };
+            importer.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName); };
 
             importer.ImportItem(fileName, target);
         }

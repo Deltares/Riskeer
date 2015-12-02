@@ -46,7 +46,7 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// Fired when progress has been changed
         /// </summary>
-        ImportProgressChangedDelegate ProgressChanged { get; set; }
+        ImportProgressChangedDelegate ProgressChanged { set; }
 
         /// <summary>
         /// Indicates if this importer can import on the <paramref name="targetObject"></paramref>
@@ -57,6 +57,6 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// Imports data from the file with path <paramref name="path"/>
         /// </summary>
-        object ImportItem(string path, object target = null);
+        object ImportItem(string path, object target);
     }
 }

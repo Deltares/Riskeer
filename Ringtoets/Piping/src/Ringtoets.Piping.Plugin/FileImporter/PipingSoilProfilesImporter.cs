@@ -66,6 +66,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         }
 
         public bool ShouldCancel { get; set; }
+
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 
         public bool CanImportOn(object targetObject)

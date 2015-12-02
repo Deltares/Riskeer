@@ -18,7 +18,7 @@ namespace Core.Common.Base.Test.Service
 
             importerStub.ShouldCancel = true; // Fake the importer being cancelled
 
-            var fileImportActivity = new FileImportTestActivity(importerStub);
+            var fileImportActivity = new FileImportTestActivity(importerStub, new object(), new string[0]);
 
             fileImportActivity.PerformInitialize();
 
@@ -29,7 +29,7 @@ namespace Core.Common.Base.Test.Service
 
         private class FileImportTestActivity : FileImportActivity
         {
-            public FileImportTestActivity(IFileImporter importer, object target = null) : base(importer, target) { }
+            public FileImportTestActivity(IFileImporter importer, object target, string[] files) : base(importer, target, files) { }
 
             public void PerformInitialize()
             {
