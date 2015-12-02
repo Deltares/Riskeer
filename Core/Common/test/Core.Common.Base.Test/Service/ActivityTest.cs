@@ -14,7 +14,7 @@ namespace Core.Common.Base.Test.Service
 
             // assert
             Assert.IsNull(activity.Name);
-            Assert.AreEqual(ActivityStatus.None, activity.Status);
+            Assert.AreEqual(ActivityState.None, activity.State);
             Assert.IsNull(activity.ProgressText);
         }
 
@@ -35,7 +35,7 @@ namespace Core.Common.Base.Test.Service
 
         private class SimpleActivity : Activity
         {
-            protected override void OnExecute()
+            protected override void OnRun()
             {
             }
 

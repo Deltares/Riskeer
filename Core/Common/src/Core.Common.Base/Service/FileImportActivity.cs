@@ -44,7 +44,7 @@ namespace Core.Common.Base.Service
             }
         }
 
-        protected override void OnExecute()
+        protected override void OnRun()
         {
             foreach (var fileName in files)
             {

@@ -100,7 +100,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\Activity.cs" />
-    <Compile Include="Service\ActivityStatus.cs" />
+    <Compile Include="Service\ActivityState.cs" />
     <Compile Include="Service\FileImportActivity.cs" />
     <None Include="packages.config" />
   </ItemGroup>

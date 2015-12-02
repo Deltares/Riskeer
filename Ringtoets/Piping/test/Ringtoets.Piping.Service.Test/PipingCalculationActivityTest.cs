@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Service.Test
             Assert.IsInstanceOf<Activity>(activity);
             Assert.AreEqual(calculation.Name, activity.Name);
             Assert.IsNull(activity.ProgressText);
-            Assert.AreEqual(ActivityStatus.None, activity.Status);
+            Assert.AreEqual(ActivityState.None, activity.State);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs[3]);
                 StringAssert.StartsWith(String.Format("Uitvoering van '{0}' is mislukt.", invalidPipingCalculation.Name), msgs[4]);
             });
-            Assert.AreEqual(ActivityStatus.Failed, activity.Status);
+            Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.AreEqual(originalOutput, invalidPipingCalculation.Output);
         }
 
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", validPipingCalculation.Name), msgs[2]);
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", validPipingCalculation.Name), msgs[3]);
             });
-            Assert.AreEqual(ActivityStatus.Executed, activity.Status);
+            Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsNotNull(validPipingCalculation.Output);
         }
 

@@ -3,10 +3,11 @@ namespace Core.Common.Base.Service
     /// <summary>
     /// Enumeration that defines the possible states of an <see cref="Activity"/>.
     /// </summary>
-    public enum ActivityStatus
+    public enum ActivityState
     {
         /// <summary>
-        /// The state of an <see cref="Activity"/> that has been just created and is not used yet.
+        /// The state of an <see cref="Activity"/> that is about to be run.
+        /// <seealso cref="Activity.Run"/>
         /// </summary>
         None,
 
@@ -23,7 +24,7 @@ namespace Core.Common.Base.Service
         Failed,
 
         /// <summary>
-        /// The state of an <see cref="Activity"/> that has been cancelled.
+        /// The state of an <see cref="Activity"/> that is successfully cancelled.
         /// <seealso cref="Activity.Cancel"/>
         /// </summary>
         Cancelled,
