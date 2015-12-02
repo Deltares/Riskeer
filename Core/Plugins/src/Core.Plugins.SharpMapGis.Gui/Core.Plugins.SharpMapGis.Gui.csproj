@@ -26,7 +26,7 @@
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
@@ -184,62 +184,77 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
       <Project>{3dbd23ce-5c4a-4a49-b51c-b268cb2b510e}</Project>
       <Name>Core.Common.Controls.Swf</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
       <Project>{08205620-D756-4533-922C-D6A4C0038535}</Project>
       <Name>Core.Common.Gui.Swf</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016dbd27-99bf-489a-81b5-50d66964bb90}</Project>
       <Name>Core.GIS.GeoAPI.Extensions</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
       <Project>{ffb69466-79de-466a-ada7-5c47c5c5ca3a}</Project>
       <Name>Core.GIS.GeoAPI</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite.Extensions\Core.GIS.NetTopologySuite.Extensions.csproj">
       <Project>{8a3636fb-31b4-4f4b-9165-f718f87a92df}</Project>
       <Name>Core.GIS.NetTopologySuite.Extensions</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
       <Project>{5770daa9-84e5-4770-af43-f6b815894368}</Project>
       <Name>Core.GIS.NetTopologySuite</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
       <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
       <Name>Core.GIS.SharpMap.Api</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Extensions\Core.GIS.SharpMap.Extensions.csproj">
       <Project>{A4140C12-53F5-438C-8D24-9E48C504FECF}</Project>
       <Name>Core.GIS.SharpMap.Extensions</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.UI\Core.GIS.SharpMap.UI.csproj">
       <Project>{dd1cc1db-4bf9-4c88-a100-733d84795f3a}</Project>
       <Name>Core.GIS.SharpMap.UI</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
       <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
       <Name>Core.GIS.SharpMap</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
       <Project>{696daaee-d1d8-42d0-86ac-471b970fb17e}</Project>
       <Name>Core.Plugins.SharpMapGis</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

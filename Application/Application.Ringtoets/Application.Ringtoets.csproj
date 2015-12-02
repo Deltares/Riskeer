@@ -96,22 +96,27 @@
     <ProjectReference Include="..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
       <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
       <Name>Core.Common.Controls.Swf</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
@@ -121,34 +126,42 @@
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj">
       <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
       <Name>Core.Plugins.CommonTools.Gui</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
       <Project>{BEFDCC44-2638-4972-B353-42D14C7DA2C6}</Project>
       <Name>Core.Plugins.CommonTools</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>
       <Name>Core.Plugins.ProjectExplorer</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.SharpMapGis.Gui\Core.Plugins.SharpMapGis.Gui.csproj">
       <Project>{0BC3751E-EC42-40A0-A7D3-B7C2AA66976E}</Project>
       <Name>Core.Plugins.SharpMapGis.Gui</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
       <Project>{696DAAEE-D1D8-42D0-86AC-471B970FB17E}</Project>
       <Name>Core.Plugins.SharpMapGis</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Demo\src\Ringtoets.Demo\Ringtoets.Demo.csproj" Condition="$(DefineConstants.Contains('INCLUDE_DEMOPROJECT'))">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Ringtoets.Demo</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
