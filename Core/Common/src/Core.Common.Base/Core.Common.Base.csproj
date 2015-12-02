@@ -52,7 +52,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <OutputPath>..\..\..\..\bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
@@ -92,6 +92,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="IO\ProgressChangedDelegate.cs" />
     <Compile Include="Plugin\ApplicationPlugin.cs" />
     <Compile Include="Plugin\DataItemInfo.cs" />
     <Compile Include="Plugin\ApplicationCore.cs" />

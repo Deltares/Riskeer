@@ -3,8 +3,6 @@ using System.Drawing;
 
 namespace Core.Common.Base.IO
 {
-    public delegate void ImportProgressChangedDelegate(string currentStepName, int currentStep, int totalSteps);
-
     /// <summary>
     /// Interface for data import from external formats.
     /// </summary>
@@ -40,9 +38,9 @@ namespace Core.Common.Base.IO
         string FileFilter { get; }
 
         /// <summary>
-        /// Fired when progress has been changed.
+        /// Sets the action to perform when progress has changed.
         /// </summary>
-        ImportProgressChangedDelegate ProgressChanged { set; }
+        ProgressChangedDelegate ProgressChanged { set; }
 
         /// <summary>
         /// Performs an import on <paramref name="targetItem"/> from a file with path <paramref name="filePath"/>
