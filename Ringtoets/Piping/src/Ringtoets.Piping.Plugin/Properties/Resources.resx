@@ -126,7 +126,7 @@
   <data name="PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_ImportItem_Import_cancelled" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Profielmetingen importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_" xml:space="preserve">
@@ -143,7 +143,7 @@ Deze profielmeting wordt overgeslagen.</value>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ImportItem_Import_cancelled" xml:space="preserve">
+  <data name="PipingSoilProfilesImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Ondergrondschematiseringen importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Reading_database" xml:space="preserve">

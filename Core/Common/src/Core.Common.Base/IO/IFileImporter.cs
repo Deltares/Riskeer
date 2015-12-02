@@ -40,13 +40,18 @@ namespace Core.Common.Base.IO
         string FileFilter { get; }
 
         /// <summary>
+        /// Fired when progress has been changed.
+        /// </summary>
+        ImportProgressChangedDelegate ProgressChanged { set; }
+
+        /// <summary>
         /// Performs an import on <paramref name="targetItem"/> from a file with path <paramref name="filePath"/>
-        /// and returns <paramref name="targetItem"/>.
+        /// and returns a <see cref="bool"/> which reflects whether or not the import was successful.
         /// </summary>
         /// <param name="filePath">The path of the file to import the data from.</param>
         /// <param name="targetItem">The item to perform the import on.</param>
-        /// <returns></returns>
-        object ImportItem(string filePath, object targetItem);
+        /// <returns><c>true</c> if the import was successful. <c>false</c> otherwise.</returns>
+        bool Import(string filePath, object targetItem);
 
         /// <summary>
         /// This method checks if an import can be performed on <paramref name="targetItem"/>.
@@ -56,14 +61,8 @@ namespace Core.Common.Base.IO
         bool CanImportFor(object targetItem);
 
         /// <summary>
-        /// Fired when progress has been changed.
+        /// This method cancels an import.
         /// </summary>
-        ImportProgressChangedDelegate ProgressChanged { set; }
-
-        /// <summary>
-        /// Whether or not an import task should be cancelled.
-        /// </summary>
-        /// <remarks>This property must be observed by the importer (thread-safe); when it is true the importer must stop current import task.</remarks>
-        bool ShouldCancel { get; set; }
+        void Cancel();
     }
 }

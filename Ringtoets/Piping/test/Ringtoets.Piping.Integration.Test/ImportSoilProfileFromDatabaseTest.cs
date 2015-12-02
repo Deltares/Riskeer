@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             // When
             var importer = new PipingSoilProfilesImporter();
-            importer.ImportItem(databasePath, pipingFailureMechanism.SoilProfiles);
+            importer.Import(databasePath, pipingFailureMechanism.SoilProfiles);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             // When
             var importer = new PipingSoilProfilesImporter();
-            importer.ImportItem(databasePath, pipingFailureMechanism.SoilProfiles);
+            importer.Import(databasePath, pipingFailureMechanism.SoilProfiles);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             // When
             var importer = new PipingSoilProfilesImporter();
-            importer.ImportItem(databasePath, pipingFailureMechanism.SoilProfiles);
+            importer.Import(databasePath, pipingFailureMechanism.SoilProfiles);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());

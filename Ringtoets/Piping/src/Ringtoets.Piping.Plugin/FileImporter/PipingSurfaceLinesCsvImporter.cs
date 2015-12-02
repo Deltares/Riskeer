@@ -27,6 +27,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSurfaceLinesCsvImporter : IFileImporter
     {
         private readonly ILog log;
+        private bool shouldCancel;
 
         public PipingSurfaceLinesCsvImporter()
         {
@@ -74,7 +75,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public bool ShouldCancel { get; set; }
+        public void Cancel()
+        {
+            shouldCancel = true;
+        }
 
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 
@@ -83,23 +87,23 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return targetItem is ICollection<RingtoetsPipingSurfaceLine>;
         }
 
-        public object ImportItem(string filePath, object targetItem = null)
+        public bool Import(string filePath, object targetItem = null)
         {
             var importResult = ReadPipingSurfaceLines(filePath);
 
             if (!importResult.CriticalErrorOccurred)
             {
-                if (!ShouldCancel)
+                if (!shouldCancel)
                 {
                     AddImportedDataToModel(targetItem, importResult.ImportedItems);
+
+                    return true;
                 }
-                else
-                {
-                    HandleUserCancellingImport();
-                }
+
+                HandleUserCancellingImport();
             }
 
-            return targetItem;
+            return false;
         }
 
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
@@ -138,7 +142,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             var readSurfaceLines = new List<RingtoetsPipingSurfaceLine>(itemCount);
-            for (int i = 0; i < itemCount && !ShouldCancel; i++)
+            for (int i = 0; i < itemCount && !shouldCancel; i++)
             {
                 try
                 {
@@ -221,7 +225,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_Import_cancelled);
+            log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled);
+
+            shouldCancel = false;
         }
     }
 }

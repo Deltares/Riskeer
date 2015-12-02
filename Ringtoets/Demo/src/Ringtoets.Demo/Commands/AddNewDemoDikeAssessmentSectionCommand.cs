@@ -52,13 +52,13 @@ namespace Ringtoets.Demo.Commands
             using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv"))
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
-                surfaceLinesImporter.ImportItem(tempPath.FilePath, pipingFailureMechanism.SurfaceLines);
+                surfaceLinesImporter.Import(tempPath.FilePath, pipingFailureMechanism.SurfaceLines);
             }
 
             using (var tempPath = new TemporaryImportFile("complete.soil"))
             {
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
-                surfaceLinesImporter.ImportItem(tempPath.FilePath, pipingFailureMechanism.SoilProfiles);
+                surfaceLinesImporter.Import(tempPath.FilePath, pipingFailureMechanism.SoilProfiles);
             }
 
             var calculation = pipingFailureMechanism.Calculations.GetPipingCalculations().First();

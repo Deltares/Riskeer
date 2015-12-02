@@ -20,6 +20,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSoilProfilesImporter : IFileImporter
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
+        private bool shouldCancel;
 
         public string Name
         {
@@ -62,7 +63,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public bool ShouldCancel { get; set; }
+        public void Cancel()
+        {
+            shouldCancel = true;
+        }
 
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
 
@@ -71,23 +75,23 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return targetItem is ICollection<PipingSoilProfile>;
         }
 
-        public object ImportItem(string filePath, object targetItem = null)
+        public bool Import(string filePath, object targetItem = null)
         {
             var importResult = ReadSoilProfiles(filePath);
 
             if (!importResult.CriticalErrorOccurred)
             {
-                if (!ShouldCancel)
+                if (!shouldCancel)
                 {
                     AddImportedDataToModel(targetItem, importResult);
+
+                    return true;
                 }
-                else
-                {
-                    HandleUserCancellingImport();
-                }
+
+                HandleUserCancellingImport();
             }
 
-            return targetItem;
+            return false;
         }
 
         private PipingReadResult<PipingSoilProfile> ReadSoilProfiles(string path)
@@ -123,7 +127,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var profiles = new Collection<PipingSoilProfile>();
             while (soilProfileReader.HasNext)
             {
-                if (ShouldCancel)
+                if (shouldCancel)
                 {
                     return new PipingReadResult<PipingSoilProfile>(false);
                 }
@@ -181,8 +185,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            log.Info(ApplicationResources.PipingSoilProfilesImporter_ImportItem_Import_cancelled);
-        }
+            log.Info(ApplicationResources.PipingSoilProfilesImporter_Import_Import_cancelled);
 
+            shouldCancel = false;
+        }
     }
 }

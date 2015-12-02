@@ -47,11 +47,6 @@ namespace Core.Common.Base.Service
         protected override void OnInitialize()
         {
             shouldCancel = false;
-
-            if (importer.ShouldCancel)
-            {
-                importer.ShouldCancel = false;
-            }
         }
 
         protected override void OnExecute()
@@ -71,7 +66,7 @@ namespace Core.Common.Base.Service
         {
             shouldCancel = true;
 
-            importer.ShouldCancel = true;
+            importer.Cancel();
         }
 
         protected override void OnFinish() {}
@@ -85,7 +80,7 @@ namespace Core.Common.Base.Service
 
             importer.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName); };
 
-            importer.ImportItem(fileName, target);
+            importer.Import(fileName, target);
         }
     }
 }
