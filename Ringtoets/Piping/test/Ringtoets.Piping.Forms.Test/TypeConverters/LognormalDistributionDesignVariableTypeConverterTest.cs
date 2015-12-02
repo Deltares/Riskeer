@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual(typeof(string), distributionTypePropertyDescriptor.PropertyType);
             Assert.IsTrue(distributionTypePropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Type verdeling", distributionTypePropertyDescriptor.DisplayName);
-            Assert.AreEqual("De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.", distributionTypePropertyDescriptor.Description);
+            Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypePropertyDescriptor.Description);
             Assert.AreEqual("DistributionType", distributionTypePropertyDescriptor.Name);
             Assert.AreEqual("Lognormaal", distributionTypePropertyDescriptor.GetValue(new object()));
 
