@@ -149,7 +149,7 @@
     <value>Pad</value>
   </data>
   <data name="UrlProperties_Path_Description" xml:space="preserve">
-    <value>Locatie waarnaar de URL naar verwijst.</value>
+    <value>Locatie waar de URL naar verwijst.</value>
   </data>
   <data name="TextDocumentProperties_DisplayName" xml:space="preserve">
     <value>Tekstdocument</value>

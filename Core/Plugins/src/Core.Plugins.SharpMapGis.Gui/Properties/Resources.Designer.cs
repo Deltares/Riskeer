@@ -685,6 +685,15 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shape-bestand (*.shp)|*.shp.
+        /// </summary>
+        public static string MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter {
+            get {
+                return ResourceManager.GetString("MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan met dit bestand ({0}) geen lagen aanmaken: {1}.
         /// </summary>
         public static string MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s_from_file_0_1_ {

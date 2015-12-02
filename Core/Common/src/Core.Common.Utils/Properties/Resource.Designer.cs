@@ -90,7 +90,7 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod heeft een incorrecte aantal argumenten. Zou er één moeten zijn. Klasse: {0}.
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.
         /// </summary>
         internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_ {
             get {
@@ -207,7 +207,7 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geprobeerd het kenmerk in de beschikbare spatiele data te vervangen, maar kon kenmerk niet vinden in de oorspronkelijke context: {0}..
+        ///   Looks up a localized string similar to Geprobeerd het kenmerk in de beschikbare spatiale data te vervangen, maar kon kenmerk niet vinden in de oorspronkelijke context: {0}..
         /// </summary>
         internal static string ObjectHelper_CouldNotFindFeatureInOriginalContext {
             get {

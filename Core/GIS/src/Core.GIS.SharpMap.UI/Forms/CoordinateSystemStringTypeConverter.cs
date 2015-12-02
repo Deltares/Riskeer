@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using Core.GIS.SharpMap.UI.Properties;
 
 namespace Core.GIS.SharpMap.UI.Forms
 {
@@ -13,7 +14,7 @@ namespace Core.GIS.SharpMap.UI.Forms
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            return value != null ? value.ToString() : "<empty>";
+            return value != null ? value.ToString() : Resources.CoordinateSystemStringTypeConverter_ConvertTo_empty;
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)

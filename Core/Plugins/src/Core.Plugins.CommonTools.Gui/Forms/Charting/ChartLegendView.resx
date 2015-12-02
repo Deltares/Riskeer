@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+    <value>17, 17</value>
+  </data>
   <data name="toolStripButtonStackSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
@@ -128,7 +128,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonStackSeries.Text" xml:space="preserve">
-    <value>Stapel/stapelen grafiekreeks van hetzelfde type (werkt niet voor bar serie)</value>
+    <value>Stapel/stapelen grafiekreeks van hetzelfde type (werkt niet voor barserie)</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
@@ -140,7 +140,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonAreaSeries.Text" xml:space="preserve">
-    <value>Serie omzetten naar vlak serie</value>
+    <value>Serie omzetten naar vlakserie</value>
   </data>
   <data name="toolStripButtonLineSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -149,7 +149,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonLineSeries.Text" xml:space="preserve">
-    <value>Serie omzetten naar lijn serie</value>
+    <value>Serie omzetten naar lijnserie</value>
   </data>
   <data name="toolStripButtonPointSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -158,7 +158,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonPointSeries.Text" xml:space="preserve">
-    <value>Converteer serie naar punt serie</value>
+    <value>Converteer serie naar puntserie</value>
   </data>
   <data name="toolStripButtonBarSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -167,7 +167,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonBarSeries.Text" xml:space="preserve">
-    <value>Converteer serie naar bar serie</value>
+    <value>Converteer serie naar barserie</value>
   </data>
   <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -225,9 +225,9 @@
   <data name="&gt;&gt;treeView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>

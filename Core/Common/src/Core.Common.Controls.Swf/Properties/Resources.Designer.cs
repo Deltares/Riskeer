@@ -945,7 +945,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenchap van een TreeView heeft toegevoegd..
+        ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenschap van een TreeView heeft toegevoegd..
         /// </summary>
         internal static string TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView {
             get {
@@ -955,7 +955,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse..
+        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse..
         /// </summary>
         internal static string TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class {
             get {
@@ -967,7 +967,7 @@ namespace Core.Common.Controls.Swf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. 
         ///
-        ///Error:
+        ///Fout:
         ///{0}.
         /// </summary>
         internal static string WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_ {

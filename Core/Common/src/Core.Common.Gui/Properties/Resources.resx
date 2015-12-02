@@ -264,7 +264,7 @@
     <value>Standaardschermen aan het maken...</value>
   </data>
   <data name="RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
-    <value>Kritieke fout opgetrede tijdens deactivering van de grafische interface plugin.</value>
+    <value>Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.</value>
   </data>
   <data name="ProgressDialog_SetButtonState_Cancelling" xml:space="preserve">
     <value>Annuleren...</value>
@@ -387,7 +387,7 @@
     <value>..\Resources\application_form.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RichTextView_RichTextView_The_license_file_0_cannot_be_found_on_the_computer" xml:space="preserve">
-    <value>Het licentie bestand {0} niet kan worden gevonden op de computer.</value>
+    <value>Het licentie bestand {0} kan niet worden gevonden op de computer.</value>
   </data>
   <data name="RingtoetsGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
     <value>Maken van standaardschermen beëindigd</value>
@@ -657,7 +657,7 @@
     <value>Opmaak resetten na opnieuw opstarten</value>
   </data>
   <data name="MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log" xml:space="preserve">
-    <value>Controleer logboekbestand voor meer informatie ("Home"-&gt; "Show Log").</value>
+    <value>Controleer logbestand voor meer informatie ("Bestand"-&gt;"Help"-&gt;"Log tonen").</value>
   </data>
   <data name="WebInsertHyperlinkHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WebInsertHyperlinkHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -753,7 +753,7 @@
     <value>Type verdeling</value>
   </data>
   <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
-    <value>De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.</value>
+    <value>De soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
   </data>
   <data name="DesignVariableTypeConverter_DesignValue_DisplayName" xml:space="preserve">
     <value>Rekenwaarde</value>
@@ -898,5 +898,14 @@
   </data>
   <data name="NodePresenter_ContextMenuBuilderProvider_required" xml:space="preserve">
     <value>Voor het aanmaken van knopen in de boom is een ContextMenuBuilderProvider nodig.</value>
+  </data>
+  <data name="PropertyGridView_Order_Alphabetically" xml:space="preserve">
+    <value>Alfabetisch</value>
+  </data>
+  <data name="PropertyGridView_Order_Categorized" xml:space="preserve">
+    <value>Gecategoriseerd</value>
+  </data>
+  <data name="MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter" xml:space="preserve">
+    <value>Shape-bestand (*.shp)|*.shp</value>
   </data>
 </root>

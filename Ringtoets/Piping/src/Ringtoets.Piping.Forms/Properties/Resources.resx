@@ -131,7 +131,7 @@
     <value>Toetspeil [m+NAP]</value>
   </data>
   <data name="PipingInput_BeddingAngle_Description" xml:space="preserve">
-    <value>Hoek in het krachtenevenwicht die aangeeft hoeveel de korrels weerstand bieden tegen rollen; ook beddingshoek genoemd.</value>
+    <value>Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.</value>
   </data>
   <data name="PipingInput_BeddingAngle_DisplayName" xml:space="preserve">
     <value>Rolweerstandshoek [º]</value>
@@ -173,7 +173,7 @@
     <value>Valversnelling [m/s²]</value>
   </data>
   <data name="PipingInput_MeanDiameter70_Description" xml:space="preserve">
-    <value>gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.</value>
+    <value>Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.</value>
   </data>
   <data name="PipingInput_MeanDiameter70_DisplayName" xml:space="preserve">
     <value>Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]</value>
@@ -200,7 +200,7 @@
     <value>Piping</value>
   </data>
   <data name="PipingInput_SandParticlesVolumicWeight_Description" xml:space="preserve">
-    <value>Het (ondergedempelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
+    <value>Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
   </data>
   <data name="PipingInput_SandParticlesVolumicWeight_DisplayName" xml:space="preserve">
     <value>Volumiek gewicht van de zandkorrels onder water [kN/m³]</value>
@@ -386,7 +386,7 @@
     <value>Topniveaus</value>
   </data>
   <data name="PipingInput_SoilProfile_Description" xml:space="preserve">
-    <value>De ondergrondschematisering dat voor de piping berekening gebruikt wordt.</value>
+    <value>De ondergrondschematisering die voor de piping berekening gebruikt wordt.</value>
   </data>
   <data name="PipingInput_SoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisering</value>

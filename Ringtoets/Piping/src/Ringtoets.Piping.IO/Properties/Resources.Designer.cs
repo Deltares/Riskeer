@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regel bevat teveel tekst om in het RAM geheugen opgeslagen te worden..
+        ///   Looks up a localized string similar to Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden..
         /// </summary>
         public static string Error_Line_too_big_for_RAM {
             get {

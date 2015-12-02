@@ -762,7 +762,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De soort kansverdeling waarin deze parameter in gedefiniëerd wordt..
+        ///   Looks up a localized string similar to De soort kansverdeling waarin deze parameter gedefinieerd wordt..
         /// </summary>
         public static string DesignVariableTypeConverter_DistributionType_Description {
             get {
@@ -1484,6 +1484,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shape-bestand (*.shp)|*.shp.
+        /// </summary>
+        public static string MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter {
+            get {
+                return ResourceManager.GetString("MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berichten.
         /// </summary>
         public static string Messages {
@@ -1511,7 +1520,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controleer logboekbestand voor meer informatie (&quot;Home&quot;-&gt; &quot;Show Log&quot;)..
+        ///   Looks up a localized string similar to Controleer logbestand voor meer informatie (&quot;Bestand&quot;-&gt;&quot;Help&quot;-&gt;&quot;Log tonen&quot;)..
         /// </summary>
         public static string MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log {
             get {
@@ -1826,6 +1835,24 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alfabetisch.
+        /// </summary>
+        public static string PropertyGridView_Order_Alphabetically {
+            get {
+                return ResourceManager.GetString("PropertyGridView_Order_Alphabetically", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gecategoriseerd.
+        /// </summary>
+        public static string PropertyGridView_Order_Categorized {
+            get {
+                return ResourceManager.GetString("PropertyGridView_Order_Categorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap RelationshipsHS {
@@ -2053,7 +2080,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het licentie bestand {0} niet kan worden gevonden op de computer..
+        ///   Looks up a localized string similar to Het licentie bestand {0} kan niet worden gevonden op de computer..
         /// </summary>
         public static string RichTextView_RichTextView_The_license_file_0_cannot_be_found_on_the_computer {
             get {
@@ -2081,7 +2108,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritieke fout opgetrede tijdens deactivering van de grafische interface plugin..
+        ///   Looks up a localized string similar to Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin..
         /// </summary>
         public static string RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation {
             get {

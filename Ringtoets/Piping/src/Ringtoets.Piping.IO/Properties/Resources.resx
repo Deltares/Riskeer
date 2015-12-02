@@ -124,7 +124,7 @@
     <value>Het bestandspad verwijst naar een map die niet bestaat.</value>
   </data>
   <data name="Error_Line_too_big_for_RAM" xml:space="preserve">
-    <value>Regel bevat teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
+    <value>Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden.</value>
   </data>
   <data name="Error_File_does_not_exist" xml:space="preserve">
     <value>Het bestand bestaat niet.</value>

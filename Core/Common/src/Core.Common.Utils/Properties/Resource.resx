@@ -121,7 +121,7 @@
     <value>tot</value>
   </data>
   <data name="ObjectHelper_CouldNotFindFeatureInOriginalContext" xml:space="preserve">
-    <value>Geprobeerd het kenmerk in de beschikbare spatiele data te vervangen, maar kon kenmerk niet vinden in de oorspronkelijke context: {0}.</value>
+    <value>Geprobeerd het kenmerk in de beschikbare spatiale data te vervangen, maar kon kenmerk niet vinden in de oorspronkelijke context: {0}.</value>
   </data>
   <data name="EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0" xml:space="preserve">
     <value>Parameter 'GroupSize' moet groter zijn dan 0.</value>
@@ -142,7 +142,7 @@
     <value>DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}</value>
   </data>
   <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_" xml:space="preserve">
-    <value>DynamicReadOnlyValidationMethod heeft een incorrecte aantal argumenten. Zou er één moeten zijn. Klasse: {0}</value>
+    <value>DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}</value>
   </data>
   <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_" xml:space="preserve">
     <value>Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {0}</value>

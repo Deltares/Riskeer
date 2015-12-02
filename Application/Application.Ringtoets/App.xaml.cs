@@ -145,7 +145,7 @@ namespace Application.Ringtoets
                 SupportEmailAddress = "support@deltaressystems.nl",
                 SupportPhoneNumber = "+31 (0)88 335 8100",
                 Copyright = "© Deltares 2015",
-                LicenseDescription = "Free",
+                LicenseDescription = "Gratis",
                 MainWindowTitle = "Ringtoets",
                 LicenseFilePath = "License.rtf",
                 ManualFilePath = "Ringtoets_Manual.pdf"

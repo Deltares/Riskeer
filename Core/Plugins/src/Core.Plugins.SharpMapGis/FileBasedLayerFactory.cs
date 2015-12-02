@@ -11,8 +11,6 @@ namespace Core.Plugins.SharpMapGis
     /// </summary>
     public static class FileBasedLayerFactory
     {
-        public const string SupportedFormats = "Shapefile (*.shp)|*.shp";
-
         public static IEnumerable<ILayer> CreateLayersFromFile(string path)
         {
             string fileName = Path.GetFileNameWithoutExtension(path);

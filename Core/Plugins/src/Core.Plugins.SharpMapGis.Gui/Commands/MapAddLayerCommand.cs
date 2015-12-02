@@ -25,7 +25,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = FileBasedLayerFactory.SupportedFormats,
+                Filter = Resources.MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter,
                 CheckFileExists = true,
                 Multiselect = true
             };

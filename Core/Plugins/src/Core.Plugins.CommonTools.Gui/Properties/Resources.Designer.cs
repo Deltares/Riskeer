@@ -1580,7 +1580,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie waarnaar de URL naar verwijst..
+        ///   Looks up a localized string similar to Locatie waar de URL naar verwijst..
         /// </summary>
         public static string UrlProperties_Path_Description {
             get {

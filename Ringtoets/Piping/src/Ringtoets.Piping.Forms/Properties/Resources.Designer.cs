@@ -426,7 +426,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel de korrels weerstand bieden tegen rollen; ook beddingshoek genoemd..
+        ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd..
         /// </summary>
         public static string PipingInput_BeddingAngle_Description {
             get {
@@ -552,7 +552,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
+        ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
         /// </summary>
         public static string PipingInput_MeanDiameter70_Description {
             get {
@@ -624,7 +624,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het (ondergedempelde) volumegewicht van zandkorrelmateriaal van een zandlaag..
+        ///   Looks up a localized string similar to Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag..
         /// </summary>
         public static string PipingInput_SandParticlesVolumicWeight_Description {
             get {
@@ -696,7 +696,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ondergrondschematisering dat voor de piping berekening gebruikt wordt..
+        ///   Looks up a localized string similar to De ondergrondschematisering die voor de piping berekening gebruikt wordt..
         /// </summary>
         public static string PipingInput_SoilProfile_Description {
             get {

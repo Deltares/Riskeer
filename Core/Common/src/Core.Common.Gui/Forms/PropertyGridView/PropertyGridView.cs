@@ -25,6 +25,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         {
             HideTabsButton();
             FixDescriptionArea();
+            TranslateToolTips();
 
             PropertySort = PropertySort.Categorized;
 
@@ -238,6 +239,13 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
             strip.Items[3].Visible = false;
             strip.Items[4].Visible = false;
+        }
+
+        private void TranslateToolTips()
+        {
+            var strip = Controls.OfType<ToolStrip>().ToList()[0];
+            strip.Items[0].ToolTipText = Resources.PropertyGridView_Order_Categorized;
+            strip.Items[1].ToolTipText = Resources.PropertyGridView_Order_Alphabetically;
         }
 
         /// <summary>

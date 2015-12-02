@@ -749,4 +749,7 @@
   <data name="Ribbon_Map_MeasureDistance_ToolTip" xml:space="preserve">
     <value>Meet afstand door het tekenen van een polylijn.</value>
   </data>
+  <data name="MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter" xml:space="preserve">
+    <value>Shape-bestand (*.shp)|*.shp</value>
+  </data>
 </root>

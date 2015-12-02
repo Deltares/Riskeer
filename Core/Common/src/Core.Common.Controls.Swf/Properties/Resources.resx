@@ -238,7 +238,7 @@ verticaal: {1}</value>
     <value>Weet u zeker dat u het volgende item wilt verwijderen: {0}</value>
   </data>
   <data name="TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView" xml:space="preserve">
-    <value>Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenchap van een TreeView heeft toegevoegd.</value>
+    <value>Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenschap van een TreeView heeft toegevoegd.</value>
   </data>
   <data name="ChartView_TeeChartBeforeDraw_Can_not_draw_chart" xml:space="preserve">
     <value>Kan diagram niet tekenen.</value>
@@ -299,14 +299,14 @@ verticaal: {1}</value>
   <data name="WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_" xml:space="preserve">
     <value>Er is een fout opgetreden. Verifieer de invoer alstublieft. 
 
-Error:
+Fout:
 {0}</value>
   </data>
   <data name="WizardDialog_WizardControl1NextClick_Error_occurred" xml:space="preserve">
     <value>Fout opgetreden</value>
   </data>
   <data name="TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class" xml:space="preserve">
-    <value>OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse.</value>
+    <value>OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse.</value>
   </data>
   <data name="TreeViewController_TreeViewController_Tree_view_can_t_be_null" xml:space="preserve">
     <value>Structuurweergave mag niet leeg zijn.</value>
