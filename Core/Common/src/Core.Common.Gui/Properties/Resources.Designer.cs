@@ -762,7 +762,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De soort kansverdeling waarin deze parameter gedefinieerd wordt..
+        ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
         /// </summary>
         public static string DesignVariableTypeConverter_DistributionType_Description {
             get {
