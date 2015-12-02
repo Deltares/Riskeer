@@ -4,12 +4,12 @@ using Core.Common.Base.IO;
 namespace Core.Common.Base.Plugin
 {
     /// <summary>
-    /// Template class for application plugin definitions.
+    /// Class that provides application plugin objects (file importers, file exporters and data items).
     /// </summary>
     public abstract class ApplicationPlugin
     {
         /// <summary>
-        /// Activates the application plugin.
+        /// This method activates the <see cref="ApplicationPlugin"/>.
         /// </summary>
         public virtual void Activate()
         {
@@ -17,7 +17,7 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// Deactivates the application plugin.
+        /// This method deactivates the <see cref="ApplicationPlugin"/>.
         /// </summary>
         public virtual void Deactivate()
         {
@@ -25,24 +25,27 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// File importers which can be provided by the application plugin.
+        /// This method returns a collection of <see cref="IFileImporter"/>.
         /// </summary>
+        /// <returns>The collection of <see cref="IFileImporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
         public virtual IEnumerable<IFileImporter> GetFileImporters()
         {
             yield break;
         }
 
         /// <summary>
-        /// File exporters which can be provided by the application plugin.
+        /// This method returns a collection of <see cref="IFileExporter"/>.
         /// </summary>
+        /// <returns>The collection of <see cref="IFileExporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
         {
             yield break;
         }
 
         /// <summary>
-        /// Data items which can be provided by the application plugin.
+        /// This method returns a collection of <see cref="DataItemInfo"/>.
         /// </summary>
+        /// <returns>The collection of <see cref="DataItemInfo"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
         public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield break;

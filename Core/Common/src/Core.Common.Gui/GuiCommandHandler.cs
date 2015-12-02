@@ -392,11 +392,6 @@ namespace Core.Common.Gui
                 selectDataDialog.AddItemType(dataItemInfo.Name, dataItemInfo.Category, dataItemInfo.Image, dataItemInfo);
             }
 
-            if (dataItemInfos.Any())
-            {
-                selectDataDialog.ItemSupportsExample = name => dataItemInfos.First(i => i.Name == name).AddExampleData != null;
-            }
-
             return selectDataDialog;
         }
 
@@ -422,14 +417,7 @@ namespace Core.Common.Gui
                 return null;
             }
 
-            var newDataObject = dataItemInfo.CreateData != null ? dataItemInfo.CreateData(parent) : null;
-
-            if (selectDataDialog.IsExample)
-            {
-                dataItemInfo.AddExampleData(newDataObject);
-            }
-
-            return newDataObject;
+            return dataItemInfo.CreateData != null ? dataItemInfo.CreateData(parent) : null;
         }
 
         public void AddItemToProject(object newItem)

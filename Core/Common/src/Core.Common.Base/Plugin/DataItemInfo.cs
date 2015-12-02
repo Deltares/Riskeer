@@ -4,57 +4,50 @@ using System.Drawing;
 namespace Core.Common.Base.Plugin
 {
     /// <summary>
-    /// Information for creating data objects
+    /// Class that holds information for creating data objects.
     /// </summary>
     public class DataItemInfo
     {
         /// <summary>
-        /// The type of data to create
+        /// Gets or sets the <see cref="Type"/> of the data to create.
         /// </summary>
         public Type ValueType { get; set; }
 
         /// <summary>
-        /// The name of the data to create
+        /// Gets or sets the name of the data to create.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The category of the data to create
+        /// Gets or sets the category of the data to create.
         /// </summary>
         public string Category { get; set; }
 
         /// <summary>
-        /// The image of the data to create
+        /// Gets or sets the image of the data to create.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Method for determining whether or not the data item information is relevant for the proposed owner
+        /// Gets or set a method for determining whether or not the data item information is relevant for the proposed owner.
         /// </summary>
         public Func<object, bool> AdditionalOwnerCheck { get; set; }
 
         /// <summary>
-        /// Function for creating the data
+        /// Gets or set a function for creating the data.
+        /// The object parameter holds the proposed owner of the data to create.
         /// </summary>
-        /// <remarks>
-        /// The object parameter holds the proposed owner of the data to create 
-        /// </remarks>
         public Func<object, object> CreateData { get; set; }
-
-        /// <summary>
-        /// Action for adding example data to the created data
-        /// </summary>
-        public Action<object> AddExampleData { get; set; }
     }
 
     /// <summary>
-    /// Information for creating data objects
+    /// Class that holds information for creating data objects.
     /// </summary>
-    /// <typeparam name="TValue">The type of data to create</typeparam>
+    /// <typeparam name="TValue">The type of data to create.</typeparam>
     public class DataItemInfo<TValue>
     {
         /// <summary>
-        /// The type of data to create
+        /// Gets the <see cref="Type"/> of the data to create.
         /// </summary>
         public Type ValueType
         {
@@ -65,38 +58,36 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// The name of the data to create
+        /// Gets or sets the name of the data to create.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The category of the data to create
+        /// Gets or sets the category of the data to create.
         /// </summary>
         public string Category { get; set; }
 
         /// <summary>
-        /// The image of the data to create
+        /// Gets or sets the image of the data to create.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Method for determining whether or not the data item information is relevant for the proposed owner
+        /// Gets or set a method for determining whether or not the data item information is relevant for the proposed owner.
         /// </summary>
         public Func<object, bool> AdditionalOwnerCheck { get; set; }
 
         /// <summary>
-        /// Function for creating the data
+        /// Gets or set a function for creating the data.
+        /// The object parameter holds the proposed owner of the data to create.
         /// </summary>
-        /// <remarks>
-        /// The object parameter holds the proposed owner of the data to create 
-        /// </remarks>
         public Func<object, TValue> CreateData { get; set; }
 
         /// <summary>
-        /// Action for adding example data to the created data
+        /// This operator converts a <see cref="DataItemInfo{TValue}"/> into a <see cref="DataItemInfo"/>.
         /// </summary>
-        public Action<TValue> AddExampleData { get; set; }
-
+        /// <param name="dataItemInfo">The <see cref="DataItemInfo{TValue}"/> to convert.</param>
+        /// <returns>The converted <see cref="DataItemInfo"/>.</returns>
         public static implicit operator DataItemInfo(DataItemInfo<TValue> dataItemInfo)
         {
             return new DataItemInfo
@@ -110,10 +101,7 @@ namespace Core.Common.Base.Plugin
                                            : (Func<object, bool>) null,
                 CreateData = dataItemInfo.CreateData != null
                                  ? owner => dataItemInfo.CreateData(owner)
-                                 : (Func<object, object>) null,
-                AddExampleData = dataItemInfo.AddExampleData != null
-                                     ? d => dataItemInfo.AddExampleData((TValue) d)
-                                     : (Action<object>) null
+                                 : (Func<object, object>) null
             };
         }
     }

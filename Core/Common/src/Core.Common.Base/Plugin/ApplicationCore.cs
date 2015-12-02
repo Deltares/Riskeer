@@ -6,15 +6,26 @@ using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Base.Plugin
 {
+    /// <summary>
+    /// Class that manages <see cref="ApplicationPlugin"/> plugins and exposes their contents (file importers, file exporters and data items).
+    /// </summary>
     public class ApplicationCore : IDisposable
     {
         private readonly List<ApplicationPlugin> plugins;
 
+        /// <summary>
+        /// Constructs a new <see cref="ApplicationCore"/>.
+        /// </summary>
         public ApplicationCore()
         {
             plugins = new List<ApplicationPlugin>();
         }
 
+        /// <summary>
+        /// This method adds <see cref="applicationPlugin"/> to the collection of <see cref="ApplicationPlugin"/> plugins.
+        /// Additionally, the provided <see cref="ApplicationPlugin"/> is activated.
+        /// </summary>
+        /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to add and activate.</param>
         public void AddPlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Add(applicationPlugin);
@@ -22,6 +33,11 @@ namespace Core.Common.Base.Plugin
             applicationPlugin.Activate();
         }
 
+        /// <summary>
+        /// This method removes <see cref="applicationPlugin"/> from the collection of <see cref="ApplicationPlugin"/> plugins.
+        /// Additionally, the provided <see cref="ApplicationPlugin"/> is deactivated.
+        /// </summary>
+        /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to remove and deactivate.</param>
         public void RemovePlugin(ApplicationPlugin applicationPlugin)
         {
             plugins.Remove(applicationPlugin);
@@ -29,14 +45,11 @@ namespace Core.Common.Base.Plugin
             applicationPlugin.Deactivate();
         }
 
-        public virtual void Dispose()
-        {
-            foreach (var plugin in plugins.ToList())
-            {
-                RemovePlugin(plugin);
-            }
-        }
-
+        /// <summary>
+        /// This method returns a collection of <see cref="IFileImporter"/> that support the <paramref name="target"/>.
+        /// </summary>
+        /// <param name="target">The target to get the collection of supported <see cref="IFileImporter"/> for.</param>
+        /// <returns>The collection of supported <see cref="IFileImporter"/>.</returns>
         public IEnumerable<IFileImporter> GetSupportedFileImporters(object target)
         {
             if (target == null)
@@ -51,6 +64,11 @@ namespace Core.Common.Base.Plugin
                                                  && fileImporter.CanImportFor(target));
         }
 
+        /// <summary>
+        /// This method returns a collection of <see cref="IFileExporter"/> that support the <paramref name="source"/>.
+        /// </summary>
+        /// <param name="source">The source to get the collection of supported <see cref="IFileExporter"/> for.</param>
+        /// <returns>The collection of supported <see cref="IFileExporter"/>.</returns>
         public IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
         {
             if (source == null)
@@ -65,6 +83,11 @@ namespace Core.Common.Base.Plugin
                                                  && fileExporter.CanExportFor(source));
         }
 
+        /// <summary>
+        /// This method returns a collection of <see cref="DataItemInfo"/> that support the <paramref name="target"/>.
+        /// </summary>
+        /// <param name="target">The target to get the collection of supported <see cref="DataItemInfo"/> for.</param>
+        /// <returns>The collection of supported <see cref="DataItemInfo"/>.</returns>
         public IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object target)
         {
             if (target == null)
@@ -74,6 +97,14 @@ namespace Core.Common.Base.Plugin
 
             return plugins.SelectMany(p => p.GetDataItemInfos())
                           .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(target));
+        }
+
+        public virtual void Dispose()
+        {
+            foreach (var plugin in plugins.ToList())
+            {
+                RemovePlugin(plugin);
+            }
         }
     }
 }

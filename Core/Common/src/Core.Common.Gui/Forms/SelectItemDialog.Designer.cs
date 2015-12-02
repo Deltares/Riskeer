@@ -37,7 +37,6 @@ namespace Core.Common.Gui.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.listViewItemTypes = new System.Windows.Forms.ListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.checkBoxExample = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -83,7 +82,6 @@ namespace Core.Common.Gui.Forms
             this.listViewItemTypes.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewItemTypes.UseCompatibleStateImageBehavior = false;
             this.listViewItemTypes.View = System.Windows.Forms.View.Tile;
-            this.listViewItemTypes.SelectedIndexChanged += new System.EventHandler(this.listViewItemTypes_SelectedIndexChanged);
             this.listViewItemTypes.DoubleClick += new System.EventHandler(this.listViewItemTypes_DoubleClick);
             // 
             // imageList
@@ -94,20 +92,12 @@ namespace Core.Common.Gui.Forms
             this.imageList.Images.SetKeyName(1, "chart_curve.png");
             this.imageList.Images.SetKeyName(2, "map.png");
             // 
-            // checkBoxExample
-            // 
-            resources.ApplyResources(this.checkBoxExample, "checkBoxExample");
-            this.checkBoxExample.Name = "checkBoxExample";
-            this.checkBoxExample.UseVisualStyleBackColor = true;
-            this.checkBoxExample.CheckedChanged += new System.EventHandler(this.checkBoxDemo_CheckedChanged);
-            // 
             // SelectItemDialog
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.Controls.Add(this.checkBoxExample);
             this.Controls.Add(this.listViewItemTypes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCancel);
@@ -130,6 +120,5 @@ namespace Core.Common.Gui.Forms
         private System.Windows.Forms.Label label1;
         private ListView listViewItemTypes;
         private System.Windows.Forms.ImageList imageList;
-        private CheckBox checkBoxExample;
     }
 }

@@ -12,15 +12,9 @@ namespace Core.Common.Gui.Forms
 {
     public partial class SelectItemDialog : Form
     {
-        private string newItemName;
-
-        private int previousSelectedItemIndex;
-
         public SelectItemDialog()
         {
             InitializeComponent();
-
-            ShowExampleCheckBox = false;
 
             imageList.Images.Clear();
             listViewItemTypes.Clear();
@@ -46,32 +40,6 @@ namespace Core.Common.Gui.Forms
             get
             {
                 return SelectedItem != null ? SelectedItem.Name : null;
-            }
-        }
-
-        public Func<string, bool> ItemSupportsExample { get; set; }
-
-        public bool IsExample
-        {
-            get
-            {
-                return checkBoxExample.Checked;
-            }
-            set
-            {
-                checkBoxExample.Checked = value;
-            }
-        }
-
-        public bool ShowExampleCheckBox
-        {
-            get
-            {
-                return checkBoxExample.Visible;
-            }
-            set
-            {
-                checkBoxExample.Visible = value;
             }
         }
 
@@ -157,33 +125,5 @@ namespace Core.Common.Gui.Forms
         {
             buttonOk.PerformClick();
         }
-
-        private void listViewItemTypes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var selectedItemName = "";
-
-            if (SelectedItem == null)
-            {
-                newItemName = "";
-            }
-            else
-            {
-                previousSelectedItemIndex = listViewItemTypes.SelectedIndices[0];
-
-                selectedItemName = SelectedItem.Text;
-                newItemName = Resources.SelectItemDialog_listViewItemTypes_SelectedIndexChanged_New + selectedItemName;
-            }
-
-            if (string.IsNullOrEmpty(newItemName))
-            {
-                ShowExampleCheckBox = false;
-            }
-            else if (ItemSupportsExample != null)
-            {
-                ShowExampleCheckBox = ItemSupportsExample(selectedItemName);
-            }
-        }
-
-        private void checkBoxDemo_CheckedChanged(object sender, EventArgs e) {}
     }
 }

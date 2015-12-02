@@ -43,7 +43,6 @@ namespace Ringtoets.Integration.Plugin.Test
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
             Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSectionDataItemDefinition.CreateData(new Project()));
-            Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AddExampleData);
 
             DataItemInfo duneAssessmentDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DuneAssessmentSection));
             Assert.AreEqual("Duintraject", duneAssessmentDataItemDefinition.Name);
@@ -51,7 +50,6 @@ namespace Ringtoets.Integration.Plugin.Test
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, duneAssessmentDataItemDefinition.Image);
             Assert.IsNull(duneAssessmentDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(new Project()));
-            Assert.IsNull(duneAssessmentDataItemDefinition.AddExampleData);
         }
 
         [Test]
