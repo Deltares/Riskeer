@@ -1,48 +1,37 @@
 namespace Core.Common.Base.Service
 {
     /// <summary>
-    /// Defines possible states of the activity.
+    /// Enumeration that defines the possible states of an <see cref="Activity"/>.
     /// </summary>
     public enum ActivityStatus
     {
         /// <summary>
-        /// Activity has been just created and not used yet.
+        /// The state of an <see cref="Activity"/> that has been just created and is not used yet.
         /// </summary>
         None,
 
         /// <summary>
-        /// Activity is currently executing.
-        /// </summary>
-        Executing,
-
-        /// <summary>
-        /// Activity has executed.
+        /// The state of an <see cref="Activity"/> that is successfully ran.
+        /// <seealso cref="Activity.Run"/>
         /// </summary>
         Executed,
 
         /// <summary>
-        /// Activity is finishing.
-        /// </summary>
-        Finishing,
-
-        /// <summary>
-        /// Activity has finished successfully.
-        /// </summary>
-        Finished,
-
-        /// <summary>
-        /// Activity has run but failed to complete.
+        /// The state of an <see cref="Activity"/> that is not successfully ran.
+        /// <seealso cref="Activity.Run"/>
         /// </summary>
         Failed,
 
         /// <summary>
-        /// Activite execution is being cancelled.
+        /// The state of an <see cref="Activity"/> that has been cancelled.
+        /// <seealso cref="Activity.Cancel"/>
         /// </summary>
-        Cancelling,
+        Cancelled,
 
         /// <summary>
-        /// Activity execution has been cancelled.
+        /// The state of an <see cref="Activity"/> that is successfully finished.
+        /// <seealso cref="Activity.Finish"/>
         /// </summary>
-        Cancelled
+        Finished
     }
 }

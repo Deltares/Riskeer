@@ -7,7 +7,7 @@ namespace Core.Common.Base.Service
 {
     /// <summary>
     /// Abstract class that can be used for performing activies (like calculations, data imports, data exports, etc.).
-    /// The regular workflow for completely performing an <see cref="Activity"/> is: <see cref="Execute"/> -> <see cref="Finish"/>.
+    /// The regular workflow for completely performing an <see cref="Activity"/> is: <see cref="Run"/> -> <see cref="Finish"/>.
     /// <see cref="Cancel"/> can be called for cancelling a running <see cref="Activity"/>.
     /// </summary>
     public abstract class Activity
@@ -65,8 +65,6 @@ namespace Core.Common.Base.Service
         {
             try
             {
-                Status = ActivityStatus.Executing;
-
                 OnExecute();
 
                 if (Status == ActivityStatus.Failed ||
@@ -98,7 +96,7 @@ namespace Core.Common.Base.Service
         /// </summary>
         public void Cancel()
         {
-            ChangeState(OnCancel, ActivityStatus.Cancelling, ActivityStatus.Cancelled);
+            ChangeState(OnCancel, ActivityStatus.Cancelled);
         }
 
         /// <summary>
@@ -109,7 +107,7 @@ namespace Core.Common.Base.Service
         {
             if (Status != ActivityStatus.Failed && Status != ActivityStatus.Cancelled)
             {
-                ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
+                ChangeState(OnFinish, ActivityStatus.Finished);
             }
         }
 
@@ -144,11 +142,10 @@ namespace Core.Common.Base.Service
             }
         }
 
-        private void ChangeState(Action transitionAction, ActivityStatus statusBefore, ActivityStatus statusAfter)
+        private void ChangeState(Action transitionAction, ActivityStatus statusAfter)
         {
             try
             {
-                Status = statusBefore;
                 transitionAction();
 
                 if (Status == ActivityStatus.Failed)
