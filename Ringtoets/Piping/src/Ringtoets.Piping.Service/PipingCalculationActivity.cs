@@ -35,6 +35,7 @@ namespace Ringtoets.Piping.Service
             }
             else
             {
+                LogMessages.Clear();
                 calculation.Output = null;
             }
         }

@@ -59,7 +59,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     {
                         if (RunReportLogAppender.Instance != null)
                         {
-                            RunReportLogAppender.Instance.AppendMessageLineAction = message => runningActivity.Log += message;
+                            RunReportLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);
                         }
 
                         runningActivity.ProgressChanged += ActivityOnProgressChanged;
