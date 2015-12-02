@@ -163,7 +163,7 @@
     <value>Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry" xml:space="preserve">
-    <value>Profielmeting heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokale coördinatenstelsel).</value>
+    <value>Profielmeting heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
     <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>

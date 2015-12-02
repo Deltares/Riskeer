@@ -251,7 +251,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielmeting heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokale coördinatenstelsel)..
+        ///   Looks up a localized string similar to Profielmeting heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel)..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry {
             get {
