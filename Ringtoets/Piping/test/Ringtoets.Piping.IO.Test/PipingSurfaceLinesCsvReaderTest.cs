@@ -570,7 +570,7 @@ namespace Ringtoets.Piping.IO.Test
         public void ReadLine_LineWithoutMonotonicallyIncreasingLCoordinates_ThrowLineParseException()
         {
             // Setup
-            string path = Path.Combine(testDataPath, "InvalidRow_NotMonotinocallyIncreasingLCoordinates.csv");
+            string path = Path.Combine(testDataPath, "InvalidRow_NotMonotonicallyIncreasingLCoordinates.csv");
 
             // Precondition
             Assert.IsTrue(File.Exists(path));
