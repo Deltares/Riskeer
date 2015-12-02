@@ -63,32 +63,12 @@ namespace Core.Common.Base.Service
         /// </summary>
         public void Run()
         {
-            try
-            {
-                OnExecute();
-
-                if (Status == ActivityStatus.Failed ||
-                    Status == ActivityStatus.Cancelled)
-                {
-                    // keep this status
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                Status = ActivityStatus.Failed;
-                log.Error(e.Message);
-                return;
-            }
+            ChangeState(OnExecute, ActivityStatus.Executed);
 
             if (Status == ActivityStatus.Failed)
             {
                 log.ErrorFormat(Resources.Activity_Run_Execution_of_0_has_failed, Name);
-
-                return;
             }
-
-            Status = ActivityStatus.Executed;
         }
 
         /// <summary>
@@ -97,6 +77,8 @@ namespace Core.Common.Base.Service
         public void Cancel()
         {
             ChangeState(OnCancel, ActivityStatus.Cancelled);
+
+            log.WarnFormat(Resources.Activity_Run_Execution_of_0_has_been_canceled, Name);
         }
 
         /// <summary>
@@ -123,16 +105,16 @@ namespace Core.Common.Base.Service
         protected abstract void OnExecute();
 
         /// <summary>
-        /// Activity has finished successfully. After calling this method, <see cref="Status"/> 
-        /// will be set to <see cref="ActivityStatus.Finished"/> if no error has occurred.
-        /// </summary>
-        protected abstract void OnFinish();
-
-        /// <summary>
         /// Cancels current run. <see cref="Status"/> will change to <see cref="ActivityStatus.Cancelled"/>
         /// after this method has been called.
         /// </summary>
         protected abstract void OnCancel();
+
+        /// <summary>
+        /// Activity has finished successfully. After calling this method, <see cref="Status"/> 
+        /// will be set to <see cref="ActivityStatus.Finished"/> if no error has occurred.
+        /// </summary>
+        protected abstract void OnFinish();
 
         private void OnProgressChanged()
         {
@@ -148,7 +130,7 @@ namespace Core.Common.Base.Service
             {
                 transitionAction();
 
-                if (Status == ActivityStatus.Failed)
+                if (Status == ActivityStatus.Failed || Status == ActivityStatus.Cancelled)
                 {
                     return;
                 }
@@ -157,6 +139,7 @@ namespace Core.Common.Base.Service
             {
                 Status = ActivityStatus.Failed;
                 log.Error(e.Message);
+
                 return;
             }
 

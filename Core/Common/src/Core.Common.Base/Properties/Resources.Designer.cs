@@ -61,7 +61,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoering van {0} is geannuleerd..
+        ///   Looks up a localized string similar to Uitvoering van &apos;{0}&apos; is geannuleerd..
         /// </summary>
         internal static string Activity_Run_Execution_of_0_has_been_canceled {
             get {
@@ -70,20 +70,11 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoering van {0} is mislukt..
+        ///   Looks up a localized string similar to Uitvoering van &apos;{0}&apos; is mislukt..
         /// </summary>
         internal static string Activity_Run_Execution_of_0_has_failed {
             get {
                 return ResourceManager.GetString("Activity_Run_Execution_of_0_has_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initialisatie van {0} is mislukt..
-        /// </summary>
-        internal static string Activity_Run_Initialization_of_0_has_failed {
-            get {
-                return ResourceManager.GetString("Activity_Run_Initialization_of_0_has_failed", resourceCulture);
             }
         }
         
@@ -94,15 +85,6 @@ namespace Core.Common.Base.Properties {
             get {
                 return ResourceManager.GetString("FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__P" +
                         "rogressText_2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeren {0}.
-        /// </summary>
-        internal static string FileImportActivity_Name_Import_using_importer_with_name_0 {
-            get {
-                return ResourceManager.GetString("FileImportActivity_Name_Import_using_importer_with_name_0", resourceCulture);
             }
         }
     }

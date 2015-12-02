@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_Run_Initialization_of_0_has_failed" xml:space="preserve">
-    <value>Initialisatie van {0} is mislukt.</value>
-  </data>
   <data name="Activity_Run_Execution_of_0_has_been_canceled" xml:space="preserve">
-    <value>Uitvoering van {0} is geannuleerd.</value>
+    <value>Uitvoering van '{0}' is geannuleerd.</value>
   </data>
   <data name="Activity_Run_Execution_of_0_has_failed" xml:space="preserve">
-    <value>Uitvoering van {0} is mislukt.</value>
+    <value>Uitvoering van '{0}' is mislukt.</value>
   </data>
   <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
-  </data>
-  <data name="FileImportActivity_Name_Import_using_importer_with_name_0" xml:space="preserve">
-    <value>Importeren {0}</value>
   </data>
 </root>

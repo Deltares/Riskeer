@@ -49,15 +49,13 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
-                var msgs = messages.ToArray();
-                Assert.Greater(msgs.Length, 2, "Expecting more than 2 messages");
-
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidPipingCalculation.Name), msgs.First());
-                foreach (var expectedValidationErrorMessage in msgs.Skip(1).Take(msgs.Length-2))
-                {
-                    StringAssert.StartsWith("Validatie mislukt: ", expectedValidationErrorMessage);
-                }
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs.Last());
+                var msgs = messages.ToList();
+                Assert.AreEqual(msgs.Count, 5);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidPipingCalculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: ", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: ", msgs[2]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs[3]);
+                StringAssert.StartsWith(String.Format("Uitvoering van '{0}' is mislukt.", invalidPipingCalculation.Name), msgs[4]);
             });
             Assert.AreEqual(ActivityStatus.Failed, activity.Status);
             Assert.AreEqual(originalOutput, invalidPipingCalculation.Output);
