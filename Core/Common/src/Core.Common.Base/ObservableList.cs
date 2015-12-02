@@ -4,7 +4,7 @@ using System.Linq;
 namespace Core.Common.Base
 {
     /// <summary>
-    /// Extends the <see cref="List{T}"/> class with implementation for <see cref="IObservable"/>.
+    /// Class that extends the <see cref="List{T}"/> class with an implementation of <see cref="IObservable"/>.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class ObservableList<T> : List<T>, IObservable

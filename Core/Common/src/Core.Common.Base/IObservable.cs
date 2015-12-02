@@ -1,27 +1,26 @@
 ﻿namespace Core.Common.Base
 {
     /// <summary>
-    /// This interface describes the methods that need to be implemented on a class of objects that are supposed to be observable.
-    /// Being observable let classes notify observers that they have performed an action (for example changed data).
+    /// Interface that describes the methods that need to be implemented on classes that are supposed to be observable.
+    /// Observables should (asynchronously) notify their observers of the fact that their internal state has changed.
+    /// <seealso cref="IObserver"/>
     /// </summary>
     public interface IObservable
     {
         /// <summary>
-        /// Attach an <see cref="IObserver"/> to this <see cref="IObservable"/>. Changes in the <see cref="IObservable"/> will notify the
-        /// <paramref name="observer"/>.
+        /// This method attaches <paramref name="observer"/>. As a result, changes in the <see cref="IObservable"/> will now be notified to <paramref name="observer"/>.
         /// </summary>
         /// <param name="observer">The <see cref="IObserver"/> to notify on changes.</param>
         void Attach(IObserver observer);
 
         /// <summary>
-        /// Detach an <see cref="IObserver"/> from this <see cref="IObservable"/>. Changes in the <see cref="IObservable"/> will no longer
-        /// notify the <paramref name="observer"/>.
+        /// This method dettaches <paramref name="observer"/>. As a result, changes in the <see cref="IObservable"/> will no longer be notified to <paramref name="observer"/>.
         /// </summary>
         /// <param name="observer">The <see cref="IObserver"/> to no longer notify on changes.</param>
         void Detach(IObserver observer);
 
         /// <summary>
-        /// Notifies all the observers that have been currently attached to this <see cref="IObservable"/>.
+        /// This method notifies all observers that have been currently attached to the <see cref="IObservable"/>.
         /// </summary>
         void NotifyObservers();
     }

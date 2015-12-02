@@ -1,20 +1,31 @@
 using System;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Base.Properties;
 
 namespace Core.Common.Base.Service
 {
+    /// <summary>
+    /// <see cref="Activity"/> for importing the data in one or more files (in the same thread).
+    /// </summary>
     public class FileImportActivity : Activity
     {
         private readonly object target;
+        private readonly string[] filePaths;
         private readonly IFileImporter importer;
-        private readonly string[] files;
+
         private bool shouldCancel;
 
         /// <summary>
-        /// One Activity (thread) for a serial file import.
+        /// Constructs a new <see cref="FileImportActivity"/>.
         /// </summary>
-        public FileImportActivity(IFileImporter importer, object target, string[] files)
+        /// <param name="importer">The <see cref="IFileImporter"/> to use for importing the data.</param>
+        /// <param name="target">The target object to import the data to.</param>
+        /// <param name="filePaths">The paths of the files to import the data from.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="importer"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="target"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePaths"/> is <c>null</c> or contains no file paths.</exception>
+        public FileImportActivity(IFileImporter importer, object target, string[] filePaths)
         {
             if (importer == null)
             {
@@ -26,14 +37,14 @@ namespace Core.Common.Base.Service
                 throw new ArgumentException("target");
             }
 
-            if (files == null)
+            if (filePaths == null || !filePaths.Any())
             {
                 throw new ArgumentException("files");
             }
 
             this.importer = importer;
             this.target = target;
-            this.files = files;
+            this.filePaths = filePaths;
         }
 
         public override string Name
@@ -46,7 +57,7 @@ namespace Core.Common.Base.Service
 
         protected override void OnRun()
         {
-            foreach (var fileName in files)
+            foreach (var fileName in filePaths)
             {
                 ImportFromFile(fileName);
 
