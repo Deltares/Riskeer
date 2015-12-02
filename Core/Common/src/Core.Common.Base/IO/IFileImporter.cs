@@ -23,7 +23,7 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// Gets the image of the <see cref="IFileImporter"/>.
         /// </summary>
-        /// <remarks>This image can be used in selection and progress dialogs.</remarks>
+        /// <remarks>This image can be used in selection and/or progress dialogs.</remarks>
         Bitmap Image { get; }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace Core.Common.Base.IO
         /// Performs an import on <paramref name="targetItem"/> from a file with path <paramref name="filePath"/>
         /// and returns a <see cref="bool"/> which reflects whether or not the import was successful.
         /// </summary>
-        /// <param name="filePath">The path of the file to import the data from.</param>
         /// <param name="targetItem">The item to perform the import on.</param>
+        /// <param name="filePath">The path of the file to import the data from.</param>
         /// <returns><c>true</c> if the import was successful. <c>false</c> otherwise.</returns>
-        bool Import(string filePath, object targetItem);
+        bool Import(object targetItem, string filePath);
 
         /// <summary>
         /// This method checks if an import can be performed on <paramref name="targetItem"/>.

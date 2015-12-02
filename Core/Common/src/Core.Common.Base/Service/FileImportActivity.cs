@@ -80,7 +80,7 @@ namespace Core.Common.Base.Service
 
             importer.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName); };
 
-            importer.Import(fileName, target);
+            importer.Import(target, fileName);
         }
     }
 }

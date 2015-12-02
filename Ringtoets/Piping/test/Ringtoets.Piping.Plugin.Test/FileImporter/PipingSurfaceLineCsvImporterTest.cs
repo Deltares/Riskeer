@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
-            var importResult = importer.Import(validFilePath, observableSurfaceLinesList);
+            var importResult = importer.Import(observableSurfaceLinesList, validFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import(validFilePath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, validFilePath);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Profielmeting Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", 1);
@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(validFilePath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, validFilePath);
             
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled, 1);
@@ -258,11 +258,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Setup (second part)
             importer.Cancel();
-            var importResult = importer.Import(validFilePath, observableSurfaceLinesList);
+            var importResult = importer.Import(observableSurfaceLinesList, validFilePath);
             Assert.IsFalse(importResult);
 
             // Call
-            importResult = importer.Import(validFilePath, observableSurfaceLinesList);
+            importResult = importer.Import(observableSurfaceLinesList, validFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -289,7 +289,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(PipingIOResources.Error_Path_cannot_contain_Characters_0_,
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(PipingIOResources.Error_File_does_not_exist);
@@ -352,7 +352,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -385,7 +385,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 var importResult = true;
 
                 // Call
-                Action call = () => importResult = importer.Import(copyTargetPath, observableSurfaceLinesList);
+                Action call = () => importResult = importer.Import(observableSurfaceLinesList, copyTargetPath);
 
                 // Assert
                 var internalErrorMessage = new FileReaderErrorMessageBuilder(copyTargetPath).Build(PipingIOResources.Error_File_does_not_exist);
@@ -473,7 +473,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = false;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -519,7 +519,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import(path, observableSurfaceLinesList);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, path);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(path)

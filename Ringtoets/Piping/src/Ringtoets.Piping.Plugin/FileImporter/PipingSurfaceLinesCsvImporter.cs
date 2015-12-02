@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return targetItem is ICollection<RingtoetsPipingSurfaceLine>;
         }
 
-        public bool Import(string filePath, object targetItem = null)
+        public bool Import(object targetItem, string filePath)
         {
             var importResult = ReadPipingSurfaceLines(filePath);
 

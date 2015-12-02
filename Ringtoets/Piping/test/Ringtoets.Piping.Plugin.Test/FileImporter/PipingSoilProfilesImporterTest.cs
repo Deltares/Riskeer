@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(validFilePath, observableList);
+            Action call = () => importResult = importer.Import(observableList, validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(invalidFilePath, observableList);
+            Action call = () => importResult = importer.Import(observableList, invalidFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -191,7 +191,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(importer.CanImportFor(importTarget));
 
             // Call
-            var importResult = importer.Import(validFilePath, importTarget);
+            var importResult = importer.Import(importTarget, validFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(validFilePath, observableList);
+            Action call = () => importResult = importer.Import(observableList, validFilePath);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSoilProfilesImporter_Import_Import_cancelled, 1);
@@ -263,11 +263,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Setup (second part)
             importer.Cancel();
-            var importResult = importer.Import(validFilePath, observableList);
+            var importResult = importer.Import(observableList, validFilePath);
             Assert.IsFalse(importResult);
 
             // Call
-            importResult = importer.Import(validFilePath, observableList);
+            importResult = importer.Import(observableList, validFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSoilProfileList);
+            Action call = () => importResult = importer.Import(observableSoilProfileList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(RingtoetsIOResources.Error_SoilProfile_read_from_database);
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = false;
 
             // Call
-            Action call = () => importResult = importer.Import(corruptPath, observableSoilProfileList);
+            Action call = () => importResult = importer.Import(observableSoilProfileList, corruptPath);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             observableSoilProfileList.Attach(observer);
 
             // Call
-            var importResult = importer.Import(corruptPath, observableSoilProfileList);
+            var importResult = importer.Import(observableSoilProfileList, corruptPath);
 
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, observableSoilProfileList.Count);

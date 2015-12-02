@@ -24,15 +24,15 @@ namespace Core.Common.Test.Gui
                 "test3"
             });
 
-            Expect.Call(importer.Import("test1", target)).Repeat.Once().Return(true).WhenCalled(o =>
+            Expect.Call(importer.Import(target, "test1")).Repeat.Once().Return(true).WhenCalled(o =>
             {
                 project.Items.Add(o);
             });
-            Expect.Call(importer.Import("test2", target)).Repeat.Once().Return(true).WhenCalled(o =>
+            Expect.Call(importer.Import(target, "test2")).Repeat.Once().Return(true).WhenCalled(o =>
             {
                 project.Items.Add(o);
             });
-            Expect.Call(importer.Import("test3", target)).Repeat.Once().Return(true).WhenCalled(o =>
+            Expect.Call(importer.Import(target, "test3")).Repeat.Once().Return(true).WhenCalled(o =>
             {
                 project.Items.Add(o);
             });
