@@ -35,10 +35,6 @@ namespace Core.Common.Base.Test.Service
 
         private class SimpleActivity : Activity
         {
-            protected override void OnInitialize()
-            {
-            }
-
             protected override void OnExecute()
             {
             }

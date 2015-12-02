@@ -61,24 +61,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activiteit is &apos;{0}&apos;. &apos;Initialize()&apos; moet aangeroepen worden voor &apos;Execute()&apos;..
-        /// </summary>
-        internal static string Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute {
-            get {
-                return ResourceManager.GetString("Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan Execute() niet aanroepen voor activiteit met de &apos;{0}&apos; status..
-        /// </summary>
-        internal static string Activity_Execute_Can_t_call_Execute_for_activity_in_0_state {
-            get {
-                return ResourceManager.GetString("Activity_Execute_Can_t_call_Execute_for_activity_in_0_state", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Uitvoering van {0} is geannuleerd..
         /// </summary>
         internal static string Activity_Run_Execution_of_0_has_been_canceled {

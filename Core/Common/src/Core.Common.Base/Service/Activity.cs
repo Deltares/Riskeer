@@ -59,30 +59,38 @@ namespace Core.Common.Base.Service
         public IList<string> LogMessages { get; private set; }
 
         /// <summary>
-        /// This method runs the <see cref="Activity"/> by sequentially making calls to <see cref="Initialize"/> and <see cref="Execute"/>.
+        /// This method runs the <see cref="Activity"/>.
         /// </summary>
         public void Run()
         {
-            Initialize();
-
-            if (Status == ActivityStatus.Failed)
+            try
             {
-                log.ErrorFormat(Resources.Activity_Run_Initialization_of_0_has_failed, Name);
+                Status = ActivityStatus.Executing;
+
+                OnExecute();
+
+                if (Status == ActivityStatus.Failed ||
+                    Status == ActivityStatus.Cancelled)
+                {
+                    // keep this status
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                Status = ActivityStatus.Failed;
+                log.Error(e.Message);
                 return;
             }
-
-            if (Status == ActivityStatus.Cancelled)
-            {
-                log.WarnFormat(Resources.Activity_Run_Execution_of_0_has_been_canceled, Name);
-                return;
-            }
-
-            Execute();
 
             if (Status == ActivityStatus.Failed)
             {
                 log.ErrorFormat(Resources.Activity_Run_Execution_of_0_has_failed, Name);
+
+                return;
             }
+
+            Status = ActivityStatus.Executed;
         }
 
         /// <summary>
@@ -104,62 +112,6 @@ namespace Core.Common.Base.Service
                 ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
             }
         }
-
-        /// <summary>
-        /// This method initializes an <see cref="Activity"/>.
-        /// </summary>
-        protected void Initialize()
-        {
-            ChangeState(OnInitialize, ActivityStatus.Initializing, ActivityStatus.Initialized);
-        }
-
-        /// <summary>
-        /// This method executes an <see cref="Activity"/> that successfully initialized.
-        /// Successfully ran activities can be identified by a <see cref="Status"/> not equal to <see cref="ActivityStatus.Failed"/> or <see cref="ActivityStatus.Cancelled"/>.
-        /// </summary>
-        protected void Execute()
-        {
-            if (Status == ActivityStatus.Finished || Status == ActivityStatus.Cancelled || Status == ActivityStatus.Failed || Status == ActivityStatus.None)
-            {
-                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Activity_is_0_Initialize_must_be_called_before_Execute, Status));
-            }
-
-            if (Status != ActivityStatus.Executed && Status != ActivityStatus.Initialized)
-            {
-                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Can_t_call_Execute_for_activity_in_0_state, Status));
-            }
-
-            try
-            {
-                Status = ActivityStatus.Executing;
-
-                OnExecute();
-
-                if (Status == ActivityStatus.Failed ||
-                    Status == ActivityStatus.Cancelled)
-                {
-                    // keep this status
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                Status = ActivityStatus.Failed;
-                log.Error(e.Message);
-                return;
-            }
-
-            Status = ActivityStatus.Executed;
-        }
-
-        /// <summary>
-        /// Initializes internal state to prepare for execution. After calling this method,
-        /// <see cref="Status"/> will be set to <see cref="ActivityStatus.Initialized"/> if
-        /// no error has occurred.
-        /// </summary>
-        /// <remarks>Set <see cref="Status"/> to <see cref="ActivityStatus.Failed"/>
-        /// when an error has occurred while performing the initialization.</remarks>
-        protected abstract void OnInitialize();
 
         /// <summary>
         /// Executes one step. This method will be called multiple times to allow for multiple

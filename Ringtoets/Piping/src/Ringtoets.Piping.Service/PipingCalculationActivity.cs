@@ -27,21 +27,17 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        protected override void OnInitialize()
+        protected override void OnExecute()
         {
             if (!PipingCalculationService.Validate(calculation))
             {
                 Status = ActivityStatus.Failed;
+                return;
             }
-            else
-            {
-                LogMessages.Clear();
-                calculation.Output = null;
-            }
-        }
 
-        protected override void OnExecute()
-        {
+            LogMessages.Clear();
+            calculation.Output = null;
+
             PipingCalculationService.Calculate(calculation);
         }
 

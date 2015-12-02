@@ -44,11 +44,6 @@ namespace Core.Common.Base.Service
             }
         }
 
-        protected override void OnInitialize()
-        {
-            shouldCancel = false;
-        }
-
         protected override void OnExecute()
         {
             foreach (var fileName in files)
@@ -60,6 +55,8 @@ namespace Core.Common.Base.Service
                     break;
                 }
             }
+
+            shouldCancel = false;
         }
 
         protected override void OnCancel()

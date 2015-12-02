@@ -11,16 +11,6 @@ namespace Core.Common.Base.Service
         None,
 
         /// <summary>
-        /// Activity is being initialized.
-        /// </summary>
-        Initializing,
-
-        /// <summary>
-        /// Activity has been initialized and ready for execution.
-        /// </summary>
-        Initialized,
-
-        /// <summary>
         /// Activity is currently executing.
         /// </summary>
         Executing,
