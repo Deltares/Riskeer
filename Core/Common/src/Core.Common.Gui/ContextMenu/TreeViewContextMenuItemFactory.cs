@@ -76,7 +76,8 @@ namespace Core.Common.Gui.ContextMenu
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Delete)
             {
                 ToolTipText = Resources.Delete_ToolTip,
-                Image = Resources.DeleteIcon
+                Image = Resources.DeleteIcon,
+                Enabled = treeNode.Presenter.CanRemove(treeNode.Parent.Tag, treeNode.Tag)
             };
             toolStripMenuItem.Click += (s, e) => treeNode.TreeView.TryDeleteSelectedNodeData();
             return toolStripMenuItem;

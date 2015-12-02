@@ -36,11 +36,60 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithTreeNode_NewInstance()
         {
             // Call
-            var result = new TreeViewContextMenuItemFactory(mocks.StrictMock<ITreeNode>());
+            var strictMock = mocks.StrictMock<ITreeNode>();
+
+            mocks.ReplayAll();
+
+            var result = new TreeViewContextMenuItemFactory(strictMock);
 
             // Assert
             Assert.IsInstanceOf<TreeViewContextMenuItemFactory>(result);
+
+            mocks.VerifyAll();
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateDeleteItem_DependingOnCanDelete_ItemWithDeleteFunctionWillBeEnabled(bool enabled)
+        {
+            // Setup
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeParentNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
+            var treeViewMock = mocks.StrictMock<ITreeView>();
+            var arg1 = new object();
+            var arg2 = new object();
+
+            treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
+            treeNodeMock.Expect(tn => tn.Parent).Return(treeParentNodeMock);
+            treeNodeMock.Expect(tn => tn.Tag).Return(arg2);
+            treeParentNodeMock.Expect(tn => tn.Tag).Return(arg1);
+            treeNodePresenterMock.Expect(tnp => tnp.CanRemove(arg1, arg2)).Return(enabled);
+
+            if (enabled)
+            {
+                treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
+                treeViewMock.Expect(tv => tv.TryDeleteSelectedNodeData());
+            }
+
+            mocks.ReplayAll();
+
+            var factory = new TreeViewContextMenuItemFactory(treeNodeMock);
+
+            // Call
+            var item = factory.CreateDeleteItem();
+            item.PerformClick();
+
+            // Assert
+            Assert.AreEqual(Resources.Delete, item.Text);
+            Assert.AreEqual(Resources.Delete_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.DeleteIcon, item.Image);
+            Assert.AreEqual(enabled, item.Enabled);
+
+            mocks.VerifyAll();
+        }
+
 
         [Test]
         [TestCase(true)]
