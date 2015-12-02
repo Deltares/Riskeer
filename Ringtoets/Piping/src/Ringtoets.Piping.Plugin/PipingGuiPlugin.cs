@@ -33,16 +33,19 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new PipingCalculationContextNodePresenter(Gui.ContextMenuProvider)
-            {
-                RunActivityAction = ActivityProgressDialogRunner.Run
-            };
-            yield return new PipingCalculationGroupContextNodePresenter(Gui.ContextMenuProvider);
-            yield return new PipingInputContextNodePresenter(Gui.ContextMenuProvider);
             yield return new PipingFailureMechanismNodePresenter(Gui.ContextMenuProvider)
             {
                 RunActivitiesAction = ActivityProgressDialogRunner.Run
             };
+            yield return new PipingCalculationContextNodePresenter(Gui.ContextMenuProvider)
+            {
+                RunActivityAction = ActivityProgressDialogRunner.Run
+            };
+            yield return new PipingCalculationGroupContextNodePresenter(Gui.ContextMenuProvider)
+            {
+                RunActivityAction = ActivityProgressDialogRunner.Run
+            };
+            yield return new PipingInputContextNodePresenter(Gui.ContextMenuProvider);
             yield return new PipingSurfaceLineCollectionNodePresenter(Gui.ContextMenuProvider);
             yield return new PipingSurfaceLineNodePresenter(Gui.ContextMenuProvider);
             yield return new PipingSoilProfileCollectionNodePresenter(Gui.ContextMenuProvider);

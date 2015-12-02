@@ -64,7 +64,6 @@
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
     <Compile Include="PresentationObjects\PipingCalculationContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContext.cs" />
-    <Compile Include="PresentationObjects\PipingCalculationsTreeFolder.cs" />
     <Compile Include="PresentationObjects\PipingContext.cs" />
     <Compile Include="PresentationObjects\PipingInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

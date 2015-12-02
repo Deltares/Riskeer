@@ -101,11 +101,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRenameNode_Always_ReturnTrue()
+        public void CanRenameNode_ParentIsPipingFailureMechanismNode_ReturnFalse()
         {
             // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
             var mocks = new MockRepository();
+            var parentNode = mocks.Stub<ITreeNode>();
+            parentNode.Tag = failureMechanism;
+
             var node = mocks.StrictMock<ITreeNode>();
+            node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
@@ -114,8 +120,29 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             bool isRenamingAllowed = nodePresenter.CanRenameNode(node);
 
             // Assert
-            Assert.IsTrue(isRenamingAllowed);
+            Assert.IsFalse(isRenamingAllowed);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRenameNode_EverythingElse_ReturnTrue()
+        {
+            // Setup
+            var parentNode = mockRepository.Stub<ITreeNode>();
+            parentNode.Tag = new object();
+
+            var node = mockRepository.StrictMock<ITreeNode>();
+            node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            bool isRenamingAllowed = nodePresenter.CanRenameNode(node);
+
+            // Assert
+            Assert.IsTrue(isRenamingAllowed);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -163,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRemove_ParentIsFailureMechanismContainingGroup_ReturnTrue()
+        public void CanRemove_ParentIsFailureMechanism_ReturnFalse()
         {
             // Setup
             var group = new PipingCalculationGroup();
@@ -172,31 +199,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<PipingSoilProfile>());
 
             var parentNodeData = new PipingFailureMechanism();
-            parentNodeData.Calculations.Add(group);
+            parentNodeData.CalculationsGroup.Children.Add(group);
 
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            bool isRemovalAllowed = nodePresenter.CanRemove(parentNodeData, nodeData);
-
-            // Assert
-            Assert.IsTrue(isRemovalAllowed);
-        }
-
-        [Test]
-        public void CanRemove_ParentIsFailureMechanismNotContainingGroup_ReturnFalse()
-        {
-            // Setup
-            var nodeData = new PipingCalculationGroupContext(new PipingCalculationGroup(),
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
-
-            var parentNodeData = new PipingFailureMechanism();
-
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
-
-            // Precondition
-            CollectionAssert.DoesNotContain(parentNodeData.Calculations, nodeData);
 
             // Call
             bool isRemovalAllowed = nodePresenter.CanRemove(parentNodeData, nodeData);
@@ -254,38 +259,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(isRemovalAllowed);
-        }
-
-        [Test]
-        public void CanRemove_ParentIsFailureMechanismContainingGroup_RemoveGroupAndNotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var group = new PipingCalculationGroup();
-            var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
-
-            var parentNodeData = new PipingFailureMechanism();
-            parentNodeData.Calculations.Add(group);
-            parentNodeData.Attach(observer);
-
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
-
-            // Precondition
-            Assert.IsTrue(nodePresenter.CanRemove(parentNodeData, nodeData));
-
-            // Call
-            bool removealSuccesful = nodePresenter.RemoveNodeData(parentNodeData, nodeData);
-
-            // Assert
-            Assert.IsTrue(removealSuccesful);
-            CollectionAssert.DoesNotContain(parentNodeData.Calculations, nodeData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -388,7 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var calculationItem = mocks.Stub<IPipingCalculationItem>();
-            calculationItem.Name = "Nieuwe map";
+            calculationItem.Expect(ci => ci.Name).Return("Nieuwe map");
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -427,7 +400,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var calculationItem = mocks.Stub<IPipingCalculationItem>();
-            calculationItem.Name = "Nieuwe berekening";
+            calculationItem.Expect(ci => ci.Name).Return("Nieuwe berekening");
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

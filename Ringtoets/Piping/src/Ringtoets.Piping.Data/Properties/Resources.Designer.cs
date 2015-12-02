@@ -151,6 +151,24 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan niet de naam aanpassen van deze group omdat &apos;NameIsEditable&apos; op &apos;false&apos; staat..
+        /// </summary>
+        internal static string PipingCalculationGroup_Setting_readonly_name_error_message {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Setting_readonly_name_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningen.
+        /// </summary>
+        internal static string PipingFailureMechanism_Calculations_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanism_Calculations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor de profielmeting heeft geen waarde..
         /// </summary>
         internal static string RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null {

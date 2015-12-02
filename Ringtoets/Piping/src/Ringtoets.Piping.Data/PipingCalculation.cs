@@ -42,6 +42,9 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PlaceholderWithReadonlyName CalculationReport { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the name of this calculation.
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls;
@@ -69,21 +68,24 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override bool CanRemove(object parentNodeData, PipingCalculationContext nodeData)
         {
-            var calculationsFolder = parentNodeData as PipingCalculationsTreeFolder;
-            if (calculationsFolder != null)
+            var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
+            if (calculationGroupContext != null)
             {
-                return calculationsFolder.Contents.OfType<PipingCalculationContext>().Contains(nodeData);
+                return calculationGroupContext.WrappedData.Children.Contains(nodeData.WrappedData);
             }
             return base.CanRemove(parentNodeData, nodeData);
         }
 
         protected override bool RemoveNodeData(object parentNodeData, PipingCalculationContext nodeData)
         {
-            var calculationsFolder = parentNodeData as PipingCalculationsTreeFolder;
-            if (calculationsFolder != null)
+            var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
+            if (calculationGroupContext != null)
             {
-                var succesfullyRemovedData = calculationsFolder.ParentFailureMechanism.Calculations.Remove(nodeData.WrappedData);
-                calculationsFolder.ParentFailureMechanism.NotifyObservers();
+                var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+                if (succesfullyRemovedData)
+                {
+                    calculationGroupContext.NotifyObservers();
+                }
                 return succesfullyRemovedData;
             }
             return base.RemoveNodeData(parentNodeData, nodeData);

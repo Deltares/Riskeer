@@ -61,7 +61,6 @@
     <Compile Include="NodePresenters\PipingCalculationGroupContextNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingInputContextNodePresenterTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\PipingCalculationsTreeFolderTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
     <Compile Include="PropertyClasses\PipingCalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingInputContextPropertiesTest.cs" />

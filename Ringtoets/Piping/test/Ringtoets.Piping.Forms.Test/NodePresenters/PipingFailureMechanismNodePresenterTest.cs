@@ -98,8 +98,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.Calculations.Add(new PipingCalculation());
-            pipingFailureMechanism.Calculations.Add(new PipingCalculation());
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation());
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation());
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism).OfType<object>().ToArray();
@@ -117,18 +117,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 pipingFailureMechanism.BoundaryConditions
             }, inputsFolder.Contents);
 
-            var calculationsFolder = (CategoryTreeFolder)children[1];
-            Assert.AreEqual("Berekeningen", calculationsFolder.Name);
-            Assert.AreEqual(TreeFolderCategory.General, calculationsFolder.Category);
-            var pipingCalculationChildObjects = calculationsFolder.Contents.Cast<PipingCalculationContext>()
-                                                                        .Take(pipingFailureMechanism.Calculations.Count)
-                                                                        .ToArray();
-            CollectionAssert.AreEqual(pipingFailureMechanism.Calculations, pipingCalculationChildObjects.Select(pci => pci.WrappedData).ToArray());
-            foreach (var pipingCalculationContext in pipingCalculationChildObjects)
-            {
-                Assert.AreSame(pipingFailureMechanism.SurfaceLines, pipingCalculationContext.AvailablePipingSurfaceLines);
-                Assert.AreSame(pipingFailureMechanism.SoilProfiles, pipingCalculationContext.AvailablePipingSoilProfiles);
-            }
+            var calculationsFolder = (PipingCalculationGroupContext)children[1];
+            Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
+            CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
+            Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
+            Assert.AreSame(pipingFailureMechanism.SoilProfiles, calculationsFolder.AvailablePipingSoilProfiles);
 
             var outputsFolder = (CategoryTreeFolder)children[2];
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
@@ -389,16 +382,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             contextMenuProvider.Expect(cmp => cmp.Get(null)).IgnoreArguments().Return(new ContextMenuBuilder(null, nodeMock));
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Calculations.Add(new PipingCalculation
+            dataMock.CalculationsGroup.Children.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });
-            dataMock.Calculations.Add(new PipingCalculation
+            dataMock.CalculationsGroup.Children.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });
-            dataMock.Calculations.ElementAt(0).Attach(observer);
-            dataMock.Calculations.ElementAt(1).Attach(observer);
+            dataMock.CalculationsGroup.Children.ElementAt(0).Attach(observer);
+            dataMock.CalculationsGroup.Children.ElementAt(1).Attach(observer);
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuProvider);
 
@@ -410,7 +403,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             contextMenuAdapter.Items[contextMenuClearIndex].PerformClick();
 
             // Then
-            CollectionAssert.IsEmpty(dataMock.Calculations.Where(c => c.HasOutput));
+            Assert.IsFalse(dataMock.CalculationsGroup.HasOutput);
 
             mocks.VerifyAll();
         }
@@ -483,7 +476,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
 
-            dataMock.Calculations.Add(new PipingCalculation
+            dataMock.CalculationsGroup.Children.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });
@@ -522,7 +515,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mocks.ReplayAll();
             // Precondition
-            Assert.AreEqual(1, failureMechanism.Calculations.Count);
+            Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
 
             // Call
             ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
@@ -530,8 +523,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             addCalculationItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.Calculations.Count);
-            IPipingCalculationItem addedItem = failureMechanism.Calculations.ElementAt(1);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+            IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name);
             Assert.IsInstanceOf<PipingCalculation>(addedItem);
             mocks.VerifyAll();
@@ -549,15 +542,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observerMock);
-            failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(new PipingCalculationGroup());
+            failureMechanism.CalculationsGroup.Children.Clear();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationGroup());
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(TestContextMenuBuilderProvider.Create(mocks, nodeMock));
 
             mocks.ReplayAll();
 
             // Precondition
-            Assert.AreEqual(1, failureMechanism.Calculations.Count);
+            Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
 
             // Call
             ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
@@ -565,8 +558,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             addCalculationItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.Calculations.Count);
-            IPipingCalculationItem addedItem = failureMechanism.Calculations.ElementAt(1);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+            IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe map (1)", addedItem.Name);
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
             mocks.VerifyAll();

@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism)
         {
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism), TreeFolderCategory.Input);
-            yield return new PipingCalculationsTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Calculations_DisplayName, failureMechanism);
+            yield return new PipingCalculationGroupContext(failureMechanism.CalculationsGroup, failureMechanism.SurfaceLines, failureMechanism.SoilProfiles);
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output);
         }
 
@@ -116,9 +116,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             var calculation = new PipingCalculationGroup
             {
-                Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
             };
-            failureMechanism.Calculations.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.NotifyObservers();
         }
 
@@ -126,9 +126,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             var calculation = new PipingCalculation
             {
-                Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
-            failureMechanism.Calculations.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.NotifyObservers();
         }
 
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         private static IEnumerable<PipingCalculation> GetAllPipingCalculationsResursively(PipingFailureMechanism failureMechanism)
         {
-            return failureMechanism.Calculations.GetPipingCalculations().ToArray();
+            return failureMechanism.CalculationsGroup.GetPipingCalculations().ToArray();
         }
     }
 }

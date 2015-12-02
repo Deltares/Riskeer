@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 using Core.Common.Base;
 using NUnit.Framework;
@@ -31,7 +31,9 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);
-            Assert.AreEqual(1, piping.Calculations.Count);
+            Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
+            Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
+            Assert.IsInstanceOf<PipingCalculation>(piping.CalculationsGroup.Children.First());
             Assert.AreEqual("Randvoorwaarden", piping.BoundaryConditions.Name);
 
             Assert.AreEqual("Oordeel", piping.AssessmentResult.Name);
@@ -139,10 +141,10 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            failureMechanism.Calculations.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Assert
-            CollectionAssert.Contains(failureMechanism.Calculations, calculation);
+            CollectionAssert.Contains(failureMechanism.CalculationsGroup.Children, calculation);
         }
 
         [Test]
@@ -152,13 +154,13 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculation();
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Calculations.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call
-            failureMechanism.Calculations.Remove(calculation);
+            failureMechanism.CalculationsGroup.Children.Remove(calculation);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.Calculations, calculation);
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculation);
         }
 
         [Test]
@@ -170,10 +172,10 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            failureMechanism.Calculations.Add(folder);
+            failureMechanism.CalculationsGroup.Children.Add(folder);
 
             // Assert
-            CollectionAssert.Contains(failureMechanism.Calculations, folder);
+            CollectionAssert.Contains(failureMechanism.CalculationsGroup.Children, folder);
         }
 
         [Test]
@@ -183,13 +185,13 @@ namespace Ringtoets.Piping.Data.Test
             var folder = new PipingCalculationGroup();
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Calculations.Add(folder);
+            failureMechanism.CalculationsGroup.Children.Add(folder);
 
             // Call
-            failureMechanism.Calculations.Remove(folder);
+            failureMechanism.CalculationsGroup.Children.Remove(folder);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.Calculations, folder);
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
         }
     }
 }

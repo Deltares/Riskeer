@@ -8,9 +8,9 @@ namespace Ringtoets.Piping.Data
     public interface IPipingCalculationItem : IObservable
     {
         /// <summary>
-        /// Gets or sets the name the user gave this this calculation object.
+        /// Gets the name of this calculation object.
         /// </summary>
-        string Name { get; set; }
+        string Name { get; }
 
         /// <summary>
         /// Gets a value indicating whether this calculation item contains piping calculation outputs.

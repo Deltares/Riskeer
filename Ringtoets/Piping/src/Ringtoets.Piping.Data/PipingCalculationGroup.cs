@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Core.Common.Base;
@@ -12,12 +13,26 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingCalculationGroup : Observable, IPipingCalculationItem
     {
+        private string name;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PipingCalculationGroup"/> class
+        /// with an editable name.
+        /// </summary>
+        public PipingCalculationGroup() : this(Resources.PipingCalculationGroup_DefaultName, true)
+        {
+
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationGroup"/> class.
         /// </summary>
-        public PipingCalculationGroup()
+        /// <param name="newName">The name of the group.</param>
+        /// <param name="canEditName">Determines if the name of the group is editable (true) or not.</param>
+        public PipingCalculationGroup(string newName, bool canEditName)
         {
-            Name = Resources.PipingCalculationGroup_DefaultName;
+            name = newName;
+            NameIsEditable = canEditName;
             Children = new List<IPipingCalculationItem>();
         }
 
@@ -26,7 +41,24 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public ICollection<IPipingCalculationItem> Children { get; private set; }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the name of this calculation grouping object.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (!NameIsEditable)
+                {
+                    throw new InvalidOperationException(Resources.PipingCalculationGroup_Setting_readonly_name_error_message);
+                }
+                name = value;
+            }
+        }
 
         public bool HasOutput
         {
@@ -35,5 +67,10 @@ namespace Ringtoets.Piping.Data
                 return Children.Any(c => c.HasOutput);
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Name"/> is editable or not.
+        /// </summary>
+        public bool NameIsEditable { get; private set; }
     }
 }

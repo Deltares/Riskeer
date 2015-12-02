@@ -2,6 +2,8 @@
 
 using Core.Common.Base;
 using Core.Common.Gui;
+using Core.Common.Utils.ComponentModel;
+using Core.Common.Utils.Reflection;
 
 using NUnit.Framework;
 
@@ -10,6 +12,8 @@ using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+
+using PropertyInfo = System.Reflection.PropertyInfo;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -68,6 +72,32 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.Name = name;
             Assert.AreEqual(name, group.Name);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Name_GroupHasEditableName_NameShouldNotBeReadonly(bool nameIsEditable)
+        {
+            // Setup
+            var group = new PipingCalculationGroup("A", nameIsEditable);
+
+            var properties = new PipingCalculationGroupContextProperties
+            {
+                Data = new PipingCalculationGroupContext(group,
+                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                         Enumerable.Empty<PipingSoilProfile>())
+            };
+
+            string propertyName = TypeUtils.GetMemberName<PipingCalculationGroupContextProperties>(p => p.Name);
+            PropertyInfo nameProperty = properties.GetType().GetProperty(propertyName);
+            
+            // Call
+            object[] namePropertyAttributes = nameProperty.GetCustomAttributes(false);
+
+            // Assert
+            Assert.AreEqual(1, namePropertyAttributes.OfType<DynamicReadOnlyAttribute>().Count());
+            Assert.AreEqual(!nameIsEditable, DynamicReadOnlyAttribute.IsDynamicReadOnly(properties, propertyName));
         }
     }
 }

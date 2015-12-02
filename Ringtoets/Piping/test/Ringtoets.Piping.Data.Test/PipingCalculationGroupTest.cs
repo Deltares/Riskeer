@@ -1,4 +1,6 @@
-﻿using Core.Common.Base;
+﻿using System;
+
+using Core.Common.Base;
 
 using NUnit.Framework;
 
@@ -18,9 +20,65 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(group);
             Assert.IsInstanceOf<Observable>(group);
+            Assert.IsTrue(group.NameIsEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
             Assert.IsFalse(group.HasOutput);
             CollectionAssert.IsEmpty(group.Children);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ParameterdConstructor_ExpectedValues(bool isNameEditable)
+        {
+            // Setup
+            const string newName = "new Name";
+
+            // Call
+            var group = new PipingCalculationGroup(newName, isNameEditable);
+
+            // Assert
+            Assert.IsInstanceOf<IPipingCalculationItem>(group);
+            Assert.IsInstanceOf<Observable>(group);
+            Assert.AreEqual(isNameEditable, group.NameIsEditable);
+            Assert.AreEqual(newName, group.Name);
+            Assert.IsFalse(group.HasOutput);
+            CollectionAssert.IsEmpty(group.Children);
+        }
+
+        [Test]
+        public void Name_SettingValueWhileNameEditable_ChangeName()
+        {
+            // Setup
+            var group = new PipingCalculationGroup("a", true);
+
+            // Precondtion
+            Assert.IsTrue(group.NameIsEditable);
+
+            // Call
+            const string newName = "new Name";
+            group.Name = newName;
+
+            // Assert
+            Assert.AreEqual(newName, group.Name);
+        }
+
+        [Test]
+        public void Name_SettingValueWhileNameNotEditable_ThrowInvalidOperationException()
+        {
+            // Setup
+            var group = new PipingCalculationGroup("a", false);
+
+            // Precondtion
+            Assert.IsFalse(group.NameIsEditable);
+
+            // Call
+            const string newName = "new Name";
+            TestDelegate call = () => group.Name = newName;
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(call);
+            Assert.AreEqual("Kan niet de naam aanpassen van deze group omdat 'NameIsEditable' op 'false' staat.", exception.Message);
         }
 
         [Test]

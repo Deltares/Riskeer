@@ -61,7 +61,7 @@ namespace Ringtoets.Demo.Commands
                 surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, tempPath.FilePath);
             }
 
-            var calculation = pipingFailureMechanism.Calculations.GetPipingCalculations().First();
+            var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
         }

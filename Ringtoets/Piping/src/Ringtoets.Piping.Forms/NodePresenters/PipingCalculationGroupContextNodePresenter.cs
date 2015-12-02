@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public override bool CanRenameNode(ITreeNode node)
         {
-            return true;
+            return node.Parent == null || !(node.Parent.Tag is PipingFailureMechanism);
         }
 
         public override bool CanRenameNodeTo(ITreeNode node, string newName)
@@ -55,12 +55,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override bool CanRemove(object parentNodeData, PipingCalculationGroupContext nodeData)
         {
-            var failureMechanism = parentNodeData as PipingFailureMechanism;
-            if (failureMechanism != null)
-            {
-                return failureMechanism.Calculations.Contains(nodeData.WrappedData);
-            }
-
             var group = parentNodeData as PipingCalculationGroupContext;
             if (group != null)
             {
@@ -72,14 +66,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override bool RemoveNodeData(object parentNodeData, PipingCalculationGroupContext nodeData)
         {
-            var failureMechanism = parentNodeData as PipingFailureMechanism;
-            if (failureMechanism != null)
-            {
-                var removeNodeData = failureMechanism.Calculations.Remove(nodeData.WrappedData);
-                failureMechanism.NotifyObservers();
-                return removeNodeData;
-            }
-
             var group = parentNodeData as PipingCalculationGroupContext;
             if (group != null)
             {

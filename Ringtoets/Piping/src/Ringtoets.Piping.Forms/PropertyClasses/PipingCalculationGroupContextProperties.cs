@@ -1,5 +1,6 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Utils;
+using Core.Common.Utils.ComponentModel;
 
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -13,6 +14,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), "PipingCalculationGroupContextProperties_DisplayName")]
     public class PipingCalculationGroupContextProperties : ObjectProperties<PipingCalculationGroupContext>
     {
+        [DynamicReadOnly]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingCalculationGroup_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingCalculationGroup_Name_Description")]
@@ -27,6 +29,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 data.WrappedData.Name = value;
                 data.NotifyObservers();
             }
+        }
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadonlyValidator(string propertyName)
+        {
+            return !data.WrappedData.NameIsEditable;
         }
     }
 }
