@@ -54,6 +54,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>..\..\..\..\bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
@@ -229,7 +230,6 @@
   <PropertyGroup>
     <TopLevelProject>true</TopLevelProject>
   </PropertyGroup>
-  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <Import Project="..\..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
   <PropertyGroup>
     <PreBuildEvent>

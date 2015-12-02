@@ -27,6 +27,7 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <OutputPath>..\..\..\..\bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
@@ -140,7 +141,6 @@
     <IsPluginComponent>true</IsPluginComponent>
     <PluginName>Ringtoets.Piping.Plugin</PluginName>
   </PropertyGroup>
-  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

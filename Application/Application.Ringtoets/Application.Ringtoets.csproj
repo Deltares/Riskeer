@@ -51,6 +51,7 @@
     <DefineConstants>TRACE;DEBUG;INCLUDE_DEMOPROJECT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <OutputPath>..\..\bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -226,7 +227,6 @@ xcopy /s /y "$(SolutionDir)packages\GDAL.Native.1.9.2\gdal\x86\*.*" "$(TargetDir
   <PropertyGroup>
     <ExternalDependencies>lib\Ringtoets\Application.Ringtoets</ExternalDependencies>
   </PropertyGroup>
-  <Import Project="..\..\build\Ringtoets.targets" />
   <ProjectExtensions>
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5" />

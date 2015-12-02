@@ -42,6 +42,7 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <OutputPath>bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -193,7 +194,6 @@
   <PropertyGroup>
     <ExternalDependencies1>lib\Common\SharpMap.Extensions</ExternalDependencies1>
   </PropertyGroup>
-  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
