@@ -270,6 +270,9 @@
     <Compile Include="TimeSpanEditor.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TreeViewControls\ITreeNode.cs" />
+    <Compile Include="TreeViewControls\ITreeNodePresenter.cs" />
+    <Compile Include="TreeViewControls\ITreeView.cs" />
     <Compile Include="TreeViewControls\PlaceholderLocation.cs" />
     <Compile Include="TreeViewControls\TreeNode.cs" />
     <Compile Include="TreeViewControls\TreeNodeList.cs" />

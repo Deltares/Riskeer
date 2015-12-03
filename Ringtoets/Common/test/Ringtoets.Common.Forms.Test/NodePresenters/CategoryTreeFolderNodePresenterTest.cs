@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;

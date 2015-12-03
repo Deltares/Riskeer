@@ -84,6 +84,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
+      <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
+      <Name>Core.Common.Controls.Swf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>

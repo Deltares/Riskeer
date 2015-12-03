@@ -81,9 +81,6 @@
     <Compile Include="DragOperations.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IReusableView.cs" />
-    <Compile Include="ITreeNode.cs" />
-    <Compile Include="ITreeNodePresenter.cs" />
-    <Compile Include="ITreeView.cs" />
     <Compile Include="ITypeEditor.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
