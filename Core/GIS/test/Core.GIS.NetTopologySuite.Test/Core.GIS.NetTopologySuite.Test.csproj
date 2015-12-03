@@ -160,9 +160,4 @@
   -->
   <PropertyGroup>
   </PropertyGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties InternalTargetFrameworkVersion="3.5" />
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>
