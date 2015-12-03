@@ -9,8 +9,6 @@ using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
-using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
@@ -528,7 +526,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        [InvokeRequired]
         private void RemoveTabFor(ILayer layer)
         {
             var groupLayer = layer as GroupLayer;

@@ -11,7 +11,6 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -54,9 +53,6 @@
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="PostSharp">
-      <HintPath>..\..\..\..\packages\PostSharp.2.1.7.28\lib\net20\PostSharp.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -223,7 +219,6 @@
     <IsPluginComponent>true</IsPluginComponent>
     <PluginName>$(ProjectName)</PluginName>
   </PropertyGroup>
-  <Import Project="..\..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

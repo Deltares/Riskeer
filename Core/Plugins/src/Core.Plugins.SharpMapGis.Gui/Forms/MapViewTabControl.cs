@@ -7,7 +7,6 @@ using System.Windows.Forms.Integration;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections.Generic;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -108,7 +107,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             OnViewCollectionChanged(NotifyCollectionChangedAction.Add, view);
         }
 
-        [InvokeRequired]
         public void RemoveView(IView view)
         {
             if (!views.Contains(view))

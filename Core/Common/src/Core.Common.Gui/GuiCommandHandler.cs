@@ -13,11 +13,9 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using log4net;
 using log4net.Appender;
@@ -399,7 +397,6 @@ namespace Core.Common.Gui
             gui.Project.NotifyObservers();
         }
 
-        [InvokeRequired]
         private void RemoveViewsAndData(IEnumerable<IView> toolViews)
         {
             // set all tool windows where dataObject was used to null
@@ -409,7 +406,6 @@ namespace Core.Common.Gui
             }
         }
 
-        [InvokeRequired]
         private void RefreshGui()
         {
             // Set the gui selection to the current project

@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Core.Common.Controls.Swf;
-using Core.Common.Utils.Aop;
 using log4net;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
@@ -108,6 +107,7 @@ namespace Core.Common.TestUtils
 
         private static void InitializeSynchronizatonObject()
         {
+
             if (synchronizationForm == null)
             {
                 synchronizationForm = new Form
@@ -117,12 +117,6 @@ namespace Core.Common.TestUtils
                 synchronizationForm.Load += (sender, args) => synchronizationForm.Size = new Size(0, 0);
                 var handle = synchronizationForm.Handle; //force get handle
                 synchronizationForm.Show();
-            }
-
-            if (InvokeRequiredInfo.SynchronizeObject == null)
-            {
-                InvokeRequiredInfo.SynchronizeObject = synchronizationForm;
-                InvokeRequiredInfo.WaitMethod = Application.DoEvents;
             }
         }
 

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -22,7 +21,6 @@ using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.OptionsDialog;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Interop;
 using Fluent;
@@ -79,23 +77,12 @@ namespace Core.Common.Gui.Forms.MainWindow
             windowInteropHelper = new WindowInteropHelper(this);
             ModalHelper.MainWindow = this;
 
-            InitializeInvokeRequired();
-
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
-        public MainWindow(RingtoetsGui gui)
+        public MainWindow(RingtoetsGui gui) : this()
         {
             Gui = gui;
-
-            InitializeComponent();
-
-            windowInteropHelper = new WindowInteropHelper(this);
-            ModalHelper.MainWindow = this;
-
-            InitializeInvokeRequired();
-
-            log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
         public RingtoetsGui Gui { get; set; }
@@ -323,11 +310,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             IsWindowDisposed = true;
 
-            if (Equals(InvokeRequiredInfo.SynchronizeObject, this))
-            {
-                InvokeRequiredInfo.SynchronizeObject = null;
-            }
-
             if (dockingManager.AutoHideWindow != null)
             {
                 var m = typeof(LayoutAutoHideWindowControl).GetField("_manager", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -361,7 +343,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             if (messageWindow != null)
             {
-                messageWindow.OnError -= MessageWindowOnError;
                 messageWindow.Dispose();
                 messageWindow = null;
             }
@@ -539,38 +520,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        private void InitializeInvokeRequired()
-        {
-            if (Assembly.GetEntryAssembly() != null) // HACK: when assembly is non-empty - we run from real exe (not test)
-            {
-                if (InvokeRequiredInfo.SynchronizeObject == null)
-                {
-                    InvokeRequiredInfo.SynchronizeObject = this;
-                    InvokeRequiredInfo.WaitMethod = System.Windows.Forms.Application.DoEvents;
-                }
-
-                return; // uses MainWindow
-            }
-
-            // use static form for synchronization
-
-            if (synchronizationForm == null)
-            {
-                synchronizationForm = new Form
-                {
-                    ShowInTaskbar = false, WindowState = FormWindowState.Minimized
-                };
-                var handle = synchronizationForm.Handle; //force get handle
-                synchronizationForm.Show();
-            }
-
-            if (InvokeRequiredInfo.SynchronizeObject == null)
-            {
-                InvokeRequiredInfo.SynchronizeObject = synchronizationForm;
-                InvokeRequiredInfo.WaitMethod = System.Windows.Forms.Application.DoEvents;
-            }
-        }
-
         private void AddRecentlyOpenedProjectsToFileMenu()
         {
             var mruList = Properties.Settings.Default["mruList"] as StringCollection;
@@ -661,17 +610,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (messageWindow == null || messageWindow.IsDisposed)
             {
-                if (messageWindow != null && messageWindow.IsDisposed)
-                {
-                    messageWindow.OnError -= MessageWindowOnError;
-                }
-
                 messageWindow = new MessageWindow.MessageWindow
                 {
                     Text = Properties.Resources.Messages
                 };
-
-                messageWindow.OnError += MessageWindowOnError;
             }
 
             if (Gui == null || Gui.ToolWindowViews == null)
@@ -686,14 +628,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             Gui.ToolWindowViews.Add(messageWindow, ViewLocation.Bottom);
-            messageWindow.Visible = true; //doesn't always work (eg, remains false)
-        }
-
-        [InvokeRequired]
-        private void MessageWindowOnError(object sender, EventArgs e)
-        {
-            // activates messageWindow when error occurs
-            InitMessagesWindowOrActivate();
         }
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)

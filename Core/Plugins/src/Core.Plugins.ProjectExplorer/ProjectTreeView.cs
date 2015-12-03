@@ -1,13 +1,11 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
-using Core.Common.Utils.Aop;
 using Core.Plugins.ProjectExplorer.NodePresenters;
 using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
@@ -140,7 +138,6 @@ namespace Core.Plugins.ProjectExplorer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        [InvokeRequired]
         protected virtual void GuiSelectionChanged(object sender, EventArgs e)
         {
             if (selectingNode || gui.Selection == null

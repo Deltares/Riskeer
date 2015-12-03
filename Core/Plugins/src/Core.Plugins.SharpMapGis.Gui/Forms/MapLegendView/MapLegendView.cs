@@ -8,7 +8,6 @@ using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
-using Core.Common.Utils.Aop;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Extensions.Layers;
@@ -233,7 +232,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // TODO: Only enable export layer button when node is group layer, but also contains vector layer at some depth (group layer within group layer that contains a vector layer for example)
         }
 
-        [InvokeRequired]
         private void SetMap(object value)
         {
             Map = (Map) value;

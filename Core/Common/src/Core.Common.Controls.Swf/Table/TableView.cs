@@ -12,7 +12,6 @@ using Core.Common.Controls.Swf.Editors;
 using Core.Common.Controls.Swf.Properties;
 using Core.Common.Controls.Swf.Table.Validation;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Globalization;
@@ -456,7 +455,6 @@ namespace Core.Common.Controls.Swf.Table
             refreshRequired = true;
         }
 
-        [InvokeRequired]
         private void DataSourceCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             refreshRequired = true;

@@ -6,10 +6,8 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
-using Core.Common.Utils.Reflection;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Api.Editors;
@@ -339,7 +337,6 @@ namespace Core.GIS.SharpMap.UI.Forms
         /// <summary>
         /// Refreshes the map
         /// </summary>
-        [InvokeRequired]
         public override void Refresh()
         {
             if (disposed)
@@ -780,7 +777,6 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
         }
 
-        [InvokeRequired]
         private void MapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (IsDisposed)
@@ -828,7 +824,6 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
         }
 
-        [InvokeRequired]
         private void MapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             if (IsDisposed)

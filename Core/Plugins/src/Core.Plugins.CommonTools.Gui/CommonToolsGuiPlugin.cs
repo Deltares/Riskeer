@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
@@ -16,7 +13,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Plugins.CommonTools.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
@@ -29,7 +25,6 @@ namespace Core.Plugins.CommonTools.Gui
 {
     public class CommonToolsGuiPlugin : GuiPlugin
     {
-        private static bool tableViewInitialized;
         private static TableView speedupTableView; // used to speed-up start of Ringtoets
         private IRibbonCommandHandler ribbon;
 
@@ -101,20 +96,6 @@ namespace Core.Plugins.CommonTools.Gui
         public override void Activate()
         {
             base.Activate();
-
-            if (!tableViewInitialized)
-            {
-                if (Assembly.GetEntryAssembly() != null) // HACK: when assembly is non-empty - we run from real exe (not test)
-                {
-                    var initializeTableviewThread = new Thread(InitializeTableView)
-                    {
-                        Priority = ThreadPriority.BelowNormal,
-                        CurrentCulture = CultureInfo.CurrentCulture,
-                        CurrentUICulture = CultureInfo.CurrentUICulture
-                    };
-                    initializeTableviewThread.Start();
-                }
-            }
 
             InitializeChartLegendView();
 
@@ -240,28 +221,8 @@ namespace Core.Plugins.CommonTools.Gui
             Gui.MainWindow.ValidateItems();
         }
 
-        private void InitializeTableView()
-        {
-            if (tableViewInitialized)
-            {
-                return;
-            }
 
-            while (!Gui.MainWindow.Visible)
-            {
-                Thread.Sleep(0);
-            }
 
-            InitializeTableViewSynchronized();
-
-            tableViewInitialized = true;
-        }
-
-        [InvokeRequired]
-        private static void InitializeTableViewSynchronized()
-        {
-            speedupTableView = new TableView(); // start-up optimization, makes sure DevExpress components are loaded
-        }
 
         private void DocumentViewsOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
         {

@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Properties;
 using log4net;
 
@@ -126,7 +125,7 @@ namespace Core.Common.Utils.Reflection
 
         /// <summary>
         /// (Shallow) copies all public members of a class: Value types are 'cloned', references to other objects are left as-is. Works 
-        /// well with NHibernate and PostSharp.
+        /// well with NHibernate.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="inst"></param>
@@ -567,9 +566,7 @@ namespace Core.Common.Utils.Reflection
 
         private static FieldInfo GetFieldInfo(Type type, string fieldName)
         {
-            var fieldInfo = GetFieldInfoCore(type, fieldName) ??
-                            GetFieldInfoCore(type, string.Format("<{0}>", fieldName)); //postsharp compatibility mode..*sigh*
-            return fieldInfo;
+            return GetFieldInfoCore(type, fieldName);
         }
 
         private static FieldInfo GetFieldInfoCore(Type type, string fieldName)
