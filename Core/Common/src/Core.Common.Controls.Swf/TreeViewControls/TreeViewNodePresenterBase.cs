@@ -46,20 +46,20 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 if (sourceNode.TreeView == treeView)
                 {
                     // if the user is not forcing an operation using the keyboard default to move within treeview
-                    if ((0 == (Control.ModifierKeys & Keys.Modifiers)) && (DragOperations.Move == (validOperations & DragOperations.Move)))
+                    if ((0 == (Control.ModifierKeys & Keys.Modifiers)) && DragOperations.Move == validOperations)
                     {
                         return DragOperations.Move;
                     }
                 }
             }
 
-            if (((Control.ModifierKeys & Keys.Shift) == Keys.Shift) && (DragOperations.Move == (validOperations & DragOperations.Move)))
+            if (((Control.ModifierKeys & Keys.Shift) == Keys.Shift) && DragOperations.Move == validOperations)
             {
                 return DragOperations.Move;
             }
 
             // do not return bitwise operation, preference here is disputable
-            if (DragOperations.Move == (DragOperations.Move & validOperations))
+            if (DragOperations.Move == validOperations)
             {
                 return DragOperations.Move;
             }
@@ -67,7 +67,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             return DragOperations.None;
         }
 
-        public virtual void OnDragDrop(object item, object sourceParentNodeData, T target,
+        public virtual void OnDragDrop(object item, object itemParent, T target,
                                        DragOperations operation, int position)
         {
             throw new NotImplementedException();
@@ -134,10 +134,10 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             return DragOperations.None;
         }
 
-        void ITreeNodePresenter.OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData,
+        void ITreeNodePresenter.OnDragDrop(object item, object itemParent, object target,
                                            DragOperations operation, int position)
         {
-            OnDragDrop(item, sourceParentNodeData, (T) targetParentNodeData, operation, position);
+            OnDragDrop(item, itemParent, (T) target, operation, position);
         }
 
         public bool CanRemove(object parentNodeData, object nodeData)

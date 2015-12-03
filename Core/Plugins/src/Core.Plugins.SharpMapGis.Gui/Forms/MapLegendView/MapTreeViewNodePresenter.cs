@@ -78,11 +78,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return DragOperations.None;
         }
 
-        public override void OnDragDrop(object item, object sourceParentNodeData, Map target, DragOperations operation, int position)
+        public override void OnDragDrop(object item, object itemParent, Map target, DragOperations operation, int position)
         {
             if (item is ILayer)
             {
-                var sourceLayerGroup = sourceParentNodeData as GroupLayer;
+                var sourceLayerGroup = itemParent as GroupLayer;
                 var layer = (ILayer) item;
 
                 var removed = sourceLayerGroup != null ? sourceLayerGroup.Layers.Remove(layer) : target.Layers.Remove(layer);

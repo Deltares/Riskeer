@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanDrag_Always_ReturnNone()
+        public void CanDrag_Always_ReturnMove()
         {
             // Setup
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
@@ -271,11 +271,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             DragOperations dragAllowed = pipingCalculationContextNodePresenter.CanDrag(nodeData);
 
             // Assert
-            Assert.AreEqual(DragOperations.None, dragAllowed);
+            Assert.AreEqual(DragOperations.Move, dragAllowed);
         }
 
         [Test]
-        public void CanDrop_Always_ReturnNone()
+        public void CanDrop_DefaultBehavior_ReturnNone()
         {
             // Setup
             var sourceMock = mockRepository.StrictMock<ITreeNode>();
@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanInsert_Always_ReturnFalse()
+        public void CanInsert_DefaultBehavior_ReturnFalse()
         {
             // Setup
             var sourceMock = mockRepository.StrictMock<ITreeNode>();
@@ -324,11 +324,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnDragDrop_Always_DoNothing()
         {
             // Setup
-            var sourceParentNodeMock = mockRepository.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mockRepository.StrictMock<ITreeNode>();
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
+            var dataMockOwner = mockRepository.StrictMock<object>();
+            var target = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                Enumerable.Empty<PipingSoilProfile>());
+            var dataMock = mockRepository.StrictMock<object>();
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var pipingCalculationContextNodePresenter = new PipingCalculationContextNodePresenter(contextMenuBuilderProvider);
 
             // Call
-            pipingCalculationContextNodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
+            pipingCalculationContextNodePresenter.OnDragDrop(dataMock, dataMockOwner, target, DragOperations.Move, 2);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

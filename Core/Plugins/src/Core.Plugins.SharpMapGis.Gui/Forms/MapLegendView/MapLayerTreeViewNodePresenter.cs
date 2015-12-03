@@ -105,15 +105,15 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return DragOperations.None; // No dropping into non grouplayers
         }
 
-        public override void OnDragDrop(object item, object sourceParentNodeData, ILayer target, DragOperations operation, int position)
+        public override void OnDragDrop(object item, object itemParent, ILayer target, DragOperations operation, int position)
         {
             if (TreeView == null)
             {
                 throw new NullReferenceException("TreeView not assigned to foldernodepresenter");
             }
 
-            var sourceMap = sourceParentNodeData as Map;
-            var sourceLayerGroup = sourceParentNodeData as GroupLayer;
+            var sourceMap = itemParent as Map;
+            var sourceLayerGroup = itemParent as GroupLayer;
             var targetLayerGroup = (GroupLayer) target;
 
             if ((operation & DragOperations.Move) != 0)

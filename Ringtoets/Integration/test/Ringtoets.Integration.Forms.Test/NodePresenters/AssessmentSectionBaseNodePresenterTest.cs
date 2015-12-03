@@ -284,9 +284,9 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
-            var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<object>();
+            var dataMockOwner = mocks.StrictMock<object>();
+            var targetMock = mocks.StrictMock<DikeAssessmentSection>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
+            nodePresenter.OnDragDrop(dataMock, dataMockOwner, targetMock, DragOperations.Move, 2);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments

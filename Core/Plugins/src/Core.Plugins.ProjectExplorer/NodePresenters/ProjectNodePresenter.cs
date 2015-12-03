@@ -86,12 +86,12 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             return GetDefaultDropOperation(TreeView, item, sourceNode, targetNode, validOperations);
         }
 
-        public override void OnDragDrop(object item, object sourceParentNodeData, Project target, DragOperations operation, int position)
+        public override void OnDragDrop(object item, object itemParent, Project target, DragOperations operation, int position)
         {
             if ((operation & DragOperations.Move) != 0)
             {
                 // Remove the item from the parent project
-                var parentProject = sourceParentNodeData as Project;
+                var parentProject = itemParent as Project;
                 if (parentProject != null)
                 {
                     parentProject.Items.Remove(item);

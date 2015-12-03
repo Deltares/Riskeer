@@ -84,19 +84,19 @@ namespace Ringtoets.Common.Forms.NodePresenters
             return CanDrag((T)nodeData);
         }
 
-        public DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public virtual DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
-            return CanDrop((T)item, sourceNode, targetNode, validOperations);
+            return DragOperations.None;
         }
 
-        public bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
         {
-            return CanInsert((T)item, sourceNode, targetNode);
+            return false;
         }
 
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position)
+        public void OnDragDrop(object item, object itemParent, object target, DragOperations operation, int position)
         {
-            OnDragDrop((T)item, sourceParentNodeData, targetParentNodeData, operation, position);
+            OnDragDrop(item, itemParent, (T)target, operation, position);
         }
 
         public void OnNodeSelected(object nodeData)
@@ -163,28 +163,10 @@ namespace Ringtoets.Common.Forms.NodePresenters
         }
 
         /// <summary>
-        /// Typed implementation of method <see cref="ITreeNodePresenter.CanDrop"/>.
-        /// </summary>
-        /// <seealso cref="CanDrop(object, ITreeNode, ITreeNode, DragOperations)"/>
-        protected virtual DragOperations CanDrop(T item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            return DragOperations.None;
-        }
-
-        /// <summary>
-        /// Typed implementation of method <see cref="ITreeNodePresenter.CanInsert"/>.
-        /// </summary>
-        /// <seealso cref="CanInsert(object, ITreeNode, ITreeNode)"/>
-        protected virtual bool CanInsert(T item, ITreeNode sourceNode, ITreeNode targetNode)
-        {
-            return false;
-        }
-
-        /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.OnDragDrop"/>.
         /// </summary>
         /// <seealso cref="OnDragDrop(object, object, object, DragOperations, System.Int32)"/>
-        protected virtual void OnDragDrop(T item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position)
+        protected virtual void OnDragDrop(object item, object itemParent, T target, DragOperations operation, int position)
         {
             // Do nothing
         }

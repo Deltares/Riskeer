@@ -265,16 +265,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnDragDrop_Always_DoNothing()
         {
             // Setup
-            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var sourceParentNodeMock = mockRepository.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<object>();
+            var dataMockOwner = mockRepository.StrictMock<object>();
+            var target = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
+            nodePresenter.OnDragDrop(dataMock, dataMockOwner, target, DragOperations.Move, 2);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

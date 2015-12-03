@@ -40,7 +40,7 @@ namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
             return DragOperations.None;
         }
 
-        public override void OnDragDrop(object item, object sourceParentNodeData, Map target, DragOperations operation, int position)
+        public override void OnDragDrop(object item, object itemParent, Map target, DragOperations operation, int position)
         {
             if (target == null)
             {

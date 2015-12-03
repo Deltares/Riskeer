@@ -277,15 +277,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            var sourceParentNodeMock = mockRepository.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<object>();
+            var dataMockOwner = mockRepository.StrictMock<object>();
+            var target = mockRepository.StrictMock<PipingFailureMechanism>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
+            nodePresenter.OnDragDrop(dataMock, dataMockOwner, target, DragOperations.Move, 2);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

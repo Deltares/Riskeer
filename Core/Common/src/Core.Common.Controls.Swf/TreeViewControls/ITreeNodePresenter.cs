@@ -77,57 +77,50 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// <summary>
         /// Indicates if a node can be dragged to another location.
         /// </summary>
-        /// <param name="nodeData"></param>
-        /// <returns>
-        /// The return value indicates which operations are valid. 
-        /// DragOperations can be xored
-        /// examples:
-        /// folder can be moved and copied
-        /// output vars of models can be linked
-        /// </returns>
+        /// <param name="nodeData">The data contained within the dragged node.</param>
+        /// <returns> The return value indicates which operation is valid.</returns>
         DragOperations CanDrag(object nodeData);
 
         /// <summary>
         /// Indicates if a node can be dropped to another location.
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="sourceNode"></param>
-        /// <param name="targetNode"></param>
-        /// <param name="validOperations"></param>
-        /// <returns>
-        /// The return value indicates what operation is valid when the sourceNode is dropped onto the targetNode.
+        /// <param name="item">The data-object being dragged.</param>
+        /// <param name="sourceNode">The node corresponding with <paramref name="item"/>.</param>
+        /// <param name="targetNode">The node being considered as drop target for <paramref name="item"/>.</param>
+        /// <param name="validOperations">The supported drop operations of <paramref name="item"/>.</param>
+        /// <returns>The return value indicates what operation is valid when the sourceNode is dropped onto the targetNode.
         /// This can only one of the following values
-        /// None, Copy, Link, Move
+        /// None, Move
         /// ControlKeys pressed by the user should also be considered.
         /// examples:
-        /// CanDrag: Folder can be moved or copied
+        /// CanDrag: Folder can be moved
         ///          shift key is move
-        ///          ctrl key is copy
-        ///          alt key is liknk but not supported -> default
         ///          default is move for folder in same project
-        ///                  is copy for folder to other project
         /// </returns>
+        /// <remarks>This method should be called for the node presenter of <paramref name="targetNode"/>.</remarks>
         /// TODO: change item, sourceParentNodeData, targetParentNodeData to ITreeNode!
         DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations);
 
         /// <summary>
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="sourceNode"></param>
-        /// <param name="targetNode"></param>
+        /// <param name="item">The data-object being dragged.</param>
+        /// <param name="sourceNode">The node corresponding with <paramref name="item"/>.</param>
+        /// <param name="targetNode">The node being considered as drop target for <paramref name="item"/>.</param>
         /// <returns></returns>
         bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode);
 
         /// <summary>
-        /// when a node is dropped onto a target node, this method handles the necessary data operations.
+        /// Handles dropping a piece of data onto another node.
         /// </summary>
-        /// <param name="item">Item being dropped</param>
-        /// <param name="sourceParentNodeData"></param>
-        /// <param name="targetParentNodeData">Target node data where <paramref name="item"/> is being dropped.</param>
-        /// <param name="operation"></param>
+        /// <param name="item">The data-object being dropped.</param>
+        /// <param name="itemParent">The owner of <paramref name="item"/>.</param>
+        /// <param name="target">The data-object onto which <paramref name="item"/> is being dropped.</param>
+        /// <param name="operation">The type of drag operation performed.</param>
         /// <param name="position"></param>
-        /// TODO: change item, sourceParentNodeData, targetParentNodeData to ITreeNode!
-        void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position);
+        /// <remarks>This method should be called for the node presenter of the node corresponding
+        /// with <paramref name="target"/>.</remarks>
+        /// TODO: change item, itemParent, target to ITreeNode!
+        void OnDragDrop(object item, object itemParent, object target, DragOperations operation, int position);
 
         /// <summary>
         /// In case a node is selected by the user it might be necessary to notify observers.

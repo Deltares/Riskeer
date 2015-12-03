@@ -46,6 +46,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return true;
         }
 
+        protected override DragOperations CanDrag(PipingCalculationContext nodeData)
+        {
+            return DragOperations.Move;
+        }
+
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationContext pipingCalculationContext)
         {
             node.Text = pipingCalculationContext.WrappedData.Name;

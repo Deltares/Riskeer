@@ -40,6 +40,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// </summary>
         public Action<IEnumerable<Activity>> RunActivitiesAction { private get; set; }
 
+        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        {
+            var calculation = item as PipingCalculationContext;
+            if (calculation != null)
+            {
+                var group = ((PipingCalculationGroupContext)targetNode.Tag).WrappedData;
+                if (!group.Children.Contains(calculation.WrappedData))
+                {
+                    return validOperations;
+                }
+            }
+            return base.CanDrop(item, sourceNode, targetNode, validOperations);
+        }
+
         public override bool CanRenameNode(ITreeNode node)
         {
             return node.Parent == null || !(node.Parent.Tag is PipingFailureMechanism);
@@ -185,6 +199,24 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 {
                     yield return item;
                 }
+            }
+        }
+
+        protected override void OnDragDrop(object item, object itemParent, PipingCalculationGroupContext target, DragOperations operation, int position)
+        {
+            var calculationContext = item as PipingCalculationContext;
+            var originalOwnerContext = itemParent as PipingCalculationGroupContext;
+            if (calculationContext != null && originalOwnerContext != null)
+            {
+                originalOwnerContext.WrappedData.Children.Remove(calculationContext.WrappedData);
+                target.WrappedData.Children.Add(calculationContext.WrappedData);
+
+                originalOwnerContext.NotifyObservers();
+                target.NotifyObservers();
+            }
+            else
+            {
+                base.OnDragDrop(item, itemParent, target, operation, position);
             }
         }
     }

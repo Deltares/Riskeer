@@ -50,7 +50,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             return base.CanDrop(item, sourceNode, targetNode, validOperations);
         }
 
-        public override void OnDragDrop(object item, object sourceParentNodeData, IChart target, DragOperations operation, int position)
+        public override void OnDragDrop(object item, object itemParent, IChart target, DragOperations operation, int position)
         {
             var series = item as IChartSeries;
 
@@ -59,7 +59,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
                 return;
             }
 
-            var chart = sourceParentNodeData as IChart;
+            var chart = itemParent as IChart;
             if (chart != null)
             {
                 chart.Series.Remove(series);
