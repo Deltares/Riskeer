@@ -639,6 +639,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Given
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
             var treeNodeMock = mockRepository.StrictMock<ITreeNode>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
@@ -685,7 +686,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
             });
             Assert.IsNull(calculation.Output);
-            mockRepository.VerifyAll();// Expect no calls on observer as no calculation has been performed
+            mockRepository.VerifyAll();
         }
 
         [Test]

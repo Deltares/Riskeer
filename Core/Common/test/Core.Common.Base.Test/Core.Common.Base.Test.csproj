@@ -84,6 +84,7 @@
     <Compile Include="ObservableListTest.cs" />
     <Compile Include="Data\ProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\FileImportActivityTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
