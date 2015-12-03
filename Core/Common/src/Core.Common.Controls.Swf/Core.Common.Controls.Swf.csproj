@@ -248,6 +248,8 @@
       <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Table\EnumFormatter.cs" />
+    <Compile Include="Table\TableSelectionChangedEventArgs.cs" />
+    <Compile Include="Table\TableViewCell.cs" />
     <Compile Include="Table\TableViewCellFormatterProvider.cs" />
     <Compile Include="Table\TableViewCellStyle.cs" />
     <Compile Include="Table\TableViewColumnMenuItem.cs" />

@@ -1598,7 +1598,7 @@ namespace Core.Common.Controls.Swf.Test.Table
             };
 
             var filterChangedCount = 0;
-            ITableViewColumn selectedColumn = null;
+            TableViewColumn selectedColumn = null;
 
             tableView.ColumnFilterChanged += (s, e) =>
             {

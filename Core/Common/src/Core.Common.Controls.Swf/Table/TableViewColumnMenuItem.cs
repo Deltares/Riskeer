@@ -46,7 +46,7 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        public bool ShouldShow(ITableViewColumn column)
+        public bool ShouldShow(TableViewColumn column)
         {
             if (Showing != null)
             {

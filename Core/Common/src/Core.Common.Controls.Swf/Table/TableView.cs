@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -39,7 +38,7 @@ namespace Core.Common.Controls.Swf.Table
     /// <summary>
     /// Graphical representation of tabular data.
     /// </summary>
-    public partial class TableView : UserControl, ITableView, ISupportInitialize
+    public partial class TableView : UserControl, IView, ISupportInitialize
     {
         public enum ValidationExceptionMode
         {
@@ -52,7 +51,7 @@ namespace Core.Common.Controls.Swf.Table
         private static readonly ILog Log = LogManager.GetLogger(typeof(TableView));
         private readonly EventedList<TableViewCell> selectedCells;
         private readonly TableViewValidator tableViewValidator;
-        private readonly EventedList<ITableViewColumn> columns;
+        private readonly EventedList<TableViewColumn> columns;
         private bool isPasting;
         private bool isSelectionChanging;
         private bool updatingSelection;
@@ -69,7 +68,7 @@ namespace Core.Common.Controls.Swf.Table
         {
             InitializeComponent();
 
-            columns = new EventedList<ITableViewColumn>();
+            columns = new EventedList<TableViewColumn>();
             ColumnMenuItems = new List<TableViewColumnMenuItem>();
             selectedCells = new EventedList<TableViewCell>();
             tableViewValidator = new TableViewValidator(this);
@@ -295,7 +294,7 @@ namespace Core.Common.Controls.Swf.Table
             return value;
         }
 
-        private ITableViewColumn GetColumnByDxColumn(GridColumn dxGridColumn)
+        private TableViewColumn GetColumnByDxColumn(GridColumn dxGridColumn)
         {
             return Columns.FirstOrDefault(c => c.AbsoluteIndex == dxGridColumn.AbsoluteIndex);
         }
@@ -684,7 +683,7 @@ namespace Core.Common.Controls.Swf.Table
             return dxGridView.Columns[Columns.First(c => c.DisplayIndex == displayIndex).AbsoluteIndex];
         }
 
-        private void UpdateColumnHeaderMenu(GridMenuEventArgs e, ITableViewColumn viewColumn)
+        private void UpdateColumnHeaderMenu(GridMenuEventArgs e, TableViewColumn viewColumn)
         {
             //show grid menu is handled to remove menu-items.  For grouping etc.
             //No way to do this in a setting :(
@@ -1244,7 +1243,7 @@ namespace Core.Common.Controls.Swf.Table
         // when something changes in columns designers becomes mad because of broken resx files
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IList<ITableViewColumn> Columns
+        public IList<TableViewColumn> Columns
         {
             get
             {
@@ -1450,7 +1449,7 @@ namespace Core.Common.Controls.Swf.Table
             dxGridView.EndUpdate();
         }
 
-        public ITableViewColumn GetColumnByName(string columnName)
+        public TableViewColumn GetColumnByName(string columnName)
         {
             return Columns.FirstOrDefault(c => c.Name == columnName);
         }
@@ -1524,7 +1523,7 @@ namespace Core.Common.Controls.Swf.Table
             refreshRequired = true;
         }
 
-        public bool CellIsReadOnly(int rowHandle, ITableViewColumn column)
+        public bool CellIsReadOnly(int rowHandle, TableViewColumn column)
         {
             // Tableview readonly?
             if (ReadOnly)
@@ -1884,7 +1883,7 @@ namespace Core.Common.Controls.Swf.Table
 
         public event EventHandler<EventArgs<TableViewCell>> CellChanged;
 
-        public event EventHandler<EventArgs<ITableViewColumn>> ColumnFilterChanged;
+        public event EventHandler<EventArgs<TableViewColumn>> ColumnFilterChanged;
 
         #endregion
 
@@ -1919,7 +1918,7 @@ namespace Core.Common.Controls.Swf.Table
             return new TableViewCell(dxGridView.FocusedRowHandle, GetColumnByDxColumn(dxGridView.FocusedColumn));
         }
 
-        internal void SetColumnError(ITableViewColumn tableColumn, string errorText)
+        internal void SetColumnError(TableViewColumn tableColumn, string errorText)
         {
             var dxGridColumn = tableColumn != null ? dxGridView.Columns[tableColumn.AbsoluteIndex] : null;
             dxGridView.SetColumnError(dxGridColumn, errorText);
@@ -1949,7 +1948,7 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        internal ITableViewColumn GetColumnByDisplayIndex(int i)
+        internal TableViewColumn GetColumnByDisplayIndex(int i)
         {
             return Columns.FirstOrDefault(c => c.DisplayIndex == i);
         }
@@ -2068,7 +2067,7 @@ namespace Core.Common.Controls.Swf.Table
             var selectedColumn = Columns.OfType<TableViewColumn>()
                                         .FirstOrDefault(c => c.DxColumn == dxGridView.FocusedColumn);
 
-            ColumnFilterChanged(sender, new EventArgs<ITableViewColumn>(selectedColumn));
+            ColumnFilterChanged(sender, new EventArgs<TableViewColumn>(selectedColumn));
         }
 
         private void DxGridViewCustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
@@ -2098,7 +2097,7 @@ namespace Core.Common.Controls.Swf.Table
 
             if (e.MenuType == GridMenuType.Column)
             {
-                ITableViewColumn tableViewColumn = null;
+                TableViewColumn tableViewColumn = null;
 
                 if (e.HitInfo.Column != null) //on a column
                 {

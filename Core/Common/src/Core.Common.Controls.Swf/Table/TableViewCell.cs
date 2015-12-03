@@ -1,8 +1,8 @@
-namespace Core.Common.Controls
+namespace Core.Common.Controls.Swf.Table
 {
     public class TableViewCell
     {
-        public TableViewCell(int rowIndex, ITableViewColumn column)
+        public TableViewCell(int rowIndex, TableViewColumn column)
         {
             RowIndex = rowIndex;
             Column = column;
@@ -16,6 +16,6 @@ namespace Core.Common.Controls
         /// <summary>
         /// Column of the cell
         /// </summary>
-        public ITableViewColumn Column { get; set; }
+        public TableViewColumn Column { get; set; }
     }
 }

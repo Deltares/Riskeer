@@ -11,11 +11,11 @@ using DevExpress.XtraGrid.Views.Grid;
 
 namespace Core.Common.Controls.Swf.Table
 {
-    public class TableViewColumn : ITableViewColumn
+    public class TableViewColumn
     {
         private readonly GridView dxGridView;
         private readonly GridColumn dxColumn;
-        private readonly ITableView tableView;
+        private readonly TableView tableView;
         private readonly GridControl dxGridControl;
         private ITypeEditor editor;
 
@@ -23,7 +23,7 @@ namespace Core.Common.Controls.Swf.Table
         private int visibleIndex;
         private ICustomFormatter customFormatter;
 
-        public TableViewColumn(GridView view, GridControl control, GridColumn column, ITableView tableView, bool unbound)
+        public TableViewColumn(GridView view, GridControl control, GridColumn column, TableView tableView, bool unbound)
         {
             dxGridView = view;
             dxGridControl = control;

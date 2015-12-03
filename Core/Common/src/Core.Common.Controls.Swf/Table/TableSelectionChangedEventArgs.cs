@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Core.Common.Controls
+namespace Core.Common.Controls.Swf.Table
 {
     public class TableSelectionChangedEventArgs : EventArgs
     {

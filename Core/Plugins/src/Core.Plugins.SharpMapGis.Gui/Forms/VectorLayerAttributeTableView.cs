@@ -477,7 +477,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         {
             var attributes = layer.DataSource.Features.Cast<IFeature>().Where(f => f.Attributes != null).SelectMany(f => f.Attributes.Keys);
 
-            var column = sender as ITableViewColumn;
+            var column = sender as TableViewColumn;
 
             //only show delete option if its a custom attribute
             if (column != null && attributes.Any(a => a == column.Name))

@@ -84,10 +84,6 @@
     <Compile Include="ITableViewPasteController.cs" />
     <Compile Include="IDialog.cs" />
     <Compile Include="IReusableView.cs" />
-    <Compile Include="ITableView.cs" />
-    <Compile Include="TableSelectionChangedEventArgs.cs" />
-    <Compile Include="TableViewCell.cs" />
-    <Compile Include="ITableViewColumn.cs" />
     <Compile Include="ITreeNode.cs" />
     <Compile Include="ITreeNodePresenter.cs" />
     <Compile Include="ITreeView.cs" />
