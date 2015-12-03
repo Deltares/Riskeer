@@ -4,13 +4,14 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.PropertyBag.Dynamic;
 
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
+
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.TypeConverters
 {
@@ -44,16 +45,16 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             var designVariable = (DesignVariable<T>)value;
             PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution);
             var properties = new PropertyDescriptor[Parameters.Length+2];
-            properties[0] = new SimpleReadonlyPropertyDescriptorItem(Resources.DesignVariableTypeConverter_DestributionType_DisplayName,
-                                                                     Resources.DesignVariableTypeConverter_DistributionType_Description,
+            properties[0] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DestributionType_DisplayName,
+                                                                     PipingFormsResources.DesignVariableTypeConverter_DistributionType_Description,
                                                                      "DistributionType",
                                                                      DistributionShortName);
             for (int i = 0; i < Parameters.Length; i++)
             {
                 properties[i+1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
             }
-            properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(Resources.DesignVariableTypeConverter_DesignValue_DisplayName,
-                                                                                         Resources.DesignVariableTypeConverter_DesignValue_Description,
+            properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DesignValue_DisplayName,
+                                                                                         PipingFormsResources.DesignVariableTypeConverter_DesignValue_Description,
                                                                                          "DesignValue",
                                                                                          designVariable.GetDesignValue());
 

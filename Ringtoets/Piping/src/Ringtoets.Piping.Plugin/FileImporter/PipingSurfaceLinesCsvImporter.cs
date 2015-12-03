@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
-using Core.Common.Gui.Properties;
 
 using log4net;
 
@@ -15,7 +14,7 @@ using Ringtoets.Piping.IO.Exceptions;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
+using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
@@ -71,7 +70,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.csv)|*.csv",
-                                     PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
+                                     PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, RingtoetsPluginResources.Csv_file_name);
             }
         }
 
@@ -126,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return HandleCriticalError(path, e);
             }
 
-            var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
+            var stepName = String.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
                                          Path.GetFileName(path));
 
             int itemCount;
@@ -157,7 +156,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (LineParseException e)
                 {
-                    var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
+                    var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
                                                 e.Message);
                     log.Error(message);
                 }
@@ -192,7 +191,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             if (consecutiveDuplicatePointIndices.Any())
             {
-                log.WarnFormat(Resources.PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored,
+                log.WarnFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored,
                                ringtoetsPipingSurfaceLine.Name);
                 ringtoetsPipingSurfaceLine.SetGeometry(readPoints.Where((p, index) => !consecutiveDuplicatePointIndices.Contains(index)));
             }
@@ -200,7 +199,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private PipingReadResult<RingtoetsPipingSurfaceLine> HandleCriticalError(string path, Exception e)
         {
-            var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+            var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
             log.Error(message);
             return new PipingReadResult<RingtoetsPipingSurfaceLine>(true);
@@ -208,7 +207,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines)
         {
-            NotifyProgress(ApplicationResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
+            NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 
             var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>)target;
             foreach (var readSurfaceLine in readSurfaceLines)
@@ -225,7 +224,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled);
+            log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled);
 
             shouldCancel = false;
         }

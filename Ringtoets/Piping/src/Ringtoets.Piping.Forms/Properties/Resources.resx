@@ -508,4 +508,16 @@
   <data name="PipingInputContextNodePresenter_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
   </data>
+  <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
+    <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DesignValue_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DestributionType_DisplayName" xml:space="preserve">
+    <value>Type verdeling</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
+    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
+  </data>
 </root>

@@ -160,4 +160,7 @@ Deze ondergrondschematisering wordt overgeslagen.</value>
   <data name="PipingSoilProfilesImporter_ReadingSoilProfiles" xml:space="preserve">
     <value>Inlezen van de ondergrondschematisering uit de D-Soil Model database</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
+    <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
+  </data>
 </root>

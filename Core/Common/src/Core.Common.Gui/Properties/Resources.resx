@@ -749,18 +749,6 @@
   <data name="ExpandableArrayConverter_ConvertTo_Count_0_" xml:space="preserve">
     <value>Aantal ({0})</value>
   </data>
-  <data name="DesignVariableTypeConverter_DestributionType_DisplayName" xml:space="preserve">
-    <value>Type verdeling</value>
-  </data>
-  <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
-    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
-  </data>
-  <data name="DesignVariableTypeConverter_DesignValue_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde</value>
-  </data>
-  <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
-    <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
-  </data>
   <data name="GuiCommandHandler_AddNewFolder_Add_new_folder" xml:space="preserve">
     <value>Nieuwe map toevoegen</value>
   </data>
@@ -802,9 +790,6 @@
   </data>
   <data name="GuiCommandHandler_TryCloseProject_Closing_current_project" xml:space="preserve">
     <value>Sluiten van huidig project.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
-    <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
   </data>
   <data name="RingtoetsGui_UpdateTitle_Unknown" xml:space="preserve">
     <value>Onbekend</value>
