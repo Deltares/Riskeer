@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GIS", "GIS", "{0DC7B784-1BD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{FE36E7E0-D5F7-48E3-9730-D05443351EAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets", "Application\Application.Ringtoets\Application.Ringtoets.csproj", "{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Version", "Core\Common\src\Core.Common.Version\Core.Common.Version.csproj", "{C90B77DA-E421-43CC-B82E-529651BC21AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8261CCE1-98D7-465B-BC94-4ED239DE7F2E}"
@@ -107,8 +109,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer.Test", "Core\Plugins\test\Core.Plugins.ProjectExplorer.Test\Core.Plugins.ProjectExplorer.Test.csproj", "{07206938-9671-4DC7-BDE4-35B0F6E20DBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.SharpMapGis.Test", "Core\Plugins\test\Core.Plugins.SharpMapGis.Test\Core.Plugins.SharpMapGis.Test.csproj", "{4FDA4BD2-2C84-4C7C-9908-818884D52DBB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets", "Application\Application.Ringtoets\Application.Ringtoets.csproj", "{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation", "Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
 EndProject
