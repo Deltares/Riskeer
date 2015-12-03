@@ -10,38 +10,38 @@ namespace Core.Common.Base.Test.Plugin
         [Test]
         public void DefaultConstructor_NonGeneric_ExpectedValues()
         {
-            // call
-            var info = new DataItemInfo();
+            // Call
+            var dataItemInfo = new DataItemInfo();
 
-            // assert
-            Assert.IsNull(info.ValueType);
-            Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
-            Assert.IsNull(info.AdditionalOwnerCheck);
-            Assert.IsNull(info.CreateData);
+            // Assert
+            Assert.IsNull(dataItemInfo.ValueType);
+            Assert.IsNull(dataItemInfo.Name);
+            Assert.IsNull(dataItemInfo.Category);
+            Assert.IsNull(dataItemInfo.Image);
+            Assert.IsNull(dataItemInfo.AdditionalOwnerCheck);
+            Assert.IsNull(dataItemInfo.CreateData);
         }
 
         [Test]
         public void DefaultConstructor_Generic_ExpectedValues()
         {
-            // call
-            var info = new DataItemInfo<double>();
+            // Call
+            var dataItemInfo = new DataItemInfo<double>();
 
-            // assert
-            Assert.AreEqual(typeof(double), info.ValueType);
-            Assert.IsNull(info.Name);
-            Assert.IsNull(info.Category);
-            Assert.IsNull(info.Image);
-            Assert.IsNull(info.AdditionalOwnerCheck);
-            Assert.IsNull(info.CreateData);
+            // Assert
+            Assert.AreEqual(typeof(double), dataItemInfo.ValueType);
+            Assert.IsNull(dataItemInfo.Name);
+            Assert.IsNull(dataItemInfo.Category);
+            Assert.IsNull(dataItemInfo.Image);
+            Assert.IsNull(dataItemInfo.AdditionalOwnerCheck);
+            Assert.IsNull(dataItemInfo.CreateData);
         }
 
         [Test]
         public void GetSetAutomaticProperties_NonGeneric_ExpectedBehavior()
         {
-            // setup & call
-            var info = new DataItemInfo
+            // Setup / Call
+            var dataItemInfo = new DataItemInfo
             {
                 ValueType = typeof(double),
                 Name = "Some double",
@@ -51,20 +51,20 @@ namespace Core.Common.Base.Test.Plugin
                 CreateData = o => 1.2,
             };
 
-            // assert
-            Assert.AreEqual(typeof(double), info.ValueType);
-            Assert.AreEqual("Some double", info.Name);
-            Assert.AreEqual("Nice category", info.Category);
-            Assert.IsNotNull(info.Image);
-            Assert.IsTrue(info.AdditionalOwnerCheck(null));
-            Assert.AreEqual(1.2, info.CreateData(null));
+            // Assert
+            Assert.AreEqual(typeof(double), dataItemInfo.ValueType);
+            Assert.AreEqual("Some double", dataItemInfo.Name);
+            Assert.AreEqual("Nice category", dataItemInfo.Category);
+            Assert.IsNotNull(dataItemInfo.Image);
+            Assert.IsTrue(dataItemInfo.AdditionalOwnerCheck(null));
+            Assert.AreEqual(1.2, dataItemInfo.CreateData(null));
         }
 
         [Test]
         public void GetSetAutomaticProperties_Generic_ExpectedBehavior()
         {
-            // setup & call
-            var info = new DataItemInfo<int>
+            // Setup / Call
+            var dataItemInfo = new DataItemInfo<int>
             {
                 Name = "Some integer",
                 Category = "Better category",
@@ -74,18 +74,18 @@ namespace Core.Common.Base.Test.Plugin
             };
 
             // assert
-            Assert.AreEqual(typeof(int), info.ValueType);
-            Assert.AreEqual("Some integer", info.Name);
-            Assert.AreEqual("Better category", info.Category);
-            Assert.IsNotNull(info.Image);
-            Assert.IsFalse(info.AdditionalOwnerCheck(null));
-            Assert.AreEqual(-1, info.CreateData(null));
+            Assert.AreEqual(typeof(int), dataItemInfo.ValueType);
+            Assert.AreEqual("Some integer", dataItemInfo.Name);
+            Assert.AreEqual("Better category", dataItemInfo.Category);
+            Assert.IsNotNull(dataItemInfo.Image);
+            Assert.IsFalse(dataItemInfo.AdditionalOwnerCheck(null));
+            Assert.AreEqual(-1, dataItemInfo.CreateData(null));
         }
 
         [Test]
         public void ImplicitConversion_FromGenericToNonGeneric_ShouldCopyValues()
         {
-            // setup
+            // Setup
             var info = new DataItemInfo<int>
             {
                 Name = "Some integer",
@@ -95,10 +95,10 @@ namespace Core.Common.Base.Test.Plugin
                 CreateData = o => -1,
             };
 
-            // call
+            // Call
             var nonGenericInfo = (DataItemInfo) info;
 
-            // assert
+            // Assert
             Assert.AreEqual(info.ValueType, nonGenericInfo.ValueType);
             Assert.AreEqual(info.Name, nonGenericInfo.Name);
             Assert.AreEqual(info.Category, nonGenericInfo.Category);
@@ -109,7 +109,7 @@ namespace Core.Common.Base.Test.Plugin
         [Test]
         public void ImplicitConversion_FromGenericToNonGenericWithoutMethodsSet_MethodsShouldBeNull()
         {
-            // setup
+            // Setup
             var info = new DataItemInfo<int>
             {
                 Name = "Some integer",
@@ -117,10 +117,10 @@ namespace Core.Common.Base.Test.Plugin
                 Image = new Bitmap(16, 16)
             };
 
-            // call
+            // Call
             var nonGenericInfo = (DataItemInfo) info;
 
-            // assert
+            // Assert
             Assert.AreEqual(info.ValueType, nonGenericInfo.ValueType);
             Assert.AreEqual(info.Name, nonGenericInfo.Name);
             Assert.AreEqual(info.Category, nonGenericInfo.Category);

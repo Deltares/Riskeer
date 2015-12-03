@@ -59,12 +59,12 @@ namespace Core.Common.Base.Service
         {
             foreach (var fileName in filePaths)
             {
-                ImportFromFile(fileName);
-
                 if (shouldCancel)
                 {
                     break;
                 }
+
+                ImportFromFile(fileName);
             }
 
             shouldCancel = false;

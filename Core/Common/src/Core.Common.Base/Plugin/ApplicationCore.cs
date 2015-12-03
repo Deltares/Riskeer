@@ -84,19 +84,19 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="DataItemInfo"/> that support the <paramref name="target"/>.
+        /// This method returns a collection of <see cref="DataItemInfo"/> that are supported for <paramref name="owner"/>.
         /// </summary>
-        /// <param name="target">The target to get the collection of supported <see cref="DataItemInfo"/> for.</param>
+        /// <param name="owner">The owner to get the collection of supported <see cref="DataItemInfo"/> for.</param>
         /// <returns>The collection of supported <see cref="DataItemInfo"/>.</returns>
-        public IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object target)
+        public IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object owner)
         {
-            if (target == null)
+            if (owner == null)
             {
                 return Enumerable.Empty<DataItemInfo>();
             }
 
             return plugins.SelectMany(p => p.GetDataItemInfos())
-                          .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(target));
+                          .Where(dataItemInfo => dataItemInfo.AdditionalOwnerCheck == null || dataItemInfo.AdditionalOwnerCheck(owner));
         }
 
         public virtual void Dispose()

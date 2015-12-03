@@ -8,6 +8,44 @@ namespace Core.Common.Base.Test
     public class ObservableTest
     {
         [Test]
+        public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()); // Expect to be called once
+            mocks.ReplayAll();
+
+            var observable = new TestObservable();
+            observable.Attach(observer);
+
+            // Call
+            observable.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NotifyObserver_AttachedObserverDetachedAgain_ObserverNoLongerNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var observable = new TestObservable();
+            observable.Attach(observer);
+            observable.Detach(observer);
+
+            // Call
+            observable.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
         public void NotifyObservers_MultipleObserversDetachingOrAttachingOthers_NoUpdatesForAttachedAndDetachedObservers()
         {
             // Setup
@@ -45,7 +83,7 @@ namespace Core.Common.Base.Test
 
         private class TestObservable : Observable
         {
-            
+
         }
     }
 }

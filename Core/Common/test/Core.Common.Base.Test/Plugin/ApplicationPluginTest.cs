@@ -8,46 +8,47 @@ namespace Core.Common.Base.Test.Plugin
     public class ApplicationPluginTest
     {
         [Test]
-        public void GetFileImporters_ReturnEmptyEnummerable()
+        public void GetFileImporters_ReturnEmptyEnumerable()
         {
-            // setup
+            // Setup
             var applicationPlugin = new SimpleApplicationPlugin();
 
-            // call
+            // Call
             var importers = applicationPlugin.GetFileImporters().ToArray();
 
-            // assert
+            // Assert
             CollectionAssert.IsEmpty(importers);
         }
 
         [Test]
-        public void GetFileExporters_ReturnEmptyEnummerable()
+        public void GetFileExporters_ReturnEmptyEnumerable()
         {
-            // setup
+            // Setup
             var applicationPlugin = new SimpleApplicationPlugin();
 
-            // call
+            // Call
             var importers = applicationPlugin.GetFileExporters().ToArray();
 
-            // assert
+            // Assert
             CollectionAssert.IsEmpty(importers);
         }
 
         [Test]
-        public void GetDataItemInfos_ReturnEmptyEnummerable()
+        public void GetDataItemInfos_ReturnEmptyEnumerable()
         {
-            // setup
+            // Setup
             var applicationPlugin = new SimpleApplicationPlugin();
 
-            // call
+            // Call
             var importers = applicationPlugin.GetDataItemInfos().ToArray();
 
-            // assert
+            // Assert
             CollectionAssert.IsEmpty(importers);
         }
-    }
 
-    internal class SimpleApplicationPlugin : ApplicationPlugin
-    {
+        private class SimpleApplicationPlugin : ApplicationPlugin
+        {
+
+        }
     }
 }

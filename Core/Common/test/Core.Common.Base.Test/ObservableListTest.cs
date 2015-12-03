@@ -12,11 +12,11 @@ namespace Core.Common.Base.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var list = new ObservableList<object>();
+            var observableList = new ObservableList<object>();
 
             // Assert
-            Assert.IsInstanceOf<List<object>>(list);
-            Assert.IsInstanceOf<IObservable>(list);
+            Assert.IsInstanceOf<List<object>>(observableList);
+            Assert.IsInstanceOf<IObservable>(observableList);
         }
 
         [Test]
@@ -28,11 +28,11 @@ namespace Core.Common.Base.Test
             observer.Expect(o => o.UpdateObserver()); // Expect to be called once
             mocks.ReplayAll();
 
-            var list = new ObservableList<object>();
-            list.Attach(observer);
+            var observableList = new ObservableList<object>();
+            observableList.Attach(observer);
 
             // Call
-            list.NotifyObservers();
+            observableList.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();
@@ -46,12 +46,12 @@ namespace Core.Common.Base.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var list = new ObservableList<object>();
-            list.Attach(observer);
-            list.Detach(observer);
+            var observableList = new ObservableList<object>();
+            observableList.Attach(observer);
+            observableList.Detach(observer);
 
             // Call
-            list.NotifyObservers();
+            observableList.NotifyObservers();
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on 'observer'
@@ -62,7 +62,7 @@ namespace Core.Common.Base.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var testObservable = new ObservableList<double>();
+            var observableList = new ObservableList<double>();
 
             var observer1 = mocks.Stub<IObserver>();
             var observer2 = mocks.Stub<IObserver>();
@@ -71,23 +71,23 @@ namespace Core.Common.Base.Test
             var observer5 = mocks.Stub<IObserver>();
             var observer6 = mocks.Stub<IObserver>();
 
-            testObservable.Attach(observer1);
-            testObservable.Attach(observer2);
-            testObservable.Attach(observer3);
-            testObservable.Attach(observer4);
-            testObservable.Attach(observer6);
+            observableList.Attach(observer1);
+            observableList.Attach(observer2);
+            observableList.Attach(observer3);
+            observableList.Attach(observer4);
+            observableList.Attach(observer6);
 
             observer1.Expect(o => o.UpdateObserver()).Repeat.Once();
-            observer2.Expect(o => o.UpdateObserver()).Do((Action)(() => testObservable.Detach(observer3))).Repeat.Once();
+            observer2.Expect(o => o.UpdateObserver()).Do((Action)(() => observableList.Detach(observer3))).Repeat.Once();
             observer3.Expect(o => o.UpdateObserver()).Repeat.Never(); // A detached observer should no longer be updated
-            observer4.Expect(o => o.UpdateObserver()).Do((Action)(() => testObservable.Attach(observer5))).Repeat.Once();
+            observer4.Expect(o => o.UpdateObserver()).Do((Action)(() => observableList.Attach(observer5))).Repeat.Once();
             observer5.Expect(o => o.UpdateObserver()).Repeat.Never(); // An attached observer should not be updated too
             observer6.Expect(o => o.UpdateObserver()).Repeat.Once();
 
             mocks.ReplayAll();
 
             // Call
-            testObservable.NotifyObservers();
+            observableList.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();
