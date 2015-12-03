@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -31,9 +32,21 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             mocks = new MockRepository();
         }
-        
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_NoMenuBuilderProvider_ArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new PlaceholderWithReadonlyNameNodePresenter(null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(CommonResources.NodePresenter_ContextMenuBuilderProvider_required, message);
+            StringAssert.EndsWith("contextMenuBuilderProvider", message);
+        }
+
+        [Test]
+        public void Constructor_ParamsSet_ExpectedValues()
         {
             // Setup
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();

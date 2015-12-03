@@ -15,13 +15,12 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void CanShowPropertiesForGuiSelection_PropertiesForObjectDefined_True()
+        public void CanShowPropertiesFor_PropertiesForObjectDefined_True()
         {
             // Setup
             var gui = mocks.DynamicMock<IGui>();
             var anObject = new AnObject();
             gui.Expect(g => g.Plugins).Return(new GuiPlugin[] {new TestGuiPlugin()});
-            gui.Expect(g => g.Selection).Return(anObject);
 
             mocks.ReplayAll();
 
@@ -37,13 +36,12 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void CanShowPropertiesForGuiSelection_PropertiesForSuperObjectDefined_True()
+        public void CanShowPropertiesFor_PropertiesForSuperObjectDefined_True()
         {
             // Setup
             var gui = mocks.DynamicMock<IGui>();
             var aSubObject = new ASubObject();
             gui.Expect(g => g.Plugins).Return(new GuiPlugin[] {new TestGuiPlugin()});
-            gui.Expect(g => g.Selection).Return(aSubObject);
 
             mocks.ReplayAll();
 

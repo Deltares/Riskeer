@@ -1513,7 +1513,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NodePresenter_CommandHandler_required.
+        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een CommandHandler nodig..
         /// </summary>
         public static string NodePresenter_CommandHandler_required {
             get {

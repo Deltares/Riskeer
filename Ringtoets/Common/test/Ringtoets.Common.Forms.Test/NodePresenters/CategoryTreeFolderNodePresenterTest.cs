@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ParamsSet_ExpectedValues()
         {
             // Call
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();

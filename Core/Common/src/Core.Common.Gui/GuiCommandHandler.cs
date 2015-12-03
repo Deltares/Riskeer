@@ -135,17 +135,17 @@ namespace Core.Common.Gui
 
         public bool CanImportOn(object obj)
         {
-            return gui.ApplicationCore.GetSupportedFileImporters(gui.Selection).Any();
+            return gui.ApplicationCore.GetSupportedFileImporters(obj).Any();
         }
 
         public bool CanExportFrom(object obj)
         {
-            return gui.ApplicationCore.GetSupportedFileExporters(gui.Selection).Any();
+            return gui.ApplicationCore.GetSupportedFileExporters(obj).Any();
         }
 
         public bool CanShowPropertiesFor(object obj)
         {
-            return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), gui.Selection) != null;
+            return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), obj) != null;
         }
 
         public void ImportOn(object target, IFileImporter importer = null)
@@ -163,7 +163,7 @@ namespace Core.Common.Gui
             }
             catch (Exception)
             {
-                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, gui.Selection);
+                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, target);
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
@@ -71,7 +70,19 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddDeleteItem_WhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var builder = new ContextMenuBuilder(null, MockRepository.GenerateMock<ITreeNode>());
+            var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
+            var treeParentNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+
+            treeNodeMock.Expect(tn => tn.Parent).Return(treeParentNodeMock);
+            treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
+            treeNodeMock.Expect(tn => tn.Tag).Return(null);
+            treeParentNodeMock.Expect(tn => tn.Tag).Return(null);
+            treeNodePresenterMock.Expect(tn => tn.CanRemove(null,null)).Return(true);
+
+            mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(null, treeNodeMock);
 
             // Call
             var result = builder.AddDeleteItem().Build();
