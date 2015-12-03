@@ -9,6 +9,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Table;
+using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Utils;
@@ -22,6 +23,7 @@ using Core.Plugins.SharpMapGis.Gui.Forms;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using Core.Plugins.SharpMapGis.Gui.NodePresenters;
 using PropertyInfo = Core.Common.Gui.PropertyInfo;
+using TreeNode = System.Windows.Forms.TreeNode;
 
 namespace Core.Plugins.SharpMapGis.Gui
 {

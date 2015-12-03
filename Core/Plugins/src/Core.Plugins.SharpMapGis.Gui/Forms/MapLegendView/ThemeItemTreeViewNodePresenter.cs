@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Core.Common.Controls;
+using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api;

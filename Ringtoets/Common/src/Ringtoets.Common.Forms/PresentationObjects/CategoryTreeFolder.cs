@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Core.Common.Controls;
+using Core.Common.Controls.Swf.TreeViewControls;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Core.Common.Controls
+namespace Core.Common.Controls.Swf.TreeViewControls
 {
     /// <summary>
     /// Interface for visual TreeView to display hierarchical data.
