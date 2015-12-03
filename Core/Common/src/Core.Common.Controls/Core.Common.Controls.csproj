@@ -80,7 +80,6 @@
     <Compile Include="Command.cs" />
     <Compile Include="DragOperations.cs" />
     <Compile Include="ICommand.cs" />
-    <Compile Include="IDialog.cs" />
     <Compile Include="IReusableView.cs" />
     <Compile Include="ITreeNode.cs" />
     <Compile Include="ITreeNodePresenter.cs" />

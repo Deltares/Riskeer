@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Core.Common.Controls.Swf
 {
-    public partial class ImageResolutionDialog : Form, IDialog
+    public partial class ImageResolutionDialog : Form
     {
         private DialogResult result;
         private bool updatingControls;

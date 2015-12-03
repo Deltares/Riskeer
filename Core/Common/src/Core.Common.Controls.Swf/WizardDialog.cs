@@ -10,7 +10,7 @@ using DevExpress.XtraWizard;
 
 namespace Core.Common.Controls.Swf
 {
-    public partial class WizardDialog : Form, IDialog, IView
+    public partial class WizardDialog : Form, IView
     {
         private readonly IDictionary<IComponent, WizardPage> wizardPages = new Dictionary<IComponent, WizardPage>();
 
