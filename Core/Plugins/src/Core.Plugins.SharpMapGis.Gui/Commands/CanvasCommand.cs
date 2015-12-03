@@ -1,10 +1,11 @@
 ﻿using Core.Common.Controls;
+using Core.Plugins.SharpMapGis.Gui.Forms;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
     public abstract class CanvasCommand : Command
     {
-        protected ICanvasEditor CanvasEditor
+        protected MapView CanvasEditor
         {
             get
             {

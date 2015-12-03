@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="Command.cs" />
     <Compile Include="DragOperations.cs" />
-    <Compile Include="ICanvasEditor.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IRowValidationResult.cs" />
     <Compile Include="ITableViewPasteController.cs" />
