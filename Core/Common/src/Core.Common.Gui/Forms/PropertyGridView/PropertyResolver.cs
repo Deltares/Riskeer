@@ -11,7 +11,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// </summary>
     public class PropertyResolver : IPropertyResolver
     {
-        private List<PropertyInfo> propertyInfos;
+        private readonly List<PropertyInfo> propertyInfos;
 
         /// <summary>
         /// Creates a new instance of <see cref="PropertyResolver"/> with the given <paramref name="propertyInfos"/>.
@@ -39,29 +39,29 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
 
             // 1. Match property information based on ObjectType and on AdditionalDataCheck
-            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
+            var filteredPropertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
 
             // 2. Match property information based on object type inheritance
-            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.ObjectType);
+            filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.ObjectType);
 
             // 3. Match property information based on property type inheritance
-            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.PropertyType);
+            filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.PropertyType);
 
-            if (propertyInfos.Count == 0)
+            if (filteredPropertyInfos.Count == 0)
             {
                 // No (or multiple) object properties found: return 'null' so that no object properties are shown in the property grid
                 return null;
             }
 
-            if (propertyInfos.Count > 1)
+            if (filteredPropertyInfos.Count > 1)
             {
                 // 4. We assume that the propertyInfos with AdditionalDataCheck are the most specific
-                propertyInfos = propertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToList();
+                filteredPropertyInfos = filteredPropertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToList();
             }
 
-            if (propertyInfos.Count == 1)
+            if (filteredPropertyInfos.Count == 1)
             {
-                return CreateObjectProperties(propertyInfos.ElementAt(0), sourceData);
+                return CreateObjectProperties(filteredPropertyInfos.ElementAt(0), sourceData);
             }
 
             return null;

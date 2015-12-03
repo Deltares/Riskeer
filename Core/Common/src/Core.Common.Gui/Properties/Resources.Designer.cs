@@ -578,6 +578,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan geen instanties maken van de benodigde objecten..
+        /// </summary>
+        public static string ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories {
+            get {
+                return ResourceManager.GetString("ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen element in het contextmenu creëren zonder dat de knoop bekend is..
         /// </summary>
         public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node {

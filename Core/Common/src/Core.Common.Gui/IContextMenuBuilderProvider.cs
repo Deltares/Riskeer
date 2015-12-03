@@ -17,6 +17,8 @@ namespace Core.Common.Gui
         /// create a <see cref="ContextMenuStrip"/> for.</param>
         /// <returns>The <see cref="ContextMenuBuilder"/> which can be used to create a <see cref="ContextMenuStrip"/>
         /// for <paramref name="treeNode"/>.</returns>
+        /// <exception cref="ContextMenuBuilderException">Thrown when the <see cref="IContextMenuBuilder"/> instance could
+        /// not be created.</exception>
         IContextMenuBuilder Get(ITreeNode treeNode);
     }
 }

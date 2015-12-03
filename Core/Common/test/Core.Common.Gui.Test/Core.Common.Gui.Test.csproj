@@ -54,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextMenu\ContextMenuBuilderExceptionTest.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderTest.cs" />
     <Compile Include="ContextMenu\StrictContextMenuItemTest.cs" />
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />

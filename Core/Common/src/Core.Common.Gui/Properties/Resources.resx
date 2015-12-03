@@ -896,4 +896,7 @@
   <data name="PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo" xml:space="preserve">
     <value>Kan geen PropertyResolver maken zonder een lijst van PropertyInfo.</value>
   </data>
+  <data name="ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories" xml:space="preserve">
+    <value>Kan geen instanties maken van de benodigde objecten.</value>
+  </data>
 </root>

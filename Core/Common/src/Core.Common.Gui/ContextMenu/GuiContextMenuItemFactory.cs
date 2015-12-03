@@ -21,6 +21,7 @@ namespace Core.Common.Gui.ContextMenu
         /// </summary>
         /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> which contains information for creating the 
         /// <see cref="ToolStripItem"/>.</param>
+        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="commandHandler"/> is <c>null</c>.</exception>
         public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, ITreeNode treeNode)
         {

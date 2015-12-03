@@ -23,18 +23,19 @@ namespace Core.Common.Gui.ContextMenu
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
         /// require this type of information.</param>
         /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="treeNode"/> is <c>null</c></item>
-        /// <item><paramref name="commandHandler"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
+        /// the <paramref name="commandHandler"/> or <paramref name="treeNode"/>.</exception>
         public ContextMenuBuilder(IGuiCommandHandler commandHandler, ITreeNode treeNode)
         {
-            if (commandHandler != null)
+            try
             {
                 guiItemsFactory = new GuiContextMenuItemFactory(commandHandler, treeNode);
+                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             }
-            treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
+            catch (ArgumentNullException e)
+            {
+                throw new ContextMenuBuilderException(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, e);
+            }
             contextMenu = new ContextMenuStrip();
         }
 
@@ -58,28 +59,24 @@ namespace Core.Common.Gui.ContextMenu
 
         public IContextMenuBuilder AddOpenItem()
         {
-            CheckGuiItemsFactory();
             AddItem(guiItemsFactory.CreateOpenItem());
             return this;
         }
 
         public IContextMenuBuilder AddExportItem()
         {
-            CheckGuiItemsFactory();
             AddItem(guiItemsFactory.CreateExportItem());
             return this;
         }
 
         public IContextMenuBuilder AddImportItem()
         {
-            CheckGuiItemsFactory();
             AddItem(guiItemsFactory.CreateImportItem());
             return this;
         }
 
         public IContextMenuBuilder AddPropertiesItem()
         {
-            CheckGuiItemsFactory();
             AddItem(guiItemsFactory.CreatePropertiesItem());
             return this;
         }
@@ -110,14 +107,6 @@ namespace Core.Common.Gui.ContextMenu
                 }
             }
             return contextMenu;
-        }
-
-        private void CheckGuiItemsFactory()
-        {
-            if (guiItemsFactory == null)
-            {
-                throw new InvalidOperationException(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
-            }
         }
 
         private bool MayAddSeparator()
