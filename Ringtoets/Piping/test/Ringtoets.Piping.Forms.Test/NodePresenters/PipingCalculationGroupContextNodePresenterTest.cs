@@ -108,6 +108,27 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
+        public void CanDrag_Always_ReturnMove()
+        {
+            // Setup
+            var builderProvider = mockRepository.Stub<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
+            var group = new PipingCalculationGroup();
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSoilProfile>());
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider);
+
+            // Call
+            DragOperations supportedOperation = nodePresenter.CanDrag(groupContext);
+
+            // Assert
+            Assert.AreEqual(DragOperations.Move, supportedOperation);
+        }
+
+        [Test]
         public void CanDrop_DraggingPipingCalculationContextOntoGroupNotContainingCalculation_ReturnMove()
         {
             // Setup
@@ -183,7 +204,82 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnDragDrop_DragginPipingCalculationContextOntoGroup_MoveCalculationInstanceToNewGroup()
+        public void CanDrop_DraggingPipingCalculationGroupContextOntoGroupNotContainingGroup_ReturnMove()
+        {
+            // Setup
+            var group = new PipingCalculationGroup();
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSoilProfile>());
+            var targetGroup = new PipingCalculationGroup();
+            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSoilProfile>());
+
+            var groupNode = mockRepository.Stub<ITreeNode>();
+            groupNode.Tag = group;
+
+            var targetGroupNode = mockRepository.Stub<ITreeNode>();
+            targetGroupNode.Tag = targetGroupContext;
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            // Precondition:
+            CollectionAssert.DoesNotContain(targetGroup.Children, group,
+                "It doesn't make sense to allow dragging onto a group that already contains that node as direct child.");
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            DragOperations supportedOperations = nodePresenter.CanDrop(groupContext, groupNode, targetGroupNode, DragOperations.Move);
+
+            // Assert
+            Assert.AreEqual(DragOperations.Move, supportedOperations);
+            mockRepository.ReplayAll();
+        }
+
+        [Test]
+        public void CanDrop_DraggingPipingCalculationGroupContextOntoGroupContainingGroup_ReturnNone()
+        {
+            // Setup
+            var group = new PipingCalculation();
+            var groupContext = new PipingCalculationContext(group,
+                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSoilProfile>());
+            var targetGroup = new PipingCalculationGroup();
+            targetGroup.Children.Add(group);
+            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSoilProfile>());
+
+            var groupNode = mockRepository.Stub<ITreeNode>();
+            groupNode.Tag = groupContext;
+
+            var targetGroupNode = mockRepository.Stub<ITreeNode>();
+            targetGroupNode.Tag = targetGroupContext;
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            // Precondition:
+            CollectionAssert.Contains(targetGroup.Children, group,
+                "It doesn't make sense to allow dragging onto a group that already contains that node as direct child.");
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            DragOperations supportedOperations = nodePresenter.CanDrop(groupContext, groupNode, targetGroupNode, DragOperations.Move);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, supportedOperations);
+            mockRepository.ReplayAll();
+        }
+
+        [Test]
+        public void OnDragDrop_DraggingPipingCalculationContextOntoGroup_MoveCalculationInstanceToNewGroup()
         {
             // Setup
             var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
@@ -226,6 +322,53 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             CollectionAssert.DoesNotContain(originalOwnerGroup.Children, calculation);
             CollectionAssert.Contains(newOwnerGroup.Children, calculation);
             Assert.AreSame(calculation, newOwnerGroup.Children.Last());
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void OnDragDrop_DraggingPipingCalculationGroupContextOntoGroup_MoveGroupInstanceToNewGroup()
+        {
+            // Setup
+            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            var group = new PipingCalculationGroup();
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSoilProfile>());
+            var originalOwnerGroup = new PipingCalculationGroup();
+            originalOwnerGroup.Children.Add(group);
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
+                                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                              Enumerable.Empty<PipingSoilProfile>());
+
+            var newOwnerGroup = new PipingCalculationGroup();
+            newOwnerGroup.Attach(newOwnerObserver);
+            var newOwnerGroupContext = new PipingCalculationGroupContext(newOwnerGroup,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSoilProfile>());
+
+            // Precondition:
+            CollectionAssert.Contains(originalOwnerGroup.Children, group);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, group);
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            nodePresenter.OnDragDrop(groupContext, originalOwnerGroupContext, newOwnerGroupContext, DragOperations.Move, int.MaxValue);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, group);
+            CollectionAssert.Contains(newOwnerGroup.Children, group);
+            Assert.AreSame(group, newOwnerGroup.Children.Last());
             mockRepository.VerifyAll();
         }
 

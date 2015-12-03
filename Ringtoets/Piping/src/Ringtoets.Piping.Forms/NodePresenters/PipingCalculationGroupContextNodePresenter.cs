@@ -42,15 +42,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
-            var calculation = item as PipingCalculationContext;
-            if (calculation != null)
+            var targetGroup = ((PipingCalculationGroupContext)targetNode.Tag).WrappedData;
+
+            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(item);
+            if (pipingCalculationItem != null && !targetGroup.Children.Contains(pipingCalculationItem))
             {
-                var group = ((PipingCalculationGroupContext)targetNode.Tag).WrappedData;
-                if (!group.Children.Contains(calculation.WrappedData))
-                {
-                    return validOperations;
-                }
+                return validOperations;
             }
+
             return base.CanDrop(item, sourceNode, targetNode, validOperations);
         }
 
@@ -202,14 +201,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
         }
 
+        protected override DragOperations CanDrag(PipingCalculationGroupContext nodeData)
+        {
+            return DragOperations.Move;
+        }
+
         protected override void OnDragDrop(object item, object itemParent, PipingCalculationGroupContext target, DragOperations operation, int position)
         {
-            var calculationContext = item as PipingCalculationContext;
+            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(item);
             var originalOwnerContext = itemParent as PipingCalculationGroupContext;
-            if (calculationContext != null && originalOwnerContext != null)
+            if (pipingCalculationItem != null && originalOwnerContext != null)
             {
-                originalOwnerContext.WrappedData.Children.Remove(calculationContext.WrappedData);
-                target.WrappedData.Children.Add(calculationContext.WrappedData);
+                
+                originalOwnerContext.WrappedData.Children.Remove(pipingCalculationItem);
+                target.WrappedData.Children.Add(pipingCalculationItem);
 
                 originalOwnerContext.NotifyObservers();
                 target.NotifyObservers();
@@ -218,6 +223,23 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             {
                 base.OnDragDrop(item, itemParent, target, operation, position);
             }
+        }
+
+        private static IPipingCalculationItem GetAsIPipingCalculationItem(object item)
+        {
+            var calculationContext = item as PipingCalculationContext;
+            if (calculationContext != null)
+            {
+                return calculationContext.WrappedData;
+            }
+
+            var groupContext = item as PipingCalculationGroupContext;
+            if (groupContext != null)
+            {
+                return groupContext.WrappedData;
+            }
+
+            return null;
         }
     }
 }
