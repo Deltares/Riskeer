@@ -29,6 +29,7 @@ namespace Core.Common.Base.Service
         /// </summary>
         protected Activity()
         {
+            State = ActivityState.None;
             LogMessages = new List<string>();
         }
 
@@ -78,11 +79,6 @@ namespace Core.Common.Base.Service
             State = ActivityState.None;
 
             ChangeState(OnRun, ActivityState.Executed);
-
-            if (State == ActivityState.Failed)
-            {
-                log.ErrorFormat(Resources.Activity_Run_Execution_of_0_has_failed, Name);
-            }
         }
 
         /// <summary>
@@ -93,8 +89,6 @@ namespace Core.Common.Base.Service
         public void Cancel()
         {
             ChangeState(OnCancel, ActivityState.Cancelled);
-
-            log.WarnFormat(Resources.Activity_Run_Execution_of_0_has_been_canceled, Name);
         }
 
         /// <summary>
@@ -105,9 +99,21 @@ namespace Core.Common.Base.Service
         /// </summary>
         public void Finish()
         {
-            if (State == ActivityState.Executed)
+            ChangeState(OnFinish, State == ActivityState.Executed ? ActivityState.Finished : State); // If relevant, preserve the previous state
+
+            if (State == ActivityState.Finished)
             {
-                ChangeState(OnFinish, ActivityState.Finished);
+                log.InfoFormat(Resources.Activity_Finish_Execution_of_0_has_succeeded, Name);
+            }
+
+            if (State == ActivityState.Cancelled)
+            {
+                log.WarnFormat(Resources.Activity_Run_Execution_of_0_has_been_cancelled, Name);
+            }
+
+            if (State == ActivityState.Failed)
+            {
+                log.ErrorFormat(Resources.Activity_Finish_Execution_of_0_has_failed, Name);
             }
         }
 

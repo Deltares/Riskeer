@@ -61,20 +61,29 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoering van &apos;{0}&apos; is geannuleerd..
+        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is mislukt..
         /// </summary>
-        internal static string Activity_Run_Execution_of_0_has_been_canceled {
+        internal static string Activity_Finish_Execution_of_0_has_failed {
             get {
-                return ResourceManager.GetString("Activity_Run_Execution_of_0_has_been_canceled", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_Execution_of_0_has_failed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoering van &apos;{0}&apos; is mislukt..
+        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is gelukt..
         /// </summary>
-        internal static string Activity_Run_Execution_of_0_has_failed {
+        internal static string Activity_Finish_Execution_of_0_has_succeeded {
             get {
-                return ResourceManager.GetString("Activity_Run_Execution_of_0_has_failed", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_Execution_of_0_has_succeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is geannuleerd..
+        /// </summary>
+        internal static string Activity_Run_Execution_of_0_has_been_cancelled {
+            get {
+                return ResourceManager.GetString("Activity_Run_Execution_of_0_has_been_cancelled", resourceCulture);
             }
         }
         

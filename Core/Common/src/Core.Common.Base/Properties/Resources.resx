@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_Run_Execution_of_0_has_been_canceled" xml:space="preserve">
-    <value>Uitvoering van '{0}' is geannuleerd.</value>
+  <data name="Activity_Run_Execution_of_0_has_been_cancelled" xml:space="preserve">
+    <value>Uitvoeren van '{0}' is geannuleerd.</value>
   </data>
-  <data name="Activity_Run_Execution_of_0_has_failed" xml:space="preserve">
-    <value>Uitvoering van '{0}' is mislukt.</value>
+  <data name="Activity_Finish_Execution_of_0_has_succeeded" xml:space="preserve">
+    <value>Uitvoeren van '{0}' is gelukt.</value>
+  </data>
+  <data name="Activity_Finish_Execution_of_0_has_failed" xml:space="preserve">
+    <value>Uitvoeren van '{0}' is mislukt.</value>
   </data>
   <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
