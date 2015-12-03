@@ -893,4 +893,7 @@
   <data name="MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter" xml:space="preserve">
     <value>Shape-bestand (*.shp)|*.shp</value>
   </data>
+  <data name="PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo" xml:space="preserve">
+    <value>Kan geen PropertyResolver maken zonder een lijst van PropertyInfo.</value>
+  </data>
 </root>

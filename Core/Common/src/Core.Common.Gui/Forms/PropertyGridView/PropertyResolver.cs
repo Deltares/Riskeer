@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.PropertyBag.Dynamic;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
@@ -8,15 +9,29 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// <summary>
     /// Helper class for resolving object properties.
     /// </summary>
-    public static class PropertyResolver
+    public class PropertyResolver : IPropertyResolver
     {
+        private List<PropertyInfo> propertyInfos;
+
         /// <summary>
-        /// Returns object properties based on the provided <paramref name="propertyInfos"/> and <paramref name="sourceData"/>.
+        /// Creates a new instance of <see cref="PropertyResolver"/> with the given <paramref name="propertyInfos"/>.
         /// </summary>
         /// <param name="propertyInfos">The list of property information objects to obtain the object properties from.</param>
+        public PropertyResolver(IEnumerable<PropertyInfo> propertyInfos)
+        {
+            if (propertyInfos == null)
+            {
+                throw new ArgumentNullException("propertyInfos", Resources.PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo);
+            }
+            this.propertyInfos = propertyInfos.ToList();
+        }
+
+        /// <summary>
+        /// Returns object properties based on the provided <paramref name="sourceData"/>.
+        /// </summary>
         /// <param name="sourceData">The source data to get the object properties for.</param>
         /// <returns>An object properties object, or null when no relevant properties object is found.</returns>
-        public static object GetObjectProperties(List<PropertyInfo> propertyInfos, object sourceData)
+        public object GetObjectProperties(object sourceData)
         {
             if (sourceData == null)
             {

@@ -138,7 +138,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// <returns></returns>
         public object GetObjectProperties(object sourceData)
         {
-            return gui != null ? PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData) : null;
+            return gui != null ? gui.PropertyResolver.GetObjectProperties(sourceData) : null;
         }
 
         public ViewInfo ViewInfo { get; set; }

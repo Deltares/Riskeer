@@ -135,6 +135,7 @@
       <DependentUpon>ActivityProgressDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ProgressDialog\ProgressReporter.cs" />
+    <Compile Include="Forms\PropertyGridView\IPropertyResolver.cs" />
     <Compile Include="GuiCoreSettings.cs" />
     <Compile Include="RingtoetsGui.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />

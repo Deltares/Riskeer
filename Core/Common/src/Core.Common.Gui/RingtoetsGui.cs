@@ -16,6 +16,7 @@ using Core.Common.Controls.Swf;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
+using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
@@ -193,6 +194,8 @@ namespace Core.Common.Gui
         }
 
         public IViewResolver DocumentViewsResolver { get; private set; }
+
+        public IPropertyResolver PropertyResolver { get; private set; }
 
         public IViewList ToolWindowViews
         {
@@ -780,6 +783,7 @@ namespace Core.Common.Gui
             documentViews = documentViewManager;
 
             DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()));
+            PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
 
             var allowedToolWindowLocations = new[]
             {

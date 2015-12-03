@@ -145,7 +145,7 @@ namespace Core.Common.Gui
 
         public bool CanShowPropertiesFor(object obj)
         {
-            return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), obj) != null;
+            return gui.PropertyResolver.GetObjectProperties(obj) != null;
         }
 
         public void ImportOn(object target, IFileImporter importer = null)

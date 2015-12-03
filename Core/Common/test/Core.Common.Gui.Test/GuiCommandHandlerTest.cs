@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Common.Gui.Forms.PropertyGridView;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -19,8 +20,11 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             var gui = mocks.DynamicMock<IGui>();
+            var propertyResolverMock = mocks.StrictMock<IPropertyResolver>();
             var anObject = new AnObject();
-            gui.Expect(g => g.Plugins).Return(new GuiPlugin[] {new TestGuiPlugin()});
+
+            propertyResolverMock.Expect(pr => pr.GetObjectProperties(anObject)).Return(new object());
+            gui.Expect(g => g.PropertyResolver).Return(propertyResolverMock);
 
             mocks.ReplayAll();
 
@@ -41,7 +45,10 @@ namespace Core.Common.Gui.Test
             // Setup
             var gui = mocks.DynamicMock<IGui>();
             var aSubObject = new ASubObject();
-            gui.Expect(g => g.Plugins).Return(new GuiPlugin[] {new TestGuiPlugin()});
+            var propertyResolverMock = mocks.StrictMock<IPropertyResolver>();
+
+            propertyResolverMock.Expect(pr => pr.GetObjectProperties(aSubObject)).Return(new object());
+            gui.Expect(g => g.PropertyResolver).Return(propertyResolverMock);
 
             mocks.ReplayAll();
 

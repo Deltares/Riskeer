@@ -12,6 +12,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.PropertyGridView;
 
 namespace Core.Common.Gui
 {
@@ -63,6 +64,11 @@ namespace Core.Common.Gui
         /// Resolves document views
         /// </summary>
         IViewResolver DocumentViewsResolver { get; }
+
+        /// <summary>
+        /// Resolves property info objects.
+        /// </summary>
+        IPropertyResolver PropertyResolver { get; }
 
         /// <summary>
         /// Gets main window of the graphical user interface.
