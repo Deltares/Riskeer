@@ -8,8 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Editors;
 using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Table.Validation;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
@@ -1820,7 +1820,7 @@ namespace Core.Common.Controls.Swf.Table
         /// <param name="columnType">Type of the data the column is going to display</param>
         /// <param name="index">Index of the column</param>
         /// <param name="editor">Editor to use for editing the values of this column</param>
-        public void AddUnboundColumn(string columnName, Type columnType, int index = -1, ITypeEditor editor = null)
+        public void AddUnboundColumn(string columnName, Type columnType, int index = -1, Editors.ITypeEditor editor = null)
         {
             var unbColumn = dxGridView.Columns.AddField(columnName);
             var column = new TableViewColumn(dxGridView, dxGridControl, unbColumn, this, true);

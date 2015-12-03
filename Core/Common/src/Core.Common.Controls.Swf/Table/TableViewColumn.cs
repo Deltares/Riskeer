@@ -17,7 +17,7 @@ namespace Core.Common.Controls.Swf.Table
         private readonly GridColumn dxColumn;
         private readonly TableView tableView;
         private readonly GridControl dxGridControl;
-        private ITypeEditor editor;
+        private Editors.ITypeEditor editor;
 
         private string displayFormat = "";
         private int visibleIndex;
@@ -199,7 +199,7 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        public ITypeEditor Editor
+        public Editors.ITypeEditor Editor
         {
             get
             {

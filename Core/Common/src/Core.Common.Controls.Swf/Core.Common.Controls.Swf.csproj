@@ -175,10 +175,11 @@
     </Compile>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="ControlHelper.cs" />
-    <Compile Include="Editors\ButtonTypeEditor.cs">
+    <Compile Include="Table\Editors\ButtonTypeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editors\MultiLineTextEdior.cs">
+    <Compile Include="Table\Editors\ITypeEditor.cs" />
+    <Compile Include="Table\Editors\MultiLineTextEdior.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ExceptionDialog.cs">
@@ -195,10 +196,10 @@
       <DependentUpon>FindAndReplaceControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageBox.cs" />
-    <Compile Include="Editors\ComboBoxTypeEditor.cs">
+    <Compile Include="Table\Editors\ComboBoxTypeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editors\ComboBoxTypeEditor.Designer.cs">
+    <Compile Include="Table\Editors\ComboBoxTypeEditor.Designer.cs">
       <DependentUpon>ComboBoxTypeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="FileSystemTreeView.cs">

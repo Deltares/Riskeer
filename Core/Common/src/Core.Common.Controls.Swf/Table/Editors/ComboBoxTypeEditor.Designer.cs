@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Controls.Swf.Editors
+﻿namespace Core.Common.Controls.Swf.Table.Editors
 {
     partial class ComboBoxTypeEditor
     {

@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.Swf.Editors
+namespace Core.Common.Controls.Swf.Table.Editors
 {
     public class MultiLineTextEdior : UserControl, ITypeEditor
     {

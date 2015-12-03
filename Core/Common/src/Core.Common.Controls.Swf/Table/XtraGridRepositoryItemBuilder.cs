@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Editors;
+using Core.Common.Controls.Swf.Table.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
@@ -19,7 +19,7 @@ namespace Core.Common.Controls.Swf.Table
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewColumn));
 
-        public static RepositoryItem CreateFromTypeEditor(ITypeEditor typeEditor, GridControl gridControl, GridColumn column, string caption)
+        public static RepositoryItem CreateFromTypeEditor(Editors.ITypeEditor typeEditor, GridControl gridControl, GridColumn column, string caption)
         {
             if (typeEditor is MultiLineTextEdior)
             {
@@ -201,7 +201,7 @@ namespace Core.Common.Controls.Swf.Table
         /// <summary>
         /// Called when the popup is closed
         /// </summary>
-        private static void RepositoryItemCloseUp(CloseUpEventArgs e, ITypeEditor editor)
+        private static void RepositoryItemCloseUp(CloseUpEventArgs e, Editors.ITypeEditor editor)
         {
             if (e.CloseMode == PopupCloseMode.Cancel)
             {
@@ -216,14 +216,14 @@ namespace Core.Common.Controls.Swf.Table
         private static void RepositoryItemValidating(object sender, CancelEventArgs e)
         {
             var popupContainer = (PopupContainerEdit) sender;
-            var typeEditor = (ITypeEditor) popupContainer.Properties.PopupControl.Controls[0];
+            var typeEditor = (Editors.ITypeEditor) popupContainer.Properties.PopupControl.Controls[0];
             if (!typeEditor.Validate())
             {
                 e.Cancel = true;
             }
         }
 
-        private static void ButtonTypeEditorRepositoryItemButtonClick(ButtonPressedEventArgs e, ITypeEditor editor)
+        private static void ButtonTypeEditorRepositoryItemButtonClick(ButtonPressedEventArgs e, Editors.ITypeEditor editor)
         {
             var buttonTypeEditor = (ButtonTypeEditor) editor;
             if (buttonTypeEditor.ButtonClickAction != null)
@@ -235,7 +235,7 @@ namespace Core.Common.Controls.Swf.Table
         private static void RepositoryItemQueryResultValue(object sender, QueryResultValueEventArgs e)
         {
             var popupContainer = (PopupContainerEdit) sender;
-            var typeEditor = (ITypeEditor) popupContainer.Properties.PopupControl.Controls[0];
+            var typeEditor = (Editors.ITypeEditor) popupContainer.Properties.PopupControl.Controls[0];
             e.Value = typeEditor.EditableValue;
         }
 
@@ -243,7 +243,7 @@ namespace Core.Common.Controls.Swf.Table
         {
             var popupContainer = (PopupContainerEdit) sender;
 
-            var typeEditor = (ITypeEditor) popupContainer.Properties.PopupControl.Controls[0];
+            var typeEditor = (Editors.ITypeEditor) popupContainer.Properties.PopupControl.Controls[0];
             if (!typeEditor.CanPopup())
             {
                 Log.Warn("repositoryItem_QueryPopUp ! CanPopup");

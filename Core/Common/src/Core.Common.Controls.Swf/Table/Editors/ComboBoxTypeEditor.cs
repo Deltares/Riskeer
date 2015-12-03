@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.Swf.Editors
+namespace Core.Common.Controls.Swf.Table.Editors
 {
     public partial class ComboBoxTypeEditor : UserControl, ITypeEditor
     {

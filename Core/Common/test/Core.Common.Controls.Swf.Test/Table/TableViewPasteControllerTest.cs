@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Editors;
 using Core.Common.Controls.Swf.Table;
+using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Test.Table.TestClasses;
 using NUnit.Framework;
 
