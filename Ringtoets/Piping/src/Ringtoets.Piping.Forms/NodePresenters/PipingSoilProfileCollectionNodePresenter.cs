@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,7 +18,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingSoilProfileCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<PipingSoilProfile>>
     {
-        public PipingSoilProfileCollectionNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingSoilProfileCollectionNodePresenter"/>, which uses the 
+        /// <paramref name="contextMenuBuilderProvider"/> to create and bind its <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
+        /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
+        public PipingSoilProfileCollectionNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<PipingSoilProfile> pipingSoilProfiles)
         {

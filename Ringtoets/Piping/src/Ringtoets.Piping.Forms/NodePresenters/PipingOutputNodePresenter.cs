@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -16,7 +17,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingOutputNodePresenter : RingtoetsNodePresenterBase<PipingOutput>
     {
-        public PipingOutputNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingOutputNodePresenter"/>, which uses the 
+        /// <paramref name="contextMenuBuilderProvider"/> to create and bind its <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
+        /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
+        public PipingOutputNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingOutput nodeData)
         {

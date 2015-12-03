@@ -33,17 +33,18 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_WithTreeNode_NewInstance()
+        public void Constructor_WithTreeNode_DoesNotThrow()
         {
-            // Call
+            // Setup
             var strictMock = mocks.StrictMock<ITreeNode>();
 
             mocks.ReplayAll();
-
-            var result = new TreeViewContextMenuItemFactory(strictMock);
+            
+            // Call
+            TestDelegate test = () => new TreeViewContextMenuItemFactory(strictMock);
 
             // Assert
-            Assert.IsInstanceOf<TreeViewContextMenuItemFactory>(result);
+            Assert.DoesNotThrow(test);
 
             mocks.VerifyAll();
         }
@@ -51,7 +52,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateDeleteItem_DependingOnCanDelete_ItemWithDeleteFunctionWillBeEnabled(bool enabled)
+        public void CreateDeleteItem_DependingOnCanDelete_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
@@ -65,9 +66,9 @@ namespace Core.Common.Gui.Test.ContextMenu
             treeNodeMock.Expect(tn => tn.Parent).Return(treeParentNodeMock);
             treeNodeMock.Expect(tn => tn.Tag).Return(arg2);
             treeParentNodeMock.Expect(tn => tn.Tag).Return(arg1);
-            treeNodePresenterMock.Expect(tnp => tnp.CanRemove(arg1, arg2)).Return(enabled);
+            treeNodePresenterMock.Expect(tnp => tnp.CanRemove(arg1, arg2)).Return(canDelete);
 
-            if (enabled)
+            if (canDelete)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
                 treeViewMock.Expect(tv => tv.TryDeleteSelectedNodeData());
@@ -85,7 +86,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Delete, item.Text);
             Assert.AreEqual(Resources.Delete_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.DeleteIcon, item.Image);
-            Assert.AreEqual(enabled, item.Enabled);
+            Assert.AreEqual(canDelete, item.Enabled);
 
             mocks.VerifyAll();
         }
@@ -94,12 +95,12 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateExpandAllItem_DependingOnChildNodes_ItemWithExpandFunctionWillBeEnabled(bool enabled)
+        public void CreateExpandAllItem_DependingOnChildNodes_ItemWithExpandFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
-            if (enabled)
+            if (hasChildren)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
                 treeViewMock.Expect(tv => tv.ExpandAll(treeNodeMock));
@@ -107,7 +108,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             var children = new List<ITreeNode>();
 
-            if (enabled)
+            if (hasChildren)
             {
                 children.Add(mocks.StrictMock<ITreeNode>());
             }
@@ -125,7 +126,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Expand_all, item.Text);
             Assert.AreEqual(Resources.Expand_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ExpandAllIcon, item.Image);
-            Assert.AreEqual(enabled, item.Enabled);
+            Assert.AreEqual(hasChildren, item.Enabled);
 
             mocks.VerifyAll();
         }
@@ -133,19 +134,19 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateCollapseAllItem_DependingOnChildNodes_ItemWithCollapseFunctionWillBeEnabled(bool enabled)
+        public void CreateCollapseAllItem_DependingOnChildNodes_ItemWithCollapseFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
-            if (enabled)
+            if (hasChildren)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
                 treeViewMock.Expect(tv => tv.CollapseAll(treeNodeMock));
             }
             var children = new List<ITreeNode>();
 
-            if (enabled)
+            if (hasChildren)
             {
                 children.Add(mocks.StrictMock<ITreeNode>());
             }
@@ -164,7 +165,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Collapse_all, item.Text);
             Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
-            Assert.AreEqual(enabled, item.Enabled);
+            Assert.AreEqual(hasChildren, item.Enabled);
 
             mocks.VerifyAll();
         }

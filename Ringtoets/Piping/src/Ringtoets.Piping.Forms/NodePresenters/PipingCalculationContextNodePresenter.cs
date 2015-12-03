@@ -21,7 +21,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// </summary>
     public class PipingCalculationContextNodePresenter : RingtoetsNodePresenterBase<PipingCalculationContext>
     {
-        public PipingCalculationContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+        /// <summary>
+        /// Creates a new instance of <see cref="EmptyPipingCalculationReportNodePresenter"/>, which uses the 
+        /// <paramref name="contextMenuBuilderProvider"/> to create and bind its <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
+        /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
+        public PipingCalculationContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
         /// <summary>
         /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.

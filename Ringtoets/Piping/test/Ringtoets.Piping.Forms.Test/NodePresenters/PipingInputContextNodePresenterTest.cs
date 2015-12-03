@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtils;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -58,6 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<PipingInputContext>>(nodePresenter);
             Assert.AreEqual(typeof(PipingInputContext), nodePresenter.NodeTagType);
             Assert.IsNull(nodePresenter.TreeView);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -67,8 +66,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var parentNode = mockRepository.StrictMock<ITreeNode>();
             var currentNode = mockRepository.Stub<ITreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            currentNode.ForegroundColor = Color.AliceBlue;
             mockRepository.ReplayAll();
+
+            currentNode.ForegroundColor = Color.AliceBlue;
 
             var nodeData = new PipingInputContext();
 

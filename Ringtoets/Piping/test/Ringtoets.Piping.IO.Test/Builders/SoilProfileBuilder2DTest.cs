@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         [Test]
         [TestCase(null)]
         [TestCase("name")]
-        public void Constructor_WithNameValidX_ReturnsNewInstance(string name)
+        public void Constructor_WithNameValidX_DoesNotThrow(string name)
         {
             // Call
             TestDelegate test = () => new SoilProfileBuilder2D(name, 0.0);

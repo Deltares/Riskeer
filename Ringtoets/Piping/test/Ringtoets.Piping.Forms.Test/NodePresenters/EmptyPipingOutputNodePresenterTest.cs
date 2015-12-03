@@ -22,13 +22,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     public class EmptyPipingOutputNodePresenterTest
     {
         private MockRepository mockRepository;
-        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
         }
 
         [Test]
@@ -46,6 +44,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         [Test]
         public void Constructor_WithParamsSet_NewInstance()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
             // Call
             var nodePresenter = new EmptyPipingOutputNodePresenter(contextMenuBuilderProviderMock);
 
@@ -53,17 +56,19 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsInstanceOf<RingtoetsNodePresenterBase<EmptyPipingOutput>>(nodePresenter);
             Assert.AreEqual(typeof(EmptyPipingOutput), nodePresenter.NodeTagType);
             Assert.IsNull(nodePresenter.TreeView);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void UpdateNode_Always_InitializeNodeSimilarlyToPipingOutputNodePresenterWithGreyedText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parentTreeNode = mocks.StrictMock<ITreeNode>();
-            var outputTreeNode = mocks.Stub<ITreeNode>();
-            var expectedOutputTreeNode = mocks.Stub<ITreeNode>();
-            mocks.ReplayAll();
+            var parentTreeNode = mockRepository.StrictMock<ITreeNode>();
+            var outputTreeNode = mockRepository.Stub<ITreeNode>();
+            var expectedOutputTreeNode = mockRepository.Stub<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new EmptyPipingOutputNodePresenter(contextMenuBuilderProviderMock);
 
@@ -76,17 +81,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), outputTreeNode.ForegroundColor);
             TestHelper.AssertImagesAreEqual(expectedOutputTreeNode.Image, outputTreeNode.Image);
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanRenameNode_Always_MimickBehaviorOfPipingOutputNodePresenter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var outputTreeNode = mocks.StrictMock<ITreeNode>();
-            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
-            mocks.ReplayAll();
+            var outputTreeNode = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new EmptyPipingOutputNodePresenter(contextMenuBuilderProviderMock);
 
@@ -99,16 +103,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var expectedValue = referenceNodePresenter.CanRenameNode(outputTreeNode);
             Assert.AreEqual(expectedValue, isRenamingAllowed);
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parentDataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
+            var parentDataMock = mockRepository.StrictMock<object>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new EmptyPipingOutputNodePresenter(contextMenuBuilderProviderMock);
 
@@ -118,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsFalse(isRemovalAllowed, "EmptyPipingOutput represents no output, therefore there's nothing to remove.");
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
     }
 }

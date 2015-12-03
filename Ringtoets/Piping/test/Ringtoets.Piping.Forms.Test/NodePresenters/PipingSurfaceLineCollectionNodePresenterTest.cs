@@ -26,13 +26,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     public class PipingSurfaceLineCollectionNodePresenterTest
     {
         private MockRepository mockRepository;
-        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
         }
 
         [Test]
@@ -50,6 +48,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         [Test]
         public void Constructor_WithParamsSet_ExpectedValues()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             // Call
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -57,15 +59,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
             Assert.AreEqual(typeof(IEnumerable<RingtoetsPipingSurfaceLine>), nodePresenter.NodeTagType);
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            var mocks = new MockRepository();
-            var surfaceLinesCollectionNodeMock = mocks.Stub<ITreeNode>();
-            mocks.ReplayAll();
+            var surfaceLinesCollectionNodeMock = mockRepository.Stub<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -78,15 +81,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), surfaceLinesCollectionNodeMock.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, surfaceLinesCollectionNodeMock.Image);
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void UpdateNode_CollectionIsEmpty_InitializeNodeWithGreyedOutText()
         {
             // Setup
-            var mocks = new MockRepository();
-            var surfaceLinesCollectionNodeMock = mocks.Stub<ITreeNode>();
-            mocks.ReplayAll();
+            var surfaceLinesCollectionNodeMock = mockRepository.Stub<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -99,14 +103,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), surfaceLinesCollectionNodeMock.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, surfaceLinesCollectionNodeMock.Image);
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void GetChildNodeObjects_WithData_ReturnAllItemsInCollection()
         {
             // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -121,16 +126,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             CollectionAssert.AreEqual(surfaceLinesCollection, children);
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanRenameNode_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -139,16 +144,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(renameAllowed);
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanRenameNodeTo_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -157,16 +162,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(renameAllowed);
-            mocks.ReplayAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void OnNodeRenamed_Always_ThrowInvalidOperationException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -177,16 +182,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var exception = Assert.Throws<InvalidOperationException>(call);
             var expectedMessage = string.Format("Kan knoop uit boom van type {0} niet hernoemen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.ReplayAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void OnNodeChecked_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -194,16 +199,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnNodeChecked(nodeMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanDrag_Always_ReturnNone()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -212,18 +217,18 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(DragOperations.None, dragAllowed);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanDrop_Always_ReturnNone()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var sourceMock = mockRepository.StrictMock<ITreeNode>();
+            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -232,18 +237,18 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(DragOperations.None, dropAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
+            mockRepository.VerifyAll(); // Expect no calls on mockRepository.
         }
 
         [Test]
         public void CanInsert_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var sourceMock = mockRepository.StrictMock<ITreeNode>();
+            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -252,18 +257,18 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(insertionAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnDragDrop_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var sourceParentNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var targetParentNodeDataMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -271,16 +276,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnNodeSelected_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -288,7 +293,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnNodeSelected(dataMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
 
@@ -324,11 +329,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -336,17 +341,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnCollectionChange_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangingEventArgs>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -354,17 +359,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -373,17 +378,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void RemoveNodeData_Always_ThrowInvalidOperationException()
         {
             // setup
-            var mocks = new MockRepository();
-            var parentNodeDataMock = mocks.StrictMock<object>();
-            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
+            var parentNodeDataMock = mockRepository.StrictMock<object>();
+            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
 
@@ -394,7 +399,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var exception = Assert.Throws<InvalidOperationException>(call);
             var expectedMessage = string.Format("Kan knoop uit boom van type {0} niet verwijderen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
     }
 }

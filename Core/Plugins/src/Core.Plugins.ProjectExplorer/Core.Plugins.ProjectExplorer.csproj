@@ -92,6 +92,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ShowProjectExplorerCommand.cs" />
+    <Compile Include="Exceptions\ProjectExplorerGuiPluginException.cs" />
     <Compile Include="NodePresenters\TreeFolderNodePresenter.cs" />
     <Compile Include="NodePresenters\ProjectNodePresenter.cs">
     </Compile>

@@ -29,8 +29,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-            StringAssert.StartsWith(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
-            StringAssert.EndsWith(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+            Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
         }
 
         [Test]
@@ -46,14 +45,13 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
-            StringAssert.StartsWith(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
-            StringAssert.EndsWith(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
+            Assert.AreEqual(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, message);
 
             mocks.VerifyAll();
         } 
 
         [Test]
-        public void Constructor_Gui_NewInstance()
+        public void Constructor_ParamsSet_DoesNotThrow()
         {
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
@@ -87,6 +85,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             CollectionAssert.IsEmpty(result.Items);
+
+            mocks.VerifyAll();
         } 
 
         [Test]
@@ -123,20 +123,21 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddExpandAllItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
+        public void AddExpandAllItem_WhenBuild_ItemAddedToContextMenu(bool hasChildren)
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            IList<ITreeNode> childs = new List<ITreeNode>();
-            if (enabled)
+            IList<ITreeNode> children = new List<ITreeNode>();
+            if (hasChildren)
             {
-                childs.Add(treeNodeMock);
+                children.Add(treeNodeMock);
             }
-            treeNodeMock.Expect(tn => tn.Nodes).Return(childs);
-            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
+            treeNodeMock.Expect(tn => tn.Nodes).Return(children);
 
             mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
 
             // Call
             var result = builder.AddExpandAllItem().Build();
@@ -145,23 +146,25 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Expand_all, Resources.Expand_all_ToolTip, Resources.ExpandAllIcon, enabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Expand_all, Resources.Expand_all_ToolTip, Resources.ExpandAllIcon, hasChildren);
+
+            mocks.VerifyAll();
         } 
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddCollapseAllItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
+        public void AddCollapseAllItem_WhenBuild_ItemAddedToContextMenu(bool hasChildren)
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            IList<ITreeNode> childs = new List<ITreeNode>();
-            if (enabled)
+            IList<ITreeNode> children = new List<ITreeNode>();
+            if (hasChildren)
             {
-                childs.Add(treeNodeMock);
+                children.Add(treeNodeMock);
             }
-            treeNodeMock.Expect(tn => tn.Nodes).Return(childs);
+            treeNodeMock.Expect(tn => tn.Nodes).Return(children);
 
             mocks.ReplayAll();
 
@@ -174,19 +177,21 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Collapse_all, Resources.Collapse_all_ToolTip, Resources.CollapseAllIcon, enabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Collapse_all, Resources.Collapse_all_ToolTip, Resources.CollapseAllIcon, hasChildren);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddOpenItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
+        public void AddOpenItem_WhenBuild_ItemAddedToContextMenu(bool hasViewForNodeData)
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
 
-            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(null)).IgnoreArguments().Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(null)).IgnoreArguments().Return(hasViewForNodeData);
 
             mocks.ReplayAll();
 
@@ -201,7 +206,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Open, Resources.Open_ToolTip, Resources.OpenIcon, enabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Open, Resources.Open_ToolTip, Resources.OpenIcon, hasViewForNodeData);
 
             mocks.VerifyAll();
         } 
@@ -209,14 +214,16 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddExportItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
+        public void AddExportItem_WhenBuild_ItemAddedToContextMenu(bool hasExportersForNodeData)
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanExportFrom(null)).IgnoreArguments().Return(enabled);
-            var builder = new ContextMenuBuilder(commandHandlerMock, MockRepository.GenerateMock<ITreeNode>());
+            commandHandlerMock.Expect(ch => ch.CanExportFrom(null)).IgnoreArguments().Return(hasExportersForNodeData);
+            var treeNodeMock = mocks.Stub<ITreeNode>();
 
             mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
 
             // Call
             var result = builder.AddExportItem().Build();
@@ -225,7 +232,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Export, Resources.Export_ToolTip, Resources.ExportIcon, enabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Export, Resources.Export_ToolTip, Resources.ExportIcon, hasExportersForNodeData);
 
             mocks.VerifyAll();
         } 
@@ -233,11 +240,11 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddImportItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
+        public void AddImportItem_WhenBuild_ItemAddedToContextMenu(bool hasImportersForNodeData)
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanImportOn(null)).IgnoreArguments().Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanImportOn(null)).IgnoreArguments().Return(hasImportersForNodeData);
             var treeNodeMock = mocks.Stub<ITreeNode>();
 
             mocks.ReplayAll();
@@ -251,7 +258,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, enabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Import, Resources.Import_ToolTip, Resources.ImportIcon, hasImportersForNodeData);
 
             mocks.VerifyAll();
         } 
@@ -259,13 +266,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddPropertiesItem_WhenBuild_ItemAddedToContextMenu(bool enabled)
+        public void AddPropertiesItem_WhenBuild_ItemAddedToContextMenu(bool hasPropertiesForNodeData)
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
 
-            commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(null)).IgnoreArguments().Return(enabled);
+            commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(null)).IgnoreArguments().Return(hasPropertiesForNodeData);
 
             mocks.ReplayAll();
 
@@ -278,7 +285,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Properties, Resources.Properties_ToolTip, Resources.PropertiesIcon, enabled);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Properties, Resources.Properties_ToolTip, Resources.PropertiesIcon, hasPropertiesForNodeData);
 
             mocks.VerifyAll();
         }
@@ -303,6 +310,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(1, result.Items.Count);
             
             Assert.AreSame(item, result.Items[0]);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -322,6 +331,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.IsEmpty(result.Items);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -345,6 +356,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(1, result.Items.Count);
 
             Assert.IsInstanceOf<StrictContextMenuItem>(result.Items[0]);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -369,6 +382,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(3, result.Items.Count);
 
             Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -390,6 +405,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
+
+            mocks.VerifyAll();
         }
     }
 }

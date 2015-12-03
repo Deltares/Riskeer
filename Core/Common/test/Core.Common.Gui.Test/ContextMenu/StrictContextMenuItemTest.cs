@@ -5,26 +5,25 @@ using Core.Common.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Gui.Tests.ContextMenu
+namespace Core.Common.Gui.Test.ContextMenu
 {
     [TestFixture]
     public class StrictContextMenuItemTest
     {
-        public interface IClick
-        {
-            void Click();
-        }
-
         [Test]
         public void Constructor_WithParameters_PropertiesSet()
         {
             // Setup
+            var mockRepository = new MockRepository();
+
             var text = "text";
             var toolTip = "tooltip";
             var image = Resources.ImportIcon;
-            var mock = MockRepository.GenerateStrictMock<IClick>();
-            mock.Expect(m => m.Click());
-            EventHandler handler = (s,e) => mock.Click();
+            var counter = 0;
+
+            mockRepository.ReplayAll();
+
+            EventHandler handler = (s, e) => counter++;
 
             // Call
             var result = new StrictContextMenuItem(text,toolTip,image,handler);
@@ -34,7 +33,10 @@ namespace Core.Common.Gui.Tests.ContextMenu
             Assert.IsInstanceOf<StrictContextMenuItem>(result);
             Assert.AreEqual(text, result.Text);
             Assert.AreEqual(toolTip, result.ToolTipText);
+            Assert.AreEqual(1, counter);
             TestHelper.AssertImagesAreEqual(image, result.Image);
+
+            mockRepository.VerifyAll();
         }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtils;
 using Core.Common.Gui.TestUtils.ContextMenu;
 using Core.Common.TestUtils;
 
@@ -74,8 +71,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var pipingNode = mockRepository.Stub<ITreeNode>();
-            pipingNode.ForegroundColor = Color.AliceBlue;
             mockRepository.ReplayAll();
+
+            pipingNode.ForegroundColor = Color.AliceBlue;
 
             var nodePresenter = new PipingOutputNodePresenter(contextMenuBuilderProviderMock);
 
@@ -88,6 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(outputName, pipingNode.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), pipingNode.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingOutputIcon, pipingNode.Image);
+            mockRepository.ReplayAll();
         }
 
         [Test]

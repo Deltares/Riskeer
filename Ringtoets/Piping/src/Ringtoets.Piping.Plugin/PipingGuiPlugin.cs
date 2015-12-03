@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
@@ -31,6 +32,11 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
         }
 
+        /// <summary>
+        /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="PipingGuiPlugin"/>.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="IGui.ContextMenuProvider"/> is <c>null</c>.</exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new PipingFailureMechanismNodePresenter(Gui.ContextMenuProvider)

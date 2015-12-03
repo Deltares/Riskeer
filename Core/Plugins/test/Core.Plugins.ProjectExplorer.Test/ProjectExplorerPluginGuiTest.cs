@@ -39,20 +39,20 @@ namespace Core.Plugins.ProjectExplorer.Test
             gui.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
             gui.Expect(g => g.ProjectClosing += Arg<Action<Project>>.Is.Anything).Repeat.Any();
             gui.Expect(g => g.ProjectClosing -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
-            Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
-            Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
+            gui.Expect(g => g.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
+            gui.Expect(g => g.DocumentViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
+            gui.Expect(g => g.Plugins).Return(new List<GuiPlugin>
             {
                 projectExplorerPluginGui, pluginGui
             }).Repeat.Any();
-            Expect.Call(gui.ContextMenuProvider).Return(mocks.StrictMock<IContextMenuBuilderProvider>()).Repeat.Any();
+            gui.Expect(g => g.ContextMenuProvider).Return(mocks.StrictMock<IContextMenuBuilderProvider>()).Repeat.Any();
             gui.CommandHandler = mocks.StrictMock<IGuiCommandHandler>();
 
             gui.Project = project;
 
             //create and register a custom np
             mockNodePresenter = mocks.Stub<ITreeNodePresenter>();
-            Expect.Call(pluginGui.GetProjectTreeViewNodePresenters()).Return(new[]
+            pluginGui.Expect(g => g.GetProjectTreeViewNodePresenters()).Return(new[]
             {
                 mockNodePresenter
             });

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -15,7 +16,14 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// </summary>
     public class PlaceholderWithReadonlyNameNodePresenter : RingtoetsNodePresenterBase<PlaceholderWithReadonlyName>
     {
-        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
+        /// <summary>
+        /// Creates a new instance of <see cref="PlaceholderWithReadonlyNameNodePresenter"/>, which uses the 
+        /// <paramref name="contextMenuBuilderProvider"/> to create and bind its <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
+        /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
+        public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PlaceholderWithReadonlyName nodeData)
         {
@@ -30,6 +38,11 @@ namespace Ringtoets.Integration.Forms.NodePresenters
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
+                menuBuilder.AddOpenItem();
+            }
+            
+            if (nodeData is OutputPlaceholder)
+            {
                 var clearItem = new StrictContextMenuItem(
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
                     RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
@@ -39,11 +52,13 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                     Enabled = false
                 };
 
-                menuBuilder.AddOpenItem()
-                           .AddCustomItem(clearItem)
-                           .AddSeparator();
+                menuBuilder.AddCustomItem(clearItem);
             }
 
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
+            {
+                menuBuilder.AddSeparator();
+            }
             return menuBuilder.AddImportItem()
                               .AddExportItem()
                               .AddSeparator()

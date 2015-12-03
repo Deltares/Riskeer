@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -29,6 +30,11 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<AssessmentSectionBase, AssessmentSectionBaseProperties>();
         }
 
+        /// <summary>
+        /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="RingtoetsGuiPlugin"/>.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="IGui.ContextMenuProvider"/> is <c>null</c>.</exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new AssessmentSectionBaseNodePresenter(Gui.ContextMenuProvider);

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtils;
 using Core.Common.Gui.TestUtils.ContextMenu;
 using Core.Common.TestUtils;
 using Core.Plugins.ProjectExplorer.NodePresenters;
@@ -44,23 +40,39 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         [Test]
         public void Constructor_NoCommandHandlerProvider_ArgumentNullException()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new ProjectNodePresenter(mocks.StrictMock<IContextMenuBuilderProvider>(), null);
+            TestDelegate test = () => new ProjectNodePresenter(contextMenuBuilderProviderMock, null);
+
 
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
             StringAssert.StartsWith(CommonGuiResources.NodePresenter_CommandHandler_required, message);
             StringAssert.EndsWith("commandHandler", message);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithParamsSet_NewInstance()
+        public void Constructor_WithParamsSet_DoesNotThrow()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var guiCommandHandler = mocks.StrictMock<IGuiCommandHandler>();
+
+            mocks.ReplayAll();
+
             // Call
-            var result = new ProjectNodePresenter(mocks.StrictMock<IContextMenuBuilderProvider>(), mocks.StrictMock<IGuiCommandHandler>());
+            TestDelegate test = () => new ProjectNodePresenter(contextMenuBuilderProviderMock, guiCommandHandler);
             
             // Assert
-            Assert.IsInstanceOf<ProjectNodePresenter>(result);
+            Assert.DoesNotThrow(test);
+
+            mocks.VerifyAll();
         }
 
         [Test]

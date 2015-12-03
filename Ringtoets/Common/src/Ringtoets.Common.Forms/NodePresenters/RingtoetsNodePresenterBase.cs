@@ -27,6 +27,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// </summary>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
         /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public RingtoetsNodePresenterBase(IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
             if (contextMenuBuilderProvider == null)

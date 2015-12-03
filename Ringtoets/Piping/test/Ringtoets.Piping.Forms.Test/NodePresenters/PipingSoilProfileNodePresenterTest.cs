@@ -22,13 +22,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     public class PipingSoilProfileNodePresenterTest
     {
         private MockRepository mockRepository;
-        private IContextMenuBuilderProvider contextMenuBuilderProviderMock;
         
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
         }
 
         [Test]
@@ -46,6 +44,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         [Test]
         public void Constructor_WithParamsSet_NewInstance()
         {
+            // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             // Call
             var nodePresenter = new PipingSoilProfileNodePresenter(contextMenuBuilderProviderMock);
 
@@ -58,11 +60,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_NodeWithData_InitializeNode()
         {
             // Setup
-            var mocks = new MockRepository();
-            var parentNodeMock = mocks.StrictMock<ITreeNode>();
-            var dataNodeMock = mocks.Stub<ITreeNode>();
+            var parentNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var dataNodeMock = mockRepository.Stub<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            mockRepository.ReplayAll();
+
             dataNodeMock.ForegroundColor = Color.AliceBlue;
-            mocks.ReplayAll();
 
             const string name = "<insert name here>";
             var random = new Random(22);
@@ -85,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(name, dataNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataNodeMock.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingSoilProfileIcon, dataNodeMock.Image);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
     }
 }

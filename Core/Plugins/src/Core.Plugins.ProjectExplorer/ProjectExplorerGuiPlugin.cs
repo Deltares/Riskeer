@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.Collections;
+using Core.Plugins.ProjectExplorer.Exceptions;
 using Core.Plugins.ProjectExplorer.NodePresenters;
 
 namespace Core.Plugins.ProjectExplorer
@@ -27,6 +30,15 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
+        /// <summary>
+        /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="ProjectExplorerGuiPlugin"/>.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><see cref="IGui.ContextMenuProvider"/> is <c>null</c></item>
+        /// <item><see cref="IGui.CommandHandler"/> is <c>null</c></item>
+        /// </list></exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new ProjectNodePresenter(Gui.ContextMenuProvider, Gui.CommandHandler);
@@ -90,15 +102,23 @@ namespace Core.Plugins.ProjectExplorer
             //should the 'instance' be set to null as well???
         }
 
+        /// <summary>
+        /// Query all node presenters from <see cref="IGui.Plugins"/> and registers them
+        /// </summary>
         private void FillProjectTreeViewNodePresentersFromPlugins()
         {
-            // query all existing plugin guis
             var pluginGuis = Gui.Plugins;
 
-            // query all node presenters from plugin guis and add register them
-            pluginGuis
-                .SelectMany(pluginGui => pluginGui.GetProjectTreeViewNodePresenters())
-                .ForEach(np => projectTreeViewNodePresenters.Add(np));
+            try
+            {
+                pluginGuis
+                    .SelectMany(pluginGui => pluginGui.GetProjectTreeViewNodePresenters())
+                    .ForEach(np => projectTreeViewNodePresenters.Add(np));
+            }
+            catch (ArgumentNullException e)
+            {
+                throw new ProjectExplorerGuiPluginException(Resources.ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin, e);
+            }
         }
 
         private void ApplicationProjectClosed(Project project)

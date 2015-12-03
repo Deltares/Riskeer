@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(renameAllowed);
-            mockRepository.ReplayAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var exception = Assert.Throws<InvalidOperationException>(call);
             var expectedMessage = string.Format("Kan knoop uit boom van type {0} niet hernoemen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
-            mockRepository.ReplayAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
@@ -393,6 +393,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mockRepository.Stub<ITreeNode>();
 
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
+
+            mockRepository.ReplayAll();
+
             dataMock.CalculationsGroup.Children.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
@@ -403,10 +408,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             });
             dataMock.CalculationsGroup.Children.ElementAt(0).Attach(observer);
             dataMock.CalculationsGroup.Children.ElementAt(1).Attach(observer);
-
-            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
-
-            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
 
@@ -499,15 +500,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
+
+            mockRepository.ReplayAll();
+
             dataMock.CalculationsGroup.Children.Add(new PipingCalculation
             {
                 Output = new TestPipingOutput()
             });
-
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
-
-            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
 
@@ -576,8 +578,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
 
-            mockRepository.ReplayAll();
-
             // Precondition
             Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
 
@@ -607,14 +607,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             observerMock.Expect(o => o.UpdateObserver());
 
+            mockRepository.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observerMock);
             failureMechanism.CalculationsGroup.Children.Clear();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationGroup());
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
-
-            mockRepository.ReplayAll();
 
             // Precondition
             Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);

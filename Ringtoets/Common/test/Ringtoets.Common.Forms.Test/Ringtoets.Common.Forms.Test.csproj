@@ -54,7 +54,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ContextMenuStripExtensionsTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="NodePresenters\CategoryTreeFolderNodePresenterTest.cs" />
     <Compile Include="NodePresenters\RingtoetsNodePresenterBaseTest.cs" />

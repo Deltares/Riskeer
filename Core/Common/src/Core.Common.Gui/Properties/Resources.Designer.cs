@@ -1751,6 +1751,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er ging iets fout bij het ophalen van de NodePresenters van alle plugins..
+        /// </summary>
+        public static string ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin {
+            get {
+                return ResourceManager.GetString("ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_r" +
+                        "etrieve_NodePresenters_for_a_plugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ei&amp;genschappen.
         /// </summary>
         public static string Properties {
