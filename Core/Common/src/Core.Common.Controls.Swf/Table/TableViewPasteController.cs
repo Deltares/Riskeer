@@ -11,7 +11,7 @@ namespace Core.Common.Controls.Swf.Table
     /// <summary>
     /// Class add copy paste functionality to a tableview. Based on ITableView
     /// </summary>
-    public class TableViewPasteController : ITableViewPasteController
+    public class TableViewPasteController
     {
         public event EventHandler<EventArgs<string>> PasteFailed;
 

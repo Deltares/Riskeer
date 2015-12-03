@@ -1224,7 +1224,7 @@ namespace Core.Common.Controls.Swf.Table
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ITableViewPasteController PasteController { get; set; }
+        public TableViewPasteController PasteController { get; set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -1313,7 +1313,7 @@ namespace Core.Common.Controls.Swf.Table
         /// </summary>
         /// <remarks>?Does not validate before commit to data source?</remarks>
         [Browsable(false)]
-        public Func<int, object[], IRowValidationResult> RowValidator { get; set; }
+        public Func<int, object[], RowValidationResult> RowValidator { get; set; }
 
         /// <summary>
         /// Gets or sets the cell value editor validator. The validator should return true on valid values

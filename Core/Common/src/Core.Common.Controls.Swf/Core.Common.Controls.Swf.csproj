@@ -262,6 +262,7 @@
     </Compile>
     <Compile Include="Table\TableViewColumn.cs" />
     <Compile Include="Table\TableViewExceptionMessageController.cs" />
+    <Compile Include="Table\TableViewPasteBehaviourOptions.cs" />
     <Compile Include="Table\TableViewPasteController.cs" />
     <Compile Include="Table\Validation\RowValidationResult.cs" />
     <Compile Include="Table\Validation\TableViewValidator.cs" />

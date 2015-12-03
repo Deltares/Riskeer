@@ -2,7 +2,7 @@
 
 namespace Core.Common.Controls.Swf.Table.Validation
 {
-    public class RowValidationResult : IRowValidationResult
+    public class RowValidationResult
     {
         public RowValidationResult(string errorText) : this(-1, errorText) //-1 = no specific column, row error
         {}
