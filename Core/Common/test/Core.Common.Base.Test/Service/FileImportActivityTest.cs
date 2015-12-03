@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.Base.Service;
 using NUnit.Framework;
@@ -66,7 +67,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Name_FileImportActivity_NameShouldBeSameAsImporterName()
+        public void Name_FileImportActivityWithFileImporter_NameShouldBeSameAsImporterName()
         {
             // Setup
             var mocks = new MockRepository();
@@ -87,7 +88,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Run_FileImportActivityForTwoFiles_AllProvidedFilesShouldBeImported()
+        public void Run_FileImportActivityWithFileImporterForTwoFiles_AllProvidedFilesShouldBeImported()
         {
             // Setup
             var mocks = new MockRepository();
@@ -114,7 +115,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Cancel_FileImportActivity_CancelsImporter()
+        public void Cancel_FileImportActivityWithFileImporter_CancelsImporter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -140,7 +141,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Run_CancelledFileImportActivityForTwoFiles_NoImportsShouldBePerformed()
+        public void Run_CancelledFileImportActivityWithFileImporterForTwoFiles_NoImportsShouldBePerformed()
         {
             // Setup
             var mocks = new MockRepository();
@@ -168,7 +169,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Run_CancelledAndRanFileImportActivityForTwoFiles_AllProvidedFilesShouldBeImported()
+        public void Run_CancelledAndRanFileImportActivityWithFileImporterForTwoFiles_AllProvidedFilesShouldBeImported()
         {
             // Setup
             var mocks = new MockRepository();
@@ -196,6 +197,113 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Run_FileImportActivityWithSimpleFileImporterForOneFile_ProgressTextShouldBeSetAfterImporterProgressChanged()
+        {
+            // Setup
+            var target = new object();
+            var fileImporter = new SimpleFileImporter();
+
+            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
+            {
+                "file"
+            });
+
+            // Call
+            fileImportActivity.Run(); // Reuse the activity
+
+            // Assert
+            Assert.AreEqual("Stap 1 van 10  |  Step description", fileImportActivity.ProgressText);
+        }
+
+        [Test]
+        public void Finish_FileImportActivityWithFileImporter_NoLogicPerformed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var fileImporter = mocks.Stub<IFileImporter>();
+            var target = new object();
+
+            mocks.ReplayAll();
+
+            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
+            {
+                "file1",
+                "file2"
+            });
+
+            // Call
+            fileImportActivity.Finish();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        private class SimpleFileImporter : IFileImporter
+        {
+            public string Name
+            {
+                get
+                {
+                    return "";
+                }
+            }
+
+            public string Category
+            {
+                get
+                {
+                    return "";
+                }
+            }
+
+            public Bitmap Image
+            {
+                get
+                {
+                    return null;
+                }
+            }
+
+            public Type SupportedItemType
+            {
+                get
+                {
+                    return null;
+                }
+            }
+
+            public string FileFilter
+            {
+                get
+                {
+                    return "";
+                }
+            }
+
+            public ProgressChangedDelegate ProgressChanged { private get; set; }
+
+            public bool Import(object targetItem, string filePath)
+            {
+                if (ProgressChanged != null)
+                {
+                    ProgressChanged("Step description", 1, 10);
+                }
+
+                return true;
+            }
+
+            public bool CanImportFor(object targetItem)
+            {
+                return true;
+            }
+
+            public void Cancel()
+            {
+
+            }
         }
     }
 }

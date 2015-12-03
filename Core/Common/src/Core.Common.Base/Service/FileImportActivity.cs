@@ -81,11 +81,6 @@ namespace Core.Common.Base.Service
 
         private void ImportFromFile(string fileName)
         {
-            if (shouldCancel)
-            {
-                return;
-            }
-
             fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName); };
 
             fileImporter.Import(target, fileName);
