@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PipingCalculationGroupContextNodePresenter(Gui.ContextMenuProvider)
             {
-                RunActivityAction = ActivityProgressDialogRunner.Run
+                RunActivitiesAction = ActivityProgressDialogRunner.Run
             };
             yield return new PipingInputContextNodePresenter(Gui.ContextMenuProvider);
             yield return new PipingSurfaceLineCollectionNodePresenter(Gui.ContextMenuProvider);

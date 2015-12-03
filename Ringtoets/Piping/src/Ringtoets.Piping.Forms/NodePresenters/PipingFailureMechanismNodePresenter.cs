@@ -13,10 +13,10 @@ using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -35,8 +35,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
         {
-            node.Text = Resources.PipingFailureMechanism_DisplayName;
-            node.Image = Resources.PipingIcon;
+            node.Text = PipingFormsResources.PipingFailureMechanism_DisplayName;
+            node.Image = PipingFormsResources.PipingIcon;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
@@ -49,23 +49,30 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
         {
+            var addCalculationGroupItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
+                PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
+                PipingFormsResources.AddFolderIcon,
+                (o, args) => AddCalculationGroup(failureMechanism)
+                );
+
             var addCalculationItem = new StrictContextMenuItem(
-                Resources.PipingFailureMechanism_Add_PipingCalculation,
-                Resources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
-                Resources.PipingIcon,
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
+                PipingFormsResources.PipingIcon,
                 (s, e) => AddCalculation(failureMechanism)
                 );
 
-            var addCalculationGroupItem = new StrictContextMenuItem(
-                Resources.PipingFailureMechanism_Add_PipingCalculationGroup,
-                Resources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
-                Resources.AddFolderIcon,
-                (o, args) => AddCalculationGroup(failureMechanism)
+            var validateAllItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationItem_Validate,
+                PipingFormsResources.PipingFailureMechanism_ValidateAll_Tooltip,
+                PipingFormsResources.ValidationIcon,
+                (o, args) => ValidateAll(failureMechanism)
                 );
 
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
-                Resources.PipingFailureMechanism_Calculate_Tooltip,
+                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (o, args) => CalculateAll(failureMechanism)
                 );
@@ -80,13 +87,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             if (!GetAllPipingCalculationsResursively(failureMechanism).Any(c => c.HasOutput))
             {
                 clearAllItem.Enabled = false;
-                clearAllItem.ToolTipText = Resources.ClearOutput_No_calculation_with_output_to_clear;
+                clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
             return contextMenuBuilderProvider.Get(sender)
-                                             .AddCustomItem(addCalculationItem)
                                              .AddCustomItem(addCalculationGroupItem)
+                                             .AddCustomItem(addCalculationItem)
                                              .AddSeparator()
+                                             .AddCustomItem(validateAllItem)
                                              .AddCustomItem(calculateAllItem)
                                              .AddCustomItem(clearAllItem)
                                              .AddSeparator()
@@ -104,6 +112,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             {
                 calc.ClearOutput();
                 calc.NotifyObservers();
+            }
+        }
+
+        private void ValidateAll(PipingFailureMechanism failureMechanism)
+        {
+            foreach (PipingCalculation calculation in GetAllPipingCalculationsResursively(failureMechanism))
+            {
+                PipingCalculationService.Validate(calculation);
             }
         }
 

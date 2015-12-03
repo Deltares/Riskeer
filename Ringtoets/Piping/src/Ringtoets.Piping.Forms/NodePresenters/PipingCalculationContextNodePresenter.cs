@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationContext nodeData)
         {
             PipingCalculation calculation = nodeData.WrappedData;
-            var validateItem = new StrictContextMenuItem(Resources.Validate,
+            var validateItem = new StrictContextMenuItem(Resources.PipingCalculationItem_Validate,
                                                          null,
                                                          Resources.ValidationIcon,
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });

@@ -313,7 +313,7 @@
   <data name="PipingSurfaceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\u48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Validate" xml:space="preserve">
+  <data name="PipingCalculationItem_Validate" xml:space="preserve">
     <value>Valideren</value>
   </data>
   <data name="ImportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -391,7 +391,7 @@
   <data name="PipingInput_SoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisering</value>
   </data>
-  <data name="PipingFailureMechanism_Add_PipingCalculation" xml:space="preserve">
+  <data name="PipingCalculationGroup_Add_PipingCalculation" xml:space="preserve">
     <value>Berekening toevoegen</value>
   </data>
   <data name="PipingFailureMechanism_Add_PipingCalculation_Tooltip" xml:space="preserve">
@@ -399,9 +399,6 @@
   </data>
   <data name="Calculate" xml:space="preserve">
     <value>Berekenen</value>
-  </data>
-  <data name="PipingFailureMechanism_Calculate_Tooltip" xml:space="preserve">
-    <value>Valideer en voer alle berekeningen binnen het piping faalmechanisme uit.</value>
   </data>
   <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -442,7 +439,7 @@
   <data name="Clear_output" xml:space="preserve">
     <value>&amp;Wis uitvoer</value>
   </data>
-  <data name="ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
+  <data name="PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
     <value>Er zijn geen berekeningen met uitvoer om te wissen.</value>
   </data>
   <data name="LognormalDistribution_ShortName" xml:space="preserve">
@@ -475,7 +472,7 @@
   <data name="AddFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipingFailureMechanism_Add_PipingCalculationGroup" xml:space="preserve">
+  <data name="PipingCalculationGroup_Add_PipingCalculationGroup" xml:space="preserve">
     <value>Map toevoegen</value>
   </data>
   <data name="PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip" xml:space="preserve">
@@ -519,5 +516,23 @@
   </data>
   <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
     <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
+  </data>
+  <data name="PipingFailureMechanism_ValidateAll_Tooltip" xml:space="preserve">
+    <value>Valideer alle berekeningen binnen dit faalmechanisme.</value>
+  </data>
+  <data name="PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
+  </data>
+  <data name="PipingCalculationGroup_Add_PipingCalculation_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
+  </data>
+  <data name="PipingCalculationGroup_Validate_ToolTip" xml:space="preserve">
+    <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
+  </data>
+  <data name="PipingCalculationGroup_CalculateAll_ToolTip" xml:space="preserve">
+    <value>Valideer en voer alle berekeningen binnen deze berekeningsmap uit.</value>
+  </data>
+  <data name="PipingCalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
   </data>
 </root>

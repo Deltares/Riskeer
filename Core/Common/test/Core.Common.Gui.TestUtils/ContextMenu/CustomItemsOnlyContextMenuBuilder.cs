@@ -77,11 +77,12 @@ namespace Core.Common.Gui.TestUtils.ContextMenu
         }
 
         /// <summary>
-        /// Does nothing.
+        /// Adds a toolstrip separator.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddSeparator()
         {
+            contextMenu.Items.Add(new ToolStripSeparator());
             return this;
         }
 

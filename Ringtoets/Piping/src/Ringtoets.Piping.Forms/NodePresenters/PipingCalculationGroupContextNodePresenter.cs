@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Ringtoets.Common.Forms.Extensions;
+using Core.Common.Gui.ContextMenu;
+
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
@@ -28,7 +30,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <summary>
         /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.
         /// </summary>
-        public Action<Activity> RunActivityAction { private get; set; }
+        public Action<IEnumerable<Activity>> RunActivitiesAction { private get; set; }
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -79,61 +81,77 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationGroupContext nodeData)
         {
-            var rootMenu = new ContextMenuStrip();
-
             var group = nodeData.WrappedData;
-            rootMenu.AddMenuItem("Map toevoegen",
-                                 "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                 PipingFormsResources.AddFolderIcon, (o, args) =>
-                                 {
-                                     var newGroup = new PipingCalculationGroup
-                                     {
-                                         Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculationGroup_DefaultName, c => c.Name)
-                                     };
-                                     group.Children.Add(newGroup);
-                                     nodeData.NotifyObservers();
-                                 });
-            rootMenu.AddMenuItem("Berekening toevoegen",
-                                 "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                 PipingFormsResources.PipingIcon, (o, args) =>
-                                 {
-                                     var calculation = new PipingCalculation
-                                     {
-                                         Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculation_DefaultName, c => c.Name)
-                                     };
-                                     group.Children.Add(calculation);
-                                     nodeData.NotifyObservers();
-                                 });
-            rootMenu.AddMenuItem("Valideren",
-                                 "Valideer alle berekeningen binnen deze berekeningsmap.",
-                                 PipingFormsResources.ValidationIcon, (o, args) =>
-                                 {
-                                     foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
-                                     {
-                                         PipingCalculationService.Validate(calculation);
-                                     }
-                                 });
-            rootMenu.AddMenuItem("Alles be&rekenen",
-                                 "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
-                                 RingtoetsFormsResources.CalculateAllIcon, (o, args) =>
-                                 {
-                                     foreach (PipingCalculation calc in group.GetPipingCalculations())
-                                     {
-                                         RunActivityAction(new PipingCalculationActivity(calc));
-                                     }
-                                 });
-            rootMenu.AddMenuItem("&Wis alle uitvoer",
-                                 "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
-                                 RingtoetsFormsResources.ClearIcon, (o, args) =>
-                                 {
-                                     foreach (PipingCalculation calc in group.GetPipingCalculations().Where(c => c.HasOutput))
-                                     {
-                                         calc.ClearOutput();
-                                         calc.NotifyObservers();
-                                     }
-                                 });
+            var addCalculationGroupItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
+                                                                    PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip,
+                                                                    PipingFormsResources.AddFolderIcon, (o, args) =>
+                                                                    {
+                                                                        var newGroup = new PipingCalculationGroup
+                                                                        {
+                                                                            Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculationGroup_DefaultName, c => c.Name)
+                                                                        };
+                                                                        group.Children.Add(newGroup);
+                                                                        nodeData.NotifyObservers();
+                                                                    });
+            var addCalculationItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                                                               PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
+                                                               PipingFormsResources.PipingIcon, (o, args) =>
+                                                               {
+                                                                   var calculation = new PipingCalculation
+                                                                   {
+                                                                       Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculation_DefaultName, c => c.Name)
+                                                                   };
+                                                                   group.Children.Add(calculation);
+                                                                   nodeData.NotifyObservers();
+                                                               });
+            var validateAllItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationItem_Validate,
+                                                            PipingFormsResources.PipingCalculationGroup_Validate_ToolTip,
+                                                            PipingFormsResources.ValidationIcon, (o, args) =>
+                                                            {
+                                                                foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
+                                                                {
+                                                                    PipingCalculationService.Validate(calculation);
+                                                                }
+                                                            });
+            var calculateAllItem = new StrictContextMenuItem(RingtoetsFormsResources.Calculate_all,
+                                                             PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
+                                                             RingtoetsFormsResources.CalculateAllIcon, (o, args) =>
+                                                             {
+                                                                 RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
+                                                             });
+            var clearAllItem = new StrictContextMenuItem(RingtoetsFormsResources.Clear_all_output,
+                                                         PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
+                                                         RingtoetsFormsResources.ClearIcon, (o, args) =>
+                                                         {
+                                                             foreach (PipingCalculation calc in group.GetPipingCalculations().Where(c => c.HasOutput))
+                                                             {
+                                                                 calc.ClearOutput();
+                                                                 calc.NotifyObservers();
+                                                             }
+                                                         });
 
-            return rootMenu;
+            if (!nodeData.WrappedData.GetPipingCalculations().Any(c => c.HasOutput))
+            {
+                clearAllItem.Enabled = false;
+                clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
+            }
+
+            return contextMenuBuilderProvider.Get(sender)
+                                             .AddCustomItem(addCalculationGroupItem)
+                                             .AddCustomItem(addCalculationItem)
+                                             .AddSeparator()
+                                             .AddCustomItem(validateAllItem)
+                                             .AddCustomItem(calculateAllItem)
+                                             .AddCustomItem(clearAllItem)
+                                             .AddSeparator()
+                                             .AddExpandAllItem()
+                                             .AddCollapseAllItem()
+                                             .AddSeparator()
+                                             .AddImportItem()
+                                             .AddExportItem()
+                                             .AddSeparator()
+                                             .AddPropertiesItem()
+                                             .Build();
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationGroupContext nodeData)

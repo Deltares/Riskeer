@@ -134,15 +134,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen met uitvoer om te wissen..
-        /// </summary>
-        public static string ClearOutput_No_calculation_with_output_to_clear {
-            get {
-                return ResourceManager.GetString("ClearOutput_No_calculation_with_output_to_clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De berekening heeft geen uitvoer om te wissen..
         /// </summary>
         public static string ClearOutput_No_output_to_clear {
@@ -307,6 +298,69 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekening toevoegen.
+        /// </summary>
+        public static string PipingCalculationGroup_Add_PipingCalculation {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Add_PipingCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe berekening toe aan deze berekeningsmap..
+        /// </summary>
+        public static string PipingCalculationGroup_Add_PipingCalculation_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Add_PipingCalculation_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map toevoegen.
+        /// </summary>
+        public static string PipingCalculationGroup_Add_PipingCalculationGroup {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Add_PipingCalculationGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap..
+        /// </summary>
+        public static string PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen deze berekeningsmap uit..
+        /// </summary>
+        public static string PipingCalculationGroup_CalculateAll_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_CalculateAll_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met uitvoer om te wissen..
+        /// </summary>
+        public static string PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen deze berekeningsmap..
+        /// </summary>
+        public static string PipingCalculationGroup_ClearOutput_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_ClearOutput_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van de berekeningsmap..
         /// </summary>
         public static string PipingCalculationGroup_Name_Description {
@@ -325,11 +379,29 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
+        /// </summary>
+        public static string PipingCalculationGroup_Validate_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Validate_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekeningsmap.
         /// </summary>
         public static string PipingCalculationGroupContextProperties_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationGroupContextProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideren.
+        /// </summary>
+        public static string PipingCalculationItem_Validate {
+            get {
+                return ResourceManager.GetString("PipingCalculationItem_Validate", resourceCulture);
             }
         }
         
@@ -380,29 +452,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening toevoegen.
-        /// </summary>
-        public static string PipingFailureMechanism_Add_PipingCalculation {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voeg een nieuwe piping berekening toe aan het faalmechanisme..
         /// </summary>
         public static string PipingFailureMechanism_Add_PipingCalculation_Tooltip {
             get {
                 return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculation_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Map toevoegen.
-        /// </summary>
-        public static string PipingFailureMechanism_Add_PipingCalculationGroup {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculationGroup", resourceCulture);
             }
         }
         
@@ -416,20 +470,20 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen het piping faalmechanisme uit..
-        /// </summary>
-        public static string PipingFailureMechanism_Calculate_Tooltip {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_Calculate_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijken - Piping.
         /// </summary>
         public static string PipingFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("PipingFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit faalmechanisme..
+        /// </summary>
+        public static string PipingFailureMechanism_ValidateAll_Tooltip {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanism_ValidateAll_Tooltip", resourceCulture);
             }
         }
         
@@ -1255,15 +1309,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string ShiftedLognormalDistribution_ShortName {
             get {
                 return ResourceManager.GetString("ShiftedLognormalDistribution_ShortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valideren.
-        /// </summary>
-        public static string Validate {
-            get {
-                return ResourceManager.GetString("Validate", resourceCulture);
             }
         }
         

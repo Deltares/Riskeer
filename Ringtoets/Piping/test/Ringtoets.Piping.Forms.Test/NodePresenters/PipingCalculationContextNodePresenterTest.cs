@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments
 
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, PipingFormsResources.Validate, null, PipingFormsResources.ValidationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, PipingFormsResources.PipingCalculationItem_Validate, null, PipingFormsResources.ValidationIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, PipingFormsResources.Calculate, null, PipingFormsResources.Play);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, PipingFormsResources.Clear_output, PipingFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
         }
@@ -399,7 +399,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments
 
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, PipingFormsResources.Validate, null, PipingFormsResources.ValidationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, PipingFormsResources.PipingCalculationItem_Validate, null, PipingFormsResources.ValidationIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, PipingFormsResources.Calculate, null, PipingFormsResources.Play);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, PipingFormsResources.Clear_output, null, RingtoetsCommonFormsResources.ClearIcon);
         }

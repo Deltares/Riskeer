@@ -8,6 +8,8 @@ using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.Controls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtils.ContextMenu;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;
@@ -36,9 +38,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
         private const int contextMenuAddCalculationGroupIndex = 0;
         private const int contextMenuAddCalculationIndex = 1;
-        private const int contextMenuValidateAllIndex = 2;
-        private const int contextMenuCalculateAllIndex = 3;
-        private const int contextMenuClearOutputIndex = 4;
+        private const int contextMenuValidateAllIndex = 3;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearOutputIndex = 5;
         
         [SetUp]
         public void SetUp()
@@ -297,60 +299,85 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_ValidData_ReturnContextWithItems()
+        public void GetContextMenu_ValidDataWithCalculationOutput_ReturnContextWithItems()
         {
             // Setup
             var mocks = new MockRepository();
-            var node = mocks.StrictMock<ITreeNode>();
+            var node = mocks.Stub<ITreeNode>();
+            var guiCommandHandler = mocks.Stub<IGuiCommandHandler>();
+
             mocks.ReplayAll();
 
+            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, node);
+
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvder(menuBuilder);
+
             var group = new PipingCalculationGroup();
+            group.Children.Add(new PipingCalculation
+            {
+                Output = new TestPipingOutput()
+            });
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(node, nodeData);
+            ContextMenuStrip menu = nodePresenter.GetContextMenu(node, nodeData);
 
             // Assert
-            Assert.AreEqual(5, contextMenu.Items.Count);
+            Assert.AreEqual(14, menu.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
+                                                          PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
+                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                          PipingFormsResources.AddFolderIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex,
+                                                          PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                          PipingFormsResources.PipingIcon);
 
-            TestHelper.AssertContextMenuStripContainsItem(
-                contextMenu, 
-                contextMenuAddCalculationGroupIndex,
-                "Map toevoegen", 
-                "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                PipingFormsResources.AddFolderIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                          "Valideren",
+                                                          "Valideer alle berekeningen binnen deze berekeningsmap.",
+                                                          PipingFormsResources.ValidationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                          RingtoetsFormsResources.CalculateAllIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex,
+                                                          "&Wis alle uitvoer",
+                                                          "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
+                                                          RingtoetsFormsResources.ClearIcon);
 
-            TestHelper.AssertContextMenuStripContainsItem(
-                contextMenu,
-                contextMenuAddCalculationIndex,
-                "Berekening toevoegen",
-                "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                PipingFormsResources.PipingIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7, 
+                                                          CoreCommonGuiResources.Expand_all,
+                                                          CoreCommonGuiResources.Expand_all_ToolTip,
+                                                          CoreCommonGuiResources.ExpandAllIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
+                                                          CoreCommonGuiResources.Collapse_all,
+                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                          CoreCommonGuiResources.CollapseAllIcon,
+                                                          false);
 
-            TestHelper.AssertContextMenuStripContainsItem(
-                contextMenu,
-                contextMenuValidateAllIndex,
-                "Valideren",
-                "Valideer alle berekeningen binnen deze berekeningsmap.",
-                PipingFormsResources.ValidationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+                                                          CoreCommonGuiResources.Import,
+                                                          CoreCommonGuiResources.Import_ToolTip,
+                                                          CoreCommonGuiResources.ImportIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                                                          CoreCommonGuiResources.Export,
+                                                          CoreCommonGuiResources.Export_ToolTip,
+                                                          CoreCommonGuiResources.ExportIcon,
+                                                          false);
 
-            TestHelper.AssertContextMenuStripContainsItem(
-                contextMenu,
-                contextMenuCalculateAllIndex,
-                "Alles be&rekenen",
-                "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
-                RingtoetsFormsResources.CalculateAllIcon);
-
-            TestHelper.AssertContextMenuStripContainsItem(
-                contextMenu,
-                contextMenuClearOutputIndex,
-                "&Wis alle uitvoer",
-                "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
-                RingtoetsFormsResources.ClearIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                                                          CoreCommonGuiResources.Properties,
+                                                          CoreCommonGuiResources.Properties_ToolTip,
+                                                          CoreCommonGuiResources.PropertiesIcon,
+                                                          false);
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[9], menu.Items[12] }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
@@ -369,6 +396,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var node = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
+            var builderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+
             var group = new PipingCalculationGroup();
             group.Children.Add(calculationItem);
             var nodeData = new PipingCalculationGroupContext(group,
@@ -376,7 +405,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<PipingSoilProfile>());
             nodeData.Attach(observer);
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider);
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
 
@@ -406,16 +435,20 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             observer.Expect(o => o.UpdateObserver());
 
             var node = mocks.StrictMock<ITreeNode>();
+
             mocks.ReplayAll();
+
+            var contextMenuProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
 
             var group = new PipingCalculationGroup();
             group.Children.Add(calculationItem);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
+
             nodeData.Attach(observer);
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuProvider);
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
 
@@ -441,6 +474,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var node = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validCalculation.Name = "A";
             var invalidCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
@@ -459,7 +494,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
 
@@ -489,6 +524,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var node = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
+            var menuBuilderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validCalculation.Name = "A";
             var invalidCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
@@ -509,9 +546,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var activitesToRun = new List<Activity>();
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock)
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(menuBuilderProvider)
             {
-                RunActivityAction = activity => activitesToRun.Add(activity)
+                RunActivitiesAction = activity => activitesToRun.AddRange(activity)
             };
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
@@ -541,7 +578,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var calculation2Observer = mocks.StrictMock<IObserver>();
             calculation2Observer.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
+
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
 
             var calculation1 = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation1.Name = "A";
@@ -568,7 +608,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Precondition
             Assert.IsTrue(group.HasOutput);
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
 
