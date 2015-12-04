@@ -108,24 +108,71 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanDrag_Always_ReturnMove()
+        public void CanDrag_DefaultBehavior_ReturnMove()
         {
             // Setup
-            var builderProvider = mockRepository.Stub<IContextMenuBuilderProvider>();
-            mockRepository.ReplayAll();
-
             var group = new PipingCalculationGroup();
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
+            var otherTreeNode = mockRepository.Stub<ITreeNode>();
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider);
+            var groupContextNode = mockRepository.StrictMock<ITreeNode>();
+            groupContextNode.Tag = groupContext;
+            groupContextNode.Expect(n => n.Parent).Return(otherTreeNode);
+
+            var builderProvider = mockRepository.Stub<IContextMenuBuilderProvider>();
+
+            var treeView = mockRepository.StrictMock<ITreeView>();
+            treeView.Expect(v => v.GetNodeByTag(groupContext)).Return(groupContextNode);
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider)
+            {
+                TreeView = treeView
+            };
 
             // Call
             DragOperations supportedOperation = nodePresenter.CanDrag(groupContext);
 
             // Assert
             Assert.AreEqual(DragOperations.Move, supportedOperation);
+        }
+
+        [Test]
+        public void CanDrag_ParentIsPipingFailureMechanism_ReturnNone()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var group = pipingFailureMechanism.CalculationsGroup;
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSoilProfile>());
+
+            var builderProvider = mockRepository.Stub<IContextMenuBuilderProvider>();
+
+            var failureMechanismNode = mockRepository.Stub<ITreeNode>();
+            failureMechanismNode.Tag = pipingFailureMechanism;
+
+            var groupContextNode = mockRepository.Stub<ITreeNode>();
+            groupContextNode.Tag = groupContext;
+            groupContextNode.Expect(n => n.Parent).Return(failureMechanismNode);
+
+            var treeView = mockRepository.StrictMock<ITreeView>();
+            treeView.Expect(v => v.GetNodeByTag(groupContext)).Return(groupContextNode);
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider)
+            {
+                TreeView = treeView
+            };
+
+            // Call
+            DragOperations supportedOperation = nodePresenter.CanDrag(groupContext);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, supportedOperation);
         }
 
         [Test]

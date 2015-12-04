@@ -203,6 +203,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override DragOperations CanDrag(PipingCalculationGroupContext nodeData)
         {
+            if (TreeView.GetNodeByTag(nodeData).Parent.Tag is PipingFailureMechanism)
+            {
+                return DragOperations.None;
+            }
             return DragOperations.Move;
         }
 
