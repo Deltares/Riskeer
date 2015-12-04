@@ -45,7 +45,7 @@ namespace Core.Common.Gui
         private static RingtoetsGui instance;
         private static string instanceCreationStackTrace;
 
-        private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
+        private readonly IList<GuiCommand> commands = new List<GuiCommand>();
         private readonly ApplicationCore applicationCore;
 
         private MainWindow mainWindow;
@@ -176,7 +176,7 @@ namespace Core.Common.Gui
             }
         }
 
-        public IList<IGuiCommand> Commands
+        public IList<GuiCommand> Commands
         {
             get
             {

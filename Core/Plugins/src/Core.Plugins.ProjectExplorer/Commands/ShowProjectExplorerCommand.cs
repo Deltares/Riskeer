@@ -1,9 +1,8 @@
-using Core.Common.Controls;
 using Core.Common.Gui;
 
 namespace Core.Plugins.ProjectExplorer.Commands
 {
-    public class ShowProjectExplorerCommand : Command, IGuiCommand
+    public class ShowProjectExplorerCommand : GuiCommand
     {
         public override bool Enabled
         {
@@ -25,8 +24,6 @@ namespace Core.Plugins.ProjectExplorer.Commands
                 return Gui.ToolWindowViews.Contains(ProjectExplorerGuiPlugin.Instance.ProjectExplorer);
             }
         }
-
-        public IGui Gui { get; set; }
 
         protected override void OnExecute(params object[] arguments)
         {

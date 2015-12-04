@@ -25,7 +25,7 @@ namespace Ringtoets.Demo.Test.Commands
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
-            Assert.IsInstanceOf<IGuiCommand>(command);
+            Assert.IsInstanceOf<GuiCommand>(command);
             Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);
             Assert.IsNull(command.Gui);

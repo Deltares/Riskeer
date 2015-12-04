@@ -55,7 +55,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
         }
     }
 
-    public abstract class ChartViewCommandBase : Command, IGuiCommand
+    public abstract class ChartViewCommandBase : GuiCommand
     {
         public override bool Enabled
         {
@@ -64,8 +64,6 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
                 return View != null;
             }
         }
-
-        public IGui Gui { get; set; }
 
         protected ChartView View
         {

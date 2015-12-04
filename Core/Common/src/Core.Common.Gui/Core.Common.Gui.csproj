@@ -218,7 +218,7 @@
     <Compile Include="GuiExportHandler.cs" />
     <Compile Include="GuiImportHandler.cs" />
     <Compile Include="IConfigureDialog.cs" />
-    <Compile Include="IGuiCommand.cs" />
+    <Compile Include="GuiCommand.cs" />
     <Compile Include="ILayerEditorView.cs" />
     <Compile Include="IMapLayerProvider.cs" />
     <Compile Include="IObjectProperties.cs" />

@@ -1,10 +1,9 @@
 using System.Linq;
-using Core.Common.Controls;
 using Core.Common.Gui;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
-    public class ShowMapContentsCommand : Command, IGuiCommand
+    public class ShowMapContentsCommand : GuiCommand
     {
         public override bool Enabled
         {
@@ -26,8 +25,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 return Gui.ToolWindowViews.Contains(SharpMapGisGuiPlugin.Instance.MapLegendView);
             }
         }
-
-        public IGui Gui { get; set; }
 
         protected override void OnExecute(params object[] arguments)
         {

@@ -1,10 +1,9 @@
-using Core.Common.Gui;
 using Core.GIS.SharpMap.UI.Tools;
 using Core.GIS.SharpMap.UI.Tools.Decorations;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
-    public class LayoutComponentToolCommand<T> : MapViewCommand, IGuiCommand where T : LayoutComponentTool
+    public class LayoutComponentToolCommand<T> : MapViewCommand where T : LayoutComponentTool
     {
         public override bool Checked
         {
@@ -23,8 +22,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 base.Checked = value;
             }
         }
-
-        public IGui Gui { get; set; }
 
         protected override IMapTool CurrentTool
         {

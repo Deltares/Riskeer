@@ -1,5 +1,4 @@
 using System.Linq;
-using Core.Common.Gui;
 using Core.Common.Utils.Collections;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
@@ -8,10 +7,8 @@ using Core.Plugins.SharpMapGis.Gui.Forms;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
-    public class ZoomLayerCommand : MapViewCommand, IGuiCommand
+    public class ZoomLayerCommand : MapViewCommand
     {
-        public IGui Gui { get; set; }
-
         protected override void OnExecute(params object[] arguments)
         {
             // parameter 0 must be a layer

@@ -5,7 +5,7 @@ using Core.Common.Gui;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {
-    public class RulerCommand : Command, IGuiCommand
+    public class RulerCommand : GuiCommand
     {
         public override bool Checked
         {
@@ -22,8 +22,6 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
                 return Gui != null && Gui.DocumentViews.ActiveView != null && RulerTool != null;
             }
         }
-
-        public IGui Gui { get; set; }
 
         protected override void OnExecute(params object[] arguments)
         {

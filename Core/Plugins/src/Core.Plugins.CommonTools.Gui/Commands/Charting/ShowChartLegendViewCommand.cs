@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using Core.Common.Controls;
 using Core.Common.Gui;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {
-    public class ShowChartLegendViewCommand : Command, IGuiCommand
+    public class ShowChartLegendViewCommand : GuiCommand
     {
         public override bool Checked
         {
@@ -26,8 +25,6 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
                 return true;
             }
         }
-
-        public IGui Gui { get; set; }
 
         protected override void OnExecute(params object[] arguments)
         {

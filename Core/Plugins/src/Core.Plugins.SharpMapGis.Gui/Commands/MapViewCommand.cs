@@ -1,11 +1,11 @@
-using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.UI.Tools;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
-    public abstract class MapViewCommand : Command
+    public abstract class MapViewCommand : GuiCommand
     {
         public override bool Enabled
         {

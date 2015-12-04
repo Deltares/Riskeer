@@ -5,8 +5,8 @@ namespace Core.Common.Gui
     /// <summary>
     /// Command with reference to Gui
     /// </summary>
-    public interface IGuiCommand : ICommand
+    public abstract class GuiCommand : Command
     {
-        IGui Gui { get; set; }
+        public IGui Gui { get; set; }
     }
 }
