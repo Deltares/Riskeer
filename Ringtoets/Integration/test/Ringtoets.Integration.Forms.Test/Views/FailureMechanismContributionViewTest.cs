@@ -12,7 +12,7 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismContributionViewTest : NUnitFormTest
+    public class FailureMechanismContributionViewTest : WindowsFormsTestBase
     {
         private MockRepository mockRepository;
 
@@ -20,14 +20,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             base.Setup();
             mockRepository = new MockRepository();
-        }
-
-        public override bool UseHidden
-        {
-            get
-            {
-                return false;
-            }
         }
 
         [Test]

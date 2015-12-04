@@ -9,6 +9,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections.Generic;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using TreeNode = Core.Common.Controls.Swf.TreeViewControls.TreeNode;
@@ -17,7 +18,7 @@ using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 namespace Core.Common.Controls.Swf.Test.TreeViewControls
 {
     [TestFixture]
-    public class TreeViewTest
+    public class TreeViewTest : WindowsFormsTestBase
     {
         private readonly MockRepository mockRepository = new MockRepository();
 
@@ -322,6 +323,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         [Test]
         public void DeletedNodeMovesSelectionToItsParentNode()
         {
+            ExpectModal("Bevestigen", "MessageBoxHandler");
+
             using (var treeView = new TreeView())
             {
                 treeView.NodePresenters.Add(new ParentNodePresenter());
@@ -551,6 +554,11 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             {
                 isLoaded = value;
             }
+        }
+
+        public void MessageBoxHandler()
+        {
+            new MessageBoxTester("Bevestigen").ClickOk();
         }
     }
 }

@@ -302,12 +302,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         {
             if (!SelectedNodeCanDelete())
             {
-                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OK);
+                System.Windows.Forms.MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OK);
                 return;
             }
 
             var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, SelectedNode.Text);
-            if (MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (System.Windows.Forms.MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }

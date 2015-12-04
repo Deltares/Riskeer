@@ -1,6 +1,7 @@
 using System;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
+using Core.Common.TestUtils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -8,7 +9,7 @@ using Rhino.Mocks;
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
-    public class GuiImportHandlerTest : NUnitFormTest
+    public class GuiImportHandlerTest : WindowsFormsTestBase
     {
         private MockRepository mocks;
         private IGui gui;
