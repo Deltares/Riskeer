@@ -15,29 +15,29 @@ namespace Core.Plugins.SharpMapGis.Gui
     public partial class Ribbon : IRibbonCommandHandler
     {
         // view
-        private readonly ICommand commandShowMapContents;
+        private readonly Command commandShowMapContents;
 
         // map decorations
-        private readonly ICommand showNorthArrow;
-        private readonly ICommand showMapLegend;
-        private readonly ICommand showScaleBar;
+        private readonly Command showNorthArrow;
+        private readonly Command showMapLegend;
+        private readonly Command showScaleBar;
 
         // map interaction
-        private readonly ICommand selectButton;
-        private readonly ICommand mapMeasureCommand;
-        private readonly ICommand exportMapAsImage;
+        private readonly Command selectButton;
+        private readonly Command mapMeasureCommand;
+        private readonly Command exportMapAsImage;
 
         // map zoom
-        private readonly ICommand mapZoomInUsingRectangleCommand;
-        private readonly ICommand mapFixedZoomInCommand;
-        private readonly ICommand mapFixedZoomOutCommand;
-        private readonly ICommand mapZoomToExtentsCommand;
-        private readonly ICommand mapPanZoomCommand;
-        private readonly ICommand mapZoomPreviousCommand;
-        private readonly ICommand mapZoomNextCommand;
+        private readonly Command mapZoomInUsingRectangleCommand;
+        private readonly Command mapFixedZoomInCommand;
+        private readonly Command mapFixedZoomOutCommand;
+        private readonly Command mapZoomToExtentsCommand;
+        private readonly Command mapPanZoomCommand;
+        private readonly Command mapZoomPreviousCommand;
+        private readonly Command mapZoomNextCommand;
 
         // map coverage profile
-        private readonly ICommand mapChangeCoordinateSystemCommand;
+        private readonly Command mapChangeCoordinateSystemCommand;
 
         public Ribbon()
         {
@@ -87,7 +87,7 @@ namespace Core.Plugins.SharpMapGis.Gui
             mapTab.Group = geospatialContextualGroup;
         }
 
-        public IEnumerable<ICommand> Commands
+        public IEnumerable<Command> Commands
         {
             get
             {

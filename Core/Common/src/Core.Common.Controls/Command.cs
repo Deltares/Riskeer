@@ -13,7 +13,7 @@ namespace Core.Common.Controls
     /// button.Click += delegate { command.Execute();  };
     /// </code>
     /// </example>
-    public abstract class Command : ICommand
+    public abstract class Command
     {
         public abstract bool Enabled { get; }
 

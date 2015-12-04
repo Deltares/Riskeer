@@ -24,7 +24,6 @@ namespace Ringtoets.Demo.Test.Commands
             var command = new AddNewDemoDikeAssessmentSectionCommand();
 
             // Assert
-            Assert.IsInstanceOf<ICommand>(command);
             Assert.IsInstanceOf<GuiCommand>(command);
             Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);

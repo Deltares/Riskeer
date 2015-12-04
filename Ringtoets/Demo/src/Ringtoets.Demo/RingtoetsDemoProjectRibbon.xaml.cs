@@ -15,7 +15,7 @@ namespace Ringtoets.Demo
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewDikeAssessmentSection, addNewDuneAssessmentSection;
+        private readonly Command addNewDikeAssessmentSection, addNewDuneAssessmentSection;
 
         public RingtoetsDemoProjectRibbon()
         {
@@ -25,7 +25,7 @@ namespace Ringtoets.Demo
             addNewDuneAssessmentSection = new AddNewDemoDuneAssessmentSectionCommand();
         }
 
-        public IEnumerable<ICommand> Commands
+        public IEnumerable<Command> Commands
         {
             get
             {

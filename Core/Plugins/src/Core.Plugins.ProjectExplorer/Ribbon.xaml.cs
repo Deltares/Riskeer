@@ -11,7 +11,7 @@ namespace Core.Plugins.ProjectExplorer
     /// </summary>
     public partial class Ribbon : IRibbonCommandHandler
     {
-        private readonly ICommand showProjectExplorerCommand;
+        private readonly Command showProjectExplorerCommand;
 
         public Ribbon()
         {
@@ -20,7 +20,7 @@ namespace Core.Plugins.ProjectExplorer
             showProjectExplorerCommand = new ShowProjectExplorerCommand();
         }
 
-        public IEnumerable<ICommand> Commands
+        public IEnumerable<Command> Commands
         {
             get
             {

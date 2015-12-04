@@ -11,7 +11,7 @@ namespace Core.Common.Gui.Forms
         /// <summary>
         /// Call this action in the implementation when command needs to be handled in the graphical user interface.
         /// </summary>
-        IEnumerable<ICommand> Commands { get; }
+        IEnumerable<Command> Commands { get; }
 
         /// <summary>
         /// Gets Ribbon control implementation in the gui plugin. Gui will merge it with the existing ribbon.
