@@ -435,15 +435,6 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controleer of de invoer geldig is..
-        /// </summary>
-        internal static string InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid {
-            get {
-                return ResourceManager.GetString("InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Verwijderen is niet geïmplementeerd voor dit type databron..
         /// </summary>
         internal static string KeyEvent_Deletion_not_implemented_for_this_type_of_datasource {

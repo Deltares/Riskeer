@@ -388,9 +388,6 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   <data name="ModalHelper_ShowModal_Main_window_not_injected" xml:space="preserve">
     <value>Hoofdvenster niet geïnjecteerd.</value>
   </data>
-  <data name="InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid" xml:space="preserve">
-    <value>Controleer of de invoer geldig is.</value>
-  </data>
   <data name="FindAndReplaceControl_buttonReplaceAll_Click_Replaced_0_occurrences_of_1_with_2_" xml:space="preserve">
     <value>{0} exemplaren van {1} zijn met {2} vervangen.</value>
   </data>

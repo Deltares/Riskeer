@@ -752,4 +752,7 @@
   <data name="MapAddLayerCommand_ShowAddLayerFileDialog_ShapeFileFilter" xml:space="preserve">
     <value>Shape-bestand (*.shp)|*.shp</value>
   </data>
+  <data name="InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid" xml:space="preserve">
+    <value>Controleer of de invoer geldig is.</value>
+  </data>
 </root>

@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
+using Core.Plugins.SharpMapGis.Gui.Properties;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Plugins.SharpMapGis.Gui.Forms
 {
     /// <summary>
     /// Simple input box dialog 
