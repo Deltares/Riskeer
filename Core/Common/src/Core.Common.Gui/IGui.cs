@@ -13,6 +13,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
+using Core.Common.Utils.PropertyBag.Dynamic;
 
 namespace Core.Common.Gui
 {
@@ -66,8 +67,9 @@ namespace Core.Common.Gui
         IViewResolver DocumentViewsResolver { get; }
 
         /// <summary>
-        /// Object responsible for retrieving the 'ObjectProperties' instance for a given data object 
-        /// and wrapping that in a DynamicPropertyBag for the application to be used.
+        /// Object responsible for retrieving the <see cref="ObjectProperties{T}"/> instance 
+        /// for a given data object and wrapping that in a <see cref="DynamicPropertyBag"/> 
+        /// for the application to be used.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
 

@@ -1,12 +1,10 @@
 ﻿namespace Core.Common.Gui.Forms.PropertyGridView
 {
     /// <summary>
-    /// This interface describes methods which can be used to retrieve property objects for
-    /// some source data.
+    /// Interface for an object that is used to retrieve property objects corresponding to a data-object.
     /// </summary>
     public interface IPropertyResolver 
     {
-
         /// <summary>
         /// Returns object properties based on the provided <paramref name="sourceData"/>.
         /// </summary>

@@ -5,7 +5,7 @@ using Core.Common.Controls.Swf.TreeViewControls;
 namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>
-    /// This interface describes methods with which a context menu can be build.
+    /// Specifies the interface for objects that build context menus.
     /// </summary>
     public interface IContextMenuBuilder 
     {
