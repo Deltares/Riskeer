@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Security.Permissions;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
         public GeneralOptionsControl()
         {
             InitializeComponent();
+            SetColorThemeOptions();
         }
 
         public ApplicationSettingsBase UserSettings
@@ -30,15 +32,15 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             }
         }
 
-        public string ColorTheme
+        public ColorTheme ColorTheme
         {
             get
             {
-                return (string) comboBoxTheme.SelectedItem;
+                return (ColorTheme) comboBoxTheme.SelectedValue;
             }
             set
             {
-                comboBoxTheme.SelectedItem = value;
+                comboBoxTheme.SelectedValue = value;
             }
         }
 
@@ -73,6 +75,22 @@ namespace Core.Common.Gui.Forms.OptionsDialog
         public void DeclineChanges()
         {
             SetSettingsValuesToControls();
+        }
+
+        private void SetColorThemeOptions()
+        {
+            var colorThemeItems = new Collection<ColorThemeItem>();
+            foreach (var theme in (ColorTheme[]) Enum.GetValues(typeof(ColorTheme)))
+            {
+                colorThemeItems.Add(new ColorThemeItem
+                {
+                    Theme = theme,
+                    DisplayName = theme.Localized()
+                });
+            }
+            comboBoxTheme.DataSource = colorThemeItems;
+            comboBoxTheme.ValueMember = "Theme";
+            comboBoxTheme.DisplayMember = "DisplayName";
         }
 
         /// <summary>
@@ -191,7 +209,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
 
         private void RadioButtonCompactNotationCheckedChanged(object sender, EventArgs e)
         {
-            lblDecimalsOrSignificants.Text = radioButtonCompactNotation.Checked ? Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits: Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Decimal_places;
+            lblDecimalsOrSignificants.Text = radioButtonCompactNotation.Checked ? Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits : Resources.GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Decimal_places;
             UpdateRealNumberFormattingSample();
         }
 

@@ -869,7 +869,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             AddRecentlyOpenedProjectsToFileMenu();
 
-            SetColorTheme((string) Gui.UserSettings["colorTheme"]);
+            SetColorTheme((ColorTheme) Gui.UserSettings["colorTheme"]);
+
             FileManualButton.IsEnabled = File.Exists(Gui.FixedSettings.ManualFilePath);
 
             // TODO: Enable as soon as relevant/implemented
@@ -1023,7 +1024,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             return new GeneralOptionsControl
             {
                 UserSettings = Gui.UserSettings,
-                ColorTheme = (string) Gui.UserSettings["colorTheme"],
+                ColorTheme = (ColorTheme) Gui.UserSettings["colorTheme"],
                 OnAcceptChanges = ApplyColorTheme
             };
         }
@@ -1033,29 +1034,29 @@ namespace Core.Common.Gui.Forms.MainWindow
             SetColorTheme(control.ColorTheme);
         }
 
-        private void SetColorTheme(string colorTheme)
+        private void SetColorTheme(ColorTheme colorTheme)
         {
-            if (colorTheme == "Dark" && !(DockingManager.Theme is ExpressionDarkTheme))
+            if (colorTheme == ColorTheme.Dark && !(DockingManager.Theme is ExpressionDarkTheme))
             {
                 DockingManager.Theme = new ExpressionDarkTheme();
             }
-            else if (colorTheme == "Light" && !(DockingManager.Theme is ExpressionLightTheme))
+            else if (colorTheme == ColorTheme.Light && !(DockingManager.Theme is ExpressionLightTheme))
             {
                 DockingManager.Theme = new ExpressionLightTheme();
             }
-            else if (colorTheme == "Metro" && !(DockingManager.Theme is MetroTheme))
+            else if (colorTheme == ColorTheme.Metro && !(DockingManager.Theme is MetroTheme))
             {
                 DockingManager.Theme = new MetroTheme();
             }
-            else if (colorTheme == "Aero" && !(DockingManager.Theme is AeroTheme))
+            else if (colorTheme == ColorTheme.Aero && !(DockingManager.Theme is AeroTheme))
             {
                 DockingManager.Theme = new AeroTheme();
             }
-            else if (colorTheme == "VS2010" && !(DockingManager.Theme is VS2010Theme))
+            else if (colorTheme == ColorTheme.VS2010 && !(DockingManager.Theme is VS2010Theme))
             {
                 DockingManager.Theme = new VS2010Theme();
             }
-            else if (colorTheme == "Generic" && !(DockingManager.Theme is GenericTheme))
+            else if (colorTheme == ColorTheme.Generic && !(DockingManager.Theme is GenericTheme))
             {
                 DockingManager.Theme = new GenericTheme();
             }

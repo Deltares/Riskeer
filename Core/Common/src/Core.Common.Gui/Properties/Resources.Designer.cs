@@ -98,6 +98,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aero.
+        /// </summary>
+        public static string Aero {
+            get {
+                return ResourceManager.GetString("Aero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ringtoets wordt gestart....
         /// </summary>
         public static string App_App_Starting_Ringtoets {
@@ -686,6 +695,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Donker.
+        /// </summary>
+        public static string Dark {
+            get {
+                return ResourceManager.GetString("Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap data_item {
@@ -1077,6 +1095,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generiek.
+        /// </summary>
+        public static string Generic {
+            get {
+                return ResourceManager.GetString("Generic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap graphhs {
@@ -1323,6 +1350,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licht.
+        /// </summary>
+        public static string Light {
+            get {
+                return ResourceManager.GetString("Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap link {
@@ -1499,6 +1535,15 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_informatio" +
                         "n_Home_Show_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metro.
+        /// </summary>
+        public static string Metro {
+            get {
+                return ResourceManager.GetString("Metro", resourceCulture);
             }
         }
         
@@ -2530,6 +2575,15 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and" +
                         "_of_type_Control", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VS2010.
+        /// </summary>
+        public static string VS2010 {
+            get {
+                return ResourceManager.GetString("VS2010", resourceCulture);
             }
         }
         

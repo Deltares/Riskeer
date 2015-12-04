@@ -214,9 +214,9 @@ namespace Core.Common.Gui.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Generic")]
-        public string colorTheme {
+        public global::Core.Common.Gui.ColorTheme colorTheme {
             get {
-                return ((string)(this["colorTheme"]));
+                return ((global::Core.Common.Gui.ColorTheme)(this["colorTheme"]));
             }
             set {
                 this["colorTheme"] = value;

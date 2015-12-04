@@ -115,8 +115,10 @@
     </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="Appenders\RunReportLogAppender.cs" />
+    <Compile Include="ColorTheme.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
+    <Compile Include="Forms\OptionsDialog\ColorThemeItem.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
@@ -289,6 +291,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Forms\MessageWindow\MessageWindowData.xsc">
       <DependentUpon>MessageWindowData.xsd</DependentUpon>
     </None>
@@ -390,7 +393,7 @@
     <Resource Include="Resources\application_form1.png" />
     <Resource Include="Resources\application_form2.png" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="Resources\application_import_blue.ico" />

@@ -61,13 +61,6 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             // 
             this.comboBoxTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTheme.FormattingEnabled = true;
-            this.comboBoxTheme.Items.AddRange(new object[] {
-            resources.GetString("comboBoxTheme.Items"),
-            resources.GetString("comboBoxTheme.Items1"),
-            resources.GetString("comboBoxTheme.Items2"),
-            resources.GetString("comboBoxTheme.Items3"),
-            resources.GetString("comboBoxTheme.Items4"),
-            resources.GetString("comboBoxTheme.Items5")});
             resources.ApplyResources(this.comboBoxTheme, "comboBoxTheme");
             this.comboBoxTheme.Name = "comboBoxTheme";
             this.comboBoxTheme.SelectedIndexChanged += new System.EventHandler(this.comboBoxTheme_SelectedIndexChanged);
