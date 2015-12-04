@@ -1,0 +1,55 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Description/@EntryValue">E&amp;xception</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Text/@EntryValue">$HEADER$using System;&#xD;
+&#xD;
+namespace $NAMESPACE$&#xD;
+{&#xD;
+    /// &lt;summary&gt;&#xD;
+    /// The exception that is thrown when $TODO$&#xD;
+    /// &lt;/summary&gt;&#xD;
+    public class $CLASS$ : Exception&#xD;
+    {&#xD;
+        /// &lt;summary&gt;&#xD;
+        /// Initializes a new instance of the &lt;see cref="$CLASS$"/&gt; class.&#xD;
+        /// &lt;/summary&gt;&#xD;
+        public $CLASS$(){}&#xD;
+&#xD;
+        /// &lt;summary&gt;&#xD;
+        /// Initializes a new instance of the &lt;see cref="$CLASS$"/&gt; class&#xD;
+        /// with a specified error message.&#xD;
+        /// &lt;/summary&gt;&#xD;
+        /// &lt;param name="message"&gt;The error message that explains the reason for the exception.&lt;/param&gt;&#xD;
+        public $CLASS$(string message) : base(message){}&#xD;
+&#xD;
+        /// &lt;summary&gt;&#xD;
+        /// Initializes a new instance of the &lt;see cref="$CLASS$"/&gt; class&#xD;
+        /// with a specified error message and a reference to the inner exception that is&#xD;
+        /// the cause of this exception.&#xD;
+        /// &lt;/summary&gt;&#xD;
+        /// &lt;param name="message"&gt;The error message that explains the reason for the exception.&lt;/param&gt;&#xD;
+        /// &lt;param name="inner"&gt;The exception that is the cause of the current exception, &#xD;
+        /// or a null reference if no inner exception is specified.&lt;/param&gt;&#xD;
+        public $CLASS$(string message, Exception inner) : base(message, inner) { }$END$}&#xD;
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/CustomProperties/=FileName/@EntryIndexedValue">Exception</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=HEADER/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=HEADER/Expression/@EntryValue">fileheader()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=HEADER/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=NAMESPACE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=CLASS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=CLASS/Expression/@EntryValue">getFileNameWithoutExtension()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=CLASS/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=CLASS/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=TODO/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8216406CFA21E14E8EF20D1EED0C8516/Field/=TODO/Order/@EntryValue">3</s:Int64></wpf:ResourceDictionary>

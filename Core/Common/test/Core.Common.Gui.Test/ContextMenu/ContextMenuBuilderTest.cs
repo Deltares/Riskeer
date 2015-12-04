@@ -100,9 +100,11 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             treeNodeMock.Expect(tn => tn.Parent).Return(treeParentNodeMock);
             treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
-            treeNodeMock.Expect(tn => tn.Tag).Return(null);
-            treeParentNodeMock.Expect(tn => tn.Tag).Return(null);
-            treeNodePresenterMock.Expect(tn => tn.CanRemove(null,null)).Return(true);
+            var nodeData = new object();
+            var parentData = new object();
+            treeNodeMock.Expect(tn => tn.Tag).Return(nodeData);
+            treeParentNodeMock.Expect(tn => tn.Tag).Return(parentData);
+            treeNodePresenterMock.Expect(tn => tn.CanRemove(parentData, nodeData)).Return(true);
 
             mocks.ReplayAll();
 
@@ -190,14 +192,15 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodeMock = mocks.Stub<ITreeNode>();
+            var nodeData = new object();
 
-            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(null)).IgnoreArguments().Return(hasViewForNodeData);
+            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(nodeData)).Return(hasViewForNodeData);
 
             mocks.ReplayAll();
+
+            treeNodeMock.Tag = nodeData;
 
             var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
-
-            mocks.ReplayAll();
 
             // Call
             var result = builder.AddOpenItem().Build();
@@ -218,10 +221,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanExportFrom(null)).IgnoreArguments().Return(hasExportersForNodeData);
+            var nodeData = new object();
             var treeNodeMock = mocks.Stub<ITreeNode>();
+            commandHandlerMock.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
 
             mocks.ReplayAll();
+
+            treeNodeMock.Tag = nodeData;
 
             var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
 
@@ -244,10 +250,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            commandHandlerMock.Expect(ch => ch.CanImportOn(null)).IgnoreArguments().Return(hasImportersForNodeData);
+            var nodeData = new object();
             var treeNodeMock = mocks.Stub<ITreeNode>();
+            commandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
 
             mocks.ReplayAll();
+
+            treeNodeMock.Tag = nodeData;
 
             var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
 
@@ -270,11 +279,14 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            var nodeData = new object();
             var treeNodeMock = mocks.Stub<ITreeNode>();
 
-            commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(null)).IgnoreArguments().Return(hasPropertiesForNodeData);
+            commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertiesForNodeData);
 
             mocks.ReplayAll();
+
+            treeNodeMock.Tag = nodeData;
 
             var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
             
@@ -315,7 +327,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void AddSeparator_NoItemsWhenBuild_EmptyContextMenu()
+        public void AddSeparator_NoOtherItemsWhenBuild_EmptyContextMenu()
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
@@ -336,7 +348,75 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void AddSeparator_ItemAddedWhenBuild_SeparatorNotAdded()
+        [TestCase(1)]
+        [TestCase(10)]
+        public void AddSeparator_SeparatorAddedAtStart_SeparatorsNotAdded(int count)
+        {
+            // Setup
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+
+            mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
+
+            var someItem = new StrictContextMenuItem(null, null, null, null);
+
+            // Call
+            for (int i = 0; i < count; i++)
+            {
+                builder.AddSeparator();
+            }
+            var result = builder.AddCustomItem(someItem).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            Assert.IsInstanceOf<ToolStripMenuItem>(result.Items[0]);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        public void AddSeparator_SeperatorsAddedInBetweenItems_OneSeparatorAdded(int count)
+        {
+            // Setup
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+
+            mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
+
+            var someItem = new StrictContextMenuItem(null, null, null, null);
+            var someOtherItem = new StrictContextMenuItem(null, null, null, null);
+            
+            builder.AddCustomItem(someItem);
+            
+            // Call
+            for (int i = 0; i < count; i++)
+            {
+                builder.AddSeparator();
+            }
+            var result = builder.AddCustomItem(someOtherItem).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(3, result.Items.Count);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
+            Assert.IsInstanceOf<ToolStripMenuItem>(result.Items[2]);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        public void AddSeparator_SeparatorsAddedAtEnd_SeparatorsNotAdded(int count)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<ITreeNode>();
@@ -349,58 +429,11 @@ namespace Core.Common.Gui.Test.ContextMenu
             builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null));
 
             // Call
-            var result = builder.AddSeparator().Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            Assert.IsInstanceOf<StrictContextMenuItem>(result.Items[0]);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddSeparator_ItemThenSeparatorThenItemAddedWhenBuild_SeparatorAdded()
-        {
-            // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-
-            mocks.ReplayAll();
-
-            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
-
-            var someItem = new StrictContextMenuItem(null, null, null, null);
-            var someOtherItem = new StrictContextMenuItem(null, null, null, null);
-
-            // Call
-            var result = builder.AddCustomItem(someItem).AddSeparator().AddCustomItem(someOtherItem).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(3, result.Items.Count);
-
-            Assert.IsInstanceOf<ToolStripSeparator>(result.Items[1]);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddSeparator_ItemAndSeparatorAddedWhenBuild_NoSeparatorAdded()
-        {
-            // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-
-            mocks.ReplayAll();
-
-            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
-
-            builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null)).AddSeparator();
-
-            // Call
-            var result = builder.AddSeparator().Build();
+            for (int i = 0; i < count; i++)
+            {
+                builder.AddSeparator();
+            }
+            var result = builder.Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);

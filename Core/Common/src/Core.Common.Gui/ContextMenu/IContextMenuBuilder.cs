@@ -1,11 +1,14 @@
 using System;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 
 namespace Core.Common.Gui.ContextMenu
 {
-    public interface IContextMenuBuilder {
+    /// <summary>
+    /// This interface describes methods with which a context menu can be build.
+    /// </summary>
+    public interface IContextMenuBuilder 
+    {
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="ITreeNode"/>.
         /// </summary>

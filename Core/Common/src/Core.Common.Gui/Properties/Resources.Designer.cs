@@ -1272,7 +1272,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen enkele &quot;importer&quot; is beschikbaar voor dit &quot;item&quot;..
+        ///   Looks up a localized string similar to Geen enkele &apos;Importer&apos; is beschikbaar voor dit &apos;item&apos;..
         /// </summary>
         public static string GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item {
             get {
@@ -1282,7 +1282,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen enkele &quot;importer&quot; is beschikbaar voor dit &quot;item&quot; ({0})..
+        ///   Looks up a localized string similar to Geen enkele &apos;Importer&apos; is beschikbaar voor dit &apos;item&apos; ({0})..
         /// </summary>
         public static string GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_ {
             get {
@@ -1435,7 +1435,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon de gevraagde &quot;dock&quot; opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen..
+        ///   Looks up a localized string similar to Kon de gevraagde &apos;dock&apos; opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen..
         /// </summary>
         public static string MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_ {
             get {
@@ -1567,7 +1567,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een CommandHandler nodig..
+        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een &apos;CommandHandler&apos; nodig..
         /// </summary>
         public static string NodePresenter_CommandHandler_required {
             get {
@@ -1576,7 +1576,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een ContextMenuBuilderProvider nodig..
+        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een &apos;ContextMenuBuilderProvider&apos; nodig..
         /// </summary>
         public static string NodePresenter_ContextMenuBuilderProvider_required {
             get {
@@ -1796,7 +1796,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er ging iets fout bij het ophalen van de NodePresenters van alle plugins..
+        ///   Looks up a localized string similar to Er ging iets fout bij het ophalen van de &apos;NodePresenters&apos; van alle plugins..
         /// </summary>
         public static string ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin {
             get {
@@ -1871,7 +1871,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen PropertyResolver maken zonder een lijst van PropertyInfo..
+        ///   Looks up a localized string similar to Kan geen &apos;PropertyResolver&apos; maken zonder een lijst van &apos;PropertyInfo&apos;..
         /// </summary>
         public static string PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo {
             get {
@@ -2217,7 +2217,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. &quot;Stack trace&quot;:.
+        ///   Looks up a localized string similar to Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. &apos;Stack trace&apos;:.
         /// </summary>
         public static string RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace {
             get {

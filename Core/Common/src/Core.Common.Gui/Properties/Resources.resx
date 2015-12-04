@@ -363,7 +363,7 @@
     <value>..\Resources\cog_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
-    <value>Geen enkele "importer" is beschikbaar voor dit "item" ({0}).</value>
+    <value>Geen enkele 'Importer' is beschikbaar voor dit 'item' ({0}).</value>
   </data>
   <data name="ViewResolver_OpenViewForData_No_view_registered_for_0_" xml:space="preserve">
     <value>Geen documentvenster geregistreerd voor: {0}.</value>
@@ -600,7 +600,7 @@
     <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
-    <value>Kon de gevraagde "dock" opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen.</value>
+    <value>Kon de gevraagde 'dock' opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen.</value>
   </data>
   <data name="application_import_blue_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue_Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -672,7 +672,7 @@
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item" xml:space="preserve">
-    <value>Geen enkele "importer" is beschikbaar voor dit "item".</value>
+    <value>Geen enkele 'Importer' is beschikbaar voor dit 'item'.</value>
   </data>
   <data name="folder_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_output.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -711,7 +711,7 @@
     <value>..\Resources\chart_pie.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace" xml:space="preserve">
-    <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. "Stack trace":</value>
+    <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace':</value>
   </data>
   <data name="Ribbon_Show_Log" xml:space="preserve">
     <value>Log Tonen</value>
@@ -879,10 +879,10 @@
     <value>Verwijder de knoop uit de boom.</value>
   </data>
   <data name="NodePresenter_CommandHandler_required" xml:space="preserve">
-    <value>Voor het aanmaken van knopen in de boom is een CommandHandler nodig.</value>
+    <value>Voor het aanmaken van knopen in de boom is een 'CommandHandler' nodig.</value>
   </data>
   <data name="NodePresenter_ContextMenuBuilderProvider_required" xml:space="preserve">
-    <value>Voor het aanmaken van knopen in de boom is een ContextMenuBuilderProvider nodig.</value>
+    <value>Voor het aanmaken van knopen in de boom is een 'ContextMenuBuilderProvider' nodig.</value>
   </data>
   <data name="PropertyGridView_Order_Alphabetically" xml:space="preserve">
     <value>Alfabetisch</value>
@@ -894,13 +894,13 @@
     <value>Shape-bestand (*.shp)|*.shp</value>
   </data>
   <data name="PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo" xml:space="preserve">
-    <value>Kan geen PropertyResolver maken zonder een lijst van PropertyInfo.</value>
+    <value>Kan geen 'PropertyResolver' maken zonder een lijst van 'PropertyInfo'.</value>
   </data>
   <data name="ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories" xml:space="preserve">
     <value>Kan geen instanties maken van de benodigde objecten.</value>
   </data>
   <data name="ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin" xml:space="preserve">
-    <value>Er ging iets fout bij het ophalen van de NodePresenters van alle plugins.</value>
+    <value>Er ging iets fout bij het ophalen van de 'NodePresenters' van alle plugins.</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>Licht</value>

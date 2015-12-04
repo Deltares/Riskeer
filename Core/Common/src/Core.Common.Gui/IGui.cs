@@ -66,7 +66,8 @@ namespace Core.Common.Gui
         IViewResolver DocumentViewsResolver { get; }
 
         /// <summary>
-        /// Resolves property info objects.
+        /// Object responsible for retrieving the 'ObjectProperties' instance for a given data object 
+        /// and wrapping that in a DynamicPropertyBag for the application to be used.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
 

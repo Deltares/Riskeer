@@ -125,6 +125,11 @@ namespace Core.Common.Gui
             return gui.DocumentViews.ActiveView != null ? gui.DocumentViews.ActiveView.Data : null;
         }
 
+        /// <summary>
+        /// Makes the properties window visible and updates the <see cref="IGui.Selection"/> to the
+        /// given <paramref name="obj"/>.
+        /// </summary>
+        /// <param name="obj">The object for which to show its properties.</param>
         public void ShowPropertiesFor(object obj)
         {
             ((MainWindow) gui.MainWindow).InitPropertiesWindowAndActivate();

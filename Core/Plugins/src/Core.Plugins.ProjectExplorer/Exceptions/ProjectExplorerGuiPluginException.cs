@@ -3,8 +3,8 @@
 namespace Core.Plugins.ProjectExplorer.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when a file reader class encounters a critical error
-    /// during the read.
+    /// The exception that is thrown when the <see cref="ProjectExplorerGuiPlugin"/> encounters an
+    /// error.
     /// </summary>
     public class ProjectExplorerGuiPluginException : Exception
     {

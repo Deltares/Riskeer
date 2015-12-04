@@ -11,7 +11,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// </summary>
     public class PropertyResolver : IPropertyResolver
     {
-        private readonly List<PropertyInfo> propertyInfos;
+        private readonly IEnumerable<PropertyInfo> propertyInfos;
 
         /// <summary>
         /// Creates a new instance of <see cref="PropertyResolver"/> with the given <paramref name="propertyInfos"/>.
@@ -23,7 +23,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             {
                 throw new ArgumentNullException("propertyInfos", Resources.PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_PropertyInfo);
             }
-            this.propertyInfos = propertyInfos.ToList();
+            this.propertyInfos = propertyInfos.ToArray();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
 
             // 1. Match property information based on ObjectType and on AdditionalDataCheck
-            var filteredPropertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
+            var filteredPropertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToArray();
 
             // 2. Match property information based on object type inheritance
             filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.ObjectType);
@@ -47,19 +47,19 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             // 3. Match property information based on property type inheritance
             filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.PropertyType);
 
-            if (filteredPropertyInfos.Count == 0)
+            if (filteredPropertyInfos.Length == 0)
             {
                 // No (or multiple) object properties found: return 'null' so that no object properties are shown in the property grid
                 return null;
             }
 
-            if (filteredPropertyInfos.Count > 1)
+            if (filteredPropertyInfos.Length > 1)
             {
                 // 4. We assume that the propertyInfos with AdditionalDataCheck are the most specific
-                filteredPropertyInfos = filteredPropertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToList();
+                filteredPropertyInfos = filteredPropertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToArray();
             }
 
-            if (filteredPropertyInfos.Count == 1)
+            if (filteredPropertyInfos.Length == 1)
             {
                 return CreateObjectProperties(filteredPropertyInfos.ElementAt(0), sourceData);
             }
@@ -67,9 +67,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             return null;
         }
 
-        private static List<PropertyInfo> FilterPropertyInfoByTypeInheritance(List<PropertyInfo> propertyInfo, Func<PropertyInfo, Type> getTypeAction)
+        private static PropertyInfo[] FilterPropertyInfoByTypeInheritance(PropertyInfo[] propertyInfo, Func<PropertyInfo, Type> getTypeAction)
         {
-            var propertyInfoCount = propertyInfo.Count;
+            var propertyInfoCount = propertyInfo.Length;
             var propertyInfoWithUnInheritedType = propertyInfo.ToList();
 
             for (var i = 0; i < propertyInfoCount; i++)
@@ -95,7 +95,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
 
             return propertyInfoWithUnInheritedType.Any()
-                       ? propertyInfoWithUnInheritedType.ToList() // One or more specific property information objects found: return the filtered list
+                       ? propertyInfoWithUnInheritedType.ToArray() // One or more specific property information objects found: return the filtered list
                        : propertyInfo; // No specific property information found: return the original list
         }
 

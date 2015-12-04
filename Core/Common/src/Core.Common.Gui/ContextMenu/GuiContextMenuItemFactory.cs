@@ -45,14 +45,15 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateOpenItem()
         {
-            bool canOpenView = commandHandler.CanOpenDefaultViewFor(treeNode.Tag);
+            object dataObject = treeNode.Tag;
+            bool canOpenView = commandHandler.CanOpenDefaultViewFor(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Open)
             {
                 ToolTipText = Resources.Open_ToolTip,
                 Image = Resources.OpenIcon,
                 Enabled = canOpenView
             };
-            newItem.Click += (s, e) => commandHandler.OpenView(treeNode.Tag);
+            newItem.Click += (s, e) => commandHandler.OpenView(dataObject);
 
             return newItem;
         }
@@ -64,14 +65,15 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExportItem()
         {
-            bool canExport = commandHandler.CanExportFrom(treeNode.Tag);
+            object dataObject = treeNode.Tag;
+            bool canExport = commandHandler.CanExportFrom(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
                 Image = Resources.ExportIcon,
                 Enabled = canExport
             };
-            newItem.Click += (s, e) => commandHandler.ExportFrom(treeNode.Tag);
+            newItem.Click += (s, e) => commandHandler.ExportFrom(dataObject);
 
             return newItem;
         }
@@ -83,14 +85,15 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
         {
-            bool canImport = commandHandler.CanImportOn(treeNode.Tag);
+            object dataObject = treeNode.Tag;
+            bool canImport = commandHandler.CanImportOn(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
                 Image = Resources.ImportIcon,
                 Enabled = canImport
             };
-            newItem.Click += (s, e) => commandHandler.ImportOn(treeNode.Tag);
+            newItem.Click += (s, e) => commandHandler.ImportOn(dataObject);
 
             return newItem;
         }
@@ -102,14 +105,15 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreatePropertiesItem()
         {
-            bool canShowProperties = commandHandler.CanShowPropertiesFor(treeNode.Tag);
+            object dataObject = treeNode.Tag;
+            bool canShowProperties = commandHandler.CanShowPropertiesFor(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Properties)
             {
                 ToolTipText = Resources.Properties_ToolTip,
                 Image = Resources.PropertiesIcon,
                 Enabled = canShowProperties
             };
-            newItem.Click += (s, e) => commandHandler.ShowPropertiesFor(treeNode.Tag);
+            newItem.Click += (s, e) => commandHandler.ShowPropertiesFor(dataObject);
             
             return newItem;
         }
