@@ -81,7 +81,6 @@
     <Compile Include="Charting\Series\PointChartSeriesTest.cs" />
     <Compile Include="Charting\Series\PolygonChartSeriesTest.cs" />
     <Compile Include="Charting\Series\TeeChartSeriesDecoratorTest.cs" />
-    <Compile Include="FileSystemTreeViewTest.cs" />
     <Compile Include="FindAndReplaceControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table\TableViewCopyPasteTest.cs" />

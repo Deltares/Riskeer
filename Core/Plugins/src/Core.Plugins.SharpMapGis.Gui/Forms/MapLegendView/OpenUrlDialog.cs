@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public partial class OpenUrlDialog : Form
     {
