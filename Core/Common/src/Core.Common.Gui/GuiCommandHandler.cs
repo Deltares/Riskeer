@@ -20,7 +20,6 @@ using Core.Common.Utils.Collections;
 using log4net;
 using log4net.Appender;
 using MainWindow = Core.Common.Gui.Forms.MainWindow.MainWindow;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Common.Gui
 {

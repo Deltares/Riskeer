@@ -8,7 +8,6 @@ using Core.Common.Controls;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
 using log4net;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Common.Gui
 {

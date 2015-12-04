@@ -194,7 +194,6 @@
     <Compile Include="FindAndReplaceControl.Designer.cs">
       <DependentUpon>FindAndReplaceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageBox.cs" />
     <Compile Include="Table\Editors\ComboBoxTypeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

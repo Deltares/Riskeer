@@ -7,7 +7,6 @@ using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 using log4net;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {

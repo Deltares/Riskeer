@@ -9,7 +9,6 @@ using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 using log4net;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
 {

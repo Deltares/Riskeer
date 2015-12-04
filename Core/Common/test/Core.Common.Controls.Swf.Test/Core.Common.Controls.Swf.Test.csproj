@@ -83,7 +83,6 @@
     <Compile Include="Charting\Series\TeeChartSeriesDecoratorTest.cs" />
     <Compile Include="FileSystemTreeViewTest.cs" />
     <Compile Include="FindAndReplaceControlTest.cs" />
-    <Compile Include="MessageBoxTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table\TableViewCopyPasteTest.cs" />
     <Compile Include="Table\TableViewPasteControllerTest.cs" />

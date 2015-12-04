@@ -10,7 +10,6 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.UI.Forms;
 using Core.Plugins.SharpMapGis.Gui.Properties;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
 {

@@ -4,9 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui.Properties;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
-
-//using System.Windows.Forms;
 
 namespace Core.Common.Gui.Forms
 {

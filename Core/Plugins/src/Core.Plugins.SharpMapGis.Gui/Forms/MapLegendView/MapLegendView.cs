@@ -17,7 +17,6 @@ using Core.GIS.SharpMap.Web.Wms;
 using Core.Plugins.SharpMapGis.Gui.Commands;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 using log4net;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {

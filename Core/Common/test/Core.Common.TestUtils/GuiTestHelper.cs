@@ -4,9 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using Core.Common.Controls.Swf;
 using log4net;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Common.TestUtils
 {
@@ -31,8 +29,6 @@ namespace Core.Common.TestUtils
 
         static GuiTestHelper()
         {
-            MessageBox.CustomMessageBox = new LoggingMessageBox();
-
             Control.CheckForIllegalCrossThreadCalls = true;
             Application.EnableVisualStyles();
 
@@ -95,7 +91,6 @@ namespace Core.Common.TestUtils
             exception = null;
             unhandledThreadExceptionOccured = false;
             appDomainExceptionOccured = false;
-            MessageBox.CustomMessageBox = new LoggingMessageBox();
         }
 
         private static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -140,21 +135,6 @@ namespace Core.Common.TestUtils
             unhandledThreadExceptionOccured = true;
             exception = e.Exception;
             log.Error("Windows.Forms exception occured: " + e.Exception.Message, e.Exception);
-        }
-
-        public class LoggingMessageBox : IMessageBox
-        {
-            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
-            {
-                Console.WriteLine(@"MessageBox: {0}. {1}",caption,text);
-
-                if (buttons == MessageBoxButtons.YesNoCancel || buttons == MessageBoxButtons.YesNo)
-                {
-                    return DialogResult.No;
-                }
-
-                return DialogResult.None;
-            }
         }
 
         /// <summary>

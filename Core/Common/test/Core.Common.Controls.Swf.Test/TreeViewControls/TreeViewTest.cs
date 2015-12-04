@@ -354,7 +354,6 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
                     treeView.ExpandAll();
 
                     treeView.SelectedNode = treeView.GetNodeByTag(grandchild);
-                    MessageBox.CustomMessageBox = new MessageBoxAlwaysYes();
                     treeView.TryDeleteSelectedNodeData();
 
                     treeView.ExpandAll();
@@ -432,14 +431,6 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             WindowsFormsTestHelper.ShowModal(treeView, onShow);
 
             TestHelper.AssertIsFasterThan(10, () => Thread.Sleep((int) elapsedMillisecondsWithTreeView));
-        }
-
-        private class MessageBoxAlwaysYes : IMessageBox
-        {
-            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
-            {
-                return DialogResult.OK;
-            }
         }
 
         private class DynamicParentNodePresenter : TreeViewNodePresenterBase<Parent>
