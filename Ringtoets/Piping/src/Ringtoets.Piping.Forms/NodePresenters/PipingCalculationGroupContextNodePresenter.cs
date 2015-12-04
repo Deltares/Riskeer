@@ -45,12 +45,32 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var targetGroup = ((PipingCalculationGroupContext)targetNode.Tag).WrappedData;
 
             IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(item);
-            if (pipingCalculationItem != null && !targetGroup.Children.Contains(pipingCalculationItem))
+            if (pipingCalculationItem != null && !targetGroup.Children.Contains(pipingCalculationItem) && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
             {
                 return validOperations;
             }
 
             return base.CanDrop(item, sourceNode, targetNode, validOperations);
+        }
+
+        private bool NodesHaveSameParentFailureMechanism(ITreeNode sourceNode, ITreeNode targetNode)
+        {
+            var sourceFailureMechanism = GetParentFailureMechanism(sourceNode);
+            var targetFailureMechanism = GetParentFailureMechanism(targetNode);
+
+            return ReferenceEquals(sourceFailureMechanism, targetFailureMechanism);
+        }
+
+        private static PipingFailureMechanism GetParentFailureMechanism(ITreeNode sourceNode)
+        {
+            PipingFailureMechanism sourceFailureMechanism;
+            var node = sourceNode;
+            while ((sourceFailureMechanism = node.Parent.Tag as PipingFailureMechanism) == null)
+            {
+                // No parent found, go search higher up hierarchy!
+                node = node.Parent;
+            }
+            return sourceFailureMechanism;
         }
 
         public override bool CanRenameNode(ITreeNode node)

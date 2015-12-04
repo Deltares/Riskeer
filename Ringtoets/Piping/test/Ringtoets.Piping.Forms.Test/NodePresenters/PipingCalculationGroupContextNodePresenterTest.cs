@@ -183,29 +183,45 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var calculationContext = new PipingCalculationContext(calculation,
                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                   Enumerable.Empty<PipingSoilProfile>());
-            var group = new PipingCalculationGroup();
-            var groupContext = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+            var targetGroup = new PipingCalculationGroup();
+            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSoilProfile>());
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(targetGroup);
+
+            #region Mock node tree for source and target in same failure mechanism
+
+            var failureMechanismNode = mockRepository.Stub<ITreeNode>();
+            failureMechanismNode.Tag = failureMechanism;
+
+            var failureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            failureMechanismGroupNode.Tag = failureMechanism.CalculationsGroup;
+            failureMechanismGroupNode.Expect(n => n.Parent).Return(failureMechanismNode).Repeat.AtLeastOnce();
 
             var calculationNode = mockRepository.Stub<ITreeNode>();
-            calculationNode.Tag = calculation;
+            calculationNode.Tag = calculationContext;
+            calculationNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
 
-            var groupNode = mockRepository.Stub<ITreeNode>();
-            groupNode.Tag = groupContext;
+            var targetGroupNode = mockRepository.Stub<ITreeNode>();
+            targetGroupNode.Tag = targetGroupContext;
+            targetGroupNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
+
+            #endregion
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
 
             // Precondition:
-            CollectionAssert.DoesNotContain(group.Children, calculation,
+            CollectionAssert.DoesNotContain(targetGroup.Children, calculation,
                 "It doesn't make sense to allow dragging onto a group that already contains that node as direct child.");
 
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            DragOperations supportedOperations = nodePresenter.CanDrop(calculationContext, calculationNode, groupNode, DragOperations.Move);
+            DragOperations supportedOperations = nodePresenter.CanDrop(calculationContext, calculationNode, targetGroupNode, DragOperations.Move);
 
             // Assert
             Assert.AreEqual(DragOperations.Move, supportedOperations);
@@ -220,24 +236,90 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var calculationContext = new PipingCalculationContext(calculation,
                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                   Enumerable.Empty<PipingSoilProfile>());
-            var group = new PipingCalculationGroup();
-            group.Children.Add(calculation);
-            var groupContext = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+            var targetGroup = new PipingCalculationGroup();
+            targetGroup.Children.Add(calculation);
+            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSoilProfile>());
 
             var calculationNode = mockRepository.Stub<ITreeNode>();
             calculationNode.Tag = calculationContext;
 
             var groupNode = mockRepository.Stub<ITreeNode>();
-            groupNode.Tag = groupContext;
+            groupNode.Tag = targetGroupContext;
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
 
             // Precondition:
-            CollectionAssert.Contains(group.Children, calculation,
+            CollectionAssert.Contains(targetGroup.Children, calculation,
+                "It doesn't make sense to allow dragging onto a group that already contains that node as direct child.");
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            DragOperations supportedOperations = nodePresenter.CanDrop(calculationContext, calculationNode, groupNode, DragOperations.Move);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, supportedOperations);
+            mockRepository.ReplayAll();
+        }
+
+        [Test]
+        public void CanDrop_DraggingPipingCalculationContextOntoGroupNotContainingCalculationButFromOtherFailureMechanism_ReturnNone()
+        {
+            // Setup
+            var calculation = new PipingCalculation();
+            var calculationContext = new PipingCalculationContext(calculation,
+                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingSoilProfile>());
+            var sourceFailureMechanism = new PipingFailureMechanism();
+            sourceFailureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            var targetGroup = new PipingCalculationGroup();
+            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSoilProfile>());
+            var targetFailureMechanism = new PipingFailureMechanism();
+            targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
+
+            #region Mock node tree for source PipingCalculation
+
+            var sourceFailureMechanismNode = mockRepository.Stub<ITreeNode>();
+            sourceFailureMechanismNode.Tag = sourceFailureMechanism;
+
+            var sourceFailureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            sourceFailureMechanismGroupNode.Tag = sourceFailureMechanism.CalculationsGroup;
+            sourceFailureMechanismGroupNode.Expect(n => n.Parent).Return(sourceFailureMechanismNode).Repeat.AtLeastOnce();
+
+            var calculationNode = mockRepository.Stub<ITreeNode>();
+            calculationNode.Tag = calculationContext;
+            calculationNode.Expect(n => n.Parent).Return(sourceFailureMechanismGroupNode).Repeat.AtLeastOnce();
+
+            #endregion
+
+            #region Mock node tree for target PipingCalculationGroup
+
+            var targetFailureMechanismNode = mockRepository.Stub<ITreeNode>();
+            targetFailureMechanismNode.Tag = targetFailureMechanism;
+
+            var targetFailureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            targetFailureMechanismGroupNode.Tag = targetFailureMechanism.CalculationsGroup;
+            targetFailureMechanismGroupNode.Expect(n => n.Parent).Return(targetFailureMechanismNode).Repeat.AtLeastOnce();
+
+            var groupNode = mockRepository.Stub<ITreeNode>();
+            groupNode.Tag = targetGroupContext;
+            groupNode.Expect(n => n.Parent).Return(targetFailureMechanismGroupNode).Repeat.AtLeastOnce();
+
+            #endregion
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            // Precondition:
+            CollectionAssert.DoesNotContain(targetGroup.Children, calculation,
                 "It doesn't make sense to allow dragging onto a group that already contains that node as direct child.");
 
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
@@ -263,11 +345,29 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                        Enumerable.Empty<PipingSoilProfile>());
 
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(targetGroup);
+
+            #region Mock node tree for groups in same failure mechanism
+
+            var failureMechanismNode = mockRepository.Stub<ITreeNode>();
+            failureMechanismNode.Tag = failureMechanism;
+
+            var failureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            failureMechanismGroupNode.Tag = failureMechanism.CalculationsGroup;
+            failureMechanismGroupNode.Expect(n => n.Parent).Return(failureMechanismNode).Repeat.AtLeastOnce();
+
             var groupNode = mockRepository.Stub<ITreeNode>();
             groupNode.Tag = group;
+            groupNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
 
             var targetGroupNode = mockRepository.Stub<ITreeNode>();
             targetGroupNode.Tag = targetGroupContext;
+            targetGroupNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
+
+            #endregion
+
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -319,6 +419,72 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Call
             DragOperations supportedOperations = nodePresenter.CanDrop(groupContext, groupNode, targetGroupNode, DragOperations.Move);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, supportedOperations);
+            mockRepository.ReplayAll();
+        }
+
+        [Test]
+        public void CanDrop_DraggingPipingCalculationGroupContextOntoGroupNotContainingGroupButFromOtherFailureMechanism_ReturnNone()
+        {
+            // Setup
+            var draggedGroup = new PipingCalculation();
+            var draggedGroupContext = new PipingCalculationContext(draggedGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSoilProfile>());
+            var sourceFailureMechanism = new PipingFailureMechanism();
+            sourceFailureMechanism.CalculationsGroup.Children.Add(draggedGroup);
+
+            var targetGroup = new PipingCalculationGroup();
+            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingSoilProfile>());
+            var targetFailureMechanism = new PipingFailureMechanism();
+            targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
+
+            #region Mock node tree for source PipingCalculation
+
+            var sourceFailureMechanismNode = mockRepository.Stub<ITreeNode>();
+            sourceFailureMechanismNode.Tag = sourceFailureMechanism;
+
+            var sourceFailureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            sourceFailureMechanismGroupNode.Tag = sourceFailureMechanism.CalculationsGroup;
+            sourceFailureMechanismGroupNode.Expect(n => n.Parent).Return(sourceFailureMechanismNode).Repeat.AtLeastOnce();
+
+            var draggedGroupNode = mockRepository.Stub<ITreeNode>();
+            draggedGroupNode.Tag = draggedGroupContext;
+            draggedGroupNode.Expect(n => n.Parent).Return(sourceFailureMechanismGroupNode).Repeat.AtLeastOnce();
+
+            #endregion
+
+            #region Mock node tree for target PipingCalculationGroup
+
+            var targetFailureMechanismNode = mockRepository.Stub<ITreeNode>();
+            targetFailureMechanismNode.Tag = targetFailureMechanism;
+
+            var targetFailureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            targetFailureMechanismGroupNode.Tag = targetFailureMechanism.CalculationsGroup;
+            targetFailureMechanismGroupNode.Expect(n => n.Parent).Return(targetFailureMechanismNode).Repeat.AtLeastOnce();
+
+            var targetGroupNode = mockRepository.Stub<ITreeNode>();
+            targetGroupNode.Tag = targetGroupContext;
+            targetGroupNode.Expect(n => n.Parent).Return(targetFailureMechanismGroupNode).Repeat.AtLeastOnce();
+
+            #endregion
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            // Precondition:
+            CollectionAssert.DoesNotContain(targetGroup.Children, draggedGroup,
+                "It doesn't make sense to allow dragging onto a group that already contains that node as direct child.");
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            DragOperations supportedOperations = nodePresenter.CanDrop(draggedGroupContext, draggedGroupNode, targetGroupNode, DragOperations.Move);
 
             // Assert
             Assert.AreEqual(DragOperations.None, supportedOperations);
