@@ -239,7 +239,7 @@
     <value>Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen.</value>
   </data>
   <data name="PipingInput_UpliftModelFactor_DisplayName" xml:space="preserve">
-    <value>Modelfactor opbarsten [m+NAP]</value>
+    <value>Modelfactor opbarsten [-]</value>
   </data>
   <data name="PipingInput_WaterKinematicViscosity_Description" xml:space="preserve">
     <value>Kinematische viscositeit van water bij 10º Celsius.</value>
