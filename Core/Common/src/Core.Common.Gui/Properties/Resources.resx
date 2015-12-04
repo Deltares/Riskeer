@@ -926,4 +926,7 @@
     <value>Generiek</value>
     <comment>Used for displaying ColorTheme.Generic in combo box.</comment>
   </data>
+  <data name="GuiImportHandler_GetSupportedImporterForTargetType_Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
 </root>

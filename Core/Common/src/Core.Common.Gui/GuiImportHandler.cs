@@ -6,7 +6,6 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Properties;
 using log4net;
-using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
 namespace Core.Common.Gui
 {
@@ -42,7 +41,7 @@ namespace Core.Common.Gui
             //if there is only one available exporter use that.
             if (!importers.Any())
             {
-                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item);
+                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item, Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
                 Log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_, target);
                 return null;
             }
