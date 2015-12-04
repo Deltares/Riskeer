@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Core.Common.Gui.Properties;
 using NUnit.Framework;
 

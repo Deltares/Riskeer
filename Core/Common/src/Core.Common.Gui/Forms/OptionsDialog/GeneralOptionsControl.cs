@@ -5,6 +5,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Globalization;
+using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Forms.OptionsDialog
 {
@@ -89,8 +90,8 @@ namespace Core.Common.Gui.Forms.OptionsDialog
                 });
             }
             comboBoxTheme.DataSource = colorThemeItems;
-            comboBoxTheme.ValueMember = "Theme";
-            comboBoxTheme.DisplayMember = "DisplayName";
+            comboBoxTheme.ValueMember = TypeUtils.GetMemberName<ColorThemeItem>(cti => cti.Theme);
+            comboBoxTheme.DisplayMember = TypeUtils.GetMemberName<ColorThemeItem>(cti => cti.DisplayName);
         }
 
         /// <summary>
@@ -229,5 +230,21 @@ namespace Core.Common.Gui.Forms.OptionsDialog
         }
 
         private void comboBoxTheme_SelectedIndexChanged(object sender, EventArgs e) {}
+
+        /// <summary>
+        /// Used for localizing the items in the theme selection combo box.
+        /// </summary>
+        private class ColorThemeItem
+        {
+            /// <summary>
+            /// Gets or sets the <see cref="ColorTheme"/> for this item.
+            /// </summary>
+            public ColorTheme Theme { get; set; }
+
+            /// <summary>
+            /// Gets or sets the name to display for the <see cref="ColorTheme"/>.
+            /// </summary>
+            public string DisplayName { get; set; }
+        }
     }
 }
