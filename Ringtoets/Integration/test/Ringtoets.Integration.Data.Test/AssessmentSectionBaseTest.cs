@@ -22,7 +22,6 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<Observable>(assessmentSection);
             Assert.AreEqual(String.Empty, assessmentSection.Name);
             Assert.AreEqual("Referentielijn", assessmentSection.ReferenceLine.Name);
-            Assert.AreEqual("Faalkansverdeling", assessmentSection.FailureMechanismContribution.Name);
             Assert.AreEqual("HR locatiedatabase", assessmentSection.HydraulicBoundaryDatabase.Name);
         }
 

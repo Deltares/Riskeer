@@ -180,9 +180,9 @@ namespace Core.Common.Gui
             gui.DocumentViewsResolver.OpenViewForData(gui.Selection, null, true);
         }
 
-        public bool CanOpenDefaultViewFor(object obj)
+        public bool CanOpenViewFor(object obj)
         {
-            return gui.DocumentViewsResolver.GetDefaultViewType(obj) != null;
+            return gui.DocumentViewsResolver.GetViewInfosFor(obj).Any();
         }
 
         public void OpenView(object dataObject, Type viewType = null)

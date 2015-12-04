@@ -194,7 +194,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeNodeMock = mocks.Stub<ITreeNode>();
             var nodeData = new object();
 
-            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(nodeData)).Return(hasViewForNodeData);
+            commandHandlerMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewForNodeData);
 
             mocks.ReplayAll();
 

@@ -18,10 +18,10 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<AssessmentSectionBase>(section);
+            Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             Assert.AreEqual("Duintraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
-            Assert.AreEqual("Faalkansverdeling", section.FailureMechanismContribution.Name);
             Assert.AreEqual("HR locatiedatabase", section.HydraulicBoundaryDatabase.Name);
             Assert.AreEqual("Duinen - Erosie", section.DuneErosionFailureMechanism.Name);
         }

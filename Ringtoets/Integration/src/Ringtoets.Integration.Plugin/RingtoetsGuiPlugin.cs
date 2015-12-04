@@ -8,8 +8,10 @@ using Core.Common.Gui.Forms;
 
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -31,6 +33,15 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<AssessmentSectionBase, AssessmentSectionBaseProperties>();
         }
 
+        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        {
+            yield return new ViewInfo<FailureMechanismContribution, FailureMechanismContributionView>
+            {
+                GetViewName = (v,o) => Resources.FailureMechanismContribution_DisplayName,
+                Image = Forms.Properties.Resources.GenericInputOutputIcon
+            };
+        }
+
         /// <summary>
         /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="RingtoetsGuiPlugin"/>.
         /// </summary>
@@ -42,6 +53,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new FailureMechanismNodePresenter(Gui.ContextMenuProvider);
             yield return new PlaceholderWithReadonlyNameNodePresenter(Gui.ContextMenuProvider);
             yield return new CategoryTreeFolderNodePresenter(Gui.ContextMenuProvider);
+            yield return new FailureMechanismContributionNodePresenter(Gui.ContextMenuProvider);
         }
     }
 }

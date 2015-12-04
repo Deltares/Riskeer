@@ -78,7 +78,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
             var nodeStub = mocks.Stub<ITreeNode>();
-            commandHandlerMock.Expect(ch => ch.CanOpenDefaultViewFor(nodeData)).Return(hasViewersForNodeData);
+            commandHandlerMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewersForNodeData);
             if (hasViewersForNodeData)
             {
                 commandHandlerMock.Expect(ch => ch.OpenView(nodeData));

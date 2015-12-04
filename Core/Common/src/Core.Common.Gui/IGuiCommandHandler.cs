@@ -71,7 +71,7 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>true if there is a default view for the current selection</returns>
-        bool CanOpenDefaultViewFor(object obj);
+        bool CanOpenViewFor(object obj);
 
         /// <summary>
         /// </summary>

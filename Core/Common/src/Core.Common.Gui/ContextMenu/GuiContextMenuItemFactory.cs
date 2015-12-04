@@ -46,7 +46,7 @@ namespace Core.Common.Gui.ContextMenu
         public ToolStripItem CreateOpenItem()
         {
             object dataObject = treeNode.Tag;
-            bool canOpenView = commandHandler.CanOpenDefaultViewFor(dataObject);
+            bool canOpenView = commandHandler.CanOpenViewFor(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Open)
             {
                 ToolTipText = Resources.Open_ToolTip,
