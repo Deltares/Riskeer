@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Plugins.SharpMapGis.Tools
 {
     public partial class ImageResolutionDialog : Form
     {

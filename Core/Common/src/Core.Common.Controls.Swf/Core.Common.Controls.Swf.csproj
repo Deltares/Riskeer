@@ -188,7 +188,6 @@
     <Compile Include="ExceptionDialog.Designer.cs">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportImageHelper.cs" />
     <Compile Include="FindAndReplaceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -236,12 +235,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ImageResolutionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ImageResolutionDialog.Designer.cs">
-      <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Table\EnumFormatter.cs" />
     <Compile Include="Table\TableSelectionChangedEventArgs.cs" />
@@ -319,9 +312,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageResolutionDialog.resx">
-      <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Table\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>

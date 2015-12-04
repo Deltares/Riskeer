@@ -92,13 +92,23 @@
     </Compile>
     <Compile Include="SharpMapGisApplicationPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\ExportImageHelper.cs" />
     <Compile Include="Tools\ExportMapToImageMapTool.cs" />
+    <Compile Include="Tools\ImageResolutionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ImageResolutionDialog.Designer.cs">
+      <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ImageResolutionDialog.resx">
+      <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

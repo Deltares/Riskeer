@@ -3,11 +3,11 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
+using Core.Plugins.SharpMapGis.Properties;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Plugins.SharpMapGis.Tools
 {
     public static class ExportImageHelper
     {

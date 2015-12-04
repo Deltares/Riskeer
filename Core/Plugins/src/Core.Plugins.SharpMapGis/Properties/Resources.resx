@@ -133,4 +133,13 @@
   <data name="MapZoomToExtentsImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapZoomToExtentsImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Export_as_Image" xml:space="preserve">
+    <value>Exporteer als afbeelding...</value>
+  </data>
+  <data name="ExportImageHelper_Format_0_as_filter" xml:space="preserve">
+    <value>{0} bestanden (*.{0})|*.{0}</value>
+  </data>
+  <data name="AllFilesFilter" xml:space="preserve">
+    <value>Alle bestanden (*.*)|*.*</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Controls.Swf
+﻿namespace Core.Plugins.SharpMapGis.Tools
 {
     partial class ImageResolutionDialog
     {
