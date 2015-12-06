@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.Swf;
 using Core.Common.TestUtils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -12,7 +11,7 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismContributionViewTest : WindowsFormsTestBase
+    public class FailureMechanismContributionViewTest : NUnitFormTest
     {
         private MockRepository mockRepository;
 

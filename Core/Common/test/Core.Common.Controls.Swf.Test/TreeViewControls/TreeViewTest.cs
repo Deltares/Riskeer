@@ -18,7 +18,7 @@ using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 namespace Core.Common.Controls.Swf.Test.TreeViewControls
 {
     [TestFixture]
-    public class TreeViewTest : WindowsFormsTestBase
+    public class TreeViewTest : NUnitFormTest
     {
         private readonly MockRepository mockRepository = new MockRepository();
 
@@ -323,7 +323,13 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         [Test]
         public void DeletedNodeMovesSelectionToItsParentNode()
         {
-            ExpectModal("Bevestigen", "MessageBoxHandler");
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                Assert.AreEqual("Weet u zeker dat u het volgende item wilt verwijderen: GrandChild", messageBox.Text);
+                Assert.AreEqual("Bevestigen", messageBox.Title);
+                messageBox.ClickOk();
+            };
 
             using (var treeView = new TreeView())
             {
@@ -545,11 +551,6 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             {
                 isLoaded = value;
             }
-        }
-
-        public void MessageBoxHandler()
-        {
-            new MessageBoxTester("Bevestigen").ClickOk();
         }
     }
 }

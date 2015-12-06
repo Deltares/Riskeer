@@ -1,7 +1,6 @@
 using System;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
-using Core.Common.TestUtils;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -9,7 +8,7 @@ using Rhino.Mocks;
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
-    public class GuiImportHandlerTest : WindowsFormsTestBase
+    public class GuiImportHandlerTest : NUnitFormTest
     {
         private MockRepository mocks;
         private IGui gui;
@@ -29,18 +28,19 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
             mocks.ReplayAll();
 
-            ExpectModal("Fout", "MessageBoxHandler");
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                Assert.AreEqual("Geen enkele 'Importer' is beschikbaar voor dit 'item'.", messageBox.Text);
+                Assert.AreEqual("Fout", messageBox.Title);
+                messageBox.ClickOk();
+            };
 
             var importHandler = new GuiImportHandler(gui);
 
             var item = importHandler.GetSupportedImporterForTargetType(typeof(Int64));
 
             Assert.IsNull(item);
-        }
-
-        public void MessageBoxHandler()
-        {
-            new MessageBoxTester("Fout").ClickOk();
         }
     }
 }
