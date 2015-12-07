@@ -1388,15 +1388,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laden van Ringtoets project vanaf geselecteerd bestand..
-        /// </summary>
-        public static string Loading_project_from_selected_file {
-            get {
-                return ResourceManager.GetString("Loading_project_from_selected_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap lock_edit {
