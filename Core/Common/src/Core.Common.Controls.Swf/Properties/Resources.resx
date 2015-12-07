@@ -409,4 +409,7 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   <data name="TreeView_Error_Unable_to_resolve_node_presenter_for_null_data" xml:space="preserve">
     <value>Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object.</value>
   </data>
+  <data name="bug__exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bug--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

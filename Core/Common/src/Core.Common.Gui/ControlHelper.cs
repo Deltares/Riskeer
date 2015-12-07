@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Common.Gui
 {
     public static class ControlHelper
     {

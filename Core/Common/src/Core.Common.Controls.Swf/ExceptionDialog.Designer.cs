@@ -32,13 +32,11 @@ namespace Core.Common.Controls.Swf
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExceptionDialog));
             this.buttonRestart = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonCopyTextToClipboard = new System.Windows.Forms.Button();
             this.exceptionTextBox = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonOpenLog = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonRestart
@@ -48,12 +46,6 @@ namespace Core.Common.Controls.Swf
             this.buttonRestart.Name = "buttonRestart";
             this.buttonRestart.UseVisualStyleBackColor = true;
             this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
-            // 
-            // pictureBox1
-            // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
             // 
             // buttonCopyTextToClipboard
             // 
@@ -97,18 +89,16 @@ namespace Core.Common.Controls.Swf
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ControlBox = false;
             this.Controls.Add(this.buttonOpenLog);
             this.Controls.Add(this.buttonExit);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exceptionTextBox);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonCopyTextToClipboard);
             this.Controls.Add(this.buttonRestart);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ExceptionDialog";
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -116,7 +106,6 @@ namespace Core.Common.Controls.Swf
         #endregion
 
         private System.Windows.Forms.Button buttonRestart;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonCopyTextToClipboard;
         private System.Windows.Forms.RichTextBox exceptionTextBox;
         private System.Windows.Forms.RichTextBox richTextBox1;

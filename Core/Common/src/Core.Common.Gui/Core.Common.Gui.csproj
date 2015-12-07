@@ -118,6 +118,7 @@
     <Compile Include="ColorTheme.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
+    <Compile Include="ControlHelper.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />

@@ -170,7 +170,6 @@
     <Compile Include="CollapsibleSplitter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlHelper.cs" />
     <Compile Include="Table\Editors\ButtonTypeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -397,6 +396,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\funnel--minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bug--exclamation.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

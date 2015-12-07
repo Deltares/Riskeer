@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonRestart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>449, 238</value>
+    <value>449, 242</value>
   </data>
   <data name="buttonRestart.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -145,56 +145,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonRestart.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAALnSURBVDhPdZDrL1txGMf3D+z13oqOUavSlp621Gq2
-        F7NiLhuZ2yRkExLDlNnMvSN0iE3EMKZza11Kx2hdasssWUhGsmwum5Bt6jI2jiLx3TlEU5u9+Jzf8+T3
-        +36f831OAPgvHj1CeHQLJHTt3sb3d1O5bv395kgj6RcxLHuxhoB7O18Tq/CxFjW7RAtf8H5Z3tMcac7R
-        E7WC5MPeTc03iVpcV2IeXFT65Qu3hNXcveDbogJLjbmgEXcRa+6dhImu3VXEurDJBQIlD4I6HjIMiTDM
-        tyO1KALSaM6dQ80RAyqnxK3VFeJmYs1bdQHqyRr0fmyAYiQPrEd2iOjxRctoBZyLz8KpwAGOeUxqaiex
-        TuU0Z6dy7nkoBWgaK0Huqyika4KRoomEuIIAq8AeUQ3X4OVnO3X4ns65Q+WEsNGlXqwkjFfVflC+L0am
-        NhxJal+EPfdEfmcQJoZuoWqwEI459hCF2LSbDeiPoIH3lqjjgqjhQjVejozuUCSqfBBWJ0F4oy8+9Edi
-        ZaoV+r44sDKYYKbZbtin2MSbDWiIp1xTSLM/inTxSGiRIrTWE4H1l9HbH48lag+7G9OY6AiCTzYbdkmn
-        984kMGAbZ30gpuE/5mzeVEehdECGsGdeCKj1RmV3IsbbrsC01A3TNwVWZ7SofSKGNNXhFK1hxFjdMxsI
-        y1zknCIWsrUyBNZIUdyVhrZGKZY/qWCaz4bhIRc7KyqM15zfG6uSBBzqzAY0XDl7mJFsheqhclSqovBF
-        n45tYz3I6RswyJ2xNSfD2uxL6EqIxXelxMl/DGgc05nDnLsO0NVewk9qcVtfk7H5OfiAqTAqSgnmhsvQ
-        kcsuOdaAJkvOHZ0zKLD9o2J/+ubUdSoCZ/8kZ2NBfu+EIYe1OJzlwDzWgPq9BXJ5BturepiM1A6MrRao
-        sft7EgujDRhIt2091uBNIWf5tdyJHMljk9Qksj+Tib4MewzetyMpEalPsyH1MgapS7Ee+QMga508U1fU
-        1wAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 50</value>
-  </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="buttonCopyTextToClipboard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="buttonCopyTextToClipboard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>43, 238</value>
+    <value>12, 242</value>
   </data>
   <data name="buttonCopyTextToClipboard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 23</value>
+    <value>127, 23</value>
   </data>
   <data name="buttonCopyTextToClipboard.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -212,22 +172,22 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonCopyTextToClipboard.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="exceptionTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="exceptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 36</value>
+    <value>12, 27</value>
   </data>
   <data name="exceptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 196</value>
+    <value>512, 209</value>
   </data>
   <data name="exceptionTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="exceptionTextBox.Text" xml:space="preserve">
-    <value>Bla-bla-bla.</value>
+    <value />
   </data>
   <data name="&gt;&gt;exceptionTextBox.Name" xml:space="preserve">
     <value>exceptionTextBox</value>
@@ -239,13 +199,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;exceptionTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="richTextBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="richTextBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 12</value>
+    <value>12, 8</value>
   </data>
   <data name="richTextBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>483, 20</value>
@@ -254,7 +214,7 @@
     <value>3</value>
   </data>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>Een onafgehandelde exceptie is opgetreden. Ringtoets moet herstart worden.</value>
+    <value>Een onafgehandelde fout is opgetreden. De applicatie moet gesloten worden.</value>
   </data>
   <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
     <value>richTextBox1</value>
@@ -266,13 +226,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;richTextBox1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="buttonExit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="buttonExit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>368, 238</value>
+    <value>368, 242</value>
   </data>
   <data name="buttonExit.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -299,16 +259,16 @@
     <value>Bottom, Left</value>
   </data>
   <data name="buttonOpenLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>173, 238</value>
+    <value>145, 242</value>
   </data>
   <data name="buttonOpenLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 23</value>
+    <value>104, 23</value>
   </data>
   <data name="buttonOpenLog.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="buttonOpenLog.Text" xml:space="preserve">
-    <value>Open Log bestand</value>
+    <value>Open logbestand</value>
   </data>
   <data name="&gt;&gt;buttonOpenLog.Name" xml:space="preserve">
     <value>buttonOpenLog</value>
@@ -330,6 +290,30 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>536, 273</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8B////AQAAAAUAAAALAAAAEQAAABcAAAAbAIWbmwCFm80AhpzLAIadywCInskAiJ/HAImgxwCJ
+        oMcAi6KV////AQAAAAMAFQA9AAAAFQAAACEADAAzADQAdwGAdOsiw875Kdvp/yja6f957fX/KNrp/yja
+        6f8cx9npAZmxnf///wH///8BAEkAs////wEAIQANAEcAkRlvGd0yp1v/GaWj+ULZ4P8z1d3/AAAA/zPV
+        3f801d3/DazBxwGetjv///8B////AQA8AIsAOgBnADwAdxxqHOFHrkf/QadB/x6pjf9d0tX/RtPX/3W0
+        tf9A0NL/O8rR7QGkvJn///8B////Af///wEANQALADEAuQlACc1Am0D7TrJO/0CZQP88sG3/Obq0/3zk
+        8f8AAAD/aNjn/yO4zMkBqMBD////Af///wH///8B////AQAsAHEiYSLlSJ5I/1SsVP8/jT//U6xV/x6n
+        lv+H4+f/VVVV/4Dk8PECrcadAYyTBf///wEALwCLADAATQAwAAsALAChNnk29U6bTv9ZqVn/PYQ9/1mp
+        Wf83onP/TsG+/6v1/P9FydnNAYWFjwAvAIv///8BADQAJQE3AYkBNwHLADEAx0CDQP1UmVT/X6lf/zp+
+        Ov9fqV//UppY/xujmf+T4OP7BIyL7QE8CYsANAAl////Af///wH///8B////AQE5AcdHiUf/Wp1a/2Wu
+        Zf83ezf/Za5l/1qdWv8tmnn/AZKU7QGzzGH///8B////Af///wH///8B////Af///wEBQwG5V6FX+2m1
+        af9uvW7/NXk1/269bv9ptWn/V6FX+wFDAbn///8B////Af///wH///8B////AQNmAxkCXwKrAlICyT6H
+        PvNMk0z/PIE8/zR4NP87gDv/SpBK/zyFPPMCUgLJAl8CqwNmAxn///8B////Af///wEDbAOZA2sDQwJZ
+        AmkvgS/hZ7Vn/3HBcf9xwXH/ccFx/2e1Z/8vgS/hAlkCaQNrA0MDbAOZ////Af///wH///8BA3QDd///
+        /wECXwIZDW4Nxz+UP/VhtmH/dst2/2G2Yf8/lD/1DW4NxwJfAhn///8BA3QDd////wH///8B////Af//
+        /wH///8B////AQNuA7/m5rP/OZM58WK3Yv05kznx5uaz/wNuA7////8B////Af///wH///8B////Af//
+        /wH///8B////Af///wEDdANhA3UDvwN1A78DdQO/A3UDvwN1A78DdANh////Af///wH///8B////Af//
+        /wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af//
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Kritieke fout</value>

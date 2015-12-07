@@ -11,7 +11,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
