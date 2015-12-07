@@ -170,7 +170,6 @@
     <Compile Include="CollapsibleSplitter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControlExtensions.cs" />
     <Compile Include="ControlHelper.cs" />
     <Compile Include="Table\Editors\ButtonTypeEditor.cs">
       <SubType>UserControl</SubType>

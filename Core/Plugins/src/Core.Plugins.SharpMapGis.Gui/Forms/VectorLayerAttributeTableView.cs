@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Table;
 using Core.Common.Gui;
 using Core.Common.Utils;
@@ -222,10 +221,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
             else if (!removingFeatures)
             {
-                TableView.SuspendDrawing();
                 TableView.Data = null; // clear previous subscriptions (property changed)
                 TableView.Data = CreateFeatureRowList(layer.DataSource.Features);
-                TableView.ResumeDrawing();
             }
         }
 
