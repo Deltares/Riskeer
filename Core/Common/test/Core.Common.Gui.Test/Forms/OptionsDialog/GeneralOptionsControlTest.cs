@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Core.Common.Gui.Forms.OptionsDialog;
 using NUnit.Framework;
 
@@ -15,6 +16,21 @@ namespace Core.Common.Gui.Test.Forms.OptionsDialog
                 var subControl = (ComboBox)control.Controls.Find("comboBoxTheme", true)[0];
 
                 Assert.AreEqual(6, subControl.Items.Count);
+
+                var localizedThemes = new[]
+                {
+                    "Donker",
+                    "Licht",
+                    "Metro",
+                    "Aero",
+                    "VS2010",
+                    "Generiek"
+                };
+
+                for (var i = 0; i < subControl.Items.Count; i++) 
+                {
+                    Assert.AreEqual(localizedThemes[i], subControl.GetItemText(subControl.Items[i]));
+                }
             }
         }
     }
