@@ -153,28 +153,28 @@
   <data name="probabilityDistributionGrid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="normTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="normInput.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="normTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="normInput.Location" type="System.Drawing.Point, System.Drawing">
     <value>68, 3</value>
   </data>
-  <data name="normTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="normInput.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 20</value>
   </data>
-  <data name="normTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="normInput.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;normTextBox.Name" xml:space="preserve">
-    <value>normTextBox</value>
+  <data name="&gt;&gt;normInput.Name" xml:space="preserve">
+    <value>normInput</value>
   </data>
-  <data name="&gt;&gt;normTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;normInput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;normTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;normInput.Parent" xml:space="preserve">
     <value>tableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;normTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;normInput.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="perYearLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -235,7 +235,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="probabilityDistributionGrid" Row="1" RowSpan="1" Column="0" ColumnSpan="3" /&gt;&lt;Control Name="normTextBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="normLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="perYearLabel" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,65,Absolute,80,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,26,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="probabilityDistributionGrid" Row="1" RowSpan="1" Column="0" ColumnSpan="3" /&gt;&lt;Control Name="normInput" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="normLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="perYearLabel" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,65,Absolute,80,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,26,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="probabilityDistributionGrid.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 29</value>

@@ -6,7 +6,7 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private Label normLabel;
         private DataGridView probabilityDistributionGrid;
-        private TextBox normTextBox;
+        private NumericUpDown normInput;
         private Label perYearLabel;
         private TableLayoutPanel tableLayoutPanel;
 
@@ -39,10 +39,11 @@ namespace Ringtoets.Integration.Forms.Views
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismContributionView));
             this.normLabel = new System.Windows.Forms.Label();
             this.probabilityDistributionGrid = new System.Windows.Forms.DataGridView();
-            this.normTextBox = new System.Windows.Forms.TextBox();
+            this.normInput = new System.Windows.Forms.NumericUpDown();
             this.perYearLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.normInput)).BeginInit();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,15 +57,19 @@ namespace Ringtoets.Integration.Forms.Views
             resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
             this.probabilityDistributionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 3);
-            this.probabilityDistributionGrid.MultiSelect = false;
             this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
+            this.probabilityDistributionGrid.ReadOnly = true;
             this.probabilityDistributionGrid.RowHeadersVisible = false;
-            this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
-            // normTextBox
+            // normInput
             // 
-            resources.ApplyResources(this.normTextBox, "normTextBox");
-            this.normTextBox.Name = "normTextBox";
+            resources.ApplyResources(this.normInput, "normInput");
+            this.normInput.Maximum = new decimal(new int[] {
+            200000,
+            0,
+            0,
+            0});
+            this.normInput.Name = "normInput";
             // 
             // perYearLabel
             // 
@@ -74,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Views
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.Controls.Add(this.probabilityDistributionGrid, 0, 1);
-            this.tableLayoutPanel.Controls.Add(this.normTextBox, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.normInput, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.normLabel, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.perYearLabel, 2, 0);
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
@@ -86,8 +91,8 @@ namespace Ringtoets.Integration.Forms.Views
             this.Name = "FailureMechanismContributionView";
             resources.ApplyResources(this, "$this");
             ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.normInput)).EndInit();
             this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }

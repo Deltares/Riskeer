@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -43,7 +42,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
         {
-            node.Text = PipingFormsResources.PipingFailureMechanism_DisplayName;
+            node.Text = PipingDataResources.PipingFailureMechanism_DisplayName;
             node.Image = PipingFormsResources.PipingIcon;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }

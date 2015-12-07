@@ -159,4 +159,7 @@
   <data name="GrassRevetmentFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Grasbekledingen</value>
   </data>
+  <data name="FailureMechanismContribution_FailureMechanismContribution_Other" xml:space="preserve">
+    <value>Overig</value>
+  </data>
 </root>

@@ -470,15 +470,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken - Piping.
-        /// </summary>
-        public static string PipingFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string PipingFailureMechanism_ValidateAll_Tooltip {

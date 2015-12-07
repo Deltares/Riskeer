@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Collections;
+using Ringtoets.Integration.Data.Properties;
 
 namespace Ringtoets.Integration.Data
 {
@@ -11,16 +12,16 @@ namespace Ringtoets.Integration.Data
 
         public FailureMechanismContribution(int norm)
         {
-            distribution.Add(new FailureMechanismContributionItem("Dijken - Piping", 0.24, norm));
-            distribution.Add(new FailureMechanismContributionItem("Dijken - Graserosie kruin en binnentalud", 0.24, norm));
-            distribution.Add(new FailureMechanismContributionItem("Dijken - Macrostabiliteit binnenwaarts", 0.04, norm));
-            distribution.Add(new FailureMechanismContributionItem("Kunstwerken - Overslag en overloop", 0.02, norm));
-            distribution.Add(new FailureMechanismContributionItem("Kunstwerken - Niet sluiten", 0.04, norm));
-            distribution.Add(new FailureMechanismContributionItem("Kunstwerken - Constructief falen", 0.02, norm));
-            distribution.Add(new FailureMechanismContributionItem("Dijken - Steenbekledingen", 0.04, norm));
-            distribution.Add(new FailureMechanismContributionItem("Dijken - Asfaltbekledingen", 0.03, norm));
-            distribution.Add(new FailureMechanismContributionItem("Dijken - Grasbekledingen", 0.03, norm));
-            distribution.Add(new FailureMechanismContributionItem("Overig", 0.3, norm));
+            distribution.Add(new FailureMechanismContributionItem(Piping.Data.Properties.Resources.PipingFailureMechanism_DisplayName, 0.24, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.GrassErosionFailureMechanism_DisplayName, 0.24, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.MacrostabilityInwardFailureMechanism_DisplayName, 0.04, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.OvertoppingFailureMechanism_DisplayName, 0.02, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.ClosingFailureMechanism_DisplayName, 0.04, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.FailingOfConstructionFailureMechanism_DisplayName, 0.02, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.StoneRevetmentFailureMechanism_DisplayName, 0.04, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.AsphaltRevetmentFailureMechanism_DisplayName, 0.03, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.GrassRevetmentFailureMechanism_DisplayName, 0.03, norm));
+            distribution.Add(new FailureMechanismContributionItem(Resources.FailureMechanismContribution_FailureMechanismContribution_Other, 0.3, norm));
             Norm = norm;
         }
 

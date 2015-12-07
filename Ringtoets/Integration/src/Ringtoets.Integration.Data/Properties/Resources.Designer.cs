@@ -124,6 +124,15 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overig.
+        /// </summary>
+        public static string FailureMechanismContribution_FailureMechanismContribution_Other {
+            get {
+                return ResourceManager.GetString("FailureMechanismContribution_FailureMechanismContribution_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken - Graserosie kruin en binnentalud.
         /// </summary>
         public static string GrassErosionFailureMechanism_DisplayName {

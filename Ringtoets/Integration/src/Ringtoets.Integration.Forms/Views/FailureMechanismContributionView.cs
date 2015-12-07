@@ -55,12 +55,12 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void BindNormChange()
         {
-            normTextBox.LostFocus += NormTextBoxOnLostFocus;
+            normInput.ValueChanged += NormTextBoxValueChanged;
         }
 
-        private void NormTextBoxOnLostFocus(object sender, EventArgs eventArgs)
+        private void NormTextBoxValueChanged(object sender, EventArgs eventArgs)
         {
-            data.Norm = Int32.Parse(normTextBox.Text);
+            data.Norm = (int) normInput.Value;
             data.NotifyObservers();
         }
 
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetNormText()
         {
-            normTextBox.Text = string.Format("{0}", data.Norm);
+            normInput.Value = data.Norm;
         }
     }
 }

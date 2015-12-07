@@ -168,4 +168,7 @@
   <data name="PipingFailureMechanism_Calculations_DisplayName" xml:space="preserve">
     <value>Berekeningen</value>
   </data>
+  <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
+    <value>Dijken - Piping</value>
+  </data>
 </root>
