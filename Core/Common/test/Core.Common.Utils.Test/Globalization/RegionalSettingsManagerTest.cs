@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using System.Threading;
-using Core.Common.Utils.Globalization;
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test.Globalization
@@ -9,26 +8,6 @@ namespace Core.Common.Utils.Test.Globalization
     [TestFixture]
     public class RegionalSettingsManagerTest
     {
-        [Test]
-        public void SetRealNumberFormat()
-        {
-            var formatChangedCallCount = 0;
-            RegionalSettingsManager.FormatChanged += delegate { formatChangedCallCount++; };
-
-            RegionalSettingsManager.RealNumberFormat = "0:0.0";
-
-            var value = 1000000.0001;
-
-            var formatProvider = RegionalSettingsManager.GetCustomFormatProvider();
-
-            var str = string.Format(formatProvider, "{0}", value);
-
-            var currentNumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat;
-
-            Assert.AreEqual("1000000" + currentNumberFormat.NumberDecimalSeparator + "0", str);
-            Assert.AreEqual(1, formatChangedCallCount);
-        }
-
         [Test]
         public void TestForLowerAndUpperCaseInTurkishLanguage()
         {
