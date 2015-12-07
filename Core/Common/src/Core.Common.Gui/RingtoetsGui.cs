@@ -8,11 +8,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
@@ -90,7 +88,6 @@ namespace Core.Common.Gui
 
             Application.EnableVisualStyles();
 
-            ProjectClosing += ApplicationProjectClosing;
             ProjectOpened += ApplicationProjectOpened;
         }
 
@@ -560,11 +557,6 @@ namespace Core.Common.Gui
         private void ApplicationProjectOpened(Project project)
         {
             ResumeUI();
-        }
-
-        private void ApplicationProjectClosing(Project project)
-        {
-            ClonableToolStripMenuItem.ClearCache();
         }
 
         // Sets the tooltip for given view, assuming that ProjectExplorer is not null.

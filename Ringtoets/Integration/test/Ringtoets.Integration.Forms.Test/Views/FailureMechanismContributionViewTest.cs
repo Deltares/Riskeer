@@ -11,13 +11,13 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismContributionViewTest : NUnitFormTest
+    public class FailureMechanismContributionViewTest
     {
         private MockRepository mockRepository;
 
-        public override void Setup()
+        [SetUp]
+        public void Setup()
         {
-            base.Setup();
             mockRepository = new MockRepository();
         }
 

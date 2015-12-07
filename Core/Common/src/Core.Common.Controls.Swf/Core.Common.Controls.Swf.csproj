@@ -167,9 +167,6 @@
     <Compile Include="Charting\Tools\ZoomUsingMouseWheelTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ClonableToolStripMenuItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="CollapsibleSplitter.cs">
       <SubType>Component</SubType>
     </Compile>
