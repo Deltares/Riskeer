@@ -257,7 +257,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var originalOwnerContext = itemParent as PipingCalculationGroupContext;
             if (pipingCalculationItem != null && originalOwnerContext != null)
             {
-                
+                string uniqueName = GetUniqueNameForCalculationItem(pipingCalculationItem, target.WrappedData);
+                bool renamed = false;
+                if (!pipingCalculationItem.Name.Equals(uniqueName))
+                {
+                    renamed = TryRenameTo(pipingCalculationItem, uniqueName);
+                }
                 originalOwnerContext.WrappedData.Children.Remove(pipingCalculationItem);
                 target.WrappedData.Children.Add(pipingCalculationItem);
 
@@ -272,11 +277,44 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                     newParentOfDraggedNode.Expand();
                 }
                 TreeView.SelectedNode = draggedNode;
+                if (renamed)
+                {
+                    TreeView.StartLabelEdit();
+                }
             }
             else
             {
                 base.OnDragDrop(item, itemParent, target, operation, position);
             }
+        }
+
+        private static string GetUniqueNameForCalculationItem(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroup parentGroup)
+        {
+            string itemBaseName = pipingCalculationItem is PipingCalculation ?
+                                      Resources.PipingCalculation_DefaultName :
+                                      (pipingCalculationItem is PipingCalculationGroup ?
+                                           Resources.PipingCalculationGroup_DefaultName :
+                                           null);
+            return NamingHelper.GetUniqueName(parentGroup.Children, itemBaseName, pci => pci.Name);
+        }
+
+        private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string uniqueName)
+        {
+            var calculation = pipingCalculationItem as PipingCalculation;
+            if (calculation != null)
+            {
+                calculation.Name = uniqueName;
+                return true;
+            }
+
+            var group = pipingCalculationItem as PipingCalculationGroup;
+            if (group != null && group.NameIsEditable)
+            {
+                group.Name = uniqueName;
+                return true;
+            }
+
+            return false;
         }
 
         private static IPipingCalculationItem GetAsIPipingCalculationItem(object item)
