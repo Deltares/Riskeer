@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +15,6 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Utils.Globalization;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
@@ -55,7 +55,7 @@ namespace Application.Ringtoets
 
         static App()
         {
-            SetLanguageAndRegionalSettings();
+            SetLanguage();
 
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
         }
@@ -364,12 +364,26 @@ namespace Application.Ringtoets
             }
         }
 
-        private static void SetLanguageAndRegionalSettings()
+        private static void SetLanguage()
         {
             var language = ConfigurationManager.AppSettings["language"];
             if (language != null)
             {
-                RegionalSettingsManager.Language = language;
+                var localMachineDateTimeFormat = (DateTimeFormatInfo) Thread.CurrentThread.CurrentCulture.DateTimeFormat.Clone();
+                localMachineDateTimeFormat.DayNames = CultureInfo.InvariantCulture.DateTimeFormat.DayNames;
+                localMachineDateTimeFormat.MonthNames = CultureInfo.InvariantCulture.DateTimeFormat.MonthNames;
+                localMachineDateTimeFormat.AbbreviatedDayNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedDayNames;
+                localMachineDateTimeFormat.AbbreviatedMonthGenitiveNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthGenitiveNames;
+                localMachineDateTimeFormat.AbbreviatedMonthNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthNames;
+
+                var cultureInfo = new CultureInfo(language)
+                {
+                    NumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat,
+                    DateTimeFormat = localMachineDateTimeFormat
+                };
+
+                Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                Thread.CurrentThread.CurrentCulture = cultureInfo;
             }
         }
     }

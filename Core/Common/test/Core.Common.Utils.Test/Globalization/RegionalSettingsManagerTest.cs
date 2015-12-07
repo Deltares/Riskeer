@@ -10,20 +10,6 @@ namespace Core.Common.Utils.Test.Globalization
     public class RegionalSettingsManagerTest
     {
         [Test]
-        public void ChangeLanguage()
-        {
-            var languageChangedCallCount = 0;
-
-            RegionalSettingsManager.LanguageChanged += delegate { languageChangedCallCount++; };
-
-            RegionalSettingsManager.Language = "ru-RU";
-
-            Assert.AreEqual(1, languageChangedCallCount, "event is fired when language is changed");
-
-            Assert.AreEqual("ru-RU", RegionalSettingsManager.Language);
-        }
-
-        [Test]
         public void SetRealNumberFormat()
         {
             var formatChangedCallCount = 0;

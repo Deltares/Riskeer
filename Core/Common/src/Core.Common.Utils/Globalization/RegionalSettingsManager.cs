@@ -12,39 +12,10 @@ namespace Core.Common.Utils.Globalization
     /// </summary>
     public static class RegionalSettingsManager
     {
-        public static event Action LanguageChanged;
         public static event Action FormatChanged;
         private static readonly CustomFormatProvider customFormatProvider = new CustomFormatProvider();
 
         private static string realNumberFormat = "G5";
-
-        /// <summary>
-        /// Language in the form of standard cultures "en-US", "ru-RU" ...
-        /// </summary>
-        public static string Language
-        {
-            set
-            {
-                var ci = new CultureInfo(value)
-                {
-                    NumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat,
-                    DateTimeFormat = CreateDateTimeFormatFromSystemSettingsWithoutNameLocalization(),
-                };
-
-                Thread.CurrentThread.CurrentUICulture = ci;
-                Thread.CurrentThread.CurrentCulture = ci;
-
-                if (LanguageChanged != null)
-                {
-                    LanguageChanged();
-                }
-            }
-
-            get
-            {
-                return Thread.CurrentThread.CurrentCulture.Name;
-            }
-        }
 
         public static CultureInfo CurrentCulture
         {
