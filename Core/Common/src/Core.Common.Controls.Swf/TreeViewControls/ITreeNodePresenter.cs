@@ -131,7 +131,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// <summary>
         /// Returns context menu based on current data
         /// </summary>
-        ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData);
+        ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData);
 
         /// <summary>
         /// Updates node due to it's property change.

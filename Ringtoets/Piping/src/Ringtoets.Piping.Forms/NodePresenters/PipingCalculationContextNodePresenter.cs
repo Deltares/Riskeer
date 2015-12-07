@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             pipingCalculationContext.WrappedData.NotifyObservers();
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationContext nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingCalculationContext nodeData)
         {
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(Resources.PipingCalculationItem_Validate,
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
 
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddCustomItem(validateItem)
                 .AddCustomItem(calculateItem)
                 .AddCustomItem(clearOutputItem)

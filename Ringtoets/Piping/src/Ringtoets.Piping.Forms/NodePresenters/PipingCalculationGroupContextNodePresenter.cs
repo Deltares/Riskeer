@@ -65,10 +65,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             PipingFailureMechanism sourceFailureMechanism;
             var node = sourceNode;
-            while ((sourceFailureMechanism = node.Parent.Tag as PipingFailureMechanism) == null)
+            while ((sourceFailureMechanism = node.Tag as PipingFailureMechanism) == null)
             {
                 // No parent found, go search higher up hierarchy!
                 node = node.Parent;
+                if (node == null)
+                {
+                    break;
+                }
             }
             return sourceFailureMechanism;
         }
@@ -120,7 +124,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return base.RemoveNodeData(parentNodeData, nodeData);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationGroupContext nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingCalculationGroupContext nodeData)
         {
             var group = nodeData.WrappedData;
             var addCalculationGroupItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
@@ -131,8 +135,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                                                         {
                                                                             Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculationGroup_DefaultName, c => c.Name)
                                                                         };
+
                                                                         group.Children.Add(newGroup);
                                                                         nodeData.NotifyObservers();
+
+                                                                        SelectNewlyAddedItemInTreeView(node);
                                                                     });
             var addCalculationItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
                                                                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
@@ -142,8 +149,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                                                    {
                                                                        Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculation_DefaultName, c => c.Name)
                                                                    };
+
                                                                    group.Children.Add(calculation);
                                                                    nodeData.NotifyObservers();
+
+                                                                   SelectNewlyAddedItemInTreeView(node);
                                                                });
             var validateAllItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationItem_Validate,
                                                             PipingFormsResources.PipingCalculationGroup_Validate_ToolTip,
@@ -177,7 +187,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return contextMenuBuilderProvider.Get(sender)
+            return contextMenuBuilderProvider.Get(node)
                                              .AddCustomItem(addCalculationGroupItem)
                                              .AddCustomItem(addCalculationItem)
                                              .AddSeparator()
@@ -193,6 +203,17 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                              .AddSeparator()
                                              .AddPropertiesItem()
                                              .Build();
+        }
+
+        private void SelectNewlyAddedItemInTreeView(ITreeNode node)
+        {
+            // Expand parent of 'newItem' to ensure its selected state is visible.
+            if (!node.IsExpanded)
+            {
+                node.Expand();
+            }
+            ITreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
+            TreeView.SelectedNode = newlyAppendedNodeForNewItem;
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationGroupContext nodeData)
@@ -243,13 +264,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 originalOwnerContext.NotifyObservers();
                 target.NotifyObservers();
 
+                // Expand parent of 'draggedNode' to ensure its selected state is visible.
                 ITreeNode draggedNode = TreeView.GetNodeByTag(item);
-                TreeView.SelectedNode = draggedNode;
                 ITreeNode newParentOfDraggedNode = draggedNode.Parent;
                 if (!newParentOfDraggedNode.IsExpanded)
                 {
                     newParentOfDraggedNode.Expand();
                 }
+                TreeView.SelectedNode = draggedNode;
             }
             else
             {

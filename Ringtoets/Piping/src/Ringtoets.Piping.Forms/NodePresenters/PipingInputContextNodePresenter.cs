@@ -31,10 +31,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingInputContext nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingInputContext nodeData)
         {
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddImportItem()
                 .AddExportItem()
                 .AddSeparator()

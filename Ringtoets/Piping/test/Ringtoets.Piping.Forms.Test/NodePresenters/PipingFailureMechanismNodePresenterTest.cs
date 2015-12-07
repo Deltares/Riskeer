@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -564,34 +565,71 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnAddCalculationItem_NewPipingCalculationInstanceAddedToFailureMechanismAndNotifyObservers()
         {
             // Setup
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Clear();
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation());
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+
+            var newCalculationContextNode = mockRepository.StrictMock<ITreeNode>();
+
+            var failureMechanismCalculationsNode = mockRepository.StrictMock<ITreeNode>();
+            failureMechanismCalculationsNode.Expect(n => n.IsExpanded).Return(false);
+            failureMechanismCalculationsNode.Expect(n => n.Expand());
+            failureMechanismCalculationsNode.Expect(n => n.Nodes).WhenCalled(invocation =>
+            {
+                if (failureMechanism.CalculationsGroup.Children.Count == 2)
+                {
+                    invocation.ReturnValue = new List<ITreeNode>
+                    {
+                        newCalculationContextNode
+                    };
+                }
+            }).Return(null);
+
+            var failureMechanismNode = mockRepository.StrictMock<ITreeNode>();
+            failureMechanismNode.Expect(n => n.IsExpanded).Return(false);
+            failureMechanismNode.Expect(n => n.Expand());
+            failureMechanismNode.Expect(n => n.Nodes).Return(new List<ITreeNode>
+            {
+                null,
+                failureMechanismCalculationsNode,
+                null
+            });
+
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(failureMechanismNode)).Return(menuBuilder);
+
+            var treeView = mockRepository.Stub<ITreeView>();
 
             mockRepository.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observerMock);
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock)
+            {
+                TreeView = treeView
+            };
 
             // Precondition
             Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
 
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(failureMechanismNode, failureMechanism);
             ToolStripItem addCalculationItem = contextMenu.Items[contextMenuAddCalculationIndex];
             addCalculationItem.PerformClick();
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
             IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
-            Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name);
+            Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name,
+                "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculation>(addedItem);
+
+            Assert.AreSame(newCalculationContextNode, treeView.SelectedNode);
             mockRepository.VerifyAll();
         }
 
@@ -599,37 +637,71 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnAddFolderItem_NewPipingCalculationGroupInstanceAddedToFailureMechanismAndNotifyObservers()
         {
             // Setup
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-
-            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
-
-            observerMock.Expect(o => o.UpdateObserver());
-
-            mockRepository.ReplayAll();
-
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observerMock);
             failureMechanism.CalculationsGroup.Children.Clear();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationGroup());
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var newCalculationGroupContextNode = mockRepository.StrictMock<ITreeNode>();
+
+            var failureMechanismCalculationsNode = mockRepository.StrictMock<ITreeNode>();
+            failureMechanismCalculationsNode.Expect(n => n.IsExpanded).Return(false);
+            failureMechanismCalculationsNode.Expect(n => n.Expand());
+            failureMechanismCalculationsNode.Expect(n => n.Nodes).WhenCalled(invocation =>
+            {
+                if (failureMechanism.CalculationsGroup.Children.Count == 2)
+                {
+                    invocation.ReturnValue = new List<ITreeNode>
+                    {
+                        newCalculationGroupContextNode
+                    };
+                }
+            }).Return(null);
+
+            var failureMechanismNode = mockRepository.StrictMock<ITreeNode>();
+            failureMechanismNode.Expect(n => n.IsExpanded).Return(false);
+            failureMechanismNode.Expect(n => n.Expand());
+            failureMechanismNode.Expect(n => n.Nodes).Return(new List<ITreeNode>
+            {
+                null,
+                failureMechanismCalculationsNode,
+                null
+            });
+
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(failureMechanismNode)).Return(menuBuilder);
+
+            var treeView = mockRepository.Stub<ITreeView>();
+
+            mockRepository.ReplayAll();
+
+            failureMechanism.Attach(observerMock);
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock)
+            {
+                TreeView = treeView
+            };
 
             // Precondition
             Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
 
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(failureMechanismNode, failureMechanism);
             ToolStripItem addCalculationItem = contextMenu.Items[contextMenuAddFolderIndex];
             addCalculationItem.PerformClick();
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
             IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
-            Assert.AreEqual("Nieuwe map (1)", addedItem.Name);
+            Assert.AreEqual("Nieuwe map (1)", addedItem.Name,
+                "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
+
+            Assert.AreSame(newCalculationGroupContextNode, treeView.SelectedNode);
             mockRepository.VerifyAll();
         }
     }

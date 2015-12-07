@@ -44,17 +44,17 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return true;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingOutput nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingOutput nodeData)
         {
             StrictContextMenuItem clearItem = new StrictContextMenuItem(
                 Resources.Clear_output,
                 null,
                 RingtoestFormsResources.ClearIcon,
-                (s, e) => sender.TreeView.TryDeleteSelectedNodeData()
+                (s, e) => node.TreeView.TryDeleteSelectedNodeData()
                 );
 
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddCustomItem(clearItem)
                 .AddSeparator()
                 .AddExportItem()

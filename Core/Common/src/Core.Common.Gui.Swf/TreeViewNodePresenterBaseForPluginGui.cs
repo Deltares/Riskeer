@@ -20,13 +20,13 @@ namespace Core.Common.Gui.Swf
 
         public GuiPlugin GuiPlugin { get; set; }
 
-        public override ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        public override ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
         {
             if (GuiPlugin == null)
             {
                 return null;
             }
-            var x = GuiPlugin.GetContextMenu(sender, nodeData);
+            var x = GuiPlugin.GetContextMenu(node, nodeData);
             return x;
         }
 

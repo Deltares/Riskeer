@@ -17,10 +17,10 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             node.Image = Resources.GenericInputOutputIcon;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, FailureMechanismContribution nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, FailureMechanismContribution nodeData)
         {
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddOpenItem()
                 .Build();
         }

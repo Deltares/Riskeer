@@ -36,10 +36,10 @@ namespace Ringtoets.Common.Forms.NodePresenters
             return nodeData.Contents;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, CategoryTreeFolder nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, CategoryTreeFolder nodeData)
         {
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddExpandAllItem()
                 .AddCollapseAllItem()
                 .Build();

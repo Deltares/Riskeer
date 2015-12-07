@@ -936,25 +936,47 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
             // Setup
+            var group = new PipingCalculationGroup();
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSoilProfile>());
+
             var calculationItem = mockRepository.Stub<IPipingCalculationItem>();
             calculationItem.Expect(ci => ci.Name).Return("Nieuwe map");
 
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var node = mockRepository.StrictMock<ITreeNode>();
+            var newCalculationGroupContextNode = mockRepository.Stub<ITreeNode>();
+
+            // Parent node of newly added item, should be expanded from collapsed state to show selected node:
+            var node = mockRepository.Stub<ITreeNode>();
+            node.Tag = nodeData;
+            node.Expect(n => n.IsExpanded).Return(false);
+            node.Expect(n => n.Expand());
+            node.Expect(n => n.Nodes).WhenCalled(invocation =>
+            {
+                if (group.Children.Last() is PipingCalculationGroup)
+                {
+                    invocation.ReturnValue = new List<ITreeNode>
+                    {
+                        newCalculationGroupContextNode
+                    };
+                }
+            }).Return(null);
+
+            var treeView = mockRepository.Stub<ITreeView>();
             mockRepository.ReplayAll();
 
-            var builderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
-
-            var group = new PipingCalculationGroup();
             group.Children.Add(calculationItem);
-            var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+
             nodeData.Attach(observer);
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider);
+            var builderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider)
+            {
+                TreeView = treeView
+            };
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
 
@@ -968,7 +990,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(2, group.Children.Count);
             var newlyAddedItem = group.Children.Last();
             Assert.IsInstanceOf<PipingCalculationGroup>(newlyAddedItem);
-            Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name);
+            Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+            Assert.AreSame(newCalculationGroupContextNode, treeView.SelectedNode,
+                "The node of the newly added item should be selected.");
+
             mockRepository.VerifyAll();
         }
 
@@ -976,27 +1003,47 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
         {
             // Setup
+            var group = new PipingCalculationGroup();
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSoilProfile>());
+
             var calculationItem = mockRepository.Stub<IPipingCalculationItem>();
             calculationItem.Expect(ci => ci.Name).Return("Nieuwe berekening");
 
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var node = mockRepository.StrictMock<ITreeNode>();
+            var newCalculationContextNode = mockRepository.Stub<ITreeNode>();
 
+            // Parent node of newly added item, should be expanded from collapsed state to show selected node:
+            var node = mockRepository.Stub<ITreeNode>();
+            node.Tag = nodeData;
+            node.Expect(n => n.IsExpanded).Return(false);
+            node.Expect(n => n.Expand());
+            node.Expect(n => n.Nodes).WhenCalled(invocation =>
+            {
+                if (group.Children.Last() is PipingCalculation)
+                {
+                    invocation.ReturnValue = new List<ITreeNode>
+                    {
+                        newCalculationContextNode
+                    };
+                }
+            }).Return(null);
+
+            var treeView = mockRepository.Stub<ITreeView>();
             mockRepository.ReplayAll();
 
-            var contextMenuProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
-
-            var group = new PipingCalculationGroup();
             group.Children.Add(calculationItem);
-            var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
 
             nodeData.Attach(observer);
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuProvider);
+            var builderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider)
+            {
+                TreeView = treeView
+            };
 
             var contextMenu = nodePresenter.GetContextMenu(node, nodeData);
 
@@ -1010,7 +1057,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(2, group.Children.Count);
             var newlyAddedItem = group.Children.Last();
             Assert.IsInstanceOf<PipingCalculation>(newlyAddedItem);
-            Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name);
+            Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+            Assert.AreSame(newCalculationContextNode, treeView.SelectedNode,
+                "The node of the newly added item should be selected.");
+
             mockRepository.VerifyAll();
         }
 

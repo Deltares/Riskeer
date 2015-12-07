@@ -151,7 +151,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             throw new NotImplementedException();
         }
 
-        public virtual ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        public virtual ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
         {
             return null;
         }

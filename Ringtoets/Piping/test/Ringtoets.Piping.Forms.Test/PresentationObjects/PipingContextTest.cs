@@ -160,6 +160,66 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Equals_ToItself_ReturnTrue()
+        {
+            // Setup
+            var observableObject = new ObserveableObject();
+            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                     Enumerable.Empty<PipingSoilProfile>());
+
+            // Call
+            bool isEqual = context.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToNull_ReturnFalse()
+        {
+            // Setup
+            var observableObject = new ObserveableObject();
+            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                     Enumerable.Empty<PipingSoilProfile>());
+
+            // Call
+            bool isEqual = context.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_ToEqualOtherInstance_ReturnTrue()
+        {
+            // Setup
+            var observableObject = new ObserveableObject();
+            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                     Enumerable.Empty<PipingSoilProfile>());
+
+            var otherContext = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                          new[]
+                                                                          {
+                                                                              new RingtoetsPipingSurfaceLine()
+                                                                          },
+                                                                          new[]
+                                                                          {
+                                                                              new TestPipingSoilProfile()
+                                                                          });
+
+            // Call
+            bool isEqual = context.Equals(otherContext);
+            bool isEqual2 = otherContext.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+            Assert.IsTrue(isEqual2);
+        }
+
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable
         {
             public SimplePipingContext(T target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles)

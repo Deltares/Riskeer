@@ -44,10 +44,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, IEnumerable<PipingSoilProfile> nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, IEnumerable<PipingSoilProfile> nodeData)
         {
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddExpandAllItem()
                 .AddCollapseAllItem()
                 .AddSeparator()

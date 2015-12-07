@@ -75,10 +75,10 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             return true;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, AssessmentSectionBase nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, AssessmentSectionBase nodeData)
         {
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddDeleteItem()
                 .AddSeparator()
                 .AddExpandAllItem()

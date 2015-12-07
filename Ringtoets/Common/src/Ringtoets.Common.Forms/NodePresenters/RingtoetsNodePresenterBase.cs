@@ -104,9 +104,9 @@ namespace Ringtoets.Common.Forms.NodePresenters
             OnNodeSelected((T)nodeData);
         }
 
-        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        public ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
         {
-            return GetContextMenu(sender, (T)nodeData);
+            return GetContextMenu(node, (T)nodeData);
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e)
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// Typed implementation of method <see cref="ITreeNodePresenter.GetContextMenu"/>.
         /// </summary>
         /// <seealso cref="GetContextMenu(ITreeNode, object)"/>
-        protected virtual ContextMenuStrip GetContextMenu(ITreeNode sender, T nodeData)
+        protected virtual ContextMenuStrip GetContextMenu(ITreeNode node, T nodeData)
         {
             return null;
         }

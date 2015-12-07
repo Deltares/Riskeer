@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(nodeData), TreeFolderCategory.Output);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, FailureMechanismPlaceholder nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, FailureMechanismPlaceholder nodeData)
         {
             var calculateItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
                 Enabled = false
             };
 
-            return contextMenuBuilderProvider.Get(sender)
+            return contextMenuBuilderProvider.Get(node)
                                              .AddCustomItem(calculateItem)
                                              .AddCustomItem(clearOutputItem)
                                              .AddSeparator()

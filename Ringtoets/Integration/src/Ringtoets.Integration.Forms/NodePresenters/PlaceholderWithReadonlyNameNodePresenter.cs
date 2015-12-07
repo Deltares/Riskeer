@@ -32,9 +32,9 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             node.Image = GetIconForPlaceholder(nodeData);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PlaceholderWithReadonlyName nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PlaceholderWithReadonlyName nodeData)
         {
-            IContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(sender);
+            IContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(node);
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {

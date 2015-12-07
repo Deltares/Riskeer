@@ -55,20 +55,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingFailureMechanism failureMechanism)
         {
             var addCalculationGroupItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
                 PipingFormsResources.AddFolderIcon,
-                (o, args) => AddCalculationGroup(failureMechanism)
+                (o, args) => AddCalculationGroup(failureMechanism, node)
                 );
 
             var addCalculationItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
                 PipingFormsResources.PipingIcon,
-                (s, e) => AddCalculation(failureMechanism)
+                (s, e) => AddCalculation(failureMechanism, node)
                 );
 
             var validateAllItem = new StrictContextMenuItem(
@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return contextMenuBuilderProvider.Get(sender)
+            return contextMenuBuilderProvider.Get(node)
                                              .AddCustomItem(addCalculationGroupItem)
                                              .AddCustomItem(addCalculationItem)
                                              .AddSeparator()
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             RunActivitiesAction(GetAllPipingCalculationsResursively(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
-        private static void AddCalculationGroup(PipingFailureMechanism failureMechanism)
+        private void AddCalculationGroup(PipingFailureMechanism failureMechanism, ITreeNode failureMechanismNode)
         {
             var calculation = new PipingCalculationGroup
             {
@@ -144,9 +144,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.NotifyObservers();
+
+            SelectNewlyAddedItemInTreeView(failureMechanismNode);
         }
 
-        private static void AddCalculation(PipingFailureMechanism failureMechanism)
+        private void AddCalculation(PipingFailureMechanism failureMechanism, ITreeNode failureMechanismNode)
         {
             var calculation = new PipingCalculation
             {
@@ -154,6 +156,27 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.NotifyObservers();
+
+            SelectNewlyAddedItemInTreeView(failureMechanismNode);
+        }
+
+        private void SelectNewlyAddedItemInTreeView(ITreeNode failureMechanismNode)
+        {
+            if (!failureMechanismNode.IsExpanded)
+            {
+                failureMechanismNode.Expand();
+            }
+
+            // Childnode at index 1 is the PipingCalculationGroup where the new item has been added:
+            ITreeNode failureMechanismsCalculationsNode = failureMechanismNode.Nodes[1];
+
+            // New childnode is appended at the end of PipingCalculationGroup:
+            ITreeNode newlyAddedGroupNode = failureMechanismsCalculationsNode.Nodes.Last();
+            if (!failureMechanismsCalculationsNode.IsExpanded)
+            {
+                failureMechanismsCalculationsNode.Expand();
+            }
+            TreeView.SelectedNode = newlyAddedGroupNode;
         }
 
         private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism)

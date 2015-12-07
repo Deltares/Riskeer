@@ -54,7 +54,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             node.Tag = project;
         }
 
-        public override ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        public override ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
         {
             var addItem = new StrictContextMenuItem(
                 Resources.AddItem,
@@ -63,7 +63,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
                 (s, e) => commandHandler.AddNewItem(nodeData));
 
             return contextMenuBuilderProvider
-                .Get(sender)
+                .Get(node)
                 .AddCustomItem(addItem)
                 .AddSeparator()
                 .AddExpandAllItem()
