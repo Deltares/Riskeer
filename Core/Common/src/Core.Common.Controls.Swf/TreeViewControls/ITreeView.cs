@@ -131,6 +131,15 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// </summary>
         void StartLabelEdit();
 
+        /// <summary>
+        /// Attempts to delete the currently selected <see cref="ITreeNode"/> data.
+        /// </summary>
         void TryDeleteSelectedNodeData();
+        
+        /// <summary>
+        /// Attempts to delete the given <paramref name="node"/>.
+        /// </summary>
+        /// <param name="node">The <see cref="ITreeNode"/> to try and delete.</param>
+        void TryDeleteNodeData(ITreeNode node);
     }
 }

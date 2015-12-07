@@ -181,9 +181,9 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ViewInfo ViewInfo { get; set; }
 
-        public bool SelectedNodeCanDelete()
+        public bool CanDelete(ITreeNode node)
         {
-            return controller.CanDeleteNode(SelectedNode);
+            return controller.CanDeleteNode(node);
         }
 
         public bool SelectedNodeCanRename()
@@ -295,30 +295,32 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
-        /// <summary>
-        /// The method wraps <see cref="DeleteSelectedNodeData"/> with a couple of messaging boxes.
-        /// </summary>
-        public void TryDeleteSelectedNodeData()
+        public void TryDeleteNodeData(ITreeNode treeNode)
         {
-            if (!SelectedNodeCanDelete())
+            if (!CanDelete(treeNode))
             {
-                System.Windows.Forms.MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OK);
+                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OK);
                 return;
             }
 
-            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, SelectedNode.Text);
-            if (System.Windows.Forms.MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, treeNode.Text);
+            if (MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
 
-            DeleteSelectedNodeData();
+            DeleteNodeData(treeNode);
         }
 
-        private void DeleteSelectedNodeData()
+        public void TryDeleteSelectedNodeData()
         {
-            var presenter = GetTreeViewNodePresenter(SelectedNode.Tag, SelectedNode);
-            presenter.RemoveNodeData(SelectedNode.Parent.Tag, SelectedNode.Tag);
+            TryDeleteNodeData(SelectedNode);
+        }
+
+        private void DeleteNodeData(ITreeNode node)
+        {
+            var presenter = GetTreeViewNodePresenter(node.Tag, node);
+            presenter.RemoveNodeData(node.Parent.Tag, node.Tag);
             SelectedNode = SelectedNode ?? Nodes.FirstOrDefault();
         }
 

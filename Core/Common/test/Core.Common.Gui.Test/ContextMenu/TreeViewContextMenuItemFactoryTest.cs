@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             if (canDelete)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
-                treeViewMock.Expect(tv => tv.TryDeleteSelectedNodeData());
+                treeViewMock.Expect(tv => tv.TryDeleteNodeData(treeNodeMock));
             }
 
             mocks.ReplayAll();
