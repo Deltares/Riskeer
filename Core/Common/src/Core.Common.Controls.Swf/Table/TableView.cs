@@ -14,7 +14,6 @@ using Core.Common.Controls.Swf.Table.Validation;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
-using Core.Common.Utils.Globalization;
 using Core.Common.Utils.Reflection;
 using DevExpress.Data;
 using DevExpress.Utils;
@@ -1648,8 +1647,7 @@ namespace Core.Common.Controls.Swf.Table
                     sb.Append("\t");
                 }
 
-                sb.Append(RegionalSettingsManager.ConvertToString(
-                    dxGridView.GetRowCellValue(cell.RowHandle, cell.Column), false));
+                sb.Append(dxGridView.GetRowCellValue(cell.RowHandle, cell.Column));
             }
 
             if (rowIndex != -1)

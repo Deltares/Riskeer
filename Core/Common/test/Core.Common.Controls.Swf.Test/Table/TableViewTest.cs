@@ -13,7 +13,6 @@ using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Test.Table.TestClasses;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections.Generic;
-using Core.Common.Utils.Globalization;
 using Core.Common.Utils.Reflection;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
@@ -389,14 +388,12 @@ namespace Core.Common.Controls.Swf.Test.Table
             row["B"] = double6;
             table.Rows.Add(row);
 
-            RegionalSettingsManager.RealNumberFormat = "N2";
-
             var tableView = new TableView
             {
                 Data = table
             };
 
-            Assert.AreEqual(double1.ToString("N2"), tableView.GetCellDisplayText(0, 0));
+            Assert.AreEqual(double1.ToString(), tableView.GetCellDisplayText(0, 0));
 
             tableView.SelectCells(1, 0, 2, 1);
 
@@ -406,11 +403,11 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             var clipBoardText = Clipboard.GetText();
 
-            Assert.AreEqual(RegionalSettingsManager.ConvertToString(double3, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double4, false) +
-                            "\r\n" + RegionalSettingsManager.ConvertToString(double5, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double6, false) + "\r\n",
-                            clipBoardText);
+            Assert.AreEqual(double3
+                            + "\t" + double4
+                            + "\r\n" + double5
+                            + "\t" + double6
+                            + "\r\n", clipBoardText);
         }
 
         [Test]
@@ -442,8 +439,6 @@ namespace Core.Common.Controls.Swf.Test.Table
             row["B"] = double6;
             table.Rows.Add(row);
 
-            RegionalSettingsManager.RealNumberFormat = "N2";
-
             var tableView = new TableView
             {
                 Data = table
@@ -451,7 +446,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             tableView.Columns[1].SortOrder = SortOrder.Descending;
 
-            Assert.AreEqual(double5.ToString("N2"), tableView.GetCellDisplayText(0, 0));
+            Assert.AreEqual(double5.ToString(), tableView.GetCellDisplayText(0, 0));
 
             tableView.SelectCells(1, 0, 2, 1);
 
@@ -461,11 +456,11 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             var clipBoardText = Clipboard.GetText();
 
-            Assert.AreEqual(RegionalSettingsManager.ConvertToString(double3, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double4, false) +
-                            "\r\n" + RegionalSettingsManager.ConvertToString(double1, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double2, false) + "\r\n",
-                            clipBoardText);
+            Assert.AreEqual(double3
+                            + "\t" + double4 +
+                            "\r\n" + double1 +
+                            "\t" + double2
+                            + "\r\n", clipBoardText);
         }
 
         [Test]
@@ -497,15 +492,13 @@ namespace Core.Common.Controls.Swf.Test.Table
             row["B"] = double6;
             table.Rows.Add(row);
 
-            RegionalSettingsManager.RealNumberFormat = "N2";
-
             var tableView = new TableView
             {
                 Data = table
             };
             tableView.IncludeHeadersOnCopy = true;
 
-            Assert.AreEqual(double1.ToString("N2"), tableView.GetCellDisplayText(0, 0));
+            Assert.AreEqual(double1.ToString(), tableView.GetCellDisplayText(0, 0));
 
             tableView.SelectCells(0, 0, 2, 1);
 
@@ -514,13 +507,13 @@ namespace Core.Common.Controls.Swf.Test.Table
             tableView.CopySelectionToClipboard();
 
             var clipBoardText = Clipboard.GetText();
-            Assert.AreEqual("A\tB\r\n" + RegionalSettingsManager.ConvertToString(double1, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double2, false) +
-                            "\r\n" + RegionalSettingsManager.ConvertToString(double3, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double4, false) +
-                            "\r\n" + RegionalSettingsManager.ConvertToString(double5, false) +
-                            "\t" + RegionalSettingsManager.ConvertToString(double6, false) + "\r\n",
-                            clipBoardText);
+            Assert.AreEqual("A\tB\r\n" + double1 +
+                            "\t" + +double2 +
+                            "\r\n" + double3 +
+                            "\t" + double4 +
+                            "\r\n" + double5 +
+                            "\t" + double6 +
+                            "\r\n", clipBoardText);
         }
 
         [Test]

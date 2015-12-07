@@ -9,7 +9,6 @@ using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
-using Core.Common.Utils.Globalization;
 using Steema.TeeChart;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Tools;
@@ -76,12 +75,10 @@ namespace Core.Common.Controls.Swf.Charting
             teeChart.KeyUp += (s, e) => OnKeyUp(e); //bubble the keyup events from the chart..otherwise it does not work..
 
             DateTimeLabelFormatProvider = new TimeNavigatableLabelFormatProvider();
-            RegionalSettingsManager.FormatChanged += RegionalSettingsManagerFormatChanged;
 
             InitializeWheelZoom();
 
             teeChart.Legend.Alignment = LegendAlignments.Bottom;
-            teeChart.Axes.Left.Labels.ValueFormat = RegionalSettingsManager.RealNumberFormat; //actual format is applied in OnGetAxisLabel
             teeChart.Chart.Header.Color = Color.Black; // To avoid blue titles everywhere
 
             Tools.Add(new ExportChartAsImageChartTool(this)
@@ -303,8 +300,6 @@ namespace Core.Common.Controls.Swf.Charting
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            RegionalSettingsManager.FormatChanged -= RegionalSettingsManagerFormatChanged;
-
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -462,7 +457,7 @@ namespace Core.Common.Controls.Swf.Charting
                     if (Double.TryParse(e.LabelText, out labelValue))
                     {
                         labelValue = Math.Round(labelValue, 13); //do some rounding to prevent TeeChart problem (TOOLS-4310)
-                        e.LabelText = labelValue.ToString(RegionalSettingsManager.RealNumberFormat);
+                        e.LabelText = labelValue.ToString();
                     }
                 }
             }
@@ -619,13 +614,6 @@ namespace Core.Common.Controls.Swf.Charting
             }
 
             afterResize = false;
-        }
-
-        private void RegionalSettingsManagerFormatChanged()
-        {
-            teeChart.Refresh();
-            teeChart.PerformLayout();
-            Invalidate(true);
         }
 
         private void AddLegendScrollBarTool()
