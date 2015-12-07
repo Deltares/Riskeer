@@ -3,12 +3,11 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Forms.OptionsDialog
 {
-    public partial class GeneralOptionsControl : UserControl, IOptionsControl
+    public partial class GeneralOptionsControl : Form
     {
         private ApplicationSettingsBase userSettings;
 
@@ -45,23 +44,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
         // TODO: Call this method
         public Action<GeneralOptionsControl> OnAcceptChanges { get; set; }
 
-        public string Title
-        {
-            get
-            {
-                return Resources.GeneralOptionsControl_Title_General;
-            }
-        }
-
-        public string Category
-        {
-            get
-            {
-                return Resources.GeneralOptionsControl_Title_General;
-            }
-        }
-
-        public void AcceptChanges()
+        private void AcceptChanges()
         {
             SetValuesToSettings();
             if (OnAcceptChanges != null)
@@ -70,7 +53,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             }
         }
 
-        public void DeclineChanges()
+        private void DeclineChanges()
         {
             SetSettingsValuesToControls();
         }
@@ -137,6 +120,26 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             /// Gets or sets the name to display for the <see cref="ColorTheme"/>.
             /// </summary>
             public string DisplayName { get; set; }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (DialogResult != DialogResult.OK)
+            {
+                DeclineChanges();
+            }
+
+            base.OnFormClosed(e);
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            AcceptChanges();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            DeclineChanges();
         }
     }
 }

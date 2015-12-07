@@ -1008,25 +1008,14 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
         {
-            var optionsDialog = new OptionsDialog.OptionsDialog()
-            {
-                OptionsControls =
-                {
-                    CreateGeneralOptions()
-                }
-            };
-
-            optionsDialog.ShowDialog();
-        }
-
-        private GeneralOptionsControl CreateGeneralOptions()
-        {
-            return new GeneralOptionsControl
+            var optionsDialog = new GeneralOptionsControl
             {
                 UserSettings = Gui.UserSettings,
                 ColorTheme = (ColorTheme) Gui.UserSettings["colorTheme"],
                 OnAcceptChanges = ApplyColorTheme
             };
+
+            optionsDialog.ShowDialog();
         }
 
         private void ApplyColorTheme(GeneralOptionsControl control)

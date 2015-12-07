@@ -1047,15 +1047,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string GeneralOptionsControl_Title_General {
-            get {
-                return ResourceManager.GetString("GeneralOptionsControl_Title_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Generiek.
         /// </summary>
         public static string Generic {
