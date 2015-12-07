@@ -163,11 +163,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppender.cs" />
-    <Compile Include="Forms\OptionsDialog\GeneralOptionsControl.cs">
+    <Compile Include="Forms\Options\OptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\OptionsDialog\GeneralOptionsControl.Designer.cs">
-      <DependentUpon>GeneralOptionsControl.cs</DependentUpon>
+    <Compile Include="Forms\Options\OptionsDialog.Designer.cs">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PropertyGridView\PropertyGridView.cs">
       <SubType>Component</SubType>
@@ -322,8 +322,8 @@
       <DependentUpon>MessageWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OptionsDialog\GeneralOptionsControl.resx">
-      <DependentUpon>GeneralOptionsControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Options\OptionsDialog.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressDialog\ActivityProgressDialog.resx">

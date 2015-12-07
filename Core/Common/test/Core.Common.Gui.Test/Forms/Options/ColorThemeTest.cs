@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Core.Common.Gui.Properties;
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Test.Forms.OptionsDialog
+namespace Core.Common.Gui.Test.Forms.Options
 {
     [TestFixture]
     public class ColorThemeTest

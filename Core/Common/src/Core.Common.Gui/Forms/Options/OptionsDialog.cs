@@ -5,13 +5,13 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 
-namespace Core.Common.Gui.Forms.OptionsDialog
+namespace Core.Common.Gui.Forms.Options
 {
-    public partial class GeneralOptionsControl : Form
+    public partial class OptionsDialog : Form
     {
         private ApplicationSettingsBase userSettings;
 
-        public GeneralOptionsControl()
+        public OptionsDialog()
         {
             InitializeComponent();
             SetColorThemeOptions();
@@ -42,7 +42,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
         }
 
         // TODO: Call this method
-        public Action<GeneralOptionsControl> OnAcceptChanges { get; set; }
+        public Action<OptionsDialog> OnAcceptChanges { get; set; }
 
         private void AcceptChanges()
         {

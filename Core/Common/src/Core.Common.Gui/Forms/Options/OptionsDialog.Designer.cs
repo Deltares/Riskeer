@@ -1,6 +1,6 @@
-namespace Core.Common.Gui.Forms.OptionsDialog
+namespace Core.Common.Gui.Forms.Options
 {
-    partial class GeneralOptionsControl
+    partial class OptionsDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeneralOptionsControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
             this.groupBoxUserSettings = new System.Windows.Forms.GroupBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
@@ -86,7 +86,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             this.checkBoxStartPage.Name = "checkBoxStartPage";
             this.checkBoxStartPage.UseVisualStyleBackColor = true;
             // 
-            // GeneralOptionsControl
+            // OptionsDialog
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
@@ -95,7 +95,7 @@ namespace Core.Common.Gui.Forms.OptionsDialog
             this.Controls.Add(this.groupBoxUserSettings);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "GeneralOptionsControl";
+            this.Name = "OptionsDialog";
             this.ShowInTaskbar = false;
             this.groupBoxUserSettings.ResumeLayout(false);
             this.groupBoxUserSettings.PerformLayout();

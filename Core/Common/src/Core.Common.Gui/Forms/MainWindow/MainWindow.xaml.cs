@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms.MessageWindow;
-using Core.Common.Gui.Forms.OptionsDialog;
+using Core.Common.Gui.Forms.Options;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Interop;
@@ -1008,7 +1008,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
         {
-            var optionsDialog = new GeneralOptionsControl
+            var optionsDialog = new OptionsDialog
             {
                 UserSettings = Gui.UserSettings,
                 ColorTheme = (ColorTheme) Gui.UserSettings["colorTheme"],
@@ -1018,9 +1018,9 @@ namespace Core.Common.Gui.Forms.MainWindow
             optionsDialog.ShowDialog();
         }
 
-        private void ApplyColorTheme(GeneralOptionsControl control)
+        private void ApplyColorTheme(OptionsDialog dialog)
         {
-            SetColorTheme(control.ColorTheme);
+            SetColorTheme(dialog.ColorTheme);
         }
 
         private void SetColorTheme(ColorTheme colorTheme)

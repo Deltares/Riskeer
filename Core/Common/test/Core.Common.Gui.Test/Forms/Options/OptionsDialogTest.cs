@@ -1,17 +1,15 @@
-﻿using System;
-using System.Windows.Forms;
-using Core.Common.Gui.Forms.OptionsDialog;
+﻿using System.Windows.Forms;
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Test.Forms.OptionsDialog
+namespace Core.Common.Gui.Test.Forms.Options
 {
     [TestFixture]
-    public class GeneralOptionsControlTest
+    public class OptionsDialogTest
     {
         [Test]
         public void GivenGeneralOptionsControlCreated_WhenRetrievingOptionsItems_ThenOptionsShouldBeTranslated()
         {
-            using (var control = new GeneralOptionsControl())
+            using (var control = new Gui.Forms.Options.OptionsDialog())
             {
                 var subControl = (ComboBox)control.Controls.Find("comboBoxTheme", true)[0];
 
