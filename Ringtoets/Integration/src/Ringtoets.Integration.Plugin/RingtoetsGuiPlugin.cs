@@ -38,7 +38,12 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<FailureMechanismContribution, FailureMechanismContributionView>
             {
                 GetViewName = (v,o) => Resources.FailureMechanismContribution_DisplayName,
-                Image = Forms.Properties.Resources.GenericInputOutputIcon
+                Image = Forms.Properties.Resources.GenericInputOutputIcon,
+                CloseForData = (v, o) =>
+                {
+                    var assessmentSection = o as AssessmentSectionBase;
+                    return assessmentSection != null && assessmentSection.FailureMechanismContribution == v.Data;
+                }
             };
         }
 

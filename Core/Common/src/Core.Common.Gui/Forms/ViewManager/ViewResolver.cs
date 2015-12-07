@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             var viewsToCheck = views.ToList();
             foreach (var view in viewsToCheck)
             {
-                if (IsViewData(view, data) && (extraCheck == null || extraCheck(view, data)))
+                if (IsViewData(view, data) || extraCheck == null || extraCheck(view, data))
                 {
                     viewAction(view);
                 }

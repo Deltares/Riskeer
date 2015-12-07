@@ -153,7 +153,7 @@ namespace Core.Common.Controls
 
         public Func<TData, object> GetCompositeViewData { get; set; }
 
-        public Func<TView, TData, bool> CloseForData { get; set; }
+        public Func<TView, object, bool> CloseForData { get; set; }
 
         public static implicit operator ViewInfo(ViewInfo<TData, TViewData, TView> viewInfo)
         {
@@ -168,7 +168,7 @@ namespace Core.Common.Controls
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
                 GetCompositeViewData = o => viewInfo.GetCompositeViewData != null ? viewInfo.GetCompositeViewData((TData) o) : null,
-                CloseForData = (v, o) => viewInfo.CloseForData == null || viewInfo.CloseForData((TView) v, (TData) o),
+                CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
                 AfterCreate = (v, o) =>
                 {
                     if (viewInfo.AfterCreate != null)
