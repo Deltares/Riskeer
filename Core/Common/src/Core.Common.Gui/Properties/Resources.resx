@@ -215,9 +215,6 @@
   <data name="ViewList_DockingManagerViewBarClosing_Closing_view_0_" xml:space="preserve">
     <value>Documentvenster {0} wordt gesloten.</value>
   </data>
-  <data name="GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected_impossible" xml:space="preserve">
-    <value>Geen van de keuzeopties is geselecteerd: onmogelijk</value>
-  </data>
   <data name="new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -440,9 +437,6 @@
   <data name="New_project_successfully_opened" xml:space="preserve">
     <value>Nieuw project succesvol geopend.</value>
   </data>
-  <data name="GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits" xml:space="preserve">
-    <value>Significante cijfers:</value>
-  </data>
   <data name="brick1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -641,9 +635,6 @@
   <data name="cog_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/cog_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Decimal_places" xml:space="preserve">
-    <value>Decimalen:</value>
-  </data>
   <data name="folder_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -679,9 +670,6 @@
   </data>
   <data name="Ribbon_Recent" xml:space="preserve">
     <value>Recent</value>
-  </data>
-  <data name="GeneralOptionsControl_SetSettingsToNumberFormatControls_Unknown_numberFormat_for_user_settings" xml:space="preserve">
-    <value>Onbekende getalnotatie voor de gebruikersinstellingen</value>
   </data>
   <data name="Ribbon_Exit" xml:space="preserve">
     <value>Afsluiten</value>
