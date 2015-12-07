@@ -184,7 +184,7 @@
     <value>3</value>
   </data>
   <data name="checkBoxStartPage.Text" xml:space="preserve">
-    <value>Toon documentatiepagina na start</value>
+    <value>Toon startpagina</value>
   </data>
   <data name="&gt;&gt;checkBoxStartPage.Name" xml:space="preserve">
     <value>checkBoxStartPage</value>

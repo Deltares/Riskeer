@@ -914,4 +914,7 @@
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
+  <data name="OptionsHS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OptionsHS.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
