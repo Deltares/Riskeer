@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -87,6 +88,16 @@ namespace Core.Common.Controls.Swf
             }
 
             return str;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (ExitClicked != null)
+            {
+                ExitClicked(this, null);
+            }
+
+            base.OnClosing(e);
         }
     }
 }

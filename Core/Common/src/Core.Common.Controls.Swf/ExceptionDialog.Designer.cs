@@ -87,8 +87,10 @@ namespace Core.Common.Controls.Swf
             // 
             // ExceptionDialog
             // 
+            this.AcceptButton = this.buttonRestart;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonExit;
             this.Controls.Add(this.buttonOpenLog);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.exceptionTextBox);
