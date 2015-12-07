@@ -10,12 +10,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.Globalization;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
@@ -372,15 +370,6 @@ namespace Application.Ringtoets
             if (language != null)
             {
                 RegionalSettingsManager.Language = language;
-            }
-
-            if (Settings.Default.Properties.Count > 0)
-            {
-                var realNumberFormat = Settings.Default["realNumberFormat"];
-                if (realNumberFormat != null)
-                {
-                    RegionalSettingsManager.RealNumberFormat = (string)realNumberFormat;
-                }
             }
         }
     }

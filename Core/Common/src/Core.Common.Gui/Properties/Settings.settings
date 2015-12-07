@@ -47,9 +47,6 @@
     <Setting Name="showHiddenDataItems" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="realNumberFormat" Type="System.String" Scope="User">
-      <Value Profile="(Default)">G5</Value>
-    </Setting>
     <Setting Name="colorTheme" Type="Core.Common.Gui.ColorTheme" Scope="User">
       <Value Profile="(Default)">Generic</Value>
     </Setting>
