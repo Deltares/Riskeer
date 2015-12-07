@@ -140,7 +140,6 @@ namespace Core.Common.Controls.Swf.Table
         protected override void Dispose(bool disposing)
         {
             UnSubscribeFromDataSource();
-            RegionalSettingsManager.FormatChanged -= RegionalSettingsManagerFormatChanged;
 
             if (refreshTimer != null)
             {
@@ -199,18 +198,6 @@ namespace Core.Common.Controls.Swf.Table
             catch (InvalidOperationException e)
             {
                 Log.Debug("Strange bug in XtraGrid control, from time to time crashes", e);
-            }
-        }
-
-        protected override void OnParentVisibleChanged(EventArgs e)
-        {
-            base.OnParentVisibleChanged(e);
-
-            // unsubscribe from static events
-            RegionalSettingsManager.FormatChanged -= RegionalSettingsManagerFormatChanged;
-            if (Parent.Visible)
-            {
-                RegionalSettingsManager.FormatChanged += RegionalSettingsManagerFormatChanged;
             }
         }
 
@@ -389,7 +376,7 @@ namespace Core.Common.Controls.Swf.Table
 
         private static void CopyPasteControllerPasteFailed(object sender, EventArgs<string> e)
         {
-            System.Windows.Forms.MessageBox.Show(e.Value);
+            MessageBox.Show(e.Value);
         }
 
         private void SelectedCellsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
@@ -444,7 +431,6 @@ namespace Core.Common.Controls.Swf.Table
                 {
                     dxGridView.PopulateColumns();
                     BuildColumnWrappers();
-                    UpdateColumnsFormatting();
                     BestFitColumns();
                 }
             }
@@ -557,12 +543,6 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        private void RegionalSettingsManagerFormatChanged()
-        {
-            dxGridView.Invalidate();
-            UpdateColumnsFormatting();
-        }
-
         /// <summary>
         /// Calculate width of the header column based on grid font
         /// </summary>
@@ -645,29 +625,6 @@ namespace Core.Common.Controls.Swf.Table
             columns.CollectionChanged += ColumnsOnCollectionChanged;
         }
 
-        private void UpdateColumnsFormatting()
-        {
-            foreach (var column in Columns.OfType<TableViewColumn>().Where(tvc => tvc.CustomFormatter == null))
-            {
-                if (column.ColumnType == typeof(DateTime))
-                {
-                    column.DxColumn.ColumnEdit = (RepositoryItem) repositoryItemTimeEdit1.Clone();
-
-                    if (string.IsNullOrEmpty(column.DisplayFormat))
-                    {
-                        column.DisplayFormat = RegionalSettingsManager.DateTimeFormat;
-                    }
-                }
-                else if (column.ColumnType.IsNumericalType())
-                {
-                    if (string.IsNullOrEmpty(column.DisplayFormat))
-                    {
-                        column.DisplayFormat = RegionalSettingsManager.RealNumberFormat;
-                    }
-                }
-            }
-        }
-
         private void ShowEditorIfRowSelect()
         {
             if (dxGridView.FocusedColumn != null && (RowSelect) && (dxGridView.ActiveEditor == null))
@@ -732,17 +689,6 @@ namespace Core.Common.Controls.Swf.Table
             };
 
             e.Menu.Items.Add(copyHeadersColumnMenuItem);
-        }
-
-        private static bool IsNumberType(Type type)
-        {
-            if (type == typeof(double)
-                || type == typeof(float)
-                || type == typeof(decimal))
-            {
-                return true;
-            }
-            return false;
         }
 
         private bool ValidateAndCommitRow(int rowIndex)
@@ -1194,14 +1140,10 @@ namespace Core.Common.Controls.Swf.Table
                     }
                 }
 
-                RegionalSettingsManager.FormatChanged -= RegionalSettingsManagerFormatChanged;
-
                 if (value == null)
                 {
                     return;
                 }
-
-                RegionalSettingsManager.FormatChanged += RegionalSettingsManagerFormatChanged;
 
                 SubscribeToDataSource();
 
@@ -1209,7 +1151,6 @@ namespace Core.Common.Controls.Swf.Table
 
                 BuildColumnWrappers();
                 AddEnumCellEditors();
-                UpdateColumnsFormatting();
                 UpdateHeaderColumnSize();
 
                 EndInit();
@@ -1369,7 +1310,6 @@ namespace Core.Common.Controls.Swf.Table
             {
                 dxGridView.PopulateColumns();
                 BuildColumnWrappers();
-                UpdateColumnsFormatting();
                 BestFitColumns();
             }
 
@@ -1809,8 +1749,6 @@ namespace Core.Common.Controls.Swf.Table
             }
 
             Columns.Add(column);
-
-            UpdateColumnsFormatting();
         }
 
         /// <summary>
@@ -1851,7 +1789,6 @@ namespace Core.Common.Controls.Swf.Table
             {
                 unbColumn.UnboundType = UnboundColumnType.DateTime;
                 unbColumn.DisplayFormat.FormatType = FormatType.Custom;
-                UpdateColumnsFormatting();
             }
             else
             {

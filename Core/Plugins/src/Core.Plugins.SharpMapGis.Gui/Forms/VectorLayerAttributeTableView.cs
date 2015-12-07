@@ -18,7 +18,6 @@ using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.Plugins.SharpMapGis.Gui.Properties;
-using MessageBox = System.Windows.Forms.MessageBox;
 using TypeConverter = Core.Common.Utils.TypeConverter;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms

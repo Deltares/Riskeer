@@ -4,7 +4,6 @@ using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.UI.Forms;
 using Core.Plugins.SharpMapGis.Gui.Properties;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
