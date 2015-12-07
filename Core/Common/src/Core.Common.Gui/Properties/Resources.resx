@@ -163,10 +163,6 @@
   <data name="Ribbon_Options" xml:space="preserve">
     <value>Opties</value>
   </data>
-  <data name="App_HandleException_0_" xml:space="preserve">
-    <value>======== KRITIEKE FOUT #{0}: ========
-{1}{2}</value>
-  </data>
   <data name="Edit_UndoHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edit_UndoHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

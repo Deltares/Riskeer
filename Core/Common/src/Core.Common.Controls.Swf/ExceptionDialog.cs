@@ -12,85 +12,20 @@ namespace Core.Common.Controls.Swf
 
         public event EventHandler ExitClicked;
 
-        public event EventHandler ContinueClicked;
-
         public event EventHandler OpenLogClicked;
-        private Exception exception;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        /// <param name="text">The text to be added after exception.</param>
-        public ExceptionDialog(Exception exception, string text)
+        public ExceptionDialog(Exception exception)
         {
             InitializeComponent();
-            Exception = exception;
 
-            exceptionTextBox.Text += text;
+            exceptionTextBox.Text = GetExceptionText(exception);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
-        /// 
-        /// Default constructor is required by designer
-        /// </summary>
-        internal ExceptionDialog()
-        {
-            InitializeComponent();
-        }
-
-        public Exception Exception
-        {
-            get
-            {
-                return exception;
-            }
-            private set
-            {
-                exception = value;
-
-                exceptionTextBox.Text = GetExceptionText(exception);
-            }
-        }
-
-        public string ExceptionText
-        {
-            get
-            {
-                return GetExceptionText(exception);
-            }
-        }
-
-        public Button ContinueButton { get; private set; }
-
-        private string GetExceptionText(Exception e)
-        {
-            if (e == null)
-            {
-                return "";
-            }
-
-            var str = exception.ToString();
-
-            if (exception.InnerException != null)
-            {
-                str += string.Format(Resources.ExceptionDialog_GetExceptionText_Inner_exceptions_0_, 
-                    exception.InnerException);
-            }
-
-            if (exception is ReflectionTypeLoadException)
-            {
-                var reflException = exception as ReflectionTypeLoadException;
-
-                str += Resources.ExceptionDialog_GetExceptionText_Loader_exceptions;
-                str = reflException.LoaderExceptions.Aggregate(str, (current, ex) => current + (ex + Environment.NewLine));
-            }
-
-            return str;
-        }
-
-        private void buttonRestart_Click(object sender, EventArgs e)
+        private void ButtonRestartClick(object sender, EventArgs e)
         {
             buttonRestart.Enabled = false;
             buttonExit.Enabled = false;
@@ -103,7 +38,7 @@ namespace Core.Common.Controls.Swf
             Close();
         }
 
-        private void buttonExit_Click(object sender, EventArgs e)
+        private void ButtonExitClick(object sender, EventArgs e)
         {
             buttonRestart.Enabled = false;
             buttonExit.Enabled = false;
@@ -116,25 +51,42 @@ namespace Core.Common.Controls.Swf
             Close();
         }
 
-        private void buttonCopyTextToClipboard_Click(object sender, EventArgs e)
+        private void ButtonCopyTextToClipboardClick(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(exceptionTextBox.Text, true);
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
-        {
-            if (ContinueClicked != null)
-            {
-                ContinueClicked(this, null);
-            }
-        }
-
-        private void buttonOpenLog_Click(object sender, EventArgs e)
+        private void ButtonOpenLogClick(object sender, EventArgs e)
         {
             if (OpenLogClicked != null)
             {
                 OpenLogClicked(this, null);
             }
+        }
+
+        private string GetExceptionText(Exception exception)
+        {
+            if (exception == null)
+            {
+                return "";
+            }
+
+            var str = exception.ToString();
+
+            if (exception.InnerException != null)
+            {
+                str += string.Format(Resources.ExceptionDialog_GetExceptionText_Inner_exceptions_0_,
+                                     exception.InnerException);
+            }
+
+            var reflectionTypeLoadException = exception as ReflectionTypeLoadException;
+            if (reflectionTypeLoadException != null)
+            {
+                str += Resources.ExceptionDialog_GetExceptionText_Loader_exceptions;
+                str = reflectionTypeLoadException.LoaderExceptions.Aggregate(str, (current, ex) => current + (ex + Environment.NewLine));
+            }
+
+            return str;
         }
     }
 }

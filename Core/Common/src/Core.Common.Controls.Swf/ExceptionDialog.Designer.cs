@@ -45,14 +45,14 @@ namespace Core.Common.Controls.Swf
             this.buttonRestart.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonRestart.Name = "buttonRestart";
             this.buttonRestart.UseVisualStyleBackColor = true;
-            this.buttonRestart.Click += new System.EventHandler(this.buttonRestart_Click);
+            this.buttonRestart.Click += new System.EventHandler(this.ButtonRestartClick);
             // 
             // buttonCopyTextToClipboard
             // 
             resources.ApplyResources(this.buttonCopyTextToClipboard, "buttonCopyTextToClipboard");
             this.buttonCopyTextToClipboard.Name = "buttonCopyTextToClipboard";
             this.buttonCopyTextToClipboard.UseVisualStyleBackColor = true;
-            this.buttonCopyTextToClipboard.Click += new System.EventHandler(this.buttonCopyTextToClipboard_Click);
+            this.buttonCopyTextToClipboard.Click += new System.EventHandler(this.ButtonCopyTextToClipboardClick);
             // 
             // exceptionTextBox
             // 
@@ -76,14 +76,14 @@ namespace Core.Common.Controls.Swf
             this.buttonExit.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            this.buttonExit.Click += new System.EventHandler(this.ButtonExitClick);
             // 
             // buttonOpenLog
             // 
             resources.ApplyResources(this.buttonOpenLog, "buttonOpenLog");
             this.buttonOpenLog.Name = "buttonOpenLog";
             this.buttonOpenLog.UseVisualStyleBackColor = true;
-            this.buttonOpenLog.Click += new System.EventHandler(this.buttonOpenLog_Click);
+            this.buttonOpenLog.Click += new System.EventHandler(this.ButtonOpenLogClick);
             // 
             // ExceptionDialog
             // 

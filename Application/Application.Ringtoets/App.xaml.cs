@@ -49,10 +49,6 @@ namespace Application.Ringtoets
 
         private static Mutex singleInstanceMutex;
 
-        private static string previousExceptionsText = "";
-
-        private static int previousExceptionsCount;
-
         static App()
         {
             SetLanguage();
@@ -284,12 +280,7 @@ namespace Application.Ringtoets
 
         private static void HandleException(Exception exception, bool isTerminating)
         {
-            var dialog = new ExceptionDialog(exception, previousExceptionsText);
-
-            if (isTerminating)
-            {
-                dialog.ContinueButton.Visible = false;
-            }
+            var dialog = new ExceptionDialog(exception);
 
             dialog.RestartClicked += delegate
             {
@@ -301,19 +292,6 @@ namespace Application.Ringtoets
             {
                 gui.SkipDialogsOnExit = true;
                 Environment.Exit(1);
-            };
-
-            dialog.ContinueClicked += delegate
-            {
-                previousExceptionsCount++;
-                var s = previousExceptionsText;
-                previousExceptionsText =
-                    string.Format(Core.Common.Gui.Properties.Resources.App_HandleException_0_,
-                                  previousExceptionsCount,
-                                  dialog.ExceptionText,
-                                  s);
-
-                return;
             };
 
             dialog.OpenLogClicked += delegate

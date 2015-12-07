@@ -125,16 +125,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ======== KRITIEKE FOUT #{0}: ========
-        ///{1}{2}.
-        /// </summary>
-        public static string App_HandleException_0_ {
-            get {
-                return ResourceManager.GetString("App_HandleException_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekenen activiteit of model is beschikbaar in het project..
         /// </summary>
         public static string App_ParseArguments_Run_activity_or_model_available_in_the_project_ {
