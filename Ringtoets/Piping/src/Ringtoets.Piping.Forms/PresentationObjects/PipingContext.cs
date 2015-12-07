@@ -33,6 +33,16 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             AvailablePipingSoilProfiles = soilProfiles;
         }
 
+        public override bool Equals(object obj)
+        {
+            var context = obj as PipingContext<T>;
+            if (context != null)
+            {
+                return WrappedData.Equals(context.WrappedData);
+            }
+            return base.Equals(obj);
+        }
+
         /// <summary>
         /// Gets the available piping surface lines in order for the user to select one to 
         /// set <see cref="PipingInput.SurfaceLine"/>.

@@ -242,6 +242,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
                 originalOwnerContext.NotifyObservers();
                 target.NotifyObservers();
+
+                ITreeNode draggedNode = TreeView.GetNodeByTag(item);
+                TreeView.SelectedNode = draggedNode;
+                ITreeNode newParentOfDraggedNode = draggedNode.Parent;
+                if (!newParentOfDraggedNode.IsExpanded)
+                {
+                    newParentOfDraggedNode.Expand();
+                }
             }
             else
             {

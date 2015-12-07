@@ -495,38 +495,60 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnDragDrop_DraggingPipingCalculationContextOntoGroup_MoveCalculationInstanceToNewGroup()
         {
             // Setup
-            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
-
-            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver());
-
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mockRepository.ReplayAll();
-
             var calculation = new PipingCalculation();
             var calculationContext = new PipingCalculationContext(calculation,
                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                   Enumerable.Empty<PipingSoilProfile>());
             var originalOwnerGroup = new PipingCalculationGroup();
             originalOwnerGroup.Children.Add(calculation);
-            originalOwnerGroup.Attach(originalOwnerObserver);
             var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                               Enumerable.Empty<PipingSoilProfile>());
 
             var newOwnerGroup = new PipingCalculationGroup();
-            newOwnerGroup.Attach(newOwnerObserver);
             var newOwnerGroupContext = new PipingCalculationGroupContext(newOwnerGroup,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
+
+            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var originalOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
+            var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
+            newOwnerGroupContextNode.Expect(n => n.IsExpanded).Return(false);
+            newOwnerGroupContextNode.Expect(n => n.Expand()); // Must expand new owner, otherwise selecting dragged node could not be visible when parent is collapsed.
+
+            var calculationContextNode = mockRepository.Stub<ITreeNode>();
+            calculationContextNode.Tag = calculationContext;
+            calculationContextNode.Expect(n => n.Parent).WhenCalled(invocation =>
+            {
+                // Determine return value based on when it's called:
+                invocation.ReturnValue = newOwnerGroup.Children.Contains(calculationContext.WrappedData) ?
+                                             newOwnerGroupContextNode :
+                                             originalOwnerGroupContextNode;
+            }).Return(null);
+
+            var treeView = mockRepository.Stub<ITreeView>();
+            treeView.Expect(v => v.GetNodeByTag(calculationContext)).Return(calculationContextNode);
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
 
             // Precondition:
             CollectionAssert.Contains(originalOwnerGroup.Children, calculation);
             CollectionAssert.DoesNotContain(newOwnerGroup.Children, calculation);
             
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock)
+            {
+                TreeView = treeView
+            };
 
             // Call
             nodePresenter.OnDragDrop(calculationContext, originalOwnerGroupContext, newOwnerGroupContext, DragOperations.Move, int.MaxValue);
@@ -535,6 +557,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             CollectionAssert.DoesNotContain(originalOwnerGroup.Children, calculation);
             CollectionAssert.Contains(newOwnerGroup.Children, calculation);
             Assert.AreSame(calculation, newOwnerGroup.Children.Last());
+
+            Assert.AreSame(calculationContextNode, treeView.SelectedNode);
+
             mockRepository.VerifyAll();
         }
 
@@ -542,38 +567,60 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnDragDrop_DraggingPipingCalculationGroupContextOntoGroup_MoveGroupInstanceToNewGroup()
         {
             // Setup
-            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
-
-            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver());
-
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mockRepository.ReplayAll();
-
             var group = new PipingCalculationGroup();
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
             var originalOwnerGroup = new PipingCalculationGroup();
             originalOwnerGroup.Children.Add(group);
-            originalOwnerGroup.Attach(originalOwnerObserver);
             var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                               Enumerable.Empty<PipingSoilProfile>());
 
             var newOwnerGroup = new PipingCalculationGroup();
-            newOwnerGroup.Attach(newOwnerObserver);
             var newOwnerGroupContext = new PipingCalculationGroupContext(newOwnerGroup,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
+
+            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var originalOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
+            var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
+            newOwnerGroupContextNode.Expect(n => n.IsExpanded).Return(false);
+            newOwnerGroupContextNode.Expect(n => n.Expand()); // Must expand new owner, otherwise selecting dragged node could not be visible when parent is collapsed.
+
+            var groupContextNode = mockRepository.Stub<ITreeNode>();
+            groupContextNode.Tag = groupContext;
+            groupContextNode.Expect(n => n.Parent).WhenCalled(invocation =>
+            {
+                // Determine return value based on when it's called:
+                invocation.ReturnValue = newOwnerGroup.Children.Contains(groupContext.WrappedData) ?
+                                             newOwnerGroupContextNode :
+                                             originalOwnerGroupContextNode;
+            }).Return(null);
+
+            var treeView = mockRepository.Stub<ITreeView>();
+            treeView.Expect(v => v.GetNodeByTag(groupContext)).Return(groupContextNode);
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            mockRepository.ReplayAll();
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
 
             // Precondition:
             CollectionAssert.Contains(originalOwnerGroup.Children, group);
             CollectionAssert.DoesNotContain(newOwnerGroup.Children, group);
 
-            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock)
+            {
+                TreeView = treeView
+            };
 
             // Call
             nodePresenter.OnDragDrop(groupContext, originalOwnerGroupContext, newOwnerGroupContext, DragOperations.Move, int.MaxValue);
@@ -582,6 +629,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             CollectionAssert.DoesNotContain(originalOwnerGroup.Children, group);
             CollectionAssert.Contains(newOwnerGroup.Children, group);
             Assert.AreSame(group, newOwnerGroup.Children.Last());
+
+            Assert.AreSame(groupContextNode, treeView.SelectedNode);
+
             mockRepository.VerifyAll();
         }
 
