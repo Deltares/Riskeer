@@ -53,7 +53,6 @@ namespace Core.Common.Gui.Forms.Options
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOk
             // 
@@ -61,7 +60,7 @@ namespace Core.Common.Gui.Forms.Options
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonOk.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // comboBoxTheme
             // 
@@ -69,7 +68,6 @@ namespace Core.Common.Gui.Forms.Options
             this.comboBoxTheme.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxTheme, "comboBoxTheme");
             this.comboBoxTheme.Name = "comboBoxTheme";
-            this.comboBoxTheme.SelectedIndexChanged += new System.EventHandler(this.comboBoxTheme_SelectedIndexChanged);
             // 
             // label1
             // 

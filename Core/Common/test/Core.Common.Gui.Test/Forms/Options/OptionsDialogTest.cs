@@ -9,7 +9,7 @@ namespace Core.Common.Gui.Test.Forms.Options
         [Test]
         public void GivenGeneralOptionsControlCreated_WhenRetrievingOptionsItems_ThenOptionsShouldBeTranslated()
         {
-            using (var control = new Gui.Forms.Options.OptionsDialog())
+            using (var control = new Gui.Forms.Options.OptionsDialog(null))
             {
                 var subControl = (ComboBox)control.Controls.Find("comboBoxTheme", true)[0];
 

@@ -1008,19 +1008,11 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
         {
-            var optionsDialog = new OptionsDialog
+            var optionsDialog = new OptionsDialog(Gui.UserSettings);
+            if (optionsDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                UserSettings = Gui.UserSettings,
-                ColorTheme = (ColorTheme) Gui.UserSettings["colorTheme"],
-                OnAcceptChanges = ApplyColorTheme
-            };
-
-            optionsDialog.ShowDialog();
-        }
-
-        private void ApplyColorTheme(OptionsDialog dialog)
-        {
-            SetColorTheme(dialog.ColorTheme);
+                SetColorTheme((ColorTheme) Gui.UserSettings["colorTheme"]);
+            }
         }
 
         private void SetColorTheme(ColorTheme colorTheme)
