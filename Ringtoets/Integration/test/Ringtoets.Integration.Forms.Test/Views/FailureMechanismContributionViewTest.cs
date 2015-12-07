@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
 
             // Call
-            var result = distributionView.Controls.Find("normTextBox", true)[0].Text;
+            var result = distributionView.Controls.Find("normInput", true)[0].Text;
 
             // Assert
             Assert.AreEqual(norm.ToString(), result);
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void NormTextBox_LostFocus_UpdatesDataWithNewValue()
+        public void NormTextBox_ValueChanged_UpdatesDataWithNewValue()
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
@@ -83,14 +83,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             f.Controls.Add(distributionView);
             f.Show();
 
-            var normTester = new TextBoxTester("normTextBox");
+            var normTester = new ControlTester("normInput");
 
             // Precondition
             Assert.AreEqual(norm.ToString(), normTester.Text);
-            normTester.Properties.Text = 200.ToString();
 
             // Call
-            normTester.FireEvent("LostFocus", new EventArgs());
+            normTester.Properties.Text = 200.ToString();
+
+            // Assert
             Assert.AreEqual(200, distribution.Norm);
 
             mockRepository.VerifyAll();

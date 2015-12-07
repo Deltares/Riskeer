@@ -26,19 +26,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                if (data != null)
-                {
-                    data.Detach(this);
-                }
-
-                data = (FailureMechanismContribution)value;
-
-                if (data != null)
-                {
-                    data.Attach(this);
-                    probabilityDistributionGrid.DataSource = data.Distribution;
-                    SetNormText();
-                }
+                SetNormValue(value as FailureMechanismContribution);
             }
         }
 
@@ -53,15 +41,66 @@ namespace Ringtoets.Integration.Forms.Views
 
         public void EnsureVisible(object item) {}
 
-        private void BindNormChange()
+        private void SetNormValue(FailureMechanismContribution value)
         {
-            normInput.ValueChanged += NormTextBoxValueChanged;
+            UnbindNormChange();
+            DetachFromData();
+
+            data = value;
+
+            SetGridDataSource();
+            SetNormText();
+
+            AttachToData();
+            BindNormChange();
         }
 
-        private void NormTextBoxValueChanged(object sender, EventArgs eventArgs)
+        private void SetGridDataSource()
+        {
+            if (data != null)
+            {
+                probabilityDistributionGrid.DataSource = data.Distribution;
+            }
+        }
+
+        private void AttachToData()
+        {
+            if (data != null)
+            {
+                data.Attach(this);
+            }
+        }
+
+        private void DetachFromData()
+        {
+            if (data != null)
+            {
+                data.Detach(this);
+            }
+        }
+
+        private void BindNormChange()
+        {
+            normInput.ValueChanged += NormValueChanged;
+        }
+
+        private void UnbindNormChange()
+        {
+            normInput.ValueChanged -= NormValueChanged;
+        }
+
+        private void NormValueChanged(object sender, EventArgs eventArgs)
         {
             data.Norm = (int) normInput.Value;
             data.NotifyObservers();
+        }
+
+        private void SetNormText()
+        {
+            if (data != null)
+            {
+                normInput.Value = data.Norm;
+            }
         }
 
         private void InitializeGridColumns()
@@ -92,11 +131,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             probabilityDistributionGrid.AutoGenerateColumns = false;
             probabilityDistributionGrid.Columns.AddRange(assessmentColumn, probabilityColumn, probabilityPerYearColumn);
-        }
-
-        private void SetNormText()
-        {
-            normInput.Value = data.Norm;
         }
     }
 }
