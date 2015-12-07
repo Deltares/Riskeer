@@ -41,8 +41,6 @@ namespace Core.Common.Gui.Forms.Options
             // groupBoxUserSettings
             // 
             resources.ApplyResources(this.groupBoxUserSettings, "groupBoxUserSettings");
-            this.groupBoxUserSettings.Controls.Add(this.buttonCancel);
-            this.groupBoxUserSettings.Controls.Add(this.buttonOk);
             this.groupBoxUserSettings.Controls.Add(this.comboBoxTheme);
             this.groupBoxUserSettings.Controls.Add(this.label1);
             this.groupBoxUserSettings.Controls.Add(this.checkBoxStartPage);
@@ -92,7 +90,10 @@ namespace Core.Common.Gui.Forms.Options
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.groupBoxUserSettings);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OptionsDialog";
