@@ -286,7 +286,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             var stubNode = mocks.Stub<ITreeNode>();
             stubNode.Tag = new object();
-            stubNode.Expect(n => n.Nodes).Return(new List<ITreeNode>());
+            stubNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
 
             var sourceChildNode = mocks.Stub<ITreeNode>();
             sourceChildNode.Tag = childData;
