@@ -220,6 +220,35 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.IsTrue(isEqual2);
         }
 
+        [Test]
+        public void GetHashCode_TwoContextInstancesEqualToEachOther_ReturnIdenticalHashes()
+        {
+            // Setup
+            var observableObject = new ObserveableObject();
+            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                     Enumerable.Empty<PipingSoilProfile>());
+
+            var otherContext = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                          new[]
+                                                                          {
+                                                                              new RingtoetsPipingSurfaceLine()
+                                                                          },
+                                                                          new[]
+                                                                          {
+                                                                              new TestPipingSoilProfile()
+                                                                          });
+            // Precondition
+            Assert.True(context.Equals(otherContext));
+
+            // Call
+            int contextHashCode = context.GetHashCode();
+            int otherContextHashCode = otherContext.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(contextHashCode, otherContextHashCode);
+        }
+
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable
         {
             public SimplePipingContext(T target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles)

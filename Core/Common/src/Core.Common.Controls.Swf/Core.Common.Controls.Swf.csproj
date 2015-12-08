@@ -231,6 +231,7 @@
     <Compile Include="TreeViewControls\ITreeView.cs" />
     <Compile Include="TreeViewControls\PlaceholderLocation.cs" />
     <Compile Include="TreeViewControls\TreeNode.cs" />
+    <Compile Include="TreeViewControls\TreeNodeExpandCollapseState.cs" />
     <Compile Include="TreeViewControls\TreeNodeList.cs" />
     <Compile Include="TreeViewControls\TreeView.cs">
       <SubType>Component</SubType>

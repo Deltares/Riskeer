@@ -412,4 +412,13 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   <data name="bug__exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bug--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TreeNodeExpandCollapseState_Node_cannot_be_null_for_record_to_work" xml:space="preserve">
+    <value>Knoop moet opgegeven zijn om diens toestand op te kunnen nemen.</value>
+  </data>
+  <data name="TreeNodeExpandCollapseState_Node_tag_cannot_be_null_for_record_to_work" xml:space="preserve">
+    <value>Knoop data moet aanwezig zijn om de toestand van diens knoop op te kunnen nemen.</value>
+  </data>
+  <data name="TreeNodeExpandCollapseState_Node_not_matching_tag_for_restore" xml:space="preserve">
+    <value>Knoop heeft niet dezelfde data als de opgenomen knoop.</value>
+  </data>
 </root>

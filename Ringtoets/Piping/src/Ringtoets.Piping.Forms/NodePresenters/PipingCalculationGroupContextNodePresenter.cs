@@ -257,6 +257,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var originalOwnerContext = itemParent as PipingCalculationGroupContext;
             if (pipingCalculationItem != null && originalOwnerContext != null)
             {
+                var recordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(item));
                 string uniqueName = GetUniqueNameForCalculationItem(pipingCalculationItem, target.WrappedData);
                 bool renamed = false;
                 if (!pipingCalculationItem.Name.Equals(uniqueName))
@@ -277,6 +278,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                     newParentOfDraggedNode.Expand();
                 }
                 TreeView.SelectedNode = draggedNode;
+                recordedNodeState.Restore(draggedNode);
                 if (renamed)
                 {
                     TreeView.StartLabelEdit();

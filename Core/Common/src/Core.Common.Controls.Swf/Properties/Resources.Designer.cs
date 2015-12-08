@@ -856,6 +856,33 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Knoop moet opgegeven zijn om diens toestand op te kunnen nemen..
+        /// </summary>
+        internal static string TreeNodeExpandCollapseState_Node_cannot_be_null_for_record_to_work {
+            get {
+                return ResourceManager.GetString("TreeNodeExpandCollapseState_Node_cannot_be_null_for_record_to_work", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Knoop heeft niet dezelfde data als de opgenomen knoop..
+        /// </summary>
+        internal static string TreeNodeExpandCollapseState_Node_not_matching_tag_for_restore {
+            get {
+                return ResourceManager.GetString("TreeNodeExpandCollapseState_Node_not_matching_tag_for_restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Knoop data moet aanwezig zijn om de toestand van diens knoop op te kunnen nemen..
+        /// </summary>
+        internal static string TreeNodeExpandCollapseState_Node_tag_cannot_be_null_for_record_to_work {
+            get {
+                return ResourceManager.GetString("TreeNodeExpandCollapseState_Node_tag_cannot_be_null_for_record_to_work", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De methode of operatie is niet geïmplementeerd..
         /// </summary>
         internal static string TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented {

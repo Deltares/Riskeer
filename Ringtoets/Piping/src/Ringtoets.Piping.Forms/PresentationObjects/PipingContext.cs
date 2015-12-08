@@ -43,6 +43,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             return base.Equals(obj);
         }
 
+        public override int GetHashCode()
+        {
+            return WrappedData.GetHashCode();
+        }
+
         /// <summary>
         /// Gets the available piping surface lines in order for the user to select one to 
         /// set <see cref="PipingInput.SurfaceLine"/>.
