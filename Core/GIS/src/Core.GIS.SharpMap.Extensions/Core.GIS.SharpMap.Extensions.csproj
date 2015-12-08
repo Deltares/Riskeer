@@ -111,7 +111,6 @@
     <Compile Include="Layers\WmscLayer.cs" />
     <Compile Include="Layers\BingLayer.cs" />
     <Compile Include="Layers\DefaultTileFetcher.cs" />
-    <Compile Include="Layers\DeltaresOpenDapDdbTileServer.cs" />
     <Compile Include="Layers\ITileFetcher.cs" />
     <Compile Include="Layers\OpenStreetMapLayer.cs" />
     <Compile Include="Layers\MapTransform.cs" />
