@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base.Service;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
@@ -16,6 +17,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Service;
+
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -33,7 +35,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
         /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
-        public PipingCalculationGroupContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
+        public PipingCalculationGroupContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) {}
 
         /// <summary>
         /// Injection points for a method to cause an <see cref="Activity"/> to be scheduled for execution.
@@ -42,10 +44,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
-            var targetGroup = ((PipingCalculationGroupContext)targetNode.Tag).WrappedData;
-
-            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(item);
-            if (pipingCalculationItem != null && !targetGroup.Children.Contains(pipingCalculationItem) && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
+            if (GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
             {
                 return validOperations;
             }
@@ -53,28 +52,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return base.CanDrop(item, sourceNode, targetNode, validOperations);
         }
 
-        private bool NodesHaveSameParentFailureMechanism(ITreeNode sourceNode, ITreeNode targetNode)
+        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
         {
-            var sourceFailureMechanism = GetParentFailureMechanism(sourceNode);
-            var targetFailureMechanism = GetParentFailureMechanism(targetNode);
-
-            return ReferenceEquals(sourceFailureMechanism, targetFailureMechanism);
-        }
-
-        private static PipingFailureMechanism GetParentFailureMechanism(ITreeNode sourceNode)
-        {
-            PipingFailureMechanism sourceFailureMechanism;
-            var node = sourceNode;
-            while ((sourceFailureMechanism = node.Tag as PipingFailureMechanism) == null)
-            {
-                // No parent found, go search higher up hierarchy!
-                node = node.Parent;
-                if (node == null)
-                {
-                    break;
-                }
-            }
-            return sourceFailureMechanism;
+            return GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode);
         }
 
         public override bool CanRenameNode(ITreeNode node)
@@ -205,17 +185,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                              .Build();
         }
 
-        private void SelectNewlyAddedItemInTreeView(ITreeNode node)
-        {
-            // Expand parent of 'newItem' to ensure its selected state is visible.
-            if (!node.IsExpanded)
-            {
-                node.Expand();
-            }
-            ITreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
-            TreeView.SelectedNode = newlyAppendedNodeForNewItem;
-        }
-
         protected override IEnumerable GetChildNodeObjects(PipingCalculationGroupContext nodeData)
         {
             foreach (IPipingCalculationItem item in nodeData.WrappedData.Children)
@@ -257,18 +226,26 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var originalOwnerContext = itemParent as PipingCalculationGroupContext;
             if (pipingCalculationItem != null && originalOwnerContext != null)
             {
+                var isMoveWithinSameContainer = ReferenceEquals(target, originalOwnerContext);
+
                 var recordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(item));
-                string uniqueName = GetUniqueNameForCalculationItem(pipingCalculationItem, target.WrappedData);
                 bool renamed = false;
-                if (!pipingCalculationItem.Name.Equals(uniqueName))
+                if (!isMoveWithinSameContainer)
                 {
-                    renamed = TryRenameTo(pipingCalculationItem, uniqueName);
+                    string uniqueName = NamingHelper.GetUniqueName(target.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
+                    if (!pipingCalculationItem.Name.Equals(uniqueName))
+                    {
+                        renamed = TryRenameTo(pipingCalculationItem, uniqueName);
+                    }
                 }
                 originalOwnerContext.WrappedData.Children.Remove(pipingCalculationItem);
-                target.WrappedData.Children.Add(pipingCalculationItem);
+                target.WrappedData.Children.Insert(position, pipingCalculationItem);
 
                 originalOwnerContext.NotifyObservers();
-                target.NotifyObservers();
+                if (!isMoveWithinSameContainer)
+                {
+                    target.NotifyObservers();
+                }
 
                 // Expand parent of 'draggedNode' to ensure its selected state is visible.
                 ITreeNode draggedNode = TreeView.GetNodeByTag(item);
@@ -290,14 +267,39 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
         }
 
-        private static string GetUniqueNameForCalculationItem(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroup parentGroup)
+        private bool NodesHaveSameParentFailureMechanism(ITreeNode sourceNode, ITreeNode targetNode)
         {
-            string itemBaseName = pipingCalculationItem is PipingCalculation ?
-                                      Resources.PipingCalculation_DefaultName :
-                                      (pipingCalculationItem is PipingCalculationGroup ?
-                                           Resources.PipingCalculationGroup_DefaultName :
-                                           null);
-            return NamingHelper.GetUniqueName(parentGroup.Children, itemBaseName, pci => pci.Name);
+            var sourceFailureMechanism = GetParentFailureMechanism(sourceNode);
+            var targetFailureMechanism = GetParentFailureMechanism(targetNode);
+
+            return ReferenceEquals(sourceFailureMechanism, targetFailureMechanism);
+        }
+
+        private static PipingFailureMechanism GetParentFailureMechanism(ITreeNode sourceNode)
+        {
+            PipingFailureMechanism sourceFailureMechanism;
+            var node = sourceNode;
+            while ((sourceFailureMechanism = node.Tag as PipingFailureMechanism) == null)
+            {
+                // No parent found, go search higher up hierarchy!
+                node = node.Parent;
+                if (node == null)
+                {
+                    break;
+                }
+            }
+            return sourceFailureMechanism;
+        }
+
+        private void SelectNewlyAddedItemInTreeView(ITreeNode node)
+        {
+            // Expand parent of 'newItem' to ensure its selected state is visible.
+            if (!node.IsExpanded)
+            {
+                node.Expand();
+            }
+            ITreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
+            TreeView.SelectedNode = newlyAppendedNodeForNewItem;
         }
 
         private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string uniqueName)

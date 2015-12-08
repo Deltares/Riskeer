@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the children that define this group.
         /// </summary>
-        public ICollection<IPipingCalculationItem> Children { get; private set; }
+        public IList<IPipingCalculationItem> Children { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of this calculation grouping object.
