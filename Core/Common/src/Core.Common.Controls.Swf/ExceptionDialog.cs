@@ -97,6 +97,8 @@ namespace Core.Common.Controls.Swf
                 ExitClicked(this, null);
             }
 
+            Close();
+
             base.OnClosing(e);
         }
     }
