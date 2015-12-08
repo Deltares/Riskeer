@@ -25,7 +25,7 @@ namespace Core.Common.Base.IO
         Bitmap Image { get; }
 
         /// <summary>
-        /// Gets the <see cref="Type"/> of the items supported by the <see cref="IFileImporter"/>.
+        /// Gets the <see cref="Type"/> of the item supported by the <see cref="IFileImporter"/>.
         /// </summary>
         Type SupportedItemType { get; }
 
@@ -43,12 +43,12 @@ namespace Core.Common.Base.IO
         ProgressChangedDelegate ProgressChanged { set; }
 
         /// <summary>
-        /// Performs an import on <paramref name="targetItem"/> from a file with path <paramref name="filePath"/>
-        /// and returns a <see cref="bool"/> which reflects whether or not the import was successful.
+        /// This method imports the data to an item from a file at the given location.
         /// </summary>
         /// <param name="targetItem">The item to perform the import on.</param>
         /// <param name="filePath">The path of the file to import the data from.</param>
         /// <returns><c>true</c> if the import was successful. <c>false</c> otherwise.</returns>
+        /// <remarks>Implementations of this import method are allowed to throw exceptions of any kind.</remarks>
         bool Import(object targetItem, string filePath);
 
         /// <summary>

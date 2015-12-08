@@ -129,4 +129,7 @@
   <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
   </data>
+  <data name="Project_Constructor_Default_name" xml:space="preserve">
+    <value>Project</value>
+  </data>
 </root>

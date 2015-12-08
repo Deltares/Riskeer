@@ -25,7 +25,7 @@ namespace Core.Common.Base.IO
         Bitmap Image { get; }
 
         /// <summary>
-        /// Gets the <see cref="Type"/> of the items supported by the <see cref="IFileExporter"/>.
+        /// Gets the <see cref="Type"/> of the item supported by the <see cref="IFileExporter"/>.
         /// </summary>
         Type SupportedItemType { get; }
 
@@ -38,12 +38,12 @@ namespace Core.Common.Base.IO
         string FileFilter { get; }
 
         /// <summary>
-        /// Performs the export of <paramref name="sourceItem"/> to a file with path <paramref name="filePath"/>
-        /// and returns a <see cref="bool"/> which reflects whether or not the export was successful.
+        /// This method exports the data of an item to a file at the given location.
         /// </summary>
         /// <param name="sourceItem">The item to export the data from.</param>
         /// <param name="filePath">The path of the file to export the data to.</param>
         /// <returns><c>true</c> if the export was successful. <c>false</c> otherwise.</returns>
+        /// <remarks>Implementations of this export method are allowed to throw exceptions of any kind.</remarks>
         bool Export(object sourceItem, string filePath);
 
         /// <summary>

@@ -1,3 +1,4 @@
+using Core.Common.Base.Properties;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Base.Data
@@ -10,7 +11,7 @@ namespace Core.Common.Base.Data
         /// <summary>
         /// Constructs a new <see cref="Project"/>. 
         /// </summary>
-        public Project() : this("Project") {}
+        public Project() : this(Resources.Project_Constructor_Default_name) {}
 
         /// <summary>
         /// Constructs a new <see cref="Project"/>. 
