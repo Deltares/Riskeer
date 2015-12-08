@@ -45,12 +45,5 @@ namespace Core.Common.Base.IO
         /// <returns><c>true</c> if the export was successful. <c>false</c> otherwise.</returns>
         /// <remarks>Implementations of this export method are allowed to throw exceptions of any kind.</remarks>
         bool Export(object sourceItem, string filePath);
-
-        /// <summary>
-        /// This method checks if <paramref name="sourceItem"/> can be exported.
-        /// </summary>
-        /// <param name="sourceItem">The source item to check.</param>
-        /// <returns><c>true</c> if the <paramref name="sourceItem"/> can be exported. <c>false</c> otherwise.</returns>
-        bool CanExportFor(object sourceItem);
     }
 }

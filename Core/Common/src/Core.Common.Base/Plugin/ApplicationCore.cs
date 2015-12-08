@@ -78,8 +78,7 @@ namespace Core.Common.Base.Plugin
             var sourceType = source.GetType();
 
             return plugins.SelectMany(plugin => plugin.GetFileExporters())
-                          .Where(fileExporter => (fileExporter.SupportedItemType == sourceType || sourceType.Implements(fileExporter.SupportedItemType))
-                                                 && fileExporter.CanExportFor(source));
+                          .Where(fileExporter => (fileExporter.SupportedItemType == sourceType || sourceType.Implements(fileExporter.SupportedItemType)));
         }
 
         /// <summary>

@@ -191,20 +191,11 @@ namespace Core.Common.Base.Test.Plugin
             var targetItem = new B();
             var supportedFileExporter1 = mocks.Stub<IFileExporter>();
             var supportedFileExporter2 = mocks.Stub<IFileExporter>();
-            var unsupportedFileExporter1 = mocks.Stub<IFileExporter>();
-            var unsupportedFileExporter2 = mocks.Stub<IFileExporter>();
+            var unsupportedFileExporter = mocks.Stub<IFileExporter>();
 
             supportedFileExporter1.Expect(i => i.SupportedItemType).Return(typeof(B)).Repeat.Any();
-            supportedFileExporter1.Expect(i => i.CanExportFor(targetItem)).Return(true).Repeat.Any();
-
             supportedFileExporter2.Expect(i => i.SupportedItemType).Return(typeof(A)).Repeat.Any();
-            supportedFileExporter2.Expect(i => i.CanExportFor(targetItem)).Return(true).Repeat.Any();
-
-            unsupportedFileExporter1.Expect(i => i.SupportedItemType).Return(typeof(B)).Repeat.Any();
-            unsupportedFileExporter1.Expect(i => i.CanExportFor(targetItem)).Return(false).Repeat.Any(); // CanExportFor false
-
-            unsupportedFileExporter2.Expect(i => i.SupportedItemType).Return(typeof(C)).Repeat.Any(); // Wrong type
-            unsupportedFileExporter2.Expect(i => i.CanExportFor(targetItem)).Return(true).Repeat.Any();
+            unsupportedFileExporter.Expect(i => i.SupportedItemType).Return(typeof(C)).Repeat.Any(); // Wrong type
 
             mocks.ReplayAll();
 
@@ -215,8 +206,7 @@ namespace Core.Common.Base.Test.Plugin
                 {
                     supportedFileExporter1,
                     supportedFileExporter2,
-                    unsupportedFileExporter1,
-                    unsupportedFileExporter2
+                    unsupportedFileExporter
                 }
             };
 
@@ -239,7 +229,6 @@ namespace Core.Common.Base.Test.Plugin
             var fileExporter = mocks.Stub<IFileExporter>();
 
             fileExporter.Expect(e => e.SupportedItemType).Return(null).Repeat.Any();
-            fileExporter.Expect(e => e.CanExportFor(null)).Repeat.Any();
 
             mocks.ReplayAll();
 
