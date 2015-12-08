@@ -295,11 +295,6 @@ namespace Core.Common.Base.Test.Service
                 return true;
             }
 
-            public bool CanImportFor(object targetItem)
-            {
-                return true;
-            }
-
             public void Cancel()
             {
 

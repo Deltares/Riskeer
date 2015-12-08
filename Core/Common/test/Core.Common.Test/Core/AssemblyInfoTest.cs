@@ -1,4 +1,3 @@
-using Core.Common.Base;
 using Core.Common.Base.Plugin;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;

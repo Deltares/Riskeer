@@ -70,11 +70,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public ProgressChangedDelegate ProgressChanged { get; set; }
 
-        public bool CanImportFor(object targetItem)
-        {
-            return targetItem is ICollection<PipingSoilProfile>;
-        }
-
         public bool Import(object targetItem, string filePath)
         {
             var importResult = ReadSoilProfiles(filePath);

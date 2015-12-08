@@ -52,13 +52,6 @@ namespace Core.Common.Base.IO
         bool Import(object targetItem, string filePath);
 
         /// <summary>
-        /// This method checks if an import can be performed on <paramref name="targetItem"/>.
-        /// </summary>
-        /// <param name="targetItem">The target item to check.</param>
-        /// <returns><c>true</c> if an import can be performed on <paramref name="targetItem"/>. <c>false</c> otherwise.</returns>
-        bool CanImportFor(object targetItem);
-
-        /// <summary>
         /// This method cancels an import.
         /// </summary>
         void Cancel();

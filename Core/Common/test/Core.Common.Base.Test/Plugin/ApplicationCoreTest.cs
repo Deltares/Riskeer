@@ -47,7 +47,6 @@ namespace Core.Common.Base.Test.Plugin
             var fileImporter = mocks.Stub<IFileImporter>();
 
             fileImporter.Expect(i => i.SupportedItemType).Return(typeof(object)).Repeat.Any();
-            fileImporter.Expect(i => i.CanImportFor(targetItem)).Return(true).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -93,7 +92,6 @@ namespace Core.Common.Base.Test.Plugin
             var fileImporter = mocks.Stub<IFileImporter>();
 
             fileImporter.Expect(i => i.SupportedItemType).Return(typeof(object)).Repeat.Any();
-            fileImporter.Expect(i => i.CanImportFor(targetItem)).Return(true).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -126,20 +124,11 @@ namespace Core.Common.Base.Test.Plugin
             var targetItem = new B();
             var supportedFileImporter1 = mocks.Stub<IFileImporter>();
             var supportedFileImporter2 = mocks.Stub<IFileImporter>();
-            var unsupportedFileImporter1 = mocks.Stub<IFileImporter>();
-            var unsupportedFileImporter2 = mocks.Stub<IFileImporter>();
+            var unsupportedFileImporter = mocks.Stub<IFileImporter>();
 
             supportedFileImporter1.Expect(i => i.SupportedItemType).Return(typeof(B)).Repeat.Any();
-            supportedFileImporter1.Expect(i => i.CanImportFor(targetItem)).Return(true).Repeat.Any();
-
             supportedFileImporter2.Expect(i => i.SupportedItemType).Return(typeof(A)).Repeat.Any();
-            supportedFileImporter2.Expect(i => i.CanImportFor(targetItem)).Return(true).Repeat.Any();
-
-            unsupportedFileImporter1.Expect(i => i.SupportedItemType).Return(typeof(B)).Repeat.Any();
-            unsupportedFileImporter1.Expect(i => i.CanImportFor(targetItem)).Return(false).Repeat.Any(); // CanImportFor false
-
-            unsupportedFileImporter2.Expect(i => i.SupportedItemType).Return(typeof(C)).Repeat.Any(); // Wrong type
-            unsupportedFileImporter2.Expect(i => i.CanImportFor(targetItem)).Return(true).Repeat.Any();
+            unsupportedFileImporter.Expect(i => i.SupportedItemType).Return(typeof(C)).Repeat.Any(); // Wrong type
 
             mocks.ReplayAll();
 
@@ -150,8 +139,7 @@ namespace Core.Common.Base.Test.Plugin
                 {
                     supportedFileImporter1,
                     supportedFileImporter2,
-                    unsupportedFileImporter1,
-                    unsupportedFileImporter2
+                    unsupportedFileImporter
                 }
             };
 
@@ -174,7 +162,6 @@ namespace Core.Common.Base.Test.Plugin
             var fileImporter = mocks.Stub<IFileImporter>();
 
             fileImporter.Expect(i => i.SupportedItemType).Return(null).Repeat.Any();
-            fileImporter.Expect(i => i.CanImportFor(null)).Repeat.Any();
 
             mocks.ReplayAll();
 

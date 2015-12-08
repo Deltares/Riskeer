@@ -47,42 +47,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CanImportFor_TargetIsCollectionOfPipingSurfaceLines_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var validTarget = mocks.StrictMock<ICollection<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
-
-            var importer = new PipingSurfaceLinesCsvImporter();
-
-            // Call
-            var importAllowed = importer.CanImportFor(validTarget);
-
-            // Assert
-            Assert.IsTrue(importAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
-        }
-
-        [Test]
-        public void CanImportFor_InvalidTarget_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var invalidTarget = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            mocks.ReplayAll();
-
-            var importer = new PipingSurfaceLinesCsvImporter();
-
-            // Call
-            var importAllowed = importer.CanImportFor(invalidTarget);
-
-            // Assert
-            Assert.IsFalse(importAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
-        }
-
-        [Test]
         public void Import_ImportingToValidTargetWithValidFile_ImportSurfaceLinesToCollection()
         {
             // Setup
@@ -121,7 +85,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
@@ -169,7 +132,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
@@ -216,7 +178,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             importer.Cancel();
@@ -253,7 +214,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Setup (second part)
@@ -514,7 +474,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
-            Assert.IsTrue(importer.CanImportFor(observableSurfaceLinesList));
             Assert.IsTrue(File.Exists(path));
 
             // Call

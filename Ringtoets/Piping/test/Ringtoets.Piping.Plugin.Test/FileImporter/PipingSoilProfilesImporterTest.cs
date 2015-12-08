@@ -54,42 +54,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CanImportFor_TargetIsCollectionOfPipingSoilProfile_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var validTarget = mocks.StrictMock<ObservableList<PipingSoilProfile>>();
-            mocks.ReplayAll();
-
-            var importer = new PipingSoilProfilesImporter();
-
-            // Call
-            var importAllowed = importer.CanImportFor(validTarget);
-
-            // Assert
-            Assert.IsTrue(importAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
-        }
-
-        [Test]
-        public void CanImportFor_InvalidTarget_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var invalidTarget = mocks.StrictMock<IEnumerable<PipingSoilProfile>>();
-            mocks.ReplayAll();
-
-            var importer = new PipingSoilProfilesImporter();
-
-            // Call
-            var importAllowed = importer.CanImportFor(invalidTarget);
-
-            // Assert
-            Assert.IsFalse(importAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
-        }
-
-        [Test]
         public void Import_FromNonExistingFile_LogError()
         {
             // Setup
@@ -110,7 +74,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportFor(observableList));
 
             var importResult = true;
 
@@ -152,7 +115,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportFor(observableList));
 
             var importResult = true;
 
@@ -187,9 +149,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importTarget = piping.SoilProfiles;
 
-            // Precondition
-            Assert.IsTrue(importer.CanImportFor(importTarget));
-
             // Call
             var importResult = importer.Import(importTarget, validFilePath);
 
@@ -218,7 +177,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportFor(observableList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             importer.Cancel();
@@ -258,7 +216,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            Assert.IsTrue(importer.CanImportFor(observableList));
             Assert.IsTrue(File.Exists(validFilePath));
 
             // Setup (second part)

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls;
 using Core.Common.Utils.Validation;
@@ -133,7 +132,7 @@ namespace Core.Common.Gui.Swf.Validation
             }
 
             var fileImporter = issue.ViewData as IFileImporter;
-            if (fileImporter != null && fileImporter.CanImportFor(issue.Subject))
+            if (fileImporter != null)
             {
                 Gui.CommandHandler.ImportOn(issue.Subject, fileImporter);
             }
