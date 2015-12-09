@@ -1,8 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.TestUtil;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.Piping.Data.TestUtil.Test
 {
     public class Segment2DLoopCollectionHelperTest
     {
