@@ -130,5 +130,73 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             mocks.VerifyAll(); 
             TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, null, Resources.plus);
         }
+
+        [Test]
+        public void CanDrag_Always_ReturnNone()
+        {
+            // Setup
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
+
+            mocks.ReplayAll();
+
+            var nodeData = new Project();
+
+            var nodePresenter = new ProjectNodePresenter(contextMenuBuilderProvider, commandHandler);
+
+            // Call
+            var draggingOperations = nodePresenter.CanDrag(nodeData);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, draggingOperations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanInsert_Always_ReturnFalse()
+        {
+            // Setup
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
+
+            var node = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<ITreeNode>();
+
+            mocks.ReplayAll();
+
+            var nodeData = new Project();
+
+            var nodePresenter = new ProjectNodePresenter(contextMenuBuilderProvider, commandHandler);
+
+            // Call
+            var insertionAllowed = nodePresenter.CanInsert(nodeData, node, targetNode);
+
+            // Assert
+            Assert.IsFalse(insertionAllowed);
+        }
+
+        [Test]
+        public void CanDrop_Always_ReturnNone()
+        {
+            // Setup
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
+
+            var node = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<ITreeNode>();
+
+            mocks.ReplayAll();
+
+            var nodeData = new Project();
+
+            var nodePresenter = new ProjectNodePresenter(contextMenuBuilderProvider, commandHandler);
+
+            // Call
+            var droppingOperations = nodePresenter.CanDrop(nodeData, node, targetNode, DragOperations.Move);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, droppingOperations);
+            mocks.VerifyAll();
+        }
     }
 }

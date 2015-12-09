@@ -6,6 +6,8 @@ using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
+using Rhino.Mocks;
+
 namespace Core.Common.Controls.Swf.Test.TreeViewControls
 {
     [TestFixture]
@@ -235,6 +237,67 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
         #endregion Add
 
+        [Test]
+        public void CanInsert_Always_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var node = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodeData = new TestPerson();
+
+            var nodePresenter = new SimpleTreeViewNodePresenter();
+
+            // Call
+            var insertionAllowed = nodePresenter.CanInsert(nodeData, node, targetNode);
+
+            // Assert
+            Assert.IsFalse(insertionAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanDrop_Always_ReturnNone()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var node = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodeData = new TestPerson();
+
+            var nodePresenter = new SimpleTreeViewNodePresenter();
+
+            // Call
+            var dropOperations = nodePresenter.CanDrop(nodeData, node, targetNode, DragOperations.Move);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, dropOperations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanDrag_Always_ReturnNone()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            mocks.ReplayAll();
+
+            var nodeData = new TestPerson();
+
+            var nodePresenter = new SimpleTreeViewNodePresenter();
+
+            // Call
+            var dragOperations = nodePresenter.CanDrag(nodeData);
+
+            // Assert
+            Assert.AreEqual(DragOperations.None, dragOperations);
+            mocks.VerifyAll();
+        }
+
         #region Test Classes
 
         private class TestPerson : Observable
@@ -257,6 +320,14 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             public ObservableList<TestPerson> Children { get; set; }
 
             public ObservableList<TestPerson> Adults { get; set; }
+        }
+
+        private class SimpleTreeViewNodePresenter : TreeViewNodePresenterBase<TestPerson>
+        {
+            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TestPerson nodeData)
+            {
+                throw new System.NotImplementedException();
+            }
         }
 
         private class GroupNodePresenterUsingCollection : TreeViewNodePresenterBase<TestGroup>

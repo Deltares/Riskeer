@@ -1,5 +1,4 @@
 using System.Drawing;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
@@ -28,6 +27,11 @@ namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
         public override DragOperations CanDrag(Map nodeData)
         {
             return DragOperations.Move;
+        }
+
+        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        {
+            return (null == TreeView.TreeViewNodeSorter);
         }
 
         public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)

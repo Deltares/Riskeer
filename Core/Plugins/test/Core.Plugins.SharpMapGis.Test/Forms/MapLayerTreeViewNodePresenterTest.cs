@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Drawing;
 using System.IO;
 using Core.Common.Controls;
@@ -85,6 +86,44 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             // No drop into layers
             Assert.AreEqual(DragOperations.None, mapLayerNodePresenter.CanDrop(vectorLayer, sourceNode, targetNode, DragOperations.Move));
+        }
+
+        [Test]
+        public void CanInsert_TreeViewHasSorter_ReturnFalse()
+        {
+            // Setup
+            var vectorLayer = GetRiverLayer();
+            var sourceNode = mocks.Stub<ITreeNode>();
+            var targetNode = mocks.Stub<ITreeNode>();
+
+            mapLayerNodePresenter.TreeView.TreeViewNodeSorter = mocks.Stub<IComparer>();
+
+            // Precondition
+            Assert.IsNotNull(mapLayerNodePresenter.TreeView.TreeViewNodeSorter);
+
+            // Call
+            var insertionAllowed = mapLayerNodePresenter.CanInsert(vectorLayer, sourceNode, targetNode);
+
+            // Assert
+            Assert.IsFalse(insertionAllowed);
+        }
+
+        [Test]
+        public void CanInsert_TreeViewDoesNotHaveSorter_ReturnTrue()
+        {
+            // Setup
+            var vectorLayer = GetRiverLayer();
+            var sourceNode = mocks.Stub<ITreeNode>();
+            var targetNode = mocks.Stub<ITreeNode>();
+
+            // Precondition
+            Assert.IsNull(mapLayerNodePresenter.TreeView.TreeViewNodeSorter);
+
+            // Call
+            var insertionAllowed = mapLayerNodePresenter.CanInsert(vectorLayer, sourceNode, targetNode);
+
+            // Assert
+            Assert.IsTrue(insertionAllowed);
         }
 
         [Test]

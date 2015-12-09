@@ -103,6 +103,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>ImportMultipleFilesUserSettings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NodePresenters\MapProjectTreeViewNodePresenterTest.cs" />
     <Compile Include="Forms\VectorLayerAttributeTableViewTest.cs" />
     <Compile Include="Forms\VectorStyleNodePresenterTest.cs" />
     <Compile Include="Forms\MapLegendViewTest.cs" />

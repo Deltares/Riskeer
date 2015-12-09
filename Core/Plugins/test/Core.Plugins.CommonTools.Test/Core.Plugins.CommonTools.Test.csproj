@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Charting\ChartTreeNodePresenterTest.cs" />
     <Compile Include="TestViewList.cs" />
     <Compile Include="Forms\TextDocumentViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

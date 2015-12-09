@@ -92,6 +92,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return DragOperations.Move;
         }
 
+        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        {
+            return (null == TreeView.TreeViewNodeSorter);
+        }
+
         public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
             var groupLayer = targetNode.Tag as IGroupLayer;

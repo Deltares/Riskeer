@@ -123,7 +123,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
         {
-            return (null == TreeView.TreeViewNodeSorter);
+            return false;
         }
 
         /// <summary>
