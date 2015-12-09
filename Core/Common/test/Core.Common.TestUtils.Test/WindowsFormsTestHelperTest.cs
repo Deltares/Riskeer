@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NUnit.Framework;
 
-namespace Core.Common.TestUtils
+namespace Core.Common.TestUtils.Test
 {
     [TestFixture]
     public class WindowsFormsTestHelperTest
