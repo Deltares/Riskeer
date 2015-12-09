@@ -16,7 +16,7 @@ namespace Core.Common.Base.Test.Data
             // Assert
             Assert.IsInstanceOf<IObservable>(project);
             Assert.AreEqual("Project", project.Name);
-            Assert.IsNull(project.Description);
+            Assert.AreEqual("", project.Description);
             CollectionAssert.IsEmpty(project.Items);
         }
 
@@ -32,7 +32,7 @@ namespace Core.Common.Base.Test.Data
             // Assert
             Assert.IsInstanceOf<IObservable>(project);
             Assert.AreEqual(someName, project.Name);
-            Assert.IsNull(project.Description);
+            Assert.AreEqual("", project.Description);
             CollectionAssert.IsEmpty(project.Items);
         }
 
@@ -61,7 +61,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Once();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var project = new Project();
@@ -80,7 +80,7 @@ namespace Core.Common.Base.Test.Data
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Once();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var project = new Project();

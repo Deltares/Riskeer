@@ -89,7 +89,7 @@ namespace Core.GIS.SharpMap.UI.Test.Tools
             var featureMutator = mocks.StrictMock<IFeatureInteractor>();
             
             featureMutator.Expect(fm => fm.AllowDeletion()).Return(true).Repeat.Any();
-            featureMutator.Expect(fm => fm.Delete()).Repeat.Once();
+            featureMutator.Expect(fm => fm.Delete());
             
             mocks.ReplayAll();
 

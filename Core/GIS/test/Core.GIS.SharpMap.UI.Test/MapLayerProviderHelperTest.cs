@@ -220,9 +220,9 @@ namespace Core.GIS.SharpMap.UI.Test
             // verify the datasource is disposed (this happens through Layer.Dispose right now):
             oldDataSource.Expect(fp => fp.Dispose());
             oldDataSource.Expect(fp => fp.AddNewFeatureFromGeometryDelegate);
-            oldDataSource.Expect(fp => fp.FeaturesChanged += null).IgnoreArguments().Repeat.Once();
+            oldDataSource.Expect(fp => fp.FeaturesChanged += null).IgnoreArguments();
             oldDataSource.Expect(fp => fp.FeaturesChanged -= null).IgnoreArguments().Repeat.Twice();
-            oldDataSource.Expect(fp => fp.CoordinateSystemChanged += null).IgnoreArguments().Repeat.Once();
+            oldDataSource.Expect(fp => fp.CoordinateSystemChanged += null).IgnoreArguments();
             oldDataSource.Expect(fp => fp.CoordinateSystemChanged -= null).IgnoreArguments().Repeat.Twice();
 
             // make sure the layerprovider does the right stuff:

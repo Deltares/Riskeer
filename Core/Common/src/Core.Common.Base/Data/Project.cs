@@ -20,6 +20,7 @@ namespace Core.Common.Base.Data
         public Project(string name)
         {
             Name = name;
+            Description = "";
 
             Items = new EventedList<object>();
         }

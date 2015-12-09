@@ -442,7 +442,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             bool updatewasCalled = false;
             var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation => updatewasCalled = true).Repeat.Once();
+            originalOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation => updatewasCalled = true);
 
             var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
 

@@ -96,8 +96,8 @@ namespace Core.Common.Base.Test.Service
             var target = new object();
 
             fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
-            fileImporter.Expect(i => i.Import(target, "file1")).Return(true).Repeat.Once();
-            fileImporter.Expect(i => i.Import(target, "file2")).Return(true).Repeat.Once();
+            fileImporter.Expect(i => i.Import(target, "file1")).Return(true);
+            fileImporter.Expect(i => i.Import(target, "file2")).Return(true);
 
             mocks.ReplayAll();
 
@@ -177,8 +177,8 @@ namespace Core.Common.Base.Test.Service
             var target = new object();
 
             fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
-            fileImporter.Expect(i => i.Import(target, "file1")).Return(true).Repeat.Once();
-            fileImporter.Expect(i => i.Import(target, "file2")).Return(true).Repeat.Once();
+            fileImporter.Expect(i => i.Import(target, "file1")).Return(true);
+            fileImporter.Expect(i => i.Import(target, "file2")).Return(true);
             fileImporter.Expect(x => x.Cancel()).IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();

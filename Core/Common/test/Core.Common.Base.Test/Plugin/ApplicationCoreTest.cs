@@ -28,7 +28,7 @@ namespace Core.Common.Base.Test.Plugin
             var mocks = new MockRepository();
             var applicationCore = new ApplicationCore();
             var applicationPlugin = mocks.Stub<ApplicationPlugin>();
-            applicationPlugin.Expect(ap => ap.Activate()).Repeat.Once();
+            applicationPlugin.Expect(ap => ap.Activate());
             mocks.ReplayAll();
 
             // Call
@@ -73,7 +73,7 @@ namespace Core.Common.Base.Test.Plugin
             var mocks = new MockRepository();
             var applicationCore = new ApplicationCore();
             var applicationPlugin = mocks.Stub<ApplicationPlugin>();
-            applicationPlugin.Expect(ap => ap.Deactivate()).Repeat.Once();
+            applicationPlugin.Expect(ap => ap.Deactivate());
             mocks.ReplayAll();
 
             // Call
@@ -321,10 +321,10 @@ namespace Core.Common.Base.Test.Plugin
             var applicationCore = new ApplicationCore();
             var applicationPlugin1 = mocks.Stub<ApplicationPlugin>();
             var applicationPlugin2 = mocks.Stub<ApplicationPlugin>();
-            applicationPlugin1.Expect(ap => ap.Activate()).Repeat.Once();
-            applicationPlugin1.Expect(ap => ap.Deactivate()).Repeat.Once();
-            applicationPlugin2.Expect(ap => ap.Activate()).Repeat.Once();
-            applicationPlugin2.Expect(ap => ap.Deactivate()).Repeat.Once();
+            applicationPlugin1.Expect(ap => ap.Activate());
+            applicationPlugin1.Expect(ap => ap.Deactivate());
+            applicationPlugin2.Expect(ap => ap.Activate());
+            applicationPlugin2.Expect(ap => ap.Deactivate());
             mocks.ReplayAll();
 
             applicationCore.AddPlugin(applicationPlugin1);

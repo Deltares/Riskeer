@@ -16,7 +16,7 @@ namespace Core.Common.Test.Gui
             var mocks = new MockRepository();
             var applicationCore = mocks.Stub<ApplicationCore>();
 
-            applicationCore.Expect(ac => ac.Dispose()).Repeat.Once();
+            applicationCore.Expect(ac => ac.Dispose());
 
             mocks.ReplayAll();
 

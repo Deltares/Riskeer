@@ -61,7 +61,7 @@ namespace Core.GIS.SharpMap.Test.Layers
 
             var layer1 = mocks.DynamicMock<ILayer>();
             var layer1Clone = mocks.DynamicMock<ILayer>();
-            layer1.Expect(l => l.Clone()).Return(layer1Clone).Repeat.Once();
+            layer1.Expect(l => l.Clone()).Return(layer1Clone);
 
             mocks.ReplayAll();
 

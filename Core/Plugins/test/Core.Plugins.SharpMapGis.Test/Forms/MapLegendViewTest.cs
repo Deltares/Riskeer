@@ -40,13 +40,13 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             var shapeFile = mocks.StrictMock<ShapeFile>(path);
             shapeFile.Expect(sf => sf.GetExtents()).Return(null).Repeat.Any();
-            shapeFile.Expect(sf => sf.FeaturesChanged += null).IgnoreArguments().Repeat.Once();
+            shapeFile.Expect(sf => sf.FeaturesChanged += null).IgnoreArguments();
             shapeFile.Expect(sf => sf.FeaturesChanged -= null).IgnoreArguments().Repeat.Twice();
-            shapeFile.Expect(sf => sf.CoordinateSystemChanged += null).IgnoreArguments().Repeat.Once();
+            shapeFile.Expect(sf => sf.CoordinateSystemChanged += null).IgnoreArguments();
             shapeFile.Expect(sf => sf.CoordinateSystemChanged -= null).IgnoreArguments().Repeat.Twice();
-            shapeFile.Expect(sf => sf.AddNewFeatureFromGeometryDelegate = null).IgnoreArguments().Repeat.Once();
-            shapeFile.Expect(sf => sf.AddNewFeatureFromGeometryDelegate).Return(null).Repeat.Once();
-            shapeFile.Expect(sf => sf.Dispose()).Repeat.Once(); //this is what we are checking
+            shapeFile.Expect(sf => sf.AddNewFeatureFromGeometryDelegate = null).IgnoreArguments();
+            shapeFile.Expect(sf => sf.AddNewFeatureFromGeometryDelegate).Return(null);
+            shapeFile.Expect(sf => sf.Dispose()); //this is what we are checking
             shapeFile.Replay();
 
             var vectorLayer = new VectorLayer(Path.GetFileName(path), shapeFile);

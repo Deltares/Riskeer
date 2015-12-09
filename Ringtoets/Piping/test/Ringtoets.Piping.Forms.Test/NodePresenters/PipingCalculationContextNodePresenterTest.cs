@@ -666,7 +666,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Given
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
+            observer.Expect(o => o.UpdateObserver());
             var treeNodeMock = mockRepository.StrictMock<ITreeNode>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
