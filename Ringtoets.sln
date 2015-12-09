@@ -221,6 +221,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.Swf.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.TestUtils.Test", "Core\Common\test\Core.Common.TestUtils.Test\Core.Common.TestUtils.Test.csproj", "{FAF691DE-EAF5-44E0-A865-5A03FB395ED1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil.Test\Ringtoets.Piping.Data.TestUtil.Test.csproj", "{35B78215-420B-4D7D-9959-9E9010601200}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -878,6 +880,14 @@ Global
 		{FAF691DE-EAF5-44E0-A865-5A03FB395ED1}.Release|x86.Build.0 = Release|x86
 		{FAF691DE-EAF5-44E0-A865-5A03FB395ED1}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{FAF691DE-EAF5-44E0-A865-5A03FB395ED1}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.Debug|x86.ActiveCfg = Debug|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.Debug|x86.Build.0 = Debug|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.Release|x86.ActiveCfg = Release|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.Release|x86.Build.0 = Release|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{35B78215-420B-4D7D-9959-9E9010601200}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -970,6 +980,7 @@ Global
 		{9A5C8069-520E-49D3-AA62-E8FB19614A27} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{D783543B-46A1-4848-A812-AF5A5259ED7E} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{813FFA92-1F3F-462B-B596-5919334007A9} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
+		{35B78215-420B-4D7D-9959-9E9010601200} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{55125A6D-59E7-40C9-AFFF-ED16610289A1} = {492FFA2C-351E-48DB-BA51-B837657BAF2F}
 		{5991C4E2-AC39-470C-8848-056B3A954FB1} = {492FFA2C-351E-48DB-BA51-B837657BAF2F}
 		{DCBA56C0-E29E-43C1-A2BB-C08FC40D2B32} = {D4C84992-DE0E-4107-B4C0-D65E3667A727}
