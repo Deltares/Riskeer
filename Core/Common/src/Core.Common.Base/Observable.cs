@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Core.Common.Base
@@ -8,7 +9,7 @@ namespace Core.Common.Base
     /// </summary>
     public abstract class Observable : IObservable
     {
-        private readonly IList<IObserver> observers = new List<IObserver>();
+        private readonly ICollection<IObserver> observers = new Collection<IObserver>();
 
         public void Attach(IObserver observer)
         {

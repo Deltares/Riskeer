@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Utils.Reflection;
@@ -11,14 +12,14 @@ namespace Core.Common.Base.Plugin
     /// </summary>
     public class ApplicationCore : IDisposable
     {
-        private readonly List<ApplicationPlugin> plugins;
+        private readonly ICollection<ApplicationPlugin> plugins;
 
         /// <summary>
         /// Constructs a new <see cref="ApplicationCore"/>.
         /// </summary>
         public ApplicationCore()
         {
-            plugins = new List<ApplicationPlugin>();
+            plugins = new Collection<ApplicationPlugin>();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Core.Common.Base
@@ -9,7 +10,7 @@ namespace Core.Common.Base
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class ObservableList<T> : List<T>, IObservable
     {
-        private readonly IList<IObserver> observers = new List<IObserver>();
+        private readonly ICollection<IObserver> observers = new Collection<IObserver>();
 
         public void Attach(IObserver observer)
         {

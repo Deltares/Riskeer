@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Core.Common.Base.Properties;
 using log4net;
 
@@ -16,7 +17,7 @@ namespace Core.Common.Base.Service
     public abstract class Activity
     {
         /// <summary>
-        /// Event handler for notifying progress changes.
+        /// Event for notifying progress changes.
         /// </summary>
         public event EventHandler ProgressChanged;
 
@@ -30,7 +31,7 @@ namespace Core.Common.Base.Service
         protected Activity()
         {
             State = ActivityState.None;
-            LogMessages = new List<string>();
+            LogMessages = new Collection<string>();
         }
 
         /// <summary>
@@ -62,12 +63,12 @@ namespace Core.Common.Base.Service
         }
 
         /// <summary>
-        /// Gets or sets the collection of log messages of the <see cref="Activity"/> (which can be appended while performing the <see cref="Activity"/>).
+        /// Gets or sets the collection of log messages of the <see cref="Activity"/> (which are appended while performing the <see cref="Activity"/>).
         /// </summary>
         /// <remarks>
         /// Derived classes themselves are responsible for clearing the collection of log messages.
         /// </remarks>
-        public IList<string> LogMessages { get; private set; }
+        public ICollection<string> LogMessages { get; private set; }
 
         /// <summary>
         /// This method resets <see cref="State"/> to <see cref="ActivityState.None"/> and then runs the <see cref="Activity"/>.
@@ -103,17 +104,17 @@ namespace Core.Common.Base.Service
 
             if (State == ActivityState.Finished)
             {
-                log.InfoFormat(Resources.Activity_Finish_Execution_of_0_has_succeeded, Name);
+                log.InfoFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_succeeded, Name);
             }
 
             if (State == ActivityState.Cancelled)
             {
-                log.WarnFormat(Resources.Activity_Run_Execution_of_0_has_been_cancelled, Name);
+                log.WarnFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled, Name);
             }
 
             if (State == ActivityState.Failed)
             {
-                log.ErrorFormat(Resources.Activity_Finish_Execution_of_0_has_failed, Name);
+                log.ErrorFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_failed, Name);
             }
         }
 
