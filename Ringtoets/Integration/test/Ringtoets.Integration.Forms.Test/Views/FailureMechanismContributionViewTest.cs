@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
