@@ -228,10 +228,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             {
                 var isMoveWithinSameContainer = ReferenceEquals(target, originalOwnerContext);
 
-                var recordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(item));
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(target));
                 bool renamed = false;
+                TreeNodeExpandCollapseState recordedNodeState = null;
                 if (!isMoveWithinSameContainer)
                 {
+                    recordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(item));
                     string uniqueName = NamingHelper.GetUniqueName(target.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
                     if (!pipingCalculationItem.Name.Equals(uniqueName))
                     {
@@ -250,12 +252,16 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 // Expand parent of 'draggedNode' to ensure its selected state is visible.
                 ITreeNode draggedNode = TreeView.GetNodeByTag(item);
                 ITreeNode newParentOfDraggedNode = draggedNode.Parent;
+                targetRecordedNodeState.Restore(newParentOfDraggedNode);
                 if (!newParentOfDraggedNode.IsExpanded)
                 {
                     newParentOfDraggedNode.Expand();
                 }
                 TreeView.SelectedNode = draggedNode;
-                recordedNodeState.Restore(draggedNode);
+                if (!isMoveWithinSameContainer)
+                {
+                    recordedNodeState.Restore(draggedNode);
+                }
                 if (renamed)
                 {
                     TreeView.StartLabelEdit();
