@@ -43,7 +43,7 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-	<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <OutputPath>bin\Release\</OutputPath>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -103,6 +103,10 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
       <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>

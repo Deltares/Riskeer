@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.IO;
 using Core.Common.Utils.Test.Properties;
 using log4net;

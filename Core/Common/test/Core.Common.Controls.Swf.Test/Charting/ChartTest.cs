@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.Charting.Series;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Swf.Test.Charting

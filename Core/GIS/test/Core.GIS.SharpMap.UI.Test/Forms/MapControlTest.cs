@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Windows.Forms;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

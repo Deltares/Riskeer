@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.GIS.SharpMap.Data.Providers.EGIS.ShapeFileLib;
 using NUnit.Framework;
 

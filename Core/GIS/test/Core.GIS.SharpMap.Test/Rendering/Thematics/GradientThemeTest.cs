@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Rendering.Thematics;
 using Core.GIS.SharpMap.Styles;

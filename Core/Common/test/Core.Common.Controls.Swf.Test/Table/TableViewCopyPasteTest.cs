@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Table;
 using Core.Common.Controls.Swf.Test.Table.TestClasses;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using DevExpress.XtraGrid;
 using NUnit.Framework;

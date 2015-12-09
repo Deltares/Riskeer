@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-
-using Core.Common.TestUtils;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Ringtoets.Piping.IO.Test

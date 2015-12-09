@@ -84,9 +84,9 @@
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtils</Name>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

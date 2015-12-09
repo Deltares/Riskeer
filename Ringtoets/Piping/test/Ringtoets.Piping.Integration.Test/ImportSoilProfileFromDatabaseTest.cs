@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Ringtoets.Piping.Calculation.TestUtil;
 
 using NUnit.Framework;

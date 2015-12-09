@@ -3,7 +3,7 @@ using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Converters.WellKnownText;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
-using Core.GIS.SharpMapTestUtils.TestClasses;
+using Core.GIS.SharpMapTestUtil.TestClasses;
 using NUnit.Framework;
 
 namespace Core.GIS.SharpMap.Test.Data.Providers

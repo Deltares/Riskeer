@@ -87,9 +87,9 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtils</Name>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>

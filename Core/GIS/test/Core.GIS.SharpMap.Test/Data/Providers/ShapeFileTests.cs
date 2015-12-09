@@ -1,4 +1,4 @@
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Data.Providers;

@@ -79,9 +79,9 @@
     <Compile Include="TestHelpers\StringGeometryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtils</Name>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>

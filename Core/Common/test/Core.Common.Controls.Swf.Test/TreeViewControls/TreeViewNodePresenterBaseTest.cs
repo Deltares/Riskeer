@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Swf.Test.TreeViewControls

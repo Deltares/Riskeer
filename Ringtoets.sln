@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "uml", "uml", "{D89FA693-A8E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Utils.Test", "Core\Common\test\Core.Common.Utils.Test\Core.Common.Utils.Test.csproj", "{7F937E31-02CA-41D9-B7D4-1079CF452C72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.TestUtils", "Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj", "{D749EE4C-CE50-4C17-BF01-9A953028C126}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.TestUtil", "Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj", "{D749EE4C-CE50-4C17-BF01-9A953028C126}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9F89C6E-CEA9-40CA-96A9-2A0368459B9F}"
 EndProject
@@ -92,7 +92,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.GIS.SharpMap.Test", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.GIS.SharpMap.UI.Test", "Core\GIS\test\Core.GIS.SharpMap.UI.Test\Core.GIS.SharpMap.UI.Test.csproj", "{93708508-7B00-4A26-80DA-C73A7251BCF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.GIS.SharpMapTestUtils", "Core\GIS\test\Core.GIS.SharpMapTestUtils\Core.GIS.SharpMapTestUtils.csproj", "{0A82E7D2-26F8-4A30-9787-7EEABCD7F470}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.GIS.SharpMapTestUtil", "Core\GIS\test\Core.GIS.SharpMapTestUtil\Core.GIS.SharpMapTestUtil.csproj", "{0A82E7D2-26F8-4A30-9787-7EEABCD7F470}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools", "Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj", "{BEFDCC44-2638-4972-B353-42D14C7DA2C6}"
 EndProject
@@ -211,7 +211,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Data", "Ri
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui.TestUtils", "Core\Common\test\Core.Common.Gui.TestUtils\Core.Common.Gui.TestUtils.csproj", "{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui.TestUtil", "Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj", "{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.Test", "Core\Common\test\Core.Common.Controls.Test\Core.Common.Controls.Test.csproj", "{A8CE1456-1880-4FC8-84B3-D618EA88F384}"
 EndProject
@@ -219,7 +219,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui.Swf.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.Swf.Test", "Core\Common\test\Core.Common.Controls.Swf.Test\Core.Common.Controls.Swf.Test.csproj", "{C4B8625C-FEDB-4F87-B737-E9BFB23CA1A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.TestUtils.Test", "Core\Common\test\Core.Common.TestUtils.Test\Core.Common.TestUtils.Test.csproj", "{FAF691DE-EAF5-44E0-A865-5A03FB395ED1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.TestUtil.Test", "Core\Common\test\Core.Common.TestUtil.Test\Core.Common.TestUtil.Test.csproj", "{FAF691DE-EAF5-44E0-A865-5A03FB395ED1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil.Test\Ringtoets.Piping.Data.TestUtil.Test.csproj", "{35B78215-420B-4D7D-9959-9E9010601200}"
 EndProject

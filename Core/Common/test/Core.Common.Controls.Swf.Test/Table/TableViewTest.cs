@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.Table;
 using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Test.Table.TestClasses;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
 using DevExpress.XtraEditors.Repository;

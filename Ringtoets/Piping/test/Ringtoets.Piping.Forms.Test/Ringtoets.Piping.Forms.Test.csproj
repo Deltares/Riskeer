@@ -110,13 +110,13 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtils\Core.Common.Gui.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtils</Name>
+      <Name>Core.Common.Gui.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
-      <Name>Core.Common.TestUtils</Name>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

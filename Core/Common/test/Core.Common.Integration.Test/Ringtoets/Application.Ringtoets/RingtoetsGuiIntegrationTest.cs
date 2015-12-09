@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;

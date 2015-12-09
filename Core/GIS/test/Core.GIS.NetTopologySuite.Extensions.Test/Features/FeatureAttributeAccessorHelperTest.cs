@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Gis.NetTopologySuite.Extensions.Test.TestObjects;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using NUnit.Framework;

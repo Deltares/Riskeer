@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Collections.Generic;
 using log4net.Core;
 using NUnit.Framework;

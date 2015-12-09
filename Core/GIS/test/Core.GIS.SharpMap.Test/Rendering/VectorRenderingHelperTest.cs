@@ -1,5 +1,5 @@
 using System.Drawing;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Rendering;
 using NUnit.Framework;

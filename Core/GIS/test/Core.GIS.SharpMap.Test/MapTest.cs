@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
 using Core.GIS.GeoAPI.Geometries;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;

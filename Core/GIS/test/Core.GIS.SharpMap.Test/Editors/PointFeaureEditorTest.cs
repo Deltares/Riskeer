@@ -5,7 +5,7 @@ using Core.GIS.SharpMap.Editors.Interactors;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.UI.Forms;
-using Core.GIS.SharpMapTestUtils.TestClasses;
+using Core.GIS.SharpMapTestUtil.TestClasses;
 using NUnit.Framework;
 using Point = Core.GIS.NetTopologySuite.Geometries.Point;
 

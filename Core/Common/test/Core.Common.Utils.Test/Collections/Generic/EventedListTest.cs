@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using NUnit.Framework;

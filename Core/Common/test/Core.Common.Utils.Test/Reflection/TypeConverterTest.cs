@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using log4net;
 using NUnit.Framework;
 

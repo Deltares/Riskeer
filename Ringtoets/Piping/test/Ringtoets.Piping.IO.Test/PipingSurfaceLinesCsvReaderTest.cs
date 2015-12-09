@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-
-using Core.Common.TestUtils;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Ringtoets.Piping.IO.Builders;

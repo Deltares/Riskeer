@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Threading;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.IO;
 using NUnit.Framework;
 

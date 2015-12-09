@@ -5,8 +5,7 @@ using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.Properties;
-using Core.Common.TestUtils;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;

@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.Common.Base.Service;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Service

@@ -7,7 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.TestUtils;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Collections.Generic;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
