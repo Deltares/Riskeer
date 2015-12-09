@@ -14,6 +14,11 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// </summary>
         event EventHandler SelectedNodeChanged;
 
+        /// <summary>
+        /// Event to notify observers of changes in the tree structure
+        /// </summary>
+        event EventHandler OnUpdate;
+
         event Action BeforeWaitUntilAllEventsAreProcessed;
 
         /// <summary>

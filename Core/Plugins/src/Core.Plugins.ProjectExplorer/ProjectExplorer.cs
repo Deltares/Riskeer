@@ -33,6 +33,7 @@ namespace Core.Plugins.ProjectExplorer
             treeViewPanel.Controls.Add(ProjectTreeView);
 
             gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
+            ProjectTreeView.TreeView.OnUpdate += (s,e) => gui.UpdateToolTips();
         }
 
         public ProjectTreeView ProjectTreeView { get; private set; }

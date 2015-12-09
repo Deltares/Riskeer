@@ -372,6 +372,14 @@ namespace Core.Common.Gui
             }
         }
 
+        public void UpdateToolTips()
+        {
+            foreach (var view in DocumentViews.AllViews)
+            {
+                SetToolTipForView(view);
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

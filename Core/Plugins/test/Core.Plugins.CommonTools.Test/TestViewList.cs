@@ -143,6 +143,11 @@ namespace Core.Plugins.CommonTools.Test
             throw new NotImplementedException();
         }
 
+        public void UpdateToolTips()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<T> GetActiveViews<T>() where T : class, IView
         {
             return views.OfType<T>();

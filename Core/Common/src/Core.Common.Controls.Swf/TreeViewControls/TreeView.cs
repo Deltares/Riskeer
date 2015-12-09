@@ -18,6 +18,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
     public class TreeView : System.Windows.Forms.TreeView, ITreeView
     {
         public event EventHandler SelectedNodeChanged;
+        public event EventHandler OnUpdate;
 
         public event Action BeforeWaitUntilAllEventsAreProcessed;
 
@@ -284,6 +285,19 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             if (controller != null)
             {
                 controller.UpdateNode(treeNode, treeNode.Tag);
+                FireOnUpdateEvent(treeNode);
+            }
+        }
+
+        /// <summary>
+        /// Fires the OnUpdate event with the given <see cref="treeNode"/>.
+        /// </summary>
+        /// <param name="treeNode">The <see cref="ITreeNode"/> to fire an update event for.</param>
+        private void FireOnUpdateEvent(ITreeNode treeNode)
+        {
+            if (OnUpdate != null)
+            {
+                OnUpdate(treeNode, EventArgs.Empty);
             }
         }
 
