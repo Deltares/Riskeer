@@ -63,7 +63,9 @@ namespace Core.Common.Base.Test.Plugin
             applicationCore.AddPlugin(applicationPlugin);
 
             // Assert
-            Assert.AreEqual(1, applicationCore.GetSupportedFileImporters(targetItem).Count());
+            var supportedFileImporters = applicationCore.GetSupportedFileImporters(targetItem).ToArray();
+            Assert.AreEqual(1, supportedFileImporters.Length);
+            Assert.AreSame(fileImporter, supportedFileImporters[0]);
         }
 
         [Test]
@@ -146,10 +148,10 @@ namespace Core.Common.Base.Test.Plugin
             applicationCore.AddPlugin(applicationPlugin);
 
             // Call
-            var supportedImporters = applicationCore.GetSupportedFileImporters(targetItem).ToList();
+            var supportedImporters = applicationCore.GetSupportedFileImporters(targetItem).ToArray();
 
             // Assert
-            Assert.AreEqual(2, supportedImporters.Count);
+            Assert.AreEqual(2, supportedImporters.Length);
             Assert.AreSame(supportedFileImporter1, supportedImporters[0]);
             Assert.AreSame(supportedFileImporter2, supportedImporters[1]);
         }
@@ -176,11 +178,8 @@ namespace Core.Common.Base.Test.Plugin
 
             applicationCore.AddPlugin(applicationPlugin);
 
-            // Call
-            var supportedImporters = applicationCore.GetSupportedFileImporters(null).ToList();
-
-            // Assert
-            Assert.AreEqual(0, supportedImporters.Count);
+            // Call / Assert
+            CollectionAssert.IsEmpty(applicationCore.GetSupportedFileImporters(null));
         }
 
         [Test]
@@ -213,10 +212,10 @@ namespace Core.Common.Base.Test.Plugin
             applicationCore.AddPlugin(applicationPlugin);
 
             // Call
-            var supportedExporters = applicationCore.GetSupportedFileExporters(targetItem).ToList();
+            var supportedExporters = applicationCore.GetSupportedFileExporters(targetItem).ToArray();
 
             // Assert
-            Assert.AreEqual(2, supportedExporters.Count);
+            Assert.AreEqual(2, supportedExporters.Length);
             Assert.AreSame(supportedFileExporter1, supportedExporters[0]);
             Assert.AreSame(supportedFileExporter2, supportedExporters[1]);
         }
@@ -243,11 +242,8 @@ namespace Core.Common.Base.Test.Plugin
 
             applicationCore.AddPlugin(applicationPlugin);
 
-            // Call
-            var supportedExporters = applicationCore.GetSupportedFileExporters(null).ToList();
-
-            // Assert
-            Assert.AreEqual(0, supportedExporters.Count);
+            // Call / Assert
+            CollectionAssert.IsEmpty(applicationCore.GetSupportedFileExporters(null));
         }
 
         [Test]
@@ -279,10 +275,10 @@ namespace Core.Common.Base.Test.Plugin
             applicationCore.AddPlugin(applicationPlugin);
 
             // Call
-            var supportedDataItemInfos = applicationCore.GetSupportedDataItemInfos(new object()).ToList();
+            var supportedDataItemInfos = applicationCore.GetSupportedDataItemInfos(new object()).ToArray();
 
             // Assert
-            Assert.AreEqual(1, supportedDataItemInfos.Count);
+            Assert.AreEqual(1, supportedDataItemInfos.Length);
             Assert.AreSame(supportedDataItemInfo, supportedDataItemInfos[0]);
         }
 
@@ -306,11 +302,8 @@ namespace Core.Common.Base.Test.Plugin
 
             applicationCore.AddPlugin(applicationPlugin);
 
-            // Call
-            var supportedDataItemInfos = applicationCore.GetSupportedDataItemInfos(null).ToList();
-
-            // Assert
-            Assert.AreEqual(0, supportedDataItemInfos.Count);
+            // Call / Assert
+            CollectionAssert.IsEmpty(applicationCore.GetSupportedDataItemInfos(null));
         }
 
         [Test]

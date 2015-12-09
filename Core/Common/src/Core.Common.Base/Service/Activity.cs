@@ -30,6 +30,7 @@ namespace Core.Common.Base.Service
         /// </summary>
         protected Activity()
         {
+            Name = "";
             State = ActivityState.None;
             LogMessages = new Collection<string>();
         }

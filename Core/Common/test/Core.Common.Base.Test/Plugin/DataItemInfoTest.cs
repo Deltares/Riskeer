@@ -15,8 +15,8 @@ namespace Core.Common.Base.Test.Plugin
 
             // Assert
             Assert.IsNull(dataItemInfo.ValueType);
-            Assert.IsNull(dataItemInfo.Name);
-            Assert.IsNull(dataItemInfo.Category);
+            Assert.AreEqual("", dataItemInfo.Name);
+            Assert.AreEqual("", dataItemInfo.Category);
             Assert.IsNull(dataItemInfo.Image);
             Assert.IsNull(dataItemInfo.AdditionalOwnerCheck);
             Assert.IsNull(dataItemInfo.CreateData);
@@ -30,8 +30,8 @@ namespace Core.Common.Base.Test.Plugin
 
             // Assert
             Assert.AreEqual(typeof(double), dataItemInfo.ValueType);
-            Assert.IsNull(dataItemInfo.Name);
-            Assert.IsNull(dataItemInfo.Category);
+            Assert.AreEqual("", dataItemInfo.Name);
+            Assert.AreEqual("", dataItemInfo.Category);
             Assert.IsNull(dataItemInfo.Image);
             Assert.IsNull(dataItemInfo.AdditionalOwnerCheck);
             Assert.IsNull(dataItemInfo.CreateData);

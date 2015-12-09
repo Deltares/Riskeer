@@ -15,7 +15,7 @@ namespace Core.Common.Base.Test.Service
             var activity = new SimpleActivity(false, false, false);
 
             // Assert
-            Assert.IsNull(activity.Name);
+            Assert.AreEqual("", activity.Name);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.IsNull(activity.ProgressText);
             CollectionAssert.IsEmpty(activity.LogMessages);
@@ -40,16 +40,19 @@ namespace Core.Common.Base.Test.Service
         public void ProgressText_SetValue_ProgressChangedListenersAreNotified()
         {
             // Setup
+            const string someProgress = "Some progress";
+
             var counter = 0;
             var activity = new SimpleActivity(false, false, false);
 
             activity.ProgressChanged += (sender, args) => counter++;
 
             // Call
-            activity.SetProgressText("Some progress");
+            activity.SetProgressText(someProgress);
 
             // Assert
             Assert.AreEqual(1, counter);
+            Assert.AreEqual(someProgress, activity.ProgressText);
         }
 
         [Test]
