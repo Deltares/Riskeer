@@ -242,23 +242,6 @@ namespace Core.Common.Utils.Test.Reflection
             Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
         }
 
-        [Test]
-        public void MemberwiseCloneClassWithBaseClass()
-        {
-            var otherName = "onm";
-            var name = "nm";
-
-            var inst = new SuperCloneTestClass
-            {
-                OtherName = otherName, Name = name
-            };
-
-            var clone = TypeUtils.MemberwiseClone(inst);
-
-            Assert.AreEqual(otherName, clone.OtherName);
-            Assert.AreEqual(name, clone.Name);
-        }
-
         private enum TestEnum
         {
             [Description("Enum value 1")]

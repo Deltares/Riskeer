@@ -123,52 +123,6 @@ namespace Core.Common.Utils.Reflection
             return CallMethod(methodInfo, instance, args);
         }
 
-        /// <summary>
-        /// (Shallow) copies all public members of a class: Value types are 'cloned', references to other objects are left as-is. Works 
-        /// well with NHibernate.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="inst"></param>
-        /// <returns></returns>
-        public static T MemberwiseClone<T>(T inst)
-        {
-            inst = Unproxy(inst);
-
-            var clonedInst = CreateInstance<T>(inst.GetType());
-
-            foreach (var fieldAndValue in GetNonInfrastructureFields(inst, inst.GetType()))
-            {
-                var fieldInfo = fieldAndValue.Key;
-                var value = fieldAndValue.Value;
-                fieldInfo.SetValue(clonedInst, value);
-            }
-
-            return clonedInst;
-        }
-
-        public static T Unproxy<T>(T inst)
-        {
-            var isProxy = inst.GetType().GetInterfaces().Any(i => i.Name == "INHibernateProxy");
-
-            if (!isProxy)
-            {
-                return inst;
-            }
-
-            var type = AppDomain.CurrentDomain.GetAssemblies()
-                                .Where(a => a.FullName.Contains("NHibernate"))
-                                .SelectMany(a => a.GetTypes())
-                                .First(t => t.Name == "RingtoetsProxyInterceptor");
-
-            //static deproxy method:
-            var deproxyMethod = type.GetMethod("GetRealObject", BindingFlags.NonPublic | BindingFlags.Static);
-
-            return (T) deproxyMethod.Invoke(null, new object[]
-            {
-                inst
-            });
-        }
-
         public static object CallStaticGenericMethod(Type type, string methodName, Type genericType,
                                                      params object[] args)
         {
