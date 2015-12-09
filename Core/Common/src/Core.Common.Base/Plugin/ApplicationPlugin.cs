@@ -25,27 +25,27 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="IFileImporter"/>.
+        /// This method returns an enumeration of <see cref="IFileImporter"/>.
         /// </summary>
-        /// <returns>The collection of <see cref="IFileImporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
+        /// <returns>The enumeration of <see cref="IFileImporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
         public virtual IEnumerable<IFileImporter> GetFileImporters()
         {
             yield break;
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="IFileExporter"/>.
+        /// This method returns an enumeration of <see cref="IFileExporter"/>.
         /// </summary>
-        /// <returns>The collection of <see cref="IFileExporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
+        /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
         {
             yield break;
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="DataItemInfo"/>.
+        /// This method returns an enumeration of <see cref="DataItemInfo"/>.
         /// </summary>
-        /// <returns>The collection of <see cref="DataItemInfo"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
+        /// <returns>The enumeration of <see cref="DataItemInfo"/> provided by the <see cref="ApplicationPlugin"/>.</returns>
         public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield break;

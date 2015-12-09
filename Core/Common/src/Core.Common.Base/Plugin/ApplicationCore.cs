@@ -22,7 +22,7 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method adds <see cref="applicationPlugin"/> to the collection of <see cref="ApplicationPlugin"/> plugins.
+        /// This method adds <see cref="applicationPlugin"/> to the <see cref="ApplicationCore"/>.
         /// Additionally, the provided <see cref="ApplicationPlugin"/> is activated.
         /// </summary>
         /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to add and activate.</param>
@@ -34,7 +34,7 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method removes <see cref="applicationPlugin"/> from the collection of <see cref="ApplicationPlugin"/> plugins.
+        /// This method removes <see cref="applicationPlugin"/> from the <see cref="ApplicationCore"/>.
         /// Additionally, the provided <see cref="ApplicationPlugin"/> is deactivated.
         /// </summary>
         /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to remove and deactivate.</param>
@@ -46,10 +46,10 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="IFileImporter"/> that support the <paramref name="target"/>.
+        /// This method returns an enumeration of <see cref="IFileImporter"/> that support the <paramref name="target"/>.
         /// </summary>
-        /// <param name="target">The target to get the collection of supported <see cref="IFileImporter"/> for.</param>
-        /// <returns>The collection of supported <see cref="IFileImporter"/>.</returns>
+        /// <param name="target">The target to get the enumeration of supported <see cref="IFileImporter"/> for.</param>
+        /// <returns>The enumeration of supported <see cref="IFileImporter"/>.</returns>
         public IEnumerable<IFileImporter> GetSupportedFileImporters(object target)
         {
             if (target == null)
@@ -64,10 +64,10 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="IFileExporter"/> that support the <paramref name="source"/>.
+        /// This method returns an enumeration of <see cref="IFileExporter"/> that support the <paramref name="source"/>.
         /// </summary>
-        /// <param name="source">The source to get the collection of supported <see cref="IFileExporter"/> for.</param>
-        /// <returns>The collection of supported <see cref="IFileExporter"/>.</returns>
+        /// <param name="source">The source to get the enumeration of supported <see cref="IFileExporter"/> for.</param>
+        /// <returns>The enumeration of supported <see cref="IFileExporter"/>.</returns>
         public IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
         {
             if (source == null)
@@ -82,10 +82,10 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method returns a collection of <see cref="DataItemInfo"/> that are supported for <paramref name="owner"/>.
+        /// This method returns an enumeration of <see cref="DataItemInfo"/> that are supported for <paramref name="owner"/>.
         /// </summary>
-        /// <param name="owner">The owner to get the collection of supported <see cref="DataItemInfo"/> for.</param>
-        /// <returns>The collection of supported <see cref="DataItemInfo"/>.</returns>
+        /// <param name="owner">The owner to get the enumeration of supported <see cref="DataItemInfo"/> for.</param>
+        /// <returns>The enumeration of supported <see cref="DataItemInfo"/>.</returns>
         public IEnumerable<DataItemInfo> GetSupportedDataItemInfos(object owner)
         {
             if (owner == null)
@@ -99,7 +99,7 @@ namespace Core.Common.Base.Plugin
 
         public virtual void Dispose()
         {
-            foreach (var plugin in plugins.ToList())
+            foreach (var plugin in plugins.ToArray())
             {
                 RemovePlugin(plugin);
             }
