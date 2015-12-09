@@ -15,10 +15,7 @@ namespace Core.Common.Base.Test.Service
         public void Constructor_ImporterEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup / Call / Assert
-            new FileImportActivity(null, new object(), new[]
-            {
-                ""
-            });
+            new FileImportActivity(null, new object(), "");
         }
 
         [Test]
@@ -32,15 +29,12 @@ namespace Core.Common.Base.Test.Service
             mocks.ReplayAll();
 
             // Call / Assert
-            new FileImportActivity(fileImporter, null, new[]
-            {
-                ""
-            });
+            new FileImportActivity(fileImporter, null, "");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: filePaths")]
-        public void Constructor_FilesEqualsNull_ArgumentExceptionIsThrown()
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: filePath")]
+        public void Constructor_FilePathEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup
             var mocks = new MockRepository();
@@ -50,20 +44,6 @@ namespace Core.Common.Base.Test.Service
 
             // Call / Assert
             new FileImportActivity(fileImporter, new object(), null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "filePaths")]
-        public void Constructor_FilesEmpty_ArgumentExceptionIsThrown()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-
-            mocks.ReplayAll();
-
-            // Call / Assert
-            new FileImportActivity(fileImporter, new object(), new string[0]);
         }
 
         [Test]
@@ -78,17 +58,14 @@ namespace Core.Common.Base.Test.Service
             mocks.ReplayAll();
 
             // Call
-            var fileImportActivity = new FileImportActivity(fileImporter, new object(), new[]
-            {
-                ""
-            });
+            var fileImportActivity = new FileImportActivity(fileImporter, new object(), "");
 
             // Assert
             Assert.AreEqual(fileImporter.Name, fileImportActivity.Name);
         }
 
         [Test]
-        public void Run_FileImportActivityWithFileImporterForTwoFiles_AllProvidedFilesShouldBeImported()
+        public void Run_FileImportActivityWithFileImporter_ProvidedFileShouldBeImported()
         {
             // Setup
             var mocks = new MockRepository();
@@ -96,16 +73,11 @@ namespace Core.Common.Base.Test.Service
             var target = new object();
 
             fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
-            fileImporter.Expect(i => i.Import(target, "file1")).Return(true);
-            fileImporter.Expect(i => i.Import(target, "file2")).Return(true);
+            fileImporter.Expect(i => i.Import(target, "file")).Return(true);
 
             mocks.ReplayAll();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
-            {
-                "file1",
-                "file2"
-            });
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "file");
 
             // Call
             fileImportActivity.Run();
@@ -127,11 +99,7 @@ namespace Core.Common.Base.Test.Service
 
             mocks.ReplayAll();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
-            {
-                "file1",
-                "file2"
-            });
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "");
 
             // Call
             fileImportActivity.Cancel();
@@ -141,75 +109,13 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Run_CancelledFileImportActivityWithFileImporterForTwoFiles_NoImportsShouldBePerformed()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            var target = new object();
-
-            fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
-            fileImporter.Expect(x => x.Cancel()).IgnoreArguments().Repeat.Any();
-
-            mocks.ReplayAll();
-
-            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
-            {
-                "file1",
-                "file2"
-            });
-
-            fileImportActivity.Cancel();
-
-            // Call
-            fileImportActivity.Run();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Run_CancelledAndRanFileImportActivityWithFileImporterForTwoFiles_AllProvidedFilesShouldBeImported()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
-            var target = new object();
-
-            fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
-            fileImporter.Expect(i => i.Import(target, "file1")).Return(true);
-            fileImporter.Expect(i => i.Import(target, "file2")).Return(true);
-            fileImporter.Expect(x => x.Cancel()).IgnoreArguments().Repeat.Any();
-
-            mocks.ReplayAll();
-
-            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
-            {
-                "file1",
-                "file2"
-            });
-
-            fileImportActivity.Cancel();
-            fileImportActivity.Run();
-
-            // Call
-            fileImportActivity.Run(); // Reuse the activity
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Run_FileImportActivityWithSimpleFileImporterForOneFile_ProgressTextShouldBeSetAfterImporterProgressChanged()
+        public void Run_FileImportActivityWithSimpleFileImporter_ProgressTextShouldBeSetAfterImporterProgressChanged()
         {
             // Setup
             var target = new object();
             var fileImporter = new SimpleFileImporter();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
-            {
-                "file"
-            });
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "file");
 
             // Call
             fileImportActivity.Run(); // Reuse the activity
@@ -228,11 +134,7 @@ namespace Core.Common.Base.Test.Service
 
             mocks.ReplayAll();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, new[]
-            {
-                "file1",
-                "file2"
-            });
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "");
 
             // Call
             fileImportActivity.Finish();

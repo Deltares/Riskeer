@@ -104,7 +104,7 @@ namespace Core.Common.Gui
 
             Log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
 
-            ActivityProgressDialogRunner.Run(new FileImportActivity(importer, target, dialog.FileNames.ToArray()));
+            ActivityProgressDialogRunner.Run(dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)));
         }
     }
 }

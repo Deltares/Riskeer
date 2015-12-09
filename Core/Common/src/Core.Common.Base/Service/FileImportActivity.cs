@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Base.Properties;
 
@@ -11,20 +10,17 @@ namespace Core.Common.Base.Service
     public class FileImportActivity : Activity
     {
         private readonly object target;
-        private readonly string[] filePaths;
+        private readonly string filePath;
         private readonly IFileImporter fileImporter;
-
-        private bool shouldCancel;
 
         /// <summary>
         /// Constructs a new <see cref="FileImportActivity"/>.
         /// </summary>
         /// <param name="fileImporter">The <see cref="IFileImporter"/> to use for importing the data.</param>
         /// <param name="target">The target object to import the data to.</param>
-        /// <param name="filePaths">The paths of the files to import the data from.</param>
+        /// <param name="filePath">The path of the file to import the data from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePaths"/> is empty.</exception>
-        public FileImportActivity(IFileImporter fileImporter, object target, string[] filePaths)
+        public FileImportActivity(IFileImporter fileImporter, object target, string filePath)
         {
             if (fileImporter == null)
             {
@@ -36,19 +32,14 @@ namespace Core.Common.Base.Service
                 throw new ArgumentNullException("target");
             }
 
-            if (filePaths == null)
+            if (filePath == null)
             {
-                throw new ArgumentNullException("filePaths");
-            }
-
-            if (!filePaths.Any())
-            {
-                throw new ArgumentException("filePaths");
+                throw new ArgumentNullException("filePath");
             }
 
             this.fileImporter = fileImporter;
             this.target = target;
-            this.filePaths = filePaths;
+            this.filePath = filePath;
         }
 
         public override string Name
@@ -61,23 +52,11 @@ namespace Core.Common.Base.Service
 
         protected override void OnRun()
         {
-            foreach (var fileName in filePaths)
-            {
-                if (shouldCancel)
-                {
-                    break;
-                }
-
-                ImportFromFile(fileName);
-            }
-
-            shouldCancel = false;
+            ImportFromFile(filePath);
         }
 
         protected override void OnCancel()
         {
-            shouldCancel = true;
-
             fileImporter.Cancel();
         }
 
