@@ -439,7 +439,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mockRepository.ReplayAll();
 
             var contextMenuBuilder = new ContextMenuBuilder(commandHandler, nodeMock);
-            var contextMenuBuilderProviderMock = new SimpleContextMenuBuilderProvder(contextMenuBuilder);
+            var contextMenuBuilderProviderMock = new SimpleContextMenuBuilderProvider(contextMenuBuilder);
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
 

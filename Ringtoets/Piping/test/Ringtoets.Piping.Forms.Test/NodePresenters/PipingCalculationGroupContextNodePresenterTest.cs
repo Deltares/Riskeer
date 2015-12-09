@@ -919,7 +919,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var menuBuilder = new ContextMenuBuilder(guiCommandHandler, node);
 
-            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvder(menuBuilder);
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
 
             var group = new PipingCalculationGroup();
             group.Children.Add(new PipingCalculation
@@ -1031,7 +1031,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             nodeData.Attach(observer);
 
-            var builderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var builderProvider = new SimpleContextMenuBuilderProvider(new CustomItemsOnlyContextMenuBuilder());
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider)
             {
                 TreeView = treeView
@@ -1098,7 +1098,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             nodeData.Attach(observer);
 
-            var builderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var builderProvider = new SimpleContextMenuBuilderProvider(new CustomItemsOnlyContextMenuBuilder());
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(builderProvider)
             {
                 TreeView = treeView
@@ -1132,7 +1132,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var node = mockRepository.StrictMock<ITreeNode>();
             mockRepository.ReplayAll();
 
-            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(new CustomItemsOnlyContextMenuBuilder());
 
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validCalculation.Name = "A";
@@ -1181,7 +1181,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var node = mockRepository.StrictMock<ITreeNode>();
             mockRepository.ReplayAll();
 
-            var menuBuilderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var menuBuilderProvider = new SimpleContextMenuBuilderProvider(new CustomItemsOnlyContextMenuBuilder());
 
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validCalculation.Name = "A";
@@ -1237,7 +1237,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvder(new CustomItemsOnlyContextMenuBuilder());
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(new CustomItemsOnlyContextMenuBuilder());
 
             var calculation1 = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation1.Name = "A";
