@@ -11,7 +11,7 @@ namespace Core.Common.Base.Test.Service
     public class FileImportActivityTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "fileImporter")]
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: fileImporter")]
         public void Constructor_ImporterEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup / Call / Assert
@@ -22,7 +22,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "target")]
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: target")]
         public void Constructor_TargetEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup
@@ -39,7 +39,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "files")]
+        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: filePaths")]
         public void Constructor_FilesEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup
@@ -53,7 +53,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "files")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "filePaths")]
         public void Constructor_FilesEmpty_ArgumentExceptionIsThrown()
         {
             // Setup

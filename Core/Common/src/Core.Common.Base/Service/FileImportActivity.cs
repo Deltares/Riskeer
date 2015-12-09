@@ -22,24 +22,28 @@ namespace Core.Common.Base.Service
         /// <param name="fileImporter">The <see cref="IFileImporter"/> to use for importing the data.</param>
         /// <param name="target">The target object to import the data to.</param>
         /// <param name="filePaths">The paths of the files to import the data from.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="fileImporter"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="target"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePaths"/> is <c>null</c> or contains no file paths.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePaths"/> is empty.</exception>
         public FileImportActivity(IFileImporter fileImporter, object target, string[] filePaths)
         {
             if (fileImporter == null)
             {
-                throw new ArgumentException("fileImporter");
+                throw new ArgumentNullException("fileImporter");
             }
 
             if (target == null)
             {
-                throw new ArgumentException("target");
+                throw new ArgumentNullException("target");
             }
 
-            if (filePaths == null || !filePaths.Any())
+            if (filePaths == null)
             {
-                throw new ArgumentException("files");
+                throw new ArgumentNullException("filePaths");
+            }
+
+            if (!filePaths.Any())
+            {
+                throw new ArgumentException("filePaths");
             }
 
             this.fileImporter = fileImporter;
@@ -81,7 +85,7 @@ namespace Core.Common.Base.Service
 
         private void ImportFromFile(string fileName)
         {
-            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2, currentStep, totalSteps, currentStepName); };
+            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2, currentStep, totalSteps, currentStepName); };
 
             fileImporter.Import(target, fileName);
         }

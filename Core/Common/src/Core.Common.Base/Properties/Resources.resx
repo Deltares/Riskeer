@@ -126,7 +126,7 @@
   <data name="Activity_Finish_Execution_of_ActivityName_0_has_failed" xml:space="preserve">
     <value>Uitvoeren van '{0}' is mislukt.</value>
   </data>
-  <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__ProgressText_2" xml:space="preserve">
+  <data name="FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2" xml:space="preserve">
     <value>Stap {0} van {1}  |  {2}</value>
   </data>
   <data name="Project_Constructor_Default_name" xml:space="preserve">

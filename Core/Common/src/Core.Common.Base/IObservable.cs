@@ -2,9 +2,9 @@
 {
     /// <summary>
     /// Interface that describes the methods that need to be implemented on classes that are supposed to be observable.
-    /// Observables should (asynchronously) notify their observers of the fact that their internal state has changed.
-    /// <seealso cref="IObserver"/>
+    /// Observables should notify their observers of the fact that their internal state has changed.
     /// </summary>
+    /// <seealso cref="IObserver"/>
     public interface IObservable
     {
         /// <summary>

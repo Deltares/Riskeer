@@ -23,7 +23,8 @@ namespace Core.Common.Base
 
         public void NotifyObservers()
         {
-            // Iterate through a copy of the list of observers; an update of one observer might result in detaching another observer (which will result in a "list modified" exception over here otherwise)
+            // Iterate through a copy of the list of observers; an update of one observer might result in detaching
+            // another observer (which will result in a "list modified" exception over here otherwise)
             foreach (var observer in observers.ToArray())
             {
                 // Ensure the observer is still part of the original list of observers

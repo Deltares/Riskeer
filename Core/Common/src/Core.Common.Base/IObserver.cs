@@ -2,8 +2,8 @@
 {
     /// <summary>
     /// Interface that describes the methods that need to be implemented on classes that are supposed to be observer.
-    /// <seealso cref="IObservable"/>
     /// </summary>
+    /// <seealso cref="IObservable"/>
     public interface IObserver
     {
         /// <summary>

@@ -90,10 +90,10 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Stap {0} van {1}  |  {2}.
         /// </summary>
-        internal static string FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_____ProgressText_2 {
+        internal static string FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2 {
             get {
-                return ResourceManager.GetString("FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1__|__P" +
-                        "rogressText_2", resourceCulture);
+                return ResourceManager.GetString("FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_Progr" +
+                        "essText_2", resourceCulture);
             }
         }
         
