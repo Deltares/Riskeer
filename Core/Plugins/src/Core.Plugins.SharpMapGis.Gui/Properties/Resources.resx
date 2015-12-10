@@ -666,7 +666,7 @@
     <value>Weergave openen...</value>
   </data>
   <data name="Ribbon_View_MapContents_Header" xml:space="preserve">
-    <value>Kaartinhoud</value>
+    <value>Kaart</value>
   </data>
   <data name="Ribbon_View_ShowHide_Header" xml:space="preserve">
     <value>Weergeven/Verbergen</value>

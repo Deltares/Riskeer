@@ -71,7 +71,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw &amp;item....
+        ///   Looks up a localized string similar to &amp;Nieuw element....
         /// </summary>
         public static string AddItem {
             get {
@@ -956,7 +956,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project.
+        ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
         public static string Ribbon_ProjectExplorer {
             get {

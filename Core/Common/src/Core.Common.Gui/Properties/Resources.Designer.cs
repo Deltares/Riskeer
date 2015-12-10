@@ -1424,7 +1424,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toevoegen Welkomspagina....
+        ///   Looks up a localized string similar to Toevoegen Startpagina....
         /// </summary>
         public static string MainWindow_ShowStartPage_Adding_welcome_page_ {
             get {
