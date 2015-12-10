@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-
 using Core.Common.Base;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Properties;
-
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
@@ -13,7 +10,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : Observable, IFailureMechanism
+    public class PipingFailureMechanism : BaseFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
@@ -28,6 +25,7 @@ namespace Ringtoets.Piping.Data
             pipingCalculationGroup.Children.Add(new PipingCalculation());
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
+            Name = Resources.PipingFailureMechanism_DisplayName;
         }
 
         /// <summary>

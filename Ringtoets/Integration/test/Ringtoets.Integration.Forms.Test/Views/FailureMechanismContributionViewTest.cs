@@ -1,10 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Data;
+using Ringtoets.Common.Data;
+using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -13,20 +15,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class FailureMechanismContributionViewTest
     {
         private MockRepository mockRepository;
+        private FailureMechanismContribution distribution;
 
         [SetUp]
         public void Setup()
         {
             mockRepository = new MockRepository();
+            var random = new Random(21);
+            var norm = random.Next(0, 200000);
+            var otherContribution = random.Next(0,100);
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            distribution = new FailureMechanismContribution(new[] { failureMechanism }, otherContribution, norm);
         }
 
         [Test]
         public void NormTextBox_Initialize_TextSetToData()
         {
             // Setup
-            var norm = 3000;
+            mockRepository.ReplayAll();
 
-            var distribution = new FailureMechanismContribution(norm);
             var distributionView = new FailureMechanismContributionView
             {
                 Data = distribution
@@ -36,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var result = distributionView.Controls.Find("normInput", true)[0].Text;
 
             // Assert
-            Assert.AreEqual(norm.ToString(), result);
+            Assert.AreEqual(distribution.Norm.ToString(), result);
         }
 
         [Test]
@@ -48,9 +55,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            var norm = 3000;
-
-            var distribution = new FailureMechanismContribution(norm);
             distribution.Attach(observerMock);
             var distributionView = new FailureMechanismContributionView
             {
@@ -69,9 +73,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            var norm = 3000;
-
-            var distribution = new FailureMechanismContribution(norm);
             distribution.Attach(observerMock);
             var distributionView = new FailureMechanismContributionView
             {
@@ -85,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var normTester = new ControlTester("normInput");
 
             // Precondition
-            Assert.AreEqual(norm.ToString(), normTester.Text);
+            Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
 
             // Call
             normTester.Properties.Text = 200.ToString();

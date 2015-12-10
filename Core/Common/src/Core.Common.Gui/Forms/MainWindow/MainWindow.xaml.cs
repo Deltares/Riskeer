@@ -16,10 +16,11 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using Core.Common.Controls;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
+using Core.Common.Gui.Properties;
+using Core.Common.Gui.Theme;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Interop;
@@ -31,10 +32,10 @@ using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Xceed.Wpf.AvalonDock.Themes;
-using WindowsFormApplication = System.Windows.Forms.Application;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using IWin32Window = System.Windows.Forms.IWin32Window;
+using WindowsFormApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Forms.MainWindow
 {
@@ -163,7 +164,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             get
             {
-                return Enumerable.OfType<IProjectExplorer>(Gui.ToolWindowViews).FirstOrDefault();
+                return Gui.ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
             }
         }
 
@@ -224,7 +225,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void SaveLayout()
         {
-            if (Properties.Settings.Default.autosaveWindowLayout)
+            if (Settings.Default.autosaveWindowLayout)
             {
                 SaveWindowAppearance();
                 OnSaveLayout("normal");
@@ -522,7 +523,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void AddRecentlyOpenedProjectsToFileMenu()
         {
-            var mruList = Properties.Settings.Default["mruList"] as StringCollection;
+            var mruList = Settings.Default["mruList"] as StringCollection;
 
             foreach (var recent in mruList)
             {
@@ -574,7 +575,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void CommitMruToSettings()
         {
-            var mruList = (StringCollection) Properties.Settings.Default["mruList"];
+            var mruList = (StringCollection) Settings.Default["mruList"];
 
             mruList.Clear();
 
@@ -633,7 +634,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
             //TODO: Implement
-            return;
 
             // Original code:
             //var saveProject = Gui.CommandHandler.SaveProject();
@@ -643,7 +643,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
             //TODO: Implement
-            return;
 
             // Original code:
             //var saveProject = Gui.CommandHandler.SaveProjectAs();
@@ -653,7 +652,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OnAfterProjectSaveOrOpen(bool actionSuccesful)
         {
             //TODO: Implement
-            return;
 
             // Original code:
             /*
@@ -669,7 +667,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
             //TODO: Implement
-            return;
 
             // Original code:
             //var succesful = Gui.CommandHandler.TryOpenExistingProject();
@@ -679,7 +676,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void OnFileCloseClicked(object sender, RoutedEventArgs e)
         {
             //TODO: Implement
-            return;
 
             // Original code:
             //Gui.CommandHandler.TryCloseProject();
@@ -816,10 +812,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void RestoreWindowAppearance()
         {
             WindowStartupLocation = WindowStartupLocation.Manual;
-            var x = Properties.Settings.Default.MainWindow_X;
-            var y = Properties.Settings.Default.MainWindow_Y;
-            var width = Properties.Settings.Default.MainWindow_Width;
-            var height = Properties.Settings.Default.MainWindow_Height;
+            var x = Settings.Default.MainWindow_X;
+            var y = Settings.Default.MainWindow_Y;
+            var width = Settings.Default.MainWindow_Width;
+            var height = Settings.Default.MainWindow_Height;
             var rec = new Rectangle(x, y, width, height);
 
             if (!IsVisibleOnAnyScreen(rec))
@@ -828,7 +824,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 height = Screen.PrimaryScreen.Bounds.Height - 200;
             }
 
-            var fs = Properties.Settings.Default.MainWindow_FullScreen;
+            var fs = Settings.Default.MainWindow_FullScreen;
             Width = width;
             Height = height;
             if (fs)
@@ -854,15 +850,15 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (WindowState == WindowState.Maximized)
             {
-                Properties.Settings.Default.MainWindow_FullScreen = true;
+                Settings.Default.MainWindow_FullScreen = true;
             }
             else
             {
-                Properties.Settings.Default.MainWindow_Width = (int) Width;
-                Properties.Settings.Default.MainWindow_Height = (int) Height;
-                Properties.Settings.Default.MainWindow_FullScreen = false;
+                Settings.Default.MainWindow_Width = (int) Width;
+                Settings.Default.MainWindow_Height = (int) Height;
+                Settings.Default.MainWindow_FullScreen = false;
             }
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -899,7 +895,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void UpdateRibbonExtensions()
         {
             // get all ribbon controls
-            ribbonCommandHandlers = Enumerable.Where<GuiPlugin>(Gui.Plugins, p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
+            ribbonCommandHandlers = Gui.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
 
             foreach (var ribbonExtension in ribbonCommandHandlers)
             {
@@ -1158,7 +1154,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         // Alt + Shift + M
         private void ShowMapLegendView(object sender, ExecutedRoutedEventArgs e)
         {
-            var mapContents = Enumerable.FirstOrDefault<IView>(Gui.ToolWindowViews, v => v.Text == Properties.Resources.ToolWindow_Name_Map);
+            var mapContents = Gui.ToolWindowViews.FirstOrDefault(v => v.Text == Properties.Resources.ToolWindow_Name_Map);
             if (mapContents != null)
             {
                 Gui.ToolWindowViews.ActiveView = mapContents;
@@ -1174,7 +1170,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         // Alt + Shift + C
         private void ShowChartContentsWindow(object sender, ExecutedRoutedEventArgs e)
         {
-            var chartContents = Enumerable.FirstOrDefault<IView>(Gui.ToolWindowViews, v => v.Text == Properties.Resources.ToolWindow_Name_Chart);
+            var chartContents = Gui.ToolWindowViews.FirstOrDefault(v => v.Text == Properties.Resources.ToolWindow_Name_Chart);
             if (chartContents != null)
             {
                 Gui.ToolWindowViews.ActiveView = chartContents;
@@ -1183,7 +1179,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void CanCloseDocumentTab(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Enumerable.Any<IView>(Gui.DocumentViews);
+            e.CanExecute = Gui.DocumentViews.Any();
         }
 
         private void ButtonResetUILayout_Click(object sender, RoutedEventArgs e)
@@ -1193,7 +1189,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)
         {
-            var aboutDialog = new SplashScreen.SplashScreen()
+            var aboutDialog = new SplashScreen.SplashScreen
             {
                 HasProgress = false,
                 VersionText = SettingsHelper.ApplicationVersion,

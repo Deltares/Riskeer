@@ -4,6 +4,7 @@ using Core.Common.Base;
 
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
+using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Properties;
 
 namespace Ringtoets.Integration.Data
@@ -20,7 +21,6 @@ namespace Ringtoets.Integration.Data
         {
             Name = "";
             ReferenceLine = new InputPlaceholder(Resources.ReferenceLine_DisplayName);
-            FailureMechanismContribution = new FailureMechanismContribution(3000);
             HydraulicBoundaryDatabase = new InputPlaceholder(Resources.HydraulicBoundaryDatabase_DisplayName);
         }
 
@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.
         /// </summary>
-        public FailureMechanismContribution FailureMechanismContribution { get; private set; }
+        public FailureMechanismContribution FailureMechanismContribution { get; protected set; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary database.

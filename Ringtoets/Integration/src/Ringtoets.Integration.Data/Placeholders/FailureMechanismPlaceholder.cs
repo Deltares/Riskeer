@@ -1,6 +1,5 @@
 ﻿using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
-
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Placeholders
@@ -41,5 +40,7 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// Gets the calculation results for this failure mechanism.
         /// </summary>
         public OutputPlaceholder AssessmentResult { get; private set; }
+
+        public double Contribution { get; set; }
     }
 }

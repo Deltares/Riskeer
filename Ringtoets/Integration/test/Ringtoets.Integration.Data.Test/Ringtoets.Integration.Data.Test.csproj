@@ -44,13 +44,19 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSectionBaseTest.cs" />
+    <Compile Include="Contribution\OtherFailureMechanismTest.cs" />
     <Compile Include="DikeAssessmentSectionTest.cs" />
     <Compile Include="DuneAssessmentSectionTest.cs" />
+    <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
+    <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Placeholders\FailureMechanismPlaceholderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

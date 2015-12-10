@@ -62,6 +62,7 @@ namespace Core.Plugins.ProjectExplorer
 
                 ProjectExplorer.ProjectTreeView.Project = Gui.Project;
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
+                ProjectExplorer.ProjectTreeView.TreeView.OnUpdate += (s, e) => Gui.UpdateToolTips();
             }
 
             //add project treeview as a toolwindowview.

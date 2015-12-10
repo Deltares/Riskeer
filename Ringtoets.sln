@@ -223,6 +223,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.TestUtil.Test",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil.Test\Ringtoets.Piping.Data.TestUtil.Test.csproj", "{35B78215-420B-4D7D-9959-9E9010601200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Data.Test", "Ringtoets\Common\test\Ringtoets.Common.Data.Test\Ringtoets.Common.Data.Test.csproj", "{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -888,6 +890,14 @@ Global
 		{35B78215-420B-4D7D-9959-9E9010601200}.Release|x86.Build.0 = Release|x86
 		{35B78215-420B-4D7D-9959-9E9010601200}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{35B78215-420B-4D7D-9959-9E9010601200}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.Debug|x86.ActiveCfg = Debug|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.Debug|x86.Build.0 = Debug|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.Release|x86.ActiveCfg = Release|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.Release|x86.Build.0 = Release|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -962,6 +972,7 @@ Global
 		{4D840673-3812-4338-A352-84854E32B8A0} = {0590D3BB-EB3E-4B53-BD64-1725E1CBB1F4}
 		{D4200F43-3F72-4F42-AF0A-8CED416A38EC} = {0590D3BB-EB3E-4B53-BD64-1725E1CBB1F4}
 		{886FDBE5-7065-4AB9-A894-869DBFD4E440} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
+		{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{3ED34ACD-41C9-4251-81EC-7493E0BFF57D} = {F8FFD6DD-19DA-47CE-A0BD-53F4E7D8BB86}
 		{1F0D20C2-7F04-431D-AF22-95A31FD53733} = {F8FFD6DD-19DA-47CE-A0BD-53F4E7D8BB86}
 		{492FFA2C-351E-48DB-BA51-B837657BAF2F} = {F8FFD6DD-19DA-47CE-A0BD-53F4E7D8BB86}

@@ -8,6 +8,7 @@ using Core.Common.Gui.Forms;
 
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Integration.Forms.PropertyClasses;

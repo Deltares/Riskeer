@@ -3,6 +3,7 @@ using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.NodePresenters

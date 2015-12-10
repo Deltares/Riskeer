@@ -54,12 +54,16 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             // probabilityDistributionGrid
             // 
+            this.probabilityDistributionGrid.AllowUserToResizeColumns = false;
+            this.probabilityDistributionGrid.AllowUserToResizeRows = false;
             resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
             this.probabilityDistributionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 3);
             this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
             this.probabilityDistributionGrid.ReadOnly = true;
             this.probabilityDistributionGrid.RowHeadersVisible = false;
+            this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.probabilityDistributionGrid.TabStop = false;
             // 
             // normInput
             // 

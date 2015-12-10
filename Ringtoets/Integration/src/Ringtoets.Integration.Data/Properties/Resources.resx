@@ -159,7 +159,13 @@
   <data name="GrassRevetmentFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Grasbekledingen</value>
   </data>
-  <data name="FailureMechanismContribution_FailureMechanismContribution_Other" xml:space="preserve">
+  <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
     <value>Overig</value>
+  </data>
+  <data name="FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism" xml:space="preserve">
+    <value>Kan geen bijdrage item maken zonder een faalmechanisme.</value>
+  </data>
+  <data name="FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection" xml:space="preserve">
+    <value>Kan geen bijdrageoverzicht maken zonder faalmechanismen.</value>
   </data>
 </root>

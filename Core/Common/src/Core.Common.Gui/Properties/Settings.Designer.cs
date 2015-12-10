@@ -202,9 +202,9 @@ namespace Core.Common.Gui.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Generic")]
-        public global::Core.Common.Gui.ColorTheme colorTheme {
+        public global::Core.Common.Gui.Theme.ColorTheme colorTheme {
             get {
-                return ((global::Core.Common.Gui.ColorTheme)(this["colorTheme"]));
+                return ((global::Core.Common.Gui.Theme.ColorTheme)(this["colorTheme"]));
             }
             set {
                 this["colorTheme"] = value;

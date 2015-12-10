@@ -60,7 +60,8 @@
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
     <Compile Include="ExpandableArrayConverterTest.cs" />
-    <Compile Include="Forms\Options\ColorThemeTest.cs" />
+    <Compile Include="Theme\ColorThemeExtensionsTest.cs" />
+    <Compile Include="Theme\ColorThemeTest.cs" />
     <Compile Include="Forms\Options\OptionsDialogTest.cs" />
     <Compile Include="Forms\SplashScreenTest.cs" />
     <Compile Include="GuiCommandHandlerTest.cs" />

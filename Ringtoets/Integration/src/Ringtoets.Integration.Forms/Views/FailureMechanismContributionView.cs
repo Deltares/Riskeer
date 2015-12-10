@@ -3,7 +3,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.Gui.Properties;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Contribution;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -105,27 +108,31 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeGridColumns()
         {
+            var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(e => e.Assessment);
+            var columnNameFormat = "column_{0}";
             var assessmentColumn = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Assessment",
-                HeaderText = "Toetsspoor",
-                Name = "column_Assessment",
+                DataPropertyName = assessmentName,
+                HeaderText = Resources.FailureMechanismContributionView_GridColumn_Assessment,
+                Name = string.Format(columnNameFormat, assessmentName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
             };
 
+            var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(e => e.Contribution);
             var probabilityColumn = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Probability",
-                HeaderText = "Toegestane bijdrage aan faalkans [%]",
-                Name = "column_Probability",
+                DataPropertyName = contributionName,
+                HeaderText = Resources.FailureMechanismContributionView_GridColumn_Contribution,
+                Name = string.Format(columnNameFormat, contributionName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
+            var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(e => e.ProbabilitySpace);
             var probabilityPerYearColumn = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "ProbabilityPerYear",
-                HeaderText = "Faalkansruimte (per jaar)",
-                Name = "column_ProbabilityPerYear",
+                DataPropertyName = probabilitySpaceName,
+                HeaderText = Resources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
+                Name = string.Format(columnNameFormat, probabilitySpaceName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             };
 

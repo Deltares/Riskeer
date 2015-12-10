@@ -18,7 +18,7 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<AssessmentSectionBase>(section);
-            Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
+            Assert.IsNull(section.FailureMechanismContribution);
 
             Assert.AreEqual("Duintraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ringtoets.Common.Data;
+using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Piping.Data;
@@ -9,7 +10,7 @@ namespace Ringtoets.Integration.Data
     /// <summary>
     /// The dike-based section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
-    public class DikeAssessmentSection : AssessmentSectionBase
+    public sealed class DikeAssessmentSection : AssessmentSectionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DikeAssessmentSection"/> class.
@@ -18,15 +19,44 @@ namespace Ringtoets.Integration.Data
         {
             Name = Resources.DikeAssessmentSection_DisplayName;
 
-            PipingFailureMechanism = new PipingFailureMechanism();
-            GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName);
-            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
-            OvertoppingFailureMechanism = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName);
-            ClosingFailureMechanism = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName);
-            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
-            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName);
-            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
-            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
+            PipingFailureMechanism = new PipingFailureMechanism
+            {
+                Contribution = 24
+            };
+            GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName)
+            {
+                Contribution = 24
+            };
+            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName)
+            {
+                Contribution = 4
+            };
+            OvertoppingFailureMechanism = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName)
+            {
+                Contribution = 2
+            };
+            ClosingFailureMechanism = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName)
+            {
+                Contribution = 4
+            };
+            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName)
+            {
+                Contribution = 2
+            };
+            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName)
+            {
+                Contribution = 4
+            };
+            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName)
+            {
+                Contribution = 3
+            };
+            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName)
+            {
+                Contribution = 3
+            };
+
+            FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 3000);
         }
 
         /// <summary>
@@ -83,7 +113,7 @@ namespace Ringtoets.Integration.Data
             yield return ClosingFailureMechanism;
             yield return FailingOfConstructionFailureMechanism;
             yield return StoneRevetmentFailureMechanism;
-            yield return AsphaltRevetmentFailureMechanism;
+            yield return AsphaltRevetmentFailureMechanism; 
             yield return GrassRevetmentFailureMechanism;
         }
     }

@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
         {
-            node.Text = PipingDataResources.PipingFailureMechanism_DisplayName;
+            node.Text = nodeData.Name;
             node.Image = PipingFormsResources.PipingIcon;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }

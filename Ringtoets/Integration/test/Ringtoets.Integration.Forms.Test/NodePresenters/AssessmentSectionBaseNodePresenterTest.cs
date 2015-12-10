@@ -74,16 +74,14 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             var mocks = new MockRepository();
             var projectNode = mocks.Stub<ITreeNode>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
-            var assessmentSection = new DikeAssessmentSection
-            {
-                Name = projectName
-            };
+            assessmentSection.Name = projectName;
 
             // Call
             nodePresenter.UpdateNode(null, projectNode, assessmentSection);
@@ -95,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_DataIsDikeAssessmentSection_ReturnDikeInputsAndFailureMechanisms()
+        public void GetChildNodeObjects_DataIsAssessmentSectionBase_ReturnDikeInputsAndFailureMechanisms()
         {
             // Setup
             var mocks = new MockRepository();
@@ -176,6 +174,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             assessmentSectionObserver.Expect(o => o.UpdateObserver());
@@ -184,7 +183,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
-            var assessmentSection = new DikeAssessmentSection();
             assessmentSection.Attach(assessmentSectionObserver);
 
             // Call
@@ -220,7 +218,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -240,7 +238,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
@@ -262,7 +260,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
@@ -286,7 +284,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var dataMockOwner = mocks.StrictMock<object>();
-            var targetMock = mocks.StrictMock<DikeAssessmentSection>();
+            var targetMock = mocks.StrictMock<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -305,7 +303,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -324,7 +322,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -344,7 +342,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -366,13 +364,12 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             observerMock.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
-
-            var assessmentSection = new DikeAssessmentSection();
 
             var project = new Project();
             project.Items.Add(assessmentSection);
@@ -394,7 +391,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<DikeAssessmentSection>();
+            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
@@ -417,6 +414,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
@@ -437,7 +435,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.GetContextMenu(nodeMock, new DikeAssessmentSection());
+            nodePresenter.GetContextMenu(nodeMock, assessmentSection);
 
             // Assert
             mocks.VerifyAll();

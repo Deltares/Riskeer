@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows.Forms;
+using Core.Common.Gui.Theme;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
