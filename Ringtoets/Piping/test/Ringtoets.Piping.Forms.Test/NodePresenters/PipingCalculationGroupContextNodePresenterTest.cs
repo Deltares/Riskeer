@@ -188,6 +188,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
             CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext);
+            
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(draggedItem);
             failureMechanism.CalculationsGroup.Children.Add(targetGroup);
@@ -254,10 +255,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var sourceFailureMechanism = new PipingFailureMechanism();
             sourceFailureMechanism.CalculationsGroup.Children.Add(draggedItem);
 
-            var targetGroup = new PipingCalculationGroup();
-            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingSoilProfile>());
+            PipingCalculationGroup targetGroup;
+            PipingCalculationGroupContext targetGroupContext;
+            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext);
+
             var targetFailureMechanism = new PipingFailureMechanism();
             targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
 
@@ -343,36 +344,18 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             originalOwnerObserver.Expect(o => o.UpdateObserver());
 
             var updatewasCalled = false;
-            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation => updatewasCalled = true);
+            var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updatewasCalled = true);
 
-            var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
-
-            var preUpdateDraggedItemContextNode = mockRepository.Stub<ITreeNode>();
-            preUpdateDraggedItemContextNode.Tag = draggedItemContext;
-            preUpdateDraggedItemContextNode.Expect(n => n.IsExpanded).Return(false);
-            preUpdateDraggedItemContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
-
-            var postUpdateDraggedItemContextNode = mockRepository.Stub<ITreeNode>();
-            postUpdateDraggedItemContextNode.Tag = draggedItemContext;
-            postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-            postUpdateDraggedItemContextNode.Expect(n => n.IsExpanded).Return(true);
-            postUpdateDraggedItemContextNode.Expect(n => n.Collapse());
-            postUpdateDraggedItemContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
-
-            newOwnerGroupContextNode.Tag = newOwnerGroupContext;
-            newOwnerGroupContextNode.Expect(n => n.IsExpanded).Return(false).Repeat.Times(3);
-            newOwnerGroupContextNode.Expect(n => n.Expand()); // Must expand new owner, otherwise selecting dragged node could not be visible when parent is collapsed.
-            newOwnerGroupContextNode.Expect(n => n.Nodes).WhenCalled(invocation =>
+            var preUpdateDraggedItemContextNode = CreateCollapsedNodeStub(draggedItemContext, new ITreeNode[0]);
+            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new ITreeNode[0]);
+            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(newOwnerGroupContext, new ITreeNode[0], invocation =>
             {
                 if (updatewasCalled)
                 {
-                    invocation.ReturnValue = new[]
-                    {
-                        postUpdateDraggedItemContextNode
-                    };
+                    invocation.ReturnValue = new[] { postUpdateDraggedItemContextNode };
                 }
-            }).Return(new ITreeNode[0]).Repeat.Times(2);
+            });
+            postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
             var treeView = mockRepository.Stub<ITreeView>();
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
@@ -438,20 +421,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             bool updatewasCalled = false;
             var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updatewasCalled = true);
-
-            var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
-
-            var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-
-            var postUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-            postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-
+            
             var existingItemStub1 = CreateStubTreeNode();
             var existingItemStub2 = CreateStubTreeNode();
-
-            newOwnerGroupContextNode.Expect(n => n.IsExpanded).Return(true).Repeat.Times(3);
-            newOwnerGroupContextNode.Tag = originalOwnerGroupContext;
-            newOwnerGroupContextNode.Expect(n => n.Nodes).WhenCalled(invocation =>
+            
+            var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
+            var postUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
+            ITreeNode[] preUpdateNewOwnerChildNodes = { existingItemStub1, preUpdateDraggedItemContextNode, existingItemStub2 };
+            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, preUpdateNewOwnerChildNodes, invocation =>
             {
                 if (updatewasCalled)
                 {
@@ -462,12 +439,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                         existingItemStub2
                     };
                 }
-            }).Return(new[]
-            {
-                existingItemStub1,
-                preUpdateDraggedItemContextNode,
-                existingItemStub2
-            }).Repeat.Times(2);
+            });
+            postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
             // Dragging within same group requires only recording state on that group.
             var treeView = mockRepository.Stub<ITreeView>();
@@ -537,23 +510,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy();
             var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updateWasCalled = true);
 
-            var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
-            var preUpdateCalculationContextNode = mockRepository.Stub<ITreeNode>();
-            preUpdateCalculationContextNode.Tag = draggedItemContext;
-            preUpdateCalculationContextNode.Expect(n => n.IsExpanded).Return(true);
-            preUpdateCalculationContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
-
-            var postUpdateCalculationContextNode = mockRepository.Stub<ITreeNode>();
-            postUpdateCalculationContextNode.Tag = draggedItemContext;
-            postUpdateCalculationContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-            postUpdateCalculationContextNode.Expect(n => n.IsExpanded).Return(false);
-            postUpdateCalculationContextNode.Expect(n => n.Expand());
-            postUpdateCalculationContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
-
-            newOwnerGroupContextNode.Tag = originalOwnerGroupContext;
-            newOwnerGroupContextNode.Expect(n => n.IsExpanded).Return(false).Repeat.Times(3);
-            newOwnerGroupContextNode.Expect(n => n.Expand()); // Must expand new owner, otherwise selecting dragged node could not be visible when parent is collapsed.
-            newOwnerGroupContextNode.Expect(n => n.Nodes).WhenCalled(invocation =>
+            var preUpdateCalculationContextNode = CreateExpandedNodeStub(draggedItemContext, new ITreeNode[0]);
+            var postUpdateCalculationContextNode = CreateNodeStubToBeExpanded(draggedItemContext, new ITreeNode[0]);
+            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, new ITreeNode[0], invocation =>
             {
                 if (updateWasCalled)
                 {
@@ -562,7 +521,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                         postUpdateCalculationContextNode
                     };
                 }
-            }).Return(new ITreeNode[0]).Repeat.Times(2);
+            });
+            postUpdateCalculationContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
             var treeView = mockRepository.Stub<ITreeView>();
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
