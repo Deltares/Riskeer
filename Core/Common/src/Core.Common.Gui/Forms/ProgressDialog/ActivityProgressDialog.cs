@@ -5,12 +5,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.ProgressDialog
 {
-    public partial class ActivityProgressDialog : Form
+    public partial class ActivityProgressDialog : DialogBase
     {
         private Task task;
         private Activity runningActivity;
@@ -18,7 +19,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ProgressReporter progressReporter = new ProgressReporter();
 
-        public ActivityProgressDialog(IEnumerable<Activity> activities)
+        public ActivityProgressDialog(IWin32Window owner, IEnumerable<Activity> activities) : base(owner, Resources.Ringtoets)
         {
             InitializeComponent();
 
@@ -97,6 +98,11 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 // Close the dialog
                 Close();
             });
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

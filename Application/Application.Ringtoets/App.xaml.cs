@@ -280,10 +280,9 @@ namespace Application.Ringtoets
 
         private static void HandleException(Exception exception, bool isTerminating)
         {
-            var mainWindow = gui.MainWindow as IWin32Window;
-            if (mainWindow != null)
+            if (gui != null && gui.MainWindow != null)
             {
-                var exceptionDialog = new ExceptionDialog(mainWindow, exception)
+                var exceptionDialog = new ExceptionDialog(gui.MainWindow, exception)
                 {
                     OpenLogClicked = () =>
                     {

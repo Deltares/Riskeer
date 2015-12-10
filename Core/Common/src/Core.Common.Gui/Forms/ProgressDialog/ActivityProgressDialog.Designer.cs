@@ -117,13 +117,8 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.progressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "ActivityProgressDialog";
-            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Voortgang";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActivityProgressDialogFormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxActivityDescription)).EndInit();

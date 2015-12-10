@@ -42,15 +42,15 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PipingFailureMechanismNodePresenter(Gui.ContextMenuProvider)
             {
-                RunActivitiesAction = ActivityProgressDialogRunner.Run
+                RunActivitiesAction = activities => ActivityProgressDialogRunner.Run(Gui.MainWindow, activities)
             };
             yield return new PipingCalculationContextNodePresenter(Gui.ContextMenuProvider)
             {
-                RunActivityAction = ActivityProgressDialogRunner.Run
+                RunActivityAction = activity => ActivityProgressDialogRunner.Run(Gui.MainWindow, activity)
             };
             yield return new PipingCalculationGroupContextNodePresenter(Gui.ContextMenuProvider)
             {
-                RunActivitiesAction = ActivityProgressDialogRunner.Run
+                RunActivitiesAction = activities => ActivityProgressDialogRunner.Run(Gui.MainWindow, activities)
             };
             yield return new PipingInputContextNodePresenter(Gui.ContextMenuProvider);
             yield return new PipingSurfaceLineCollectionNodePresenter(Gui.ContextMenuProvider);

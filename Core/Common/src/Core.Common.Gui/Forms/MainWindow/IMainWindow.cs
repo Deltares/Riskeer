@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using Core.Common.Gui.Forms.MessageWindow;
 
 namespace Core.Common.Gui.Forms.MainWindow
@@ -5,7 +6,7 @@ namespace Core.Common.Gui.Forms.MainWindow
     /// <summary>
     /// Main window of a shell application
     /// </summary>
-    public interface IMainWindow
+    public interface IMainWindow : IWin32Window
     {
         /// <summary>
         /// Project explorer tool window. See also <seealso cref="IGui.ToolWindowViews"/>.
