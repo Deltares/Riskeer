@@ -273,14 +273,6 @@ verticaal: {1}</value>
   <data name="CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property" xml:space="preserve">
     <value>De eigenschap 'DockStyle' van de inklapbare splitser kan geen waarde 'Filled' of 'None' hebben.</value>
   </data>
-  <data name="ExceptionDialog_GetExceptionText_Inner_exceptions_0_" xml:space="preserve">
-    <value>Interne fout:
-{0}</value>
-  </data>
-  <data name="ExceptionDialog_GetExceptionText_Loader_exceptions" xml:space="preserve">
-    <value>Foutmelding van de loader:
-</value>
-  </data>
   <data name="ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred_Ringtoets_needs_to_be_restarted" xml:space="preserve">
     <value>Er is een kritieke fout opgetreden. Ringtoets moet herstart worden.</value>
   </data>
@@ -408,9 +400,6 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   </data>
   <data name="TreeView_Error_Unable_to_resolve_node_presenter_for_null_data" xml:space="preserve">
     <value>Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object.</value>
-  </data>
-  <data name="bug__exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bug--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TreeNodeExpandCollapseState_Node_cannot_be_null_for_record_to_work" xml:space="preserve">
     <value>Knoop moet opgegeven zijn om diens toestand op te kunnen nemen.</value>

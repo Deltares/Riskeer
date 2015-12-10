@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls.Swf;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.CommonTools;

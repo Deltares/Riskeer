@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.Properties;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Common.Controls.Dialogs
 {
     public partial class ExceptionDialog : Form
     {
@@ -22,6 +22,8 @@ namespace Core.Common.Controls.Swf
         public ExceptionDialog(Exception exception)
         {
             InitializeComponent();
+
+            Icon = Resources.bug__exclamation;
 
             exceptionTextBox.Text = GetExceptionText(exception);
         }

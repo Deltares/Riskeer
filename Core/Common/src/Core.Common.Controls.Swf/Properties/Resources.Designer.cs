@@ -71,16 +71,6 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon bug__exclamation {
-            get {
-                object obj = ResourceManager.GetObject("bug__exclamation", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Argument bevat geen bestandsnaam..
         /// </summary>
         internal static string Chart_ExportAsImage_Argument_did_not_contain_a_filename {
@@ -335,26 +325,6 @@ namespace Core.Common.Controls.Swf.Properties {
         internal static string EditPointTool_GetCursorIcon_No_cursor_assigned_for_0_ {
             get {
                 return ResourceManager.GetString("EditPointTool_GetCursorIcon_No_cursor_assigned_for_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interne fout:
-        ///{0}.
-        /// </summary>
-        internal static string ExceptionDialog_GetExceptionText_Inner_exceptions_0_ {
-            get {
-                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Inner_exceptions_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Foutmelding van de loader:
-        ///.
-        /// </summary>
-        internal static string ExceptionDialog_GetExceptionText_Loader_exceptions {
-            get {
-                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Loader_exceptions", resourceCulture);
             }
         }
         

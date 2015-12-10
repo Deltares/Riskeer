@@ -282,38 +282,14 @@
   <data name="&gt;&gt;buttonOpenLog.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>536, 273</value>
-  </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
-        AAD///8B////AQAAAAUAAAALAAAAEQAAABcAAAAbAIWbmwCFm80AhpzLAIadywCInskAiJ/HAImgxwCJ
-        oMcAi6KV////AQAAAAMAFQA9AAAAFQAAACEADAAzADQAdwGAdOsiw875Kdvp/yja6f957fX/KNrp/yja
-        6f8cx9npAZmxnf///wH///8BAEkAs////wEAIQANAEcAkRlvGd0yp1v/GaWj+ULZ4P8z1d3/AAAA/zPV
-        3f801d3/DazBxwGetjv///8B////AQA8AIsAOgBnADwAdxxqHOFHrkf/QadB/x6pjf9d0tX/RtPX/3W0
-        tf9A0NL/O8rR7QGkvJn///8B////Af///wEANQALADEAuQlACc1Am0D7TrJO/0CZQP88sG3/Obq0/3zk
-        8f8AAAD/aNjn/yO4zMkBqMBD////Af///wH///8B////AQAsAHEiYSLlSJ5I/1SsVP8/jT//U6xV/x6n
-        lv+H4+f/VVVV/4Dk8PECrcadAYyTBf///wEALwCLADAATQAwAAsALAChNnk29U6bTv9ZqVn/PYQ9/1mp
-        Wf83onP/TsG+/6v1/P9FydnNAYWFjwAvAIv///8BADQAJQE3AYkBNwHLADEAx0CDQP1UmVT/X6lf/zp+
-        Ov9fqV//UppY/xujmf+T4OP7BIyL7QE8CYsANAAl////Af///wH///8B////AQE5AcdHiUf/Wp1a/2Wu
-        Zf83ezf/Za5l/1qdWv8tmnn/AZKU7QGzzGH///8B////Af///wH///8B////Af///wEBQwG5V6FX+2m1
-        af9uvW7/NXk1/269bv9ptWn/V6FX+wFDAbn///8B////Af///wH///8B////AQNmAxkCXwKrAlICyT6H
-        PvNMk0z/PIE8/zR4NP87gDv/SpBK/zyFPPMCUgLJAl8CqwNmAxn///8B////Af///wEDbAOZA2sDQwJZ
-        AmkvgS/hZ7Vn/3HBcf9xwXH/ccFx/2e1Z/8vgS/hAlkCaQNrA0MDbAOZ////Af///wH///8BA3QDd///
-        /wECXwIZDW4Nxz+UP/VhtmH/dst2/2G2Yf8/lD/1DW4NxwJfAhn///8BA3QDd////wH///8B////Af//
-        /wH///8B////AQNuA7/m5rP/OZM58WK3Yv05kznx5uaz/wNuA7////8B////Af///wH///8B////Af//
-        /wH///8B////Af///wEDdANhA3UDvwN1A78DdQO/A3UDvwN1A78DdANh////Af///wH///8B////Af//
-        /wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af//
-        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
-        //8AAP//AAD//w==
-</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

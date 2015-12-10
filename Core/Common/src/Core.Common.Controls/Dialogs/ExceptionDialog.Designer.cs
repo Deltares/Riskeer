@@ -1,6 +1,4 @@
-﻿using Core.Common.Controls.Swf.Properties;
-
-namespace Core.Common.Controls.Swf
+﻿namespace Core.Common.Controls.Dialogs
 {
     partial class ExceptionDialog
     {
