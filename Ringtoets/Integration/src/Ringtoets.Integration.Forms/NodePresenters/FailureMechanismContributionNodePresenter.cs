@@ -1,8 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Forms.Properties;
 
@@ -15,6 +15,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, FailureMechanismContribution nodeData)
         {
             node.Text = Data.Properties.Resources.FailureMechanismContribution_DisplayName;
+            node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
             node.Image = Resources.GenericInputOutputIcon;
         }
 
@@ -23,6 +24,8 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             return contextMenuBuilderProvider
                 .Get(node)
                 .AddOpenItem()
+                .AddSeparator()
+                .AddExportItem()
                 .Build();
         }
     }

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NodePresenters\AssessmentSectionBaseNodePresenterTest.cs" />
+    <Compile Include="NodePresenters\FailureMechanismContributionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\FailureMechanismNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PlaceholderWithReadonlyNameNodePresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
