@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
         [Test]
         [Combinatorial]
-        public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItemButFromOtherFailureMechanism_ReturnNoneOrFalse(
+        public void CanDropOrInsert_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnNoneOrFalse(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
             [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
         {
