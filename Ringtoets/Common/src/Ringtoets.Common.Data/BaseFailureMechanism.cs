@@ -4,7 +4,10 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data
 {
-
+    /// <summary>
+    /// This class is the base implementation for a failure mechanism. Classes which want
+    /// to implement IFailureMechanism can and should most likely inherit from this class.
+    /// </summary>
     public abstract class BaseFailureMechanism : Observable, IFailureMechanism
     {
         private double contribution;
@@ -25,6 +28,6 @@ namespace Ringtoets.Common.Data
             }
         }
 
-        public string Name { get; set; }
+        public string Name { get; protected set; }
     }
 }

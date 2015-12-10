@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -47,24 +46,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void ShowFormWithControl()
-        {
-            // Setup
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            mockRepository.ReplayAll();
-
-            distribution.Attach(observerMock);
-            var distributionView = new FailureMechanismContributionView
-            {
-                Data = distribution
-            };
-
-            WindowsFormsTestHelper.ShowModal(distributionView);
-        }
-
-        [Test]
         public void NormTextBox_ValueChanged_UpdatesDataWithNewValue()
         {
             // Setup
@@ -79,22 +60,72 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Data = distribution
             };
 
-            var f = new Form();
-            f.Controls.Add(distributionView);
-            f.Show();
+            using (var f = new Form())
+            {
+                f.Controls.Add(distributionView);
+                f.Show();
 
-            var normTester = new ControlTester("normInput");
+                var normTester = new ControlTester("normInput");
 
-            // Precondition
-            Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
+                // Precondition
+                Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
 
-            // Call
-            normTester.Properties.Text = 200.ToString();
+                // Call
+                normTester.Properties.Text = 200.ToString();
 
-            // Assert
-            Assert.AreEqual(200, distribution.Norm);
+                // Assert
+                Assert.AreEqual(200, distribution.Norm);
 
-            mockRepository.VerifyAll();
+                mockRepository.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Data_SetNewData_DetachesFromOldData()
+        {
+            // Setup
+            object aValue = 100;
+            object expectedValue = 200;
+            var random = new Random(21);
+
+            var someMechanism = mockRepository.Stub<IFailureMechanism>();
+
+            var failureMechanism = mockRepository.StrictMock<FailureMechanismContribution>(new[] { someMechanism }, random.Next(0,100), aValue);
+            var newFailureMechanism = mockRepository.StrictMock<FailureMechanismContribution>(new[] { someMechanism }, random.Next(0,100), expectedValue);
+
+            mockRepository.ReplayAll();
+
+            var distributionView = new FailureMechanismContributionView
+            {
+                Data = failureMechanism
+            };
+
+            using (var f = new Form())
+            {
+                f.Controls.Add(distributionView);
+                f.Show();
+
+                var normTester = new ControlTester("normInput");
+
+                // Precondition
+                Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
+
+                // Call
+                distributionView.Data = newFailureMechanism;
+
+                // Assert
+                Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+
+                // Call
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(failureMechanism.Norm, aValue);
+                Assert.AreEqual(newFailureMechanism.Norm, expectedValue);
+                Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+
+                mockRepository.VerifyAll();
+            }
         }
     }
 }

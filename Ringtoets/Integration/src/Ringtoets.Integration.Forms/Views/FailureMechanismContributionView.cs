@@ -5,7 +5,6 @@ using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -29,20 +28,19 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                SetNormValue(value as FailureMechanismContribution);
+                SetNormValue((FailureMechanismContribution)value);
             }
         }
 
         public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
+        public void EnsureVisible(object item) { }
 
         public void UpdateObserver()
         {
             SetNormText();
             probabilityDistributionGrid.Refresh();
         }
-
-        public void EnsureVisible(object item) {}
 
         private void SetNormValue(FailureMechanismContribution value)
         {

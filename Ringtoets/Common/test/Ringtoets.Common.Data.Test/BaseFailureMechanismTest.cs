@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Ringtoets.Common.Data.Test
@@ -30,7 +31,7 @@ namespace Ringtoets.Common.Data.Test
             TestDelegate test = () => failureMechanism.Contribution = value;
 
             // Assert
-
+            Assert.Throws<ArgumentException>(test);
             mockRepository.VerifyAll();
         }
     }
