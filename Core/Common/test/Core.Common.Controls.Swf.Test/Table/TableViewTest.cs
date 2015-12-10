@@ -403,11 +403,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             var clipBoardText = Clipboard.GetText();
 
-            Assert.AreEqual(double3
-                            + "\t" + double4
-                            + "\r\n" + double5
-                            + "\t" + double6
-                            + "\r\n", clipBoardText);
+            Assert.AreEqual(string.Format("{0}\t{1}\r\n{2}\t{3}\r\n", double3, double4, double5, double6), clipBoardText);
         }
 
         [Test]
@@ -456,11 +452,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             var clipBoardText = Clipboard.GetText();
 
-            Assert.AreEqual(double3
-                            + "\t" + double4 +
-                            "\r\n" + double1 +
-                            "\t" + double2
-                            + "\r\n", clipBoardText);
+            Assert.AreEqual(string.Format("{0}\t{1}\r\n{2}\t{3}\r\n", double3, double4, double1, double2), clipBoardText);
         }
 
         [Test]
@@ -506,14 +498,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             tableView.CopySelectionToClipboard();
 
-            var clipBoardText = Clipboard.GetText();
-            Assert.AreEqual("A\tB\r\n" + double1 +
-                            "\t" + +double2 +
-                            "\r\n" + double3 +
-                            "\t" + double4 +
-                            "\r\n" + double5 +
-                            "\t" + double6 +
-                            "\r\n", clipBoardText);
+            Assert.AreEqual(string.Format("A\tB\r\n{0}\t{1}\r\n{2}\t{3}\r\n{4}\t{5}\r\n", double1, double2, double3, double4, double5, double6), Clipboard.GetText());
         }
 
         [Test]

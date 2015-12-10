@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Core.Common.Gui.Forms.Options;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Forms.Options
@@ -9,7 +10,7 @@ namespace Core.Common.Gui.Test.Forms.Options
         [Test]
         public void GivenGeneralOptionsControlCreated_WhenRetrievingOptionsItems_ThenOptionsShouldBeTranslated()
         {
-            using (var control = new Gui.Forms.Options.OptionsDialog(null))
+            using (var control = new OptionsDialog(null))
             {
                 var subControl = (ComboBox)control.Controls.Find("comboBoxTheme", true)[0];
 

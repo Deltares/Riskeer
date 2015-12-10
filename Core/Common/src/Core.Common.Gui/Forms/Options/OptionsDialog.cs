@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows.Forms;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Forms.Options
@@ -15,6 +16,8 @@ namespace Core.Common.Gui.Forms.Options
             InitializeComponent();
 
             this.userSettings = userSettings;
+
+            Icon = Resources.OptionsHS1;
 
             SetColorThemeOptions();
             SetSettingsValuesToControls();
