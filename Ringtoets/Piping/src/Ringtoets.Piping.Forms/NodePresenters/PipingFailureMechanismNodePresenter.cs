@@ -105,16 +105,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                              .AddCustomItem(calculateAllItem)
                                              .AddCustomItem(clearAllItem)
                                              .AddSeparator()
-                                             .AddExpandAllItem()
-                                             .AddCollapseAllItem()
-                                             .AddSeparator()
                                              .AddImportItem()
                                              .AddExportItem()
+                                             .AddSeparator()
+                                             .AddExpandAllItem()
+                                             .AddCollapseAllItem()
                                              .Build();
         }
 
         private static void ClearAll(PipingFailureMechanism failureMechanism)
         {
+            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
             foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
             {
                 calc.ClearOutput();

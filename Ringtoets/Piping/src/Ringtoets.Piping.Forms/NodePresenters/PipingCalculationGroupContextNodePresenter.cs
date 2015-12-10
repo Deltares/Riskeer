@@ -107,59 +107,73 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingCalculationGroupContext nodeData)
         {
             var group = nodeData.WrappedData;
-            var addCalculationGroupItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
-                                                                    PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip,
-                                                                    PipingFormsResources.AddFolderIcon, (o, args) =>
-                                                                    {
-                                                                        var newGroup = new PipingCalculationGroup
-                                                                        {
-                                                                            Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculationGroup_DefaultName, c => c.Name)
-                                                                        };
+            var addCalculationGroupItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip,
+                PipingFormsResources.AddFolderIcon, (o, args) =>
+                {
+                    var newGroup = new PipingCalculationGroup
+                    {
+                        Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculationGroup_DefaultName, c => c.Name)
+                    };
 
-                                                                        group.Children.Add(newGroup);
-                                                                        nodeData.NotifyObservers();
+                    group.Children.Add(newGroup);
+                    nodeData.NotifyObservers();
 
-                                                                        SelectNewlyAddedItemInTreeView(node);
-                                                                    });
-            var addCalculationItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
-                                                               PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
-                                                               PipingFormsResources.PipingIcon, (o, args) =>
-                                                               {
-                                                                   var calculation = new PipingCalculation
-                                                                   {
-                                                                       Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculation_DefaultName, c => c.Name)
-                                                                   };
+                    SelectNewlyAddedItemInTreeView(node);
+                });
 
-                                                                   group.Children.Add(calculation);
-                                                                   nodeData.NotifyObservers();
+            var addCalculationItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
+                PipingFormsResources.PipingIcon, (o, args) =>
+                {
+                    var calculation = new PipingCalculation
+                    {
+                        Name = NamingHelper.GetUniqueName(group.Children, Resources.PipingCalculation_DefaultName, c => c.Name)
+                    };
 
-                                                                   SelectNewlyAddedItemInTreeView(node);
-                                                               });
-            var validateAllItem = new StrictContextMenuItem(PipingFormsResources.PipingCalculationItem_Validate,
-                                                            PipingFormsResources.PipingCalculationGroup_Validate_ToolTip,
-                                                            PipingFormsResources.ValidationIcon, (o, args) =>
-                                                            {
-                                                                foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
-                                                                {
-                                                                    PipingCalculationService.Validate(calculation);
-                                                                }
-                                                            });
-            var calculateAllItem = new StrictContextMenuItem(RingtoetsFormsResources.Calculate_all,
-                                                             PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
-                                                             RingtoetsFormsResources.CalculateAllIcon, (o, args) =>
-                                                             {
-                                                                 RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
-                                                             });
-            var clearAllItem = new StrictContextMenuItem(RingtoetsFormsResources.Clear_all_output,
-                                                         PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
-                                                         RingtoetsFormsResources.ClearIcon, (o, args) =>
-                                                         {
-                                                             foreach (PipingCalculation calc in group.GetPipingCalculations().Where(c => c.HasOutput))
-                                                             {
-                                                                 calc.ClearOutput();
-                                                                 calc.NotifyObservers();
-                                                             }
-                                                         });
+                    group.Children.Add(calculation);
+                    nodeData.NotifyObservers();
+
+                    SelectNewlyAddedItemInTreeView(node);
+                });
+
+            var validateAllItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationItem_Validate,
+                PipingFormsResources.PipingCalculationGroup_Validate_ToolTip,
+                PipingFormsResources.ValidationIcon, (o, args) =>
+                {
+                    foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
+                    {
+                        PipingCalculationService.Validate(calculation);
+                    }
+                });
+
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Calculate_all,
+                PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
+                RingtoetsFormsResources.CalculateAllIcon, (o, args) =>
+                {
+                    RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
+                });
+
+            var clearAllItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Clear_all_output,
+                PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
+                RingtoetsFormsResources.ClearIcon, (o, args) =>
+                {
+                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    foreach (PipingCalculation calc in group.GetPipingCalculations().Where(c => c.HasOutput))
+                    {
+                        calc.ClearOutput();
+                        calc.NotifyObservers();
+                    }
+                });
 
             if (!nodeData.WrappedData.GetPipingCalculations().Any(c => c.HasOutput))
             {
@@ -175,11 +189,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                              .AddCustomItem(calculateAllItem)
                                              .AddCustomItem(clearAllItem)
                                              .AddSeparator()
-                                             .AddExpandAllItem()
-                                             .AddCollapseAllItem()
-                                             .AddSeparator()
                                              .AddImportItem()
                                              .AddExportItem()
+                                             .AddSeparator()
+                                             .AddExpandAllItem()
+                                             .AddCollapseAllItem()
                                              .AddSeparator()
                                              .AddPropertiesItem()
                                              .Build();

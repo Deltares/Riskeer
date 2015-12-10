@@ -12,6 +12,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -31,7 +32,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingCalculationGroupContextNodePresenterTest
+    public class PipingCalculationGroupContextNodePresenterTest : NUnitFormTest
     {
         private MockRepository mockRepository;
 
@@ -927,30 +928,30 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                           "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
                                                           RingtoetsFormsResources.CalculateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex,
-                                                          "&Wis alle uitvoer",
+                                                          "&Wis alle uitvoer...",
                                                           "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                           RingtoetsFormsResources.ClearIcon);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7, 
-                                                          CoreCommonGuiResources.Expand_all,
-                                                          CoreCommonGuiResources.Expand_all_ToolTip,
-                                                          CoreCommonGuiResources.ExpandAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
-                                                          CoreCommonGuiResources.Collapse_all,
-                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
-                                                          CoreCommonGuiResources.CollapseAllIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7,
                                                           CoreCommonGuiResources.Import,
                                                           CoreCommonGuiResources.Import_ToolTip,
                                                           CoreCommonGuiResources.ImportIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
                                                           CoreCommonGuiResources.Export,
                                                           CoreCommonGuiResources.Export_ToolTip,
                                                           CoreCommonGuiResources.ExportIcon,
+                                                          false);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+                                                          CoreCommonGuiResources.Expand_all,
+                                                          CoreCommonGuiResources.Expand_all_ToolTip,
+                                                          CoreCommonGuiResources.ExpandAllIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                                                          CoreCommonGuiResources.Collapse_all,
+                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                          CoreCommonGuiResources.CollapseAllIcon,
                                                           false);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 13,
@@ -1196,16 +1197,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_ClickOnClearOutputItem_ClearOutputAllChildCalculationsAndNotifyCalculationObservers()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetContextMenu_ClickOnClearOutputItem_ClearOutputAllChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup
             var node = mockRepository.StrictMock<ITreeNode>();
 
             var calculation1Observer = mockRepository.StrictMock<IObserver>();
-            calculation1Observer.Expect(o => o.UpdateObserver());
-
             var calculation2Observer = mockRepository.StrictMock<IObserver>();
-            calculation2Observer.Expect(o => o.UpdateObserver());
+
+            if (confirm)
+            {
+                calculation1Observer.Expect(o => o.UpdateObserver());
+                calculation2Observer.Expect(o => o.UpdateObserver());
+            }
 
             mockRepository.ReplayAll();
 
@@ -1233,6 +1239,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
 
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBox.Text);
+                Assert.AreEqual("Bevestigen", messageBox.Title);
+                if (confirm)
+                {
+                    messageBox.ClickOk();
+                }
+                else
+                {
+                    messageBox.ClickCancel();
+                }
+            };
+
             // Precondition
             Assert.IsTrue(group.HasOutput);
 
@@ -1244,9 +1265,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             contextMenu.Items[contextMenuClearOutputIndex].PerformClick();
 
             // Assert
-            Assert.IsFalse(group.HasOutput);
-            Assert.IsFalse(calculation1.HasOutput);
-            Assert.IsFalse(calculation2.HasOutput);
+            Assert.AreNotEqual(confirm, group.HasOutput);
+            Assert.AreNotEqual(confirm, calculation1.HasOutput);
+            Assert.AreNotEqual(confirm, calculation2.HasOutput);
             mockRepository.VerifyAll();
         }
 

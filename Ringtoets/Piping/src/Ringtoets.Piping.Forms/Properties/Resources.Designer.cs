@@ -388,6 +388,25 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u alle uitvoer wilt wissen?.
+        /// </summary>
+        public static string PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_" +
+                        "output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bevestigen.
+        /// </summary>
+        public static string PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekeningsmap.
         /// </summary>
         public static string PipingCalculationGroupContextProperties_DisplayName {

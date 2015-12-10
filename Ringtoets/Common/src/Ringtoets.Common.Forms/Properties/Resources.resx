@@ -146,7 +146,7 @@
     <value>Alles be&amp;rekenen</value>
   </data>
   <data name="Clear_all_output" xml:space="preserve">
-    <value>&amp;Wis alle uitvoer</value>
+    <value>&amp;Wis alle uitvoer...</value>
   </data>
   <data name="FailureMechanism_InputsOutputs_Erase" xml:space="preserve">
     <value>&amp;Wissen</value>

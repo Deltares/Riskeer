@@ -48,11 +48,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             return contextMenuBuilderProvider
                 .Get(node)
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
                 .AddImportItem()
                 .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
                 .Build();
         }
     }
