@@ -280,21 +280,9 @@ namespace Application.Ringtoets
 
         private static void HandleException(Exception exception, bool isTerminating)
         {
-            var dialog = new ExceptionDialog(exception);
+            var exceptionDialog = new ExceptionDialog(exception);
 
-            dialog.RestartClicked += delegate
-            {
-                gui.SkipDialogsOnExit = true;
-                Restart();
-            };
-
-            dialog.ExitClicked += delegate
-            {
-                gui.SkipDialogsOnExit = true;
-                Environment.Exit(1);
-            };
-
-            dialog.OpenLogClicked += delegate
+            exceptionDialog.OpenLogClicked = () =>
             {
                 if (gui != null && gui.CommandHandler != null)
                 {
@@ -302,15 +290,15 @@ namespace Application.Ringtoets
                 }
             };
 
-            var mainWindow = gui.MainWindow as Form;
-            if (mainWindow != null && mainWindow.IsHandleCreated)
+            gui.SkipDialogsOnExit = true;
+
+            if (exceptionDialog.ShowDialog() == DialogResult.OK)
             {
-                dialog.StartPosition = FormStartPosition.CenterParent;
-                dialog.ShowDialog(mainWindow); // show dialog at the center of main window
+                Restart();
             }
             else
             {
-                dialog.ShowDialog();
+                Environment.Exit(1);
             }
         }
 

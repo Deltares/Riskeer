@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -7,47 +6,67 @@ using Core.Common.Controls.Properties;
 
 namespace Core.Common.Controls.Dialogs
 {
+    /// <summary>
+    /// Class for showing an exception dialog.
+    /// The exception dialog can return the following results:
+    /// <list type="bullet">
+    /// <item>
+    /// <description><see cref="DialogResult.OK"/>: this result represents a request for restarting the application.</description>
+    /// </item>
+    /// <item>
+    /// <description><see cref="DialogResult.Cancel"/>: this result represents a request for closing the application.</description>
+    /// </item>
+    /// </list>
+    /// </summary>
     public partial class ExceptionDialog : DialogBase
     {
-        public event EventHandler RestartClicked;
-
-        public event EventHandler ExitClicked;
-
-        public event EventHandler OpenLogClicked;
+        private Action openLogClicked;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
+        /// Constructs a new <see cref="ExceptionDialog"/>.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to show in the dialog.</param>
         public ExceptionDialog(Exception exception) : base(Resources.bug__exclamation)
         {
             InitializeComponent();
 
+            buttonOpenLog.Visible = false;
             exceptionTextBox.Text = GetExceptionText(exception);
+        }
+
+        /// <summary>
+        /// Gets or sets the action that should be performed after clicking the log button.
+        /// </summary>
+        /// <remarks>The log button is only visible when this action is set.</remarks>
+        public Action OpenLogClicked
+        {
+            private get
+            {
+                return openLogClicked;
+            }
+            set
+            {
+                openLogClicked = value;
+
+                buttonOpenLog.Visible = openLogClicked != null;
+            }
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonExit;
         }
 
         private void ButtonRestartClick(object sender, EventArgs e)
         {
-            buttonRestart.Enabled = false;
-            buttonExit.Enabled = false;
-
-            if (RestartClicked != null)
-            {
-                RestartClicked(this, null);
-            }
+            DialogResult = DialogResult.OK;
 
             Close();
         }
 
         private void ButtonExitClick(object sender, EventArgs e)
         {
-            buttonRestart.Enabled = false;
-            buttonExit.Enabled = false;
-
-            if (ExitClicked != null)
-            {
-                ExitClicked(this, null);
-            }
+            DialogResult = DialogResult.Cancel;
 
             Close();
         }
@@ -59,10 +78,7 @@ namespace Core.Common.Controls.Dialogs
 
         private void ButtonOpenLogClick(object sender, EventArgs e)
         {
-            if (OpenLogClicked != null)
-            {
-                OpenLogClicked(this, null);
-            }
+            OpenLogClicked();
         }
 
         private string GetExceptionText(Exception exception)
@@ -88,23 +104,6 @@ namespace Core.Common.Controls.Dialogs
             }
 
             return str;
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            if (ExitClicked != null)
-            {
-                ExitClicked(this, null);
-            }
-
-            Close();
-
-            base.OnClosing(e);
-        }
-
-        protected override Button GetCancelButton()
-        {
-            return buttonExit;
         }
     }
 }
