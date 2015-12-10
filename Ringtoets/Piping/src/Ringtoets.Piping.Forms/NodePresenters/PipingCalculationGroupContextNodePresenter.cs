@@ -20,6 +20,7 @@ using Ringtoets.Piping.Service;
 
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -163,7 +164,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
                 RingtoetsFormsResources.ClearIcon, (o, args) =>
                 {
-                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
                     {
                         return;
                     }

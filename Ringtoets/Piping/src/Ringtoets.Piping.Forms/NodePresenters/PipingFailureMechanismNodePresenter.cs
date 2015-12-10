@@ -17,6 +17,7 @@ using Ringtoets.Piping.Service;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -115,7 +116,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         private static void ClearAll(PipingFailureMechanism failureMechanism)
         {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }

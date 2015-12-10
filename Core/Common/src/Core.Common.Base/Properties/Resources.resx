@@ -132,4 +132,7 @@
   <data name="Project_Constructor_Default_name" xml:space="preserve">
     <value>Project</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bevestigen</value>
+  </data>
 </root>

@@ -297,9 +297,6 @@ Fout:
   <data name="TreeView_TreeViewDragDrop_Error_during_drag_drop_0_" xml:space="preserve">
     <value>Fout tijdens slepen/neerzetten: {0}.</value>
   </data>
-  <data name="TreeView_DeleteNodeData_Confirm" xml:space="preserve">
-    <value>Bevestigen</value>
-  </data>
   <data name="TreeView_DeleteNodeData_The_selected_item_cannot_be_removed" xml:space="preserve">
     <value>Het geselecteerde item kan niet worden verwijderd.</value>
   </data>

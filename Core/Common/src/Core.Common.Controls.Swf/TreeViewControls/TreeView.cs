@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
 using log4net;
 
+using BaseResources = Core.Common.Base.Properties.Resources;
+
 namespace Core.Common.Controls.Swf.TreeViewControls
 {
     /// <summary>
@@ -313,12 +315,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         {
             if (!CanDelete(treeNode))
             {
-                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OK);
+                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
                 return;
             }
 
             var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, treeNode.Text);
-            if (MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }

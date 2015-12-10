@@ -532,9 +532,6 @@
   <data name="PipingCalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
     <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationGroupContextNodePresenter_GetContextMenu_Confirm" xml:space="preserve">
-    <value>Bevestigen</value>
-  </data>
   <data name="PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
   </data>
