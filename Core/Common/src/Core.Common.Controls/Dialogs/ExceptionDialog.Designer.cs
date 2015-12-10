@@ -87,7 +87,6 @@
             // 
             this.AcceptButton = this.buttonRestart;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
             this.Controls.Add(this.buttonOpenLog);
             this.Controls.Add(this.buttonExit);
@@ -95,12 +94,8 @@
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonCopyTextToClipboard);
             this.Controls.Add(this.buttonRestart);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "ExceptionDialog";
-            this.ShowInTaskbar = false;
             this.ResumeLayout(false);
-
         }
 
         #endregion

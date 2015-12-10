@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
 using log4net.Core;
 

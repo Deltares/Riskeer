@@ -7,7 +7,7 @@ using Core.Common.Controls.Properties;
 
 namespace Core.Common.Controls.Dialogs
 {
-    public partial class ExceptionDialog : Form
+    public partial class ExceptionDialog : DialogBase
     {
         public event EventHandler RestartClicked;
 

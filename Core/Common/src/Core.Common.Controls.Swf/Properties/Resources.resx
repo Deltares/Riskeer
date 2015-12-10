@@ -377,9 +377,6 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   <data name="TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event" xml:space="preserve">
     <value>SelectionChanged event afgevuurd.</value>
   </data>
-  <data name="ModalHelper_ShowModal_Main_window_not_injected" xml:space="preserve">
-    <value>Hoofdvenster niet geïnjecteerd.</value>
-  </data>
   <data name="FindAndReplaceControl_buttonReplaceAll_Click_Replaced_0_occurrences_of_1_with_2_" xml:space="preserve">
     <value>{0} exemplaren van {1} zijn met {2} vervangen.</value>
   </data>

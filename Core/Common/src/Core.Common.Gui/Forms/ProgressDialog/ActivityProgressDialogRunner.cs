@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Base.Service;
-using Core.Common.Controls.Swf;
+using Core.Common.Controls.Dialogs;
 
 namespace Core.Common.Gui.Forms.ProgressDialog
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.Properties;
 
-namespace Core.Common.Controls.Swf
+namespace Core.Common.Controls.Dialogs
 {
     public static class ModalHelper
     {
@@ -10,7 +10,7 @@ namespace Core.Common.Controls.Swf
 
         public static IWin32Window MainWindow
         {
-            private get
+            get
             {
                 if (mainWindowRef != null)
                 {

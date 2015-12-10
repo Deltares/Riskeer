@@ -89,5 +89,14 @@ namespace Core.Common.Controls.Properties {
                 return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Loader_exceptions", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoofdvenster niet geïnjecteerd..
+        /// </summary>
+        internal static string ModalHelper_ShowModal_Main_window_not_injected {
+            get {
+                return ResourceManager.GetString("ModalHelper_ShowModal_Main_window_not_injected", resourceCulture);
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using Core.Common.Controls.Swf;
+using Core.Common.Controls.Dialogs;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.UI.Forms;

@@ -424,15 +424,6 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoofdvenster niet geïnjecteerd..
-        /// </summary>
-        internal static string ModalHelper_ShowModal_Main_window_not_injected {
-            get {
-                return ResourceManager.GetString("ModalHelper_ShowModal_Main_window_not_injected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap page_white {

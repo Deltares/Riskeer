@@ -17,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
 using Core.Common.Utils;
