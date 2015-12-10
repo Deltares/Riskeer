@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Data
                 Contribution = 3
             };
 
-            FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 3000);
+            FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
         }
 
         /// <summary>
