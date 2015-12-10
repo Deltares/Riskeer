@@ -19,11 +19,9 @@ namespace Core.Common.Controls.Dialogs
         /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        public ExceptionDialog(Exception exception)
+        public ExceptionDialog(Exception exception) : base(Resources.bug__exclamation)
         {
             InitializeComponent();
-
-            Icon = Resources.bug__exclamation;
 
             exceptionTextBox.Text = GetExceptionText(exception);
         }
@@ -102,6 +100,11 @@ namespace Core.Common.Controls.Dialogs
             Close();
 
             base.OnClosing(e);
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonExit;
         }
     }
 }

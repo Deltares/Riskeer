@@ -87,7 +87,6 @@
             // 
             this.AcceptButton = this.buttonRestart;
             resources.ApplyResources(this, "$this");
-            this.CancelButton = this.buttonExit;
             this.Controls.Add(this.buttonOpenLog);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.exceptionTextBox);

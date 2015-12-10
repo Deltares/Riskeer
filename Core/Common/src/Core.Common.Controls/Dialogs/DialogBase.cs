@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Core.Common.Controls.Dialogs
 {
@@ -23,14 +25,17 @@ namespace Core.Common.Controls.Dialogs
     /// </item>
     /// </list>
     /// </summary>
-    public partial class DialogBase : Form
+    public abstract partial class DialogBase : Form
     {
         /// <summary>
         /// Constructs a new <see cref="DialogBase"/>.
         /// </summary>
-        protected DialogBase()
+        /// <param name="icon">The icon to show in the control box.</param>
+        protected DialogBase(Icon icon)
         {
             InitializeComponent();
+
+            Icon = icon;
         }
 
         /// <summary>
@@ -43,5 +48,20 @@ namespace Core.Common.Controls.Dialogs
         {
             return base.ShowDialog(ModalHelper.MainWindow);
         }
+
+        protected override void OnShown(EventArgs e)
+        {
+            // Initialize the cancel button (as this cannot be done during creation time)
+            CancelButton = GetCancelButton();
+
+            base.OnShown(e);
+        }
+
+        /// <summary>
+        /// Gets the cancel button of the <see cref="DialogBase"/>.
+        /// </summary>
+        /// <returns>The cancel button.</returns>
+        /// <remarks>By forcing derivatives to provide a cancel button, dialogs can be closed by hitting the <c>ESC</c> key on the keyboard.</remarks>
+        protected abstract Button GetCancelButton();
     }
 }
