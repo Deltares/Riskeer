@@ -348,7 +348,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 return;
             }
 
-            GetAllLoadedChildNodes(node, loadedNodePaths).Where(n => expandedNodePaths.Contains(n.FullPath)).ToArray().ForEach(n => n.Expand());
+            GetAllLoadedChildNodes(node, loadedNodePaths).Where(n => expandedNodePaths.Contains(n.FullPath)).ToArray().ForEachElementDo(n => n.Expand());
             expandedStateRootNode = null;
             updatingExpandedState = false;
         }

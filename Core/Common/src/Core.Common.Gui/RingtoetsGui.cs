@@ -608,7 +608,7 @@ namespace Core.Common.Gui
         {
             InitializeWindows();
 
-            Plugins.ForEach(p => p.Gui = this);
+            Plugins.ForEachElementDo(p => p.Gui = this);
 
             ActivatePlugins();
 

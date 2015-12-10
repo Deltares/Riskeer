@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Reflection;
+
 using Core.Common.Utils.Properties;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Attributes
 {
     /// <summary>
     /// Helper method for interacting with <see cref="Resource"/>.

@@ -2,7 +2,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.Charting.Series;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Property.Charting

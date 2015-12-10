@@ -1,5 +1,6 @@
 ﻿using Core.Common.Gui;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
+
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.Properties;

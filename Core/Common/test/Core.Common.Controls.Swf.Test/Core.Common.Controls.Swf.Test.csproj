@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Charting\ChartTest.cs" />
+    <Compile Include="Charting\ChartViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Charting\Series\AreaChartSeriesTest.cs" />
     <Compile Include="Charting\Series\BarSeriesTest.cs" />
     <Compile Include="Charting\Series\LineChartSeriesTest.cs" />

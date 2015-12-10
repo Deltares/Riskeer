@@ -87,12 +87,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Collections\EnumerableExtensionsTest.cs" />
     <Compile Include="Collections\Generic\EnumerableListTest.cs" />
     <Compile Include="Collections\Generic\EventedListTest.cs" />
     <Compile Include="ComparableExtensionsTest.cs" />
-    <Compile Include="ConversionHelperTest.cs" />
     <Compile Include="IO\FileUtilsTest.cs" />
     <Compile Include="IO\FileWatcherTest.cs" />
     <Compile Include="MathUtilsTest.cs" />
@@ -104,9 +102,7 @@
     </Compile>
     <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
-    <Compile Include="Reflection\DynamicTypeUtilsTest.cs" />
     <Compile Include="Reflection\TypeConverterTest.cs" />
-    <Compile Include="Reflection\TypeExtensionsTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
     <Compile Include="StringExtensionsTests.cs" />
     <Compile Include="TestHelperTests.cs" />

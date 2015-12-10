@@ -501,6 +501,15 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tot.
+        /// </summary>
+        internal static string strTill {
+            get {
+                return ResourceManager.GetString("strTill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap table_edit {

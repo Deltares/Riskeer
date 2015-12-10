@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using Core.Common.Gui;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 

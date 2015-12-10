@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 
 using Core.Common.Gui;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;

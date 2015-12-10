@@ -208,10 +208,10 @@ namespace Core.Plugins.CommonTools.Gui
             switch (e.Action)
             {
                 case NotifyCollectionChangeAction.Add:
-                    chartViews.ForEach(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
+                    chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
                     break;
                 case NotifyCollectionChangeAction.Remove:
-                    chartViews.ForEach(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
+                    chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
                     break;
             }
         }

@@ -370,7 +370,7 @@ namespace Core.GIS.SharpMap.UI.Tools
             // check if selected features still exist in the providers
 
             SelectedFeatureInteractors.Where(featureInteractor => featureInteractor.Layer.DataSource == null || !featureInteractor.Layer.DataSource.Features.Contains(featureInteractor.SourceFeature)).ToArray()
-                                      .ForEach(fi => SelectedFeatureInteractors.Remove(fi));
+                                      .ForEachElementDo(fi => SelectedFeatureInteractors.Remove(fi));
 
             SelectedFeatureInteractors.RemoveAllWhere(i => !visibleLayers.Contains(i.Layer));
             UpdateMapControlSelection();

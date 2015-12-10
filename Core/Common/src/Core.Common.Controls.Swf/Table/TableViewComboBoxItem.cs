@@ -16,11 +16,6 @@ namespace Core.Common.Controls.Swf.Table
                     return CustomFormatter.Format(null, Value, null);
                 }
 
-                if (Value.GetType().IsEnum)
-                {
-                    return EnumDescriptionAttributeTypeConverter.GetEnumDescription((Enum) Value);
-                }
-
                 return Value.ToString();
             }
         }

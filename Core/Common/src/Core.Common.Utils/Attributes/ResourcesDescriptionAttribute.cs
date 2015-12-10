@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Attributes
 {
     /// <summary>
     /// Variation on <see cref="DescriptionAttribute"/>, enables the description to be fetched from resources.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Attributes
 {
     /// <summary>
     /// Variation on <see cref="DisplayNameAttribute"/>, enables the display name to be fetched from resources.

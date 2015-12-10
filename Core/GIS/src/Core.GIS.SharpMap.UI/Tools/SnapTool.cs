@@ -179,7 +179,7 @@ namespace Core.GIS.SharpMap.UI.Tools
             }
             else
             {
-                visibleSnaps.ForEach(s => dataTableFeatureProvider.Add(s));
+                visibleSnaps.ForEachElementDo(s => dataTableFeatureProvider.Add(s));
             }
         }
 

@@ -214,15 +214,6 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tot.
-        /// </summary>
-        internal static string strTill {
-            get {
-                return ResourceManager.GetString("strTill", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritieke fout opgetreden..
         /// </summary>
         internal static string TypeUtils_CallMethod_Exception_occured {

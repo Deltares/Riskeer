@@ -115,7 +115,7 @@ namespace Core.Plugins.ProjectExplorer
             {
                 pluginGuis
                     .SelectMany(pluginGui => pluginGui.GetProjectTreeViewNodePresenters())
-                    .ForEach(np => projectTreeViewNodePresenters.Add(np));
+                    .ForEachElementDo(np => projectTreeViewNodePresenters.Add(np));
             }
             catch (ArgumentNullException e)
             {

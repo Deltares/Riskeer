@@ -404,4 +404,7 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   <data name="TreeNodeExpandCollapseState_Node_not_matching_tag_for_restore" xml:space="preserve">
     <value>Knoop heeft niet dezelfde data als de opgenomen knoop.</value>
   </data>
+  <data name="strTill" xml:space="preserve">
+    <value>tot</value>
+  </data>
 </root>

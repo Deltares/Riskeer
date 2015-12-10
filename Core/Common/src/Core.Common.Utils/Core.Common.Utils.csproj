@@ -88,25 +88,22 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Attributes\ResourceHelper.cs" />
+    <Compile Include="Attributes\ResourcesCategoryAttribute.cs" />
+    <Compile Include="Attributes\ResourcesDescriptionAttribute.cs" />
+    <Compile Include="Attributes\ResourcesDisplayNameAttribute.cs" />
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
-    <Compile Include="CultureUtils.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
-    <Compile Include="GraphicsExtensions.cs" />
-    <Compile Include="Reflection\DynamicTypeUtils.cs" />
+    <Compile Include="Drawing\GraphicsExtensions.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResourceHelper.cs" />
-    <Compile Include="ResourcesCategoryAttribute.cs" />
-    <Compile Include="ResourcesDescriptionAttribute.cs" />
-    <Compile Include="ResourcesDisplayNameAttribute.cs" />
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="TextDocument.cs" />
-    <Compile Include="TimeNavigatableLabelFormatProvider.cs" />
     <Compile Include="Collections\INotifyCollectionChanged.cs" />
     <Compile Include="Collections\INotifyCollectionChanging.cs" />
     <Compile Include="Collections\NotifyCollectionChangeAction.cs" />
@@ -121,12 +118,10 @@
     <Compile Include="Collections\INotifyCollectionChange.cs" />
     <Compile Include="Collections\NotifyCollectionChangingEventArgs.cs" />
     <Compile Include="ComparableExtensions.cs" />
-    <Compile Include="ConversionHelper.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
-    <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="MathUtils.cs" />
@@ -134,7 +129,6 @@
     <Compile Include="PropertyOrderAttribute.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecEventArgs.cs" />
-    <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TypeConverter.cs" />

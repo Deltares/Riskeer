@@ -80,6 +80,7 @@ namespace Core.Common.Controls.Swf.Test.Table
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void PasteDutchDateTimeShouldWorkFineTools8878()
         {
             using (var dataset = new DataSet())
@@ -96,10 +97,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
                     Clipboard.SetText(File.ReadAllText(TestHelper.GetTestFilePath("TestPasteData_DutchDates.txt")));
 
-                    using (CultureUtils.SwitchToCulture("nl-NL"))
-                    {
-                        view.PasteClipboardContents();
-                    }
+                    view.PasteClipboardContents();
 
                     var dateTimes = dataTable.AsEnumerable().Select(r => r.Field<DateTime>("A")).ToList();
 

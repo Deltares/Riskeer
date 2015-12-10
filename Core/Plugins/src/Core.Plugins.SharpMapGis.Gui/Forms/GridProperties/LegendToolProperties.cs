@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.UI.Tools.Decorations;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 

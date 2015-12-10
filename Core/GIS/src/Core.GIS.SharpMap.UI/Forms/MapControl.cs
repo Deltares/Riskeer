@@ -370,7 +370,7 @@ namespace Core.GIS.SharpMap.UI.Forms
             if (map != null && ClientSize.Width > 0 && ClientSize.Height > 0)
             {
                 map.Size = ClientSize;
-                map.Layers.ForEach(l => l.RenderRequired = true);
+                map.Layers.ForEachElementDo(l => l.RenderRequired = true);
             }
 
             base.OnResize(e);
@@ -688,14 +688,14 @@ namespace Core.GIS.SharpMap.UI.Forms
                 LinearMoveTool
             });
 
-            tools.ForEach(t => t.MapControl = this);
+            tools.ForEachElementDo(t => t.MapControl = this);
             tools.CollectionChanged += ToolsCollectionChanged;
             tools.PropertyChanged += ToolsPropertyChanged;
         }
 
         private void ToolsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            tools.OfType<LayoutComponentTool>().ForEach(t => t.SetScreenLocationForAnchor());
+            tools.OfType<LayoutComponentTool>().ForEachElementDo(t => t.SetScreenLocationForAnchor());
         }
 
         private void FireSelectedFeaturesChanged()
@@ -747,7 +747,7 @@ namespace Core.GIS.SharpMap.UI.Forms
                     break;
             }
 
-            tools.OfType<LayoutComponentTool>().ForEach(t => t.SetScreenLocationForAnchor());
+            tools.OfType<LayoutComponentTool>().ForEachElementDo(t => t.SetScreenLocationForAnchor());
         }
 
         private void OnMapRendered(Graphics g)
@@ -799,7 +799,7 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
             else
             {
-                map.Layers.ForEach(l =>
+                map.Layers.ForEachElementDo(l =>
                 {
                     if (!l.RenderRequired)
                     {

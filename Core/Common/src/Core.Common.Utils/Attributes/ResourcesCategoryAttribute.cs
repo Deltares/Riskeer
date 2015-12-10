@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Attributes
 {
     public class ResourcesCategoryAttribute : CategoryAttribute
     {

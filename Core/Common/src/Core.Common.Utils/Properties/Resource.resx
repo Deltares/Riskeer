@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="strTill" xml:space="preserve">
-    <value>tot</value>
-  </data>
   <data name="ObjectHelper_CouldNotFindFeatureInOriginalContext" xml:space="preserve">
     <value>Geprobeerd het kenmerk in de beschikbare spatiale data te vervangen, maar kon kenmerk niet vinden in de oorspronkelijke context: {0}.</value>
   </data>

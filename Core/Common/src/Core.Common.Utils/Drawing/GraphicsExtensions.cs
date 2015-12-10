@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Drawing
 {
     public static class GraphicsExtensions
     {

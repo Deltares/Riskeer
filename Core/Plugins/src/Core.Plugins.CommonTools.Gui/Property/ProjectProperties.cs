@@ -1,7 +1,7 @@
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Property

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using Core.Common.Utils.Properties;
 
-namespace Core.Common.Utils
+using Core.Common.Controls.Swf.Properties;
+
+namespace Core.Common.Controls.Swf.Charting
 {
     /// <summary>
     /// Provides custom DateTime formatting (e.g. for use on the chart axes based on the zoom level). More detail (eg time) when zoomed in etc. 
@@ -11,7 +12,7 @@ namespace Core.Common.Utils
     /// </summary>
     public class TimeNavigatableLabelFormatProvider
     {
-        private static readonly string strTill = Resource.strTill;
+        private static readonly string strTill = Resources.strTill;
 
         /// <summary>
         /// Initializes the provider, sets the default CustomDateTimeFormatInfo.

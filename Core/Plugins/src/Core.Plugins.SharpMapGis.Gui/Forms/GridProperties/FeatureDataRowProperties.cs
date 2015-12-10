@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Gui;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.Data;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 

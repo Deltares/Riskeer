@@ -32,7 +32,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             GIS.SharpMap.Map.Map.GetLayers(new[]
             {
                 layer
-            }, false, false).ForEach(l => envelope.ExpandToInclude((IEnvelope) l.Envelope));
+            }, false, false).ForEachElementDo(l => envelope.ExpandToInclude((IEnvelope) l.Envelope));
 
             if (envelope.IsNull)
             {

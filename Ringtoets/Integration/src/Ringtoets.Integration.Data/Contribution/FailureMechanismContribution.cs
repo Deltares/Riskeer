@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Data.Contribution
                 throw new ArgumentNullException("failureMechanisms", Resources.FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
             }
             this.norm = norm;
-            failureMechanisms.ForEach(AddContributionItem);
+            failureMechanisms.ForEachElementDo(AddContributionItem);
             AddOtherContributionItem(otherContribution);
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Data.Contribution
             set
             {
                 norm = value;
-                distribution.ForEach(d => d.Norm = norm);
+                distribution.ForEachElementDo(d => d.Norm = norm);
             }
         }
 

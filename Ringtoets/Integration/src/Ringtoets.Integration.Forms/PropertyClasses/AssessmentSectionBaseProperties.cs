@@ -1,5 +1,5 @@
 ﻿using Core.Common.Gui;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;

@@ -115,10 +115,10 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(assessmentSectionMock).Cast<object>().AsList();
+            var children = nodePresenter.GetChildNodeObjects(assessmentSectionMock).Cast<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(7, children.Count);
+            Assert.AreEqual(7, children.Length);
             Assert.AreSame(assessmentSectionMock.ReferenceLine, children[0]);
             Assert.AreSame(assessmentSectionMock.FailureMechanismContribution, children[1]);
             Assert.AreSame(assessmentSectionMock.HydraulicBoundaryDatabase, children[2]);

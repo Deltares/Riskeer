@@ -1,5 +1,4 @@
 using System;
-using Core.Common.Utils;
 
 namespace Core.Common.Controls.Swf.Table
 {
@@ -25,7 +24,7 @@ namespace Core.Common.Controls.Swf.Table
             }
 
             return enumValue != null
-                       ? EnumDescriptionAttributeTypeConverter.GetEnumDescription(enumValue)
+                       ? enumValue.ToString()
                        : arg.ToString();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.ComponentModel;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Styles;

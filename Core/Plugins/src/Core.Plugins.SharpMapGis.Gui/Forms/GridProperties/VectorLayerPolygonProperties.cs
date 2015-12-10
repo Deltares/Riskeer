@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
-using Core.Common.Utils;
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.ComponentModel;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;

@@ -595,10 +595,10 @@ namespace Core.Common.Controls.Swf.Table
             }
 
             // Update the row context menu
-            RowContextMenu.Items.OfType<ToolStripMenuItem>().ForEach(mi => mi.Available = true);
+            RowContextMenu.Items.OfType<ToolStripMenuItem>().ForEachElementDo(mi => mi.Available = true);
             RowContextMenu.Items.OfType<ToolStripMenuItem>()
                           .Where(mi => mi.Name == "btnDelete" || mi.Name == "btnPaste")
-                          .ForEach(mi => mi.Available = !GetSelectionIsReadonly());
+                          .ForEachElementDo(mi => mi.Available = !GetSelectionIsReadonly());
 
             updatingSelection = false;
         }

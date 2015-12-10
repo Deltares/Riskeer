@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+
+using Core.Common.Controls.Swf.Charting;
+
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test
+namespace Core.Common.Controls.Swf.Test.Charting
 {
     [TestFixture]
     public class ChartViewDateTimeFormatProviderTest
