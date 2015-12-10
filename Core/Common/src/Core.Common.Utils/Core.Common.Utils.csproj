@@ -93,7 +93,7 @@
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="CultureUtils.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
-    <Compile Include="GraphicsUtils.cs" />
+    <Compile Include="GraphicsExtensions.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>

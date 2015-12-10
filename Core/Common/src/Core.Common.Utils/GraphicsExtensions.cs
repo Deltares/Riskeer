@@ -4,9 +4,9 @@ using System.Drawing.Imaging;
 
 namespace Core.Common.Utils
 {
-    public static class GraphicsUtils
+    public static class GraphicsExtensions
     {
-        public static void DrawImageTransparent(Graphics g, Image image, float opacity)
+        public static void DrawImageTransparent(this Graphics g, Image image, float opacity)
         {
             var width = image.Width;
             var height = image.Height;
