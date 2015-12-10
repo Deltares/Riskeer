@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
 using Core.Common.Gui.Properties;
@@ -76,7 +75,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             InitializeComponent();
 
             windowInteropHelper = new WindowInteropHelper(this);
-            ModalHelper.MainWindow = this;
 
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
@@ -611,7 +609,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (messageWindow == null || messageWindow.IsDisposed)
             {
-                messageWindow = new MessageWindow.MessageWindow
+                messageWindow = new MessageWindow.MessageWindow(this)
                 {
                     Text = Properties.Resources.Messages
                 };

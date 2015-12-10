@@ -129,7 +129,4 @@
     <value>Foutmelding van de loader:
 </value>
   </data>
-  <data name="ModalHelper_ShowModal_Main_window_not_injected" xml:space="preserve">
-    <value>Hoofdvenster niet geïnjecteerd.</value>
-  </data>
 </root>

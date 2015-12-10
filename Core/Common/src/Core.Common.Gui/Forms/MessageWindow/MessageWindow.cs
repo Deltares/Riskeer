@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
 using log4net.Core;
 
@@ -14,12 +13,15 @@ namespace Core.Common.Gui.Forms.MessageWindow
     public partial class MessageWindow : UserControl, IMessageWindow
     {
         public event EventHandler OnError;
+        private readonly IWin32Window owner;
         private readonly Dictionary<string, string> levelImageName;
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
         private bool filtering;
 
-        public MessageWindow()
+        public MessageWindow(IWin32Window owner)
         {
+            this.owner = owner;
+
             Text = Resources.MessageWindow_MessageWindow_Messages;
             MessageWindowLogAppender.MessageWindow = this;
             InitializeComponent();
@@ -263,7 +265,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
             form.Controls.Add(textDocumentView);
             form.Select();
-            ModalHelper.ShowModal(form);
+            form.ShowDialog(owner);
         }
 
         private class MessageData

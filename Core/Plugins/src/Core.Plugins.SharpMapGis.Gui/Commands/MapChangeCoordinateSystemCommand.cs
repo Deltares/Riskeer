@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using Core.Common.Controls.Dialogs;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.UI.Forms;
@@ -24,7 +23,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
 
             var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(OgrCoordinateSystemFactory.SupportedCoordinateSystems, GIS.SharpMap.Map.Map.CoordinateSystemFactory.CustomCoordinateSystems);
 
-            if (ModalHelper.ShowModal(selectCoordinateSystemDialog) == DialogResult.OK)
+            if (selectCoordinateSystemDialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
             {
                 try
                 {

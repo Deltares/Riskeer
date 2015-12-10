@@ -92,7 +92,6 @@
     <Compile Include="Dialogs\ExceptionDialog.Designer.cs">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ModalHelper.cs" />
     <Compile Include="DragOperations.cs" />
     <Compile Include="IReusableView.cs" />
     <Compile Include="IView.cs" />
