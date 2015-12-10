@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 
@@ -9,7 +10,7 @@ namespace Ringtoets.Integration.Data
     /// <summary>
     /// The dune-based section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
-    public class DuneAssessmentSection : AssessmentSectionBase
+    public sealed class DuneAssessmentSection : AssessmentSectionBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneAssessmentSection"/> class.
@@ -18,7 +19,12 @@ namespace Ringtoets.Integration.Data
         {
             Name = Resources.DuneAssessmentSection_DisplayName;
 
-            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName);
+            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName)
+            {
+                Contribution = 70
+            };
+
+            FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
         }
 
         /// <summary>
