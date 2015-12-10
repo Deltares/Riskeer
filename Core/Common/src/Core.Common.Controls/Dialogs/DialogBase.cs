@@ -21,32 +21,36 @@ namespace Core.Common.Controls.Dialogs
     /// <description>no maximize control box item is shown (<see cref="Form.MaximizeBox"/> is set to <c>false</c>);</description>
     /// </item>
     /// <item>
-    /// <description>the parent form is automatically obtained using <see cref="ModalHelper"/>.</description>
+    /// <description>the owning form is always set as provided during creation time.</description>
     /// </item>
     /// </list>
     /// </summary>
     public abstract partial class DialogBase : Form
     {
+        private readonly IWin32Window owner;
+
         /// <summary>
         /// Constructs a new <see cref="DialogBase"/>.
         /// </summary>
+        /// <param name="owner">The owner of the dialog.</param>
         /// <param name="icon">The icon to show in the control box.</param>
-        protected DialogBase(Icon icon)
+        protected DialogBase(IWin32Window owner, Icon icon)
         {
             InitializeComponent();
+
+            this.owner = owner;
 
             Icon = icon;
         }
 
         /// <summary>
         /// This method provides a new implementation of <see cref="Form.ShowDialog()"/>.
-        /// In this new implementation the dialog is shown with an <see cref="IWin32Window"/> owner,
-        /// which is automatically derived via <see cref="ModalHelper"/>.
+        /// In this new implementation the dialog is shown by passing the owner provided during creation time (<see cref="DialogBase(IWin32Window, Icon)"/>.
         /// </summary>
         /// <returns>A <see cref="DialogResult"/>.</returns>
         public new DialogResult ShowDialog()
         {
-            return base.ShowDialog(ModalHelper.MainWindow);
+            return base.ShowDialog(owner);
         }
 
         protected override void OnShown(EventArgs e)

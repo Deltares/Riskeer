@@ -25,8 +25,9 @@ namespace Core.Common.Controls.Dialogs
         /// <summary>
         /// Constructs a new <see cref="ExceptionDialog"/>.
         /// </summary>
+        /// <param name="owner">The owner of the dialog.</param>
         /// <param name="exception">The exception to show in the dialog.</param>
-        public ExceptionDialog(Exception exception) : base(Resources.bug__exclamation)
+        public ExceptionDialog(IWin32Window owner, Exception exception) : base(owner, Resources.bug__exclamation)
         {
             InitializeComponent();
 

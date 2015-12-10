@@ -280,26 +280,29 @@ namespace Application.Ringtoets
 
         private static void HandleException(Exception exception, bool isTerminating)
         {
-            var exceptionDialog = new ExceptionDialog(exception);
-
-            exceptionDialog.OpenLogClicked = () =>
+            var mainWindow = gui.MainWindow as IWin32Window;
+            if (mainWindow != null)
             {
-                if (gui != null && gui.CommandHandler != null)
+                var exceptionDialog = new ExceptionDialog(mainWindow, exception)
                 {
-                    gui.CommandHandler.OpenLogFileExternal();
+                    OpenLogClicked = () =>
+                    {
+                        if (gui.CommandHandler != null)
+                        {
+                            gui.CommandHandler.OpenLogFileExternal();
+                        }
+                    }
+                };
+
+                if (exceptionDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Restart();
+
+                    return;
                 }
-            };
-
-            gui.SkipDialogsOnExit = true;
-
-            if (exceptionDialog.ShowDialog() == DialogResult.OK)
-            {
-                Restart();
             }
-            else
-            {
-                Environment.Exit(1);
-            }
+
+            Environment.Exit(1);
         }
 
         private static void Restart()
