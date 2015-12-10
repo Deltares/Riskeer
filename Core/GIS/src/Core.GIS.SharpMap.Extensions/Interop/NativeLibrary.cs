@@ -3,19 +3,12 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using Core.Common.Utils.Properties;
+using Core.GIS.SharpMap.Extensions.Properties;
 
-namespace Core.Common.Utils.Interop
+namespace Core.GIS.SharpMap.Extensions.Interop
 {
-    public abstract class NativeLibrary : IDisposable
+    public static class NativeLibrary
     {
-        private IntPtr lib = IntPtr.Zero;
-
-        protected NativeLibrary(string fileName)
-        {
-            lib = LoadLibrary(fileName);
-        }
-
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadLibrary(string lpFileName);
 
@@ -69,7 +62,7 @@ namespace Core.Common.Utils.Interop
                     var error = Marshal.GetLastWin32Error();
                     var exception = new Win32Exception(error);
                     throw new FileNotFoundException(
-                        string.Format(Resource.NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_,
+                        string.Format(Resources.NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_,
                                       dllFileName, error, exception.Message, directory, dllFileName));
                 }
             }
@@ -80,38 +73,8 @@ namespace Core.Common.Utils.Interop
             return new SwitchDllSearchDirectoryHelper(dllDirectory);
         }
 
-        public void Dispose()
-        {
-            if (lib == IntPtr.Zero)
-            {
-                return;
-            }
-
-            FreeLibrary(lib);
-
-            lib = IntPtr.Zero;
-        }
-
-        protected IntPtr Library
-        {
-            get
-            {
-                if (lib == IntPtr.Zero)
-                {
-                    throw new InvalidOperationException("Plug-in library is not loaded");
-                }
-
-                return lib;
-            }
-        }
-
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern int GetDllDirectory(int nBufferLength, StringBuilder lpPathName);
-
-        ~NativeLibrary()
-        {
-            Dispose();
-        }
 
         private class SwitchDllSearchDirectoryHelper : IDisposable // ???
         {

@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
+using Core.Common.Utils.Drawing;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
@@ -380,7 +381,7 @@ namespace Core.GIS.SharpMap.Map
 
                 if (Math.Abs(layer.Opacity - 1.0) > 0.0000001)
                 {
-                    GraphicsUtils.DrawImageTransparent(g, layer.Image, layer.Opacity);
+                    g.DrawImageTransparent(layer.Image, layer.Opacity);
                 }
                 else
                 {

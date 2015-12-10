@@ -88,14 +88,12 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Comparer.cs" />
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="CultureUtils.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
     <Compile Include="GraphicsUtils.cs" />
-    <Compile Include="Interop\NativeWin32.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -117,7 +115,6 @@
     <Compile Include="INotifyPropertyChange.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="Collections\Extensions\ListExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableList.cs" />
     <Compile Include="Collections\Generic\IEnumerableList.cs" />
     <Compile Include="Collections\Generic\IEnumerableListEditor.cs" />
@@ -128,12 +125,9 @@
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
-    <Compile Include="SnappingCalculator.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />
-    <Compile Include="IDeepCloneable.cs" />
-    <Compile Include="Interop\NativeLibrary.cs" />
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="MathUtils.cs" />
     <Compile Include="PropertyBag\PropertyBag.cs" />

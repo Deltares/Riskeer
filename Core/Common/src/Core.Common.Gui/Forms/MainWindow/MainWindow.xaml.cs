@@ -16,13 +16,15 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+
+using Core.Common.Gui.Forms.MainWindow.Interop;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Theme;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Interop;
+
 using Fluent;
 using log4net;
 using Microsoft.Win32;

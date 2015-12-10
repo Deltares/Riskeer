@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils.Collections.Extensions;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Editors;
@@ -95,8 +94,11 @@ namespace Core.GIS.SharpMap.Editors.Interactors
             }
 
             Trackers.Clear();
-            Trackers.AddRange(CreateTrackersForGeometry(SourceFeature.Geometry));
-
+            foreach (TrackerFeature feature in CreateTrackersForGeometry(SourceFeature.Geometry))
+            {
+                Trackers.Add(feature);
+            }
+            
             AllTracker = new TrackerFeature(this, null, -1, null);
         }
 

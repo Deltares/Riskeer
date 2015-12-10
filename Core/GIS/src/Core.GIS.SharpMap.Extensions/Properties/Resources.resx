@@ -121,4 +121,9 @@
   <data name="cs_ids" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\CoordinateSystems\cs.ids.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_" xml:space="preserve">
+    <value>Kon {0} niet vinden, dan wel laden.
+Fout: {1} - {2}
+Bestand: {3}\{0}</value>
+  </data>
 </root>

@@ -30,7 +30,9 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Core.Common.Utils.Interop;
+
+using Core.GIS.SharpMap.Extensions.Interop;
+
 using OSGeo.GDAL;
 using OSGeo.OGR;
 

@@ -172,6 +172,10 @@
       <Name>Core.GIS.SharpMap.Api</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Core.GIS.SharpMap.Extensions\Core.GIS.SharpMap.Extensions.csproj">
+      <Project>{a4140c12-53f5-438c-8d24-9e48c504fecf}</Project>
+      <Name>Core.GIS.SharpMap.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
       <Project>{C83777FC-AABB-47D9-911F-D76255D4D541}</Project>
       <Name>Core.GIS.SharpMap</Name>

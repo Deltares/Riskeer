@@ -105,6 +105,8 @@
   <ItemGroup>
     <Compile Include="CoordinateSystems\OgrCoordinateSystemFactory.cs" />
     <Compile Include="GdalConfiguration.cs" />
+    <Compile Include="Interop\NativeLibrary.cs" />
+    <Compile Include="Interop\NativeWin32.cs" />
     <Compile Include="Layers\AsyncTileHandler.cs" />
     <Compile Include="Layers\AsyncTileLayer.cs" />
     <Compile Include="Layers\FileCache.cs" />
@@ -186,6 +188,7 @@
   <ItemGroup>
     <None Include="CoordinateSystems\cs.ids.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

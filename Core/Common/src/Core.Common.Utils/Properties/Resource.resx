@@ -153,11 +153,6 @@
   <data name="DynamicVisibleAttribute_IsDynamicVisible_0_uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute" xml:space="preserve">
     <value>{0} gebruikt DynamicVisibleAttribute, maar heeft geen methode gemarkeerd met DynamicVisibleValidationMethodAttribute.</value>
   </data>
-  <data name="NativeLibrary_LoadNativeDll_Could_not_find_load_0_Error_1_2_File_3_0_" xml:space="preserve">
-    <value>Kon {0} niet vinden, dan wel laden.
-Fout: {1} - {2}
-Bestand: {3}\{0}</value>
-  </data>
   <data name="TypeUtils_CreateInstance_No_default_constructor_available_for_type_0_" xml:space="preserve">
     <value>Geen 'default constructor' gevonden voor type {0}.</value>
   </data>

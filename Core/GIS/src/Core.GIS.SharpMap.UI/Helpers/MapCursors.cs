@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Utils.Drawing;
-using Core.Common.Utils.Interop;
+using Core.GIS.SharpMap.Extensions.Interop;
 using Core.GIS.SharpMap.UI.Properties;
 
 namespace Core.GIS.SharpMap.UI.Helpers

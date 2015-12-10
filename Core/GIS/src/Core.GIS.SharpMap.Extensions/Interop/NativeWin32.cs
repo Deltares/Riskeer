@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Core.Common.Utils.Interop
+namespace Core.GIS.SharpMap.Extensions.Interop
 {
     public static class NativeWin32
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern bool EnableWindow(HandleRef hWnd, bool enable);
-
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetIconInfo(IntPtr hIcon, ref IconInfo pIconInfo);
@@ -28,6 +25,6 @@ namespace Core.Common.Utils.Interop
             public int yHotspot;
             public IntPtr hbmMask;
             public IntPtr hbmColor;
-        }
+        } 
     }
 }

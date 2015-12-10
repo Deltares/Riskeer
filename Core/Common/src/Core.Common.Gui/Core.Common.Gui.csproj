@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="Appenders\RunReportLogAppender.cs" />
+    <Compile Include="Forms\MainWindow\Interop\NativeWin32.cs" />
     <Compile Include="Theme\ColorTheme.cs" />
     <Compile Include="Theme\ColorThemeExtensions.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
