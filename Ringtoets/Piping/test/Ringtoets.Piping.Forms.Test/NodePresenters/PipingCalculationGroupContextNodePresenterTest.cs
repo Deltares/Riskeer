@@ -185,10 +185,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             object draggedItemContext;
             CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
 
-            var targetGroup = new PipingCalculationGroup();
-            var targetGroupContext = new PipingCalculationGroupContext(targetGroup,
-                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingSoilProfile>());
+            PipingCalculationGroup targetGroup;
+            PipingCalculationGroupContext targetGroupContext;
+            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext);
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(draggedItem);
             failureMechanism.CalculationsGroup.Children.Add(targetGroup);
@@ -330,17 +329,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             IPipingCalculationItem draggedItem;
             object draggedItemContext;
             CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
-            
-            var originalOwnerGroup = new PipingCalculationGroup();
-            originalOwnerGroup.Children.Add(draggedItem);
-            var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
-                                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                              Enumerable.Empty<PipingSoilProfile>());
 
-            var newOwnerGroup = new PipingCalculationGroup();
-            var newOwnerGroupContext = new PipingCalculationGroupContext(newOwnerGroup,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
+            originalOwnerGroup.Children.Add(draggedItem);
+
+            PipingCalculationGroup newOwnerGroup;
+            PipingCalculationGroupContext newOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext);
 
             var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
             originalOwnerObserver.Expect(o => o.UpdateObserver());
@@ -432,17 +429,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var existingItemStub = mockRepository.Stub<IPipingCalculationItem>();
             existingItemStub.Stub(i => i.Name).Return("");
 
-            var originalOwnerGroup = new PipingCalculationGroup();
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
             originalOwnerGroup.Children.Add(existingItemStub);
             originalOwnerGroup.Children.Add(draggedItem);
             originalOwnerGroup.Children.Add(existingItemStub);
-            var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
-                                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                              Enumerable.Empty<PipingSoilProfile>());
 
             bool updatewasCalled = false;
-            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation => updatewasCalled = true);
+            var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updatewasCalled = true);
 
             var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
 
@@ -526,26 +521,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             object draggedItemContext;
             CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
 
-            var originalOwnerGroup = new PipingCalculationGroup();
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
             originalOwnerGroup.Children.Add(draggedItem);
-            var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
-                                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                              Enumerable.Empty<PipingSoilProfile>());
 
-            var newOwnerGroup = new PipingCalculationGroup();
-            var newOwnerGroupContext = new PipingCalculationGroupContext(newOwnerGroup,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+            PipingCalculationGroup newOwnerGroup;
+            PipingCalculationGroupContext newOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext);
 
             var sameNamedItem = mockRepository.Stub<IPipingCalculationItem>();
             sameNamedItem.Stub(i => i.Name).Return(draggedItem.Name);
 
-            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
-
             var updateWasCalled = false;
-            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation => updateWasCalled = true);
+            var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy();
+            var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updateWasCalled = true);
 
             var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
             var preUpdateCalculationContextNode = mockRepository.Stub<ITreeNode>();
@@ -638,93 +628,43 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             object draggedItemContext;
             CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
 
-            var originalOwnerGroup = new PipingCalculationGroup();
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
             originalOwnerGroup.Children.Add(draggedItem);
-            var originalOwnerGroupContext = new PipingCalculationGroupContext(originalOwnerGroup,
-                                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                              Enumerable.Empty<PipingSoilProfile>());
 
-            var newOwnerGroup = new PipingCalculationGroup();
-            var newOwnerGroupContext = new PipingCalculationGroupContext(newOwnerGroup,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
-
-            var originalOwnerObserver = mockRepository.StrictMock<IObserver>();
-            originalOwnerObserver.Expect(o => o.UpdateObserver());
+            PipingCalculationGroup newOwnerGroup;
+            PipingCalculationGroupContext newOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext);
 
             var updatewasCalled = false;
-            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation => updatewasCalled = true);
+            var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy();
+            var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(methodInvocation => updatewasCalled = true);
 
             var nodeStub = CreateStubTreeNode();
+            ITreeNode[] childNodesStub = { nodeStub };
 
             var expandedNodeData = new object();
-            var preUpdateExpandedNode = mockRepository.Stub<ITreeNode>();
-            preUpdateExpandedNode.Tag = expandedNodeData;
-            preUpdateExpandedNode.Expect(n => n.IsExpanded).Return(true);
-            preUpdateExpandedNode.Stub(n => n.Nodes).Return(new[]
-            {
-                nodeStub
-            });
-
-            var postUpdateExpandedNode = mockRepository.Stub<ITreeNode>();
-            postUpdateExpandedNode.Tag = expandedNodeData;
-            postUpdateExpandedNode.Expect(n => n.IsExpanded).Return(false);
-            postUpdateExpandedNode.Expect(n => n.Expand());
-            postUpdateExpandedNode.Stub(n => n.Nodes).Return(new[]
-            {
-                nodeStub
-            });
+            var preUpdateExpandedNode = CreateExpandedNodeStub(expandedNodeData, childNodesStub);
+            var postUpdateExpandedNode = CreateNodeStubToBeExpanded(expandedNodeData, childNodesStub);
 
             var collapsedNodeData = new object();
-            var preUpdateCollapsedNode = mockRepository.Stub<ITreeNode>();
-            preUpdateCollapsedNode.Tag = collapsedNodeData;
-            preUpdateCollapsedNode.Expect(n => n.IsExpanded).Return(true);
-            preUpdateCollapsedNode.Stub(n => n.Nodes).Return(new[]
-            {
-                nodeStub
-            });
+            var preUpdateCollapsedNode = CreateCollapsedNodeStub(collapsedNodeData, childNodesStub);
+            var postUpdateCollapsedNode = CreateNodeStubToBeCollapsed(collapsedNodeData, childNodesStub);
 
-            var postUpdateCollapsedNode = mockRepository.Stub<ITreeNode>();
-            postUpdateCollapsedNode.Tag = collapsedNodeData;
-            postUpdateCollapsedNode.Expect(n => n.IsExpanded).Return(false);
-            postUpdateCollapsedNode.Expect(n => n.Expand());
-            postUpdateCollapsedNode.Stub(n => n.Nodes).Return(new[]
-            {
-                nodeStub
-            });
-
-            var newOwnerGroupContextNode = mockRepository.Stub<ITreeNode>();
-            newOwnerGroupContextNode.Tag = newOwnerGroupContext;
-            newOwnerGroupContextNode.Expect(n => n.IsExpanded).Return(false).Repeat.Times(3); // 2x for recording and restoring state, 1x for expanding
-            newOwnerGroupContextNode.Expect(n => n.Expand()); // Must expand new owner, otherwise selecting dragged node could not be visible when parent is collapsed.
-            newOwnerGroupContextNode.Stub(n => n.Nodes).WhenCalled(invocation =>
+            ITreeNode[] preUpdateChildNodes = { preUpdateExpandedNode, preUpdateCollapsedNode };
+            ITreeNode[] postUpdateChildNodes = { postUpdateExpandedNode, postUpdateCollapsedNode };
+            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(newOwnerGroupContext, preUpdateChildNodes, invocation =>
             {
                 if (updatewasCalled)
                 {
-                    invocation.ReturnValue = new[]
-                    {
-                        postUpdateExpandedNode,
-                        postUpdateCollapsedNode
-                    };
+                    invocation.ReturnValue = postUpdateChildNodes;
                 }
-            }).Return(new[]
-            {
-                preUpdateExpandedNode,
-                preUpdateCollapsedNode
             });
 
-            var preUpdateDraggedItemContextNode = mockRepository.Stub<ITreeNode>();
-            preUpdateDraggedItemContextNode.Tag = draggedItemContext;
-            preUpdateDraggedItemContextNode.Expect(n => n.IsExpanded).Return(false);
-            preUpdateDraggedItemContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
-
-            var postUpdateDraggedItemContextNode = mockRepository.Stub<ITreeNode>();
-            postUpdateDraggedItemContextNode.Tag = draggedItemContext;
+            var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
+            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new ITreeNode[0]);
             postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-            postUpdateDraggedItemContextNode.Expect(n => n.IsExpanded).Return(true);
-            postUpdateDraggedItemContextNode.Expect(n => n.Collapse());
-            postUpdateDraggedItemContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
 
             var treeView = mockRepository.Stub<ITreeView>();
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
@@ -1408,6 +1348,104 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             mockRepository.VerifyAll();
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ITreeNode"/> stub that is in the expanded state.
+        /// </summary>
+        /// <param name="nodeData">The data corresponding with the created node.</param>
+        /// <param name="childNodes">The child nodes.</param>
+        private ITreeNode CreateExpandedNodeStub(object nodeData, ITreeNode[] childNodes)
+        {
+            var preUpdateExpandedNode = mockRepository.Stub<ITreeNode>();
+            preUpdateExpandedNode.Tag = nodeData;
+            preUpdateExpandedNode.Expect(n => n.IsExpanded).Return(true);
+            preUpdateExpandedNode.Stub(n => n.Nodes).Return(childNodes);
+            return preUpdateExpandedNode;
+        }
+
+        /// <summary>
+        /// Creates an <see cref="ITreeNode"/> stub that is expected to be expanded.
+        /// </summary>
+        /// <param name="nodeData">The data corresponding with the created node.</param>
+        /// <param name="childNodes">The child nodes.</param>
+        /// <param name="whenNodesCalledAction">Optional: action to be called when <see cref="ITreeNode.Nodes"/> is being retrieved.</param>
+        private ITreeNode CreateNodeStubToBeExpanded(object nodeData, ITreeNode[] childNodes, Action<MethodInvocation> whenNodesCalledAction = null)
+        {
+            var postUpdateExpandedNode = mockRepository.Stub<ITreeNode>();
+            postUpdateExpandedNode.Tag = nodeData;
+            postUpdateExpandedNode.Stub(n => n.IsExpanded).Return(false);
+            postUpdateExpandedNode.Expect(n => n.Expand());
+            postUpdateExpandedNode.Stub(n => n.Nodes).WhenCalled(invocation =>
+            {
+                if (whenNodesCalledAction != null)
+                {
+                    whenNodesCalledAction(invocation);
+                }
+            }).Return(childNodes);
+            return postUpdateExpandedNode;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ITreeNode"/> stub that is in the collapsed state.
+        /// </summary>
+        /// <param name="nodeData">The data corresponding with the created node.</param>
+        /// <param name="childNodes">The child nodes.</param>
+        private ITreeNode CreateCollapsedNodeStub(object nodeData, ITreeNode[] childNodes)
+        {
+            var collapsedNode = mockRepository.Stub<ITreeNode>();
+            collapsedNode.Tag = nodeData;
+            collapsedNode.Stub(n => n.IsExpanded).Return(false);
+            collapsedNode.Stub(n => n.Nodes).Return(childNodes);
+            return collapsedNode;
+        }
+
+        /// <summary>
+        /// Creates an <see cref="ITreeNode"/> stub that is expected to be collapsed.
+        /// </summary>
+        /// <param name="nodeData">The data corresponding with the created node.</param>
+        /// <param name="childNodes">The child nodes.</param>
+        private ITreeNode CreateNodeStubToBeCollapsed(object nodeData, ITreeNode[] childNodes)
+        {
+            var nodeToBeCollapsed = mockRepository.Stub<ITreeNode>();
+            nodeToBeCollapsed.Tag = nodeData;
+            nodeToBeCollapsed.Stub(n => n.IsExpanded).Return(true);
+            nodeToBeCollapsed.Expect(n => n.Collapse());
+            nodeToBeCollapsed.Stub(n => n.Nodes).Return(childNodes);
+            return nodeToBeCollapsed;
+        }
+
+        /// <summary>
+        /// Creates an <see cref="IObserver"/> stub that expects its <see cref="IObserver.UpdateObserver"/>
+        /// method will be called once.
+        /// </summary>
+        /// <param name="whenCalledAction">Optional: Action to be performed when <see cref="IObserver.UpdateObserver"/>
+        /// is being called.</param>
+        private IObserver CreateObserverStubWithUpdateExpectancy(Action<MethodInvocation> whenCalledAction = null)
+        {
+            var newOwnerObserver = mockRepository.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation =>
+            {
+                if (whenCalledAction != null)
+                {
+                    whenCalledAction(invocation);
+                }
+            });
+            return newOwnerObserver;
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="PipingCalculationGroup"/> and the corresponding
+        /// <see cref="PipingCalculationGroupContext"/>.
+        /// </summary>
+        /// <param name="data">The created group without any children.</param>
+        /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
+        private static void CreatePipingCalculationGroupAndContext(out PipingCalculationGroup data, out PipingCalculationGroupContext dataContext)
+        {
+            data = new PipingCalculationGroup();
+            dataContext = new PipingCalculationGroupContext(data,
+                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSoilProfile>());
         }
 
         /// <summary>
