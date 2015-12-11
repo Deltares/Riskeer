@@ -16,11 +16,13 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private readonly ViewList viewList;
         private readonly IList<ViewInfo> viewInfos;
+        private readonly IWin32Window owner;
 
-        public ViewResolver(ViewList viewList, IEnumerable<ViewInfo> viewInfos)
+        public ViewResolver(ViewList viewList, IEnumerable<ViewInfo> viewInfos, IWin32Window owner)
         {
             this.viewList = viewList;
             this.viewInfos = viewInfos.ToList();
+            this.owner = owner;
         }
 
         public IDictionary<Type, Type> DefaultViewTypes
@@ -349,14 +351,13 @@ namespace Core.Common.Gui.Forms.ViewManager
                                       : null;
 
             var viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
-            var viewSelector = new SelectViewDialog
+            var viewSelector = new SelectViewDialog(owner)
             {
                 DefaultViewName = defaultViewName,
                 Items = viewTypeDictionary.Keys.ToList()
             };
 
-            // TODO : get MainWindow for ShowDialog
-            if (viewSelector.ShowDialog( /*gui.MainWindow as Form*/) != DialogResult.OK)
+            if (viewSelector.ShowDialog() != DialogResult.OK)
             {
                 return null;
             }

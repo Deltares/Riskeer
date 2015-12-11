@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms
 {
-    public partial class SelectViewDialog : Form
+    public partial class SelectViewDialog : DialogBase
     {
         private IList<string> items;
 
-        public SelectViewDialog()
+        public SelectViewDialog(IWin32Window owner) : base(owner, Resources.arrow_000_medium_question_mark)
         {
             InitializeComponent();
 
@@ -49,6 +50,11 @@ namespace Core.Common.Gui.Forms
         }
 
         public string DefaultViewName { get; set; }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
+        }
 
         private void listBox_DoubleClick(object sender, EventArgs e)
         {

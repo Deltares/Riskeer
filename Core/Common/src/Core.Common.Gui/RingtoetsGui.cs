@@ -783,7 +783,7 @@ namespace Core.Common.Gui
 
             documentViews = documentViewManager;
 
-            DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()));
+            DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()), mainWindow);
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
 
             var allowedToolWindowLocations = new[]

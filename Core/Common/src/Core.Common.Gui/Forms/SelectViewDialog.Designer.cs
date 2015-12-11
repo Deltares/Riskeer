@@ -77,16 +77,11 @@ namespace Core.Common.Gui.Forms
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.checkBoxDefault);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "SelectViewDialog";
             this.ResumeLayout(false);
             this.PerformLayout();

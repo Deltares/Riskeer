@@ -73,7 +73,7 @@ namespace Core.Common.Test.Gui
             {
                 new ViewInfo<object, TestView>(),
                 new ViewInfo<object, AdditionalView>()
-            });
+            }, null);
 
             var testObject = new object();
 
@@ -92,7 +92,7 @@ namespace Core.Common.Test.Gui
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
             {
                 new ViewInfo<object, TestView>()
-            });
+            }, null);
 
             var testObject = new object();
 
@@ -117,7 +117,7 @@ namespace Core.Common.Test.Gui
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
             {
                 new ViewInfo<object, TestReusableView>()
-            });
+            }, null);
 
             var testObject = new object();
             viewResolver.OpenViewForData(testObject);
@@ -143,7 +143,7 @@ namespace Core.Common.Test.Gui
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
             {
                 new ViewInfo<object, TestView>()
-            });
+            }, null);
 
             var testObject = new object();
             viewResolver.OpenViewForData(testObject);
@@ -168,7 +168,7 @@ namespace Core.Common.Test.Gui
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
             {
                 new ViewInfo<object, TestReusableView>()
-            });
+            }, null);
 
             var testObject = new object();
             viewResolver.OpenViewForData(testObject);
@@ -238,7 +238,7 @@ namespace Core.Common.Test.Gui
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
             {
                 new ViewInfo<Url, HtmlPageView>()
-            });
+            }, null);
 
             viewResolver.OpenViewForData(url);
 
@@ -260,7 +260,7 @@ namespace Core.Common.Test.Gui
                 {
                     GetViewData = o => o.RealData
                 }
-            });
+            }, null);
 
             var someDataObject = "some data object";
             var wrapper = new TestWrapper
@@ -296,7 +296,7 @@ namespace Core.Common.Test.Gui
                 {
                     Description = "String view"
                 } // string inherits from object 
-            });
+            }, null);
 
             var data = "string data";
             viewResolver.OpenViewForData(data);
