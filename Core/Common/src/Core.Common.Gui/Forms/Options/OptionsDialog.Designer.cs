@@ -30,11 +30,11 @@ namespace Core.Common.Gui.Forms.Options
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
             this.groupBoxUserSettings = new System.Windows.Forms.GroupBox();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
             this.comboBoxTheme = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxStartPage = new System.Windows.Forms.CheckBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
             this.groupBoxUserSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,21 +46,6 @@ namespace Core.Common.Gui.Forms.Options
             this.groupBoxUserSettings.Controls.Add(this.checkBoxStartPage);
             this.groupBoxUserSettings.Name = "groupBoxUserSettings";
             this.groupBoxUserSettings.TabStop = false;
-            // 
-            // buttonCancel
-            // 
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // buttonOk
-            // 
-            resources.ApplyResources(this.buttonOk, "buttonOk");
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // comboBoxTheme
             // 
@@ -82,20 +67,30 @@ namespace Core.Common.Gui.Forms.Options
             this.checkBoxStartPage.Name = "checkBoxStartPage";
             this.checkBoxStartPage.UseVisualStyleBackColor = true;
             // 
+            // buttonCancel
+            // 
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonOk
+            // 
+            resources.ApplyResources(this.buttonOk, "buttonOk");
+            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.ButtonOkClick);
+            // 
             // OptionsDialog
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.groupBoxUserSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "OptionsDialog";
-            this.ShowInTaskbar = false;
             this.groupBoxUserSettings.ResumeLayout(false);
             this.groupBoxUserSettings.PerformLayout();
             this.ResumeLayout(false);

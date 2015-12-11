@@ -2,26 +2,30 @@ using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows.Forms;
-using Core.Common.Gui.Theme;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
+using Core.Common.Gui.Theme;
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Forms.Options
 {
-    public partial class OptionsDialog : Form
+    public partial class OptionsDialog : DialogBase
     {
         private readonly ApplicationSettingsBase userSettings;
 
-        public OptionsDialog(ApplicationSettingsBase userSettings)
+        public OptionsDialog(IWin32Window owner, ApplicationSettingsBase userSettings) : base(owner, Resources.OptionsHS1)
         {
             InitializeComponent();
 
             this.userSettings = userSettings;
 
-            Icon = Resources.OptionsHS1;
-
             SetColorThemeOptions();
             SetSettingsValuesToControls();
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
 
         private void SetColorThemeOptions()
