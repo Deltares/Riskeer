@@ -214,7 +214,7 @@
     <value>3</value>
   </data>
   <data name="richTextBox1.Text" xml:space="preserve">
-    <value>Een onafgehandelde fout is opgetreden. De applicatie moet gesloten worden.</value>
+    <value>Een onafgehandelde fout is opgetreden. Het programma moet gesloten worden.</value>
   </data>
   <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
     <value>richTextBox1</value>
