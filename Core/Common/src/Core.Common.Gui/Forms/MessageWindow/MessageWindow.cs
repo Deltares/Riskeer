@@ -242,30 +242,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var form = new Form
-            {
-                Text = Resources.MessageWindow_showDetailsToolStripMenuItem_Click_Message_details,
-                StartPosition = FormStartPosition.CenterScreen,
-                FormBorderStyle = FormBorderStyle.Sizable,
-                ShowInTaskbar = false,
-                Icon = Resources.application_import_blue1,
-                Size = new Size(300, 300)
-            };
+            var messageWindowDialog = new MessageWindowDialog(owner, (string)messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value);
 
-            var text = (string) messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value;
-
-            var textDocumentView = new TextBox
-            {
-                Dock = DockStyle.Fill,
-                Multiline = true,
-                ScrollBars = ScrollBars.Both,
-                Text = text,
-                ReadOnly = true
-            };
-
-            form.Controls.Add(textDocumentView);
-            form.Select();
-            form.ShowDialog(owner);
+            messageWindowDialog.ShowDialog();
         }
 
         private class MessageData

@@ -111,6 +111,10 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

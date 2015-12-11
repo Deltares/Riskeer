@@ -259,9 +259,6 @@
   <data name="ProgressDialog_SetButtonState_Cancelling" xml:space="preserve">
     <value>Annuleren...</value>
   </data>
-  <data name="MessageWindow_showDetailsToolStripMenuItem_Click_Message_details" xml:space="preserve">
-    <value>Berichtdetails</value>
-  </data>
   <data name="RingtoetsGui_Run_Creating_new_project" xml:space="preserve">
     <value>Nieuw project aanmaken...</value>
   </data>
