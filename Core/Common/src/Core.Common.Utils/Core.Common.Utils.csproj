@@ -123,7 +123,6 @@
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="EventArgs.cs" />
-    <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="MathUtils.cs" />
     <Compile Include="PropertyBag\PropertyBag.cs" />
     <Compile Include="PropertyOrderAttribute.cs" />
@@ -136,7 +135,6 @@
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
-    <Compile Include="IO\FileUtils.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
     <Compile Include="Collections\Generic\EventedList.cs" />
     <Compile Include="Collections\Generic\IEventedList.cs" />

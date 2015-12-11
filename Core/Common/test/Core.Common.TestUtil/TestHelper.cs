@@ -8,11 +8,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Core.Common.Utils.IO;
+
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
+
 using Newtonsoft.Json;
+
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil
@@ -69,7 +71,7 @@ namespace Core.Common.TestUtil
         /// <returns></returns>
         public static string GetTestDataPath(TestDataPath testDataPath, string path)
         {
-            return Path.Combine(Path.Combine(TestDataDirectory, testDataPath.Path),"test-data", path);
+            return Path.Combine(Path.Combine(TestDataDirectory, testDataPath.Path), "test-data", path);
         }
 
         public static string GetTestProjectDirectory()
@@ -159,8 +161,8 @@ namespace Core.Common.TestUtil
             stopwatch.Stop();
 
             actualMillisecond = Math.Abs(actualMillisecond - default(double)) > 1e-5
-                ? Math.Min(stopwatch.ElapsedMilliseconds, actualMillisecond)
-                : stopwatch.ElapsedMilliseconds;
+                                    ? Math.Min(stopwatch.ElapsedMilliseconds, actualMillisecond)
+                                    : stopwatch.ElapsedMilliseconds;
 
             stopwatch.Reset();
 
@@ -182,14 +184,14 @@ namespace Core.Common.TestUtil
             float machineHddPerformanceRank = GetMachineHddPerformanceRank();
 
             var reportDirectory = GetSolutionRoot() + Path.DirectorySeparatorChar + "target/";
-            FileUtils.CreateDirectoryIfNotExists(reportDirectory);
+            CreateDirectoryIfNotExists(reportDirectory);
 
             var path = reportDirectory + "performance-times.html";
-            WriteTimesToLogFile(maxMilliseconds, (int) actualMillisecond, machinePerformanceRank,
+            WriteTimesToLogFile(maxMilliseconds, (int)actualMillisecond, machinePerformanceRank,
                                 machineHddPerformanceRank, rankHddAccess, testName, false, path);
 
             path = reportDirectory + "performance-times-charts.html";
-            WriteTimesToLogFile(maxMilliseconds, (int) actualMillisecond, machinePerformanceRank,
+            WriteTimesToLogFile(maxMilliseconds, (int)actualMillisecond, machinePerformanceRank,
                                 machineHddPerformanceRank, rankHddAccess, testName, true, path);
 
             float rank = machineHddPerformanceRank;
@@ -202,10 +204,10 @@ namespace Core.Common.TestUtil
             var userMessage = String.IsNullOrEmpty(message) ? "" : message + ". ";
             if (rank != 1.0f)
             {
-                Assert.IsTrue(rank*actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
-                              maxMilliseconds, actualMillisecond, actualMillisecond*rank);
+                Assert.IsTrue(rank * actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
+                              maxMilliseconds, actualMillisecond, actualMillisecond * rank);
                 Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
-                                                              maxMilliseconds, actualMillisecond, actualMillisecond*rank));
+                                                              maxMilliseconds, actualMillisecond, actualMillisecond * rank));
             }
             else
             {
@@ -247,7 +249,7 @@ namespace Core.Common.TestUtil
             AssertExpectedMessagesInRenderedMessages(messages, renderedMessages);
             if (expectedLogMessageCount != null)
             {
-                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
+                Assert.AreEqual((int)expectedLogMessageCount, renderedMessages.Count());
             }
         }
 
@@ -290,7 +292,7 @@ namespace Core.Common.TestUtil
                 return;
             }
             Assert.IsNotNull(actualImage);
-            
+
             Assert.AreEqual(expectedImage.Size, actualImage.Size);
             IEnumerable<byte> expectedImageBytes = GetImageAsByteArray(expectedImage);
             IEnumerable<byte> actualImageBytes = GetImageAsByteArray(actualImage);
@@ -321,6 +323,31 @@ namespace Core.Common.TestUtil
             Assert.AreEqual(toolTip, item.ToolTipText);
             Assert.AreEqual(enabled, item.Enabled);
             AssertImagesAreEqual(icon, item.Image);
+        }
+
+        /// <summary>
+        /// Create dir if not exists.
+        /// </summary>
+        /// <param name="path">File path to a directory.</param>
+        /// <exception cref="IOException"> When:
+        ///   The directory specified by <paramref name="path"/> is read-only
+        /// </exception>
+        /// <exception cref="UnauthorizedAccessException"> When: The caller does not have the required permission.</exception>
+        /// <exception cref="ArgumentException">
+        ///   <paramref name="path"/> is a zero-length string, contains only white space, or contains one or more invalid characters as defined by <see cref="Path.GetInvalidPathChars"/>. -or- 
+        ///   <paramref name="path"/> is prefixed with, or contains only a colon character (:).</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/> is null.</exception>
+        /// <exception cref="PathTooLongException">
+        ///   The specified path, file name, or both exceed the system-defined maximum length. 
+        ///   For example, on Windows-based platforms, paths must be less than 248 characters and file names must be less than 260 characters. </exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
+        /// <exception cref="NotSupportedException"><paramref name="path"/> contains a colon character (:) that is not part of a drive label ("C:\").</exception>
+        private static void CreateDirectoryIfNotExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
 
         private static string GetCurrentTestClassMethodName()
@@ -405,7 +432,7 @@ namespace Core.Common.TestUtil
 
             string contents;
 
-            float rank = machineRank*(useHddAccessRank ? machineHddRank : 1.0f);
+            float rank = machineRank * (useHddAccessRank ? machineHddRank : 1.0f);
 
             var chartContent = includeCharts ? String.Format("<td><iframe style=\"width:950px;height:350px;border:none\" src=\"performace-test-reports\\{0}.json.html\"></iframe></td>", testName) : "";
 
@@ -414,19 +441,19 @@ namespace Core.Common.TestUtil
             {
                 contents = String.Format(CultureInfo.InvariantCulture,
                                          "<tr><td>{0}</td><td><a href=\"performace-test-reports/{1}.json.html\">{1}</a></td>{2}<td>{3:G5}</td><td>{4:G5}</td><td>{5:G5}</td>",
-                                         DateTime.Now, testName, chartContent, maxMilliseconds, actualMilliseconds, actualMilliseconds*rank);
-                fraction = (maxMilliseconds - actualMilliseconds*rank)/maxMilliseconds;
+                                         DateTime.Now, testName, chartContent, maxMilliseconds, actualMilliseconds, actualMilliseconds * rank);
+                fraction = (maxMilliseconds - actualMilliseconds * rank) / maxMilliseconds;
             }
             else
             {
                 contents = String.Format(CultureInfo.InvariantCulture,
                                          "<tr><td>{0}</td><td><a href=\"performace-test-reports/{1}.json.html\">{1}</a></td>{2}<td>{3:G5}</td><td>{4:G5}</td>", DateTime.Now, testName, chartContent,
                                          maxMilliseconds, actualMilliseconds);
-                fraction = (maxMilliseconds - actualMilliseconds)/maxMilliseconds;
+                fraction = (maxMilliseconds - actualMilliseconds) / maxMilliseconds;
             }
 
             string color = ColorTranslator.ToHtml(GetPerformanceColor(fraction));
-            contents += String.Format(CultureInfo.InvariantCulture, "<td bgcolor=\"{0}\">{1:G5}%</td>", color, (100 - fraction*100));
+            contents += String.Format(CultureInfo.InvariantCulture, "<td bgcolor=\"{0}\">{1:G5}%</td>", color, (100 - fraction * 100));
 
             contents += "</tr>\n";
             File.AppendAllText(path, contents);
@@ -443,7 +470,7 @@ namespace Core.Common.TestUtil
 
             // generate JSON files locally
             string testHistoryDirectoryPath = GetSolutionRoot() + "/target/performace-test-reports";
-            FileUtils.CreateDirectoryIfNotExists(testHistoryDirectoryPath);
+            CreateDirectoryIfNotExists(testHistoryDirectoryPath);
 
             string testHistoryFilePath = testHistoryDirectoryPath + Path.DirectorySeparatorChar + testName + ".json";
 
@@ -490,7 +517,7 @@ namespace Core.Common.TestUtil
                 TestName = testName,
                 Actual = actualMilliseconds,
                 ActualWeighted =
-                    (int) (actualMilliseconds*machineRank*(useHddAccessRank ? machineHddRank : 1.0)),
+                    (int)(actualMilliseconds * machineRank * (useHddAccessRank ? machineHddRank : 1.0)),
                 Max = maxMilliseconds,
                 MachineHddRank = machineHddRank,
                 MachineRank = machineRank,
@@ -560,9 +587,9 @@ namespace Core.Common.TestUtil
             }
 
             // 25% is the best result GREEN, less or greater than goes to yellow
-            var localValue = fraction >= 0.25 ? Math.Min(1, (fraction - 0.25)/0.75) : Math.Max(0, (0.25 - fraction)/0.25);
+            var localValue = fraction >= 0.25 ? Math.Min(1, (fraction - 0.25) / 0.75) : Math.Max(0, (0.25 - fraction) / 0.25);
 
-            return colors[(int) (localValue*100.0)];
+            return colors[(int)(localValue * 100.0)];
         }
 
         /// <summary>
@@ -610,6 +637,18 @@ namespace Core.Common.TestUtil
             return renderedMessages;
         }
 
+        private static IEnumerable<byte> GetImageAsByteArray(Image expectedImage)
+        {
+            using (var stream = new MemoryStream())
+            {
+                expectedImage.Save(stream, expectedImage.RawFormat);
+                var length = stream.Length;
+                var imageBytes = new byte[length];
+                stream.Read(imageBytes, 0, (int)length);
+                return imageBytes;
+            }
+        }
+
         #region Nested type: TestRunInfo
 
         internal class TestRunInfo
@@ -626,17 +665,5 @@ namespace Core.Common.TestUtil
         }
 
         #endregion
-
-        private static IEnumerable<byte> GetImageAsByteArray(Image expectedImage)
-        {
-            using (var stream = new MemoryStream())
-            {
-                expectedImage.Save(stream, expectedImage.RawFormat);
-                var length = stream.Length;
-                var imageBytes = new byte[length];
-                stream.Read(imageBytes, 0, (int)length);
-                return imageBytes;
-            }
-        }
     }
 }

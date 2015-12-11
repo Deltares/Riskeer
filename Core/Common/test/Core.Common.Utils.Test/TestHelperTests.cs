@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
-using Core.Common.Utils.IO;
 using Core.Common.Utils.Test.Properties;
 using log4net;
 using NUnit.Framework;
@@ -92,7 +92,7 @@ namespace Core.Common.Utils.Test
 
             // dump all colors to html file for visual test
             const string path = "GetPerformanceColors.html";
-            FileUtils.DeleteIfExists(path);
+            DeleteIfExists(path);
             var contents = "<table>";
             for (var i = -0.05; i <= 1.1; i += 0.05)
             {
@@ -106,6 +106,36 @@ namespace Core.Common.Utils.Test
             contents += "</table>";
 
             File.AppendAllText(path, contents);
+        }
+
+        private static void DeleteIfExists(string path)
+        {
+            if (!File.Exists(path) & !Directory.Exists(path))
+            {
+                return;
+            }
+
+            var attributes = File.GetAttributes(path);
+
+            // if file is readonly - make it non-readonly
+            if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                File.SetAttributes(path, attributes ^ FileAttributes.ReadOnly);
+            }
+
+            // now delete everything
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            else if (Directory.Exists(path))
+            {
+                foreach (var path2 in Directory.GetDirectories(path).Union(Directory.GetFiles(path)))
+                {
+                    DeleteIfExists(path2);
+                }
+                Directory.Delete(path);
+            }
         }
 
         [Test]
