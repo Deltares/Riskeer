@@ -1201,7 +1201,8 @@ namespace Core.Common.Gui.Forms.MainWindow
                 Title = Properties.Resources.Ribbon_About,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Core.Common.Gui;component/Resources/information.png", UriKind.Absolute)),
                 ShowInTaskbar = false,
-                Owner = this
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
             aboutDialog.PreviewKeyDown += (s, ev) =>
