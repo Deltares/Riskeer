@@ -23,7 +23,7 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method adds <see cref="applicationPlugin"/> to the <see cref="ApplicationCore"/>.
+        /// This method adds an <see cref="ApplicationPlugin"/> to the <see cref="ApplicationCore"/>.
         /// Additionally, the provided <see cref="ApplicationPlugin"/> is activated.
         /// </summary>
         /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to add and activate.</param>
@@ -35,7 +35,7 @@ namespace Core.Common.Base.Plugin
         }
 
         /// <summary>
-        /// This method removes <see cref="applicationPlugin"/> from the <see cref="ApplicationCore"/>.
+        /// This method removes an <see cref="ApplicationPlugin"/> from the <see cref="ApplicationCore"/>.
         /// Additionally, the provided <see cref="ApplicationPlugin"/> is deactivated.
         /// </summary>
         /// <param name="applicationPlugin">The <see cref="ApplicationPlugin"/> to remove and deactivate.</param>

@@ -46,7 +46,7 @@ namespace Core.Common.Base.Test.Plugin
             var targetItem = new object();
             var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Expect(i => i.SupportedItemType).Return(typeof(object)).Repeat.Any();
+            fileImporter.Stub(i => i.SupportedItemType).Return(typeof(object));
 
             mocks.ReplayAll();
 
@@ -93,7 +93,7 @@ namespace Core.Common.Base.Test.Plugin
             var targetItem = new object();
             var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Expect(i => i.SupportedItemType).Return(typeof(object)).Repeat.Any();
+            fileImporter.Stub(i => i.SupportedItemType).Return(typeof(object));
 
             mocks.ReplayAll();
 
@@ -128,9 +128,9 @@ namespace Core.Common.Base.Test.Plugin
             var supportedFileImporter2 = mocks.Stub<IFileImporter>();
             var unsupportedFileImporter = mocks.Stub<IFileImporter>();
 
-            supportedFileImporter1.Expect(i => i.SupportedItemType).Return(typeof(B)).Repeat.Any();
-            supportedFileImporter2.Expect(i => i.SupportedItemType).Return(typeof(A)).Repeat.Any();
-            unsupportedFileImporter.Expect(i => i.SupportedItemType).Return(typeof(C)).Repeat.Any(); // Wrong type
+            supportedFileImporter1.Stub(i => i.SupportedItemType).Return(typeof(B));
+            supportedFileImporter2.Stub(i => i.SupportedItemType).Return(typeof(A));
+            unsupportedFileImporter.Stub(i => i.SupportedItemType).Return(typeof(C)); // Wrong type
 
             mocks.ReplayAll();
 
@@ -163,7 +163,7 @@ namespace Core.Common.Base.Test.Plugin
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Expect(i => i.SupportedItemType).Return(null).Repeat.Any();
+            fileImporter.Stub(i => i.SupportedItemType).Return(null);
 
             mocks.ReplayAll();
 
@@ -192,9 +192,9 @@ namespace Core.Common.Base.Test.Plugin
             var supportedFileExporter2 = mocks.Stub<IFileExporter>();
             var unsupportedFileExporter = mocks.Stub<IFileExporter>();
 
-            supportedFileExporter1.Expect(i => i.SupportedItemType).Return(typeof(B)).Repeat.Any();
-            supportedFileExporter2.Expect(i => i.SupportedItemType).Return(typeof(A)).Repeat.Any();
-            unsupportedFileExporter.Expect(i => i.SupportedItemType).Return(typeof(C)).Repeat.Any(); // Wrong type
+            supportedFileExporter1.Stub(i => i.SupportedItemType).Return(typeof(B));
+            supportedFileExporter2.Stub(i => i.SupportedItemType).Return(typeof(A));
+            unsupportedFileExporter.Stub(i => i.SupportedItemType).Return(typeof(C)); // Wrong type
 
             mocks.ReplayAll();
 
@@ -227,7 +227,7 @@ namespace Core.Common.Base.Test.Plugin
             var mocks = new MockRepository();
             var fileExporter = mocks.Stub<IFileExporter>();
 
-            fileExporter.Expect(e => e.SupportedItemType).Return(null).Repeat.Any();
+            fileExporter.Stub(e => e.SupportedItemType).Return(null);
 
             mocks.ReplayAll();
 

@@ -125,6 +125,7 @@ namespace Core.Common.Base.Service
         /// <remarks>
         /// <para>The <see cref="State"/> should be set to <see cref="ActivityState.Failed"/> when one or more errors occur.</para>
         /// <para>By convention, the implementation of this method should not contain UI thread related logic.</para>
+        /// <para>Implementations of this method are allowed to throw exceptions of any kind.</para>
         /// </remarks>
         protected abstract void OnRun();
 
@@ -132,7 +133,8 @@ namespace Core.Common.Base.Service
         /// This template method provides the actual cancel logic (it is called within <see cref="Cancel"/>).
         /// </summary>
         /// <remarks>
-        /// By convention, the implementation of this method should not contain UI thread related logic.
+        /// <para>By convention, the implementation of this method should not contain UI thread related logic.</para>
+        /// <para>Implementations of this method are allowed to throw exceptions of any kind.</para>
         /// </remarks>
         protected abstract void OnCancel();
 
@@ -140,7 +142,8 @@ namespace Core.Common.Base.Service
         /// This template method provides the actual finish logic (it is called within <see cref="Finish"/>).
         /// </summary>
         /// <remarks>
-        /// By convention, only the implementation of this method might contain UI thread related logic.
+        /// <para>By convention, only the implementation of this method might contain UI thread related logic.</para>
+        /// <para>Implementations of this method are allowed to throw exceptions of any kind.</para>
         /// </remarks>
         protected abstract void OnFinish();
 

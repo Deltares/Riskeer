@@ -11,15 +11,19 @@ namespace Core.Common.Base.Test.Service
     public class FileImportActivityTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: fileImporter")]
         public void Constructor_ImporterEqualsNull_ArgumentExceptionIsThrown()
         {
-            // Setup / Call / Assert
-            new FileImportActivity(null, new object(), "");
+            // Setup
+            TestDelegate test = () => new FileImportActivity(null, new object(), "");
+
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
+            // Assert
+            StringAssert.EndsWith("fileImporter", message);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: target")]
         public void Constructor_TargetEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup
@@ -28,12 +32,16 @@ namespace Core.Common.Base.Test.Service
 
             mocks.ReplayAll();
 
-            // Call / Assert
-            new FileImportActivity(fileImporter, null, "");
+            TestDelegate test = () => new FileImportActivity(fileImporter, null, "");
+
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
+            // Assert
+            StringAssert.EndsWith("target", message);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException), ExpectedMessage = "Value cannot be null.\r\nParameter name: filePath")]
         public void Constructor_FilePathEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup
@@ -42,8 +50,13 @@ namespace Core.Common.Base.Test.Service
 
             mocks.ReplayAll();
 
-            // Call / Assert
-            new FileImportActivity(fileImporter, new object(), null);
+            TestDelegate test = () => new FileImportActivity(fileImporter, new object(), null);
+
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
+            // Assert
+            StringAssert.EndsWith("filePath", message);
         }
 
         [Test]
@@ -53,7 +66,7 @@ namespace Core.Common.Base.Test.Service
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Expect(i => i.Name).Return("Importer name").Repeat.Any();
+            fileImporter.Stub(i => i.Name).Return("Importer name");
 
             mocks.ReplayAll();
 
@@ -72,7 +85,7 @@ namespace Core.Common.Base.Test.Service
             var fileImporter = mocks.Stub<IFileImporter>();
             var target = new object();
 
-            fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
+            fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
             fileImporter.Expect(i => i.Import(target, "file")).Return(true);
 
             mocks.ReplayAll();
@@ -94,8 +107,8 @@ namespace Core.Common.Base.Test.Service
             var fileImporter = mocks.Stub<IFileImporter>();
             var target = new object();
 
-            fileImporter.Expect(x => x.ProgressChanged = null).IgnoreArguments().Repeat.Any();
-            fileImporter.Expect(x => x.Cancel()).IgnoreArguments().Repeat.Any();
+            fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
+            fileImporter.Expect(x => x.Cancel());
 
             mocks.ReplayAll();
 

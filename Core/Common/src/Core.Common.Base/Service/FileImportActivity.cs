@@ -50,9 +50,17 @@ namespace Core.Common.Base.Service
             }
         }
 
+        /// <summary>
+        /// This method performs the actual import logic.
+        /// </summary>
+        /// <remarks>
+        /// <para>This method can throw exceptions of any kind.</para>
+        /// </remarks>
         protected override void OnRun()
         {
-            ImportFromFile(filePath);
+            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2, currentStep, totalSteps, currentStepName); };
+
+            fileImporter.Import(target, filePath);
         }
 
         protected override void OnCancel()
@@ -61,12 +69,5 @@ namespace Core.Common.Base.Service
         }
 
         protected override void OnFinish() {}
-
-        private void ImportFromFile(string fileName)
-        {
-            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2, currentStep, totalSteps, currentStepName); };
-
-            fileImporter.Import(target, fileName);
-        }
     }
 }
