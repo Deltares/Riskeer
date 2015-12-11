@@ -16,6 +16,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Plugins.CommonTools.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
+using Core.Plugins.CommonTools.Gui.Properties;
 using Core.Plugins.CommonTools.Gui.Property;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using DevExpress.Data.Access;
@@ -51,7 +52,7 @@ namespace Core.Plugins.CommonTools.Gui
             {
                 ChartLegendView = new ChartLegendView(this)
                 {
-                    Text = Properties.Resources.CommonToolsGuiPlugin_InitializeChartLegendView_Chart
+                    Text = Resources.CommonToolsGuiPlugin_InitializeChartLegendView_Chart
                 };
             }
 
@@ -81,15 +82,16 @@ namespace Core.Plugins.CommonTools.Gui
         {
             yield return new ViewInfo<TextDocument, TextDocumentView>
             {
-                Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""
+                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""
             };
             yield return new ViewInfo<Url, HtmlPageView>
             {
-                Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser, GetViewName = (v, o) => o != null ? o.Name : ""
+                Image = Resources.home,
+                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser, GetViewName = (v, o) => o != null ? o.Name : ""
             };
             yield return new ViewInfo<Chart, ChartView>
             {
-                Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View
+                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View
             };
         }
 
