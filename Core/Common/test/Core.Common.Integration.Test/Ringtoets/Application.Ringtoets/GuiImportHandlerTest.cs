@@ -24,7 +24,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         public void NoImporterAvailableGivesMessageBox()
         {
             var applicationCore = new ApplicationCore();
-            gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
+            gui.Stub(g => g.ApplicationCore).Return(applicationCore);
+            gui.Stub(g => g.MainWindow).Return(null);
 
             mocks.ReplayAll();
 
