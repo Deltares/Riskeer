@@ -1092,7 +1092,11 @@ namespace Core.Common.Gui.Forms.MainWindow
                 }
             }
 
-            Gui.DocumentViews.Add(new RichTextView(licensePageName, Gui.FixedSettings.LicenseFilePath));
+            Gui.DocumentViewsResolver.OpenViewForData(new RichTextFile
+            {
+                Name = licensePageName,
+                FilePath = Gui.FixedSettings.LicenseFilePath
+            });
         }
 
         private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e)

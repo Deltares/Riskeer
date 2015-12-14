@@ -80,6 +80,12 @@ namespace Core.Plugins.CommonTools.Gui
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
+            yield return new ViewInfo<RichTextFile, RichTextView>
+            {
+                Image = Resources.key,
+                GetViewName = (v, o) => o != null ? o.Name : ""
+            };
+
             yield return new ViewInfo<TextDocument, TextDocumentView>
             {
                 Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""

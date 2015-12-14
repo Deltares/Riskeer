@@ -122,6 +122,7 @@
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.Designer.cs">
       <DependentUpon>MessageWindowDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RichTextFile.cs" />
     <Compile Include="Theme\ColorTheme.cs" />
     <Compile Include="Theme\ColorThemeExtensions.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
@@ -518,6 +519,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\plus.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\key.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
