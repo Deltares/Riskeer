@@ -350,6 +350,25 @@ namespace Core.Common.TestUtil
             }
         }
 
+        /// <summary>
+        /// Asserts that the exception is of type <typeparamref name="T"/> and that the custom part of <see cref="Exception.Message"/> 
+        /// is equal to <paramref name="expectedCustomMessage"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the expected exception.</typeparam>
+        /// <param name="test">The test to execute and should throw exception of type <typeparamref name="T"/>.</param>
+        /// <param name="expectedCustomMessage">The expected custom part of the exception message.</param>
+        /// <remarks>Can only be used when <paramref name="expectedCustomMessage"/> does not contain <see cref="Environment.NewLine"/>.
+        /// </remarks>
+        public static void AssertExceptionCustomMessage<T>(TestDelegate test, string expectedCustomMessage) where T : Exception
+        {
+            var message = Assert.Throws<T>(test).Message;
+            var customMessage = message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None)[0];
+            Assert.AreEqual(expectedCustomMessage, customMessage);
+        }
+
         private static string GetCurrentTestClassMethodName()
         {
             var stackTrace = new StackTrace(false);
@@ -644,7 +663,7 @@ namespace Core.Common.TestUtil
                 expectedImage.Save(stream, expectedImage.RawFormat);
                 var length = stream.Length;
                 var imageBytes = new byte[length];
-                stream.Read(imageBytes, 0, (int)length);
+                stream.Read(imageBytes, 0, (int) length);
                 return imageBytes;
             }
         }

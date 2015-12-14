@@ -153,7 +153,6 @@ namespace Core.Common.Gui
         /// Update the tool tip for every view currently open. Reasons for doing so 
         /// include the modification of the tree structure which is reflected in a tool tip.
         /// </summary>
-        /// <returns></returns>
         void UpdateToolTips();
 
         #endregion

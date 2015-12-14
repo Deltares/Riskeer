@@ -2,6 +2,8 @@
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data.Properties;
 
+using CommonResources = Ringtoets.Common.Data.Properties.Resources;
+
 namespace Ringtoets.Integration.Data.Contribution
 {
     /// <summary>
@@ -39,6 +41,11 @@ namespace Ringtoets.Integration.Data.Contribution
         public double Contribution { get; private set; }
 
         /// <summary>
+        /// Gets or sets the norm of the complete dike section.
+        /// </summary>
+        public double Norm { get; internal set; }
+
+        /// <summary>
         /// Gets the probability space per year for the <see cref="FailureMechanismContribution"/>.
         /// </summary>
         public double ProbabilitySpace
@@ -48,10 +55,5 @@ namespace Ringtoets.Integration.Data.Contribution
                 return (Norm / Contribution) * 100;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the norm of the complete dike section.
-        /// </summary>
-        internal double Norm { private get; set; }
     }
 }

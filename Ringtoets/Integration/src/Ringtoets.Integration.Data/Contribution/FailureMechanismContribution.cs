@@ -8,7 +8,7 @@ using Ringtoets.Integration.Data.Properties;
 namespace Ringtoets.Integration.Data.Contribution
 {
     /// <summary>
-    /// This class represents the distribution of contribution for all failure mechanism.
+    /// This class represents the distribution of all failure mechanism contributions.
     /// </summary>
     public class FailureMechanismContribution : Observable
     {
@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Data.Contribution
             {
                 throw new ArgumentNullException("failureMechanisms", Resources.FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
             }
-            this.norm = norm;
+            Norm = norm;
             failureMechanisms.ForEachElementDo(AddContributionItem);
             AddOtherContributionItem(otherContribution);
         }
@@ -53,6 +53,10 @@ namespace Ringtoets.Integration.Data.Contribution
             }
             set
             {
+                if (value <= 0)
+                {
+                    throw new ArgumentException(Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
+                }
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);
             }

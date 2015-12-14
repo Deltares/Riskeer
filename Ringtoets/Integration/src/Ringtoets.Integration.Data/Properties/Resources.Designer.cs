@@ -134,12 +134,21 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen bijdrage item maken zonder een faalmechanisme..
+        ///   Looks up a localized string similar to Kan geen bijdrage element maken zonder een faalmechanisme..
         /// </summary>
         public static string FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure" +
                         "_mechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0..
+        /// </summary>
+        public static string FailureMechanismContributionItem_Norm_must_be_larger_than_zero {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionItem_Norm_must_be_larger_than_zero", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -27,9 +28,7 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             TestDelegate test = () => new FailureMechanismContributionItem(null, new Random(21).Next());
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism, message);
-            StringAssert.EndsWith("failureMechanism", message);
+            TestHelper.AssertExceptionCustomMessage<ArgumentNullException>(test, Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
         }
 
         [Test]
@@ -46,12 +45,15 @@ namespace Ringtoets.Integration.Data.Test.Contribution
 
             mockRepository.ReplayAll();
 
+            var norm = new Random(21).Next();
+
             // Call
-            var result = new FailureMechanismContributionItem(failureMechanism, new Random(21).Next());
+            var result = new FailureMechanismContributionItem(failureMechanism, norm);
 
             // Assert
-            Assert.AreEqual(name,result.Assessment);
-            Assert.AreEqual(contribution,result.Contribution);
+            Assert.AreEqual(name, result.Assessment);
+            Assert.AreEqual(contribution, result.Contribution);
+            Assert.AreEqual(norm, result.Norm);
 
             mockRepository.VerifyAll();
         }

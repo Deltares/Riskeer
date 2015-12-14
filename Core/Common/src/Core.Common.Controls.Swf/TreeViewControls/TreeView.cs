@@ -292,7 +292,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         }
 
         /// <summary>
-        /// Fires the OnUpdate event with the given <see cref="treeNode"/>.
+        /// Fires the <see cref="OnUpdate"/> event with the given <see cref="treeNode"/>.
         /// </summary>
         /// <param name="treeNode">The <see cref="ITreeNode"/> to fire an update event for.</param>
         private void FireOnUpdateEvent(ITreeNode treeNode)

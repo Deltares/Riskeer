@@ -8,6 +8,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Forms.NodePresenters;
 
@@ -48,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var nodePresenter = new FailureMechanismContributionNodePresenter(contextMenuBuilderProviderMock);
 
             // Assert
-            Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
+            Assert.IsInstanceOf<RingtoetsNodePresenterBase<FailureMechanismContribution>>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
             Assert.AreEqual(typeof(FailureMechanismContribution), nodePresenter.NodeTagType);
 
@@ -60,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var projectNode = mockRepository.Stub<ITreeNode>();
-            var assessmentSection = mockRepository.Stub<FailureMechanismContribution>(new IFailureMechanism[] { }, 0, 0);
+            var assessmentSection = mockRepository.Stub<FailureMechanismContribution>(new IFailureMechanism[] { }, 1, 1);
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -81,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var assessmentSection = mockRepository.Stub<FailureMechanismContribution>(new IFailureMechanism[] { }, 0, 0);
+            var assessmentSection = mockRepository.Stub<FailureMechanismContribution>(new IFailureMechanism[] { }, 1, 1);
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
 

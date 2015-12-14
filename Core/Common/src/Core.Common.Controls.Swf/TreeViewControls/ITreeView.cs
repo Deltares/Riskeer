@@ -10,12 +10,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
     public interface ITreeView : IView
     {
         /// <summary>
-        /// Event to notify observers of changes in the selection
+        /// Event to notify observers of changes in the selection.
         /// </summary>
         event EventHandler SelectedNodeChanged;
 
         /// <summary>
-        /// Event to notify observers of changes in the tree structure
+        /// Event to notify observers of changes in the tree structure.
         /// </summary>
         event EventHandler OnUpdate;
 

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -270,7 +271,7 @@ namespace Core.Common.Utils.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AssertContextMenuStripContainsItem_MenuItemWithDifferentEnabeldState_NoExceptions(bool enabled)
+        public void AssertContextMenuStripContainsItem_MenuItemWithDifferentEnabeldState_ThrowsAssertionException(bool enabled)
         {
             // Setup
             var contextMenuStrip = new ContextMenuStrip();
@@ -298,6 +299,51 @@ namespace Core.Common.Utils.Test
 
             // Call & Assert
             TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image);
+        }
+
+        [Test]
+        public void AssertExceptionCustomMessage_NoException_ThrowsAssertionException()
+        {
+            // Setup
+            TestDelegate t = () => { };
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertExceptionCustomMessage<Exception>(t, String.Empty);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertExceptionCustomMessage_ExceptionIncorrectMessage_ThrowsAssertionException()
+        {
+            // Setup
+            var someMessage = "Exception";
+            var differentMessage = "Different";
+            TestDelegate t = () => { throw new Exception(someMessage); };
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertExceptionCustomMessage<Exception>(t, differentMessage);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertExceptionCustomMessage_ExceptionEqualMessage_NoExceptions()
+        {
+            // Setup
+            var someMessage = "Exception";
+            TestDelegate t = () => { throw new Exception(someMessage); };
+
+            // Call & Assert
+            TestHelper.AssertExceptionCustomMessage<Exception>(t, someMessage);
         }
 
         private static ToolStripMenuItem CreateContextMenuItem()

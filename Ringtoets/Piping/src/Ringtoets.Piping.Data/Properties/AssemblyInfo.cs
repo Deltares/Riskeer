@@ -7,4 +7,3 @@ using System.Runtime.InteropServices;
 [assembly: Guid("5ff8830f-c542-40f3-9f0f-64002f39b9ef")]
 [assembly: InternalsVisibleTo("Ringtoets.Piping.Data.Test")]
 [assembly: InternalsVisibleTo("Ringtoets.Piping.Forms")]
-[assembly: InternalsVisibleTo("Ringtoets.Integration.Data")]

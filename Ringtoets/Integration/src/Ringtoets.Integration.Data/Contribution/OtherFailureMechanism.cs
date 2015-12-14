@@ -1,6 +1,5 @@
-﻿using System;
-using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Properties;
+﻿using Ringtoets.Common.Data;
+using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Contribution
 {
@@ -15,7 +14,7 @@ namespace Ringtoets.Integration.Data.Contribution
         /// </summary>
         public OtherFailureMechanism()
         {
-            Name = Resources.OtherFailureMechanism_DisplayName;
+            Name = RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(String.Empty, assessmentSection.Name);
             Assert.AreEqual("Referentielijn", assessmentSection.ReferenceLine.Name);
             Assert.AreEqual("HR locatiedatabase", assessmentSection.HydraulicBoundaryDatabase.Name);
+            Assert.IsNull(assessmentSection.FailureMechanismContribution);
         }
 
         private class SimpleAssessmentSection : AssessmentSectionBase {

@@ -9,10 +9,18 @@ using Ringtoets.Integration.Data.Contribution;
 
 namespace Ringtoets.Integration.Forms.Views
 {
+    /// <summary>
+    /// View for the <see cref="FailureMechanismContribution"/>, from which the <see cref="FailureMechanismContribution.Norm"/>
+    /// can be updated and the <see cref="FailureMechanismContributionItem.Contribution"/> and <see cref="FailureMechanismContributionItem.ProbabilitySpace"/>
+    /// can be seen in a grid.
+    /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
         private FailureMechanismContribution data;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
+        /// </summary>
         public FailureMechanismContributionView()
         {
             InitializeComponent();
@@ -39,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views
         public void UpdateObserver()
         {
             SetNormText();
-            probabilityDistributionGrid.Refresh();
+            probabilityDistributionGrid.Invalidate();
         }
 
         private void SetNormValue(FailureMechanismContribution value)
@@ -92,7 +100,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
-            data.Norm = (int) normInput.Value;
+            data.Norm = Convert.ToInt32(normInput.Value);
             data.NotifyObservers();
         }
 

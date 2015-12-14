@@ -1,11 +1,9 @@
-﻿using Ringtoets.Common.Data;
-
-namespace Ringtoets.Common.Placeholder
+﻿namespace Ringtoets.Common.Placeholder
 {
     /// <summary>
     /// Simple placeholder object with only a name that cannot be changed.
     /// </summary>
-    public class PlaceholderWithReadonlyName : BaseFailureMechanism
+    public class PlaceholderWithReadonlyName
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PlaceholderWithReadonlyName"/> class.
@@ -15,5 +13,10 @@ namespace Ringtoets.Common.Placeholder
         {
             Name = name;
         }
+
+        /// <summary>
+        /// Gets the name of the placeholder.
+        /// </summary>
+        public string Name { get; private set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -27,12 +28,10 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             var random = new Random(21);
 
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(null, random.NextDouble(), random.Next());
+            TestDelegate test = () => new FailureMechanismContribution(null, random.NextDouble(), random.Next(1, 200000));
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection, message);
-            StringAssert.EndsWith("failureMechanisms", message);
+            TestHelper.AssertExceptionCustomMessage<ArgumentNullException>(test, Resources.FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
         }
 
         [Test]
@@ -42,48 +41,66 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             var random = new Random(21);
 
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(new IFailureMechanism[]{null}, random.NextDouble(), random.Next());
+            TestDelegate test = () => new FailureMechanismContribution(new IFailureMechanism[]
+            {
+                null
+            }, random.NextDouble(), random.Next(1, 200000));
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism, message);
-            StringAssert.EndsWith("failureMechanism", message);
+            TestHelper.AssertExceptionCustomMessage<ArgumentNullException>(test, Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
         }
 
         [Test]
-        [TestCase(-10)]
-        [TestCase(-1e-6)]
-        [TestCase(100+1e-6)]
-        [TestCase(150)]
-        public void Constructor_OtherContributionOutside0To100_ArgumentException(double contribution)
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-200)]
+        public void Constructor_WithInvalidNorm_ThrowsArgumentException(int norm)
         {
             // Setup
             var random = new Random(21);
 
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(new IFailureMechanism[] { }, contribution, random.Next());
+            TestDelegate test = () => { new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), random.NextDouble(), norm); };
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            StringAssert.StartsWith(Common.Data.Properties.Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100, message);
-            StringAssert.EndsWith("value", message);
+            TestHelper.AssertExceptionCustomMessage<ArgumentException>(test, Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
         }
 
         [Test]
-        public void Constructor_EmptyFailureMechanisms_OnlyOtherFailureMechanismAdded()
+        [TestCase(0)]
+        [TestCase(-10)]
+        [TestCase(-1e-6)]
+        [TestCase(100 + 1e-6)]
+        [TestCase(150)]
+        public void Constructor_OtherContributionLessOrEqualTo0OrGreaterThan100_ArgumentException(double contribution)
         {
             // Setup
             var random = new Random(21);
-            var otherContribution = (double)random.Next(0, 100);
+
+            // Call
+            TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, random.Next(1, 200000));
+
+            // Assert
+            TestHelper.AssertExceptionCustomMessage<ArgumentException>(test, Common.Data.Properties.Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100);
+        }
+
+        [Test]
+        [TestCase(50)]
+        [TestCase(1e-6)]
+        [TestCase(100)]
+        public void Constructor_EmptyFailureMechanisms_OnlyOtherFailureMechanismAddedWithContributionSet(double contribution)
+        {
+            // Setup
+            var random = new Random(21);
             var norm = random.Next();
 
             // Call
-            var result =  new FailureMechanismContribution(new IFailureMechanism[] { }, otherContribution, norm);
-            
+            var result = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
+
             // Assert
             Assert.AreEqual(1, result.Distribution.Count());
-            Assert.AreEqual(otherContribution, result.Distribution.ElementAt(0).Contribution);
-            Assert.AreEqual((norm / otherContribution) * 100, result.Distribution.ElementAt(0).ProbabilitySpace);
+            Assert.AreEqual(contribution, result.Distribution.ElementAt(0).Contribution);
+            Assert.AreEqual((norm/contribution)*100, result.Distribution.ElementAt(0).ProbabilitySpace);
             Assert.AreEqual(norm, result.Norm);
         }
 
@@ -95,7 +112,7 @@ namespace Ringtoets.Integration.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var otherContribution = (double)random.Next(0, 100);
+            var otherContribution = (double) random.Next(0, 100);
 
             var failureMechanismNames = new Collection<string>();
             var failureMechanismContributions = new Collection<double>();
@@ -120,7 +137,7 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             failureMechanismContributions.Add(otherContribution);
 
             mockRepository.ReplayAll();
-            var norm = random.Next();
+            var norm = random.Next(1, 200000);
 
             // Call
             var result = new FailureMechanismContribution(failureMechanisms, otherContribution, norm);
@@ -130,9 +147,31 @@ namespace Ringtoets.Integration.Data.Test.Contribution
 
             CollectionAssert.AreEqual(failureMechanismNames, result.Distribution.Select(d => d.Assessment));
             CollectionAssert.AreEqual(failureMechanismContributions, result.Distribution.Select(d => d.Contribution));
-            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => (norm / c) * 100), result.Distribution.Select(d => d.ProbabilitySpace));
+            CollectionAssert.AreEqual(failureMechanismContributions.Select(c => (norm/c)*100), result.Distribution.Select(d => d.ProbabilitySpace));
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem()
+        {
+            // Setup
+            var random = new Random(21);
+            var otherContribution = (double)random.Next(0, 100);
+            var norm = 20000;
+            var newNorm = 30000;
+
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+
+            mockRepository.ReplayAll();
+
+            var failureMechanismContribution = new FailureMechanismContribution(new[] { failureMechanism }, otherContribution, norm);
+
+            // Call
+            failureMechanismContribution.Norm = newNorm;
+
+            // Assert
+            Assert.AreEqual(Enumerable.Repeat(newNorm,2) , failureMechanismContribution.Distribution.Select(d => d.Norm));
         }
     }
 }

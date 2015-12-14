@@ -18,6 +18,30 @@ namespace Ringtoets.Integration.Data.Test
             // Call
             var section = new DikeAssessmentSection();
 
+            var pipingName = "Dijken - Piping";
+            var grassErosionName = "Dijken - Graserosie kruin en binnentalud";
+            var macrostailityInwardName = "Dijken - Macrostabiliteit binnenwaarts";
+            var overtoppingName = "Kunstwerken - Overslag en overloop";
+            var closingName = "Kunstwerken - Niet sluiten";
+            var failingOfConstructionName = "Kunstwerken - Constructief falen";
+            var stoneRevetmentName = "Dijken - Steenbekledingen";
+            var asphaltName = "Dijken - Asfaltbekledingen";
+            var grassRevetmentName = "Dijken - Grasbekledingen";
+
+            var contributions = new double[] { 24, 24, 4, 2, 4, 2, 4, 3, 3, 30 };
+            var names = new[] {
+                pipingName,
+                grassErosionName,
+                macrostailityInwardName,
+                overtoppingName,
+                closingName,
+                failingOfConstructionName,
+                stoneRevetmentName,
+                asphaltName,
+                grassRevetmentName,
+                Resources.OtherFailureMechanism_DisplayName
+            };
+
             // Assert
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<AssessmentSectionBase>(section);
@@ -31,14 +55,14 @@ namespace Ringtoets.Integration.Data.Test
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.SurfaceLines);
 
             Assert.IsInstanceOf<PipingFailureMechanism>(section.PipingFailureMechanism);
-            Assert.AreEqual("Dijken - Graserosie kruin en binnentalud", section.GrassErosionFailureMechanism.Name);
-            Assert.AreEqual("Dijken - Macrostabiliteit binnenwaarts", section.MacrostabilityInwardFailureMechanism.Name);
-            Assert.AreEqual("Kunstwerken - Overslag en overloop", section.OvertoppingFailureMechanism.Name);
-            Assert.AreEqual("Kunstwerken - Niet sluiten", section.ClosingFailureMechanism.Name);
-            Assert.AreEqual("Kunstwerken - Constructief falen", section.FailingOfConstructionFailureMechanism.Name);
-            Assert.AreEqual("Dijken - Steenbekledingen", section.StoneRevetmentFailureMechanism.Name);
-            Assert.AreEqual("Dijken - Asfaltbekledingen", section.AsphaltRevetmentFailureMechanism.Name);
-            Assert.AreEqual("Dijken - Grasbekledingen", section.GrassRevetmentFailureMechanism.Name);
+            Assert.AreEqual(grassErosionName, section.GrassErosionFailureMechanism.Name);
+            Assert.AreEqual(macrostailityInwardName, section.MacrostabilityInwardFailureMechanism.Name);
+            Assert.AreEqual(overtoppingName, section.OvertoppingFailureMechanism.Name);
+            Assert.AreEqual(closingName, section.ClosingFailureMechanism.Name);
+            Assert.AreEqual(failingOfConstructionName, section.FailingOfConstructionFailureMechanism.Name);
+            Assert.AreEqual(stoneRevetmentName, section.StoneRevetmentFailureMechanism.Name);
+            Assert.AreEqual(asphaltName, section.AsphaltRevetmentFailureMechanism.Name);
+            Assert.AreEqual(grassRevetmentName, section.GrassRevetmentFailureMechanism.Name);
 
             Assert.AreEqual(24, section.PipingFailureMechanism.Contribution);
             Assert.AreEqual(24, section.GrassErosionFailureMechanism.Contribution);
@@ -49,6 +73,10 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(4, section.StoneRevetmentFailureMechanism.Contribution);
             Assert.AreEqual(3, section.AsphaltRevetmentFailureMechanism.Contribution);
             Assert.AreEqual(3, section.GrassRevetmentFailureMechanism.Contribution);
+
+            Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
+            Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
+            Assert.AreEqual(Enumerable.Repeat(30000.0, 10), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
         }
 
         [Test]
@@ -89,10 +117,11 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void FailureMechanismContribution_Always_ReturnInitializedFailureMechanismContribution()
+        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther()
         {
             // Setup
             var assessmentSection = new DikeAssessmentSection();
+            var norm = 30000;
 
             // Call
             var contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
@@ -106,11 +135,13 @@ namespace Ringtoets.Integration.Data.Test
             {
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
-                Assert.AreEqual((30000 / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
+                Assert.AreEqual(norm, contribution[i].Norm);
+                Assert.AreEqual((norm / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
             }
             Assert.AreEqual(Resources.OtherFailureMechanism_DisplayName, contribution[9].Assessment);
             Assert.AreEqual(30, contribution[9].Contribution);
-            Assert.AreEqual((30000 / contribution[9].Contribution) * 100, 100000);
+            Assert.AreEqual(norm, contribution[9].Norm);
+            Assert.AreEqual((norm / contribution[9].Contribution) * 100, 100000);
         }
     }
 }
