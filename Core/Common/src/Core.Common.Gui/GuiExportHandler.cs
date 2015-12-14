@@ -16,9 +16,12 @@ namespace Core.Common.Gui
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiExportHandler));
         private static readonly Bitmap brickImage = Resources.brick;
 
+        private readonly IWin32Window owner;
+
         // TODO: refactor it, remove Funcs - too complicated design, initialize exporters in a different way
-        public GuiExportHandler(Func<object, IEnumerable<IFileExporter>> fileExportersGetter, Func<object, IView> viewGetter)
+        public GuiExportHandler(IWin32Window owner, Func<object, IEnumerable<IFileExporter>> fileExportersGetter, Func<object, IView> viewGetter)
         {
+            this.owner = owner;
             FileExportersGetter = fileExportersGetter;
             ViewGetter = viewGetter;
         }
@@ -59,7 +62,7 @@ namespace Core.Common.Gui
         private IFileExporter GetSupportedExporterForItemUsingDialog(object itemToExport)
         {
             var sourceType = itemToExport.GetType();
-            var selectExporterDialog = new SelectItemDialog();
+            var selectExporterDialog = new SelectItemDialog(owner);
 
             var fileExporters = FileExportersGetter(itemToExport);
 

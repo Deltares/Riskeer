@@ -96,17 +96,11 @@ namespace Core.Common.Gui.Forms
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.listViewItemTypes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "SelectItemDialog";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Validating += new System.ComponentModel.CancelEventHandler(this.NewDataDialog_Validating);
             this.ResumeLayout(false);
             this.PerformLayout();

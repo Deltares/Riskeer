@@ -35,7 +35,7 @@ namespace Core.Common.Gui
 
         public IFileImporter GetSupportedImporterForTargetType(object target)
         {
-            var selectImporterDialog = new SelectItemDialog();
+            var selectImporterDialog = new SelectItemDialog(gui.MainWindow);
 
             var importers = gui.ApplicationCore.GetSupportedFileImporters(target);
             //if there is only one available exporter use that.

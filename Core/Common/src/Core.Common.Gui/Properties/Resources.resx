@@ -620,7 +620,7 @@
     <value>..\Resources\cut.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SelectItemDialog_buttonOk_Click_Please_select_an_item" xml:space="preserve">
-    <value>Selecteer een gegevenstype.</value>
+    <value>Selecteer een type.</value>
   </data>
   <data name="cog_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/cog_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -918,5 +918,8 @@
   </data>
   <data name="arrow_000_medium_question_mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow-000-medium-question-mark.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plus.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

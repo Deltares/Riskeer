@@ -1719,6 +1719,16 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon plus {
+            get {
+                object obj = ResourceManager.GetObject("plus", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap plus_button_32 {
@@ -2310,7 +2320,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een gegevenstype..
+        ///   Looks up a localized string similar to Selecteer een type..
         /// </summary>
         public static string SelectItemDialog_buttonOk_Click_Please_select_an_item {
             get {

@@ -290,7 +290,7 @@ namespace Core.Common.Gui
 
         private GuiExportHandler CreateGuiExportHandler()
         {
-            return new GuiExportHandler(o => gui.ApplicationCore.GetSupportedFileExporters(o), o => gui.DocumentViewsResolver.CreateViewForData(o));
+            return new GuiExportHandler(gui.MainWindow, o => gui.ApplicationCore.GetSupportedFileExporters(o), o => gui.DocumentViewsResolver.CreateViewForData(o));
         }
 
         private void ApplicationProjectClosing(Project project)
@@ -359,7 +359,7 @@ namespace Core.Common.Gui
 
         private SelectItemDialog CreateSelectionDialogWithItems(IList<DataItemInfo> dataItemInfos)
         {
-            var selectDataDialog = new SelectItemDialog();
+            var selectDataDialog = new SelectItemDialog(gui.MainWindow);
 
             foreach (var dataItemInfo in dataItemInfos)
             {

@@ -2,13 +2,14 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms
 {
-    public partial class SelectItemDialog : Form
+    public partial class SelectItemDialog : DialogBase
     {
-        public SelectItemDialog()
+        public SelectItemDialog(IWin32Window owner) : base(owner, Resources.plus)
         {
             InitializeComponent();
 
@@ -66,6 +67,11 @@ namespace Core.Common.Gui.Forms
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
 
         private ListViewItem SelectedItem
