@@ -137,10 +137,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             foreach (var np in projectTreeViewNodePresenters)
             {
-                if (!ProjectExplorer.ProjectTreeView.TreeView.NodePresenters.Contains(np))
-                {
-                    ProjectExplorer.ProjectTreeView.TreeView.NodePresenters.Add(np);
-                }
+                ProjectExplorer.ProjectTreeView.TreeView.RegisterNodePresenter(np);
             }
         }
     }

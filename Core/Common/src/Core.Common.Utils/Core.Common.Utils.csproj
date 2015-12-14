@@ -105,15 +105,12 @@
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="TextDocument.cs" />
     <Compile Include="Collections\INotifyCollectionChanged.cs" />
-    <Compile Include="Collections\INotifyCollectionChanging.cs" />
     <Compile Include="Collections\NotifyCollectionChangeAction.cs" />
     <Compile Include="Collections\NotifyCollectionChangedEventHandler.cs" />
     <Compile Include="Collections\NotifyCollectionChangingEventHandler.cs" />
     <Compile Include="INotifyPropertyChange.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="Collections\Generic\EnumerableList.cs" />
-    <Compile Include="Collections\Generic\IEnumerableList.cs" />
     <Compile Include="Collections\Generic\IEnumerableListEditor.cs" />
     <Compile Include="Collections\INotifyCollectionChange.cs" />
     <Compile Include="Collections\NotifyCollectionChangingEventArgs.cs" />

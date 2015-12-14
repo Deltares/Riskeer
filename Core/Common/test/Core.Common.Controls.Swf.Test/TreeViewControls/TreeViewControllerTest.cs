@@ -31,17 +31,14 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             mocks.ReplayAll();
 
-            var presenter = new TreeViewController(treeview);
+            var controller = new TreeViewController(treeview);
             var baseClassNodePresenter = new BaseClassNodePresenter();
             var subClassNodePresenter = new SubClassNodePresenter();
 
-            presenter.NodePresenters.AddRange(new ITreeNodePresenter[]
-            {
-                baseClassNodePresenter,
-                subClassNodePresenter
-            });
+            controller.RegisterNodePresenter(baseClassNodePresenter);
+            controller.RegisterNodePresenter(subClassNodePresenter);
 
-            Assert.AreEqual(subClassNodePresenter, presenter.ResolveNodePresenterForData(new SubClass()));
+            Assert.AreEqual(subClassNodePresenter, controller.ResolveNodePresenterForData(new SubClass()));
 
             mocks.VerifyAll();
         }
@@ -92,10 +89,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             var interfaceNodePresenter = new SomeInterfaceNodePresenter();
             var interfaceImplementor = new SubClass();
-            presenter.NodePresenters.AddRange(new[]
-            {
-                interfaceNodePresenter
-            });
+            presenter.RegisterNodePresenter(interfaceNodePresenter);
 
             Assert.AreEqual(interfaceNodePresenter, presenter.ResolveNodePresenterForData(interfaceImplementor));
 
@@ -125,7 +119,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var controller = new TreeViewController(treeview);
-            controller.NodePresenters.Add(nodePresenter);
+            controller.RegisterNodePresenter(nodePresenter);
 
             controller.OnNodeChecked(treeNode);
 
@@ -182,7 +176,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var presenter = new TreeViewController(treeview);
-            presenter.NodePresenters.Add(nodePresenter);
+            presenter.RegisterNodePresenter(nodePresenter);
 
             presenter.Data = new object();
 
@@ -242,7 +236,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var controller = new TreeViewController(treeview);
-            controller.NodePresenters.Add(nodePresenter);
+            controller.RegisterNodePresenter(nodePresenter);
 
             controller.OnTreeViewHandleCreated();
 
@@ -311,11 +305,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             controller.OnTreeViewHandleCreated();
 
-            controller.NodePresenters.AddRange(new[]
-            {
-                parentNodePresenter,
-                childNodePresenter
-            });
+            controller.RegisterNodePresenter(parentNodePresenter);
+            controller.RegisterNodePresenter(childNodePresenter);
             controller.Data = parent;
 
             // generate collection changed with listeners enabled
@@ -339,10 +330,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             var treeViewController = new TreeViewController(treeView);
 
             var parentNodePresenter = mocks.Stub<ITreeNodePresenter>();
-            treeViewController.NodePresenters.AddRange(new[]
-            {
-                parentNodePresenter
-            });
+            treeViewController.RegisterNodePresenter(parentNodePresenter);
 
             var nodes = new List<ITreeNode>();
             Expect.Call(treeView.Nodes).Return(nodes).Repeat.Any();
@@ -396,11 +384,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var controller = TypeUtils.GetField<TreeView, TreeViewController>(treeview, "controller");
-            controller.NodePresenters.AddRange(new[]
-            {
-                parentNodePresenter,
-                childNodePresenter
-            });
+            controller.RegisterNodePresenter(parentNodePresenter);
+            controller.RegisterNodePresenter(childNodePresenter);
 
             controller.Data = parent;
 
@@ -456,11 +441,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var controller = TypeUtils.GetField<TreeView, TreeViewController>(treeview, "controller");
-            controller.NodePresenters.AddRange(new[]
-            {
-                parentNodePresenter,
-                childNodePresenter
-            });
+            controller.RegisterNodePresenter(parentNodePresenter);
+            controller.RegisterNodePresenter(childNodePresenter);
 
             controller.Data = parent;
 
@@ -506,7 +488,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var presenter = new TreeViewController(treeview);
-            presenter.NodePresenters.Add(nodePresenter);
+            presenter.RegisterNodePresenter(nodePresenter);
 
             presenter.UpdateNode(treeNode);
 
@@ -567,8 +549,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             mocks.ReplayAll();
 
             var controller = new TreeViewController(treeview);
-            controller.NodePresenters.Add(parentNodePresenter);
-            controller.NodePresenters.Add(childNodePresenter);
+            controller.RegisterNodePresenter(parentNodePresenter);
+            controller.RegisterNodePresenter(childNodePresenter);
 
             controller.UpdateNode(parentTreeNode);
 
@@ -606,7 +588,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             // no node presenter
             Assert.IsFalse(presenter.CanRenameNode(treeNode));
 
-            presenter.NodePresenters.Add(nodePresenter);
+            presenter.RegisterNodePresenter(nodePresenter);
 
             // node presenter decides
             Assert.IsTrue(presenter.CanRenameNode(treeNode));
@@ -646,11 +628,52 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             // no node presenter
             Assert.IsFalse(controller.CanDeleteNode(treeNode));
 
-            controller.NodePresenters.Add(nodePresenter);
+            controller.RegisterNodePresenter(nodePresenter);
 
             // node presenter decides
             Assert.IsTrue(controller.CanDeleteNode(treeNode));
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RegisterNodePresenter_ItemNotRegisteredYet_AddItemToAvailableNodePresenters()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeView = mocks.Stub<ITreeView>();
+            var nodePresenter = mocks.Stub<ITreeNodePresenter>();
+            mocks.ReplayAll();
+
+            var controller = new TreeViewController(treeView);
+
+            // Call
+            controller.RegisterNodePresenter(nodePresenter);
+
+            // Assert
+            CollectionAssert.Contains(controller.NodePresenters, nodePresenter);
+            Assert.AreEqual(1, controller.NodePresenters.Count());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RegisterNodePresenter_ItemAlreadyRegistered_DoNothing()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeView = mocks.Stub<ITreeView>();
+            var nodePresenter = mocks.Stub<ITreeNodePresenter>();
+            mocks.ReplayAll();
+
+            var controller = new TreeViewController(treeView);
+
+            // Call
+            controller.RegisterNodePresenter(nodePresenter);
+            controller.RegisterNodePresenter(nodePresenter);
+
+            // Assert
+            CollectionAssert.Contains(controller.NodePresenters, nodePresenter);
+            Assert.AreEqual(1, controller.NodePresenters.Count());
             mocks.VerifyAll();
         }
 

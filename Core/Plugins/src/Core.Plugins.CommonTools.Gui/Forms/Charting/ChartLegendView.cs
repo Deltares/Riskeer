@@ -29,8 +29,8 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             };
 
             treeView.SelectedNodeChanged += TreeViewSelectedNodeChanged;
-            treeView.NodePresenters.Add(new ChartTreeNodePresenter(guiPlugin));
-            treeView.NodePresenters.Add(new ChartSeriesTreeNodePresenter(guiPlugin));
+            treeView.RegisterNodePresenter(new ChartTreeNodePresenter(guiPlugin));
+            treeView.RegisterNodePresenter(new ChartSeriesTreeNodePresenter(guiPlugin));
             UpdateButtons();
         }
 

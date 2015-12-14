@@ -1229,7 +1229,6 @@ namespace Core.GIS.SharpMap.Map
                 {
                     layers.PropertyChanging -= OnPropertyChanging;
                     layers.PropertyChanged -= OnPropertyChanged;
-                    layers.CollectionChanging -= LayersCollectionChanging;
                     layers.CollectionChanged -= LayersCollectionChanged;
                 }
 
@@ -1239,19 +1238,10 @@ namespace Core.GIS.SharpMap.Map
                 {
                     layers.PropertyChanging += OnPropertyChanging;
                     layers.PropertyChanged += OnPropertyChanged;
-                    layers.CollectionChanging += LayersCollectionChanging;
                     layers.CollectionChanged += LayersCollectionChanged;
                 }
 
                 layersInitialized = false;
-            }
-        }
-
-        private void LayersCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (CollectionChanging != null)
-            {
-                CollectionChanging(sender, e);
             }
         }
 
@@ -1735,7 +1725,6 @@ namespace Core.GIS.SharpMap.Map
         #region INotifyCollectionChange Members
 
         public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
-        public virtual event NotifyCollectionChangingEventHandler CollectionChanging;
 
         public virtual bool HasDefaultEnvelopeSet
         {

@@ -49,7 +49,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             var treeView = new TreeView();
 
             //treeview is assigned to presenter when it's added to the list of nodepresenters
-            treeView.NodePresenters.Add(presenter);
+            treeView.RegisterNodePresenter(presenter);
             Assert.AreEqual(treeView, presenter.TreeView);
 
             mockRepository.ReplayAll();
@@ -78,8 +78,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             var parentNodePresenter = new ParentNodePresenter();
             var childNodePresenter = new ChildNodePresenter();
 
-            treeView.NodePresenters.Add(parentNodePresenter);
-            treeView.NodePresenters.Add(childNodePresenter);
+            treeView.RegisterNodePresenter(parentNodePresenter);
+            treeView.RegisterNodePresenter(childNodePresenter);
 
             childNodePresenter.AfterUpdate +=
                 delegate { Assert.Fail("Child nodes which are not loaded should not be updated"); };
@@ -208,14 +208,9 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
                 }
             };
 
-            var treeView = new TreeView
-            {
-                NodePresenters =
-                {
-                    new ChildNodePresenter()
-                },
-                Data = parent
-            };
+            var treeView = new TreeView();
+            treeView.RegisterNodePresenter(new ChildNodePresenter());
+            treeView.Data = parent;
 
             // expand / collapse / expand
             treeView.ExpandAll();
@@ -264,13 +259,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         [Test]
         public void SelectedNodeSetToRootNodeAfterDataSet()
         {
-            var treeView = new TreeView
-            {
-                NodePresenters =
-                {
-                    new ParentNodePresenter()
-                }
-            };
+            var treeView = new TreeView();
+            treeView.RegisterNodePresenter(new ParentNodePresenter());
 
             var rootObject = new Parent();
 
@@ -289,14 +279,9 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         [Test]
         public void TreeNodesRemainExpandedForDynamicNodes()
         {
-            var treeView = new TreeView
-            {
-                NodePresenters =
-                {
-                    new DynamicParentNodePresenter(),
-                    new ChildNodePresenter()
-                }
-            };
+            var treeView = new TreeView();
+            treeView.RegisterNodePresenter(new DynamicParentNodePresenter());
+            treeView.RegisterNodePresenter(new ChildNodePresenter());
 
             var parent = new Parent();
             treeView.Data = parent;
@@ -333,8 +318,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new ParentNodePresenter());
-                treeView.NodePresenters.Add(new ChildNodePresenter());
+                treeView.RegisterNodePresenter(new ParentNodePresenter());
+                treeView.RegisterNodePresenter(new ChildNodePresenter());
             
                 var parent = new Parent()
                 {
@@ -407,14 +392,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             Console.WriteLine(@"Elapsed time to perform action without tree view: " + processingAction());
 
-            var treeView = new TreeView
-            {
-                NodePresenters =
-                {
-                    new ChildNodePresenter()
-                },
-                Data = parent
-            };
+            var treeView = new TreeView();
+            treeView.RegisterNodePresenter(new ChildNodePresenter());
 
             // expand / collapse / expand
             treeView.ExpandAll();
@@ -437,6 +416,45 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             WindowsFormsTestHelper.ShowModal(treeView, onShow);
 
             TestHelper.AssertIsFasterThan(10, () => Thread.Sleep((int) elapsedMillisecondsWithTreeView));
+        }
+
+        [Test]
+        public void RegisterNodePresenter_NodePresenterNotRegisteredYet_NodePresenterAddedToAvailablePresenters()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodePresenter = mocks.Stub<ITreeNodePresenter>();
+            mocks.ReplayAll();
+
+            var treeView = new TreeView();
+
+            // Call
+            treeView.RegisterNodePresenter(nodePresenter);
+
+            // Assert
+            CollectionAssert.Contains(treeView.NodePresenters, nodePresenter);
+            Assert.AreEqual(1, treeView.NodePresenters.Count());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RegisterNodePresenter_NodePresenterAlreadyRegistered_DoNothing()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodePresenter = mocks.Stub<ITreeNodePresenter>();
+            mocks.ReplayAll();
+
+            var treeView = new TreeView();
+
+            // Call
+            treeView.RegisterNodePresenter(nodePresenter);
+            treeView.RegisterNodePresenter(nodePresenter);
+
+            // Assert
+            CollectionAssert.Contains(treeView.NodePresenters, nodePresenter);
+            Assert.AreEqual(1, treeView.NodePresenters.Count());
+            mocks.VerifyAll();
         }
 
         private class DynamicParentNodePresenter : TreeViewNodePresenterBase<Parent>

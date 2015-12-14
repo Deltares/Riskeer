@@ -12,7 +12,6 @@ namespace Core.Plugins.CommonTools.Test
     {
 // Required by interface, but not used (yet)
 #pragma warning disable 67
-        public event NotifyCollectionChangingEventHandler CollectionChanging;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;

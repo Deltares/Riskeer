@@ -30,7 +30,6 @@ namespace Core.Common.Utils.Collections.Generic
         // re-use event delegates, for performance reasons (10x speedup at add/remove)
         private PropertyChangingEventHandler Item_PropertyChangingDelegate;
         private PropertyChangedEventHandler Item_PropertyChangedDelegate;
-        private NotifyCollectionChangingEventHandler Item_CollectionChangingDelegate;
         private NotifyCollectionChangedEventHandler Item_CollectionChangedDelegate;
         public bool HasParent { get; set; }
 
@@ -60,7 +59,6 @@ namespace Core.Common.Utils.Collections.Generic
         {
             Item_PropertyChangedDelegate = Item_PropertyChanged;
             Item_PropertyChangingDelegate = Item_PropertyChanging;
-            Item_CollectionChangingDelegate = Item_CollectionChanging;
             Item_CollectionChangedDelegate = Item_CollectionChanged;
         }
 
@@ -412,15 +410,6 @@ namespace Core.Common.Utils.Collections.Generic
             }
         }
 
-        private void Item_CollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            // forwards event to subscribers of the list
-            if (CollectionChanging != null)
-            {
-                CollectionChanging(sender, e);
-            }
-        }
-
         private void Item_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             // forwards event to subscribers of the list
@@ -465,7 +454,6 @@ namespace Core.Common.Utils.Collections.Generic
             if (notifyCollectionChange != null)
             {
                 notifyCollectionChange.CollectionChanged -= Item_CollectionChangedDelegate;
-                notifyCollectionChange.CollectionChanging -= Item_CollectionChangingDelegate;
             }
         }
 
@@ -494,7 +482,6 @@ namespace Core.Common.Utils.Collections.Generic
                     InitializeDelegates();
                 }
                 notifyCollectionChanged.CollectionChanged += Item_CollectionChangedDelegate;
-                notifyCollectionChanged.CollectionChanging += Item_CollectionChangingDelegate;
             }
         }
 

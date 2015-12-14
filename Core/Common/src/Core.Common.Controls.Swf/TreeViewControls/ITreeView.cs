@@ -39,11 +39,17 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// <summary>
         /// Node presenters, sitting between specific data objects and the tree view
         /// </summary>
-        ICollection<ITreeNodePresenter> NodePresenters { get; }
+        IEnumerable<ITreeNodePresenter> NodePresenters { get; }
 
         IComparer TreeViewNodeSorter { get; set; }
 
         IEnumerable<ITreeNode> AllLoadedNodes { get; }
+
+        /// <summary>
+        /// Registers a node presenter.
+        /// </summary>
+        /// <param name="presenter">The presenter to be added.</param>
+        void RegisterNodePresenter(ITreeNodePresenter presenter);
 
         /// <summary>
         /// Returns a specific node presenter for the given data object.

@@ -53,9 +53,7 @@ namespace Core.Common.Base.Service
         /// <summary>
         /// This method performs the actual import logic.
         /// </summary>
-        /// <remarks>
-        /// <para>This method can throw exceptions of any kind.</para>
-        /// </remarks>
+        /// <remarks>This method can throw exceptions of any kind.</remarks>
         protected override void OnRun()
         {
             fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2, currentStep, totalSteps, currentStepName); };

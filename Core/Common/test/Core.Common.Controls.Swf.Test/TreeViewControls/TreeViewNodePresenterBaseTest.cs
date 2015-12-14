@@ -48,8 +48,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.RegisterNodePresenter(new GroupNodePresenterUsingCollection());
+                treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
                 WindowsFormsTestHelper.Show(treeView);
@@ -77,8 +77,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.RegisterNodePresenter(new GroupNodePresenterUsingCollection());
+                treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
                 var groupNode = (TreeNode) treeView.Nodes[0];
@@ -117,8 +117,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
-                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.RegisterNodePresenter(new GroupNodePresenterUsingProperty());
+                treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
                 WindowsFormsTestHelper.Show(treeView);
@@ -147,8 +147,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.RegisterNodePresenter(new GroupNodePresenterUsingCollection());
+                treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
                 Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
@@ -178,8 +178,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.RegisterNodePresenter(new GroupNodePresenterUsingCollection());
+                treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
                 WindowsFormsTestHelper.Show(treeView);
@@ -213,8 +213,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             using (var treeView = new TreeView())
             {
-                treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
-                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.RegisterNodePresenter(new GroupNodePresenterUsingProperty());
+                treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
                 WindowsFormsTestHelper.Show(treeView);

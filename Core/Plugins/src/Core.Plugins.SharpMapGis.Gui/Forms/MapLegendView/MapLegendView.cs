@@ -45,10 +45,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             var mapLayerLegendStyleTreeViewNodePresenter = new VectorStyleTreeViewNodePresenter();
             var themeItemTreeViewNodePresenter = new ThemeItemTreeViewNodePresenter(guiPlugin);
 
-            TreeView.NodePresenters.Add(mapTreeViewNodePresenter);
-            TreeView.NodePresenters.Add(mapLayerTreeViewNodePresenter);
-            TreeView.NodePresenters.Add(mapLayerLegendStyleTreeViewNodePresenter);
-            TreeView.NodePresenters.Add(themeItemTreeViewNodePresenter);
+            TreeView.RegisterNodePresenter(mapTreeViewNodePresenter);
+            TreeView.RegisterNodePresenter(mapLayerTreeViewNodePresenter);
+            TreeView.RegisterNodePresenter(mapLayerLegendStyleTreeViewNodePresenter);
+            TreeView.RegisterNodePresenter(themeItemTreeViewNodePresenter);
 
             TreeView.SelectedNodeChanged += TreeViewSelectedNodeChanged;
             TreeView.NodeMouseClick += TreeViewNodeMouseClick;

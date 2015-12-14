@@ -60,7 +60,7 @@ namespace Core.Plugins.ProjectExplorer
 
                 var treeFolderNodePresenter = new TreeFolderNodePresenter(guiPlugin);
 
-                treeView.NodePresenters.Add(treeFolderNodePresenter);
+                treeView.RegisterNodePresenter(treeFolderNodePresenter);
             }
         }
 

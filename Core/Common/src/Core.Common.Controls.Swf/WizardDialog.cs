@@ -5,18 +5,18 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections.Generic;
 using DevExpress.XtraWizard;
 
 namespace Core.Common.Controls.Swf
 {
     public partial class WizardDialog : Form, IView
     {
+        private readonly IList<IComponent> pages;
         private readonly IDictionary<IComponent, WizardPage> wizardPages = new Dictionary<IComponent, WizardPage>();
 
         public WizardDialog()
         {
-            Pages = new EventedList<IComponent>();
+            pages = new List<IComponent>();
             InitializeComponent();
             wizardControl1.SelectedPageChanged += WizardControl1SelectedPageChanged;
             wizardControl1.SelectedPageChanging += WizardControl1SelectedPageChanging;
@@ -36,7 +36,14 @@ namespace Core.Common.Controls.Swf
 
         public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
-        public IList<IComponent> Pages { get; private set; }
+
+        public IEnumerable<IComponent> Pages
+        {
+            get
+            {
+                return pages;
+            }
+        }
 
         public IList<string> PageTitles
         {
@@ -63,11 +70,11 @@ namespace Core.Common.Controls.Swf
                 {
                     return wizardControl1.Pages[wizardControl1.SelectedPageIndex];
                 }
-                return Pages[wizardControl1.SelectedPageIndex - 1];
+                return pages[wizardControl1.SelectedPageIndex - 1];
             }
             set
             {
-                wizardControl1.SelectedPageIndex = Pages.IndexOf(value) + 1;
+                wizardControl1.SelectedPageIndex = pages.IndexOf(value) + 1;
             }
         }
 
@@ -143,7 +150,7 @@ namespace Core.Common.Controls.Swf
             wizardControl1.Pages.Insert(wizardControl1.Pages.Count - 1, wizardPage);
 
             wizardPages[page] = wizardPage;
-            Pages.Add(page);
+            pages.Add(page);
         }
 
         public void RemovePage(IComponent page)
@@ -158,7 +165,7 @@ namespace Core.Common.Controls.Swf
             wizardControl1.Pages.Remove(wizardPage);
 
             wizardPages.Remove(page);
-            Pages.Remove(page);
+            pages.Remove(page);
         }
 
         public DialogResult ShowModal()

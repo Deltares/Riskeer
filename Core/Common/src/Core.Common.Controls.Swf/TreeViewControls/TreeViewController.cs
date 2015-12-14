@@ -14,7 +14,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewController));
 
         private readonly ITreeView treeView;
-        private readonly IEventedList<ITreeNodePresenter> nodePresenters = new EventedList<ITreeNodePresenter>();
+        private readonly ICollection<ITreeNodePresenter> nodePresenters = new HashSet<ITreeNodePresenter>();
 
         private readonly Dictionary<Type, ITreeNodePresenter> nodeTagTypePresenters = new Dictionary<Type, ITreeNodePresenter>();
         private object data;
@@ -32,14 +32,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
 
             this.treeView = treeView;
-
-            nodePresenters.CollectionChanged += NodePresentersCollectionChanged;
         }
 
         /// <summary>
         /// List of registered node presenters
         /// </summary>
-        public IEventedList<ITreeNodePresenter> NodePresenters
+        public IEnumerable<ITreeNodePresenter> NodePresenters
         {
             get
             {
@@ -70,6 +68,16 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
                 treeView.SelectedNode = treeView.Nodes.Count > 0 ? treeView.Nodes[0] : null;
             }
+        }
+
+        /// <summary>
+        /// Registers the node presenter.
+        /// </summary>
+        /// <param name="presenter">The presenter.</param>
+        public void RegisterNodePresenter(ITreeNodePresenter presenter)
+        {
+            nodePresenters.Add(presenter);
+            presenter.TreeView = treeView;
         }
 
         /// <summary>
@@ -106,7 +114,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             if (presenter == null)
             {
                 presenter = GetNodePresenterForType(type, parentNode) ??
-                            NodePresenters.FirstOrDefault(np => np.NodeTagType.IsInstanceOfType(item));
+                            nodePresenters.FirstOrDefault(np => np.NodeTagType.IsInstanceOfType(item));
 
                 nodeTagTypePresenters[type] = presenter;
             }
@@ -400,7 +408,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         private ITreeNodePresenter GetNodePresenterForType(Type type, ITreeNode parentNode)
         {
-            var nodePresentersForType = NodePresenters.Where(p => p.NodeTagType == type).ToList();
+            var nodePresentersForType = nodePresenters.Where(p => p.NodeTagType == type).ToList();
 
             if (!nodePresentersForType.Any() && type.BaseType != null)
             {
@@ -415,16 +423,6 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             return nodePresenterType != null
                        ? nodePresentersForType.FirstOrDefault(p => p.GetType() == nodePresenterType)
                        : null;
-        }
-
-        private void NodePresentersCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (e.Action != NotifyCollectionChangeAction.Add)
-            {
-                return;
-            }
-
-            ((ITreeNodePresenter) e.Item).TreeView = treeView;
         }
 
         private void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)

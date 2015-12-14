@@ -21,8 +21,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public event NotifyCollectionChangingEventHandler CollectionChanging;
-
         public event NotifyCollectionChangedEventHandler ChildViewChanged;
         private static readonly ILog Log = LogManager.GetLogger(typeof(ViewList));
         private readonly ViewLocation? defaultLocation;
@@ -32,7 +30,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         private readonly IDictionary<IView, NotifyCollectionChangedEventHandler> childViewSubscribtionLookup =
             new Dictionary<IView, NotifyCollectionChangedEventHandler>();
 
-        private ViewSelectionMouseController viewSelectionMouseController;
         private IView activeView;
         private bool clearing; // used to skip view activation when it is not necessary
 
@@ -116,7 +113,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public void EnableTabContextMenus()
         {
-            viewSelectionMouseController = new ViewSelectionMouseController(dockingManager, this);
+            new ViewSelectionMouseController(dockingManager, this);
         }
 
         // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
@@ -383,8 +380,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             int oldIndex = views.IndexOf(view);
 
-            FireCollectionChangingEvent(NotifyCollectionChangeAction.Remove, oldIndex, view);
-
             views.Remove(view);
 
             FireCollectionChangedEvent(NotifyCollectionChangeAction.Remove, oldIndex, view);
@@ -476,14 +471,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        private void FireCollectionChangingEvent(NotifyCollectionChangeAction action, int index, IView view)
-        {
-            if (CollectionChanging != null)
-            {
-                CollectionChanging(this, new NotifyCollectionChangingEventArgs(action, view, index, -1));
-            }
-        }
-
         private void FireChildViewChangedEvent(NotifyCollectionChangingEventArgs args, IView view)
         {
             if (ChildViewChanged != null)
@@ -505,8 +492,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             {
                 UpdateViewNameAction(view);
             }
-
-            FireCollectionChangingEvent(NotifyCollectionChangeAction.Add, index, view);
 
             views.Insert(index, view);
 

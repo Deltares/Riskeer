@@ -133,14 +133,14 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         {
             get
             {
-                return Enumerable.SelectMany<ITreeNode, ITreeNode>(Nodes, GetAllLoadedNodes);
+                return Nodes.SelectMany(GetAllLoadedNodes);
             }
         }
 
         /// <summary>
         /// The nodepresenters handle building logic for dataobjects added to the tree.
         /// </summary>
-        public ICollection<ITreeNodePresenter> NodePresenters
+        public IEnumerable<ITreeNodePresenter> NodePresenters
         {
             get
             {
@@ -242,6 +242,11 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         }
 
         public void EnsureVisible(object item) {}
+
+        public void RegisterNodePresenter(ITreeNodePresenter presenter)
+        {
+            controller.RegisterNodePresenter(presenter);
+        }
 
         public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, ITreeNode node)
         {
