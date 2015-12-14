@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                                  Enumerable.Empty<PipingSoilProfile>());
             var otherTreeNode = mockRepository.Stub<ITreeNode>();
 
-            var groupContextNode = mockRepository.StrictMock<ITreeNode>();
+            var groupContextNode = mockRepository.Stub<ITreeNode>();
             groupContextNode.Tag = groupContext;
             groupContextNode.Expect(n => n.Parent).Return(otherTreeNode);
 
@@ -137,6 +137,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(DragOperations.Move, supportedOperation);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -173,6 +174,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(DragOperations.None, supportedOperation);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -239,7 +241,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                     Assert.Fail(methodToTest + " not supported.");
                     break;
             }
-            mockRepository.ReplayAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -319,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                     Assert.Fail(methodToTest + " not supported.");
                     break;
             }
-            mockRepository.ReplayAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]

@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadonlyValidator(string propertyName)
         {
-            return !data.WrappedData.NameIsEditable;
+            return !data.WrappedData.IsNameEditable;
         }
     }
 }

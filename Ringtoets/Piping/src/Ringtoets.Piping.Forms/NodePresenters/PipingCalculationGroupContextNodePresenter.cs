@@ -154,10 +154,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.Calculate_all,
                 PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
-                RingtoetsFormsResources.CalculateAllIcon, (o, args) =>
-                {
-                    RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
-                });
+                RingtoetsFormsResources.CalculateAllIcon, (o, args) => { RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc))); });
 
             var clearAllItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.Clear_all_output,
@@ -242,50 +239,39 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             if (pipingCalculationItem != null && originalOwnerContext != null)
             {
                 var isMoveWithinSameContainer = ReferenceEquals(target, originalOwnerContext);
-
-                var targetRecordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(target));
-                bool renamed = false;
-                TreeNodeExpandCollapseState recordedNodeState = null;
-                if (!isMoveWithinSameContainer)
-                {
-                    recordedNodeState = new TreeNodeExpandCollapseState(TreeView.GetNodeByTag(item));
-                    string uniqueName = NamingHelper.GetUniqueName(target.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
-                    if (!pipingCalculationItem.Name.Equals(uniqueName))
-                    {
-                        renamed = TryRenameTo(pipingCalculationItem, uniqueName);
-                    }
-                }
-                originalOwnerContext.WrappedData.Children.Remove(pipingCalculationItem);
-                target.WrappedData.Children.Insert(position, pipingCalculationItem);
-
-                originalOwnerContext.NotifyObservers();
-                if (!isMoveWithinSameContainer)
-                {
-                    target.NotifyObservers();
-                }
-
-                // Expand parent of 'draggedNode' to ensure its selected state is visible.
-                ITreeNode draggedNode = TreeView.GetNodeByTag(item);
-                ITreeNode newParentOfDraggedNode = draggedNode.Parent;
-                targetRecordedNodeState.Restore(newParentOfDraggedNode);
-                if (!newParentOfDraggedNode.IsExpanded)
-                {
-                    newParentOfDraggedNode.Expand();
-                }
-                TreeView.SelectedNode = draggedNode;
-                if (!isMoveWithinSameContainer)
-                {
-                    recordedNodeState.Restore(draggedNode);
-                }
-                if (renamed)
-                {
-                    TreeView.StartLabelEdit();
-                }
+                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target);
+                dropHandler.Execute(item, pipingCalculationItem, position);
             }
             else
             {
                 base.OnDragDrop(item, itemParent, target, operation, position);
             }
+        }
+
+        private static IPipingCalculationItem GetAsIPipingCalculationItem(object item)
+        {
+            var calculationContext = item as PipingCalculationContext;
+            if (calculationContext != null)
+            {
+                return calculationContext.WrappedData;
+            }
+
+            var groupContext = item as PipingCalculationGroupContext;
+            if (groupContext != null)
+            {
+                return groupContext.WrappedData;
+            }
+
+            return null;
+        }
+
+        private DroppingPipingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
+        {
+            if (isMoveWithinSameContainer)
+            {
+                return new DroppingPipingCalculationWithinSameContainer(TreeView, originalOwnerContext, target);
+            }
+            return new DroppingPipingCalculationToNewContainer(TreeView, originalOwnerContext, target);
         }
 
         private bool NodesHaveSameParentFailureMechanism(ITreeNode sourceNode, ITreeNode targetNode)
@@ -323,40 +309,190 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             TreeView.SelectedNode = newlyAppendedNodeForNewItem;
         }
 
-        private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string uniqueName)
+        #region Nested Types: DroppingPipingCalculationInContainerStrategy and implementations
+
+        /// <summary>
+        /// Strategy pattern implementation for dealing with drag & dropping a <see cref="IPipingCalculationItem"/>
+        /// onto <see cref="PipingCalculationGroup"/> data.
+        /// </summary>
+        private abstract class DroppingPipingCalculationInContainerStrategy
         {
-            var calculation = pipingCalculationItem as PipingCalculation;
-            if (calculation != null)
+            protected readonly ITreeView treeView;
+            protected readonly PipingCalculationGroupContext target;
+            private readonly PipingCalculationGroupContext originalOwnerContext;
+
+            protected DroppingPipingCalculationInContainerStrategy(ITreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
             {
-                calculation.Name = uniqueName;
-                return true;
+                this.treeView = treeView;
+                this.originalOwnerContext = originalOwnerContext;
+                this.target = target;
             }
 
-            var group = pipingCalculationItem as PipingCalculationGroup;
-            if (group != null && group.NameIsEditable)
+            /// <summary>
+            /// Perform the drag & drop operation.
+            /// </summary>
+            /// <param name="draggedDataObject">The actual dragged data object.</param>
+            /// <param name="pipingCalculationItem">The piping calculation item corresponding with <see cref="draggedDataObject"/>.</param>
+            /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
+            public virtual void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
-                group.Name = uniqueName;
-                return true;
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
+
+                MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
+
+                NotifyObservers();
+
+                ITreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                UpdateTreeView(draggedNode, targetRecordedNodeState);
             }
 
-            return false;
+            /// <summary>
+            /// Moves the <see cref="IPipingCalculationItem"/> instance to its new location.
+            /// </summary>
+            /// <param name="pipingCalculationItem">The instance to be relocated.</param>
+            /// <param name="position">The index in the new <see cref="PipingCalculationGroup"/>
+            /// owner within its <see cref="PipingCalculationGroup.Children"/>.</param>
+            protected void MoveCalculationItemToNewOwner(IPipingCalculationItem pipingCalculationItem, int position)
+            {
+                originalOwnerContext.WrappedData.Children.Remove(pipingCalculationItem);
+                target.WrappedData.Children.Insert(position, pipingCalculationItem);
+            }
+
+            /// <summary>
+            /// Notifies observers of the change in state.
+            /// </summary>
+            protected virtual void NotifyObservers()
+            {
+                originalOwnerContext.NotifyObservers();
+            }
+
+            /// <summary>
+            /// Updates the <see cref="System.Windows.Forms.TreeView"/> where the drag & drop
+            /// operation took place.
+            /// </summary>
+            /// <param name="draggedNode">The dragged node.</param>
+            /// <param name="targetRecordedNodeState">Recorded state of the target node
+            /// before the drag & drop operation.</param>
+            protected virtual void UpdateTreeView(ITreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
+            {
+                HandlePostDragExpandCollapseOfNewOwner(draggedNode, targetRecordedNodeState);
+                treeView.SelectedNode = draggedNode;
+            }
+
+            private static void HandlePostDragExpandCollapseOfNewOwner(ITreeNode draggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
+            {
+                ITreeNode newParentOfDraggedNode = draggedNode.Parent;
+                newOwnerRecordedNodeState.Restore(newParentOfDraggedNode);
+
+                // Expand parent of 'draggedNode' to ensure 'draggedNode' is visible.
+                if (!newParentOfDraggedNode.IsExpanded)
+                {
+                    newParentOfDraggedNode.Expand();
+                }
+            }
         }
 
-        private static IPipingCalculationItem GetAsIPipingCalculationItem(object item)
+        /// <summary>
+        /// Strategy implementation for rearranging the order of an <see cref="IPipingCalculationItem"/>
+        /// within a <see cref="PipingCalculationGroup"/> through a drag & drop action.
+        /// </summary>
+        private class DroppingPipingCalculationWithinSameContainer : DroppingPipingCalculationInContainerStrategy
         {
-            var calculationContext = item as PipingCalculationContext;
-            if (calculationContext != null)
-            {
-                return calculationContext.WrappedData;
-            }
-
-            var groupContext = item as PipingCalculationGroupContext;
-            if (groupContext != null)
-            {
-                return groupContext.WrappedData;
-            }
-
-            return null;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DroppingPipingCalculationWithinSameContainer"/> class.
+            /// </summary>
+            /// <param name="treeView">The tree view where the drag & drop operation occurs.</param>
+            /// <param name="originalOwnerContext">The calculation group context that is 
+            /// the original owner of the dragged item.</param>
+            /// <param name="target">The calculation group context that is the target
+            /// of the drag & drop operation.</param>
+            public DroppingPipingCalculationWithinSameContainer(ITreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+                base(treeView, originalOwnerContext, target) {}
         }
+
+        /// <summary>
+        /// Strategy implementation for moving an <see cref="IPipingCalculationItem"/> from
+        /// one <see cref="PipingCalculationGroup"/> to another using a drag & drop action.
+        /// </summary>
+        private class DroppingPipingCalculationToNewContainer : DroppingPipingCalculationInContainerStrategy
+        {
+            private TreeNodeExpandCollapseState recordedNodeState;
+
+            private bool renamed;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DroppingPipingCalculationToNewContainer"/> class.
+            /// </summary>
+            /// <param name="treeView">The tree view where the drag & drop operation occurs.</param>
+            /// <param name="originalOwnerContext">The calculation group context that is 
+            /// the original owner of the dragged item.</param>
+            /// <param name="target">The calculation group context that is the target
+            /// of the drag & drop operation.</param>
+            public DroppingPipingCalculationToNewContainer(ITreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+                base(treeView, originalOwnerContext, target) {}
+
+            public override void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            {
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
+
+                recordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(draggedDataObject));
+                renamed = EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
+
+                MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
+
+                NotifyObservers();
+
+                ITreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                UpdateTreeView(draggedNode, targetRecordedNodeState);
+            }
+
+            protected override void UpdateTreeView(ITreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
+            {
+                base.UpdateTreeView(draggedNode, targetRecordedNodeState);
+                recordedNodeState.Restore(draggedNode);
+                if (renamed)
+                {
+                    treeView.StartLabelEdit();
+                }
+            }
+
+            protected override void NotifyObservers()
+            {
+                base.NotifyObservers();
+                target.NotifyObservers();
+            }
+
+            private static bool EnsureDraggedNodeHasUniqueNameInNewOwner(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroupContext newOwner)
+            {
+                bool renamed = false;
+                string uniqueName = NamingHelper.GetUniqueName(newOwner.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
+                if (!pipingCalculationItem.Name.Equals(uniqueName))
+                {
+                    renamed = TryRenameTo(pipingCalculationItem, uniqueName);
+                }
+                return renamed;
+            }
+
+            private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string newName)
+            {
+                var calculation = pipingCalculationItem as PipingCalculation;
+                if (calculation != null)
+                {
+                    calculation.Name = newName;
+                    return true;
+                }
+
+                var group = pipingCalculationItem as PipingCalculationGroup;
+                if (group != null && group.IsNameEditable)
+                {
+                    group.Name = newName;
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

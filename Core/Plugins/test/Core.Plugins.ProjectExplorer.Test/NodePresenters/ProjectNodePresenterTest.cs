@@ -173,6 +173,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(insertionAllowed);
+            mocks.VerifyAll();
         }
 
         [Test]

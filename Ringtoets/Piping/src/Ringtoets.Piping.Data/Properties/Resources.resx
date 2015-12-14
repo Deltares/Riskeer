@@ -163,7 +163,7 @@
     <value>Nieuwe map</value>
   </data>
   <data name="PipingCalculationGroup_Setting_readonly_name_error_message" xml:space="preserve">
-    <value>Kan niet de naam aanpassen van deze group omdat 'NameIsEditable' op 'false' staat.</value>
+    <value>Kan de naam van deze groep niet aanpassen, omdat 'IsNameEditable' op 'false' staat.</value>
   </data>
   <data name="PipingFailureMechanism_Calculations_DisplayName" xml:space="preserve">
     <value>Berekeningen</value>

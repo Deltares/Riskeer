@@ -16,7 +16,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingCalculationGroupContextTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var group = new PipingCalculationGroup();

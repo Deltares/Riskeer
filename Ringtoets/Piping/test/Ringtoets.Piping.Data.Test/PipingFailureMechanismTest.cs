@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Calculations_AddPipingCalculationFolder_ItemIsAddedToCollection()
+        public void Calculations_AddPipingCalculationGroup_ItemIsAddedToCollection()
         {
             // Setup
             var folder = new PipingCalculationGroup();
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Calculations_RemovePipingCalculationFolder_ItemIsRemovedFromCollection()
+        public void Calculations_RemovePipingCalculationGroup_ItemIsRemovedFromCollection()
         {
             // Setup
             var folder = new PipingCalculationGroup();

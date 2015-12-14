@@ -41,11 +41,15 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             var vectorLayer = GetRiverLayer();
             var node = mocks.Stub<ITreeNode>();
 
+            mocks.ReplayAll();
+
             mapLayerNodePresenter.UpdateNode(null, node, vectorLayer);
 
             Assert.AreEqual(vectorLayer, node.Tag);
             Assert.AreEqual(vectorLayer.Name, node.Text);
             Assert.AreEqual(true, node.ShowCheckBox);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -68,6 +72,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             // No drag of layers
             Assert.AreEqual(DragOperations.None, mapLayerNodePresenter.CanDrag(vectorLayer));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -84,8 +90,12 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             sourceNode.Tag = vectorLayer;
             targetNode.Tag = groupLayer;
 
+            mocks.ReplayAll();
+
             // No drop into layers
             Assert.AreEqual(DragOperations.None, mapLayerNodePresenter.CanDrop(vectorLayer, sourceNode, targetNode, DragOperations.Move));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -98,6 +108,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             mapLayerNodePresenter.TreeView.TreeViewNodeSorter = mocks.Stub<IComparer>();
 
+            mocks.ReplayAll();
+
             // Precondition
             Assert.IsNotNull(mapLayerNodePresenter.TreeView.TreeViewNodeSorter);
 
@@ -106,6 +118,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             // Assert
             Assert.IsFalse(insertionAllowed);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -116,6 +129,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             var sourceNode = mocks.Stub<ITreeNode>();
             var targetNode = mocks.Stub<ITreeNode>();
 
+            mocks.ReplayAll();
+
             // Precondition
             Assert.IsNull(mapLayerNodePresenter.TreeView.TreeViewNodeSorter);
 
@@ -124,6 +139,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             // Assert
             Assert.IsTrue(insertionAllowed);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -190,6 +206,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             nestedGroupLayer.LayersReadOnly = true;
             Assert.IsFalse(mapLayerNodePresenter.CanRemove(groupLayer, nestedLayer1));
             Assert.IsFalse(mapLayerNodePresenter.CanRemove(nestedGroupLayer, nestedLayer2));
+
+            mocks.VerifyAll();
         }
 
         [Test]

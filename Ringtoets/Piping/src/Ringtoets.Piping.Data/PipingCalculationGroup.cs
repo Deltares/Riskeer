@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data
         public PipingCalculationGroup(string newName, bool canEditName)
         {
             name = newName;
-            NameIsEditable = canEditName;
+            IsNameEditable = canEditName;
             Children = new List<IPipingCalculationItem>();
         }
 
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (!NameIsEditable)
+                if (!IsNameEditable)
                 {
                     throw new InvalidOperationException(Resources.PipingCalculationGroup_Setting_readonly_name_error_message);
                 }
@@ -71,6 +71,6 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets a value indicating whether <see cref="Name"/> is editable or not.
         /// </summary>
-        public bool NameIsEditable { get; private set; }
+        public bool IsNameEditable { get; private set; }
     }
 }

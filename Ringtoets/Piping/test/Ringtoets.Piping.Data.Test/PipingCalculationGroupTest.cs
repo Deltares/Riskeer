@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(group);
             Assert.IsInstanceOf<Observable>(group);
-            Assert.IsTrue(group.NameIsEditable);
+            Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
             Assert.IsFalse(group.HasOutput);
             CollectionAssert.IsEmpty(group.Children);
@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(group);
             Assert.IsInstanceOf<Observable>(group);
-            Assert.AreEqual(isNameEditable, group.NameIsEditable);
+            Assert.AreEqual(isNameEditable, group.IsNameEditable);
             Assert.AreEqual(newName, group.Name);
             Assert.IsFalse(group.HasOutput);
             CollectionAssert.IsEmpty(group.Children);
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup("a", true);
 
             // Precondtion
-            Assert.IsTrue(group.NameIsEditable);
+            Assert.IsTrue(group.IsNameEditable);
 
             // Call
             const string newName = "new Name";
@@ -67,10 +67,11 @@ namespace Ringtoets.Piping.Data.Test
         public void Name_SettingValueWhileNameNotEditable_ThrowInvalidOperationException()
         {
             // Setup
-            var group = new PipingCalculationGroup("a", false);
+            const string originalName = "a";
+            var group = new PipingCalculationGroup(originalName, false);
 
             // Precondtion
-            Assert.IsFalse(group.NameIsEditable);
+            Assert.IsFalse(group.IsNameEditable);
 
             // Call
             const string newName = "new Name";
@@ -78,7 +79,8 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
-            Assert.AreEqual("Kan niet de naam aanpassen van deze group omdat 'NameIsEditable' op 'false' staat.", exception.Message);
+            Assert.AreEqual("Kan de naam van deze groep niet aanpassen, omdat 'IsNameEditable' op 'false' staat.", exception.Message);
+            Assert.AreEqual(originalName, group.Name);
         }
 
         [Test]
@@ -93,6 +95,7 @@ namespace Ringtoets.Piping.Data.Test
             group.Children.Add(calculation);
 
             // Assert
+            Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.Contains(group.Children, calculation);
         }
 
@@ -109,7 +112,30 @@ namespace Ringtoets.Piping.Data.Test
             group.Children.Remove(calculation);
 
             // Assert
+            Assert.AreEqual(0, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, calculation);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Children_RemovePipingCalculation_CalculationRemovedFromCollection(int index)
+        {
+            // Setup
+            var calculation = new PipingCalculation();
+            var calculationToInsert = new PipingCalculation();
+
+            var group = new PipingCalculationGroup();
+            group.Children.Add(calculation);
+
+            // Call
+            group.Children.Insert(index, calculationToInsert);
+
+            // Assert
+            Assert.AreEqual(2, group.Children.Count);
+            Assert.AreSame(calculationToInsert, group.Children[index]);
+            CollectionAssert.AreEquivalent(new[]{calculationToInsert,calculation}, group.Children,
+                "Already existing items should have remained in collection and new item should be added.");
         }
 
         [Test]
@@ -141,6 +167,28 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             CollectionAssert.DoesNotContain(group.Children, childGroup);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Children_RemovePipingCalculationGroup_CalculationRemovedFromCollection(int index)
+        {
+            // Setup
+            var existingGroup = new PipingCalculationGroup();
+            var groupToInsert = new PipingCalculationGroup();
+
+            var group = new PipingCalculationGroup();
+            group.Children.Add(existingGroup);
+
+            // Call
+            group.Children.Insert(index, groupToInsert);
+
+            // Assert
+            Assert.AreEqual(2, group.Children.Count);
+            Assert.AreSame(groupToInsert, group.Children[index]);
+            CollectionAssert.AreEquivalent(new[] { groupToInsert, existingGroup }, group.Children,
+                "Already existing items should have remained in collection and new item should be added.");
         }
 
         [Test]

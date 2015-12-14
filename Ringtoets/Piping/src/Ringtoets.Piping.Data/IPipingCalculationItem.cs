@@ -3,7 +3,7 @@
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// A piping calculation related object
+    /// A piping calculation related object.
     /// </summary>
     public interface IPipingCalculationItem : IObservable
     {

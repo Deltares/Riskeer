@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Common.Base;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -15,7 +16,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingContextTest
     {
         [Test]
-        public void ParameterdConstrcutor_ExpectedValues()
+        public void ParameteredConstrcutor_ExpectedValues()
         {
             // Setup
             RingtoetsPipingSurfaceLine[] surfaceLines = {
@@ -218,6 +219,68 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             Assert.IsTrue(isEqual);
             Assert.IsTrue(isEqual2);
+        }
+
+        [Test]
+        public void Equals_ToInequalOtherInstance_ReturnFalse()
+        {
+            // Setup
+            var observableObject = new ObserveableObject();
+            var otherObservableObject = new ObserveableObject();
+            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                     Enumerable.Empty<PipingSoilProfile>());
+
+            var otherContext = new SimplePipingContext<ObserveableObject>(otherObservableObject,
+                                                                          new[]
+                                                                          {
+                                                                              new RingtoetsPipingSurfaceLine()
+                                                                          },
+                                                                          new[]
+                                                                          {
+                                                                              new TestPipingSoilProfile()
+                                                                          });
+
+            // Call
+            bool isEqual = context.Equals(otherContext);
+            bool isEqual2 = otherContext.Equals(context);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void Equals_ToOtherGenericType_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observableStub = mocks.Stub<IObservable>();
+            mocks.ReplayAll();
+
+            var observableObject = new ObserveableObject();
+            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                     Enumerable.Empty<PipingSoilProfile>());
+
+            var otherContext = new SimplePipingContext<IObservable>(observableStub,
+                                                                    new[]
+                                                                    {
+                                                                        new RingtoetsPipingSurfaceLine()
+                                                                    },
+                                                                    new[]
+                                                                    {
+                                                                        new TestPipingSoilProfile()
+                                                                    });
+
+            // Call
+            bool isEqual = context.Equals(otherContext);
+            bool isEqual2 = otherContext.Equals(context);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            Assert.IsFalse(isEqual2);
+            mocks.VerifyAll();
         }
 
         [Test]

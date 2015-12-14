@@ -56,6 +56,9 @@ namespace Core.Plugins.CommonTools.Test.Forms.Charting
             var guiPlugin = mocks.Stub<GuiPlugin>();
             mocks.ReplayAll();
 
+            // Precondition
+            Assert.IsNull(treeView.TreeViewNodeSorter);
+
             var nodePresenter = new ChartTreeNodePresenter(guiPlugin) { TreeView = treeView };
 
             // Call

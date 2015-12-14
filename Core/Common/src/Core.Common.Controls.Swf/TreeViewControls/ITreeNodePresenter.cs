@@ -102,11 +102,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations);
 
         /// <summary>
+        /// Checks if insertion at a specific index into the target is allowed.
         /// </summary>
         /// <param name="item">The data-object being dragged.</param>
         /// <param name="sourceNode">The node corresponding with <paramref name="item"/>.</param>
         /// <param name="targetNode">The node being considered as drop target for <paramref name="item"/>.</param>
-        /// <returns></returns>
+        /// <returns>True if insertion is supported; false otherwise.</returns>
         bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode);
 
         /// <summary>

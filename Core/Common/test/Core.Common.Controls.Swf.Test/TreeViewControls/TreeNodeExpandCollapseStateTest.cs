@@ -157,7 +157,8 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("Knoop heeft niet dezelfde data als de opgenomen knoop.", exception.Message);
+            string userMessage = exception.Message.Split(new []{Environment.NewLine}, StringSplitOptions.None)[0];
+            Assert.AreEqual("Knoop heeft niet dezelfde data als de opgenomen knoop.", userMessage);
             mocks.VerifyAll();
         }
 
@@ -287,14 +288,6 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             var stubNode = mocks.Stub<ITreeNode>();
             stubNode.Tag = new object();
             stubNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
-
-            var sourceChildNode = mocks.Stub<ITreeNode>();
-            sourceChildNode.Tag = childData;
-            sourceChildNode.Stub(n => n.IsExpanded).Return(false);
-            sourceChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
-            {
-                stubNode
-            });
 
             var sourceNode = mocks.Stub<ITreeNode>();
             sourceNode.Stub(n => n.IsExpanded).Return(true);
