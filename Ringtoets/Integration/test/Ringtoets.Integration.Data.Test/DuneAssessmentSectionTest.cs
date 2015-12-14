@@ -14,6 +14,15 @@ namespace Ringtoets.Integration.Data.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
+            // Setup
+            var duneErosionName = "Duinen - Erosie";
+
+            var contributions = new double[] { 70, 30 };
+            var names = new[] {
+                duneErosionName,
+                Resources.OtherFailureMechanism_DisplayName
+            };
+
             // Call
             var section = new DuneAssessmentSection();
 
@@ -25,9 +34,13 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual("Duintraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
             Assert.AreEqual("HR locatiedatabase", section.HydraulicBoundaryDatabase.Name);
-            Assert.AreEqual("Duinen - Erosie", section.DuneErosionFailureMechanism.Name);
+            Assert.AreEqual(duneErosionName, section.DuneErosionFailureMechanism.Name);
 
             Assert.AreEqual(70, section.DuneErosionFailureMechanism.Contribution);
+
+            Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
+            Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
+            Assert.AreEqual(Enumerable.Repeat(30000.0, 2), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
         }
 
         [Test]
@@ -45,7 +58,7 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void FailureMechanismContribution_Always_ReturnInitializedFailureMechanismContribution()
+        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther()
         {
             // Setup
             var assessmentSection = new DuneAssessmentSection();
