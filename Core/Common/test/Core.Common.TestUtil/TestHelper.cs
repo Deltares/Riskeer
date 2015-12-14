@@ -357,16 +357,21 @@ namespace Core.Common.TestUtil
         /// <typeparam name="T">The type of the expected exception.</typeparam>
         /// <param name="test">The test to execute and should throw exception of type <typeparamref name="T"/>.</param>
         /// <param name="expectedCustomMessage">The expected custom part of the exception message.</param>
-        /// <remarks>Can only be used when <paramref name="expectedCustomMessage"/> does not contain <see cref="Environment.NewLine"/>.
-        /// </remarks>
-        public static void AssertExceptionCustomMessage<T>(TestDelegate test, string expectedCustomMessage) where T : Exception
+        public static void AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
         {
-            var message = Assert.Throws<T>(test).Message;
-            var customMessage = message.Split(new[]
+            var exception = Assert.Throws<T>(test);
+            var message = exception.Message;
+            if (exception.ParamName != null)
             {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual(expectedCustomMessage, customMessage);
+                var customMessageParts = message.Split(new[]
+                {
+                    Environment.NewLine
+                }, StringSplitOptions.None).ToList();
+                customMessageParts.RemoveAt(customMessageParts.Count - 1);
+
+                message = string.Join(Environment.NewLine, customMessageParts.ToArray());
+            }
+            Assert.AreEqual(expectedCustomMessage, message);
         }
 
         private static string GetCurrentTestClassMethodName()

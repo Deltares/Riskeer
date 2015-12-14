@@ -1,6 +1,8 @@
 ﻿using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Test
 {
@@ -32,7 +34,7 @@ namespace Ringtoets.Common.Data.Test
             TestDelegate test = () => failureMechanism.Contribution = value;
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100);
             mockRepository.VerifyAll();
         }
 

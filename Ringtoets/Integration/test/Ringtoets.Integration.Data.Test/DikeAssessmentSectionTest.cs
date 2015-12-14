@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-
 using Core.Common.Base;
-
 using NUnit.Framework;
 using Ringtoets.Integration.Data.Contribution;
-using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Piping.Data;
+
+using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Test
 {
@@ -39,7 +38,7 @@ namespace Ringtoets.Integration.Data.Test
                 stoneRevetmentName,
                 asphaltName,
                 grassRevetmentName,
-                Resources.OtherFailureMechanism_DisplayName
+                RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName
             };
 
             // Assert
@@ -77,6 +76,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 10), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+
+            Assert.AreEqual(100, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }
 
         [Test]
@@ -138,7 +139,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(norm, contribution[i].Norm);
                 Assert.AreEqual((norm / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
             }
-            Assert.AreEqual(Resources.OtherFailureMechanism_DisplayName, contribution[9].Assessment);
+            Assert.AreEqual(RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName, contribution[9].Assessment);
             Assert.AreEqual(30, contribution[9].Contribution);
             Assert.AreEqual(norm, contribution[9].Norm);
             Assert.AreEqual((norm / contribution[9].Contribution) * 100, 100000);

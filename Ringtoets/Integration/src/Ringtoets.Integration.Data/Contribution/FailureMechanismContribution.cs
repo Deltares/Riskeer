@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.Contribution
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
                 }
                 norm = value;
                 distribution.ForEachElementDo(d => d.Norm = norm);

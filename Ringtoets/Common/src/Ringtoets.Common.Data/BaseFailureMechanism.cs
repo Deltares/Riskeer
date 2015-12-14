@@ -22,7 +22,7 @@ namespace Ringtoets.Common.Data
             {
                 if (value <= 0 || value > 100)
                 {
-                    throw new ArgumentException(Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100, "value");
+                    throw new ArgumentOutOfRangeException("value", Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100);
                 }
                 contribution = value;
             }

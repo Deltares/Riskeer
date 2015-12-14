@@ -310,7 +310,7 @@ namespace Core.Common.Utils.Test
             // Call
             TestDelegate call = () =>
             {
-                TestHelper.AssertExceptionCustomMessage<Exception>(t, String.Empty);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, String.Empty);
             };
 
             // Assert
@@ -323,12 +323,12 @@ namespace Core.Common.Utils.Test
             // Setup
             var someMessage = "Exception";
             var differentMessage = "Different";
-            TestDelegate t = () => { throw new Exception(someMessage); };
+            TestDelegate t = () => { throw new ArgumentException(someMessage); };
 
             // Call
             TestDelegate call = () =>
             {
-                TestHelper.AssertExceptionCustomMessage<Exception>(t, differentMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, differentMessage);
             };
 
             // Assert
@@ -336,14 +336,30 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void AssertExceptionCustomMessage_ExceptionEqualMessage_NoExceptions()
+        [TestCase("param")]
+        [TestCase(null)]
+        public void AssertExceptionCustomMessage_ExceptionEqualMessage_NoExceptions(string argument)
         {
             // Setup
             var someMessage = "Exception";
-            TestDelegate t = () => { throw new Exception(someMessage); };
+            TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
 
             // Call & Assert
-            TestHelper.AssertExceptionCustomMessage<Exception>(t, someMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
+        }
+
+
+        [Test]
+        [TestCase("param")]
+        [TestCase(null)]
+        public void AssertExceptionCustomMessage_MessageWithNewLinesMessage_NoExceptions(string argument)
+        {
+            // Setup
+            var someMessage = string.Join(Environment.NewLine, "Exception", "second line");
+            TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
+
+            // Call & Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
         }
 
         private static ToolStripMenuItem CreateContextMenuItem()

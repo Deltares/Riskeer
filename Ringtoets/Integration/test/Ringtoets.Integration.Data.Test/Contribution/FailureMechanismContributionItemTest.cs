@@ -23,12 +23,16 @@ namespace Ringtoets.Integration.Data.Test.Contribution
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Setup
+            var norm = new Random(21).Next(1, int.MaxValue);
 
             // Call
-            TestDelegate test = () => new FailureMechanismContributionItem(null, new Random(21).Next());
+            TestDelegate test = () =>
+            {
+                new FailureMechanismContributionItem(null, norm);
+            };
 
             // Assert
-            TestHelper.AssertExceptionCustomMessage<ArgumentNullException>(test, Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
         }
 
         [Test]
@@ -36,7 +40,9 @@ namespace Ringtoets.Integration.Data.Test.Contribution
         {
             // Setup
             string name = "SomeName";
-            double contribution = new Random(21).NextDouble();
+            var random = new Random(21);
+            double contribution = random.Next(1, 100);
+            var norm = random.Next(1, int.MaxValue);
 
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
 
@@ -44,8 +50,6 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
 
             mockRepository.ReplayAll();
-
-            var norm = new Random(21).Next();
 
             // Call
             var result = new FailureMechanismContributionItem(failureMechanism, norm);
