@@ -82,7 +82,7 @@ namespace Core.Plugins.SharpMapGis.Tools
             }
 
             var factor = imageResolutionDialog.Resolution/100;
-            Export(image, saveFileDialog.FileName, ImageFormats.Keys.ElementAt(saveFileDialog.FilterIndex), factor);
+            Export(image, saveFileDialog.FileName, ImageFormats.Keys.ElementAt(saveFileDialog.FilterIndex - 1), factor);
         }
 
         public static Bitmap CreateResizedImage(Image image, int width, int height)
