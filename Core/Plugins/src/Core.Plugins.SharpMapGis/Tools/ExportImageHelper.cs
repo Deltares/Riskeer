@@ -4,13 +4,13 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
 using Core.Plugins.SharpMapGis.Properties;
 
 namespace Core.Plugins.SharpMapGis.Tools
 {
     public static class ExportImageHelper
     {
+        // TODO: obtain list of installed encoders/decoders dynamically
         private static readonly Dictionary<string, ImageFormat> ImageFormats = new Dictionary<string, ImageFormat>
         {
             {
@@ -24,9 +24,6 @@ namespace Core.Plugins.SharpMapGis.Tools
             },
             {
                 "gif", ImageFormat.Gif
-            },
-            {
-                "emf", ImageFormat.Emf
             },
             {
                 "tiff", ImageFormat.Tiff
@@ -108,9 +105,7 @@ namespace Core.Plugins.SharpMapGis.Tools
 
         private static string GetFileFormatFilter(Dictionary<string, ImageFormat> imageFormats)
         {
-            List<string> filters = imageFormats.Keys.Select(ext => string.Format(Resources.ExportImageHelper_Format_0_as_filter, ext)).ToList();
-            filters.Add(Resources.AllFilesFilter);
-            return string.Join("|",filters);
+            return string.Join("|",imageFormats.Keys.Select(ext => string.Format(Resources.ExportImageHelper_Format_0_as_filter, ext)).ToList());
         }
     }
 }

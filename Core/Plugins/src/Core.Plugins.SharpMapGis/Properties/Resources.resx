@@ -139,7 +139,4 @@
   <data name="ExportImageHelper_Format_0_as_filter" xml:space="preserve">
     <value>{0} bestanden (*.{0})|*.{0}</value>
   </data>
-  <data name="AllFilesFilter" xml:space="preserve">
-    <value>Alle bestanden (*.*)|*.*</value>
-  </data>
 </root>
