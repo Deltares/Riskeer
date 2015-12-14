@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Deltares")]
 [assembly: AssemblyProduct("Ringtoets.Integration.Plugin.Test")]
-[assembly: AssemblyCopyright("Copyright © Delates 2015")]
+[assembly: AssemblyCopyright("Copyright © Delates 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

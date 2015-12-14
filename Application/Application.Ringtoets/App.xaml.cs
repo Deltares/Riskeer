@@ -138,7 +138,7 @@ namespace Application.Ringtoets
                 StartPageUrl = "http://www.helpdeskwater.nl",
                 SupportEmailAddress = "support@deltaressystems.nl",
                 SupportPhoneNumber = "+31 (0)88 335 8100",
-                Copyright = "© Deltares 2015",
+                Copyright = "© Deltares 2016",
                 LicenseDescription = "Gratis",
                 MainWindowTitle = "Ringtoets",
                 LicenseFilePath = "License.rtf",
