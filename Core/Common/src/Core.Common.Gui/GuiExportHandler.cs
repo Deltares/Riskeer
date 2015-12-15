@@ -38,21 +38,6 @@ namespace Core.Common.Gui
 
         public void GetExporterDialog(IFileExporter exporter, object selectedItem)
         {
-            var view = ViewGetter(exporter) as IConfigureDialog;
-
-            if (view != null)
-            {
-                if (view.ShowModal() == DialogResult.OK)
-                {
-                    view.Configure(exporter);
-
-                    //Do Export (Not as activity yet)
-                    exporter.Export(selectedItem, null); //path argument is 'bypassed' in Configure
-                }
-
-                return;
-            }
-
             ExporterItemUsingFileOpenDialog(exporter, selectedItem);
         }
 
