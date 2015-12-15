@@ -11,15 +11,24 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
+using Core.Plugins.SharpMapGis.Gui.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
+using TreeNode = Core.Common.Controls.Swf.TreeViewControls.TreeNode;
+using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
 namespace Core.Plugins.SharpMapGis.Test.Forms
 {
     [TestFixture]
     public class MapLegendViewTest
     {
-        private readonly MockRepository mocks = new MockRepository();
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+        }
 
         [Test]
         public void Init()
@@ -39,6 +48,9 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             string path = TestHelper.GetDataDir() + "rivers.shp";
 
             var shapeFile = mocks.StrictMock<ShapeFile>(path);
+
+            mocks.ReplayAll();
+
             shapeFile.Expect(sf => sf.GetExtents()).Return(null).Repeat.Any();
             shapeFile.Expect(sf => sf.FeaturesChanged += null).IgnoreArguments();
             shapeFile.Expect(sf => sf.FeaturesChanged -= null).IgnoreArguments().Repeat.Twice();
@@ -54,7 +66,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             TypeUtils.CallPrivateMethod<MapLegendView>(mapLegendView, "RemoveLayer", vectorLayer);
 
-            shapeFile.VerifyAllExpectations();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -109,6 +121,105 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             MapLegendView.HideAllLayersButThisOne(layer1, map);
         }
 
+        [Test]
+        public void GetContextMenu_ForMap_ReturnContextMenuStripWithSixItems()
+        {
+            // Setup
+            var mapLegendView = CreateMapLegendView();
+            var mapMock = mocks.StrictMock<Map>();
+
+            mocks.Replay(mapMock);
+
+            // Call
+            var contextMenu = mapLegendView.GetContextMenu(mapMock);
+
+            // Assert
+            Assert.AreEqual(6, contextMenu.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, "Voeg kaartlaag toe", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, "Toevoegen groeplaag", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, "Zoom naar alles", null, Resources.MapZoomToExtentsImage);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 4, "Zoomen tot kaartbereik", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, "Veranderen kaartcoördinatenstelsel...", null, Resources.GlobePencil);
+
+            Assert.IsInstanceOf<ToolStripSeparator>(contextMenu.Items[2]);
+        }
+
+        [Test]
+        public void GetContextMenu_ForLayer_ReturnContextMenuStripWithTwelveItems()
+        {
+            // Setup
+            var mapLegendView = CreateMapLegendView();
+            var layerMock = mocks.StrictMock<Layer>();
+
+            mocks.Replay(layerMock);
+
+            // Call
+            var contextMenu = mapLegendView.GetContextMenu(layerMock);
+
+            // Assert
+            Assert.AreEqual(12, contextMenu.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, "&Verwijderen", null, Resources.DeleteHS);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, "&Hernoemen", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, "Volgorde", null, Resources.LayersStack);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 6, "&Zoomen naar omvang", null, Resources.MapZoomToExtentsImage);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 7, "Synchroniseer zoomniveau met kaart", null, Resources.LayersUngroup);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 9, "Labels weergeven", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 10, "Weergeven in de legenda", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 11, "Alle andere lagen verbergen", null, null);
+
+            var toolStripDropDown = contextMenu.Items[5] as ToolStripDropDownItem;
+
+            Assert.NotNull(toolStripDropDown);
+            TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 0, "Op de voorgrond plaatsen", null, Resources.LayersStackArrange);
+            TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 1, "Naar de achtergrond verplaatsen", null, Resources.LayersStackArrangeBack);
+            TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 3, "Naar voren halen", null, null);
+            TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 4, "Naar achteren sturen", null, null);
+
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { contextMenu.Items[1], contextMenu.Items[4], contextMenu.Items[8], toolStripDropDown.DropDownItems[2] }, typeof(ToolStripSeparator));
+        }
+
+        [Test]
+        public void GetContextMenu_ForLayerNullLayerSelected_ShowAttributeTableDisabled()
+        {
+            // Setup
+            var layerMock = mocks.StrictMock<Layer>();
+            var mapLegendView = CreateMapLegendView();
+
+            // Call
+            var contextMenu = mapLegendView.GetContextMenu(layerMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, "Attributentabel openen", null, Resources.Table, false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetContextMenu_ForLayerShowAttributeTableSetOnSelectedNode_ShowAttributeTableItemSetToCorrectState(bool showAttributeTableEnabled)
+        {
+            // Setup
+            var layerMock = mocks.Stub<Layer>();
+            var mapLegendView = CreateMapLegendView();
+
+            layerMock.ShowAttributeTable = showAttributeTableEnabled;
+
+            var treeView = (TreeView) mapLegendView.Controls.Find("TreeView", true)[0];
+            var selectedNode = new TreeNode(treeView);
+            var parentNode = new TreeNode(treeView);
+            parentNode.Nodes.Add(selectedNode);
+            selectedNode.Tag = layerMock;
+            treeView.Nodes.Add(parentNode);
+            treeView.SelectedNode = selectedNode;
+
+            // Call
+            var contextMenu = mapLegendView.GetContextMenu(layerMock);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, "Attributentabel openen", null, Resources.Table, showAttributeTableEnabled);
+
+            mocks.VerifyAll();
+        }
+
         private MapLegendView CreateMapLegendView()
         {
             var project = new Project();
@@ -117,9 +228,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             //create stubbed version of plugingui
             SharpMapGisGuiPlugin guiPlugin = new SharpMapGisGuiPlugin();
-
-            IGisGuiService gisService = mocks.Stub<IGisGuiService>();
-            guiPlugin.GisGuiService = gisService;
 
             Expect.Call(gui.ApplicationCore).Return(applicationCore).Repeat.Any();
             Expect.Call(gui.Plugins).Return(new[]

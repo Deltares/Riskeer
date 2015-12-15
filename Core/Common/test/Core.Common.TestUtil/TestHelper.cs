@@ -315,9 +315,33 @@ namespace Core.Common.TestUtil
         public static void AssertContextMenuStripContainsItem(ContextMenuStrip menu, int position, string text, string toolTip, Image icon, bool enabled = true)
         {
             Assert.IsNotNull(menu);
-            Assert.Less(position, menu.Items.Count);
+            AssertContextMenuStripContainsItem(menu.Items, position, text, toolTip, icon, enabled);
+        }
 
-            var item = menu.Items[position];
+        /// <summary>
+        /// Asserts that a <see cref="ToolStripDropDownItem"/> contains an item at the given <see cref="position"/>
+        /// with the correct properties.
+        /// </summary>
+        /// <param name="menu">The <see cref="ToolStripDropDownItem"/> containing an item at position <paramref name="position"/>.</param>
+        /// <param name="position">The position of the menu item in <paramref name="menu"/>.</param>
+        /// <param name="text">The text expected for the menu item.</param>
+        /// <param name="toolTip">The tooltip expected for the menu item.</param>
+        /// <param name="icon">The image expected for the menu item.</param>
+        /// <param name="enabled">Optional: the expected enabled state of the menu item. Default: <c>true</c>.</param>
+        /// <exception cref="AssertionException">When <paramref name="menu"/> does not contain a menu item at
+        /// position with the right <paramref name="text"/>, <paramref name="toolTip"/> or <paramref name="icon"/>.
+        /// </exception>
+        public static void AssertDropDownItemContainsItem(ToolStripDropDownItem menu, int position, string text, string toolTip, Image icon, bool enabled = true)
+        {
+            Assert.IsNotNull(menu);
+            AssertContextMenuStripContainsItem(menu.DropDownItems, position, text, toolTip, icon, enabled);
+        }
+
+        private static void AssertContextMenuStripContainsItem(ToolStripItemCollection items, int position, string text, string toolTip, Image icon, bool enabled = true)
+        {
+            Assert.Less(position, items.Count);
+
+            var item = items[position];
 
             Assert.AreEqual(text, item.Text);
             Assert.AreEqual(toolTip, item.ToolTipText);

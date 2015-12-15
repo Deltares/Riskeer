@@ -302,6 +302,113 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
+        public void AssertDropDownItemContainsItem_MenuNull_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.AssertDropDownItemContainsItem(null, 0, "", "", null);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertDropDownItemContainsItem_NoMenuItemAtPosition_ThrowsAssertionException()
+        {
+            // Call
+            TestDelegate call = () => TestHelper.AssertDropDownItemContainsItem(new TestToolStripDropDownItem(), 0, "", "", null);
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertDropDownItemContainsItem_MenuItemWithDifferentText_ThrowsAssertionException()
+        {
+            // Setup
+            var dropDownItem = new TestToolStripDropDownItem();
+            var testItem = CreateContextMenuItem();
+            dropDownItem.DropDownItems.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertDropDownItemContainsItem_MenuItemWithDifferentToolTip_ThrowsAssertionException()
+        {
+            // Setup
+            var dropDownItem = new TestToolStripDropDownItem();
+            var testItem = CreateContextMenuItem();
+            dropDownItem.DropDownItems.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertDropDownItemContainsItem_MenuItemWithDifferentImage_ThrowsAssertionException()
+        {
+            // Setup
+            var dropDownItem = new TestToolStripDropDownItem();
+            var testItem = CreateContextMenuItem();
+            dropDownItem.DropDownItems.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, Resources.acorn);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssertDropDownItemContainsItem_MenuItemWithDifferentEnabeldState_ThrowsAssertionException(bool enabled)
+        {
+            // Setup
+            var dropDownItem = new TestToolStripDropDownItem();
+            var testItem = CreateContextMenuItem();
+            testItem.Enabled = enabled;
+            dropDownItem.DropDownItems.Add(testItem);
+
+            // Call
+            TestDelegate call = () =>
+            {
+                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled);
+            };
+
+            // Assert
+            Assert.Throws<AssertionException>(call);
+        }
+
+        [Test]
+        public void AssertDropDownItemContainsItem_SameMenuItemProperties_NoExceptions()
+        {
+            // Setup
+            var dropDownItem = new TestToolStripDropDownItem();
+            var testItem = CreateContextMenuItem();
+            dropDownItem.DropDownItems.Add(testItem);
+
+            // Call & Assert
+            TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, testItem.Image);
+        }
+
+        [Test]
         public void AssertExceptionCustomMessage_NoException_ThrowsAssertionException()
         {
             // Setup
@@ -372,4 +479,6 @@ namespace Core.Common.Utils.Test
             };
         }
     }
+
+    public class TestToolStripDropDownItem : ToolStripDropDownItem {}
 }

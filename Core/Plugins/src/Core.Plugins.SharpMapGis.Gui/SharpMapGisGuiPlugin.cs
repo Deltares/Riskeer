@@ -36,10 +36,9 @@ namespace Core.Plugins.SharpMapGis.Gui
     public class SharpMapGisGuiPlugin : GuiPlugin
     {
         private static IGui gui;
-
-        private static MapLegendView mapLegendView;
         private static IGisGuiService gisGuiService;
 
+        private MapLegendView mapLegendView;
         private IRibbonCommandHandler ribbonCommandHandler;
 
         public SharpMapGisGuiPlugin()
@@ -366,7 +365,7 @@ namespace Core.Plugins.SharpMapGis.Gui
             RefreshRibbonItems();
         }
 
-        private static void UpdateMapLegendView()
+        private void UpdateMapLegendView()
         {
             if (mapLegendView == null)
             {

@@ -68,6 +68,9 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
@@ -196,10 +199,6 @@
     <ProjectReference Include="..\..\..\GIS\test\Core.GIS.SharpMapTestUtil\Core.GIS.SharpMapTestUtil.csproj">
       <Project>{0A82E7D2-26F8-4A30-9787-7EEABCD7F470}</Project>
       <Name>Core.GIS.SharpMapTestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
-      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
-      <Name>Core.Common.TestUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
