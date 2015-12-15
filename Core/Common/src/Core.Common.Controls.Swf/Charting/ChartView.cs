@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Controls.Swf.Charting.Customized;
 using Core.Common.Controls.Swf.Charting.Tools;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
+
 using Steema.TeeChart;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Tools;
@@ -34,6 +36,7 @@ namespace Core.Common.Controls.Swf.Charting
 
         public event EventHandler<EventArgs> ToolsActiveChanged;
         private const int DisabledBackgroundAlpha = 20;
+        private readonly ICollection<IChartViewTool> tools;
         private int selectedPointIndex = -1;
         private bool wheelZoom = true;
         private bool afterResize = true;
@@ -52,9 +55,7 @@ namespace Core.Common.Controls.Swf.Charting
             InitializeComponent();
 
             Chart = new Chart();
-            Tools = new EventedList<IChartViewTool>();
-
-            Tools.CollectionChanged += ToolsCollectionChanged;
+            tools = new HashSet<IChartViewTool>();
 
             teeChart.Zoomed += TeeChartZoomed;
             teeChart.UndoneZoom += TeeChartUndoneZoom;
@@ -81,19 +82,19 @@ namespace Core.Common.Controls.Swf.Charting
             teeChart.Legend.Alignment = LegendAlignments.Bottom;
             teeChart.Chart.Header.Color = Color.Black; // To avoid blue titles everywhere
 
-            Tools.Add(new ExportChartAsImageChartTool(this)
+            AddTool(new ExportChartAsImageChartTool
             {
                 Active = true, Enabled = true
             });
         }
-
-        public IWin32Window Owner { get; set; }
 
         public bool IsMouseDown { get; private set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TimeNavigatableLabelFormatProvider DateTimeLabelFormatProvider { get; set; }
+
+        public IWin32Window Owner { get; set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -118,7 +119,7 @@ namespace Core.Common.Controls.Swf.Charting
 
                 chart = value;
 
-                teeChart.Chart = ((Chart) chart).chart;
+                teeChart.Chart = ((Chart)chart).chart;
 
                 if (zoomUsingMouseWheelTool != null)
                 {
@@ -164,7 +165,7 @@ namespace Core.Common.Controls.Swf.Charting
                         series.DataSource = null;
                     }
                     CleanAnnotations();
-                    Chart.Series.Clear();
+                    Chart.RemoveAllChartSeries();
                 }
                 else
                 {
@@ -223,7 +224,13 @@ namespace Core.Common.Controls.Swf.Charting
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEventedList<IChartViewTool> Tools { get; private set; }
+        public IEnumerable<IChartViewTool> Tools
+        {
+            get
+            {
+                return tools;
+            }
+        }
 
         /// <summary>
         /// Set and get the selected Point Index (of the active series)
@@ -277,7 +284,7 @@ namespace Core.Common.Controls.Swf.Charting
 
         public IChartViewTool GetTool<T>()
         {
-            return Tools.FirstOrDefault(t => t is T);
+            return tools.FirstOrDefault(t => t is T);
         }
 
         /// <summary>
@@ -290,7 +297,7 @@ namespace Core.Common.Controls.Swf.Charting
 
         public void EnableDelete(bool enable)
         {
-            foreach (var selectTool in Tools.OfType<SelectPointTool>())
+            foreach (var selectTool in tools.OfType<SelectPointTool>())
             {
                 selectTool.HandleDelete = enable;
             }
@@ -318,6 +325,14 @@ namespace Core.Common.Controls.Swf.Charting
             }
         }
 
+        private void AddTool(IChartViewTool tool)
+        {
+            tool.ChartView = this;
+            tools.Add(tool);
+
+            tool.ActiveChanged += OnToolsActiveChanged;
+        }
+
         private void TeeChartMouseDown(object sender, MouseEventArgs e)
         {
             IsMouseDown = true;
@@ -335,7 +350,7 @@ namespace Core.Common.Controls.Swf.Charting
                 var axis = teeChart.Axes[i];
                 if (axis.Tag is Annotation)
                 {
-                    var annotation = (Annotation) axis.Tag;
+                    var annotation = (Annotation)axis.Tag;
                     teeChart.Tools.Remove(annotation);
                     axis.Tag = null;
                 }
@@ -552,7 +567,7 @@ namespace Core.Common.Controls.Swf.Charting
             var contextMenu = new ContextMenuStrip();
             if (e.Button == MouseButtons.Right)
             {
-                foreach (IChartViewContextMenuTool tool in Tools.Where(tool => tool is IChartViewContextMenuTool && tool.Active))
+                foreach (IChartViewContextMenuTool tool in tools.OfType<IChartViewContextMenuTool>().Where(tool => tool.Active))
                 {
                     tool.OnBeforeContextMenu(contextMenu);
                 }
@@ -561,33 +576,6 @@ namespace Core.Common.Controls.Swf.Charting
             contextMenu.Show(PointToScreen(e.Location));
 
             IsMouseDown = false;
-        }
-
-        private void ToolsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            var chartTool = e.Item as IChartViewTool;
-            if (e.Action == NotifyCollectionChangeAction.Remove)
-            {
-                var tool = e.Item as Tool;
-                var index = teeChart.Tools.IndexOf(tool);
-
-                if (index >= 0)
-                {
-                    teeChart.Tools.Remove(tool);
-                }
-
-                if (chartTool != null)
-                {
-                    chartTool.ActiveChanged -= OnToolsActiveChanged;
-                }
-            }
-            if (e.Action == NotifyCollectionChangeAction.Add)
-            {
-                if (chartTool != null)
-                {
-                    chartTool.ActiveChanged += OnToolsActiveChanged;
-                }
-            }
         }
 
         private void OnToolsActiveChanged(object sender, EventArgs e)
@@ -648,41 +636,29 @@ namespace Core.Common.Controls.Swf.Charting
 
         public EditPointTool NewEditPointTool()
         {
-            var tool = new EditPointTool(teeChart)
-            {
-                ChartView = this
-            };
-            Tools.Add(tool);
+            var tool = new EditPointTool(teeChart);
+            AddTool(tool);
             return tool;
         }
 
         public IAddPointTool NewAddPointTool()
         {
-            var tool = new AddPointTool(teeChart.Chart)
-            {
-                ChartView = this
-            };
-            Tools.Add(tool);
+            var tool = new AddPointTool(teeChart.Chart);
+            AddTool(tool);
             return tool;
         }
 
         public RulerTool NewRulerTool()
         {
-            var tool = new RulerTool(teeChart)
-            {
-                ChartView = this
-            };
-            Tools.Add(tool);
+            var tool = new RulerTool(teeChart);
+            AddTool(tool);
             return tool;
         }
 
         public SelectPointTool NewSelectPointTool()
         {
-            var tool = new SelectPointTool(teeChart.Chart)
-            {
-                ChartView = this
-            };
-            Tools.Add(tool);
+            var tool = new SelectPointTool(teeChart.Chart);
+            AddTool(tool);
             tool.SelectionChanged += ToolSelectionChanged;
             return tool;
         }

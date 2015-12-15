@@ -114,9 +114,9 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             }
         }
 
-        private IEnumerable<IChartSeries> GetSeriesToChange()
+        private IEnumerable<ChartSeries> GetSeriesToChange()
         {
-            var seriesToChange = new List<IChartSeries>();
+            var seriesToChange = new List<ChartSeries>();
             if (treeView.SelectedNode == null)
             {
                 return seriesToChange;
@@ -124,9 +124,10 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 
             var nodeItem = treeView.SelectedNode.Tag;
 
-            if (nodeItem is IChart)
+            var nodeChart = nodeItem as IChart;
+            if (nodeChart != null)
             {
-                seriesToChange.AddRange(((IChart) nodeItem).Series);
+                seriesToChange.AddRange(nodeChart.Series);
             }
             if (nodeItem is ChartSeries)
             {
@@ -136,7 +137,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             return seriesToChange;
         }
 
-        private void ChangeSeries(object sender, IChartSeries originalSeries)
+        private void ChangeSeries(object sender, ChartSeries originalSeries)
         {
             if (!chart.AllowSeriesTypeChange)
             {
@@ -146,16 +147,16 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             var series = GetNewChartSeries(sender as ToolStripButton, originalSeries);
 
             var parentNode = treeView.SelectedNode != null ? treeView.SelectedNode.Parent : null;
-            var index = chart.Series.IndexOf(originalSeries);
+            var index = chart.GetIndexOfChartSeries(originalSeries);
             if (index < 0)
             {
-                chart.Series.Add(series);
+                chart.AddChartSeries(series);
             }
             else
             {
-                chart.Series.Insert(index, series);
+                chart.InsertChartSeries(series, index);
             }
-            chart.Series.Remove(originalSeries);
+            chart.RemoveChartSeries(originalSeries);
 
             if (parentNode != null)
             {
@@ -163,7 +164,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             }
         }
 
-        private IChartSeries GetNewChartSeries(ToolStripButton toolStripButton, IChartSeries originalSeries)
+        private ChartSeries GetNewChartSeries(ToolStripButton toolStripButton, ChartSeries originalSeries)
         {
             if (originalSeries is IPolygonChartSeries)
             {
@@ -172,22 +173,22 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 
             if (toolStripButton == toolStripButtonAreaSeries)
             {
-                return ChartSeriesFactory.CreateAreaSeries(originalSeries);
+                return (ChartSeries)ChartSeriesFactory.CreateAreaSeries(originalSeries);
             }
 
             if (toolStripButton == toolStripButtonBarSeries)
             {
-                return ChartSeriesFactory.CreateBarSeries(originalSeries);
+                return (ChartSeries)ChartSeriesFactory.CreateBarSeries(originalSeries);
             }
 
             if (toolStripButton == toolStripButtonLineSeries)
             {
-                return ChartSeriesFactory.CreateLineSeries(originalSeries);
+                return (ChartSeries)ChartSeriesFactory.CreateLineSeries(originalSeries);
             }
 
             if (toolStripButton == toolStripButtonPointSeries)
             {
-                return ChartSeriesFactory.CreatePointSeries(originalSeries);
+                return (ChartSeries)ChartSeriesFactory.CreatePointSeries(originalSeries);
             }
 
             throw new NotImplementedException();

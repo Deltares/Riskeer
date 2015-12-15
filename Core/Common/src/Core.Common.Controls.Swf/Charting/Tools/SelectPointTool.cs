@@ -1,15 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+
 using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
-using log4net;
+
 using Steema.TeeChart;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Styles;
@@ -64,18 +64,17 @@ namespace Core.Common.Controls.Swf.Charting.Tools
     /// </summary>
     public class SelectPointTool : ChartViewSeriesToolBase
     {
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-        private static readonly ILog log = LogManager.GetLogger(typeof(SelectPointTool));
-        private readonly IEventedList<SelectPoint> selectedPoints = new EventedList<SelectPoint>();
+        public event EventHandler SelectedChartPointsChanged;
+        private readonly ICollection<SelectPoint> selectedPoints = new HashSet<SelectPoint>();
 
         private readonly bool dragging = false;
+        private readonly int Point = -1;
+        private readonly Steema.TeeChart.Styles.PointerStyles selectedPointerStyle = Steema.TeeChart.Styles.PointerStyles.Diamond;
         private bool drawLine = true;
         private bool fullRepaint = true;
         private Point mouseLocation;
-        private readonly int Point = -1;
 
         private Color selectedPointerColor = SystemColors.Highlight;
-        private readonly Steema.TeeChart.Styles.PointerStyles selectedPointerStyle = Steema.TeeChart.Styles.PointerStyles.Diamond;
 
         private int size = 10;
         private NearestPointStyles style = NearestPointStyles.Circle;
@@ -84,7 +83,6 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         {
             Pen.Style = DashStyle.Dot;
             Pen.Color = Color.White;
-            selectedPoints.CollectionChanged += SelectedPointsCollectionChanged;
             HandleDelete = true;
         }
 
@@ -203,16 +201,14 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         /// <param name="pointIndex"></param>
         public void AddPointAtIndexToSelection(IChartSeries series, int pointIndex)
         {
-            var teeChartSeries = ((ChartSeries) series).series;
-            if (!selectedPoints.Any(p => p.Series == teeChartSeries && p.PointIndex == pointIndex))
-            {
-                selectedPoints.Add(new SelectPoint(teeChartSeries, pointIndex));
-            }
+            var teeChartSeries = ((ChartSeries)series).series;
+            SelectChartPoint(teeChartSeries, pointIndex);
         }
 
         public void ClearSelection()
         {
             selectedPoints.Clear();
+            FireSelectedChartPointsChangedEvent();
             SelectedPointIndex = -1;
         }
 
@@ -271,7 +267,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            selectedPoints.Clear();
+            ClearSelection();
             AddClickedPoint(e.X, e.Y);
             Invalidate();
         }
@@ -334,11 +330,21 @@ namespace Core.Common.Controls.Swf.Charting.Tools
             }
         }
 
-        private void SelectedPointsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void SelectChartPoint(Steema.TeeChart.Styles.Series teeChartSeries, int pointIndex)
         {
-            if (CollectionChanged != null)
+            if (!selectedPoints.Any(p => p.Series == teeChartSeries && p.PointIndex == pointIndex))
             {
-                CollectionChanged(this, e);
+                var selectPoint = new SelectPoint(teeChartSeries, pointIndex);
+                selectedPoints.Add(selectPoint);
+                FireSelectedChartPointsChangedEvent();
+            }
+        }
+
+        private void FireSelectedChartPointsChangedEvent()
+        {
+            if (SelectedChartPointsChanged != null)
+            {
+                SelectedChartPointsChanged(this, EventArgs.Empty);
             }
         }
 
@@ -367,7 +373,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
                     // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
                     var chartRect = Chart.ChartRect;
-                    if (! chartRect.Contains(x, y)) //outside chart area
+                    if (!chartRect.Contains(x, y)) //outside chart area
                     {
                         continue;
                     }
@@ -375,9 +381,9 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     g.Pen = Pen;
                     g.Brush = Brush;
 
-                    g.FillRectangle(brush, (int) (x - size*0.5), (int) (y - size*0.5), size, size);
+                    g.FillRectangle(brush, (int)(x - size * 0.5), (int)(y - size * 0.5), size, size);
 
-/*
+                    /*
 
                     g.Rectangle(new Rectangle(2, 2, totalWidth - 1, totaHeight - 1));
 
@@ -477,7 +483,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 SelectedPointIndex = TeeChartHelper.GetNearestPoint(clickedSeries, mouseLocation, 4);
                 if (SelectedPointIndex > -1)
                 {
-                    selectedPoints.Add(new SelectPoint(clickedSeries, SelectedPointIndex));
+                    SelectChartPoint(clickedSeries, SelectedPointIndex);
                 }
             }
         }

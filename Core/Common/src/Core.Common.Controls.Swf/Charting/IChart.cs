@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Controls.Swf.Charting
@@ -37,7 +41,7 @@ namespace Core.Common.Controls.Swf.Charting
         /// <summary>
         /// Series that are on the chart
         /// </summary>
-        IEventedList<IChartSeries> Series { get; }
+        IEnumerable<ChartSeries> Series { get; }
 
         /// <summary>
         /// Left axis of the chart
@@ -83,6 +87,37 @@ namespace Core.Common.Controls.Swf.Charting
         /// The type of a series may be changed
         /// </summary>
         bool AllowSeriesTypeChange { get; set; }
+
+
+        int GetIndexOfChartSeries(ChartSeries series);
+
+        /// <summary>
+        /// Adds the chart series to the chart.
+        /// </summary>
+        /// <param name="series">The series.</param>
+        /// <remarks>Duplicates are prevented from being added.</remarks>
+        void AddChartSeries(ChartSeries series);
+
+        /// <summary>
+        /// Inserts the chart series.
+        /// </summary>
+        /// <param name="series">The series.</param>
+        /// <param name="index">The index.</param>
+        /// <exception cref="ArgumentOutOfRangeException">When <paramref name="index"/> is
+        /// less than 0 or greater than the number of series within the chart.</exception>
+        void InsertChartSeries(ChartSeries series, int index);
+
+        /// <summary>
+        /// Removes the chart series from the chart.
+        /// </summary>
+        /// <param name="series">The series.</param>
+        /// <returns>True if removal was successful; false otherwise</returns>
+        bool RemoveChartSeries(ChartSeries series);
+
+        /// <summary>
+        /// Removes all chart series form the chart.
+        /// </summary>
+        void RemoveAllChartSeries();
 
         /// <summary>
         /// Opens export dialog

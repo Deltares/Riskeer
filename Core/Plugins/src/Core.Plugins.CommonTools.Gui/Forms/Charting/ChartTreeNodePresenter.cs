@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Linq;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Charting;
+using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Plugins.CommonTools.Gui.Properties;
 
@@ -33,7 +33,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 
         public override IEnumerable GetChildNodeObjects(IChart chart)
         {
-            return chart.Series.Cast<object>();
+            return chart.Series;
         }
 
         public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
@@ -53,7 +53,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 
         public override void OnDragDrop(object item, object itemParent, IChart target, DragOperations operation, int position)
         {
-            var series = item as IChartSeries;
+            var series = item as ChartSeries;
 
             if (series == null)
             {
@@ -63,14 +63,14 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             var chart = itemParent as IChart;
             if (chart != null)
             {
-                chart.Series.Remove(series);
+                chart.RemoveChartSeries(series);
             }
             else
             {
-                target.Series.Remove(series);
+                target.RemoveChartSeries(series);
             }
 
-            target.Series.Insert(position, series);
+            target.InsertChartSeries(series, position);
         }
     }
 }

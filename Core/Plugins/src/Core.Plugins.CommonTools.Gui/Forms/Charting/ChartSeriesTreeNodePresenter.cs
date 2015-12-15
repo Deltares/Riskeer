@@ -7,14 +7,13 @@ using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 {
-    internal class ChartSeriesTreeNodePresenter : TreeViewNodePresenterBase<IChartSeries>
-    {
+    internal class ChartSeriesTreeNodePresenter : TreeViewNodePresenterBase<ChartSeries>    {
         public override bool CanRenameNode(ITreeNode node)
         {
             return true;
         }
 
-        public override void OnNodeRenamed(IChartSeries chartSeries, string newName)
+        public override void OnNodeRenamed(ChartSeries chartSeries, string newName)
         {
             if (chartSeries == null || chartSeries.Title == newName)
             {
@@ -24,7 +23,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             chartSeries.Title = newName;
         }
 
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IChartSeries chartSeries)
+        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, ChartSeries chartSeries)
         {
             node.Text = chartSeries.Title;
             node.Tag = chartSeries;
@@ -43,14 +42,14 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             }
         }
 
-        public override DragOperations CanDrag(IChartSeries nodeData)
+        public override DragOperations CanDrag(ChartSeries nodeData)
         {
             return DragOperations.Move;
         }
 
-        protected override bool RemoveNodeData(object parentNodeData, IChartSeries chartSeries)
+        protected override bool RemoveNodeData(object parentNodeData, ChartSeries chartSeries)
         {
-            chartSeries.Chart.Series.Remove(chartSeries);
+            chartSeries.Chart.RemoveChartSeries(chartSeries);
             return true;
         }
 

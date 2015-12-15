@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Controls.Swf.Charting
 {
@@ -34,7 +34,7 @@ namespace Core.Common.Controls.Swf.Charting
         /// <summary>
         /// A collection of tools
         /// </summary>
-        IEventedList<IChartViewTool> Tools { get; }
+        IEnumerable<IChartViewTool> Tools { get; }
 
         /// <summary>
         /// Set and get the selected Point Index (of the active series)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 using log4net;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Export;
@@ -24,14 +24,14 @@ namespace Core.Common.Controls.Swf.Charting
         internal readonly Steema.TeeChart.Chart chart;
         private readonly ILog log = LogManager.GetLogger(typeof(Chart));
 
-        private IEventedList<IChartSeries> series;
+        private readonly List<ChartSeries> seriesList;
         private bool chartSeriesStacked;
         private ChartGraphics graphics;
 
         public Chart()
         {
             chart = new Steema.TeeChart.Chart();
-            Series = new EventedList<IChartSeries>();
+            seriesList = new List<ChartSeries>();
 
             SetDefaultValues();
         }
@@ -121,25 +121,11 @@ namespace Core.Common.Controls.Swf.Charting
             }
         }
 
-        public IEventedList<IChartSeries> Series
+        public IEnumerable<ChartSeries> Series
         {
             get
             {
-                return series;
-            }
-            set
-            {
-                if (series != null)
-                {
-                    series.CollectionChanged -= SeriesCollectionChanged;
-                }
-
-                series = value;
-
-                if (series != null)
-                {
-                    series.CollectionChanged += SeriesCollectionChanged;
-                }
+                return seriesList.AsReadOnly();
             }
         }
 
@@ -209,6 +195,54 @@ namespace Core.Common.Controls.Swf.Charting
 
         public bool AllowSeriesTypeChange { get; set; }
 
+        public int GetIndexOfChartSeries(ChartSeries series)
+        {
+            return seriesList.IndexOf(series);
+        }
+
+        public void AddChartSeries(ChartSeries series)
+        {
+            if (!seriesList.Contains(series))
+            {
+                series.Chart = this;
+                seriesList.Add(series);
+                chart.Series.Add(series.series);
+            }
+        }
+
+        public void InsertChartSeries(ChartSeries series, int index)
+        {
+            if (seriesList.Contains(series))
+            {
+                chart.Series.MoveTo(series.series, index);
+            }
+            else
+            {
+                series.Chart = this;
+                seriesList.Insert(index, series);
+                chart.Series.Add(series.series);
+                chart.Series.MoveTo(series.series, index);
+            }
+        }
+
+        public bool RemoveChartSeries(ChartSeries series)
+        {
+            if (seriesList.Remove(series))
+            {
+                chart.Series.Remove(series.series);
+                return true;
+            }
+            return false;
+        }
+
+        public void RemoveAllChartSeries()
+        {
+            foreach (var series in seriesList.ToArray())
+            {
+                RemoveChartSeries(series);
+            }
+        }
+
         public void ExportAsImage(IWin32Window owner)
         {
             var dialog = new SaveFileDialog
@@ -247,8 +281,8 @@ namespace Core.Common.Controls.Swf.Charting
 
             if (ext == ".svg")
             {
-                var hatchStyleIgnored = Series.OfType<IAreaChartSeries>().Any(cs => cs.UseHatch) ||
-                                        Series.OfType<IPolygonChartSeries>().Any(cs => cs.UseHatch);
+                var hatchStyleIgnored = seriesList.OfType<IAreaChartSeries>().Any(cs => cs.UseHatch) ||
+                                        seriesList.OfType<IPolygonChartSeries>().Any(cs => cs.UseHatch);
                 if (hatchStyleIgnored)
                 {
                     log.WarnFormat(Resources.Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_);

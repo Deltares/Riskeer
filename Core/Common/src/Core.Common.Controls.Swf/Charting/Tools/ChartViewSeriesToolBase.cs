@@ -188,7 +188,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
             if (ChartView != null && ChartView.Chart != null)
             {
                 var matchingSeries =
-                    ChartView.Chart.Series.OfType<ChartSeries>().FirstOrDefault(
+                    ChartView.Chart.Series.FirstOrDefault(
                         cs => ReferenceEquals(cs.series, internalSeries));
 
                 if (matchingSeries != null)
@@ -197,7 +197,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 }
 
                 matchingSeries =
-                    ChartView.Chart.Series.OfType<ChartSeries>().FirstOrDefault(cs => cs.Title == internalSeries.Title);
+                    ChartView.Chart.Series.FirstOrDefault(cs => cs.Title == internalSeries.Title);
 
                 if (matchingSeries != null)
                 {

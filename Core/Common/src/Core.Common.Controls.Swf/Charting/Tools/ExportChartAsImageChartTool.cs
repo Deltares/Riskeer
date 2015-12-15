@@ -9,11 +9,6 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         public event EventHandler<EventArgs> ActiveChanged;
         private bool active;
 
-        public ExportChartAsImageChartTool(IChartView chartView)
-        {
-            ChartView = chartView;
-        }
-
         public IChartView ChartView { get; set; }
 
         public bool Active

@@ -18,7 +18,7 @@ namespace Core.Common.Controls.Swf.Test.Charting
 
             Assert.IsNull(chartSeries.Chart);
 
-            chart.Series.Add(chartSeries);
+            chart.AddChartSeries(chartSeries);
 
             Assert.AreSame(chart, chartSeries.Chart);
         }
@@ -43,7 +43,7 @@ namespace Core.Common.Controls.Swf.Test.Charting
             {
                 UseHatch = true
             };
-            chart.Series.Add(areaSeries);
+            chart.AddChartSeries(areaSeries);
 
             TestHelper.AssertLogMessageIsGenerated(() => SaveDeleteAndAssertExport("test.svg", chart), "Gearceerde stijl wordt niet ondersteund voor exporteren en zal genegeerd worden.", 1);
         }
