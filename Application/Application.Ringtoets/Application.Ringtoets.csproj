@@ -128,11 +128,6 @@
       <Name>Core.Plugins.CommonTools.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{BEFDCC44-2638-4972-B353-42D14C7DA2C6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>
       <Name>Core.Plugins.ProjectExplorer</Name>

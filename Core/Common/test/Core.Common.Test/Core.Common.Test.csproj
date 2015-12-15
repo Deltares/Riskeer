@@ -174,10 +174,6 @@
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{befdcc44-2638-4972-b353-42d14c7da2c6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>

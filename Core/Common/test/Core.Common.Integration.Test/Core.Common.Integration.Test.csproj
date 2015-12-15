@@ -120,10 +120,6 @@
       <Project>{93e73fab-fae8-49c6-9abb-27d24df761f6}</Project>
       <Name>Core.Plugins.CommonTools.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{befdcc44-2638-4972-b353-42d14c7da2c6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ed20dba9-d577-423f-a68d-a0a8130fb10b}</Project>
       <Name>Core.Plugins.ProjectExplorer</Name>

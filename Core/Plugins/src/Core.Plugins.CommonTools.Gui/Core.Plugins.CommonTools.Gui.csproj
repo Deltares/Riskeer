@@ -201,11 +201,6 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{BEFDCC44-2638-4972-B353-42D14C7DA2C6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Ribbon.xaml">
