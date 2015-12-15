@@ -98,11 +98,8 @@ namespace Core.Common.Controls.Swf
             // WizardDialog
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.wizardControl1);
             this.Name = "WizardDialog";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             ((System.ComponentModel.ISupportInitialize)(this.wizardControl1)).EndInit();
             this.wizardControl1.ResumeLayout(false);
             this.welcomeWizardPage1.ResumeLayout(false);

@@ -234,9 +234,7 @@
     <Compile Include="TreeViewControls\TreeViewNodePresenterBase.cs" />
     <Compile Include="TreeViewControls\TreeViewController.cs" />
     <Compile Include="WindowsFormsHelper.cs" />
-    <Compile Include="WizardDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="WizardDialog.cs" />
     <Compile Include="WizardDialog.Designer.cs">
       <DependentUpon>WizardDialog.cs</DependentUpon>
     </Compile>

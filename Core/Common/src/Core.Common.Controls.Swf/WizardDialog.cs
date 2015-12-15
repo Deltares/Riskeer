@@ -4,17 +4,18 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Controls.Swf.Properties;
 using DevExpress.XtraWizard;
 
 namespace Core.Common.Controls.Swf
 {
-    public partial class WizardDialog : Form, IView
+    public partial class WizardDialog : DialogBase, IView
     {
         private readonly IList<IComponent> pages;
         private readonly IDictionary<IComponent, WizardPage> wizardPages = new Dictionary<IComponent, WizardPage>();
 
-        public WizardDialog()
+        public WizardDialog(IWin32Window owner, Icon icon) : base(owner, icon)
         {
             pages = new List<IComponent>();
             InitializeComponent();
@@ -361,5 +362,10 @@ namespace Core.Common.Controls.Swf
         }
 
         #endregion
+
+        protected override Button GetCancelButton()
+        {
+            return null; // Cancel support already implemented by WizardControl
+        }
     }
 }
