@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Core.GIS.GeoAPI.CoordinateSystems;
+using Core.GIS.SharpMap.UI.Properties;
 
 namespace Core.GIS.SharpMap.UI.Forms
 {
-    public partial class SelectCoordinateSystemDialog : Form
+    public partial class SelectCoordinateSystemDialog : DialogBase
     {
         private readonly List<TreeNode> gcsNodes = new List<TreeNode>();
         private readonly List<TreeNode> pcsNodes = new List<TreeNode>();
@@ -18,7 +20,7 @@ namespace Core.GIS.SharpMap.UI.Forms
         private readonly string geographicNodeName = "geographic";
         private readonly string projectedNodeName = "projected";
 
-        public SelectCoordinateSystemDialog(IList<ICoordinateSystem> supportedCoordinateSystems, IList<ICoordinateSystem> customCoordinateSystems)
+        public SelectCoordinateSystemDialog(IWin32Window owner, IList<ICoordinateSystem> supportedCoordinateSystems, IList<ICoordinateSystem> customCoordinateSystems) : base(owner, Resources.globe__pencil)
         {
             this.supportedCoordinateSystems = supportedCoordinateSystems;
             this.customCoordinateSystems = customCoordinateSystems;
@@ -52,7 +54,7 @@ namespace Core.GIS.SharpMap.UI.Forms
 
         protected override void OnLoad(EventArgs e)
         {
-            CenterToScreen();
+            base.OnLoad(e);
 
             FillProjectionsTreeView();
 
@@ -240,6 +242,11 @@ namespace Core.GIS.SharpMap.UI.Forms
             {
                 treeViewProjections.EndUpdate();
             }
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
     }
 }

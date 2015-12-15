@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
+using Core.Common.Utils.PropertyBag.Dynamic;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;
@@ -19,12 +20,24 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [RefreshProperties(RefreshProperties.All)]
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            if (context == null || provider == null || context.Instance == null || context.Instance is MapProperties)
+            if (context == null || provider == null)
             {
-                return EditValue(provider, value);
+                return base.EditValue(provider, value);
             }
 
-            var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(new List<ICoordinateSystem>(Map.CoordinateSystemFactory.SupportedCoordinateSystems), Map.CoordinateSystemFactory.CustomCoordinateSystems);
+            var dynamicPropertyBag = context.Instance as DynamicPropertyBag;
+            if (dynamicPropertyBag == null)
+            {
+                return base.EditValue(provider, value);
+            }
+
+            var mapProperties = dynamicPropertyBag.WrappedObject as MapProperties;
+            if (mapProperties == null)
+            {
+                return base.EditValue(provider, value);
+            }
+
+            var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(mapProperties.Owner, new List<ICoordinateSystem>(Map.CoordinateSystemFactory.SupportedCoordinateSystems), Map.CoordinateSystemFactory.CustomCoordinateSystems);
 
             if (selectCoordinateSystemDialog.ShowDialog() == DialogResult.OK)
             {

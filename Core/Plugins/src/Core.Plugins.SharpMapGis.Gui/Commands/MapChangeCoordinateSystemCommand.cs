@@ -21,7 +21,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
         {
             var activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
 
-            var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(OgrCoordinateSystemFactory.SupportedCoordinateSystems, GIS.SharpMap.Map.Map.CoordinateSystemFactory.CustomCoordinateSystems);
+            var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(Gui.MainWindow, OgrCoordinateSystemFactory.SupportedCoordinateSystems, GIS.SharpMap.Map.Map.CoordinateSystemFactory.CustomCoordinateSystems);
 
             if (selectCoordinateSystemDialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
             {
