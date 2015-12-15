@@ -126,7 +126,6 @@ namespace Application.Ringtoets
 
             var applicationCore = new ApplicationCore();
 
-            applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
 #if INCLUDE_DEMOPROJECT
             applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
 #endif

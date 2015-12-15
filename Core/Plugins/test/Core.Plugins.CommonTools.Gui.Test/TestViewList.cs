@@ -6,7 +6,7 @@ using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections;
 
-namespace Core.Plugins.CommonTools.Test
+namespace Core.Plugins.CommonTools.Gui.Test
 {
     public class TestViewList : IViewList
     {

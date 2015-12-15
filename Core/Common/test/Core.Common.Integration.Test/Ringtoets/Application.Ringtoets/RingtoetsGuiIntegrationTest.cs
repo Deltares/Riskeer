@@ -1,11 +1,9 @@
 using System;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
 using Core.GIS.SharpMap.Map;
-using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
@@ -31,7 +29,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -58,7 +55,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
 
                 gui.Run();
@@ -78,7 +74,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Plugins.Add(new CommonToolsGuiPlugin());
@@ -99,7 +94,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
@@ -170,7 +164,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new CommonToolsApplicationPlugin());
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 

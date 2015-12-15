@@ -2,7 +2,7 @@
 using Core.Plugins.CommonTools.Gui.Forms;
 using NUnit.Framework;
 
-namespace Core.Plugins.CommonTools.Test.Forms
+namespace Core.Plugins.CommonTools.Gui.Test.Forms
 {
     [TestFixture]
     public class TextDocumentViewTest

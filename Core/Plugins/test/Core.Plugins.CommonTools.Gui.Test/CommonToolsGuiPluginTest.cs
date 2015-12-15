@@ -6,14 +6,13 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Utils;
-using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.CommonTools.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Test
+namespace Core.Plugins.CommonTools.Gui.Test
 {
     [TestFixture]
     public class CommonToolsGuiPluginTest

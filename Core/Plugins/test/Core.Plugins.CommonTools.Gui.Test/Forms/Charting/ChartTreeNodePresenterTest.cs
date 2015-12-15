@@ -1,15 +1,12 @@
 ﻿using System.Collections;
-
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Test.Forms.Charting
+namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
 {
     [TestFixture]
     public class ChartTreeNodePresenterTest

@@ -8,8 +8,8 @@
     <ProjectGuid>{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Plugins.CommonTools.Test</RootNamespace>
-    <AssemblyName>Core.Plugins.CommonTools.Test</AssemblyName>
+    <RootNamespace>Core.Plugins.CommonTools.Gui.Test</RootNamespace>
+    <AssemblyName>Core.Plugins.CommonTools.Gui.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
