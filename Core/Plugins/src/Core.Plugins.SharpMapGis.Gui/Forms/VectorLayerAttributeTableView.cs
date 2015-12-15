@@ -30,13 +30,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         private Func<IFeature, IFeatureRowObject> createFeatureRowObject;
         private Type featureRowType;
         private Func<string, bool> dynamicAttributeVisible;
-        private bool canAddDeleteAttributes;
 
         public VectorLayerAttributeTableView()
         {
             InitializeComponent();
-
-            canAddDeleteAttributes = true;
 
             InitializeDynamicAttributeContextMenu();
 
@@ -66,22 +63,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 dynamicAttributeVisible = value;
                 UpdateTableDataSource();
-            }
-        }
-
-        public bool CanAddDeleteAttributes
-        {
-            get
-            {
-                return canAddDeleteAttributes;
-            }
-            set
-            {
-                if (canAddDeleteAttributes != value)
-                {
-                    canAddDeleteAttributes = value;
-                    InitializeDynamicAttributeContextMenu();
-                }
             }
         }
 
@@ -370,39 +351,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
 
         private void InitializeDynamicAttributeContextMenu()
         {
-            const string addAttributeItemName = "btnAddAttribute";
             const string zoomItemName = "btnzoomToMenuItem";
             const string openViewItemName = "btnOpenViewMenuItem";
-            string addAttributeCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute;
-            string deleteAttributeCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attribute;
             string zoomToItemCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item;
             string openViewCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view;
 
-            if (CanAddDeleteAttributes)
-            {
-                if (TableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != addAttributeItemName))
-                {
-                    var btnAddAttribute = new ToolStripMenuItem
-                    {
-                        Name = addAttributeItemName,
-                        Text = addAttributeCaption,
-                        Image = Resources.TableAdd
-                    };
-                    btnAddAttribute.Click += AddAttributeItemClick;
-                    btnAddAttribute.Tag = TableView;
-                    TableView.RowContextMenu.Items.Add(btnAddAttribute);
-                }
-            }
-            else
-            {
-                if (TableView.RowContextMenu.Items.OfType<ToolStripItem>()
-                             .Any(mi => mi.Name == addAttributeItemName))
-                {
-                    var menuItem = TableView.RowContextMenu.Items.OfType<ToolStripItem>()
-                                            .First(mi => mi.Name == addAttributeItemName);
-                    TableView.RowContextMenu.Items.Remove(menuItem);
-                }
-            }
             if (TableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != zoomItemName))
             {
                 var btnzoomToMenuItem = new ToolStripMenuItem
@@ -430,34 +383,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
             TableView.UnboundColumnData = TableViewUnboundColumnDataUpdating;
 
-            if (CanAddDeleteAttributes)
-            {
-                if (TableView.ColumnMenuItems.All(mi => mi.Caption != addAttributeCaption))
-                {
-                    var addAttributeItem = new TableViewColumnMenuItem(addAttributeCaption)
-                    {
-                        Image = Resources.TableAdd
-                    };
-                    addAttributeItem.Click += AddAttributeItemClick;
-                    TableView.ColumnMenuItems.Add(addAttributeItem);
-                }
-                if (TableView.ColumnMenuItems.All(mi => mi.Caption != deleteAttributeCaption))
-                {
-                    var deleteAttributeItem = new TableViewColumnMenuItem(deleteAttributeCaption)
-                    {
-                        Image = Resources.TableDelete
-                    };
-                    deleteAttributeItem.Showing += DeleteAttributeItemShowing;
-                    deleteAttributeItem.Click += DeleteAttributeItemClick;
-                    TableView.ColumnMenuItems.Add(deleteAttributeItem);
-                }
-            }
-            else
-            {
-                TableView.ColumnMenuItems.RemoveAllWhere(
-                    mi => mi.Caption == addAttributeCaption || mi.Caption == deleteAttributeCaption);
-            }
-
             if (TableView.ColumnMenuItems.All(mi => mi.Caption != zoomToItemCaption))
             {
                 var zoomToMenuItem = new TableViewColumnMenuItem(zoomToItemCaption)
@@ -467,47 +392,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 zoomToMenuItem.Click += BtnZoomToClick;
                 TableView.ColumnMenuItems.Add(zoomToMenuItem);
             }
-        }
-
-        private void DeleteAttributeItemShowing(object sender, CancelEventArgs e)
-        {
-            var attributes = layer.DataSource.Features.Cast<IFeature>().Where(f => f.Attributes != null).SelectMany(f => f.Attributes.Keys);
-
-            var column = sender as TableViewColumn;
-
-            //only show delete option if its a custom attribute
-            if (column != null && attributes.Any(a => a == column.Name))
-            {
-                e.Cancel = false;
-                return;
-            }
-            e.Cancel = true;
-        }
-
-        private void DeleteAttributeItemClick(object sender, EventArgs e)
-        {
-            var column = sender as TableViewColumn;
-
-            if (column == null)
-            {
-                return;
-            }
-
-            column.Visible = false;
-            TableView.Remove(column);
-
-            var attributeName = column.Name;
-
-            foreach (var feature in layer.DataSource.Features.Cast<IFeature>().ToList())
-            {
-                if (feature.Attributes != null && feature.Attributes.ContainsKey(attributeName))
-                {
-                    feature.Attributes.Remove(attributeName);
-                }
-            }
-
-            TableView.RefreshData();
-            TableView.ResetBindings();
         }
 
         private void BtnZoomToClick(object sender, EventArgs e)
@@ -525,44 +409,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             if (selectedFeature != null && OpenViewMethod != null)
             {
                 OpenViewMethod(selectedFeature);
-            }
-        }
-
-        private void AddAttributeItemClick(object sender, EventArgs e)
-        {
-            if (TableView.FocusedRowIndex < 0)
-            {
-                return;
-            }
-
-            var dialog = new InputTextDialog
-            {
-                Text = "Please give an attribute name"
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                var attributeName = dialog.EnteredText;
-
-                if (String.IsNullOrEmpty(attributeName) || layer.DataSource.Features.Cast<IFeature>().ToList().Any(f => f.Attributes != null && f.Attributes.ContainsKey(attributeName)))
-                {
-                    MessageBox.Show("Invalid attribute name: already exists");
-                    return;
-                }
-
-                foreach (var feature in layer.DataSource.Features.Cast<IFeature>().ToList())
-                {
-                    if (feature.Attributes == null)
-                    {
-                        feature.Attributes = new DictionaryFeatureAttributeCollection();
-                    }
-
-                    if (!feature.Attributes.ContainsKey(attributeName))
-                    {
-                        feature.Attributes.Add(new KeyValuePair<string, object>(dialog.EnteredText, ""));
-                    }
-                }
-                ConfigureDynamicAttributeColumns();
-                TableView.RefreshData();
             }
         }
 

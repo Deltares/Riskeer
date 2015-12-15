@@ -244,7 +244,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private void AddLayer()
         {
-            var addLayerCommand = new MapAddLayerCommand();
+            var addLayerCommand = new MapAddLayerCommand { Gui = gui };
             addLayerCommand.Execute();
             UpdateButtonsVisibility();
         }
