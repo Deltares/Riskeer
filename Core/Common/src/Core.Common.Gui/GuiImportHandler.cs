@@ -97,7 +97,7 @@ namespace Core.Common.Gui
                 RestoreDirectory = true
             };
 
-            if (dialog.ShowDialog() != DialogResult.OK)
+            if (dialog.ShowDialog(gui.MainWindow) != DialogResult.OK)
             {
                 return;
             }

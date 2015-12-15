@@ -98,15 +98,16 @@ namespace Core.Common.Gui
             log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
 
             var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exporter.Name);
-            var dlg = new SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
             {
                 Filter = exporter.FileFilter,
                 Title = windowTitle,
                 FilterIndex = 2
             };
-            if (dlg.ShowDialog() == DialogResult.OK)
+
+            if (saveFileDialog.ShowDialog(owner) == DialogResult.OK)
             {
-                if (exporter.Export(item, dlg.FileName))
+                if (exporter.Export(item, saveFileDialog.FileName))
                 {
                     log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting);
                 }

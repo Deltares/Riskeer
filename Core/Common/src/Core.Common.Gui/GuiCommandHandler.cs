@@ -65,7 +65,7 @@ namespace Core.Common.Gui
                 RestoreDirectory = true
             };
 
-            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+            if (openFileDialog.ShowDialog(gui.MainWindow) == DialogResult.Cancel)
             {
                 Log.Warn(Resources.Opening_existing_project_cancelled);
                 return false;
@@ -222,7 +222,7 @@ namespace Core.Common.Gui
         {
             var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToList());
 
-            if (selectDataDialog.ShowDialog(gui.MainWindow as Form) == DialogResult.OK)
+            if (selectDataDialog.ShowDialog() == DialogResult.OK)
             {
                 return GetNewDataObject(selectDataDialog, parent);
             }
@@ -238,7 +238,7 @@ namespace Core.Common.Gui
 
             var selectDataDialog = CreateSelectionDialogWithItems(gui.ApplicationCore.GetSupportedDataItemInfos(parent).ToList());
 
-            if (selectDataDialog.ShowDialog(gui.MainWindow as Form) == DialogResult.OK)
+            if (selectDataDialog.ShowDialog() == DialogResult.OK)
             {
                 var newItem = GetNewItem(selectDataDialog, parent);
 

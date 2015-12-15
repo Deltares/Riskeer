@@ -242,7 +242,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(owner, (string)messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value);
+            var messageWindowDialog = new MessageWindowDialog(owner, (string) messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }
