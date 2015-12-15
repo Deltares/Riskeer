@@ -23,7 +23,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
 
             var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(Gui.MainWindow, OgrCoordinateSystemFactory.SupportedCoordinateSystems, GIS.SharpMap.Map.Map.CoordinateSystemFactory.CustomCoordinateSystems);
 
-            if (selectCoordinateSystemDialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
+            if (selectCoordinateSystemDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {

@@ -755,4 +755,7 @@
   <data name="InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid" xml:space="preserve">
     <value>Controleer of de invoer geldig is.</value>
   </data>
+  <data name="buttonAddLayer_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonAddLayer.Image.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

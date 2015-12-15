@@ -259,7 +259,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private void ButtonAddWmsLayerClick(object sender, EventArgs e)
         {
-            var openUrlDialog = new OpenUrlDialog
+            var openUrlDialog = new OpenUrlDialog(gui.MainWindow)
             {
                 Urls = new[]
                 {
@@ -280,7 +280,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 Url = "http://openstreetmap.org"
             };
 
-            if (openUrlDialog.ShowDialog(this) == DialogResult.OK)
+            if (openUrlDialog.ShowDialog() == DialogResult.OK)
             {
                 AddLayerFromExternalSource(openUrlDialog.Url);
             }

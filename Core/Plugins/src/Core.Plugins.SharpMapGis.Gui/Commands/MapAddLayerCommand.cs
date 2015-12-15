@@ -29,7 +29,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 Multiselect = true
             };
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
             {
                 return openFileDialog.FileNames;
             }

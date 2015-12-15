@@ -64,8 +64,6 @@
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
             this.Controls.Add(this.urlComboBox);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);

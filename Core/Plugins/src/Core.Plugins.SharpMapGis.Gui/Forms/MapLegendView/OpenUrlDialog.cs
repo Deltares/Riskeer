@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
+using Core.Plugins.SharpMapGis.Gui.Properties;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
-    public partial class OpenUrlDialog : Form
+    public partial class OpenUrlDialog : DialogBase
     {
-        public OpenUrlDialog()
+        public OpenUrlDialog(IWin32Window owner) : base(owner, Resources.buttonAddLayer_Image)
         {
             InitializeComponent();
         }
@@ -33,6 +35,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 urlComboBox.Items.Clear();
                 urlComboBox.Items.AddRange(value);
             }
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
     }
 }
