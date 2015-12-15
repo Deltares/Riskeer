@@ -64,6 +64,7 @@
     <Compile Include="Commands\ShowMapContentsCommand.cs" />
     <Compile Include="Commands\LayoutComponentToolCommand.cs" />
     <Compile Include="Commands\ZoomLayerCommand.cs" />
+    <Compile Include="Forms\GridProperties\CoordinateSystemTypeEditor.cs" />
     <Compile Include="Forms\GridProperties\LayerProperties.cs" />
     <Compile Include="Forms\GridProperties\LayoutComponentToolProperties.cs" />
     <Compile Include="Forms\GridProperties\FeatureDataRowProperties.cs" />
@@ -138,7 +139,6 @@
       <DependentUpon>Ribbon.xaml</DependentUpon>
     </Compile>
     <Compile Include="SharpMapGisGuiPlugin.cs" />
-    <Compile Include="SharpMapGisPropertyInfoProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\InputTextDialog.resx">

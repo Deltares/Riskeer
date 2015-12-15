@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Utils.Attributes;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
@@ -80,5 +81,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
                 data.ShowGrid = value;
             }
         }
+
+        public IMainWindow Owner { get; set; }
     }
 }
