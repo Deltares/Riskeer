@@ -82,7 +82,7 @@ namespace Core.Plugins.CommonTools.Gui
         {
             yield return new ViewInfo<RichTextFile, RichTextView>
             {
-                Image = Resources.key,
+                Image = Common.Gui.Properties.Resources.key,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
 

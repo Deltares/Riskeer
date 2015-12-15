@@ -862,7 +862,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             FileManualButton.IsEnabled = File.Exists(Gui.FixedSettings.ManualFilePath);
 
-            // TODO: Enable as soon as relevant/implemented
             LicenseButton.IsEnabled = File.Exists(Gui.FixedSettings.LicenseFilePath);
             FeedbackButton.IsEnabled = false;
 

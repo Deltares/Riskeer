@@ -168,7 +168,6 @@
     <None Include="Resources\function_coverage_empty.png" />
     <Resource Include="Resources\ruler-3.png" />
     <None Include="Resources\home.png" />
-    <None Include="Resources\key.png" />
     <Content Include="Resources\textdocument.png" />
   </ItemGroup>
   <ItemGroup>
