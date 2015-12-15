@@ -39,10 +39,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.buttonAddLayer = new System.Windows.Forms.ToolStripButton();
             this.buttonRemoveLayer = new System.Windows.Forms.ToolStripButton();
             this.contextMenuLayer = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuLayerOpenAttributeTable = new ToolStripMenuItem();
+            this.contextMenuLayerOpenAttributeTable = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.contextMenuLayerDelete = new ToolStripMenuItem();
-            this.contextMenuLayerRename = new ToolStripMenuItem();
+            this.contextMenuLayerDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuLayerRename = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.orderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bringToFrontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,25 +50,22 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.bringForwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendBackwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomToLayerToolStripMenuItem1 = new ToolStripMenuItem();
-            this.zoomToMapExtentsToolStripMenuItem1 = new ToolStripMenuItem();
+            this.zoomToLayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToMapExtentsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.showLabelsToolStripMenuItem = new ToolStripMenuItem();
-            this.showInLegendToolStripMenuItem = new ToolStripMenuItem();
-            this.hideAllButThisOneToolStripMenuItem = new ToolStripMenuItem();
+            this.showLabelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showInLegendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideAllButThisOneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeView = new Core.Common.Controls.Swf.TreeViewControls.TreeView();
-            this.contextMenuWmsLayer = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.zoomToLayerToolStripMenuItem = new ToolStripMenuItem();
             this.contextMenuMap = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addLayerToolStripMenuItem = new ToolStripMenuItem();
-            this.addLayergroupToolStripMenuItem = new ToolStripMenuItem();
+            this.addLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addLayergroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.zoomToExtentsToolStripMenuItem = new ToolStripMenuItem();
-            this.zoomToMapExtentsToolStripMenuItem = new ToolStripMenuItem();
+            this.zoomToExtentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToMapExtentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeCoordinateSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.contextMenuLayer.SuspendLayout();
-            this.contextMenuWmsLayer.SuspendLayout();
             this.contextMenuMap.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,19 +247,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.TreeView.Name = "TreeView";
             this.TreeView.SelectNodeOnRightMouseClick = true;
             // 
-            // contextMenuWmsLayer
-            // 
-            this.contextMenuWmsLayer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zoomToLayerToolStripMenuItem});
-            this.contextMenuWmsLayer.Name = "contextMenuLayer";
-            resources.ApplyResources(this.contextMenuWmsLayer, "contextMenuWmsLayer");
-            // 
-            // zoomToLayerToolStripMenuItem
-            // 
-            this.zoomToLayerToolStripMenuItem.Name = "zoomToLayerToolStripMenuItem";
-            resources.ApplyResources(this.zoomToLayerToolStripMenuItem, "zoomToLayerToolStripMenuItem");
-            this.zoomToLayerToolStripMenuItem.Click += new System.EventHandler(this.ZoomToLayerToolStripMenuItemClick);
-            // 
             // contextMenuMap
             // 
             this.contextMenuMap.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -322,7 +306,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuLayer.ResumeLayout(false);
-            this.contextMenuWmsLayer.ResumeLayout(false);
             this.contextMenuMap.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -342,8 +325,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private ToolStripMenuItem contextMenuLayerOpenAttributeTable;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripButton buttonAddWmsLayer;
-        private System.Windows.Forms.ContextMenuStrip contextMenuWmsLayer;
-        private ToolStripMenuItem zoomToLayerToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuMap;
         private ToolStripMenuItem addLayerToolStripMenuItem;
         private ToolStripMenuItem zoomToLayerToolStripMenuItem1;

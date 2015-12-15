@@ -1,16 +1,12 @@
 ﻿using System.Collections;
 using System.Drawing;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
 using Core.Common.Gui.Swf;
 
 namespace Core.Plugins.ProjectExplorer.NodePresenters
 {
-    public class TreeFolderNodePresenter : TreeViewNodePresenterBaseForPluginGui<TreeFolder>
+    public class TreeFolderNodePresenter : TreeViewNodePresenterBase<TreeFolder>
     {
-        public TreeFolderNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
-
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TreeFolder data)
         {
             node.Text = data.Text;

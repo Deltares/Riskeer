@@ -31,7 +31,7 @@ namespace Core.Plugins.CommonTools.Test.Forms.Charting
 
             mocks.ReplayAll();
 
-            var nodePresenter = new ChartTreeNodePresenter(guiPlugin) { TreeView = treeView };
+            var nodePresenter = new ChartTreeNodePresenter() { TreeView = treeView };
 
             // Call
             var insertionAllowed = nodePresenter.CanInsert(chart, sourceNode, targetNode);
@@ -59,7 +59,7 @@ namespace Core.Plugins.CommonTools.Test.Forms.Charting
             // Precondition
             Assert.IsNull(treeView.TreeViewNodeSorter);
 
-            var nodePresenter = new ChartTreeNodePresenter(guiPlugin) { TreeView = treeView };
+            var nodePresenter = new ChartTreeNodePresenter() { TreeView = treeView };
 
             // Call
             var insertionAllowed = nodePresenter.CanInsert(chart, sourceNode, targetNode);

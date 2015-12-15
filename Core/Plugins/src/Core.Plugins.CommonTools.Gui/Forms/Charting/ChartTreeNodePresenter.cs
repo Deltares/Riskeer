@@ -3,16 +3,12 @@ using System.Linq;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
-using Core.Common.Gui.Swf;
 using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 {
-    public class ChartTreeNodePresenter : TreeViewNodePresenterBaseForPluginGui<IChart>
+    public class ChartTreeNodePresenter : TreeViewNodePresenterBase<IChart>
     {
-        public ChartTreeNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
-
         public override bool CanRenameNode(ITreeNode node)
         {
             return true;

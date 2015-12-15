@@ -2,14 +2,13 @@ using System.Drawing;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 
 namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
 {
-    public class MapProjectTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<Map>
+    public class MapProjectTreeViewNodePresenter : TreeViewNodePresenterBase<Map>
     {
         private static readonly Bitmap MapIcon = Resources.Map;
 

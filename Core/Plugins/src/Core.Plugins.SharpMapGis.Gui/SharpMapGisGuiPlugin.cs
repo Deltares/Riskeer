@@ -257,27 +257,9 @@ namespace Core.Plugins.SharpMapGis.Gui
             };
         }
 
-        public override ContextMenuStrip GetContextMenu(object sender, object data)
-        {
-            //custom treenodes for maplegend view
-            if (sender is TreeNode)
-            {
-                var treeNode = (TreeNode)sender;
-                if (treeNode.TreeView.Parent == mapLegendView)
-                {
-                    return mapLegendView != null ? mapLegendView.GetContextMenu(data) : null;
-                }
-            }
-
-            return null;
-        }
-
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new MapProjectTreeViewNodePresenter
-            {
-                GuiPlugin = this
-            };
+            yield return new MapProjectTreeViewNodePresenter();
         }
 
         internal static MapView GetFocusedMapView(IView view = null)

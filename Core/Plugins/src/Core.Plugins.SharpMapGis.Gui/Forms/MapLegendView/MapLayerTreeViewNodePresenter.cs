@@ -2,19 +2,23 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
-using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
-    public class MapLayerTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<ILayer>
+    public class MapLayerTreeViewNodePresenter : TreeViewNodePresenterBase<ILayer>
     {
-        public MapLayerTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
+        private MapLegendView contextMenuProvider;
+
+        public MapLayerTreeViewNodePresenter(MapLegendView legend)
+        {
+            this.contextMenuProvider = legend;
+        }
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -139,6 +143,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
                 targetLayerGroup.Layers.Insert(position, (ILayer) item);
             }
+        }
+
+        public override ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
+        {
+            return contextMenuProvider.GetContextMenu(nodeData);
         }
 
         protected override bool CanRemove(ILayer nodeData)

@@ -142,4 +142,7 @@
   <data name="exportIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exportIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ExportMapToImageMapTool_Zoom_to_extents" xml:space="preserve">
+    <value>Zoomen tot kaartbereik</value>
+  </data>
 </root>

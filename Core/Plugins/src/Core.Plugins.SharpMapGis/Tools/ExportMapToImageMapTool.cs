@@ -23,7 +23,7 @@ namespace Core.Plugins.SharpMapGis.Tools
         {
             var name = Resources.ExportMapToImageMapTool_OnBeforeContextMenu_Export_map_as_image;
             var exportAsImageMenuItem = new ToolStripMenuItem(name, Resources.exportIcon, ExportMapEventHandler);
-            var zoomToExtentsMenuItem = new ToolStripMenuItem("Zoom to extents", Resources.MapZoomToExtentsImage, (s, e) => Map.ZoomToExtents());
+            var zoomToExtentsMenuItem = new ToolStripMenuItem(Resources.ExportMapToImageMapTool_Zoom_to_extents, Resources.MapZoomToExtentsImage, (s, e) => Map.ZoomToExtents());
 
             return new[]
             {

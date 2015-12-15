@@ -190,8 +190,6 @@
     <Compile Include="Styles\VectorStyle.cs" />
     <Compile Include="Utilities\Indexing\BinaryTree.cs" />
     <Compile Include="Utilities\Transform.cs" />
-    <Compile Include="Web\Wms\Capabilities.cs" />
-    <Compile Include="Web\Wms\Client.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE.txt" />
@@ -202,20 +200,6 @@
     <EmbeddedResource Include="Styles\Shapes\DropdownShapeEditor.resx">
       <DependentUpon>DropdownShapeEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Web\Wms\Schemas\1.3.0\capabilities_1_3_0.xsd">
-      <SubType>
-      </SubType>
-    </EmbeddedResource>
-    <None Include="Web\Wms\Schemas\1.3.0\capabilities_1_3_0.xsx">
-      <DependentUpon>capabilities_1_3_0.xsd</DependentUpon>
-    </None>
-    <EmbeddedResource Include="Web\Wms\Schemas\1.3.0\exceptions_1_3_0.xsd">
-      <SubType>
-      </SubType>
-    </EmbeddedResource>
-    <None Include="Web\Wms\Schemas\1.3.0\exceptions_1_3_0.xsx">
-      <DependentUpon>exceptions_1_3_0.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

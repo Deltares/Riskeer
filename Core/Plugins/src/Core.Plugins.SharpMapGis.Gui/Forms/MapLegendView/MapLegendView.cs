@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.GIS.GeoAPI.CoordinateSystems;
@@ -13,7 +12,6 @@ using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Extensions.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
-using Core.GIS.SharpMap.Web.Wms;
 using Core.Plugins.SharpMapGis.Gui.Commands;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 using log4net;
@@ -24,7 +22,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MapLegendView));
         private readonly IGui gui;
-        private readonly IGisGuiService gisService;
 
         public Action<ILayer> OnOpenLayerAttributeTable = layer => { };
 
@@ -35,15 +32,12 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         {
             InitializeComponent();
 
-            var guiPlugin = gui.Plugins.OfType<SharpMapGisGuiPlugin>().FirstOrDefault(); // this is bad, refactor it to depend only on simple interfaces
-            gisService = guiPlugin.GisGuiService;
-
             this.gui = gui;
 
-            var mapTreeViewNodePresenter = new MapTreeViewNodePresenter(guiPlugin);
-            var mapLayerTreeViewNodePresenter = new MapLayerTreeViewNodePresenter(guiPlugin);
+            var mapTreeViewNodePresenter = new MapTreeViewNodePresenter(this);
+            var mapLayerTreeViewNodePresenter = new MapLayerTreeViewNodePresenter(this);
             var mapLayerLegendStyleTreeViewNodePresenter = new VectorStyleTreeViewNodePresenter();
-            var themeItemTreeViewNodePresenter = new ThemeItemTreeViewNodePresenter(guiPlugin);
+            var themeItemTreeViewNodePresenter = new ThemeItemTreeViewNodePresenter();
 
             TreeView.RegisterNodePresenter(mapTreeViewNodePresenter);
             TreeView.RegisterNodePresenter(mapLayerTreeViewNodePresenter);
@@ -107,10 +101,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             if (nodeTag is Layer)
             {
                 return contextMenuLayer;
-            }
-            if (nodeTag is Client.WmsServerLayer)
-            {
-                return contextMenuWmsLayer;
             }
             if (nodeTag is Map)
             {
@@ -420,17 +410,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             gui.Selection = ((ITreeNode) e.Node).Tag;
-        }
-
-        private void ZoomToLayerToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            var tag = TreeView.SelectedNode.Tag;
-            if (tag is Client.WmsServerLayer)
-            {
-                var layer = (Client.WmsServerLayer) tag;
-                var layerEnvelope = layer.LatLonBoundingBox;
-                gisService.ZoomCurrentMapToEnvelope(layerEnvelope);
-            }
         }
 
         private void AddLayerToolStripMenuItemClick(object sender, EventArgs e)

@@ -62,14 +62,6 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Context menu which can be provided by the gui plugin.
-        /// </summary>
-        public virtual ContextMenuStrip GetContextMenu(object sender, object data)
-        {
-            return null;
-        }
-
-        /// <summary>
         /// Node presenters which can be provided by the gui plugin.
         /// </summary>
         public virtual IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()

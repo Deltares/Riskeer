@@ -28,9 +28,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         [SetUp]
         public void Setup()
         {
-            var pluginGui = mocks.Stub<GuiPlugin>();
-
-            mapLayerNodePresenter = new MapLayerTreeViewNodePresenter(pluginGui);
+            mapLayerNodePresenter = new MapLayerTreeViewNodePresenter(new MapLegendView(null));
             treeView = mocks.Stub<ITreeView>();
             mapLayerNodePresenter.TreeView = treeView;
         }

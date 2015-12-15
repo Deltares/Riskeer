@@ -1,17 +1,12 @@
 using System.ComponentModel;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
-using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
-    public class ThemeItemTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<IThemeItem>
+    public class ThemeItemTreeViewNodePresenter : TreeViewNodePresenterBase<IThemeItem>
     {
-        public ThemeItemTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
-
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IThemeItem themeItem)
         {
             if (node.Text != themeItem.Label)

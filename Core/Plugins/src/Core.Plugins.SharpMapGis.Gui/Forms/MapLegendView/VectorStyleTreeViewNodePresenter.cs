@@ -1,15 +1,11 @@
 using System.ComponentModel;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Styles;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
-    public class VectorStyleTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<VectorStyle>
+    public class VectorStyleTreeViewNodePresenter : TreeViewNodePresenterBase<VectorStyle>
     {
-        public VectorStyleTreeViewNodePresenter() : base(null) {}
-
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, VectorStyle style)
         {
             if (node.Tag != style)

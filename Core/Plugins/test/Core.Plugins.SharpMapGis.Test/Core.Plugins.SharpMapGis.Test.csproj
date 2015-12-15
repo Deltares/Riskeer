@@ -118,7 +118,6 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="SharpMapGisPluginGuiIntegrationTest.cs" />
-    <Compile Include="SharpMapGisGuiPluginTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

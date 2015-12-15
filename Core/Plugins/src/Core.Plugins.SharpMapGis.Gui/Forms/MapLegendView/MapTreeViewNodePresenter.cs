@@ -3,10 +3,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
-using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
@@ -14,11 +13,16 @@ using Core.Plugins.SharpMapGis.Gui.Properties;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
-    public class MapTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<Map>
+    public class MapTreeViewNodePresenter : TreeViewNodePresenterBase<Map>
     {
         private static readonly Bitmap MapIcon = Resources.Map;
+        
+        private MapLegendView contextMenuProvider;
 
-        public MapTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
+        public MapTreeViewNodePresenter(MapLegendView mapLegend)
+        {
+            contextMenuProvider = mapLegend;
+        }
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -93,6 +97,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                     target.NotifyObservers();
                 }
             }
+        }
+
+        public override ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
+        {
+            return contextMenuProvider.GetContextMenu(nodeData);
         }
 
         protected override void OnPropertyChanged(Map map, ITreeNode node, PropertyChangedEventArgs e)

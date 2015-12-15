@@ -58,7 +58,7 @@ namespace Core.Plugins.ProjectExplorer
 
                 gui.SelectionChanged += GuiSelectionChanged;
 
-                var treeFolderNodePresenter = new TreeFolderNodePresenter(guiPlugin);
+                var treeFolderNodePresenter = new TreeFolderNodePresenter();
 
                 treeView.RegisterNodePresenter(treeFolderNodePresenter);
             }
