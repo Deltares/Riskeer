@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
@@ -33,7 +31,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         private bool canMoveItemLinear = true;
         private bool canSelectItem = true;
         private bool settingSelection = false;
-        private readonly StackTrace constructorStackTrace;
         private ExportMapToImageMapTool exportMapToImageMapTool;
 
         public MapView()
@@ -61,11 +58,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 Zoom = 100
             };
-
-            if (Assembly.GetEntryAssembly() == null) // HACK: detecting nasty dispose exceptions when assembly empty - we run from non-exe (test)
-            {
-                constructorStackTrace = new StackTrace();
-            }
         }
 
         public IWin32Window Owner
@@ -475,7 +467,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             catch (Exception e)
             {
                 Console.WriteLine("Exception occured during dispose: " + e);
-                Console.WriteLine("Constructor stack trace: " + constructorStackTrace);
             }
         }
 
