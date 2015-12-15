@@ -68,7 +68,7 @@ namespace Core.Plugins.SharpMapGis.Tools
                 return;
             }
 
-            var imageResolutionDialog = new ImageResolutionDialog
+            var imageResolutionDialog = new ImageResolutionDialog(owner)
             {
                 BaseImage = image
             };

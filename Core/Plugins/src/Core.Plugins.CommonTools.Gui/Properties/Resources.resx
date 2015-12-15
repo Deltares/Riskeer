@@ -578,7 +578,7 @@
     <value>Exporteren</value>
   </data>
   <data name="Ribbon_ExportAsImage" xml:space="preserve">
-    <value>Exporteer als figuren</value>
+    <value>Exporteer als afbeelding</value>
   </data>
   <data name="Ribbon_GroupBox_Style" xml:space="preserve">
     <value>Stijl</value>

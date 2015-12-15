@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BackGroundMapLayer_UpdateLayers_Background_BackgroundMapName" xml:space="preserve">
     <value>Achtergrond ({0})</value>
   </data>
   <data name="ExportMapToImageMapTool_OnBeforeContextMenu_Export_map_as_image" xml:space="preserve">
-    <value>Exporteer kaart als figuren</value>
+    <value>Exporteer kaart als afbeelding</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,5 +138,8 @@
   </data>
   <data name="ExportImageHelper_Format_0_as_filter" xml:space="preserve">
     <value>{0} bestanden (*.{0})|*.{0}</value>
+  </data>
+  <data name="exportIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exportIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

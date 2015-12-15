@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
+using Core.Plugins.SharpMapGis.Properties;
 
 namespace Core.Plugins.SharpMapGis.Tools
 {
-    public partial class ImageResolutionDialog : Form
+    public partial class ImageResolutionDialog : DialogBase
     {
         private DialogResult result;
         private bool updatingControls;
 
         private Image baseImage;
 
-        public ImageResolutionDialog()
+        public ImageResolutionDialog(IWin32Window owner) : base(owner, Resources.exportIcon1)
         {
             InitializeComponent();
             Resolution = 100;
@@ -54,14 +56,7 @@ namespace Core.Plugins.SharpMapGis.Tools
 
             UpdateControls();
 
-            Show();
-
-            while (Visible)
-            {
-                Application.DoEvents();
-            }
-
-            return result;
+            return ShowDialog();
         }
 
         private void OkButtonClicked(object sender, EventArgs e)
@@ -189,6 +184,11 @@ namespace Core.Plugins.SharpMapGis.Tools
                    newResolution <= trackBar1.Maximum &&
                    Resolution/100*BaseImage.Width > 1 &&
                    Resolution/100*BaseImage.Height > 1;
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
     }
 }

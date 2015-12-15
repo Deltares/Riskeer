@@ -89,6 +89,16 @@ namespace Core.Plugins.SharpMapGis.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon exportIcon1 {
+            get {
+                object obj = ResourceManager.GetObject("exportIcon1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} bestanden (*.{0})|*.{0}.
         /// </summary>
         public static string ExportImageHelper_Format_0_as_filter {
@@ -98,7 +108,7 @@ namespace Core.Plugins.SharpMapGis.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteer kaart als figuren.
+        ///   Looks up a localized string similar to Exporteer kaart als afbeelding.
         /// </summary>
         public static string ExportMapToImageMapTool_OnBeforeContextMenu_Export_map_as_image {
             get {
