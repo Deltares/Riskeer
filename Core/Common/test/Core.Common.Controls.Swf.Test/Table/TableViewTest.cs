@@ -397,7 +397,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             tableView.SelectCells(1, 0, 2, 1);
 
-            Assert.AreEqual(4, tableView.SelectedCells.Count);
+            Assert.AreEqual(4, tableView.SelectedCells.Count());
 
             tableView.CopySelectionToClipboard();
 
@@ -446,7 +446,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             tableView.SelectCells(1, 0, 2, 1);
 
-            Assert.AreEqual(4, tableView.SelectedCells.Count);
+            Assert.AreEqual(4, tableView.SelectedCells.Count());
 
             tableView.CopySelectionToClipboard();
 
@@ -494,7 +494,7 @@ namespace Core.Common.Controls.Swf.Test.Table
 
             tableView.SelectCells(0, 0, 2, 1);
 
-            Assert.AreEqual(6, tableView.SelectedCells.Count);
+            Assert.AreEqual(6, tableView.SelectedCells.Count());
 
             tableView.CopySelectionToClipboard();
 
@@ -883,7 +883,7 @@ namespace Core.Common.Controls.Swf.Test.Table
             tableView.SelectCells(5, 0, 9, 1);
 
             //check the bottom cells are all selected
-            Assert.AreEqual(10, tableView.SelectedCells.Count);
+            Assert.AreEqual(10, tableView.SelectedCells.Count());
         }
 
         [Test]

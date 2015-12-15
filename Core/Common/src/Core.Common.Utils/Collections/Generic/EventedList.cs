@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using log4net;
 
 namespace Core.Common.Utils.Collections.Generic
 {
@@ -19,8 +18,6 @@ namespace Core.Common.Utils.Collections.Generic
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event PropertyChangingEventHandler PropertyChanging;
         public event PropertyChangedEventHandler PropertyChanged;
-        private static readonly ILog eventsLog = LogManager.GetLogger("Events");
-        // TODO: make it work on Ranges and send events on ranges
 
         /// <summary>
         /// The underlying storage
@@ -31,7 +28,6 @@ namespace Core.Common.Utils.Collections.Generic
         private PropertyChangingEventHandler Item_PropertyChangingDelegate;
         private PropertyChangedEventHandler Item_PropertyChangedDelegate;
         private NotifyCollectionChangedEventHandler Item_CollectionChangedDelegate;
-        public bool HasParent { get; set; }
 
         #region Constructors
 

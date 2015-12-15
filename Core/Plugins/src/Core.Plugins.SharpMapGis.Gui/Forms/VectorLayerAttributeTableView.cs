@@ -295,7 +295,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
 
         private void ConfigureStaticAttributeColumns()
         {
-            TableView.Columns.Clear();
+            TableView.ClearColumns();
             TableView.AutoGenerateColumns = false;
 
             if (createFeatureRowObject == null)
@@ -345,7 +345,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
 
         private void ConfigureDynamicAttributeColumns()
         {
-            TableView.Columns.RemoveAllWhere(c => c.IsUnbound);
+            TableView.RemoveAllWhere(c => c.IsUnbound);
 
             var attributes = layer.DataSource.Features.Cast<IFeature>()
                                   .Where(f => f.Attributes != null).SelectMany(feature => feature.Attributes.Keys)
@@ -494,7 +494,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
 
             column.Visible = false;
-            TableView.Columns.Remove(column);
+            TableView.Remove(column);
 
             var attributeName = column.Name;
 

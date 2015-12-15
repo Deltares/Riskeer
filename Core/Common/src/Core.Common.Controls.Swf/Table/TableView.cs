@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,7 +14,6 @@ using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Table.Validation;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
 using DevExpress.Data;
 using DevExpress.Utils;
@@ -47,9 +47,9 @@ namespace Core.Common.Controls.Swf.Table
         }
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(TableView));
-        private readonly EventedList<TableViewCell> selectedCells;
+        private readonly ICollection<TableViewCell> selectedCells;
         private readonly TableViewValidator tableViewValidator;
-        private readonly EventedList<TableViewColumn> columns;
+        private readonly List<TableViewColumn> columns;
         private bool isPasting;
         private bool isSelectionChanging;
         private bool updatingSelection;
@@ -66,9 +66,9 @@ namespace Core.Common.Controls.Swf.Table
         {
             InitializeComponent();
 
-            columns = new EventedList<TableViewColumn>();
+            columns = new List<TableViewColumn>();
             ColumnMenuItems = new List<TableViewColumnMenuItem>();
-            selectedCells = new EventedList<TableViewCell>();
+            selectedCells = new HashSet<TableViewCell>();
             tableViewValidator = new TableViewValidator(this);
             PasteController = new TableViewPasteController(this)
             {
@@ -99,7 +99,7 @@ namespace Core.Common.Controls.Swf.Table
             // the build-in export to file method depends on a devexpress dll we haven't included so far
             using (var writer = new StreamWriter(fileName))
             {
-                var visibleColumns = Columns.Where(c => c.Visible).OrderBy(c => c.DisplayIndex);
+                var visibleColumns = columns.Where(c => c.Visible).OrderBy(c => c.DisplayIndex);
                 var lastColumn = visibleColumns.Last();
 
                 foreach (var visibleColumn in visibleColumns)
@@ -121,7 +121,7 @@ namespace Core.Common.Controls.Swf.Table
                     for (int y = 0; y < shownColumns.Length; y++)
                     {
                         writer.Write(GetCellDisplayText(x, shownColumns[y]));
-                        if (y != Columns.Count - 1)
+                        if (y != columns.Count - 1)
                         {
                             writer.Write(delimiter);
                         }
@@ -159,9 +159,9 @@ namespace Core.Common.Controls.Swf.Table
                 dxGridControl.Dispose();
             }
 
-            if (Columns != null)
+            if (columns != null)
             {
-                foreach (var column in Columns)
+                foreach (var column in columns)
                 {
                     column.Dispose();
                 }
@@ -281,17 +281,17 @@ namespace Core.Common.Controls.Swf.Table
 
         private TableViewColumn GetColumnByDxColumn(GridColumn dxGridColumn)
         {
-            return Columns.FirstOrDefault(c => c.AbsoluteIndex == dxGridColumn.AbsoluteIndex);
+            return columns.FirstOrDefault(c => c.AbsoluteIndex == dxGridColumn.AbsoluteIndex);
         }
 
         private void BestFitColumnsWithOnlyFirstWordOfHeader()
         {
-            var oldHeaders = Columns.ToDictionary(c => c, c => c.Caption);
+            var oldHeaders = columns.ToDictionary(c => c, c => c.Caption);
 
             dxGridView.BeginUpdate();
             try
             {
-                foreach (var column in Columns)
+                foreach (var column in columns)
                 {
                     string caption = column.Caption;
 
@@ -318,7 +318,7 @@ namespace Core.Common.Controls.Swf.Table
                 dxGridView.BestFitColumns();
 
                 //restore the original columns
-                foreach (var column in Columns)
+                foreach (var column in columns)
                 {
                     column.Caption = oldHeaders[column];
                 }
@@ -341,7 +341,7 @@ namespace Core.Common.Controls.Swf.Table
                     var selectedCell = selectedCells.FirstOrDefault(c => c.Column == GetColumnByDisplayIndex(x) && c.RowIndex == y);
                     if (selectedCell != null)
                     {
-                        selectedCells.Remove(selectedCell);
+                        DeselectCell(selectedCell);
                         cellsDeselected = true;
                     }
                 }
@@ -354,7 +354,7 @@ namespace Core.Common.Controls.Swf.Table
 
         private void AddEnumCellEditors()
         {
-            foreach (var column in Columns.Where(c => c.ColumnType.IsEnum && c.Editor == null))
+            foreach (var column in columns.Where(c => c.ColumnType.IsEnum && c.Editor == null))
             {
                 column.Editor = new ComboBoxTypeEditor
                 {
@@ -365,41 +365,9 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        private void ColumnsOnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangeAction.Remove && dxGridView.Columns.Count > e.Index)
-            {
-                dxGridView.Columns.RemoveAt(e.Index);
-            }
-        }
-
         private static void CopyPasteControllerPasteFailed(object sender, EventArgs<string> e)
         {
             MessageBox.Show(e.Value);
-        }
-
-        private void SelectedCellsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (updatingSelection)
-            {
-                return;
-            }
-
-            var cell = (TableViewCell) e.Item;
-
-            var gridColumn = GetDxColumnByDisplayIndex(cell.Column.DisplayIndex);
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangeAction.Add:
-                    dxGridView.SelectCell(cell.RowIndex, gridColumn);
-                    break;
-                case NotifyCollectionChangeAction.Remove:
-                    dxGridView.UnselectCell(cell.RowIndex, gridColumn);
-                    break;
-                default:
-                    throw new NotSupportedException(string.Format(Resources.TableView_SelectedCellsCollectionChanged_Action_0_is_not_supported_by_the_TableView, e.Action));
-            }
         }
 
         private void BindingListListChanged(object sender, ListChangedEventArgs e)
@@ -559,13 +527,13 @@ namespace Core.Common.Controls.Swf.Table
         private bool GetSelectionIsReadonly()
         {
             //no selection use tableview readonly
-            if (SelectedCells.Count == 0)
+            if (selectedCells.Count == 0)
             {
                 return ReadOnly;
             }
 
             //A selection is readonly if ALL cells are readonly (otherwise i can change the not readonly part)
-            return SelectedCells.All(cell => CellIsReadOnly(cell.RowIndex, cell.Column));
+            return selectedCells.All(cell => CellIsReadOnly(cell.RowIndex, cell.Column));
         }
 
         private void UpdateSelectionFromGridControl()
@@ -577,12 +545,13 @@ namespace Core.Common.Controls.Swf.Table
 
             updatingSelection = true;
 
-            selectedCells.Clear();
+            ClearSelectedCells();
 
             var gridViewSelectedCells = dxGridView.GetSelectedCells();
             foreach (var cell in gridViewSelectedCells)
             {
-                selectedCells.Add(new TableViewCell(cell.RowHandle, GetColumnByDxColumn(cell.Column)));
+                var tableViewCell = new TableViewCell(cell.RowHandle, GetColumnByDxColumn(cell.Column));
+                SelectCell(tableViewCell);
             }
 
             if (!IsEditing && !isPasting)
@@ -610,18 +579,15 @@ namespace Core.Common.Controls.Swf.Table
                 return;
             }
 
-            columns.CollectionChanged -= ColumnsOnCollectionChanged;
             columns.Clear();
 
             foreach (GridColumn dxColumn in dxGridView.Columns)
             {
-                Columns.Add(new TableViewColumn(dxGridView, dxGridControl, dxColumn, this, false)
+                columns.Add(new TableViewColumn(dxGridView, dxGridControl, dxColumn, this, false)
                 {
                     SortingAllowed = AllowColumnSorting
                 });
             }
-
-            columns.CollectionChanged += ColumnsOnCollectionChanged;
         }
 
         private void ShowEditorIfRowSelect()
@@ -634,7 +600,7 @@ namespace Core.Common.Controls.Swf.Table
 
         private GridColumn GetDxColumnByDisplayIndex(int displayIndex)
         {
-            return dxGridView.Columns[Columns.First(c => c.DisplayIndex == displayIndex).AbsoluteIndex];
+            return dxGridView.Columns[columns.First(c => c.DisplayIndex == displayIndex).AbsoluteIndex];
         }
 
         private void UpdateColumnHeaderMenu(GridMenuEventArgs e, TableViewColumn viewColumn)
@@ -871,7 +837,7 @@ namespace Core.Common.Controls.Swf.Table
                 }
 
                 allowColumnSorting = value;
-                foreach (var column in Columns)
+                foreach (var column in columns)
                 {
                     column.SortingAllowed = allowColumnSorting;
                 }
@@ -1169,7 +1135,7 @@ namespace Core.Common.Controls.Swf.Table
         public ValidationExceptionMode ExceptionMode { get; set; }
 
         [Browsable(false)]
-        public IList<TableViewCell> SelectedCells
+        public IEnumerable<TableViewCell> SelectedCells
         {
             get
             {
@@ -1181,11 +1147,11 @@ namespace Core.Common.Controls.Swf.Table
         // when something changes in columns designers becomes mad because of broken resx files
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IList<TableViewColumn> Columns
+        public ReadOnlyCollection<TableViewColumn> Columns
         {
             get
             {
-                return columns;
+                return columns.AsReadOnly();
             }
         }
 
@@ -1285,11 +1251,11 @@ namespace Core.Common.Controls.Swf.Table
         {
             get
             {
-                return Columns.OfType<TableViewColumn>().Any(c => c.FilteringAllowed);
+                return columns.OfType<TableViewColumn>().Any(c => c.FilteringAllowed);
             }
             set
             {
-                foreach (var column in Columns.OfType<TableViewColumn>())
+                foreach (var column in columns.OfType<TableViewColumn>())
                 {
                     column.FilteringAllowed = value;
                 }
@@ -1340,7 +1306,7 @@ namespace Core.Common.Controls.Swf.Table
         /// </summary>
         public void BestFitColumns(bool useOnlyFirstWordOfHeader = false)
         {
-            dxGridView.BestFitMaxRowCount = Columns.Count > 50 ? 10 : 50;
+            dxGridView.BestFitMaxRowCount = columns.Count > 50 ? 10 : 50;
 
             if (useOnlyFirstWordOfHeader)
             {
@@ -1388,7 +1354,7 @@ namespace Core.Common.Controls.Swf.Table
 
         public TableViewColumn GetColumnByName(string columnName)
         {
-            return Columns.FirstOrDefault(c => c.Name == columnName);
+            return columns.FirstOrDefault(c => c.Name == columnName);
         }
 
         public void SelectRow(int index, bool clearPreviousSelection = true)
@@ -1593,18 +1559,46 @@ namespace Core.Common.Controls.Swf.Table
 
             if (clearOldSelection)
             {
-                selectedCells.Clear();
+                ClearSelectedCells();
             }
 
             for (int y = top; y <= bottom; y++)
             {
                 for (int x = left; x <= right; x++)
                 {
-                    selectedCells.Add(new TableViewCell(y, GetColumnByDisplayIndex(x)));
+                    var tableViewCell = new TableViewCell(y, GetColumnByDisplayIndex(x));
+                    SelectCell(tableViewCell);
                 }
             }
             dxGridView.EndSelection();
             //dxGridControl.ResumeLayout();
+        }
+
+        private void SelectCell(TableViewCell cell)
+        {
+            if (!updatingSelection)
+            {
+                selectedCells.Add(cell);
+                var gridColumn = GetDxColumnByDisplayIndex(cell.Column.DisplayIndex);
+                dxGridView.SelectCell(cell.RowIndex, gridColumn);
+            }
+        }
+
+        private void ClearSelectedCells()
+        {
+            foreach (var cell in selectedCells.ToArray())
+            {
+                DeselectCell(cell);
+            }
+        }
+
+        private void DeselectCell(TableViewCell cell)
+        {
+            if (!updatingSelection && selectedCells.Remove(cell))
+            {
+                var gridColumn = GetDxColumnByDisplayIndex(cell.Column.DisplayIndex);
+                dxGridView.UnselectCell(cell.RowIndex, gridColumn);
+            }
         }
 
         /// <summary>
@@ -1710,8 +1704,8 @@ namespace Core.Common.Controls.Swf.Table
             }
 
             //delete rows in case entire rows are selected
-            var groupBy = SelectedCells.GroupBy(c => c.RowIndex);
-            var count = Columns.Count(c => c.Visible);
+            var groupBy = selectedCells.GroupBy(c => c.RowIndex);
+            var count = columns.Count(c => c.Visible);
             if (AllowDeleteRow && (RowSelect || groupBy.All(g => g.Count() == count)))
             {
                 if (RowDeleteHandler == null || !RowDeleteHandler())
@@ -1721,7 +1715,7 @@ namespace Core.Common.Controls.Swf.Table
                 return;
             }
 
-            var selectedGridCells = SelectedCells.ToList();
+            var selectedGridCells = selectedCells.ToList();
             foreach (var c in selectedGridCells)
             {
                 var defaultValue = c.Column.DefaultValue ??
@@ -1746,7 +1740,29 @@ namespace Core.Common.Controls.Swf.Table
                 column.DisplayFormat = displayFormat;
             }
 
-            Columns.Add(column);
+            columns.Add(column);
+        }
+
+        public void ClearColumns()
+        {
+            dxGridView.Columns.Clear();
+            columns.Clear();
+        }
+
+        public void Remove(TableViewColumn column)
+        {
+            if (columns.Remove(column))
+            {
+                dxGridView.Columns.Remove(column.DxColumn);
+            }
+        }
+
+        public void RemoveAllWhere(Func<TableViewColumn, bool> whereClause)
+        {
+            foreach (var tableViewColumn in columns.Where(whereClause).ToArray())
+            {
+                Remove(tableViewColumn);
+            }
         }
 
         /// <summary>
@@ -1760,7 +1776,7 @@ namespace Core.Common.Controls.Swf.Table
         {
             var unbColumn = dxGridView.Columns.AddField(columnName);
             var column = new TableViewColumn(dxGridView, dxGridControl, unbColumn, this, true);
-            Columns.Add(column);
+            columns.Add(column);
 
             unbColumn.VisibleIndex = index != -1 ? index : dxGridView.Columns.Count;
 
@@ -1827,7 +1843,7 @@ namespace Core.Common.Controls.Swf.Table
         /// </summary>
         internal bool IsSorted()
         {
-            return Columns.Any(c => c.SortOrder != SortOrder.None);
+            return columns.Any(c => c.SortOrder != SortOrder.None);
         }
 
         internal TableViewCell GetFocusedCell()
@@ -1883,7 +1899,7 @@ namespace Core.Common.Controls.Swf.Table
 
         internal TableViewColumn GetColumnByDisplayIndex(int i)
         {
-            return Columns.FirstOrDefault(c => c.DisplayIndex == i);
+            return columns.FirstOrDefault(c => c.DisplayIndex == i);
         }
 
         #endregion
@@ -1997,7 +2013,7 @@ namespace Core.Common.Controls.Swf.Table
                 return;
             }
 
-            var selectedColumn = Columns.OfType<TableViewColumn>()
+            var selectedColumn = columns.OfType<TableViewColumn>()
                                         .FirstOrDefault(c => c.DxColumn == dxGridView.FocusedColumn);
 
             ColumnFilterChanged(sender, new EventArgs<TableViewColumn>(selectedColumn));
@@ -2034,7 +2050,7 @@ namespace Core.Common.Controls.Swf.Table
 
                 if (e.HitInfo.Column != null) //on a column
                 {
-                    tableViewColumn = Columns.FirstOrDefault(c => c.Caption == e.HitInfo.Column.GetTextCaption());
+                    tableViewColumn = columns.FirstOrDefault(c => c.Caption == e.HitInfo.Column.GetTextCaption());
                 }
 
                 UpdateColumnHeaderMenu(e, tableViewColumn);
@@ -2499,14 +2515,12 @@ namespace Core.Common.Controls.Swf.Table
 
             // selection events
             dxGridView.SelectionChanged += DxGridViewSelectionChanged;
-            selectedCells.CollectionChanged += SelectedCellsCollectionChanged;
 
             dxGridView.ShowGridMenu += DxGridViewShowDxGridMenu;
             dxGridView.ValidateRow += tableViewValidator.OnValidateRow;
             dxGridControl.EmbeddedNavigator.ButtonClick += EmbeddedNavigatorButtonClick;
 
             PasteController.PasteFailed += CopyPasteControllerPasteFailed;
-            columns.CollectionChanged += ColumnsOnCollectionChanged;
         }
 
         #endregion

@@ -143,7 +143,7 @@ namespace Core.Common.Controls.Swf.Table
                 return GetRowSelectSelection();
             }
 
-            var cells = TableView.SelectedCells;
+            var cells = TableView.SelectedCells.ToList();
             if (cells.Count == 0)
             {
                 //base selection on focused cell

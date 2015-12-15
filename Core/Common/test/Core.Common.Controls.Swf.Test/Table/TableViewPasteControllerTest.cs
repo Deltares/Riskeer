@@ -226,8 +226,8 @@ namespace Core.Common.Controls.Swf.Test.Table
                 Data = list
             };
             //make a diagonal selection
-            tableView.SelectedCells.Add(new TableViewCell(0, tableView.Columns.FirstOrDefault(c => c.DisplayIndex == 0)));
-            tableView.SelectedCells.Add(new TableViewCell(1, tableView.Columns.FirstOrDefault(c => c.DisplayIndex == 1)));
+            tableView.SelectCells(0, 0, 0, 0);
+            tableView.SelectCells(1, 1, 1, 1, false);
 
             var tableViewCopyPasteController = new TableViewPasteController(tableView);
             int callCount = 0;
