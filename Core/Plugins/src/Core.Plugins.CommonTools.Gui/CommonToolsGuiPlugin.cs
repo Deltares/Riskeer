@@ -97,7 +97,8 @@ namespace Core.Plugins.CommonTools.Gui
             };
             yield return new ViewInfo<Chart, ChartView>
             {
-                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View
+                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View,
+                AfterCreate = (view, chart) => view.Owner = Gui.MainWindow
             };
         }
 

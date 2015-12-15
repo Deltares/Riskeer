@@ -87,6 +87,8 @@ namespace Core.Common.Controls.Swf.Charting
             });
         }
 
+        public IWin32Window Owner { get; set; }
+
         public bool IsMouseDown { get; private set; }
 
         [Browsable(false)]
@@ -283,7 +285,7 @@ namespace Core.Common.Controls.Swf.Charting
         /// </summary>
         public void ExportAsImage()
         {
-            Chart.ExportAsImage();
+            Chart.ExportAsImage(Owner);
         }
 
         public void EnableDelete(bool enable)

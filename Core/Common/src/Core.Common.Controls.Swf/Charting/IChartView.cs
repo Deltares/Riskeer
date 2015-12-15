@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Forms;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Controls.Swf.Charting
@@ -8,6 +9,8 @@ namespace Core.Common.Controls.Swf.Charting
     /// </summary>
     public interface IChartView : IView
     {
+        IWin32Window Owner { get; set; }
+
         /// <summary>
         /// Selected point of the active series has been changed
         /// </summary>

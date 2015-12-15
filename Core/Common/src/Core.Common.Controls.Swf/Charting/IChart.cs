@@ -87,7 +87,7 @@ namespace Core.Common.Controls.Swf.Charting
         /// <summary>
         /// Opens export dialog
         /// </summary>
-        void ExportAsImage();
+        void ExportAsImage(IWin32Window owner);
 
         /// <summary>
         /// Exports a chart without dialog to the specified location. 

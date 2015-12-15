@@ -209,7 +209,7 @@ namespace Core.Common.Controls.Swf.Charting
 
         public bool AllowSeriesTypeChange { get; set; }
 
-        public void ExportAsImage()
+        public void ExportAsImage(IWin32Window owner)
         {
             var dialog = new SaveFileDialog
             {
@@ -217,7 +217,7 @@ namespace Core.Common.Controls.Swf.Charting
                 FilterIndex = 2,
             };
 
-            var dialogResult = dialog.ShowDialog();
+            var dialogResult = dialog.ShowDialog(owner);
             if (dialogResult == DialogResult.OK)
             {
                 ExportAsImage(dialog.FileName, null, null);
