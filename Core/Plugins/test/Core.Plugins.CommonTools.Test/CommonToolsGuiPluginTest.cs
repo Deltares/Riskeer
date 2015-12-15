@@ -1,10 +1,13 @@
 ﻿using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Plugin;
+using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Utils;
 using Core.Plugins.CommonTools.Gui;
+using Core.Plugins.CommonTools.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
@@ -59,6 +62,19 @@ namespace Core.Plugins.CommonTools.Test
 
             var propertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(IChart));
             Assert.AreEqual(typeof(ChartProperties), propertyInfo.PropertyType);
+        }
+
+        [Test]
+        public void TestGetViewInfoObjectsContent()
+        {
+            var guiPlugin = new CommonToolsGuiPlugin();
+            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
+
+            Assert.NotNull(viewInfos);
+            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(RichTextFile) && vi.ViewType == typeof(RichTextView)));
+            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(TextDocument) && vi.ViewType == typeof(TextDocumentView)));
+            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Url) && vi.ViewType == typeof(HtmlPageView)));
+            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Chart) && vi.ViewType == typeof(ChartView)));
         }
     }
 }
