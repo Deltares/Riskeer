@@ -34,6 +34,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         private bool canSelectItem = true;
         private bool settingSelection = false;
         private readonly StackTrace constructorStackTrace;
+        private ExportMapToImageMapTool exportMapToImageMapTool;
 
         public MapView()
         {
@@ -54,7 +55,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             IsTabControlVisible = false;
 
             // add some tools here, to avoid references to Ringtoets projects in SharpMap
-            MapControl.Tools.Add(new ExportMapToImageMapTool());
+            exportMapToImageMapTool = new ExportMapToImageMapTool();
+            MapControl.Tools.Add(exportMapToImageMapTool);
             Map = new Map(MapControl.ClientSize)
             {
                 Zoom = 100
@@ -63,6 +65,18 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             if (Assembly.GetEntryAssembly() == null) // HACK: detecting nasty dispose exceptions when assembly empty - we run from non-exe (test)
             {
                 constructorStackTrace = new StackTrace();
+            }
+        }
+
+        public IWin32Window Owner
+        {
+            get
+            {
+                return exportMapToImageMapTool.Owner;
+            }
+            set
+            {
+                exportMapToImageMapTool.Owner = value;
             }
         }
 

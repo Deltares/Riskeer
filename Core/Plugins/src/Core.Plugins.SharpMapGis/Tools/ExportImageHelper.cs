@@ -46,7 +46,7 @@ namespace Core.Plugins.SharpMapGis.Tools
             imageToWrite.Save(filePath, ImageFormats[imageType.ToLower()]);
         }
 
-        public static void ExportWithDialog(Image image)
+        public static void ExportWithDialog(IWin32Window owner, Image image)
         {
             if (image == null)
             {
@@ -63,7 +63,7 @@ namespace Core.Plugins.SharpMapGis.Tools
                 Title = Resources.Export_as_Image
             };
 
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            if (saveFileDialog.ShowDialog(owner) != DialogResult.OK)
             {
                 return;
             }

@@ -169,7 +169,8 @@ namespace Core.Plugins.SharpMapGis.Gui
         {
             yield return new ViewInfo<Map, MapView>
             {
-                Description = "Map"
+                Description = "Map",
+                AfterCreate = (view, map) => view.Owner = gui.MainWindow
             };
             yield return new ViewInfo<DataTable, TableView>
             {

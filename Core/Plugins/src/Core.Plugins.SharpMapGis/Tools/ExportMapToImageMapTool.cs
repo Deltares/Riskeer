@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.UI.Tools;
 using Core.Plugins.SharpMapGis.Properties;
@@ -17,6 +16,8 @@ namespace Core.Plugins.SharpMapGis.Tools
                 return true;
             }
         }
+
+        public IWin32Window Owner { get; set; }
 
         public override IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
         {
@@ -41,7 +42,7 @@ namespace Core.Plugins.SharpMapGis.Tools
 
         public override void Execute()
         {
-            ExportImageHelper.ExportWithDialog(MapControl.Image);
+            ExportImageHelper.ExportWithDialog(Owner, MapControl.Image);
         }
 
         private void ExportMapEventHandler(object sender, EventArgs e)
