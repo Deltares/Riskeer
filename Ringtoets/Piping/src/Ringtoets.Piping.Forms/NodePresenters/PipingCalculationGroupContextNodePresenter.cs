@@ -375,19 +375,18 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             /// before the drag & drop operation.</param>
             protected virtual void UpdateTreeView(ITreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
             {
-                HandlePostDragExpandCollapseOfNewOwner(draggedNode, targetRecordedNodeState);
+                HandlePostDragExpandCollapseOfNewOwner(draggedNode.Parent, targetRecordedNodeState);
                 treeView.SelectedNode = draggedNode;
             }
 
-            private static void HandlePostDragExpandCollapseOfNewOwner(ITreeNode draggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
+            private static void HandlePostDragExpandCollapseOfNewOwner(ITreeNode parentOfDraggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
             {
-                ITreeNode newParentOfDraggedNode = draggedNode.Parent;
-                newOwnerRecordedNodeState.Restore(newParentOfDraggedNode);
+                newOwnerRecordedNodeState.Restore(parentOfDraggedNode);
 
                 // Expand parent of 'draggedNode' to ensure 'draggedNode' is visible.
-                if (!newParentOfDraggedNode.IsExpanded)
+                if (!parentOfDraggedNode.IsExpanded)
                 {
-                    newParentOfDraggedNode.Expand();
+                    parentOfDraggedNode.Expand();
                 }
             }
         }
@@ -436,7 +435,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
 
                 recordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(draggedDataObject));
-                renamed = EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
+                EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
 
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
@@ -462,15 +461,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 target.NotifyObservers();
             }
 
-            private static bool EnsureDraggedNodeHasUniqueNameInNewOwner(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroupContext newOwner)
+            private void EnsureDraggedNodeHasUniqueNameInNewOwner(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroupContext newOwner)
             {
-                bool renamed = false;
+                renamed = false;
                 string uniqueName = NamingHelper.GetUniqueName(newOwner.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
                 if (!pipingCalculationItem.Name.Equals(uniqueName))
                 {
                     renamed = TryRenameTo(pipingCalculationItem, uniqueName);
                 }
-                return renamed;
             }
 
             private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string newName)

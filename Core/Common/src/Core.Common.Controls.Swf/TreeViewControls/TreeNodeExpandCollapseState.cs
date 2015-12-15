@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 using Core.Common.Controls.Swf.Properties;
 
@@ -38,7 +37,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 throw new ArgumentException(Resources.TreeNodeExpandCollapseState_Node_tag_cannot_be_null_for_record_to_work);
             }
             wasExpanded = nodeToBeRecorded.IsExpanded;
-            childStates = nodeToBeRecorded.Nodes.Where(n => n.Nodes.Any()).ToDictionary(n => n.Tag, n => new TreeNodeExpandCollapseState(n), new ReferenceComparer());
+            childStates = nodeToBeRecorded.Nodes.Where(n => n.Nodes.Any()).ToDictionary(n => n.Tag, n => new TreeNodeExpandCollapseState(n));
         }
 
         /// <summary>
@@ -71,32 +70,9 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 }
             }
 
-            foreach (var treeNode in targetNode.Nodes.Where(n => n.Nodes.Any()))
+            foreach (var treeNode in targetNode.Nodes.Where(n => n.Nodes.Any() && childStates.ContainsKey(n.Tag)))
             {
                 childStates[treeNode.Tag].Restore(treeNode);
-            }
-        }
-
-        /// <summary>
-        /// Comparer based on object references.
-        /// </summary>
-        /// <remarks>This class well suited to be used hashing objects into a <see cref="HashSet{T}"/>
-        /// or <see cref="IDictionary{TKey,TValue}"/> implementations if one want to index these
-        /// collections on object instances which may have a custom <see cref="Object.Equals(object)"/> implementation.</remarks>
-        private class ReferenceComparer : IEqualityComparer<object>
-        {
-            public new bool Equals(object x, object y)
-            {
-                return ReferenceEquals(x, y);
-            }
-
-            public int GetHashCode(object obj)
-            {
-                if (obj == null)
-                {
-                    throw new ArgumentNullException("obj");
-                }
-                return RuntimeHelpers.GetHashCode(obj);
             }
         }
     }

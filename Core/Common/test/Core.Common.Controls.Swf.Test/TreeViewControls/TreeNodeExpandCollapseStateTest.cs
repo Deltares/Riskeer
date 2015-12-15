@@ -44,7 +44,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         }
 
         [Test]
-        public void RestoreState_SingleNodeCollapsed_CollapseNode()
+        public void Restore_SingleNodeCollapsed_CollapseNode()
         {
             // Setup
             var sourceData = new object();
@@ -73,7 +73,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         }
 
         [Test]
-        public void RestoreState_SingleNodeExpanded_ExpandNode()
+        public void Restore_SingleNodeExpanded_ExpandNode()
         {
             // Setup
             var sourceData = new object();
@@ -104,7 +104,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void RestoreState_SingleNodeAndTargetInSameState_DoNothing(bool isExpanded)
+        public void Restore_SingleNodeAndTargetInSameState_DoNothing(bool isExpanded)
         {
             // Setup
             var sourceData = new object();
@@ -277,7 +277,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         }
 
         [Test]
-        public void Restore_SourceTreeDifferentFromTargetTree_ThrowKeyNotFoundException()
+        public void Restore_NodeWithChildAddedAfterRecordingState_IgnoreChild()
         {
             // Setup
             var sourceData = new object();
@@ -296,7 +296,6 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             var targetChildNode = mocks.StrictMock<ITreeNode>();
             targetChildNode.Stub(n => n.Tag).Return(childData);
-            targetChildNode.Stub(n => n.IsExpanded).Return(true);
             targetChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
             {
                 stubNode
@@ -315,11 +314,71 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             var nodeState = new TreeNodeExpandCollapseState(sourceNode);
 
             // Call
-            TestDelegate call = () => nodeState.Restore(targetNode);
+            nodeState.Restore(targetNode);
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(call);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Restore_NodeWithDifferentEqualDataInstances_RestoreState()
+        {
+            // Setup
+            var data1 = new IntegerWrapperWithCustomEquals
+            {
+                WrappedInteger = 1
+            };
+            var data2 = new IntegerWrapperWithCustomEquals
+            {
+                WrappedInteger = 1
+            };
+
+            var mocks = new MockRepository();
+            var sourceNode = mocks.StrictMock<ITreeNode>();
+            sourceNode.Expect(n => n.IsExpanded).Return(false);
+            sourceNode.Expect(n => n.Tag).Return(data1);
+            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+
+            var targetNode = mocks.StrictMock<ITreeNode>();
+            targetNode.Expect(n => n.IsExpanded).Return(true);
+            targetNode.Expect(n => n.Tag).Return(data2);
+            targetNode.Expect(n => n.Collapse());
+            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+
+            mocks.ReplayAll();
+
+            // Precondition:
+            Assert.True(data1.Equals(data2));
+            Assert.True(data2.Equals(data1));
+            Assert.AreNotSame(data1, data2);
+
+            var nodeState = new TreeNodeExpandCollapseState(sourceNode);
+
+            // Call
+            nodeState.Restore(targetNode);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        private class IntegerWrapperWithCustomEquals
+        {
+            public int WrappedInteger { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                var otherIntWrapper = obj as IntegerWrapperWithCustomEquals;
+                if (otherIntWrapper != null)
+                {
+                    return WrappedInteger.Equals(otherIntWrapper.WrappedInteger);
+                }
+                return base.Equals(obj);
+                }
+
+            public override int GetHashCode()
+            {
+                return WrappedInteger.GetHashCode();
+            }
         }
     }
 }
