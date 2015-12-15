@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-
 using Core.Common.Gui.Forms.MainWindow.Interop;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
@@ -24,7 +23,6 @@ using Core.Common.Gui.Properties;
 using Core.Common.Gui.Theme;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
-
 using Fluent;
 using log4net;
 using Microsoft.Win32;
@@ -214,11 +212,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void RestoreLayout()
         {
-            if (Assembly.GetEntryAssembly() == null) // API, not a real exe
-            {
-                return; // make sure we don't mess layout
-            }
-
             OnLoadLayout("normal");
             RestoreWindowAppearance();
         }
