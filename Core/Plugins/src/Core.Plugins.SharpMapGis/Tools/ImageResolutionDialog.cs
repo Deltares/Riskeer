@@ -13,7 +13,7 @@ namespace Core.Plugins.SharpMapGis.Tools
 
         private Image baseImage;
 
-        public ImageResolutionDialog(IWin32Window owner) : base(owner, Resources.exportIcon1)
+        public ImageResolutionDialog(IWin32Window owner) : base(owner, Resources.exportIcon1, 490, 430)
         {
             InitializeComponent();
             Resolution = 100;

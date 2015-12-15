@@ -19,7 +19,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ProgressReporter progressReporter = new ProgressReporter();
 
-        public ActivityProgressDialog(IWin32Window owner, IEnumerable<Activity> activities) : base(owner, Resources.Ringtoets)
+        public ActivityProgressDialog(IWin32Window owner, IEnumerable<Activity> activities) : base(owner, Resources.Ringtoets, 520, 150)
         {
             InitializeComponent();
 

@@ -7,7 +7,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public partial class OpenUrlDialog : DialogBase
     {
-        public OpenUrlDialog(IWin32Window owner) : base(owner, Resources.buttonAddLayer_Image)
+        public OpenUrlDialog(IWin32Window owner) : base(owner, Resources.buttonAddLayer_Image, 430, 115)
         {
             InitializeComponent();
         }

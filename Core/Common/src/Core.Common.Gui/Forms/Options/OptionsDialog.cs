@@ -13,7 +13,7 @@ namespace Core.Common.Gui.Forms.Options
     {
         private readonly ApplicationSettingsBase userSettings;
 
-        public OptionsDialog(IWin32Window owner, ApplicationSettingsBase userSettings) : base(owner, Resources.OptionsHS1)
+        public OptionsDialog(IWin32Window owner, ApplicationSettingsBase userSettings) : base(owner, Resources.OptionsHS1, 430, 170)
         {
             InitializeComponent();
 

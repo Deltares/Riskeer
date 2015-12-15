@@ -34,20 +34,22 @@
             // 
             // textBox
             // 
-            this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox.Location = new System.Drawing.Point(0, 0);
+            this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox.Location = new System.Drawing.Point(12, 12);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox.Size = new System.Drawing.Size(284, 262);
+            this.textBox.Size = new System.Drawing.Size(260, 238);
             this.textBox.TabIndex = 0;
             // 
             // buttonHidden
             // 
-            this.buttonHidden.Location = new System.Drawing.Point(182, 227);
+            this.buttonHidden.Location = new System.Drawing.Point(25, 25);
             this.buttonHidden.Name = "buttonHidden";
-            this.buttonHidden.Size = new System.Drawing.Size(75, 23);
+            this.buttonHidden.Size = new System.Drawing.Size(0, 0);
             this.buttonHidden.TabIndex = 1;
             this.buttonHidden.UseVisualStyleBackColor = true;
             // 

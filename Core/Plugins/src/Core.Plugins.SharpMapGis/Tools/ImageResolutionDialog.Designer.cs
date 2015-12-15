@@ -87,6 +87,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             // 
             // label1
@@ -146,7 +147,6 @@
             // ImageResolutionDialog
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ImageResolutionDialog";

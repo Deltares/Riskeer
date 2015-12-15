@@ -50,10 +50,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewProjections.ImageIndex = 0;
             this.treeViewProjections.ImageList = this.imageList;
-            this.treeViewProjections.Location = new System.Drawing.Point(3, 26);
+            this.treeViewProjections.Location = new System.Drawing.Point(3, 27);
             this.treeViewProjections.Name = "treeViewProjections";
             this.treeViewProjections.SelectedImageIndex = 0;
-            this.treeViewProjections.Size = new System.Drawing.Size(433, 299);
+            this.treeViewProjections.Size = new System.Drawing.Size(431, 295);
             this.treeViewProjections.StateImageList = this.imageList;
             this.treeViewProjections.TabIndex = 1;
             // 
@@ -75,14 +75,17 @@
             this.textBoxSrs.Multiline = true;
             this.textBoxSrs.Name = "textBoxSrs";
             this.textBoxSrs.ReadOnly = true;
-            this.textBoxSrs.Size = new System.Drawing.Size(350, 325);
+            this.textBoxSrs.Size = new System.Drawing.Size(349, 322);
             this.textBoxSrs.TabIndex = 0;
             // 
             // textBoxFilter
             // 
-            this.textBoxFilter.Location = new System.Drawing.Point(3, 3);
+            this.textBoxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFilter.Location = new System.Drawing.Point(3, 1);
             this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(433, 20);
+            this.textBoxFilter.Size = new System.Drawing.Size(431, 20);
             this.textBoxFilter.TabIndex = 0;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
@@ -91,7 +94,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(10, 12);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -103,15 +106,15 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBoxSrs);
-            this.splitContainer1.Size = new System.Drawing.Size(793, 325);
-            this.splitContainer1.SplitterDistance = 439;
+            this.splitContainer1.Size = new System.Drawing.Size(789, 322);
+            this.splitContainer1.SplitterDistance = 436;
             this.splitContainer1.TabIndex = 4;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(714, 331);
+            this.buttonCancel.Location = new System.Drawing.Point(724, 343);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -122,7 +125,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(633, 331);
+            this.buttonOk.Location = new System.Drawing.Point(643, 343);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 1;
@@ -132,7 +135,7 @@
             // SelectCoordinateSystemDialog
             // 
             this.AcceptButton = this.buttonOk;
-            this.ClientSize = new System.Drawing.Size(793, 359);
+            this.ClientSize = new System.Drawing.Size(811, 378);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.splitContainer1);

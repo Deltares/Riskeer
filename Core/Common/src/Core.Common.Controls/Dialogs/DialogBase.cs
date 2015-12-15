@@ -21,7 +21,10 @@ namespace Core.Common.Controls.Dialogs
     /// <description>no maximize control box item is shown (<see cref="Form.MaximizeBox"/> is set to <c>false</c>);</description>
     /// </item>
     /// <item>
-    /// <description>the owning form is always set as provided during creation time.</description>
+    /// <description>the minimum width and minimum height are always set during creation time;</description>
+    /// </item>
+    /// <item>
+    /// <description>the owning form is always set during creation time.</description>
     /// </item>
     /// </list>
     /// </summary>
@@ -34,13 +37,17 @@ namespace Core.Common.Controls.Dialogs
         /// </summary>
         /// <param name="owner">The owner of the dialog.</param>
         /// <param name="icon">The icon to show in the control box.</param>
-        protected DialogBase(IWin32Window owner, Icon icon)
+        /// <param name="minWidth">The minimum width of the dialog.</param>
+        /// <param name="minHeight">The minimum height of the dialog.</param>
+        protected DialogBase(IWin32Window owner, Icon icon, int minWidth, int minHeight)
         {
             InitializeComponent();
 
             this.owner = owner;
 
             Icon = icon;
+
+            MinimumSize = new Size(minWidth, minHeight);
         }
 
         /// <summary>

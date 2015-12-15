@@ -15,7 +15,7 @@ namespace Core.Common.Controls.Swf
         private readonly IList<IComponent> pages;
         private readonly IDictionary<IComponent, WizardPage> wizardPages = new Dictionary<IComponent, WizardPage>();
 
-        public WizardDialog(IWin32Window owner, Icon icon) : base(owner, icon)
+        public WizardDialog(IWin32Window owner, Icon icon) : base(owner, icon, 450, 300)
         {
             pages = new List<IComponent>();
             InitializeComponent();

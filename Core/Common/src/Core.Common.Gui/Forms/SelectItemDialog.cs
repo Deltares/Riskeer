@@ -9,7 +9,7 @@ namespace Core.Common.Gui.Forms
 {
     public partial class SelectItemDialog : DialogBase
     {
-        public SelectItemDialog(IWin32Window owner) : base(owner, Resources.plus)
+        public SelectItemDialog(IWin32Window owner) : base(owner, Resources.plus, 320, 220)
         {
             InitializeComponent();
 

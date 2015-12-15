@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenUrlDialog));
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,37 +37,51 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.Location = new System.Drawing.Point(325, 42);
             this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 2;
+            this.buttonCancel.Text = "Annuleren";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            resources.ApplyResources(this.buttonOk, "buttonOk");
+            this.buttonOk.Location = new System.Drawing.Point(243, 42);
             this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.TabIndex = 1;
+            this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 15);
             this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Weblink:";
             // 
             // urlComboBox
             // 
             this.urlComboBox.FormattingEnabled = true;
-            resources.ApplyResources(this.urlComboBox, "urlComboBox");
+            this.urlComboBox.Location = new System.Drawing.Point(62, 12);
             this.urlComboBox.Name = "urlComboBox";
+            this.urlComboBox.Size = new System.Drawing.Size(338, 21);
+            this.urlComboBox.TabIndex = 5;
             // 
             // OpenUrlDialog
             // 
             this.AcceptButton = this.buttonOk;
-            resources.ApplyResources(this, "$this");
+            this.ClientSize = new System.Drawing.Size(414, 77);
             this.Controls.Add(this.urlComboBox);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "OpenUrlDialog";
+            this.Text = "Openen weblink...";
             this.ResumeLayout(false);
             this.PerformLayout();
 

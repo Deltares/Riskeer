@@ -20,7 +20,7 @@ namespace Core.GIS.SharpMap.UI.Forms
         private readonly string geographicNodeName = "geographic";
         private readonly string projectedNodeName = "projected";
 
-        public SelectCoordinateSystemDialog(IWin32Window owner, IList<ICoordinateSystem> supportedCoordinateSystems, IList<ICoordinateSystem> customCoordinateSystems) : base(owner, Resources.globe__pencil)
+        public SelectCoordinateSystemDialog(IWin32Window owner, IList<ICoordinateSystem> supportedCoordinateSystems, IList<ICoordinateSystem> customCoordinateSystems) : base(owner, Resources.globe__pencil, 470, 250)
         {
             this.supportedCoordinateSystems = supportedCoordinateSystems;
             this.customCoordinateSystems = customCoordinateSystems;

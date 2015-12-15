@@ -139,7 +139,7 @@
     <value>richTextBoxWelcome</value>
   </data>
   <data name="&gt;&gt;richTextBoxWelcome.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;richTextBoxWelcome.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -147,8 +147,14 @@
   <data name="&gt;&gt;richTextBoxWelcome.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="welcomeWizardPage1.ProceedText" xml:space="preserve">
+    <value>Klik op Volgende om door te gaan.</value>
+  </data>
   <data name="welcomeWizardPage1.Size" type="System.Drawing.Size, System.Drawing">
     <value>493, 345</value>
+  </data>
+  <data name="welcomeWizardPage1.Text" xml:space="preserve">
+    <value>Welkom bij de wizard.</value>
   </data>
   <data name="&gt;&gt;welcomeWizardPage1.Name" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -160,7 +166,7 @@
     <value>wizardControl1</value>
   </data>
   <data name="&gt;&gt;welcomeWizardPage1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="richTextBoxFinished.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -181,7 +187,7 @@
     <value>richTextBoxFinished</value>
   </data>
   <data name="&gt;&gt;richTextBoxFinished.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;richTextBoxFinished.Parent" xml:space="preserve">
     <value>completionWizardPage1</value>
@@ -189,8 +195,17 @@
   <data name="&gt;&gt;richTextBoxFinished.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="completionWizardPage1.FinishText" xml:space="preserve">
+    <value>De wizard is succesvol voltooid.</value>
+  </data>
+  <data name="completionWizardPage1.ProceedText" xml:space="preserve">
+    <value>Klik op Voltooien om deze wizard af te sluiten.</value>
+  </data>
   <data name="completionWizardPage1.Size" type="System.Drawing.Size, System.Drawing">
     <value>493, 345</value>
+  </data>
+  <data name="completionWizardPage1.Text" xml:space="preserve">
+    <value>Voltooien van de wizard.</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Name" xml:space="preserve">
     <value>completionWizardPage1</value>
@@ -202,7 +217,7 @@
     <value>wizardControl1</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;wizardControl1.Name" xml:space="preserve">
     <value>wizardControl1</value>
@@ -216,12 +231,9 @@
   <data name="&gt;&gt;wizardControl1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
+  </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>710, 478</value>
   </data>
@@ -320,6 +332,9 @@
         AADwAwAA+AMAAOADAADgBwAA4AcAAOAPAADz/wAA
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>
@@ -327,33 +342,6 @@
     <value>WizardDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="completionWizardPage1.FinishText" xml:space="preserve">
-    <value>De wizard is succesvol voltooid.</value>
-  </data>
-  <data name="completionWizardPage1.ProceedText" xml:space="preserve">
-    <value>Klik op Voltooien om deze wizard af te sluiten.</value>
-  </data>
-  <data name="completionWizardPage1.Text" xml:space="preserve">
-    <value>Voltooien van de wizard.</value>
-  </data>
-  <data name="welcomeWizardPage1.ProceedText" xml:space="preserve">
-    <value>Klik op Volgende om door te gaan.</value>
-  </data>
-  <data name="welcomeWizardPage1.Text" xml:space="preserve">
-    <value>Welkom bij de wizard.</value>
-  </data>
-  <data name="wizardControl1.CancelText" xml:space="preserve">
-    <value>Annuleren</value>
-  </data>
-  <data name="wizardControl1.FinishText" xml:space="preserve">
-    <value>Voltooien</value>
-  </data>
-  <data name="wizardControl1.NextText" xml:space="preserve">
-    <value>Volgende &gt;</value>
-  </data>
-  <data name="wizardControl1.PreviousText" xml:space="preserve">
-    <value>&lt; Vorige</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
