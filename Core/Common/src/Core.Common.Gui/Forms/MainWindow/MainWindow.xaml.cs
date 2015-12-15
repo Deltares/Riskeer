@@ -1138,49 +1138,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             Gui.DocumentViews.Remove(Gui.DocumentViews.ActiveView);
         }
 
-        // Alt + Shift + L
-        private void FindObjectInTreeView(object sender, ExecutedRoutedEventArgs e)
-        {
-            Gui.ToolWindowViews.ActiveView = ProjectExplorer;
-            var dataOfActiveView = Gui.CommandHandler.GetDataOfActiveView();
-            if (dataOfActiveView != null)
-            {
-                ProjectExplorer.ScrollTo(dataOfActiveView);
-            }
-        }
-
-        // Alt + Shift + O
-        private void ShowMessageWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            Gui.ToolWindowViews.ActiveView = MessageWindow;
-        }
-
-        // Alt + Shift + M
-        private void ShowMapLegendView(object sender, ExecutedRoutedEventArgs e)
-        {
-            var mapContents = Gui.ToolWindowViews.FirstOrDefault(v => v.Text == Properties.Resources.ToolWindow_Name_Map);
-            if (mapContents != null)
-            {
-                Gui.ToolWindowViews.ActiveView = mapContents;
-            }
-        }
-
-        // Alt + Shift + P
-        private void ShowPropertiesView(object sender, ExecutedRoutedEventArgs e)
-        {
-            Gui.ToolWindowViews.ActiveView = PropertyGrid;
-        }
-
-        // Alt + Shift + C
-        private void ShowChartContentsWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            var chartContents = Gui.ToolWindowViews.FirstOrDefault(v => v.Text == Properties.Resources.ToolWindow_Name_Chart);
-            if (chartContents != null)
-            {
-                Gui.ToolWindowViews.ActiveView = chartContents;
-            }
-        }
-
         private void CanCloseDocumentTab(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = Gui.DocumentViews.Any();

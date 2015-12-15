@@ -21,25 +21,15 @@
         <CommandBinding Command="Open"  Executed="OnFileOpenClicked" />
         <CommandBinding Command="Close"  Executed="OnFileExitClicked" />
         <CommandBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Executed="CloseDocumentTab" CanExecute="CanCloseDocumentTab"/>
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.ShowObjectInTreeViewCommand}" Executed="FindObjectInTreeView"/>
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.ShowMessageWindowCommand}" Executed="ShowMessageWindow"/>
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.ShowMapLegendViewCommand}"  Executed="ShowMapLegendView"/>
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.ShowPropertiesViewCommand}"  Executed="ShowPropertiesView" />
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.ShowChartContentsViewCommand}" Executed="ShowChartContentsWindow"/>
     </Window.CommandBindings>
     
     <Window.InputBindings>
         <KeyBinding Command="New" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
-        <KeyBinding Command="SaveAs" Key="F12"/>
+        <KeyBinding Command="SaveAs" Key="S" Modifiers="Ctrl + Shift" />
         <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"/>
         <KeyBinding Command="Close" Key="F4" Modifiers="Alt"/>
         <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Key="F4" Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.ShowObjectInTreeViewCommand}" Key="L" Modifiers="Shift+Alt"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.ShowMessageWindowCommand}" Key="O" Modifiers="Shift+Alt"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.ShowMapLegendViewCommand}" Key="M"  Modifiers="Shift+Alt"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.ShowPropertiesViewCommand}" Key="P"  Modifiers="Shift+Alt"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.ShowChartContentsViewCommand}" Key="C"  Modifiers="Shift+Alt"/>
     </Window.InputBindings>
 
     <Window.Resources>
