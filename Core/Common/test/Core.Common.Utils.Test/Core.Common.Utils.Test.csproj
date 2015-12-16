@@ -87,8 +87,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\EnumerableExtensionsTest.cs" />
-    <Compile Include="ComparableExtensionsTest.cs" />
+    <Compile Include="Attributes\ComparableExtensionsTest.cs" />
+    <Compile Include="Attributes\EnumerableExtensionsTest.cs" />
+    <Compile Include="Attributes\StringExtensionsTests.cs" />
     <Compile Include="MathUtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -100,8 +101,9 @@
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
     <Compile Include="Reflection\TypeConverterTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
-    <Compile Include="StringExtensionsTests.cs" />
-    <Compile Include="TestHelperTests.cs" />
+    <Compile Include="TestHelperTests.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TextDocumentTest.cs" />
     <Compile Include="UrlTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />

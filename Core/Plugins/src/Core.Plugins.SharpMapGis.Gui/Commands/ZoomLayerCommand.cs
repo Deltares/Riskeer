@@ -1,5 +1,4 @@
-using System.Linq;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Extensions;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api.Layers;

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 
-using Core.Common.Utils;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 
 namespace Core.GIS.SharpMap.Api.Collections
 {

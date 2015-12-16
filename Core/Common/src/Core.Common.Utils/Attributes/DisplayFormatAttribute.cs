@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class DisplayFormatAttribute : Attribute

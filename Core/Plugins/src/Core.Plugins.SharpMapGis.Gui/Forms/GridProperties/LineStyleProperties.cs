@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
-using Core.Common.Utils.ComponentModel;
+
+using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.Styles;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties

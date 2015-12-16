@@ -7,7 +7,7 @@ using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;

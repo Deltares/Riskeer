@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Common.Utils.ComponentModel
+namespace Core.Common.Utils.Attributes
 {
     // This attribute is used internally to to fix the issue where properties holding both
     //     EditorAttribute              , and

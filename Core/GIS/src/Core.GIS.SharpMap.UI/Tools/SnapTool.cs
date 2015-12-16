@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Utils.Collections;
+
+using Core.Common.Utils.Extensions;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Editors;

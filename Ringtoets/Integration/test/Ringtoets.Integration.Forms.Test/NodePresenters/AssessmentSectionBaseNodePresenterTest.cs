@@ -4,12 +4,11 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 
 using NUnit.Framework;
 

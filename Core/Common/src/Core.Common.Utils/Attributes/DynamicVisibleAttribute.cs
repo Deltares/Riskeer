@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+
 using Core.Common.Utils.Properties;
 
-namespace Core.Common.Utils.ComponentModel
+namespace Core.Common.Utils.Attributes
 {
     /// <summary>
     /// Hides or shows a property. When this attribute is used on a property -

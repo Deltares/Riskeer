@@ -88,15 +88,27 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Attributes\DisplayFormatAttribute.cs" />
+    <Compile Include="Attributes\DynamicEditorAttribute.cs" />
+    <Compile Include="Attributes\DynamicReadOnlyAttribute.cs" />
+    <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttribute.cs" />
+    <Compile Include="Attributes\DynamicVisibleAttribute.cs" />
+    <Compile Include="Attributes\DynamicVisibleValidationMethodAttribute.cs" />
+    <Compile Include="Attributes\PropertyOrderAttribute.cs" />
     <Compile Include="Attributes\ResourceHelper.cs" />
     <Compile Include="Attributes\ResourcesCategoryAttribute.cs" />
     <Compile Include="Attributes\ResourcesDescriptionAttribute.cs" />
     <Compile Include="Attributes\ResourcesDisplayNameAttribute.cs" />
-    <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
-    <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
-    <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
-    <Compile Include="DisplayFormatAttribute.cs" />
     <Compile Include="Drawing\GraphicsExtensions.cs" />
+    <Compile Include="Events\EventArgs.cs" />
+    <Compile Include="Events\INotifyCollectionChanged.cs" />
+    <Compile Include="Events\NotifyCollectionChangeAction.cs" />
+    <Compile Include="Events\NotifyCollectionChangedEventHandler.cs" />
+    <Compile Include="Events\NotifyCollectionChangeEventArgs.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ComparableExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,25 +116,13 @@
     </Compile>
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="TextDocument.cs" />
-    <Compile Include="Collections\INotifyCollectionChanged.cs" />
-    <Compile Include="Collections\NotifyCollectionChangeAction.cs" />
-    <Compile Include="Collections\NotifyCollectionChangedEventHandler.cs" />
-    <Compile Include="Collections\CollectionExtensions.cs" />
-    <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="Collections\NotifyCollectionChangeEventArgs.cs" />
-    <Compile Include="ComparableExtensions.cs" />
-    <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
-    <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
-    <Compile Include="EventArgs.cs" />
     <Compile Include="MathUtils.cs" />
     <Compile Include="PropertyBag\PropertyBag.cs" />
-    <Compile Include="PropertyOrderAttribute.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecEventArgs.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
-    <Compile Include="StringExtensions.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />
     <Compile Include="Validation\ValidationIssue.cs" />

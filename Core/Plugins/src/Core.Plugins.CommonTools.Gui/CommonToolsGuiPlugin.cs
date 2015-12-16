@@ -9,7 +9,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Properties;
 using Core.Plugins.CommonTools.Gui.Property;

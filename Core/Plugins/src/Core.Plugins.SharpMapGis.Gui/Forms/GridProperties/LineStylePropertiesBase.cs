@@ -5,7 +5,6 @@ using System.Drawing.Drawing2D;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.ComponentModel;
 using Core.GIS.SharpMap.Rendering.Thematics;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.Styles.Shapes;

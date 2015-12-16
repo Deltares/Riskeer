@@ -21,7 +21,8 @@ using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
+using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Core.GIS.SharpMap.UI.Helpers;
 

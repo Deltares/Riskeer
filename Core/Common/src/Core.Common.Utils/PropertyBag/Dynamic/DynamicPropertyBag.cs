@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Core.Common.Utils.ComponentModel;
+
+using Core.Common.Utils.Attributes;
 
 namespace Core.Common.Utils.PropertyBag.Dynamic
 {

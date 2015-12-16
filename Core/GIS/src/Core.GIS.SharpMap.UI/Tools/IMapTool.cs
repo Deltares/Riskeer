@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.UI.Forms;

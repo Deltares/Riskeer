@@ -5,7 +5,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
+
 using log4net;
 
 namespace Core.Common.Gui.Forms.ViewManager

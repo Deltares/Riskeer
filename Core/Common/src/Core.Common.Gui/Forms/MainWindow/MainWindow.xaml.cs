@@ -22,7 +22,8 @@ using Core.Common.Gui.Forms.Options;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Theme;
 using Core.Common.Utils;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
+
 using Fluent;
 using log4net;
 using Microsoft.Win32;

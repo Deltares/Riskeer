@@ -1,8 +1,11 @@
 using System;
 using System.Globalization;
+
+using Core.Common.Utils.Extensions;
+
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test
+namespace Core.Common.Utils.Test.Attributes
 {
     [TestFixture]
     public class StringExtensionsTests

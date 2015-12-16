@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Utils.Collections
+﻿namespace Core.Common.Utils.Events
 {
     /// <summary>
     /// Action for changes to a collection such as add, remove.

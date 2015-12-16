@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Core.Common.Utils.Collections
+namespace Core.Common.Utils.Events
 {
     /// <summary>
     /// EventArgs for a collection that include the item and the action.

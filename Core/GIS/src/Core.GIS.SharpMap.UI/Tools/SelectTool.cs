@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils.Collections;
+
+using Core.Common.Utils.Events;
+using Core.Common.Utils.Extensions;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;

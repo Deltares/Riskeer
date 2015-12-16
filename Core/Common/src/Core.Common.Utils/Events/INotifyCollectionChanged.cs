@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Utils.Collections
+﻿namespace Core.Common.Utils.Events
 {
     public interface INotifyCollectionChanged
     {

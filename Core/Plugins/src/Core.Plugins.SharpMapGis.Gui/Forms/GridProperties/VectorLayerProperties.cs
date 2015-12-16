@@ -4,7 +4,6 @@ using System.Drawing;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.ComponentModel;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Layers;

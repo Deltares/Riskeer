@@ -2,7 +2,7 @@
 
 using Core.Common.Base;
 using Core.Common.Gui;
-using Core.Common.Utils.ComponentModel;
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 
 using NUnit.Framework;

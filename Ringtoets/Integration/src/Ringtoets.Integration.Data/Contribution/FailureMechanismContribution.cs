@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Extensions;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data.Properties;
 

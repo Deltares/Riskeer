@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Common.Utils.ComponentModel
+namespace Core.Common.Utils.Attributes
 {
     /// <summary>
     /// Used to mark method as a validation method used to check if property

@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils.ComponentModel;
+
+using Core.Common.Utils.Attributes;
 using Core.Common.Utils.PropertyBag;
 using Core.Common.Utils.PropertyBag.Dynamic;
 using NUnit.Framework;

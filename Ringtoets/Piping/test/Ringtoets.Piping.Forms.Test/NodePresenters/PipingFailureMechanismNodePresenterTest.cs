@@ -5,13 +5,13 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
+
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

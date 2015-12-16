@@ -4,10 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 
 using Ringtoets.Common.Forms.Properties;
 

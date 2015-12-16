@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 
 namespace Core.Common.Controls.Swf.TreeViewControls
 {

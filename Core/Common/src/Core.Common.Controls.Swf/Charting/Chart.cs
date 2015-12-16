@@ -7,7 +7,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
+
 using log4net;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Export;

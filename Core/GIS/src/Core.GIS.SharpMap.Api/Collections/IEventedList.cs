@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 
 namespace Core.GIS.SharpMap.Api.Collections
 {

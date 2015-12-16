@@ -9,9 +9,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
+
 using Core.Common.Utils.Properties;
 
-namespace Core.Common.Utils
+namespace Core.Common.Utils.Extensions
 {
     public static class StringExtensions
     {
@@ -112,7 +113,7 @@ namespace Core.Common.Utils
                     MethodInfo tryParseMethod = (from m in typeof(T).GetMethods()
                                                  where m.Name == "TryParse"
                                                  let ps = m.GetParameters()
-                                                 where ps.Count() == 2
+                                                 where Enumerable.Count(ps) == 2
                                                        && ps[0].ParameterType == typeof(string)
                                                        && ps[1].ParameterType == typeof(T).MakeByRefType()
                                                  select m).SingleOrDefault();
@@ -149,7 +150,7 @@ namespace Core.Common.Utils
                     MethodInfo tryParseMethod = (from m in typeof(TBase).GetMethods()
                                                  where m.Name == "TryParse"
                                                  let ps = m.GetParameters()
-                                                 where ps.Count() == 2
+                                                 where Enumerable.Count(ps) == 2
                                                        && ps[0].ParameterType == typeof(string)
                                                        && ps[1].ParameterType == typeof(TBase).MakeByRefType()
                                                  select m).SingleOrDefault();

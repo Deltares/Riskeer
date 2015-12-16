@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
+using Core.Common.Utils.Attributes;
+
 namespace Core.Common.Utils.PropertyBag
 {
     /// <summary>

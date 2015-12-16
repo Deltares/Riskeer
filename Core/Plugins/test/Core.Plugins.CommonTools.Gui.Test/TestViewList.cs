@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 
 namespace Core.Plugins.CommonTools.Gui.Test
 {

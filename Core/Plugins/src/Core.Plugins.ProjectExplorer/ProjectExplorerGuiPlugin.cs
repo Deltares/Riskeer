@@ -6,7 +6,7 @@ using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Extensions;
 using Core.Plugins.ProjectExplorer.Exceptions;
 using Core.Plugins.ProjectExplorer.NodePresenters;
 

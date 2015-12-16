@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Utils.Collections;
+
+using Core.Common.Utils.Extensions;
+
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test.Collections
+namespace Core.Common.Utils.Test.Attributes
 {
     [TestFixture]
     public class EnumerableExtensionsTest

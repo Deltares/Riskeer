@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils;
+using Core.Common.Utils.Events;
+
 using log4net;
 
 namespace Core.Common.Controls.Swf.Table

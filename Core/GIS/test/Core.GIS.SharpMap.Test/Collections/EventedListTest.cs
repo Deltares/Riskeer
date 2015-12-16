@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.TestUtil;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Events;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Api.Collections;
 

@@ -100,7 +100,7 @@
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.Test\Core.Common.Test.csproj">
-      <Project>{E0990383-FB2E-47D1-99CD-9B9FA2929E5B}</Project>
+      <Project>{e0990383-fb2e-47d1-99cd-9b9fa2929e5b}</Project>
       <Name>Core.Common.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj">

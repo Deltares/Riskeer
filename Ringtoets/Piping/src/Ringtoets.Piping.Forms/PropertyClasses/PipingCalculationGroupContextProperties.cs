@@ -1,6 +1,5 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.ComponentModel;
 
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections;
+using Core.Common.Utils.Extensions;
 
 using log4net;
 
