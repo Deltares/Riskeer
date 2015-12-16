@@ -10,6 +10,8 @@ namespace Core.Common.Test.TestObjects
         public TestView()
         {
             InitializeComponent();
+
+            ViewInfo = new ViewInfo();
         }
 
         public object Data { get; set; }
