@@ -68,14 +68,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                         return CreateViewFromViewInfo(data, viewInfoList[0]);
                     }
 
-                    var principalViewInfoList =
-                        viewInfoList.Where(vi => !vi.ViewType.Implements<IAdditionalView>()).ToList();
-
-                    if (principalViewInfoList.Count == 1)
-                    {
-                        return CreateViewFromViewInfo(data, principalViewInfoList[0]);
-                    }
-
                     // Create default view
                     var defaultType = GetDefaultViewType(data);
                     var defaultViewInfo = viewInfoList.FirstOrDefault(vi => vi.ViewType == defaultType);
@@ -134,7 +126,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public IList<IView> GetViewsForData(object data)
         {
-            return GetViewsForData(viewList.Where(v => !(v is IAdditionalView)), data).ToList();
+            return GetViewsForData(viewList, data).ToList();
         }
 
         public void CloseAllViewsFor(object data)

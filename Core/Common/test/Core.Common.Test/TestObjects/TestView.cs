@@ -42,8 +42,6 @@ namespace Core.Common.Test.TestObjects
         }
     }
 
-    public class AdditionalView : TestView, IAdditionalView {}
-
     public class TestWrapper
     {
         public string RealData { get; set; }

@@ -8,7 +8,7 @@ using Core.Common.Utils.Validation;
 
 namespace Core.Common.Gui.Swf.Validation
 {
-    public partial class ValidationView : UserControl, IAdditionalView
+    public partial class ValidationView : UserControl, IView
     {
         private readonly Stopwatch stopwatch = new Stopwatch();
         private Func<object, ValidationReport> onValidate;

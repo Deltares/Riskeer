@@ -66,26 +66,6 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
-        public void OpenViewForDataWithTwoViewsOneAdditionalViewShouldNotCausePrompt()
-        {
-            // for example if we have a central map view & a validation view for a model, the choice is simple!
-            var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
-            {
-                new ViewInfo<object, TestView>(),
-                new ViewInfo<object, AdditionalView>()
-            }, null);
-
-            var testObject = new object();
-
-            viewResolver.OpenViewForData(testObject);
-
-            var viewForTestObject = (TestView) viewList[0];
-            Assert.IsInstanceOf<TestView>(viewForTestObject);
-            Assert.AreEqual(testObject, viewForTestObject.Data);
-        }
-
-        [Test]
         public void OpenViewForDataWithViewTypeShouldUseNewViews()
         {
             // for example if we have a open functionview. Opening a view for another function should use the existing functionview
