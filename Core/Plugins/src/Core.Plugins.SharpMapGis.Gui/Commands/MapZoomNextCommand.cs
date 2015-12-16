@@ -15,12 +15,10 @@
             }
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             ZoomHistoryToolMapTool.NextZoomState();
             MapView.MapControl.Refresh();
-
-            base.OnExecute(arguments);
         }
     }
 }

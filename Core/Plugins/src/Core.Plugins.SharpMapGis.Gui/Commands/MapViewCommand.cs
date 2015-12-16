@@ -21,10 +21,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             {
                 return CurrentTool != null && CurrentTool.IsActive;
             }
-            set
-            {
-                base.Checked = value;
-            }
         }
 
         protected MapView MapView
@@ -50,7 +46,5 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 return null;
             }
         }
-
-        protected override void OnExecute(params object[] arguments) {}
     }
 }

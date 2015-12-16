@@ -16,7 +16,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
         }
 
-        protected override void OnExecute(object[] arguments)
+        public override void Execute(object[] arguments)
         {
             var tool = CurrentTool;
 
@@ -31,8 +31,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                     MapView.MapControl.ActivateTool(tool);
                 }
             }
-
-            base.OnExecute(arguments);
         }
     }
 }

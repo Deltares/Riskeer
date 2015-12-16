@@ -9,7 +9,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
     public class ZoomLayerCommand : MapViewCommand
     {
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             // parameter 0 must be a layer
             ILayer layer = (arguments[0] is ILayer) ? arguments[0] as ILayer : null;

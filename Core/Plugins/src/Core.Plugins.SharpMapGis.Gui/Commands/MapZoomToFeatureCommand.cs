@@ -9,7 +9,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
         /// first argument IFeature is expected as 
         /// </summary>
         /// <param name="arguments"></param>
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             MapView activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
             if (activeView == null)

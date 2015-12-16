@@ -11,17 +11,14 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             {
                 return false;
             }
-            set {}
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
 
             IMapTool tool = activeView.MapControl.GetToolByType<FixedZoomOutTool>();
             tool.Execute();
-
-            base.OnExecute(arguments);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Core.Plugins.ProjectExplorer.Commands
             }
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var view = ProjectExplorerGuiPlugin.Instance.ProjectExplorer;
             var active = Gui.ToolWindowViews.Contains(view);

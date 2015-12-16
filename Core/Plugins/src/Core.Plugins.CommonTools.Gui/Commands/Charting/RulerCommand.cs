@@ -23,7 +23,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var view = RulerTool;
             if (view == null || arguments.Length == 0)

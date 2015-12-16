@@ -17,10 +17,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
 
                 return false;
             }
-            set
-            {
-                base.Checked = value;
-            }
         }
 
         protected override IMapTool CurrentTool
@@ -36,7 +32,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
         }
 
-        protected override void OnExecute(object[] arguments)
+        public override void Execute(object[] arguments)
         {
             var layoutComponentTool = CurrentTool as LayoutComponentTool;
             if (layoutComponentTool != null)
@@ -61,8 +57,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 // Refresh the map control
                 MapView.MapControl.Refresh();
             }
-
-            base.OnExecute(arguments);
         }
     }
 }

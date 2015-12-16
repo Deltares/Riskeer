@@ -14,10 +14,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             {
                 return false;
             }
-            set {}
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
 
@@ -34,13 +33,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 catch (CoordinateTransformException e)
                 {
                     var message = string.Format(Resources.MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system_0_,e.Message);
-                    MessageBox.Show(message,
-                                    Resources.MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    base.OnExecute(arguments);
+                    MessageBox.Show(message, Resources.MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            base.OnExecute(arguments);
         }
     }
 }

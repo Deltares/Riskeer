@@ -13,6 +13,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
         }
 
-        protected override void OnExecute(params object[] arguments) {}
+        public override void Execute(params object[] arguments) { }
     }
 }

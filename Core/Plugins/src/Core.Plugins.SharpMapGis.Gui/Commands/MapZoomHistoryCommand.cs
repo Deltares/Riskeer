@@ -10,7 +10,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             {
                 return false;
             }
-            set {}
         }
 
         public ZoomHistoryTool ZoomHistoryToolMapTool

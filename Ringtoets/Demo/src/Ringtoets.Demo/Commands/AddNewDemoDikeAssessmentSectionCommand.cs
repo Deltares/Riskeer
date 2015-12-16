@@ -24,7 +24,15 @@ namespace Ringtoets.Demo.Commands
             }
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override bool Checked
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public override void Execute(params object[] arguments)
         {
             var project = Gui.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());

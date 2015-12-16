@@ -26,7 +26,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var commonToolsGuiPlugin = Gui.Plugins.OfType<CommonToolsGuiPlugin>().FirstOrDefault();
             if (commonToolsGuiPlugin == null)

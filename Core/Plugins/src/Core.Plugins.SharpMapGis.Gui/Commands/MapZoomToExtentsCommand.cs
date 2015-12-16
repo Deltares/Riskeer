@@ -10,7 +10,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             {
                 return false;
             }
-            set {}
         }
 
         /// <summary>
@@ -18,7 +17,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
         /// Otherwise the first arguments will be assumed to be a mapview and the active view will zoom to that map extents
         /// </summary>
         /// <param name="arguments"></param>
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             MapView targetView = null;
             if (arguments.Length == 1) //target extent

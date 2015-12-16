@@ -7,7 +7,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {
     public class IncreaseFontSizeCommand : ChartViewCommandBase
     {
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var view = View;
             if (view != null)
@@ -26,7 +26,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 
     public class DecreaseFontSizeCommand : ChartViewCommandBase
     {
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var view = View;
             if (view != null)
@@ -45,7 +45,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 
     public class ExportChartAsImageCommand : ChartViewCommandBase
     {
-        protected override void OnExecute(params object[] arguments)
+        public override void Execute(params object[] arguments)
         {
             var view = View;
             if (view != null)
@@ -65,6 +65,14 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
+        public override bool Checked
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         protected ChartView View
         {
             get
@@ -74,8 +82,6 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
                            : null;
             }
         }
-
-        protected abstract override void OnExecute(params object[] arguments);
 
         protected Font GetChangedFontSize(Font font, int pixels)
         {
