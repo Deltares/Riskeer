@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Views;
@@ -10,7 +8,7 @@ using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms
 {
-    public partial class TextDocumentView : UserControl, ISearchableView
+    public partial class TextDocumentView : UserControl, IView
     {
         private bool textModified;
         private bool settingContent;
@@ -76,17 +74,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
             textBox.SelectionStart = textBox.Text.IndexOf(text, 0, StringComparison.InvariantCulture);
             textBox.ScrollToCaret();
             textBox.SelectionLength = text.Length;
-        }
-
-        public IEnumerable<Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
-        {
-            var lines = textDocument.Content.Split(new[]
-            {
-                "\r",
-                "\n",
-                "\n\r"
-            }, StringSplitOptions.RemoveEmptyEntries);
-            return lines.Where(l => caseSensitive ? l.Contains(text) : l.ToLower().Contains(text.ToLower())).Select(l => new Tuple<string, object>(l, l));
         }
 
         protected override void OnVisibleChanged(EventArgs e)

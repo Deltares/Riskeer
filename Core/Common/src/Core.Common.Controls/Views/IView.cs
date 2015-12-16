@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Controls.Views
 {
@@ -41,33 +39,4 @@ namespace Core.Common.Controls.Views
         /// <param name="item"></param>
         void EnsureVisible(object item);
     }
-
-    public interface ICompositeView : IView
-    {
-        IEventedList<IView> ChildViews { get; }
-
-        bool HandlesChildViews { get; }
-
-        void ActivateChildView(IView childView);
-    }
-
-    /// <summary>
-    /// View that can be searched by using the SearchDialog
-    /// TODO : change to ISearchable and move to a different place
-    /// </summary>
-    public interface ISearchableView : IView
-    {
-        /// <summary>
-        /// Returns the objects that where found using the text.
-        /// This will be called from a separate thread.
-        /// </summary>
-        IEnumerable<Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage);
-    }
-
-    /// <summary>
-    /// Marker interface to indicate this view is not a principal view of its current data object and therefore 
-    /// should not be returned when asking for existing views for a data object. It will however be closed when 
-    /// the data is removed.
-    /// </summary>
-    public interface IAdditionalView : IView {}
 }

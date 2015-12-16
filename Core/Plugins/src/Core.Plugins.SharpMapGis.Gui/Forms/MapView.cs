@@ -24,7 +24,7 @@ using Core.Plugins.SharpMapGis.Tools;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms
 {
-    public partial class MapView : UserControl, ICompositeView, ISearchableView
+    public partial class MapView : UserControl, ICompositeView
     {
         private bool canAddPoint = true;
         private bool canDeleteItem = true;
@@ -32,7 +32,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         private bool canMoveItemLinear = true;
         private bool canSelectItem = true;
         private bool settingSelection = false;
-        private ExportMapToImageMapTool exportMapToImageMapTool;
+        private readonly ExportMapToImageMapTool exportMapToImageMapTool;
 
         public MapView()
         {
@@ -408,40 +408,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             if (IsTabControlVisible && Splitter.IsCollapsed)
             {
                 Splitter.ToggleState(); //re-show tabcontrol now
-            }
-        }
-
-        public IEnumerable<System.Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
-        {
-            var visibleLayers = Map.GetAllVisibleLayers(false).Where(l => l.DataSource != null && l.DataSource.Features != null).ToList();
-            if (visibleLayers.Count == 0)
-            {
-                yield break;
-            }
-
-            var percentageStep = 100.0/visibleLayers.Count;
-            var currentPercentage = 0.0;
-
-            foreach (var layer in visibleLayers)
-            {
-                if (isSearchCancelled())
-                {
-                    yield break;
-                }
-
-                var matchingItems = layer.DataSource.Features.OfType<IFeature>().
-                                          Where(n => n.Name != null &&
-                                                     (caseSensitive
-                                                          ? n.Name.Contains(text)
-                                                          : n.Name.ToLower().Contains(text.ToLower())));
-
-                foreach (var item in matchingItems)
-                {
-                    yield return new System.Tuple<string, object>(string.Format("{0} ({1})", item.Name, layer.Name), item);
-                }
-
-                currentPercentage += percentageStep;
-                setProgressPercentage((int) currentPercentage);
             }
         }
 
