@@ -297,7 +297,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
 
             // Collection changed is bubbled to nodePresenter => expect 1 call during parent.Children.Remove(child2);
             // not that in some cases Full refresh can be called
-            Expect.Call(() => childNodePresenter.OnCollectionChanged(parent, new NotifyCollectionChangingEventArgs())).IgnoreArguments().Repeat.Any();
+            Expect.Call(() => childNodePresenter.OnCollectionChanged(parent, new NotifyCollectionChangeEventArgs())).IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 

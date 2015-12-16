@@ -407,7 +407,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             if (CollectionChanged != null)
             {
-                CollectionChanged(this, new NotifyCollectionChangingEventArgs(notifyCollectionChangeAction, item, index, -1));
+                CollectionChanged(this, new NotifyCollectionChangeEventArgs(notifyCollectionChangeAction, item, index, -1));
             }
         }
 

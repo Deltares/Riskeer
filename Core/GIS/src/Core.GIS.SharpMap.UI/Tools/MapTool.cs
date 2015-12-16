@@ -296,7 +296,7 @@ namespace Core.GIS.SharpMap.UI.Tools
 
         public virtual void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e) {}
 
-        public virtual void OnMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
+        public virtual void OnMapCollectionChanged(object sender, NotifyCollectionChangeEventArgs e) {}
 
         public virtual IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
         {

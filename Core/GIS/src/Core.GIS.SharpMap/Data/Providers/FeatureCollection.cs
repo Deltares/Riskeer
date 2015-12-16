@@ -307,7 +307,7 @@ namespace Core.GIS.SharpMap.Data.Providers
             envelope = null;
         }
 
-        private void FeaturesCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void FeaturesCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             FireFeaturesChanged();
         }

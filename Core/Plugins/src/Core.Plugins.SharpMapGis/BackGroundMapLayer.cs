@@ -86,7 +86,7 @@ namespace Core.Plugins.SharpMapGis
             {
                 return;
             }
-            ((INotifyCollectionChange) backgroundMap).CollectionChanged -= BackgroundMapCollectionChanged;
+            ((INotifyCollectionChanged) backgroundMap).CollectionChanged -= BackgroundMapCollectionChanged;
         }
 
         public void SubscribeToBackgroundMap()
@@ -96,7 +96,7 @@ namespace Core.Plugins.SharpMapGis
                 return;
             }
 
-            ((INotifyCollectionChange) backgroundMap).CollectionChanged += BackgroundMapCollectionChanged;
+            ((INotifyCollectionChanged) backgroundMap).CollectionChanged += BackgroundMapCollectionChanged;
         }
 
         public void UpdateLayers()
@@ -169,7 +169,7 @@ namespace Core.Plugins.SharpMapGis
             SubscribeToBackgroundMap();
         }
 
-        private void BackgroundMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void BackgroundMapCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             backgroundMapChanged = true;
             RenderRequired = true;

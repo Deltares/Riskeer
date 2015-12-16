@@ -438,7 +438,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             return Dispatcher.Invoke(method, args);
         }
 
-        private void ToolWindowViews_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void ToolWindowViews_CollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             if (e.Action != NotifyCollectionChangeAction.Remove)
             {

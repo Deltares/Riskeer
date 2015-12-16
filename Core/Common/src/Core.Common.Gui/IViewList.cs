@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Collections.Generic;
+using Core.Common.Utils.Collections;
 
 namespace Core.Common.Gui
 {
@@ -19,7 +19,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Manages currently displayed views
     /// </summary>
-    public interface IViewList : IEventedList<IView>, IDisposable
+    public interface IViewList : IList<IView>, IDisposable
     {
         /// <summary>
         /// Fired before active view has been changed.
@@ -30,6 +30,11 @@ namespace Core.Common.Gui
         /// Fired after active view has been changed.
         /// </summary>
         event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
+
+        /// <summary>
+        /// Fired after the view elements in this view list have changed.
+        /// </summary>
+        event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// HACK: Hack to disable activation temporarily

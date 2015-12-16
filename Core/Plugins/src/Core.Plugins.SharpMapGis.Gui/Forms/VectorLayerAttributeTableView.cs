@@ -235,7 +235,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 featureRowList.Add(featureRowObject);
             }
 
-            ((INotifyCollectionChange) featureRowList).CollectionChanged += FeatureRowListCollectionChanged;
+            ((INotifyCollectionChanged) featureRowList).CollectionChanged += FeatureRowListCollectionChanged;
 
             return featureRowList;
         }
@@ -247,7 +247,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 return;
             }
 
-            ((INotifyCollectionChange) featureRowList).CollectionChanged -= FeatureRowListCollectionChanged;
+            ((INotifyCollectionChanged) featureRowList).CollectionChanged -= FeatureRowListCollectionChanged;
 
             foreach (var featureRowObject in featureRowList.OfType<IDisposable>())
             {
@@ -257,7 +257,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             featureRowList = null;
         }
 
-        private void FeatureRowListCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void FeatureRowListCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             // if item is removed using this table
             if (e.Action != NotifyCollectionChangeAction.Remove)

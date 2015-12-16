@@ -6,7 +6,6 @@ using System.Data;
 
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 
 namespace Core.GIS.SharpMap.Api.Collections
 {
@@ -381,7 +380,7 @@ namespace Core.GIS.SharpMap.Api.Collections
         {
             if (CollectionChanging != null)
             {
-                var args = new NotifyCollectionChangingEventArgs(action, item, index, -1);
+                var args = new NotifyCollectionChangeEventArgs(action, item, index, -1);
 
                 try
                 {
@@ -402,7 +401,7 @@ namespace Core.GIS.SharpMap.Api.Collections
         {
             if (CollectionChanged != null)
             {
-                var args = new NotifyCollectionChangingEventArgs(action, item, index, -1)
+                var args = new NotifyCollectionChangeEventArgs(action, item, index, -1)
                 {
                     OldItem = oldItem
                 };
@@ -410,7 +409,7 @@ namespace Core.GIS.SharpMap.Api.Collections
             }
         }
 
-        private void Item_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void Item_CollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             // forwards event to subscribers of the list
             if (CollectionChanged != null)
@@ -450,7 +449,7 @@ namespace Core.GIS.SharpMap.Api.Collections
                 notifyPropertyChange.PropertyChanged -= Item_PropertyChangedDelegate;
             }
 
-            var notifyCollectionChange = item as INotifyCollectionChange;
+            var notifyCollectionChange = item as INotifyCollectionChanged;
             if (notifyCollectionChange != null)
             {
                 notifyCollectionChange.CollectionChanged -= Item_CollectionChangedDelegate;
@@ -474,7 +473,7 @@ namespace Core.GIS.SharpMap.Api.Collections
                 notifyPropertyChange.PropertyChanging += Item_PropertyChangingDelegate;
             }
 
-            var notifyCollectionChanged = item as INotifyCollectionChange;
+            var notifyCollectionChanged = item as INotifyCollectionChanged;
             if (notifyCollectionChanged != null)
             {
                 if (Item_PropertyChangedDelegate == null)

@@ -25,7 +25,7 @@ namespace Core.GIS.SharpMap.Test.Collections
             var eventedList = new EventedList<object>();
             var callCount = 0;
             var item = new object();
-            eventedList.CollectionChanged += delegate(object sender, NotifyCollectionChangingEventArgs e)
+            eventedList.CollectionChanged += delegate(object sender, NotifyCollectionChangeEventArgs e)
             {
                 Assert.AreEqual(eventedList, sender);
                 Assert.AreEqual(item, e.Item);
@@ -220,7 +220,7 @@ namespace Core.GIS.SharpMap.Test.Collections
             });
         }
 
-        private class MockWithPropertyAndCollectionChange : INotifyPropertyChange, INotifyCollectionChange
+        private class MockWithPropertyAndCollectionChange : INotifyPropertyChange, INotifyCollectionChanged
         {
             // Required by interface, but not used (yet)
 #pragma warning disable 67

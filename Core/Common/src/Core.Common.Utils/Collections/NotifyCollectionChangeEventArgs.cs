@@ -7,7 +7,7 @@ namespace Core.Common.Utils.Collections
     /// 
     /// Note: for performance reasons we use fields here instead of properties.
     /// </summary>
-    public class NotifyCollectionChangingEventArgs : CancelEventArgs
+    public class NotifyCollectionChangeEventArgs : CancelEventArgs
     {
         /// <summary>
         /// Indicate what operation took place such as add, remove etc...
@@ -24,7 +24,7 @@ namespace Core.Common.Utils.Collections
         /// </summary>
         public int OldIndex;
 
-        public NotifyCollectionChangingEventArgs(NotifyCollectionChangeAction action, object item, int index, int oldIndex)
+        public NotifyCollectionChangeEventArgs(NotifyCollectionChangeAction action, object item, int index, int oldIndex)
         {
             Action = action;
             Item = item;
@@ -32,7 +32,7 @@ namespace Core.Common.Utils.Collections
             OldIndex = oldIndex;
         }
 
-        public NotifyCollectionChangingEventArgs() {}
+        public NotifyCollectionChangeEventArgs() {}
 
         /// <summary>
         /// The item added, removed or replaced. On replace the new item is given

@@ -3,7 +3,7 @@ using Core.GIS.SharpMap.Api.Collections;
 
 namespace Core.GIS.SharpMap.Api.Layers
 {
-    public interface IGroupLayer : ILayer, INotifyCollectionChange
+    public interface IGroupLayer : ILayer, INotifyCollectionChanged
     {
         EventedList<ILayer> Layers { get; set; }
 

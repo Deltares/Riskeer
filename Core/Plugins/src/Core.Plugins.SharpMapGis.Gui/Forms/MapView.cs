@@ -439,7 +439,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             DataBindings.Clear();
         }
 
-        private void mapCollectionChangedEventHandler(object sender, NotifyCollectionChangingEventArgs e)
+        private void mapCollectionChangedEventHandler(object sender, NotifyCollectionChangeEventArgs e)
         {
             var layer = e.Item as ILayer;
 

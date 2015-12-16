@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\EventedList.cs" />
+    <Compile Include="Collections\IEventedList.cs" />
+    <Compile Include="Collections\NotifyCollectionChangingEventHandler.cs" />
     <Compile Include="Delegates\AddRelatedFeature.cs" />
     <Compile Include="Editors\FallOffType.cs" />
     <Compile Include="Delegates\GetLabelMethod.cs" />

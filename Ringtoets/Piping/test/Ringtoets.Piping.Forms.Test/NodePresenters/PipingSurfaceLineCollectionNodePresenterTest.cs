@@ -348,7 +348,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangingEventArgs>();
+            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             mockRepository.ReplayAll();
 

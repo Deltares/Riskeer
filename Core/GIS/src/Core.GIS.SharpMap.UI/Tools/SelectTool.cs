@@ -619,7 +619,7 @@ namespace Core.GIS.SharpMap.UI.Tools
             orgClickTime = DateTime.Now;
         }
 
-        public override void OnMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        public override void OnMapCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             switch (e.Action)
             {

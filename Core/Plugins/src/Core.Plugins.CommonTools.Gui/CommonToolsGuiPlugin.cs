@@ -151,7 +151,7 @@ namespace Core.Plugins.CommonTools.Gui
             UpdateChartLegendView();
         }
 
-        private void ViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void ViewsCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             if (Gui == null || Gui.DocumentViews == null)
             {

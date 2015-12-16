@@ -168,7 +168,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        public void OnCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             // TODO: should this code be moved into tree view implementaiton?
 
@@ -260,7 +260,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// <param name="parentNode"></param>
         /// <param name="e"></param>
         /// <param name="newNodeIndex"></param>
-        protected virtual void OnCollectionChanged(T childNodeData, ITreeNode parentNode, NotifyCollectionChangingEventArgs e, int newNodeIndex)
+        protected virtual void OnCollectionChanged(T childNodeData, ITreeNode parentNode, NotifyCollectionChangeEventArgs e, int newNodeIndex)
         {
             switch (e.Action)
             {

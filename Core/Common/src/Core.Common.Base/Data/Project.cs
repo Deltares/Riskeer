@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 
 using Core.Common.Base.Properties;
-using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Base.Data
 {

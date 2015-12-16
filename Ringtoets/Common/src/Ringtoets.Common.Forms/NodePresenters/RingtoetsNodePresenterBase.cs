@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
             OnPropertyChanged((T)sender, node, e);
         }
 
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        public void OnCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             OnCollectionChanged((T)sender, e);
         }
@@ -201,8 +201,8 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.OnCollectionChanged"/>.
         /// </summary>
-        /// <seealso cref="OnCollectionChanged(object, NotifyCollectionChangingEventArgs)"/>
-        protected virtual void OnCollectionChanged(T sender, NotifyCollectionChangingEventArgs e)
+        /// <seealso cref="OnCollectionChanged(object, NotifyCollectionChangeEventArgs)"/>
+        protected virtual void OnCollectionChanged(T sender, NotifyCollectionChangeEventArgs e)
         {
             // Do nothing
         }

@@ -735,7 +735,7 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
         }
 
-        private void ToolsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void ToolsCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             switch (e.Action)
             {
@@ -809,7 +809,7 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
         }
 
-        private void MapCollectionChangedDelayed(object sender, NotifyCollectionChangingEventArgs e)
+        private void MapCollectionChangedDelayed(object sender, NotifyCollectionChangeEventArgs e)
         {
             if (sender is Map.Map || sender is ILayer || sender is IList<ILayer>)
             {
@@ -824,7 +824,7 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
         }
 
-        private void MapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void MapCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             if (IsDisposed)
             {

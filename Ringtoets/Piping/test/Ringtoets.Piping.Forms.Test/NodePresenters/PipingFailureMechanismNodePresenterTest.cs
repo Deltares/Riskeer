@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangingEventArgs>();
+            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);

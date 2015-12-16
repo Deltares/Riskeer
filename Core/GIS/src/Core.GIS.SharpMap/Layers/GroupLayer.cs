@@ -288,7 +288,7 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        protected void LayersCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        protected void LayersCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             // performance
             if (!created || cloning)
@@ -320,7 +320,7 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        private void OnLayersCollectionChanged(NotifyCollectionChangingEventArgs e)
+        private void OnLayersCollectionChanged(NotifyCollectionChangeEventArgs e)
         {
             switch (e.Action)
             {
@@ -336,7 +336,7 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        private void LayersCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
+        private void LayersCollectionChanging(object sender, NotifyCollectionChangeEventArgs e)
         {
             // performance
             if (!created || cloning)

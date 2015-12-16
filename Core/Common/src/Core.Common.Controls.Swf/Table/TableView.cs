@@ -409,7 +409,7 @@ namespace Core.Common.Controls.Swf.Table
             refreshRequired = true;
         }
 
-        private void DataSourceCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void DataSourceCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             refreshRequired = true;
             UpdateHeaderColumnSize();

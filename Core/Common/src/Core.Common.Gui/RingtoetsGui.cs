@@ -854,7 +854,7 @@ namespace Core.Common.Gui
             SetToolTipForView(view);
         }
 
-        private void ToolWindowViewsOnCollectionChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
+        private void ToolWindowViewsOnCollectionChanged(object sender, NotifyCollectionChangeEventArgs notifyCollectionChangeEventArgs)
         {
             if (isExiting)
             {
@@ -863,7 +863,7 @@ namespace Core.Common.Gui
             mainWindow.ValidateItems();
         }
 
-        private void DocumentViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void DocumentViewsCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             if (isExiting || documentViews.Count != 0)
             {

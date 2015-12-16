@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Customized;
 using Core.Common.Controls.Swf.Charting.Tools;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections.Generic;
 
 using Steema.TeeChart;
 using Steema.TeeChart.Drawing;
@@ -144,7 +143,7 @@ namespace Core.Common.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Data: in this case ISeries expected in <see cref="IEventedList{T}"/>
+        /// Data: in this case <see cref="IChart"/>
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

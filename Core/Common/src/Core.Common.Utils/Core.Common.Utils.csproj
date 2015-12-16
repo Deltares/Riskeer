@@ -107,13 +107,10 @@
     <Compile Include="Collections\INotifyCollectionChanged.cs" />
     <Compile Include="Collections\NotifyCollectionChangeAction.cs" />
     <Compile Include="Collections\NotifyCollectionChangedEventHandler.cs" />
-    <Compile Include="Collections\NotifyCollectionChangingEventHandler.cs" />
     <Compile Include="INotifyPropertyChange.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="Collections\Generic\IEnumerableListEditor.cs" />
-    <Compile Include="Collections\INotifyCollectionChange.cs" />
-    <Compile Include="Collections\NotifyCollectionChangingEventArgs.cs" />
+    <Compile Include="Collections\NotifyCollectionChangeEventArgs.cs" />
     <Compile Include="ComparableExtensions.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
@@ -133,7 +130,6 @@
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
-    <Compile Include="Collections\Generic\IEventedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +181,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

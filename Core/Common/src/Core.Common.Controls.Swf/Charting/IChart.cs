@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Core.Common.Controls.Swf.Charting.Series;
-using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Controls.Swf.Charting
 {

@@ -96,7 +96,7 @@ namespace Core.GIS.SharpMap.UI.Tools
 
         void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e);
 
-        void OnMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e);
+        void OnMapCollectionChanged(object sender, NotifyCollectionChangeEventArgs e);
 
         IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition);
 

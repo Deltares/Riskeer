@@ -408,7 +408,7 @@ namespace Core.Common.Controls.Swf.Charting
             AllowSeriesTypeChange = true;
         }
 
-        private void SeriesCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void SeriesCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             var chartSeries = e.Item as ChartSeries;
             if (chartSeries == null)

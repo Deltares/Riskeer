@@ -80,7 +80,7 @@ namespace Core.GIS.SharpMap.Map
     /// System.Drawing.Image imgMap = myMap.GetMap(); //Renders the map
     /// </code>
     /// </example>
-    public class Map : Observable, IDisposable, INotifyCollectionChange, INotifyPropertyChange, IMap
+    public class Map : Observable, IDisposable, INotifyCollectionChanged, INotifyPropertyChange, IMap
     {
         /// <summary>
         /// When layer render time is less than this - image will not be cached, increase this parameter when you get memory leaks.
@@ -1245,7 +1245,7 @@ namespace Core.GIS.SharpMap.Map
             }
         }
 
-        private void LayersCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void LayersCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
             OnLayersCollectionChanged(e);
 
@@ -1255,7 +1255,7 @@ namespace Core.GIS.SharpMap.Map
             }
         }
 
-        private void OnLayersCollectionChanged(NotifyCollectionChangingEventArgs e)
+        private void OnLayersCollectionChanged(NotifyCollectionChangeEventArgs e)
         {
             var layer1 = e.Item as ILayer;
 
