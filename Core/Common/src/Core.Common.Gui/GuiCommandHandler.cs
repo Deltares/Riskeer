@@ -175,7 +175,7 @@ namespace Core.Common.Gui
 
         public void OpenSelectViewDialog()
         {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection, null, true);
+            gui.DocumentViewsResolver.OpenViewForData(gui.Selection, true);
         }
 
         public bool CanOpenViewFor(object obj)
@@ -183,14 +183,14 @@ namespace Core.Common.Gui
             return gui.DocumentViewsResolver.GetViewInfosFor(obj).Any();
         }
 
-        public void OpenView(object dataObject, Type viewType = null)
+        public void OpenView(object dataObject)
         {
-            gui.DocumentViewsResolver.OpenViewForData(dataObject, viewType);
+            gui.DocumentViewsResolver.OpenViewForData(dataObject);
         }
 
-        public void OpenViewForSelection(Type viewType = null)
+        public void OpenViewForSelection()
         {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection, viewType);
+            gui.DocumentViewsResolver.OpenViewForData(gui.Selection);
         }
 
         public void OpenLogFileExternal()

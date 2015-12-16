@@ -42,7 +42,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        public bool OpenViewForData(object data, Type viewType = null, bool alwaysShowDialog = false)
+        public bool OpenViewForData(object data, bool alwaysShowDialog = false)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                     return false;
                 }
 
-                var viewInfoList = FilterOnInheritance(GetViewInfosFor(data, viewType)).ToList();
+                var viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToList();
 
                 if (viewInfoList.Count == 0)
                 {

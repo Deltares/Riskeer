@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 
 namespace Core.Common.Gui
@@ -51,9 +50,9 @@ namespace Core.Common.Gui
         /// </summary>
         void OpenSelectViewDialog();
 
-        void OpenViewForSelection(Type viewType = null);
+        void OpenViewForSelection();
 
-        void OpenView(object dataObject, Type viewType = null);
+        void OpenView(object dataObject);
 
         void RemoveAllViewsForItem(object dataObject);
 

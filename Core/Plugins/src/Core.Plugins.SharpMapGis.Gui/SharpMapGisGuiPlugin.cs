@@ -112,7 +112,7 @@ namespace Core.Plugins.SharpMapGis.Gui
                                             ? mapView.GetDataForLayer(layer)
                                             : null;
 
-                        if (!Gui.DocumentViewsResolver.OpenViewForData(layerData, typeof(ILayerEditorView)) && layer is VectorLayer)
+                        if (!Gui.DocumentViewsResolver.OpenViewForData(layerData) && layer is VectorLayer)
                         {
                             mapView.OpenLayerAttributeTable(layer, o => gui.CommandHandler.OpenView(o));
                         }

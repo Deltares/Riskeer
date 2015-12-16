@@ -66,31 +66,6 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
-        public void OpenViewForDataWithViewTypeShouldUseNewViews()
-        {
-            // for example if we have a open functionview. Opening a view for another function should use the existing functionview
-            var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
-            {
-                new ViewInfo<object, TestView>()
-            }, null);
-
-            var testObject = new object();
-
-            viewResolver.OpenViewForData(testObject);
-
-            var viewForTestObject = (TestView) viewList[0];
-            Assert.AreEqual(testObject, viewForTestObject.Data);
-
-            var otherObject = new object();
-            viewResolver.OpenViewForData(otherObject, typeof(TestView));
-
-            // no extra views. the first view now renders the other object
-            Assert.AreEqual(2, viewList.Count);
-            Assert.AreEqual(otherObject, viewList[1].Data);
-        }
-
-        [Test]
         public void OpeningAViewForAObjectShouldUseNewViewForLockedReusableView()
         {
             // for example if we have a open functionview. Opening a view for another function should use the existing functionview

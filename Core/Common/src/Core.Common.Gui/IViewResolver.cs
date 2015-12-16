@@ -23,9 +23,8 @@ namespace Core.Common.Gui
         /// Opens a view for specified data. Using viewprovider to resolve the correct view.
         /// </summary>
         /// <param name="data">Data to open a view for</param>
-        /// <param name="viewType">ViewType to use (if null then default will be used)</param>
         /// <param name="alwaysShowDialog">Always present the user with a dialog to choose from</param>
-        bool OpenViewForData(object data, Type viewType = null, bool alwaysShowDialog = false);
+        bool OpenViewForData(object data, bool alwaysShowDialog = false);
 
         /// <summary>
         /// Creates a view for the <paramref name="data"/> 
