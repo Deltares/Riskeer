@@ -8,7 +8,6 @@ using Core.Common.Controls.Swf;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
@@ -305,22 +304,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        public IEventedList<IView> ChildViews
-        {
-            get
-            {
-                return TabControl.ChildViews;
-            }
-        }
-
-        public bool HandlesChildViews
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public IView OpenLayerAttributeTable(ILayer layer, Action<object> openViewMethod = null)
         {
             if (!(layer is VectorLayer) || !layer.ShowAttributeTable)
@@ -377,15 +360,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
 
             EnsureFeatureVisible(feature, layer);
-        }
-
-        public void ActivateChildView(IView childView)
-        {
-            TabControl.ActiveView = childView;
-            if (IsTabControlVisible && Splitter.IsCollapsed)
-            {
-                Splitter.ToggleState(); //re-show tabcontrol now
-            }
         }
 
         /// <summary> 

@@ -217,10 +217,11 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return true;
             }
 
-            var reusableView = FindViewsRecursive<IReusableView>(viewList).FirstOrDefault(rv =>
-                                                                                          !rv.Locked &&
-                                                                                          IsDataForView(rv, viewData) &&
-                                                                                          viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
+            var reusableView = viewList.OfType<IReusableView>()
+                                       .FirstOrDefault(rv =>
+                                                       !rv.Locked &&
+                                                       IsDataForView(rv, viewData) &&
+                                                       viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
 
             if (reusableView != null)
             {
@@ -358,17 +359,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             var selectionType = dataObject.GetType();
 
             return defaultViewTypes.Keys.Contains(selectionType) ? defaultViewTypes[selectionType] : null;
-        }
-
-        private IEnumerable<T> FindViewsRecursive<T>(IEnumerable<IView> views)
-        {
-            foreach (var view in views)
-            {
-                if (view is T)
-                {
-                    yield return (T) view;
-                }
-            }
         }
     }
 }

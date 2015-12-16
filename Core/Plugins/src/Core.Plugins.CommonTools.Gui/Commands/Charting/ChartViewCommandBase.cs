@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using Core.Common.Controls.Swf.Charting;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting
@@ -28,7 +27,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             get
             {
                 return Gui != null
-                           ? GetViewRecursive<ChartView>(Gui.DocumentViews.ActiveView)
+                           ? Gui.DocumentViews.ActiveView as ChartView
                            : null;
             }
         }
@@ -36,16 +35,6 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
         protected Font GetChangedFontSize(Font font, int pixels)
         {
             return new Font(font.FontFamily, font.Size + pixels, font.Style);
-        }
-
-        private T GetViewRecursive<T>(IView view) where T : class, IView
-        {
-            if (view is T)
-            {
-                return (T) view;
-            }
-
-            return null;
         }
     }
 }

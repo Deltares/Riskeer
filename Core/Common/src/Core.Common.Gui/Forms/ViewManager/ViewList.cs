@@ -85,7 +85,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             get
             {
-                return FindViewsRecursive<IView>(views);
+                return views;
             }
         }
 
@@ -202,14 +202,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        public IEnumerable<T> GetActiveViews<T>() where T : class, IView
-        {
-            return FindViewsRecursive<T>(new[]
-            {
-                ActiveView
-            });
-        }
-
         public IEnumerator<IView> GetEnumerator()
         {
             return views.GetEnumerator();
@@ -250,17 +242,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         IEnumerator IEnumerable.GetEnumerator()
         {
             return views.GetEnumerator();
-        }
-
-        public IEnumerable<T> FindViewsRecursive<T>(IEnumerable<IView> views) where T : class, IView
-        {
-            foreach (var view in views)
-            {
-                if (view is T)
-                {
-                    yield return (T) view;
-                }
-            }
         }
 
         private void ActivateView(IView view)

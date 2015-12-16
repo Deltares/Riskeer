@@ -261,9 +261,9 @@ namespace Core.Plugins.SharpMapGis.Gui
             yield return new MapProjectTreeViewNodePresenter();
         }
 
-        internal static MapView GetFocusedMapView(IView view = null)
+        internal static MapView GetFocusedMapView()
         {
-            return gui.GetFocusedMapView(view);
+            return gui.DocumentViews.ActiveView as MapView;
         }
 
         private void ApplicationProjectClosing(Project project)

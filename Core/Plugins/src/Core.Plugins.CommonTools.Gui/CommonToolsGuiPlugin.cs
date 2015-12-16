@@ -1,20 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.Charting.Series;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
-using Core.Plugins.CommonTools.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Properties;
 using Core.Plugins.CommonTools.Gui.Property;
@@ -151,11 +146,6 @@ namespace Core.Plugins.CommonTools.Gui
             base.Deactivate();
         }
 
-        private void DocumentViewsOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
-        {
-            UpdateChartLegendView();
-        }
-
         private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
             UpdateChartLegendView();
@@ -168,18 +158,19 @@ namespace Core.Plugins.CommonTools.Gui
                 return;
             }
 
-            var chartViews = Gui.DocumentViews.FindViewsRecursive<IChartView>(new[]
+            var chartView = e.Item as ChartView;
+            if (chartView == null)
             {
-                e.Item as IView
-            });
+                return;
+            }
 
             if (e.Action == NotifyCollectionChangeAction.Add)
             {
-                chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
+                chartView.ToolsActiveChanged += ActiveToolsChanged;
             }
             else if(e.Action == NotifyCollectionChangeAction.Remove)
             {
-                chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
+                chartView.ToolsActiveChanged -= ActiveToolsChanged;
             }
         }
 
@@ -195,7 +186,7 @@ namespace Core.Plugins.CommonTools.Gui
                 return;
             }
 
-            var chartView = Gui.DocumentViews.GetActiveViews<IChartView>().FirstOrDefault();
+            var chartView = Gui.DocumentViews.ActiveView as IChartView;
             if (chartView != null)
             {
                 if (ChartLegendView.Data != chartView.Data)

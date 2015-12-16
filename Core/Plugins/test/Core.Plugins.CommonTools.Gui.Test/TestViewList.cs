@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections;
@@ -17,7 +16,6 @@ namespace Core.Plugins.CommonTools.Gui.Test
 
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
 
-        public event NotifyCollectionChangedEventHandler ChildViewChanged;
 #pragma warning restore 67
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 

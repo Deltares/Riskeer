@@ -21,9 +21,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             var manager = Gui.DocumentViews;
 
             // find the correct mapview
-            var mapView = manager.GetActiveViews<MapView>().FirstOrDefault(v => Equals(v.Data, layer.Map));
-
-            if (mapView == null)
+            var mapView = manager.ActiveView as MapView;
+            if (mapView == null || !Equals(mapView.Data, layer.Map))
             {
                 return;
             }

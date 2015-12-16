@@ -38,12 +38,12 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
         {
             get
             {
-                var chartView = GetChartViewWithRulerRecursive(Gui.DocumentViews.ActiveView);
+                var chartView = GetChartViewWithRuler(Gui.DocumentViews.ActiveView);
                 return chartView == null ? null : chartView.GetTool<RulerTool>() as RulerTool;
             }
         }
 
-        private ChartView GetChartViewWithRulerRecursive(IView view)
+        private ChartView GetChartViewWithRuler(IView view)
         {
             var chartView = view as ChartView;
 
