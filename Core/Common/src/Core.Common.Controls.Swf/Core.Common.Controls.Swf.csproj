@@ -220,6 +220,7 @@
     <Compile Include="Table\Validation\RowValidationResult.cs" />
     <Compile Include="Table\Validation\TableViewValidator.cs" />
     <Compile Include="Table\XtraGridRepositoryItemBuilder.cs" />
+    <Compile Include="TreeViewControls\DragOperations.cs" />
     <Compile Include="TreeViewControls\ITreeNode.cs" />
     <Compile Include="TreeViewControls\ITreeNodePresenter.cs" />
     <Compile Include="TreeViewControls\ITreeView.cs" />
