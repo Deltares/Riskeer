@@ -36,8 +36,6 @@ namespace Core.Common.Gui.Forms
             }
         }
 
-        public void EnsureVisible(object item) {}
-
         public ViewInfo ViewInfo { get; set; }
 
         #endregion

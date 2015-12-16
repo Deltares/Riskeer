@@ -85,8 +85,6 @@ namespace Core.Plugins.ProjectExplorer
             TreeView.SelectedNode = nodeToSelect;
         }
 
-        public void EnsureVisible(object item) {}
-
         private void TreeViewOnBeforeWaitUntilAllEventsAreProcessed()
         {
             if (!gui.MainWindow.Visible)

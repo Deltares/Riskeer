@@ -21,8 +21,6 @@ namespace Core.Common.Test.Gui
 
         public object Data { get; set; }
 
-        public void EnsureVisible(object item) {}
-
         public ViewInfo ViewInfo { get; set; }
 
         #endregion

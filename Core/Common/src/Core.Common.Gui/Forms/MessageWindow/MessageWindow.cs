@@ -263,7 +263,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             set {}
         }
 
-        public void EnsureVisible(object item) {}
         public ViewInfo ViewInfo { get; set; }
 
         #endregion

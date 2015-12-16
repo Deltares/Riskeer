@@ -130,8 +130,6 @@ namespace Core.Plugins.ProjectExplorer
             applicationCore = null;
         }
 
-        public void EnsureVisible(object item) {}
-
         /// <summary>
         /// Update selected node when selection in gui changes.
         /// </summary>

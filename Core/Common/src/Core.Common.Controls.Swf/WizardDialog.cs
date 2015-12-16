@@ -117,8 +117,6 @@ namespace Core.Common.Controls.Swf
             }
         }
 
-        public void EnsureVisible(object item) {}
-
         public virtual void UpdateNavigationButtons()
         {
             if (!(CurrentPage is IWizardPage) || wizardPages == null || !wizardPages.ContainsKey(CurrentPage))

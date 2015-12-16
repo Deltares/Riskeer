@@ -146,8 +146,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        public void EnsureVisible(object item) {}
-
         public void OnActivated() {}
 
         public void OnDeactivated() {}

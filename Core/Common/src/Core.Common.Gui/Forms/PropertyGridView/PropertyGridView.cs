@@ -119,8 +119,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
         }
 
-        public void EnsureVisible(object item) {}
-
         /// <summary>
         /// Retrieves adapter for the sourceData to be shown as the source object in the grid.
         /// </summary>

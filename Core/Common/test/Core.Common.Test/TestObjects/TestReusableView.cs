@@ -35,7 +35,5 @@ namespace Core.Common.Test.TestObjects
                 }
             }
         }
-
-        public void EnsureVisible(object item) {}
     }
 }

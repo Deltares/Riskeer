@@ -264,8 +264,6 @@ namespace Core.Common.Controls.Swf.Charting
                    TeeChart2DateTime(teeChart.Axes.Bottom.Minimum);
         }
 
-        public void EnsureVisible(object item) {}
-
         public void ZoomToValues(DateTime min, DateTime max)
         {
             teeChart.Chart.Axes.Bottom.SetMinMax(min, max);

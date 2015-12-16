@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Controls;
@@ -56,8 +55,6 @@ namespace Core.Common.Gui.Swf.Validation
         }
 
         public ViewInfo ViewInfo { get; set; }
-
-        public void EnsureVisible(object item) {}
 
         private bool RefreshReport()
         {
@@ -115,20 +112,7 @@ namespace Core.Common.Gui.Swf.Validation
             }
 
             var viewOpen = Gui.DocumentViewsResolver.OpenViewForData(issue.ViewData);
-
-            if (viewOpen)
-            {
-                var views = Gui.DocumentViewsResolver.GetViewsForData(issue.ViewData);
-                foreach (var view in views)
-                {
-                    try
-                    {
-                        view.EnsureVisible(issue.Subject);
-                    }
-                    catch (Exception) {} //gulp
-                }
-                return;
-            }
+            if (viewOpen) return;
 
             var fileImporter = issue.ViewData as IFileImporter;
             if (fileImporter != null)

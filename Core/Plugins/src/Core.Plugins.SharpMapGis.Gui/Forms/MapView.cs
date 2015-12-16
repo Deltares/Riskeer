@@ -357,19 +357,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
 
         public void EnsureVisible(object item)
         {
-            // recursive to tabs
-            foreach (var view in TabControl.ChildViews)
-            {
-                try
-                {
-                    view.EnsureVisible(item);
-                }
-                catch (Exception)
-                {
-                    /* gulp */
-                }
-            }
-
             var layer = item as ILayer;
             if (layer != null)
             {
@@ -388,6 +375,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 return;
             }
+
             EnsureFeatureVisible(feature, layer);
         }
 

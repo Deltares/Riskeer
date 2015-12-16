@@ -1278,8 +1278,6 @@ namespace Core.Common.Controls.Swf.Table
             base.ResetBindings();
         }
 
-        public void EnsureVisible(object item) {}
-
         /// <summary>
         /// Function to check if the current focused row is a 
         /// new row (row that's not committed to the datasource)

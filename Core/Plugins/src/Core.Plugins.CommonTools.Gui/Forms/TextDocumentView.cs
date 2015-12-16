@@ -54,19 +54,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
 
         public ViewInfo ViewInfo { get; set; }
 
-        public void EnsureVisible(object item)
-        {
-            var text = item as string;
-            if (text == null)
-            {
-                return;
-            }
-
-            textBox.SelectionStart = textBox.Text.IndexOf(text, 0, StringComparison.InvariantCulture);
-            textBox.ScrollToCaret();
-            textBox.SelectionLength = text.Length;
-        }
-
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);

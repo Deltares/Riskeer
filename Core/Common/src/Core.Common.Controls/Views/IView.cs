@@ -18,11 +18,5 @@ namespace Core.Common.Controls.Views
         string Text { get; set; }
 
         ViewInfo ViewInfo { get; set; }
-
-        /// <summary>
-        /// Makes object visible in the view if possible
-        /// </summary>
-        /// <param name="item"></param>
-        void EnsureVisible(object item);
     }
 }

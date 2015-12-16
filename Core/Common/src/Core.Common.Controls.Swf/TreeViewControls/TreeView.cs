@@ -237,8 +237,6 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             SelectedNode.BeginEdit();
         }
 
-        public void EnsureVisible(object item) {}
-
         public void RegisterNodePresenter(ITreeNodePresenter presenter)
         {
             controller.RegisterNodePresenter(presenter);

@@ -39,7 +39,5 @@ namespace Core.Common.Controls.Swf
         public override string Text { get; set; }
 
         public ViewInfo ViewInfo { get; set; }
-
-        public void EnsureVisible(object item) {}
     }
 }

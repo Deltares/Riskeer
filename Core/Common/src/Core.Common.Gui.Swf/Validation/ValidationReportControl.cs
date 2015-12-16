@@ -93,8 +93,6 @@ namespace Core.Common.Gui.Swf.Validation
             return null;
         }
 
-        public void EnsureVisible(object item) {}
-
         private TreeNode SelectedNode
         {
             get
