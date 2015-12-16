@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -95,16 +94,6 @@ namespace Core.Common.Utils.Reflection
         /// <returns></returns>
         public static AssemblyInfo GetExecutingAssemblyInfo()
         {
-            // HACK: use another folder for tests
-            var stackTrace = new StackTrace(false);
-            if (stackTrace.ToString().ToLower().Contains("test."))
-            {
-                return new AssemblyInfo
-                {
-                    Company = "Deltares", Product = "Ringtoets", Version = "Tests Development"
-                };
-            }
-
             return GetAssemblyInfo(Assembly.GetExecutingAssembly());
         }
 
