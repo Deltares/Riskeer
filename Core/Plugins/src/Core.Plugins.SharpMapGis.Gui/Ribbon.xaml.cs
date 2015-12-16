@@ -113,6 +113,9 @@ namespace Core.Plugins.SharpMapGis.Gui
                 yield return mapPanZoomCommand;
                 yield return mapZoomPreviousCommand;
                 yield return mapZoomNextCommand;
+
+                // map coverage profile
+                yield return mapChangeCoordinateSystemCommand;
             }
         }
 
