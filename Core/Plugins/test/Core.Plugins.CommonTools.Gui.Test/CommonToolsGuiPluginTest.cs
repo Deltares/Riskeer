@@ -71,7 +71,6 @@ namespace Core.Plugins.CommonTools.Gui.Test
 
             Assert.NotNull(viewInfos);
             Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(RichTextFile) && vi.ViewType == typeof(RichTextView)));
-            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(TextDocument) && vi.ViewType == typeof(TextDocumentView)));
             Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Url) && vi.ViewType == typeof(HtmlPageView)));
             Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Chart) && vi.ViewType == typeof(ChartView)));
         }

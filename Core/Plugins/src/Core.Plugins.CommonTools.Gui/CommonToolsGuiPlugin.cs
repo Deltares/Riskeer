@@ -8,7 +8,6 @@ using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.Charting.Series;
-using Core.Common.Controls.Swf.Table;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
@@ -20,20 +19,13 @@ using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Properties;
 using Core.Plugins.CommonTools.Gui.Property;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
-using DevExpress.Data.Access;
 using PropertyInfo = Core.Common.Gui.PropertyInfo;
 
 namespace Core.Plugins.CommonTools.Gui
 {
     public class CommonToolsGuiPlugin : GuiPlugin
     {
-        private static TableView speedupTableView; // used to speed-up start of Ringtoets
         private IRibbonCommandHandler ribbon;
-
-        public CommonToolsGuiPlugin()
-        {
-            Instance = this;
-        }
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -43,9 +35,7 @@ namespace Core.Plugins.CommonTools.Gui
             }
         }
 
-        public static CommonToolsGuiPlugin Instance { get; private set; }
-
-        public static ChartLegendView ChartLegendView { get; set; }
+        public ChartLegendView ChartLegendView { get; private set; }
 
         public void InitializeChartLegendView()
         {
@@ -57,18 +47,23 @@ namespace Core.Plugins.CommonTools.Gui
                 };
             }
 
+            ActivateChartLegendView();
+        }
+
+        private void ActivateChartLegendView()
+        {
             if (Gui.ToolWindowViews != null)
             {
                 Gui.ToolWindowViews.Add(ChartLegendView, ViewLocation.Right | ViewLocation.Top);
                 Gui.ToolWindowViews.ActiveView = ChartLegendView;
                 UpdateChartLegendView();
+                Gui.DocumentViewsResolver.OpenViewForData(new Chart());
             }
         }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<Url, UrlProperties>();
-            yield return new PropertyInfo<TextDocument, TextDocumentProperties>();
             yield return new PropertyInfo<Project, ProjectProperties>();
             yield return new PropertyInfo<TreeFolder, TreeFolderProperties>();
             yield return new PropertyInfo<IChart, ChartProperties>();
@@ -86,16 +81,11 @@ namespace Core.Plugins.CommonTools.Gui
                 Image = Common.Gui.Properties.Resources.key,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
-
-            yield return new ViewInfo<TextDocument, TextDocumentView>
-            {
-                Image = Resources.TextDocument,
-                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""
-            };
             yield return new ViewInfo<Url, HtmlPageView>
             {
                 Image = Resources.home,
-                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser, GetViewName = (v, o) => o != null ? o.Name : ""
+                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser,
+                GetViewName = (v, o) => o != null ? o.Name : ""
             };
             yield return new ViewInfo<Chart, ChartView>
             {
@@ -114,10 +104,9 @@ namespace Core.Plugins.CommonTools.Gui
             {
                 if (Gui.DocumentViews.ActiveView != null)
                 {
-                    DocumentViewsActiveViewChanged();
+                    UpdateChartLegendView();
                 }
 
-                Gui.DocumentViews.ActiveViewChanging += DocumentViewsActiveViewChanging;
                 Gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
                 Gui.DocumentViews.CollectionChanged += ViewsCollectionChanged;
             }
@@ -132,35 +121,21 @@ namespace Core.Plugins.CommonTools.Gui
                 ChartLegendView.Dispose();
                 ChartLegendView = null;
             }
-            if (speedupTableView != null)
-            {
-                speedupTableView.Dispose();
-                speedupTableView = null;
-            }
             if (Gui != null)
             {
                 if (Gui.DocumentViews != null)
                 {
                     if (Gui.DocumentViews.ActiveView != null)
                     {
-                        DocumentViewsActiveViewChanging();
+                        UpdateChartLegendView();
                     }
 
-                    Gui.DocumentViews.ActiveViewChanging -= DocumentViewsActiveViewChanging;
                     Gui.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
                     Gui.DocumentViews.CollectionChanged -= ViewsCollectionChanged;
                 }
             }
 
-            // clear DevExpress memory leaks
-            var devExpressAssembly = typeof(DataListDescriptor).Assembly;
-            var dataListDescriptorType = devExpressAssembly.GetType("DevExpress.Data.Access.DataListDescriptor");
-            var typesInfo = dataListDescriptorType.GetField("types", BindingFlags.Static | BindingFlags.NonPublic);
-            var types = (IDictionary) typesInfo.GetValue(null);
-            types.Clear();
-
             ribbon = null;
-
             base.Dispose();
         }
 
@@ -177,22 +152,12 @@ namespace Core.Plugins.CommonTools.Gui
             base.Deactivate();
         }
 
-        private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
-        {
-            DocumentViewsActiveViewChanged();
-        }
-
-        private void DocumentViewsActiveViewChanged()
+        private void DocumentViewsOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
         {
             UpdateChartLegendView();
         }
 
-        private void DocumentViewsActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
-        {
-            DocumentViewsActiveViewChanging();
-        }
-
-        private void DocumentViewsActiveViewChanging()
+        private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
             UpdateChartLegendView();
         }
@@ -204,20 +169,18 @@ namespace Core.Plugins.CommonTools.Gui
                 return;
             }
 
-            // Make chartviews refresh ribbon when tools become active/inactive
             var chartViews = Gui.DocumentViews.FindViewsRecursive<IChartView>(new[]
             {
                 e.Item as IView
             });
 
-            switch (e.Action)
+            if (e.Action == NotifyCollectionChangeAction.Add)
             {
-                case NotifyCollectionChangeAction.Add:
-                    chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
-                    break;
-                case NotifyCollectionChangeAction.Remove:
-                    chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
-                    break;
+                chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
+            }
+            else if(e.Action == NotifyCollectionChangeAction.Remove)
+            {
+                chartViews.ForEachElementDo(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
             }
         }
 
@@ -238,7 +201,6 @@ namespace Core.Plugins.CommonTools.Gui
             {
                 if (ChartLegendView.Data != chartView.Data)
                 {
-                    // only update when data is changed, 
                     ChartLegendView.Data = chartView.Chart;
                 }
             }

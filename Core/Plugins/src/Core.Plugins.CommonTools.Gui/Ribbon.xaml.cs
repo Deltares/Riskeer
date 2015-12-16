@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using Core.Common.Controls;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Commands.Charting;

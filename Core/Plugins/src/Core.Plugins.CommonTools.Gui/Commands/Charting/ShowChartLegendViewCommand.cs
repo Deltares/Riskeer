@@ -13,8 +13,12 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
                 {
                     return false;
                 }
-
-                return Gui.ToolWindowViews.Contains(CommonToolsGuiPlugin.ChartLegendView);
+                var commonToolsGuiPlugin = Gui.Plugins.OfType<CommonToolsGuiPlugin>().FirstOrDefault();
+                if (commonToolsGuiPlugin == null)
+                {
+                    return false;
+                }
+                return Gui.ToolWindowViews.Contains(commonToolsGuiPlugin.ChartLegendView);
             }
         }
 
@@ -34,7 +38,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
                 return;
             }
 
-            var view = CommonToolsGuiPlugin.ChartLegendView;
+            var view = commonToolsGuiPlugin.ChartLegendView;
             var active = Gui.ToolWindowViews.Contains(view);
 
             if (active)

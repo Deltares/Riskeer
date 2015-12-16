@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:resx="clr-namespace:Core.Plugins.CommonTools.Gui.Properties"
+             xmlns:gui="clr-namespace:Core.Common.Gui;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
-        <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
+        <gui:PngToIconConverter x:Key="ImageSourceConverter"/>
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
 
@@ -17,22 +18,22 @@
 
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="V" >
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="ZS" Height="86">
-                <fluent:ToggleButton x:Name="ButtonChartLegendToolWindow" Header="{x:Static resx:Resources.Ribbon_Chart_Contents}" Icon="pack://application:,,,/Core.Plugins.CommonTools.Gui;component\Resources\chart_curve.png" Click="ButtonChartLegendToolWindow_Click" SizeDefinition="Middle" fluent:KeyTip.Keys="C"/>
+                <fluent:ToggleButton x:Name="ButtonChartLegendToolWindow" Header="{x:Static resx:Resources.Ribbon_Chart_Contents}" Icon="{Binding Source={x:Static resx:Resources.Chart}, Converter={StaticResource ImageSourceConverter}}" Click="ButtonChartLegendToolWindow_Click" SizeDefinition="Middle" fluent:KeyTip.Keys="C"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Ribbon_TabItem_Chart}" Group="{Binding ElementName=chartingContextualGroup}" x:Name="chartTab" fluent:KeyTip.Keys="JC">
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.Ribbon_GroupBox_Export}" fluent:KeyTip.Keys="ZX">
-                <fluent:Button x:Name="ButtonExportAsImage" Header="{x:Static resx:Resources.Ribbon_ExportAsImage}" LargeIcon="pack://application:,,,/Core.Plugins.CommonTools.Gui;component\Resources\image-export.png" Click="ButtonExportAsImage_Click" Size="Large" fluent:KeyTip.Keys="EI"/>
+                <fluent:Button x:Name="ButtonExportAsImage" Header="{x:Static resx:Resources.Ribbon_ExportAsImage}" LargeIcon="{Binding Source={x:Static resx:Resources.ImageExportIcon}, Converter={StaticResource ImageSourceConverter}}" Click="ButtonExportAsImage_Click" Size="Large" fluent:KeyTip.Keys="EI"/>
             </fluent:RibbonGroupBox>
 
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.Ribbon_GroupBox_Style}" fluent:KeyTip.Keys="ZS">
-                <fluent:Button x:Name="ButtonIncreaseFontSize" Header="{x:Static resx:Resources.Ribbon_IncreaseFontSize}" Icon="pack://application:,,,/Core.Plugins.CommonTools.Gui;component\Resources\arrow_up.png" Click="ButtonIncreaseFontSize_Click" Size="Middle" fluent:KeyTip.Keys="FG"/>
-                <fluent:Button x:Name="ButtonDecreaseFontSize" Header="{x:Static resx:Resources.Ribbon_DecreaseFontSize}" Icon="pack://application:,,,/Core.Plugins.CommonTools.Gui;component\Resources\arrow_down.png" Click="ButtonDecreaseFontSize_Click" Size="Middle" fluent:KeyTip.Keys="FK"/>
+                <fluent:Button x:Name="ButtonIncreaseFontSize" Header="{x:Static resx:Resources.Ribbon_IncreaseFontSize}" Icon="{Binding Source={x:Static resx:Resources.ArrowUpIcon}, Converter={StaticResource ImageSourceConverter}}" Click="ButtonIncreaseFontSize_Click" Size="Middle" fluent:KeyTip.Keys="FG"/>
+                <fluent:Button x:Name="ButtonDecreaseFontSize" Header="{x:Static resx:Resources.Ribbon_DecreaseFontSize}" Icon="{Binding Source={x:Static resx:Resources.ArrowDownIcon}, Converter={StaticResource ImageSourceConverter}}" Click="ButtonDecreaseFontSize_Click" Size="Middle" fluent:KeyTip.Keys="FK"/>
             </fluent:RibbonGroupBox>
 
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.Ribbon_GroupBox_Tools}" fluent:KeyTip.Keys="ZT">
-                <fluent:ToggleButton x:Name="RulerToggleButton" Header="{x:Static resx:Resources.Ribbon_Ruler}" IsChecked="false" Click="RulerButtonChecked" LargeIcon="pack://application:,,,/Core.Plugins.CommonTools.Gui;component\Resources\ruler-3.png" ToolTip="Measure distances"  fluent:KeyTip.Keys="M"/>
+                <fluent:ToggleButton x:Name="RulerToggleButton" Header="{x:Static resx:Resources.Ribbon_Ruler}" IsChecked="false" Click="RulerButtonChecked" LargeIcon="{Binding Source={x:Static resx:Resources.RulerIcon}, Converter={StaticResource ImageSourceConverter}}" ToolTip="Measure distances"  fluent:KeyTip.Keys="M"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 

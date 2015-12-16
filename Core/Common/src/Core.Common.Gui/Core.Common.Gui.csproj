@@ -123,6 +123,7 @@
       <DependentUpon>MessageWindowDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RichTextFile.cs" />
+    <Compile Include="PngToIconConverter.cs" />
     <Compile Include="Theme\ColorTheme.cs" />
     <Compile Include="Theme\ColorThemeExtensions.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />

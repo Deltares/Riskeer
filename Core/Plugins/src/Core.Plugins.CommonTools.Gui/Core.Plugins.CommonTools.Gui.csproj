@@ -82,12 +82,6 @@
     </Compile>
     <Compile Include="Forms\Charting\ChartSeriesTreeNodePresenter.cs" />
     <Compile Include="Forms\Charting\ChartTreeNodePresenter.cs" />
-    <Compile Include="Forms\TextDocumentView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\TextDocumentView.Designer.cs">
-      <DependentUpon>TextDocumentView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -106,7 +100,6 @@
     <Compile Include="Property\Charting\PointChartSeriesProperties.cs" />
     <Compile Include="Property\Charting\PolygonChartSeriesProperties.cs" />
     <Compile Include="Property\ProjectProperties.cs" />
-    <Compile Include="Property\TextDocumentProperties.cs" />
     <Compile Include="Property\TreeFolderProperties.cs" />
     <Compile Include="Property\UrlProperties.cs" />
     <Compile Include="Ribbon.xaml.cs">
@@ -117,9 +110,6 @@
     <EmbeddedResource Include="Forms\Charting\ChartLegendView.resx">
       <DependentUpon>ChartLegendView.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TextDocumentView.resx">
-      <DependentUpon>TextDocumentView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
