@@ -844,14 +844,9 @@ namespace Core.Common.Gui
             mainWindow.ValidateItems();
         }
 
-        private static string GetViewName(IView view)
-        {
-            return (view.ViewInfo != null ? view.ViewInfo.GetViewName(view, view.Data) : null) ?? "";
-        }
-
         private void UpdateViewName(IView view)
         {
-            view.Text = GetViewName(view);
+            view.Text = DocumentViewsResolver.GetViewName(view);
             SetToolTipForView(view);
         }
 

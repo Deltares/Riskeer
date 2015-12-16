@@ -69,5 +69,7 @@ namespace Core.Common.Gui
         /// <param name="viewType">The viewType of the view info</param>
         /// <returns>The matching view infos for data and view type</returns>
         IEnumerable<ViewInfo> GetViewInfosFor(object data, Type viewType = null);
+
+        string GetViewName(IView view);
     }
 }

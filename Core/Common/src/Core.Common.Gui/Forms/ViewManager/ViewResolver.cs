@@ -133,7 +133,16 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             DoWithMatchingViews(data, viewList,
                                 v => viewList.Remove(v),
-                                (v, o) => v.ViewInfo != null && v.ViewInfo.CloseForData(v, o));
+                                (v, o) =>
+                                {
+                                    var viewInfo = GetViewInfoForView(v);
+                                    if (viewInfo != null)
+                                    {
+                                        return viewInfo.CloseForData(v, o);
+                                    }
+
+                                    return false;
+                                });
         }
 
         public Type GetDefaultViewType(object dataObject)
@@ -157,6 +166,17 @@ namespace Core.Common.Gui.Forms.ViewManager
             return viewType != null
                        ? infos.Where(vi => viewType.IsAssignableFrom(vi.ViewType))
                        : infos;
+        }
+
+        public string GetViewName(IView view)
+        {
+            var viewInfo = GetViewInfoForView(view);
+            if (viewInfo != null)
+            {
+                return viewInfo.GetViewName(view, view.Data);
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -213,7 +233,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                                        .FirstOrDefault(rv =>
                                                        !rv.Locked &&
                                                        IsDataForView(rv, viewData) &&
-                                                       viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
+                                                       viewInfo.ViewDataType == GetViewInfoForView(rv).ViewDataType);
 
             if (reusableView != null)
             {
