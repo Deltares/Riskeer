@@ -119,7 +119,6 @@ namespace Core.Plugins.CommonTools.Gui
 
                 Gui.DocumentViews.ActiveViewChanging += DocumentViewsActiveViewChanging;
                 Gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
-                Gui.DocumentViews.ChildViewChanged += DocumentViewsOnChildViewChanged;
                 Gui.DocumentViews.CollectionChanged += ViewsCollectionChanged;
             }
 
@@ -149,7 +148,6 @@ namespace Core.Plugins.CommonTools.Gui
 
                     Gui.DocumentViews.ActiveViewChanging -= DocumentViewsActiveViewChanging;
                     Gui.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
-                    Gui.DocumentViews.ChildViewChanged -= DocumentViewsOnChildViewChanged;
                     Gui.DocumentViews.CollectionChanged -= ViewsCollectionChanged;
                 }
             }
@@ -186,8 +184,6 @@ namespace Core.Plugins.CommonTools.Gui
 
         private void DocumentViewsActiveViewChanged()
         {
-            Subscribe();
-
             UpdateChartLegendView();
         }
 
@@ -198,8 +194,6 @@ namespace Core.Plugins.CommonTools.Gui
 
         private void DocumentViewsActiveViewChanging()
         {
-            Unsubscribe();
-
             UpdateChartLegendView();
         }
 
@@ -232,14 +226,6 @@ namespace Core.Plugins.CommonTools.Gui
             Gui.MainWindow.ValidateItems();
         }
 
-
-
-
-        private void DocumentViewsOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
-        {
-            DocumentViewsActiveViewChanged();
-        }
-
         private void UpdateChartLegendView()
         {
             if (ChartLegendView == null)
@@ -260,34 +246,6 @@ namespace Core.Plugins.CommonTools.Gui
             {
                 ChartLegendView.Data = null;
             }
-        }
-
-        private void Subscribe()
-        {
-            var compositeView = Gui.DocumentViews.ActiveView as ICompositeView;
-            if (compositeView != null)
-            {
-                compositeView.ChildViews.CollectionChanged += ChildViewsCollectionChanged;
-            }
-        }
-
-        private void Unsubscribe()
-        {
-            var compositeView = Gui.DocumentViews.ActiveView as ICompositeView;
-            if (compositeView != null)
-            {
-                compositeView.ChildViews.CollectionChanged -= ChildViewsCollectionChanged;
-            }
-        }
-
-        private void ChildViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (!(e.Item is ChartView))
-            {
-                return;
-            }
-
-            UpdateChartLegendView();
         }
     }
 }

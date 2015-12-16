@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Collections;
@@ -22,14 +21,10 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public event NotifyCollectionChangedEventHandler ChildViewChanged;
         private static readonly ILog Log = LogManager.GetLogger(typeof(ViewList));
         private readonly ViewLocation? defaultLocation;
         private readonly IDockingManager dockingManager;
         private readonly IList<IView> views;
-
-        private readonly IDictionary<IView, NotifyCollectionChangedEventHandler> childViewSubscribtionLookup =
-            new Dictionary<IView, NotifyCollectionChangedEventHandler>();
 
         private IView activeView;
         private bool clearing; // used to skip view activation when it is not necessary
@@ -135,8 +130,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             dockingManager.ViewActivated -= DockingManagerViewActivated;
 
             dockingManager.Dispose();
-
-            childViewSubscribtionLookup.Clear();
 
             Gui = null;
         }
@@ -267,17 +260,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                 {
                     yield return (T) view;
                 }
-
-                var compositeView = view as ICompositeView;
-                if (compositeView == null)
-                {
-                    continue;
-                }
-
-                foreach (var childView in FindViewsRecursive<T>(compositeView.ChildViews))
-                {
-                    yield return childView;
-                }
             }
         }
 
@@ -385,13 +367,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             FireCollectionChangedEvent(NotifyCollectionChangeAction.Remove, oldIndex, view);
 
-            var compositeView = view as ICompositeView;
-            if (compositeView != null)
-            {
-                compositeView.ChildViews.CollectionChanged -= childViewSubscribtionLookup[view];
-                childViewSubscribtionLookup.Remove(view);
-            }
-
             // remove from docking manager
             dockingManager.Remove(view, removeTabFromDockingManager);
 
@@ -401,23 +376,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         private static void ForceViewCleanup(IView view)
         {
             view.Data = null; // reset data for view
-
-            // deep clean-up
-            var compositeView = view as ICompositeView;
-            if (compositeView != null)
-            {
-                foreach (var childView in compositeView.ChildViews)
-                {
-                    if (childView == null)
-                    {
-                        Log.WarnFormat(Resources.ViewList_ForceViewCleanup_A_view_within_0_has_no_value, view);
-                    }
-                    else
-                    {
-                        ForceViewCleanup(childView);
-                    }
-                }
-            }
 
             if (!DoNotDisposeViewsOnRemove)
             {
@@ -472,14 +430,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        private void FireChildViewChangedEvent(NotifyCollectionChangingEventArgs args, IView view)
-        {
-            if (ChildViewChanged != null)
-            {
-                ChildViewChanged(this, new NotifyCollectionChangingEventArgs(args.Action, view, args.Index, -1));
-            }
-        }
-
         private void Insert(int index, IView view, ViewLocation viewLocation)
         {
             // activate view only if it is already added
@@ -499,13 +449,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             dockingManager.Add(view, viewLocation);
 
             FireCollectionChangedEvent(NotifyCollectionChangeAction.Add, index, view);
-
-            var compositeView = view as ICompositeView;
-            if (compositeView != null)
-            {
-                childViewSubscribtionLookup[view] = (sender, args) => FireChildViewChangedEvent(args, view);
-                compositeView.ChildViews.CollectionChanged += childViewSubscribtionLookup[view];
-            }
 
             ActiveView = view;
         }

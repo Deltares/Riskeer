@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Gui
@@ -32,11 +30,6 @@ namespace Core.Common.Gui
         /// Fired after active view has been changed.
         /// </summary>
         event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
-
-        /// <summary>
-        /// Fired when a childview is added to a view
-        /// </summary>
-        event NotifyCollectionChangedEventHandler ChildViewChanged;
 
         /// <summary>
         /// HACK: Hack to disable activation temporarily

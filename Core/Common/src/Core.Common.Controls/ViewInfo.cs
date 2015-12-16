@@ -22,11 +22,6 @@ namespace Core.Common.Controls
         public Type ViewType { get; set; }
 
         /// <summary>
-        /// Type of the composite view to which this view belongs
-        /// </summary>
-        public Type CompositeViewType { get; set; }
-
-        /// <summary>
         /// Description of the view (shown to the user when there is more then one view for an item) 
         /// </summary>
         public string Description { get; set; }
@@ -85,11 +80,6 @@ namespace Core.Common.Controls
         public Action<IView, object> OnActivateView { get; set; }
 
         /// <summary>
-        /// Gets the data for the composite view of which this is the child view info
-        /// </summary>
-        public Func<object, object> GetCompositeViewData { get; set; }
-
-        /// <summary>
         /// Override the default closing of the view constructed with this info
         /// <list type="number">
         ///     <item>View to close</item>
@@ -136,8 +126,6 @@ namespace Core.Common.Controls
             }
         }
 
-        public Type CompositeViewType { get; set; }
-
         public string Description { get; set; }
 
         public Func<TView, TViewData, string> GetViewName { get; set; }
@@ -152,8 +140,6 @@ namespace Core.Common.Controls
 
         public Action<TView, object> OnActivateView { get; set; }
 
-        public Func<TData, object> GetCompositeViewData { get; set; }
-
         public Func<TView, object, bool> CloseForData { get; set; }
 
         public static implicit operator ViewInfo(ViewInfo<TData, TViewData, TView> viewInfo)
@@ -163,12 +149,10 @@ namespace Core.Common.Controls
                 DataType = viewInfo.DataType,
                 ViewDataType = viewInfo.ViewDataType,
                 ViewType = viewInfo.ViewType,
-                CompositeViewType = viewInfo.CompositeViewType,
                 Description = viewInfo.Description,
                 Image = viewInfo.Image,
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
-                GetCompositeViewData = o => viewInfo.GetCompositeViewData != null ? viewInfo.GetCompositeViewData((TData) o) : null,
                 CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
                 AfterCreate = (v, o) =>
                 {

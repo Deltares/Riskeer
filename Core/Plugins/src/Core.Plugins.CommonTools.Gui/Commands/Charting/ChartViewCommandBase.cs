@@ -44,18 +44,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             {
                 return (T) view;
             }
-            var compositeView = view as ICompositeView;
-            if (compositeView != null)
-            {
-                foreach (var childView in compositeView.ChildViews)
-                {
-                    var childOfTypeT = GetViewRecursive<T>(childView);
-                    if (childOfTypeT != null)
-                    {
-                        return childOfTypeT;
-                    }
-                }
-            }
+
             return null;
         }
     }

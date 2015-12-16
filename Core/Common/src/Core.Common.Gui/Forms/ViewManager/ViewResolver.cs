@@ -61,9 +61,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                     return false;
                 }
 
-                // Filter on composite view infos
-                viewInfoList = FilterCompositeViewsForChildViews(viewInfoList).ToList();
-
                 if (!alwaysShowDialog)
                 {
                     if (viewInfoList.Count == 1)
@@ -135,16 +132,15 @@ namespace Core.Common.Gui.Forms.ViewManager
             return data != null && GetViewInfosFor(data, viewType).Any();
         }
 
-        public IList<IView> GetViewsForData(object data, bool includeChildViews = false)
+        public IList<IView> GetViewsForData(object data)
         {
-            return GetViewsForData(viewList.Where(v => !(v is IAdditionalView)), data, includeChildViews).ToList();
+            return GetViewsForData(viewList.Where(v => !(v is IAdditionalView)), data).ToList();
         }
 
         public void CloseAllViewsFor(object data)
         {
             DoWithMatchingViews(data, viewList,
                                 v => viewList.Remove(v),
-                                (compV, view) => compV.ChildViews.Remove(view),
                                 (v, o) => v.ViewInfo != null && v.ViewInfo.CloseForData(v, o));
         }
 
@@ -176,7 +172,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         /// </summary>
         internal static bool IsViewOpening { get; private set; }
 
-        private void DoWithMatchingViews(object data, IEnumerable<IView> views, Action<IView> viewAction, Action<ICompositeView, IView> compositeViewAction, Func<IView, object, bool> extraCheck = null)
+        private void DoWithMatchingViews(object data, IEnumerable<IView> views, Action<IView> viewAction, Func<IView, object, bool> extraCheck = null)
         {
             var viewsToCheck = views.ToList();
             foreach (var view in viewsToCheck)
@@ -185,23 +181,15 @@ namespace Core.Common.Gui.Forms.ViewManager
                 {
                     viewAction(view);
                 }
-
-                var compositeView = view as ICompositeView;
-                if (compositeView == null || compositeView.HandlesChildViews)
-                {
-                    continue;
-                }
-
-                DoWithMatchingViews(data, compositeView.ChildViews, v => compositeViewAction(compositeView, v), compositeViewAction);
             }
         }
 
-        private IEnumerable<IView> GetViewsForData(IEnumerable<IView> viewsToCheck, object data, bool includeChildViews = true)
+        private IEnumerable<IView> GetViewsForData(IEnumerable<IView> viewsToCheck, object data)
         {
             return data != null
-                       ? GetOpenViewsFor(viewsToCheck, data, includeChildViews, (v, vi) =>
-                                                                                !(v is IReusableView && !((IReusableView) v).Locked &&
-                                                                                  data.GetType().Implements(vi.DataType)))
+                       ? GetOpenViewsFor(viewsToCheck, data, (v, vi) =>
+                                                             !(v is IReusableView && !((IReusableView) v).Locked &&
+                                                               data.GetType().Implements(vi.DataType)))
                        : Enumerable.Empty<IView>();
         }
 
@@ -214,12 +202,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             return viewInfos.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
         }
 
-        private static IEnumerable<ViewInfo> FilterCompositeViewsForChildViews(IList<ViewInfo> viewInfoList)
-        {
-            var compositeViewTypes = viewInfoList.Select(vi => vi.CompositeViewType).Where(t => t != null).ToList();
-            return viewInfoList.Where(vi => !compositeViewTypes.Contains(vi.ViewType));
-        }
-
         private bool CreateViewFromViewInfo(object data, ViewInfo viewInfo)
         {
             var viewData = viewInfo.GetViewData(data);
@@ -228,104 +210,35 @@ namespace Core.Common.Gui.Forms.ViewManager
                             : GetOpenViewsFor(viewList, data).Concat(GetOpenViewsFor(viewList, viewData)))
                 .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
 
-            if (viewInfo.CompositeViewType == null)
+            if (view != null)
             {
-                if (view != null)
-                {
-                    viewInfo.OnActivateView(view, data);
-                    viewList.ActiveView = view;
-                    return true;
-                }
-
-                var reusableView = FindViewsRecursive<IReusableView>(viewList).FirstOrDefault(rv =>
-                                                                                              !rv.Locked &&
-                                                                                              IsDataForView(rv, viewData) &&
-                                                                                              viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
-
-                if (reusableView != null)
-                {
-                    // Set reusable view data
-                    reusableView.Data = viewData;
-                    viewInfo.AfterCreate(reusableView, data);
-                    viewInfo.OnActivateView(reusableView, data);
-                    viewList.ActiveView = reusableView;
-
-                    if (viewList.UpdateViewNameAction != null)
-                    {
-                        viewList.UpdateViewNameAction(reusableView);
-                    }
-                    return true;
-                }
-
-                viewList.Add(CreateViewForData(data, viewInfo));
+                viewInfo.OnActivateView(view, data);
+                viewList.ActiveView = view;
                 return true;
             }
 
-            var compositeView = GetCompositeView(data, viewInfo);
-            if (compositeView == null)
+            var reusableView = FindViewsRecursive<IReusableView>(viewList).FirstOrDefault(rv =>
+                                                                                          !rv.Locked &&
+                                                                                          IsDataForView(rv, viewData) &&
+                                                                                          viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
+
+            if (reusableView != null)
             {
-                return false;
-            }
+                // Set reusable view data
+                reusableView.Data = viewData;
+                viewInfo.AfterCreate(reusableView, data);
+                viewInfo.OnActivateView(reusableView, data);
+                viewList.ActiveView = reusableView;
 
-            viewList.ActiveView = compositeView;
-
-            var childView = GetChildView(data, viewInfo, view, compositeView);
-            if (childView == null)
-            {
-                return false;
-            }
-
-            compositeView.ActivateChildView(childView);
-            return true;
-        }
-
-        private IView GetChildView(object data, ViewInfo viewInfo, IView view, ICompositeView compositeView)
-        {
-            var childView = view ?? compositeView.ChildViews.FirstOrDefault(v => v.Data == data);
-
-            if (childView == null && !compositeView.HandlesChildViews)
-            {
-                // Add child view to composite view
-                childView = CreateViewForData(data, viewInfo);
-                compositeView.ChildViews.Add(childView);
-                if (!compositeView.HandlesChildViews && viewList.UpdateViewNameAction != null)
+                if (viewList.UpdateViewNameAction != null)
                 {
-                    viewList.UpdateViewNameAction(childView);
+                    viewList.UpdateViewNameAction(reusableView);
                 }
-            }
-            else
-            {
-                viewInfo.OnActivateView(childView, data);
-            }
-            return childView;
-        }
-
-        private ICompositeView GetCompositeView(object data, ViewInfo viewInfo)
-        {
-            var compositeViewInfo = ViewInfos.FirstOrDefault(vi => vi.ViewType == viewInfo.CompositeViewType);
-            if (compositeViewInfo == null)
-            {
-                return null;
+                return true;
             }
 
-            var compositeViewData = compositeViewInfo.GetViewData(viewInfo.GetCompositeViewData(data));
-            if (compositeViewData == null)
-            {
-                return null;
-            }
-
-            var compositeView = ((IEnumerable<ICompositeView>) TypeUtils.CallGenericMethod(GetType(), "FindViewsRecursive", viewInfo.CompositeViewType, this, viewList))
-                .FirstOrDefault(v => v.Data.Equals(compositeViewData) && (!v.HandlesChildViews || v.ChildViews.Any(cv => cv.Data == data)));
-
-            if (compositeView == null)
-            {
-                compositeView = (ICompositeView) CreateViewForData(compositeViewData, compositeViewInfo);
-                viewList.Add(compositeView);
-            }
-
-            compositeViewInfo.OnActivateView(compositeView, data);
-
-            return compositeView;
+            viewList.Add(CreateViewForData(data, viewInfo));
+            return true;
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
@@ -376,7 +289,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             return selectedViewInfo;
         }
 
-        private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data, bool includeChildViews = true, Func<IView, ViewInfo, bool> extraCheck = null)
+        private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data, Func<IView, ViewInfo, bool> extraCheck = null)
         {
             if (data == null)
             {
@@ -390,28 +303,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                 if (IsViewData(view, data) && (extraCheck == null || extraCheck(view, viewInfo)))
                 {
                     yield return view;
-                }
-
-                if (!includeChildViews)
-                {
-                    continue;
-                }
-
-                var compositeView = view as ICompositeView;
-                if (compositeView == null || compositeView.HandlesChildViews)
-                {
-                    continue;
-                }
-
-                var childViews = GetOpenViewsFor(compositeView.ChildViews, data).ToList();
-                if (!childViews.Any())
-                {
-                    continue;
-                }
-
-                foreach (var childView in childViews)
-                {
-                    yield return childView;
                 }
             }
         }
@@ -476,17 +367,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                 if (view is T)
                 {
                     yield return (T) view;
-                }
-
-                var compositeView = view as ICompositeView;
-                if (compositeView == null)
-                {
-                    continue;
-                }
-
-                foreach (var childView in FindViewsRecursive<T>(compositeView.ChildViews))
-                {
-                    yield return childView;
                 }
             }
         }

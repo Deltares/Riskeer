@@ -22,7 +22,7 @@ using Core.Plugins.SharpMapGis.Tools;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms
 {
-    public partial class MapView : UserControl, ICompositeView
+    public partial class MapView : UserControl, IView
     {
         private bool canAddPoint = true;
         private bool canDeleteItem = true;

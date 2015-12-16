@@ -47,9 +47,8 @@ namespace Core.Common.Gui
         /// Returns all currently opened views for the same data.
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="includeChildViews">Include child views of a composite view in the results</param>
         /// <returns></returns>
-        IList<IView> GetViewsForData(object data, bool includeChildViews = false);
+        IList<IView> GetViewsForData(object data);
 
         /// <summary>
         /// Closes all views for <paramref name="data"/>.

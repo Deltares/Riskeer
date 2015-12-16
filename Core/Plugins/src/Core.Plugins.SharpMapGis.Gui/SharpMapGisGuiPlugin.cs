@@ -141,7 +141,6 @@ namespace Core.Plugins.SharpMapGis.Gui
 
             gui.SelectionChanged += GuiSelectionChanged;
             gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
-            gui.DocumentViews.ChildViewChanged += DocumentViewsActiveViewChanged;
             gui.ProjectClosing += ApplicationProjectClosing;
         }
 
@@ -153,7 +152,6 @@ namespace Core.Plugins.SharpMapGis.Gui
                 var documentViews = gui.DocumentViews;
                 if (documentViews != null)
                 {
-                    documentViews.ChildViewChanged -= DocumentViewsActiveViewChanged;
                     documentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
                 }
                 gui.ProjectClosing -= ApplicationProjectClosing;

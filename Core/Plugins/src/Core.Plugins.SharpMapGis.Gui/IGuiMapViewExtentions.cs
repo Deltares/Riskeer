@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Plugins.SharpMapGis.Gui.Forms;
@@ -26,18 +25,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             if (mapView != null)
             {
                 yield return mapView;
-            }
-
-            var compositeView = view as ICompositeView;
-            if (compositeView != null)
-            {
-                foreach (var childView in compositeView.ChildViews)
-                {
-                    foreach (var compositeMapView in GetMapViews(childView))
-                    {
-                        yield return compositeMapView;
-                    }
-                }
             }
         }
     }

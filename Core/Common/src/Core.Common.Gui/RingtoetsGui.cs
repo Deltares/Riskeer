@@ -799,7 +799,6 @@ namespace Core.Common.Gui
             documentViewManager.ActiveViewChanging += ActiveViewChanging;
             documentViewManager.ActiveViewChanged += OnActiveViewChanged;
             documentViewManager.CollectionChanged += DocumentViewsCollectionChanged;
-            documentViewManager.ChildViewChanged += DocumentViewManagerOnChildViewChanged;
 
             documentViews = documentViewManager;
 
@@ -837,16 +836,6 @@ namespace Core.Common.Gui
         private void OnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
             if (e.View == null || mainWindow == null || mainWindow.IsWindowDisposed)
-            {
-                return;
-            }
-
-            mainWindow.ValidateItems();
-        }
-
-        private void DocumentViewManagerOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
-        {
-            if (isExiting)
             {
                 return;
             }

@@ -91,7 +91,6 @@
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\IAdditionalView.cs" />
-    <Compile Include="Views\ICompositeView.cs" />
     <Compile Include="Views\IReusableView.cs" />
     <Compile Include="Views\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

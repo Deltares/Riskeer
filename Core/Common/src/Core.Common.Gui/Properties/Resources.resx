@@ -247,9 +247,6 @@
   <data name="Ribbon_Command_Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
-  <data name="ViewList_ForceViewCleanup_A_view_within_0_has_no_value" xml:space="preserve">
-    <value>Onverwacht gedrag van het samengestelde documentvenster. Een documentvenster binnen het samengestelde documentvenster '{0}' heeft geen waarde.</value>
-  </data>
   <data name="RingtoetsGui_InitializeWindows_Creating_default_tool_windows" xml:space="preserve">
     <value>Standaardschermen aan het maken...</value>
   </data>
