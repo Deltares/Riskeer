@@ -57,7 +57,6 @@ namespace Core.Plugins.CommonTools.Gui
                 Gui.ToolWindowViews.Add(ChartLegendView, ViewLocation.Right | ViewLocation.Top);
                 Gui.ToolWindowViews.ActiveView = ChartLegendView;
                 UpdateChartLegendView();
-                Gui.DocumentViewsResolver.OpenViewForData(new Chart());
             }
         }
 
