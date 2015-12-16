@@ -119,9 +119,9 @@ namespace Core.Common.Gui.Forms.ViewManager
             return CreateViewForData(data, viewInfoList[0]);
         }
 
-        public bool CanOpenViewFor(object data, Type viewType = null)
+        public bool CanOpenViewFor(object data)
         {
-            return data != null && GetViewInfosFor(data, viewType).Any();
+            return data != null && GetViewInfosFor(data).Any();
         }
 
         public IList<IView> GetViewsForData(object data)
@@ -291,7 +291,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             foreach (var view in viewsToCheck)
             {
-                var viewInfo = GetViewInfoForView(data, view);
+                var viewInfo = GetViewInfoForView(view);
 
                 if (IsViewData(view, data) && (extraCheck == null || extraCheck(view, viewInfo)))
                 {
@@ -302,7 +302,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private bool IsViewData(IView view, object data)
         {
-            var viewInfo = GetViewInfoForView(data, view);
+            var viewInfo = GetViewInfoForView(view);
             return data.Equals(view.Data) || (IsDataForView(view, data) && Equals(viewInfo.GetViewData(data), view.Data));
         }
 
@@ -313,13 +313,13 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return false;
             }
 
-            var viewInfo = GetViewInfoForView(data, view);
+            var viewInfo = GetViewInfoForView(view);
             return viewInfo != null && data.GetType().Implements(viewInfo.DataType) && viewInfo.AdditionalDataCheck(data);
         }
 
-        private ViewInfo GetViewInfoForView(object data, IView view)
+        private ViewInfo GetViewInfoForView(IView view)
         {
-            return view.ViewInfo ?? (view.ViewInfo = GetViewInfosFor(data, view.GetType()).FirstOrDefault());
+            return viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
         }
 
         private void ClearDefaultView(object data)

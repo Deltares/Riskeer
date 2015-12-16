@@ -38,9 +38,8 @@ namespace Core.Common.Gui
         /// Check if a view can be created for the <paramref name="data"/> and <paramref name="viewType"/>
         /// </summary>
         /// <param name="data">The data to check for</param>
-        /// <param name="viewType">ViewType to use (if null then default will be used)</param>
         /// <returns></returns>
-        bool CanOpenViewFor(object data, Type viewType = null);
+        bool CanOpenViewFor(object data);
 
         /// <summary>
         /// Returns all currently opened views for the same data.
