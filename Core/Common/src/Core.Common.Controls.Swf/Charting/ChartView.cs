@@ -273,9 +273,9 @@ namespace Core.Common.Controls.Swf.Charting
             teeChart.Chart.Axes.Bottom.SetMinMax(min, max);
         }
 
-        public IChartViewTool GetTool<T>()
+        public T GetTool<T>() where T : IChartViewTool
         {
-            return tools.FirstOrDefault(t => t is T);
+            return (T) tools.FirstOrDefault(t => t is T);
         }
 
         /// <summary>

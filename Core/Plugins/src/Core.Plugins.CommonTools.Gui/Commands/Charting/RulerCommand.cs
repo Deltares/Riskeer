@@ -1,11 +1,8 @@
-﻿using Core.Common.Controls.Swf.Charting;
-using Core.Common.Controls.Swf.Charting.Tools;
-using Core.Common.Controls.Views;
-using Core.Common.Gui;
+﻿using Core.Common.Controls.Swf.Charting.Tools;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {
-    public class RulerCommand : GuiCommand
+    public class RulerCommand : ChartViewCommandBase
     {
         public override bool Checked
         {
@@ -19,7 +16,7 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
         {
             get
             {
-                return Gui != null && Gui.DocumentViews.ActiveView != null && RulerTool != null;
+                return View != null && RulerTool != null;
             }
         }
 
@@ -38,18 +35,8 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
         {
             get
             {
-                var chartView = GetChartViewWithRuler(Gui.DocumentViews.ActiveView);
-                return chartView == null ? null : chartView.GetTool<RulerTool>() as RulerTool;
+                return View != null ? View.GetTool<RulerTool>() : null;
             }
-        }
-
-        private ChartView GetChartViewWithRuler(IView view)
-        {
-            var chartView = view as ChartView;
-
-            return chartView == null ? null :
-                       chartView.GetTool<RulerTool>() == null ? null :
-                           chartView;
         }
     }
 }

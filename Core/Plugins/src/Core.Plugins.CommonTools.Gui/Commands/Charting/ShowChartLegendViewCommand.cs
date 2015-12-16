@@ -39,9 +39,8 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
 
             var view = commonToolsGuiPlugin.ChartLegendView;
-            var active = Gui.ToolWindowViews.Contains(view);
 
-            if (active)
+            if (Gui.ToolWindowViews.Contains(view))
             {
                 Gui.ToolWindowViews.Remove(view);
             }

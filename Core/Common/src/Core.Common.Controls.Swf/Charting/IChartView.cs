@@ -71,10 +71,10 @@ namespace Core.Common.Controls.Swf.Charting
         void ZoomToValues(double min, double max);
 
         /// <summary>
-        /// Gets the first tool of the right type (<typeparamref name="T"/>)
+        /// Attempts to find the first tool of type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">Type of tool to search for</typeparam>
-        IChartViewTool GetTool<T>();
+        T GetTool<T>() where T : IChartViewTool;
 
         /// <summary>
         /// Disables the deleting of points by SelectPointTool (&amp; delete key)
