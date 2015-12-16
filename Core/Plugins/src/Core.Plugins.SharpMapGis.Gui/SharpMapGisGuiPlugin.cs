@@ -10,6 +10,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Table;
 using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Utils;

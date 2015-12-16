@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Utils.Collections.Generic;
 
-namespace Core.Common.Controls
+namespace Core.Common.Controls.Views
 {
     /// <summary>
     /// General interface for graphical user interface views used in applications

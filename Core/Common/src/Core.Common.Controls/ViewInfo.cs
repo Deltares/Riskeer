@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using Core.Common.Controls.Views;
 
 namespace Core.Common.Controls
 {

@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Core.Common.Utils;
 
 namespace Core.Common.Controls.Swf

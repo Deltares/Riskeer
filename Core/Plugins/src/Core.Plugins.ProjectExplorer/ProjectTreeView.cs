@@ -5,6 +5,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Plugins.ProjectExplorer.NodePresenters;
 using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;

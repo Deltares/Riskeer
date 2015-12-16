@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections.Generic;
 using Xceed.Wpf.AvalonDock;

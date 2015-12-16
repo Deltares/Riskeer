@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Integration.Data.Contribution;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {

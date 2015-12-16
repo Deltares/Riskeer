@@ -12,6 +12,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;

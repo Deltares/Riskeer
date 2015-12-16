@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;

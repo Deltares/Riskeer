@@ -1,5 +1,6 @@
 ﻿using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms
 {

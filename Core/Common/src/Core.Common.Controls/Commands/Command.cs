@@ -1,4 +1,4 @@
-namespace Core.Common.Controls
+namespace Core.Common.Controls.Commands
 {
     /// <summary>
     /// Abstract class that can be derivied for defining the behaviour of (Ribbon) buttons and/or menu items.

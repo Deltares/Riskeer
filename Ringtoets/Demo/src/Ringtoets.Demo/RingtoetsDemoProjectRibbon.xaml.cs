@@ -2,6 +2,7 @@
 using System.Windows;
 
 using Core.Common.Controls;
+using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 
 using Ringtoets.Demo.Commands;

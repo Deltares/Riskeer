@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.Properties;
 using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Table.Validation;
+using Core.Common.Controls.Views;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Reflection;

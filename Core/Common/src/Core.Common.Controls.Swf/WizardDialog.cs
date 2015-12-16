@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.Views;
 using DevExpress.XtraWizard;
 
 namespace Core.Common.Controls.Swf

@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Charting;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting

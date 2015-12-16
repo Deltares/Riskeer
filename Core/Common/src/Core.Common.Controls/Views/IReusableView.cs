@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Common.Controls
+namespace Core.Common.Controls.Views
 {
     /// <summary>
     /// IReusable views are reused. When a view should be opened for an object supported by the view and the view

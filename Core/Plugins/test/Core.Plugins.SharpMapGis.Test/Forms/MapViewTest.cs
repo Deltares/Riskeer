@@ -2,6 +2,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Controls;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Collections.Generic;

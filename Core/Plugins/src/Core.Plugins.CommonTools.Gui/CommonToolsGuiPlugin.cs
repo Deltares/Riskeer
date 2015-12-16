@@ -9,6 +9,7 @@ using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Controls.Swf.Table;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Swf;
