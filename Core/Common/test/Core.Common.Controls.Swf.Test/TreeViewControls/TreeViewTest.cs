@@ -308,6 +308,21 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         [Test]
         public void DeletedNodeMovesSelectionToItsParentNode()
         {
+            var parent = new Parent
+            {
+                Name = "Parent"
+            };
+            var child = new Child
+            {
+                Name = "Child"
+            };
+            var grandchild = new Child
+            {
+                Name = "GrandChild"
+            };
+            parent.Children.Add(child);
+            child.Children.Add(grandchild);
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
@@ -316,26 +331,18 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
                 messageBox.ClickOk();
             };
 
+            int dataDeletedCallCount = 0;
             using (var treeView = new TreeView())
             {
+                treeView.DataDeleted += (sender, args) =>
+                {
+                    Assert.AreSame(treeView, sender);
+                    Assert.AreSame(grandchild, args.DeletedDataInstance);
+                    dataDeletedCallCount++;
+                };
                 treeView.RegisterNodePresenter(new ParentNodePresenter());
                 treeView.RegisterNodePresenter(new ChildNodePresenter());
             
-                var parent = new Parent()
-                {
-                    Name = "Parent"
-                };
-                var child = new Child()
-                {
-                    Name = "Child"
-                };
-                var grandchild = new Child()
-                {
-                    Name = "GrandChild"
-                };
-                parent.Children.Add(child);
-                child.Children.Add(grandchild);
-
                 treeView.Data = parent;
 
                 try
@@ -355,6 +362,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
                 {
                     WindowsFormsTestHelper.CloseAll();
                 }
+                Assert.AreEqual(1, dataDeletedCallCount);
             }
         }
 

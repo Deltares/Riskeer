@@ -35,6 +35,7 @@ namespace Core.Plugins.ProjectExplorer
             {
                 AllowDrop = true
             };
+            treeView.DataDeleted += ProjectDataDeleted;
 
             treeView.NodeMouseClick += TreeViewNodeMouseClick;
             treeView.DoubleClick += TreeViewDoubleClick;
@@ -229,6 +230,11 @@ namespace Core.Plugins.ProjectExplorer
                 gui.Selection = TreeView.SelectedNode.Tag;
             }
             gui.CommandHandler.OpenViewForSelection();
+        }
+
+        private void ProjectDataDeleted(object sender, TreeView.TreeViewDataDeletedEventArgs e)
+        {
+            gui.CommandHandler.RemoveAllViewsForItem(e.DeletedDataInstance);
         }
 
         ~ProjectTreeView()

@@ -1,16 +1,22 @@
 using System.Configuration;
-using Core.Common.Base;
+using System.Linq;
+
+using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
+using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
+using Core.Plugins.ProjectExplorer.NodePresenters;
+
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Plugins.ProjectExplorer.Test
 {
     [TestFixture]
-    public class ProjectTreeViewTest
+    public class ProjectTreeViewTest : NUnitFormTest
     {
-       [Test]
+        [Test]
         public void Init()
         {
             var mocks = new MockRepository();
@@ -34,6 +40,58 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             Assert.IsNotNull(projectTreeView);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void WhenRemovingNodeFromProjectTree_ThenCommandHandlerRemovesAllViewsForRemovedItems()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                StringAssert.StartsWith("Weet u zeker dat u het volgende item wilt verwijderen:", messageBox.Text);
+                Assert.AreEqual("Bevestigen", messageBox.Title);
+                messageBox.ClickOk();
+            };
+
+            object item = 1;
+
+            var project = new Project();
+            project.Items.Add(item);
+
+            var mocks = new MockRepository();
+            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+
+            var integerNodePresenter = mocks.Stub<ITreeNodePresenter>();
+            integerNodePresenter.Expect(np => np.CanRemove(project, item)).Return(true);
+            integerNodePresenter.Expect(np => np.RemoveNodeData(project, item)).Return(true);
+            integerNodePresenter.Stub(np => np.NodeTagType).Return(typeof(int));
+            integerNodePresenter.Stub(np => np.UpdateNode(null, null, null)).IgnoreArguments();
+            integerNodePresenter.Stub(np => np.GetChildNodeObjects(item)).Return(new object[0]);
+
+            var commandHandler = mocks.Stub<IGuiCommandHandler>();
+            commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
+
+            var gui = mocks.Stub<IGui>();
+            gui.CommandHandler = commandHandler;
+            mocks.ReplayAll();
+
+            var guiPlugin = new ProjectExplorerGuiPlugin
+            {
+                Gui = gui
+            };
+
+            var projectTree = new ProjectTreeView(guiPlugin);
+            projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, commandHandler));
+            projectTree.TreeView.RegisterNodePresenter(integerNodePresenter);
+            projectTree.Project = project;
+
+            // Call
+            projectTree.TreeView.SelectedNode = projectTree.TreeView.Nodes[0].Nodes.First();
+            projectTree.TreeView.TryDeleteSelectedNodeData();
+
+            // Assert
             mocks.VerifyAll();
         }
     }

@@ -83,5 +83,36 @@ namespace Ringtoets.Integration.Plugin.Test
             }
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GetChildDataWithViewDefinitions_AssessmentSectionBase_ReturnFailureMechanismContribution()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionBase = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var guiPlugin = new RingtoetsGuiPlugin();
+
+            // Call
+            var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(assessmentSectionBase);
+
+            // Assert
+            CollectionAssert.AreEqual(new[] { assessmentSectionBase.FailureMechanismContribution }, childrenWithViewDefinitions);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetChildDataWithViewDefinitions_UnsupportedData_ReturnEmpty()
+        {
+            // Setup
+            var guiPlugin = new RingtoetsGuiPlugin();
+
+            // Call
+            var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(1);
+
+            // Assert
+            CollectionAssert.IsEmpty(childrenWithViewDefinitions);
+        }
     }
 }

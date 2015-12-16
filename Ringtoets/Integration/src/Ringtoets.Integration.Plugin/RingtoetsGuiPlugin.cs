@@ -48,6 +48,15 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
+        public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
+        {
+            var assessmentSection = dataObject as AssessmentSectionBase;
+            if (assessmentSection != null)
+            {
+                yield return assessmentSection.FailureMechanismContribution;
+            }
+        }
+
         /// <summary>
         /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="RingtoetsGuiPlugin"/>.
         /// </summary>

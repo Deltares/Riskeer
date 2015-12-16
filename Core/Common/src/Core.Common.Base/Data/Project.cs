@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using Core.Common.Base.Properties;
 using Core.Common.Utils.Collections.Generic;
 
@@ -22,7 +24,7 @@ namespace Core.Common.Base.Data
             Name = name;
             Description = "";
 
-            Items = new EventedList<object>();
+            Items = new List<object>();
         }
 
         /// <summary>
@@ -38,6 +40,6 @@ namespace Core.Common.Base.Data
         /// <summary>
         /// Gets or sets the items of the <see cref="Project"/>.
         /// </summary>
-        public IEventedList<object> Items { get; private set; }
+        public IList<object> Items { get; private set; }
     }
 }

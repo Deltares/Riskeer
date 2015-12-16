@@ -12,7 +12,7 @@ using Rhino.Mocks;
 namespace Core.Plugins.ProjectExplorer.Test
 {
     [TestFixture]
-    public class ProjectExplorerPluginGuiTest
+    public class ProjectExplorerGuiPluginTest
     {
         private IGui gui;
         private MockRepository mocks;
@@ -66,12 +66,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             gui.ApplicationCore.AddPlugin(plugin);
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void RegisteringTreeNodeAddsToTreeView()
         {
@@ -79,6 +73,8 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var projectTreeView = projectExplorerPluginGui.ProjectExplorer.TreeView;
             Assert.IsTrue(projectTreeView.NodePresenters.Contains(mockNodePresenter));
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -95,6 +91,40 @@ namespace Core.Plugins.ProjectExplorer.Test
             //assert all is well again
             var projectTreeView = projectExplorerPluginGui.ProjectExplorer.TreeView;
             Assert.IsTrue(projectTreeView.NodePresenters.Contains(mockNodePresenter));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetChildDataWithViewDefinitions_DataIsProjectWithChildren_ReturnChildren()
+        {
+            // Setup
+            var project = new Project();
+            project.Items.Add(1);
+            project.Items.Add(2);
+            project.Items.Add(3);
+
+            var plugin = new ProjectExplorerGuiPlugin();
+
+            // Call
+            var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
+
+            // Assert
+            var expectedResult = project.Items;
+            CollectionAssert.AreEquivalent(expectedResult, childrenWithViewDefinitions);
+        }
+
+        [Test]
+        public void GetChildDataWithViewDefinitions_UnsupportedDataType_ReturnEmpty()
+        {
+            // Setup
+            var plugin = new ProjectExplorerGuiPlugin();
+
+            // Call
+            var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(2);
+
+            // Assert
+            CollectionAssert.IsEmpty(childrenWithViewDefinitions);
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
@@ -43,6 +42,18 @@ namespace Core.Plugins.ProjectExplorer
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new ProjectNodePresenter(Gui.ContextMenuProvider, Gui.CommandHandler);
+        }
+
+        public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
+        {
+            var project = dataObject as Project;
+            if (project != null)
+            {
+                foreach (var item in project.Items)
+                {
+                    yield return item;
+                }
+            }
         }
 
         public static ProjectExplorerGuiPlugin Instance { get; private set; }

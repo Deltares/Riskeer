@@ -16,7 +16,6 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
-using Core.Common.Utils.Collections;
 using log4net;
 using log4net.Appender;
 using MainWindow = Core.Common.Gui.Forms.MainWindow.MainWindow;
@@ -273,9 +272,11 @@ namespace Core.Common.Gui
             {
                 return;
             }
-
-            gui.DocumentViewsResolver.CloseAllViewsFor(dataObject);
-            RemoveViewsAndData(gui.ToolWindowViews.Where(v => v.Data == dataObject));
+            foreach (var data in gui.GetAllDataWithViewDefinitionsRecursively(dataObject))
+            {
+                gui.DocumentViewsResolver.CloseAllViewsFor(data);
+                RemoveViewsAndData(gui.ToolWindowViews.Where(v => v.Data == data).ToArray());
+            }
         }
 
         public void Dispose()
@@ -311,7 +312,6 @@ namespace Core.Common.Gui
             }
 
             project.Detach(this);
-            project.Items.CollectionChanged -= ProjectCollectionChanged;
         }
 
         private void ApplicationProjectOpened(Project project)
@@ -319,15 +319,6 @@ namespace Core.Common.Gui
             gui.Selection = project;
 
             project.Attach(this);
-            project.Items.CollectionChanged += ProjectCollectionChanged;
-        }
-
-        private void ProjectCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangeAction.Remove)
-            {
-                RemoveAllViewsForItem(e.Item);
-            }
         }
 
         private void AddProjectToMruList()

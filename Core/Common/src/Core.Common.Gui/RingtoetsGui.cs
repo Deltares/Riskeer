@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
@@ -24,6 +24,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Reflection;
 using Core.GIS.SharpMap.UI.Helpers;
+
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
@@ -212,7 +213,7 @@ namespace Core.Common.Gui
             }
             set
             {
-                mainWindow = (MainWindow) value;
+                mainWindow = (MainWindow)value;
                 mainWindow.Gui = this;
             }
         }
@@ -258,6 +259,24 @@ namespace Core.Common.Gui
         public IContextMenuBuilder Get(ITreeNode treeNode)
         {
             return new ContextMenuBuilder(CommandHandler, treeNode);
+        }
+
+        public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)
+        {
+            var resultSet = new HashSet<object>();
+            foreach (var childDataInstance in Plugins.SelectMany(p => p.GetChildDataWithViewDefinitions(rootDataObject)).Distinct())
+            {
+                resultSet.Add(childDataInstance);
+
+                if (!ReferenceEquals(rootDataObject, childDataInstance))
+                {
+                    foreach (var dataWithViewDefined in GetAllDataWithViewDefinitionsRecursively(childDataInstance))
+                    {
+                        resultSet.Add(dataWithViewDefined);
+                    }
+                }
+            }
+            return resultSet;
         }
 
         public void Dispose()
@@ -471,7 +490,7 @@ namespace Core.Common.Gui
             var propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
                                                                                 BindingFlags.Static |
                                                                                 BindingFlags.NonPublic);
-            var propertyCache = (Hashtable) propertyCacheInfo.GetValue(null);
+            var propertyCache = (Hashtable)propertyCacheInfo.GetValue(null);
             if (propertyCache != null)
             {
                 propertyCache.Clear();
@@ -586,7 +605,7 @@ namespace Core.Common.Gui
         private void ConfigureLogging()
         {
             // configure logging
-            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
 
             if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
             {
@@ -597,7 +616,7 @@ namespace Core.Common.Gui
 
         private void RemoveLogging()
         {
-            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
             var messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
             if (messageWindowLogAppender != null)
             {
@@ -912,8 +931,8 @@ namespace Core.Common.Gui
             StringCollection defaultViewDataTypes;
             if (UserSettings["defaultViews"] != null)
             {
-                defaultViews = (StringCollection) UserSettings["defaultViews"];
-                defaultViewDataTypes = (StringCollection) UserSettings["defaultViewDataTypes"];
+                defaultViews = (StringCollection)UserSettings["defaultViews"];
+                defaultViewDataTypes = (StringCollection)UserSettings["defaultViewDataTypes"];
             }
             else
             {

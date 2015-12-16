@@ -6,9 +6,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms.MainWindow;
@@ -131,6 +131,14 @@ namespace Core.Common.Gui
         /// <param name="type">Any type loaded from plugin.</param>
         /// <returns>Plugin gui associated with a given type</returns>
         GuiPlugin GetPluginGuiForType(Type type);
+
+        /// <summary>
+        /// Queries the plugins to get all data with view definitions recursively given a
+        /// piece of hierarchical data.
+        /// </summary>
+        /// <param name="rootDataObject">The root data object.</param>
+        /// <returns>An enumeration of all (child)data that have view definitions declared.</returns>
+        IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject);
 
         /// <summary>
         /// Runs gui. Internally it runs <see cref="ApplicationCore"/>, initializes all user interface components, including 

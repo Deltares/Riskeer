@@ -73,5 +73,10 @@ namespace Core.Common.Gui
         {
             Gui = null;
         }
+
+        public virtual IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
+        {
+            yield break;
+        }
     }
 }

@@ -24,6 +24,11 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         public event Action BeforeWaitUntilAllEventsAreProcessed;
 
+        /// <summary>
+        /// Occurs when a node with data has been deleted from the tree view.
+        /// </summary>
+        public event EventHandler<TreeViewDataDeletedEventArgs> DataDeleted;
+
         private const int TV_FIRST = 0x1100;
         private const int TVM_SETBKCOLOR = TV_FIRST + 29;
         private const int TVM_SETEXTENDEDSTYLE = TV_FIRST + 44;
@@ -336,7 +341,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         {
             var presenter = GetTreeViewNodePresenter(node.Tag, node);
             presenter.RemoveNodeData(node.Parent.Tag, node.Tag);
+
             SelectedNode = SelectedNode ?? Nodes.FirstOrDefault();
+            if (DataDeleted != null)
+            {
+                DataDeleted(this, new TreeViewDataDeletedEventArgs(node.Tag));
+            }
         }
 
         public override void Refresh()
@@ -1101,7 +1111,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
-        internal class NativeInterop
+        private static class NativeInterop
         {
             public const int WM_PRINTCLIENT = 0x0318;
             public const int PRF_CLIENT = 0x00000004;
@@ -1127,6 +1137,26 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
             [DllImport("user32.dll")]
             public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        }
+
+        /// <summary>
+        /// Event arguments to be used in the event that data has been deleted from a <see cref="TreeView"/>.
+        /// </summary>
+        public class TreeViewDataDeletedEventArgs : EventArgs
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="TreeViewDataDeletedEventArgs"/> class.
+            /// </summary>
+            /// <param name="deletedDataInstance">The deleted data instance.</param>
+            public TreeViewDataDeletedEventArgs(object deletedDataInstance)
+            {
+                DeletedDataInstance = deletedDataInstance;
+            }
+
+            /// <summary>
+            /// Gets the data instance deleted from the <see cref="TreeView"/>.
+            /// </summary>
+            public object DeletedDataInstance { get; private set; }
         }
     }
 }
