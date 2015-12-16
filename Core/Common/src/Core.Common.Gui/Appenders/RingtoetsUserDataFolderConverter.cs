@@ -11,6 +11,7 @@ namespace Core.Common.Gui.Appenders
     /// <summary>
     /// PatternConverter for 'Special' Folder 
     /// </summary>
+ 
     public class RingtoetsUserDataFolderConverter : PatternConverter // NOTE: Class might be marked as unused, but it's actually created in Application.Ringtoets/app.config!
     {
         protected override void Convert(TextWriter writer, object state)
@@ -26,12 +27,6 @@ namespace Core.Common.Gui.Appenders
         {
             var daysToKeepLogFiles = 30;
 
-            // HACK: don't keep log files for tests
-            if (settingsDirectory.ToLower().Contains("test"))
-            {
-                daysToKeepLogFiles = 0;
-            }
-
             var logFiles = Directory.GetFiles(settingsDirectory, "*.log");
             foreach (var logFile in logFiles)
             {
@@ -42,4 +37,5 @@ namespace Core.Common.Gui.Appenders
             }
         }
     }
+
 }
