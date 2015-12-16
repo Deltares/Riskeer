@@ -102,9 +102,7 @@
     <Compile Include="Reflection\TypeConverterTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
     <Compile Include="StringExtensionsTests.cs" />
-    <Compile Include="TestHelperTests.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="TestHelperTests.cs" />
     <Compile Include="TextDocumentTest.cs" />
     <Compile Include="UrlTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
