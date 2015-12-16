@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 using Core.Common.Base;
 using Core.Common.Base.Service;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -887,14 +886,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ValidDataWithCalculationOutput_ReturnContextWithItems()
         {
             // Setup
-            var node = mockRepository.Stub<ITreeNode>();
-            var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
-
-            mockRepository.ReplayAll();
-
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, node);
-
-            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
+            var parentData = new object();
 
             var group = new PipingCalculationGroup();
             group.Children.Add(new PipingCalculation
@@ -905,13 +897,36 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
 
+            var presenter = mockRepository.Stub<ITreeNodePresenter>();
+
+            var nodeParent = mockRepository.Stub<ITreeNode>();
+            nodeParent.Tag = parentData;
+
+            var node = mockRepository.Stub<ITreeNode>();
+            node.Tag = group;
+            node.Presenter = presenter;
+            node.Stub(n => n.Parent).Return(nodeParent);
+            node.Stub(n => n.Nodes).Return(new ITreeNode[0]);
+
+            presenter.Expect(p => p.CanRemove(parentData, group)).Return(true);
+
+            var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
+
+            mockRepository.ReplayAll();
+
+            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, node);
+
+            var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
+
+
+
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
             // Call
             ContextMenuStrip menu = nodePresenter.GetContextMenu(node, nodeData);
 
             // Assert
-            Assert.AreEqual(14, menu.Items.Count);
+            Assert.AreEqual(16, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
                                                           PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -935,33 +950,38 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                           RingtoetsFormsResources.ClearIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 7,
+                                                          CoreCommonGuiResources.Delete,
+                                                          CoreCommonGuiResources.Delete_ToolTip,
+                                                          CoreCommonGuiResources.DeleteIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
                                                           CoreCommonGuiResources.Import,
                                                           CoreCommonGuiResources.Import_ToolTip,
                                                           CoreCommonGuiResources.ImportIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
                                                           CoreCommonGuiResources.Export,
                                                           CoreCommonGuiResources.Export_ToolTip,
                                                           CoreCommonGuiResources.ExportIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
                                                           CoreCommonGuiResources.Expand_all,
                                                           CoreCommonGuiResources.Expand_all_ToolTip,
                                                           CoreCommonGuiResources.ExpandAllIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                           CoreCommonGuiResources.Collapse_all,
                                                           CoreCommonGuiResources.Collapse_all_ToolTip,
                                                           CoreCommonGuiResources.CollapseAllIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 15,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesIcon,
                                                           false);
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[9], menu.Items[12] }, typeof(ToolStripSeparator));
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[8], menu.Items[11], menu.Items[14] }, typeof(ToolStripSeparator));
 
             mockRepository.VerifyAll();
         }

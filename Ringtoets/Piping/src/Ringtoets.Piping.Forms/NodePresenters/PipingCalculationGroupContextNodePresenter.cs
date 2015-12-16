@@ -187,6 +187,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                              .AddCustomItem(calculateAllItem)
                                              .AddCustomItem(clearAllItem)
                                              .AddSeparator()
+                                             .AddDeleteItem()
+                                             .AddSeparator()
                                              .AddImportItem()
                                              .AddExportItem()
                                              .AddSeparator()
