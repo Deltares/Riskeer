@@ -121,47 +121,20 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\fullscreen.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\next.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\previous.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\eraser.png" />
     <None Include="Resources\Area.png" />
     <None Include="Resources\bars.png" />
-    <None Include="Resources\calculator.png" />
     <Resource Include="Resources\chart_curve.png" />
-    <None Include="Resources\control.png" />
-    <None Include="Resources\control-stop-square.png" />
-    <None Include="Resources\ff1.PNG" />
-    <None Include="Resources\folder.png" />
-    <Resource Include="Resources\function.png" />
-    <None Include="Resources\bullet_orange.png" />
-    <None Include="Resources\bullet_purple.png" />
-    <None Include="Resources\grid_2d.png" />
-    <None Include="Resources\grid_2d_ts.png" />
-    <None Include="Resources\generate_data.png" />
     <None Include="Resources\Line.png" />
     <None Include="Resources\Points.png" />
     <None Include="Resources\Polygon.png" />
-    <None Include="Resources\rw11.png" />
     <None Include="Resources\category.png" />
-    <None Include="Resources\function_timeseries.png" />
-    <None Include="Resources\function_timeseries_empty.png" />
     <Resource Include="Resources\arrow_down.png" />
     <Resource Include="Resources\arrow_up.png" />
     <Resource Include="Resources\image-export.png" />
-    <None Include="Resources\feature_coverage_with_time.png" />
-    <None Include="Resources\feature_coverage_with_time_empty.png" />
-    <None Include="Resources\function_coverage2.png" />
-    <None Include="Resources\function_coverage_empty.png" />
     <Resource Include="Resources\ruler-3.png" />
     <None Include="Resources\home.png" />
-    <Content Include="Resources\textdocument.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
