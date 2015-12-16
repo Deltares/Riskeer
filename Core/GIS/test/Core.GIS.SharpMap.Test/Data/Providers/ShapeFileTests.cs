@@ -12,7 +12,7 @@ namespace Core.GIS.SharpMap.Test.Data.Providers
         [Test]
         public void ContainsShouldWorkForShapeFile()
         {
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.CorePluginsSharpMapGisTests, "Europe_Lakes.shp");
+            var path = TestHelper.GetDataDir() + @"\Europe_Lakes.shp";
             var s = new ShapeFile(path);
             var feature = s.Features[0];
             s.Contains((IFeature) feature); // -> should not throw an exception
@@ -21,7 +21,7 @@ namespace Core.GIS.SharpMap.Test.Data.Providers
         [Test]
         public void GetFeatureShouldWorkForShapeFile()
         {
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.CorePluginsSharpMapGisTests, "Europe_Lakes.shp");
+            var path = TestHelper.GetDataDir() + @"\Europe_Lakes.shp";
             var s = new ShapeFile(path);
             var feature = s.Features[1];
             Assert.LessOrEqual(0, s.IndexOf((IFeature) feature));
@@ -30,7 +30,7 @@ namespace Core.GIS.SharpMap.Test.Data.Providers
         [Test]
         public void GetFeatureShouldWorkForShapeFileWithoutObjectID()
         {
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.CorePluginsSharpMapGisTests, "gemeenten.shp");
+            var path = TestHelper.GetDataDir() + @"\gemeenten.shp";
             var s = new ShapeFile(path);
             var feature = s.Features[0];
             Assert.LessOrEqual(0, s.IndexOf((IFeature) feature));
@@ -39,7 +39,7 @@ namespace Core.GIS.SharpMap.Test.Data.Providers
         [Test]
         public void FeatureCount()
         {
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.CorePluginsSharpMapGisTests, "Europe_Lakes.shp");
+            var path = TestHelper.GetDataDir() + @"\Europe_Lakes.shp";
             IFeatureProvider dataSource = new ShapeFile(path);
             Assert.AreEqual(37, dataSource.Features.Count);
         }
