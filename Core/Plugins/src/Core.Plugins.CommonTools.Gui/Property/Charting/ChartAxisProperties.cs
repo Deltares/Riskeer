@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Utils.Attributes;
@@ -112,92 +111,6 @@ namespace Core.Plugins.CommonTools.Gui.Property.Charting
         public override string ToString()
         {
             return Title;
-        }
-    }
-
-    public class ChartAxisDoubleProperties : ChartAxisProperties
-    {
-        public ChartAxisDoubleProperties(IChartAxis chartAxis) : base(chartAxis) {}
-
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "ChartAxisProperties_Maximum_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ChartAxisProperties_Maximum_Description")]
-        public double Maximum
-        {
-            get
-            {
-                return chartAxis.Maximum;
-            }
-            set
-            {
-                chartAxis.Maximum = value;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "ChartAxisProperties_Minimum_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ChartAxisProperties_Minimum_Description")]
-        public double Minimum
-        {
-            get
-            {
-                return chartAxis.Minimum;
-            }
-            set
-            {
-                chartAxis.Minimum = value;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "ChartAxisProperties_Logarithmic_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ChartAxisProperties_Logarithmic_Description")]
-        public bool Logaritmic
-        {
-            get
-            {
-                return chartAxis.Logaritmic;
-            }
-            set
-            {
-                chartAxis.Logaritmic = value;
-            }
-        }
-    }
-
-    public class ChartAxisDateTimeProperties : ChartAxisProperties
-    {
-        public ChartAxisDateTimeProperties(IChartAxis chartAxis)
-            : base(chartAxis) {}
-
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "ChartAxisProperties_Maximum_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ChartAxisProperties_Maximum_Description")]
-        public DateTime Maximum
-        {
-            get
-            {
-                return DateTime.FromOADate(chartAxis.Maximum);
-            }
-            set
-            {
-                chartAxis.Maximum = value.ToOADate();
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "ChartAxisProperties_Minimum_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ChartAxisProperties_Minimum_Description")]
-        public DateTime Minimum
-        {
-            get
-            {
-                return DateTime.FromOADate(chartAxis.Minimum);
-            }
-            set
-            {
-                chartAxis.Minimum = value.ToOADate();
-            }
         }
     }
 }

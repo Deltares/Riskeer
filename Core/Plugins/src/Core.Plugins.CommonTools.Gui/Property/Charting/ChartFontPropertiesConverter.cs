@@ -7,8 +7,7 @@ namespace Core.Plugins.CommonTools.Gui.Property.Charting
 {
     public class ChartFontPropertiesConverter : FontConverter
     {
-        private static readonly string[] AllowedProperties = new[]
-        {
+        private static readonly string[] AllowedProperties = {
             "Size",
             "Bold",
             "Italic",

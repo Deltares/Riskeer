@@ -67,7 +67,10 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Commands\Charting\ChartViewCommandBase.cs" />
+    <Compile Include="Commands\Charting\DecreaseFontSizeCommand.cs" />
     <Compile Include="Commands\Charting\ExportChartAsImageCommand.cs" />
+    <Compile Include="Commands\Charting\IncreaseFontSizeCommand.cs" />
     <Compile Include="Commands\Charting\RulerCommand.cs" />
     <Compile Include="Commands\Charting\ShowChartLegendViewCommand.cs" />
     <Compile Include="CommonToolsGuiPlugin.cs" />
@@ -93,6 +96,8 @@
     </Compile>
     <Compile Include="Property\Charting\AreaChartSeriesProperties.cs" />
     <Compile Include="Property\Charting\BarSeriesProperties.cs" />
+    <Compile Include="Property\Charting\ChartAxisDateTimeProperties.cs" />
+    <Compile Include="Property\Charting\ChartAxisDoubleProperties.cs" />
     <Compile Include="Property\Charting\ChartAxisProperties.cs" />
     <Compile Include="Property\Charting\ChartProperties.cs" />
     <Compile Include="Property\Charting\ChartSeriesProperties.cs" />
@@ -151,8 +156,6 @@
     <None Include="Resources\grid_2d_ts.png" />
     <None Include="Resources\generate_data.png" />
     <None Include="Resources\Line.png" />
-    <None Include="Resources\function_coverage.png" />
-    <None Include="Resources\function_coverage1.png" />
     <None Include="Resources\Points.png" />
     <None Include="Resources\Polygon.png" />
     <None Include="Resources\rw11.png" />

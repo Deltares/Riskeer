@@ -10,7 +10,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
     {
         private bool textModified;
         private bool settingContent;
-        private string characters = "";
         private TextDocument textDocument;
 
         public TextDocumentView()
@@ -78,7 +77,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
 
                 textDocument.Content = textBox.Text;
 
-                characters = "";
                 settingContent = false;
 
                 textModified = false;
@@ -104,7 +102,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
 
             textDocument.Content = textBox.Text;
 
-            characters = "";
             timer.Stop();
             settingContent = false;
 
@@ -116,17 +113,11 @@ namespace Core.Plugins.CommonTools.Gui.Forms
             if (ModifierKeys != Keys.Control)
             {
                 if (e.KeyChar == (char) Keys.Return)
-                {
-                    characters += "<ENT>";
-                }
+                {}
                 else if (e.KeyChar == '\b' || e.KeyChar == (char) Keys.Delete)
-                {
-                    characters += "<DEL>";
-                }
+                {}
                 else
-                {
-                    characters += e.KeyChar;
-                }
+                {}
             }
             OnKeyPress(e);
         }
@@ -136,18 +127,12 @@ namespace Core.Plugins.CommonTools.Gui.Forms
             if (ModifierKeys == Keys.Control)
             {
                 if (e.KeyCode == Keys.V)
-                {
-                    characters += "<PASTE>";
-                }
+                {}
                 if (e.KeyCode == Keys.X)
-                {
-                    characters += "<CUT>";
-                }
+                {}
             }
             else if (e.KeyCode == Keys.Delete)
-            {
-                characters += "<DEL>";
-            }
+            {}
             OnKeyUp(e);
         }
 
