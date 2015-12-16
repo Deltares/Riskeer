@@ -171,7 +171,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             public event EventHandler OnActivatedCalled;
             public event EventHandler OnDeactivatedCalled;
             public object Data { get; set; }
-            public string Text { get; set; }
 
             public bool Visible { get; private set; }
             public ViewInfo ViewInfo { get; set; }

@@ -275,7 +275,6 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
                 child2
             });
             treeview.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments();
-            treeview.Expect(tv => tv.Visible).IgnoreArguments().Return(false).Repeat.Any();
             treeview.Expect(tv => tv.BeginUpdate()).IgnoreArguments().Repeat.Any();
             treeview.Expect(tv => tv.Refresh()).IgnoreArguments().Repeat.Any();
 

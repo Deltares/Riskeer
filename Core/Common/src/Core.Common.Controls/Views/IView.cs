@@ -14,16 +14,8 @@ namespace Core.Common.Controls.Views
 
         /// <summary>
         /// Gets or sets the *caption/title* for the view
-        /// TODO: change it to Name
-        /// 
-        /// IGui implementation sets this.
         /// </summary>
         string Text { get; set; }
-
-        /// <summary>
-        /// True when view is visible.
-        /// </summary>
-        bool Visible { get; }
 
         ViewInfo ViewInfo { get; set; }
 
