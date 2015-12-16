@@ -21,10 +21,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Api.Layers;
 
 namespace Core.GIS.SharpMap.Layers

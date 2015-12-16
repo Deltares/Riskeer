@@ -7,6 +7,8 @@ using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections.Generic;
+using Core.GIS.SharpMap.Api.Collections;
+
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 

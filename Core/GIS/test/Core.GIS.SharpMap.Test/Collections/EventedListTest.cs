@@ -1,11 +1,14 @@
 using System.ComponentModel;
 using System.Linq;
+
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
+using Core.GIS.SharpMap.Api.Collections;
+
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test.Collections.Generic
+namespace Core.GIS.SharpMap.Test.Collections
 {
     [TestFixture]
     public class EventedListTest

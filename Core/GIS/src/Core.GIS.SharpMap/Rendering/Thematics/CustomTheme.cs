@@ -18,9 +18,9 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
+using Core.GIS.SharpMap.Api.Collections;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics
 {

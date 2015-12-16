@@ -1,5 +1,5 @@
-﻿using Core.Common.Utils.Collections.Generic;
-using Core.GIS.GeoAPI.Geometries;
+﻿using Core.GIS.GeoAPI.Geometries;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Converters.WellKnownText;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;

@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 
-namespace Core.Common.Utils.Collections.Generic
+using Core.Common.Utils;
+using Core.Common.Utils.Collections;
+using Core.Common.Utils.Collections.Generic;
+
+namespace Core.GIS.SharpMap.Api.Collections
 {
     /// <summary>
     /// A list that supports IEventedList so the outside world

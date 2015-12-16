@@ -12,7 +12,6 @@ using Core.Common.Controls.Swf.Table;
 using Core.Common.Controls.Swf.Table.Editors;
 using Core.Common.Controls.Swf.Test.Table.TestClasses;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
@@ -522,7 +521,7 @@ namespace Core.Common.Controls.Swf.Test.Table
             };
 
             // default items
-            var items = new EventedList<Item>
+            var items = new List<Item>
             {
                 new Item
                 {
@@ -573,7 +572,7 @@ namespace Core.Common.Controls.Swf.Test.Table
             };
 
             // default items
-            var items = new EventedList<Item>
+            var items = new List<Item>
             {
                 new Item
                 {
@@ -629,7 +628,7 @@ namespace Core.Common.Controls.Swf.Test.Table
             };
 
             // default items
-            var items = new EventedList<Item>
+            var items = new List<Item>
             {
                 new Item
                 {

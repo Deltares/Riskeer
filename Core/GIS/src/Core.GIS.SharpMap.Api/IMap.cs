@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Api.Delegates;
 using Core.GIS.SharpMap.Api.Layers;
 

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -680,10 +679,10 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         {
             public Parent()
             {
-                Children = new EventedList<Child>();
+                Children = new List<Child>();
             }
 
-            public IEventedList<Child> Children { get; set; }
+            public List<Child> Children { get; set; }
 
             public string Name { get; set; }
         }

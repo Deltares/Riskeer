@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;

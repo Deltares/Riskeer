@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Styles;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics

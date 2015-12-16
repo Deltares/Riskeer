@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Drawing;
 using System.IO;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Collections.Generic;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;

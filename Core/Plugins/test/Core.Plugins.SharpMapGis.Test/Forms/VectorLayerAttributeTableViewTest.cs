@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Core.Common.Utils;
-using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.ComponentModel;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
 using Core.Plugins.SharpMapGis.Gui.Forms;

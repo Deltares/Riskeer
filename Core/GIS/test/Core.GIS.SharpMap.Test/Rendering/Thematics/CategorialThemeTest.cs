@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Utils.Collections.Generic;
 using Core.GIS.SharpMap.Api;
+using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Rendering.Thematics;
 using Core.GIS.SharpMap.Styles;
 using NUnit.Framework;

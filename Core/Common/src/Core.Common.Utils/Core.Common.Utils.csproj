@@ -133,7 +133,6 @@
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
-    <Compile Include="Collections\Generic\EventedList.cs" />
     <Compile Include="Collections\Generic\IEventedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

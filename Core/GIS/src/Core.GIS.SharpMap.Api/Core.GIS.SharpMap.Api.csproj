@@ -47,9 +47,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\EventedList.cs" />
     <Compile Include="Delegates\AddRelatedFeature.cs" />
     <Compile Include="Editors\FallOffType.cs" />
     <Compile Include="Delegates\GetLabelMethod.cs" />

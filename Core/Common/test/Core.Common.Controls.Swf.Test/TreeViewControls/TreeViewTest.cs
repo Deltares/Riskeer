@@ -498,7 +498,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
         {
             public Child()
             {
-                Children = new EventedList<Child>();
+                Children = new List<Child>();
             }
 
             public string Name { get; set; }
