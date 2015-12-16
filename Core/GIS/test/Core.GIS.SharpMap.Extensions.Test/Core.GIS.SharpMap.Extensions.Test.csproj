@@ -152,9 +152,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.config" />
-    <EmbeddedResource Include="CoordinateSystems\Data\gcs.csv" />
-    <EmbeddedResource Include="CoordinateSystems\Data\pcs.csv" />
-    <None Include="CoordinateSystems\Data\esri_extra.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
