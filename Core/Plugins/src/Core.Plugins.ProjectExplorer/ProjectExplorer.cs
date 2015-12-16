@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
@@ -57,7 +56,6 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
 
         public new void Dispose()

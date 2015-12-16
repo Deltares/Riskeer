@@ -53,10 +53,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             if ((ProjectExplorer == null) || (ProjectExplorer.IsDisposed))
             {
-                ProjectExplorer = new ProjectExplorer(this)
-                {
-                    Image = Properties.Resources.Project
-                };
+                ProjectExplorer = new ProjectExplorer(this);
 
                 UpdateProjectTreeViewWithRegisteredNodePresenters();
 

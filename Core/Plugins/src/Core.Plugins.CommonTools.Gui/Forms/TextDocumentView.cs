@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Utils;
-using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms
 {
@@ -53,12 +51,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms
                     textBox.Text = "";
                 }
             }
-        }
-
-        public Image Image
-        {
-            get { return Resources.TextDocument; }
-            set {}
         }
 
         public ViewInfo ViewInfo { get; set; }

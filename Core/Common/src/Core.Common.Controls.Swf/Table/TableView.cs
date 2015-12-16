@@ -1125,10 +1125,6 @@ namespace Core.Common.Controls.Swf.Table
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Image Image { get; set; }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TableViewPasteController PasteController { get; set; }
 
         [Browsable(false)]

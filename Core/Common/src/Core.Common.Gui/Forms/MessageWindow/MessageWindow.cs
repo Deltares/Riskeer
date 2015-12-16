@@ -55,8 +55,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             ApplyFilter();
             messagesDataGridView.CellFormatting += MessagesDataGridViewCellFormatting;
 
-            Image = Resources.application_view_list;
-
             // fixes DPI problem
             messagesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             messagesDataGridView.RowsAdded += messagesDataGridView_RowsAdded;
@@ -264,8 +262,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             }
             set {}
         }
-
-        public Image Image { get; set; }
 
         public void EnsureVisible(object item) {}
         public ViewInfo ViewInfo { get; set; }

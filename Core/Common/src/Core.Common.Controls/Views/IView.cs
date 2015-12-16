@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 
 namespace Core.Common.Controls.Views
 {
@@ -20,11 +19,6 @@ namespace Core.Common.Controls.Views
         /// IGui implementation sets this.
         /// </summary>
         string Text { get; set; }
-
-        /// <summary>
-        /// Sets or gets image set on the title of the view.
-        /// </summary>
-        Image Image { get; set; }
 
         /// <summary>
         /// True when view is visible.

@@ -89,6 +89,7 @@ namespace Core.Plugins.CommonTools.Gui
 
             yield return new ViewInfo<TextDocument, TextDocumentView>
             {
+                Image = Resources.TextDocument,
                 Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""
             };
             yield return new ViewInfo<Url, HtmlPageView>

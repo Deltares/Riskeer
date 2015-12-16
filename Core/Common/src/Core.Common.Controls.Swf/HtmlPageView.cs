@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Utils;
@@ -38,8 +37,6 @@ namespace Core.Common.Controls.Swf
         }
 
         public override string Text { get; set; }
-
-        public Image Image { get; set; }
 
         public ViewInfo ViewInfo { get; set; }
 

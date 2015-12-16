@@ -35,7 +35,6 @@ namespace Core.Common.Gui.Swf.Validation
         }
 
         public IGui Gui { get; set; }
-        public Image Image { get; set; }
 
         public object Data
         {
@@ -75,7 +74,6 @@ namespace Core.Common.Gui.Swf.Validation
             if (!validationReport.Equals(oldValidationReport)) //only set if changed
             {
                 validationReportControl.Data = validationReport;
-                Image = ValidationReportControl.GetImageForSeverity(false, validationReport.Severity);
             }
 
             stopwatch.Stop();

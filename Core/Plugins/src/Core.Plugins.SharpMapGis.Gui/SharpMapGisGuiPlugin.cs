@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Table;
@@ -29,8 +28,8 @@ using Core.Plugins.SharpMapGis.Gui.Forms;
 using Core.Plugins.SharpMapGis.Gui.Forms.GridProperties;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using Core.Plugins.SharpMapGis.Gui.NodePresenters;
+using Core.Plugins.SharpMapGis.Gui.Properties;
 using PropertyInfo = Core.Common.Gui.PropertyInfo;
-using TreeNode = System.Windows.Forms.TreeNode;
 
 namespace Core.Plugins.SharpMapGis.Gui
 {
@@ -249,6 +248,7 @@ namespace Core.Plugins.SharpMapGis.Gui
         {
             yield return new ViewInfo<Map, MapView>
             {
+                Image = Resources.Map,
                 Description = "Map",
                 AfterCreate = (view, map) => view.Owner = gui.MainWindow
             };

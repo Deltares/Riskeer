@@ -125,10 +125,6 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Image Image { get; set; }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable<ITreeNode> AllLoadedNodes
         {
             get

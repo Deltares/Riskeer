@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Customized;
 using Core.Common.Controls.Swf.Charting.Tools;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 
 using Steema.TeeChart;
@@ -216,11 +215,6 @@ namespace Core.Common.Controls.Swf.Charting
                 return new ChartCoordinateService(chart);
             }
         }
-
-        /// <summary>
-        /// The icon of the view used as identifier for a ChartView.
-        /// </summary>
-        public Image Image { get; set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

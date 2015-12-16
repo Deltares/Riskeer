@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
@@ -118,15 +117,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     SelectedObject = value;
                 }
             }
-        }
-
-        public Image Image
-        {
-            get
-            {
-                return Resources.PropertiesHS;
-            }
-            set {}
         }
 
         public void EnsureVisible(object item) {}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
@@ -19,7 +18,6 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;
 using Core.GIS.SharpMap.UI.Tools;
-using Core.Plugins.SharpMapGis.Gui.Properties;
 using Core.Plugins.SharpMapGis.Tools;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms
@@ -305,15 +303,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 Map = (Map) value;
             }
-        }
-
-        public Image Image
-        {
-            get
-            {
-                return Resources.Map;
-            }
-            set {}
         }
 
         public IEventedList<IView> ChildViews

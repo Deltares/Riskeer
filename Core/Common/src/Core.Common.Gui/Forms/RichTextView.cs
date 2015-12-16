@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Controls;
@@ -36,8 +35,6 @@ namespace Core.Common.Gui.Forms
                 }
             }
         }
-
-        public Image Image { get; set; }
 
         public void EnsureVisible(object item) {}
 

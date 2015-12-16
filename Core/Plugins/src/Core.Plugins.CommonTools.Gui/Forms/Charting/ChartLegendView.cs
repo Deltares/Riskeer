@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
@@ -49,7 +48,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             }
         }
 
-        public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
 
         public void EnsureVisible(object item) {}

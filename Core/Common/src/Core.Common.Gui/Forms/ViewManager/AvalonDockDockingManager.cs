@@ -12,7 +12,6 @@ using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
@@ -653,7 +652,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             var reusable = view as IReusableView;
             var isLocked = reusable != null && reusable.Locked;
-            return BitmapImageFromBitmap(isLocked ? LockImage : view.Image);
+            return BitmapImageFromBitmap(isLocked ? LockImage : view.ViewInfo.Image);
         }
 
         private LayoutContent GetLayoutContent(IView view)

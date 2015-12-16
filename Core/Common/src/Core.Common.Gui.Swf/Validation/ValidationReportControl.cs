@@ -71,8 +71,6 @@ namespace Core.Common.Gui.Swf.Validation
             }
         }
 
-        public Image Image { get; set; }
-
         public ViewInfo ViewInfo { get; set; }
 
         public static Image GetImageForSeverity(bool isCategory, ValidationSeverity severity)

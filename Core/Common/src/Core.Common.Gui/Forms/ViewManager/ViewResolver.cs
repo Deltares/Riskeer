@@ -333,7 +333,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             var view = (IView) Activator.CreateInstance(viewInfo.ViewType);
 
             view.Data = viewInfo.GetViewData(data);
-            view.Image = viewInfo.Image;
             view.ViewInfo = viewInfo;
 
             viewInfo.AfterCreate(view, data);

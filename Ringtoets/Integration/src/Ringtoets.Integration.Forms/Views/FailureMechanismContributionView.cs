@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -41,7 +40,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
         public void EnsureVisible(object item) { }
 

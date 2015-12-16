@@ -49,8 +49,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             TreeView.NodeMouseClick += TreeViewNodeMouseClick;
             TreeView.DoubleClick += TreeViewDoubleClick;
             UpdateButtonsVisibility();
-
-            Image = Resources.Map;
         }
 
         public Map Map
@@ -92,8 +90,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 SetMap(value);
             }
         }
-
-        public Image Image { get; set; }
 
         public ViewInfo ViewInfo { get; set; }
 

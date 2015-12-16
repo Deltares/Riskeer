@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
@@ -173,7 +172,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             public event EventHandler OnDeactivatedCalled;
             public object Data { get; set; }
             public string Text { get; set; }
-            public Image Image { get; set; }
 
             public bool Visible { get; private set; }
             public ViewInfo ViewInfo { get; set; }

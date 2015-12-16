@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Views;
@@ -22,9 +21,8 @@ namespace Core.Common.Test.Gui
 
         public object Data { get; set; }
 
-        public Image Image { get; set; }
-
         public void EnsureVisible(object item) {}
+
         public ViewInfo ViewInfo { get; set; }
 
         #endregion
