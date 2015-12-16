@@ -64,6 +64,7 @@
     <Compile Include="IFeatureProvider.cs" />
     <Compile Include="Editors\IFeatureRelationInteractor.cs" />
     <Compile Include="IFeatureRenderer.cs" />
+    <Compile Include="INotifyPropertyChange.cs" />
     <Compile Include="Layers\IGroupLayer.cs" />
     <Compile Include="Layers\ILabelLayer.cs" />
     <Compile Include="Layers\ILabelStyle.cs" />

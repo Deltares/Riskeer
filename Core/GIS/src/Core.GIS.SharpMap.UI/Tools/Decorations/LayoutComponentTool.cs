@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils;
 using Core.GIS.GeoAPI.Geometries;
+using Core.GIS.SharpMap.Api;
 
 namespace Core.GIS.SharpMap.UI.Tools.Decorations
 {

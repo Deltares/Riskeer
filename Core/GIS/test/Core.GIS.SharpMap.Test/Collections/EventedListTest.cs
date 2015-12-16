@@ -2,8 +2,8 @@ using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.TestUtil;
-using Core.Common.Utils;
 using Core.Common.Utils.Collections;
+using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Api.Collections;
 
 using NUnit.Framework;

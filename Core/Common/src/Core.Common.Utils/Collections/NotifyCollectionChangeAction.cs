@@ -8,6 +8,6 @@
         Add,
         Remove,
         Replace,
-        Reset // HACK, TODO: remove this, used only in filtered Functions, move to a separate event in filtered function
+        Reset
     }
 }

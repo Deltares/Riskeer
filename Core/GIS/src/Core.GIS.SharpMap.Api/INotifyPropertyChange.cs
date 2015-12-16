@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Core.Common.Utils
+namespace Core.GIS.SharpMap.Api
 {
     public interface INotifyPropertyChange : INotifyPropertyChanged, INotifyPropertyChanging
     {

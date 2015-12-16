@@ -270,15 +270,8 @@ namespace Core.Common.Utils.Test.PropertyBag
             public string PropTwo { get; set; }
         }
 
-        private class TestProperties : INotifyPropertyChange
+        private class TestProperties
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-// Required by interface, but not used (yet)
-#pragma warning disable 67
-            public event PropertyChangingEventHandler PropertyChanging;
-#pragma warning restore 67
-            private bool isNameReadOnly;
-
             public TestProperties()
             {
                 Name = "my name";
@@ -295,22 +288,7 @@ namespace Core.Common.Utils.Test.PropertyBag
             [CategoryComponentModelAttribute("General")]
             public string Name { get; set; }
 
-            public bool IsNameReadOnly
-            {
-                get
-                {
-                    return isNameReadOnly;
-                }
-                set
-                {
-                    isNameReadOnly = value;
-
-                    if (PropertyChanged != null)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs("IsNameReadOnly"));
-                    }
-                }
-            }
+            public bool IsNameReadOnly { get; set; }
 
             public bool Visible { get; set; }
 
