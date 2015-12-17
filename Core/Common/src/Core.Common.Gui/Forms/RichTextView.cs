@@ -36,8 +36,6 @@ namespace Core.Common.Gui.Forms
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         #endregion
     }
 }

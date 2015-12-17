@@ -48,8 +48,6 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
         {
             if (guiPlugin == null || guiPlugin.Gui == null)

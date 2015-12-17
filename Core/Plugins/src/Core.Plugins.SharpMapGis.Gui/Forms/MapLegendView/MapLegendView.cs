@@ -91,8 +91,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         public ContextMenuStrip GetContextMenu(object nodeTag)
         {
             if (nodeTag is Layer)

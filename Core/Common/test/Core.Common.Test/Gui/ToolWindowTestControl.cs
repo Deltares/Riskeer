@@ -21,8 +21,6 @@ namespace Core.Common.Test.Gui
 
         public object Data { get; set; }
 
-        public ViewInfo ViewInfo { get; set; }
-
         #endregion
     }
 }

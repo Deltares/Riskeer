@@ -1259,8 +1259,6 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         #endregion
 
         #region Public functions

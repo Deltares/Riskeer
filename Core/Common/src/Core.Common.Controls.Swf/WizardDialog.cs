@@ -36,8 +36,6 @@ namespace Core.Common.Controls.Swf
 
         public virtual object Data { get; set; }
 
-        public ViewInfo ViewInfo { get; set; }
-
         public IEnumerable<IComponent> Pages
         {
             get

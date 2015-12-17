@@ -40,8 +40,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         public void UpdateObserver()
         {
             SetNormText();

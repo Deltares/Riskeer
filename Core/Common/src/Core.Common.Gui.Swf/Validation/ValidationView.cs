@@ -54,8 +54,6 @@ namespace Core.Common.Gui.Swf.Validation
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         private bool RefreshReport()
         {
             if (Data == null || OnValidate == null)

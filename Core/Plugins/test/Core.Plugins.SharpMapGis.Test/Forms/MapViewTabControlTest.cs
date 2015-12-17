@@ -172,7 +172,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             public event EventHandler OnDeactivatedCalled;
             public object Data { get; set; }
 
-            public ViewInfo ViewInfo { get; set; }
             public IEnumerable<IFeature> SelectedFeatures { get; set; }
             public ILayer Layer { set; get; }
 

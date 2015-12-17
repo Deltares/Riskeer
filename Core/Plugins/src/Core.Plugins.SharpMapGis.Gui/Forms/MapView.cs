@@ -287,8 +287,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         /// <summary>
         /// Expects a Map
         /// </summary>

@@ -12,8 +12,6 @@ namespace Core.Common.Test.TestObjects
         }
 
         public object Data { get; set; }
-
-        public ViewInfo ViewInfo { get; set; }
     }
 
     public class TestViewDerivative : TestView

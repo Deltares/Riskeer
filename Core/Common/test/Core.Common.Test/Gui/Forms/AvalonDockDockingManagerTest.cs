@@ -18,10 +18,7 @@ namespace Core.Common.Test.Gui.Forms
         {
             var mocks = new MockRepository();
             var dockManager = mocks.Stub<DockingManager>();
-            var view = new TestView
-            {
-                ViewInfo = new ViewInfo()
-            };
+            var view = new TestView();
 
             var dock = new AvalonDockDockingManager(dockManager, new[]
             {
@@ -40,14 +37,8 @@ namespace Core.Common.Test.Gui.Forms
         [Test]
         public void SwitchingTabCausesOldTabsActiveControlToLoseFocusTools9109()
         {
-            var view = new TestView
-            {
-                ViewInfo = new ViewInfo()
-            };
-            var view2 = new TestView
-            {
-                ViewInfo = new ViewInfo()
-            };
+            var view = new TestView();
+            var view2 = new TestView();
 
             // create an avalon dock/tab with two views
             var dock = new AvalonDockDockingManager(new DockingManager(), new[]

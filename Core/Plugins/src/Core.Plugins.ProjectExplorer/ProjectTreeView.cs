@@ -109,8 +109,6 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-        
         public new void Dispose()
         {
             if (gui != null)

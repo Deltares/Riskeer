@@ -129,8 +129,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             return gui != null ? gui.PropertyResolver.GetObjectProperties(sourceData) : null;
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         #endregion
 
         #region Tab key navigation

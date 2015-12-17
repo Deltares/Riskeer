@@ -127,8 +127,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         public ILayer Layer { set; get; }
 
         /// <summary>

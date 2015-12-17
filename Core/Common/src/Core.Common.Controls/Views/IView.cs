@@ -16,7 +16,5 @@ namespace Core.Common.Controls.Views
         /// Gets or sets the *caption/title* for the view
         /// </summary>
         string Text { get; set; }
-
-        ViewInfo ViewInfo { get; set; }
     }
 }

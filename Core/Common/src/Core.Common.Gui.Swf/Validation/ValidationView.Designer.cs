@@ -70,7 +70,6 @@
             this.validationReportControl.Data = null;
             resources.ApplyResources(this.validationReportControl, "validationReportControl");
             this.validationReportControl.Name = "validationReportControl";
-            this.validationReportControl.ViewInfo = null;
             // 
             // ValidationView
             // 

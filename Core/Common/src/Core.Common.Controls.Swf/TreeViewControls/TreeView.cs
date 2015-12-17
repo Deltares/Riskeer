@@ -181,10 +181,6 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ViewInfo ViewInfo { get; set; }
-
         public bool CanDelete(ITreeNode node)
         {
             return controller.CanDeleteNode(node);

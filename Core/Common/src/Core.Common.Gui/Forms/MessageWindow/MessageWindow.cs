@@ -263,8 +263,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             set {}
         }
 
-        public ViewInfo ViewInfo { get; set; }
-
         #endregion
 
         #region IMessageWindow Members

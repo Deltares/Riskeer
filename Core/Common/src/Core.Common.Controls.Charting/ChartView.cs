@@ -250,10 +250,6 @@ namespace Core.Common.Controls.Charting
             }
         }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ViewInfo ViewInfo { get; set; }
-
         /// <summary>
         /// Gives the range of the bottom axis (assuming the axis is a of type DateTime)
         /// </summary>
