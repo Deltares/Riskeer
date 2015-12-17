@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Core.Common.Controls.Swf.Charting;
+using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Test.TestObjects;
 using Core.Plugins.CommonTools.Gui.Commands.Charting;
