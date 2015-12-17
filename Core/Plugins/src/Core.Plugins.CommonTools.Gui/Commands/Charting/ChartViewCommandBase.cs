@@ -31,12 +31,12 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
         /// Gets the currently active view if it is a <see cref="ChartView"/> and
         /// <c>null</c> otherwise.
         /// </summary>
-        protected ChartView View
+        protected IChartView View
         {
             get
             {
                 return Gui != null
-                           ? Gui.DocumentViews.ActiveView as ChartView
+                           ? Gui.DocumentViews.ActiveView as IChartView
                            : null;
             }
         }

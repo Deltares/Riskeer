@@ -181,7 +181,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Commands.Charting
                 return base.GetChangedFontSize(font, points);
             }
 
-            public ChartView GetView()
+            public IChartView GetView()
             {
                 return View;
             }

@@ -77,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Charting\ChartViewCommandBaseTest.cs" />
+    <Compile Include="Commands\Charting\DecreaseFontSizeCommandTest.cs" />
+    <Compile Include="Commands\Charting\ExportChartAsImageCommandTest.cs" />
+    <Compile Include="Commands\Charting\IncreaseFontSizeCommandTest.cs" />
     <Compile Include="Forms\Charting\ChartTreeNodePresenterTest.cs" />
     <Compile Include="TestViewList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
