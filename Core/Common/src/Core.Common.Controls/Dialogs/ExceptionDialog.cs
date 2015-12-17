@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Controls.Properties;
 
@@ -32,7 +30,7 @@ namespace Core.Common.Controls.Dialogs
             InitializeComponent();
 
             buttonOpenLog.Visible = false;
-            exceptionTextBox.Text = GetExceptionText(exception);
+            exceptionTextBox.Text = exception == null ? "" : exception.ToString();
         }
 
         /// <summary>
@@ -80,31 +78,6 @@ namespace Core.Common.Controls.Dialogs
         private void ButtonOpenLogClick(object sender, EventArgs e)
         {
             OpenLogClicked();
-        }
-
-        private string GetExceptionText(Exception exception)
-        {
-            if (exception == null)
-            {
-                return "";
-            }
-
-            var str = exception.ToString();
-
-            if (exception.InnerException != null)
-            {
-                str += string.Format(Resources.ExceptionDialog_GetExceptionText_Inner_exceptions_0_,
-                                     exception.InnerException);
-            }
-
-            var reflectionTypeLoadException = exception as ReflectionTypeLoadException;
-            if (reflectionTypeLoadException != null)
-            {
-                str += Resources.ExceptionDialog_GetExceptionText_Loader_exceptions;
-                str = reflectionTypeLoadException.LoaderExceptions.Aggregate(str, (current, ex) => current + (ex + Environment.NewLine));
-            }
-
-            return str;
         }
     }
 }

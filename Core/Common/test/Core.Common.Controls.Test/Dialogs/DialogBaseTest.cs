@@ -15,13 +15,12 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var mocks = new MockRepository();
-            var owner = mocks.Stub<IWin32Window>();
             var icon = mocks.Stub<Icon>();
 
             mocks.ReplayAll();
 
             // Call
-            var dialog = new TestDialog(owner, icon, 1, 2);
+            var dialog = new TestDialog(null, icon, 1, 2);
 
             // Assert
             Assert.AreEqual(icon, dialog.Icon);
@@ -41,9 +40,6 @@ namespace Core.Common.Controls.Test.Dialogs
         public void ShowDialog_TestDialog_CancelButtonSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var owner = new UserControl { Name = "Fixme" };
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new FormTester(name);
@@ -51,9 +47,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            mocks.ReplayAll();
-
-            var dialog = new TestDialog(owner, null, 1, 2);
+            var dialog = new TestDialog(null, null, 1, 2);
 
             // Call
             dialog.ShowDialog();
