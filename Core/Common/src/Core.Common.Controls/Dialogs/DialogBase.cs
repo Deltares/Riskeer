@@ -24,7 +24,10 @@ namespace Core.Common.Controls.Dialogs
     /// <description>the minimum width and minimum height are always set during creation time;</description>
     /// </item>
     /// <item>
-    /// <description>the owning form is always set during creation time.</description>
+    /// <description>the owning form is always provided when showing the dialog (see <see cref="ShowDialog"/>);</description>
+    /// </item>
+    /// <item>
+    /// <description>the dialog can be closed using the <c>ESC</c> key on the keyboard (see <see cref="GetCancelButton"/>).</description>
     /// </item>
     /// </list>
     /// </summary>
@@ -52,7 +55,7 @@ namespace Core.Common.Controls.Dialogs
 
         /// <summary>
         /// This method provides a new implementation of <see cref="Form.ShowDialog()"/>.
-        /// In this new implementation the dialog is shown by passing the owner provided during creation time (<see cref="DialogBase(IWin32Window, Icon)"/>.
+        /// In this new implementation the dialog is shown by passing the owner provided during creation time (see <see cref="DialogBase(IWin32Window, Icon,int,int)"/>).
         /// </summary>
         /// <returns>A <see cref="DialogResult"/>.</returns>
         public new DialogResult ShowDialog()
@@ -60,12 +63,12 @@ namespace Core.Common.Controls.Dialogs
             return base.ShowDialog(owner);
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
             // Initialize the cancel button (as this cannot be done during creation time)
             CancelButton = GetCancelButton();
 
-            base.OnShown(e);
+            base.OnLoad(e);
         }
 
         /// <summary>

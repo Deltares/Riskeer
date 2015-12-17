@@ -41,8 +41,16 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\DialogBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +68,10 @@
     <ProjectReference Include="..\..\src\Core.Common.Controls.Table\Core.Common.Controls.Table.csproj">
       <Project>{4b2add09-ecac-439d-82fc-dbf8aa63772d}</Project>
       <Name>Core.Common.Controls.Table</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
+      <Name>Core.Common.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

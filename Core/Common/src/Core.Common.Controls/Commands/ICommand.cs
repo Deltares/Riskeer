@@ -1,7 +1,7 @@
 namespace Core.Common.Controls.Commands
 {
     /// <summary>
-    /// Abstract class that can be derived for defining the behaviour of (Ribbon) buttons and/or menu items.
+    /// Interface for defining the behavior of (Ribbon) buttons and/or menu items.
     /// </summary>
     public interface ICommand
     {
@@ -18,6 +18,7 @@ namespace Core.Common.Controls.Commands
         /// <summary>
         /// This method implements the logic that should be performed after clicking the (Ribbon) button and/or menu item.
         /// </summary>
+        /// <param name="arguments">The arguments to use during execution.</param>
         void Execute(params object[] arguments);
     }
 }
