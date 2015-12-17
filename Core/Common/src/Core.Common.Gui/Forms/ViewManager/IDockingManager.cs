@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Views;
@@ -45,6 +46,13 @@ namespace Core.Common.Gui.Forms.ViewManager
         /// <param name="view"></param>
         /// <param name="tooltip"></param>
         void SetToolTip(IView view, string tooltip);
+
+        /// <summary>
+        /// Sets the image of the container of the view
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="image"></param>
+        void SetImage(IView view, Image image);
 
         /// <summary>
         /// Activates view.

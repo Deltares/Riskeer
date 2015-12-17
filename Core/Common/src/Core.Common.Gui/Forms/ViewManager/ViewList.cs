@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
@@ -238,6 +239,11 @@ namespace Core.Common.Gui.Forms.ViewManager
         public void SetTooltip(IView view, string tooltip)
         {
             dockingManager.SetToolTip(view, tooltip);
+        }
+
+        public void SetImage(IView view, Image image)
+        {
+            dockingManager.SetImage(view, image);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

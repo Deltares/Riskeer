@@ -228,7 +228,10 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return true;
             }
 
-            viewList.Add(CreateViewForData(data, viewInfo));
+            var newView = CreateViewForData(data, viewInfo);
+
+            viewList.Add(newView);
+            viewList.SetImage(newView, viewInfo.Image);
 
             return true;
         }
@@ -238,9 +241,9 @@ namespace Core.Common.Gui.Forms.ViewManager
             var view = (IView) Activator.CreateInstance(viewInfo.ViewType);
 
             view.Data = viewInfo.GetViewData(data);
-            view.ViewInfo = viewInfo;
 
             viewInfo.AfterCreate(view, data);
+
             view.Text = viewInfo.GetViewName(view, view.Data);
 
             viewInfo.OnActivateView(view, data);

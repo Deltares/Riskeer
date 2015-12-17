@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
@@ -201,6 +200,15 @@ namespace Core.Common.Gui.Forms.ViewManager
             if (layoutDocument != null)
             {
                 layoutDocument.ToolTip = tooltip;
+            }
+        }
+
+        public void SetImage(IView view, Image image)
+        {
+            var layoutDocument = GetLayoutContent(view);
+            if (layoutDocument != null)
+            {
+                layoutDocument.IconSource = BitmapImageFromBitmap(image);
             }
         }
 
@@ -565,8 +573,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             {
                 Title = view.Text,
                 Content = hostControl,
-                ContentId = view.Text,
-                IconSource = GetImage(view)
+                ContentId = view.Text
             };
 
             var firstDocumentPane = dockingManager.Layout.Descendents().OfType<LayoutDocumentPane>().First();
@@ -618,11 +625,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             hostControls.RemoveAt(index);
         }
 
-        private ImageSource GetImage(IView view)
-        {
-            return BitmapImageFromBitmap(view.ViewInfo.Image);
-        }
-
         private LayoutContent GetLayoutContent(IView view)
         {
             var descendents = dockingManager.Layout.Descendents();
@@ -660,7 +662,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
 
             layoutContent.Title = view.Text;
-            layoutContent.IconSource = GetImage(view); //update image aswell
         }
     }
 }

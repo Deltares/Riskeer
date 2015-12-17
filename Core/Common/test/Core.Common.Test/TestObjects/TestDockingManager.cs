@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
@@ -33,6 +33,8 @@ namespace Core.Common.Test.TestObjects
         public void Remove(IView view, bool removeTabFromDockingbar) {}
 
         public void SetToolTip(IView view, string tooltip) {}
+
+        public void SetImage(IView view, Image image) {}
 
         public void ActivateView(IView view) {}
 
