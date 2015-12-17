@@ -7,12 +7,12 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.TreeView.Properties;
 using log4net;
 
 using BaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     /// <summary>
     /// Summary description for Tree.

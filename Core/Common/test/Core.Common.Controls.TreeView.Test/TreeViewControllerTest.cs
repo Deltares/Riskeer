@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Utils.Events;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Controls.Swf.Test.TreeViewControls
+namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
     public class TreeViewControllerTest

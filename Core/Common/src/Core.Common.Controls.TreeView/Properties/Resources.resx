@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PolygonChartSeries_Transparency_Transparancy_should_be_between_0_and_100" xml:space="preserve">
+    <value>Transparantie moet tussen 0 en 100 liggen.</value>
+  </data>
+  <data name="TableView_TableView_new_Table" xml:space="preserve">
+    <value>Nieuwe tabel</value>
+  </data>
+  <data name="TableView_ConfigureContextMenu_Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="TableView_ConfigureContextMenu_Paste" xml:space="preserve">
+    <value>Plakken</value>
+  </data>
+  <data name="TableView_ConfigureContextMenu_Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="EditPointTool_GetCursorIcon_No_cursor_assigned_for_0_" xml:space="preserve">
+    <value>Geen cursor toegewezen aan {0}.</value>
+  </data>
+  <data name="RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_" xml:space="preserve">
+    <value>Verschil:
+horizontaal: {0}
+verticaal: {1}</value>
+  </data>
+  <data name="RulerTool_GetDefaultDifferenceString_seconds" xml:space="preserve">
+    <value>seconden</value>
+  </data>
+  <data name="TableView_SelectedCellsCollectionChanged_Action_0_is_not_supported_by_the_TableView" xml:space="preserve">
+    <value>Actie {0} wordt niet ondersteund door de TableView.</value>
+  </data>
+  <data name="TableView_AddUnboundColumn_Unbound_columns_of_type_0_not_supported" xml:space="preserve">
+    <value>Ongebonden kolommen van type {0} worden niet ondersteund.</value>
+  </data>
+  <data name="TableViewPasteController_PasteValuesCore_Invalid_row_number_0_" xml:space="preserve">
+    <value>Ongeldig rijnummer {0}.</value>
+  </data>
+  <data name="TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_" xml:space="preserve">
+    <value>Weet u zeker dat u het volgende element wilt verwijderen: {0}</value>
+  </data>
+  <data name="TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView" xml:space="preserve">
+    <value>Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenschap van een TreeView heeft toegevoegd.</value>
+  </data>
+  <data name="PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values" xml:space="preserve">
+    <value>Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden.</value>
+  </data>
+  <data name="TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_" xml:space="preserve">
+    <value>Zou geen indices lager dan -1 moeten teruggeven!</value>
+  </data>
+  <data name="KeyEvent_Deletion_not_implemented_for_this_type_of_datasource" xml:space="preserve">
+    <value>Verwijderen is niet geïmplementeerd voor dit type databron.</value>
+  </data>
+  <data name="EditPointTool_CalculateXValue_left_limit" xml:space="preserve">
+    <value>X-waarde wordt vastgelegd (linker limiet) {0} =&gt; {1}.</value>
+  </data>
+  <data name="EditPointTool_CalculateXValue_right_limit" xml:space="preserve">
+    <value>X-waarde wordt vastgelegd (rechter limiet) {0} =&gt; {1}.</value>
+  </data>
+  <data name="ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item" xml:space="preserve">
+    <value>Niet te klonen subitems in menu-item.</value>
+  </data>
+  <data name="CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property" xml:space="preserve">
+    <value>De eigenschap 'DockStyle' van de inklapbare splitser kan geen waarde 'Filled' of 'None' hebben.</value>
+  </data>
+  <data name="ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred_Ringtoets_needs_to_be_restarted" xml:space="preserve">
+    <value>Er is een kritieke fout opgetreden. Ringtoets moet herstart worden.</value>
+  </data>
+  <data name="RangeLabel_0_till_1_" xml:space="preserve">
+    <value>{0} tot {1}</value>
+  </data>
+  <data name="WizardDialog_WizardControl1NextClick_An_error_occurred_Please_verify_your_input_Error_0_" xml:space="preserve">
+    <value>Er is een fout opgetreden. Verifieer de invoer alstublieft. 
+
+Fout:
+{0}</value>
+  </data>
+  <data name="WizardDialog_WizardControl1NextClick_Error_occurred" xml:space="preserve">
+    <value>Fout opgetreden</value>
+  </data>
+  <data name="TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class" xml:space="preserve">
+    <value>OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse.</value>
+  </data>
+  <data name="TreeViewController_TreeViewController_Tree_view_can_t_be_null" xml:space="preserve">
+    <value>Structuurweergave mag niet leeg zijn.</value>
+  </data>
+  <data name="TreeView_TreeViewDragDrop_Error_during_drag_drop_0_" xml:space="preserve">
+    <value>Fout tijdens slepen/neerzetten: {0}.</value>
+  </data>
+  <data name="TreeView_DeleteNodeData_The_selected_item_cannot_be_removed" xml:space="preserve">
+    <value>Het geselecteerde item kan niet worden verwijderd.</value>
+  </data>
+  <data name="TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented" xml:space="preserve">
+    <value>De methode of operatie is niet geïmplementeerd.</value>
+  </data>
+  <data name="TimeSpanEditor_GetTimeSymbolAtPosition_Datetime_format_not_as_expected" xml:space="preserve">
+    <value>Datumtijd notatie niet zoals verwacht.</value>
+  </data>
+  <data name="TableViewValidator_ValidateCell_Validation_of_cell_failed_0_" xml:space="preserve">
+    <value>Validatie van cel is mislukt: {0}.</value>
+  </data>
+  <data name="TableViewValidator_ValidateRow_Validation_of_row_failed_0_" xml:space="preserve">
+    <value>Validatie van rij is mislukt: {0}.</value>
+  </data>
+  <data name="TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_" xml:space="preserve">
+    <value>Ongeldige rij: {0}.</value>
+  </data>
+  <data name="TableViewPasteController_PasteCellsToRow_Pasting_values_failed_0_" xml:space="preserve">
+    <value>Plakken waarden mislukt: {0}.</value>
+  </data>
+  <data name="TableViewPasteController_PasteCellsToRow_Skipping_invalid_row_0_from_pasting" xml:space="preserve">
+    <value>Ongeldig geplakte rij {0} wordt overgeslagen.</value>
+  </data>
+  <data name="TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell_0_1_Row_0_will_be_skipped" xml:space="preserve">
+    <value>Kan de waarde in cel [{0}, {1}] niet plakken. Rij {0} wordt overgeslagen.</value>
+  </data>
+  <data name="TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview" xml:space="preserve">
+    <value>Kan niet plakken in een gefilterde tableview.</value>
+  </data>
+  <data name="TableViewPasteController_CanPaste_Cannot_paste_into_sorted_column" xml:space="preserve">
+    <value>Kan niet plakken in gesorteerde kolom.</value>
+  </data>
+  <data name="TableViewPasteController_CanPaste_There_are_no_values_to_paste_Headers_are_skipped" xml:space="preserve">
+    <value>Er zijn geen waardes om te plakken (kopteksten worden overgeslagen).</value>
+  </data>
+  <data name="TableViewPasteController_GetPasteTargetSelection_Cannot_paste_into_non_rectangular_selection" xml:space="preserve">
+    <value>Kan alleen in rechthoekige selectie plakken.</value>
+  </data>
+  <data name="TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text_so_it_cannot_be_pasted_to_the_grid" xml:space="preserve">
+    <value>Klembord bevat geen tekst. Hierdoor kan het niet in de tabel worden geplakt.</value>
+  </data>
+  <data name="TableViewExceptionMessageController_GetLocalizedString" xml:space="preserve">
+    <value>Wilt u de waarde corrigeren? 
+
+Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen.</value>
+  </data>
+  <data name="TableViewColumn_SetXtraGridCustomFormatterCore_custom" xml:space="preserve">
+    <value>&lt;aangepast&gt;</value>
+  </data>
+  <data name="TableView_AddNewRowToDataSource_Adding_rows_to_this_table_is_not_allowed" xml:space="preserve">
+    <value>Het is niet toegestaan om rijen aan deze tabel toe te voegen.</value>
+  </data>
+  <data name="TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled_Use_SelectRow_instead" xml:space="preserve">
+    <value>Niet in staat om cellen te selecteren wanneer tableView RowSelect ingeschakeld is. Gebruik in plaats daarvan SelectRow.</value>
+  </data>
+  <data name="TableView_ConvertToColumnValue_Unable_to_convert_string_0_to_1_for_paste" xml:space="preserve">
+    <value>Kan tekenreeks {0} niet omzetten naar {1} om te plakken.</value>
+  </data>
+  <data name="TableView_SetCellValueInternal_Can_not_set_value_into_cell_0_1_reason_2_" xml:space="preserve">
+    <value>Kan waarde in cel [{0}, {1}] niet instellen. Reden: {2}.</value>
+  </data>
+  <data name="TableView_ValidateAndCommitRow_Can_not_set_value_for_row_0_reason_1_" xml:space="preserve">
+    <value>Kan waarde voor rij {0} niet instellen. Reden: {1}.</value>
+  </data>
+  <data name="TableView_UpdateColumnHeaderMenu_Copy_all_headers" xml:space="preserve">
+    <value>Kopiëer alle kopteksten</value>
+  </data>
+  <data name="TableView_UpdateColumnHeaderMenu_Unpin_Column" xml:space="preserve">
+    <value>Maak kolom los</value>
+  </data>
+  <data name="TableView_UpdateColumnHeaderMenu_Pin_Column" xml:space="preserve">
+    <value>Pin kolom vast</value>
+  </data>
+  <data name="TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event" xml:space="preserve">
+    <value>SelectionChanged event afgevuurd.</value>
+  </data>
+  <data name="FindAndReplaceControl_buttonReplaceAll_Click_Replaced_0_occurrences_of_1_with_2_" xml:space="preserve">
+    <value>{0} exemplaren van {1} zijn met {2} vervangen.</value>
+  </data>
+  <data name="FindAndReplaceControl_FindNext_There_is_no_text_to_search" xml:space="preserve">
+    <value>Er is geen tekst om te zoeken.</value>
+  </data>
+  <data name="FindAndReplaceControl_FindNext_End_of_document_has_been_reached" xml:space="preserve">
+    <value>Einde van document is bereikt.</value>
+  </data>
+  <data name="FileSystemTreeView_FileSystemTreeView_My_Computer" xml:space="preserve">
+    <value>Mijn Computer</value>
+  </data>
+  <data name="CollapsibleSplitter_BorderStyle3D_Description" xml:space="preserve">
+    <value>Een optionele randstijl om te tekenen. Zet de waarde op 'Flat' om geen rand te tekenen.</value>
+  </data>
+  <data name="TableView_SetCellValueInternal_No_conversion_from_string_possible" xml:space="preserve">
+    <value>Geen conversie van het type 'string' mogelijk.</value>
+  </data>
+  <data name="TreeView_Error_Unable_to_resolve_node_presenter_for_null_data" xml:space="preserve">
+    <value>Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object.</value>
+  </data>
+  <data name="TreeNodeExpandCollapseState_Node_cannot_be_null_for_record_to_work" xml:space="preserve">
+    <value>Knoop moet opgegeven zijn om diens toestand op te kunnen nemen.</value>
+  </data>
+  <data name="TreeNodeExpandCollapseState_Node_tag_cannot_be_null_for_record_to_work" xml:space="preserve">
+    <value>Knoop data moet aanwezig zijn om de toestand van diens knoop op te kunnen nemen.</value>
+  </data>
+  <data name="TreeNodeExpandCollapseState_Node_not_matching_tag_for_restore" xml:space="preserve">
+    <value>Knoop heeft niet dezelfde data als de opgenomen knoop.</value>
+  </data>
+  <data name="strTill" xml:space="preserve">
+    <value>tot</value>
+  </data>
+</root>

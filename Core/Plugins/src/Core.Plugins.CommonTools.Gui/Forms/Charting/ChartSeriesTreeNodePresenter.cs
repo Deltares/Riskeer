@@ -1,7 +1,7 @@
 using System.Drawing;
 using Core.Common.Controls.Charting;
 using Core.Common.Controls.Charting.Series;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms.Charting

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.TreeView.Properties;
 using Core.Common.Utils.Extensions;
 
 using log4net;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     public class TreeViewController
     {

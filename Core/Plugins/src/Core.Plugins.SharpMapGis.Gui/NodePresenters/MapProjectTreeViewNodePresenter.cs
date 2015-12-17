@@ -1,7 +1,6 @@
 using System.Drawing;
 using Core.Common.Base.Data;
-using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Properties;

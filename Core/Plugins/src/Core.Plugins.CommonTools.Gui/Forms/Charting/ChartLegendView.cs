@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Charting;
 using Core.Common.Controls.Charting.Series;
 using Core.Common.Controls.Views;

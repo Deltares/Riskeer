@@ -1,9 +1,3 @@
-using System.Collections.Generic;
-using Core.Common.Base;
-using Core.Common.Base.Plugin;
-using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.Gui;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;

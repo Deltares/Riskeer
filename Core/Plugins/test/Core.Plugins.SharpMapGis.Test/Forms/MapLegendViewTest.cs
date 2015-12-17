@@ -14,8 +14,8 @@ using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using TreeNode = Core.Common.Controls.Swf.TreeViewControls.TreeNode;
-using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.SharpMapGis.Test.Forms
 {

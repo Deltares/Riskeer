@@ -1,7 +1,6 @@
-using Core.Common.Controls.Swf.TreeViewControls;
 using NUnit.Framework;
 
-namespace Core.Common.Controls.Swf.Test.TreeViewControls
+namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
     public class TreeNodeTest

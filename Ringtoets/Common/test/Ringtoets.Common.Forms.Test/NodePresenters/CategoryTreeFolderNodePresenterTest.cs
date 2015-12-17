@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;

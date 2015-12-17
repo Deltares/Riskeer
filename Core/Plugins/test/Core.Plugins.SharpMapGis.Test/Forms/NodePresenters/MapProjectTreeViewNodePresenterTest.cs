@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.NodePresenters;
 

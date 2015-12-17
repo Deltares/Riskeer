@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.GIS.GeoAPI.CoordinateSystems;
@@ -14,7 +12,6 @@ using Core.GIS.SharpMap.Extensions.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Commands;
-using Core.Plugins.SharpMapGis.Gui.Properties;
 using log4net;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView

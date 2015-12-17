@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
-using Core.Common.Controls.Swf.TreeViewControls;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.Controls.Swf.Test.TreeViewControls
+namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
     public class TreeNodeGraphicExtensionsTest

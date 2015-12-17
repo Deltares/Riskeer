@@ -6,16 +6,13 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtil;
 
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using TreeNode = Core.Common.Controls.Swf.TreeViewControls.TreeNode;
-using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
-namespace Core.Common.Controls.Swf.Test.TreeViewControls
+namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
     public class TreeViewTest : NUnitFormTest

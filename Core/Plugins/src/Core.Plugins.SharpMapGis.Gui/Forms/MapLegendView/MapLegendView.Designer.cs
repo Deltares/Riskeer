@@ -1,5 +1,5 @@
-﻿using Core.Common.Controls.Swf;
-using Core.Common.Controls.Swf.TreeViewControls;
+﻿
+using Core.Common.Controls.TreeView;
 using ToolStripMenuItem = System.Windows.Forms.ToolStripMenuItem;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
@@ -56,7 +56,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.showLabelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showInLegendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideAllButThisOneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TreeView = new Core.Common.Controls.Swf.TreeViewControls.TreeView();
+            this.TreeView = new Core.Common.Controls.TreeView.TreeView();
             this.contextMenuMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addLayergroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

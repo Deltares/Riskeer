@@ -3,10 +3,10 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.TreeView.Properties;
 using Core.Common.Utils.Events;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     public abstract class TreeViewNodePresenterBase<T> : ITreeNodePresenter
     {

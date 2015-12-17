@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.TreeView.Properties;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     /// <summary>
     /// Wraps TreeNodeCollection from Windows.Forms.TreeView so it appears as a list of ITreeNode.

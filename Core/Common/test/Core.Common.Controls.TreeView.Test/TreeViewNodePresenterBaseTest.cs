@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
 
-namespace Core.Common.Controls.Swf.Test.TreeViewControls
+namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
     public class TreeViewNodePresenterBaseTest

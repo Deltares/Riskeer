@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Utils.Events;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     /// <summary>
     /// Defines logic for building treeViewNodes based on a certain node datatype.

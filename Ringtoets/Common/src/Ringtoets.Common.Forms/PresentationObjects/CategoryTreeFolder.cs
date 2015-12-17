@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 
-using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {

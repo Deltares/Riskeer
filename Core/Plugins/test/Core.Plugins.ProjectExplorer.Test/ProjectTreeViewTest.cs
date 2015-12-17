@@ -3,7 +3,7 @@ using System.Linq;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Plugins.ProjectExplorer.NodePresenters;
 

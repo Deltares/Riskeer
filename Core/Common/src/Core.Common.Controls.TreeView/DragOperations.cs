@@ -1,4 +1,4 @@
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     /// <summary>
     /// Enum that specifies dragoperations.

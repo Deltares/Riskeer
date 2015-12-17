@@ -1,8 +1,7 @@
 ﻿using System.Windows.Forms;
-using Core.Common.Controls.Swf.TreeViewControls;
 using NUnit.Framework;
 
-namespace Core.Common.Controls.Swf.Test
+namespace Core.Common.Controls.TreeView.Test
 {
     [TestFixture]
     public class WindowsFormsHelperTests

@@ -1,4 +1,4 @@
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     /// <summary>
     /// Enum to specify whether the mouse is above or below a treenode.

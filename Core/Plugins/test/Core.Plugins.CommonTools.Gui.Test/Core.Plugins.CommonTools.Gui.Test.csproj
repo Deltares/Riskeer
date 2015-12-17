@@ -94,6 +94,10 @@
       <Project>{43cd4cc3-8500-411b-822e-1d3b5af56fbc}</Project>
       <Name>Core.Common.Controls.Charting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
+      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
+      <Name>Core.Common.Controls.TreeView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
       <Project>{08205620-D756-4533-922C-D6A4C0038535}</Project>
       <Name>Core.Common.Gui.Swf</Name>

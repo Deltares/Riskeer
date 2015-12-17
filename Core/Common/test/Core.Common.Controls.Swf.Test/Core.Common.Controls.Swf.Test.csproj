@@ -81,13 +81,6 @@
     <Compile Include="Table\TableViewTest.cs" />
     <Compile Include="Table\TestClasses\ClassWithEnum.cs" />
     <Compile Include="Table\TestClasses\Person.cs" />
-    <Compile Include="TreeViewControls\TreeNodeExpandCollapseStateTest.cs" />
-    <Compile Include="TreeViewControls\TreeNodeGraphicExtensionsTest.cs" />
-    <Compile Include="TreeViewControls\TreeNodeTest.cs" />
-    <Compile Include="TreeViewControls\TreeViewControllerTest.cs" />
-    <Compile Include="TreeViewControls\TreeViewNodePresenterBaseTest.cs" />
-    <Compile Include="TreeViewControls\TreeViewTest.cs" />
-    <Compile Include="WindowsFormsHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

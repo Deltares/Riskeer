@@ -65,19 +65,24 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3">
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DevExpress.Data.v9.3.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v9.3">
+    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DevExpress.Utils.v9.3.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.3">
+    <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DevExpress.XtraEditors.v9.3.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v9.3">
+    <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DevExpress.XtraGrid.v9.3.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraWizard.v9.3">
+    <Reference Include="DevExpress.XtraWizard.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\DevExpress.XtraWizard.v9.3.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -160,21 +165,6 @@
     <Compile Include="Table\Validation\RowValidationResult.cs" />
     <Compile Include="Table\Validation\TableViewValidator.cs" />
     <Compile Include="Table\XtraGridRepositoryItemBuilder.cs" />
-    <Compile Include="TreeViewControls\DragOperations.cs" />
-    <Compile Include="TreeViewControls\ITreeNode.cs" />
-    <Compile Include="TreeViewControls\ITreeNodePresenter.cs" />
-    <Compile Include="TreeViewControls\ITreeView.cs" />
-    <Compile Include="TreeViewControls\PlaceholderLocation.cs" />
-    <Compile Include="TreeViewControls\TreeNode.cs" />
-    <Compile Include="TreeViewControls\TreeNodeExpandCollapseState.cs" />
-    <Compile Include="TreeViewControls\TreeNodeList.cs" />
-    <Compile Include="TreeViewControls\TreeView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TreeViewControls\TreeNodeGraphicExtensions.cs" />
-    <Compile Include="TreeViewControls\TreeViewNodePresenterBase.cs" />
-    <Compile Include="TreeViewControls\TreeViewController.cs" />
-    <Compile Include="WindowsFormsHelper.cs" />
     <Compile Include="WizardDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,10 +187,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Table\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TreeViewControls\TreeView.resx">
-      <DependentUpon>TreeView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardDialog.resx">

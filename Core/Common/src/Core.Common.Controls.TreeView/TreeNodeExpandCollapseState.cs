@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Core.Common.Controls.Swf.Properties;
+using Core.Common.Controls.TreeView.Properties;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     /// <summary>
     /// This class takes a <see cref="ITreeNode"/> and maps the current collapsed/expanded

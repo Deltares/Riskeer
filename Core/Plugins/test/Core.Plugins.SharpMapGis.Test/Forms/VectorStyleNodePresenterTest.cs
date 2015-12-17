@@ -1,5 +1,5 @@
 using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 using Core.GIS.SharpMap.Styles;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using NUnit.Framework;

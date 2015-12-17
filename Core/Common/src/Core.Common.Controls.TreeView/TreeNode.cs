@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 
-namespace Core.Common.Controls.Swf.TreeViewControls
+namespace Core.Common.Controls.TreeView
 {
     public class TreeNode : System.Windows.Forms.TreeNode, ITreeNode, IObserver
     {

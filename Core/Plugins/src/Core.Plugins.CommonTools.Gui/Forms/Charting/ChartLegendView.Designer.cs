@@ -1,4 +1,4 @@
-using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.Controls.TreeView;
 
 namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 {
