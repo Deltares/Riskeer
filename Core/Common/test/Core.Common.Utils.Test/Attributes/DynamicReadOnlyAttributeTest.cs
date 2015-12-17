@@ -23,23 +23,23 @@ namespace Core.Common.Utils.Test.Attributes
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void IsDynamicReadOnly_NoPropertyName_ReturnFalse(string propertyName)
+        public void IsReadOnly_NoPropertyName_ReturnFalse(string propertyName)
         {
             // Call
-            var isReadOnly = DynamicReadOnlyAttribute.IsDynamicReadOnly(new object(), propertyName);
+            var isReadOnly = DynamicReadOnlyAttribute.IsReadOnly(new object(), propertyName);
 
             // Assert
             Assert.IsFalse(isReadOnly);
         }
 
         [Test]
-        public void IsDynamicReadOnly_GivenPropertyNameDoesNotExistOnObject_ThrowMissingMemberException()
+        public void IsReadOnly_GivenPropertyNameDoesNotExistOnObject_ThrowMissingMemberException()
         {
             // Setup
             var o = new object();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "NotExistingProperty");
+            TestDelegate call = () => DynamicReadOnlyAttribute.IsReadOnly(o, "NotExistingProperty");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
@@ -47,26 +47,26 @@ namespace Core.Common.Utils.Test.Attributes
         }
 
         [Test]
-        public void IsDynamicReadOnly_GivenPropertyDoesNotHaveDynamicReadOnlyAttribute_ReturnFalse()
+        public void IsReadOnly_GivenPropertyDoesNotHaveDynamicReadOnlyAttribute_ReturnFalse()
         {
             // Setup
             var o = new ClassWithPropertyWithoutDynamicReadOnlyAttribute();
 
             // Call
-            var isReadOnly = DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            var isReadOnly = DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             Assert.IsFalse(isReadOnly);
         }
 
         [Test]
-        public void IsDynamicReadOnly_ClassLacksDynamicReadOnlyValidationMethod_ThrowsMissingMethodException()
+        public void IsReadOnly_ClassLacksDynamicReadOnlyValidationMethod_ThrowsMissingMethodException()
         {
             // Setup
             var o = new InvalidClassWithDynamicReadOnlyPropertyButNoValidationMethod();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            TestDelegate call = () => DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -76,13 +76,13 @@ namespace Core.Common.Utils.Test.Attributes
         }
 
         [Test]
-        public void IsDynamicReadOnly_ClassHasMultipleDynamicReadOnlyValidationMethods_ThrowsMissingMethodException()
+        public void IsReadOnly_ClassHasMultipleDynamicReadOnlyValidationMethods_ThrowsMissingMethodException()
         {
             // Setup
             var o = new InvalidClassWithDynamicReadOnlyPropertyAndMultipleValidationMethod();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            TestDelegate call = () => DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -92,13 +92,13 @@ namespace Core.Common.Utils.Test.Attributes
         }
 
         [Test]
-        public void IsDynamicReadOnly_ClassHasDynamicReadOnlyValidationMethodWithNonBoolReturnType_ThrowsMissingMethodException()
+        public void IsReadOnly_ClassHasDynamicReadOnlyValidationMethodWithNonBoolReturnType_ThrowsMissingMethodException()
         {
             // Setup
             var o = new InvalidClassWithDynamicReadOnlyPropertyButValidationMethodReturnsIncorrectValueType();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            TestDelegate call = () => DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -108,13 +108,13 @@ namespace Core.Common.Utils.Test.Attributes
         }
 
         [Test]
-        public void IsDynamicReadOnly_ClassHasDynamicReadOnlyValidationMethodWithIncorrectArgumentCount_ThrowsMissingMethodException()
+        public void IsReadOnly_ClassHasDynamicReadOnlyValidationMethodWithIncorrectArgumentCount_ThrowsMissingMethodException()
         {
             // Setup
             var o = new InvalidClassWithDynamicReadOnlyPropertyButValidationMethodNotOneArgument();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            TestDelegate call = () => DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -124,13 +124,13 @@ namespace Core.Common.Utils.Test.Attributes
         }
 
         [Test]
-        public void IsDynamicReadOnly_ClassHasDynamicReadOnlyValidationMethodWithIncorrectArgumentType_ThrowsMissingMethodException()
+        public void IsReadOnly_ClassHasDynamicReadOnlyValidationMethodWithIncorrectArgumentType_ThrowsMissingMethodException()
         {
             // Setup
             var o = new InvalidClassWithDynamicReadOnlyPropertyButValidationMethodArgumentNotString();
 
             // Call
-            TestDelegate call = () => DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            TestDelegate call = () => DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
@@ -142,13 +142,13 @@ namespace Core.Common.Utils.Test.Attributes
         [Test]
         [TestCase(false)]
         [TestCase(true)]
-        public void IsDynamicReadOnly_ClassWithDynamicReadOnlyProperty_ReturnResultFromValidationMethod(bool isReadOnly)
+        public void IsReadOnly_ClassWithDynamicReadOnlyProperty_ReturnResultFromValidationMethod(bool isReadOnly)
         {
             // Setup
             var o = new ClassWithDynamicReadOnlyProperty(isReadOnly);
 
             // Call
-            var result = DynamicReadOnlyAttribute.IsDynamicReadOnly(o, "Property");
+            var result = DynamicReadOnlyAttribute.IsReadOnly(o, "Property");
 
             // Assert
             Assert.AreEqual(isReadOnly, result);

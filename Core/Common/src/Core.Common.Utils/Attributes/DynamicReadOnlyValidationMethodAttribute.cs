@@ -11,6 +11,7 @@ namespace Core.Common.Utils.Attributes
     /// method should be public and have the signature of <see cref="IsPropertyReadOnly"/>.
     /// </summary>
     /// <seealso cref="DynamicReadOnlyAttribute"/>
+    [AttributeUsage(AttributeTargets.Method)]
     public class DynamicReadOnlyValidationMethodAttribute : Attribute
     {
         /// <summary>

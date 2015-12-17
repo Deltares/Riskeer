@@ -87,8 +87,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\DynamicVisibleValidationMethodAttributeTest.cs" />
+    <Compile Include="Attributes\DynamicVisibleAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttributeTest.cs" />
+    <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
     <Compile Include="Extensions\ComparableExtensionsTest.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />

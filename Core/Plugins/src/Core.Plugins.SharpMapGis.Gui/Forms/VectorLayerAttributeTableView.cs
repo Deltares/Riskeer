@@ -185,7 +185,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
 
             var rowObject = rowObjects[dataSourceIndexByRowIndex];
 
-            return DynamicReadOnlyAttribute.IsDynamicReadOnly(rowObject, c.Column.Name);
+            return DynamicReadOnlyAttribute.IsReadOnly(rowObject, c.Column.Name);
         }
 
         private void DataSourceFeaturesChanged(object sender, EventArgs e)

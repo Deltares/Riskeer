@@ -56,7 +56,7 @@ namespace Core.Common.Utils.PropertyBag
                 {
                     attributeList.RemoveAll(x => x is ReadOnlyAttribute);
 
-                    if (DynamicReadOnlyAttribute.IsDynamicReadOnly(WrappedObject, propertySpec.Name))
+                    if (DynamicReadOnlyAttribute.IsReadOnly(WrappedObject, propertySpec.Name))
                     {
                         //condition is true: the dynamic attribute should be applied (as static attribute)
                         attributeList.Add(new ReadOnlyAttribute(true)); //add static read only attribute
@@ -67,7 +67,7 @@ namespace Core.Common.Utils.PropertyBag
                 {
                     attributeList.RemoveAll(x => x is BrowsableAttribute);
 
-                    if (!DynamicVisibleAttribute.IsDynamicVisible(WrappedObject, propertySpec.Name))
+                    if (!DynamicVisibleAttribute.IsVisible(WrappedObject, propertySpec.Name))
                     {
                         attributeList.Add(new BrowsableAttribute(false));
                     }

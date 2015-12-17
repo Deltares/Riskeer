@@ -126,12 +126,48 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} gebruikt DynamicVisibleAttribute, maar heeft geen methode gemarkeerd met DynamicVisibleValidationMethodAttribute..
+        ///   Looks up a localized string similar to DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}..
         /// </summary>
-        internal static string DynamicVisibleAttribute_IsDynamicVisible_0_uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute {
+        internal static string DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicVisibleAttribute_IsDynamicVisible_0_uses_DynamicVisibleAttribute_but_does_" +
-                        "not_have_method_marked_using_DynamicVisibleValidationMethodAttribute", resourceCulture);
+                return ResourceManager.GetString("DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argume" +
+                        "nt_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Argument van DynamicVisibleValidationMethod moet van het type &apos;string&apos; zijn. Klasse: {0}..
+        /// </summary>
+        internal static string DynamicVisibleValidationMethod_must_have_string_argument_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicVisibleValidationMethod_must_have_string_argument_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicVisibleValidationMethod moet &apos;bool&apos; als &apos;return type&apos; hebben. Klasse: {0}..
+        /// </summary>
+        internal static string DynamicVisibleValidationMethod_must_return_bool_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicVisibleValidationMethod_must_return_bool_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicVisibleValidationMethod niet gevonden (of geen &apos;public&apos; toegankelijkheid). Klasse: {0}..
+        /// </summary>
+        internal static string DynamicVisibleValidationMethod_not_found_or_not_public_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicVisibleValidationMethod_not_found_or_not_public_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}..
+        /// </summary>
+        internal static string DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_", resourceCulture);
             }
         }
         

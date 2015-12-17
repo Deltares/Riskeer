@@ -28,17 +28,17 @@ namespace Core.Common.Utils.Attributes
         /// <exception cref="System.MissingMethodException">When there isn't a single method
         /// declared on <paramref name="obj"/> marked with <see cref="DynamicReadOnlyValidationMethodAttribute"/>
         /// and/or isn't matching the signature defined by <see cref="DynamicReadOnlyValidationMethodAttribute.IsPropertyReadOnly"/>.</exception>
-        public static bool IsDynamicReadOnly(object obj, string propertyName)
+        public static bool IsReadOnly(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
             {
-                return false;
+                return ReadOnlyAttribute.Default.IsReadOnly;
             }
 
             var isDynamicReadOnlyProperty = PropertyIsDynamicallyReadOnly(obj, propertyName);
             if (!isDynamicReadOnlyProperty)
             {
-                return false;
+                return ReadOnlyAttribute.Default.IsReadOnly;
             }
 
             var isPropertyReadOnlyDelegate = DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(obj);
@@ -46,14 +46,6 @@ namespace Core.Common.Utils.Attributes
             return isPropertyReadOnlyDelegate(propertyName);
         }
 
-        /// <summary>
-        /// Determines if an object's property is marked with <see cref="DynamicReadOnlyAttribute"/>.
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <returns>True if the attribute is defined, false otherwise.</returns>
-        /// <exception cref="System.MissingMemberException"><paramref name="propertyName"/>
-        /// does not correspond to a public property of <paramref name="obj"/>.</exception>
         private static bool PropertyIsDynamicallyReadOnly(object obj, string propertyName)
         {
             var propertyInfo = obj.GetType().GetProperty(propertyName);

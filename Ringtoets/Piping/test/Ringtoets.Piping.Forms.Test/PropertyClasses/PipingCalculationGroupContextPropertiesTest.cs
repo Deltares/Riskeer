@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1, namePropertyAttributes.OfType<DynamicReadOnlyAttribute>().Count());
-            Assert.AreEqual(!nameIsEditable, DynamicReadOnlyAttribute.IsDynamicReadOnly(properties, propertyName));
+            Assert.AreEqual(!nameIsEditable, DynamicReadOnlyAttribute.IsReadOnly(properties, propertyName));
         }
     }
 }
