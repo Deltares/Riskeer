@@ -103,7 +103,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             };
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var assessmentSection = mockRepository.Stub<PipingSoilProfile>(string.Empty, 0, layers);
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
 
@@ -114,10 +113,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
+            var pipingSoilProfile = new PipingSoilProfile(string.Empty, 0, layers);
+
             var nodePresenter = new PipingSoilProfileNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.GetContextMenu(nodeMock, assessmentSection);
+            nodePresenter.GetContextMenu(nodeMock, pipingSoilProfile);
 
             // Assert
             mockRepository.VerifyAll();

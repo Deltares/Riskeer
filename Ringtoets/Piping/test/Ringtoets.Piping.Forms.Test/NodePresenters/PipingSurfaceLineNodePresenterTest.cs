@@ -87,7 +87,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var assessmentSection = mockRepository.Stub<RingtoetsPipingSurfaceLine>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
 
@@ -98,10 +97,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+
             var nodePresenter = new PipingSurfaceLineNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.GetContextMenu(nodeMock, assessmentSection);
+            nodePresenter.GetContextMenu(nodeMock, ringtoetsPipingSurfaceLine);
 
             // Assert
             mockRepository.VerifyAll();
