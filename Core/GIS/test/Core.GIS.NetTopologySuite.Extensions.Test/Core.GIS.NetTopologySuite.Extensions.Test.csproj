@@ -79,10 +79,6 @@
     <Compile Include="TestObjects\TestFeature.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
-      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
-      <Name>Core.Common.TestUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>

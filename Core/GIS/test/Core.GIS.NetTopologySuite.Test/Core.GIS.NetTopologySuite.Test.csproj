@@ -84,10 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
-      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
-      <Name>Core.Common.TestUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
       <Project>{a3c9df74-978a-44b1-b55d-a72ac4221e3a}</Project>
       <Name>Core.GIS.SharpMap.Api</Name>

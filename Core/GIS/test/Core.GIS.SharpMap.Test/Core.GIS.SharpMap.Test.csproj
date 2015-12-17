@@ -193,10 +193,6 @@
       <Project>{0A82E7D2-26F8-4A30-9787-7EEABCD7F470}</Project>
       <Name>Core.GIS.SharpMapTestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
-      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
-      <Name>Core.Common.TestUtils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
