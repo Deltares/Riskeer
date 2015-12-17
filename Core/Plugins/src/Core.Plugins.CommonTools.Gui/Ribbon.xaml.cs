@@ -29,7 +29,7 @@ namespace Core.Plugins.CommonTools.Gui
             chartTab.Group = chartingContextualGroup;
         }
 
-        public IEnumerable<Command> Commands
+        public IEnumerable<ICommand> Commands
         {
             get
             {

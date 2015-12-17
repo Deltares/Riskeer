@@ -2,9 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-
 using Core.Common.Gui;
-
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -14,9 +12,9 @@ namespace Ringtoets.Demo.Commands
     /// <summary>
     /// Command that adds a new <see cref="DikeAssessmentSection"/> with demo data to the project tree.
     /// </summary>
-    public class AddNewDemoDikeAssessmentSectionCommand : GuiCommand
+    public class AddNewDemoDikeAssessmentSectionCommand : IGuiCommand
     {
-        public override bool Enabled
+        public bool Enabled
         {
             get
             {
@@ -24,7 +22,7 @@ namespace Ringtoets.Demo.Commands
             }
         }
 
-        public override bool Checked
+        public bool Checked
         {
             get
             {
@@ -32,7 +30,9 @@ namespace Ringtoets.Demo.Commands
             }
         }
 
-        public override void Execute(params object[] arguments)
+        public IGui Gui { get; set; }
+
+        public void Execute(params object[] arguments)
         {
             var project = Gui.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());
@@ -121,7 +121,7 @@ namespace Ringtoets.Demo.Commands
             {
                 var bytes = new byte[stream.Length];
                 var reader = new BinaryReader(stream);
-                reader.Read(bytes, 0, (int)stream.Length);
+                reader.Read(bytes, 0, (int) stream.Length);
                 return bytes;
             }
         }

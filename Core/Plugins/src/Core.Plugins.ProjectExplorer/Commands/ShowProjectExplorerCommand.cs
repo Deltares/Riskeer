@@ -2,9 +2,9 @@ using Core.Common.Gui;
 
 namespace Core.Plugins.ProjectExplorer.Commands
 {
-    public class ShowProjectExplorerCommand : GuiCommand
+    public class ShowProjectExplorerCommand : IGuiCommand
     {
-        public override bool Enabled
+        public bool Enabled
         {
             get
             {
@@ -12,7 +12,7 @@ namespace Core.Plugins.ProjectExplorer.Commands
             }
         }
 
-        public override bool Checked
+        public bool Checked
         {
             get
             {
@@ -25,7 +25,9 @@ namespace Core.Plugins.ProjectExplorer.Commands
             }
         }
 
-        public override void Execute(params object[] arguments)
+        public IGui Gui { get; set; }
+
+        public void Execute(params object[] arguments)
         {
             var view = ProjectExplorerGuiPlugin.Instance.ProjectExplorer;
             var active = Gui.ToolWindowViews.Contains(view);

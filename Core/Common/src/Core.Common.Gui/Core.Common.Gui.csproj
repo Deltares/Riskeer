@@ -220,7 +220,7 @@
     <Compile Include="GuiCommandHandler.cs" />
     <Compile Include="GuiExportHandler.cs" />
     <Compile Include="GuiImportHandler.cs" />
-    <Compile Include="GuiCommand.cs" />
+    <Compile Include="IGuiCommand.cs" />
     <Compile Include="ILayerEditorView.cs" />
     <Compile Include="IMapLayerProvider.cs" />
     <Compile Include="IObjectProperties.cs" />

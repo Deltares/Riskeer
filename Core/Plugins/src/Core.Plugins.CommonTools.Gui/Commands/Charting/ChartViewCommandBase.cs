@@ -9,9 +9,9 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
     /// Classes derived from this class will have a possibility to obtain the active
     /// <see cref="ChartView"/> (if any) and the <see cref="IGui"/>.
     /// </summary>
-    public abstract class ChartViewCommandBase : GuiCommand
+    public abstract class ChartViewCommandBase : IGuiCommand
     {
-        public override bool Enabled
+        public virtual bool Enabled
         {
             get
             {
@@ -19,13 +19,17 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
-        public override bool Checked
+        public virtual bool Checked
         {
             get
             {
                 return false;
             }
         }
+
+        public IGui Gui { get; set; }
+
+        public abstract void Execute(params object[] arguments);
 
         /// <summary>
         /// Gets the currently active view if it is a <see cref="ChartView"/> and

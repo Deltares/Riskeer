@@ -986,7 +986,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 foreach (var command in ribbonExtension.Commands)
                 {
-                    var guiCommand = command as GuiCommand;
+                    var guiCommand = command as IGuiCommand;
                     if (guiCommand != null)
                     {
                         guiCommand.Gui = Gui;

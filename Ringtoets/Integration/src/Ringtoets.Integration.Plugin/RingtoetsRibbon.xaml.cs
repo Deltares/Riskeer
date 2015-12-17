@@ -19,7 +19,7 @@ namespace Ringtoets.Integration.Plugin
             InitializeComponent();
         }
 
-        public IEnumerable<Command> Commands
+        public IEnumerable<ICommand> Commands
         {
             get
             {

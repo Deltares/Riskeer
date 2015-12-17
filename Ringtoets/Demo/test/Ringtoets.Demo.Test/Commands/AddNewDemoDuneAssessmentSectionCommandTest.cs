@@ -20,7 +20,7 @@ namespace Ringtoets.Demo.Test.Commands
             var command = new AddNewDemoDuneAssessmentSectionCommand();
 
             // Assert
-            Assert.IsInstanceOf<GuiCommand>(command);
+            Assert.IsInstanceOf<IGuiCommand>(command);
             Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);
             Assert.IsNull(command.Gui);

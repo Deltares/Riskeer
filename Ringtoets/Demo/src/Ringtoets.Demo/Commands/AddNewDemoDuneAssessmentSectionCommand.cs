@@ -1,5 +1,4 @@
 ﻿using Core.Common.Gui;
-
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Demo.Commands
@@ -7,9 +6,9 @@ namespace Ringtoets.Demo.Commands
     /// <summary>
     /// Command that adds a new <see cref="DuneAssessmentSection"/> with demo data to the project tree.
     /// </summary>
-    public class AddNewDemoDuneAssessmentSectionCommand : GuiCommand
+    public class AddNewDemoDuneAssessmentSectionCommand : IGuiCommand
     {
-        public override bool Enabled
+        public bool Enabled
         {
             get
             {
@@ -17,7 +16,7 @@ namespace Ringtoets.Demo.Commands
             }
         }
 
-        public override bool Checked
+        public bool Checked
         {
             get
             {
@@ -25,7 +24,9 @@ namespace Ringtoets.Demo.Commands
             }
         }
 
-        public override void Execute(params object[] arguments)
+        public IGui Gui { get; set; }
+
+        public void Execute(params object[] arguments)
         {
             var project = Gui.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());

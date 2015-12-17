@@ -54,7 +54,7 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets commands.
         /// </summary>
-        IList<GuiCommand> Commands { get; }
+        IList<IGuiCommand> Commands { get; }
 
         /// <summary>
         ///  Gets all document views currently opened in the gui.

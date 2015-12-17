@@ -5,9 +5,9 @@ using Core.Plugins.SharpMapGis.Gui.Forms;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
-    public abstract class MapViewCommand : GuiCommand
+    public abstract class MapViewCommand : IGuiCommand
     {
-        public override bool Enabled
+        public virtual bool Enabled
         {
             get
             {
@@ -15,13 +15,17 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
         }
 
-        public override bool Checked
+        public virtual bool Checked
         {
             get
             {
                 return CurrentTool != null && CurrentTool.IsActive;
             }
         }
+
+        public IGui Gui { get; set; }
+
+        public abstract void Execute(params object[] arguments);
 
         protected MapView MapView
         {

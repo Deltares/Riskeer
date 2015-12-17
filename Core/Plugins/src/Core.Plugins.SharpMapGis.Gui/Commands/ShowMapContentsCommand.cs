@@ -3,9 +3,9 @@ using Core.Common.Gui;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
 {
-    public class ShowMapContentsCommand : GuiCommand
+    public class ShowMapContentsCommand : IGuiCommand
     {
-        public override bool Enabled
+        public bool Enabled
         {
             get
             {
@@ -13,7 +13,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
         }
 
-        public override bool Checked
+        public bool Checked
         {
             get
             {
@@ -26,7 +26,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
         }
 
-        public override void Execute(params object[] arguments)
+        public IGui Gui { get; set; }
+
+        public void Execute(params object[] arguments)
         {
             var sharpMapGisGuiPlugin = Gui.Plugins.OfType<SharpMapGisGuiPlugin>().FirstOrDefault();
             if (sharpMapGisGuiPlugin == null)
