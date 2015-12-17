@@ -15,7 +15,6 @@ using Core.GIS.SharpMapTestUtil;
 using Core.Plugins.SharpMapGis.Gui;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
-using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -86,8 +85,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         [TestCase(@"osm\europe_western_europe_netherlands_coastline.shp", ShapeType.PolyLine)]
         public void RenderLargeShapefile(string filePath, ShapeType type)
         {
-            LogHelper.ConfigureLogging(Level.Debug);
-
             var path = Path.GetFullPath(TestHelper.GetDataDir() + filePath);
 
             ShapeFile shp = new ShapeFile(path);

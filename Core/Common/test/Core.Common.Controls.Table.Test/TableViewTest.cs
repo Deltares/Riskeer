@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Controls.Table;
 using Core.Common.Controls.Table.Editors;
 using Core.Common.Controls.Table.Test.TestClasses;
 using Core.Common.TestUtil;
