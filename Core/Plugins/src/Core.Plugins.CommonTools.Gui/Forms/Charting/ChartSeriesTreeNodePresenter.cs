@@ -49,8 +49,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 
         protected override bool RemoveNodeData(object parentNodeData, ChartSeries chartSeries)
         {
-            chartSeries.Chart.RemoveChartSeries(chartSeries);
-            return true;
+            return chartSeries.Chart.RemoveChartSeries(chartSeries);
         }
 
         private Image GetImage(IChartSeries chartSeries)
