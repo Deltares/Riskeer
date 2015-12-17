@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <PropertyGroup>
@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\DisplayFormatAttribute.cs" />
     <Compile Include="CoordinateSystems\AxisInfo.cs" />
     <Compile Include="CoordinateSystems\AxisOrientationEnum.cs" />
     <Compile Include="CoordinateSystems\DatumType.cs" />

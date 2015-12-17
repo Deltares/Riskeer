@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.GIS.GeoAPI.Attributes;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;

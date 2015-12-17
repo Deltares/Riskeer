@@ -4,7 +4,7 @@ using Core.Common.Utils.Extensions;
 
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test.Attributes
+namespace Core.Common.Utils.Test.Extensions
 {
     [TestFixture]
     public class ComparableExtensionsTest

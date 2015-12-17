@@ -49,10 +49,6 @@ namespace Core.Common.Utils.PropertyBag
             var attributeList = new List<Attribute>();
             attributeList.AddRange(propertySpec.Attributes.ToList());
 
-            var setToReadOnly = false;
-            EditorAttribute editorAttribute = null;
-            DynamicEditorAttribute dynamicEditorAttribute = null;
-
             //check all of the attributes: if we find a dynamic one, evaluate it and possibly add/overwrite a static attribute
             foreach (Attribute customAttribute in propertySpec.Attributes)
             {
@@ -64,7 +60,6 @@ namespace Core.Common.Utils.PropertyBag
                     {
                         //condition is true: the dynamic attribute should be applied (as static attribute)
                         attributeList.Add(new ReadOnlyAttribute(true)); //add static read only attribute
-                        setToReadOnly = true;
                     }
                 }
 
@@ -76,35 +71,6 @@ namespace Core.Common.Utils.PropertyBag
                     {
                         attributeList.Add(new BrowsableAttribute(false));
                     }
-                }
-
-                if (customAttribute is EditorAttribute)
-                {
-                    editorAttribute = customAttribute as EditorAttribute;
-                }
-                if (customAttribute is DynamicEditorAttribute)
-                {
-                    dynamicEditorAttribute = customAttribute as DynamicEditorAttribute;
-                }
-            }
-
-            if (setToReadOnly && editorAttribute != null)
-            {
-                // translate EditorAttribute into DynamicEditorAttribute (since the property is readonly)
-                attributeList.RemoveAll(x => x is EditorAttribute);
-                attributeList.Add(new DynamicEditorAttribute(editorAttribute.EditorTypeName, editorAttribute.EditorBaseTypeName));
-            }
-            if (!setToReadOnly && dynamicEditorAttribute != null)
-            {
-                // translate DynamicEditorAttribute into regular EditorAttribute (since the property is NOT readonly)
-                attributeList.RemoveAll(x => x is DynamicEditorAttribute);
-                try
-                {
-                    attributeList.Add(new EditorAttribute(Type.GetType(dynamicEditorAttribute.EditorType, true), Type.GetType(dynamicEditorAttribute.EditorBaseType, true)));
-                }
-                catch (Exception)
-                {
-                    // nothing we can do about it
                 }
             }
 

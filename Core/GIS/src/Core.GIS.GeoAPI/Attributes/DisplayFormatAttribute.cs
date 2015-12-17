@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Common.Utils.Attributes
+namespace Core.GIS.GeoAPI.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class DisplayFormatAttribute : Attribute

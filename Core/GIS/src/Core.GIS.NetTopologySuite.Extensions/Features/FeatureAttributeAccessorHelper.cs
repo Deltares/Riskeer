@@ -5,9 +5,8 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using Core.Common.Utils;
-using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
+using Core.GIS.GeoAPI.Attributes;
 using Core.GIS.GeoAPI.Extensions.Feature;
 
 namespace Core.GIS.NetTopologySuite.Extensions.Features

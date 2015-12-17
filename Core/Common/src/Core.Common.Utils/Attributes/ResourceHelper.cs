@@ -8,7 +8,7 @@ namespace Core.Common.Utils.Attributes
     /// <summary>
     /// Helper method for interacting with <see cref="Resource"/>.
     /// </summary>
-    public static class ResourceHelper
+    internal static class ResourceHelper
     {
         /// <summary>
         /// Retrieve the string resource with the given name.
@@ -16,7 +16,7 @@ namespace Core.Common.Utils.Attributes
         /// <param name="resourceType">Type of the resource file.</param>
         /// <param name="resourceName">Name of the resource property to be retrieved.</param>
         /// <returns>String resource in the resources file.</returns>
-        public static string GetResourceLookup(Type resourceType, string resourceName)
+        internal static string GetResourceLookup(Type resourceType, string resourceName)
         {
             if ((resourceType != null) && (resourceName != null))
             {

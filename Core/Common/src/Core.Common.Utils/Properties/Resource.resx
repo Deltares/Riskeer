@@ -126,23 +126,20 @@
   <data name="InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_" xml:space="preserve">
     <value>Thread synchronisatiefout (aanroep {1}): {0}</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_IsDynamicReadOnly_0_uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute" xml:space="preserve">
-    <value>{0} gebruikt DynanamicReadOnlyAttribute, maar heeft geen methode gemarkeerd met DynamicReadOnlyValidationMethodAttribute.</value>
+  <data name="DynamicReadOnlyValidationMethod_not_found_or_not_public_on_Class_0_" xml:space="preserve">
+    <value>DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found_or_not_public_class_0_" xml:space="preserve">
-    <value>DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}</value>
-  </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class_0_" xml:space="preserve">
+  <data name="DynamicReadOnlyValidationMethod_only_one_allowed_per_Class_0_" xml:space="preserve">
     <value>Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {0}.</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type_class_0_" xml:space="preserve">
-    <value>DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}</value>
+  <data name="DynamicReadOnlyValidationMethod_must_return_bool_on_Class_0_" xml:space="preserve">
+    <value>DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_" xml:space="preserve">
-    <value>DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}</value>
+  <data name="DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_" xml:space="preserve">
+    <value>DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.</value>
   </data>
-  <data name="DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_" xml:space="preserve">
-    <value>Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {0}</value>
+  <data name="DynamicReadOnlyValidationMethod_must_have_string_argument_on_Class_0_" xml:space="preserve">
+    <value>Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {0}.</value>
   </data>
   <data name="Could_not_find_property_0_on_type_1_" xml:space="preserve">
     <value>Kon eigenschap {0} van type {1} niet vinden.</value>

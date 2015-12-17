@@ -1,18 +1,33 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
+using System.ComponentModel;
 
-using Core.Common.Utils.Properties;
+using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resource;
 
 namespace Core.Common.Utils.Attributes
 {
     /// <summary>
-    /// Marks property as a conditional read-only property. When this attribute is used on a property - a class containing that property
-    /// must contain a single validation method (argument propertyName as string, returns bool) marked using [DynamicReadOnlyValidationMethod] 
-    /// attribute.
+    /// Marks property as a conditional read-only property. When this attribute is declared
+    /// on a property, the declaring a class should have a public method marked with 
+    /// <see cref="DynamicReadOnlyValidationMethodAttribute"/> to be used to evaluate if
+    /// that property should be read-only or not.
     /// </summary>
+    /// <seealso cref="DynamicReadOnlyValidationMethodAttribute"/>
+    /// <seealso cref="ReadOnlyAttribute"/>
+    /// <remarks>This attribute provides a run-time alternative to <see cref="ReadOnlyAttribute"/>.</remarks>
+    [AttributeUsage(AttributeTargets.Property)]
     public class DynamicReadOnlyAttribute : Attribute
     {
+        /// <summary>
+        /// Determines whether the property is read-only or not.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="propertyName">Name of the property of <paramref name="obj"/>.</param>
+        /// <returns>True if the property is read-only, false otherwise.</returns>
+        /// <exception cref="MissingMemberException"><paramref name="propertyName"/>
+        /// does not correspond to a public property of <paramref name="obj"/>.</exception>
+        /// <exception cref="System.MissingMethodException">When there isn't a single method
+        /// declared on <paramref name="obj"/> marked with <see cref="DynamicReadOnlyValidationMethodAttribute"/>
+        /// and/or isn't matching the signature defined by <see cref="DynamicReadOnlyValidationMethodAttribute.IsPropertyReadOnly"/>.</exception>
         public static bool IsDynamicReadOnly(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -20,75 +35,35 @@ namespace Core.Common.Utils.Attributes
                 return false;
             }
 
-            // todo: caching!!!!
-            var propertyInfo = obj.GetType().GetProperty(propertyName);
-            if (propertyInfo == null)
-            {
-                throw new MissingMemberException(string.Format(Resource.Could_not_find_property_0_on_type_1_, propertyName,
-                                                               obj.GetType()));
-            }
-
-            if (!propertyInfo.GetCustomAttributes(typeof(DynamicReadOnlyAttribute), false).Any())
+            var isDynamicReadOnlyProperty = PropertyIsDynamicallyReadOnly(obj, propertyName);
+            if (!isDynamicReadOnlyProperty)
             {
                 return false;
             }
 
-            var validationMethod = GetDynamicReadOnlyValidationMethod(obj);
+            var isPropertyReadOnlyDelegate = DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(obj);
 
-            // check if property should be read-only
-            if (validationMethod == null)
-            {
-                throw new MissingMethodException(
-                    String.Format(Resource.DynamicReadOnlyAttribute_IsDynamicReadOnly_0_uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute, obj));
-            }
-
-            var shouldBeReadOnly = (bool) validationMethod.Invoke(obj, new[]
-            {
-                propertyName
-            });
-
-            return shouldBeReadOnly;
+            return isPropertyReadOnlyDelegate(propertyName);
         }
 
-        private static MethodInfo GetDynamicReadOnlyValidationMethod(object o)
+        /// <summary>
+        /// Determines if an object's property is marked with <see cref="DynamicReadOnlyAttribute"/>.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>True if the attribute is defined, false otherwise.</returns>
+        /// <exception cref="System.MissingMemberException"><paramref name="propertyName"/>
+        /// does not correspond to a public property of <paramref name="obj"/>.</exception>
+        private static bool PropertyIsDynamicallyReadOnly(object obj, string propertyName)
         {
-            var type = o.GetType();
-
-            var validationMethods =
-                type.GetMethods().Where(
-                    methodInfo =>
-                    methodInfo.GetCustomAttributes(false).Any(a => a is DynamicReadOnlyValidationMethodAttribute)).
-                     ToList();
-
-            if (!validationMethods.Any())
+            var propertyInfo = obj.GetType().GetProperty(propertyName);
+            if (propertyInfo == null)
             {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found_or_not_public_class_0_, type));
+                throw new MissingMemberException(string.Format(CoreCommonUtilsResources.Could_not_find_property_0_on_type_1_, propertyName,
+                                                               obj.GetType()));
             }
 
-            if (validationMethods.Count() > 1)
-            {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class_0_, type));
-            }
-
-            var validationMethod = validationMethods.First();
-
-            // check return type and arguments
-            if (validationMethod.ReturnType != typeof(bool))
-            {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type_class_0_, type));
-            }
-
-            if (validationMethod.GetParameters().Length != 1)
-            {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_, type));
-            }
-
-            if (validationMethod.GetParameters()[0].ParameterType != typeof(string))
-            {
-                throw new MissingMethodException(string.Format(Resource.DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_, type));
-            }
-
-            return validationMethod;
+            return IsDefined(propertyInfo, typeof(DynamicReadOnlyAttribute));
         }
     }
 }

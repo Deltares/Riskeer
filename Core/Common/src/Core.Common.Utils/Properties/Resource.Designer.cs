@@ -80,63 +80,48 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argument van DynamicReadOnlyValidationMethod moet van het type &apos;string&apos; zijn. Klasse: {0}.
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}..
         /// </summary>
-        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_ {
+        internal static string DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
-                        "tionMethod_has_incorrect_argument_type_Should_be_of_type_string_class_0_", resourceCulture);
+                return ResourceManager.GetString("DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argum" +
+                        "ent_on_Class_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.
+        ///   Looks up a localized string similar to Argument van DynamicReadOnlyValidationMethod moet van het type &apos;string&apos; zijn. Klasse: {0}..
         /// </summary>
-        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_ {
+        internal static string DynamicReadOnlyValidationMethod_must_have_string_argument_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
-                        "tionMethod_has_incorrect_number_of_arguments_Should_be_1_of_type_string_class_0_" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("DynamicReadOnlyValidationMethod_must_have_string_argument_on_Class_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod moet &apos;bool&apos; als &apos;return type&apos; hebben. Klasse: {0}.
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod moet &apos;bool&apos; als &apos;return type&apos; hebben. Klasse: {0}..
         /// </summary>
-        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type_class_0_ {
+        internal static string DynamicReadOnlyValidationMethod_must_return_bool_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
-                        "tionMethod_must_use_bool_as_a_return_type_class_0_", resourceCulture);
+                return ResourceManager.GetString("DynamicReadOnlyValidationMethod_must_return_bool_on_Class_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod niet gevonden (of geen &apos;public&apos; toegankelijkheid). Klasse: {0}.
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod niet gevonden (of geen &apos;public&apos; toegankelijkheid). Klasse: {0}..
         /// </summary>
-        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found_or_not_public_class_0_ {
+        internal static string DynamicReadOnlyValidationMethod_not_found_or_not_public_on_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
-                        "tionMethod_not_found_or_not_public_class_0_", resourceCulture);
+                return ResourceManager.GetString("DynamicReadOnlyValidationMethod_not_found_or_not_public_on_Class_0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {0}..
         /// </summary>
-        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class_0_ {
+        internal static string DynamicReadOnlyValidationMethod_only_one_allowed_per_Class_0_ {
             get {
-                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadO" +
-                        "nlyValidationMethod_is_allowed_per_class_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} gebruikt DynanamicReadOnlyAttribute, maar heeft geen methode gemarkeerd met DynamicReadOnlyValidationMethodAttribute..
-        /// </summary>
-        internal static string DynamicReadOnlyAttribute_IsDynamicReadOnly_0_uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute {
-            get {
-                return ResourceManager.GetString("DynamicReadOnlyAttribute_IsDynamicReadOnly_0_uses_DynanamicReadOnlyAttribute_but_" +
-                        "does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute", resourceCulture);
+                return ResourceManager.GetString("DynamicReadOnlyValidationMethod_only_one_allowed_per_Class_0_", resourceCulture);
             }
         }
         

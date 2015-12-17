@@ -10,6 +10,7 @@ using Core.Common.Gui;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Events;
 using Core.Common.Utils.Reflection;
+using Core.GIS.GeoAPI.Attributes;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api.Collections;

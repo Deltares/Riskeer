@@ -88,8 +88,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Attributes\DisplayFormatAttribute.cs" />
-    <Compile Include="Attributes\DynamicEditorAttribute.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttribute.cs" />
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="Attributes\DynamicVisibleAttribute.cs" />
