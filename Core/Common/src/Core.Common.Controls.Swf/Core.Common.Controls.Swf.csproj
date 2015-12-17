@@ -65,26 +65,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DevExpress.Data.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DevExpress.Utils.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DevExpress.XtraEditors.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DevExpress.XtraGrid.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraWizard.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DevExpress.XtraWizard.v9.3.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -103,10 +83,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TeeChart, Version=3.5.3700.30575, Culture=neutral, PublicKeyToken=1463a114303c2e80, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\TeeChart.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -116,60 +92,20 @@
     <Compile Include="CollapsibleSplitter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Table\Editors\ButtonTypeEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Editors\ITypeEditor.cs" />
-    <Compile Include="Table\Editors\MultiLineTextEdior.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="FindAndReplaceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FindAndReplaceControl.Designer.cs">
       <DependentUpon>FindAndReplaceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table\Editors\ComboBoxTypeEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Editors\ComboBoxTypeEditor.Designer.cs">
-      <DependentUpon>ComboBoxTypeEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="HtmlPageView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IWizardPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Table\EnumFormatter.cs" />
-    <Compile Include="Table\TableSelectionChangedEventArgs.cs" />
-    <Compile Include="Table\TableViewCell.cs" />
-    <Compile Include="Table\TableViewCellFormatterProvider.cs" />
-    <Compile Include="Table\TableViewCellStyle.cs" />
-    <Compile Include="Table\TableViewColumnMenuItem.cs" />
-    <Compile Include="Table\TableViewComboBoxItem.cs" />
-    <Compile Include="Table\TableView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\TableView.Designer.cs">
-      <DependentUpon>TableView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Table\TableViewColumn.cs" />
-    <Compile Include="Table\TableViewExceptionMessageController.cs" />
-    <Compile Include="Table\TableViewPasteBehaviourOptions.cs" />
-    <Compile Include="Table\TableViewPasteController.cs" />
-    <Compile Include="Table\Validation\RowValidationResult.cs" />
-    <Compile Include="Table\Validation\TableViewValidator.cs" />
-    <Compile Include="Table\XtraGridRepositoryItemBuilder.cs" />
-    <Compile Include="WizardDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WizardDialog.Designer.cs">
-      <DependentUpon>WizardDialog.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -183,14 +119,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\TableView.resx">
-      <DependentUpon>TableView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardDialog.resx">
-      <DependentUpon>WizardDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -230,18 +158,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\computer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\page_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\drive.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\folder.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -259,58 +175,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\up.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\down.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\down1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\table_edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\information.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CopyHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DeleteHS1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PasteHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\csv-export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\csv-import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\edit-replace.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\edit_replace_all.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\cross.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\binocular.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tick.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\funnel-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\funnel--minus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

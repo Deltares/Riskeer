@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls;
-using Core.Common.Controls.Swf.Table;
+using Core.Common.Controls.Table;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;

@@ -76,11 +76,6 @@
   <ItemGroup>
     <Compile Include="FindAndReplaceControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Table\TableViewCopyPasteTest.cs" />
-    <Compile Include="Table\TableViewPasteControllerTest.cs" />
-    <Compile Include="Table\TableViewTest.cs" />
-    <Compile Include="Table\TestClasses\ClassWithEnum.cs" />
-    <Compile Include="Table\TestClasses\Person.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

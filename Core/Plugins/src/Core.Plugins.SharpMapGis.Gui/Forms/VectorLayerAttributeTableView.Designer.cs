@@ -1,5 +1,5 @@
 ﻿using Core.Common.Controls;
-using Core.Common.Controls.Swf.Table;
+using Core.Common.Controls.Table;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms
 {
