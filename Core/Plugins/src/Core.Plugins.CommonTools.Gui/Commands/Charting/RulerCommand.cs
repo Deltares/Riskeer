@@ -20,10 +20,17 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
+        /// <summary>
+        /// Shows or hides the <see cref="RulerTool"/>.
+        /// </summary>
+        /// <param name="arguments">
+        /// <list type="bullet">
+        /// <item>[0] <see cref="bool"/> - <c>true</c> to show the <see cref="RulerTool"/>, <c>false</c> to hide the <see cref="RulerTool"/>.</item>
+        /// </list></param>
         public override void Execute(params object[] arguments)
         {
-            var view = RulerTool;
-            if (view == null || arguments.Length == 0)
+            var rulerTool = RulerTool;
+            if (rulerTool == null || arguments.Length == 0)
             {
                 return;
             }

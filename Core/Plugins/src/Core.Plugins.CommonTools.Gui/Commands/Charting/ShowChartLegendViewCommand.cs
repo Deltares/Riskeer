@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Gui;
+using Core.Plugins.CommonTools.Gui.Forms.Charting;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {
@@ -30,6 +31,11 @@ namespace Core.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
+        /// <summary>
+        /// Opens the <see cref="ChartLegendView"/> in the UI when it was closed.
+        /// Closes the <see cref="ChartLegendView"/> in the UI when it was open.
+        /// </summary>
+        /// <param name="arguments">No arguments are needed when calling this method.</param>
         public override void Execute(params object[] arguments)
         {
             var commonToolsGuiPlugin = Gui.Plugins.OfType<CommonToolsGuiPlugin>().FirstOrDefault();

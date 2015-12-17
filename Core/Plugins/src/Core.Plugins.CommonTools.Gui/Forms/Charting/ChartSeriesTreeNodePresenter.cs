@@ -6,7 +6,8 @@ using Core.Plugins.CommonTools.Gui.Properties;
 
 namespace Core.Plugins.CommonTools.Gui.Forms.Charting
 {
-    internal class ChartSeriesTreeNodePresenter : TreeViewNodePresenterBase<ChartSeries>    {
+    public class ChartSeriesTreeNodePresenter : TreeViewNodePresenterBase<ChartSeries>
+    {
         public override bool CanRenameNode(ITreeNode node)
         {
             return true;

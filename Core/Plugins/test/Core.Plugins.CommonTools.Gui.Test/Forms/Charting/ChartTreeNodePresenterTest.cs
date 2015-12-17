@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Core.Common.Controls.Charting;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -23,7 +22,6 @@ namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
 
             var chart = mocks.Stub<IChart>();
 
-            var guiPlugin = mocks.Stub<GuiPlugin>();
             treeView.TreeViewNodeSorter = mocks.Stub<IComparer>();
 
             mocks.ReplayAll();
@@ -50,7 +48,6 @@ namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
 
             var chart = mocks.Stub<IChart>();
 
-            var guiPlugin = mocks.Stub<GuiPlugin>();
             mocks.ReplayAll();
 
             // Precondition

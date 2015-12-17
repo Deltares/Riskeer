@@ -171,7 +171,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Commands.Charting
         }
 
         private class TestChartViewCommandBase : ChartViewCommandBase {
-            public override void Execute(params object[] arguments)
+            public override void Execute(params object[] args)
             {
                 throw new NotImplementedException();
             }

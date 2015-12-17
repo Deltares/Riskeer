@@ -1,7 +1,14 @@
-﻿namespace Core.Plugins.CommonTools.Gui.Commands.Charting
+﻿using Core.Common.Controls.Charting;
+
+namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {
     public class IncreaseFontSizeCommand : ChartViewCommandBase
     {
+        /// <summary>
+        /// Increases the fonts of the <see cref="Chart"/> on the active <see cref="ChartView"/>
+        /// by one point.
+        /// </summary>
+        /// <param name="arguments">No arguments are needed when calling this method.</param>
         public override void Execute(params object[] arguments)
         {
             var view = View;
