@@ -268,7 +268,7 @@ verticaal: {1}</value>
     <value>X-waarde wordt vastgelegd (rechter limiet) {0} =&gt; {1}.</value>
   </data>
   <data name="ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item" xml:space="preserve">
-    <value>Niet te klonen subitems in menu-item.</value>
+    <value>Niet te klonen subelementen in menu-element.</value>
   </data>
   <data name="CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property" xml:space="preserve">
     <value>De eigenschap 'DockStyle' van de inklapbare splitser kan geen waarde 'Filled' of 'None' hebben.</value>
@@ -298,7 +298,7 @@ Fout:
     <value>Fout tijdens slepen/neerzetten: {0}.</value>
   </data>
   <data name="TreeView_DeleteNodeData_The_selected_item_cannot_be_removed" xml:space="preserve">
-    <value>Het geselecteerde item kan niet worden verwijderd.</value>
+    <value>Het geselecteerde element kan niet worden verwijderd.</value>
   </data>
   <data name="TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented" xml:space="preserve">
     <value>De methode of operatie is niet geïmplementeerd.</value>

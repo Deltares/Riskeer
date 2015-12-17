@@ -344,7 +344,7 @@
     <value>..\Resources\cog_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_" xml:space="preserve">
-    <value>Geen enkele 'Importer' is beschikbaar voor dit 'item' ({0}).</value>
+    <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
   </data>
   <data name="ViewResolver_OpenViewForData_No_view_registered_for_0_" xml:space="preserve">
     <value>Geen documentvenster geregistreerd voor: {0}.</value>
@@ -641,7 +641,7 @@
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item" xml:space="preserve">
-    <value>Geen enkele 'Importer' is beschikbaar voor dit 'item'.</value>
+    <value>Geen enkele 'Importer' is beschikbaar voor dit element.</value>
   </data>
   <data name="folder_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_output.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

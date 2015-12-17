@@ -32,7 +32,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                Assert.AreEqual("Geen enkele 'Importer' is beschikbaar voor dit 'item'.", messageBox.Text);
+                Assert.AreEqual("Geen enkele 'Importer' is beschikbaar voor dit element.", messageBox.Text);
                 Assert.AreEqual("Fout", messageBox.Title);
                 messageBox.ClickOk();
             };

@@ -365,7 +365,7 @@
     <value>Kaart</value>
   </data>
   <data name="ThemeItemProperties_DisplayName" xml:space="preserve">
-    <value>Thema item</value>
+    <value>Thema element</value>
   </data>
   <data name="VectorLayerProperties_LineColor_Description" xml:space="preserve">
     <value>Primaire kleur van de lijn.</value>
@@ -660,7 +660,7 @@
     <value>Attribuut verwijderen</value>
   </data>
   <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item" xml:space="preserve">
-    <value>Zoom naar item</value>
+    <value>Zoom naar element</value>
   </data>
   <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view" xml:space="preserve">
     <value>Weergave openen...</value>

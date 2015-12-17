@@ -184,7 +184,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Niet te klonen subitems in menu-item..
+        ///   Looks up a localized string similar to Niet te klonen subelementen in menu-element..
         /// </summary>
         internal static string ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item {
             get {
@@ -871,7 +871,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het geselecteerde item kan niet worden verwijderd..
+        ///   Looks up a localized string similar to Het geselecteerde element kan niet worden verwijderd..
         /// </summary>
         internal static string TreeView_DeleteNodeData_The_selected_item_cannot_be_removed {
             get {

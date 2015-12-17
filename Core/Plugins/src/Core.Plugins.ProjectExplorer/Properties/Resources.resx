@@ -383,7 +383,7 @@
     <value>Kan geen projectitem vinden voor de data van dit scherm: {0}</value>
   </data>
   <data name="ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item_0_" xml:space="preserve">
-    <value>Kan geen bijbehorende knoop vinden in de projectverkenner voor item: {0}</value>
+    <value>Kan geen bijbehorende knoop vinden in de projectverkenner voor element: {0}</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
     <value>Beeld</value>

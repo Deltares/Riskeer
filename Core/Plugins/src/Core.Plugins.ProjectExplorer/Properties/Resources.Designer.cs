@@ -880,7 +880,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen bijbehorende knoop vinden in de projectverkenner voor item: {0}.
+        ///   Looks up a localized string similar to Kan geen bijbehorende knoop vinden in de projectverkenner voor element: {0}.
         /// </summary>
         public static string ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item_0_ {
             get {

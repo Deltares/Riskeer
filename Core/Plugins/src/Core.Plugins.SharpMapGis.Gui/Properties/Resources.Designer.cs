@@ -1662,7 +1662,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thema item.
+        ///   Looks up a localized string similar to Thema element.
         /// </summary>
         public static string ThemeItemProperties_DisplayName {
             get {
@@ -1748,7 +1748,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoom naar item.
+        ///   Looks up a localized string similar to Zoom naar element.
         /// </summary>
         public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item {
             get {
