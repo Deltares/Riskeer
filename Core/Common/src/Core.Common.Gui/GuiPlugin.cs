@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Common.Controls;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 
 namespace Core.Common.Gui
 {

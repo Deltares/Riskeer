@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Plugin;
 
 namespace Core.Common.Gui
 {

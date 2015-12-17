@@ -11,6 +11,7 @@ using Core.Common.Controls.Table;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 using Core.Common.Utils.Events;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;

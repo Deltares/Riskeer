@@ -5,6 +5,7 @@ using Core.Common.Controls.Swf;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Plugin;
 using Core.Common.Test.TestObjects;
 using Core.Common.Utils;
 using Core.Common.Utils.Events;

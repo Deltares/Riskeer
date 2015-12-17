@@ -7,6 +7,7 @@ using Core.Common.Controls.Charting;
 using Core.Common.Controls.Charting.Series;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils;
 using Core.Common.Utils.Events;
