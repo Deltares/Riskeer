@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.PropertyBag;
-using Core.Common.Utils.PropertyBag.Dynamic;
+
 using NUnit.Framework;
 using CategoryComponentModelAttribute = System.ComponentModel.CategoryAttribute;
 

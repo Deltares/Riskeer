@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.PropertyBag.Dynamic;
+using Core.Common.Utils.PropertyBag;
+
 using NUnit.Framework;
 
 namespace Core.Common.Test.Gui.Forms.PropertyGridView

@@ -13,7 +13,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
-using Core.Common.Utils.PropertyBag.Dynamic;
+using Core.Common.Utils.PropertyBag;
 
 namespace Core.Common.Gui
 {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
-using Core.Common.Utils.PropertyBag.Dynamic;
+
+using Core.Common.Utils.PropertyBag;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;

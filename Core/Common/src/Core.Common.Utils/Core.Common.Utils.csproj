@@ -114,12 +114,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
+    <Compile Include="PropertyBag\PropertySpecCollection.cs" />
+    <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
     <Compile Include="SettingsHelper.cs" />
-    <Compile Include="TextDocument.cs" />
-    <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="MathUtils.cs" />
-    <Compile Include="PropertyBag\PropertyBag.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecEventArgs.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
@@ -180,7 +180,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PropertyBag\Dynamic\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

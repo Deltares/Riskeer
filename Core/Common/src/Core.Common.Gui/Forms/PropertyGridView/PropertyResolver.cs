@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.PropertyBag.Dynamic;
+using Core.Common.Utils.PropertyBag;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {

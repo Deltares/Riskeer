@@ -5,7 +5,9 @@ using System.Drawing.Design;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Core.Common.Utils.PropertyBag.Dynamic;
+
+using Core.Common.Utils.PropertyBag;
+
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors

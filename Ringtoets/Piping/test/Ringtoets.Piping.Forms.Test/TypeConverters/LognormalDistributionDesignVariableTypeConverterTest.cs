@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Utils.PropertyBag.Dynamic;
+using Core.Common.Utils.PropertyBag;
 
 using NUnit.Framework;
 

@@ -104,7 +104,6 @@
     <Compile Include="TestHelperTests.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TextDocumentTest.cs" />
     <Compile Include="UrlTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
   </ItemGroup>
