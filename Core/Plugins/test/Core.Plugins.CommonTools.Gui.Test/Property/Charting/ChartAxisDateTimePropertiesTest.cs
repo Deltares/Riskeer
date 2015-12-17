@@ -10,78 +10,59 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
     public class ChartAxisDateTimePropertiesTest
     {
         [Test]
-        public void Maximum_WithData_GetFromData()
+        public void Constructor_WithAxis_ExpectedValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var chartAxis = mocks.StrictMock<IChartAxis>();
-            var oaDate = new Random(21).NextDouble();
-            chartAxis.Expect(a => a.Maximum).Return(oaDate);
-
-            mocks.ReplayAll();
-
-            var properties = new ChartAxisDateTimeProperties(chartAxis);
-
-            // Call & Assert
-            Assert.AreEqual(DateTime.FromOADate(oaDate), properties.Maximum);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Maximum_WithData_SetToData()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dateTime = DateTime.Parse("2015/12/17");
-            var chartAxis = mocks.StrictMock<IChartAxis>();
-            chartAxis.Expect(a => a.Maximum).SetPropertyWithArgument(dateTime.ToOADate());
-
-            mocks.ReplayAll();
-
-            var properties = new ChartAxisDateTimeProperties(chartAxis);
-
             // Call
-            properties.Maximum = dateTime;
+            var mocks = new MockRepository();
+            var chartAxis = mocks.StrictMock<IChartAxis>();
+            var properties = new ChartAxisDateTimeProperties(chartAxis);
 
             // Assert
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<ChartAxisProperties>(properties);
         }
 
         [Test]
-        public void Minimum_WithData_GetFromData()
+        public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
+            var random = new Random(21);
+            var maximum = random.NextDouble();
+            var minimum = random.NextDouble();
             var chartAxis = mocks.StrictMock<IChartAxis>();
-            var oaDate = new Random(21).NextDouble();
-            chartAxis.Expect(a => a.Minimum).Return(oaDate);
+            chartAxis.Expect(a => a.Maximum).Return(maximum);
+            chartAxis.Expect(a => a.Minimum).Return(minimum);
 
             mocks.ReplayAll();
 
             var properties = new ChartAxisDateTimeProperties(chartAxis);
 
             // Call & Assert
-            Assert.AreEqual(DateTime.FromOADate(oaDate), properties.Minimum);
+            Assert.AreEqual(DateTime.FromOADate(maximum), properties.Maximum);
+            Assert.AreEqual(DateTime.FromOADate(minimum), properties.Minimum);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Minimum_WithData_SetToData()
+        public void SetProperties_WithData_CallsSetters()
         {
             // Setup
             var mocks = new MockRepository();
-            var dateTime = DateTime.Parse("2015/12/17");
             var chartAxis = mocks.StrictMock<IChartAxis>();
-            chartAxis.Expect(a => a.Minimum).SetPropertyWithArgument(dateTime.ToOADate());
+            var maximum = DateTime.Parse("2015/12/17");
+            var minimum = DateTime.Parse("2015/12/3");
+            chartAxis.Expect(a => a.Maximum).SetPropertyWithArgument(maximum.ToOADate());
+            chartAxis.Expect(a => a.Minimum).SetPropertyWithArgument(minimum.ToOADate());
 
             mocks.ReplayAll();
 
-            var properties = new ChartAxisDateTimeProperties(chartAxis);
-
             // Call
-            properties.Minimum = dateTime;
+            new ChartAxisDateTimeProperties(chartAxis)
+            {
+                Maximum = maximum,
+                Minimum = minimum
+            };
 
             // Assert
             mocks.VerifyAll();

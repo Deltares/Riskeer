@@ -1,7 +1,10 @@
+using System.ComponentModel;
+using System.Drawing;
 using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.Utils.Attributes;
 using Core.Plugins.CommonTools.Gui.Properties;
+using Core.Plugins.CommonTools.Gui.Property.Charting;
 
 namespace Core.Plugins.CommonTools.Gui.Property
 {
@@ -33,6 +36,19 @@ namespace Core.Plugins.CommonTools.Gui.Property
             set
             {
                 data.Description = value;
+            }
+        }
+
+        [TypeConverter(typeof(ChartFontPropertiesConverter))]
+        public Font SomeFont
+        {
+            get
+            {
+                return new Font(FontFamily.GenericSansSerif, 12);
+            }
+            set
+            {
+                
             }
         }
     }

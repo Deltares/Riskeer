@@ -10,6 +10,17 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
     public class BarSeriesPropertiesTest
     {
         [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Call
+            var properties = new BarSeriesProperties();
+
+            // Assert
+            Assert.IsInstanceOf<ChartSeriesProperties<BarSeries>>(properties);
+            Assert.IsNull(properties.Data);
+        }
+
+        [Test]
         public void Color_WithData_SameAsData()
         {
             // Setup
