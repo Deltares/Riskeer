@@ -65,7 +65,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
             nodePresenter.OnNodeRenamed(chartSeries, newName);
 
             // Assert
-            Assert.AreSame(newName, chartSeries.Title);
+            Assert.AreEqual(newName, chartSeries.Title);
         }
 
         [Test]

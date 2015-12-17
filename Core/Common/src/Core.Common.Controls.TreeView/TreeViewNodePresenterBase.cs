@@ -34,37 +34,9 @@ namespace Core.Common.Controls.TreeView
             throw new InvalidOperationException(Resources.TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class);
         }
 
-        /// <summary>
-        /// Returns the default drag operation based on pressed control keys and allowed operations
-        /// It can be used as replacement for the implementation for TreeViewNodePresenterBase&lt;T&gt;::<see cref="TreeViewNodePresenterBase{T}.CanDrop"/>.
-        /// </summary>
-        public static DragOperations GetDefaultDropOperation(ITreeView treeView, object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public static DragOperations GetDefaultDropOperation(DragOperations validOperation)
         {
-            if (null != sourceNode)
-            {
-                //TreeNode nodeDragging = (TreeNode)sourceNode;
-                if (sourceNode.TreeView == treeView)
-                {
-                    // if the user is not forcing an operation using the keyboard default to move within treeview
-                    if ((0 == (Control.ModifierKeys & Keys.Modifiers)) && DragOperations.Move == validOperations)
-                    {
-                        return DragOperations.Move;
-                    }
-                }
-            }
-
-            if (((Control.ModifierKeys & Keys.Shift) == Keys.Shift) && DragOperations.Move == validOperations)
-            {
-                return DragOperations.Move;
-            }
-
-            // do not return bitwise operation, preference here is disputable
-            if (DragOperations.Move == validOperations)
-            {
-                return DragOperations.Move;
-            }
-
-            return DragOperations.None;
+            return DragOperations.Move == validOperation ? DragOperations.Move : DragOperations.None;
         }
 
         public virtual void OnDragDrop(object item, object itemParent, T target,

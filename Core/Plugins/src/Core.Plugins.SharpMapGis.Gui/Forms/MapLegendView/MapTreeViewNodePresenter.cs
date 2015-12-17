@@ -75,7 +75,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         {
             if (item is Layer)
             {
-                return GetDefaultDropOperation(TreeView, item, sourceNode, targetNode, validOperations);
+                return GetDefaultDropOperation(validOperations);
             }
 
             return DragOperations.None;

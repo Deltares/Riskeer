@@ -36,7 +36,7 @@ namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
         {
             if (item is ILayer)
             {
-                return GetDefaultDropOperation(TreeView, item, sourceNode, targetNode, validOperations);
+                return GetDefaultDropOperation(validOperations);
             }
 
             return DragOperations.None;

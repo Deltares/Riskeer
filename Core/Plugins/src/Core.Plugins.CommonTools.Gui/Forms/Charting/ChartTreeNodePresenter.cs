@@ -44,7 +44,7 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
         {
             if (item is IChartSeries)
             {
-                return GetDefaultDropOperation(TreeView, item, sourceNode, targetNode, validOperations);
+                return GetDefaultDropOperation(validOperations);
             }
 
             return base.CanDrop(item, sourceNode, targetNode, validOperations);
