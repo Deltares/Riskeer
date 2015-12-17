@@ -204,7 +204,7 @@ Fout:
     <value>Fout tijdens slepen/neerzetten: {0}.</value>
   </data>
   <data name="TreeView_DeleteNodeData_The_selected_item_cannot_be_removed" xml:space="preserve">
-    <value>Het geselecteerde item kan niet worden verwijderd.</value>
+    <value>Het geselecteerde element kan niet worden verwijderd.</value>
   </data>
   <data name="TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented" xml:space="preserve">
     <value>De methode of operatie is niet geïmplementeerd.</value>
