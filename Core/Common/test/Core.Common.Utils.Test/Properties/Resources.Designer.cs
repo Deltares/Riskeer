@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Core.Common.Utils.Test.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -74,6 +77,15 @@ namespace Core.Common.Utils.Test.Properties {
             get {
                 object obj = ResourceManager.GetObject("acorn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Awesome!.
+        /// </summary>
+        internal static string SomeStringResource {
+            get {
+                return ResourceManager.GetString("SomeStringResource", resourceCulture);
             }
         }
     }

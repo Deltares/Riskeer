@@ -1,20 +1,31 @@
 using System;
 
+using Core.Common.Utils.PropertyBag;
+
 namespace Core.Common.Utils.Attributes
 {
+    /// <summary>
+    /// Attribute that allows for controlling the order that properties appear in <see cref="DynamicPropertyBag"/>.
+    /// Ordering should occur on ascending order. Not having this attribute defined means
+    /// an order value of <see cref="int.MinValue"/>.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class PropertyOrderAttribute : Attribute
+    public sealed class PropertyOrderAttribute : Attribute
     {
-        //
-        // Simple attribute to allow the order of a property to be specified
-        //
         private readonly int order;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyOrderAttribute"/> class.
+        /// </summary>
+        /// <param name="order">The ordering value.</param>
         public PropertyOrderAttribute(int order)
         {
             this.order = order;
         }
 
+        /// <summary>
+        /// Gets the ordering value.
+        /// </summary>
         public int Order
         {
             get

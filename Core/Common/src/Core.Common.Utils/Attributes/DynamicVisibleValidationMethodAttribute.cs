@@ -12,7 +12,7 @@ namespace Core.Common.Utils.Attributes
     /// </summary>
     /// <seealso cref="DynamicVisibleAttribute"/>
     [AttributeUsage(AttributeTargets.Method)]
-    public class DynamicVisibleValidationMethodAttribute : Attribute
+    public sealed class DynamicVisibleValidationMethodAttribute : Attribute
     {
         /// <summary>
         /// Required method signature when marking a method with <see cref="DynamicVisibleValidationMethodAttribute"/>.

@@ -12,7 +12,7 @@ namespace Core.Common.Utils.Attributes
     /// </summary>
     /// <seealso cref="DynamicReadOnlyAttribute"/>
     [AttributeUsage(AttributeTargets.Method)]
-    public class DynamicReadOnlyValidationMethodAttribute : Attribute
+    public sealed class DynamicReadOnlyValidationMethodAttribute : Attribute
     {
         /// <summary>
         /// Required method signature when marking a method with <see cref="DynamicReadOnlyValidationMethodAttribute"/>.

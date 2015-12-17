@@ -15,7 +15,7 @@ namespace Core.Common.Utils.Attributes
     /// <seealso cref="ReadOnlyAttribute"/>
     /// <remarks>This attribute provides a run-time alternative to <see cref="ReadOnlyAttribute"/>.</remarks>
     [AttributeUsage(AttributeTargets.Property)]
-    public class DynamicReadOnlyAttribute : Attribute
+    public sealed class DynamicReadOnlyAttribute : Attribute
     {
         /// <summary>
         /// Determines whether the property is read-only or not.

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Reflection;
 
-using Core.Common.Utils.Properties;
-
 namespace Core.Common.Utils.Attributes
 {
     /// <summary>
-    /// Helper method for interacting with <see cref="Resource"/>.
+    /// Helper method for interacting with project resources.
     /// </summary>
     internal static class ResourceHelper
     {
@@ -16,22 +14,24 @@ namespace Core.Common.Utils.Attributes
         /// <param name="resourceType">Type of the resource file.</param>
         /// <param name="resourceName">Name of the resource property to be retrieved.</param>
         /// <returns>String resource in the resources file.</returns>
+        /// <exception cref="InvalidOperationException">Resource cannot be found or does
+        /// not have the given resource name.</exception>
         internal static string GetResourceLookup(Type resourceType, string resourceName)
         {
-            if ((resourceType != null) && (resourceName != null))
+            var property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+            if (property == null)
             {
-                var property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-                if (property == null)
-                {
-                    throw new InvalidOperationException("Resource Type Does Not Have Property");
-                }
-                if (property.PropertyType != typeof(string))
-                {
-                    throw new InvalidOperationException("Resource Property is Not String Type");
-                }
-                return (string) property.GetValue(null, null);
+                var message = string.Format("Resource {0} does not have property {1}.",
+                                            resourceType, resourceName);
+                throw new InvalidOperationException(message);
             }
-            return null;
+            if (property.PropertyType != typeof(string))
+            {
+                var message = string.Format("Resource {0} is not string.",
+                                            resourceName);
+                throw new InvalidOperationException(message);
+            }
+            return (string) property.GetValue(null, null);
         }
     }
 }

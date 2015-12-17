@@ -15,7 +15,7 @@ namespace Core.Common.Utils.Attributes
     /// <seealso cref="BrowsableAttribute"/>
     /// <remarks>This attribute provides a run-time alternative to <see cref="BrowsableAttribute"/>.</remarks>
     [AttributeUsage(AttributeTargets.Property)]
-    public class DynamicVisibleAttribute : Attribute
+    public sealed class DynamicVisibleAttribute : Attribute
     {
         /// <summary>
         /// Determines whether the property is visible or not.
