@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Controls.Views;
 
@@ -17,29 +16,9 @@ namespace Core.Common.Test.TestObjects
         public ViewInfo ViewInfo { get; set; }
     }
 
-    public class ReusableTestView : TestView, IReusableView
+    public class TestViewDerivative : TestView
     {
-        public event EventHandler LockedChanged;
-        private bool locked;
 
-        public bool Locked
-        {
-            get
-            {
-                return locked;
-            }
-            set
-            {
-                if (!Equals(locked, value))
-                {
-                    locked = value;
-                    if (LockedChanged != null)
-                    {
-                        LockedChanged(this, EventArgs.Empty);
-                    }
-                }
-            }
-        }
     }
 
     public class TestWrapper

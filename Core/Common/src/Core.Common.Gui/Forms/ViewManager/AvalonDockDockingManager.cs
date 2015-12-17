@@ -30,7 +30,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         public event EventHandler<ActiveViewChangeEventArgs> ViewActivated;
 
         public event Action<object, MouseEventArgs, IView> ViewSelectionMouseDown;
-        private static readonly Bitmap LockImage = Resources.lock_edit;
 
         private readonly DockingManager dockingManager;
         private readonly ViewLocation[] dockingLocations;
@@ -174,12 +173,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             if (control != null)
             {
                 control.TextChanged -= ControlOnTextChanged;
-            }
-
-            var reusable = view as IReusableView;
-            if (reusable != null)
-            {
-                reusable.LockedChanged -= ReusableLockedChanged;
             }
 
             views.Remove(view);
@@ -562,12 +555,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private void AddDocumentView(IView view)
         {
-            var reusable = view as IReusableView;
-            if (reusable != null)
-            {
-                reusable.LockedChanged += ReusableLockedChanged;
-            }
-
             var hostControl = new WindowsFormsHost
             {
                 Child = (Control) view
@@ -631,28 +618,9 @@ namespace Core.Common.Gui.Forms.ViewManager
             hostControls.RemoveAt(index);
         }
 
-        private void ReusableLockedChanged(object sender, EventArgs e)
-        {
-            var view = sender as IView;
-            if (view == null)
-            {
-                return;
-            }
-
-            var document = GetLayoutContent(view) as LayoutDocument;
-            if (document == null)
-            {
-                return;
-            }
-
-            document.IconSource = GetImage(view);
-        }
-
         private ImageSource GetImage(IView view)
         {
-            var reusable = view as IReusableView;
-            var isLocked = reusable != null && reusable.Locked;
-            return BitmapImageFromBitmap(isLocked ? LockImage : view.ViewInfo.Image);
+            return BitmapImageFromBitmap(view.ViewInfo.Image);
         }
 
         private LayoutContent GetLayoutContent(IView view)

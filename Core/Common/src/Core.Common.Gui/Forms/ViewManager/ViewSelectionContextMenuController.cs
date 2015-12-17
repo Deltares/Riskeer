@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
@@ -35,23 +33,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             menuItemClose.Enabled = selectedView != null;
             menuItemCloseAll.Enabled = viewManager.Count > 0;
             menuItemCloseOther.Enabled = selectedView != null && viewManager.Count > 1;
-
-            var lockable = selectedView as IReusableView;
-            menuItemLockUnlock.Visible = lockable != null;
-
-            if (lockable != null)
-            {
-                if (lockable.Locked)
-                {
-                    menuItemLockUnlock.Text = Resources.ViewSelectionContextMenuController_UpdateMenuItemsValidity_Unlock;
-                    menuItemLockUnlock.Image = null;
-                }
-                else
-                {
-                    menuItemLockUnlock.Text = Resources.ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock;
-                    menuItemLockUnlock.Image = Resources.lock_edit;
-                }
-            }
         }
 
         private void MenuItemCloseClick(object sender, EventArgs e)
@@ -67,11 +48,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         private void MenuItemCloseAllClick(object sender, EventArgs e)
         {
             viewManager.Clear();
-        }
-
-        private void LockToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            ((IReusableView) selectedView).Locked = !((IReusableView) selectedView).Locked;
         }
     }
 }

@@ -67,34 +67,7 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
-        public void OpeningAViewForAObjectShouldUseNewViewForLockedReusableView()
-        {
-            // for example if we have a open functionview. Opening a view for another function should use the existing functionview
-            var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
-            {
-                new ViewInfo<object, TestReusableView>()
-            }, null);
-
-            var testObject = new object();
-            viewResolver.OpenViewForData(testObject);
-
-            var viewForTestObject = (TestReusableView) viewList[0];
-            Assert.AreEqual(testObject, viewForTestObject.Data);
-
-            // lock the view so it can't be used for other data
-            viewForTestObject.Locked = true;
-
-            var otherObject = new object();
-            viewResolver.OpenViewForData(otherObject);
-
-            // no extra views. the first view now renders the other object
-            Assert.AreEqual(2, viewList.Count);
-            Assert.AreEqual(otherObject, viewList[1].Data);
-        }
-
-        [Test]
-        public void OpeningAViewForAObjectShouldUseNewViewForNonLockableView()
+        public void OpeningAViewForAObjectShouldUseNewView()
         {
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
@@ -115,29 +88,6 @@ namespace Core.Common.Test.Gui
 
             // no change in original view
             Assert.AreEqual(testObject, viewForTestObject.Data);
-        }
-
-        [Test]
-        public void OpeningAViewForAObjectShouldUsingExistingReusableView()
-        {
-            // for example if we have a open functionview. Opening a view for another function should use the existing functionview
-            var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
-            {
-                new ViewInfo<object, TestReusableView>()
-            }, null);
-
-            var testObject = new object();
-            viewResolver.OpenViewForData(testObject);
-            var viewForTestObject = (TestReusableView) viewList[0];
-            Assert.AreEqual(testObject, viewForTestObject.Data);
-
-            var otherObject = new object();
-            viewResolver.OpenViewForData(otherObject);
-
-            // no extra views. the first view now renders the other object
-            Assert.AreEqual(1, viewList.Count);
-            Assert.AreEqual(otherObject, viewList[0].Data);
         }
 
         [Test]
@@ -249,7 +199,7 @@ namespace Core.Common.Test.Gui
                 {
                     Description = "Object view"
                 },
-                new ViewInfo<string, ReusableTestView>
+                new ViewInfo<string, TestViewDerivative>
                 {
                     Description = "String view"
                 } // string inherits from object 
@@ -261,7 +211,7 @@ namespace Core.Common.Test.Gui
             var view = viewList.ActiveView;
 
             Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(typeof(ReusableTestView), view.GetType());
+            Assert.AreEqual(typeof(TestViewDerivative), view.GetType());
         }
     }
 }

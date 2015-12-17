@@ -122,31 +122,25 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="menuItemClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="menuItemClose.Text" xml:space="preserve">
     <value>Tabblad sluiten</value>
   </data>
   <data name="menuItemCloseOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="menuItemCloseOther.Text" xml:space="preserve">
     <value>Andere tabbladen sluiten</value>
   </data>
   <data name="menuItemCloseAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
+    <value>206, 22</value>
   </data>
   <data name="menuItemCloseAll.Text" xml:space="preserve">
     <value>Alle tabbladen sluiten</value>
   </data>
-  <data name="menuItemLockUnlock.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
-  </data>
-  <data name="menuItemLockUnlock.Text" xml:space="preserve">
-    <value>Vastzetten/Losmaken</value>
-  </data>
   <data name="contextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 92</value>
+    <value>207, 92</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip.Name" xml:space="preserve">
     <value>contextMenuStrip</value>
@@ -176,12 +170,6 @@
     <value>menuItemCloseAll</value>
   </data>
   <data name="&gt;&gt;menuItemCloseAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemLockUnlock.Name" xml:space="preserve">
-    <value>menuItemLockUnlock</value>
-  </data>
-  <data name="&gt;&gt;menuItemLockUnlock.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

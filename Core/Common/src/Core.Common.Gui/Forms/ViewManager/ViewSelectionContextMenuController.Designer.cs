@@ -34,7 +34,6 @@
             this.menuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemCloseOther = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemCloseAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemLockUnlock = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,8 +42,7 @@
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemClose,
             this.menuItemCloseOther,
-            this.menuItemCloseAll,
-            this.menuItemLockUnlock});
+            this.menuItemCloseAll});
             this.contextMenuStrip.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             // 
@@ -66,13 +64,6 @@
             resources.ApplyResources(this.menuItemCloseAll, "menuItemCloseAll");
             this.menuItemCloseAll.Click += new System.EventHandler(this.MenuItemCloseAllClick);
             // 
-            // menuItemLockUnlock
-            // 
-            this.menuItemLockUnlock.Image = global::Core.Common.Gui.Properties.Resources.lock_edit;
-            this.menuItemLockUnlock.Name = "menuItemLockUnlock";
-            resources.ApplyResources(this.menuItemLockUnlock, "menuItemLockUnlock");
-            this.menuItemLockUnlock.Click += new System.EventHandler(this.LockToolStripMenuItemClick);
-            // 
             // ViewSelectionContextMenuController
             // 
             resources.ApplyResources(this, "$this");
@@ -90,6 +81,5 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemClose;
         private System.Windows.Forms.ToolStripMenuItem menuItemCloseOther;
         private System.Windows.Forms.ToolStripMenuItem menuItemCloseAll;
-        private System.Windows.Forms.ToolStripMenuItem menuItemLockUnlock;
     }
 }

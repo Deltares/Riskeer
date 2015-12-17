@@ -2542,24 +2542,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vastzetten.
-        /// </summary>
-        public static string ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock {
-            get {
-                return ResourceManager.GetString("ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Losmaken.
-        /// </summary>
-        public static string ViewSelectionContextMenuController_UpdateMenuItemsValidity_Unlock {
-            get {
-                return ResourceManager.GetString("ViewSelectionContextMenuController_UpdateMenuItemsValidity_Unlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Argument &apos;Sender&apos; moet een instantie van het type &apos;Control&apos; zijn.
         /// </summary>
         public static string ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control {

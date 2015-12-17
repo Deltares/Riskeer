@@ -38,31 +38,6 @@ namespace Core.Common.Test.Gui.Forms
         }
 
         [Test]
-        public void LockingAndUnlockingViewSetsLockIcon()
-        {
-            var mocks = new MockRepository();
-            var dockManager = mocks.Stub<DockingManager>();
-            var view = new ReusableTestView
-            {
-                ViewInfo = new ViewInfo()
-            };
-
-            var dock = new AvalonDockDockingManager(dockManager, new[]
-            {
-                ViewLocation.Document
-            });
-            dock.Add(view, ViewLocation.Document);
-
-            var layout = TypeUtils.CallPrivateMethod<LayoutContent>(dock, "GetLayoutContent", view);
-
-            Assert.IsNull(layout.IconSource); //null because view doesn't have its own image
-            view.Locked = true;
-            Assert.IsNotNull(layout.IconSource); //(lock) image set
-            view.Locked = false;
-            Assert.IsNull(layout.IconSource);
-        }
-
-        [Test]
         public void SwitchingTabCausesOldTabsActiveControlToLoseFocusTools9109()
         {
             var view = new TestView

@@ -199,9 +199,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         private IEnumerable<IView> GetViewsForData(IEnumerable<IView> viewsToCheck, object data)
         {
             return data != null
-                       ? GetOpenViewsFor(viewsToCheck, data, (v, vi) =>
-                                                             !(v is IReusableView && !((IReusableView) v).Locked &&
-                                                               data.GetType().Implements(vi.DataType)))
+                       ? GetOpenViewsFor(viewsToCheck, data)
                        : Enumerable.Empty<IView>();
         }
 
@@ -226,31 +224,12 @@ namespace Core.Common.Gui.Forms.ViewManager
             {
                 viewInfo.OnActivateView(view, data);
                 viewList.ActiveView = view;
-                return true;
-            }
 
-            var reusableView = viewList.OfType<IReusableView>()
-                                       .FirstOrDefault(rv =>
-                                                       !rv.Locked &&
-                                                       IsDataForView(rv, viewData) &&
-                                                       viewInfo.ViewDataType == GetViewInfoForView(rv).ViewDataType);
-
-            if (reusableView != null)
-            {
-                // Set reusable view data
-                reusableView.Data = viewData;
-                viewInfo.AfterCreate(reusableView, data);
-                viewInfo.OnActivateView(reusableView, data);
-                viewList.ActiveView = reusableView;
-
-                if (viewList.UpdateViewNameAction != null)
-                {
-                    viewList.UpdateViewNameAction(reusableView);
-                }
                 return true;
             }
 
             viewList.Add(CreateViewForData(data, viewInfo));
+
             return true;
         }
 

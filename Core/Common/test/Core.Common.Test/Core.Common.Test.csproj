@@ -97,12 +97,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestObjects\TestReusableView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TestObjects\TestReusableView.Designer.cs">
-      <DependentUpon>TestReusableView.cs</DependentUpon>
-    </Compile>
     <Compile Include="TestObjects\TestDockingManager.cs" />
     <Compile Include="Gui\ToolWindowTestControl.cs">
       <SubType>UserControl</SubType>
