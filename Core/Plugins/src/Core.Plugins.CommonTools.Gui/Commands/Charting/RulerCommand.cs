@@ -1,4 +1,4 @@
-﻿using Core.Common.Controls.Swf.Charting.Tools;
+﻿using Core.Common.Controls.Charting.Tools;
 
 namespace Core.Plugins.CommonTools.Gui.Commands.Charting
 {

@@ -31,25 +31,125 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TeeChart, Version=3.5.3700.30575, Culture=neutral, PublicKeyToken=1463a114303c2e80, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\TeeChart.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Chart.cs" />
+    <Compile Include="ChartAxis.cs" />
+    <Compile Include="ChartCoordinateService.cs" />
+    <Compile Include="ChartGraphics.cs" />
+    <Compile Include="ChartLegend.cs" />
+    <Compile Include="ChartStyleHelper.cs" />
+    <Compile Include="ChartView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChartView.Designer.cs" />
+    <Compile Include="Customized\RingtoetsTChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Enumerators.cs" />
+    <Compile Include="IChart.cs" />
+    <Compile Include="IChartAxis.cs" />
+    <Compile Include="IChartLegend.cs" />
+    <Compile Include="IChartSeries.cs" />
+    <Compile Include="IChartView.cs" />
+    <Compile Include="IChartViewContextMenuTool.cs" />
+    <Compile Include="IChartViewSeriesTool.cs" />
+    <Compile Include="IChartViewTool.cs" />
+    <Compile Include="InterpolationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Series\AreaChartSeries.cs" />
+    <Compile Include="Series\BarSeries.cs" />
+    <Compile Include="Series\ChartSeries.cs" />
+    <Compile Include="Series\ChartSeriesFactory.cs" />
+    <Compile Include="Series\ChartSeriesType.cs" />
+    <Compile Include="Series\IAreaChartSeries.cs" />
+    <Compile Include="Series\ILineChartSeries.cs" />
+    <Compile Include="Series\IPointChartSeries.cs" />
+    <Compile Include="Series\IPolygonChartSeries.cs" />
+    <Compile Include="Series\LineChartSeries.cs" />
+    <Compile Include="Series\PointChartSeries.cs" />
+    <Compile Include="Series\PolygonChartSeries.cs" />
+    <Compile Include="Series\PolygonSeries.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeeChartHelper.cs" />
+    <Compile Include="TimeNavigatableLabelFormatProvider.cs" />
+    <Compile Include="Tools\AddPointTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\ChartViewSeriesToolBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\EditPointTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\ExportChartAsImageChartTool.cs" />
+    <Compile Include="Tools\PointEventArgs.cs" />
+    <Compile Include="Tools\RulerTool.cs" />
+    <Compile Include="Tools\SelectPointTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\ZoomUsingMouseWheelTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
+      <Project>{ffb69466-79de-466a-ada7-5c47c5c5ca3a}</Project>
+      <Name>Core.GIS.GeoAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
+      <Project>{5770daa9-84e5-4770-af43-f6b815894368}</Project>
+      <Name>Core.GIS.NetTopologySuite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ChartView.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

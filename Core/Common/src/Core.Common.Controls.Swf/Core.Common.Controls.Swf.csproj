@@ -108,66 +108,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Charting\Chart.cs" />
-    <Compile Include="Charting\ChartAxis.cs" />
-    <Compile Include="Charting\ChartCoordinateService.cs" />
-    <Compile Include="Charting\ChartGraphics.cs" />
-    <Compile Include="Charting\ChartLegend.cs" />
-    <Compile Include="Charting\Customized\RingtoetsTChart.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\IChartViewContextMenuTool.cs" />
-    <Compile Include="Charting\InterpolationType.cs" />
-    <Compile Include="Charting\Series\BarSeries.cs" />
-    <Compile Include="Charting\Series\ChartSeriesType.cs" />
-    <Compile Include="Charting\ChartStyleHelper.cs" />
-    <Compile Include="Charting\Series\IPolygonChartSeries.cs" />
-    <Compile Include="Charting\Series\PolygonChartSeries.cs" />
-    <Compile Include="Charting\Series\PolygonSeries.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\TimeNavigatableLabelFormatProvider.cs" />
-    <Compile Include="Charting\Tools\ExportChartAsImageChartTool.cs" />
-    <Compile Include="Charting\Tools\RulerTool.cs" />
-    <Compile Include="Charting\ChartView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Charting\ChartView.Designer.cs">
-      <DependentUpon>ChartView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Charting\Enumerators.cs" />
-    <Compile Include="Charting\IChart.cs" />
-    <Compile Include="Charting\IChartAxis.cs" />
-    <Compile Include="Charting\IChartLegend.cs" />
-    <Compile Include="Charting\IChartSeries.cs" />
-    <Compile Include="Charting\IChartView.cs" />
-    <Compile Include="Charting\IChartViewSeriesTool.cs" />
-    <Compile Include="Charting\IChartViewTool.cs" />
-    <Compile Include="Charting\Tools\ChartViewSeriesToolBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Series\AreaChartSeries.cs" />
-    <Compile Include="Charting\Series\ChartSeriesFactory.cs" />
-    <Compile Include="Charting\Series\IAreaChartSeries.cs" />
-    <Compile Include="Charting\Series\ILineChartSeries.cs" />
-    <Compile Include="Charting\Series\IPointChartSeries.cs" />
-    <Compile Include="Charting\Series\LineChartSeries.cs" />
-    <Compile Include="Charting\Series\PointChartSeries.cs" />
-    <Compile Include="Charting\Series\ChartSeries.cs" />
-    <Compile Include="Charting\TeeChartHelper.cs" />
-    <Compile Include="Charting\Tools\AddPointTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Tools\EditPointTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Tools\PointEventArgs.cs" />
-    <Compile Include="Charting\Tools\SelectPointTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Tools\ZoomUsingMouseWheelTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="CollapsibleSplitter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -243,10 +183,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Charting\ChartView.resx">
-      <DependentUpon>ChartView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FindAndReplaceControl.resx">
       <DependentUpon>FindAndReplaceControl.cs</DependentUpon>
     </EmbeddedResource>

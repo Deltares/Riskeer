@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Controls.Swf.Charting;
+using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Utils.Attributes;
 using Core.Plugins.CommonTools.Gui.Properties;

@@ -74,14 +74,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Charting\ChartTest.cs" />
-    <Compile Include="Charting\ChartViewDateTimeFormatProviderTest.cs" />
-    <Compile Include="Charting\Series\AreaChartSeriesTest.cs" />
-    <Compile Include="Charting\Series\BarSeriesTest.cs" />
-    <Compile Include="Charting\Series\LineChartSeriesTest.cs" />
-    <Compile Include="Charting\Series\PointChartSeriesTest.cs" />
-    <Compile Include="Charting\Series\PolygonChartSeriesTest.cs" />
-    <Compile Include="Charting\Series\TeeChartSeriesDecoratorTest.cs" />
     <Compile Include="FindAndReplaceControlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table\TableViewCopyPasteTest.cs" />

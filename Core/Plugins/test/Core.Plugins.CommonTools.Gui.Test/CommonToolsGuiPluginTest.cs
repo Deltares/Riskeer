@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Swf;
-using Core.Common.Controls.Swf.Charting;
+using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Utils;
-using Core.Plugins.CommonTools.Gui.Forms;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;

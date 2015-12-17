@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Core.Common.Controls.Swf.Charting;
+using Core.Common.Controls.Charting;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
