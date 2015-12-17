@@ -50,7 +50,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                StringAssert.StartsWith("Weet u zeker dat u het volgende item wilt verwijderen:", messageBox.Text);
+                StringAssert.StartsWith("Weet u zeker dat u het volgende element wilt verwijderen:", messageBox.Text);
                 Assert.AreEqual("Bevestigen", messageBox.Title);
                 messageBox.ClickOk();
             };

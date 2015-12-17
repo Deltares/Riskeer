@@ -326,7 +326,7 @@ namespace Core.Common.Controls.Swf.Test.TreeViewControls
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u het volgende item wilt verwijderen: GrandChild", messageBox.Text);
+                Assert.AreEqual("Weet u zeker dat u het volgende element wilt verwijderen: GrandChild", messageBox.Text);
                 Assert.AreEqual("Bevestigen", messageBox.Title);
                 messageBox.ClickOk();
             };

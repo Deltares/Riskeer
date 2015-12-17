@@ -235,7 +235,7 @@ verticaal: {1}</value>
     <value>Ongeldig rijnummer {0}.</value>
   </data>
   <data name="TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_" xml:space="preserve">
-    <value>Weet u zeker dat u het volgende item wilt verwijderen: {0}</value>
+    <value>Weet u zeker dat u het volgende element wilt verwijderen: {0}</value>
   </data>
   <data name="TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView" xml:space="preserve">
     <value>Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenschap van een TreeView heeft toegevoegd.</value>

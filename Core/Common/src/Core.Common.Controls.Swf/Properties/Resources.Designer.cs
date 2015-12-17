@@ -862,7 +862,7 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u het volgende item wilt verwijderen: {0}.
+        ///   Looks up a localized string similar to Weet u zeker dat u het volgende element wilt verwijderen: {0}.
         /// </summary>
         internal static string TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_ {
             get {
