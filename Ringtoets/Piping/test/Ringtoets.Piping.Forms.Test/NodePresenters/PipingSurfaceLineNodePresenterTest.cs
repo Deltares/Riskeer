@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
-
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -80,6 +79,31 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(name, dataNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataNodeMock.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingSurfaceLineIcon, dataNodeMock.Image);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var assessmentSection = mockRepository.Stub<RingtoetsPipingSurfaceLine>();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
+
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingSurfaceLineNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            nodePresenter.GetContextMenu(nodeMock, assessmentSection);
+
+            // Assert
             mockRepository.VerifyAll();
         }
     }

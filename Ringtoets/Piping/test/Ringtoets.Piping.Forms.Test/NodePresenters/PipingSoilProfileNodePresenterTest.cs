@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -88,6 +87,39 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(name, dataNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataNodeMock.ForegroundColor);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingSoilProfileIcon, dataNodeMock.Image);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            IEnumerable<PipingSoilLayer> layers = new[]
+            {
+                new PipingSoilLayer(1)
+                {
+                    IsAquifer = true
+                } 
+            };
+
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var assessmentSection = mockRepository.Stub<PipingSoilProfile>(string.Empty, 0, layers);
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
+
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingSoilProfileNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            nodePresenter.GetContextMenu(nodeMock, assessmentSection);
+
+            // Assert
             mockRepository.VerifyAll();
         }
     }

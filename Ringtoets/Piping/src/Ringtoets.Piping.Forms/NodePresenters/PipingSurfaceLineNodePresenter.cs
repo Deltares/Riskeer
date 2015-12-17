@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
@@ -29,6 +28,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.Text = nodeData.Name;
             node.Image = Resources.PipingSurfaceLineIcon;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
+        }
+
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, RingtoetsPipingSurfaceLine nodeData)
+        {
+            return contextMenuBuilderProvider
+                .Get(node)
+                .AddPropertiesItem()
+                .Build();
         }
     }
 }
