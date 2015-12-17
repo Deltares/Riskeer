@@ -1,37 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.AddPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Charting.Tools.AddPointTool" Collapsed="true">
     <Position X="8.5" Y="8.75" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.ZoomUsingMouseWheelTool" Collapsed="true">
-    <Position X="0.75" Y="6.25" Width="1.5" />
+  <Class Name="Core.Common.Controls.Charting.Tools.ZoomUsingMouseWheelTool" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="3.75" />
     <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.ChartViewSeriesToolBase" Collapsed="true">
-    <Position X="6.5" Y="6.25" Width="1.5" />
+  <Class Name="Core.Common.Controls.Charting.Tools.ChartViewSeriesToolBase" Collapsed="true">
+    <Position X="5" Y="6.25" Width="3" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.EditPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Charting.Tools.EditPointTool" Collapsed="true">
     <Position X="6.5" Y="8.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.ExportChartAsImageChartTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Charting.Tools.ExportChartAsImageChartTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="7.75" Y="10.75" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.PointEventArgs">
-    <Position X="1" Y="0.5" Width="1.5" />
+  <Class Name="Core.Common.Controls.Charting.Tools.PointEventArgs">
+    <Position X="1" Y="0.5" Width="3.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPoint" Collapsed="true">
+  <Class Name="Core.Common.Controls.Charting.Tools.SelectPoint" Collapsed="true">
     <Position X="1.75" Y="8.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Charting.Tools.SelectPointTool" Collapsed="true">
     <Position X="4.5" Y="8.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
@@ -56,25 +56,21 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Charting.IChartViewTool" Collapsed="true">
     <Position X="3.25" Y="10.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewSeriesTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Charting.IChartViewSeriesTool" Collapsed="true">
     <Position X="1.25" Y="12.5" Width="1.75" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewContextMenuTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Charting.IChartViewContextMenuTool" Collapsed="true">
     <Position X="4.75" Y="12.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Enum Name="Core.Common.Controls.Swf.Charting.Tools.NearestPointStyles">
-    <Position X="1" Y="3.5" Width="1.5" />
+  <Enum Name="Core.Common.Controls.Charting.Tools.NearestPointStyles">
+    <Position X="1" Y="3.5" Width="3" />
     <TypeIdentifier />
   </Enum>
-  <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.SelectionChangedEventHandler">
-    <Position X="3.5" Y="0.5" Width="2.75" />
-    <TypeIdentifier />
-  </Delegate>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

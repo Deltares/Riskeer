@@ -59,11 +59,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
@@ -107,7 +105,9 @@
     <Compile Include="WizardDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WizardDialog.Designer.cs" />
+    <Compile Include="WizardDialog.Designer.cs">
+      <DependentUpon>WizardDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="XtraGridRepositoryItemBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

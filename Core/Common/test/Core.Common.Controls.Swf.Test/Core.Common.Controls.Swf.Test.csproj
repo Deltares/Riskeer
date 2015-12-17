@@ -38,18 +38,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3">
-      <HintPath>..\..\..\..\lib\DevExpress.Data.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v9.3">
-      <HintPath>..\..\..\..\lib\DevExpress.Utils.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v9.3">
-      <HintPath>..\..\..\..\lib\DevExpress.XtraEditors.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v9.3">
-      <HintPath>..\..\..\..\lib\DevExpress.XtraGrid.v9.3.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -81,17 +69,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
       <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
       <Name>Core.Common.Controls.Swf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
-      <Name>Core.Common.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>

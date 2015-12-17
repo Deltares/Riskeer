@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Charting.Series;
-using Core.Common.Controls.Charting.Properties;
 using log4net;
 using Steema.TeeChart;
 using Steema.TeeChart.Styles;

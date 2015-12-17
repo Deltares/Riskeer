@@ -1,6 +1,3 @@
-using System;
-using Core.Common.Controls.Charting.Properties;
-
 namespace Core.Common.Controls.Charting.Series
 {
     public static class ChartSeriesFactory
