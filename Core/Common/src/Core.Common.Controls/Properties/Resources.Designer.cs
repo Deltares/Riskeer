@@ -69,25 +69,5 @@ namespace Core.Common.Controls.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Interne fout:
-        ///{0}.
-        /// </summary>
-        internal static string ExceptionDialog_GetExceptionText_Inner_exceptions_0_ {
-            get {
-                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Inner_exceptions_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Foutmelding van de loader:
-        ///.
-        /// </summary>
-        internal static string ExceptionDialog_GetExceptionText_Loader_exceptions {
-            get {
-                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Loader_exceptions", resourceCulture);
-            }
-        }
     }
 }

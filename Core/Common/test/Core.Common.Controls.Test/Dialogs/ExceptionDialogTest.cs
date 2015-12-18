@@ -13,20 +13,21 @@ namespace Core.Common.Controls.Test.Dialogs
         public void DefaultConstructor_ExpectedValue()
         {
             // Setup / Call
-            var dialog = new ExceptionDialog(null, null);
-
-            // Assert
-            Assert.IsNotNull(dialog.Icon);
-            Assert.IsTrue(dialog.ShowIcon);
-            Assert.AreEqual(470, dialog.MinimumSize.Width);
-            Assert.AreEqual(200, dialog.MinimumSize.Height);
-            Assert.AreEqual(FormBorderStyle.Sizable, dialog.FormBorderStyle);
-            Assert.AreEqual(FormStartPosition.CenterParent, dialog.StartPosition);
-            Assert.IsFalse(dialog.ShowInTaskbar);
-            Assert.IsTrue(dialog.ControlBox);
-            Assert.IsFalse(dialog.MaximizeBox);
-            Assert.IsFalse(dialog.MinimizeBox);
-            Assert.IsNull(dialog.CancelButton);
+            using (var dialog = new ExceptionDialog(null, null))
+            {
+                // Assert
+                Assert.IsNotNull(dialog.Icon);
+                Assert.IsTrue(dialog.ShowIcon);
+                Assert.AreEqual(470, dialog.MinimumSize.Width);
+                Assert.AreEqual(200, dialog.MinimumSize.Height);
+                Assert.AreEqual(FormBorderStyle.Sizable, dialog.FormBorderStyle);
+                Assert.AreEqual(FormStartPosition.CenterParent, dialog.StartPosition);
+                Assert.IsFalse(dialog.ShowInTaskbar);
+                Assert.IsTrue(dialog.ControlBox);
+                Assert.IsFalse(dialog.MaximizeBox);
+                Assert.IsFalse(dialog.MinimizeBox);
+                Assert.IsNull(dialog.CancelButton);
+            }
         }
 
         [Test]
@@ -46,13 +47,15 @@ namespace Core.Common.Controls.Test.Dialogs
             };
 
             var exception = new Exception("Test", new Exception("Test inner"));
-            var dialog = new ExceptionDialog(null, exception);
 
-            // Call
-            dialog.ShowDialog();
+            using (var dialog = new ExceptionDialog(null, exception))
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Assert
-            Assert.AreEqual(exception.ToString().Replace("\r\n", "\n"), exceptionText);
+                // Assert
+                Assert.AreEqual(exception.ToString().Replace("\r\n", "\n"), exceptionText);
+            }
         }
 
         [Test]
@@ -71,13 +74,14 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            var dialog = new ExceptionDialog(null, null);
+            using (var dialog = new ExceptionDialog(null, null))
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.AreEqual("", exceptionText);
+                // Assert
+                Assert.AreEqual("", exceptionText);
+            }
         }
 
         [Test]
@@ -96,13 +100,14 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            var dialog = new ExceptionDialog(null, null);
+            using (var dialog = new ExceptionDialog(null, null))
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.IsFalse(buttonOpenLog.Enabled);
+                // Assert
+                Assert.IsFalse(buttonOpenLog.Enabled);
+            }
         }
 
         [Test]
@@ -121,16 +126,17 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            var dialog = new ExceptionDialog(null, null)
+            using (var dialog = new ExceptionDialog(null, null)
             {
                 OpenLogClicked = () => { }
-            };
+            })
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.IsTrue(buttonOpenLog.Enabled);
+                // Assert
+                Assert.IsTrue(buttonOpenLog.Enabled);
+            }
         }
 
         [Test]
@@ -144,13 +150,14 @@ namespace Core.Common.Controls.Test.Dialogs
                 button.Click();
             };
 
-            var dialog = new ExceptionDialog(null, null);
+            using (var dialog = new ExceptionDialog(null, null))
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.AreEqual(DialogResult.OK, dialog.DialogResult);
+                // Assert
+                Assert.AreEqual(DialogResult.OK, dialog.DialogResult);
+            }
         }
 
         [Test]
@@ -164,13 +171,14 @@ namespace Core.Common.Controls.Test.Dialogs
                 button.Click();
             };
 
-            var dialog = new ExceptionDialog(null, null);
+            using (var dialog = new ExceptionDialog(null, null))
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.AreEqual(DialogResult.Cancel, dialog.DialogResult);
+                // Assert
+                Assert.AreEqual(DialogResult.Cancel, dialog.DialogResult);
+            }
         }
 
         [Test]
@@ -189,16 +197,17 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            var dialog = new ExceptionDialog(null, null)
+            using (var dialog = new ExceptionDialog(null, null)
             {
                 OpenLogClicked = () => counter++
-            };
+            })
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.AreEqual(1, counter);
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
         }
     }
 }

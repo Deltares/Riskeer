@@ -20,20 +20,21 @@ namespace Core.Common.Controls.Test.Dialogs
             mocks.ReplayAll();
 
             // Call
-            var dialog = new TestDialog(null, icon, 1, 2);
-
-            // Assert
-            Assert.AreEqual(icon, dialog.Icon);
-            Assert.IsTrue(dialog.ShowIcon);
-            Assert.AreEqual(1, dialog.MinimumSize.Width);
-            Assert.AreEqual(2, dialog.MinimumSize.Height);
-            Assert.AreEqual(FormBorderStyle.Sizable, dialog.FormBorderStyle);
-            Assert.AreEqual(FormStartPosition.CenterParent, dialog.StartPosition);
-            Assert.IsFalse(dialog.ShowInTaskbar);
-            Assert.IsTrue(dialog.ControlBox);
-            Assert.IsFalse(dialog.MaximizeBox);
-            Assert.IsFalse(dialog.MinimizeBox);
-            Assert.IsNull(dialog.CancelButton);
+            using (var dialog = new TestDialog(null, icon, 1, 2))
+            {
+                // Assert
+                Assert.AreEqual(icon, dialog.Icon);
+                Assert.IsTrue(dialog.ShowIcon);
+                Assert.AreEqual(1, dialog.MinimumSize.Width);
+                Assert.AreEqual(2, dialog.MinimumSize.Height);
+                Assert.AreEqual(FormBorderStyle.Sizable, dialog.FormBorderStyle);
+                Assert.AreEqual(FormStartPosition.CenterParent, dialog.StartPosition);
+                Assert.IsFalse(dialog.ShowInTaskbar);
+                Assert.IsTrue(dialog.ControlBox);
+                Assert.IsFalse(dialog.MaximizeBox);
+                Assert.IsFalse(dialog.MinimizeBox);
+                Assert.IsNull(dialog.CancelButton);
+            }
         }
 
         [Test]
@@ -47,23 +48,21 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            var dialog = new TestDialog(null, null, 1, 2);
+            using (var dialog = new TestDialog(null, null, 1, 2))
+            {
+                // Call
+                dialog.ShowDialog();
 
-            // Call
-            dialog.ShowDialog();
-
-            // Assert
-            Assert.IsNotNull(dialog.CancelButton);
-            Assert.AreSame("Test button", ((Button) dialog.CancelButton).Name);
+                // Assert
+                Assert.IsNotNull(dialog.CancelButton);
+                Assert.AreSame("Test button", ((Button) dialog.CancelButton).Name);
+            }
         }
 
         private class TestDialog : DialogBase
         {
             public TestDialog(IWin32Window owner, Icon icon, int minWidth, int minHeight)
-                : base(owner, icon, minWidth, minHeight)
-            {
-
-            }
+                : base(owner, icon, minWidth, minHeight) {}
 
             protected override Button GetCancelButton()
             {

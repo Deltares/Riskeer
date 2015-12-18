@@ -121,12 +121,4 @@
   <data name="bug__exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bug--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ExceptionDialog_GetExceptionText_Inner_exceptions_0_" xml:space="preserve">
-    <value>Interne fout:
-{0}</value>
-  </data>
-  <data name="ExceptionDialog_GetExceptionText_Loader_exceptions" xml:space="preserve">
-    <value>Foutmelding van de loader:
-</value>
-  </data>
 </root>
