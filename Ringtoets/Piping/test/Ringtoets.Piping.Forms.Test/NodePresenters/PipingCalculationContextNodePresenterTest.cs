@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
             var pipingInputContext = (PipingInputContext)children[1];
-            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedPipingInput);
+            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
             Assert.AreSame(pipingCalculationContext.WrappedData.Output, children[2]);
@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
             var pipingInputContext = (PipingInputContext)children[1];
-            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedPipingInput);
+            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
 

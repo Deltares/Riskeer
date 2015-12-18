@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Linq;
+
 using Core.Common.Base;
 using Core.Common.Utils.PropertyBag;
 
@@ -129,10 +131,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Scenario
             var inputParameters = new PipingInput();
-            var inputParametersContext = new PipingInputContext
-            {
-                WrappedPipingInput = inputParameters
-            };
+            var inputParametersContext = new PipingInputContext(inputParameters,
+                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                Enumerable.Empty<PipingSoilProfile>());
             var inputParameterContextProperties = new PipingInputContextProperties
             {
                 Data = inputParametersContext

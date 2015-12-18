@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using Core.Common.Base;
 using Core.Common.Gui;
@@ -51,7 +52,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingInputContextProperties
             {
-                Data = new PipingInputContext{WrappedPipingInput = inputParameters}
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
             };
 
             // Call & Assert
@@ -104,7 +107,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingInputContextProperties
             {
-                Data = new PipingInputContext{WrappedPipingInput = inputParameters}
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
             };
 
             // Call & Assert
@@ -157,7 +162,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             new PipingInputContextProperties
             {
-                Data = new PipingInputContext{WrappedPipingInput = inputParameters},
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>()),
                 AssessmentLevelSellmeijer = assessmentLevel,
                 WaterVolumetricWeightUplift = waterVolumetricWeight,
                 UpliftModelFactor = upliftModelFactor,

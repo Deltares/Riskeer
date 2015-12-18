@@ -27,12 +27,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.SurfaceLine;
+                return data.WrappedData.SurfaceLine;
             }
             set
             {
-                data.WrappedPipingInput.SurfaceLine = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.SurfaceLine = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -44,12 +44,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.SoilProfile;
+                return data.WrappedData.SoilProfile;
             }
             set
             {
-                data.WrappedPipingInput.SoilProfile = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.SoilProfile = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -64,12 +64,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.UpliftModelFactor;
+                return data.WrappedData.UpliftModelFactor;
             }
             set
             {
-                data.WrappedPipingInput.UpliftModelFactor = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.UpliftModelFactor = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -80,12 +80,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.SellmeijerModelFactor;
+                return data.WrappedData.SellmeijerModelFactor;
             }
             set
             {
-                data.WrappedPipingInput.SellmeijerModelFactor = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.SellmeijerModelFactor = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.CriticalHeaveGradient;
+                return data.WrappedData.CriticalHeaveGradient;
             }
         }
 
@@ -320,12 +320,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.SellmeijerReductionFactor;
+                return data.WrappedData.SellmeijerReductionFactor;
             }
             set
             {
-                data.WrappedPipingInput.SellmeijerReductionFactor = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.SellmeijerReductionFactor = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -353,12 +353,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.SeepageLength = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.SeepageLength = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -369,12 +369,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.SandParticlesVolumicWeight;
+                return data.WrappedData.SandParticlesVolumicWeight;
             }
             set
             {
-                data.WrappedPipingInput.SandParticlesVolumicWeight = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.SandParticlesVolumicWeight = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -385,12 +385,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.WhitesDragCoefficient;
+                return data.WrappedData.WhitesDragCoefficient;
             }
             set
             {
-                data.WrappedPipingInput.WhitesDragCoefficient = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.WhitesDragCoefficient = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -402,12 +402,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.Diameter70 = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.Diameter70 = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -434,12 +434,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.DarcyPermeability = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.DarcyPermeability = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -450,12 +450,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.WaterKinematicViscosity;
+                return data.WrappedData.WaterKinematicViscosity;
             }
             set
             {
-                data.WrappedPipingInput.WaterKinematicViscosity = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.WaterKinematicViscosity = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -466,12 +466,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.Gravity;
+                return data.WrappedData.Gravity;
             }
             set
             {
-                data.WrappedPipingInput.Gravity = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.Gravity = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -483,12 +483,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.ThicknessAquiferLayer = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.ThicknessAquiferLayer = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -499,12 +499,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.MeanDiameter70;
+                return data.WrappedData.MeanDiameter70;
             }
             set
             {
-                data.WrappedPipingInput.MeanDiameter70 = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.MeanDiameter70 = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -515,12 +515,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.BeddingAngle;
+                return data.WrappedData.BeddingAngle;
             }
             set
             {
-                data.WrappedPipingInput.BeddingAngle = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.BeddingAngle = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -546,12 +546,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.WaterVolumetricWeight;
+                return data.WrappedData.WaterVolumetricWeight;
             }
             set
             {
-                data.WrappedPipingInput.WaterVolumetricWeight = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.WaterVolumetricWeight = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -559,12 +559,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.PiezometricHeadPolder;
+                return data.WrappedData.PiezometricHeadPolder;
             }
             set
             {
-                data.WrappedPipingInput.PiezometricHeadPolder = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.PiezometricHeadPolder = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -572,12 +572,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.AssessmentLevel;
+                return data.WrappedData.AssessmentLevel;
             }
             set
             {
-                data.WrappedPipingInput.AssessmentLevel = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.AssessmentLevel = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -585,12 +585,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedPipingInput.PiezometricHeadExit;
+                return data.WrappedData.PiezometricHeadExit;
             }
             set
             {
-                data.WrappedPipingInput.PiezometricHeadExit = value;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.PiezometricHeadExit = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -598,12 +598,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.DampingFactorExit = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.DampingFactorExit = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -611,12 +611,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.PhreaticLevelExit = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.PhreaticLevelExit = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
 
@@ -624,12 +624,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedPipingInput);
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData);
             }
             set
             {
-                data.WrappedPipingInput.ThicknessCoverageLayer = value.Distribution;
-                data.WrappedPipingInput.NotifyObservers();
+                data.WrappedData.ThicknessCoverageLayer = value.Distribution;
+                data.WrappedData.NotifyObservers();
             }
         }
     }

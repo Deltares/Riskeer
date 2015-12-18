@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms.Design;
 
 using Core.Common.Utils.PropertyBag;
@@ -20,14 +21,16 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var inputParametersContext = new PipingInputContext
+            var pipingInput = new PipingInput
             {
-                AvailablePipingSurfaceLines = new[] { new RingtoetsPipingSurfaceLine() },
-                WrappedPipingInput = new PipingInput
-                {
-                    SurfaceLine = new RingtoetsPipingSurfaceLine()
-                }
+                SurfaceLine = new RingtoetsPipingSurfaceLine()
             };
+            var inputParametersContext = new PipingInputContext(pipingInput,
+                                                                new[]
+                                                                {
+                                                                    new RingtoetsPipingSurfaceLine()
+                                                                },
+                                                                Enumerable.Empty<PipingSoilProfile>());
 
             var properties = new PipingInputContextProperties
             {
@@ -62,14 +65,16 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var inputParametersContext = new PipingInputContext
+            var pipingInput = new PipingInput
             {
-                AvailablePipingSurfaceLines = new[] { surfaceLine },
-                WrappedPipingInput = new PipingInput
-                {
-                    SurfaceLine = surfaceLine
-                }
+                SurfaceLine = surfaceLine
             };
+            var inputParametersContext = new PipingInputContext(pipingInput,
+                                                                new[]
+                                                                {
+                                                                    surfaceLine
+                                                                },
+                                                                Enumerable.Empty<PipingSoilProfile>());
 
             var properties = new PipingInputContextProperties
             {

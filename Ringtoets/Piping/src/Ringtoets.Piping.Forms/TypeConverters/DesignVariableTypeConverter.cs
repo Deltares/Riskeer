@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             //       might want to reconsider how we want to propagate IObservable updates!
             var inputParameterContextProperties = dynamicPropertyBag.WrappedObject as PipingInputContextProperties;
             return inputParameterContextProperties != null ?
-                       ((PipingInputContext)inputParameterContextProperties.Data).WrappedPipingInput:
+                       ((PipingInputContext)inputParameterContextProperties.Data).WrappedData:
                        null;
         }
 

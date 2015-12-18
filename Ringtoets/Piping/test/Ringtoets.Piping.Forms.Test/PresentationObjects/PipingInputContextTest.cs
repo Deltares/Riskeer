@@ -1,9 +1,12 @@
-﻿using Core.Common.Base;
+﻿using System.Linq;
+
+using Core.Common.Base;
 
 using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
@@ -13,16 +16,21 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingInputContextTest
     {
         [Test]
-        public void DefaultConstructpr_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
+            // Setup
+            var pipingInput = new PipingInput();
+            var surfaceLines = new[] { new RingtoetsPipingSurfaceLine() };
+            var profiles = new[] { new TestPipingSoilProfile() };
+            
             // Call
-            var context = new PipingInputContext();
+            var context = new PipingInputContext(pipingInput, surfaceLines, profiles);
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(context);
-            Assert.IsNull(context.WrappedPipingInput);
-            CollectionAssert.IsEmpty(context.AvailablePipingSurfaceLines);
-            CollectionAssert.IsEmpty(context.AvailablePipingSoilProfiles);
+            Assert.IsInstanceOf<PipingContext<PipingInput>>(context);
+            Assert.AreSame(pipingInput, context.WrappedData);
+            CollectionAssert.AreEqual(surfaceLines, context.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(profiles, context.AvailablePipingSoilProfiles);
         }
 
         [Test]
@@ -34,10 +42,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var presentationObject = new PipingInputContext
-            {
-                WrappedPipingInput = new PipingInput()
-            };
+            var presentationObject = new PipingInputContext(new PipingInput(),
+                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSoilProfile>());
             presentationObject.Attach(observer);
 
             // Call
@@ -55,10 +62,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingInputContext
-            {
-                WrappedPipingInput = new PipingInput()
-            };
+            var presentationObject = new PipingInputContext(new PipingInput(),
+                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSoilProfile>());
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 
@@ -79,10 +85,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var pipingInput = new PipingInput();
-            var presentationObject = new PipingInputContext
-            {
-                WrappedPipingInput = pipingInput
-            };
+            var presentationObject = new PipingInputContext(pipingInput,
+                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingSoilProfile>());
             presentationObject.Attach(observer);
 
             // Call

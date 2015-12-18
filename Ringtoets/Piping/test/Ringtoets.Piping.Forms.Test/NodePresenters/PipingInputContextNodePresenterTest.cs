@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
+
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -9,6 +11,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Forms.NodePresenters;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
@@ -69,7 +72,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             currentNode.ForegroundColor = Color.AliceBlue;
 
-            var nodeData = new PipingInputContext();
+            var nodeData = new PipingInputContext(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
@@ -127,7 +130,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             mockRepository.ReplayAll();
 
-            var nodeData = new PipingInputContext();
+            var nodeData = new PipingInputContext(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>());
 
             var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
@@ -160,7 +163,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingInputContextNodePresenter(contextMenuBuilderProviderMock);
 
             // Call
-            nodePresenter.GetContextMenu(nodeMock, new PipingInputContext());
+            nodePresenter.GetContextMenu(nodeMock, new PipingInputContext(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>()));
 
             // Assert
             mockRepository.VerifyAll();
