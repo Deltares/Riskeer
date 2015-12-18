@@ -220,13 +220,14 @@ namespace Core.Common.Gui
 
         public object AddNewChildItem(object parent, IEnumerable<Type> childItemValueTypes)
         {
-            var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToList());
-
-            if (selectDataDialog.ShowDialog() == DialogResult.OK)
+            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToList()))
             {
-                return GetNewDataObject(selectDataDialog, parent);
+                if (selectDataDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return GetNewDataObject(selectDataDialog, parent);
+                }
+                return null;
             }
-            return null;
         }
 
         public void AddNewItem(object parent)
@@ -236,16 +237,17 @@ namespace Core.Common.Gui
                 Log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
 
-            var selectDataDialog = CreateSelectionDialogWithItems(gui.ApplicationCore.GetSupportedDataItemInfos(parent).ToList());
-
-            if (selectDataDialog.ShowDialog() == DialogResult.OK)
+            using (var selectDataDialog = CreateSelectionDialogWithItems(gui.ApplicationCore.GetSupportedDataItemInfos(parent).ToList()))
             {
-                var newItem = GetNewItem(selectDataDialog, parent);
-
-                if (newItem != null)
+                if (selectDataDialog.ShowDialog() == DialogResult.OK)
                 {
-                    gui.Selection = newItem;
-                    OpenViewForSelection();
+                    var newItem = GetNewItem(selectDataDialog, parent);
+
+                    if (newItem != null)
+                    {
+                        gui.Selection = newItem;
+                        OpenViewForSelection();
+                    }
                 }
             }
         }

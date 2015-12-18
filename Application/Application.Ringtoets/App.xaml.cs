@@ -280,7 +280,7 @@ namespace Application.Ringtoets
         {
             if (gui != null && gui.MainWindow != null)
             {
-                var exceptionDialog = new ExceptionDialog(gui.MainWindow, exception)
+                using (var exceptionDialog = new ExceptionDialog(gui.MainWindow, exception)
                 {
                     OpenLogClicked = () =>
                     {
@@ -289,13 +289,14 @@ namespace Application.Ringtoets
                             gui.CommandHandler.OpenLogFileExternal();
                         }
                     }
-                };
-
-                if (exceptionDialog.ShowDialog() == DialogResult.OK)
+                })
                 {
-                    Restart();
+                    if (exceptionDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Restart();
 
-                    return;
+                        return;
+                    }
                 }
             }
 

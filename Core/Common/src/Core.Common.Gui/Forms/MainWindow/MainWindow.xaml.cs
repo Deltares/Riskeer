@@ -997,10 +997,12 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
         {
-            var optionsDialog = new OptionsDialog(this, Gui.UserSettings);
-            if (optionsDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (var optionsDialog = new OptionsDialog(this, Gui.UserSettings))
             {
-                SetColorTheme((ColorTheme) Gui.UserSettings["colorTheme"]);
+                if (optionsDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    SetColorTheme((ColorTheme)Gui.UserSettings["colorTheme"]);
+                }
             }
         }
 

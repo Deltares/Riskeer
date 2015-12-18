@@ -241,7 +241,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private void ButtonAddWmsLayerClick(object sender, EventArgs e)
         {
-            var openUrlDialog = new OpenUrlDialog(gui.MainWindow)
+            using (var openUrlDialog = new OpenUrlDialog(gui.MainWindow)
             {
                 Urls = new[]
                 {
@@ -260,11 +260,12 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                     // see aso http://geoservices.rijkswaterstaat.nl/services-index.html
                 },
                 Url = "http://openstreetmap.org"
-            };
-
-            if (openUrlDialog.ShowDialog() == DialogResult.OK)
+            })
             {
-                AddLayerFromExternalSource(openUrlDialog.Url);
+                if (openUrlDialog.ShowDialog() == DialogResult.OK)
+                {
+                    AddLayerFromExternalSource(openUrlDialog.Url);
+                }
             }
         }
 

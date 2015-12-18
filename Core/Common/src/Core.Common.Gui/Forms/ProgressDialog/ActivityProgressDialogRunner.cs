@@ -13,9 +13,10 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
         public static void Run(IWin32Window owner, IEnumerable<Activity> activities)
         {
-            var activityProgressDialog = new ActivityProgressDialog(owner, activities);
-
-            activityProgressDialog.ShowDialog();
+            using (var activityProgressDialog = new ActivityProgressDialog(owner, activities))
+            {
+                activityProgressDialog.ShowDialog();
+            }
         }
     }
 }

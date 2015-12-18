@@ -260,29 +260,30 @@ namespace Core.Common.Gui.Forms.ViewManager
                                       : null;
 
             var viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
-            var viewSelector = new SelectViewDialog(owner)
+            using (var viewSelector = new SelectViewDialog(owner)
             {
                 DefaultViewName = defaultViewName,
                 Items = viewTypeDictionary.Keys.ToList()
-            };
-
-            if (viewSelector.ShowDialog() != DialogResult.OK)
+            })
             {
-                return null;
-            }
-            var selectedViewInfo = viewTypeDictionary[viewSelector.SelectedItem];
+                if (viewSelector.ShowDialog() != DialogResult.OK)
+                {
+                    return null;
+                }
+                var selectedViewInfo = viewTypeDictionary[viewSelector.SelectedItem];
 
-            if (viewSelector.DefaultViewName == null)
-            {
-                ClearDefaultView(data);
-            }
-            else
-            {
-                var defaultViewInfo = viewTypeDictionary[viewSelector.DefaultViewName];
-                SetDefaultView(defaultViewInfo.ViewType, data);
-            }
+                if (viewSelector.DefaultViewName == null)
+                {
+                    ClearDefaultView(data);
+                }
+                else
+                {
+                    var defaultViewInfo = viewTypeDictionary[viewSelector.DefaultViewName];
+                    SetDefaultView(defaultViewInfo.ViewType, data);
+                }
 
-            return selectedViewInfo;
+                return selectedViewInfo;
+            }
         }
 
         private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data, Func<IView, ViewInfo, bool> extraCheck = null)

@@ -20,20 +20,21 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
         {
             var activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
 
-            var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(Gui.MainWindow, OgrCoordinateSystemFactory.SupportedCoordinateSystems, GIS.SharpMap.Map.Map.CoordinateSystemFactory.CustomCoordinateSystems);
-
-            if (selectCoordinateSystemDialog.ShowDialog() == DialogResult.OK)
+            using (var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(Gui.MainWindow, OgrCoordinateSystemFactory.SupportedCoordinateSystems, GIS.SharpMap.Map.Map.CoordinateSystemFactory.CustomCoordinateSystems))
             {
-                try
+                if (selectCoordinateSystemDialog.ShowDialog() == DialogResult.OK)
                 {
-                    activeView.Map.CoordinateSystem = selectCoordinateSystemDialog.SelectedCoordinateSystem;
-                    activeView.Map.NotifyObservers();
-                    activeView.Map.ZoomToExtents();
-                }
-                catch (CoordinateTransformException e)
-                {
-                    var message = string.Format(Resources.MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system_0_,e.Message);
-                    MessageBox.Show(message, Resources.MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        activeView.Map.CoordinateSystem = selectCoordinateSystemDialog.SelectedCoordinateSystem;
+                        activeView.Map.NotifyObservers();
+                        activeView.Map.ZoomToExtents();
+                    }
+                    catch (CoordinateTransformException e)
+                    {
+                        var message = string.Format(Resources.MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system_0_, e.Message);
+                        MessageBox.Show(message, Resources.MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

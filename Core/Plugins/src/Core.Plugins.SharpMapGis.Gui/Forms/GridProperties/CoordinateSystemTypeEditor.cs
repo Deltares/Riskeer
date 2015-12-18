@@ -38,14 +38,15 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
                 return base.EditValue(provider, value);
             }
 
-            var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(mapProperties.Owner, new List<ICoordinateSystem>(Map.CoordinateSystemFactory.SupportedCoordinateSystems), Map.CoordinateSystemFactory.CustomCoordinateSystems);
-
-            if (selectCoordinateSystemDialog.ShowDialog() == DialogResult.OK)
+            using (var selectCoordinateSystemDialog = new SelectCoordinateSystemDialog(mapProperties.Owner, new List<ICoordinateSystem>(Map.CoordinateSystemFactory.SupportedCoordinateSystems), Map.CoordinateSystemFactory.CustomCoordinateSystems))
             {
-                return selectCoordinateSystemDialog.SelectedCoordinateSystem;
-            }
+                if (selectCoordinateSystemDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return selectCoordinateSystemDialog.SelectedCoordinateSystem;
+                }
 
-            return value;
+                return value;
+            }
         }
     }
 }
