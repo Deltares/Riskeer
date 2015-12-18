@@ -26,6 +26,7 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeComponent();
             InitializeGridColumns();
             BindNormChange();
+            BindNormInputLeave();
         }
 
         public object Data
@@ -94,10 +95,28 @@ namespace Ringtoets.Integration.Forms.Views
             normInput.ValueChanged -= NormValueChanged;
         }
 
+        private void BindNormInputLeave()
+        {
+            normInput.Leave += NormInputLeave;
+        }
+
+        private void NormInputLeave(object sender, EventArgs e)
+        {
+            ResetTextIfEmtpy();
+        }
+
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
             data.Norm = Convert.ToInt32(normInput.Value);
             data.NotifyObservers();
+        }
+
+        private void ResetTextIfEmtpy()
+        {
+            if (string.IsNullOrEmpty(normInput.Text))
+            {
+                normInput.Text = string.Format("{0}", normInput.Value);
+            }
         }
 
         private void SetNormText()

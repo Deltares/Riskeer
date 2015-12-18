@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.probabilityDistributionGrid.ReadOnly = true;
             this.probabilityDistributionGrid.RowHeadersVisible = false;
             this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.probabilityDistributionGrid.TabStop = false;
+            this.probabilityDistributionGrid.StandardTab = true;
             // 
             // normInput
             // 
