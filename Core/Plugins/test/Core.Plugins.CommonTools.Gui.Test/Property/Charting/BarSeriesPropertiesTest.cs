@@ -1,8 +1,12 @@
-﻿using System.Drawing;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Controls.Charting.Series;
+using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
 {
@@ -149,6 +153,26 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
             // Assert
             Assert.AreEqual(otherLineVisible, chartSeries.LineVisible);
         }
-         
+
+        [Test]
+        public void GetProperties_Always_ReturnsEightProperties()
+        {
+            // Setup
+            var data = new BarSeries();
+            
+            var bag = new DynamicPropertyBag(new BarSeriesProperties
+            {
+                Data = data
+            });
+
+            // Call
+            var properties = bag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+
+            // Assert
+            Assert.AreEqual(8, properties.Count);
+        }
     }
 }

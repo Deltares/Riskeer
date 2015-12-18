@@ -1,6 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 using Core.Common.Controls.Charting;
+using Core.Common.Controls.Charting.Series;
 using Core.Common.Gui;
+using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -74,6 +78,36 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
 
             mocks.VerifyAll();
         }
-         
+
+        [Test]
+        public void GetProperties_Always_ReturnsTenProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<IChart>();
+            var chartAxis = mocks.Stub<IChartAxis>();
+            var legend = mocks.Stub<IChartLegend>();
+
+            data.Expect(a => a.Legend).Return(legend).Repeat.AtLeastOnce();
+            data.Expect(a => a.LeftAxis).Return(chartAxis).Repeat.AtLeastOnce();
+            data.Expect(a => a.BottomAxis).Return(chartAxis).Repeat.AtLeastOnce();
+            data.Expect(a => a.RightAxis).Return(chartAxis).Repeat.AtLeastOnce();
+
+            mocks.ReplayAll();
+
+            var bag = new DynamicPropertyBag(new ChartProperties
+            {
+                Data = data
+            });
+
+            // Call
+            var properties = bag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+
+            // Assert
+            Assert.AreEqual(10, properties.Count);
+        }
     }
 }

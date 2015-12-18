@@ -1,4 +1,7 @@
-﻿using Core.Common.Base.Data;
+﻿using System;
+using System.ComponentModel;
+using Core.Common.Base.Data;
+using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Gui.Property;
 using NUnit.Framework;
 
@@ -53,6 +56,27 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
 
             // Assert
             Assert.AreEqual(anotherDescription, project.Description);
+        }
+
+        [Test]
+        public void GetProperties_Always_ReturnsTwoProperties()
+        {
+            // Setup
+            var data = new Project();
+
+            var bag = new DynamicPropertyBag(new ProjectProperties
+            {
+                Data = data
+            });
+
+            // Call
+            var properties = bag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+
+            // Assert
+            Assert.AreEqual(2, properties.Count);
         }
     }
 }

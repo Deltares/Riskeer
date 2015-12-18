@@ -1,7 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Controls.Charting;
 using Core.Common.Controls.Charting.Series;
+using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -148,6 +151,30 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetProperties_Always_ReturnsEightteenProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var data = mocks.Stub<IAreaChartSeries>();
+
+            mocks.ReplayAll();
+
+            var bag = new DynamicPropertyBag(new AreaChartSeriesProperties
+            {
+                Data = data
+            });
+
+            // Call
+            var properties = bag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+
+            // Assert
+            Assert.AreEqual(18, properties.Count);
         }
     }
 }

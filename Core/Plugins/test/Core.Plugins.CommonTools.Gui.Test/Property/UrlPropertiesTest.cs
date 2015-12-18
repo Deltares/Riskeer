@@ -1,6 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
+using Core.Common.Gui;
+using Core.Common.Gui.Swf;
 using Core.Common.Utils;
+using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Gui.Property;
 using NUnit.Framework;
 
@@ -9,6 +13,17 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
     [TestFixture]
     public class UrlPropertiesTest
     {
+        [Test]
+        public void DefaultConstructor_ReturnsInstanceOfObjectProperties()
+        {
+            // Call
+            var urlProperties = new UrlProperties();
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<Url>>(urlProperties);
+
+        }
+
         [Test]
         public void Name_WithData_SameAsData()
         {
@@ -33,7 +48,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
         }
 
         [Test]
-        public void Path_WithData_ReturnsPath()
+        public void Path_WithData_SameAsData()
         {
             // Setup
             var somePath = "some path";
@@ -56,31 +71,26 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
         }
 
         [Test]
-        public void Path_WithData_SameAsData()
+        public void GetProperties_Always_ReturnsTwoProperty()
         {
             // Setup
-            var project = new Project();
-            var properties = new ProjectProperties
+            var someName = "some name";
+            var somePath = "some path";
+            var url = new Url(someName, somePath);
+
+            var bag = new DynamicPropertyBag(new UrlProperties
             {
-                Data = project
-            };
-
-            var testDescription = "some description";
-            var anotherDescription = "another description";
-
-            project.Description = testDescription;
+                Data = url
+            });
 
             // Call
-            var result = properties.Description;
+            var properties = bag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
 
             // Assert
-            Assert.AreEqual(testDescription, result);
-
-            // Call
-            properties.Description = anotherDescription;
-
-            // Assert
-            Assert.AreEqual(anotherDescription, project.Description);
+            Assert.AreEqual(2, properties.Count);
         }
     }
 }
