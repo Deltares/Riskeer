@@ -46,7 +46,6 @@ namespace Core.Common.Controls.Test.Dialogs
             };
 
             var exception = new Exception("Test", new Exception("Test inner"));
-
             var dialog = new ExceptionDialog(null, exception);
 
             // Call
@@ -79,6 +78,127 @@ namespace Core.Common.Controls.Test.Dialogs
 
             // Assert
             Assert.AreEqual("", exceptionText);
+        }
+
+        [Test]
+        public void ShowDialog_ExceptionDialogWithoutOpenLogAction_OpenLogButtonNotEnabled()
+        {
+            // Setup
+            Button buttonOpenLog = null;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var openedDialog = new FormTester(name);
+                var button = new ButtonTester("buttonOpenLog");
+
+                buttonOpenLog = (Button) button.TheObject;
+
+                openedDialog.Close();
+            };
+
+            var dialog = new ExceptionDialog(null, null);
+
+            // Call
+            dialog.ShowDialog();
+
+            // Assert
+            Assert.IsFalse(buttonOpenLog.Enabled);
+        }
+
+        [Test]
+        public void ShowDialog_ExceptionDialogWithOpenLogAction_OpenLogButtonEnabled()
+        {
+            // Setup
+            Button buttonOpenLog = null;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var openedDialog = new FormTester(name);
+                var button = new ButtonTester("buttonOpenLog");
+
+                buttonOpenLog = (Button) button.TheObject;
+
+                openedDialog.Close();
+            };
+
+            var dialog = new ExceptionDialog(null, null)
+            {
+                OpenLogClicked = () => { }
+            };
+
+            // Call
+            dialog.ShowDialog();
+
+            // Assert
+            Assert.IsTrue(buttonOpenLog.Enabled);
+        }
+
+        [Test]
+        public void ShowDialog_ExceptionDialog_RestartButtonClickResultsInDialogResultOk()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var button = new ButtonTester("buttonRestart");
+
+                button.Click();
+            };
+
+            var dialog = new ExceptionDialog(null, null);
+
+            // Call
+            dialog.ShowDialog();
+
+            // Assert
+            Assert.AreEqual(DialogResult.OK, dialog.DialogResult);
+        }
+
+        [Test]
+        public void ShowDialog_ExceptionDialog_ExitButtonClickResultsInDialogResultCancel()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var button = new ButtonTester("buttonExit");
+
+                button.Click();
+            };
+
+            var dialog = new ExceptionDialog(null, null);
+
+            // Call
+            dialog.ShowDialog();
+
+            // Assert
+            Assert.AreEqual(DialogResult.Cancel, dialog.DialogResult);
+        }
+
+        [Test]
+        public void ShowDialog_ExceptionDialog_OpenLogButtonClickPerformsOpenLogClickedAction()
+        {
+            // Setup
+            var counter = 0;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var openedDialog = new FormTester(name);
+                var button = new ButtonTester("buttonOpenLog");
+
+                button.Click();
+
+                openedDialog.Close();
+            };
+
+            var dialog = new ExceptionDialog(null, null)
+            {
+                OpenLogClicked = () => counter++
+            };
+
+            // Call
+            dialog.ShowDialog();
+
+            // Assert
+            Assert.AreEqual(1, counter);
         }
     }
 }

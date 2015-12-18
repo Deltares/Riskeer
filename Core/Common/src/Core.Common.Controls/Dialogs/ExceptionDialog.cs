@@ -29,14 +29,14 @@ namespace Core.Common.Controls.Dialogs
         {
             InitializeComponent();
 
-            buttonOpenLog.Visible = false;
+            buttonOpenLog.Enabled = false;
             exceptionTextBox.Text = exception == null ? "" : exception.ToString();
         }
 
         /// <summary>
         /// Gets or sets the action that should be performed after clicking the log button.
         /// </summary>
-        /// <remarks>The log button is only visible when this action is set.</remarks>
+        /// <remarks>The log button is only enabled when this action is set.</remarks>
         public Action OpenLogClicked
         {
             private get
@@ -47,7 +47,7 @@ namespace Core.Common.Controls.Dialogs
             {
                 openLogClicked = value;
 
-                buttonOpenLog.Visible = openLogClicked != null;
+                buttonOpenLog.Enabled = openLogClicked != null;
             }
         }
 
