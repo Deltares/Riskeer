@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
@@ -154,7 +153,8 @@ namespace Ringtoets.Integration.Forms.Views
                 DataPropertyName = probabilitySpaceName,
                 HeaderText = Resources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
                 Name = string.Format(columnNameFormat, probabilitySpaceName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                MinimumWidth = 100
             };
 
             probabilityDistributionGrid.AutoGenerateColumns = false;

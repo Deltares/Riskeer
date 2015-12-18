@@ -102,7 +102,6 @@ namespace Ringtoets.Integration.Forms.Views
             // FailureMechanismContributionView
             // 
             this.Controls.Add(this.tableLayoutPanel);
-            this.MinimumSize = new System.Drawing.Size(212, 171);
             this.Name = "FailureMechanismContributionView";
             resources.ApplyResources(this, "$this");
             ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).EndInit();
