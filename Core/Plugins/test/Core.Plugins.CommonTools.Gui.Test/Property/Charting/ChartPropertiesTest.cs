@@ -11,7 +11,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
     public class ChartPropertiesTest
     {
         [Test]
-        public void Constructor_WithAxis_ExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
             var properties = new ChartProperties();

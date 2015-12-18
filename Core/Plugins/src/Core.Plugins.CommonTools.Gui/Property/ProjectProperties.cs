@@ -38,18 +38,5 @@ namespace Core.Plugins.CommonTools.Gui.Property
                 data.Description = value;
             }
         }
-
-        [TypeConverter(typeof(ChartFontPropertiesConverter))]
-        public Font SomeFont
-        {
-            get
-            {
-                return new Font(FontFamily.GenericSansSerif, 12);
-            }
-            set
-            {
-                
-            }
-        }
     }
 }

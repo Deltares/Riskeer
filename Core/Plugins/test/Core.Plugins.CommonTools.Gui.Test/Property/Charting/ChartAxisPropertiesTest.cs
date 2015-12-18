@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Core.Common.Controls.Charting;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;

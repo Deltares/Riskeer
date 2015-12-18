@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Common.Controls.Charting;
+﻿using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using NUnit.Framework;
@@ -11,18 +10,14 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
     public class ChartSeriesPropertiesTest
     {
         [Test]
-        public void Constructor_WithAxis_ExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var mocks = new MockRepository();
-            var chartSeries = mocks.StrictMock<IChartSeries>();
-            var properties = new ChartSeriesProperties<IChartSeries>
-            {
-                Data = chartSeries
-            };
+            var properties = new ChartSeriesProperties<IChartSeries>();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IChartSeries>>(properties);
+            Assert.IsNull(properties.Data);
         }
 
         [Test]
