@@ -209,5 +209,31 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.AreEqual(1, counter);
             }
         }
+
+        [Test]
+        [RequiresSTA] // Don't remove: test will hang otherwise due to copy to clipboard
+        public void ShowDialog_ExceptionDialog_CopyToClipboardClickCopiesExceptionTextToClipboard()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var openedDialog = new FormTester(name);
+                var button = new ButtonTester("buttonCopyTextToClipboard");
+
+                button.Click();
+
+                openedDialog.Close();
+            };
+
+            var exception = new Exception("Test");
+            using (var dialog = new ExceptionDialog(new UserControl(), exception))
+            {
+                // Call
+                dialog.ShowDialog();
+
+                // Assert
+                Assert.AreEqual(exception.ToString(), Clipboard.GetText());
+            }
+        }
     }
 }
