@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
@@ -15,7 +14,6 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
         public void Constructor_WithAxis_ExpectedValues()
         {
             // Call
-            var mocks = new MockRepository();
             var properties = new ChartProperties();
 
             // Assert
