@@ -10,7 +10,7 @@ using Core.Plugins.Charting.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
+namespace Core.Plugins.Charting.Test.Forms
 {
     [TestFixture]
     public class ChartTreeNodePresenterTest
@@ -48,7 +48,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
             var node = new TreeNode(null);
             var chart = new Chart
             {
-                Title = title,
+                Title = title
             };
 
             // Call

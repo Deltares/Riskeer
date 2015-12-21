@@ -5,12 +5,12 @@ using Core.Common.Controls.Charting.Series;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Plugins.Charting.Forms;
-using Core.Plugins.CommonTools.Gui.Properties;
+using Core.Plugins.Charting.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Steema.TeeChart.Styles;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
+namespace Core.Plugins.Charting.Test.Forms
 {
     [TestFixture]
     public class ChartSeriesTreeNodePresenterTest

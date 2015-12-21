@@ -137,10 +137,6 @@
       <Name>Core.Plugins.Charting</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\Charting\" />
-    <Folder Include="Forms\Charting\" />
-    <Folder Include="Property\Charting\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

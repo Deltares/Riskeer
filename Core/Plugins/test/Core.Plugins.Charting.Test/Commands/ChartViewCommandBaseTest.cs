@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Test.TestObjects;
@@ -8,7 +7,7 @@ using Core.Plugins.Charting.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Commands.Charting
+namespace Core.Plugins.Charting.Test.Commands
 {
     [TestFixture]
     public class ChartViewCommandBaseTest

@@ -6,7 +6,7 @@ using Core.Plugins.Charting.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Commands.Charting
+namespace Core.Plugins.Charting.Test.Commands
 {
     [TestFixture]
     public class DecreaseFontSizeCommandTest

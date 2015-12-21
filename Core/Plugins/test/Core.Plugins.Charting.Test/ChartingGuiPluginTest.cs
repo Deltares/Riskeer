@@ -3,18 +3,19 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Plugins.Charting;
 using Core.Plugins.Charting.Forms;
 using Core.Plugins.Charting.Property;
+using Core.Plugins.CommonTools.Gui.Test;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Gui.Test
+namespace Core.Plugins.Charting.Test
 {
     [TestFixture]
     public class ChartingGuiPluginTest
     {
         [Test]
+        [RequiresSTA]
         public void ChartLegendViewIsUpdatedForCurrentActiveView()
         {
             var mocks = new MockRepository();

@@ -80,24 +80,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartingGuiPluginTest.cs" />
-    <Compile Include="Commands\Charting\ChartViewCommandBaseTest.cs" />
-    <Compile Include="Commands\Charting\DecreaseFontSizeCommandTest.cs" />
-    <Compile Include="Commands\Charting\ExportChartAsImageCommandTest.cs" />
-    <Compile Include="Commands\Charting\IncreaseFontSizeCommandTest.cs" />
-    <Compile Include="Forms\Charting\ChartSeriesTreeNodePresenterTest.cs" />
-    <Compile Include="Forms\Charting\ChartTreeNodePresenterTest.cs" />
-    <Compile Include="Property\Charting\AreaChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\BarSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartAxisDateTimePropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartAxisDoublePropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartAxisPropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartFontPropertiesConverterTest.cs" />
-    <Compile Include="Property\Charting\ChartPropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\LineChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\PointChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\PolygonChartSeriesPropertiesTest.cs" />
     <Compile Include="Property\ProjectPropertiesTest.cs" />
     <Compile Include="Property\TreeFolderPropertiesTest.cs" />
     <Compile Include="Property\UrlPropertiesTest.cs" />
@@ -173,7 +155,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

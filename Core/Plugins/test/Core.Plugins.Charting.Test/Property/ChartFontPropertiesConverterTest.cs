@@ -2,7 +2,7 @@
 using Core.Plugins.Charting.Property;
 using NUnit.Framework;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
+namespace Core.Plugins.Charting.Test.Property
 {
     [TestFixture]
     public class ChartFontPropertiesConverterTest

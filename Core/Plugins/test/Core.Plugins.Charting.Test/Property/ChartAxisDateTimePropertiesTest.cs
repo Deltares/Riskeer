@@ -6,10 +6,10 @@ using Core.Plugins.Charting.Property;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
+namespace Core.Plugins.Charting.Test.Property
 {
     [TestFixture]
-    public class ChartAxisDoublePropertiesTest
+    public class ChartAxisDateTimePropertiesTest
     {
         [Test]
         public void Constructor_WithAxis_ExpectedValues()
@@ -17,7 +17,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
             // Call
             var mocks = new MockRepository();
             var chartAxis = mocks.StrictMock<IChartAxis>();
-            var properties = new ChartAxisDoubleProperties(chartAxis);
+            var properties = new ChartAxisDateTimeProperties(chartAxis);
 
             // Assert
             Assert.IsInstanceOf<ChartAxisProperties>(properties);
@@ -31,20 +31,17 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
             var random = new Random(21);
             var maximum = random.NextDouble();
             var minimum = random.NextDouble();
-            var logaritmic = true;
             var chartAxis = mocks.StrictMock<IChartAxis>();
             chartAxis.Expect(a => a.Maximum).Return(maximum);
             chartAxis.Expect(a => a.Minimum).Return(minimum);
-            chartAxis.Expect(a => a.Logaritmic).Return(logaritmic);
 
             mocks.ReplayAll();
 
-            var properties = new ChartAxisDoubleProperties(chartAxis);
+            var properties = new ChartAxisDateTimeProperties(chartAxis);
 
             // Call & Assert
-            Assert.AreEqual(maximum, properties.Maximum);
-            Assert.AreEqual(minimum, properties.Minimum);
-            Assert.AreEqual(logaritmic, properties.Logaritmic);
+            Assert.AreEqual(DateTime.FromOADate(maximum), properties.Maximum);
+            Assert.AreEqual(DateTime.FromOADate(minimum), properties.Minimum);
 
             mocks.VerifyAll();
         }
@@ -55,22 +52,18 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
             // Setup
             var mocks = new MockRepository();
             var chartAxis = mocks.StrictMock<IChartAxis>();
-            var random = new Random(21);
-            var maximum = random.NextDouble();
-            var minimum = random.NextDouble();
-            var logaritmic = true;
-            chartAxis.Expect(a => a.Maximum).SetPropertyWithArgument(maximum);
-            chartAxis.Expect(a => a.Minimum).SetPropertyWithArgument(minimum);
-            chartAxis.Expect(a => a.Logaritmic).SetPropertyWithArgument(logaritmic);
+            var maximum = DateTime.Parse("2015/12/17");
+            var minimum = DateTime.Parse("2015/12/3");
+            chartAxis.Expect(a => a.Maximum).SetPropertyWithArgument(maximum.ToOADate());
+            chartAxis.Expect(a => a.Minimum).SetPropertyWithArgument(minimum.ToOADate());
 
             mocks.ReplayAll();
 
             // Call
-            new ChartAxisDoubleProperties(chartAxis)
+            new ChartAxisDateTimeProperties(chartAxis)
             {
                 Maximum = maximum,
-                Minimum = minimum,
-                Logaritmic = logaritmic
+                Minimum = minimum
             };
 
             // Assert
@@ -78,7 +71,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
         }
 
         [Test]
-        public void GetProperties_Always_ReturnsNineProperties()
+        public void GetProperties_Always_ReturnsEightProperties()
         {
             // Setup
             var mocks = new MockRepository();
@@ -86,7 +79,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
 
             mocks.ReplayAll();
 
-            var bag = new DynamicPropertyBag(new ChartAxisDoubleProperties(chartAxis));
+            var bag = new DynamicPropertyBag(new ChartAxisDateTimeProperties(chartAxis));
 
             // Call
             var properties = bag.GetProperties(new Attribute[]
@@ -95,7 +88,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
             });
 
             // Assert
-            Assert.AreEqual(9, properties.Count);
+            Assert.AreEqual(8, properties.Count);
         }
     }
 }
