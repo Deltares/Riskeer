@@ -150,7 +150,7 @@ namespace Core.Common.TestUtil
         private void WaitOrExit(Control control, bool modal)
         {
             // wait until control is shown
-            while (!wasShown && guiTestHelper.Exception == null)
+            while (!wasShown && GuiTestHelper.Exception == null)
             {
                 Application.DoEvents();
             }
@@ -179,7 +179,7 @@ namespace Core.Common.TestUtil
                 }
             }
 
-            if (guiTestHelper.Exception != null)
+            if (GuiTestHelper.Exception != null)
             {
                 GuiTestHelper.RethrowUnhandledException();
             }
