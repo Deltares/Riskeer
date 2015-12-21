@@ -70,16 +70,16 @@ namespace Core.Common.TestUtil
             }
         }
 
-        public void RethrowUnhandledException()
+        public static void RethrowUnhandledException()
         {
             if (unhandledThreadExceptionOccured)
             {
-                ThrowExceptionThatOccuredInThread(exception);
+                throw new UnhandledException("Unhandled thread exception: " + exception.Message, exception, exception.StackTrace);
             }
 
             if (appDomainExceptionOccured)
             {
-                ThrowExceptionThatOccuredInDomain(exception);
+                throw new UnhandledException("Unhandled app domain exception: " + exception.Message, exception, exception.StackTrace);
             }
         }
 
@@ -90,21 +90,11 @@ namespace Core.Common.TestUtil
             appDomainExceptionOccured = false;
         }
 
-        private static void ThrowExceptionThatOccuredInThread(Exception e)
-        {
-            throw new UnhandledException("Unhandled thread exception: " + e.Message, e, e.StackTrace);
-        }
-
-        private static void ThrowExceptionThatOccuredInDomain(Exception e)
-        {
-            throw new UnhandledException("Unhandled app domain exception: " + e.Message, e, e.StackTrace);
-        }
-
         private static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             unhandledThreadExceptionOccured = true;
             exception = e.Exception;
-            ThrowExceptionThatOccuredInThread(exception);
+            RethrowUnhandledException();
         }
 
         private static void InitializeSynchronizatonObject()
@@ -126,14 +116,14 @@ namespace Core.Common.TestUtil
             appDomainExceptionOccured = true;
             exception = e.ExceptionObject as Exception;
 
-            ThrowExceptionThatOccuredInDomain(exception);
+            RethrowUnhandledException();
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             unhandledThreadExceptionOccured = true;
             exception = e.Exception;
-            ThrowExceptionThatOccuredInThread(exception);
+            RethrowUnhandledException();
         }
 
         /// <summary>

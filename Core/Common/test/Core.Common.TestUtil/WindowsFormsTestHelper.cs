@@ -195,7 +195,7 @@ namespace Core.Common.TestUtil
 
             if (guiTestHelper.Exception != null)
             {
-                guiTestHelper.RethrowUnhandledException();
+                GuiTestHelper.RethrowUnhandledException();
             }
         }
 
