@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Charting;
+using Core.Common.Controls.Charting.Series;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
@@ -22,56 +23,76 @@ namespace Core.Plugins.Charting.Test
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var applicationCore = mocks.Stub<ApplicationCore>();
-            var pluginGui = new ChartingGuiPlugin();
             var mainWindow = mocks.Stub<IMainWindow>();
             var dockingManager = mocks.Stub<IDockingManager>();
-            using(var toolWindowViews = new ViewList(dockingManager, ViewLocation.Bottom))
+            using (var toolWindowViews = new ViewList(dockingManager, ViewLocation.Bottom))
             using (var documentViews = new ViewList(dockingManager, ViewLocation.Bottom))
             {
                 var chartView = new ChartView();
 
-                gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
-                gui.Expect(g => g.DocumentViews).Return(documentViews).Repeat.Any();
-                gui.Expect(g => g.ToolWindowViews).Return(toolWindowViews).Repeat.Any();
-                gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.Any();
-                mainWindow.Expect(w => w.Visible).Return(true).Repeat.Any();
+                ChartLegendView chartLegendView;
+                using (var pluginGui = new ChartingGuiPlugin())
+                {
+                    gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
+                    gui.Expect(g => g.DocumentViews).Return(documentViews).Repeat.Any();
+                    gui.Expect(g => g.ToolWindowViews).Return(toolWindowViews).Repeat.Any();
+                    gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.Any();
+                    mainWindow.Expect(w => w.Visible).Return(true).Repeat.Any();
 
-                mocks.ReplayAll();
+                    mocks.ReplayAll();
 
-                documentViews.Add(chartView);
+                    documentViews.Add(chartView);
 
-                pluginGui.Gui = gui;
-                pluginGui.Activate();
+                    pluginGui.Gui = gui;
+                    pluginGui.Activate();
 
-                documentViews.ActiveView = chartView;
+                    documentViews.ActiveView = chartView;
 
-                var chartLegendView = gui.ToolWindowViews.OfType<ChartLegendView>().FirstOrDefault();
+                    chartLegendView = gui.ToolWindowViews.OfType<ChartLegendView>().FirstOrDefault();
 
-                Assert.IsNotNull(chartLegendView);
-                Assert.AreEqual(chartView.Data, chartLegendView.Data);
-
-                mocks.VerifyAll();
+                    Assert.IsNotNull(chartLegendView);
+                    Assert.AreSame(chartLegendView, pluginGui.ChartLegendView);
+                    Assert.AreEqual(chartView.Data, chartLegendView.Data);
+                }
+                Assert.True(chartLegendView.IsDisposed);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void TestGetObjectProperties()
         {
-            var guiPlugin = new ChartingGuiPlugin();
-            var propertyInfos = guiPlugin.GetPropertyInfos().ToList();
+            using (var guiPlugin = new ChartingGuiPlugin())
+            {
+                var propertyInfos = guiPlugin.GetPropertyInfos().ToList();
 
-            var propertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(IChart));
-            Assert.AreEqual(typeof(ChartProperties), propertyInfo.PropertyType);
+                var chartPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(IChart));
+                var lineChartPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(ILineChartSeries));
+                var pointChartPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(IPointChartSeries));
+                var areaChartPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(IAreaChartSeries));
+                var polygonChartPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(IPolygonChartSeries));
+                var barChartPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(BarSeries));
+
+                Assert.AreEqual(6, propertyInfos.Count);
+                Assert.AreEqual(typeof(ChartProperties), chartPropertyInfo.PropertyType);
+                Assert.AreEqual(typeof(LineChartSeriesProperties), lineChartPropertyInfo.PropertyType);
+                Assert.AreEqual(typeof(PointChartSeriesProperties), pointChartPropertyInfo.PropertyType);
+                Assert.AreEqual(typeof(AreaChartSeriesProperties), areaChartPropertyInfo.PropertyType);
+                Assert.AreEqual(typeof(PolygonChartSeriesProperties), polygonChartPropertyInfo.PropertyType);
+                Assert.AreEqual(typeof(BarSeriesProperties), barChartPropertyInfo.PropertyType);
+            }
         }
 
         [Test]
         public void TestGetViewInfoObjectsContent()
         {
-            var guiPlugin = new ChartingGuiPlugin();
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
+            using (var guiPlugin = new ChartingGuiPlugin())
+            {
+                var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
 
-            Assert.NotNull(viewInfos);
-            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Chart) && vi.ViewType == typeof(ChartView)));
+                Assert.NotNull(viewInfos);
+                Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Chart) && vi.ViewType == typeof(ChartView)));
+            }
         } 
     }
 }
