@@ -417,6 +417,15 @@ namespace Core.Plugins.Charting.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grafiek.
+        /// </summary>
+        public static string ChartingGuiPlugin_Chart {
+            get {
+                return ResourceManager.GetString("ChartingGuiPlugin_Chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zichtbaar.
         /// </summary>
         public static string ChartingProperties_Visible_DisplayName {
@@ -692,51 +701,6 @@ namespace Core.Plugins.Charting.Properties {
         public static string ChartSeriesProperties_VerticalAxis_DisplayName {
             get {
                 return ResourceManager.GetString("ChartSeriesProperties_VerticalAxis_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
-        /// </summary>
-        public static string ChartTreeNodePresenter_UpdateNode_Chart {
-            get {
-                return ResourceManager.GetString("ChartTreeNodePresenter_UpdateNode_Chart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string Common_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("Common_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browser.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetViewInfoObjects_Browser {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetViewInfoObjects_Browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
-        /// </summary>
-        public static string CommonToolsGuiPlugin_InitializeChartLegendView_Chart {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_InitializeChartLegendView_Chart", resourceCulture);
             }
         }
         

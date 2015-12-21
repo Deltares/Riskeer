@@ -120,9 +120,6 @@
   <data name="Categories_General" xml:space="preserve">
     <value>Algemeen</value>
   </data>
-  <data name="Common_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
   <data name="FolderProperties_DisplayName" xml:space="preserve">
     <value>Folder</value>
   </data>
@@ -445,9 +442,6 @@
   <data name="Ribbon_TabItem_View" xml:space="preserve">
     <value>Beeld</value>
   </data>
-  <data name="Ribbon_Chart_Contents" xml:space="preserve">
-    <value>Grafiek</value>
-  </data>
   <data name="Ribbon_TabItem_Chart" xml:space="preserve">
     <value>Grafiek</value>
   </data>
@@ -472,13 +466,7 @@
   <data name="Ribbon_Ruler" xml:space="preserve">
     <value>Liniaal</value>
   </data>
-  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Browser" xml:space="preserve">
-    <value>Browser</value>
-  </data>
-  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View" xml:space="preserve">
-    <value>Grafiek</value>
-  </data>
-  <data name="CommonToolsGuiPlugin_InitializeChartLegendView_Chart" xml:space="preserve">
+  <data name="ChartingGuiPlugin_Chart" xml:space="preserve">
     <value>Grafiek</value>
   </data>
   <data name="ChartProperties_FontValid_Font_can_not_be_empty" xml:space="preserve">
@@ -486,9 +474,6 @@
   </data>
   <data name="ChartProperties_FontValid_Font_size_is_not_within_limits_3_200" xml:space="preserve">
     <value>Lettertype grootte valt niet binnen grenzen (3-200)</value>
-  </data>
-  <data name="ChartTreeNodePresenter_UpdateNode_Chart" xml:space="preserve">
-    <value>Grafiek</value>
   </data>
   <data name="ChartSeriesProperties_DisplayName" xml:space="preserve">
     <value>Gegevensreeks instellingen</value>
@@ -507,5 +492,8 @@
   </data>
   <data name="RulerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\ruler-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ribbon_Chart_Contents" xml:space="preserve">
+    <value>Grafiek</value>
   </data>
 </root>

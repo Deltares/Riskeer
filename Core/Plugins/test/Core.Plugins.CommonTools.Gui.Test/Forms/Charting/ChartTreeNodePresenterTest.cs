@@ -55,7 +55,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Forms.Charting
             nodePresenter.UpdateNode(null, node, chart);
 
             // Assert
-            Assert.AreEqual(string.IsNullOrEmpty(title) ? Resources.ChartTreeNodePresenter_UpdateNode_Chart : title, node.Text);
+            Assert.AreEqual(string.IsNullOrEmpty(title) ? Resources.ChartingGuiPlugin_Chart : title, node.Text);
             TestHelper.AssertImagesAreEqual(Resources.Chart, node.Image);
             Assert.AreSame(chart, node.Tag);
         }

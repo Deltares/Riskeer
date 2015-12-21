@@ -91,17 +91,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Area.png" />
-    <None Include="Resources\bars.png" />
-    <Resource Include="Resources\chart_curve.png" />
-    <None Include="Resources\Line.png" />
-    <None Include="Resources\Points.png" />
-    <None Include="Resources\Polygon.png" />
-    <None Include="Resources\category.png" />
-    <Resource Include="Resources\arrow_down.png" />
-    <Resource Include="Resources\arrow_up.png" />
-    <Resource Include="Resources\image-export.png" />
-    <Resource Include="Resources\ruler-3.png" />
     <None Include="Resources\home.png" />
   </ItemGroup>
   <ItemGroup>

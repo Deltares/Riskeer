@@ -61,61 +61,11 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Area {
-            get {
-                object obj = ResourceManager.GetObject("Area", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ArrowDownIcon {
-            get {
-                object obj = ResourceManager.GetObject("ArrowDownIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ArrowUpIcon {
-            get {
-                object obj = ResourceManager.GetObject("ArrowUpIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Bars {
-            get {
-                object obj = ResourceManager.GetObject("Bars", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
             get {
                 return ResourceManager.GetString("Categories_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Chart {
-            get {
-                object obj = ResourceManager.GetObject("Chart", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -166,46 +116,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ImageExportIcon {
-            get {
-                object obj = ResourceManager.GetObject("ImageExportIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Line {
-            get {
-                object obj = ResourceManager.GetObject("Line", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Points {
-            get {
-                object obj = ResourceManager.GetObject("Points", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Polygon {
-            get {
-                object obj = ResourceManager.GetObject("Polygon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Korte beschrijving van het project..
         /// </summary>
         public static string ProjectProperties_Description_Description {
@@ -238,26 +148,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         public static string ProjectProperties_Name_Description {
             get {
                 return ResourceManager.GetString("ProjectProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap RulerIcon {
-            get {
-                object obj = ResourceManager.GetObject("RulerIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Stacked {
-            get {
-                object obj = ResourceManager.GetObject("Stacked", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

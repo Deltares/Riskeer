@@ -33,7 +33,7 @@ namespace Core.Plugins.Charting
             {
                 ChartLegendView = new ChartLegendView(this)
                 {
-                    Text = Resources.CommonToolsGuiPlugin_InitializeChartLegendView_Chart
+                    Text = Resources.ChartingGuiPlugin_Chart
                 };
             }
 
@@ -64,7 +64,7 @@ namespace Core.Plugins.Charting
         {
             yield return new ViewInfo<Chart, ChartView>
             {
-                Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View,
+                Description = Resources.ChartingGuiPlugin_Chart,
                 AfterCreate = (view, chart) => view.Owner = Gui.MainWindow
             };
         }

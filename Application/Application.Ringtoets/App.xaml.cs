@@ -15,6 +15,7 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Plugins.Charting;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
@@ -149,6 +150,7 @@ namespace Application.Ringtoets
                 {
                     new ProjectExplorerGuiPlugin(),
                     new CommonToolsGuiPlugin(),
+                    new ChartingGuiPlugin(),
                     new SharpMapGisGuiPlugin(),
                     new RingtoetsGuiPlugin(),
                     new PipingGuiPlugin()

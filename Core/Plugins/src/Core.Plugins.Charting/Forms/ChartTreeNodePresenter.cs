@@ -16,7 +16,7 @@ namespace Core.Plugins.Charting.Forms
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IChart chart)
         {
             node.Tag = chart;
-            node.Text = string.IsNullOrEmpty(chart.Title) ? Resources.ChartTreeNodePresenter_UpdateNode_Chart : chart.Title;
+            node.Text = string.IsNullOrEmpty(chart.Title) ? Resources.ChartingGuiPlugin_Chart : chart.Title;
             node.Image = Resources.Chart;
         }
 

@@ -123,6 +123,10 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.Charting\Core.Plugins.Charting.csproj">
+      <Project>{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}</Project>
+      <Name>Core.Plugins.Charting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj">
       <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
       <Name>Core.Plugins.CommonTools.Gui</Name>
