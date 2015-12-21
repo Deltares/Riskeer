@@ -63,27 +63,16 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="TeeChart, Version=3.5.3700.30575, Culture=neutral, PublicKeyToken=1463a114303c2e80, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\TeeChart.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Property\ProjectPropertiesTest.cs" />
     <Compile Include="Property\TreeFolderPropertiesTest.cs" />
     <Compile Include="Property\UrlPropertiesTest.cs" />
-    <Compile Include="TestViewList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommonToolsGuiPluginTest.cs" />
   </ItemGroup>
@@ -92,14 +81,6 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Charting\Core.Common.Controls.Charting.csproj">
-      <Project>{43cd4cc3-8500-411b-822e-1d3b5af56fbc}</Project>
-      <Name>Core.Common.Controls.Charting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
       <Project>{08205620-D756-4533-922C-D6A4C0038535}</Project>
       <Name>Core.Common.Gui.Swf</Name>
@@ -107,14 +88,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.Test\Core.Common.Test.csproj">
-      <Project>{e0990383-fb2e-47d1-99cd-9b9fa2929e5b}</Project>
-      <Name>Core.Common.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj">
       <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
@@ -131,10 +104,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Plugins.Charting\Core.Plugins.Charting.csproj">
-      <Project>{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}</Project>
-      <Name>Core.Plugins.Charting</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Plugins.Charting.Forms;
 using Core.Plugins.Charting.Property;
 using Core.Plugins.CommonTools.Gui.Test;
@@ -23,31 +24,34 @@ namespace Core.Plugins.Charting.Test
             var applicationCore = mocks.Stub<ApplicationCore>();
             var pluginGui = new ChartingGuiPlugin();
             var mainWindow = mocks.Stub<IMainWindow>();
-            var toolWindowViews = new TestViewList();
-            var documentViews = new TestViewList();
-            var chartView = new ChartView();
+            var dockingManager = mocks.Stub<IDockingManager>();
+            using(var toolWindowViews = new ViewList(dockingManager, ViewLocation.Bottom))
+            using (var documentViews = new ViewList(dockingManager, ViewLocation.Bottom))
+            {
+                var chartView = new ChartView();
 
-            gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
-            gui.Expect(g => g.DocumentViews).Return(documentViews).Repeat.Any();
-            gui.Expect(g => g.ToolWindowViews).Return(toolWindowViews).Repeat.Any();
-            gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.Any();
-            mainWindow.Expect(w => w.Visible).Return(true).Repeat.Any();
+                gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
+                gui.Expect(g => g.DocumentViews).Return(documentViews).Repeat.Any();
+                gui.Expect(g => g.ToolWindowViews).Return(toolWindowViews).Repeat.Any();
+                gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.Any();
+                mainWindow.Expect(w => w.Visible).Return(true).Repeat.Any();
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            documentViews.Add(chartView);
+                documentViews.Add(chartView);
 
-            pluginGui.Gui = gui;
-            pluginGui.Activate();
+                pluginGui.Gui = gui;
+                pluginGui.Activate();
 
-            documentViews.ActiveView = chartView;
+                documentViews.ActiveView = chartView;
 
-            var chartLegendView = gui.ToolWindowViews.OfType<ChartLegendView>().FirstOrDefault();
+                var chartLegendView = gui.ToolWindowViews.OfType<ChartLegendView>().FirstOrDefault();
 
-            Assert.IsNotNull(chartLegendView);
-            Assert.AreEqual(chartView.Data, chartLegendView.Data);
+                Assert.IsNotNull(chartLegendView);
+                Assert.AreEqual(chartView.Data, chartLegendView.Data);
 
-            mocks.VerifyAll();
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
