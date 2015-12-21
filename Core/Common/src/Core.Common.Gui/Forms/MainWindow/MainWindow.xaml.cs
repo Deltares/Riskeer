@@ -219,11 +219,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void SaveLayout()
         {
-            if (Settings.Default.autosaveWindowLayout)
-            {
-                SaveWindowAppearance();
-                OnSaveLayout("normal");
-            }
+            SaveWindowAppearance();
+            OnSaveLayout("normal");
         }
 
         public void InitializeToolWindows()

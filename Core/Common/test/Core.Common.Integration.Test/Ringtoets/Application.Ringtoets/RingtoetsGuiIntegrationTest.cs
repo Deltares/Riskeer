@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
-using Core.GIS.SharpMap.Map;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
@@ -84,33 +83,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 Action onShown = () => TestHelper.AssertIsFasterThan(300, () => gui.Project = new Project());
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
-            }
-        }
-
-        [Test]
-        public void ExitShouldBeFast()
-        {
-            using (var gui = new RingtoetsGui())
-            {
-                var applicationCore = gui.ApplicationCore;
-
-                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-
-                gui.Run();
-
-                gui.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
-
-                gui.MainWindow.Show();
-
-                for (int i = 0; i < 20; i++)
-                {
-                    var map = new Map();
-                    gui.Project.Items.Add(map);
-                    gui.CommandHandler.OpenView(map);
-                }
-
-                TestHelper.AssertIsFasterThan(200, gui.Exit);
             }
         }
 
