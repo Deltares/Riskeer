@@ -75,7 +75,6 @@
     <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />
     <Compile Include="TestHelpers\DoubleWithToleranceComparer.cs" />
-    <Compile Include="TestHelpers\FileHelper.cs" />
     <Compile Include="TestHelpers\StringGeometryHelper.cs" />
   </ItemGroup>
   <ItemGroup>

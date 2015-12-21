@@ -11,7 +11,6 @@ using Rhino.Mocks;
 
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
-using Ringtoets.Piping.IO.Test.TestHelpers;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -107,7 +106,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             Assert.AreEqual(4, callCount);
 
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(validFilePath));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
             mocks.VerifyAll();
         }
@@ -155,7 +154,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
             CollectionAssert.AllItemsAreUnique(geometryPoints);
 
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(validFilePath));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
             mocks.VerifyAll();
         }
@@ -491,7 +490,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importTargetArray = observableSurfaceLinesList.ToArray();
             Assert.AreEqual(0, importTargetArray.Length);
 
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(path));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
 
             mocks.VerifyAll();
         }

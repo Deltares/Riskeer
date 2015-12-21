@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var dbFile = Path.Combine(testDataPath, dbName);
 
             // Precondition
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
             TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var exception = Assert.Throws<CriticalFileReadException>(test);
             var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(String.Format(Resources.Error_SoilProfile_read_from_database, dbName));
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var dbFile = Path.Combine(testDataPath, dbName);
 
             // Precondition
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
             TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version), exception.Message);
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.AreEqual("Profile2", pipingSoilProfile.Name);
                 Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
 
-                Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
+                Assert.IsTrue(TestHelper.CanOpenFileForWrite(testFile));
             }
         }
 
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.AreEqual("Profile2", pipingSoilProfile.Name);
                 Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
 
-                Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
+                Assert.IsTrue(TestHelper.CanOpenFileForWrite(testFile));
             }
         }
 
@@ -347,13 +347,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var dbFile = Path.Combine(testDataPath, testFile);
 
             // Precondition
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             // Call
             new PipingSoilProfileReader(dbFile).Dispose();
 
             // Assert
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -364,7 +364,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var dbFile = Path.Combine(testDataPath, testFile);
 
             // Precondition
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             PipingSoilProfileReader pipingSoilProfilesReader = null;
             PipingSoilProfile profile;
@@ -384,7 +384,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             Assert.NotNull(profile);
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]

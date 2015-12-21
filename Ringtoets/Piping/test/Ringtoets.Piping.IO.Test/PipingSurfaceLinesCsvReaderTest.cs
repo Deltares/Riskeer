@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
-using Ringtoets.Piping.IO.Test.TestHelpers;
 
 using IOResources = Ringtoets.Piping.IO.Properties.Resources;
 
@@ -605,7 +604,7 @@ namespace Ringtoets.Piping.IO.Test
             }
 
             // Assert
-            Assert.IsTrue(FileHelper.CanOpenFileForWrite(path));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
 
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()

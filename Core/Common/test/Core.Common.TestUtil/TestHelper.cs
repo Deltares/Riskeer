@@ -15,7 +15,7 @@ using NUnit.Framework;
 
 namespace Core.Common.TestUtil
 {
-    public class TestHelper
+    public static class TestHelper
     {
         private static string solutionRoot;
 
@@ -122,6 +122,33 @@ namespace Core.Common.TestUtil
 
             // file not found..exception
             throw new FileNotFoundException(String.Format("File not found: {0}", path), path);
+        }
+
+        /// <summary>
+        /// Checks whether the file pointed at by <paramref name="pathToFile"/> can be opened
+        /// for writing.
+        /// </summary>
+        /// <param name="pathToFile">The location of the file to open for writing.</param>
+        /// <returns><c>true</c> if the file could be opened with write permissions. <c>false</c> otherwise.</returns>
+        public static bool CanOpenFileForWrite(string pathToFile)
+        {
+            FileStream file = null;
+            try
+            {
+                file = File.OpenWrite(pathToFile);
+                return true;
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (file != null)
+                {
+                    file.Close();
+                }
+            }
         }
 
         /// <summary>
@@ -359,7 +386,7 @@ namespace Core.Common.TestUtil
                 }, StringSplitOptions.None).ToList();
                 customMessageParts.RemoveAt(customMessageParts.Count - 1);
 
-                message = string.Join(Environment.NewLine, customMessageParts.ToArray());
+                message = String.Join(Environment.NewLine, customMessageParts.ToArray());
             }
             Assert.AreEqual(expectedCustomMessage, message);
         }
@@ -478,6 +505,5 @@ namespace Core.Common.TestUtil
                 return imageBytes;
             }
         }
-
     }
 }
