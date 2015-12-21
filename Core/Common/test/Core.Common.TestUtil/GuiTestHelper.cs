@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using log4net;
 
 namespace Core.Common.TestUtil
 {
@@ -16,8 +15,6 @@ namespace Core.Common.TestUtil
     public class GuiTestHelper
     {
         private static GuiTestHelper instance;
-
-        private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
 
         private static Form synchronizationForm;
 
@@ -77,12 +74,12 @@ namespace Core.Common.TestUtil
         {
             if (unhandledThreadExceptionOccured)
             {
-                throw new UnhandledException("Unhandled thread exception: " + exception.Message, exception, exception.StackTrace);
+                ThrowExceptionThatOccuredInThread(exception);
             }
 
             if (appDomainExceptionOccured)
             {
-                throw new UnhandledException("Unhandled app domain exception: " + exception.Message, exception, exception.StackTrace);
+                ThrowExceptionThatOccuredInDomain(exception);
             }
         }
 
@@ -93,16 +90,25 @@ namespace Core.Common.TestUtil
             appDomainExceptionOccured = false;
         }
 
+        private static void ThrowExceptionThatOccuredInThread(Exception e)
+        {
+            throw new UnhandledException("Unhandled thread exception: " + e.Message, e, e.StackTrace);
+        }
+
+        private static void ThrowExceptionThatOccuredInDomain(Exception e)
+        {
+            throw new UnhandledException("Unhandled app domain exception: " + e.Message, e, e.StackTrace);
+        }
+
         private static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             unhandledThreadExceptionOccured = true;
             exception = e.Exception;
-            log.Error("WPF exception occured: " + e.Exception.Message, e.Exception);
+            ThrowExceptionThatOccuredInThread(exception);
         }
 
         private static void InitializeSynchronizatonObject()
         {
-
             if (synchronizationForm == null)
             {
                 synchronizationForm = new Form
@@ -120,21 +126,14 @@ namespace Core.Common.TestUtil
             appDomainExceptionOccured = true;
             exception = e.ExceptionObject as Exception;
 
-            if (exception != null)
-            {
-                log.Error("Exception occured: " + exception.Message, exception);
-            }
-            else
-            {
-                log.Error("Unhandled exception occured: " + e.ExceptionObject);
-            }
+            ThrowExceptionThatOccuredInDomain(exception);
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             unhandledThreadExceptionOccured = true;
             exception = e.Exception;
-            log.Error("Windows.Forms exception occured: " + e.Exception.Message, e.Exception);
+            ThrowExceptionThatOccuredInThread(exception);
         }
 
         /// <summary>
