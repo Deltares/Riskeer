@@ -41,26 +41,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DevExpress.Data.v9.3.dll</HintPath>
-    </Reference>
-    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -86,11 +72,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\home.png" />
   </ItemGroup>
   <ItemGroup>
@@ -99,18 +80,10 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Charting\Core.Common.Controls.Charting.csproj">
-      <Project>{43cd4cc3-8500-411b-822e-1d3b5af56fbc}</Project>
-      <Name>Core.Common.Controls.Charting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
       <Project>{3dbd23ce-5c4a-4a49-b51c-b268cb2b510e}</Project>
       <Name>Core.Common.Controls.Swf</Name>
       <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
@@ -131,10 +104,6 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Plugins.Charting\Core.Plugins.Charting.csproj">
-      <Project>{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}</Project>
-      <Name>Core.Plugins.Charting</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
