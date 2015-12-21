@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Test.Properties;
@@ -56,57 +54,6 @@ namespace Core.Common.Utils.Test
             TestHelper.AssertLogMessageIsGenerated(() => log.Warn("hello"), "hello");
             TestHelper.AssertLogMessageIsGenerated(() => log.Debug("hello"), "hello");
             TestHelper.AssertLogMessageIsGenerated(() => log.Error("hello"), "hello");
-        }
-
-        [Test]
-        public void GetPerformanceColors()
-        {
-            var type = typeof(TestHelper);
-            var methodInfo = type.GetMethod("GetPerformanceColor", BindingFlags.NonPublic | BindingFlags.Static);
-
-            var colorRed = (Color) methodInfo.Invoke(null, new object[]
-            {
-                -0.05
-            });
-            var colorYellow1 = (Color) methodInfo.Invoke(null, new object[]
-            {
-                0.0
-            });
-            var colorYellow2 = (Color) methodInfo.Invoke(null, new object[]
-            {
-                1.0
-            });
-            var colorYellow3 = (Color) methodInfo.Invoke(null, new object[]
-            {
-                1.05
-            });
-            var colorGreen = (Color) methodInfo.Invoke(null, new object[]
-            {
-                0.25
-            });
-
-            Assert.AreEqual("Red", colorRed.Name);
-            Assert.AreEqual("fffcfe00", colorYellow1.Name);
-            Assert.AreEqual("fffcfe00", colorYellow2.Name);
-            Assert.AreEqual("fffcfe00", colorYellow3.Name);
-            Assert.AreEqual("ff008000", colorGreen.Name);
-
-            // dump all colors to html file for visual test
-            const string path = "GetPerformanceColors.html";
-            DeleteIfExists(path);
-            var contents = "<table>";
-            for (var i = -0.05; i <= 1.1; i += 0.05)
-            {
-                var color = (Color) methodInfo.Invoke(null, new object[]
-                {
-                    i
-                });
-                var htmlColor = ColorTranslator.ToHtml(color);
-                contents += string.Format(CultureInfo.InvariantCulture, "<tr><td bgcolor=\"{0}\">{1:G5}%</td></tr>", htmlColor, i);
-            }
-            contents += "</table>";
-
-            File.AppendAllText(path, contents);
         }
 
         private static void DeleteIfExists(string path)
