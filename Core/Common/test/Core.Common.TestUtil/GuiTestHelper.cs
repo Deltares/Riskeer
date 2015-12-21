@@ -62,7 +62,7 @@ namespace Core.Common.TestUtil
             }
         }
 
-        public Exception Exception
+        public static Exception Exception
         {
             get
             {
@@ -72,6 +72,11 @@ namespace Core.Common.TestUtil
 
         public static void RethrowUnhandledException()
         {
+            if (exception == null)
+            {
+                return;
+            }
+
             if (unhandledThreadExceptionOccured)
             {
                 throw new UnhandledException("Unhandled thread exception: " + exception.Message, exception, exception.StackTrace);
