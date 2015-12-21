@@ -78,9 +78,16 @@
     <Compile Include="Property\LineChartSeriesPropertiesTest.cs" />
     <Compile Include="Property\PointChartSeriesPropertiesTest.cs" />
     <Compile Include="Property\PolygonChartSeriesPropertiesTest.cs" />
+    <Compile Include="TestObjects\TestDockingManager.cs" />
+    <Compile Include="TestObjects\TestSettings.Designer.cs" />
+    <Compile Include="TestObjects\TestView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TestObjects\TestView.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestObjects\TestSettings.settings" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -115,10 +122,9 @@
       <Project>{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}</Project>
       <Name>Core.Plugins.Charting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Plugins.CommonTools.Gui.Test\Core.Plugins.CommonTools.Gui.Test.csproj">
-      <Project>{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}</Project>
-      <Name>Core.Plugins.CommonTools.Gui.Test</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestObjects\TestView.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

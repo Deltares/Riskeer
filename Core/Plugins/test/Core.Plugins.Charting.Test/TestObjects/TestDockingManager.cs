@@ -6,7 +6,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
 
-namespace Core.Plugins.CommonTools.Gui.Test.TestObjects
+namespace Core.Plugins.Charting.Test.TestObjects
 {
     /// <summary>
     /// Docking manager for test...does nothing

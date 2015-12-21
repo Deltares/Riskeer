@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 using Core.Common.Controls.Charting;
 using Core.Common.Gui;
-using Core.Plugins.CommonTools.Gui.Test.TestObjects;
 using Core.Plugins.Charting.Commands;
+using Core.Plugins.Charting.Test.TestObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 

@@ -7,7 +7,6 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Plugins.Charting.Forms;
 using Core.Plugins.Charting.Property;
-using Core.Plugins.CommonTools.Gui.Test;
 using NUnit.Framework;
 using Rhino.Mocks;
 

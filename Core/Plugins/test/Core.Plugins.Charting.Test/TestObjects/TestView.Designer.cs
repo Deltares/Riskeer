@@ -1,4 +1,4 @@
-﻿namespace Core.Plugins.CommonTools.Gui.Test.TestObjects
+﻿namespace Core.Plugins.Charting.Test.TestObjects
 {
     partial class TestView
     {
