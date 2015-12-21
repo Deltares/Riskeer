@@ -4,7 +4,7 @@ using Core.Common.Controls.Charting;
 using Core.Common.Controls.Charting.Series;
 using Core.Common.Gui;
 using Core.Common.Utils.PropertyBag;
-using Core.Plugins.CommonTools.Gui.Property.Charting;
+using Core.Plugins.Charting.Property;
 using NUnit.Framework;
 using Rhino.Mocks;
 

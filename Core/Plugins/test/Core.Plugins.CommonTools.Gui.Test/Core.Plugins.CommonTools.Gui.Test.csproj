@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartingGuiPluginTest.cs" />
     <Compile Include="Commands\Charting\ChartViewCommandBaseTest.cs" />
     <Compile Include="Commands\Charting\DecreaseFontSizeCommandTest.cs" />
     <Compile Include="Commands\Charting\ExportChartAsImageCommandTest.cs" />
@@ -148,6 +149,10 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Plugins.Charting\Core.Plugins.Charting.csproj">
+      <Project>{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}</Project>
+      <Name>Core.Plugins.Charting</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

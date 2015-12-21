@@ -229,6 +229,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.TreeVi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.TreeView.Test", "Core\Common\test\Core.Common.Controls.TreeView.Test\Core.Common.Controls.TreeView.Test.csproj", "{0EDC6D7D-E9CD-408A-9EA9-3E7D426809C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Charting", "Core\Plugins\src\Core.Plugins.Charting\Core.Plugins.Charting.csproj", "{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -931,6 +933,16 @@ Global
 		{0EDC6D7D-E9CD-408A-9EA9-3E7D426809C8}.Release|x86.Build.0 = Release|x86
 		{0EDC6D7D-E9CD-408A-9EA9-3E7D426809C8}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{0EDC6D7D-E9CD-408A-9EA9-3E7D426809C8}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.CreateInstaller|x86.Build.0 = Release|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.Debug|x86.ActiveCfg = Debug|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.Debug|x86.Build.0 = Debug|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.Release|x86.ActiveCfg = Release|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.Release|x86.Build.0 = Release|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -997,6 +1009,7 @@ Global
 		{ED20DBA9-D577-423F-A68D-A0A8130FB10B} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{696DAAEE-D1D8-42D0-86AC-471B970FB17E} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{0BC3751E-EC42-40A0-A7D3-B7C2AA66976E} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
+		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{8BD31773-6F6D-42EE-810D-0A5DAD809F9D} = {209AC67F-DCFA-4355-B45A-9D9A2E4593D2}
 		{07206938-9671-4DC7-BDE4-35B0F6E20DBC} = {209AC67F-DCFA-4355-B45A-9D9A2E4593D2}
 		{4FDA4BD2-2C84-4C7C-9908-818884D52DBB} = {209AC67F-DCFA-4355-B45A-9D9A2E4593D2}

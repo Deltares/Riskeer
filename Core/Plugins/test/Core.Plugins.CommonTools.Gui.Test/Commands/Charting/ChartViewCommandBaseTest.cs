@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 using Core.Common.Controls.Charting;
 using Core.Common.Gui;
 using Core.Common.Test.TestObjects;
-using Core.Plugins.CommonTools.Gui.Commands.Charting;
+using Core.Plugins.Charting.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 

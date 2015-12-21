@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Core.Plugins.CommonTools.Gui.Property.Charting;
+using Core.Plugins.Charting.Property;
 using NUnit.Framework;
 
 namespace Core.Plugins.CommonTools.Gui.Test.Property.Charting
