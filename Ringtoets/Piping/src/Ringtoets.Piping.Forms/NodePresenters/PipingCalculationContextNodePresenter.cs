@@ -12,6 +12,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -122,11 +123,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var clearOutputItem = new StrictContextMenuItem(Resources.Clear_output,
                                                             null,
                                                             RingtoetsFormsResources.ClearIcon,
-                                                            (o, args) =>
-                                                            {
-                                                                calculation.ClearOutput();
-                                                                calculation.NotifyObservers();
-                                                            });
+                                                            (o, args) => ClearOutput(calculation));
 
             if (!calculation.HasOutput)
             {
@@ -150,6 +147,16 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+            
+        private static void ClearOutput(PipingCalculation calculation)
+        {
+            if (MessageBox.Show(Resources.PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
+            calculation.ClearOutput();
+            calculation.NotifyObservers();
         }
     }
 }

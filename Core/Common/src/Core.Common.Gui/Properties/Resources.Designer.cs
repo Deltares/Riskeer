@@ -734,7 +734,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwij&amp;deren.
+        ///   Looks up a localized string similar to Verwij&amp;deren....
         /// </summary>
         public static string Delete {
             get {

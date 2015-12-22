@@ -839,7 +839,7 @@
     <value>..\Resources\arrow-000-medium.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Verwij&amp;deren</value>
+    <value>Verwij&amp;deren...</value>
   </data>
   <data name="Delete_ToolTip" xml:space="preserve">
     <value>Verwijder de knoop uit de boom.</value>

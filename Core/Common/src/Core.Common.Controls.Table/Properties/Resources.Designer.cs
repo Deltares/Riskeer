@@ -71,6 +71,119 @@ namespace Core.Common.Controls.Table.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Argument bevat geen bestandsnaam..
+        /// </summary>
+        internal static string Chart_ExportAsImage_Argument_did_not_contain_a_filename {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Argument_did_not_contain_a_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestandsnaam moet een extensie hebben..
+        /// </summary>
+        internal static string Chart_ExportAsImage_Argument_should_have_an_extension {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Argument_should_have_an_extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Argument kan niet de waarde &apos;null&apos; hebben..
+        /// </summary>
+        internal static string Chart_ExportAsImage_Argument_should_not_be_null {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Argument_should_not_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gearceerde stijl wordt niet ondersteund voor exporteren en zal genegeerd worden..
+        /// </summary>
+        internal static string Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_ {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extensie ({0}) wordt niet ondersteund..
+        /// </summary>
+        internal static string Chart_GetImageFormatByExtension_Extension_0_not_supported {
+            get {
+                return ResourceManager.GetString("Chart_GetImageFormatByExtension_Extension_0_not_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoerformaat wordt niet ondersteund. Y moet numeriek zijn maar is van type: {0}..
+        /// </summary>
+        internal static string ChartSeries_Add_Input_format_not_supported_y_must_be_numeric_but_is_of_type_0_ {
+            get {
+                return ResourceManager.GetString("ChartSeries_Add_Input_format_not_supported_y_must_be_numeric_but_is_of_type_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeldig argument voor databron van gegevensreeks. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund..
+        /// </summary>
+        internal static string ChartSeries_DataSource_Invalid_argument_for_series_datasource_Are_you_passing_IEnumerable_IList_and_IListSource_are_supported {
+            get {
+                return ResourceManager.GetString("ChartSeries_DataSource_Invalid_argument_for_series_datasource_Are_you_passing_IEn" +
+                        "umerable_IList_and_IListSource_are_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan diagram niet tekenen..
+        /// </summary>
+        internal static string ChartView_TeeChartBeforeDraw_Can_not_draw_chart {
+            get {
+                return ResourceManager.GetString("ChartView_TeeChartBeforeDraw_Can_not_draw_chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onbekende TeeChart gegevensreeks: houdt geen verband met een bekende ChartSeries..
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series_Not_related_to_any_known_ChartSeries {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series_" +
+                        "Not_related_to_any_known_ChartSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit programma accepteert alleen {0} als gegevensreeks..
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts_0_as_series {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts_0_as_series", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;LastSelectedSeries&apos; moet gezet zijn voordat &apos;SelectedPointIndex&apos; wordt gezet..
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_needs_to_be_set_before_SelectedPointIndex_is_set {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_needs_to_be_set_bef" +
+                        "ore_SelectedPointIndex_is_set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geselecteerde index is buiten bereik van de gevensreeks..
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niet te klonen subelementen in menu-element..
         /// </summary>
         internal static string ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item {
@@ -337,6 +450,62 @@ namespace Core.Common.Controls.Table.Properties {
             get {
                 object obj = ResourceManager.GetObject("pin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparantie moet tussen 0 en 100 liggen..
+        /// </summary>
+        internal static string PolygonChartSeries_Transparency_Transparancy_should_be_between_0_and_100 {
+            get {
+                return ResourceManager.GetString("PolygonChartSeries_Transparency_Transparancy_should_be_between_0_and_100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden..
+        /// </summary>
+        internal static string PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values {
+            get {
+                return ResourceManager.GetString("PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} tot {1}.
+        /// </summary>
+        internal static string RangeLabel_0_till_1_ {
+            get {
+                return ResourceManager.GetString("RangeLabel_0_till_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschil:
+        ///horizontaal: {0}
+        ///verticaal: {1}.
+        /// </summary>
+        internal static string RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_ {
+            get {
+                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString_Difference_horizontal_0_vertical_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to seconden.
+        /// </summary>
+        internal static string RulerTool_GetDefaultDifferenceString_seconds {
+            get {
+                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString_seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tot.
+        /// </summary>
+        internal static string strTill {
+            get {
+                return ResourceManager.GetString("strTill", resourceCulture);
             }
         }
         
@@ -629,6 +798,15 @@ namespace Core.Common.Controls.Table.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zou geen indices lager dan -1 moeten teruggeven!.
+        /// </summary>
+        internal static string TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_ {
+            get {
+                return ResourceManager.GetString("TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap tick {
@@ -680,6 +858,71 @@ namespace Core.Common.Controls.Table.Properties {
         internal static string TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented {
             get {
                 return ResourceManager.GetString("TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u het volgende element wilt verwijderen: {0}.
+        /// </summary>
+        internal static string TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_ {
+            get {
+                return ResourceManager.GetString("TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het geselecteerde element kan niet worden verwijderd..
+        /// </summary>
+        internal static string TreeView_DeleteNodeData_The_selected_item_cannot_be_removed {
+            get {
+                return ResourceManager.GetString("TreeView_DeleteNodeData_The_selected_item_cannot_be_removed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet in staat om een presentatieobject te vinden voor niet geïnitialiseerd object..
+        /// </summary>
+        internal static string TreeView_Error_Unable_to_resolve_node_presenter_for_null_data {
+            get {
+                return ResourceManager.GetString("TreeView_Error_Unable_to_resolve_node_presenter_for_null_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout tijdens slepen/neerzetten: {0}..
+        /// </summary>
+        internal static string TreeView_TreeViewDragDrop_Error_during_drag_drop_0_ {
+            get {
+                return ResourceManager.GetString("TreeView_TreeViewDragDrop_Error_during_drag_drop_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Structuurweergave mag niet leeg zijn..
+        /// </summary>
+        internal static string TreeViewController_TreeViewController_Tree_view_can_t_be_null {
+            get {
+                return ResourceManager.GetString("TreeViewController_TreeViewController_Tree_view_can_t_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenschap van een TreeView heeft toegevoegd..
+        /// </summary>
+        internal static string TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView {
+            get {
+                return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added" +
+                        "_it_to_Presenters_collection_of_a_TreeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse..
+        /// </summary>
+        internal static string TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class {
+            get {
+                return ResourceManager.GetString("TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_deri" +
+                        "ved_class", resourceCulture);
             }
         }
         

@@ -6,6 +6,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -21,7 +22,7 @@ using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingOutputNodePresenterTest
+    public class PipingOutputNodePresenterTest 
     {
         private MockRepository mockRepository;
 
@@ -208,7 +209,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -223,32 +224,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Call
             nodePresenter.GetContextMenu(nodeMock, new TestPipingOutput());
 
-            // Assert
-            mockRepository.VerifyAll();
-
-        }
-
-        [Test]
-        public void GetContextMenu_ClearItemClicked_OutputCleared()
-        {
-            // Setup
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var treeMock = mockRepository.StrictMock<ITreeView>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
-            treeMock.Expect(t => t.TryDeleteSelectedNodeData());
-            nodeMock.Expect(n => n.TreeView).Return(treeMock);
-
-            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
-
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter(contextMenuBuilderProviderMock);
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, new TestPipingOutput());
-
-            // Call
-            contextMenu.Items[0].PerformClick();
-            
             // Assert
             mockRepository.VerifyAll();
         }

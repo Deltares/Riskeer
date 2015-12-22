@@ -9,7 +9,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Events;
-
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.NodePresenters;
@@ -25,7 +25,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingCalculationContextNodePresenterTest
+    public class PipingCalculationContextNodePresenterTest : NUnitFormTest
     {
         private MockRepository mockRepository;
 
@@ -833,7 +833,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GivenPipingCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenPipingCalculationOutputClearedAndNotified()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenPipingCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenPipingCalculationOutputClearedAndNotified(bool confirm)
         {
             // Given
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
@@ -842,7 +844,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             int clearOutputItemPosition = 2;
-            observer.Expect(o => o.UpdateObserver());
+            if (confirm)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
 
             mockRepository.ReplayAll();
 
@@ -854,12 +859,26 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuAdapter = nodePresenter.GetContextMenu(treeNodeMock, new PipingCalculationContext(calculation,
                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                                      Enumerable.Empty<PipingSoilProfile>()));
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                Assert.AreEqual("Weet u zeker dat u de uitvoer van de berekening wilt wissen?", messageBox.Text);
+                Assert.AreEqual("Bevestigen", messageBox.Title);
+                if (confirm)
+                {
+                    messageBox.ClickOk();
+                }
+                else
+                {
+                    messageBox.ClickCancel();
+                }
+            };
 
             // When
             contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
 
             // Then
-            Assert.IsFalse(calculation.HasOutput);
+            Assert.AreNotEqual(confirm, calculation.HasOutput);
 
             mockRepository.VerifyAll();
         }

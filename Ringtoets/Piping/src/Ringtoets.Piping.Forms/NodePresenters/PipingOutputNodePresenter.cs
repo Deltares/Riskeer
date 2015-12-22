@@ -45,16 +45,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingOutput nodeData)
         {
-            StrictContextMenuItem clearItem = new StrictContextMenuItem(
-                Resources.Clear_output,
-                null,
-                RingtoestFormsResources.ClearIcon,
-                (s, e) => node.TreeView.TryDeleteSelectedNodeData()
-                );
-
             return contextMenuBuilderProvider
                 .Get(node)
-                .AddCustomItem(clearItem)
+                .AddDeleteItem()
                 .AddSeparator()
                 .AddExportItem()
                 .AddSeparator()

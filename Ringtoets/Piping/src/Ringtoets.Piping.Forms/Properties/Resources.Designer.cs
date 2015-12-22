@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Wis uitvoer.
+        ///   Looks up a localized string similar to &amp;Wis uitvoer....
         /// </summary>
         public static string Clear_output {
             get {
@@ -276,6 +276,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingCalculation_Name_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculation_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van de berekening wilt wissen?.
+        /// </summary>
+        public static string PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output {
+            get {
+                return ResourceManager.GetString("PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output", resourceCulture);
             }
         }
         

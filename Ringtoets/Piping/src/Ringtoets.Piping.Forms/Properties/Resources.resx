@@ -425,7 +425,7 @@
     <value>De berekening heeft geen uitvoer om te wissen.</value>
   </data>
   <data name="Clear_output" xml:space="preserve">
-    <value>&amp;Wis uitvoer</value>
+    <value>&amp;Wis uitvoer...</value>
   </data>
   <data name="PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
     <value>Er zijn geen berekeningen met uitvoer om te wissen.</value>
@@ -519,5 +519,8 @@
   </data>
   <data name="PipingCalculationGroup_Validate_All_ToolTip" xml:space="preserve">
     <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
+  </data>
+  <data name="PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output" xml:space="preserve">
+    <value>Weet u zeker dat u de uitvoer van de berekening wilt wissen?</value>
   </data>
 </root>
