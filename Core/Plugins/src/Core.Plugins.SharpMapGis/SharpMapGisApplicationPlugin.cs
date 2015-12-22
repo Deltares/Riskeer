@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.Plugin;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
@@ -17,12 +16,12 @@ namespace Core.Plugins.SharpMapGis
         {
             yield return new DataItemInfo<Map>
             {
-                Name = "Map",
-                Category = "General",
+                Name = "Kaart",
+                Category = "Algemeen",
                 Image = Properties.Resources.Map,
                 CreateData = owner => new Map
                 {
-                    Name = "Map"
+                    Name = "Kaart"
                 }
             };
         }
