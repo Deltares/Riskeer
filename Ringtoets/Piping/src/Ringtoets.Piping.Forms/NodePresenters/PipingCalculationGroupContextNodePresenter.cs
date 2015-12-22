@@ -178,24 +178,31 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return contextMenuBuilderProvider.Get(node)
-                                             .AddCustomItem(addCalculationGroupItem)
-                                             .AddCustomItem(addCalculationItem)
-                                             .AddSeparator()
-                                             .AddCustomItem(validateAllItem)
-                                             .AddCustomItem(calculateAllItem)
-                                             .AddCustomItem(clearAllItem)
-                                             .AddSeparator()
-                                             .AddDeleteItem()
-                                             .AddSeparator()
-                                             .AddImportItem()
-                                             .AddExportItem()
-                                             .AddSeparator()
-                                             .AddExpandAllItem()
-                                             .AddCollapseAllItem()
-                                             .AddSeparator()
-                                             .AddPropertiesItem()
-                                             .Build();
+            var builder = contextMenuBuilderProvider
+                .Get(node)
+                .AddCustomItem(addCalculationGroupItem)
+                .AddCustomItem(addCalculationItem)
+                .AddSeparator()
+                .AddCustomItem(validateAllItem)
+                .AddCustomItem(calculateAllItem)
+                .AddCustomItem(clearAllItem)
+                .AddSeparator();
+
+            if (CanRemove(node.Parent.Tag, nodeData))
+            {
+                builder.AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationGroupContext nodeData)
