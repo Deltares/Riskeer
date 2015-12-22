@@ -473,7 +473,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddFolderIndex, PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip, PipingFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex, PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3, PipingFormsResources.PipingCalculationItem_Validate, PipingFormsResources.PipingFailureMechanism_ValidateAll_Tooltip, PipingFormsResources.ValidationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsFormsResources.Validate_all, RingtoetsFormsResources.Validate_all_ToolTip, RingtoetsFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsFormsResources.Calculate_all, RingtoetsFormsResources.Calculate_all_ToolTip, RingtoetsFormsResources.CalculateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex, RingtoetsFormsResources.Clear_all_output, RingtoetsFormsResources.Clear_all_output_ToolTip, RingtoetsFormsResources.ClearIcon);
 

@@ -61,6 +61,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Be&amp;rekenen.
+        /// </summary>
+        public static string Calculate {
+            get {
+                return ResourceManager.GetString("Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alles be&amp;rekenen.
         /// </summary>
         public static string Calculate_all {
@@ -79,11 +88,30 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valideer en voer de berekening uit..
+        /// </summary>
+        public static string Calculate_ToolTip {
+            get {
+                return ResourceManager.GetString("Calculate_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CalculateAllIcon {
             get {
                 object obj = ResourceManager.GetObject("CalculateAllIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CalculateIcon {
+            get {
+                object obj = ResourceManager.GetObject("CalculateIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +234,62 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string RingtoetsNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type_0_ {
             get {
                 return ResourceManager.GetString("RingtoetsNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Valideren.
+        /// </summary>
+        public static string Validate {
+            get {
+                return ResourceManager.GetString("Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alles &amp;valideren.
+        /// </summary>
+        public static string Validate_all {
+            get {
+                return ResourceManager.GetString("Validate_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen het faalmechanisme..
+        /// </summary>
+        public static string Validate_all_ToolTip {
+            get {
+                return ResourceManager.GetString("Validate_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideer de invoer voor de berekening..
+        /// </summary>
+        public static string Validate_ToolTip {
+            get {
+                return ResourceManager.GetString("Validate_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ValidateAllIcon {
+            get {
+                object obj = ResourceManager.GetObject("ValidateAllIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ValidateIcon {
+            get {
+                object obj = ResourceManager.GetObject("ValidateIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

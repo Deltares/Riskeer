@@ -71,15 +71,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string Calculate {
-            get {
-                return ResourceManager.GetString("Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
@@ -381,9 +372,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
         /// </summary>
-        public static string PipingCalculationGroup_Validate_ToolTip {
+        public static string PipingCalculationGroup_Validate_All_ToolTip {
             get {
-                return ResourceManager.GetString("PipingCalculationGroup_Validate_ToolTip", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationGroup_Validate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -403,15 +394,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingCalculationGroupContextProperties_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationGroupContextProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valideren.
-        /// </summary>
-        public static string PipingCalculationItem_Validate {
-            get {
-                return ResourceManager.GetString("PipingCalculationItem_Validate", resourceCulture);
             }
         }
         
@@ -476,15 +458,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip {
             get {
                 return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit faalmechanisme..
-        /// </summary>
-        public static string PipingFailureMechanism_ValidateAll_Tooltip {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_ValidateAll_Tooltip", resourceCulture);
             }
         }
         
@@ -1187,16 +1160,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Play {
-            get {
-                object obj = ResourceManager.GetObject("Play", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De gemiddelde waarde van de {0}..
         /// </summary>
         public static string Probabilistics_Mean_description_for_Distribution_0_ {
@@ -1310,16 +1273,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string ShiftedLognormalDistribution_ShortName {
             get {
                 return ResourceManager.GetString("ShiftedLognormalDistribution_ShortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ValidationIcon {
-            get {
-                object obj = ResourceManager.GetObject("ValidationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

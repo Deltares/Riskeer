@@ -140,9 +140,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 });
 
             var validateAllItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationItem_Validate,
-                PipingFormsResources.PipingCalculationGroup_Validate_ToolTip,
-                PipingFormsResources.ValidationIcon, (o, args) =>
+                RingtoetsFormsResources.Validate_all,
+                PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
+                RingtoetsFormsResources.ValidateAllIcon, (o, args) =>
                 {
                     foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
                     {

@@ -177,12 +177,9 @@
     <None Include="Resources\chart_curve.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tick.png" />
     <None Include="Resources\blue-document-list.png" />
     <None Include="Resources\control-record.png" />
-    <None Include="Resources\folder-horizontal-plus.png" />
     <None Include="Resources\folder_add.png" />
-    <Content Include="Resources\PlayHS.png" />
     <None Include="Resources\table.png" />
   </ItemGroup>
   <ItemGroup />

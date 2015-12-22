@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\folder.png" />
+    <None Include="Resources\tick.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\folder_input.png" />
@@ -104,6 +105,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\table_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\PlayHS.png" />
+    <Content Include="Resources\tickAll.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

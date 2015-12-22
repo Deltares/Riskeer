@@ -110,13 +110,13 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingCalculationContext nodeData)
         {
             PipingCalculation calculation = nodeData.WrappedData;
-            var validateItem = new StrictContextMenuItem(Resources.PipingCalculationItem_Validate,
-                                                         null,
-                                                         Resources.ValidationIcon,
+            var validateItem = new StrictContextMenuItem(RingtoetsFormsResources.Validate,
+                                                         RingtoetsFormsResources.Validate_ToolTip,
+                                                         RingtoetsFormsResources.ValidateIcon,
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
-            var calculateItem = new StrictContextMenuItem(Resources.Calculate,
-                                                          null,
-                                                          Resources.Play,
+            var calculateItem = new StrictContextMenuItem(RingtoetsFormsResources.Calculate,
+                                                          RingtoetsFormsResources.Calculate_ToolTip,
+                                                          RingtoetsFormsResources.CalculateIcon,
                                                           (o, args) => { RunActivityAction(new PipingCalculationActivity(calculation)); });
 
             var clearOutputItem = new StrictContextMenuItem(Resources.Clear_output,

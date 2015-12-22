@@ -72,9 +72,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 );
 
             var validateAllItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationItem_Validate,
-                PipingFormsResources.PipingFailureMechanism_ValidateAll_Tooltip,
-                PipingFormsResources.ValidationIcon,
+                RingtoetsCommonFormsResources.Validate_all,
+                RingtoetsCommonFormsResources.Validate_all_ToolTip,
+                RingtoetsCommonFormsResources.ValidateAllIcon,
                 (o, args) => ValidateAll(failureMechanism)
                 );
 

@@ -937,9 +937,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                           PipingFormsResources.PipingIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                          "Valideren",
+                                                          RingtoetsFormsResources.Validate_all,
                                                           "Valideer alle berekeningen binnen deze berekeningsmap.",
-                                                          PipingFormsResources.ValidationIcon);
+                                                          RingtoetsFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                           RingtoetsFormsResources.Calculate_all,
                                                           "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
