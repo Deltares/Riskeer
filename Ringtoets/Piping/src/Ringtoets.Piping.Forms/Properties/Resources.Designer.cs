@@ -125,6 +125,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wis de uitvoer van deze berekening..
+        /// </summary>
+        public static string Clear_output_ToolTip {
+            get {
+                return ResourceManager.GetString("Clear_output_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De berekening heeft geen uitvoer om te wissen..
         /// </summary>
         public static string ClearOutput_No_output_to_clear {
@@ -453,7 +462,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe piping berekening toe aan het faalmechanisme..
+        ///   Looks up a localized string similar to Voeg een nieuwe piping berekening toe aan dit faalmechanisme..
         /// </summary>
         public static string PipingFailureMechanism_Add_PipingCalculation_Tooltip {
             get {
@@ -462,7 +471,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan het faalmechanisme..
+        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme..
         /// </summary>
         public static string PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip {
             get {

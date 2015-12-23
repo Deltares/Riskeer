@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                                           (o, args) => { RunActivityAction(new PipingCalculationActivity(calculation)); });
 
             var clearOutputItem = new StrictContextMenuItem(Resources.Clear_output,
-                                                            null,
+                                                            Resources.Clear_output_ToolTip,
                                                             RingtoetsFormsResources.ClearIcon,
                                                             (o, args) => ClearOutput(calculation));
 

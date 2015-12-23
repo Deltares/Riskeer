@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen het faalmechanisme uit..
+        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen dit faalmechanisme uit..
         /// </summary>
         public static string Calculate_all_ToolTip {
             get {
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen het faalmechanisme..
+        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string Clear_all_output_ToolTip {
             get {
@@ -256,7 +256,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen het faalmechanisme..
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string Validate_all_ToolTip {
             get {

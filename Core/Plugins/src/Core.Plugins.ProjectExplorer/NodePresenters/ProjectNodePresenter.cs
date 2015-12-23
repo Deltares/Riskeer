@@ -57,7 +57,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
         {
             var addItem = new StrictContextMenuItem(
                 Resources.AddItem,
-                null,
+                Resources.AddItem_ToolTip,
                 Resources.plus,
                 (s, e) => commandHandler.AddNewItem(nodeData));
 

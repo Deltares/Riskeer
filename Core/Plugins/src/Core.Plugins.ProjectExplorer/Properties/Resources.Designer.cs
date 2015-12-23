@@ -80,6 +80,15 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuw element toe aan het project..
+        /// </summary>
+        public static string AddItem_ToolTip {
+            get {
+                return ResourceManager.GetString("AddItem_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap application_form {

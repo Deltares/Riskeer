@@ -761,7 +761,7 @@
     <value>&amp;Exporteren...</value>
   </data>
   <data name="Export_ToolTip" xml:space="preserve">
-    <value>Exporteer gegevens naar een bestand.</value>
+    <value>Exporteer de gegevens naar een bestand.</value>
   </data>
   <data name="ExportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -773,10 +773,10 @@
     <value>..\resources\table-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Import_ToolTip" xml:space="preserve">
-    <value>Importeer gegevens vanuit een bestand.</value>
+    <value>Importeer de gegevens vanuit een bestand.</value>
   </data>
   <data name="Properties_ToolTip" xml:space="preserve">
-    <value>Laat de eigenschappen zien in het eigenschappenvenster.</value>
+    <value>Laat de eigenschappen zien in het Eigenschappenpaneel.</value>
   </data>
   <data name="Properties" xml:space="preserve">
     <value>Ei&amp;genschappen</value>
@@ -791,7 +791,7 @@
     <value>Alles i&amp;nklappen</value>
   </data>
   <data name="Collapse_all_ToolTip" xml:space="preserve">
-    <value>Klap deze knoop en al zijn kinderen in.</value>
+    <value>Klap dit element en alle onderliggende elementen in.</value>
   </data>
   <data name="ExpandAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\arrow-stop-270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -800,7 +800,7 @@
     <value>Alles ui&amp;tklappen</value>
   </data>
   <data name="Expand_all_ToolTip" xml:space="preserve">
-    <value>Klap deze knoop en al zijn kinderen uit.</value>
+    <value>Klap dit element en alle onderliggende elementen uit.</value>
   </data>
   <data name="ContextMenuBuilder_ContextMenuBuilder_Can_not_build_context_menu_for_empty_tree_node" xml:space="preserve">
     <value>Kan geen contextmenu opbouwen voor een lege knoop.</value>
@@ -836,7 +836,7 @@
     <value>Verwij&amp;deren...</value>
   </data>
   <data name="Delete_ToolTip" xml:space="preserve">
-    <value>Verwijder de knoop uit de boom.</value>
+    <value>Verwijder het element uit de boom.</value>
   </data>
   <data name="NodePresenter_CommandHandler_required" xml:space="preserve">
     <value>Voor het aanmaken van knopen in de boom is een 'CommandHandler' nodig.</value>

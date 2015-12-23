@@ -548,7 +548,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klap deze knoop en al zijn kinderen in..
+        ///   Looks up a localized string similar to Klap dit element en alle onderliggende elementen in..
         /// </summary>
         public static string Collapse_all_ToolTip {
             get {
@@ -733,7 +733,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwijder de knoop uit de boom..
+        ///   Looks up a localized string similar to Verwijder het element uit de boom..
         /// </summary>
         public static string Delete_ToolTip {
             get {
@@ -831,7 +831,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klap deze knoop en al zijn kinderen uit..
+        ///   Looks up a localized string similar to Klap dit element en alle onderliggende elementen uit..
         /// </summary>
         public static string Expand_all_ToolTip {
             get {
@@ -868,7 +868,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteer gegevens naar een bestand..
+        ///   Looks up a localized string similar to Exporteer de gegevens naar een bestand..
         /// </summary>
         public static string Export_ToolTip {
             get {
@@ -1289,7 +1289,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importeer gegevens vanuit een bestand..
+        ///   Looks up a localized string similar to Importeer de gegevens vanuit een bestand..
         /// </summary>
         public static string Import_ToolTip {
             get {
@@ -1804,7 +1804,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laat de eigenschappen zien in het eigenschappenvenster..
+        ///   Looks up a localized string similar to Laat de eigenschappen zien in het Eigenschappenpaneel..
         /// </summary>
         public static string Properties_ToolTip {
             get {

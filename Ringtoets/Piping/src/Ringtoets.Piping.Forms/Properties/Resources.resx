@@ -389,7 +389,7 @@
     <value>Berekening toevoegen</value>
   </data>
   <data name="PipingFailureMechanism_Add_PipingCalculation_Tooltip" xml:space="preserve">
-    <value>Voeg een nieuwe piping berekening toe aan het faalmechanisme.</value>
+    <value>Voeg een nieuwe piping berekening toe aan dit faalmechanisme.</value>
   </data>
   <data name="LognormalDistribution_DisplayName" xml:space="preserve">
     <value>Lognormale verdeling</value>
@@ -464,7 +464,7 @@
     <value>Map toevoegen</value>
   </data>
   <data name="PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip" xml:space="preserve">
-    <value>Voeg een nieuwe berekeningsmap toe aan het faalmechanisme.</value>
+    <value>Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.</value>
   </data>
   <data name="PipingCalculationGroupContextProperties_DisplayName" xml:space="preserve">
     <value>Berekeningsmap</value>
@@ -522,5 +522,8 @@
   </data>
   <data name="PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output" xml:space="preserve">
     <value>Weet u zeker dat u de uitvoer van de berekening wilt wissen?</value>
+  </data>
+  <data name="Clear_output_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van deze berekening.</value>
   </data>
 </root>

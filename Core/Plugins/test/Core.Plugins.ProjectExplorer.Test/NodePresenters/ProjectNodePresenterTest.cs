@@ -127,7 +127,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
 
             // Assert
             mocks.VerifyAll(); 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, null, Resources.plus);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.plus);
         }
 
         [Test]
