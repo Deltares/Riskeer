@@ -3,9 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
-using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -41,8 +39,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return contextMenuBuilderProvider
                 .Get(node)
                 .AddOpenItem()
-                .AddSeparator()
-                .AddDeleteItem()
                 .AddSeparator()
                 .AddExportItem()
                 .AddSeparator()

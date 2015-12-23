@@ -3,6 +3,7 @@ using System.Drawing;
 
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -121,6 +122,31 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsFalse(isRemovalAllowed, "EmptyPipingOutput represents no output, therefore there's nothing to remove.");
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
+
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new EmptyPipingOutputNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            nodePresenter.GetContextMenu(nodeMock, new EmptyPipingOutput());
+
+            // Assert
             mockRepository.VerifyAll();
         }
     }

@@ -35,8 +35,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             return contextMenuBuilderProvider
                 .Get(node)
-                .AddDeleteItem()
-                .AddSeparator()
                 .AddExportItem()
                 .AddSeparator()
                 .AddPropertiesItem()

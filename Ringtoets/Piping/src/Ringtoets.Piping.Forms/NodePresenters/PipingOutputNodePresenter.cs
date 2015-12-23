@@ -37,31 +37,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
-        protected override bool CanRemove(object parentNodeData, PipingOutput nodeData)
-        {
-            return true;
-        }
-
         protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingOutput nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)
-                .AddDeleteItem()
-                .AddSeparator()
                 .AddExportItem()
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
-        }
-
-        protected override bool RemoveNodeData(object parentNodeData, PipingOutput nodeData)
-        {
-            var pipingCalculationContext = (PipingCalculationContext) parentNodeData;
-
-            pipingCalculationContext.ClearOutput();
-            pipingCalculationContext.NotifyObservers();
-
-            return true;
         }
     }
 }
