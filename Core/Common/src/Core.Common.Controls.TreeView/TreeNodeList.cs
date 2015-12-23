@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView.Properties;
 
@@ -72,7 +71,12 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         public void Clear()
         {
-            var nodesToRemove = nodes.Cast<ITreeNode>().ToList();
+            var nodesToRemove = new List<ITreeNode>();
+
+            foreach (ITreeNode node in nodes)
+            {
+                nodesToRemove.AddRange(GetAllNodes(node));
+            }
 
             nodes.Clear();
 
@@ -80,6 +84,17 @@ namespace Core.Common.Controls.TreeView
             {
                 removedNode.Dispose();
             }
+        }
+
+        private IList<ITreeNode> GetAllNodes(ITreeNode treeNode)
+        {
+            var thisAndChildren = new List<ITreeNode>();
+            thisAndChildren.Add(treeNode);
+            foreach (var node in treeNode.Nodes)
+            {
+                thisAndChildren.AddRange(GetAllNodes(node));
+            }
+            return thisAndChildren;
         }
 
         public bool Contains(ITreeNode item)
