@@ -123,10 +123,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
-            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -139,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
 
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new EmptyPipingCalculationReportNodePresenter(contextMenuBuilderProviderMock);
 
@@ -147,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.GetContextMenu(nodeMock, new EmptyPipingCalculationReport());
 
             // Assert
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
     }
 }
