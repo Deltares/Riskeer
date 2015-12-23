@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -117,6 +117,37 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsFalse(isRenamingAllowed, "EmptyCalculationReport instance represents an absent report, therefore removal should be impossible.");
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilderMock);
+
+            mocks.ReplayAll();
+
+            var nodePresenter = new EmptyPipingCalculationReportNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            nodePresenter.GetContextMenu(nodeMock, new EmptyPipingCalculationReport());
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

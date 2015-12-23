@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using Core.Common.Controls;
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
@@ -28,6 +29,18 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var dummyOutput = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             new PipingOutputNodePresenter(contextMenuBuilderProvider).UpdateNode(parentNode, node, dummyOutput);
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
+        }
+
+        protected override ContextMenuStrip GetContextMenu(ITreeNode node, EmptyPipingOutput nodeData)
+        {
+            return contextMenuBuilderProvider
+                .Get(node)
+                .AddDeleteItem()
+                .AddSeparator()
+                .AddExportItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
     }
 }

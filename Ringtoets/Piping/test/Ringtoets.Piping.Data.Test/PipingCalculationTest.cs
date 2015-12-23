@@ -31,7 +31,6 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Output);
-            Assert.AreEqual("Berekeningsverslag", calculation.CalculationReport.Name);
         }
 
         [Test]

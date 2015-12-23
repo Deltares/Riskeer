@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
             Assert.AreSame(pipingCalculationContext.WrappedData.Output, children[2]);
-            Assert.AreSame(pipingCalculationContext.WrappedData.CalculationReport, children[3]);
+            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
         }
 
         [Test]

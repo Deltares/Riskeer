@@ -19,7 +19,6 @@ namespace Ringtoets.Piping.Data
 
             Comments = new InputPlaceholder(Resources.Comments_DisplayName);
             InputParameters = new PipingInput();
-            CalculationReport = new PlaceholderWithReadonlyName(Resources.CalculationReport_DisplayName);
         }
 
         /// <summary>
@@ -36,11 +35,6 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a Piping calculation.
         /// </summary>
         public PipingOutput Output { get; set; }
-
-        /// <summary>
-        /// Gets the calculation report for the calculation that generated <see cref="Output"/>.
-        /// </summary>
-        public PlaceholderWithReadonlyName CalculationReport { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of this calculation.

@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             if (pipingCalculationContext.WrappedData.HasOutput)
             {
                 yield return pipingCalculationContext.WrappedData.Output;
-                yield return pipingCalculationContext.WrappedData.CalculationReport;
+                yield return new EmptyPipingCalculationReport();
             }
             else
             {
