@@ -144,6 +144,12 @@ namespace Core.Common.Controls.TreeView
         void StartLabelEdit();
 
         /// <summary>
+        /// Checks if label of the <paramref name="node"/> can be edited and starts edit mode if this is the case.
+        /// </summary>
+        /// <param name="node">The <see cref="ITreeNode"/> to start editing the label for.</param>
+        void StartLabelEdit(ITreeNode node);
+
+        /// <summary>
         /// Attempts to delete the currently selected <see cref="ITreeNode"/> data.
         /// </summary>
         void TryDeleteSelectedNodeData();

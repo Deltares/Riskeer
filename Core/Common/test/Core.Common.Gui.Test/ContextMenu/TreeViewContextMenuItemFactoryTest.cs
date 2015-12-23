@@ -91,6 +91,41 @@ namespace Core.Common.Gui.Test.ContextMenu
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateRenameItem_DependingOnCanRename_ItemWithDeleteFunctionWillBeEnabled(bool canRename)
+        {
+            // Setup
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
+            var treeViewMock = mocks.StrictMock<ITreeView>();
+
+            treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
+            treeNodePresenterMock.Expect(tnp => tnp.CanRenameNode(treeNodeMock)).Return(canRename);
+
+            if (canRename)
+            {
+                treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
+                treeViewMock.Expect(tv => tv.StartLabelEdit(treeNodeMock));
+            }
+
+            mocks.ReplayAll();
+
+            var factory = new TreeViewContextMenuItemFactory(treeNodeMock);
+
+            // Call
+            var item = factory.CreateRenameItem();
+            item.PerformClick();
+
+            // Assert
+            Assert.AreEqual(Resources.Rename, item.Text);
+            Assert.AreEqual(Resources.Rename_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.RenameIcon, item.Image);
+            Assert.AreEqual(canRename, item.Enabled);
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCase(true)]

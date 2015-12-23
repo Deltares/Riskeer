@@ -181,16 +181,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public bool CanDelete(ITreeNode node)
-        {
-            return controller.CanDeleteNode(node);
-        }
-
-        public bool SelectedNodeCanRename()
-        {
-            return controller.CanRenameNode(SelectedNode);
-        }
-
         public new void CollapseAll()
         {
             foreach (var node in Nodes)
@@ -225,17 +215,19 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        /// <summary>
-        /// Checks if label of current node can be edited and starts edit mode if this is the case.
-        /// </summary>
         public void StartLabelEdit()
         {
-            if (!SelectedNodeCanRename())
+            StartLabelEdit(SelectedNode);
+        }
+
+        public void StartLabelEdit(ITreeNode node)
+        {
+            if (!controller.CanRenameNode(node))
             {
                 return;
             }
 
-            SelectedNode.BeginEdit();
+            node.BeginEdit();
         }
 
         public void RegisterNodePresenter(ITreeNodePresenter presenter)
@@ -313,7 +305,7 @@ namespace Core.Common.Controls.TreeView
 
         public void TryDeleteNodeData(ITreeNode treeNode)
         {
-            if (!CanDelete(treeNode))
+            if (!controller.CanDeleteNode(treeNode))
             {
                 MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
                 return;

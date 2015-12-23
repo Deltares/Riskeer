@@ -61,16 +61,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap _new {
-            get {
-                object obj = ResourceManager.GetObject("new", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to niet gedefinieerd.
         /// </summary>
         public static string ActivityInfo_ProgressText_undefined {
@@ -1786,16 +1776,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap project_16 {
-            get {
-                object obj = ResourceManager.GetObject("project-16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er ging iets fout bij het ophalen van de &apos;NodePresenters&apos; van alle plugins..
         /// </summary>
         public static string ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin {
@@ -1886,6 +1866,34 @@ namespace Core.Common.Gui.Properties {
         public static System.Drawing.Bitmap RelationshipsHS {
             get {
                 object obj = ResourceManager.GetObject("RelationshipsHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Hernoemen.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wijzig de naam van dit element..
+        /// </summary>
+        public static string Rename_ToolTip {
+            get {
+                return ResourceManager.GetString("Rename_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap RenameIcon {
+            get {
+                object obj = ResourceManager.GetObject("RenameIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

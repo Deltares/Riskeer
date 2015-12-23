@@ -39,6 +39,12 @@ namespace Core.Common.Gui.ContextMenu
             contextMenu = new ContextMenuStrip();
         }
 
+        public IContextMenuBuilder AddRenameItem()
+        {
+            AddItem(treeViewItemsFactory.CreateRenameItem());
+            return this;
+        }
+
         public IContextMenuBuilder AddDeleteItem()
         {
             AddItem(treeViewItemsFactory.CreateDeleteItem());

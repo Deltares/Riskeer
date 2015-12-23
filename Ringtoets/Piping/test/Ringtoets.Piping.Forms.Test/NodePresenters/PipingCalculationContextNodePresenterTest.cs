@@ -433,6 +433,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);

@@ -86,7 +86,34 @@ namespace Core.Common.Gui.Test.ContextMenu
             CollectionAssert.IsEmpty(result.Items);
 
             mocks.VerifyAll();
-        } 
+        }
+
+        [Test]
+        public void AddRenameItem_WhenBuild_ItemAddedToContextMenu()
+        {
+            // Setup
+            var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
+            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+
+            treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
+            treeNodePresenterMock.Expect(tn => tn.CanRenameNode(treeNodeMock)).Return(true);
+
+            mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(commandHandlerMock, treeNodeMock);
+
+            // Call
+            var result = builder.AddRenameItem().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Rename, Resources.Rename_ToolTip, Resources.RenameIcon);
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void AddDeleteItem_WhenBuild_ItemAddedToContextMenu()

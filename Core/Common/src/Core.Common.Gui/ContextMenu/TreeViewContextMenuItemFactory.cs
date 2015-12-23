@@ -31,8 +31,42 @@ namespace Core.Common.Gui.ContextMenu
         }
 
         /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of renaming
+        /// the <see cref="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateRenameItem()
+        {
+            var toolStripMenuItem = new ToolStripMenuItem(Resources.Rename)
+            {
+                ToolTipText = Resources.Rename_ToolTip,
+                Image = Resources.RenameIcon,
+                Enabled = treeNode.Presenter.CanRenameNode(treeNode)
+            };
+            toolStripMenuItem.Click += (s, e) => treeNode.TreeView.StartLabelEdit(treeNode);
+            return toolStripMenuItem;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of deleting
+        /// the <see cref="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateDeleteItem()
+        {
+            var toolStripMenuItem = new ToolStripMenuItem(Resources.Delete)
+            {
+                ToolTipText = Resources.Delete_ToolTip,
+                Image = Resources.DeleteIcon,
+                Enabled = treeNode.Presenter.CanRemove(treeNode.Parent.Tag, treeNode.Tag)
+            };
+            toolStripMenuItem.Click += (s, e) => treeNode.TreeView.TryDeleteNodeData(treeNode);
+            return toolStripMenuItem;
+        }
+
+        /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of expanding
-        /// the <see name="ITreeNode"/>.
+        /// the <see cref="ITreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExpandAllItem()
@@ -50,7 +84,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of collapsing
-        /// the <see name="ITreeNode"/>.
+        /// the <see cref="ITreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateCollapseAllItem()
@@ -63,23 +97,6 @@ namespace Core.Common.Gui.ContextMenu
                 Enabled = children != null && children.Any()
             };
             toolStripMenuItem.Click += (s, e) => treeNode.TreeView.CollapseAll(treeNode);
-            return toolStripMenuItem;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of deleting
-        /// the current <see name="ITreeNode"/>.
-        /// </summary>
-        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
-        public ToolStripItem CreateDeleteItem()
-        {
-            var toolStripMenuItem = new ToolStripMenuItem(Resources.Delete)
-            {
-                ToolTipText = Resources.Delete_ToolTip,
-                Image = Resources.DeleteIcon,
-                Enabled = treeNode.Presenter.CanRemove(treeNode.Parent.Tag, treeNode.Tag)
-            };
-            toolStripMenuItem.Click += (s, e) => treeNode.TreeView.TryDeleteNodeData(treeNode);
             return toolStripMenuItem;
         }
     }

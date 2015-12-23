@@ -9,6 +9,13 @@ namespace Core.Common.Gui.ContextMenu
     /// </summary>
     public interface IContextMenuBuilder 
     {
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="ITreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="ContextMenuBuilder"/> itself.</returns>
+        IContextMenuBuilder AddRenameItem();
+
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="ITreeNode"/>.
         /// </summary>

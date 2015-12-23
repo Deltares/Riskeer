@@ -59,7 +59,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public override bool CanRenameNode(ITreeNode node)
         {
-            return node.Parent == null || !(node.Parent.Tag is PipingFailureMechanism);
+            var parentNode = node.Parent;
+            return parentNode == null || !(parentNode.Tag is PipingFailureMechanism);
         }
 
         public override bool CanRenameNodeTo(ITreeNode node, string newName)
@@ -188,10 +189,21 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 .AddCustomItem(clearAllItem)
                 .AddSeparator();
 
-            if (CanRemove(node.Parent.Tag, nodeData))
+            var isRenamable = CanRenameNode(node);
+            var isRemovable = CanRemove(node.Parent.Tag, nodeData);
+
+            if (isRenamable)
             {
-                builder.AddDeleteItem()
-                       .AddSeparator();
+                builder.AddRenameItem();
+            }
+            if (isRemovable)
+            {
+                builder.AddDeleteItem();
+            }
+
+            if (isRemovable || isRenamable)
+            {
+                builder.AddSeparator();
             }
 
             return builder

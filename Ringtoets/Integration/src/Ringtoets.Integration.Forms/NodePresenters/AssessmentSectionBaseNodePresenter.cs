@@ -78,6 +78,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         {
             return contextMenuBuilderProvider
                 .Get(node)
+                .AddRenameItem()
                 .AddDeleteItem()
                 .AddSeparator()
                 .AddImportItem()

@@ -416,6 +416,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
 
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);

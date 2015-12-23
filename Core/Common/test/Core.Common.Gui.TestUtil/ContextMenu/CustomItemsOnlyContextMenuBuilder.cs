@@ -17,6 +17,15 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// Does nothing.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
+        public IContextMenuBuilder AddRenameItem()
+        {
+            return this;
+        }
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddDeleteItem()
         {
             return this;
