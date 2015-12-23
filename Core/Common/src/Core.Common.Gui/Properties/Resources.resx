@@ -776,7 +776,7 @@
     <value>Importeer de gegevens vanuit een bestand.</value>
   </data>
   <data name="Properties_ToolTip" xml:space="preserve">
-    <value>Laat de eigenschappen zien in het Eigenschappenpaneel.</value>
+    <value>Toon de eigenschappen in het Eigenschappenpaneel.</value>
   </data>
   <data name="Properties" xml:space="preserve">
     <value>Ei&amp;genschappen</value>

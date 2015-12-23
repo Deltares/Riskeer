@@ -1804,7 +1804,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Laat de eigenschappen zien in het Eigenschappenpaneel..
+        ///   Looks up a localized string similar to Toon de eigenschappen in het Eigenschappenpaneel..
         /// </summary>
         public static string Properties_ToolTip {
             get {
