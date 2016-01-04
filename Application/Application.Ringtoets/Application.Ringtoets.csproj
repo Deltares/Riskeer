@@ -132,6 +132,10 @@
       <Name>Core.Plugins.CommonTools.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.OxyPlot\Core.Plugins.OxyPlot.csproj">
+      <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
+      <Name>Core.Plugins.OxyPlot</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>
       <Name>Core.Plugins.ProjectExplorer</Name>

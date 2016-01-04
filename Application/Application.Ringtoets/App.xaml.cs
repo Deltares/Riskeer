@@ -17,6 +17,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.Charting;
 using Core.Plugins.CommonTools.Gui;
+using Core.Plugins.OxyPlot;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
 using Core.Plugins.SharpMapGis.Gui;
@@ -156,6 +157,7 @@ namespace Application.Ringtoets
                     new PipingGuiPlugin()
 #if INCLUDE_DEMOPROJECT
                     , new DemoProjectGuiPlugin()
+                    , new OxyPlotGuiPlugin()
 #endif
                 }
             };
