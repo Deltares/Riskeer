@@ -1,4 +1,5 @@
-﻿using Core.Components.OxyPlot.Properties;
+﻿using Core.Components.OxyPlot.Data;
+using Core.Components.OxyPlot.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.WindowsForms;
@@ -40,28 +41,32 @@ namespace Core.Components.OxyPlot
             {
                 Title = Resources.BaseChart_XAxisTitle,
                 Position = AxisPosition.Bottom,
-                TickStyle = TickStyle.None
+                TickStyle = TickStyle.None,
+                ExtraGridlines = new[] { 0.0 },
+                ExtraGridlineThickness = 1
             };
             yAxis = new LinearAxis
             {
                 Title = Resources.BaseChart_YAxisTitle,
-                TickStyle = TickStyle.None
+                TickStyle = TickStyle.None,
+                ExtraGridlines = new[] { 0.0 },
+                ExtraGridlineThickness = 1
             };
             Model.Axes.Add(xAxis);
             Model.Axes.Add(yAxis);
         }
 
         /// <summary>
-        /// Add <see cref="ChartData"/> to the <see cref="BaseChart"/>.
+        /// Add <see cref="IChartData"/> to the <see cref="BaseChart"/>.
         /// </summary>
         /// <param name="data"></param>
-        public void AddData(ChartData data)
+        public void AddData(IChartData data)
         {
             data.AddTo(Model);
         }
 
         /// <summary>
-        /// Remove all the <see cref="ChartData"/> that has been added to the <see cref="BaseChart"/>.
+        /// Remove all the <see cref="LineData"/> that has been added to the <see cref="BaseChart"/>.
         /// </summary>
         public void ClearData()
         {

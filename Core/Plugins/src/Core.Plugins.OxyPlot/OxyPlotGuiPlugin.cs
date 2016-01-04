@@ -2,7 +2,7 @@
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Components.OxyPlot;
+using Core.Components.OxyPlot.Data;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Properties;
 
@@ -22,7 +22,7 @@ namespace Core.Plugins.OxyPlot
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
-            yield return new ViewInfo<ChartData, ChartDataView>
+            yield return new ViewInfo<IChartData, ChartDataView>
             {
                 Image = Resources.ChartIcon,
                 GetViewName = (v, o) => "Diagram"

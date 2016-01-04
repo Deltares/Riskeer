@@ -1,14 +1,21 @@
 ﻿using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.OxyPlot;
+using Core.Components.OxyPlot.Data;
 
 namespace Core.Plugins.OxyPlot.Forms
 {
+    /// <summary>
+    /// This class represents a simple view with a chart, to which data can be added.
+    /// </summary>
     public class ChartDataView : UserControl, IView
     {
         private readonly BaseChart baseChart;
-        private ChartData data;
+        private IChartData data;
 
+        /// <summary>
+        /// Creates an instance of <see cref="ChartDataView"/> with just a <see cref="BaseChart"/> on it.
+        /// </summary>
         public ChartDataView()
         {
             baseChart = new BaseChart
@@ -27,7 +34,7 @@ namespace Core.Plugins.OxyPlot.Forms
             set
             {
                 baseChart.ClearData();
-                data = (ChartData) value;
+                data = (IChartData) value;
                 if (data != null)
                 {
                     baseChart.AddData(data);

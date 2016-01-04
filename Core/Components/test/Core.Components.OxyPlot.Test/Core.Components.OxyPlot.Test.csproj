@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseChartTest.cs" />
-    <Compile Include="ChartDataTest.cs" />
+    <Compile Include="Data\AreaDataTest.cs" />
+    <Compile Include="Data\CollectionDataTest.cs" />
+    <Compile Include="Data\LineDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
