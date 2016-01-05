@@ -1,4 +1,5 @@
-﻿using Core.Components.OxyPlot.Data;
+﻿using System;
+using Core.Components.OxyPlot.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -59,9 +60,14 @@ namespace Core.Components.OxyPlot
         /// <summary>
         /// Add <see cref="IChartData"/> to the <see cref="BaseChart"/>.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public void AddData(IChartData data)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data", "Cannot add null data to the chart.");
+            }
             data.AddTo(Model);
         }
 

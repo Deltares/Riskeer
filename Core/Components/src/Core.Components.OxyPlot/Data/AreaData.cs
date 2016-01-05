@@ -24,19 +24,18 @@ namespace Core.Components.OxyPlot.Data
             {
                 throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
             }
-            series = new AreaSeries
-            {
-                MarkerType = MarkerType.Cross,
-                MarkerStroke = OxyColors.Black
-            };
+            series = new AreaSeries();
             foreach (var p in points)
             {
-                series.Points.Add(Mapping(p));
+                series.Points.Add(TupleToDataPoint(p));
             }
-            series.Points2.Add(Mapping(points.First()));
+            if (points.Count > 0)
+            {
+                series.Points2.Add(TupleToDataPoint(points.First()));
+            }
         }
 
-        private DataPoint Mapping(Tuple<double, double> point)
+        private DataPoint TupleToDataPoint(Tuple<double, double> point)
         {
             return new DataPoint(point.Item1, point.Item2);
         }

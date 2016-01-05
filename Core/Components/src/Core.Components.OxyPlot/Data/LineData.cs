@@ -26,8 +26,14 @@ namespace Core.Components.OxyPlot.Data
             series = new LineSeries
             {
                 ItemsSource = points,
-                Mapping = point => new DataPoint(((Tuple<double, double>)point).Item1, ((Tuple<double, double>)point).Item2)
+                Mapping = TupleToDataPoint
             };
+        }
+
+        private DataPoint TupleToDataPoint(object obj)
+        {
+            var point = (Tuple<double, double>) obj;
+            return new DataPoint(point.Item1, point.Item2);
         }
 
         /// <summary>
