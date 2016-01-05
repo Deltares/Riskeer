@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Components.OxyPlot.Data;
@@ -77,7 +78,9 @@ namespace Core.Components.OxyPlot.Test.Data
             Assert.IsInstanceOf<AreaSeries>(model.Series.First());
 
             var series = (AreaSeries)model.Series.First();
-            Assert.AreSame(points, series.ItemsSource);
+            var equivalentPoints = points.Select(p => new DataPoint(p.Item1, p.Item2)).ToArray();
+            CollectionAssert.AreEquivalent(equivalentPoints, series.Points);
+            CollectionAssert.AreEquivalent(Arrays.CopyOf(equivalentPoints,1), series.Points2);
         }
 
         private Collection<Tuple<double, double>> CreateTestPoints()

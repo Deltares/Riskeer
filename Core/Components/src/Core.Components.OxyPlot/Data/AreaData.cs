@@ -33,7 +33,7 @@ namespace Core.Components.OxyPlot.Data
             {
                 series.Points.Add(Mapping(p));
             }
-            //series.Points2.Add(Mapping(points.First()));
+            series.Points2.Add(Mapping(points.First()));
         }
 
         private DataPoint Mapping(Tuple<double, double> point)
