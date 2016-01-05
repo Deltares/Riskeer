@@ -11,7 +11,7 @@ namespace Core.Plugins.Charting
     /// </summary>
     public partial class Ribbon : IRibbonCommandHandler
     {
-        private readonly ShowChartLegendViewCommand showChartLegendViewCommand;
+        private readonly ToggleChartLegendViewCommand toggleChartLegendViewCommand;
         private readonly ExportChartAsImageCommand exportAsImageCommand;
         private readonly DecreaseFontSizeCommand decreaseFontSizeCommand;
         private readonly IncreaseFontSizeCommand increasFontSizeCommand;
@@ -21,7 +21,7 @@ namespace Core.Plugins.Charting
         {
             InitializeComponent();
 
-            showChartLegendViewCommand = new ShowChartLegendViewCommand();
+            toggleChartLegendViewCommand = new ToggleChartLegendViewCommand();
             exportAsImageCommand = new ExportChartAsImageCommand();
             increasFontSizeCommand = new IncreaseFontSizeCommand();
             decreaseFontSizeCommand = new DecreaseFontSizeCommand();
@@ -33,7 +33,7 @@ namespace Core.Plugins.Charting
         {
             get
             {
-                yield return showChartLegendViewCommand;
+                yield return toggleChartLegendViewCommand;
                 yield return exportAsImageCommand;
                 yield return increasFontSizeCommand;
                 yield return decreaseFontSizeCommand;
@@ -46,7 +46,7 @@ namespace Core.Plugins.Charting
             ButtonExportAsImage.IsEnabled = exportAsImageCommand.Enabled;
             ButtonIncreaseFontSize.IsEnabled = increasFontSizeCommand.Enabled;
             ButtonDecreaseFontSize.IsEnabled = decreaseFontSizeCommand.Enabled;
-            ButtonChartLegendToolWindow.IsChecked = showChartLegendViewCommand.Checked;
+            ButtonChartLegendToolWindow.IsChecked = toggleChartLegendViewCommand.Checked;
             RulerToggleButton.IsEnabled = rulerCommand.Enabled;
             RulerToggleButton.IsChecked = rulerCommand.Checked;
         }
@@ -63,7 +63,7 @@ namespace Core.Plugins.Charting
 
         private void ButtonChartLegendToolWindow_Click(object sender, RoutedEventArgs e)
         {
-            showChartLegendViewCommand.Execute();
+            toggleChartLegendViewCommand.Execute();
             ValidateItems();
         }
 

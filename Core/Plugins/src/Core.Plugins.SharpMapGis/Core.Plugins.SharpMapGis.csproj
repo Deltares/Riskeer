@@ -128,6 +128,10 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
       <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
       <Name>Core.GIS.SharpMap.Api</Name>

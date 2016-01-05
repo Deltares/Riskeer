@@ -3,7 +3,7 @@ using Core.Common.Gui;
 
 namespace Core.Plugins.Charting.Commands
 {
-    public class ShowChartLegendViewCommand : IGuiCommand
+    public class ToggleChartLegendViewCommand : IGuiCommand
     {
         public bool Checked
         {

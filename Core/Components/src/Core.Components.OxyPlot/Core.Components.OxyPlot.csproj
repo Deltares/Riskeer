@@ -82,6 +82,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

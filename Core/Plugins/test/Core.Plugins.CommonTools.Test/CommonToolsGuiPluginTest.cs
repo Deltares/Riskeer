@@ -13,7 +13,7 @@ namespace Core.Plugins.CommonTools.Gui.Test
     public class CommonToolsGuiPluginTest
     {
         [Test]
-        public void TestGetObjectProperties()
+        public void GetCommonToolsGuiPluginProperties_Always_ReturnProperties()
         {
             var guiPlugin = new CommonToolsGuiPlugin();
             var propertyInfos = guiPlugin.GetPropertyInfos().ToList();
@@ -30,7 +30,7 @@ namespace Core.Plugins.CommonTools.Gui.Test
         }
 
         [Test]
-        public void TestGetViewInfoObjectsContent()
+        public void GetCommonToolsGuiPluginProperties_Always_ReturnViews()
         {
             var guiPlugin = new CommonToolsGuiPlugin();
             var viewInfos = guiPlugin.GetViewInfoObjects().ToList();

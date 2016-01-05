@@ -31,7 +31,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
         }
 
         [Test]
-        public void Description_WithData_SameAsData()
+        public void Description_WithData_ReturnsDescription()
         {
             // Setup
             var project = new Project();

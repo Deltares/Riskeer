@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Policy;
 using Core.Common.Controls.Charting;
 using Core.Common.Controls.Charting.Series;
 using Core.Common.Gui;

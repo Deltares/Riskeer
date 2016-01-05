@@ -21,7 +21,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>
     </DocumentationFile>
-    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
@@ -100,6 +99,10 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Gui;
-using Core.Common.Gui.Swf;
 using Core.Common.Utils;
 using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Property;
@@ -25,7 +23,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
         }
 
         [Test]
-        public void Name_WithData_SameAsData()
+        public void Name_WithData_ReturnsName()
         {
             // Setup
             var someName = "some name";
@@ -48,7 +46,7 @@ namespace Core.Plugins.CommonTools.Gui.Test.Property
         }
 
         [Test]
-        public void Path_WithData_SameAsData()
+        public void Path_WithData_ReturnsPath()
         {
             // Setup
             var somePath = "some path";
