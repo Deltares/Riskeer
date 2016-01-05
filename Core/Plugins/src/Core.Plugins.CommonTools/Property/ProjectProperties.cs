@@ -1,9 +1,9 @@
 using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.Utils.Attributes;
-using Core.Plugins.CommonTools.Gui.Properties;
+using Core.Plugins.CommonTools.Properties;
 
-namespace Core.Plugins.CommonTools.Gui.Property
+namespace Core.Plugins.CommonTools.Property
 {
     [ResourcesDisplayName(typeof(Resources), "ProjectProperties_DisplayName")]
     public class ProjectProperties : ObjectProperties<Project>

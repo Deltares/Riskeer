@@ -6,11 +6,11 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils;
-using Core.Plugins.CommonTools.Gui.Properties;
-using Core.Plugins.CommonTools.Gui.Property;
+using Core.Plugins.CommonTools.Properties;
+using Core.Plugins.CommonTools.Property;
 using PropertyInfo = Core.Common.Gui.PropertyInfo;
 
-namespace Core.Plugins.CommonTools.Gui
+namespace Core.Plugins.CommonTools
 {
     public class CommonToolsGuiPlugin : GuiPlugin
     {

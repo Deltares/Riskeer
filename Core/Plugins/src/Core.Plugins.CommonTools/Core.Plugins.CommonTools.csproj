@@ -6,8 +6,8 @@
     <ProjectGuid>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Plugins.CommonTools.Gui</RootNamespace>
-    <AssemblyName>Core.Plugins.CommonTools.Gui</AssemblyName>
+    <RootNamespace>Core.Plugins.CommonTools</RootNamespace>
+    <AssemblyName>Core.Plugins.CommonTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

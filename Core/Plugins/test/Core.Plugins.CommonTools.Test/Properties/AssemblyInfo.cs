@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
-[assembly: AssemblyTitle("Core.Plugins.CommonTools.Gui.Test")]
-[assembly: AssemblyProduct("Core.Plugins.CommonTools.Gui.Test")]
+[assembly: AssemblyTitle("Core.Plugins.CommonTools.Test")]
+[assembly: AssemblyProduct("Core.Plugins.CommonTools.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

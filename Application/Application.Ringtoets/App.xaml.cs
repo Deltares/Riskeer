@@ -16,7 +16,7 @@ using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.Charting;
-using Core.Plugins.CommonTools.Gui;
+using Core.Plugins.CommonTools;
 using Core.Plugins.OxyPlot;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;

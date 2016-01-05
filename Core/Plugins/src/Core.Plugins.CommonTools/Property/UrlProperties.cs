@@ -1,9 +1,9 @@
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Plugins.CommonTools.Gui.Properties;
+using Core.Plugins.CommonTools.Properties;
 
-namespace Core.Plugins.CommonTools.Gui.Property
+namespace Core.Plugins.CommonTools.Property
 {
     [ResourcesDisplayName(typeof(Resources), "UrlProperties_DisplayName")]
     public class UrlProperties : ObjectProperties<Url>

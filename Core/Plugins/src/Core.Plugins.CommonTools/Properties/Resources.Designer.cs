@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Core.Plugins.CommonTools.Gui.Properties {
+namespace Core.Plugins.CommonTools.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Plugins.CommonTools.Gui.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Plugins.CommonTools.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

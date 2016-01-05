@@ -84,7 +84,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.GIS.SharpMap.UI.Test",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.GIS.SharpMapTestUtil", "Core\GIS\test\Core.GIS.SharpMapTestUtil\Core.GIS.SharpMapTestUtil.csproj", "{0A82E7D2-26F8-4A30-9787-7EEABCD7F470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Gui", "Core\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj", "{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools", "Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj", "{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer", "Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj", "{ED20DBA9-D577-423F-A68D-A0A8130FB10B}"
 EndProject
@@ -92,7 +92,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.SharpMapGis", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.SharpMapGis.Gui", "Core\Plugins\src\Core.Plugins.SharpMapGis.Gui\Core.Plugins.SharpMapGis.Gui.csproj", "{0BC3751E-EC42-40A0-A7D3-B7C2AA66976E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Gui.Test", "Core\Plugins\test\Core.Plugins.CommonTools.Gui.Test\Core.Plugins.CommonTools.Gui.Test.csproj", "{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Test", "Core\Plugins\test\Core.Plugins.CommonTools.Test\Core.Plugins.CommonTools.Test.csproj", "{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer.Test", "Core\Plugins\test\Core.Plugins.ProjectExplorer.Test\Core.Plugins.ProjectExplorer.Test.csproj", "{07206938-9671-4DC7-BDE4-35B0F6E20DBC}"
 EndProject

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils.PropertyBag;
-using Core.Plugins.CommonTools.Gui.Property;
+using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 
 namespace Core.Plugins.CommonTools.Gui.Test.Property
