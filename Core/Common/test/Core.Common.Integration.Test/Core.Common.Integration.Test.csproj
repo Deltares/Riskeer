@@ -112,7 +112,7 @@
       <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
       <Name>Core.GIS.SharpMap</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.csproj">
+    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
       <Project>{93e73fab-fae8-49c6-9abb-27d24df761f6}</Project>
       <Name>Core.Plugins.CommonTools</Name>
     </ProjectReference>
