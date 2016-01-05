@@ -1,48 +1,45 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Data
 {
     /// <summary>
-    /// This class represents data which is represented as an area on <see cref="BaseChart"/>.
+    /// This class represents data which is represented as points on <see cref="BaseChart"/>.
     /// </summary>
-    public class AreaData : IChartData
+    public class PointData : IChartData
     {
-        private AreaSeries series;
+        private readonly LineSeries series;
         
         /// <summary>
-        /// Creates a new instance of <see cref="AreaData"/>.
+        /// Creates a new instance of <see cref="PointData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T,T}"/> which represents points
-        /// which when connected form an area.</param>
+        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T,T}"/> which represents points in space.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public AreaData(Collection<Tuple<double, double>> points)
+        public PointData(Collection<Tuple<double, double>> points)
         {
             if (points == null)
             {
                 throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
             }
-            series = new AreaSeries();
-            foreach (var p in points)
+            series = new LineSeries
             {
-                series.Points.Add(TupleToDataPoint(p));
-            }
-            if (points.Count > 0)
-            {
-                series.Points2.Add(TupleToDataPoint(points.First()));
-            }
+                ItemsSource = points,
+                Mapping = TupleToDataPoint,
+                LineStyle = LineStyle.None,
+                MarkerType = MarkerType.Circle
+            };
         }
 
-        private DataPoint TupleToDataPoint(Tuple<double, double> point)
+        private DataPoint TupleToDataPoint(object obj)
         {
+            var point = (Tuple<double, double>)obj;
             return new DataPoint(point.Item1, point.Item2);
         }
 
         /// <summary>
-        /// Adds the information in the <see cref="AreaData"/> as a series of the <paramref name="model"/>.
+        /// Adds the information in the <see cref="PointData"/> as a series of the <paramref name="model"/>.
         /// </summary>
         /// <param name="model">The <see cref="PlotModel"/> to add a series to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>

@@ -65,6 +65,7 @@
     <Compile Include="BaseChartTest.cs" />
     <Compile Include="Data\AreaDataTest.cs" />
     <Compile Include="Data\CollectionDataTest.cs" />
+    <Compile Include="Data\PointDataTest.cs" />
     <Compile Include="Data\LineDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

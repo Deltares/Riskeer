@@ -9,13 +9,13 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Test.Data
 {
     [TestFixture]
-    public class LineDataTest
+    public class PointDataTest
     {
         [Test]
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new LineData(null);
+            TestDelegate test = () => new PointData(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -28,7 +28,7 @@ namespace Core.Components.OxyPlot.Test.Data
             var points = new Collection<Tuple<double, double>>();
 
             // Call
-            var data = new LineData(points);
+            var data = new PointData(points);
 
             // Assert
             Assert.IsInstanceOf<IChartData>(data);
@@ -41,7 +41,7 @@ namespace Core.Components.OxyPlot.Test.Data
             var points = CreateTestPoints();
 
             // Call
-            var data = new LineData(points);
+            var data = new PointData(points);
 
             // Assert
             Assert.IsInstanceOf<IChartData>(data);
@@ -52,7 +52,7 @@ namespace Core.Components.OxyPlot.Test.Data
         {
             // Setup
             var points = CreateTestPoints();
-            var testData = new LineData(points);
+            var testData = new PointData(points);
 
             // Call
             TestDelegate test = () => testData.AddTo(null);
@@ -66,7 +66,7 @@ namespace Core.Components.OxyPlot.Test.Data
         {
             // Setup
             var points = CreateTestPoints();
-            var testData = new LineData(points);
+            var testData = new PointData(points);
             var model = new PlotModel();
 
             // Call
@@ -85,13 +85,15 @@ namespace Core.Components.OxyPlot.Test.Data
         {
             // Given
             var chart = new BaseChart();
-            var pointData = new LineData(new Collection<Tuple<double, double>>());
+            var pointData = new PointData(new Collection<Tuple<double, double>>());
 
             // When
             chart.AddData(pointData);
 
             // Then
-            Assert.IsInstanceOf<LineSeries>(chart.Model.Series.First());
+            var pointSeries = (LineSeries) chart.Model.Series.First();
+            Assert.AreEqual(LineStyle.None, pointSeries.LineStyle);
+            Assert.AreEqual(MarkerType.Circle, pointSeries.MarkerType);
         }
 
         private Collection<Tuple<double, double>> CreateTestPoints()

@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Data\AreaData.cs" />
     <Compile Include="Data\CollectionData.cs" />
+    <Compile Include="Data\PointData.cs" />
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\IChartData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

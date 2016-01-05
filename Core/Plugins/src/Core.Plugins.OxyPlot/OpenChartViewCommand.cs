@@ -41,9 +41,16 @@ namespace Core.Plugins.OxyPlot
                 new Tuple<double, double>(0.0, 0.5),
                 new Tuple<double, double>(0.0, 1.1)
             });
+            var points = new PointData(new Collection<Tuple<double, double>>
+            {
+                new Tuple<double, double>(0.0, 1.1),    
+                new Tuple<double, double>(0.5, 1.6),  
+                new Tuple<double, double>(1.0, 2.1)
+            });
             var data = new CollectionData();
             data.Add(area);
             data.Add(line);
+            data.Add(points);
             Gui.DocumentViewsResolver.OpenViewForData(data);
         }
     }

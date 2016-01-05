@@ -15,7 +15,8 @@ namespace Core.Components.OxyPlot.Data
         /// <summary>
         /// Creates a new instance of <see cref="LineData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T,T}"/> which represent points on a line.</param>
+        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T,T}"/> which represents points 
+        /// which when connected form a line.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public LineData(Collection<Tuple<double, double>> points)
         {
