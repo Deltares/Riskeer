@@ -465,7 +465,7 @@ namespace Core.Common.Controls.Charting.Tools
 
         private void AddClickedPoint(int x, int y)
         {
-            var mouseLocation = new Point(x, y);
+            mouseLocation = new Point(x, y);
             //don't remove this..otherwise firstlastvisibleindex will be -1 so the selecttool doesn't work
             if (iSeries != null)
             {

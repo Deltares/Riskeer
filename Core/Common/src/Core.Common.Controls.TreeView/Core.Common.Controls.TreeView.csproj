@@ -72,18 +72,22 @@
     <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -133,15 +133,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het opgegeven project ({0}) was niet gevonden..
-        /// </summary>
-        public static string App_RunRingtoets_Specified_project_0_was_not_found_ {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Specified_project_0_was_not_found_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ringtoets wordt gestart....
         /// </summary>
         public static string App_RunRingtoets_Starting_Ringtoets_Gui {

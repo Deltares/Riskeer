@@ -144,6 +144,7 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
@@ -178,6 +179,7 @@
     <ProjectReference Include="..\Core.GIS.SharpMap.Extensions\Core.GIS.SharpMap.Extensions.csproj">
       <Project>{a4140c12-53f5-438c-8d24-9e48c504fecf}</Project>
       <Name>Core.GIS.SharpMap.Extensions</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
       <Project>{C83777FC-AABB-47D9-911F-D76255D4D541}</Project>

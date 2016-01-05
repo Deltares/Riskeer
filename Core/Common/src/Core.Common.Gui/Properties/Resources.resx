@@ -120,9 +120,6 @@
   <data name="Properties_Title" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
-  <data name="App_RunRingtoets_Specified_project_0_was_not_found_" xml:space="preserve">
-    <value>Het opgegeven project ({0}) was niet gevonden.</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="SplashScreenBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SplashScreenBackground.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

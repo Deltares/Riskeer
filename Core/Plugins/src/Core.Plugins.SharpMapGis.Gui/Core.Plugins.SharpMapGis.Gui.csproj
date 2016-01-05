@@ -198,10 +198,12 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Table\Core.Common.Controls.Table.csproj">
       <Project>{4b2add09-ecac-439d-82fc-dbf8aa63772d}</Project>
       <Name>Core.Common.Controls.Table</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
       <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
       <Name>Core.Common.Controls.TreeView</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
@@ -226,6 +228,7 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016dbd27-99bf-489a-81b5-50d66964bb90}</Project>

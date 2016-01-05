@@ -122,7 +122,7 @@ namespace Core.Common.Controls.Charting.Tools
             }
         }
 
-        public ILineChartSeries Series
+        public new ILineChartSeries Series
         {
             get
             {

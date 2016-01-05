@@ -46,8 +46,6 @@ namespace Application.Ringtoets
         private static RingtoetsGui gui;
         private static int waitForProcessId = -1;
 
-        private static string projectFilePath;
-
         private static Mutex singleInstanceMutex;
 
         static App()
@@ -62,7 +60,6 @@ namespace Application.Ringtoets
             log.Info(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_Ringtoets_Gui);
 
             var loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var startupDirectory = Directory.GetCurrentDirectory();
             if (loaderDirectory != null)
             {
                 Environment.CurrentDirectory = loaderDirectory;
@@ -79,25 +76,7 @@ namespace Application.Ringtoets
             // handle exception from all threads except UI
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
 
-            if (projectFilePath == null)
-            {
-                gui.Run();
-            }
-            else
-            {
-                var path = File.Exists(projectFilePath)
-                               ? projectFilePath
-                               : Path.Combine(startupDirectory, Path.GetFileName(projectFilePath));
-
-                if (File.Exists(path))
-                {
-                    gui.Run(path);
-                }
-                else
-                {
-                    log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Specified_project_0_was_not_found_, projectFilePath);
-                }
-            }
+            gui.Run();
 
             // Ringtoets started, clean-up all possible memory
             GC.Collect();

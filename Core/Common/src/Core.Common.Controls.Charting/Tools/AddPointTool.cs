@@ -80,7 +80,7 @@ namespace Core.Common.Controls.Charting.Tools
 
         public bool AddOnlyIfOnLine { get; set; }
 
-        public ILineChartSeries Series
+        public new ILineChartSeries Series
         {
             get
             {
