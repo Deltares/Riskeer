@@ -73,9 +73,13 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ChartingRibbon.xaml.cs">
+      <DependentUpon>ChartingRibbon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ChartDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\IChartView.cs" />
     <Compile Include="OpenChartViewCommand.cs" />
     <Compile Include="OxyPlotGuiPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,9 +87,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Ribbon.xaml.cs">
-      <DependentUpon>Ribbon.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +112,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Ribbon.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="ChartingRibbon.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

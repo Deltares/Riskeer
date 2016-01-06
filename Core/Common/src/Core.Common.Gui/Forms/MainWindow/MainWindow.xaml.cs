@@ -23,7 +23,6 @@ using Core.Common.Gui.Properties;
 using Core.Common.Gui.Theme;
 using Core.Common.Utils;
 using Core.Common.Utils.Events;
-
 using Fluent;
 using log4net;
 using Microsoft.Win32;
@@ -889,7 +888,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             foreach (var ribbonExtension in ribbonCommandHandlers)
             {
-                var ribbonControl = (Ribbon) ribbonExtension.GetRibbonControl();
+                var ribbonControl = ribbonExtension.GetRibbonControl();
 
                 // fill contextual groups from plugins
                 foreach (var group in ribbonControl.ContextualGroups)

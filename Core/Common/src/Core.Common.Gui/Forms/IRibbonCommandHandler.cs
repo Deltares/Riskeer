@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Controls;
 using Core.Common.Controls.Commands;
+using Fluent;
 
 namespace Core.Common.Gui.Forms
 {
@@ -17,7 +17,7 @@ namespace Core.Common.Gui.Forms
         /// <summary>
         /// Gets Ribbon control implementation in the gui plugin. Gui will merge it with the existing ribbon.
         /// </summary>
-        object GetRibbonControl();
+        Ribbon GetRibbonControl();
 
         /// <summary>
         /// Called by the gui when ribbon items need to be validated (e.g. enable/disable).

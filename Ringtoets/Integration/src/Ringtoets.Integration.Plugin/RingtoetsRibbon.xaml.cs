@@ -3,6 +3,7 @@
 using Core.Common.Controls;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
+using Fluent;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -27,7 +28,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        public object GetRibbonControl()
+        public Ribbon GetRibbonControl()
         {
             return RingtoetsRibbonControl;
         }

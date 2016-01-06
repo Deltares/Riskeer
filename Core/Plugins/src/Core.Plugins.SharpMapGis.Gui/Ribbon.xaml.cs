@@ -153,7 +153,7 @@ namespace Core.Plugins.SharpMapGis.Gui
             return tabGroupName == geospatialContextualGroup.Name && tabName == mapTab.Name && IsActiveViewMapView();
         }
 
-        public object GetRibbonControl()
+        public Fluent.Ribbon GetRibbonControl()
         {
             return RibbonControl;
         }

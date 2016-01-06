@@ -4,7 +4,7 @@ using System.Windows;
 using Core.Common.Controls;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
-
+using Fluent;
 using Ringtoets.Demo.Commands;
 
 using DemoResources = Ringtoets.Demo.Properties.Resources;
@@ -35,7 +35,7 @@ namespace Ringtoets.Demo
             }
         }
 
-        public object GetRibbonControl()
+        public Ribbon GetRibbonControl()
         {
             return RingtoetsDemoProjectRibbonControl;
         }

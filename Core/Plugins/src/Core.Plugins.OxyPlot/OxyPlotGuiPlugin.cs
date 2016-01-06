@@ -10,13 +10,31 @@ namespace Core.Plugins.OxyPlot
 {
     public class OxyPlotGuiPlugin : GuiPlugin
     {
-        private IRibbonCommandHandler ribbon = new Ribbon();
+        private ChartingRibbon chartingRibbon;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
             {
-                return ribbon;
+                return chartingRibbon;
+            }
+        }
+
+        public override void Activate()
+        {
+            chartingRibbon = new ChartingRibbon();
+            Gui.ActiveViewChanged += GuiOnActiveViewChanged;
+        }
+
+        private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
+        {
+            if (activeViewChangeEventArgs.View is IChartView)
+            {
+                chartingRibbon.ShowChartingTab();
+            }
+            else
+            {
+                chartingRibbon.HideChartingTab();
             }
         }
 

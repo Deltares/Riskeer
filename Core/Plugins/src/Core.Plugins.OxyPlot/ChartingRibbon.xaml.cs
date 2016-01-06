@@ -1,20 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
+using Fluent;
 
 namespace Core.Plugins.OxyPlot
 {
     /// <summary>
     /// Interaction logic for ribbon.xaml
     /// </summary>
-    public partial class Ribbon : IRibbonCommandHandler
+    public partial class ChartingRibbon : IRibbonCommandHandler
     {
         private readonly ICommand openChartViewCommand;
 
-        public Ribbon()
+        public ChartingRibbon()
         {
             InitializeComponent();
-
             openChartViewCommand = new OpenChartViewCommand();
         }
 
@@ -26,7 +30,7 @@ namespace Core.Plugins.OxyPlot
             }
         }
 
-        public object GetRibbonControl()
+        public Ribbon GetRibbonControl()
         {
             return RibbonControl;
         }
@@ -37,12 +41,22 @@ namespace Core.Plugins.OxyPlot
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {
-            return false;
+            return tabGroupName == ChartingContextualGroup.Name;
         }
 
-        private void ButtonOpenChartView_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)
         {
             openChartViewCommand.Execute();
+        }
+
+        public void ShowChartingTab()
+        {
+            ChartingContextualGroup.Visibility = Visibility.Visible;
+        }
+
+        public void HideChartingTab()
+        {
+            ChartingContextualGroup.Visibility = Visibility.Collapsed;
         }
     }
 }

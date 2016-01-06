@@ -172,6 +172,11 @@ namespace Core.Common.Gui
         /// </summary>
         event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
 
+        /// <summary>
+        /// Fired when the active view in the document pane changes.
+        /// </summary>
+        event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
+
         #endregion
     }
 }

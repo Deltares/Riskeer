@@ -1088,7 +1088,7 @@ namespace Core.Plugins.Charting.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grafieken.
+        ///   Looks up a localized string similar to Oud Grafieken.
         /// </summary>
         public static string Ribbon_ContextualGroup_Charting {
             get {
@@ -1169,7 +1169,7 @@ namespace Core.Plugins.Charting.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
+        ///   Looks up a localized string similar to Oud Grafiek.
         /// </summary>
         public static string Ribbon_TabItem_Chart {
             get {

@@ -39,7 +39,7 @@ namespace Core.Plugins.ProjectExplorer
             return false;
         }
 
-        public object GetRibbonControl()
+        public Fluent.Ribbon GetRibbonControl()
         {
             return RibbonControl;
         }

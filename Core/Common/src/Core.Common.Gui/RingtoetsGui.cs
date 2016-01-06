@@ -38,6 +38,7 @@ namespace Core.Common.Gui
     public class RingtoetsGui : IGui, IContextMenuBuilderProvider
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 
         public event Action<Project> ProjectOpened;
         public event Action<Project> ProjectClosing;
@@ -842,6 +843,15 @@ namespace Core.Common.Gui
             }
 
             mainWindow.ValidateItems();
+            FireActiveViewChanged(e);
+        }
+
+        private void FireActiveViewChanged(ActiveViewChangeEventArgs e)
+        {
+            if (ActiveViewChanged != null)
+            {
+                ActiveViewChanged(null, e);
+            }
         }
 
         private void UpdateViewName(IView view)

@@ -11,7 +11,7 @@ namespace Core.Plugins.OxyPlot.Test
         public void Commands_Always_ReturnsOpenChartViewCommand()
         {
             // Setup
-            var ribbon = new Ribbon();
+            var ribbon = new ChartingRibbon();
 
             // Call
             var commands = ribbon.Commands.ToArray();
@@ -26,7 +26,7 @@ namespace Core.Plugins.OxyPlot.Test
         public void RibbonControl_Always_ReturnsRibbonControl()
         {
             // Setup
-            var ribbon = new Ribbon();
+            var ribbon = new ChartingRibbon();
 
             // Call & Assert
             Assert.IsInstanceOf<System.Windows.Controls.Control>(ribbon.GetRibbonControl());
@@ -37,7 +37,7 @@ namespace Core.Plugins.OxyPlot.Test
         public void IsContextualTabVisible_Always_ReturnsFalse()
         {
             // Setup
-            var ribbon = new Ribbon();
+            var ribbon = new ChartingRibbon();
 
             // Call & Assert
             Assert.IsFalse(ribbon.IsContextualTabVisible(null,null));

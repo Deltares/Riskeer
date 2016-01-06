@@ -8,7 +8,7 @@ namespace Core.Plugins.OxyPlot.Forms
     /// <summary>
     /// This class represents a simple view with a chart, to which data can be added.
     /// </summary>
-    public class ChartDataView : UserControl, IView
+    public class ChartDataView : UserControl, IChartView
     {
         private readonly BaseChart baseChart;
         private IChartData data;

@@ -56,7 +56,7 @@ namespace Core.Plugins.Charting
             return tabGroupName == chartingContextualGroup.Name && tabName == chartTab.Name && exportAsImageCommand.Enabled;
         }
 
-        public object GetRibbonControl()
+        public Fluent.Ribbon GetRibbonControl()
         {
             return RibbonControl;
         }
