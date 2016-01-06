@@ -11,10 +11,18 @@
         <gui:PngToIconConverter x:Key="IconConverter"/>
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
-        <fluent:RibbonTabItem Header="{x:Static p:Resources.DemoHeader}" fluent:KeyTip.Keys="D">
-            <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_Chart_Header}" fluent:KeyTip.Keys="C">
-                <fluent:Button x:Name="ButtonOpenChartView" Header="{x:Static p:Resources.OpenChartView}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" fluent:KeyTip.Keys="X" Click="ButtonOpenChartView_Click"/>
+
+        <fluent:Ribbon.ContextualGroups>
+            <fluent:RibbonContextualTabGroup Header="{x:Static p:Resources.Ribbon_ContextualGroup_Charting}" Visibility="Visible" x:Name="chartingContextualGroup" Background="MediumPurple" BorderBrush="MediumPurple" />
+        </fluent:Ribbon.ContextualGroups>
+        
+        <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Demo_Header}" fluent:KeyTip.Keys="D">
+            <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_Chart}" fluent:KeyTip.Keys="C">
+                <fluent:Button Header="{x:Static p:Resources.Ribbon_Chart}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click"/>
             </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+
+        <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Chart}" Group="{Binding ElementName=chartingContextualGroup}">
         </fluent:RibbonTabItem>
     </fluent:Ribbon>
 </UserControl>

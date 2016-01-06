@@ -71,30 +71,12 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Demo.
-        /// </summary>
-        public static string DemoHeader {
-            get {
-                return ResourceManager.GetString("DemoHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DocumentIcon {
             get {
                 object obj = ResourceManager.GetObject("DocumentIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Diagram.
-        /// </summary>
-        public static string OpenChartView {
-            get {
-                return ResourceManager.GetString("OpenChartView", resourceCulture);
             }
         }
         
@@ -108,11 +90,29 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diagram.
+        ///   Looks up a localized string similar to Grafiek.
         /// </summary>
-        public static string Ribbon_Chart_Header {
+        public static string Ribbon_Chart {
             get {
-                return ResourceManager.GetString("Ribbon_Chart_Header", resourceCulture);
+                return ResourceManager.GetString("Ribbon_Chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grafieken.
+        /// </summary>
+        public static string Ribbon_ContextualGroup_Charting {
+            get {
+                return ResourceManager.GetString("Ribbon_ContextualGroup_Charting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demo.
+        /// </summary>
+        public static string Ribbon_Demo_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Demo_Header", resourceCulture);
             }
         }
     }
