@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.Properties;
+using Core.Common.Forms.Properties;
 
-namespace Core.Common.Controls.Dialogs
+namespace Core.Common.Forms.Dialogs
 {
     /// <summary>
     /// Class for showing an exception dialog.

@@ -7,8 +7,8 @@
     <ProjectGuid>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Common.Controls</RootNamespace>
-    <AssemblyName>Core.Common.Controls</AssemblyName>
+    <RootNamespace>Core.Common.Forms</RootNamespace>
+    <AssemblyName>Core.Common.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>

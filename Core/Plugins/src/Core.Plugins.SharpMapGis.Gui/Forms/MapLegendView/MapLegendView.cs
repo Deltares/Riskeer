@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 using Core.Common.Gui;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.Api.Layers;

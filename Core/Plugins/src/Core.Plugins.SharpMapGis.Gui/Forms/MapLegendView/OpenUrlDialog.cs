@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Dialogs;
+using Core.Common.Forms.Dialogs;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView

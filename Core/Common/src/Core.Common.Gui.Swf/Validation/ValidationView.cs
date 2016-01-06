@@ -2,8 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
-using Core.Common.Controls;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 using Core.Common.Utils.Validation;
 
 namespace Core.Common.Gui.Swf.Validation

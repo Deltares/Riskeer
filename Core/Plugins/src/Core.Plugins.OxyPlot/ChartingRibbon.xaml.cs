@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
-using Core.Common.Controls.Commands;
+using Core.Common.Forms.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 

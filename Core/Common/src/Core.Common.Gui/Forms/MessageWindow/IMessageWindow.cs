@@ -1,6 +1,6 @@
 using System;
 using Core.Common.Controls;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 using log4net.Core;
 
 namespace Core.Common.Gui.Forms.MessageWindow

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 using Core.Common.Gui;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api;

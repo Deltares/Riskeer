@@ -1,4 +1,4 @@
-using Core.Common.Controls.Commands;
+using Core.Common.Forms.Commands;
 
 namespace Core.Common.Gui
 {

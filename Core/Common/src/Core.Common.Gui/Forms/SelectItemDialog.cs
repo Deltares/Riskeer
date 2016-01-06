@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.Dialogs;
+using Core.Common.Forms.Dialogs;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms

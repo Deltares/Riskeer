@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 
 namespace Core.Common.Controls.Charting
 {

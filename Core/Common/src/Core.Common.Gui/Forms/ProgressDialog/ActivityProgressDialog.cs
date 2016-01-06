@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
-using Core.Common.Controls.Dialogs;
+using Core.Common.Forms.Dialogs;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Properties;
 

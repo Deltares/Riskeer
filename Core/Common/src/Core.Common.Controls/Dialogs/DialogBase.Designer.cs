@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Controls.Dialogs
+﻿namespace Core.Common.Forms.Dialogs
 {
     partial class DialogBase
     {

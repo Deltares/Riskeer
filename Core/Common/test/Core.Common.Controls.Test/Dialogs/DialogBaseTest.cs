@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.Dialogs;
+using Core.Common.Forms.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

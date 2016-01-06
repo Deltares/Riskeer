@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Core.Common.Controls;
-using Core.Common.Controls.Commands;
+using Core.Common.Forms.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 

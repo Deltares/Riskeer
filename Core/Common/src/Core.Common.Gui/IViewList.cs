@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Common.Controls.Views;
+using Core.Common.Forms.Views;
 using Core.Common.Utils.Events;
 
 namespace Core.Common.Gui

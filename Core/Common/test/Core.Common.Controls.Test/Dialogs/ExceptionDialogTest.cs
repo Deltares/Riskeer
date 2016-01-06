@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.Dialogs;
+using Core.Common.Forms.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 

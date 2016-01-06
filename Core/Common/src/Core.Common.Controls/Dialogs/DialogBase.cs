@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.Dialogs
+namespace Core.Common.Forms.Dialogs
 {
     /// <summary>
     /// Base class for dialogs which should be derived in order to get a consistent look and feel.

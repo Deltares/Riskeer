@@ -1,4 +1,4 @@
-﻿using Core.Common.Controls.Views;
+﻿using Core.Common.Forms.Views;
 
 namespace Core.Plugins.OxyPlot.Forms
 {
