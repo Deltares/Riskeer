@@ -147,7 +147,7 @@
     <Content Include="Gui\Resources\image8.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Application\Application.Ringtoets\Application.Ringtoets.csproj">
+    <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets\Application.Ringtoets.csproj">
       <Project>{4a7d6720-4aa1-4f0b-a796-a0436db3d7d7}</Project>
       <Name>Application.Ringtoets</Name>
     </ProjectReference>

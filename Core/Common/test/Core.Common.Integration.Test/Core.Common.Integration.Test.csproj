@@ -128,7 +128,7 @@
       <Project>{696daaee-d1d8-42d0-86ac-471b970fb17e}</Project>
       <Name>Core.Plugins.SharpMapGis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Application\Application.Ringtoets\Application.Ringtoets.csproj">
+    <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets\Application.Ringtoets.csproj">
       <Project>{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}</Project>
       <Name>Application.Ringtoets</Name>
     </ProjectReference>
