@@ -19,7 +19,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 if (dockingManager != null)
                 {
-                    dockingManager.ActiveContentChanged -= DockingManagerActiveContentChanged;
                     dockingManager.DocumentClosed -= DockingManagerOnDocumentClosed;
                 }
                 

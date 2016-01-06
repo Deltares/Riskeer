@@ -1,12 +1,9 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using Core.GIS.NetTopologySuite.Geometries;
-using Core.GIS.SharpMap.Api.Collections;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Layers;
@@ -16,7 +13,6 @@ using Core.Plugins.SharpMapGis.Gui;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Plugins.SharpMapGis.Test.Forms
 {
@@ -157,47 +153,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
                 Assert.AreEqual(zoom, map.Zoom);
                 Assert.AreEqual(center, map.Center);
             }
-        }
-
-        [Test]
-        public void RemovingGroupLayerShouldCloseOpenTabsForSubLayers()
-        {
-            var groupLayer = new GroupLayer();
-            var subLayer = new VectorLayer();
-
-            var mocks = new MockRepository();
-            var tabControl = mocks.Stub<MapViewTabControl>();
-            var mapViewEditor = mocks.StrictMock<ILayerEditorView>();
-
-            var layerEditorViews = new EventedList<IView>
-            {
-                mapViewEditor
-            };
-
-            tabControl.Expect(tc => tc.ChildViews).Return(layerEditorViews).Repeat.Any();
-
-            mapViewEditor.Expect(me => me.Data).Return(subLayer).Repeat.Any();
-
-            // During the mapView.Map.Layers.Clear() the subView should : 
-            // be removed from the tabControl, have its data set to null and be disposed
-            tabControl.Expect(tc => tc.RemoveView(mapViewEditor));
-
-            mocks.ReplayAll();
-
-            var mapView = new MapView
-            {
-                GetDataForLayer = l => l
-            };
-
-            groupLayer.Layers.Add(subLayer);
-            mapView.Map.Layers.Add(groupLayer);
-
-            // use mocked tab control to check the removing of the sub-layer view
-            TypeUtils.SetPrivatePropertyValue(mapView, "TabControl", tabControl);
-
-            mapView.Map.Layers.Clear();
-
-            mocks.VerifyAll();
         }
 
         [TestFixtureSetUp]

@@ -29,7 +29,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             elementHost.Child = dockingManager;
             dockingManager.Layout.RootPanel.Children.Clear();
 
-            dockingManager.ActiveContentChanged += DockingManagerActiveContentChanged;
             dockingManager.DocumentClosed += DockingManagerOnDocumentClosed;
         }
 
@@ -125,65 +124,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             viewHost.Dispose();
 
             OnViewCollectionChanged(NotifyCollectionChangedAction.Remove, view);
-        }
-
-        public void BeforeDispose()
-        {
-            var activeView = ActiveView;
-            var layerEditor = activeView as ILayerEditorView;
-            if (layerEditor != null)
-            {
-                layerEditor.OnDeactivated();
-            }
-        }
-
-        private void DockingManagerActiveContentChanged(object sender, EventArgs e)
-        {
-            if (nested)
-            {
-                return;
-            }
-
-            // nothing changes
-            if (Equals(dockingManager.Layout.LastFocusedDocument, dockingManager.Layout.ActiveContent))
-            {
-                return;
-            }
-
-            var previousView = GetViewForDocument(dockingManager.Layout.LastFocusedDocument) as ILayerEditorView;
-            var activeView = GetViewForDocument(dockingManager.Layout.ActiveContent) as ILayerEditorView;
-
-            if (previousView != null)
-            {
-                previousView.OnDeactivated();
-
-                // The below code confuses AvalonDock, causing tab switches to fail, but removing it gives 
-                // problems with changes not being committed. Unfortunately its very hard to write a test 
-                // for that. These problems also occur without this code, although it seems less often.
-                nested = true;
-                try
-                {
-                    ControlHelper.UnfocusActiveControl(previousView as IContainerControl);
-                }
-                finally
-                {
-                    nested = false;
-                }
-            }
-
-            if (activeView != null)
-            {
-                activeView.OnActivated();
-            }
-        }
-
-        private static IView GetViewForDocument(LayoutContent document)
-        {
-            if (document == null)
-            {
-                return null;
-            }
-            return (IView) ((WindowsFormsHost) document.Content).Child;
         }
 
         private void DockingManagerOnDocumentClosed(object sender, DocumentClosedEventArgs documentClosedEventArgs)

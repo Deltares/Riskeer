@@ -98,7 +98,6 @@
     <Compile Include="Forms\GridProperties\VectorStylePropertiesTest.cs" />
     <Compile Include="Forms\MapLayerTreeViewNodePresenterTest.cs" />
     <Compile Include="Forms\MapTreeViewNodePresenterTest.cs" />
-    <Compile Include="Forms\MapViewTabControlTest.cs" />
     <Compile Include="Forms\MapViewTest.cs">
     </Compile>
     <Compile Include="Forms\ImportMultipleFilesUserSettings.Designer.cs">

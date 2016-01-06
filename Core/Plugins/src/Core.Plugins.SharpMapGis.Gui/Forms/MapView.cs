@@ -3,10 +3,8 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Views;
-using Core.Common.Gui;
 using Core.Common.Utils.Events;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
@@ -42,7 +40,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             };
             Controls.Add(TabControl);
 
-            MapControl.SelectedFeaturesChanged += (s, e) => SyncMapViewEditorSelection();
             Splitter.ControlToHide = TabControl;
             TabControl.ViewCollectionChanged += OnTabControlOnViewCollectionChanged;
 
@@ -477,49 +474,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             OnMouseEnter(e);
         }
 
-        private void SyncMapViewEditorSelection()
-        {
-            var features = MapControl.SelectedFeatures;
-            if (features == null || settingSelection)
-            {
-                return;
-            }
-
-            settingSelection = true;
-
-            features = features.ToList();
-
-            foreach (var mapViewEditor in TabControl.ChildViews.OfType<ILayerEditorView>())
-            {
-                mapViewEditor.SelectedFeatures = features;
-            }
-            settingSelection = false;
-        }
-
-        private void MapEditorSelectedFeaturesChanged(object sender, EventArgs e)
-        {
-            var mapViewEditor = sender as ILayerEditorView;
-            if (mapViewEditor == null || settingSelection)
-            {
-                return;
-            }
-
-            settingSelection = true;
-            MapControl.SelectTool.Select(mapViewEditor.SelectedFeatures);
-            settingSelection = false;
-        }
-
         private void OnTabControlOnViewCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                var mapEditor = e.NewItems != null ? e.NewItems.OfType<ILayerEditorView>().FirstOrDefault() : null;
-
-                if (mapEditor != null)
-                {
-                    mapEditor.SelectedFeaturesChanged += MapEditorSelectedFeaturesChanged;
-                    mapEditor.Layer = GetLayerForData != null ? GetLayerForData(mapEditor.Data) : null;
-                }
                 if (!IsTabControlVisible)
                 {
                     IsTabControlVisible = true;
@@ -528,15 +486,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
 
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                var mapEditor = e.OldItems != null ? e.OldItems.OfType<ILayerEditorView>().FirstOrDefault() : null;
-                if (mapEditor != null)
-                {
-                    mapEditor.SelectedFeaturesChanged -= MapEditorSelectedFeaturesChanged;
-                    mapEditor.Layer = null;
-                    mapEditor.Data = null;
-                    mapEditor.Dispose();
-                }
-
                 if (IsTabControlVisible && !TabControl.ChildViews.Any())
                 {
                     IsTabControlVisible = false;
