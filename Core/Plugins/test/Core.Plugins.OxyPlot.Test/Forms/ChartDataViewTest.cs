@@ -55,6 +55,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             chartView.Data = chartData;
 
             // Assert
+            Assert.AreSame(chartData, chartView.Data);
             mocks.VerifyAll();
         }
 

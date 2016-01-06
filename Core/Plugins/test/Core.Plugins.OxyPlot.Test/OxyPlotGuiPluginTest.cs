@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
+using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Components.OxyPlot.Data;
 using Core.Plugins.OxyPlot.Forms;
@@ -74,5 +77,45 @@ namespace Core.Plugins.OxyPlot.Test
             Assert.AreEqual(typeof(IChartData), views[0].DataType);
             Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        [RequiresSTA]
+        public void GivenConfiguredGui_WhenActiveViewChangesToIChartView_ThenRibbonSetVisibility(bool visible)
+        {
+            // Given
+            using (var gui = new RingtoetsGui())
+            {
+                var mocks = new MockRepository();
+                IView viewMock = visible ? (IView) new TestChartView() : new TestView();
+
+                mocks.ReplayAll();
+
+                var plugin = new OxyPlotGuiPlugin();
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                gui.DocumentViews.IgnoreActivation = false;
+
+                // When
+                gui.DocumentViews.Add(viewMock);
+                gui.DocumentViews.ActiveView = viewMock;
+
+                // Then
+                Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
+                mocks.VerifyAll();
+            }
+        }
+    }
+
+    public class TestView : Control, IView
+    {
+        public object Data { get; set; }
+    }
+
+    public class TestChartView : Control, IChartView
+    {
+        public object Data { get; set; }
     }
 }
