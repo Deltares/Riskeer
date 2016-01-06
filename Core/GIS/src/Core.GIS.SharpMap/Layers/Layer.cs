@@ -82,7 +82,6 @@ namespace Core.GIS.SharpMap.Layers
         private bool showInLegend = true;
         private bool showInTreeView = true;
         private ILabelLayer labelLayer; //TEMP!
-        private bool showAttributeTable = true;
         private IFeatureProvider dataSource;
 
         private QuadTree tree;
@@ -287,7 +286,6 @@ namespace Core.GIS.SharpMap.Layers
             clone.Selectable = Selectable;
             clone.ReadOnly = ReadOnly;
             clone.CanBeRemovedByUser = canBeRemovedByUser;
-            clone.ShowAttributeTable = ShowAttributeTable;
             clone.ShowInLegend = ShowInLegend;
             clone.ShowInTreeView = ShowInTreeView;
             clone.MinVisible = MinVisible;
@@ -399,20 +397,6 @@ namespace Core.GIS.SharpMap.Layers
                 OnPropertyChanging("ShowInTreeView");
                 showInTreeView = value;
                 OnPropertyChanged("ShowInTreeView");
-            }
-        }
-
-        public virtual bool ShowAttributeTable
-        {
-            get
-            {
-                return showAttributeTable;
-            }
-            set
-            {
-                OnPropertyChanging("ShowAttributeTable");
-                showAttributeTable = value;
-                OnPropertyChanged("ShowAttributeTable");
             }
         }
 

@@ -167,11 +167,6 @@ namespace Core.GIS.SharpMap.Api.Layers
         bool AutoUpdateThemeOnDataSourceChanged { get; set; }
 
         /// <summary>
-        /// Determines if an attribute table can be shown for this layer
-        /// </summary>
-        bool ShowAttributeTable { get; set; }
-
-        /// <summary>
         /// Determines the order of rendering
         /// </summary>
         int RenderOrder { get; set; }
