@@ -113,12 +113,6 @@
     <Compile Include="Forms\MapViewTabControl.Designer.cs">
       <DependentUpon>MapViewTabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\VectorLayerAttributeTableView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\VectorLayerAttributeTableView.Designer.cs">
-      <DependentUpon>VectorLayerAttributeTableView.cs</DependentUpon>
-    </Compile>
     <Compile Include="GisGuiService.cs" />
     <Compile Include="IGisGuiService.cs" />
     <Compile Include="NodePresenters\MapProjectTreeViewNodePresenter.cs" />
@@ -148,9 +142,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MapViewTabControl.resx">
       <DependentUpon>MapViewTabControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\VectorLayerAttributeTableView.resx">
-      <DependentUpon>VectorLayerAttributeTableView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

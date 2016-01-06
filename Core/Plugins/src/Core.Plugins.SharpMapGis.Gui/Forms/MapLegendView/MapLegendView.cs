@@ -21,8 +21,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private static readonly ILog Log = LogManager.GetLogger(typeof(MapLegendView));
         private readonly IGui gui;
 
-        public Action<ILayer> OnOpenLayerAttributeTable = layer => { };
-
         private Map map;
         private bool disableGuiSelectionSync;
 
@@ -44,7 +42,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
             TreeView.SelectedNodeChanged += TreeViewSelectedNodeChanged;
             TreeView.NodeMouseClick += TreeViewNodeMouseClick;
-            TreeView.DoubleClick += TreeViewDoubleClick;
             UpdateButtonsVisibility();
         }
 
@@ -172,17 +169,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void TreeViewDoubleClick(object sender, EventArgs e)
-        {
-            var layer = TreeView.SelectedNode.Tag as ILayer;
-            if (layer == null)
-            {
-                return;
-            }
-
-            OnOpenLayerAttributeTable(layer);
-        }
-
         private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
         {
             if (disableGuiSelectionSync)
@@ -209,7 +195,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                                         && layer != null
                                         && !(node != null && node.Parent.Tag is GroupLayer && ((GroupLayer) node.Parent.Tag).LayersReadOnly);
 
-            contextMenuLayerOpenAttributeTable.Enabled = layer != null && layer.ShowAttributeTable;
             // TODO: Only enable export layer button when node is group layer, but also contains vector layer at some depth (group layer within group layer that contains a vector layer for example)
         }
 
@@ -386,17 +371,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private void ContextMenuLayerRenameClick(object sender, EventArgs e)
         {
             TreeView.StartLabelEdit();
-        }
-
-        private void ContextMenuOpenLayerAttributeTableClick(object sender, EventArgs e)
-        {
-            var layer = TreeView.SelectedNode.Tag as ILayer;
-            if (layer == null)
-            {
-                return;
-            }
-
-            OnOpenLayerAttributeTable(layer);
         }
 
         // TODO: inject it from GuiPlugin (as event/delegate) and remove dependency from IGui

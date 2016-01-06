@@ -302,40 +302,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        public IView OpenLayerAttributeTable(ILayer layer, Action<object> openViewMethod = null)
-        {
-            if (!(layer is VectorLayer) || !layer.ShowAttributeTable)
-            {
-                return null;
-            }
-
-            var view = TabControl.ChildViews.OfType<VectorLayerAttributeTableView>().FirstOrDefault(v => v.Data == layer);
-            if (view != null)
-            {
-                TabControl.ActiveView = view;
-                return null;
-            }
-
-            if (!IsTabControlVisible)
-            {
-                IsTabControlVisible = true;
-            }
-
-            view = new VectorLayerAttributeTableView
-            {
-                Data = layer,
-                Layer = layer,
-                Text = layer.Name,
-                ZoomToFeature = feature => EnsureVisible(feature),
-                OpenViewMethod = openViewMethod,
-                DeleteSelectedFeatures = () => MapControl.DeleteTool.DeleteSelection()
-            };
-
-            TabControl.AddView(view);
-
-            return view;
-        }
-
         public void EnsureVisible(object item)
         {
             var layer = item as ILayer;

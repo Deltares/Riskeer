@@ -233,15 +233,6 @@
   <metadata name="contextMenuLayer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>25, 15</value>
   </metadata>
-  <data name="contextMenuLayerOpenAttributeTable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 22</value>
-  </data>
-  <data name="contextMenuLayerOpenAttributeTable.Text" xml:space="preserve">
-    <value>Attributentabel openen</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>266, 6</value>
-  </data>
   <data name="contextMenuLayerDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 22</value>
   </data>
@@ -324,7 +315,7 @@
     <value>Alle andere lagen verbergen</value>
   </data>
   <data name="contextMenuLayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 242</value>
+    <value>270, 214</value>
   </data>
   <data name="&gt;&gt;contextMenuLayer.Name" xml:space="preserve">
     <value>contextMenuLayer</value>
@@ -354,7 +345,7 @@
     <value>TreeView</value>
   </data>
   <data name="&gt;&gt;TreeView.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Swf.TreeViewControls.TreeView, Core.Common.Controls.Swf, Version=0.5.0.1297, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1483, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;TreeView.Parent" xml:space="preserve">
     <value>$this</value>
@@ -433,18 +424,6 @@
   </data>
   <data name="&gt;&gt;buttonRemoveLayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextMenuLayerOpenAttributeTable.Name" xml:space="preserve">
-    <value>contextMenuLayerOpenAttributeTable</value>
-  </data>
-  <data name="&gt;&gt;contextMenuLayerOpenAttributeTable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
-    <value>toolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextMenuLayerDelete.Name" xml:space="preserve">
     <value>contextMenuLayerDelete</value>

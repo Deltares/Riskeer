@@ -14,8 +14,6 @@ using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using TreeNode = Core.Common.Controls.TreeView.TreeNode;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.SharpMapGis.Test.Forms
 {
@@ -145,7 +143,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         }
 
         [Test]
-        public void GetContextMenu_ForLayer_ReturnContextMenuStripWithTwelveItems()
+        public void GetContextMenu_ForLayer_ReturnContextMenuStripWithTenItems()
         {
             // Setup
             var mapLegendView = CreateMapLegendView();
@@ -157,17 +155,17 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             var contextMenu = mapLegendView.GetContextMenu(layerMock);
 
             // Assert
-            Assert.AreEqual(12, contextMenu.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, "&Verwijderen", null, Resources.DeleteHS);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, "&Hernoemen", null, null);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, "Volgorde", null, Resources.LayersStack);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 6, "&Zoomen naar omvang", null, Resources.MapZoomToExtentsImage);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 7, "Synchroniseer zoomniveau met kaart", null, Resources.LayersUngroup);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 9, "Labels weergeven", null, null);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 10, "Weergeven in de legenda", null, null);
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 11, "Alle andere lagen verbergen", null, null);
+            Assert.AreEqual(10, contextMenu.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, "&Verwijderen", null, Resources.DeleteHS);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, "&Hernoemen", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, "Volgorde", null, Resources.LayersStack);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 4, "&Zoomen naar omvang", null, Resources.MapZoomToExtentsImage);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5, "Synchroniseer zoomniveau met kaart", null, Resources.LayersUngroup);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 7, "Labels weergeven", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 8, "Weergeven in de legenda", null, null);
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 9, "Alle andere lagen verbergen", null, null);
 
-            var toolStripDropDown = contextMenu.Items[5] as ToolStripDropDownItem;
+            var toolStripDropDown = contextMenu.Items[3] as ToolStripDropDownItem;
 
             Assert.NotNull(toolStripDropDown);
             TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 0, "Op de voorgrond plaatsen", null, Resources.LayersStackArrange);
@@ -175,49 +173,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 3, "Naar voren halen", null, null);
             TestHelper.AssertDropDownItemContainsItem(toolStripDropDown, 4, "Naar achteren sturen", null, null);
 
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { contextMenu.Items[1], contextMenu.Items[4], contextMenu.Items[8], toolStripDropDown.DropDownItems[2] }, typeof(ToolStripSeparator));
-        }
-
-        [Test]
-        public void GetContextMenu_ForLayerNullLayerSelected_ShowAttributeTableDisabled()
-        {
-            // Setup
-            var layerMock = mocks.StrictMock<Layer>();
-            var mapLegendView = CreateMapLegendView();
-
-            // Call
-            var contextMenu = mapLegendView.GetContextMenu(layerMock);
-
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, "Attributentabel openen", null, Resources.Table, false);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GetContextMenu_ForLayerShowAttributeTableSetOnSelectedNode_ShowAttributeTableItemSetToCorrectState(bool showAttributeTableEnabled)
-        {
-            // Setup
-            var layerMock = mocks.Stub<Layer>();
-            var mapLegendView = CreateMapLegendView();
-
-            layerMock.ShowAttributeTable = showAttributeTableEnabled;
-
-            var treeView = (TreeView) mapLegendView.Controls.Find("TreeView", true)[0];
-            var selectedNode = new TreeNode(treeView);
-            var parentNode = new TreeNode(treeView);
-            parentNode.Nodes.Add(selectedNode);
-            selectedNode.Tag = layerMock;
-            treeView.Nodes.Add(parentNode);
-            treeView.SelectedNode = selectedNode;
-
-            // Call
-            var contextMenu = mapLegendView.GetContextMenu(layerMock);
-
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, "Attributentabel openen", null, Resources.Table, showAttributeTableEnabled);
-
-            mocks.VerifyAll();
+            CollectionAssert.AllItemsAreInstancesOfType(new[] { contextMenu.Items[2], contextMenu.Items[6], toolStripDropDown.DropDownItems[2] }, typeof(ToolStripSeparator));
         }
 
         private MapLegendView CreateMapLegendView()

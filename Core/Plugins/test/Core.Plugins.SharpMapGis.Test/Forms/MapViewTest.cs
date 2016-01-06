@@ -160,68 +160,6 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         }
 
         [Test]
-        public void OpenMapViewWithVectorLayerAttributeTable()
-        {
-            var rivers = Path.GetFullPath(TestHelper.GetDataDir() + "rivers.shp");
-
-            var shapefile = new ShapeFile(rivers);
-            var layer = new VectorLayer
-            {
-                DataSource = shapefile
-            };
-            var map = new Map
-            {
-                Layers =
-                {
-                    layer
-                }
-            };
-            var mapView = new MapView
-            {
-                Map = map
-            };
-
-            Assert.IsTrue(mapView.Splitter.IsCollapsed);
-
-            Assert.IsFalse(mapView.IsTabControlVisible);
-
-            mapView.OpenLayerAttributeTable(layer);
-
-            Assert.IsTrue(mapView.IsTabControlVisible);
-        }
-
-        [Test]
-        public void CloseLastTabCollapsesSplitter()
-        {
-            var shapefile = new ShapeFile(TestHelper.GetDataDir() + "rivers.shp");
-            var layer = new VectorLayer
-            {
-                DataSource = shapefile
-            };
-            var map = new Map
-            {
-                Layers =
-                {
-                    layer
-                }
-            };
-            var mapView = new MapView
-            {
-                Map = map
-            };
-
-            var view = new VectorLayerAttributeTableView
-            {
-                Data = layer
-            };
-
-            mapView.TabControl.AddView(view);
-            mapView.TabControl.RemoveView(view);
-
-            Assert.IsTrue(mapView.Splitter.IsCollapsed);
-        }
-
-        [Test]
         public void RemovingGroupLayerShouldCloseOpenTabsForSubLayers()
         {
             var groupLayer = new GroupLayer();

@@ -107,7 +107,6 @@
       <DependentUpon>ImportMultipleFilesUserSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="Forms\NodePresenters\MapProjectTreeViewNodePresenterTest.cs" />
-    <Compile Include="Forms\VectorLayerAttributeTableViewTest.cs" />
     <Compile Include="Forms\VectorStyleNodePresenterTest.cs" />
     <Compile Include="Forms\MapLegendViewTest.cs" />
     <Compile Include="MapDependencyResolverTest.cs" />
@@ -126,10 +125,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Table\Core.Common.Controls.Table.csproj">
-      <Project>{4B2ADD09-ECAC-439D-82FC-DBF8AA63772D}</Project>
-      <Name>Core.Common.Controls.Table</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
       <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>

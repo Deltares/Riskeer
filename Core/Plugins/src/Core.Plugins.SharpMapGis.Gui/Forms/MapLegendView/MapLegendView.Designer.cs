@@ -39,8 +39,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.buttonAddLayer = new System.Windows.Forms.ToolStripButton();
             this.buttonRemoveLayer = new System.Windows.Forms.ToolStripButton();
             this.contextMenuLayer = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuLayerOpenAttributeTable = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuLayerDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuLayerRename = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -107,8 +105,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // contextMenuLayer
             // 
             this.contextMenuLayer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextMenuLayerOpenAttributeTable,
-            this.toolStripMenuItem2,
             this.contextMenuLayerDelete,
             this.contextMenuLayerRename,
             this.toolStripMenuItem1,
@@ -123,18 +119,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             resources.ApplyResources(this.contextMenuLayer, "contextMenuLayer");
             this.contextMenuLayer.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuLayerOpening);
             this.contextMenuLayer.VisibleChanged += new System.EventHandler(this.ContextMenuLayerVisibleChanged);
-            // 
-            // contextMenuLayerOpenAttributeTable
-            // 
-            this.contextMenuLayerOpenAttributeTable.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.Table;
-            this.contextMenuLayerOpenAttributeTable.Name = "contextMenuLayerOpenAttributeTable";
-            resources.ApplyResources(this.contextMenuLayerOpenAttributeTable, "contextMenuLayerOpenAttributeTable");
-            this.contextMenuLayerOpenAttributeTable.Click += new System.EventHandler(this.ContextMenuOpenLayerAttributeTableClick);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // contextMenuLayerDelete
             // 
@@ -322,8 +306,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private ToolStripMenuItem contextMenuLayerDelete;
         private ToolStripMenuItem contextMenuLayerRename;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private ToolStripMenuItem contextMenuLayerOpenAttributeTable;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripButton buttonAddWmsLayer;
         private System.Windows.Forms.ContextMenuStrip contextMenuMap;
         private ToolStripMenuItem addLayerToolStripMenuItem;

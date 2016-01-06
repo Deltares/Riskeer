@@ -653,18 +653,6 @@
   <data name="VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system_0_" xml:space="preserve">
     <value>Kan de kaart niet converteren naar het coördinatenstelsel: {0}</value>
   </data>
-  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute" xml:space="preserve">
-    <value>Attribuut toevoegen</value>
-  </data>
-  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attribute" xml:space="preserve">
-    <value>Attribuut verwijderen</value>
-  </data>
-  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item" xml:space="preserve">
-    <value>Zoom naar element</value>
-  </data>
-  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view" xml:space="preserve">
-    <value>Weergave openen...</value>
-  </data>
   <data name="Ribbon_View_MapContents_Header" xml:space="preserve">
     <value>Kaart</value>
   </data>

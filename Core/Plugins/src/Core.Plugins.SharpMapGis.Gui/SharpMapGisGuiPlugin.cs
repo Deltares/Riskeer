@@ -6,8 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Controls;
-using Core.Common.Controls.Table;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
@@ -100,24 +98,7 @@ namespace Core.Plugins.SharpMapGis.Gui
             {
                 mapLegendView = new MapLegendView(gui)
                 {
-                    OnOpenLayerAttributeTable = layer =>
-                    {
-                        var mapView = GetFocusedMapView();
-                        if (mapView == null)
-                        {
-                            return;
-                        }
-
-                        var layerData = mapView.GetDataForLayer != null
-                                            ? mapView.GetDataForLayer(layer)
-                                            : null;
-
-                        if (!Gui.DocumentViewsResolver.OpenViewForData(layerData) && layer is VectorLayer)
-                        {
-                            mapView.OpenLayerAttributeTable(layer, o => gui.CommandHandler.OpenView(o));
-                        }
-                    },
-                    Text = Properties.Resources.SharpMapGisPluginGui_InitializeMapLegend_Map_Contents
+                    Text = Resources.SharpMapGisPluginGui_InitializeMapLegend_Map_Contents
                 };
             }
 
@@ -249,10 +230,6 @@ namespace Core.Plugins.SharpMapGis.Gui
                 Image = Resources.Map,
                 Description = "Map",
                 AfterCreate = (view, map) => view.Owner = gui.MainWindow
-            };
-            yield return new ViewInfo<DataTable, TableView>
-            {
-                Description = "Table"
             };
         }
 
