@@ -19,7 +19,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         private void InitializeComponent()
         {
             this.MapControl = new MapControl();
-            this.Splitter = new CollapsibleSplitter();
             this.SuspendLayout();
             // 
             // mapControl
@@ -36,28 +35,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             this.MapControl.MouseLeave += new System.EventHandler(this.MapControlMouseLeave);
             this.MapControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapControlMouseMove);
             // 
-            // collapsibleSplitter1
-            // 
-            this.Splitter.AnimationDelay = 20;
-            this.Splitter.AnimationStep = 20;
-            this.Splitter.BorderStyle3D = System.Windows.Forms.Border3DStyle.Flat;
-            this.Splitter.ControlToHide = null;
-            this.Splitter.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.Splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Splitter.ExpandParentForm = false;
-            this.Splitter.Location = new System.Drawing.Point(0, 380);
-            this.Splitter.Name = "Splitter";
-            this.Splitter.TabIndex = 3;
-            this.Splitter.TabStop = false;
-            this.Splitter.UseAnimations = false;
-            this.Splitter.VisualStyle = VisualStyles.Lines;
-            // 
             // MapView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.MapControl);
-            this.Controls.Add(this.Splitter);
             this.Name = "MapView";
             this.Size = new System.Drawing.Size(562, 388);
             this.ResumeLayout(false);

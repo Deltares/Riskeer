@@ -34,18 +34,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             InitializeComponent();
             IsAllowSyncWithGuiSelection = true;
 
-            TabControl = new MapViewTabControl
-            {
-                Size = new Size(300, 250), Dock = DockStyle.Bottom
-            };
-            Controls.Add(TabControl);
-
-            Splitter.ControlToHide = TabControl;
-            TabControl.ViewCollectionChanged += OnTabControlOnViewCollectionChanged;
-
-            // hide for now
-            IsTabControlVisible = false;
-
             // add some tools here, to avoid references to Ringtoets projects in SharpMap
             exportMapToImageMapTool = new ExportMapToImageMapTool();
             MapControl.Tools.Add(exportMapToImageMapTool);
@@ -64,25 +52,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             set
             {
                 exportMapToImageMapTool.Owner = value;
-            }
-        }
-
-        public bool IsTabControlVisible
-        {
-            get
-            {
-                return Splitter.Visible;
-            }
-            set
-            {
-                if (IsTabControlVisible == value)
-                {
-                    return;
-                }
-
-                Splitter.ToggleState();
-                Splitter.Visible = value;
-                TabControl.SendToBack();
             }
         }
 
@@ -114,10 +83,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         }
 
         public MapControl MapControl { get; private set; }
-
-        public MapViewTabControl TabControl { get; private set; }
-
-        public CollapsibleSplitter Splitter { get; set; }
 
         public Func<ILayer, object> GetDataForLayer { get; set; }
 
@@ -334,7 +299,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 if (disposing)
                 {
                     MapControl.Dispose();
-                    TabControl.Dispose();
                 }
 
                 if (disposing && (components != null))
@@ -381,8 +345,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 return;
             }
 
-            Map.CollectionChanged += mapCollectionChangedEventHandler;
-
             DataBindings.Add("Text", Map, "Name", false, DataSourceUpdateMode.OnPropertyChanged);
 
             Text = Map.Name;
@@ -395,43 +357,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                 return;
             }
 
-            Map.CollectionChanged -= mapCollectionChangedEventHandler;
-
             DataBindings.Clear();
-        }
-
-        private void mapCollectionChangedEventHandler(object sender, NotifyCollectionChangeEventArgs e)
-        {
-            var layer = e.Item as ILayer;
-
-            if (e.Action == NotifyCollectionChangeAction.Remove)
-            {
-                RemoveTabFor(layer);
-            }
-        }
-
-        private void RemoveTabFor(ILayer layer)
-        {
-            var groupLayer = layer as GroupLayer;
-            if (groupLayer != null)
-            {
-                foreach (var subLayer in groupLayer.Layers)
-                {
-                    RemoveTabFor(subLayer);
-                }
-            }
-
-            var dataForLayer = GetDataForLayer != null
-                                   ? GetDataForLayer(layer) ?? layer
-                                   : layer;
-
-            var view = TabControl.ChildViews.FirstOrDefault(v => Equals(v.Data, dataForLayer));
-            if (view == null)
-            {
-                return;
-            }
-
-            TabControl.RemoveView(view);
         }
 
         private void MapControlMouseMove(object sender, MouseEventArgs e)
@@ -472,25 +398,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
         private void MapControlMouseEnter(object sender, EventArgs e)
         {
             OnMouseEnter(e);
-        }
-
-        private void OnTabControlOnViewCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                if (!IsTabControlVisible)
-                {
-                    IsTabControlVisible = true;
-                }
-            }
-
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                if (IsTabControlVisible && !TabControl.ChildViews.Any())
-                {
-                    IsTabControlVisible = false;
-                }
-            }
         }
     }
 }
