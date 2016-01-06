@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Integration.Data.Contribution;

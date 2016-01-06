@@ -1,4 +1,4 @@
-namespace Core.Common.Forms.Commands
+namespace Core.Common.Controls.Commands
 {
     /// <summary>
     /// Interface for defining the behavior of (Ribbon) buttons and/or menu items.

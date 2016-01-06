@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Forms.Commands;
+using Core.Common.Controls.Commands;
 using Fluent;
 
 namespace Core.Common.Gui.Forms

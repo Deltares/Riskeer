@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Forms.Views;
+
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.PropertyGridView;
 using NUnit.Framework;
 using Rhino.Mocks;

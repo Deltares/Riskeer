@@ -1,7 +1,7 @@
 using System.Windows.Forms;
 using Core.Common.Utils;
 
-namespace Core.Common.Forms.Views
+namespace Core.Common.Controls.Views
 {
     /// <summary>
     /// Class for showing a html page based on an <see cref="Url"/>.

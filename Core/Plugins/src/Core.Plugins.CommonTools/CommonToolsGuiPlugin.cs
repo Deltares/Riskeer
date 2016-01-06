@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;

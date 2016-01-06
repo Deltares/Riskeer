@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Components.OxyPlot.Data;
 using Core.Plugins.OxyPlot.Forms;

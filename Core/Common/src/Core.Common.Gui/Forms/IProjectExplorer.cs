@@ -1,5 +1,5 @@
 ﻿using Core.Common.Controls.TreeView;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms
 {

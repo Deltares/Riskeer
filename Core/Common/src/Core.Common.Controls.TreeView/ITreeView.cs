@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 
 namespace Core.Common.Controls.TreeView
 {

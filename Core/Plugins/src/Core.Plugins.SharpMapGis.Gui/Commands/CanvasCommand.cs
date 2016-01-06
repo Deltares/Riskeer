@@ -1,4 +1,4 @@
-﻿using Core.Common.Forms.Commands;
+﻿using Core.Common.Controls.Commands;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands

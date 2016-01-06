@@ -1,4 +1,5 @@
-﻿using Core.Common.Gui;
+﻿using Core.Common.Controls;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Test.TestObjects;
 using Core.Common.Utils.Reflection;

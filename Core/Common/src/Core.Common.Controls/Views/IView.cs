@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Common.Forms.Views
+namespace Core.Common.Controls.Views
 {
     /// <summary>
     /// Interface for graphical user interface views.

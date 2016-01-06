@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 using Xceed.Wpf.AvalonDock;

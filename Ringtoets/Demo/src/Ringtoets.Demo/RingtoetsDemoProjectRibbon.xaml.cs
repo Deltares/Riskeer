@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-using Core.Common.Forms.Commands;
+using Core.Common.Controls;
+using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 using Ringtoets.Demo.Commands;

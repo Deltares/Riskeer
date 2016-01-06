@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Forms.Dialogs;
+using Core.Common.Controls.Dialogs;
 using Core.Plugins.SharpMapGis.Properties;
 
 namespace Core.Plugins.SharpMapGis.Tools

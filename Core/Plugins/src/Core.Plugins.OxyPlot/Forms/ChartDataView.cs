@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Core.Components.OxyPlot;
 using Core.Components.OxyPlot.Data;
 

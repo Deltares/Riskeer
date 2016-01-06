@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Forms.Views;
+using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
