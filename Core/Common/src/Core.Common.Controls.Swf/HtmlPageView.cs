@@ -5,14 +5,14 @@ using Core.Common.Utils;
 namespace Core.Common.Controls.Swf
 {
     /// <summary>
-    /// Control that shows html page defined by <see cref="Url"/>.
+    /// Class for showing a html page based on an <see cref="Url"/>.
     /// </summary>
     public class HtmlPageView : WebBrowser, IView
     {
         private Url url;
 
         /// <summary>
-        /// Initializes a new instance of the <c>HtmlPageView</c> class. 
+        /// Constructs a new <see cref="HtmlPageView"/>.
         /// </summary>
         public HtmlPageView()
         {
@@ -29,13 +29,19 @@ namespace Core.Common.Controls.Swf
             {
                 url = (Url) value;
 
-                if (url != null)
+                if (url != null && url.Path != null)
                 {
                     Navigate(url.Path);
                 }
             }
         }
 
+        /// <summary>
+        /// Get or sets the text of the <see cref="HtmlPageView"/>.
+        /// </summary>
+        /// <remarks>
+        /// A base implementation was already provided by <see cref="WebBrowser"/> but this implementation turned out to only throw exceptions.
+        /// </remarks>
         public override string Text { get; set; }
     }
 }
