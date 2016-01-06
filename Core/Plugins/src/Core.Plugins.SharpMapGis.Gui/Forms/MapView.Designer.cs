@@ -1,4 +1,4 @@
-﻿using Core.Common.Controls.Swf;
+﻿using Core.Common.Controls;
 using Core.GIS.SharpMap.UI.Forms;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms

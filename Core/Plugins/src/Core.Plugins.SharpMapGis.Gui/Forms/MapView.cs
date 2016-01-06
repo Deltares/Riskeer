@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Swf;
 using Core.Common.Controls.Views;
-using Core.Common.Utils.Events;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
-using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;
 using Core.GIS.SharpMap.UI.Tools;

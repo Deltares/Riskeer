@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Controls.Swf;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Swf;
 using Core.Common.Utils;
