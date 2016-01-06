@@ -7,7 +7,7 @@ using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 
-namespace Core.Plugins.CommonTools.Gui.Test
+namespace Core.Plugins.CommonTools.Test
 {
     [TestFixture]
     public class CommonToolsGuiPluginTest

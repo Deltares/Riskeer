@@ -6,7 +6,7 @@ using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 
-namespace Core.Plugins.CommonTools.Gui.Test.Property
+namespace Core.Plugins.CommonTools.Test.Property
 {
     [TestFixture]
     public class UrlPropertiesTest
