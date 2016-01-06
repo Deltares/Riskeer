@@ -177,11 +177,6 @@
       <Name>Core.Common.Controls.Swf</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Table\Core.Common.Controls.Table.csproj">
-      <Project>{4b2add09-ecac-439d-82fc-dbf8aa63772d}</Project>
-      <Name>Core.Common.Controls.Table</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
       <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
       <Name>Core.Common.Controls.TreeView</Name>
