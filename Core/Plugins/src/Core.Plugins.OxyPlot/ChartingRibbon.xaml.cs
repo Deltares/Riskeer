@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
@@ -14,39 +11,21 @@ namespace Core.Plugins.OxyPlot
     /// </summary>
     public partial class ChartingRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand openChartViewCommand;
-
         public ChartingRibbon()
         {
             InitializeComponent();
-            openChartViewCommand = new OpenChartViewCommand();
         }
+
+        public ICommand OpenChartViewCommand { private get; set; }
+        public ICommand ToggleLegendViewCommand { private get; set; }
 
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                yield return openChartViewCommand;
+                yield return OpenChartViewCommand;
+                yield return ToggleLegendViewCommand;
             }
-        }
-
-        public Ribbon GetRibbonControl()
-        {
-            return RibbonControl;
-        }
-
-        public void ValidateItems()
-        {
-        }
-
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
-        {
-            return tabGroupName == ChartingContextualGroup.Name;
-        }
-
-        private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)
-        {
-            openChartViewCommand.Execute();
         }
 
         public void ShowChartingTab()
@@ -57,6 +36,31 @@ namespace Core.Plugins.OxyPlot
         public void HideChartingTab()
         {
             ChartingContextualGroup.Visibility = Visibility.Collapsed;
+        }
+
+        public Ribbon GetRibbonControl()
+        {
+            return RibbonControl;
+        }
+
+        public void ValidateItems()
+        {
+            ToggleLegendButton.IsChecked = ToggleLegendViewCommand.Checked;
+        }
+
+        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        {
+            return false;
+        }
+
+        private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)
+        {
+            OpenChartViewCommand.Execute();
+        }
+
+        private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleLegendViewCommand.Execute();
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Utils.PropertyBag;
@@ -162,6 +163,18 @@ namespace Core.Common.Gui
         /// include the modification of the tree structure which is reflected in a tool tip.
         /// </summary>
         void UpdateToolTips();
+
+        /// <summary>
+        /// Open the tool view and make it visible in the interface.
+        /// </summary>
+        /// <param name="toolView">The tool view to open.</param>
+        void OpenToolView(IView toolView);
+
+        /// <summary>
+        /// Close the tool view removing it from the interface.
+        /// </summary>
+        /// <param name="toolView">The tool view to close.</param>
+        void CloseToolView(IView toolView);
 
         #endregion
 

@@ -66,8 +66,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ToggleLegendViewCommandTest.cs" />
     <Compile Include="Forms\ChartDataViewTest.cs" />
-    <Compile Include="OpenChartViewCommandTest.cs" />
+    <Compile Include="Commands\OpenChartViewCommandTest.cs" />
+    <Compile Include="Legend\LegendViewTest.cs" />
+    <Compile Include="Legend\LegendControllerTest.cs" />
     <Compile Include="OxyPlotGuiPluginTest.cs">
       <SubType>Component</SubType>
     </Compile>

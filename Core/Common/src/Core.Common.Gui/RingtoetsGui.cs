@@ -402,6 +402,17 @@ namespace Core.Common.Gui
             }
         }
 
+        public void CloseToolView(IView toolView)
+        {
+            ToolWindowViews.Remove(toolView);
+        }
+
+        public void OpenToolView(IView toolView)
+        {
+            ToolWindowViews.Add(toolView);
+            ToolWindowViews.ActiveView = toolView;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

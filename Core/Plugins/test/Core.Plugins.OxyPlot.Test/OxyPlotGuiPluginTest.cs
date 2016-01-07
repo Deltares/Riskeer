@@ -15,15 +15,15 @@ namespace Core.Plugins.OxyPlot.Test
     public class OxyPlotGuiPluginTest
     {
         [Test]
-        [RequiresSTA]
         public void DefaultConstructor_Always_NoRibbonCommandHandlerSet()
         {
             // Call
-            var plugin = new OxyPlotGuiPlugin();
-
-            // Assert
-            Assert.IsInstanceOf<GuiPlugin>(plugin);
-            Assert.IsNull(plugin.RibbonCommandHandler);
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                // Assert
+                Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.IsNull(plugin.RibbonCommandHandler);
+            }
         }
 
         [Test]
@@ -31,51 +31,55 @@ namespace Core.Plugins.OxyPlot.Test
         public void Activate_WithoutGui_ThrowsNullReferenceException()
         {
             // Setup
-            var plugin = new OxyPlotGuiPlugin();
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                // Call
+                TestDelegate test = () => plugin.Activate();
 
-            // Call
-            TestDelegate test = () => plugin.Activate();
-
-            // Assert
-            Assert.Throws<NullReferenceException>(test);
+                // Assert
+                Assert.Throws<NullReferenceException>(test);
+            }
         }
+
         [Test]
         [RequiresSTA]
         public void Activate_WithGui_SetsRibbonCommandHandlerAndBindsActiveViewChanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var plugin = new OxyPlotGuiPlugin();
-            var gui = mocks.StrictMock<IGui>();
-            gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                var mocks = new MockRepository();
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
 
-            mocks.ReplayAll();
+                mocks.ReplayAll();
 
-            plugin.Gui = gui;
+                plugin.Gui = gui;
 
-            // Call
-            plugin.Activate();
+                // Call
+                plugin.Activate();
 
-            // Assert
-            Assert.IsInstanceOf<GuiPlugin>(plugin);
-            Assert.NotNull(plugin.RibbonCommandHandler);
-            mocks.VerifyAll();
+                // Assert
+                Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.NotNull(plugin.RibbonCommandHandler);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
-        [RequiresSTA]
         public void GetViewInfoObjects_Always_ReturnsChartDataViewInfo()
         {
             // Setup
-            var plugin = new OxyPlotGuiPlugin();
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                // Call
+                var views = plugin.GetViewInfoObjects().ToArray();
 
-            // Call
-            var views = plugin.GetViewInfoObjects().ToArray();
-
-            // Assert
-            Assert.AreEqual(1, views.Length);
-            Assert.AreEqual(typeof(IChartData), views[0].DataType);
-            Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
+                // Assert
+                Assert.AreEqual(1, views.Length);
+                Assert.AreEqual(typeof(IChartData), views[0].DataType);
+                Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
+            }
         }
 
         [Test]
@@ -86,13 +90,13 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Given
             using (var gui = new RingtoetsGui())
+            using (var plugin = new OxyPlotGuiPlugin())
             {
                 var mocks = new MockRepository();
                 IView viewMock = visible ? (IView) new TestChartView() : new TestView();
 
                 mocks.ReplayAll();
 
-                var plugin = new OxyPlotGuiPlugin();
                 gui.Plugins.Add(plugin);
                 gui.Run();
 

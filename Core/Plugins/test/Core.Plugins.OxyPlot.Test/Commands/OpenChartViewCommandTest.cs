@@ -1,4 +1,5 @@
 ﻿using Core.Common.Gui;
+using Core.Plugins.OxyPlot.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 

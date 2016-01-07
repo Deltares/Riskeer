@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Core.Common.Gui;
 using Core.Components.OxyPlot.Data;
 
-namespace Core.Plugins.OxyPlot
+namespace Core.Plugins.OxyPlot.Commands
 {
     public class OpenChartViewCommand : IGuiCommand {
         public bool Enabled

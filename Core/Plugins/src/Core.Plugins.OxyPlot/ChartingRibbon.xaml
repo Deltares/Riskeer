@@ -6,6 +6,7 @@
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:gui="clr-namespace:Core.Common.Gui;assembly=Core.Common.Gui"
              xmlns:p="clr-namespace:Core.Plugins.OxyPlot.Properties"
+             xmlns:common="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
         <gui:PngToIconConverter x:Key="IconConverter"/>
@@ -19,6 +20,12 @@
         <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Demo_Header}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_Chart}" fluent:KeyTip.Keys="C">
                 <fluent:Button Header="{x:Static p:Resources.Ribbon_Chart}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click"/>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+
+        <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
+            <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="G">
+                <fluent:ToggleButton Name="ToggleLegendButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 

@@ -417,7 +417,7 @@ namespace Core.Plugins.Charting.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
+        ///   Looks up a localized string similar to Oud Grafiek.
         /// </summary>
         public static string ChartingGuiPlugin_Chart {
             get {

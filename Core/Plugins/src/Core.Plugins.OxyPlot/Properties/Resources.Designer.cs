@@ -115,5 +115,23 @@ namespace Core.Plugins.OxyPlot.Properties {
                 return ResourceManager.GetString("Ribbon_Demo_Header", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grafiek.
+        /// </summary>
+        public static string Ribbon_Toggle_Legend {
+            get {
+                return ResourceManager.GetString("Ribbon_Toggle_Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open het gereedschapsvenster voor grafieken..
+        /// </summary>
+        public static string Ribbon_Toggle_Legend_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Toggle_Legend_ToolTip", resourceCulture);
+            }
+        }
     }
 }

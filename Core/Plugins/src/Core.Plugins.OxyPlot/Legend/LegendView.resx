@@ -117,29 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="toolBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="toolBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 25</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="toolBar.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="toolBar.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolBar.Name" xml:space="preserve">
+    <value>toolBar</value>
+  </data>
+  <data name="&gt;&gt;toolBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolBar.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="treeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="treeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="treeView.SelectedImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="treeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 97</value>
+  </data>
+  <data name="treeView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;treeView.Name" xml:space="preserve">
+    <value>treeView</value>
+  </data>
+  <data name="&gt;&gt;treeView.Type" xml:space="preserve">
+    <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1491, Culture=neutral, PublicKeyToken=null</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ChartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="seriesTree.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="DocumentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\document.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="seriesTree.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="OpenChartView_ToolTip" xml:space="preserve">
-    <value>Open een documentvenster met een diagram.</value>
+  <data name="seriesTree.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
   </data>
-  <data name="Ribbon_Chart" xml:space="preserve">
-    <value>Grafiek</value>
+  <data name="seriesTree.SelectedImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="Ribbon_ContextualGroup_Charting" xml:space="preserve">
-    <value>Grafieken</value>
+  <data name="seriesTree.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 387</value>
   </data>
-  <data name="Ribbon_Demo_Header" xml:space="preserve">
-    <value>Demo</value>
+  <data name="seriesTree.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="Ribbon_Toggle_Legend" xml:space="preserve">
-    <value>Grafiek</value>
+  <data name="&gt;&gt;seriesTree.Name" xml:space="preserve">
+    <value>seriesTree</value>
   </data>
-  <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
-    <value>Open het gereedschapsvenster voor grafieken.</value>
+  <data name="&gt;&gt;seriesTree.Type" xml:space="preserve">
+    <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1491, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;seriesTree.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;seriesTree.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 412</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>LegendView</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

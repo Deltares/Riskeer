@@ -467,7 +467,7 @@
     <value>Liniaal</value>
   </data>
   <data name="ChartingGuiPlugin_Chart" xml:space="preserve">
-    <value>Grafiek</value>
+    <value>Oud Grafiek</value>
   </data>
   <data name="ChartProperties_FontValid_Font_can_not_be_empty" xml:space="preserve">
     <value>Lettertype kan niet leeg zijn.</value>

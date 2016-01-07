@@ -1,0 +1,70 @@
+﻿using System;
+using Core.Common.Controls.Views;
+
+namespace Core.Plugins.OxyPlot.Legend
+{
+    /// <summary>
+    /// This class controls the actions which are related to a <see cref="LegendView"/> and act upon a <see cref="OxyPlotGuiPlugin"/>.
+    /// </summary>
+    public class LegendController
+    {
+        private readonly IOxyPlotGuiPlugin plugin;
+        private IView legendView;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="LegendController"/>.
+        /// </summary>
+        /// <param name="plugin">The <see cref="OxyPlotGuiPlugin"/> to invoke actions upon.</param>
+        public LegendController(IOxyPlotGuiPlugin plugin)
+        {
+            if (plugin == null)
+            {
+                throw new ArgumentNullException("plugin", "Cannot create a LegendController when the plugin is null.");
+            }
+            this.plugin = plugin;
+        }
+
+        /// <summary>
+        /// Toggles the <see cref="LegendView"/>.
+        /// </summary>
+        public void ToggleLegend()
+        {
+            if (IsLegendViewOpen())
+            {
+                CloseLegendView();
+            }
+            else
+            {
+                OpenLegendView();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a <see cref="LegendView"/> is open.
+        /// </summary>
+        /// <returns><c>true</c> if the <see cref="LegendView"/> is open, <c>false</c> otherwise.</returns>
+        public bool IsLegendViewOpen()
+        {
+            return plugin.IsToolWindowOpen<LegendView>();
+        }
+
+        /// <summary>
+        /// Open the <see cref="LegendView"/>.
+        /// </summary>
+        private void OpenLegendView()
+        {
+            legendView = new LegendView();
+            plugin.OpenToolView(legendView);
+        }
+
+        /// <summary>
+        /// Closes the <see cref="LegendView"/>.
+        /// </summary>
+        private void CloseLegendView()
+        {
+            plugin.CloseToolView(legendView);
+            legendView.Dispose();
+            legendView = null;
+        }
+    }
+}
