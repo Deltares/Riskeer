@@ -68,8 +68,6 @@
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
@@ -80,8 +78,6 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\ProjectExplorerGuiPluginExceptionTest.cs" />
@@ -103,10 +99,6 @@
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
-      <Project>{08205620-D756-4533-922C-D6A4C0038535}</Project>
-      <Name>Core.Common.Gui.Swf</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
@@ -118,14 +110,6 @@
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
-      <Name>Core.Plugins.CommonTools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>
