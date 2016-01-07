@@ -71,8 +71,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -92,7 +94,10 @@
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\HtmlPageView.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\HtmlPageView.Designer.cs">
+      <DependentUpon>HtmlPageView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,7 +150,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HtmlPageView.resx">
       <DependentUpon>HtmlPageView.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

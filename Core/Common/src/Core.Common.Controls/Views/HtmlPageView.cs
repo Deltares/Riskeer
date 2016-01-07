@@ -1,4 +1,4 @@
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Core.Common.Utils;
 
 namespace Core.Common.Controls.Views
@@ -6,7 +6,7 @@ namespace Core.Common.Controls.Views
     /// <summary>
     /// Class for showing a html page based on an <see cref="Url"/>.
     /// </summary>
-    public class HtmlPageView : WebBrowser, IView
+    public partial class HtmlPageView : UserControl, IView
     {
         private Url url;
 
@@ -15,7 +15,7 @@ namespace Core.Common.Controls.Views
         /// </summary>
         public HtmlPageView()
         {
-            ScriptErrorsSuppressed = true;
+            InitializeComponent();
         }
 
         public object Data
@@ -26,21 +26,13 @@ namespace Core.Common.Controls.Views
             }
             set
             {
-                url = (Url) value;
+                url = value as Url;
 
                 if (url != null && url.Path != null)
                 {
-                    Navigate(url.Path);
+                    webBrowser.Navigate(url.Path);
                 }
             }
         }
-
-        /// <summary>
-        /// Get or sets the text of the <see cref="HtmlPageView"/>.
-        /// </summary>
-        /// <remarks>
-        /// A base implementation was already provided by <see cref="WebBrowser"/> but this implementation turned out to only throw exceptions.
-        /// </remarks>
-        public override string Text { get; set; }
     }
 }
