@@ -32,6 +32,10 @@ namespace Core.Common.Controls.Views
                 {
                     webBrowser.Navigate(url.Path);
                 }
+                else
+                {
+                    webBrowser.Navigate("");
+                }
             }
         }
 
