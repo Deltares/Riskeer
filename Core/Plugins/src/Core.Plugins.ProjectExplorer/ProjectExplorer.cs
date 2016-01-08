@@ -27,7 +27,6 @@ namespace Core.Plugins.ProjectExplorer
             {
                 Dock = DockStyle.Fill
             };
-            ProjectTreeView.TreeView.BeforeWaitUntilAllEventsAreProcessed += TreeViewOnBeforeWaitUntilAllEventsAreProcessed;
             treeViewPanel.Controls.Add(ProjectTreeView);
 
             gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
@@ -56,7 +55,6 @@ namespace Core.Plugins.ProjectExplorer
             }
             gui = null;
 
-            ProjectTreeView.TreeView.BeforeWaitUntilAllEventsAreProcessed -= TreeViewOnBeforeWaitUntilAllEventsAreProcessed;
             ProjectTreeView.Dispose();
             base.Dispose();
         }
@@ -80,15 +78,6 @@ namespace Core.Plugins.ProjectExplorer
             }
 
             TreeView.SelectedNode = nodeToSelect;
-        }
-
-        private void TreeViewOnBeforeWaitUntilAllEventsAreProcessed()
-        {
-            if (!gui.MainWindow.Visible)
-            {
-                // fail fast, this error indicates that the code (usually test) interacts with gui not in showAction
-                throw new InvalidOperationException(Resources.ProjectExplorer_TreeViewOnBeforeWaitUntilAllEventsAreProcessed_MainWindow_must_be_visible_when_WaitUntilAllEventsAreProcessed_is_called_on_project_tree_view_);
-            }
         }
 
         private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)

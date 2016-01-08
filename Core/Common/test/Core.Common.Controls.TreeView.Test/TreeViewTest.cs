@@ -412,8 +412,6 @@ namespace Core.Common.Controls.TreeView.Test
                 elapsedMillisecondsWithTreeView = processingAction();
                 Console.WriteLine(@"Elapsed time to perform action with tree view: " + elapsedMillisecondsWithTreeView);
 
-                treeView.WaitUntilAllEventsAreProcessed();
-
                 stopwatch.Stop();
                 Console.WriteLine(@"Elapsed time to refresh tree view: " + stopwatch.ElapsedMilliseconds);
             };

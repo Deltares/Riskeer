@@ -22,8 +22,6 @@ namespace Core.Common.Controls.TreeView
         public event EventHandler SelectedNodeChanged;
         public event EventHandler OnUpdate;
 
-        public event Action BeforeWaitUntilAllEventsAreProcessed;
-
         /// <summary>
         /// Occurs when a node with data has been deleted from the tree view.
         /// </summary>
@@ -379,14 +377,6 @@ namespace Core.Common.Controls.TreeView
             return (currentNode.IsLoaded)
                        ? allChildNodes.Concat(currentNode.Nodes.SelectMany(GetAllLoadedNodes))
                        : allChildNodes;
-        }
-
-        public void WaitUntilAllEventsAreProcessed()
-        {
-            if (BeforeWaitUntilAllEventsAreProcessed != null)
-            {
-                BeforeWaitUntilAllEventsAreProcessed();
-            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
