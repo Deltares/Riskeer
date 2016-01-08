@@ -26,7 +26,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var node = mocks.StrictMock<ITreeNode>();
+            var node = mocks.StrictMock<TreeNode>();
             node.Expect(n => n.Tag).Return(null);
             mocks.ReplayAll();
 
@@ -47,16 +47,16 @@ namespace Core.Common.Controls.TreeView.Test
             var sourceData = new object();
             var mocks = new MockRepository();
 
-            var sourceNode = mocks.StrictMock<ITreeNode>();
+            var sourceNode = mocks.StrictMock<TreeNode>();
             sourceNode.Expect(n => n.IsExpanded).Return(false);
             sourceNode.Expect(n => n.Tag).Return(sourceData);
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
             targetNode.Expect(n => n.IsExpanded).Return(true);
             targetNode.Expect(n => n.Tag).Return(sourceData);
             targetNode.Expect(n => n.Collapse());
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
             mocks.ReplayAll();
 
@@ -76,16 +76,16 @@ namespace Core.Common.Controls.TreeView.Test
             var sourceData = new object();
             var mocks = new MockRepository();
 
-            var sourceNode = mocks.StrictMock<ITreeNode>();
+            var sourceNode = mocks.StrictMock<TreeNode>();
             sourceNode.Expect(n => n.IsExpanded).Return(true);
             sourceNode.Expect(n => n.Tag).Return(sourceData);
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
             targetNode.Expect(n => n.IsExpanded).Return(false);
             targetNode.Expect(n => n.Expand());
             targetNode.Expect(n => n.Tag).Return(sourceData);
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
             mocks.ReplayAll();
 
@@ -107,15 +107,15 @@ namespace Core.Common.Controls.TreeView.Test
             var sourceData = new object();
             var mocks = new MockRepository();
 
-            var sourceNode = mocks.StrictMock<ITreeNode>();
+            var sourceNode = mocks.StrictMock<TreeNode>();
             sourceNode.Expect(n => n.IsExpanded).Return(isExpanded);
             sourceNode.Expect(n => n.Tag).Return(sourceData);
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
             targetNode.Expect(n => n.IsExpanded).Return(isExpanded);
             targetNode.Expect(n => n.Tag).Return(sourceData);
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
             mocks.ReplayAll();
 
@@ -136,14 +136,14 @@ namespace Core.Common.Controls.TreeView.Test
             var targetData = new object();
             var mocks = new MockRepository();
 
-            var sourceNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
             sourceNode.Stub(n => n.IsExpanded).Return(true);
             sourceNode.Tag = sourceData;
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var targetNode = mocks.Stub<ITreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
             targetNode.Tag = targetData;
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
             mocks.ReplayAll();
 
@@ -168,39 +168,39 @@ namespace Core.Common.Controls.TreeView.Test
  
             var mocks = new MockRepository();
 
-            var stubNode = mocks.Stub<ITreeNode>();
+            var stubNode = mocks.Stub<TreeNode>();
             stubNode.Tag = new object();
-            stubNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            stubNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var sourceChildNode = mocks.Stub<ITreeNode>();
+            var sourceChildNode = mocks.Stub<TreeNode>();
             sourceChildNode.Tag = childData;
             sourceChildNode.Stub(n => n.IsExpanded).Return(true);
-            sourceChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            sourceChildNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 stubNode
             });
 
-            var sourceNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
             sourceNode.Stub(n => n.IsExpanded).Return(true);
             sourceNode.Tag = sourceData;
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 sourceChildNode
             });
 
-            var targetChildNode = mocks.StrictMock<ITreeNode>();
+            var targetChildNode = mocks.StrictMock<TreeNode>();
             targetChildNode.Stub(n => n.Tag).Return(childData);
             targetChildNode.Stub(n => n.IsExpanded).Return(false);
             targetChildNode.Expect(n => n.Expand());
-            targetChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            targetChildNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 stubNode
             });
 
-            var targetNode = mocks.Stub<ITreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
             targetNode.Stub(n => n.IsExpanded).Return(true);
             targetNode.Tag = sourceData;
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 targetChildNode
             });
@@ -225,39 +225,39 @@ namespace Core.Common.Controls.TreeView.Test
 
             var mocks = new MockRepository();
 
-            var stubNode = mocks.Stub<ITreeNode>();
+            var stubNode = mocks.Stub<TreeNode>();
             stubNode.Tag = new object();
-            stubNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            stubNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var sourceChildNode = mocks.Stub<ITreeNode>();
+            var sourceChildNode = mocks.Stub<TreeNode>();
             sourceChildNode.Tag = childData;
             sourceChildNode.Stub(n => n.IsExpanded).Return(false);
-            sourceChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            sourceChildNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 stubNode
             });
 
-            var sourceNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
             sourceNode.Stub(n => n.IsExpanded).Return(true);
             sourceNode.Tag = sourceData;
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 sourceChildNode
             });
 
-            var targetChildNode = mocks.StrictMock<ITreeNode>();
+            var targetChildNode = mocks.StrictMock<TreeNode>();
             targetChildNode.Stub(n => n.Tag).Return(childData);
             targetChildNode.Stub(n => n.IsExpanded).Return(true);
             targetChildNode.Expect(n => n.Collapse());
-            targetChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            targetChildNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 stubNode
             });
 
-            var targetNode = mocks.Stub<ITreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
             targetNode.Stub(n => n.IsExpanded).Return(true);
             targetNode.Tag = sourceData;
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 targetChildNode
             });
@@ -282,26 +282,26 @@ namespace Core.Common.Controls.TreeView.Test
 
             var mocks = new MockRepository();
 
-            var stubNode = mocks.Stub<ITreeNode>();
+            var stubNode = mocks.Stub<TreeNode>();
             stubNode.Tag = new object();
-            stubNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            stubNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var sourceNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
             sourceNode.Stub(n => n.IsExpanded).Return(true);
             sourceNode.Tag = sourceData;
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var targetChildNode = mocks.StrictMock<ITreeNode>();
+            var targetChildNode = mocks.StrictMock<TreeNode>();
             targetChildNode.Stub(n => n.Tag).Return(childData);
-            targetChildNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            targetChildNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 stubNode
             });
 
-            var targetNode = mocks.Stub<ITreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
             targetNode.Stub(n => n.IsExpanded).Return(true);
             targetNode.Tag = sourceData;
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>
             {
                 targetChildNode
             });
@@ -331,16 +331,16 @@ namespace Core.Common.Controls.TreeView.Test
             };
 
             var mocks = new MockRepository();
-            var sourceNode = mocks.StrictMock<ITreeNode>();
+            var sourceNode = mocks.StrictMock<TreeNode>();
             sourceNode.Expect(n => n.IsExpanded).Return(false);
             sourceNode.Expect(n => n.Tag).Return(data1);
-            sourceNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            sourceNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
             targetNode.Expect(n => n.IsExpanded).Return(true);
             targetNode.Expect(n => n.Tag).Return(data2);
             targetNode.Expect(n => n.Collapse());
-            targetNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            targetNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
 
             mocks.ReplayAll();
 

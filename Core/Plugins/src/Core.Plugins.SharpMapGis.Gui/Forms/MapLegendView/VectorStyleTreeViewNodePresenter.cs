@@ -6,7 +6,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class VectorStyleTreeViewNodePresenter : TreeViewNodePresenterBase<VectorStyle>
     {
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, VectorStyle style)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, VectorStyle style)
         {
             if (node.Tag != style)
             {
@@ -24,7 +24,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        protected override void OnPropertyChanged(VectorStyle vectorStyle, ITreeNode node, PropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(VectorStyle vectorStyle, TreeNode node, PropertyChangedEventArgs e)
         {
             if (node == null)
             {

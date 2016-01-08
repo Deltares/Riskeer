@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             const string outputName = "Piping resultaat";
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var pipingNode = mockRepository.Stub<ITreeNode>();
+            var pipingNode = mockRepository.Stub<TreeNode>();
             mockRepository.ReplayAll();
 
             pipingNode.ForegroundColor = Color.AliceBlue;
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
 

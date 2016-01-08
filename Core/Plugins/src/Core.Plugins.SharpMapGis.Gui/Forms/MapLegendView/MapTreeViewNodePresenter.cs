@@ -9,6 +9,7 @@ using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
@@ -23,7 +24,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             contextMenuProvider = mapLegend;
         }
 
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             return true;
         }
@@ -46,7 +47,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Map map)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, Map map)
         {
             SetNodeText(node, map);
             node.Image = MapIcon;
@@ -66,12 +67,12 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return map.Layers.Where(l => l.ShowInTreeView);
         }
 
-        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public override bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
         {
             return true;
         }
 
-        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public override DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
             if (item is Layer)
             {
@@ -98,12 +99,12 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        public override ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
+        public override ContextMenuStrip GetContextMenu(TreeNode node, object nodeData)
         {
             return contextMenuProvider.GetContextMenu(nodeData);
         }
 
-        protected override void OnPropertyChanged(Map map, ITreeNode node, PropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(Map map, TreeNode node, PropertyChangedEventArgs e)
         {
             if (node == null)
             {
@@ -116,7 +117,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        private static void SetNodeText(ITreeNode node, Map map)
+        private static void SetNodeText(TreeNode node, Map map)
         {
             node.Text = map.CoordinateSystem != null ? string.Format("{0} ({1})", map.Name, map.CoordinateSystem.Name) : map.Name;
         }

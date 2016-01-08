@@ -3,11 +3,11 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Integration.Data;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Integration.Forms.NodePresenters
 {
@@ -25,17 +25,17 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public AssessmentSectionBaseNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             return true;
         }
 
-        public override bool CanRenameNodeTo(ITreeNode node, string newName)
+        public override bool CanRenameNodeTo(TreeNode node, string newName)
         {
             return true;
         }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, AssessmentSectionBase nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, AssessmentSectionBase nodeData)
         {
             node.Text = nodeData.Name;
             node.Image = RingtoetsFormsResources.AssessmentSectionFolderIcon;
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             return true;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, AssessmentSectionBase nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, AssessmentSectionBase nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)

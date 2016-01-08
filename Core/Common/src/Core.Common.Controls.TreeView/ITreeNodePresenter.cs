@@ -28,7 +28,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="node"></param>
         /// <param name="nodeData"></param>
         /// <returns></returns>
-        void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData);
+        void UpdateNode(TreeNode parentNode, TreeNode node, object nodeData);
 
         /// <summary>
         /// Returns array of child objects for <paramref name="parentNodeData"/> for which nodes should be added.
@@ -47,7 +47,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns>True if <paramref name="node"/> can be renamed, false otherwise.</returns>
         /// <remarks>Any <see cref="ITreeNodePresenter"/> that can return true with this method, should use <see cref="OnNodeRenamed"/> for renaming logic.</remarks>
         /// <seealso cref="OnNodeRenamed"/>
-        bool CanRenameNode(ITreeNode node);
+        bool CanRenameNode(TreeNode node);
 
         /// <summary>
         /// Indicates that the can be renamed and newName is a valid name.
@@ -57,7 +57,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns>True if <paramref name="node"/> can be renamed, false otherwise.</returns>
         /// <remarks>Any <see cref="ITreeNodePresenter"/> that can return true with this method, should use <see cref="OnNodeRenamed"/> for renaming logic.</remarks>
         /// <seealso cref="OnNodeRenamed"/>
-        bool CanRenameNodeTo(ITreeNode node, string newName);
+        bool CanRenameNodeTo(TreeNode node, string newName);
 
         /// <summary>
         /// Renames the node
@@ -72,7 +72,7 @@ namespace Core.Common.Controls.TreeView
         /// When the node has a checkbox, this method handles the data operation for checking/unchecking the node.
         /// </summary>
         /// <param name="node"></param>
-        void OnNodeChecked(ITreeNode node);
+        void OnNodeChecked(TreeNode node);
 
         /// <summary>
         /// Indicates if a node can be dragged to another location.
@@ -98,8 +98,8 @@ namespace Core.Common.Controls.TreeView
         ///          default is move for folder in same project
         /// </returns>
         /// <remarks>This method should be called for the node presenter of <paramref name="targetNode"/>.</remarks>
-        /// TODO: change item, sourceParentNodeData, targetParentNodeData to ITreeNode!
-        DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations);
+        /// TODO: change item, sourceParentNodeData, targetParentNodeData to TreeNode!
+        DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations);
 
         /// <summary>
         /// Checks if insertion at a specific index into the target is allowed.
@@ -108,7 +108,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="sourceNode">The node corresponding with <paramref name="item"/>.</param>
         /// <param name="targetNode">The node being considered as drop target for <paramref name="item"/>.</param>
         /// <returns>True if insertion is supported; false otherwise.</returns>
-        bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode);
+        bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode);
 
         /// <summary>
         /// Handles dropping a piece of data onto another node.
@@ -120,7 +120,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="position"></param>
         /// <remarks>This method should be called for the node presenter of the node corresponding
         /// with <paramref name="target"/>.</remarks>
-        /// TODO: change item, itemParent, target to ITreeNode!
+        /// TODO: change item, itemParent, target to TreeNode!
         void OnDragDrop(object item, object itemParent, object target, DragOperations operation, int position);
 
         /// <summary>
@@ -132,12 +132,12 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Returns context menu based on current data
         /// </summary>
-        ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData);
+        ContextMenuStrip GetContextMenu(TreeNode node, object nodeData);
 
         /// <summary>
         /// Updates node due to it's property change.
         /// </summary>
-        void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e);
+        void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e);
 
         /// <summary>
         /// Reflect changes in the collection of items contained by the e.Item to the tree

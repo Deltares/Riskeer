@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui.ContextMenu
 {
@@ -22,10 +22,10 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> from which to obtain information to render and bind actions
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
         /// require this type of information.</param>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="treeNode">The <see cref="Controls.TreeView.TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
         /// the <paramref name="commandHandler"/> or <paramref name="treeNode"/>.</exception>
-        public ContextMenuBuilder(IGuiCommandHandler commandHandler, ITreeNode treeNode)
+        public ContextMenuBuilder(IGuiCommandHandler commandHandler, TreeNode treeNode)
         {
             try
             {

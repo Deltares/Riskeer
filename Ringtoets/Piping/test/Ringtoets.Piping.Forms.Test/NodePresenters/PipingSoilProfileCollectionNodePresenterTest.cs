@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_WithEmptyCollection_InitializeNodeWithGreyedText()
         {
             // Setup
-            var soilProfileCollectionNodeStub = mockRepository.Stub<ITreeNode>();
+            var soilProfileCollectionNodeStub = mockRepository.Stub<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             mockRepository.ReplayAll();
 
@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            var soilProfileCollectionNodeStub = mockRepository.Stub<ITreeNode>();
+            var soilProfileCollectionNodeStub = mockRepository.Stub<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             mockRepository.ReplayAll();
 
@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
 

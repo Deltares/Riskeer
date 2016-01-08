@@ -6,6 +6,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Plugins.ProjectExplorer.NodePresenters;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
@@ -141,7 +142,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            ITreeNode node = treeView.GetNodeByTag(gui.Selection);
+            TreeNode node = treeView.GetNodeByTag(gui.Selection);
             if (node != null)
             {
                 ((ITreeView) treeView).SelectedNode = node;
@@ -198,7 +199,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            treeView.SelectedNode = ((ITreeNode) e.Node);
+            treeView.SelectedNode = ((TreeNode) e.Node);
         }
 
         private void SubscribeProjectEvents()

@@ -7,7 +7,7 @@ using Core.Common.Controls.TreeView.Properties;
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// This class takes a <see cref="ITreeNode"/> and maps the current collapsed/expanded
+    /// This class takes a <see cref="TreeNode"/> and maps the current collapsed/expanded
     /// state of that node and its children. Then the state instance can be used to fully
     /// restore those states at a later time.
     /// </summary>
@@ -24,8 +24,8 @@ namespace Core.Common.Controls.TreeView
         /// <param name="nodeToBeRecorded">The node to be recorded.</param>
         /// <exception cref="System.ArgumentNullException">When <paramref name="nodeToBeRecorded"/> is null.</exception>
         /// <exception cref="System.ArgumentException">When <paramref name="nodeToBeRecorded"/> 
-        /// does not have data on its <see cref="ITreeNode.Tag"/>.</exception>
-        public TreeNodeExpandCollapseState(ITreeNode nodeToBeRecorded)
+        /// does not have data on its <see cref="TreeNode.Tag"/>.</exception>
+        public TreeNodeExpandCollapseState(TreeNode nodeToBeRecorded)
         {
             if (nodeToBeRecorded == null)
             {
@@ -48,7 +48,7 @@ namespace Core.Common.Controls.TreeView
         /// is not the same as was recorded.</exception>
         /// <exception cref="KeyNotFoundException">When <paramref name="targetNode"/> has
         /// different node-tree than recorded.</exception>
-        public void Restore(ITreeNode targetNode)
+        public void Restore(TreeNode targetNode)
         {
             if (!targetNode.Tag.Equals(tag))
             {

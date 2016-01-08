@@ -26,6 +26,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -81,7 +82,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var pipingNode = mockRepository.Stub<ITreeNode>();
+            var pipingNode = mockRepository.Stub<TreeNode>();
             pipingNode.ForegroundColor = Color.AliceBlue;
             mockRepository.ReplayAll();
 
@@ -148,7 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
@@ -166,7 +167,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
@@ -204,7 +205,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
@@ -240,8 +241,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            var sourceMock = mockRepository.StrictMock<ITreeNode>();
-            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var sourceMock = mockRepository.StrictMock<TreeNode>();
+            var targetMock = mockRepository.StrictMock<TreeNode>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
@@ -260,8 +261,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            var sourceMock = mockRepository.StrictMock<ITreeNode>();
-            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var sourceMock = mockRepository.StrictMock<TreeNode>();
+            var targetMock = mockRepository.StrictMock<TreeNode>();
             mockRepository.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
@@ -316,7 +317,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
             mockRepository.ReplayAll();
 
@@ -394,7 +395,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var nodeMock = mockRepository.Stub<ITreeNode>();
+            var nodeMock = mockRepository.Stub<TreeNode>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
 
             if (confirm)
@@ -452,7 +453,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.GetPipingCalculations().First().Output = new TestPipingOutput();
 
-            var nodeMock = mockRepository.Stub<ITreeNode>();
+            var nodeMock = mockRepository.Stub<TreeNode>();
             nodeMock.Tag = failureMechanism;
 
             var commandHandler = mockRepository.Stub<IGuiCommandHandler>();
@@ -494,7 +495,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
@@ -521,7 +522,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -553,7 +554,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -592,26 +593,26 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var newCalculationContextNode = mockRepository.StrictMock<ITreeNode>();
+            var newCalculationContextNode = mockRepository.StrictMock<TreeNode>();
 
-            var failureMechanismCalculationsNode = mockRepository.StrictMock<ITreeNode>();
+            var failureMechanismCalculationsNode = mockRepository.StrictMock<TreeNode>();
             failureMechanismCalculationsNode.Expect(n => n.IsExpanded).Return(false);
             failureMechanismCalculationsNode.Expect(n => n.Expand());
             failureMechanismCalculationsNode.Expect(n => n.Nodes).WhenCalled(invocation =>
             {
                 if (failureMechanism.CalculationsGroup.Children.Count == 2)
                 {
-                    invocation.ReturnValue = new List<ITreeNode>
+                    invocation.ReturnValue = new List<TreeNode>
                     {
                         newCalculationContextNode
                     };
                 }
             }).Return(null);
 
-            var failureMechanismNode = mockRepository.StrictMock<ITreeNode>();
+            var failureMechanismNode = mockRepository.StrictMock<TreeNode>();
             failureMechanismNode.Expect(n => n.IsExpanded).Return(false);
             failureMechanismNode.Expect(n => n.Expand());
-            failureMechanismNode.Expect(n => n.Nodes).Return(new List<ITreeNode>
+            failureMechanismNode.Expect(n => n.Nodes).Return(new List<TreeNode>
             {
                 null,
                 failureMechanismCalculationsNode,
@@ -664,26 +665,26 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var newCalculationGroupContextNode = mockRepository.StrictMock<ITreeNode>();
+            var newCalculationGroupContextNode = mockRepository.StrictMock<TreeNode>();
 
-            var failureMechanismCalculationsNode = mockRepository.StrictMock<ITreeNode>();
+            var failureMechanismCalculationsNode = mockRepository.StrictMock<TreeNode>();
             failureMechanismCalculationsNode.Expect(n => n.IsExpanded).Return(false);
             failureMechanismCalculationsNode.Expect(n => n.Expand());
             failureMechanismCalculationsNode.Expect(n => n.Nodes).WhenCalled(invocation =>
             {
                 if (failureMechanism.CalculationsGroup.Children.Count == 2)
                 {
-                    invocation.ReturnValue = new List<ITreeNode>
+                    invocation.ReturnValue = new List<TreeNode>
                     {
                         newCalculationGroupContextNode
                     };
                 }
             }).Return(null);
 
-            var failureMechanismNode = mockRepository.StrictMock<ITreeNode>();
+            var failureMechanismNode = mockRepository.StrictMock<TreeNode>();
             failureMechanismNode.Expect(n => n.IsExpanded).Return(false);
             failureMechanismNode.Expect(n => n.Expand());
-            failureMechanismNode.Expect(n => n.Nodes).Return(new List<ITreeNode>
+            failureMechanismNode.Expect(n => n.Nodes).Return(new List<TreeNode>
             {
                 null,
                 failureMechanismCalculationsNode,

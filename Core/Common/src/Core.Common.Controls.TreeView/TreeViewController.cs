@@ -20,7 +20,7 @@ namespace Core.Common.Controls.TreeView
         private object data;
 
         private bool updatingExpandedState; // prevents recursive entries
-        private ITreeNode expandedStateRootNode;
+        private TreeNode expandedStateRootNode;
         private string[] loadedNodePaths;
         private string[] expandedNodePaths;
 
@@ -86,7 +86,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="item">Object to search a node presenter for</param>
         /// <param name="parentNode">Parent node of the node to resolve</param>
-        public ITreeNodePresenter ResolveNodePresenterForData(object item, ITreeNode parentNode = null)
+        public ITreeNodePresenter ResolveNodePresenterForData(object item, TreeNode parentNode = null)
         {
             if (parentNode == null)
             {
@@ -126,7 +126,7 @@ namespace Core.Common.Controls.TreeView
         /// Action to perform when the node is checked/unchecked
         /// </summary>
         /// <param name="node">Node that is checked/unchecked</param>
-        public void OnNodeChecked(ITreeNode node)
+        public void OnNodeChecked(TreeNode node)
         {
             if (node.IsUpdating)
             {
@@ -141,7 +141,7 @@ namespace Core.Common.Controls.TreeView
             node.Presenter.OnNodeChecked(node);
         }
 
-        public void UpdateNode(ITreeNode treeNode)
+        public void UpdateNode(TreeNode treeNode)
         {
             UpdateNode(treeNode, treeNode.Tag);
         }
@@ -151,7 +151,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="treeNode">Node to update</param>
         /// <param name="tag">the object bound to this node</param>
-        public void UpdateNode(ITreeNode treeNode, object tag)
+        public void UpdateNode(TreeNode treeNode, object tag)
         {
             var treeViewControl = treeView as Control;
             if (treeViewControl != null && treeViewControl.InvokeRequired)
@@ -185,7 +185,7 @@ namespace Core.Common.Controls.TreeView
                     var childNodeObjects = GetChildNodeObjects(treeNode).ToArray();
                     var count = childNodeObjects.Length;
 
-                    ((TreeNode)treeNode).HasChildren = count > 0;
+                    treeNode.HasChildren = count > 0;
 
                     if (!treeNode.IsLoaded && !wasLoaded)
                     {
@@ -217,7 +217,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="treeNode">Node for which to refresh the children</param>
         /// <returns>If the tree node is loaded</returns>
-        public void RefreshChildNodes(ITreeNode treeNode)
+        public void RefreshChildNodes(TreeNode treeNode)
         {
             RememberExpandedState(treeNode);
 
@@ -248,7 +248,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public ITreeNode AddNewNode(ITreeNode parentNode, object nodeData, int insertionIndex = -1)
+        public TreeNode AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
         {
             var newNode = treeView.NewNode();
 
@@ -273,7 +273,7 @@ namespace Core.Common.Controls.TreeView
                 }
             }
 
-            ((TreeNode) newNode).HasChildren = HasChildren(newNode);
+            newNode.HasChildren = HasChildren(newNode);
             return newNode;
         }
 
@@ -281,7 +281,7 @@ namespace Core.Common.Controls.TreeView
         /// Checks if the label of the treeNode can be changed
         /// </summary>
         /// <param name="node">Node to check for</param>
-        public bool CanRenameNode(ITreeNode node)
+        public bool CanRenameNode(TreeNode node)
         {
             return AskNodePresenter(node, np => np.CanRenameNode(node), false);
         }
@@ -290,7 +290,7 @@ namespace Core.Common.Controls.TreeView
         /// Checks if the provided node can be deleted
         /// </summary>
         /// <param name="node">Node to check</param>
-        public bool CanDeleteNode(ITreeNode node)
+        public bool CanDeleteNode(TreeNode node)
         {
             return AskNodePresenter(node, np =>
             {
@@ -299,7 +299,7 @@ namespace Core.Common.Controls.TreeView
             }, false);
         }
 
-        public void OnDragDrop(ITreeNode nodeDragging, ITreeNode parentNode, ITreeNode nodeDropTarget, DragOperations dragOperation, int dropAtLocation)
+        public void OnDragDrop(TreeNode nodeDragging, TreeNode parentNode, TreeNode nodeDropTarget, DragOperations dragOperation, int dropAtLocation)
         {
             var nodePresenter = nodeDropTarget.Presenter;
             if (nodePresenter == null)
@@ -315,7 +315,7 @@ namespace Core.Common.Controls.TreeView
             treeView.Refresh(); // Ensure the treeview is always up to date after creating handle (data is set and might be changed before enabling the delayed event handlers)
         }
 
-        private IEnumerable<ITreeNode> GetAllLoadedChildNodes(ITreeNode node, string[] forceNodeLoad = null)
+        private IEnumerable<TreeNode> GetAllLoadedChildNodes(TreeNode node, string[] forceNodeLoad = null)
         {
             if (!node.IsLoaded && (forceNodeLoad == null || !forceNodeLoad.Contains(node.FullPath)))
             {
@@ -333,7 +333,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private void RememberExpandedState(ITreeNode node)
+        private void RememberExpandedState(TreeNode node)
         {
             if (updatingExpandedState)
             {
@@ -349,7 +349,7 @@ namespace Core.Common.Controls.TreeView
             expandedStateRootNode = node;
         }
 
-        private void RestoreExpandedState(ITreeNode node)
+        private void RestoreExpandedState(TreeNode node)
         {
             if (!updatingExpandedState || node != expandedStateRootNode)
             {
@@ -361,18 +361,18 @@ namespace Core.Common.Controls.TreeView
             updatingExpandedState = false;
         }
 
-        private bool HasChildren(ITreeNode treeNode)
+        private bool HasChildren(TreeNode treeNode)
         {
             return GetChildNodeObjects(treeNode).Any();
         }
 
-        private IEnumerable<object> GetChildNodeObjects(ITreeNode treeNode)
+        private IEnumerable<object> GetChildNodeObjects(TreeNode treeNode)
         {
             return (AskNodePresenter(treeNode, p => p.GetChildNodeObjects(treeNode.Tag), null) ??
                     new object[0]).OfType<object>();
         }
 
-        private T AskNodePresenter<T>(ITreeNode node, Func<ITreeNodePresenter, T> nodePresenterFunction, T defaultValue)
+        private T AskNodePresenter<T>(TreeNode node, Func<ITreeNodePresenter, T> nodePresenterFunction, T defaultValue)
         {
             if (node == null || node.Tag == null)
             {
@@ -406,7 +406,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private ITreeNodePresenter GetNodePresenterForType(Type type, ITreeNode parentNode)
+        private ITreeNodePresenter GetNodePresenterForType(Type type, TreeNode parentNode)
         {
             var nodePresentersForType = nodePresenters.Where(p => p.NodeTagType == type).ToList();
 
@@ -425,7 +425,7 @@ namespace Core.Common.Controls.TreeView
                        : null;
         }
 
-        private void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
+        private void UpdateNode(TreeNode parentNode, TreeNode node, object nodeData)
         {
             var presenter = node.Presenter;
 
@@ -447,8 +447,8 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
-        /// Delegate required to perform asynchronous calls to <see cref="UpdateNode(ITreeNode, object)"/>.
+        /// Delegate required to perform asynchronous calls to <see cref="UpdateNode(TreeNode, object)"/>.
         /// </summary>
-        delegate void UpdateNodeInvokeDelegate(ITreeNode treeNode, object tag);
+        delegate void UpdateNodeInvokeDelegate(TreeNode treeNode, object tag);
     }
 }

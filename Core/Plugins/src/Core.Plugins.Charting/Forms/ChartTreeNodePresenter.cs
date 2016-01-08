@@ -8,12 +8,12 @@ namespace Core.Plugins.Charting.Forms
 {
     public class ChartTreeNodePresenter : TreeViewNodePresenterBase<IChart>
     {
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             return true;
         }
 
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IChart chart)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, IChart chart)
         {
             node.Tag = chart;
             node.Text = string.IsNullOrEmpty(chart.Title) ? Resources.ChartingGuiPlugin_Chart : chart.Title;
@@ -35,12 +35,12 @@ namespace Core.Plugins.Charting.Forms
             return chart.Series;
         }
 
-        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public override bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
         {
             return (null == TreeView.TreeViewNodeSorter);
         }
 
-        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public override DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
             if (item is IChartSeries)
             {

@@ -20,6 +20,7 @@ using Ringtoets.Piping.Service;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// </summary>
         public Action<IEnumerable<Activity>> RunActivitiesAction { private get; set; }
 
-        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public override DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
             if (GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
             {
@@ -52,23 +53,23 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return base.CanDrop(item, sourceNode, targetNode, validOperations);
         }
 
-        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public override bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
         {
             return GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode);
         }
 
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             var parentNode = node.Parent;
             return parentNode == null || !(parentNode.Tag is PipingFailureMechanism);
         }
 
-        public override bool CanRenameNodeTo(ITreeNode node, string newName)
+        public override bool CanRenameNodeTo(TreeNode node, string newName)
         {
             return true;
         }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationGroupContext nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, PipingCalculationGroupContext nodeData)
         {
             node.Text = nodeData.WrappedData.Name;
             node.Image = PipingFormsResources.FolderIcon;
@@ -105,7 +106,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return base.RemoveNodeData(parentNodeData, nodeData);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingCalculationGroupContext nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, PipingCalculationGroupContext nodeData)
         {
             var group = nodeData.WrappedData;
             var addCalculationGroupItem = new StrictContextMenuItem(
@@ -294,7 +295,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return new DroppingPipingCalculationToNewContainer(TreeView, originalOwnerContext, target);
         }
 
-        private bool NodesHaveSameParentFailureMechanism(ITreeNode sourceNode, ITreeNode targetNode)
+        private bool NodesHaveSameParentFailureMechanism(TreeNode sourceNode, TreeNode targetNode)
         {
             var sourceFailureMechanism = GetParentFailureMechanism(sourceNode);
             var targetFailureMechanism = GetParentFailureMechanism(targetNode);
@@ -302,7 +303,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return ReferenceEquals(sourceFailureMechanism, targetFailureMechanism);
         }
 
-        private static PipingFailureMechanism GetParentFailureMechanism(ITreeNode sourceNode)
+        private static PipingFailureMechanism GetParentFailureMechanism(TreeNode sourceNode)
         {
             PipingFailureMechanism sourceFailureMechanism;
             var node = sourceNode;
@@ -318,14 +319,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return sourceFailureMechanism;
         }
 
-        private void SelectNewlyAddedItemInTreeView(ITreeNode node)
+        private void SelectNewlyAddedItemInTreeView(TreeNode node)
         {
             // Expand parent of 'newItem' to ensure its selected state is visible.
             if (!node.IsExpanded)
             {
                 node.Expand();
             }
-            ITreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
+            TreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
             TreeView.SelectedNode = newlyAppendedNodeForNewItem;
         }
 
@@ -362,7 +363,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
                 NotifyObservers();
 
-                ITreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                TreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
                 UpdateTreeView(draggedNode, targetRecordedNodeState);
             }
 
@@ -393,13 +394,13 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             /// <param name="draggedNode">The dragged node.</param>
             /// <param name="targetRecordedNodeState">Recorded state of the target node
             /// before the drag & drop operation.</param>
-            protected virtual void UpdateTreeView(ITreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
+            protected virtual void UpdateTreeView(TreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
             {
                 HandlePostDragExpandCollapseOfNewOwner(draggedNode.Parent, targetRecordedNodeState);
                 treeView.SelectedNode = draggedNode;
             }
 
-            private static void HandlePostDragExpandCollapseOfNewOwner(ITreeNode parentOfDraggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
+            private static void HandlePostDragExpandCollapseOfNewOwner(TreeNode parentOfDraggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
             {
                 newOwnerRecordedNodeState.Restore(parentOfDraggedNode);
 
@@ -461,11 +462,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
                 NotifyObservers();
 
-                ITreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                TreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
                 UpdateTreeView(draggedNode, targetRecordedNodeState);
             }
 
-            protected override void UpdateTreeView(ITreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
+            protected override void UpdateTreeView(TreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
             {
                 base.UpdateTreeView(draggedNode, targetRecordedNodeState);
                 recordedNodeState.Restore(draggedNode);

@@ -27,6 +27,7 @@ using Ringtoets.Piping.Service;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -82,8 +83,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            var parentNode = mockRepository.StrictMock<ITreeNode>();
-            var node = mockRepository.Stub<ITreeNode>();
+            var parentNode = mockRepository.StrictMock<TreeNode>();
+            var node = mockRepository.Stub<TreeNode>();
             node.ForegroundColor = Color.AliceBlue;
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -114,9 +115,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
-            var otherTreeNode = mockRepository.Stub<ITreeNode>();
+            var otherTreeNode = mockRepository.Stub<TreeNode>();
 
-            var groupContextNode = mockRepository.Stub<ITreeNode>();
+            var groupContextNode = mockRepository.Stub<TreeNode>();
             groupContextNode.Tag = groupContext;
             groupContextNode.Expect(n => n.Parent).Return(otherTreeNode);
 
@@ -152,10 +153,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var builderProvider = mockRepository.Stub<IContextMenuBuilderProvider>();
 
-            var failureMechanismNode = mockRepository.Stub<ITreeNode>();
+            var failureMechanismNode = mockRepository.Stub<TreeNode>();
             failureMechanismNode.Tag = pipingFailureMechanism;
 
-            var groupContextNode = mockRepository.Stub<ITreeNode>();
+            var groupContextNode = mockRepository.Stub<TreeNode>();
             groupContextNode.Tag = groupContext;
             groupContextNode.Expect(n => n.Parent).Return(failureMechanismNode);
 
@@ -197,18 +198,18 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             #region Mock node tree for source and target in same failure mechanism
 
-            var failureMechanismNode = mockRepository.Stub<ITreeNode>();
+            var failureMechanismNode = mockRepository.Stub<TreeNode>();
             failureMechanismNode.Tag = failureMechanism;
 
-            var failureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            var failureMechanismGroupNode = mockRepository.Stub<TreeNode>();
             failureMechanismGroupNode.Tag = failureMechanism.CalculationsGroup;
             failureMechanismGroupNode.Expect(n => n.Parent).Return(failureMechanismNode).Repeat.AtLeastOnce();
 
-            var calculationNode = mockRepository.Stub<ITreeNode>();
+            var calculationNode = mockRepository.Stub<TreeNode>();
             calculationNode.Tag = draggedItemContext;
             calculationNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
 
-            var targetGroupNode = mockRepository.Stub<ITreeNode>();
+            var targetGroupNode = mockRepository.Stub<TreeNode>();
             targetGroupNode.Tag = targetGroupContext;
             targetGroupNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
 
@@ -266,14 +267,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             #region Mock node tree for source IPipingCalculationItem
 
-            var sourceFailureMechanismNode = mockRepository.Stub<ITreeNode>();
+            var sourceFailureMechanismNode = mockRepository.Stub<TreeNode>();
             sourceFailureMechanismNode.Tag = sourceFailureMechanism;
 
-            var sourceFailureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            var sourceFailureMechanismGroupNode = mockRepository.Stub<TreeNode>();
             sourceFailureMechanismGroupNode.Tag = sourceFailureMechanism.CalculationsGroup;
             sourceFailureMechanismGroupNode.Expect(n => n.Parent).Return(sourceFailureMechanismNode).Repeat.AtLeastOnce();
 
-            var calculationNode = mockRepository.Stub<ITreeNode>();
+            var calculationNode = mockRepository.Stub<TreeNode>();
             calculationNode.Tag = draggedItemContext;
             calculationNode.Expect(n => n.Parent).Return(sourceFailureMechanismGroupNode).Repeat.AtLeastOnce();
 
@@ -281,14 +282,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             #region Mock node tree for target PipingCalculationGroup
 
-            var targetFailureMechanismNode = mockRepository.Stub<ITreeNode>();
+            var targetFailureMechanismNode = mockRepository.Stub<TreeNode>();
             targetFailureMechanismNode.Tag = targetFailureMechanism;
 
-            var targetFailureMechanismGroupNode = mockRepository.Stub<ITreeNode>();
+            var targetFailureMechanismGroupNode = mockRepository.Stub<TreeNode>();
             targetFailureMechanismGroupNode.Tag = targetFailureMechanism.CalculationsGroup;
             targetFailureMechanismGroupNode.Expect(n => n.Parent).Return(targetFailureMechanismNode).Repeat.AtLeastOnce();
 
-            var groupNode = mockRepository.Stub<ITreeNode>();
+            var groupNode = mockRepository.Stub<TreeNode>();
             groupNode.Tag = targetGroupContext;
             groupNode.Expect(n => n.Parent).Return(targetFailureMechanismGroupNode).Repeat.AtLeastOnce();
 
@@ -348,9 +349,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var updatewasCalled = false;
             var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updatewasCalled = true);
 
-            var preUpdateDraggedItemContextNode = CreateCollapsedNodeStub(draggedItemContext, new ITreeNode[0]);
-            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new ITreeNode[0]);
-            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(newOwnerGroupContext, new ITreeNode[0], invocation =>
+            var preUpdateDraggedItemContextNode = CreateCollapsedNodeStub(draggedItemContext, new TreeNode[0]);
+            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new TreeNode[0]);
+            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(newOwnerGroupContext, new TreeNode[0], invocation =>
             {
                 if (updatewasCalled)
                 {
@@ -429,7 +430,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             
             var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
             var postUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-            ITreeNode[] preUpdateNewOwnerChildNodes = { existingItemStub1, preUpdateDraggedItemContextNode, existingItemStub2 };
+            TreeNode[] preUpdateNewOwnerChildNodes = { existingItemStub1, preUpdateDraggedItemContextNode, existingItemStub2 };
             var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, preUpdateNewOwnerChildNodes, invocation =>
             {
                 if (updatewasCalled)
@@ -512,9 +513,9 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy();
             var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updateWasCalled = true);
 
-            var preUpdateCalculationContextNode = CreateExpandedNodeStub(draggedItemContext, new ITreeNode[0]);
-            var postUpdateCalculationContextNode = CreateNodeStubToBeExpanded(draggedItemContext, new ITreeNode[0]);
-            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, new ITreeNode[0], invocation =>
+            var preUpdateCalculationContextNode = CreateExpandedNodeStub(draggedItemContext, new TreeNode[0]);
+            var postUpdateCalculationContextNode = CreateNodeStubToBeExpanded(draggedItemContext, new TreeNode[0]);
+            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, new TreeNode[0], invocation =>
             {
                 if (updateWasCalled)
                 {
@@ -604,7 +605,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(methodInvocation => updatewasCalled = true);
 
             var nodeStub = CreateStubTreeNode();
-            ITreeNode[] childNodesStub = { nodeStub };
+            TreeNode[] childNodesStub = { nodeStub };
 
             var expandedNodeData = new object();
             var preUpdateExpandedNode = CreateExpandedNodeStub(expandedNodeData, childNodesStub);
@@ -614,8 +615,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var preUpdateCollapsedNode = CreateCollapsedNodeStub(collapsedNodeData, childNodesStub);
             var postUpdateCollapsedNode = CreateNodeStubToBeCollapsed(collapsedNodeData, childNodesStub);
 
-            ITreeNode[] preUpdateChildNodes = { preUpdateExpandedNode, preUpdateCollapsedNode };
-            ITreeNode[] postUpdateChildNodes = { postUpdateExpandedNode, postUpdateCollapsedNode };
+            TreeNode[] preUpdateChildNodes = { preUpdateExpandedNode, preUpdateCollapsedNode };
+            TreeNode[] postUpdateChildNodes = { postUpdateExpandedNode, postUpdateCollapsedNode };
             var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(newOwnerGroupContext, preUpdateChildNodes, invocation =>
             {
                 if (updatewasCalled)
@@ -625,7 +626,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             });
 
             var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new ITreeNode[0]);
+            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new TreeNode[0]);
             postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
             var treeView = mockRepository.Stub<ITreeView>();
@@ -674,10 +675,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             parentNode.Tag = failureMechanism;
 
-            var node = mockRepository.StrictMock<ITreeNode>();
+            var node = mockRepository.StrictMock<TreeNode>();
             node.Expect(n => n.Parent).Return(parentNode);
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -697,10 +698,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanRenameNode_EverythingElse_ReturnTrue()
         {
             // Setup
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             parentNode.Tag = new object();
 
-            var node = mockRepository.StrictMock<ITreeNode>();
+            var node = mockRepository.StrictMock<TreeNode>();
             node.Expect(n => n.Parent).Return(parentNode);
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -720,7 +721,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanRenamedNodeTo_Always_ReturnTrue()
         {
             // Setup
-            var node = mockRepository.StrictMock<ITreeNode>();
+            var node = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -904,14 +905,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<PipingSoilProfile>());
             var presenter = mockRepository.Stub<ITreeNodePresenter>();
 
-            var nodeParent = mockRepository.Stub<ITreeNode>();
+            var nodeParent = mockRepository.Stub<TreeNode>();
             nodeParent.Tag = parentData;
 
-            var node = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.Stub<TreeNode>();
             node.Tag = group;
             node.Presenter = presenter;
             node.Stub(n => n.Parent).Return(nodeParent);
-            node.Stub(n => n.Nodes).Return(new ITreeNode[0]);
+            node.Stub(n => n.Nodes).Return(new TreeNode[0]);
 
             presenter.Expect(p => p.CanRemove(parentData, group)).Return(true);
             presenter.Expect(p => p.CanRenameNode(node)).Return(true);
@@ -1009,14 +1010,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<PipingSoilProfile>());
             var presenter = mockRepository.Stub<ITreeNodePresenter>();
 
-            var nodeParent = mockRepository.Stub<ITreeNode>();
+            var nodeParent = mockRepository.Stub<TreeNode>();
             nodeParent.Tag = parentData;
 
-            var node = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.Stub<TreeNode>();
             node.Tag = group;
             node.Presenter = presenter;
             node.Stub(n => n.Parent).Return(nodeParent);
-            node.Stub(n => n.Nodes).Return(new ITreeNode[0]);
+            node.Stub(n => n.Nodes).Return(new TreeNode[0]);
 
             var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
 
@@ -1107,14 +1108,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                                                              Enumerable.Empty<PipingSoilProfile>());
             var presenter = mockRepository.Stub<ITreeNodePresenter>();
 
-            var nodeParent = mockRepository.Stub<ITreeNode>();
+            var nodeParent = mockRepository.Stub<TreeNode>();
             nodeParent.Tag = parentData;
 
-            var node = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.Stub<TreeNode>();
             node.Tag = group;
             node.Presenter = presenter;
             node.Stub(n => n.Parent).Return(nodeParent);
-            node.Stub(n => n.Nodes).Return(new ITreeNode[0]);
+            node.Stub(n => n.Nodes).Return(new TreeNode[0]);
 
             var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
 
@@ -1198,11 +1199,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var newCalculationGroupContextNode = mockRepository.Stub<ITreeNode>();
+            var newCalculationGroupContextNode = mockRepository.Stub<TreeNode>();
 
             // Parent node of newly added item, should be expanded from collapsed state to show selected node:
-            var node = mockRepository.Stub<ITreeNode>();
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.Stub<TreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             node.Tag = nodeData;
             node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
             node.Expect(n => n.IsExpanded).Return(false);
@@ -1211,7 +1212,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 if (group.Children.Last() is PipingCalculationGroup)
                 {
-                    invocation.ReturnValue = new List<ITreeNode>
+                    invocation.ReturnValue = new List<TreeNode>
                     {
                         newCalculationGroupContextNode
                     };
@@ -1267,11 +1268,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var newCalculationContextNode = mockRepository.Stub<ITreeNode>();
+            var newCalculationContextNode = mockRepository.Stub<TreeNode>();
 
             // Parent node of newly added item, should be expanded from collapsed state to show selected node:
-            var node = mockRepository.Stub<ITreeNode>();
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.Stub<TreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             node.Tag = nodeData;
             node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
             node.Expect(n => n.IsExpanded).Return(false);
@@ -1280,7 +1281,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 if (group.Children.Last() is PipingCalculation)
                 {
-                    invocation.ReturnValue = new List<ITreeNode>
+                    invocation.ReturnValue = new List<TreeNode>
                     {
                         newCalculationContextNode
                     };
@@ -1325,8 +1326,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var node = mockRepository.StrictMock<ITreeNode>();
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.StrictMock<TreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
             mockRepository.ReplayAll();
 
@@ -1376,8 +1377,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            var node = mockRepository.StrictMock<ITreeNode>();
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.StrictMock<TreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
             mockRepository.ReplayAll();
 
@@ -1429,8 +1430,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_ClickOnClearOutputItem_ClearOutputAllChildCalculationsAndNotifyCalculationObservers(bool confirm)
         {
             // Setup
-            var node = mockRepository.StrictMock<ITreeNode>();
-            var parentNode = mockRepository.Stub<ITreeNode>();
+            var node = mockRepository.StrictMock<TreeNode>();
+            var parentNode = mockRepository.Stub<TreeNode>();
             node.Expect(n => n.Parent).Return(parentNode).Repeat.Twice();
 
             var calculation1Observer = mockRepository.StrictMock<IObserver>();
@@ -1561,13 +1562,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         /// <summary>
-        /// Creates a <see cref="ITreeNode"/> stub that is in the expanded state.
+        /// Creates a <see cref="TreeNode"/> stub that is in the expanded state.
         /// </summary>
         /// <param name="nodeData">The data corresponding with the created node.</param>
         /// <param name="childNodes">The child nodes.</param>
-        private ITreeNode CreateExpandedNodeStub(object nodeData, ITreeNode[] childNodes)
+        private TreeNode CreateExpandedNodeStub(object nodeData, TreeNode[] childNodes)
         {
-            var preUpdateExpandedNode = mockRepository.Stub<ITreeNode>();
+            var preUpdateExpandedNode = mockRepository.Stub<TreeNode>();
             preUpdateExpandedNode.Tag = nodeData;
             preUpdateExpandedNode.Expect(n => n.IsExpanded).Return(true);
             preUpdateExpandedNode.Stub(n => n.Nodes).Return(childNodes);
@@ -1575,14 +1576,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         /// <summary>
-        /// Creates an <see cref="ITreeNode"/> stub that is expected to be expanded.
+        /// Creates an <see cref="TreeNode"/> stub that is expected to be expanded.
         /// </summary>
         /// <param name="nodeData">The data corresponding with the created node.</param>
         /// <param name="childNodes">The child nodes.</param>
-        /// <param name="whenNodesCalledAction">Optional: action to be called when <see cref="ITreeNode.Nodes"/> is being retrieved.</param>
-        private ITreeNode CreateNodeStubToBeExpanded(object nodeData, ITreeNode[] childNodes, Action<MethodInvocation> whenNodesCalledAction = null)
+        /// <param name="whenNodesCalledAction">Optional: action to be called when <see cref="TreeNode.Nodes"/> is being retrieved.</param>
+        private TreeNode CreateNodeStubToBeExpanded(object nodeData, TreeNode[] childNodes, Action<MethodInvocation> whenNodesCalledAction = null)
         {
-            var postUpdateExpandedNode = mockRepository.Stub<ITreeNode>();
+            var postUpdateExpandedNode = mockRepository.Stub<TreeNode>();
             postUpdateExpandedNode.Tag = nodeData;
             postUpdateExpandedNode.Stub(n => n.IsExpanded).Return(false);
             postUpdateExpandedNode.Expect(n => n.Expand());
@@ -1597,13 +1598,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         /// <summary>
-        /// Creates a <see cref="ITreeNode"/> stub that is in the collapsed state.
+        /// Creates a <see cref="TreeNode"/> stub that is in the collapsed state.
         /// </summary>
         /// <param name="nodeData">The data corresponding with the created node.</param>
         /// <param name="childNodes">The child nodes.</param>
-        private ITreeNode CreateCollapsedNodeStub(object nodeData, ITreeNode[] childNodes)
+        private TreeNode CreateCollapsedNodeStub(object nodeData, TreeNode[] childNodes)
         {
-            var collapsedNode = mockRepository.Stub<ITreeNode>();
+            var collapsedNode = mockRepository.Stub<TreeNode>();
             collapsedNode.Tag = nodeData;
             collapsedNode.Stub(n => n.IsExpanded).Return(false);
             collapsedNode.Stub(n => n.Nodes).Return(childNodes);
@@ -1611,13 +1612,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         /// <summary>
-        /// Creates an <see cref="ITreeNode"/> stub that is expected to be collapsed.
+        /// Creates an <see cref="TreeNode"/> stub that is expected to be collapsed.
         /// </summary>
         /// <param name="nodeData">The data corresponding with the created node.</param>
         /// <param name="childNodes">The child nodes.</param>
-        private ITreeNode CreateNodeStubToBeCollapsed(object nodeData, ITreeNode[] childNodes)
+        private TreeNode CreateNodeStubToBeCollapsed(object nodeData, TreeNode[] childNodes)
         {
-            var nodeToBeCollapsed = mockRepository.Stub<ITreeNode>();
+            var nodeToBeCollapsed = mockRepository.Stub<TreeNode>();
             nodeToBeCollapsed.Tag = nodeData;
             nodeToBeCollapsed.Stub(n => n.IsExpanded).Return(true);
             nodeToBeCollapsed.Expect(n => n.Collapse());
@@ -1700,21 +1701,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         /// <summary>
         /// Use <see cref="mockRepository"/> to creates a stub tree node as a simple node-tree leaf.
         /// </summary>
-        private ITreeNode CreateStubTreeNode()
+        private TreeNode CreateStubTreeNode()
         {
             return CreateTreeNodeLeafForData(new object());
         }
 
         /// <summary>
-        /// Creates an <see cref="ITreeNode"/> stub that represents a tree-node leaf.
+        /// Creates an <see cref="TreeNode"/> stub that represents a tree-node leaf.
         /// </summary>
         /// <param name="nodeData">The data associated with the node.</param>
-        private ITreeNode CreateTreeNodeLeafForData(object nodeData)
+        private TreeNode CreateTreeNodeLeafForData(object nodeData)
         {
-            var preUpdateDraggedItemContextNode = mockRepository.Stub<ITreeNode>();
+            var preUpdateDraggedItemContextNode = mockRepository.Stub<TreeNode>();
             preUpdateDraggedItemContextNode.Tag = nodeData;
             preUpdateDraggedItemContextNode.Stub(n => n.IsExpanded).Return(false);
-            preUpdateDraggedItemContextNode.Stub(n => n.Nodes).Return(new List<ITreeNode>());
+            preUpdateDraggedItemContextNode.Stub(n => n.Nodes).Return(new List<TreeNode>());
             return preUpdateDraggedItemContextNode;
         }
 

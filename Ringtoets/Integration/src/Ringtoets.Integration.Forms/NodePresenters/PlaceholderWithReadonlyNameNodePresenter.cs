@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Integration.Forms.NodePresenters
 {
@@ -25,14 +25,14 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public PlaceholderWithReadonlyNameNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PlaceholderWithReadonlyName nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, PlaceholderWithReadonlyName nodeData)
         {
             node.Text = nodeData.Name;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
             node.Image = GetIconForPlaceholder(nodeData);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PlaceholderWithReadonlyName nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, PlaceholderWithReadonlyName nodeData)
         {
             IContextMenuBuilder menuBuilder = contextMenuBuilderProvider.Get(node);
 

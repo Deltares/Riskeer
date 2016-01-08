@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             const string nodeName = "<Cool name>";
 
-            var pipingNode = mockRepository.Stub<ITreeNode>();
+            var pipingNode = mockRepository.Stub<TreeNode>();
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanRenameNode_Always_ReturnTrue()
         {
             // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanRenameNodeTo_Always_ReturnTrue()
         {
             // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -239,7 +239,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnNodeChecked_Always_DoNothing()
         {
             // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -278,8 +278,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanDrop_DefaultBehavior_ReturnNone()
         {
             // Setup
-            var sourceMock = mockRepository.StrictMock<ITreeNode>();
-            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var sourceMock = mockRepository.StrictMock<TreeNode>();
+            var targetMock = mockRepository.StrictMock<TreeNode>();
             var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                Enumerable.Empty<PipingSoilProfile>());
@@ -301,8 +301,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanInsert_DefaultBehavior_ReturnFalse()
         {
             // Setup
-            var sourceMock = mockRepository.StrictMock<ITreeNode>();
-            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            var sourceMock = mockRepository.StrictMock<TreeNode>();
+            var targetMock = mockRepository.StrictMock<TreeNode>();
             var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                Enumerable.Empty<PipingSoilProfile>());
@@ -366,7 +366,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
         {
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
@@ -394,7 +394,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetContextMenu_PipingCalculationWithOutput_ContextMenuItemClearOutputEnabled()
         {
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.Stub<IContextMenuBuilder>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -466,7 +466,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -668,7 +668,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            var treeNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var treeNodeMock = mockRepository.StrictMock<TreeNode>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
@@ -724,7 +724,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Given
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
-            var treeNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var treeNodeMock = mockRepository.StrictMock<TreeNode>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
@@ -760,7 +760,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Given
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
-            var treeNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var treeNodeMock = mockRepository.StrictMock<TreeNode>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             observer.Expect(o => o.UpdateObserver());
@@ -841,7 +841,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Given
             var contextMenuBuilderProviderMock = mockRepository.DynamicMock<IContextMenuBuilderProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
-            var treeNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var treeNodeMock = mockRepository.StrictMock<TreeNode>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(treeNodeMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
             int clearOutputItemPosition = 2;

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public PipingSurfaceLineCollectionNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
             node.Text = Resources.PipingSurfaceLinesCollection_DisplayName;
             node.ForegroundColor = nodeData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText);
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return nodeData;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)

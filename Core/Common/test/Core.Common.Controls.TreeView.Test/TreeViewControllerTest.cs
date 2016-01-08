@@ -99,7 +99,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeNode = mocks.Stub<ITreeNode>();
+            var treeNode = mocks.Stub<TreeNode>();
             var treeview = mocks.StrictMock<ITreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
 
@@ -138,7 +138,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeNode = mocks.Stub<ITreeNode>();
+            var treeNode = mocks.Stub<TreeNode>();
             var treeview = mocks.StrictMock<TreeView>();
 
             treeNode.Tag = null;
@@ -158,7 +158,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             var treeview = mocks.StrictMock<ITreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-            var nodes = new List<ITreeNode>();
+            var nodes = new List<TreeNode>();
 
             nodePresenter.TreeView = treeview;
 
@@ -188,7 +188,7 @@ namespace Core.Common.Controls.TreeView.Test
             var mocks = new MockRepository();
 
             var treeview = mocks.Stub<ITreeView>();
-            var nodes = new List<ITreeNode>();
+            var nodes = new List<TreeNode>();
 
             Expect.Call(treeview.Nodes).Return(nodes).Repeat.Any();
 
@@ -212,7 +212,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             var treeview = mocks.StrictMock<ITreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-            var nodes = new List<ITreeNode>();
+            var nodes = new List<TreeNode>();
             var parent = new Parent();
 
             nodePresenter.TreeView = treeview;
@@ -261,7 +261,7 @@ namespace Core.Common.Controls.TreeView.Test
             var childNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
 
             var controller = new TreeViewController(treeview);
-            var treeViewNodes = new List<ITreeNode>();
+            var treeViewNodes = new List<TreeNode>();
 
             var parent = new Parent();
             var child1 = new Child();
@@ -329,7 +329,7 @@ namespace Core.Common.Controls.TreeView.Test
             var parentNodePresenter = mocks.Stub<ITreeNodePresenter>();
             treeViewController.RegisterNodePresenter(parentNodePresenter);
 
-            var nodes = new List<ITreeNode>();
+            var nodes = new List<TreeNode>();
             Expect.Call(treeView.Nodes).Return(nodes).Repeat.Any();
             Expect.Call(treeView.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
             treeView.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments();
@@ -469,10 +469,10 @@ namespace Core.Common.Controls.TreeView.Test
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
 
             treeNode.HasChildren = true;
-            Expect.Call(((ITreeNode) treeNode).Tag).Return(tag).Repeat.Any();
-            Expect.Call(((ITreeNode) treeNode).IsLoaded).Return(false).Repeat.Any();
-            Expect.Call(((ITreeNode) treeNode).Parent).Return(null);
-            Expect.Call(((ITreeNode) treeNode).Presenter).Return(nodePresenter).Repeat.Any();
+            Expect.Call(treeNode.Tag).Return(tag).Repeat.Any();
+            Expect.Call(treeNode.IsLoaded).Return(false).Repeat.Any();
+            Expect.Call(treeNode.Parent).Return(null);
+            Expect.Call(treeNode.Presenter).Return(nodePresenter).Repeat.Any();
 
             nodePresenter.TreeView = treeview;
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
@@ -505,7 +505,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             var parent = new Parent();
             var child = new Child();
-            var subNodes = new List<ITreeNode>
+            var subNodes = new List<TreeNode>
             {
                 childTreeNode
             };
@@ -515,18 +515,18 @@ namespace Core.Common.Controls.TreeView.Test
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
 
             parentTreeNode.HasChildren = true;
-            Expect.Call(((ITreeNode) parentTreeNode).Tag).Return(parent).Repeat.Any();
-            Expect.Call(((ITreeNode) parentTreeNode).IsLoaded).Return(true).Repeat.Any();
-            Expect.Call(((ITreeNode) parentTreeNode).Parent).Return(null);
-            Expect.Call(((ITreeNode) parentTreeNode).Nodes).Return(subNodes).Repeat.Any();
-            Expect.Call(((ITreeNode) parentTreeNode).Presenter).Return(parentNodePresenter).Repeat.Any();
+            Expect.Call(parentTreeNode.Tag).Return(parent).Repeat.Any();
+            Expect.Call(parentTreeNode.IsLoaded).Return(true).Repeat.Any();
+            Expect.Call(parentTreeNode.Parent).Return(null);
+            Expect.Call(parentTreeNode.Nodes).Return(subNodes).Repeat.Any();
+            Expect.Call(parentTreeNode.Presenter).Return(parentNodePresenter).Repeat.Any();
 
             childTreeNode.HasChildren = false;
-            Expect.Call(((ITreeNode) childTreeNode).Tag).Return(child).Repeat.Any();
-            Expect.Call(((ITreeNode) childTreeNode).IsLoaded).Return(false).Repeat.Any();
-            Expect.Call(((ITreeNode) childTreeNode).Parent).Return(parentTreeNode).Repeat.Any();
-            Expect.Call(((ITreeNode) childTreeNode).Nodes).Return(new List<ITreeNode>()).Repeat.Any();
-            Expect.Call(((ITreeNode) childTreeNode).Presenter).Return(childNodePresenter).Repeat.Any();
+            Expect.Call(childTreeNode.Tag).Return(child).Repeat.Any();
+            Expect.Call(childTreeNode.IsLoaded).Return(false).Repeat.Any();
+            Expect.Call(childTreeNode.Parent).Return(parentTreeNode).Repeat.Any();
+            Expect.Call(childTreeNode.Nodes).Return(new List<TreeNode>()).Repeat.Any();
+            Expect.Call(childTreeNode.Presenter).Return(childNodePresenter).Repeat.Any();
 
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
@@ -559,7 +559,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
             var treeview = mocks.StrictMock<ITreeView>();
-            var treeNode = mocks.StrictMock<ITreeNode>();
+            var treeNode = mocks.StrictMock<TreeNode>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var tag = new object();
 
@@ -598,7 +598,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-            var treeNode = mocks.StrictMock<ITreeNode>();
+            var treeNode = mocks.StrictMock<TreeNode>();
             var treeview = mocks.StrictMock<ITreeView>();
             var tag = new object();
 
@@ -706,17 +706,17 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class SomeInterfaceNodePresenter : TreeViewNodePresenterBase<ISomeInterface>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, ISomeInterface nodeData) { }
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, ISomeInterface nodeData) { }
         }
 
         private class SubClassNodePresenter : TreeViewNodePresenterBase<SubClass>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, SubClass nodeData) { }
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, SubClass nodeData) { }
         }
 
         private class BaseClassNodePresenter : TreeViewNodePresenterBase<BaseClass>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, BaseClass nodeData) { }
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, BaseClass nodeData) { }
         }
     }
 }

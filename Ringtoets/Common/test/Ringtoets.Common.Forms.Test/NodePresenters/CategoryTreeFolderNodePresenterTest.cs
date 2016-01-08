@@ -63,8 +63,8 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         public void UpdateNode_ForCategory_InitializeNode(TreeFolderCategory category)
         {
             // Setup
-            var parentNode = mockRepository.StrictMock<ITreeNode>();
-            var currentNode = mockRepository.Stub<ITreeNode>();
+            var parentNode = mockRepository.StrictMock<TreeNode>();
+            var currentNode = mockRepository.Stub<TreeNode>();
             currentNode.ForegroundColor = Color.AliceBlue;
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         {
             // Setup
             var folder = new CategoryTreeFolder("", new object[0]);
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
 

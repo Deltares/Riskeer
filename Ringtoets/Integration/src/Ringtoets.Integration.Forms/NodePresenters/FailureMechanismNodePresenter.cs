@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.NodePresenters;
@@ -11,6 +10,7 @@ using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.Properties;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Integration.Forms.NodePresenters
 {
@@ -25,7 +25,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public FailureMechanismNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, FailureMechanismPlaceholder nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, FailureMechanismPlaceholder nodeData)
         {
             node.Text = nodeData.Name;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(nodeData), TreeFolderCategory.Output);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, FailureMechanismPlaceholder nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, FailureMechanismPlaceholder nodeData)
         {
             var calculateItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,

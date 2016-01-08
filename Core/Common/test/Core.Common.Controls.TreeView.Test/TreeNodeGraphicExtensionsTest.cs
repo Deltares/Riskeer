@@ -27,7 +27,6 @@ namespace Core.Common.Controls.TreeView.Test
             mocks.BackToRecord(treeNode, BackToRecordOptions.PropertyBehavior);
             treeNode.ShowCheckBox = true;
             Expect.Call(treeNode.Bounds).Return(bounds);
-            Expect.Call(((ITreeNode) treeNode).Bounds).Return(bounds);
             treeNode.Replay();
 
             Assert.IsTrue(treeNode.IsOnCheckBox(pointOnCheckbox));
@@ -55,7 +54,6 @@ namespace Core.Common.Controls.TreeView.Test
 
             treeNode.HasChildren = true;
             Expect.Call(treeNode.Bounds).Return(bounds);
-            Expect.Call(((ITreeNode) treeNode).Bounds).Return(bounds);
             treeNode.Replay();
 
             Assert.IsTrue(treeNode.IsOnExpandButton(pointOnExpandButton));

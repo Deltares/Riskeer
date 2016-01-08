@@ -6,7 +6,7 @@ using Core.Common.Base;
 
 namespace Core.Common.Controls.TreeView
 {
-    public class TreeNode : System.Windows.Forms.TreeNode, ITreeNode, IObserver
+    public class TreeNode : System.Windows.Forms.TreeNode, IObserver
     {
         private readonly TreeNodeList nodes;
         private readonly ITreeView treeView;
@@ -106,11 +106,11 @@ namespace Core.Common.Controls.TreeView
 
         public new bool IsVisible { get; set; }
 
-        public new ITreeNode Parent
+        public new TreeNode Parent
         {
             get
             {
-                return (ITreeNode) base.Parent;
+                return (TreeNode) base.Parent;
             }
         }
 
@@ -122,23 +122,23 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public new ITreeNode NextNode
+        public new TreeNode NextNode
         {
             get
             {
-                return (ITreeNode) base.NextNode;
+                return (TreeNode) base.NextNode;
             }
         }
 
-        public new ITreeNode NextVisibleNode
+        public new TreeNode NextVisibleNode
         {
             get
             {
-                return (ITreeNode) base.NextVisibleNode;
+                return (TreeNode) base.NextVisibleNode;
             }
         }
 
-        public new IList<ITreeNode> Nodes
+        public new IList<TreeNode> Nodes
         {
             get
             {
@@ -151,19 +151,19 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public ITreeNode PreviousNode
+        public TreeNode PreviousNode
         {
             get
             {
-                return (ITreeNode) PrevNode;
+                return (TreeNode) PrevNode;
             }
         }
 
-        public ITreeNode PreviousVisibleNode
+        public TreeNode PreviousVisibleNode
         {
             get
             {
-                return (ITreeNode) PrevVisibleNode;
+                return (TreeNode) PrevVisibleNode;
             }
         }
 
@@ -223,9 +223,9 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public bool IsChildOf(ITreeNode node)
+        public bool IsChildOf(TreeNode node)
         {
-            ITreeNode parentNode = this;
+            TreeNode parentNode = this;
             while (parentNode != null && parentNode.Parent != null)
             {
                 if (parentNode.Parent.Equals(node))
@@ -270,9 +270,9 @@ namespace Core.Common.Controls.TreeView
             IsUpdating = false;
         }
 
-        public ITreeNode GetParentOfLevel(int level)
+        public TreeNode GetParentOfLevel(int level)
         {
-            ITreeNode node = this;
+            TreeNode node = this;
 
             for (var i = Level; i != level; i--)
             {
@@ -287,9 +287,9 @@ namespace Core.Common.Controls.TreeView
             EnsureVisible();
         }
 
-        public ITreeNode GetNodeByTag(object item)
+        public TreeNode GetNodeByTag(object item)
         {
-            foreach (ITreeNode node in nodes)
+            foreach (TreeNode node in nodes)
             {
                 if (node.Tag == item)
                 {

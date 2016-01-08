@@ -35,7 +35,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         public void LoadingDataFromShapeFileAndCreateNodeOnMapLayer()
         {
             var vectorLayer = GetRiverLayer();
-            var node = mocks.Stub<ITreeNode>();
+            var node = mocks.Stub<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -57,8 +57,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             groupLayer.LayersReadOnly = true;
 
-            var node = mocks.Stub<ITreeNode>();
-            var parentNode = mocks.Stub<ITreeNode>();
+            var node = mocks.Stub<TreeNode>();
+            var parentNode = mocks.Stub<TreeNode>();
             parentNode.Tag = groupLayer;
 
             node.Expect(c => c.Parent).Return(parentNode);
@@ -80,8 +80,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
             {
                 LayersReadOnly = true
             };
-            var sourceNode = mocks.Stub<ITreeNode>();
-            var targetNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
 
             sourceNode.Tag = vectorLayer;
             targetNode.Tag = groupLayer;
@@ -99,8 +99,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         {
             // Setup
             var vectorLayer = GetRiverLayer();
-            var sourceNode = mocks.Stub<ITreeNode>();
-            var targetNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
 
             mapLayerNodePresenter.TreeView.TreeViewNodeSorter = mocks.Stub<IComparer>();
 
@@ -122,8 +122,8 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         {
             // Setup
             var vectorLayer = GetRiverLayer();
-            var sourceNode = mocks.Stub<ITreeNode>();
-            var targetNode = mocks.Stub<ITreeNode>();
+            var sourceNode = mocks.Stub<TreeNode>();
+            var targetNode = mocks.Stub<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -143,12 +143,12 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         {
             // Create a group layer
             var groupLayer = mocks.Stub<GroupLayer>();
-            var groupLayerTreeNode = mocks.Stub<ITreeNode>();
+            var groupLayerTreeNode = mocks.Stub<TreeNode>();
             groupLayerTreeNode.Tag = groupLayer;
 
             // Create a nested layer for the group layer
             var nestedLayer1 = mocks.Stub<Layer>();
-            var nestedLayerTreeNode1 = mocks.Stub<ITreeNode>();
+            var nestedLayerTreeNode1 = mocks.Stub<TreeNode>();
             nestedLayer1.CanBeRemovedByUser = true;
             nestedLayerTreeNode1.Tag = nestedLayer1;
             groupLayer.Layers = new EventedList<ILayer>
@@ -158,13 +158,13 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
 
             // Create a nested group layer
             var nestedGroupLayer = mocks.Stub<GroupLayer>();
-            var nestedGroupLayerTreeNode = mocks.Stub<ITreeNode>();
+            var nestedGroupLayerTreeNode = mocks.Stub<TreeNode>();
             nestedGroupLayerTreeNode.Tag = nestedGroupLayer;
             groupLayer.Layers.Add(nestedGroupLayer);
 
             // Create a nested layer for the nested group layer
             var nestedLayer2 = mocks.Stub<Layer>();
-            var nestedLayerTreeNode2 = mocks.Stub<ITreeNode>();
+            var nestedLayerTreeNode2 = mocks.Stub<TreeNode>();
             nestedLayer2.CanBeRemovedByUser = true;
             nestedLayerTreeNode2.Tag = nestedLayer2;
             nestedGroupLayer.Layers = new EventedList<ILayer>

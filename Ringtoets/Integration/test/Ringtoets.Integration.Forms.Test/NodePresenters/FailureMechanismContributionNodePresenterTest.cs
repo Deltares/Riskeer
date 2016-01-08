@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            var projectNode = mockRepository.Stub<ITreeNode>();
+            var projectNode = mockRepository.Stub<TreeNode>();
             var assessmentSection = mockRepository.Stub<FailureMechanismContribution>(new IFailureMechanism[] { }, 1, 1);
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var assessmentSection = mockRepository.Stub<FailureMechanismContribution>(new IFailureMechanism[] { }, 1, 1);
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);

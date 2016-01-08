@@ -20,7 +20,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public abstract void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData);
+        public abstract void UpdateNode(TreeNode parentNode, TreeNode node, T nodeData);
 
         public virtual IEnumerable GetChildNodeObjects(T parentNodeData)
         {
@@ -50,7 +50,7 @@ namespace Core.Common.Controls.TreeView
             return DragOperations.None;
         }
 
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
+        public void UpdateNode(TreeNode parentNode, TreeNode node, object nodeData)
         {
             T data = (T) nodeData;
             UpdateNode(parentNode, node, data);
@@ -62,12 +62,12 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <returns>Will return false.</returns>
-        public virtual bool CanRenameNode(ITreeNode node)
+        public virtual bool CanRenameNode(TreeNode node)
         {
             return false;
         }
 
-        public virtual bool CanRenameNodeTo(ITreeNode node, string newName)
+        public virtual bool CanRenameNodeTo(TreeNode node, string newName)
         {
             // default behavior is not to allow empty strings
             return CanRenameNode(node) && (newName.Length > 0);
@@ -80,7 +80,7 @@ namespace Core.Common.Controls.TreeView
             OnNodeRenamed(data, newName);
         }
 
-        public virtual void OnNodeChecked(ITreeNode node)
+        public virtual void OnNodeChecked(TreeNode node)
         {
             if (!node.IsLoaded)
             {
@@ -93,7 +93,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public virtual bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
         {
             return false;
         }
@@ -101,7 +101,7 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Let the node decide what dragoperation should be carried out
         /// </summary>
-        public virtual DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public virtual DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
             return DragOperations.None;
         }
@@ -123,12 +123,12 @@ namespace Core.Common.Controls.TreeView
             throw new NotImplementedException();
         }
 
-        public virtual ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
+        public virtual ContextMenuStrip GetContextMenu(TreeNode node, object nodeData)
         {
             return null;
         }
 
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e)
+        public void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e)
         {
             if (sender is T) // sometimes events are coming from child objects
             {
@@ -148,7 +148,7 @@ namespace Core.Common.Controls.TreeView
             {
                 case NotifyCollectionChangeAction.Add:
                     // find first parent node where node must be added for e.Item (only 1 parent supported for now)
-                    foreach (ITreeNode parentNode in TreeView.AllLoadedNodes)
+                    foreach (TreeNode parentNode in TreeView.AllLoadedNodes)
                     {
                         ITreeNodePresenter presenter = parentNode.Presenter;
                         if (presenter != null)
@@ -156,7 +156,7 @@ namespace Core.Common.Controls.TreeView
                             var indexOf = IndexInParent(presenter, parentNode, e.Item);
                             if (indexOf >= 0)
                             {
-                                ((TreeNode) parentNode).HasChildren = presenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
+                                parentNode.HasChildren = presenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
                                 OnCollectionChanged((T) e.Item, parentNode, e, indexOf);
                                 return; // only one Node per tag is supported for now
                             }
@@ -166,10 +166,10 @@ namespace Core.Common.Controls.TreeView
 
                 case NotifyCollectionChangeAction.Remove:
                 {
-                    ITreeNode node = TreeView.GetNodeByTag(e.Item);
+                    TreeNode node = TreeView.GetNodeByTag(e.Item);
                     if (node != null)
                     {
-                        ITreeNode parentNode = node.Parent;
+                        TreeNode parentNode = node.Parent;
                         if (parentNode != null)
                         {
                             var parentPresenter = parentNode.Presenter;
@@ -181,7 +181,7 @@ namespace Core.Common.Controls.TreeView
                                 {
                                     return;
                                 }
-                                ((TreeNode) parentNode).HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
+                                parentNode.HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
                                 OnCollectionChanged((T) e.Item, parentNode, e, -1);
                             }
                         }
@@ -214,7 +214,7 @@ namespace Core.Common.Controls.TreeView
             return false;
         }
 
-        protected virtual void OnPropertyChanged(T item, ITreeNode node, PropertyChangedEventArgs e)
+        protected virtual void OnPropertyChanged(T item, TreeNode node, PropertyChangedEventArgs e)
         {
             if (node == null)
             {
@@ -232,7 +232,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="parentNode"></param>
         /// <param name="e"></param>
         /// <param name="newNodeIndex"></param>
-        protected virtual void OnCollectionChanged(T childNodeData, ITreeNode parentNode, NotifyCollectionChangeEventArgs e, int newNodeIndex)
+        protected virtual void OnCollectionChanged(T childNodeData, TreeNode parentNode, NotifyCollectionChangeEventArgs e, int newNodeIndex)
         {
             switch (e.Action)
             {
@@ -243,7 +243,7 @@ namespace Core.Common.Controls.TreeView
                     if (parentNode.IsLoaded)
                     {
                         // do not add node twice to the same parent
-                        ITreeNode existingNode = parentNode.GetNodeByTag(e.Item);
+                        TreeNode existingNode = parentNode.GetNodeByTag(e.Item);
                         if (existingNode != null)
                         {
                             return;
@@ -261,7 +261,7 @@ namespace Core.Common.Controls.TreeView
                     break;
 
                 case NotifyCollectionChangeAction.Remove:
-                    ITreeNode node = TreeView.GetNodeByTag(e.Item);
+                    TreeNode node = TreeView.GetNodeByTag(e.Item);
                     if (node != null)
                     {
                         TreeView.Nodes.Remove(node);
@@ -275,7 +275,7 @@ namespace Core.Common.Controls.TreeView
             return false;
         }
 
-        private static int IndexInParent(ITreeNodePresenter presenter, ITreeNode parentNode, object item)
+        private static int IndexInParent(ITreeNodePresenter presenter, TreeNode parentNode, object item)
         {
             var childItems = presenter.GetChildNodeObjects(parentNode.Tag).OfType<object>().ToList();
             var i = 0;

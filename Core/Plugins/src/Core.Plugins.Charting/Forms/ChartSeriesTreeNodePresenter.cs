@@ -8,7 +8,7 @@ namespace Core.Plugins.Charting.Forms
 {
     public class ChartSeriesTreeNodePresenter : TreeViewNodePresenterBase<ChartSeries>
     {
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             return true;
         }
@@ -23,7 +23,7 @@ namespace Core.Plugins.Charting.Forms
             chartSeries.Title = newName;
         }
 
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, ChartSeries chartSeries)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, ChartSeries chartSeries)
         {
             node.Text = chartSeries.Title;
             node.Tag = chartSeries;
@@ -32,7 +32,7 @@ namespace Core.Plugins.Charting.Forms
             node.Image = GetImage(chartSeries);
         }
 
-        public override void OnNodeChecked(ITreeNode node)
+        public override void OnNodeChecked(TreeNode node)
         {
             var chartSeries = (IChartSeries) node.Tag;
 

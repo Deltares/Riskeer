@@ -18,6 +18,7 @@ using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -41,7 +42,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// </summary>
         public Action<IEnumerable<Activity>> RunActivitiesAction { private get; set; }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, PipingFailureMechanism nodeData)
         {
             node.Text = nodeData.Name;
             node.Image = PipingFormsResources.PipingIcon;
@@ -55,7 +56,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             yield return new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingFailureMechanism failureMechanism)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, PipingFailureMechanism failureMechanism)
         {
             var addCalculationGroupItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
@@ -140,7 +141,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             RunActivitiesAction(GetAllPipingCalculationsResursively(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
-        private void AddCalculationGroup(PipingFailureMechanism failureMechanism, ITreeNode failureMechanismNode)
+        private void AddCalculationGroup(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode)
         {
             var calculation = new PipingCalculationGroup
             {
@@ -152,7 +153,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             SelectNewlyAddedItemInTreeView(failureMechanismNode);
         }
 
-        private void AddCalculation(PipingFailureMechanism failureMechanism, ITreeNode failureMechanismNode)
+        private void AddCalculation(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode)
         {
             var calculation = new PipingCalculation
             {
@@ -164,7 +165,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             SelectNewlyAddedItemInTreeView(failureMechanismNode);
         }
 
-        private void SelectNewlyAddedItemInTreeView(ITreeNode failureMechanismNode)
+        private void SelectNewlyAddedItemInTreeView(TreeNode failureMechanismNode)
         {
             if (!failureMechanismNode.IsExpanded)
             {
@@ -172,10 +173,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
 
             // Childnode at index 1 is the PipingCalculationGroup where the new item has been added:
-            ITreeNode failureMechanismsCalculationsNode = failureMechanismNode.Nodes[1];
+            TreeNode failureMechanismsCalculationsNode = failureMechanismNode.Nodes[1];
 
             // New childnode is appended at the end of PipingCalculationGroup:
-            ITreeNode newlyAddedGroupNode = failureMechanismsCalculationsNode.Nodes.Last();
+            TreeNode newlyAddedGroupNode = failureMechanismsCalculationsNode.Nodes.Last();
             if (!failureMechanismsCalculationsNode.IsExpanded)
             {
                 failureMechanismsCalculationsNode.Expand();

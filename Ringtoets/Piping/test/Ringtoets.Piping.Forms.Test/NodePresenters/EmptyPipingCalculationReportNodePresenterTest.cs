@@ -63,8 +63,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_Always_MimickSameBehaviorAsPipingCalculationReportNodePresenterWithGreyedText()
         {
             // Setup
-            var parentNode = mockRepository.StrictMock<ITreeNode>();
-            var reportNode = mockRepository.Stub<ITreeNode>();
+            var parentNode = mockRepository.StrictMock<TreeNode>();
+            var reportNode = mockRepository.Stub<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanRenameNode_Always_MimickSameBehaviorAsPipingCalculationReportNodePresenter()
         {
             // Setup
-            var reportNode = mockRepository.StrictMock<ITreeNode>();
+            var reportNode = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup
-            var reportNode = mockRepository.StrictMock<ITreeNode>();
+            var reportNode = mockRepository.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);

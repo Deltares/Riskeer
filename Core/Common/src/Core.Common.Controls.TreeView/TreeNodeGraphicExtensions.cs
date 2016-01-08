@@ -73,7 +73,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="node">Node to draw the placeholder for</param>
         /// <param name="location">Location of the placeholder</param>
         /// <param name="graphics">Graphics to draw on</param>
-        public static void DrawPlaceHolder(this ITreeNode node, PlaceholderLocation location, Graphics graphics)
+        public static void DrawPlaceHolder(this TreeNode node, PlaceholderLocation location, Graphics graphics)
         {
             var rightTriangle = node.MakePlaceHoldeTriangle(AnchorStyles.Right, location);
 
@@ -94,7 +94,7 @@ namespace Core.Common.Controls.TreeView
             graphics.DrawLine(new Pen(Color.Black, 1), new Point(GetCheckBoxLeft(node), yLine), new Point(node.Bounds.Right, yLine));
         }
 
-        private static Point[] MakePlaceHoldeTriangle(this ITreeNode node, AnchorStyles anchor, PlaceholderLocation location)
+        private static Point[] MakePlaceHoldeTriangle(this TreeNode node, AnchorStyles anchor, PlaceholderLocation location)
         {
             const int placeHolderWidth = 4;
             const int placeHolderHeigth = 8;
@@ -153,7 +153,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             // draw parent lines
-            var parentNode = (ITreeNode) node;
+            var parentNode = node;
             for (int i = node.Level - 1; i > 0; i--)
             {
                 parentNode = parentNode.Parent;
@@ -247,7 +247,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private static void DrawCheckbox(Graphics graphics, ITreeNode node)
+        private static void DrawCheckbox(Graphics graphics, TreeNode node)
         {
             if (!node.ShowCheckBox)
             {
@@ -279,7 +279,7 @@ namespace Core.Common.Controls.TreeView
             return Convert.ToInt32(20*(72/graphics.DpiX));
         }
 
-        private static void DrawImage(Graphics graphics, ITreeNode node)
+        private static void DrawImage(Graphics graphics, TreeNode node)
         {
             if (node.Image == null)
             {
@@ -293,29 +293,29 @@ namespace Core.Common.Controls.TreeView
             graphics.DrawImage(node.Image, imgRect, node.Image.GetBounds(ref graphicsUnit), graphicsUnit);
         }
 
-        private static int GetTreeLineLeft(ITreeNode node)
+        private static int GetTreeLineLeft(TreeNode node)
         {
             return GetCheckBoxLeft(node) - DefaultImageWidth + 3;
         }
 
-        private static int GetCheckBoxLeft(ITreeNode node)
+        private static int GetCheckBoxLeft(TreeNode node)
         {
             return node.Bounds.Left - (DefaultImageWidth + SpaceBetweenNodeParts);
         }
 
-        private static int GetImageLeft(ITreeNode node)
+        private static int GetImageLeft(TreeNode node)
         {
             var xCheckBox = GetCheckBoxLeft(node);
             return node.ShowCheckBox ? xCheckBox + DefaultImageWidth + SpaceBetweenNodeParts : xCheckBox;
         }
 
-        private static int GetTextLeft(ITreeNode node)
+        private static int GetTextLeft(TreeNode node)
         {
             var xImage = GetImageLeft(node);
             return node.Image != null ? xImage + DefaultImageWidth + SpaceBetweenNodeParts : xImage;
         }
 
-        private static ITreeNode GetNextNodeSameLevel(ITreeNode node)
+        private static TreeNode GetNextNodeSameLevel(TreeNode node)
         {
             var nodes = node.Parent != null ? node.Parent.Nodes : node.TreeView.Nodes;
             var index = nodes.IndexOf(node) + 1;

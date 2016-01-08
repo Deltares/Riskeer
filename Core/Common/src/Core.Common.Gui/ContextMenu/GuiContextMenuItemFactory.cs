@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui.ContextMenu
 {
@@ -13,7 +13,7 @@ namespace Core.Common.Gui.ContextMenu
     internal class GuiContextMenuItemFactory
     {
         private readonly IGuiCommandHandler commandHandler;
-        private readonly ITreeNode treeNode;
+        private readonly TreeNode treeNode;
 
         /// <summary>
         /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the 
@@ -21,9 +21,9 @@ namespace Core.Common.Gui.ContextMenu
         /// </summary>
         /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> which contains information for creating the 
         /// <see cref="ToolStripItem"/>.</param>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
+        /// <param name="treeNode">The <see cref="TreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="commandHandler"/> is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, ITreeNode treeNode)
+        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, TreeNode treeNode)
         {
             if (commandHandler == null)
             {
@@ -39,7 +39,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of opening a view 
-        /// for the data of the <see cref="ITreeNode"/>.
+        /// for the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateOpenItem()
@@ -59,7 +59,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of exporting 
-        /// the data of the <see cref="ITreeNode"/>.
+        /// the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExportItem()
@@ -79,7 +79,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of importing
-        /// the data of the given <see cref="ITreeNode"/>.
+        /// the data of the given <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
@@ -99,7 +99,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of showing
-        /// the properties of the data of the given <see cref="ITreeNode"/>.
+        /// the properties of the data of the given <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreatePropertiesItem()

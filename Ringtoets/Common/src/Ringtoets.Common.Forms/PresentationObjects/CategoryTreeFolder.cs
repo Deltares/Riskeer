@@ -6,7 +6,7 @@ using Core.Common.Controls.TreeView;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Object that allows for grouping child nodes of <see cref="ITreeNode"/> instances.
+    /// Object that allows for grouping child nodes of <see cref="TreeNode"/> instances.
     /// </summary>
     public class CategoryTreeFolder
     {

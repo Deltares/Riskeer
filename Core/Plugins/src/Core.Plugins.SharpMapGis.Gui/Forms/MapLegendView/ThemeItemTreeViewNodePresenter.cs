@@ -7,7 +7,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class ThemeItemTreeViewNodePresenter : TreeViewNodePresenterBase<IThemeItem>
     {
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IThemeItem themeItem)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, IThemeItem themeItem)
         {
             if (node.Text != themeItem.Label)
             {
@@ -20,7 +20,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        protected override void OnPropertyChanged(IThemeItem themeItem, ITreeNode node, PropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(IThemeItem themeItem, TreeNode node, PropertyChangedEventArgs e)
         {
             if (node == null)
             {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui
 {
@@ -13,12 +13,12 @@ namespace Core.Common.Gui
         /// Returns a new <see cref="ContextMenuBuilder"/> for creating a <see cref="ContextMenuStrip"/>
         /// for the given <paramref name="treeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> to have the <see cref="ContextMenuBuilder"/>
+        /// <param name="treeNode">The <see cref="Controls.TreeView.TreeNode"/> to have the <see cref="ContextMenuBuilder"/>
         /// create a <see cref="ContextMenuStrip"/> for.</param>
         /// <returns>The <see cref="ContextMenuBuilder"/> which can be used to create a <see cref="ContextMenuStrip"/>
         /// for <paramref name="treeNode"/>.</returns>
         /// <exception cref="ContextMenuBuilderException">Thrown when the <see cref="IContextMenuBuilder"/> instance could
         /// not be created.</exception>
-        IContextMenuBuilder Get(ITreeNode treeNode);
+        IContextMenuBuilder Get(TreeNode treeNode);
     }
 }

@@ -59,8 +59,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var contextMenuProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentNode = mocks.StrictMock<ITreeNode>();
-            var nodeToUpdate = mocks.Stub<ITreeNode>();
+            var parentNode = mocks.StrictMock<TreeNode>();
+            var nodeToUpdate = mocks.Stub<TreeNode>();
             mocks.ReplayAll();
 
             var dataObject = new FailureMechanismPlaceholder("test");
@@ -154,7 +154,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

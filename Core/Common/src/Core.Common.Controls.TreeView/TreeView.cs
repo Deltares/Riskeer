@@ -41,8 +41,8 @@ namespace Core.Common.Controls.TreeView
         private int dropAtLocation;
         private Point lastDragOverPoint;
         private PlaceholderLocation lastPlaceholderLocation;
-        private ITreeNode nodeDropTarget;
-        private ITreeNode lastPlaceholderNode;
+        private TreeNode nodeDropTarget;
+        private TreeNode lastPlaceholderNode;
         private Graphics placeHolderGraphics;
         private bool bufferedNodeExpanded;
 
@@ -94,7 +94,7 @@ namespace Core.Common.Controls.TreeView
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public new ITreeNode SelectedNode
+        public new TreeNode SelectedNode
         {
             get
             {
@@ -130,7 +130,7 @@ namespace Core.Common.Controls.TreeView
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEnumerable<ITreeNode> AllLoadedNodes
+        public IEnumerable<TreeNode> AllLoadedNodes
         {
             get
             {
@@ -154,7 +154,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public new IList<ITreeNode> Nodes
+        public new IList<TreeNode> Nodes
         {
             get
             {
@@ -164,7 +164,7 @@ namespace Core.Common.Controls.TreeView
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        ITreeNode ITreeView.SelectedNode
+        TreeNode ITreeView.SelectedNode
         {
             get
             {
@@ -172,7 +172,7 @@ namespace Core.Common.Controls.TreeView
             }
             set
             {
-                base.SelectedNode = (System.Windows.Forms.TreeNode) value;
+                base.SelectedNode = value;
 
                 if (SelectedNodeChanged != null)
                 {
@@ -189,7 +189,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void CollapseAll(ITreeNode node)
+        public void CollapseAll(TreeNode node)
         {
             node.Collapse();
             foreach (var childNode in node.Nodes)
@@ -206,7 +206,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void ExpandAll(ITreeNode node)
+        public void ExpandAll(TreeNode node)
         {
             node.Expand();
             foreach (var childNode in node.Nodes)
@@ -220,7 +220,7 @@ namespace Core.Common.Controls.TreeView
             StartLabelEdit(SelectedNode);
         }
 
-        public void StartLabelEdit(ITreeNode node)
+        public void StartLabelEdit(TreeNode node)
         {
             if (!controller.CanRenameNode(node))
             {
@@ -235,7 +235,7 @@ namespace Core.Common.Controls.TreeView
             controller.RegisterNodePresenter(presenter);
         }
 
-        public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, ITreeNode node)
+        public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, TreeNode node)
         {
             if (nodeData == null)
             {
@@ -248,12 +248,12 @@ namespace Core.Common.Controls.TreeView
         /// Create a new Node for this tree with default properties
         /// </summary>
         /// <returns></returns>
-        public ITreeNode NewNode()
+        public TreeNode NewNode()
         {
             return new TreeNode(this);
         }
 
-        public ITreeNode AddNewNode(ITreeNode parentNode, object nodeData, int insertionIndex = -1)
+        public TreeNode AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
         {
             return controller.AddNewNode(parentNode, nodeData, insertionIndex);
         }
@@ -264,7 +264,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="nodeData"></param>
         /// <param name="skipUnLoadedNodes">if a node is not loaded, don't do so</param>
         /// <returns></returns>
-        public ITreeNode GetNodeByTag(object nodeData, bool skipUnLoadedNodes = true)
+        public TreeNode GetNodeByTag(object nodeData, bool skipUnLoadedNodes = true)
         {
             if (Nodes.Count > 0)
             {
@@ -274,7 +274,7 @@ namespace Core.Common.Controls.TreeView
             return null;
         }
 
-        public void UpdateNode(ITreeNode treeNode)
+        public void UpdateNode(TreeNode treeNode)
         {
             if (controller != null)
             {
@@ -286,8 +286,8 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Fires the <see cref="OnUpdate"/> event with the given <see cref="treeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> to fire an update event for.</param>
-        private void FireOnUpdateEvent(ITreeNode treeNode)
+        /// <param name="treeNode">The <see cref="TreeNode"/> to fire an update event for.</param>
+        private void FireOnUpdateEvent(TreeNode treeNode)
         {
             if (OnUpdate != null)
             {
@@ -295,7 +295,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void RefreshChildNodes(ITreeNode treeNode)
+        public void RefreshChildNodes(TreeNode treeNode)
         {
             if (controller != null)
             {
@@ -303,7 +303,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void TryDeleteNodeData(ITreeNode treeNode)
+        public void TryDeleteNodeData(TreeNode treeNode)
         {
             if (!controller.CanDeleteNode(treeNode))
             {
@@ -325,7 +325,7 @@ namespace Core.Common.Controls.TreeView
             TryDeleteNodeData(SelectedNode);
         }
 
-        private void DeleteNodeData(ITreeNode node)
+        private void DeleteNodeData(TreeNode node)
         {
             var presenter = GetTreeViewNodePresenter(node.Tag, node);
             presenter.RemoveNodeData(node.Parent.Tag, node.Tag);
@@ -365,7 +365,7 @@ namespace Core.Common.Controls.TreeView
 
                     if (nodeToSelect != null)
                     {
-                        base.SelectedNode = (System.Windows.Forms.TreeNode) nodeToSelect;
+                        base.SelectedNode = nodeToSelect;
                     }
                 }
 
@@ -383,7 +383,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public IEnumerable<ITreeNode> GetAllLoadedNodes(ITreeNode currentNode)
+        public IEnumerable<TreeNode> GetAllLoadedNodes(TreeNode currentNode)
         {
             var allChildNodes = new[]
             {
@@ -579,7 +579,7 @@ namespace Core.Common.Controls.TreeView
                     return true;
 
                 case Keys.Space:
-                    ITreeNode node = (TreeNode) SelectedNode;
+                    var node = SelectedNode;
                     if (node != null && node.ShowCheckBox)
                     {
                         //Toggle checked state
@@ -714,7 +714,7 @@ namespace Core.Common.Controls.TreeView
             SelectedNode = oldSelectedNode;
         }
 
-        private ITreeNode GetLastNode(ITreeNode treeNode)
+        private TreeNode GetLastNode(TreeNode treeNode)
         {
             if (treeNode.IsLoaded && treeNode.Nodes.Count > 0)
             {
@@ -732,7 +732,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var treeNode = (ITreeNode) GetNodeAt(e.X, e.Y);
+            var treeNode = (TreeNode) GetNodeAt(e.X, e.Y);
             if (treeNode == null)
             {
                 return;
@@ -780,7 +780,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewAfterCheck(object sender, TreeViewEventArgs e)
         {
-            controller.OnNodeChecked((ITreeNode) e.Node);
+            controller.OnNodeChecked((TreeNode) e.Node);
         }
 
         /// <summary>
@@ -790,13 +790,13 @@ namespace Core.Common.Controls.TreeView
         /// <param name="e"></param>
         private void TreeViewBeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            if (!controller.CanRenameNode(e.Node as ITreeNode))
+            if (!controller.CanRenameNode(e.Node as TreeNode))
             {
                 e.CancelEdit = true;
             }
         }
 
-        private static ITreeNode GetNodeByTag(ITreeNode rootNode, object tag, bool skipUnLoadedNodes)
+        private static TreeNode GetNodeByTag(TreeNode rootNode, object tag, bool skipUnLoadedNodes)
         {
             if (Equals(rootNode.Tag, tag))
             {
@@ -903,7 +903,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private PlaceholderLocation GetPlaceHoldersLocation(ITreeNode nodeDragging, ITreeNode nodeOver, DragEventArgs e)
+        private PlaceholderLocation GetPlaceHoldersLocation(TreeNode nodeDragging, TreeNode nodeOver, DragEventArgs e)
         {
             PlaceholderLocation loc = PlaceholderLocation.None;
             int offsetY = PointToClient(Cursor.Position).Y - nodeOver.Bounds.Top;
@@ -976,7 +976,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="point"></param>
         /// <param name="nodeOver"></param>
         /// <param name="sender"></param>
-        private static void ScrollIntoView(Point point, ITreeNode nodeOver, object sender)
+        private static void ScrollIntoView(Point point, TreeNode nodeOver, object sender)
         {
             var treeView = sender as TreeView;
             if (treeView == null)
@@ -1068,7 +1068,7 @@ namespace Core.Common.Controls.TreeView
         /// Indicate the dragged node can be inserted either above or below
         /// another node
         /// </summary>
-        private void DrawPlaceholder(ITreeNode node, PlaceholderLocation location)
+        private void DrawPlaceholder(TreeNode node, PlaceholderLocation location)
         {
             if (lastPlaceholderNode == node && lastPlaceholderLocation == location)
             {

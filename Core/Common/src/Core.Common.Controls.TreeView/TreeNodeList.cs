@@ -7,9 +7,9 @@ using Core.Common.Controls.TreeView.Properties;
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// Wraps TreeNodeCollection from Windows.Forms.TreeView so it appears as a list of ITreeNode.
+    /// Wraps TreeNodeCollection from Windows.Forms.TreeView so it appears as a list of TreeNode.
     /// </summary>
-    public class TreeNodeList : IList<ITreeNode>
+    public class TreeNodeList : IList<TreeNode>
     {
         private readonly TreeNodeCollection nodes;
 
@@ -18,51 +18,47 @@ namespace Core.Common.Controls.TreeView
             this.nodes = nodes;
         }
 
-        #region IList<ITreeNode> Members
+        #region IList<TreeNode> Members
 
-        public int IndexOf(ITreeNode item)
+        public int IndexOf(TreeNode item)
         {
-            return nodes.IndexOf((System.Windows.Forms.TreeNode) item);
+            return nodes.IndexOf(item);
         }
 
-        public void Insert(int index, ITreeNode item)
+        public void Insert(int index, TreeNode item)
         {
-            var treeNodeItem = item as TreeNode;
-
-            if (treeNodeItem != null)
+            if (item != null)
             {
-                nodes.Insert(index, treeNodeItem);
+                nodes.Insert(index, item);
             }
         }
 
         public void RemoveAt(int index)
         {
-            var nodeToRemove = (ITreeNode) nodes[index];
+            var nodeToRemove = (TreeNode) nodes[index];
 
             nodes.RemoveAt(index);
 
             nodeToRemove.Dispose();
         }
 
-        public ITreeNode this[int index]
+        public TreeNode this[int index]
         {
             get
             {
-                return (ITreeNode) nodes[index];
+                return (TreeNode) nodes[index];
             }
             set
             {
-                nodes[index] = (System.Windows.Forms.TreeNode) value;
+                nodes[index] = value;
             }
         }
 
-        public void Add(ITreeNode item)
+        public void Add(TreeNode item)
         {
-            var treeNodeItem = item as TreeNode;
-
-            if (treeNodeItem != null)
+            if (item != null)
             {
-                nodes.Add(treeNodeItem);
+                nodes.Add(item);
             }
         }
 
@@ -71,9 +67,9 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         public void Clear()
         {
-            var nodesToRemove = new List<ITreeNode>();
+            var nodesToRemove = new List<TreeNode>();
 
-            foreach (ITreeNode node in nodes)
+            foreach (TreeNode node in nodes)
             {
                 nodesToRemove.AddRange(GetAllNodes(node));
             }
@@ -86,9 +82,9 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private IList<ITreeNode> GetAllNodes(ITreeNode treeNode)
+        private IList<TreeNode> GetAllNodes(TreeNode treeNode)
         {
-            var thisAndChildren = new List<ITreeNode>();
+            var thisAndChildren = new List<TreeNode>();
             thisAndChildren.Add(treeNode);
             foreach (var node in treeNode.Nodes)
             {
@@ -97,12 +93,12 @@ namespace Core.Common.Controls.TreeView
             return thisAndChildren;
         }
 
-        public bool Contains(ITreeNode item)
+        public bool Contains(TreeNode item)
         {
-            return nodes.Contains((System.Windows.Forms.TreeNode) item);
+            return nodes.Contains(item);
         }
 
-        public void CopyTo(ITreeNode[] array, int arrayIndex)
+        public void CopyTo(TreeNode[] array, int arrayIndex)
         {
             nodes.CopyTo(array, arrayIndex);
         }
@@ -128,19 +124,19 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Remove(ITreeNode item)
+        public bool Remove(TreeNode item)
         {
-            nodes.Remove((System.Windows.Forms.TreeNode) item);
+            nodes.Remove(item);
 
             item.Dispose();
 
             return true;
         }
 
-        public IEnumerator<ITreeNode> GetEnumerator()
+        public IEnumerator<TreeNode> GetEnumerator()
         {
             //wrap TreeNodeCollection so it returns  the right enumerator variable
-            foreach (ITreeNode node in nodes)
+            foreach (TreeNode node in nodes)
             {
                 yield return node;
             }

@@ -8,6 +8,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Plugins.ProjectExplorer.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Plugins.ProjectExplorer.NodePresenters
 {
@@ -44,7 +45,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             return project.Items;
         }
 
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Project project)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, Project project)
         {
             node.Text = project.Name;
             Image image = Resources.Project;
@@ -53,7 +54,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             node.Tag = project;
         }
 
-        public override ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
+        public override ContextMenuStrip GetContextMenu(TreeNode node, object nodeData)
         {
             var addItem = new StrictContextMenuItem(
                 Resources.AddItem,
@@ -81,7 +82,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
         }
 
 
-        protected override void OnPropertyChanged(Project item, ITreeNode node, PropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(Project item, TreeNode node, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Name")
             {

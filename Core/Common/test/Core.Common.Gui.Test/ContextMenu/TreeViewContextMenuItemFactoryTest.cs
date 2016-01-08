@@ -36,7 +36,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithTreeNode_DoesNotThrow()
         {
             // Setup
-            var strictMock = mocks.StrictMock<ITreeNode>();
+            var strictMock = mocks.StrictMock<TreeNode>();
 
             mocks.ReplayAll();
             
@@ -55,8 +55,8 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateDeleteItem_DependingOnCanDelete_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            var treeParentNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
+            var treeParentNodeMock = mocks.StrictMock<TreeNode>();
             var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
             var arg1 = new object();
@@ -97,7 +97,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateRenameItem_DependingOnCanRename_ItemWithDeleteFunctionWillBeEnabled(bool canRename)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
 
@@ -133,7 +133,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateExpandAllItem_DependingOnChildNodes_ItemWithExpandFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
             if (hasChildren)
             {
@@ -141,11 +141,11 @@ namespace Core.Common.Gui.Test.ContextMenu
                 treeViewMock.Expect(tv => tv.ExpandAll(treeNodeMock));
             }
 
-            var children = new List<ITreeNode>();
+            var children = new List<TreeNode>();
 
             if (hasChildren)
             {
-                children.Add(mocks.StrictMock<ITreeNode>());
+                children.Add(mocks.StrictMock<TreeNode>());
             }
 
             treeNodeMock.Expect(tn => tn.Nodes).Return(children);
@@ -172,18 +172,18 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateCollapseAllItem_DependingOnChildNodes_ItemWithCollapseFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var treeViewMock = mocks.StrictMock<ITreeView>();
             if (hasChildren)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
                 treeViewMock.Expect(tv => tv.CollapseAll(treeNodeMock));
             }
-            var children = new List<ITreeNode>();
+            var children = new List<TreeNode>();
 
             if (hasChildren)
             {
-                children.Add(mocks.StrictMock<ITreeNode>());
+                children.Add(mocks.StrictMock<TreeNode>());
             }
 
             treeNodeMock.Expect(tn => tn.Nodes).Return(children);

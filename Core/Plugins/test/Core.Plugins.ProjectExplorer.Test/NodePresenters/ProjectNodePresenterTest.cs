@@ -81,7 +81,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -113,7 +113,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         {
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
@@ -158,8 +158,8 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
 
-            var node = mocks.StrictMock<ITreeNode>();
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var node = mocks.StrictMock<TreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -182,8 +182,8 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
 
-            var node = mocks.StrictMock<ITreeNode>();
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var node = mocks.StrictMock<TreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
 
             mocks.ReplayAll();
 

@@ -28,10 +28,10 @@ namespace Core.Common.Controls.TreeView.Test
             var o1 = new object();
 
             var treeView = new TreeView();
-            ITreeNode node = treeView.NewNode();
+            TreeNode node = treeView.NewNode();
             node.Tag = o1;
             treeView.Nodes.Add(node);
-            ITreeNode node1 = treeView.GetNodeByTag(o1);
+            TreeNode node1 = treeView.GetNodeByTag(o1);
             Assert.AreEqual(node, node1);
         }
 
@@ -98,7 +98,7 @@ namespace Core.Common.Controls.TreeView.Test
              */
             var treeView = new TreeView();
 
-            ITreeNode rootNode = new MockTestNode(treeView, true)
+            TreeNode rootNode = new MockTestNode(treeView, true)
             {
                 Text = "RootNode"
             };
@@ -464,7 +464,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class DynamicParentNodePresenter : TreeViewNodePresenterBase<Parent>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Parent nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, Parent nodeData)
             {
                 node.Text = nodeData.Name;
             }
@@ -504,7 +504,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class ParentNodePresenter : TreeViewNodePresenterBase<Parent>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Parent nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, Parent nodeData)
             {
                 node.Text = nodeData.Name;
             }
@@ -546,7 +546,7 @@ namespace Core.Common.Controls.TreeView.Test
                 return true;
             }
 
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Child nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, Child nodeData)
             {
                 node.Text = nodeData.Name;
 

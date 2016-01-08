@@ -122,7 +122,7 @@ namespace Core.Plugins.Charting.Test.Forms
             // Setup
             var mocks = new MockRepository();
             var nodePresenter = new ChartSeriesTreeNodePresenter();
-            var node = mocks.StrictMock<ITreeNode>();
+            var node = mocks.StrictMock<TreeNode>();
             var chartSeries = new TestChartSeries();
             node.Expect(n => n.Tag).Return(chartSeries);
             node.Expect(n => n.Checked).Return(visible);

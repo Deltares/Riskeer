@@ -9,6 +9,7 @@ using Core.Common.Gui;
 using Core.Common.Utils.Events;
 
 using Ringtoets.Common.Forms.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Common.Forms.NodePresenters
 {
@@ -47,7 +48,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
             }
         }
 
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
+        public void UpdateNode(TreeNode parentNode, TreeNode node, object nodeData)
         {
             UpdateNode(parentNode, node, (T)nodeData);
         }
@@ -57,12 +58,12 @@ namespace Ringtoets.Common.Forms.NodePresenters
             return GetChildNodeObjects((T)parentNodeData).Cast<object>();
         }
 
-        public virtual bool CanRenameNode(ITreeNode node)
+        public virtual bool CanRenameNode(TreeNode node)
         {
             return false;
         }
 
-        public virtual bool CanRenameNodeTo(ITreeNode node, string newName)
+        public virtual bool CanRenameNodeTo(TreeNode node, string newName)
         {
             return false;
         }
@@ -73,7 +74,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
             OnNodeRenamed(data, newName);
         }
 
-        public virtual void OnNodeChecked(ITreeNode node)
+        public virtual void OnNodeChecked(TreeNode node)
         {
             // Not a checked node
         }
@@ -83,12 +84,12 @@ namespace Ringtoets.Common.Forms.NodePresenters
             return CanDrag((T)nodeData);
         }
 
-        public virtual DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public virtual DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
             return DragOperations.None;
         }
 
-        public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public virtual bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
         {
             return false;
         }
@@ -103,12 +104,12 @@ namespace Ringtoets.Common.Forms.NodePresenters
             OnNodeSelected((T)nodeData);
         }
 
-        public ContextMenuStrip GetContextMenu(ITreeNode node, object nodeData)
+        public ContextMenuStrip GetContextMenu(TreeNode node, object nodeData)
         {
             return GetContextMenu(node, (T)nodeData);
         }
 
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e)
+        public void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e)
         {
             OnPropertyChanged((T)sender, node, e);
         }
@@ -131,8 +132,8 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.UpdateNode"/>.
         /// </summary>
-        /// <seealso cref="UpdateNode(ITreeNode, ITreeNode, object)"/>
-        protected abstract void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData);
+        /// <seealso cref="UpdateNode(Core.Common.Controls.TreeView.TreeNode, Core.Common.Controls.TreeView.TreeNode, object)"/>
+        protected abstract void UpdateNode(TreeNode parentNode, TreeNode node, T nodeData);
 
         /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.GetChildNodeObjects"/>.
@@ -182,8 +183,8 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.GetContextMenu"/>.
         /// </summary>
-        /// <seealso cref="GetContextMenu(ITreeNode, object)"/>
-        protected virtual ContextMenuStrip GetContextMenu(ITreeNode node, T nodeData)
+        /// <seealso cref="GetContextMenu(TreeNode, object)"/>
+        protected virtual ContextMenuStrip GetContextMenu(TreeNode node, T nodeData)
         {
             return null;
         }
@@ -191,8 +192,8 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.OnPropertyChanged"/>.
         /// </summary>
-        /// <seealso cref="OnPropertyChanged(object, ITreeNode, PropertyChangedEventArgs)"/>
-        protected virtual void OnPropertyChanged(T sender, ITreeNode node, PropertyChangedEventArgs e)
+        /// <seealso cref="OnPropertyChanged(object, Core.Common.Controls.TreeView.TreeNode, PropertyChangedEventArgs)"/>
+        protected virtual void OnPropertyChanged(T sender, TreeNode node, PropertyChangedEventArgs e)
         {
             // Do nothing
         }

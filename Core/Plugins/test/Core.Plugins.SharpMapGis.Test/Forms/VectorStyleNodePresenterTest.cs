@@ -1,4 +1,3 @@
-using Core.Common.Controls;
 using Core.Common.Controls.TreeView;
 using Core.GIS.SharpMap.Styles;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
@@ -10,21 +9,21 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
     [TestFixture]
     public class VectorStyleNodePresenterTest
     {
-        private static readonly MockRepository mocks = new MockRepository();
+        private static readonly MockRepository Mocks = new MockRepository();
         private static ITreeNodePresenter vectorStyleNodePresenter;
 
         [SetUp]
         public void Setup()
         {
             vectorStyleNodePresenter = new VectorStyleTreeViewNodePresenter();
-            var tv = mocks.Stub<ITreeView>();
+            var tv = Mocks.Stub<ITreeView>();
             vectorStyleNodePresenter.TreeView = tv;
         }
 
         [Test]
         public void CreateNode()
         {
-            var node = mocks.Stub<ITreeNode>();
+            var node = Mocks.Stub<TreeNode>();
 
             var style = new VectorStyle();
 

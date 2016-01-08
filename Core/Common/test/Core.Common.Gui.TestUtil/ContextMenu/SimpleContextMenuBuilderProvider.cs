@@ -26,7 +26,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
             this.contextMenuBuilder = contextMenuBuilder;
         }
 
-        public IContextMenuBuilder Get(ITreeNode treeNode)
+        public IContextMenuBuilder Get(TreeNode treeNode)
         {
             return contextMenuBuilder;
         }

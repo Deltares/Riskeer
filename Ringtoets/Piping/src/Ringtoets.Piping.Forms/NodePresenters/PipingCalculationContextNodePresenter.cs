@@ -13,6 +13,7 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -36,12 +37,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// </summary>
         public Action<Activity> RunActivityAction { private get; set; }
 
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             return true;
         }
 
-        public override bool CanRenameNodeTo(ITreeNode node, string newName)
+        public override bool CanRenameNodeTo(TreeNode node, string newName)
         {
             return true;
         }
@@ -51,7 +52,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return DragOperations.Move;
         }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationContext pipingCalculationContext)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, PipingCalculationContext pipingCalculationContext)
         {
             node.Text = pipingCalculationContext.WrappedData.Name;
             node.Image = Resources.PipingIcon;
@@ -108,7 +109,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             pipingCalculationContext.WrappedData.NotifyObservers();
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingCalculationContext nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, PipingCalculationContext nodeData)
         {
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(RingtoetsFormsResources.Validate,

@@ -55,7 +55,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var treeNodeMock = mocks.Stub<ITreeNode>();
+            var treeNodeMock = mocks.Stub<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -76,7 +76,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var nodeStub = mocks.Stub<ITreeNode>();
+            var nodeStub = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewersForNodeData);
             if (hasViewersForNodeData)
             {
@@ -110,7 +110,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var nodeStub = mocks.Stub<ITreeNode>();
+            var nodeStub = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
             if (hasExportersForNodeData)
             {
@@ -144,7 +144,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var nodeStub = mocks.Stub<ITreeNode>();
+            var nodeStub = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
             if (hasImportersForNodeData)
             {
@@ -178,7 +178,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var nodeStub = mocks.Stub<ITreeNode>();
+            var nodeStub = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
             if (hasPropertyInfoForNodeData)
             {

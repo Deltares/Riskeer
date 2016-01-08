@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
@@ -29,6 +28,7 @@ using Core.GIS.SharpMap.UI.Helpers;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui
 {
@@ -258,7 +258,7 @@ namespace Core.Common.Gui
             }
         }
 
-        public IContextMenuBuilder Get(ITreeNode treeNode)
+        public IContextMenuBuilder Get(TreeNode treeNode)
         {
             return new ContextMenuBuilder(CommandHandler, treeNode);
         }

@@ -12,9 +12,9 @@ namespace Core.Common.Controls.TreeView.Test
     [TestFixture]
     public class TreeViewNodePresenterBaseTest
     {
-        private static IEnumerable<ITreeNode> GetAllNodes(IEnumerable<ITreeNode> nodes)
+        private static IEnumerable<TreeNode> GetAllNodes(IEnumerable<TreeNode> nodes)
         {
-            var result = new List<ITreeNode>();
+            var result = new List<TreeNode>();
             if (nodes == null)
             {
                 return result;
@@ -80,7 +80,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeView.RegisterNodePresenter(new PersonNodePresenter());
                 treeView.Data = group;
 
-                var groupNode = (TreeNode) treeView.Nodes[0];
+                var groupNode = treeView.Nodes[0];
                 Assert.AreEqual(true, groupNode.HasChildren);
 
                 WindowsFormsTestHelper.Show(treeView);
@@ -241,8 +241,8 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var node = mocks.StrictMock<ITreeNode>();
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var node = mocks.StrictMock<TreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
             mocks.ReplayAll();
 
             var nodeData = new TestPerson();
@@ -262,8 +262,8 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var node = mocks.StrictMock<ITreeNode>();
-            var targetNode = mocks.StrictMock<ITreeNode>();
+            var node = mocks.StrictMock<TreeNode>();
+            var targetNode = mocks.StrictMock<TreeNode>();
             mocks.ReplayAll();
 
             var nodeData = new TestPerson();
@@ -323,7 +323,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class SimpleTreeViewNodePresenter : TreeViewNodePresenterBase<TestPerson>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TestPerson nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, TestPerson nodeData)
             {
                 throw new System.NotImplementedException();
             }
@@ -331,7 +331,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class GroupNodePresenterUsingCollection : TreeViewNodePresenterBase<TestGroup>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TestGroup nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, TestGroup nodeData)
             {
                 node.Text = nodeData.Name;
             }
@@ -344,7 +344,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class GroupNodePresenterUsingProperty : TreeViewNodePresenterBase<TestGroup>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TestGroup nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, TestGroup nodeData)
             {
                 node.Text = nodeData.Name;
             }
@@ -357,7 +357,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         private class PersonNodePresenter : TreeViewNodePresenterBase<TestPerson>
         {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TestPerson nodeData)
+            public override void UpdateNode(TreeNode parentNode, TreeNode node, TestPerson nodeData)
             {
                 node.Text = nodeData.Name;
             }

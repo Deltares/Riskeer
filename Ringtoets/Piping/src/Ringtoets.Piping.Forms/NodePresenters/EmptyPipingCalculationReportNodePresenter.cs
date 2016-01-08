@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -27,14 +27,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public EmptyPipingCalculationReportNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, EmptyPipingCalculationReport nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, EmptyPipingCalculationReport nodeData)
         {
             node.Text = PipingDataResources.CalculationReport_DisplayName;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
             node.Image = PipingFormsResources.PipingCalculationReportIcon;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, EmptyPipingCalculationReport nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, EmptyPipingCalculationReport nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)

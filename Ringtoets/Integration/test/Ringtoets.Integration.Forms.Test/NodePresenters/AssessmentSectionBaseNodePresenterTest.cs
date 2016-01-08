@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             const string projectName = "<Insert Project Name Here>";
 
             var mocks = new MockRepository();
-            var projectNode = mocks.Stub<ITreeNode>();
+            var projectNode = mocks.Stub<TreeNode>();
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -198,7 +198,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -238,8 +238,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
+            var sourceMock = mocks.StrictMock<TreeNode>();
+            var targetMock = mocks.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -260,8 +260,8 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
+            var sourceMock = mocks.StrictMock<TreeNode>();
+            var targetMock = mocks.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -342,7 +342,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
@@ -391,7 +391,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
@@ -414,7 +414,7 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);

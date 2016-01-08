@@ -25,12 +25,12 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// All nodes contained in the tree
         /// </summary>
-        IList<ITreeNode> Nodes { get; }
+        IList<TreeNode> Nodes { get; }
 
         /// <summary>
         /// Currently selected node.
         /// </summary>
-        ITreeNode SelectedNode { get; set; }
+        TreeNode SelectedNode { get; set; }
 
         /// <summary>
         /// Show / hide check boxes.
@@ -44,7 +44,7 @@ namespace Core.Common.Controls.TreeView
 
         IComparer TreeViewNodeSorter { get; set; }
 
-        IEnumerable<ITreeNode> AllLoadedNodes { get; }
+        IEnumerable<TreeNode> AllLoadedNodes { get; }
 
         /// <summary>
         /// Registers a node presenter.
@@ -57,19 +57,19 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="nodeData"></param>
         /// <param name="node"></param>
-        ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, ITreeNode node);
+        ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, TreeNode node);
 
         /// <summary>
         /// Creates a new node (not added to the tree yet)
         /// </summary>
         /// <returns></returns>
-        ITreeNode NewNode();
+        TreeNode NewNode();
 
         /// <summary>
         /// Creates a new node and adds it to the tree
         /// </summary>
         /// <returns></returns>
-        ITreeNode AddNewNode(ITreeNode parentNode, object nodeData, int insertionIndex = -1);
+        TreeNode AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1);
 
         /// <summary>
         /// Returns the node which tag is set to the given data object
@@ -77,7 +77,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="nodeData"></param>
         /// <param name="skipUnLoadedNodes"></param>
         /// <returns></returns>
-        ITreeNode GetNodeByTag(object nodeData, bool skipUnLoadedNodes = true);
+        TreeNode GetNodeByTag(object nodeData, bool skipUnLoadedNodes = true);
 
         /// <summary>
         /// Refreshes the tree view based on the underlying data.
@@ -89,9 +89,9 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="treeNode"></param>
         [Obsolete("YAGNI")]
-        void RefreshChildNodes(ITreeNode treeNode);
+        void RefreshChildNodes(TreeNode treeNode);
 
-        void UpdateNode(ITreeNode treeNode);
+        void UpdateNode(TreeNode treeNode);
 
         /// <summary>
         /// Tree view may perform some updates asynchroneously. 
@@ -108,7 +108,7 @@ namespace Core.Common.Controls.TreeView
         /// Collapses a given node and all its child nodes (recursively).
         /// </summary>
         /// <param name="node"></param>
-        void CollapseAll(ITreeNode node);
+        void CollapseAll(TreeNode node);
 
         /// <summary>
         /// Expands all nodes and their child nodes (recursively).
@@ -119,14 +119,14 @@ namespace Core.Common.Controls.TreeView
         /// Expands a given node and all its child nodes (recursively).
         /// </summary>
         /// <param name="node"></param>
-        void ExpandAll(ITreeNode node);
+        void ExpandAll(TreeNode node);
 
         /// <summary>
         /// Gets node and all its child nodes (if loaded).
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        IEnumerable<ITreeNode> GetAllLoadedNodes(ITreeNode node);
+        IEnumerable<TreeNode> GetAllLoadedNodes(TreeNode node);
 
         /// <summary>
         /// Suspend tree view refreshes (long running actions), sets IsUpdateSuspended to true.
@@ -146,18 +146,18 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Checks if label of the <paramref name="node"/> can be edited and starts edit mode if this is the case.
         /// </summary>
-        /// <param name="node">The <see cref="ITreeNode"/> to start editing the label for.</param>
-        void StartLabelEdit(ITreeNode node);
+        /// <param name="node">The <see cref="TreeNode"/> to start editing the label for.</param>
+        void StartLabelEdit(TreeNode node);
 
         /// <summary>
-        /// Attempts to delete the currently selected <see cref="ITreeNode"/> data.
+        /// Attempts to delete the currently selected <see cref="TreeNode"/> data.
         /// </summary>
         void TryDeleteSelectedNodeData();
         
         /// <summary>
         /// Attempts to delete the given <paramref name="node"/>.
         /// </summary>
-        /// <param name="node">The <see cref="ITreeNode"/> to try and delete.</param>
-        void TryDeleteNodeData(ITreeNode node);
+        /// <param name="node">The <see cref="TreeNode"/> to try and delete.</param>
+        void TryDeleteNodeData(TreeNode node);
     }
 }

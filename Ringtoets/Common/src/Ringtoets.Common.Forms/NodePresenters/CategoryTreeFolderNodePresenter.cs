@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Common.Forms.NodePresenters
 {
@@ -23,7 +23,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public CategoryTreeFolderNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, CategoryTreeFolder nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, CategoryTreeFolder nodeData)
         {
             node.Text = nodeData.Name;
             node.Image = GetFolderIcon(nodeData.Category);
@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
             return nodeData.Contents;
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, CategoryTreeFolder nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, CategoryTreeFolder nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)

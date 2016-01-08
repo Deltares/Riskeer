@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public PipingSoilProfileCollectionNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<PipingSoilProfile> pipingSoilProfiles)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, IEnumerable<PipingSoilProfile> pipingSoilProfiles)
         {
             node.Text = Resources.PipingSoilProfilesCollection_DisplayName;
             node.Image = Resources.FolderIcon;
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, IEnumerable<PipingSoilProfile> nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, IEnumerable<PipingSoilProfile> nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)

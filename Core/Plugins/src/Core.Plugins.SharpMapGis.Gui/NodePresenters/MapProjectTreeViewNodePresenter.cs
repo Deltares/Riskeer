@@ -11,13 +11,13 @@ namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
     {
         private static readonly Bitmap MapIcon = Resources.Map;
 
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Map map)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, Map map)
         {
             node.Text = map.Name;
             node.Image = MapIcon;
         }
 
-        public override bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(TreeNode node)
         {
             return true;
         }
@@ -27,12 +27,12 @@ namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
             return DragOperations.Move;
         }
 
-        public override bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        public override bool CanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
         {
             return (null == TreeView.TreeViewNodeSorter);
         }
 
-        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        public override DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
             if (item is ILayer)
             {

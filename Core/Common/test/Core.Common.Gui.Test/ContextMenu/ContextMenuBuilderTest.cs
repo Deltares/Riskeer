@@ -6,6 +6,7 @@ using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui.Test.ContextMenu
 {
@@ -35,7 +36,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_NoGui_ThrowsContextMenuBuilderException()
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -54,7 +55,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -72,7 +73,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
 
             mocks.ReplayAll();
 
@@ -94,7 +95,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
 
             treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
             treeNodePresenterMock.Expect(tn => tn.CanRenameNode(treeNodeMock)).Return(true);
@@ -121,8 +122,8 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
-            var treeParentNodeMock = mocks.StrictMock<ITreeNode>();
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeParentNodeMock = mocks.StrictMock<TreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
 
             treeNodeMock.Expect(tn => tn.Parent).Return(treeParentNodeMock);
             treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
@@ -155,8 +156,8 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            IList<ITreeNode> children = new List<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
+            IList<TreeNode> children = new List<TreeNode>();
             if (hasChildren)
             {
                 children.Add(treeNodeMock);
@@ -186,8 +187,8 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
-            IList<ITreeNode> children = new List<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
+            IList<TreeNode> children = new List<TreeNode>();
             if (hasChildren)
             {
                 children.Add(treeNodeMock);
@@ -217,7 +218,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
-            var treeNodeMock = mocks.Stub<ITreeNode>();
+            var treeNodeMock = mocks.Stub<TreeNode>();
             var nodeData = new object();
 
             commandHandlerMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewForNodeData);
@@ -248,7 +249,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var treeNodeMock = mocks.Stub<ITreeNode>();
+            var treeNodeMock = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
 
             mocks.ReplayAll();
@@ -277,7 +278,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var treeNodeMock = mocks.Stub<ITreeNode>();
+            var treeNodeMock = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
 
             mocks.ReplayAll();
@@ -306,7 +307,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var nodeData = new object();
-            var treeNodeMock = mocks.Stub<ITreeNode>();
+            var treeNodeMock = mocks.Stub<TreeNode>();
 
             commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertiesForNodeData);
 
@@ -332,7 +333,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddCustomItem_WhenBuild_ItemAddedToContextMenu()
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             mocks.ReplayAll();
@@ -356,7 +357,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddSeparator_NoOtherItemsWhenBuild_EmptyContextMenu()
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             mocks.ReplayAll();
@@ -379,7 +380,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddSeparator_SeparatorAddedAtStart_SeparatorsNotAdded(int count)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             mocks.ReplayAll();
@@ -410,7 +411,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddSeparator_SeperatorsAddedInBetweenItems_OneSeparatorAdded(int count)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             mocks.ReplayAll();
@@ -445,7 +446,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void AddSeparator_SeparatorsAddedAtEnd_SeparatorsNotAdded(int count)
         {
             // Setup
-            var treeNodeMock = mocks.StrictMock<ITreeNode>();
+            var treeNodeMock = mocks.StrictMock<TreeNode>();
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
 
             mocks.ReplayAll();

@@ -61,8 +61,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_NodeWithData_InitializeNode()
         {
             // Setup
-            var parentNodeMock = mockRepository.StrictMock<ITreeNode>();
-            var dataNodeMock = mockRepository.Stub<ITreeNode>();
+            var parentNodeMock = mockRepository.StrictMock<TreeNode>();
+            var dataNodeMock = mockRepository.Stub<TreeNode>();
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             mockRepository.ReplayAll();
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var nodeMock = mockRepository.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);

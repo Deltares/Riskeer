@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.GIS.GeoAPI.CoordinateSystems;
@@ -13,6 +12,7 @@ using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.SharpMapGis.Gui.Commands;
 using log4net;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
@@ -376,7 +376,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         // TODO: inject it from GuiPlugin (as event/delegate) and remove dependency from IGui
         private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            gui.Selection = ((ITreeNode) e.Node).Tag;
+            gui.Selection = ((TreeNode) e.Node).Tag;
         }
 
         private void AddLayerToolStripMenuItemClick(object sender, EventArgs e)

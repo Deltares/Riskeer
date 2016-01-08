@@ -7,7 +7,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
 {
     public class TreeFolderNodePresenter : TreeViewNodePresenterBase<TreeFolder>
     {
-        public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TreeFolder data)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, TreeFolder data)
         {
             node.Text = data.Text;
             node.Tag = data;

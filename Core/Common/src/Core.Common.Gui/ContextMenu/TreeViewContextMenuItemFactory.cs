@@ -4,24 +4,25 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>. The
     /// items the factory creates are dependent on a <see cref="ITreeView"/> set for
-    /// the <see cref="ITreeNode"/>.
+    /// the <see cref="TreeNode"/>.
     /// </summary>
     internal class TreeViewContextMenuItemFactory
     {
-        private readonly ITreeNode treeNode;
+        private readonly TreeNode treeNode;
 
         /// <summary>
         /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="treeNode"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="ITreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
+        /// <param name="treeNode">The <see cref="TreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
-        public TreeViewContextMenuItemFactory(ITreeNode treeNode)
+        public TreeViewContextMenuItemFactory(TreeNode treeNode)
         {
             if (treeNode == null)
             {
@@ -32,7 +33,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of renaming
-        /// the <see cref="ITreeNode"/>.
+        /// the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateRenameItem()
@@ -49,7 +50,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of deleting
-        /// the <see cref="ITreeNode"/>.
+        /// the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateDeleteItem()
@@ -66,12 +67,12 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of expanding
-        /// the <see cref="ITreeNode"/>.
+        /// the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExpandAllItem()
         {
-            IList<ITreeNode> children = treeNode.Nodes;
+            IList<TreeNode> children = treeNode.Nodes;
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Expand_all)
             {
                 ToolTipText = Resources.Expand_all_ToolTip,
@@ -84,12 +85,12 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of collapsing
-        /// the <see cref="ITreeNode"/>.
+        /// the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateCollapseAllItem()
         {
-            IList<ITreeNode> children = treeNode.Nodes;
+            IList<TreeNode> children = treeNode.Nodes;
             var toolStripMenuItem = new ToolStripMenuItem(Resources.Collapse_all)
             {
                 ToolTipText = Resources.Collapse_all_ToolTip,

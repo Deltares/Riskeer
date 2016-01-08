@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -23,14 +23,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <exception cref="ArgumentNullException">Thrown when no <paramref name="contextMenuBuilderProvider"/> was provided.</exception>
         public PipingInputContextNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider) : base(contextMenuBuilderProvider) { }
 
-        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingInputContext nodeData)
+        protected override void UpdateNode(TreeNode parentNode, TreeNode node, PipingInputContext nodeData)
         {
             node.Text = Resources.PipingInputContextNodePresenter_NodeDisplayName;
             node.Image = Resources.PipingInputIcon;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.ControlText);
         }
 
-        protected override ContextMenuStrip GetContextMenu(ITreeNode node, PipingInputContext nodeData)
+        protected override ContextMenuStrip GetContextMenu(TreeNode node, PipingInputContext nodeData)
         {
             return contextMenuBuilderProvider
                 .Get(node)
