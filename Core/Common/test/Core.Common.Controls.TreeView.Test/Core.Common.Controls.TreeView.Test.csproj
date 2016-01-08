@@ -68,7 +68,6 @@
     <Compile Include="TreeViewControllerTest.cs" />
     <Compile Include="TreeViewNodePresenterBaseTest.cs" />
     <Compile Include="TreeViewTest.cs" />
-    <Compile Include="WindowsFormsHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">

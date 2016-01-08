@@ -803,7 +803,7 @@ namespace Core.Common.Controls.TreeView
 
             DragOperations dragOperation = presenter.CanDrag(sourceNode.Tag);
 
-            DragDropEffects effects = WindowsFormsHelper.ToDragDropEffects(dragOperation);
+            DragDropEffects effects = ToDragDropEffects(dragOperation);
 
             if (effects == DragDropEffects.None)
             {
@@ -856,9 +856,8 @@ namespace Core.Common.Controls.TreeView
             }
 
             ITreeNodePresenter presenter = GetTreeViewNodePresenter(nodeDropTarget.Tag, nodeDropTarget);
-            DragOperations allowedOperations = presenter.CanDrop(nodeDragging.Tag, nodeDragging, nodeDropTarget,
-                                                                 WindowsFormsHelper.ToDragOperation(e.AllowedEffect));
-            e.Effect = WindowsFormsHelper.ToDragDropEffects(allowedOperations);
+            DragOperations allowedOperations = presenter.CanDrop(nodeDragging.Tag, nodeDragging, nodeDropTarget, ToDragOperation(e.AllowedEffect));
+            e.Effect = ToDragDropEffects(allowedOperations);
 
             if (PlaceholderLocation.None == placeholderLocation)
             {
@@ -1027,7 +1026,7 @@ namespace Core.Common.Controls.TreeView
 
             try
             {
-                controller.OnDragDrop(nodeDragging, parentNode, nodeDropTarget, WindowsFormsHelper.ToDragOperation(e.Effect), dropAtLocation);
+                controller.OnDragDrop(nodeDragging, parentNode, nodeDropTarget, ToDragOperation(e.Effect), dropAtLocation);
             }
             catch (Exception ex)
             {
@@ -1101,6 +1100,16 @@ namespace Core.Common.Controls.TreeView
 
             [DllImport("user32.dll")]
             public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        }
+
+        private DragDropEffects ToDragDropEffects(DragOperations operation)
+        {
+            return (DragDropEffects)Enum.Parse(typeof(DragDropEffects), operation.ToString());
+        }
+
+        private DragOperations ToDragOperation(DragDropEffects dragDropEffects)
+        {
+            return (DragOperations)Enum.Parse(typeof(DragOperations), dragDropEffects.ToString());
         }
 
         /// <summary>
