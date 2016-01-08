@@ -33,6 +33,8 @@ namespace Core.Common.Controls.Dialogs
     /// </summary>
     public abstract partial class DialogBase : Form
     {
+        private readonly int minWidth;
+        private readonly int minHeight;
         private readonly IWin32Window owner;
 
         /// <summary>
@@ -47,10 +49,10 @@ namespace Core.Common.Controls.Dialogs
             InitializeComponent();
 
             this.owner = owner;
+            this.minWidth = minWidth;
+            this.minHeight = minHeight;
 
             Icon = icon;
-
-            MinimumSize = new Size(minWidth, minHeight);
         }
 
         /// <summary>
@@ -65,6 +67,9 @@ namespace Core.Common.Controls.Dialogs
 
         protected override void OnLoad(EventArgs e)
         {
+            // Set the minimum size here in order to prevent virtual member calls
+            MinimumSize = new Size(minWidth, minHeight);
+
             // Initialize the cancel button (as this cannot be done during creation time)
             CancelButton = GetCancelButton();
 
