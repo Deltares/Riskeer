@@ -22,22 +22,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
-        public void DeleteProjectDataDirectoryShouldNotThrowExceptionOnNewProjectAndShouldNotHang()
-        {
-            using (var gui = new RingtoetsGui())
-            {
-                var applicationCore = gui.ApplicationCore;
-
-                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-                gui.Run();
-
-                gui.CommandHandler.TryCreateNewProject();
-                gui.CommandHandler.TryCreateNewProject();
-            }
-        }
-
-        [Test]
         public void ClosingEmptyProjectShouldNotGiveException()
         {
             using (var gui = new RingtoetsGui())
@@ -64,26 +48,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         public void StartWithCommonPluginsShouldBeFast()
         {
             TestHelper.AssertIsFasterThan(7500, StartWithCommonPlugins);
-        }
-
-        [Test]
-        public void CreateNewProjectAfterStartWithCommonPluginsShouldBeFast()
-        {
-            using (var gui = new RingtoetsGui())
-            {
-                var applicationCore = gui.ApplicationCore;
-
-                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
-                gui.Plugins.Add(new SharpMapGisGuiPlugin());
-                gui.Plugins.Add(new CommonToolsGuiPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-
-                gui.Run();
-
-                Action onShown = () => TestHelper.AssertIsFasterThan(300, () => gui.Project = new Project());
-
-                WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
-            }
         }
 
         [Test]

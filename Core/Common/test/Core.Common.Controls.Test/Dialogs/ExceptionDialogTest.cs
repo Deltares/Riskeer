@@ -18,8 +18,8 @@ namespace Core.Common.Controls.Test.Dialogs
                 // Assert
                 Assert.IsNotNull(dialog.Icon);
                 Assert.IsTrue(dialog.ShowIcon);
-                Assert.AreEqual(470, dialog.MinimumSize.Width);
-                Assert.AreEqual(200, dialog.MinimumSize.Height);
+                Assert.AreEqual(0, dialog.MinimumSize.Width); // Set during load
+                Assert.AreEqual(0, dialog.MinimumSize.Height); // Set during load
                 Assert.AreEqual(FormBorderStyle.Sizable, dialog.FormBorderStyle);
                 Assert.AreEqual(FormStartPosition.CenterParent, dialog.StartPosition);
                 Assert.IsFalse(dialog.ShowInTaskbar);
@@ -27,6 +27,28 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.IsFalse(dialog.MaximizeBox);
                 Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton);
+            }
+        }
+
+        [Test]
+        public void ShowDialog_ExceptionDialog_MinimumSizeSet()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var openedDialog = new FormTester(name);
+
+                openedDialog.Close();
+            };
+
+            using (var dialog = new ExceptionDialog(null, null))
+            {
+                // Call
+                dialog.ShowDialog();
+
+                // Assert
+                Assert.AreEqual(470, dialog.MinimumSize.Width);
+                Assert.AreEqual(200, dialog.MinimumSize.Height);
             }
         }
 
