@@ -153,7 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="Resources\chart.png" />
+    <Content Include="Resources\area.png" />
     <Content Include="Resources\document.png" />
+    <Content Include="Resources\line.png" />
+    <Content Include="Resources\points.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

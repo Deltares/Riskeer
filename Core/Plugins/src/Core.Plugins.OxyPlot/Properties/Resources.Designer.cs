@@ -63,6 +63,16 @@ namespace Core.Plugins.OxyPlot.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap AreaIcon {
+            get {
+                object obj = ResourceManager.GetObject("AreaIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ChartIcon {
             get {
                 object obj = ResourceManager.GetObject("ChartIcon", resourceCulture);
@@ -81,11 +91,31 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LineIcon {
+            get {
+                object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open een documentvenster met een diagram..
         /// </summary>
         public static string OpenChartView_ToolTip {
             get {
                 return ResourceManager.GetString("OpenChartView_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PointsIcon {
+            get {
+                object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

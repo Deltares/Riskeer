@@ -8,10 +8,8 @@ namespace Core.Components.OxyPlot.Data
     /// <summary>
     /// This class represents data which is represented as points on <see cref="BaseChart"/>.
     /// </summary>
-    public class PointData : IChartData
+    public class PointData : LineSeries, IChartData
     {
-        private readonly LineSeries series;
-        
         /// <summary>
         /// Creates a new instance of <see cref="PointData"/>.
         /// </summary>
@@ -23,13 +21,10 @@ namespace Core.Components.OxyPlot.Data
             {
                 throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
             }
-            series = new LineSeries
-            {
-                ItemsSource = points,
-                Mapping = TupleToDataPoint,
-                LineStyle = LineStyle.None,
-                MarkerType = MarkerType.Circle
-            };
+            ItemsSource = points;
+            Mapping = TupleToDataPoint;
+            LineStyle = LineStyle.None;
+            MarkerType = MarkerType.Circle;
         }
 
         private DataPoint TupleToDataPoint(object obj)
@@ -49,7 +44,7 @@ namespace Core.Components.OxyPlot.Data
             {
                 throw new ArgumentNullException("model", "A model is required to add points to.");
             }
-            model.Series.Add(series);
+            model.Series.Add(this);
         }
     }
 }

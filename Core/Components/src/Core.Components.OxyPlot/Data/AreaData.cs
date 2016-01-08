@@ -9,10 +9,8 @@ namespace Core.Components.OxyPlot.Data
     /// <summary>
     /// This class represents data which is represented as an area on <see cref="BaseChart"/>.
     /// </summary>
-    public class AreaData : IChartData
+    public class AreaData : AreaSeries, IChartData
     {
-        private AreaSeries series;
-        
         /// <summary>
         /// Creates a new instance of <see cref="AreaData"/>.
         /// </summary>
@@ -25,14 +23,13 @@ namespace Core.Components.OxyPlot.Data
             {
                 throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
             }
-            series = new AreaSeries();
             foreach (var p in points)
             {
-                series.Points.Add(TupleToDataPoint(p));
+                Points.Add(TupleToDataPoint(p));
             }
             if (points.Count > 0)
             {
-                series.Points2.Add(TupleToDataPoint(points.First()));
+                Points2.Add(TupleToDataPoint(points.First()));
             }
         }
 
@@ -52,7 +49,7 @@ namespace Core.Components.OxyPlot.Data
             {
                 throw new ArgumentNullException("model", "A model is required to add points to.");
             }
-            model.Series.Add(series);
+            model.Series.Add(this);
         }
     }
 }

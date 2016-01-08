@@ -32,15 +32,8 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LegendView));
-            this.toolBar = new System.Windows.Forms.ToolStrip();
             this.seriesTree = new Core.Plugins.OxyPlot.Legend.LegendTreeView();
             this.SuspendLayout();
-            // 
-            // toolBar
-            // 
-            this.toolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            resources.ApplyResources(this.toolBar, "toolBar");
-            this.toolBar.Name = "toolBar";
             // 
             // seriesTree
             // 
@@ -57,16 +50,13 @@ namespace Core.Plugins.OxyPlot.Legend
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.seriesTree);
-            this.Controls.Add(this.toolBar);
             this.Name = "LegendView";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolBar;
         private LegendTreeView seriesTree;
     }
 }
