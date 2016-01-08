@@ -9,13 +9,13 @@ namespace Core.Common.Controls.TreeView
     public class TreeNode : System.Windows.Forms.TreeNode, IObserver
     {
         private readonly TreeNodeList nodes;
-        private readonly ITreeView treeView;
+        private readonly TreeView treeView;
         protected bool isLoaded;
         private object tag;
         private IObservable observable;
         private readonly int maximumTextLength = 259; // Having very big strings causes problems by tree-view
 
-        public TreeNode(ITreeView treeView)
+        public TreeNode(TreeView treeView)
         {
             this.treeView = treeView;
             nodes = new TreeNodeList(base.Nodes);
@@ -38,7 +38,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         public bool HasChildren { get; set; }
 
-        public new ITreeView TreeView
+        public new TreeView TreeView
         {
             get
             {

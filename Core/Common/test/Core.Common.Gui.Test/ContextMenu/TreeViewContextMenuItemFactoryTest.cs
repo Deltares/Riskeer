@@ -58,7 +58,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeNodeMock = mocks.StrictMock<TreeNode>();
             var treeParentNodeMock = mocks.StrictMock<TreeNode>();
             var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
-            var treeViewMock = mocks.StrictMock<ITreeView>();
+            var treeViewMock = mocks.StrictMock<TreeView>();
             var arg1 = new object();
             var arg2 = new object();
 
@@ -99,7 +99,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
             var treeNodePresenterMock = mocks.StrictMock<ITreeNodePresenter>();
-            var treeViewMock = mocks.StrictMock<ITreeView>();
+            var treeViewMock = mocks.StrictMock<TreeView>();
 
             treeNodeMock.Expect(tn => tn.Presenter).Return(treeNodePresenterMock);
             treeNodePresenterMock.Expect(tnp => tnp.CanRenameNode(treeNodeMock)).Return(canRename);
@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeViewMock = mocks.StrictMock<ITreeView>();
+            var treeViewMock = mocks.StrictMock<TreeView>();
             if (hasChildren)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);
@@ -173,7 +173,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeViewMock = mocks.StrictMock<ITreeView>();
+            var treeViewMock = mocks.StrictMock<TreeView>();
             if (hasChildren)
             {
                 treeNodeMock.Expect(tn => tn.TreeView).Return(treeViewMock);

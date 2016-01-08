@@ -16,7 +16,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         public void Setup()
         {
             vectorStyleNodePresenter = new VectorStyleTreeViewNodePresenter();
-            var tv = Mocks.Stub<ITreeView>();
+            var tv = Mocks.Stub<TreeView>();
             vectorStyleNodePresenter.TreeView = tv;
         }
 

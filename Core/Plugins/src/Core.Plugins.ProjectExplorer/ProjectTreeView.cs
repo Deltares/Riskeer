@@ -2,7 +2,6 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Plugins.ProjectExplorer.NodePresenters;
@@ -65,7 +64,7 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public ITreeView TreeView
+        public TreeView TreeView
         {
             get
             {
@@ -145,7 +144,7 @@ namespace Core.Plugins.ProjectExplorer
             TreeNode node = treeView.GetNodeByTag(gui.Selection);
             if (node != null)
             {
-                ((ITreeView) treeView).SelectedNode = node;
+                treeView.SelectedNode = node;
             }
         }
 

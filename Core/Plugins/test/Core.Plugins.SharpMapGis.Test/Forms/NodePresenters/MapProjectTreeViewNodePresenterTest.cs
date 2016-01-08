@@ -21,7 +21,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms.NodePresenters
             var sourceNode = mocks.Stub<TreeNode>();
             var targetNode = mocks.Stub<TreeNode>();
 
-            var treeView = mocks.Stub<ITreeView>();
+            var treeView = mocks.Stub<TreeView>();
             treeView.TreeViewNodeSorter = mocks.Stub<IComparer>();
 
             mocks.ReplayAll();
@@ -46,7 +46,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms.NodePresenters
             var sourceNode = mocks.Stub<TreeNode>();
             var targetNode = mocks.Stub<TreeNode>();
 
-            var treeView = mocks.Stub<ITreeView>();
+            var treeView = mocks.Stub<TreeView>();
             mocks.ReplayAll();
 
             var map = new Map();

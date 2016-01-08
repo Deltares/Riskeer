@@ -21,6 +21,7 @@ using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -338,11 +339,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// </summary>
         private abstract class DroppingPipingCalculationInContainerStrategy
         {
-            protected readonly ITreeView treeView;
+            protected readonly TreeView treeView;
             protected readonly PipingCalculationGroupContext target;
             private readonly PipingCalculationGroupContext originalOwnerContext;
 
-            protected DroppingPipingCalculationInContainerStrategy(ITreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
+            protected DroppingPipingCalculationInContainerStrategy(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
             {
                 this.treeView = treeView;
                 this.originalOwnerContext = originalOwnerContext;
@@ -426,7 +427,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             /// the original owner of the dragged item.</param>
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
-            public DroppingPipingCalculationWithinSameContainer(ITreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+            public DroppingPipingCalculationWithinSameContainer(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
                 base(treeView, originalOwnerContext, target) {}
         }
 
@@ -448,7 +449,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             /// the original owner of the dragged item.</param>
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
-            public DroppingPipingCalculationToNewContainer(ITreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+            public DroppingPipingCalculationToNewContainer(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
                 base(treeView, originalOwnerContext, target) {}
 
             public override void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)

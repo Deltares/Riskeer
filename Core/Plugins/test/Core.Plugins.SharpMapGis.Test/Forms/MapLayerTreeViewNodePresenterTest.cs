@@ -21,13 +21,13 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         private static readonly MockRepository mocks = new MockRepository();
         private static ITreeNodePresenter mapLayerNodePresenter;
 
-        private ITreeView treeView;
+        private TreeView treeView;
 
         [SetUp]
         public void Setup()
         {
             mapLayerNodePresenter = new MapLayerTreeViewNodePresenter(new MapLegendView(null));
-            treeView = mocks.Stub<ITreeView>();
+            treeView = mocks.Stub<TreeView>();
             mapLayerNodePresenter.TreeView = treeView;
         }
 

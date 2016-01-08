@@ -10,7 +10,7 @@ namespace Core.Common.Controls.TreeView
 {
     public abstract class TreeViewNodePresenterBase<T> : ITreeNodePresenter
     {
-        public ITreeView TreeView { get; set; }
+        public TreeView TreeView { get; set; }
 
         public virtual Type NodeTagType
         {

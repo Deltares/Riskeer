@@ -12,7 +12,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var treeView = mocks.Stub<ITreeView>();
+            var treeView = mocks.Stub<TreeView>();
             var someTreeNodeCollectionContainer = new System.Windows.Forms.TreeNode();
             var parentNode = new TreeNode(treeView);
             var childNode = new TreeNode(treeView);

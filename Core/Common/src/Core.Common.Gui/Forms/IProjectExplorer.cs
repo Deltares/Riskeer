@@ -5,7 +5,7 @@ namespace Core.Common.Gui.Forms
 {
     public interface IProjectExplorer : IView
     {
-        ITreeView TreeView { get; }
+        TreeView TreeView { get; }
 
         void ScrollTo(object o);
     }

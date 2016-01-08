@@ -27,6 +27,7 @@ using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -625,7 +626,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(failureMechanismNode)).Return(menuBuilder);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
 
             mockRepository.ReplayAll();
 
@@ -697,7 +698,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(failureMechanismNode)).Return(menuBuilder);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
 
             mockRepository.ReplayAll();
 

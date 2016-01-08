@@ -14,7 +14,7 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// TreeView containing the nodes.
         /// </summary>
-        ITreeView TreeView { get; set; }
+        TreeView TreeView { get; set; }
 
         /// <summary>
         /// Gets supported type of the object for this builder.

@@ -17,7 +17,7 @@ namespace Core.Common.Controls.TreeView
     /// <summary>
     /// Summary description for Tree.
     /// </summary>
-    public class TreeView : System.Windows.Forms.TreeView, ITreeView
+    public class TreeView : System.Windows.Forms.TreeView
     {
         public event EventHandler SelectedNodeChanged;
         public event EventHandler OnUpdate;
@@ -98,11 +98,16 @@ namespace Core.Common.Controls.TreeView
         {
             get
             {
-                return ((ITreeView) this).SelectedNode;
+                return (TreeNode) base.SelectedNode;
             }
             set
             {
-                ((ITreeView) this).SelectedNode = value;
+                base.SelectedNode = value;
+
+                if (SelectedNodeChanged != null)
+                {
+                    SelectedNodeChanged(this, new EventArgs());
+                }
             }
         }
 
@@ -159,25 +164,6 @@ namespace Core.Common.Controls.TreeView
             get
             {
                 return nodes;
-            }
-        }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        TreeNode ITreeView.SelectedNode
-        {
-            get
-            {
-                return (TreeNode) base.SelectedNode;
-            }
-            set
-            {
-                base.SelectedNode = value;
-
-                if (SelectedNodeChanged != null)
-                {
-                    SelectedNodeChanged(this, new EventArgs());
-                }
             }
         }
 

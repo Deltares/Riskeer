@@ -13,7 +13,7 @@ namespace Core.Common.Controls.TreeView
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewController));
 
-        private readonly ITreeView treeView;
+        private readonly TreeView treeView;
         private readonly ICollection<ITreeNodePresenter> nodePresenters = new HashSet<ITreeNodePresenter>();
 
         private readonly Dictionary<Type, ITreeNodePresenter> nodeTagTypePresenters = new Dictionary<Type, ITreeNodePresenter>();
@@ -24,7 +24,7 @@ namespace Core.Common.Controls.TreeView
         private string[] loadedNodePaths;
         private string[] expandedNodePaths;
 
-        public TreeViewController(ITreeView treeView)
+        public TreeViewController(TreeView treeView)
         {
             if (treeView == null)
             {

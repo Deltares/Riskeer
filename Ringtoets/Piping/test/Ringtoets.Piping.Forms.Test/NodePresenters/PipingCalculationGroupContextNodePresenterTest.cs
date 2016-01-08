@@ -28,6 +28,7 @@ using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -123,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var builderProvider = mockRepository.Stub<IContextMenuBuilderProvider>();
 
-            var treeView = mockRepository.StrictMock<ITreeView>();
+            var treeView = mockRepository.StrictMock<TreeView>();
             treeView.Expect(v => v.GetNodeByTag(groupContext)).Return(groupContextNode);
             mockRepository.ReplayAll();
 
@@ -160,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             groupContextNode.Tag = groupContext;
             groupContextNode.Expect(n => n.Parent).Return(failureMechanismNode);
 
-            var treeView = mockRepository.StrictMock<ITreeView>();
+            var treeView = mockRepository.StrictMock<TreeView>();
             treeView.Expect(v => v.GetNodeByTag(groupContext)).Return(groupContextNode);
             mockRepository.ReplayAll();
 
@@ -360,7 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             });
             postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
             {
                 if (updatewasCalled)
@@ -446,7 +447,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
             // Dragging within same group requires only recording state on that group.
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
             treeView.Expect(v => v.GetNodeByTag(originalOwnerGroupContext)).Return(newOwnerGroupContextNode);
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
             {
@@ -527,7 +528,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             });
             postUpdateCalculationContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
             {
                 if (updateWasCalled)
@@ -629,7 +630,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new TreeNode[0]);
             postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
             treeView.Expect(v => v.GetNodeByTag(draggedItemContext)).WhenCalled(invocation =>
             {
                 if (updatewasCalled)
@@ -1219,7 +1220,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 }
             }).Return(null);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
             mockRepository.ReplayAll();
 
             group.Children.Add(calculationItem);
@@ -1288,7 +1289,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 }
             }).Return(null);
 
-            var treeView = mockRepository.Stub<ITreeView>();
+            var treeView = mockRepository.Stub<TreeView>();
             mockRepository.ReplayAll();
 
             group.Children.Add(calculationItem);

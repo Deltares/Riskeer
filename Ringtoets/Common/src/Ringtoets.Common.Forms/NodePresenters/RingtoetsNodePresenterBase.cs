@@ -10,6 +10,7 @@ using Core.Common.Utils.Events;
 
 using Ringtoets.Common.Forms.Properties;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Common.Forms.NodePresenters
 {
@@ -38,7 +39,7 @@ namespace Ringtoets.Common.Forms.NodePresenters
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }
 
-        public ITreeView TreeView { get; set; }
+        public TreeView TreeView { get; set; }
 
         public Type NodeTagType
         {

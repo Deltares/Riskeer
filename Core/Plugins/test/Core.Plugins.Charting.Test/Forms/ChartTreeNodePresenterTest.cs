@@ -115,7 +115,7 @@ namespace Core.Plugins.Charting.Test.Forms
         {
             // Setup
             var mocks = new MockRepository();
-            var treeView = mocks.StrictMock<ITreeView>();
+            var treeView = mocks.StrictMock<TreeView>();
             treeView.Expect(tv => tv.TreeViewNodeSorter).Return(mocks.Stub<IComparer>());
 
             mocks.ReplayAll();
@@ -135,7 +135,7 @@ namespace Core.Plugins.Charting.Test.Forms
         {
             // Setup
             var mocks = new MockRepository();
-            var treeView = mocks.StrictMock<ITreeView>();
+            var treeView = mocks.StrictMock<TreeView>();
             treeView.Expect(tv => tv.TreeViewNodeSorter).Return(null);
 
             mocks.ReplayAll();

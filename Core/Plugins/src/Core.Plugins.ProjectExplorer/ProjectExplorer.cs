@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Plugins.ProjectExplorer.Properties;
 using log4net;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
 {
@@ -35,14 +35,6 @@ namespace Core.Plugins.ProjectExplorer
 
         public ProjectTreeView ProjectTreeView { get; private set; }
 
-        public ITreeView TreeView
-        {
-            get
-            {
-                return ProjectTreeView.TreeView;
-            }
-        }
-
         public object Data
         {
             get
@@ -67,6 +59,14 @@ namespace Core.Plugins.ProjectExplorer
             ProjectTreeView.TreeView.BeforeWaitUntilAllEventsAreProcessed -= TreeViewOnBeforeWaitUntilAllEventsAreProcessed;
             ProjectTreeView.Dispose();
             base.Dispose();
+        }
+
+        public TreeView TreeView
+        {
+            get
+            {
+                return ProjectTreeView.TreeView;
+            }
         }
 
         public void ScrollTo(object o)

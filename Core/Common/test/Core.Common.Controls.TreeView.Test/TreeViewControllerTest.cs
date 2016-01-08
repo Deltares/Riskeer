@@ -23,7 +23,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void ResolveNodePresenterForDataWalksUpClassHierarchy()
         {
             var mocks = new MockRepository();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null);
 
@@ -45,7 +45,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void ResolveNodePresenterForDataReturnsNullIfNotFound()
         {
             var mocks = new MockRepository();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null);
 
@@ -61,7 +61,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void ResolveNodePresenterForDataReturnsNullIfItemIsNull()
         {
             var mocks = new MockRepository();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
 
@@ -77,7 +77,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void ResolveNodePresenterCanMatchOnInterface()
         {
             var mocks = new MockRepository();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null);
 
@@ -100,7 +100,7 @@ namespace Core.Common.Controls.TreeView.Test
             var mocks = new MockRepository();
 
             var treeNode = mocks.Stub<TreeNode>();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
 
             nodePresenter.TreeView = treeview;
@@ -156,7 +156,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var nodes = new List<TreeNode>();
 
@@ -187,7 +187,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeview = mocks.Stub<ITreeView>();
+            var treeview = mocks.Stub<TreeView>();
             var nodes = new List<TreeNode>();
 
             Expect.Call(treeview.Nodes).Return(nodes).Repeat.Any();
@@ -210,7 +210,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var nodes = new List<TreeNode>();
             var parent = new Parent();
@@ -256,7 +256,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var parentNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var childNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
 
@@ -322,7 +322,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
 
-            var treeView = mocks.Stub<ITreeView>();
+            var treeView = mocks.Stub<TreeView>();
 
             var treeViewController = new TreeViewController(treeView);
 
@@ -459,7 +459,7 @@ namespace Core.Common.Controls.TreeView.Test
             var mocks = new MockRepository();
 
             var treeNode = mocks.StrictMock<TreeNode>();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
 
             var tag = new object();
@@ -467,6 +467,7 @@ namespace Core.Common.Controls.TreeView.Test
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
             Expect.Call(treeview.BeginUpdate).IgnoreArguments().Repeat.Any();
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
+            Expect.Call(treeview.InvokeRequired).Return(false).Repeat.Any();
 
             treeNode.HasChildren = true;
             Expect.Call(treeNode.Tag).Return(tag).Repeat.Any();
@@ -499,7 +500,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             var parentTreeNode = mocks.StrictMock<TreeNode>();
             var childTreeNode = mocks.StrictMock<TreeNode>();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var parentNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var childNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
 
@@ -513,6 +514,7 @@ namespace Core.Common.Controls.TreeView.Test
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
             Expect.Call(treeview.BeginUpdate).IgnoreArguments().Repeat.Any();
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
+            Expect.Call(treeview.InvokeRequired).Return(false).Repeat.Any();
 
             parentTreeNode.HasChildren = true;
             Expect.Call(parentTreeNode.Tag).Return(parent).Repeat.Any();
@@ -558,7 +560,7 @@ namespace Core.Common.Controls.TreeView.Test
         public void TestCanRenameNode()
         {
             var mocks = new MockRepository();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var treeNode = mocks.StrictMock<TreeNode>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var tag = new object();
@@ -599,7 +601,7 @@ namespace Core.Common.Controls.TreeView.Test
             var mocks = new MockRepository();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var treeNode = mocks.StrictMock<TreeNode>();
-            var treeview = mocks.StrictMock<ITreeView>();
+            var treeview = mocks.StrictMock<TreeView>();
             var tag = new object();
 
             nodePresenter.TreeView = treeview;
@@ -638,7 +640,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var treeView = mocks.Stub<ITreeView>();
+            var treeView = mocks.Stub<TreeView>();
             var nodePresenter = mocks.Stub<ITreeNodePresenter>();
             mocks.ReplayAll();
 
@@ -658,7 +660,7 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var treeView = mocks.Stub<ITreeView>();
+            var treeView = mocks.Stub<TreeView>();
             var nodePresenter = mocks.Stub<ITreeNodePresenter>();
             mocks.ReplayAll();
 
