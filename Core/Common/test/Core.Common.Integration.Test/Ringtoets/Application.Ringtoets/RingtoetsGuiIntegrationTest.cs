@@ -1,12 +1,8 @@
-using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
-using Core.Plugins.CommonTools;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
-using Core.Plugins.SharpMapGis.Gui;
 using NUnit.Framework;
 using Control = System.Windows.Controls.Control;
 

@@ -38,16 +38,5 @@ namespace Core.Common.Controls.Views
                 }
             }
         }
-
-        /// <summary>
-        /// Gets the web browser of the <see cref="HtmlPageView"/>.
-        /// </summary>
-        public WebBrowser WebBrowser
-        {
-            get
-            {
-                return webBrowser;
-            }
-        }
     }
 }

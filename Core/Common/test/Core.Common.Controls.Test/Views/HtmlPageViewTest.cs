@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Utils;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Test.Views
@@ -19,8 +20,10 @@ namespace Core.Common.Controls.Test.Views
 
             // Assert
             Assert.IsInstanceOf<IView>(htmlPageView);
-            Assert.IsTrue(htmlPageView.WebBrowser.ScriptErrorsSuppressed);
-            Assert.IsFalse(htmlPageView.WebBrowser.IsWebBrowserContextMenuEnabled);
+
+            var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+            Assert.IsTrue(webBrowser.ScriptErrorsSuppressed);
+            Assert.IsFalse(webBrowser.IsWebBrowserContextMenuEnabled);
         }
 
         [Test]
@@ -39,9 +42,11 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             ShowHtmlPageView(htmlPageView, () =>
             {
+                var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+
                 Assert.AreSame(url, htmlPageView.Data);
-                Assert.IsNotNull(htmlPageView.WebBrowser.Url);
-                Assert.AreEqual("https://www.google.nl/?gws_rd=ssl", htmlPageView.WebBrowser.Url.AbsoluteUri);
+                Assert.IsNotNull(webBrowser.Url);
+                Assert.AreEqual("https://www.google.nl/?gws_rd=ssl", webBrowser.Url.AbsoluteUri);
             });
         }
 
@@ -58,9 +63,11 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             ShowHtmlPageView(htmlPageView, () =>
             {
+                var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+
                 Assert.IsNull(htmlPageView.Data);
-                Assert.IsNotNull(htmlPageView.WebBrowser.Url);
-                Assert.AreEqual("about:blank", htmlPageView.WebBrowser.Url.AbsoluteUri);
+                Assert.IsNotNull(webBrowser.Url);
+                Assert.AreEqual("about:blank", webBrowser.Url.AbsoluteUri);
             });
         }
 
@@ -80,17 +87,20 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             ShowHtmlPageView(htmlPageView, () =>
             {
+                var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+
                 Assert.AreSame(url, htmlPageView.Data);
-                Assert.IsNotNull(htmlPageView.WebBrowser.Url);
-                Assert.AreEqual("about:blank", htmlPageView.WebBrowser.Url.AbsoluteUri);
+                Assert.IsNotNull(webBrowser.Url);
+                Assert.AreEqual("about:blank", webBrowser.Url.AbsoluteUri);
             });
         }
 
         private static void ShowHtmlPageView(HtmlPageView htmlPageView, Action assertAction)
         {
             var documentCompleted = false;
+            var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
 
-            htmlPageView.WebBrowser.DocumentCompleted += (s, e) => { documentCompleted = true; };
+            webBrowser.DocumentCompleted += (s, e) => { documentCompleted = true; };
 
             WindowsFormsTestHelper.ShowModal(htmlPageView,
                                              v =>
