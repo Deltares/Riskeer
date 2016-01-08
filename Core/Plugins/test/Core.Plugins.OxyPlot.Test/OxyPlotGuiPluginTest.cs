@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Components.OxyPlot;
 using Core.Components.OxyPlot.Data;
 using Core.Plugins.OxyPlot.Forms;
 using NUnit.Framework;
@@ -121,5 +122,9 @@ namespace Core.Plugins.OxyPlot.Test
     public class TestChartView : Control, IChartView
     {
         public object Data { get; set; }
+        public BaseChart Chart { get
+        {
+            return (BaseChart) Data;
+        } }
     }
 }

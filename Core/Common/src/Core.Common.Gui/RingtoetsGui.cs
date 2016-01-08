@@ -95,10 +95,6 @@ namespace Core.Common.Gui
             ProjectOpened += ApplicationProjectOpened;
         }
 
-        public bool SkipDialogsOnExit { get; set; }
-
-        public Action OnMainWindowLoaded { get; set; }
-
         public string ProjectFilePath { get; set; }
 
         public ApplicationCore ApplicationCore { get; private set; }
@@ -334,13 +330,6 @@ namespace Core.Common.Gui
             }
 
             isExiting = true;
-
-            if (!SkipDialogsOnExit && !CommandHandler.TryCloseProject())
-            {
-                // user cancelled exit:
-                isExiting = false;
-                return;
-            }
 
             ViewList.DoNotDisposeViewsOnRemove = true; // persormance optimization
 
@@ -689,7 +678,6 @@ namespace Core.Common.Gui
                 if (!runFinished) // splash screen was closed before gui started.
                 {
                     log.Info(Resources.RingtoetsGui_ShowSplashScreen_User_has_cancelled_start_Exiting);
-                    SkipDialogsOnExit = true;
                     Environment.Exit(1);
                 }
             };
@@ -708,16 +696,11 @@ namespace Core.Common.Gui
 
         private void InitializeMainWindow()
         {
-            if (MainWindow == null)
-            {
-                MainWindow = new MainWindow(this);
-            }
-
             mainWindow.Loaded += delegate
             {
-                mainWindow.RestoreLayout();
+                mainWindow.LoadLayout();
 
-                toolWindowViewsDockingManager.OnLayoutChange();
+                toolWindowViewsDockingManager.LayoutChange();
 
                 // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
                 toolWindowViews.SynchronizeViews(toolWindowViewsDockingManager.Views.ToArray());
@@ -741,11 +724,6 @@ namespace Core.Common.Gui
                 mainWindow.ValidateItems();
 
                 mainWindow.ShowStartPage();
-
-                if (OnMainWindowLoaded != null)
-                {
-                    OnMainWindowLoaded();
-                }
             };
 
             mainWindow.Closing += delegate(object sender, CancelEventArgs e)

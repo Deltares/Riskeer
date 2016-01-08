@@ -15,6 +15,7 @@ namespace Core.Plugins.OxyPlot
     public class OxyPlotGuiPlugin : GuiPlugin, IOxyPlotGuiPlugin
     {
         private ChartingRibbon chartingRibbon;
+        private LegendController legendController;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -22,6 +23,22 @@ namespace Core.Plugins.OxyPlot
             {
                 return chartingRibbon;
             }
+        }
+
+        public override void Activate()
+        {
+            legendController = CreateLegendController(this);
+            chartingRibbon = CreateRibbon(legendController);
+            Gui.ActiveViewChanged += GuiOnActiveViewChanged;
+        }
+
+        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        {
+            yield return new ViewInfo<IChartData, ChartDataView>
+            {
+                Image = Resources.ChartIcon,
+                GetViewName = (v, o) => "Diagram"
+            };
         }
 
         public bool IsToolWindowOpen<T>()
@@ -39,29 +56,28 @@ namespace Core.Plugins.OxyPlot
             Gui.CloseToolView(toolView);
         }
 
-        public override void Activate()
+        /// <summary>
+        /// Creates a new <see cref="LegendController"/>.
+        /// </summary>
+        /// <param name="oxyPlotGuiPlugin">The <see cref="IOxyPlotGuiPlugin"/> to use for the controller
+        /// <see cref="LegendController"/>.</param>
+        /// <returns>A new <see cref="LegendController"/> instance.</returns>
+        private static LegendController CreateLegendController(IOxyPlotGuiPlugin oxyPlotGuiPlugin)
         {
-            CreateRibbon();
-            Gui.ActiveViewChanged += GuiOnActiveViewChanged;
-        }
-
-        public override IEnumerable<ViewInfo> GetViewInfoObjects()
-        {
-            yield return new ViewInfo<IChartData, ChartDataView>
-            {
-                Image = Resources.ChartIcon,
-                GetViewName = (v, o) => "Diagram"
-            };
+            var controller = new LegendController(oxyPlotGuiPlugin);
+            controller.ToggleLegend();
+            return controller;
         }
 
         /// <summary>
-        /// Creates the ribbon and the commands that will be used when clicking on the buttons.
+        /// Creates the <see cref="ChartingRibbon"/> and the commands that will be used when clicking on the buttons.
         /// </summary>
-        private void CreateRibbon()
+        /// <param name="legendController">The <see cref="LegendController"/> to use for the 
+        /// <see cref="ChartingRibbon"/>.</param>
+        /// <returns>A new <see cref="ChartingRibbon"/> instance.</returns>
+        private static ChartingRibbon CreateRibbon(LegendController legendController)
         {
-            var legendController = new LegendController(this);
-
-            chartingRibbon = new ChartingRibbon
+            return new ChartingRibbon
             {
                 OpenChartViewCommand = new OpenChartViewCommand(),
                 ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController)
@@ -70,13 +86,16 @@ namespace Core.Plugins.OxyPlot
 
         private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
         {
-            if (activeViewChangeEventArgs.View is IChartView)
+            var chartView = activeViewChangeEventArgs.View as IChartView;
+            if (chartView != null)
             {
                 chartingRibbon.ShowChartingTab();
+                legendController.UpdateForChart(chartView.Chart);
             }
             else
             {
                 chartingRibbon.HideChartingTab();
+                legendController.UpdateForChart(null);
             }
         }
     }

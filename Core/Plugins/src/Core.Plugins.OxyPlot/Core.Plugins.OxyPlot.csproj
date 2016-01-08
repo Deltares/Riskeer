@@ -81,6 +81,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="IOxyPlotGuiPlugin.cs" />
+    <Compile Include="Legend\LegendTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Legend\LegendView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -99,6 +102,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
       <Project>{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}</Project>
       <Name>Core.Common.Controls.TreeView</Name>

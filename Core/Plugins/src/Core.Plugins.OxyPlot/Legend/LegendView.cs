@@ -2,14 +2,12 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.OxyPlot;
 using Core.Plugins.OxyPlot.Properties;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
     public sealed partial class LegendView : UserControl, IView
     {
         private BaseChart chart;
-        private TreeView treeView;
 
         public LegendView()
         {
@@ -26,6 +24,19 @@ namespace Core.Plugins.OxyPlot.Legend
             set
             {
                 chart = (BaseChart) value;
+                UpdateTree();
+            }
+        }
+
+        private void UpdateTree()
+        {
+            if (chart != null)
+            {
+                seriesTree.Data = chart;
+            }
+            else
+            {
+                seriesTree.Nodes.Clear();
             }
         }
     }

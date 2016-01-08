@@ -50,7 +50,10 @@ namespace Core.Plugins.OxyPlot
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {
-            return false;
+            // TODO: Required only because this method is called each time ValidateItems is called in MainWindow
+            // Once ValidateItems isn't responsible for showing/hiding contextual tabs, then this method can return false,
+            // but more ideally be removed.
+            return ChartingContextualGroup.Name == tabGroupName && ChartingContextualGroup.Visibility == Visibility.Visible;
         }
 
         private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)

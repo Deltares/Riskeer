@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Common.Controls.Views;
+using Core.Components.OxyPlot;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
@@ -65,6 +66,19 @@ namespace Core.Plugins.OxyPlot.Legend
             plugin.CloseToolView(legendView);
             legendView.Dispose();
             legendView = null;
+        }
+
+        /// <summary>
+        /// Updates the data for the <see cref="LegendView"/> if it is open.
+        /// </summary>
+        /// <param name="chart">The <see cref="BaseChart"/> for which to show data. If <c>null</c> the 
+        /// data will be cleared.</param>
+        public void UpdateForChart(BaseChart chart)
+        {
+            if (IsLegendViewOpen())
+            {
+                legendView.Data = chart;
+            }
         }
     }
 }

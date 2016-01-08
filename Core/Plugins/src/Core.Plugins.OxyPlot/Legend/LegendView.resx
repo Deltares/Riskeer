@@ -165,7 +165,7 @@
     <value>treeView</value>
   </data>
   <data name="&gt;&gt;treeView.Type" xml:space="preserve">
-    <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1491, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Plugins.OxyPlot.Legend.LegendTreeView, Core.Plugins.OxyPlot, Version=0.5.0.1508, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="seriesTree.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -190,7 +190,7 @@
     <value>seriesTree</value>
   </data>
   <data name="&gt;&gt;seriesTree.Type" xml:space="preserve">
-    <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1491, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1508, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;seriesTree.Parent" xml:space="preserve">
     <value>$this</value>

@@ -70,18 +70,16 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         private string lastNonContextualTab;
 
-        public MainWindow()
-        {
-            InitializeComponent();
+        private const string dockingLayoutFileName = "WindowLayout_normal.xml";
 
+        public MainWindow(RingtoetsGui gui)
+        {
+            Gui = gui;
+            InitializeComponent();
+            
             windowInteropHelper = new WindowInteropHelper(this);
 
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
-        }
-
-        public MainWindow(RingtoetsGui gui) : this()
-        {
-            Gui = gui;
         }
 
         public RingtoetsGui Gui { get; set; }
@@ -210,16 +208,16 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public void RestoreLayout()
+        public void LoadLayout()
         {
-            OnLoadLayout("normal");
+            LoadDockingLayout();
             RestoreWindowAppearance();
         }
 
         public void SaveLayout()
         {
             SaveWindowAppearance();
-            OnSaveLayout("normal");
+            SaveDockingLayout();
         }
 
         public void InitializeToolWindows()
@@ -684,68 +682,43 @@ namespace Core.Common.Gui.Forms.MainWindow
             Gui.Exit();
         }
 
-        private string GetLayoutFilePath(string perspective)
+        private string GetLayoutFilePath()
         {
             string localUserSettingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-            string layoutFileName = GetLayoutFileName(perspective);
-            return Path.Combine(localUserSettingsDirectory, layoutFileName);
+            return Path.Combine(localUserSettingsDirectory, dockingLayoutFileName);
         }
 
-        private static string GetLayoutFileName(string perspective)
+        private static string GetLocalLayoutFilePath()
         {
-            return "WindowLayout_" + perspective + ".xml";
+            var uri = new UriBuilder(Assembly.GetExecutingAssembly().CodeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            string assemblyDir = Path.GetDirectoryName(path);
+            return Path.Combine(assemblyDir, dockingLayoutFileName);
         }
 
-        private void OnLoadLayout(string perspective)
+        private void LoadDockingLayout()
         {
-            string layoutFilePath = GetLayoutFilePath(perspective);
+            string layoutFilePath = GetLayoutFilePath();
 
             if (!File.Exists(layoutFilePath))
             {
-                // try to load the default file directly from the current directory
-                string layoutFileName = GetLayoutFileName(perspective);
-                UriBuilder uri = new UriBuilder(Assembly.GetExecutingAssembly().CodeBase);
-                string path = Uri.UnescapeDataString(uri.Path);
-                string assemblyDir = Path.GetDirectoryName(path);
-                layoutFilePath = Path.Combine(assemblyDir, layoutFileName);
-
-                if (!File.Exists(layoutFilePath))
-                {
-                    return;
-                }
+                layoutFilePath = GetLocalLayoutFilePath();
             }
-
-            var layoutSerializer = new XmlLayoutSerializer(dockingManager);
-            //Here I've implemented the LayoutSerializationCallback just to show
-            // a way to feed layout desarialization with content loaded at runtime
-            //Actually I could in this case let AvalonDock to attach the contents
-            //from current layout using the content ids
-            //LayoutSerializationCallback should anyway be handled to attach contents
-            //not currently loaded
-            layoutSerializer.LayoutSerializationCallback += (s, e) =>
+            if (!File.Exists(layoutFilePath))
             {
-                var c = e.Content;
-/*
-                if (e.Model.ContentId == FileStatsViewModel.ToolContentId)
-                    e.Content = Workspace.This.FileStats;
-                else if (!string.IsNullOrWhiteSpace(e.Model.ContentId) &&
-                    File.Exists(e.Model.ContentId))
-                    e.Content = Workspace.This.Open(e.Model.ContentId);
-*/
-            };
+                return;
+            }
 
             try
             {
-                layoutSerializer.Deserialize(layoutFilePath);
+                new XmlLayoutSerializer(dockingManager).Deserialize(layoutFilePath);
             }
             catch (InvalidOperationException)
             {
-                // the xml was not valid. Too bad.
                 log.Warn(Properties.Resources.MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_);
                 return;
             }
 
-            // load ribbon state
             var ribbonSettingsPath = layoutFilePath + ".ribbon";
 
             if (!File.Exists(ribbonSettingsPath))
@@ -764,10 +737,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 var ribbonStateSettings = settings[0].Split(',');
                 Ribbon.IsMinimized = bool.Parse(ribbonStateSettings[0]);
                 Ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonStateSettings[1]);
-
-                // disabled LoadState because the ribbon elements are not correctly detected during Ribbon.LoadState, 
-                // resulting in disappearing quickaccess items
-                //Ribbon.LoadState(ribbonStream);
             }
             catch (Exception)
             {
@@ -775,9 +744,9 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        private void OnSaveLayout(string perspective)
+        private void SaveDockingLayout()
         {
-            string layoutFilePath = GetLayoutFilePath(perspective);
+            string layoutFilePath = GetLayoutFilePath();
             var ribbonLayoutFilePath = layoutFilePath + ".ribbon";
             if (resetDefaultLayout)
             {
