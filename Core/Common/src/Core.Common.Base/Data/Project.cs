@@ -7,7 +7,7 @@ namespace Core.Common.Base.Data
     /// <summary>
     /// Class that holds all items in a project.
     /// </summary>
-    public class Project : Observable
+    public class Project : Observable, IStorable
     {
         /// <summary>
         /// Constructs a new <see cref="Project"/>. 
@@ -40,5 +40,10 @@ namespace Core.Common.Base.Data
         /// Gets or sets the items of the <see cref="Project"/>.
         /// </summary>
         public IList<object> Items { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the <see cref="Project"/>.
+        /// </summary>
+        public long StorageId { get; set; }
     }
 }

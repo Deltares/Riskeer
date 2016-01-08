@@ -4,7 +4,7 @@ namespace Application.Ringtoets.Storage
 {
     public interface IStoreProject
     {
-        void SaveProject(Project project);
+        int SaveProject(Project project);
 
         Project LoadProject(long projectId);
     }

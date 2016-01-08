@@ -103,6 +103,7 @@
     <Compile Include="Service\Activity.cs" />
     <Compile Include="Service\ActivityState.cs" />
     <Compile Include="Service\FileImportActivity.cs" />
+    <Compile Include="IStorable.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

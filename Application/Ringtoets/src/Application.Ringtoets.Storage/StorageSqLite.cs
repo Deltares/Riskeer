@@ -1,11 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Common.Base.Data;
 
 namespace Application.Ringtoets.Storage
 {
     public class StorageSqLite : IStoreProject
     {
-        public void SaveProject(Project project) {}
+        public int SaveProject(Project project)
+        {
+            using (var dbContext = new RingtoetsEntities())
+            {
+                var entry = dbContext.ProjectEntities.SingleOrDefault(db => db.ProjectEntityId == project.StorageId);
+                if (entry == null)
+                {
+                    return 0;
+                }
+
+                entry.Name = project.Name;
+                entry.Description = project.Description;
+                entry.LastUpdated = new DateTime().Ticks;
+
+                return dbContext.SaveChanges();
+            }
+        }
 
         /// <summary>
         /// Attempts to load the <see cref="Project"/> from the databaseconnection <see cref="RingtoetsEntities"/>.
@@ -24,6 +41,7 @@ namespace Application.Ringtoets.Storage
 
                 var project = new Project
                 {
+                    StorageId = entry.ProjectEntityId,
                     Name = entry.Name,
                     Description = entry.Description
                 };
