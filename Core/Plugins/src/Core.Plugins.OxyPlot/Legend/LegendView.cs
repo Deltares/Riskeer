@@ -30,6 +30,10 @@ namespace Core.Plugins.OxyPlot.Legend
 
         private void UpdateTree()
         {
+            if (IsDisposed)
+            {
+                return;
+            }
             if (chart != null)
             {
                 seriesTree.Data = chart;

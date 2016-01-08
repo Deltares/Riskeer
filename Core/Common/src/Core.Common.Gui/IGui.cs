@@ -116,6 +116,11 @@ namespace Core.Common.Gui
         /// </summary>
         IContextMenuBuilderProvider ContextMenuProvider { get; }
 
+        /// <summary>
+        /// Gets the currently active document <see cref="IView"/>.
+        /// </summary>
+        IView ActiveView { get; }
+
         #endregion
 
         #region Public Methods

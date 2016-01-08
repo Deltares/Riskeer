@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Components.OxyPlot;
 using Core.Components.OxyPlot.Data;
 using Core.Plugins.OxyPlot.Forms;
+using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -51,7 +55,12 @@ namespace Core.Plugins.OxyPlot.Test
             {
                 var mocks = new MockRepository();
                 var gui = mocks.StrictMock<IGui>();
+                var dockingManger = mocks.Stub<IDockingManager>();
+                var toolWindows = new ViewList(dockingManger, null);
+
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
+                gui.Expect(g => g.ToolWindowViews).Return(toolWindows);
+                gui.Expect(g => g.OpenToolView(Arg<LegendView>.Matches(c => true)));
 
                 mocks.ReplayAll();
 
@@ -93,6 +102,7 @@ namespace Core.Plugins.OxyPlot.Test
             using (var gui = new RingtoetsGui())
             using (var plugin = new OxyPlotGuiPlugin())
             {
+                gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
                 IView viewMock = visible ? (IView) new TestChartView() : new TestView();
 

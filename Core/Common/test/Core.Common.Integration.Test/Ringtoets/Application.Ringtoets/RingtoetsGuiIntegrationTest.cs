@@ -1,5 +1,6 @@
 using System.Linq;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
@@ -22,6 +23,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 gui.Run();
                 gui.CommandHandler.TryCloseProject(); //should not trigger exception
             }
@@ -32,6 +34,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 var applicationCore = gui.ApplicationCore;
 
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
@@ -52,6 +55,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             // initialize
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -66,6 +70,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             //could be tested separately but the combination is vital to many tests. That's why this test is here.
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 gui.Run();
                 int callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
@@ -78,6 +83,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -94,6 +100,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 var applicationCore = gui.ApplicationCore;
 
                 applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());

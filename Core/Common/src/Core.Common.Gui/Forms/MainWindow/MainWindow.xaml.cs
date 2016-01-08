@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private const string dockingLayoutFileName = "WindowLayout_normal.xml";
 
-        public MainWindow(RingtoetsGui gui)
+        public MainWindow(IGui gui)
         {
             Gui = gui;
             InitializeComponent();
@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
-        public RingtoetsGui Gui { get; set; }
+        public IGui Gui { get; set; }
 
         public bool IsWindowDisposed { get; private set; }
 

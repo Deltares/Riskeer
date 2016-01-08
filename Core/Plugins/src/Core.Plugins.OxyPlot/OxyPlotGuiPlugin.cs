@@ -29,6 +29,8 @@ namespace Core.Plugins.OxyPlot
         {
             legendController = CreateLegendController(this);
             chartingRibbon = CreateRibbon(legendController);
+
+            legendController.ToggleLegend();
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
         }
 
@@ -49,6 +51,7 @@ namespace Core.Plugins.OxyPlot
         public void OpenToolView(IView toolView)
         {
             Gui.OpenToolView(toolView);
+            UpdateComponentsForActiveView();
         }
 
         public void CloseToolView(IView toolView)
@@ -65,7 +68,6 @@ namespace Core.Plugins.OxyPlot
         private static LegendController CreateLegendController(IOxyPlotGuiPlugin oxyPlotGuiPlugin)
         {
             var controller = new LegendController(oxyPlotGuiPlugin);
-            controller.ToggleLegend();
             return controller;
         }
 
@@ -86,7 +88,16 @@ namespace Core.Plugins.OxyPlot
 
         private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
         {
-            var chartView = activeViewChangeEventArgs.View as IChartView;
+            UpdateComponentsForActiveView();
+        }
+
+        /// <summary>
+        /// Updates the components which the <see cref="OxyPlotGuiPlugin"/> knows about so that it reflects
+        /// the currently active view.
+        /// </summary>
+        private void UpdateComponentsForActiveView()
+        {
+            var chartView = Gui.ActiveView as IChartView;
             if (chartView != null)
             {
                 chartingRibbon.ShowChartingTab();

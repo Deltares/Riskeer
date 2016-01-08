@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.IO;
@@ -22,6 +23,7 @@ namespace Core.Plugins.SharpMapGis.Test
         {
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 gui.ApplicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Run();
@@ -86,6 +88,7 @@ namespace Core.Plugins.SharpMapGis.Test
         {
             using (var gui = new RingtoetsGui())
             {
+                gui.MainWindow = new MainWindow(gui);
                 gui.ApplicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Run();

@@ -254,6 +254,14 @@ namespace Core.Common.Gui
             }
         }
 
+        public IView ActiveView
+        {
+            get
+            {
+                return DocumentViews.ActiveView;
+            }
+        }
+
         public IContextMenuBuilder Get(TreeNode treeNode)
         {
             return new ContextMenuBuilder(CommandHandler, treeNode);
