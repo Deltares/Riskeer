@@ -81,11 +81,51 @@ namespace Core.Common.Utils.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Black2x2 {
+            get {
+                object obj = ResourceManager.GetObject("Black2x2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Awesome!.
         /// </summary>
         internal static string SomeStringResource {
             get {
                 return ResourceManager.GetString("SomeStringResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TestImage2x2 {
+            get {
+                object obj = ResourceManager.GetObject("TestImage2x2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TestImageHalfOpacityOnBlack2x2 {
+            get {
+                object obj = ResourceManager.GetObject("TestImageHalfOpacityOnBlack2x2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TestImageWithBlack2x2 {
+            get {
+                object obj = ResourceManager.GetObject("TestImageWithBlack2x2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

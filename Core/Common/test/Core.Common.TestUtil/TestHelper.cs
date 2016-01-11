@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -287,8 +288,8 @@ namespace Core.Common.TestUtil
             Assert.IsNotNull(actualImage);
 
             Assert.AreEqual(expectedImage.Size, actualImage.Size);
-            IEnumerable<byte> expectedImageBytes = GetImageAsByteArray(expectedImage);
-            IEnumerable<byte> actualImageBytes = GetImageAsByteArray(actualImage);
+            IEnumerable<Color> expectedImageBytes = GetImageAsColorArray(expectedImage);
+            IEnumerable<Color> actualImageBytes = GetImageAsColorArray(actualImage);
             CollectionAssert.AreEqual(expectedImageBytes, actualImageBytes);
         }
 
@@ -494,16 +495,21 @@ namespace Core.Common.TestUtil
             return renderedMessages;
         }
 
-        private static IEnumerable<byte> GetImageAsByteArray(Image expectedImage)
+        private static Color[] GetImageAsColorArray(Image image)
         {
-            using (var stream = new MemoryStream())
+            // Convert image to ARGB bitmap using 8bits/channel:
+            var bitmap = new Bitmap(image).Clone(new Rectangle(0,0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
+
+            var index = 0;
+            var imageColors = new Color[image.Size.Width * image.Size.Height];
+            for (int i = 0; i < bitmap.Height; i++)
             {
-                expectedImage.Save(stream, expectedImage.RawFormat);
-                var length = stream.Length;
-                var imageBytes = new byte[length];
-                stream.Read(imageBytes, 0, (int) length);
-                return imageBytes;
+                for (int j = 0; j < bitmap.Width; j++)
+                {
+                    imageColors[index] = bitmap.GetPixel(i,j);
+                }
             }
+            return imageColors;
         }
     }
 }

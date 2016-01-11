@@ -93,6 +93,8 @@
     <Compile Include="Attributes\ResourcesCategoryAttributeTest.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
+    <Compile Include="Drawing\GraphicsExtensionsTest.cs" />
+    <Compile Include="Drawing\ImageExtensionsTest.cs" />
     <Compile Include="Extensions\ComparableExtensionsTest.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
@@ -157,7 +159,18 @@
   <ItemGroup>
     <None Include="Resources\acorn.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\TestImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Black2x2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TestImageHalfOpacityOnBlack2x2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TestImageWithBlack.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

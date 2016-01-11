@@ -380,7 +380,7 @@ namespace Core.GIS.SharpMap.Map
 
                 if (Math.Abs(layer.Opacity - 1.0) > 0.0000001)
                 {
-                    g.DrawImageTransparent(layer.Image, layer.Opacity);
+                    g.DrawImageTransparent(layer.Image, 0, 0, layer.Opacity);
                 }
                 else
                 {
