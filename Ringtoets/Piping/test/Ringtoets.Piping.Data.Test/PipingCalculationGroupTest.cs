@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void Children_RemovePipingCalculation_CalculationRemovedFromCollection(int index)
+        public void Children_AddPipingCalculationAtIndex_CalculationAddedToCollectionAtIndex(int index)
         {
             // Setup
             var calculation = new PipingCalculation();
