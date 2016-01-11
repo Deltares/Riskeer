@@ -130,7 +130,6 @@ namespace Application.Ringtoets
                 {
                     new ProjectExplorerGuiPlugin(),
                     new CommonToolsGuiPlugin(),
-                    new ChartingGuiPlugin(),
                     new SharpMapGisGuiPlugin(),
                     new RingtoetsGuiPlugin(),
                     new PipingGuiPlugin()

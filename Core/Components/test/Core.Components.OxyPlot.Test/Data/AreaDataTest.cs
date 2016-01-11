@@ -81,19 +81,6 @@ namespace Core.Components.OxyPlot.Test.Data
             CollectionAssert.AreEquivalent(equivalentPoints, series.Points);
             CollectionAssert.AreEquivalent(Arrays.CopyOf(equivalentPoints,1), series.Points2);
         }
-        [Test]
-        public void GivenBaseChart_WhenPointDataAdded_ThenSeriesHasPointStyle()
-        {
-            // Given
-            var chart = new BaseChart();
-            var pointData = new AreaData(new Collection<Tuple<double, double>>());
-
-            // When
-            chart.AddData(pointData);
-
-            // Then
-            Assert.IsInstanceOf<AreaSeries>(chart.Model.Series.First());
-        }
 
         private Collection<Tuple<double, double>> CreateTestPoints()
         {

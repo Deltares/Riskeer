@@ -81,6 +81,8 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="IOxyPlotGuiPlugin.cs" />
+    <Compile Include="Legend\ChartDataNodePresenter.cs" />
+    <Compile Include="Legend\ChartNodePresenter.cs" />
     <Compile Include="Legend\LegendTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -124,6 +126,10 @@
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
+      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
+      <Name>Core.Components.OxyPlot.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
       <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>

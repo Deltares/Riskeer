@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
@@ -7,8 +6,8 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
-using Core.Components.OxyPlot;
 using Core.Components.OxyPlot.Data;
+using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;

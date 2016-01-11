@@ -1,5 +1,5 @@
 ﻿using Core.Common.Controls.Views;
-using Core.Components.OxyPlot;
+using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Forms
 {

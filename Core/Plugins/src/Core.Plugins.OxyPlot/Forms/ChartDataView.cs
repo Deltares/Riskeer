@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
-using Core.Components.OxyPlot;
 using Core.Components.OxyPlot.Data;
+using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Forms
 {

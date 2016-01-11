@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Core.Components.OxyPlot;
 using Core.Components.OxyPlot.Data;
+using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

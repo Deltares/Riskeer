@@ -17,26 +17,5 @@ namespace Core.Components.OxyPlot.Test.Data
             // Assert
             Assert.IsInstanceOf<IChartData>(data);
         }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(11)]
-        public void GivenANumberOfChartData_WhenAddedToChart_AddsSameNumberOfSeriesToModel(int numberOfSeries)
-        {
-            // Given
-            var chart = new BaseChart();
-            var data = new CollectionData();
-            for (int i = 0; i < numberOfSeries; i++)
-            {
-                data.Add(new LineData(new Collection<Tuple<double,double>>()));
-            }
-
-            // When
-            chart.AddData(data);
-
-            // Assert
-            Assert.AreEqual(numberOfSeries, chart.Model.Series.Count);
-        }
     }
 }

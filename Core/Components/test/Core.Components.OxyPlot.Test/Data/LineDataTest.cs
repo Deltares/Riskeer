@@ -80,20 +80,6 @@ namespace Core.Components.OxyPlot.Test.Data
             Assert.AreSame(points, series.ItemsSource);
         }
 
-        [Test]
-        public void GivenBaseChart_WhenPointDataAdded_ThenSeriesHasPointStyle()
-        {
-            // Given
-            var chart = new BaseChart();
-            var pointData = new LineData(new Collection<Tuple<double, double>>());
-
-            // When
-            chart.AddData(pointData);
-
-            // Then
-            Assert.IsInstanceOf<LineSeries>(chart.Model.Series.First());
-        }
-
         private Collection<Tuple<double, double>> CreateTestPoints()
         {
             return new Collection<Tuple<double, double>>
