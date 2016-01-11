@@ -7,16 +7,26 @@ using Fluent;
 namespace Core.Plugins.OxyPlot
 {
     /// <summary>
-    /// Interaction logic for ribbon.xaml
+    /// This class represents the ribbon interaction which has to do with charting.
     /// </summary>
     public partial class ChartingRibbon : IRibbonCommandHandler
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="ChartingRibbon"/>.
+        /// </summary>
         public ChartingRibbon()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the command used when the open chart button is clicked.
+        /// </summary>
         public ICommand OpenChartViewCommand { private get; set; }
+
+        /// <summary>
+        /// Sets the command used when the toggle legend view button is clicked.
+        /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
 
         public IEnumerable<ICommand> Commands
@@ -28,11 +38,17 @@ namespace Core.Plugins.OxyPlot
             }
         }
 
+        /// <summary>
+        /// Shows the charting contextual tab.
+        /// </summary>
         public void ShowChartingTab()
         {
             ChartingContextualGroup.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Hides the charting contextual tab.
+        /// </summary>
         public void HideChartingTab()
         {
             ChartingContextualGroup.Visibility = Visibility.Collapsed;
@@ -45,7 +61,7 @@ namespace Core.Plugins.OxyPlot
 
         public void ValidateItems()
         {
-            ToggleLegendButton.IsChecked = ToggleLegendViewCommand.Checked;
+            ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand.Checked;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)

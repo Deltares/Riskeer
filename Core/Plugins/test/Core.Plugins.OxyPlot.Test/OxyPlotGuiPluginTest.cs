@@ -83,6 +83,8 @@ namespace Core.Plugins.OxyPlot.Test
             // Setup
             using (var plugin = new OxyPlotGuiPlugin())
             {
+                var view = new ChartDataView();
+
                 // Call
                 var views = plugin.GetViewInfoObjects().ToArray();
 
@@ -90,6 +92,68 @@ namespace Core.Plugins.OxyPlot.Test
                 Assert.AreEqual(1, views.Length);
                 Assert.AreEqual(typeof(IChartData), views[0].DataType);
                 Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
+                Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
+            }
+        }
+
+        [Test]
+        public void CloseToolView_Always_CloseToolView()
+        {
+            // Setup
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                var mocks = new MockRepository();
+                var gui = mocks.StrictMock<IGui>();
+                var view = mocks.StrictMock<IView>();
+                gui.Expect(g => g.CloseToolView(view));
+                
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                plugin.CloseToolView(view);
+
+                // Assert
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenConfiguredGui_WhenOpenToolView_UpdateComponentsWithDataFromActiveView(bool isChartViewActive)
+        {
+            // Given
+            using (var gui = new RingtoetsGui())
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                gui.MainWindow = new MainWindow(gui);
+                var mocks = new MockRepository();
+                IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
+                viewMock.Data = new BaseChart();
+
+                mocks.ReplayAll();
+
+                gui.Plugins.Add(plugin);
+                gui.Run();
+
+                gui.DocumentViews.Add(viewMock);
+                gui.DocumentViews.ActiveView = viewMock;
+                var legendView = gui.ToolWindowViews.First(t => t is LegendView);
+
+                gui.ToolWindowViews.Remove(legendView);
+
+                // Precondition
+                Assert.IsNull(legendView.Data);
+
+                // When
+                plugin.OpenToolView(legendView);
+
+                // Then
+                Assert.AreSame(isChartViewActive ? viewMock.Data : null, legendView.Data);
+                mocks.VerifyAll();
             }
         }
 
@@ -111,8 +175,6 @@ namespace Core.Plugins.OxyPlot.Test
 
                 gui.Plugins.Add(plugin);
                 gui.Run();
-
-                gui.DocumentViews.IgnoreActivation = false;
 
                 // When
                 gui.DocumentViews.Add(viewMock);

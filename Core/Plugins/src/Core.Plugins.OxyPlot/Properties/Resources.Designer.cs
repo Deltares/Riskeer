@@ -91,6 +91,15 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grafiek.
+        /// </summary>
+        public static string General_Chart {
+            get {
+                return ResourceManager.GetString("General_Chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap LineIcon {
@@ -116,15 +125,6 @@ namespace Core.Plugins.OxyPlot.Properties {
             get {
                 object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Grafiek.
-        /// </summary>
-        public static string Ribbon_Chart {
-            get {
-                return ResourceManager.GetString("Ribbon_Chart", resourceCulture);
             }
         }
         

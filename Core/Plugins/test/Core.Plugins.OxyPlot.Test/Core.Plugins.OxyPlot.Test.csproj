@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
@@ -69,13 +70,16 @@
     <Compile Include="Commands\ToggleLegendViewCommandTest.cs" />
     <Compile Include="Forms\ChartDataViewTest.cs" />
     <Compile Include="Commands\OpenChartViewCommandTest.cs" />
+    <Compile Include="Legend\ChartDataNodePresenterTest.cs" />
+    <Compile Include="Legend\ChartNodePresenterTest.cs" />
+    <Compile Include="Legend\LegendTreeViewTest.cs" />
     <Compile Include="Legend\LegendViewTest.cs" />
     <Compile Include="Legend\LegendControllerTest.cs" />
     <Compile Include="OxyPlotGuiPluginTest.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RibbonTest.cs" />
+    <Compile Include="ChartingRibbonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,6 +90,10 @@
       <Name>Core.Common.Base</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
+      <Project>{1d27f91f-4e62-4eaf-a0a8-a32708b9a9b1}</Project>
+      <Name>Core.Common.Controls.TreeView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
@@ -94,6 +102,10 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>

@@ -21,7 +21,7 @@ namespace Core.Plugins.OxyPlot.Legend
         public LegendView()
         {
             InitializeComponent();
-            Text = Resources.Ribbon_Chart;
+            Text = Resources.General_Chart;
         }
 
         public object Data

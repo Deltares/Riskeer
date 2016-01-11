@@ -12,7 +12,7 @@ namespace Core.Plugins.OxyPlot.Legend
     {
         public override void UpdateNode(TreeNode parentNode, TreeNode node, BaseChart nodeData)
         {
-            node.Text = "Grafiek";
+            node.Text = Properties.Resources.General_Chart;
             node.Image = Resources.folder;
         }
 

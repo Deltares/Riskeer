@@ -24,6 +24,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
 
             var chart = (BaseChart)chartObject;
             Assert.AreEqual(DockStyle.Fill, chart.Dock);
+            Assert.NotNull(chartView.Chart);
         }
 
         [Test]

@@ -127,6 +127,9 @@
   <data name="DocumentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\document.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="General_Chart" xml:space="preserve">
+    <value>Grafiek</value>
+  </data>
   <data name="LineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,9 +138,6 @@
   </data>
   <data name="PointsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ribbon_Chart" xml:space="preserve">
-    <value>Grafiek</value>
   </data>
   <data name="Ribbon_ContextualGroup_Charting" xml:space="preserve">
     <value>Grafieken</value>
