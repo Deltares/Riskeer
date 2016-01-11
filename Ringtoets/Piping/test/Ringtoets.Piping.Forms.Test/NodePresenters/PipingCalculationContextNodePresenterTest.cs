@@ -863,7 +863,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u de uitvoer van de berekening wilt wissen?", messageBox.Text);
+                Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBox.Text);
                 Assert.AreEqual("Bevestigen", messageBox.Title);
                 if (confirm)
                 {

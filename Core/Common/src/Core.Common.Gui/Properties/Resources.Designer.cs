@@ -724,7 +724,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwijder het element uit de boom..
+        ///   Looks up a localized string similar to Verwijder dit element uit de boom..
         /// </summary>
         public static string Delete_ToolTip {
             get {

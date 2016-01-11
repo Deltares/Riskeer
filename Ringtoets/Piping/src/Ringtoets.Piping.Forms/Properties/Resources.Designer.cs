@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening heeft geen uitvoer om te wissen..
+        ///   Looks up a localized string similar to Deze berekening heeft geen uitvoer om te wissen..
         /// </summary>
         public static string ClearOutput_No_output_to_clear {
             get {
@@ -289,7 +289,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van de berekening wilt wissen?.
+        ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van deze berekening wilt wissen?.
         /// </summary>
         public static string PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output {
             get {
