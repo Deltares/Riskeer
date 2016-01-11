@@ -5,7 +5,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// A presentation layer object wrapping an instance of <see cref="WrappedPipingInput"/>
+    /// A presentation layer object wrapping an instance of <see cref="PipingInput"/>
     /// and allowing for selecting a surfaceline or soil profile based on data available
     /// in a piping failure mechanism.
     /// </summary>
