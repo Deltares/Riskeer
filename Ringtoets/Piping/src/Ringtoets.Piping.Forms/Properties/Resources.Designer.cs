@@ -480,6 +480,26 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om te berekenen..
+        /// </summary>
+        public static string PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_cal" +
+                        "culate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om te valideren..
+        /// </summary>
+        public static string PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_vali" +
+                        "date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingIcon {

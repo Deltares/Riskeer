@@ -526,4 +526,10 @@
   <data name="Clear_output_ToolTip" xml:space="preserve">
     <value>Wis de uitvoer van deze berekening.</value>
   </data>
+  <data name="PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
+    <value>Er zijn geen berekeningen om te valideren.</value>
+  </data>
+  <data name="PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate" xml:space="preserve">
+    <value>Er zijn geen berekeningen om te berekenen.</value>
+  </data>
 </root>

@@ -72,19 +72,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 (s, e) => AddCalculation(failureMechanism, node)
                 );
 
-            var validateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Validate_all,
-                RingtoetsCommonFormsResources.Validate_all_ToolTip,
-                RingtoetsCommonFormsResources.ValidateAllIcon,
-                (o, args) => ValidateAll(failureMechanism)
-                );
+            var validateAllItem = CreateValidateAllItem(failureMechanism);
 
-            var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
-                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
-                (o, args) => CalculateAll(failureMechanism)
-                );
+            var calculateAllItem = CreateCalculateAllItem(failureMechanism);
 
             var clearAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Clear_all_output,
@@ -113,6 +103,42 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                              .AddExpandAllItem()
                                              .AddCollapseAllItem()
                                              .Build();
+        }
+
+        private StrictContextMenuItem CreateCalculateAllItem(PipingFailureMechanism failureMechanism)
+        {
+            var menuItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_all,
+                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (o, args) => CalculateAll(failureMechanism)
+                );
+
+            if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate;
+            }
+
+            return menuItem;
+        }
+
+        private StrictContextMenuItem CreateValidateAllItem(PipingFailureMechanism failureMechanism)
+        {
+            var menuItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Validate_all,
+                RingtoetsCommonFormsResources.Validate_all_ToolTip,
+                RingtoetsCommonFormsResources.ValidateAllIcon,
+                (o, args) => ValidateAll(failureMechanism)
+                );
+
+            if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate;
+            }
+
+            return menuItem;
         }
 
         private static void ClearAll(PipingFailureMechanism failureMechanism)

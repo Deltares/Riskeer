@@ -37,6 +37,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
         private const int contextMenuAddFolderIndex = 0; 
         private const int contextMenuAddCalculationIndex = 1;
+        private const int contextMenuValidateAllIndex = 3;
         private const int contextMenuCalculateAllIndex = 4;
         private const int contextMenuClearIndex = 5;
 
@@ -545,6 +546,37 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);
             Assert.AreEqual(RingtoetsFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+        
+        [Test]
+        public void GetContextMenu_PipingFailureMechanismWithNoCalculations_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var nodeMock = new TreeNode(null);
+            var dataMock = new PipingFailureMechanism();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
+
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
+            dataMock.CalculationsGroup.Children.Clear();
+
+            // Call
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
+            ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
+            Assert.IsFalse(validateItem.Enabled);
+            Assert.IsFalse(calculateItem.Enabled);
+            Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate, calculateItem.ToolTipText);
+            Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
 
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
