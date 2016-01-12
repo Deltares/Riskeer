@@ -95,6 +95,8 @@
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
     <Compile Include="Drawing\GraphicsExtensionsTest.cs" />
     <Compile Include="Drawing\ImageExtensionsTest.cs" />
+    <Compile Include="Events\EventArgsTest.cs" />
+    <Compile Include="Events\NotifyCollectionChangeEventArgsTest.cs" />
     <Compile Include="Extensions\ComparableExtensionsTest.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />

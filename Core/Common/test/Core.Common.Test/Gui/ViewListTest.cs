@@ -10,6 +10,8 @@ using Core.Common.Utils.Events;
 
 using NUnit.Framework;
 
+using Rhino.Mocks;
+
 namespace Core.Common.Test.Gui
 {
     [TestFixture]
@@ -27,6 +29,8 @@ namespace Core.Common.Test.Gui
                 Text = @"text"
             };
 
+            toolWindowViewManager.Add(view);
+
             var senders = new List<object>();
             var actions = new List<NotifyCollectionChangeAction>();
             var items = new List<object>();
@@ -39,28 +43,23 @@ namespace Core.Common.Test.Gui
                 indexes.Add(e.Index);
             };
 
-            toolWindowViewManager.Add(view);
             toolWindowViewManager.Remove(view);
 
             // asserts
             Assert.AreEqual(new[]
             {
-                toolWindowViewManager,
                 toolWindowViewManager
             }, senders);
             Assert.AreEqual(new[]
             {
-                NotifyCollectionChangeAction.Add,
                 NotifyCollectionChangeAction.Remove
             }, actions);
             Assert.AreEqual(new[]
             {
-                view,
                 view
             }, items);
             Assert.AreEqual(new[]
             {
-                0,
                 0
             }, indexes);
         }
@@ -212,6 +211,329 @@ namespace Core.Common.Test.Gui
 
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(typeof(TestViewDerivative), view.GetType());
+        }
+
+        [Test]
+        public void Clear_WithoutViews_FireResetCollectionChanged()
+        {
+            // Setup
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+                    Assert.AreEqual(NotifyCollectionChangeAction.Reset, args.Action);
+                    Assert.AreEqual(-1, args.Index);
+                    Assert.AreEqual(-1, args.OldIndex);
+                    Assert.IsNull(args.Item);
+                    Assert.IsNull(args.OldItem);
+                    Assert.IsFalse(args.Cancel);
+                };
+
+                // Call
+                viewList.Clear();
+
+                // Assert
+                Assert.IsNull(viewList.ActiveView);
+                CollectionAssert.IsEmpty(viewList);
+            }
+        }
+
+        [Test]
+        public void Clear_WithViews_FireResetCollectionChangedAndRemoveCollectionChangePerView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                viewList.Add(view);
+
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+
+                    if (args.Action == NotifyCollectionChangeAction.Remove)
+                    {
+                        Assert.AreEqual(0, args.Index);
+                        Assert.AreEqual(-1, args.OldIndex);
+                        Assert.AreSame(view, args.Item);
+                        Assert.IsNull(args.OldItem);
+                        Assert.IsFalse(args.Cancel);
+                    }
+                    else if (args.Action == NotifyCollectionChangeAction.Reset)
+                    {
+                        Assert.AreEqual(-1, args.Index);
+                        Assert.AreEqual(-1, args.OldIndex);
+                        Assert.IsNull(args.Item);
+                        Assert.IsNull(args.OldItem);
+                        Assert.IsFalse(args.Cancel);
+                    }
+                    else
+                    {
+                        Assert.Fail("Unexpected collection change event.");
+                    }
+                };
+
+                // Call
+                viewList.Clear();
+
+                // Assert
+                Assert.IsNull(viewList.ActiveView);
+                CollectionAssert.IsEmpty(viewList);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Clear_WithViewsAndKeepingOne_FireResetCollectionChangedAndRemoveCollectionChangePerRemovedView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            var viewToKeep = mocks.Stub<IView>();
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                viewList.Add(viewToKeep);
+                viewList.Add(view);
+
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+
+                    if (args.Action == NotifyCollectionChangeAction.Remove)
+                    {
+                        Assert.AreEqual(1, args.Index);
+                        Assert.AreEqual(-1, args.OldIndex);
+                        Assert.AreSame(view, args.Item);
+                        Assert.IsNull(args.OldItem);
+                        Assert.IsFalse(args.Cancel);
+                    }
+                    else if (args.Action == NotifyCollectionChangeAction.Reset)
+                    {
+                        Assert.AreEqual(-1, args.Index);
+                        Assert.AreEqual(-1, args.OldIndex);
+                        Assert.IsNull(args.Item);
+                        Assert.IsNull(args.OldItem);
+                        Assert.IsFalse(args.Cancel);
+                    }
+                    else
+                    {
+                        Assert.Fail("Unexpected collection change event.");
+                    }
+                };
+
+                // Call
+                viewList.Clear(viewToKeep);
+
+                // Assert
+                Assert.AreSame(viewToKeep, viewList.ActiveView);
+                Assert.AreEqual(1, viewList.Count);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(2)]
+        public void Add_ViewWithoutViewLocation_FireAddCollectionChange(int alreadyAddedViews)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            var viewsToPreadd = new[]
+            {
+                mocks.Stub<IView>(),
+                mocks.Stub<IView>()
+            };
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                for (int i = 0; i < alreadyAddedViews; i++)
+                {
+                    viewList.Add(viewsToPreadd[i]);
+                }
+
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+                    Assert.AreEqual(NotifyCollectionChangeAction.Add, args.Action);
+                    Assert.AreEqual(alreadyAddedViews, args.Index);
+                    Assert.AreEqual(-1, args.OldIndex);
+                    Assert.AreSame(view, args.Item);
+                    Assert.IsNull(args.OldItem);
+                    Assert.IsFalse(args.Cancel);
+                };
+                // Call
+                viewList.Add(view);
+
+                // Assert
+                Assert.AreEqual(alreadyAddedViews+1, viewList.Count);
+                Assert.AreSame(view, viewList.ActiveView);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(2)]
+        public void Add_ViewWithViewLocation_FireAddCollectionChange(int alreadyAddedViews)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            var viewsToPreadd = new[]
+            {
+                mocks.Stub<IView>(),
+                mocks.Stub<IView>()
+            };
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Bottom))
+            {
+                for (int i = 0; i < alreadyAddedViews; i++)
+                {
+                    viewList.Add(viewsToPreadd[i]);
+                }
+
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+                    Assert.AreEqual(NotifyCollectionChangeAction.Add, args.Action);
+                    Assert.AreEqual(alreadyAddedViews, args.Index);
+                    Assert.AreEqual(-1, args.OldIndex);
+                    Assert.AreSame(view, args.Item);
+                    Assert.IsNull(args.OldItem);
+                    Assert.IsFalse(args.Cancel);
+                };
+                // Call
+                viewList.Add(view, ViewLocation.Document);
+
+                // Assert
+                Assert.AreEqual(alreadyAddedViews + 1, viewList.Count);
+                Assert.AreSame(view, viewList.ActiveView);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(2)]
+        public void Insert_ViewWithoutViewLocation_FireAddCollectionChange(int alreadyAddedViews)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            var viewsToPreadd = new[]
+            {
+                mocks.Stub<IView>(),
+                mocks.Stub<IView>()
+            };
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                for (int i = 0; i < alreadyAddedViews; i++)
+                {
+                    viewList.Add(viewsToPreadd[i]);
+                }
+
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+                    Assert.AreEqual(NotifyCollectionChangeAction.Add, args.Action);
+                    Assert.AreEqual(0, args.Index);
+                    Assert.AreEqual(-1, args.OldIndex);
+                    Assert.AreSame(view, args.Item);
+                    Assert.IsNull(args.OldItem);
+                    Assert.IsFalse(args.Cancel);
+                };
+                // Call
+                viewList.Insert(0, view);
+
+                // Assert
+                Assert.AreEqual(alreadyAddedViews + 1, viewList.Count);
+                Assert.AreSame(view, viewList.ActiveView);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Remove_RemovingAddedView_FireRemoveCollectionChange()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                viewList.Add(view);
+
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+                    Assert.AreEqual(NotifyCollectionChangeAction.Remove, args.Action);
+                    Assert.AreEqual(0, args.Index);
+                    Assert.AreEqual(-1, args.OldIndex);
+                    Assert.AreSame(view, args.Item);
+                    Assert.IsNull(args.OldItem);
+                    Assert.IsFalse(args.Cancel);
+                };
+
+                // Call
+                var removeResult = viewList.Remove(view);
+
+                // Assert
+                Assert.IsTrue(removeResult);
+                CollectionAssert.IsEmpty(viewList);
+                Assert.IsNull(viewList.ActiveView);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveAt_RemovingAddedView_FireRemoveCollectionChange()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = mocks.Stub<IView>();
+            var anotherView = mocks.Stub<IView>();
+            mocks.ReplayAll();
+
+            using (var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document))
+            {
+                viewList.Add(anotherView);
+                viewList.Add(view);
+
+                var index = 1;
+                viewList.CollectionChanged += (sender, args) =>
+                {
+                    Assert.AreSame(viewList, sender);
+                    Assert.AreEqual(NotifyCollectionChangeAction.Remove, args.Action);
+                    Assert.AreEqual(index, args.Index);
+                    Assert.AreEqual(-1, args.OldIndex);
+                    Assert.AreSame(view, args.Item);
+                    Assert.IsNull(args.OldItem);
+                    Assert.IsFalse(args.Cancel);
+                };
+
+                // Call
+                viewList.RemoveAt(index);
+
+                // Assert
+                Assert.AreEqual(1, viewList.Count);
+                Assert.AreEqual(anotherView, viewList.ActiveView);
+            }
+            mocks.VerifyAll();
         }
     }
 }

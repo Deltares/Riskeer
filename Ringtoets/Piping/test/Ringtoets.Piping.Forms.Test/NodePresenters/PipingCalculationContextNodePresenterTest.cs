@@ -491,7 +491,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void OnCollectionChange_Always_DoNothing()
         {
             // Setup
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>();
+            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
             var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();

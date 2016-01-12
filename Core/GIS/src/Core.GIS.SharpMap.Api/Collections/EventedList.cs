@@ -400,10 +400,7 @@ namespace Core.GIS.SharpMap.Api.Collections
         {
             if (CollectionChanged != null)
             {
-                var args = new NotifyCollectionChangeEventArgs(action, item, index, -1)
-                {
-                    OldItem = oldItem
-                };
+                var args = new NotifyCollectionChangeEventArgs(action, item, index, -1, oldItem);
                 CollectionChanged(this, args);
             }
         }

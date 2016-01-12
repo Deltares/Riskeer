@@ -165,7 +165,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             clearing = false;
             ActiveView = null;
 
-            FireCollectionChangedEvent(NotifyCollectionChangeAction.Reset, -1, null);
+            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionResetArgs());
         }
 
         public void Clear(IView viewToKeep)
@@ -353,7 +353,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             views.Remove(view);
 
-            FireCollectionChangedEvent(NotifyCollectionChangeAction.Remove, oldIndex, view);
+            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionRemoveArgs(view, oldIndex));
 
             // remove from docking manager
             dockingManager.Remove(view, removeTabFromDockingManager);
@@ -410,11 +410,11 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        private void FireCollectionChangedEvent(NotifyCollectionChangeAction notifyCollectionChangeAction, int index, IView item)
+        private void FireCollectionChangedEvent(NotifyCollectionChangeEventArgs eventArgs)
         {
             if (CollectionChanged != null)
             {
-                CollectionChanged(this, new NotifyCollectionChangeEventArgs(notifyCollectionChangeAction, item, index, -1));
+                CollectionChanged(this, eventArgs);
             }
         }
 
@@ -436,7 +436,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             dockingManager.Add(view, viewLocation);
 
-            FireCollectionChangedEvent(NotifyCollectionChangeAction.Add, index, view);
+            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionAddArgs(view, index));
 
             ActiveView = view;
         }

@@ -305,7 +305,7 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         {
             // Setup
             var dataMock = mockRepository.StrictMock<object>();
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>();
+            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 
             mockRepository.ReplayAll();
