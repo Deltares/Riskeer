@@ -104,19 +104,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return contextMenuProvider.GetContextMenu(nodeData);
         }
 
-        protected override void OnPropertyChanged(Map map, TreeNode node, PropertyChangedEventArgs e)
-        {
-            if (node == null)
-            {
-                return;
-            }
-
-            if (e.PropertyName == "Name")
-            {
-                SetNodeText(node, map);
-            }
-        }
-
         private static void SetNodeText(TreeNode node, Map map)
         {
             node.Text = map.CoordinateSystem != null ? string.Format("{0} ({1})", map.Name, map.CoordinateSystem.Name) : map.Name;

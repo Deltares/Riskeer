@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView.Properties;
 
@@ -121,18 +120,6 @@ namespace Core.Common.Controls.TreeView
             return null;
         }
 
-        public void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e)
-        {
-            if (sender is T) // sometimes events are coming from child objects
-            {
-                OnPropertyChanged((T) sender, node, e);
-            }
-            else if (node != null)
-            {
-                node.Update(); // full refresh node
-            }
-        }
-
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             T data = (T) nodeData;
@@ -151,15 +138,6 @@ namespace Core.Common.Controls.TreeView
         protected virtual bool CanRemove(T nodeData)
         {
             return false;
-        }
-
-        protected virtual void OnPropertyChanged(T item, TreeNode node, PropertyChangedEventArgs e)
-        {
-            if (node == null)
-            {
-                return;
-            }
-            UpdateNode(node.Parent, node, item);
         }
 
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)

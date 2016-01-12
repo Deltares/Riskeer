@@ -237,11 +237,6 @@ namespace Core.Common.Controls.TreeView
             return new TreeNode(this);
         }
 
-        public void AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
-        {
-            controller.AddNewNode(parentNode, nodeData, insertionIndex);
-        }
-
         /// <summary>
         /// Search all the nodes in the treeView, for a node with a matching tag.
         /// </summary>

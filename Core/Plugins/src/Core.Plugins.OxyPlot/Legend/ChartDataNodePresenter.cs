@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Core.Common.Controls.TreeView;
 using Core.Components.OxyPlot.Data;
 
