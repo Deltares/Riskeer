@@ -834,7 +834,7 @@ namespace Core.Common.Gui
 
         private void OnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
-            if (e.View == null || mainWindow == null || mainWindow.IsWindowDisposed)
+            if (mainWindow == null || mainWindow.IsWindowDisposed)
             {
                 return;
             }

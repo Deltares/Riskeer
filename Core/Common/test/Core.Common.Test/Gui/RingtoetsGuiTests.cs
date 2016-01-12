@@ -1,7 +1,10 @@
 using System.Linq;
 
 using Core.Common.Base.Plugin;
+using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Test.TestObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -33,7 +36,7 @@ namespace Core.Common.Test.Gui
         [Test]
         public void CheckViewPropertyEditorIsInitialized()
         {
-            using (var gui = new RingtoetsGui())
+            using (new RingtoetsGui())
             {
                 Assert.NotNull(ViewPropertyEditor.Gui);
             }
@@ -144,6 +147,35 @@ namespace Core.Common.Test.Gui
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ActiveViewChanged_LastDocumentViewClosed_EventFired()
+        {
+            // Setup
+            using (var gui = new RingtoetsGui())
+            {
+                gui.MainWindow = new MainWindow(gui);
+                gui.Run();
+
+                var view = new TestView();
+
+                // Precondition
+                Assert.AreEqual(0, gui.DocumentViews.Count);
+
+                gui.DocumentViews.Add(view);
+
+                var hitCount = 0;
+                gui.ActiveViewChanged += (s, e) => hitCount++;
+
+                // Call
+                gui.DocumentViews.RemoveAt(0);
+
+                // Assert
+                Assert.AreEqual(0, gui.DocumentViews.Count);
+                Assert.AreEqual(1, hitCount);
+            }
         }
     }
 }
