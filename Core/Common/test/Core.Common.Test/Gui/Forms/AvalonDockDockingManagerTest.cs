@@ -14,6 +14,7 @@ namespace Core.Common.Test.Gui.Forms
     public class AvalonDockDockingManagerTest
     {
         [Test]
+        [RequiresSTA]
         public void ViewTextChangedResultsInTabNameChanged()
         {
             var mocks = new MockRepository();
@@ -35,6 +36,7 @@ namespace Core.Common.Test.Gui.Forms
         }
 
         [Test]
+        [RequiresSTA]
         public void SwitchingTabCausesOldTabsActiveControlToLoseFocusTools9109()
         {
             var view = new TestView();

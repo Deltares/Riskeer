@@ -19,6 +19,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
+        [RequiresSTA]
         public void ClosingEmptyProjectShouldNotGiveException()
         {
             using (var gui = new RingtoetsGui())
@@ -30,6 +31,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
+        [RequiresSTA]
         public void StartGuiWithToolboxDoesNotCrash()
         {
             using (var gui = new RingtoetsGui())
@@ -44,12 +46,14 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
+        [RequiresSTA]
         public void StartWithCommonPluginsShouldBeFast()
         {
             TestHelper.AssertIsFasterThan(7500, StartWithCommonPlugins);
         }
 
         [Test]
+        [RequiresSTA]
         public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
         {
             // initialize
@@ -64,6 +68,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
+        [RequiresSTA]
         public void FormActionIsRunForMainWindow()
         {
             //testing testhelper + visible changed event of mainwindow.
@@ -79,6 +84,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         }
 
         [Test]
+        [RequiresSTA]
         public void SelectingProjectNodeSetsSelectedItemToProject()
         {
             using (var gui = new RingtoetsGui())

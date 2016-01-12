@@ -76,6 +76,7 @@ namespace Core.Plugins.SharpMapGis.Test.Forms
         }
 
         [Test]
+        [RequiresSTA]
         [TestCase(@"osm\europe_western_europe_netherlands_location.shp", ShapeType.Point)]
         [TestCase(@"osm\europe_western_europe_netherlands_water.shp", ShapeType.Polygon)]
         [TestCase(@"osm\europe_western_europe_netherlands_coastline.shp", ShapeType.PolyLine)]

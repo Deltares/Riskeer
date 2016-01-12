@@ -136,6 +136,7 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
+        [RequiresSTA]
         public void OpeningViewForDataTwiceShouldOnlySetActiveView()
         {
             var url = new Url("Deltares", "www.deltares.nl");

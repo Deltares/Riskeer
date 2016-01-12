@@ -19,6 +19,7 @@ namespace Core.Plugins.SharpMapGis.Test
     public class SharpMapGisPluginGuiIntegrationTest
     {
         [Test]
+        [RequiresSTA]
         public void SelectMultipleFeaturesUpdatesAllMaps()
         {
             using (var gui = new RingtoetsGui())
@@ -84,6 +85,7 @@ namespace Core.Plugins.SharpMapGis.Test
         }
 
         [Test]
+        [RequiresSTA]
         public void SetMapSelectionDoesNotSetItAgain()
         {
             using (var gui = new RingtoetsGui())

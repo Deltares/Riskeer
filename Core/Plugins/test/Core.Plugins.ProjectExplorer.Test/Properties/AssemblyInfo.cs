@@ -12,4 +12,3 @@ using NUnit.Framework;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ce6076e6-1a9c-4057-ab4f-9ce0640585f4")]
-[assembly: RequiresSTA]
