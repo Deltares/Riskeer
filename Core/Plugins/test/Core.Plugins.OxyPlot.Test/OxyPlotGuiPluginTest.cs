@@ -127,8 +127,8 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Given
             using (var gui = new RingtoetsGui())
-            using (var plugin = new OxyPlotGuiPlugin())
             {
+                var plugin = new OxyPlotGuiPlugin();
                 gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
                 IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
@@ -165,8 +165,8 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Given
             using (var gui = new RingtoetsGui())
-            using (var plugin = new OxyPlotGuiPlugin())
             {
+                var plugin = new OxyPlotGuiPlugin();
                 gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
                 IView viewMock = visible ? (IView) new TestChartView() : new TestView();
@@ -174,6 +174,7 @@ namespace Core.Plugins.OxyPlot.Test
                 mocks.ReplayAll();
 
                 gui.Plugins.Add(plugin);
+                plugin.Gui = gui;
                 gui.Run();
 
                 // When

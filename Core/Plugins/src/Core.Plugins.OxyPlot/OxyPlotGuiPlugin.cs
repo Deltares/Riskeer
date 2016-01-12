@@ -59,6 +59,12 @@ namespace Core.Plugins.OxyPlot
             Gui.CloseToolView(toolView);
         }
 
+        public override void Dispose()
+        {
+            Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+            base.Dispose();
+        }
+
         /// <summary>
         /// Creates a new <see cref="LegendController"/>.
         /// </summary>
