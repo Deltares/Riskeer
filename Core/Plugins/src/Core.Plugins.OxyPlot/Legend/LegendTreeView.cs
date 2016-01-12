@@ -1,4 +1,5 @@
-﻿using Core.Common.Controls.TreeView;
+﻿using Core.Components.OxyPlot.Forms;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
@@ -8,6 +9,23 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             RegisterNodePresenter(new ChartDataNodePresenter());
             RegisterNodePresenter(new ChartNodePresenter());
+        }
+
+        public BaseChart Chart
+        {
+            get
+            {
+                return (BaseChart)Data;
+            }
+            set
+            {
+                Data = value;
+                
+                if (value == null)
+                {
+                    Nodes.Clear();
+                }
+            }
         }
     }
 }

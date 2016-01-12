@@ -142,7 +142,7 @@
     <value>seriesTree</value>
   </data>
   <data name="&gt;&gt;seriesTree.Type" xml:space="preserve">
-    <value>Core.Plugins.OxyPlot.Legend.LegendTreeView, Core.Plugins.OxyPlot, Version=0.5.0.1508, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Plugins.OxyPlot.Legend.LegendTreeView, Core.Plugins.OxyPlot, Version=0.5.0.1530, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;seriesTree.Parent" xml:space="preserve">
     <value>$this</value>

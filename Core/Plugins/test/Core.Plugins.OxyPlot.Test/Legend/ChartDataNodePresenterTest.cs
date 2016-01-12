@@ -26,7 +26,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void UpdateNode_ForPointData_SetsTextAndIcon()
+        public void UpdateNode_ForPointData_SetsProperties()
         {
             // Setup
             var nodePresenter = new ChartDataNodePresenter();
@@ -37,6 +37,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreEqual("PointData", treeNode.Text);
+            Assert.IsTrue(treeNode.ShowCheckBox);
+            Assert.IsTrue(treeNode.Checked);
             TestHelper.AssertImagesAreEqual(Resources.PointsIcon, treeNode.Image);
         }
 

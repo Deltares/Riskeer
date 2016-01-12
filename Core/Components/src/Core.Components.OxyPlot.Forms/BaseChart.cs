@@ -3,6 +3,7 @@ using Core.Components.OxyPlot.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms
@@ -46,14 +47,16 @@ namespace Core.Components.OxyPlot.Forms
                 Position = AxisPosition.Bottom,
                 TickStyle = TickStyle.None,
                 ExtraGridlines = new[] { 0.0 },
-                ExtraGridlineThickness = 1
+                ExtraGridlineThickness = 1,
+                Layer = AxisLayer.AboveSeries
             };
             yAxis = new LinearAxis
             {
                 Title = Resources.BaseChart_YAxisTitle,
                 TickStyle = TickStyle.None,
                 ExtraGridlines = new[] { 0.0 },
-                ExtraGridlineThickness = 1
+                ExtraGridlineThickness = 1,
+                Layer = AxisLayer.AboveSeries
             };
             Model.Axes.Add(xAxis);
             Model.Axes.Add(yAxis);
@@ -79,6 +82,25 @@ namespace Core.Components.OxyPlot.Forms
         public void ClearData()
         {
             Model.Series.Clear();
+        }
+
+        /// <summary>
+        /// Sets the visibility of a series in this <see cref="BaseChart"/>.
+        /// </summary>
+        /// <param name="series">The <see cref="IChartData"/> to set the visibility for.</param>
+        /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="series"/>.</param>
+        public void SetVisibility(IChartData series, bool visibility)
+        {
+            var chartData = series as Series;
+            if (chartData != null)
+            {
+                chartData.IsVisible = visibility;
+                Invalidate();
+            }
+            else
+            {
+                throw new ArgumentException("Visibility set for IChartData which was not of type Series.");
+            }
         }
     }
 }

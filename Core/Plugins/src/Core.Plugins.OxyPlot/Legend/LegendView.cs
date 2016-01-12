@@ -11,11 +11,6 @@ namespace Core.Plugins.OxyPlot.Legend
     public sealed partial class LegendView : UserControl, IView
     {
         /// <summary>
-        /// The chart for which this view should show data.
-        /// </summary>
-        private BaseChart chart;
-
-        /// <summary>
         /// Creates a new instance of <see cref="LegendView"/>.
         /// </summary>
         public LegendView()
@@ -28,32 +23,24 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             get
             {
-                return chart;
+                return seriesTree.Chart;
             }
             set
             {
-                chart = (BaseChart) value;
-                UpdateTree();
+                UpdateTree((BaseChart)value);
             }
         }
 
         /// <summary>
         /// Updates the tree with the current state of the chart.
         /// </summary>
-        private void UpdateTree()
+        private void UpdateTree(BaseChart data)
         {
             if (IsDisposed)
             {
                 return;
             }
-            if (chart != null)
-            {
-                seriesTree.Data = chart;
-            }
-            else
-            {
-                seriesTree.Nodes.Clear();
-            }
+            seriesTree.Chart = data;
         }
     }
 }

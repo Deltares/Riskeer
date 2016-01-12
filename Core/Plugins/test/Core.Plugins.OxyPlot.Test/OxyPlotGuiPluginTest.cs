@@ -145,10 +145,7 @@ namespace Core.Plugins.OxyPlot.Test
                 gui.DocumentViews.ActiveView = viewMock;
                 var legendView = gui.ToolWindowViews.First(t => t is LegendView);
 
-                gui.ToolWindowViews.Remove(legendView);
-
-                // Precondition
-                Assert.IsNull(legendView.Data);
+                legendView.Data = null;
 
                 // When
                 plugin.OpenToolView(legendView);

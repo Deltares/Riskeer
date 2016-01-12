@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Core.Common.Controls.TreeView;
 using Core.Components.OxyPlot.Data;
 
@@ -23,6 +24,13 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 node.Image = Properties.Resources.PointsIcon;
             }
+            node.ShowCheckBox = true;
+            node.Checked = true;
+        }
+
+        public override void OnNodeChecked(TreeNode node)
+        {
+            ((LegendTreeView) TreeView).Chart.SetVisibility((IChartData)node.Tag, node.Checked);
         }
     }
 }
