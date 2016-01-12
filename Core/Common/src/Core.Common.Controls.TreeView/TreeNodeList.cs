@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView.Properties;
 
@@ -84,12 +85,16 @@ namespace Core.Common.Controls.TreeView
 
         private IList<TreeNode> GetAllNodes(TreeNode treeNode)
         {
-            var thisAndChildren = new List<TreeNode>();
-            thisAndChildren.Add(treeNode);
+            var thisAndChildren = new List<TreeNode>
+            {
+                treeNode
+            };
+
             foreach (var node in treeNode.Nodes)
             {
                 thisAndChildren.AddRange(GetAllNodes(node));
             }
+
             return thisAndChildren;
         }
 
@@ -135,11 +140,8 @@ namespace Core.Common.Controls.TreeView
 
         public IEnumerator<TreeNode> GetEnumerator()
         {
-            //wrap TreeNodeCollection so it returns  the right enumerator variable
-            foreach (TreeNode node in nodes)
-            {
-                yield return node;
-            }
+            // Wrap TreeNodeCollection so it returns the right enumerator variable
+            return nodes.Cast<TreeNode>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

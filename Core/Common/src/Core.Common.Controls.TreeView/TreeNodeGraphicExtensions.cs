@@ -8,9 +8,9 @@ namespace Core.Common.Controls.TreeView
 {
     public static class TreeNodeGraphicExtensions
     {
-        private const int DefaultImageWidth = 16;
-        private const int DefaultImageHeight = 16;
-        private const int SpaceBetweenNodeParts = 2;
+        private const int defaultImageWidth = 16;
+        private const int defaultImageHeight = 16;
+        private const int spaceBetweenNodeParts = 2;
 
         /// <summary>
         /// Checks if the <paramref name="point"/> is on the expand button of the node
@@ -25,7 +25,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             var yBoundsMiddle = node.Bounds.Top + node.Bounds.Height/2;
-            var graphics = ((Control) node.TreeView).CreateGraphics();
+            var graphics = node.TreeView.CreateGraphics();
             var buttonSize = GetExpandButtonSize(graphics);
             var rectangle = new Rectangle(GetTreeLineLeft(node) - buttonSize/2, yBoundsMiddle - buttonSize/2, buttonSize, buttonSize);
             return rectangle.Contains(point);
@@ -43,8 +43,8 @@ namespace Core.Common.Controls.TreeView
                 return false;
             }
 
-            var topOffset = (node.Bounds.Height - DefaultImageHeight)/2;
-            var rectangle = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, DefaultImageWidth, DefaultImageHeight);
+            var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
+            var rectangle = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
             return rectangle.Contains(point);
         }
 
@@ -149,7 +149,7 @@ namespace Core.Common.Controls.TreeView
             }
             if (node.Parent != null || node.HasChildren)
             {
-                graphics.DrawLine(pen, xLine + 1, yBoundsMiddle, GetCheckBoxLeft(node) - SpaceBetweenNodeParts, yBoundsMiddle); // Horizontal line
+                graphics.DrawLine(pen, xLine + 1, yBoundsMiddle, GetCheckBoxLeft(node) - spaceBetweenNodeParts, yBoundsMiddle); // Horizontal line
             }
 
             // draw parent lines
@@ -218,7 +218,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             var bounds = node.Bounds;
-            var treeView = (TreeView) node.TreeView;
+            var treeView = node.TreeView;
             var foreColor = (selected && treeView.Focused)
                                 ? SystemColors.HighlightText
                                 : (node.ForeColor != Color.Empty) ? node.ForeColor : treeView.ForeColor;
@@ -254,12 +254,12 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var topOffset = (node.Bounds.Height - DefaultImageHeight)/2;
-            var imgRect = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, DefaultImageWidth, DefaultImageHeight);
+            var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
+            var imgRect = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
 
             if (Application.RenderWithVisualStyles)
             {
-                var point = new Point(imgRect.Left + SpaceBetweenNodeParts, imgRect.Top + 2);
+                var point = new Point(imgRect.Left + spaceBetweenNodeParts, imgRect.Top + 2);
                 CheckBoxRenderer.DrawCheckBox(graphics, point,
                                               node.Checked
                                                   ? CheckBoxState.CheckedNormal
@@ -287,32 +287,32 @@ namespace Core.Common.Controls.TreeView
             }
 
             var graphicsUnit = GraphicsUnit.Pixel;
-            var topOffset = (node.Bounds.Height - DefaultImageHeight)/2;
-            var imgRect = new Rectangle(GetImageLeft(node), node.Bounds.Top + topOffset, DefaultImageWidth, DefaultImageHeight);
+            var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
+            var imgRect = new Rectangle(GetImageLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
 
             graphics.DrawImage(node.Image, imgRect, node.Image.GetBounds(ref graphicsUnit), graphicsUnit);
         }
 
         private static int GetTreeLineLeft(TreeNode node)
         {
-            return GetCheckBoxLeft(node) - DefaultImageWidth + 3;
+            return GetCheckBoxLeft(node) - defaultImageWidth + 3;
         }
 
         private static int GetCheckBoxLeft(TreeNode node)
         {
-            return node.Bounds.Left - (DefaultImageWidth + SpaceBetweenNodeParts);
+            return node.Bounds.Left - (defaultImageWidth + spaceBetweenNodeParts);
         }
 
         private static int GetImageLeft(TreeNode node)
         {
             var xCheckBox = GetCheckBoxLeft(node);
-            return node.ShowCheckBox ? xCheckBox + DefaultImageWidth + SpaceBetweenNodeParts : xCheckBox;
+            return node.ShowCheckBox ? xCheckBox + defaultImageWidth + spaceBetweenNodeParts : xCheckBox;
         }
 
         private static int GetTextLeft(TreeNode node)
         {
             var xImage = GetImageLeft(node);
-            return node.Image != null ? xImage + DefaultImageWidth + SpaceBetweenNodeParts : xImage;
+            return node.Image != null ? xImage + defaultImageWidth + spaceBetweenNodeParts : xImage;
         }
 
         private static TreeNode GetNextNodeSameLevel(TreeNode node)

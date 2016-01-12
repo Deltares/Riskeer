@@ -124,12 +124,6 @@ namespace Core.Common.Controls.TreeView
         void OnDragDrop(object item, object itemParent, object target, DragOperations operation, int position);
 
         /// <summary>
-        /// In case a node is selected by the user it might be necessary to notify observers.
-        /// </summary>
-        /// <param name="nodeData"></param>
-        void OnNodeSelected(object nodeData);
-
-        /// <summary>
         /// Returns context menu based on current data
         /// </summary>
         ContextMenuStrip GetContextMenu(TreeNode node, object nodeData);

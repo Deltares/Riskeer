@@ -7,7 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -565,12 +565,12 @@ namespace Core.Common.Controls.TreeView.Test
             public MockTestNode(TreeView treeView, bool loaded)
                 : base(treeView)
             {
-                isLoaded = loaded;
+                SetLoaded(loaded);
             }
 
             public void SetLoaded(bool value)
             {
-                isLoaded = value;
+                TypeUtils.SetField(this, "isLoaded", value);
             }
         }
     }

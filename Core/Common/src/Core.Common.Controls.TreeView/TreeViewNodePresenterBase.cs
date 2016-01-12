@@ -34,7 +34,7 @@ namespace Core.Common.Controls.TreeView
             throw new InvalidOperationException(Resources.TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class);
         }
 
-        public static DragOperations GetDefaultDropOperation(DragOperations validOperation)
+        protected static DragOperations GetDefaultDropOperation(DragOperations validOperation)
         {
             return DragOperations.Move == validOperation ? DragOperations.Move : DragOperations.None;
         }
@@ -116,11 +116,6 @@ namespace Core.Common.Controls.TreeView
         {
             T data = (T) nodeData;
             return CanRemove(data);
-        }
-
-        public void OnNodeSelected(object nodeData)
-        {
-            throw new NotImplementedException();
         }
 
         public virtual ContextMenuStrip GetContextMenu(TreeNode node, object nodeData)
@@ -232,7 +227,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="parentNode"></param>
         /// <param name="e"></param>
         /// <param name="newNodeIndex"></param>
-        protected virtual void OnCollectionChanged(T childNodeData, TreeNode parentNode, NotifyCollectionChangeEventArgs e, int newNodeIndex)
+        private void OnCollectionChanged(T childNodeData, TreeNode parentNode, NotifyCollectionChangeEventArgs e, int newNodeIndex)
         {
             switch (e.Action)
             {

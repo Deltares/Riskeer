@@ -248,7 +248,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public TreeNode AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
+        public void AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
         {
             var newNode = treeView.NewNode();
 
@@ -274,7 +274,6 @@ namespace Core.Common.Controls.TreeView
             }
 
             newNode.HasChildren = HasChildren(newNode);
-            return newNode;
         }
 
         /// <summary>

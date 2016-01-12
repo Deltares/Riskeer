@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 
@@ -10,7 +11,7 @@ namespace Core.Common.Controls.TreeView
     {
         private readonly TreeNodeList nodes;
         private readonly TreeView treeView;
-        protected bool isLoaded;
+        private bool isLoaded;
         private object tag;
         private IObservable observable;
         private readonly int maximumTextLength = 259; // Having very big strings causes problems by tree-view
@@ -177,18 +178,6 @@ namespace Core.Common.Controls.TreeView
 
         public bool ShowCheckBox { get; set; }
 
-        public Color BackgroundColor
-        {
-            get
-            {
-                return BackColor;
-            }
-            set
-            {
-                BackColor = value;
-            }
-        }
-
         public Color ForegroundColor
         {
             get
@@ -205,7 +194,7 @@ namespace Core.Common.Controls.TreeView
         public Image Image { get; set; }
         public bool IsUpdating { get; private set; }
 
-        public void RefreshChildNodes(bool forcedRefresh = false)
+        private void RefreshChildNodes(bool forcedRefresh = false)
         {
             if (IsUpdating && !forcedRefresh)
             {
@@ -289,15 +278,7 @@ namespace Core.Common.Controls.TreeView
 
         public TreeNode GetNodeByTag(object item)
         {
-            foreach (TreeNode node in nodes)
-            {
-                if (node.Tag == item)
-                {
-                    return node;
-                }
-            }
-
-            return null;
+            return nodes.FirstOrDefault(node => node.Tag == item);
         }
 
         public void ShowContextMenu(Point location)
@@ -314,27 +295,6 @@ namespace Core.Common.Controls.TreeView
             {
                 observable.Detach(this);
             }
-        }
-
-        private static Font CreateBoldFont(Font font, bool bold)
-        {
-            if (font.Bold != bold)
-            {
-                FontStyle style;
-                if (bold)
-                {
-                    style = font.Style | FontStyle.Bold;
-                }
-                else
-                {
-                    //'substract' the bold
-                    style = (FontStyle) ((int) font.Style - (int) FontStyle.Bold);
-                }
-                return new Font(font.Name, font.Size,
-                                style, font.Unit,
-                                font.GdiCharSet, font.GdiVerticalFont);
-            }
-            return new Font(font, font.Style);
         }
     }
 }

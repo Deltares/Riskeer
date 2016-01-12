@@ -237,9 +237,9 @@ namespace Core.Common.Controls.TreeView
             return new TreeNode(this);
         }
 
-        public TreeNode AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
+        public void AddNewNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
         {
-            return controller.AddNewNode(parentNode, nodeData, insertionIndex);
+            controller.AddNewNode(parentNode, nodeData, insertionIndex);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public IEnumerable<TreeNode> GetAllLoadedNodes(TreeNode currentNode)
+        private IEnumerable<TreeNode> GetAllLoadedNodes(TreeNode currentNode)
         {
             var allChildNodes = new[]
             {
@@ -383,14 +383,18 @@ namespace Core.Common.Controls.TreeView
         {
             if (GetStyle(ControlStyles.UserPaint))
             {
-                Message m = new Message();
-                m.HWnd = Handle;
-                m.Msg = NativeInterop.WM_PRINTCLIENT;
-                m.WParam = e.Graphics.GetHdc();
-                m.LParam = (IntPtr) NativeInterop.PRF_CLIENT;
+                Message m = new Message
+                {
+                    HWnd = Handle,
+                    Msg = NativeInterop.WM_PRINTCLIENT,
+                    WParam = e.Graphics.GetHdc(),
+                    LParam = (IntPtr) NativeInterop.PRF_CLIENT
+                };
+
                 DefWndProc(ref m);
                 e.Graphics.ReleaseHdc(m.WParam);
             }
+
             base.OnPaint(e);
         }
 
