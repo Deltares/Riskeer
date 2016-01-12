@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -16,6 +17,7 @@ namespace Core.Plugins.OxyPlot
     {
         private ChartingRibbon chartingRibbon;
         private LegendController legendController;
+        private bool activated;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -32,6 +34,7 @@ namespace Core.Plugins.OxyPlot
 
             legendController.ToggleLegend();
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
+            activated = true;
         }
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
@@ -61,7 +64,10 @@ namespace Core.Plugins.OxyPlot
 
         public override void Dispose()
         {
-            Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+            if (activated)
+            {
+                Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+            }
             base.Dispose();
         }
 

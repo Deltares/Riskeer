@@ -50,15 +50,17 @@ namespace Core.Plugins.OxyPlot.Test
         public void Activate_WithGui_InitializesComponentsAndBindsActiveViewChanged()
         {
             // Setup
+            var mocks = new MockRepository();
+
             using (var plugin = new OxyPlotGuiPlugin())
             {
-                var mocks = new MockRepository();
                 var gui = mocks.StrictMock<IGui>();
                 var dockingManger = mocks.Stub<IDockingManager>();
                 var toolWindows = new ViewList(dockingManger, null);
                 var view = mocks.StrictMock<IView>();
 
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
+                gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
                 gui.Expect(g => g.ToolWindowViews).Return(toolWindows).Repeat.Twice();
                 gui.Expect(g => g.OpenToolView(Arg<LegendView>.Matches(c => true)));
                 gui.Expect(g => g.ActiveView).Return(view);
@@ -73,8 +75,8 @@ namespace Core.Plugins.OxyPlot.Test
                 // Assert
                 Assert.IsInstanceOf<GuiPlugin>(plugin);
                 Assert.NotNull(plugin.RibbonCommandHandler);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
