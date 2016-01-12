@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView.Properties;
-using Core.Common.Utils.Events;
 
 namespace Core.Common.Controls.TreeView
 {
@@ -135,60 +133,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void OnCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
-        {
-            // TODO: should this code be moved into tree view implementaiton?
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangeAction.Add:
-                    // find first parent node where node must be added for e.Item (only 1 parent supported for now)
-                    foreach (TreeNode parentNode in TreeView.AllLoadedNodes)
-                    {
-                        ITreeNodePresenter presenter = parentNode.Presenter;
-                        if (presenter != null)
-                        {
-                            var indexOf = IndexInParent(presenter, parentNode, e.Item);
-                            if (indexOf >= 0)
-                            {
-                                parentNode.HasChildren = presenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
-                                OnCollectionChanged((T) e.Item, parentNode, e, indexOf);
-                                return; // only one Node per tag is supported for now
-                            }
-                        }
-                    }
-                    break;
-
-                case NotifyCollectionChangeAction.Remove:
-                {
-                    TreeNode node = TreeView.GetNodeByTag(e.Item);
-                    if (node != null)
-                    {
-                        TreeNode parentNode = node.Parent;
-                        if (parentNode != null)
-                        {
-                            var parentPresenter = parentNode.Presenter;
-                            if (parentPresenter != null)
-                            {
-                                //if it was removed from a collection our parent is not based on, we don't want
-                                //to remove it from the nodes list
-                                if (IndexInParent(parentPresenter, parentNode, e.Item) >= 0)
-                                {
-                                    return;
-                                }
-                                parentNode.HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag).GetEnumerator().MoveNext();
-                                OnCollectionChanged((T) e.Item, parentNode, e, -1);
-                            }
-                        }
-                    }
-                }
-                    break;
-
-                case NotifyCollectionChangeAction.Replace:
-                    break;
-            }
-        }
-
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             T data = (T) nodeData;
@@ -218,71 +162,9 @@ namespace Core.Common.Controls.TreeView
             UpdateNode(node.Parent, node, item);
         }
 
-        /// <summary>
-        /// Implements generic way to deal with collection changes such as adding and removing.
-        /// 
-        /// Override if you want custom implementation
-        /// </summary>
-        /// <param name="childNodeData">Item which was changed (equals to e.Item)</param>
-        /// <param name="parentNode"></param>
-        /// <param name="e"></param>
-        /// <param name="newNodeIndex"></param>
-        private void OnCollectionChanged(T childNodeData, TreeNode parentNode, NotifyCollectionChangeEventArgs e, int newNodeIndex)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangeAction.Replace:
-                    throw new NotImplementedException();
-
-                case NotifyCollectionChangeAction.Add:
-                    if (parentNode.IsLoaded)
-                    {
-                        // do not add node twice to the same parent
-                        TreeNode existingNode = parentNode.GetNodeByTag(e.Item);
-                        if (existingNode != null)
-                        {
-                            return;
-                        }
-
-                        // create and add a new tree node
-                        TreeView.AddNewNode(parentNode, e.Item, newNodeIndex);
-                    }
-                    else
-                    {
-                        parentNode.Update(); // will load child nodes if needed
-                    }
-
-                    parentNode.Expand(); // makes sure node is expanded and all children nodes are loaded
-                    break;
-
-                case NotifyCollectionChangeAction.Remove:
-                    TreeNode node = TreeView.GetNodeByTag(e.Item);
-                    if (node != null)
-                    {
-                        TreeView.Nodes.Remove(node);
-                    }
-                    break;
-            }
-        }
-
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)
         {
             return false;
-        }
-
-        private static int IndexInParent(ITreeNodePresenter presenter, TreeNode parentNode, object item)
-        {
-            var childItems = presenter.GetChildNodeObjects(parentNode.Tag).OfType<object>().ToList();
-            var i = 0;
-            foreach (var childItem in childItems)
-            {
-                if (ReferenceEquals(childItem, item))
-                {
-                    return i;
-                }
-                i++;
-            }
-            return -1;
         }
     }
 }

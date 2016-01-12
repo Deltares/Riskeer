@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Utils.Events;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -293,10 +292,6 @@ namespace Core.Common.Controls.TreeView.Test
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
-
-            // Collection changed is bubbled to nodePresenter => expect 1 call during parent.Children.Remove(child2);
-            // not that in some cases Full refresh can be called
-            Expect.Call(() => childNodePresenter.OnCollectionChanged(parent, new NotifyCollectionChangeEventArgs(NotifyCollectionChangeAction.Add, null, 0, 0))).IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 

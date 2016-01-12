@@ -5,8 +5,6 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.Events;
-
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -244,23 +242,6 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnNodeSelected_Always_DoNothing()
-        {
-            // Setup
-            var dataMock = mockRepository.StrictMock<object>();
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void GetContextMenu_Always_ReturnsNull()
         {
             // Setup
@@ -295,25 +276,6 @@ namespace Ringtoets.Common.Forms.Test.NodePresenters
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnCollectionChange_Always_DoNothing()
-        {
-            // Setup
-            var dataMock = mockRepository.StrictMock<object>();
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new SimpleRingtoetsNodePresenterBase<object>(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

@@ -8,8 +8,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Events;
-
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -292,45 +290,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
 
             // Call
             nodePresenter.OnDragDrop(dataMock, dataMockOwner, targetMock, DragOperations.Move, 2);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnNodeSelected_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnCollectionChange_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var eventArgsMock = mocks.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments

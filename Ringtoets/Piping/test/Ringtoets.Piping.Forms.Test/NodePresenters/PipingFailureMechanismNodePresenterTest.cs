@@ -10,8 +10,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Events;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -297,23 +295,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnNodeSelected_Always_DoNothing()
-        {
-            // Setup
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
@@ -327,24 +308,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnCollectionChange_Always_DoNothing()
-        {
-            // Setup
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var dataMock = mockRepository.StrictMock<PipingFailureMechanism>();
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

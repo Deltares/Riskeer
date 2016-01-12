@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Forms.Helpers;
@@ -24,7 +23,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
     /// This class presents the data on <see cref="PipingFailureMechanism"/> as a node in a 
-    /// <see cref="ITreeView"/> and implements the way the user can interact with the node.
+    /// <see cref="TreeView"/> and implements the way the user can interact with the node.
     /// </summary>
     public class PipingFailureMechanismNodePresenter : RingtoetsNodePresenterBase<PipingFailureMechanism>
     {

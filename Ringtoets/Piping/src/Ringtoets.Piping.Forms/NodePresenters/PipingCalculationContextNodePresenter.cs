@@ -18,7 +18,7 @@ using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
-    /// This class presents the data on <see cref="PipingCalculation"/> as a node in a <see cref="ITreeView"/> and
+    /// This class presents the data on <see cref="PipingCalculation"/> as a node in a <see cref="Core.Common.Controls.TreeView.TreeView"/> and
     /// implements the way the user can interact with the node.
     /// </summary>
     public class PipingCalculationContextNodePresenter : RingtoetsNodePresenterBase<PipingCalculationContext>

@@ -7,8 +7,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Events;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -279,24 +277,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnNodeSelected_Always_DoNothing()
-        {
-            // Setup
-            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-
-        [Test]
         public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
@@ -338,24 +318,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnCollectionChange_Always_DoNothing()
-        {
-            // Setup
-            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

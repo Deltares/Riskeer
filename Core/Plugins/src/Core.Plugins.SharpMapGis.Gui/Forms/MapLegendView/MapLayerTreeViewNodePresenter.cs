@@ -13,11 +13,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class MapLayerTreeViewNodePresenter : TreeViewNodePresenterBase<ILayer>
     {
-        private MapLegendView contextMenuProvider;
+        private readonly MapLegendView contextMenuProvider;
 
         public MapLayerTreeViewNodePresenter(MapLegendView legend)
         {
-            this.contextMenuProvider = legend;
+            contextMenuProvider = legend;
         }
 
         public override bool CanRenameNode(TreeNode node)

@@ -16,8 +16,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
     public class MapTreeViewNodePresenter : TreeViewNodePresenterBase<Map>
     {
         private static readonly Bitmap MapIcon = Resources.Map;
-        
-        private MapLegendView contextMenuProvider;
+
+        private readonly MapLegendView contextMenuProvider;
 
         public MapTreeViewNodePresenter(MapLegendView mapLegend)
         {

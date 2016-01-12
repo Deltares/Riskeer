@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Core.Common.Utils.Events;
 
 namespace Core.Common.Controls.TreeView
 {
@@ -132,13 +131,6 @@ namespace Core.Common.Controls.TreeView
         /// Updates node due to it's property change.
         /// </summary>
         void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e);
-
-        /// <summary>
-        /// Reflect changes in the collection of items contained by the e.Item to the tree
-        /// </summary>
-        /// <param name="sender">Sender of the event</param>
-        /// <param name="e">Event arguments, e.Item contains object which was added / removed</param>
-        void OnCollectionChanged(object sender, NotifyCollectionChangeEventArgs e);
 
         // TODO: check it we need to replace these methods with OnKeyPressed()
         /// <summary>

@@ -6,8 +6,6 @@ using System.Windows.Forms;
 
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-using Core.Common.Utils.Events;
-
 using Ringtoets.Common.Forms.Properties;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
@@ -100,11 +98,6 @@ namespace Ringtoets.Common.Forms.NodePresenters
             OnDragDrop(item, itemParent, (T)target, operation, position);
         }
 
-        public void OnNodeSelected(object nodeData)
-        {
-            OnNodeSelected((T)nodeData);
-        }
-
         public ContextMenuStrip GetContextMenu(TreeNode node, object nodeData)
         {
             return GetContextMenu(node, (T)nodeData);
@@ -113,11 +106,6 @@ namespace Ringtoets.Common.Forms.NodePresenters
         public void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e)
         {
             OnPropertyChanged((T)sender, node, e);
-        }
-
-        public void OnCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
-        {
-            OnCollectionChanged((T)sender, e);
         }
 
         public bool CanRemove(object parentNodeData, object nodeData)
@@ -173,15 +161,6 @@ namespace Ringtoets.Common.Forms.NodePresenters
         }
 
         /// <summary>
-        /// Typed implementation of method <see cref="ITreeNodePresenter.OnNodeSelected"/>.
-        /// </summary>
-        /// <seealso cref="OnNodeSelected(object)"/>
-        protected virtual void OnNodeSelected(T nodeData)
-        {
-            // Do nothing
-        }
-
-        /// <summary>
         /// Typed implementation of method <see cref="ITreeNodePresenter.GetContextMenu"/>.
         /// </summary>
         /// <seealso cref="GetContextMenu(TreeNode, object)"/>
@@ -195,15 +174,6 @@ namespace Ringtoets.Common.Forms.NodePresenters
         /// </summary>
         /// <seealso cref="OnPropertyChanged(object, Core.Common.Controls.TreeView.TreeNode, PropertyChangedEventArgs)"/>
         protected virtual void OnPropertyChanged(T sender, TreeNode node, PropertyChangedEventArgs e)
-        {
-            // Do nothing
-        }
-
-        /// <summary>
-        /// Typed implementation of method <see cref="ITreeNodePresenter.OnCollectionChanged"/>.
-        /// </summary>
-        /// <seealso cref="OnCollectionChanged(object, NotifyCollectionChangeEventArgs)"/>
-        protected virtual void OnCollectionChanged(T sender, NotifyCollectionChangeEventArgs e)
         {
             // Do nothing
         }

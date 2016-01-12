@@ -8,7 +8,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Events;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -343,26 +342,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnNodeSelected_Always_DoNothing()
-        {
-            // Setup
-            var dataMock = mockRepository.StrictMock<PipingCalculationContext>(new PipingCalculation(),
-                                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                               Enumerable.Empty<PipingSoilProfile>());
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mockRepository.ReplayAll();
-
-            var pipingCalculationContextNodePresenter = new PipingCalculationContextNodePresenter(contextMenuBuilderProvider);
-
-            // Call
-            pipingCalculationContextNodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void GetContextMenu_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
         {
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
@@ -482,30 +461,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnCollectionChange_Always_DoNothing()
-        {
-            // Setup
-            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangeEventArgs>(NotifyCollectionChangeAction.Add, null, 0, 0);
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mockRepository.ReplayAll();
-
-            var pipingCalculationContextNodePresenter = new PipingCalculationContextNodePresenter(contextMenuBuilderProvider);
-
-            var dataMock = new PipingCalculationContext(new PipingCalculation(),
-                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>());
-
-            var nodePresenter = pipingCalculationContextNodePresenter;
-
-            // Call
-            nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

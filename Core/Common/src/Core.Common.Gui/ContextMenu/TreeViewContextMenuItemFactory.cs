@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
@@ -10,7 +9,7 @@ namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>. The
-    /// items the factory creates are dependent on a <see cref="ITreeView"/> set for
+    /// items the factory creates are dependent on a <see cref="Controls.TreeView.TreeView"/> set for
     /// the <see cref="TreeNode"/>.
     /// </summary>
     internal class TreeViewContextMenuItemFactory
