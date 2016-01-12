@@ -575,7 +575,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
             Assert.IsFalse(validateItem.Enabled);
             Assert.IsFalse(calculateItem.Enabled);
-            Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate, calculateItem.ToolTipText);
+            Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
             Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
 
             mockRepository.VerifyAll(); // Expect no calls on arguments

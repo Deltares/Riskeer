@@ -480,12 +480,12 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen om te berekenen..
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
         /// </summary>
-        public static string PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate {
+        public static string PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run {
             get {
-                return ResourceManager.GetString("PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_cal" +
-                        "culate", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run" +
+                        "", resourceCulture);
             }
         }
         

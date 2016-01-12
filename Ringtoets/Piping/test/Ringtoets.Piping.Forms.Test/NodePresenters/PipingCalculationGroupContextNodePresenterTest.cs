@@ -1186,6 +1186,46 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
+        public void GetContextMenu_GroupWithNoCalculations_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var nodeMock = new TreeNode(new TreeView());
+            var parentMock = new TreeNode(new TreeView());
+            var group = new PipingCalculationGroup();
+            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+
+            contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
+
+            mockRepository.ReplayAll();
+
+            var parentData = new PipingFailureMechanism();
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<PipingSoilProfile>());
+
+            nodeMock.Tag = group;
+            parentMock.Nodes.Add(nodeMock);
+            parentMock.Tag = parentData;
+
+            var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProviderMock);
+
+            // Call
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, nodeData);
+
+            // Assert
+            ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
+            ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
+            Assert.IsFalse(validateItem.Enabled);
+            Assert.IsFalse(calculateItem.Enabled);
+            Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
+            Assert.AreEqual(PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+
+        [Test]
         public void GetContextMenu_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
             // Setup

@@ -142,21 +142,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                     SelectNewlyAddedItemInTreeView(node);
                 });
 
-            var validateAllItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.Validate_all,
-                PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
-                RingtoetsFormsResources.ValidateAllIcon, (o, args) =>
-                {
-                    foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
-                    {
-                        PipingCalculationService.Validate(calculation);
-                    }
-                });
+            var validateAllItem = CreateValidateAllItem(group);
 
-            var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.Calculate_all,
-                PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
-                RingtoetsFormsResources.CalculateAllIcon, (o, args) => { RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc))); });
+            var calculateAllItem = CreateCalculateAllItem(group);
 
             var clearAllItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.Clear_all_output,
@@ -217,6 +205,55 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private StrictContextMenuItem CreateCalculateAllItem(PipingCalculationGroup group)
+        {
+            var menuItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Calculate_all,
+                PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
+                RingtoetsFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
+
+
+            if (!group.GetPipingCalculations().Any())
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run;
+            }
+
+            return menuItem;
+        }
+
+        private static StrictContextMenuItem CreateValidateAllItem(PipingCalculationGroup group)
+        {
+            var menuItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Validate_all,
+                PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
+                RingtoetsFormsResources.ValidateAllIcon, (o, args) =>
+                {
+                    ValidateAll(group);
+                });
+
+            if (!group.GetPipingCalculations().Any())
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate;
+            }
+
+            return menuItem;
+        }
+
+        private void CalculateAll(PipingCalculationGroup group)
+        {
+            RunActivitiesAction(group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
+        }
+
+        private static void ValidateAll(PipingCalculationGroup group)
+        {
+            foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
+            {
+                PipingCalculationService.Validate(calculation);
+            }
         }
 
         protected override IEnumerable GetChildNodeObjects(PipingCalculationGroupContext nodeData)

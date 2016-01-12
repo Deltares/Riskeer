@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_calculate;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run;
             }
 
             return menuItem;
