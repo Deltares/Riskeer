@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.Dialogs
 {
@@ -12,8 +13,14 @@ namespace Core.Common.Controls.Test.Dialogs
         [Test]
         public void DefaultConstructor_ExpectedValue()
         {
-            // Setup / Call
-            using (var dialog = new ExceptionDialog(null, null))
+            // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
+
+            // Call
+            using (var dialog = new ExceptionDialog(window, null))
             {
                 // Assert
                 Assert.IsNotNull(dialog.Icon);
@@ -34,6 +41,11 @@ namespace Core.Common.Controls.Test.Dialogs
         public void ShowDialog_ExceptionDialog_MinimumSizeSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new FormTester(name);
@@ -41,7 +53,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(null, null))
+            using (var dialog = new ExceptionDialog(window, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -57,6 +69,10 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var exceptionText = "";
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -70,7 +86,7 @@ namespace Core.Common.Controls.Test.Dialogs
 
             var exception = new Exception("Test", new Exception("Test inner"));
 
-            using (var dialog = new ExceptionDialog(null, exception))
+            using (var dialog = new ExceptionDialog(window, exception))
             {
                 // Call
                 dialog.ShowDialog();
@@ -85,6 +101,10 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var exceptionText = "";
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -96,7 +116,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(null, null))
+            using (var dialog = new ExceptionDialog(window, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -111,6 +131,10 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             Button buttonOpenLog = null;
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -122,7 +146,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(null, null))
+            using (var dialog = new ExceptionDialog(window, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -137,6 +161,10 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             Button buttonOpenLog = null;
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -148,7 +176,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(null, null)
+            using (var dialog = new ExceptionDialog(window, null)
             {
                 OpenLogClicked = () => { }
             })
@@ -165,6 +193,11 @@ namespace Core.Common.Controls.Test.Dialogs
         public void ShowDialog_ExceptionDialog_RestartButtonClickResultsInDialogResultOk()
         {
             // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var button = new ButtonTester("buttonRestart");
@@ -172,7 +205,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 button.Click();
             };
 
-            using (var dialog = new ExceptionDialog(null, null))
+            using (var dialog = new ExceptionDialog(window, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -186,6 +219,11 @@ namespace Core.Common.Controls.Test.Dialogs
         public void ShowDialog_ExceptionDialog_ExitButtonClickResultsInDialogResultCancel()
         {
             // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var button = new ButtonTester("buttonExit");
@@ -193,7 +231,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 button.Click();
             };
 
-            using (var dialog = new ExceptionDialog(null, null))
+            using (var dialog = new ExceptionDialog(window, null))
             {
                 // Call
                 dialog.ShowDialog();
@@ -208,6 +246,10 @@ namespace Core.Common.Controls.Test.Dialogs
         {
             // Setup
             var counter = 0;
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -219,7 +261,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new ExceptionDialog(null, null)
+            using (var dialog = new ExceptionDialog(window, null)
             {
                 OpenLogClicked = () => counter++
             })

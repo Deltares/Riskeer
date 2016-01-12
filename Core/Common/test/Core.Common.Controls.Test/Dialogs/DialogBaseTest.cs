@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -11,16 +13,79 @@ namespace Core.Common.Controls.Test.Dialogs
     public class DialogBaseTest : NUnitFormTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValue()
+        public void Constructor_OwnerEqualsNull_ArgumentNullExceptionIsThrown()
         {
             // Setup
             var mocks = new MockRepository();
             var icon = mocks.Stub<Icon>();
 
+            TestDelegate test = () => new TestDialog(null, icon, 1, 2);
+
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
+            // Assert
+            StringAssert.EndsWith("owner", message);
+        }
+
+        [Test]
+        public void Constructor_IconEqualsNull_ArgumentNullExceptionIsThrown()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            TestDelegate test = () => new TestDialog(window, null, 1, 2);
+
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
+            // Assert
+            StringAssert.EndsWith("icon", message);
+        }
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        public void Constructor_IncorrectMinWidth_ArgumentExceptionIsThrown(int minWidth)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var icon = mocks.Stub<Icon>();
+            var window = mocks.Stub<IWin32Window>();
+
+            TestDelegate test = () => new TestDialog(window, icon, minWidth, 1);
+
+            // Call & Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "The minimum width of the dialog should be greater than 0");
+        }
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        public void Constructor_IncorrectMinHeigth_ArgumentExceptionIsThrown(int minHeight)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var icon = mocks.Stub<Icon>();
+            var window = mocks.Stub<IWin32Window>();
+
+            TestDelegate test = () => new TestDialog(window, icon, 1, minHeight);
+
+            // Call & Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "The minimum height of the dialog should be greater than 0");
+        }
+
+        [Test]
+        public void DefaultConstructor_ExpectedValue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+            var icon = mocks.Stub<Icon>();
+
             mocks.ReplayAll();
 
             // Call
-            using (var dialog = new TestDialog(null, icon, 1, 2))
+            using (var dialog = new TestDialog(window, icon, 1, 2))
             {
                 // Assert
                 Assert.AreEqual(icon, dialog.Icon);
@@ -41,6 +106,15 @@ namespace Core.Common.Controls.Test.Dialogs
         public void ShowDialog_TestDialog_MinimumSizeSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+            var icon = mocks.Stub<Icon>();
+
+            icon.Stub(i => i.Handle).Return(new IntPtr());
+            icon.Stub(i => i.Size).Return(new Size(16, 16));
+
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new FormTester(name);
@@ -48,7 +122,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new TestDialog(null, null, 1, 2))
+            using (var dialog = new TestDialog(window, icon, 1, 2))
             {
                 // Call
                 dialog.ShowDialog();
@@ -63,6 +137,15 @@ namespace Core.Common.Controls.Test.Dialogs
         public void ShowDialog_TestDialog_CancelButtonSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+            var icon = mocks.Stub<Icon>();
+
+            icon.Stub(i => i.Handle).Return(new IntPtr());
+            icon.Stub(i => i.Size).Return(new Size(16, 16));
+
+            mocks.ReplayAll();
+
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new FormTester(name);
@@ -70,7 +153,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 openedDialog.Close();
             };
 
-            using (var dialog = new TestDialog(null, null, 1, 2))
+            using (var dialog = new TestDialog(window, icon, 1, 2))
             {
                 // Call
                 dialog.ShowDialog();

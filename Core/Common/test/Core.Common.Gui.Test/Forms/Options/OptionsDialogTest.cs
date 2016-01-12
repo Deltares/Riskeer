@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using Core.Common.Gui.Forms.Options;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Forms.Options
 {
@@ -10,9 +11,15 @@ namespace Core.Common.Gui.Test.Forms.Options
         [Test]
         public void GivenGeneralOptionsControlCreated_WhenRetrievingOptionsItems_ThenOptionsShouldBeTranslated()
         {
-            using (var control = new OptionsDialog(null, null))
+            // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            mocks.ReplayAll();
+
+            using (var control = new OptionsDialog(window, null))
             {
-                var subControl = (ComboBox)control.Controls.Find("comboBoxTheme", true)[0];
+                var subControl = (ComboBox) control.Controls.Find("comboBoxTheme", true)[0];
 
                 Assert.AreEqual(6, subControl.Items.Count);
 

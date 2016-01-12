@@ -1,6 +1,7 @@
 using System;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -23,9 +24,10 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         [Test]
         public void NoImporterAvailableGivesMessageBox()
         {
+            var mainWindow = mocks.Stub<IMainWindow>();
             var applicationCore = new ApplicationCore();
             gui.Stub(g => g.ApplicationCore).Return(applicationCore);
-            gui.Stub(g => g.MainWindow).Return(null);
+            gui.Stub(g => g.MainWindow).Return(mainWindow);
 
             mocks.ReplayAll();
 

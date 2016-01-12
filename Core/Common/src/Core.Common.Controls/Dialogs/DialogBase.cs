@@ -44,9 +44,31 @@ namespace Core.Common.Controls.Dialogs
         /// <param name="icon">The icon to show in the control box.</param>
         /// <param name="minWidth">The minimum width of the dialog.</param>
         /// <param name="minHeight">The minimum height of the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="owner"/> or <paramref name="icon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="minWidth"/> or <paramref name="minHeight"/> is not greater than <c>0</c>.</exception>
         protected DialogBase(IWin32Window owner, Icon icon, int minWidth, int minHeight)
         {
             InitializeComponent();
+
+            if (owner == null)
+            {
+                throw new ArgumentNullException("owner");
+            }
+
+            if (icon == null)
+            {
+                throw new ArgumentNullException("icon");
+            }
+
+            if (minWidth <= 0)
+            {
+                throw new ArgumentException("The minimum width of the dialog should be greater than 0");
+            }
+
+            if (minHeight <= 0)
+            {
+                throw new ArgumentException("The minimum height of the dialog should be greater than 0");
+            }
 
             this.owner = owner;
             this.minWidth = minWidth;
