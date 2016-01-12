@@ -41,7 +41,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
@@ -64,7 +63,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="IRingtoetsDBContext.cs" />
-    <Compile Include="IStoreProject.cs" />
+    <Compile Include="Converter\ProjectEntityConverter.cs" />
     <Compile Include="ProjectEntity.cs">
       <DependentUpon>RingtoetsDBContext.tt</DependentUpon>
     </Compile>
@@ -105,7 +104,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RingtoetsDBContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Ringtoets.sqlite">
+    <None Include="Ringtoets.rt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="RingtoetsDBContext.Context.tt">

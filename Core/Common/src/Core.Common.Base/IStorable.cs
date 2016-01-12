@@ -1,7 +1,13 @@
 ﻿namespace Core.Common.Base
 {
-    interface IStorable
+    /// <summary>
+    /// Interface that describes the methods that need to be implemented on classes that are stored in the storage.
+    /// </summary>
+    public interface IStorable
     {
-        long StorageId { get; set; }
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        long StorageId { get; }
     }
 }

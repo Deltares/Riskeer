@@ -17,6 +17,6 @@ namespace Application.Ringtoets.Storage
         public long ProjectEntityId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Nullable<decimal> LastUpdated { get; set; }
+        public long LastUpdated { get; set; }
     }
 }

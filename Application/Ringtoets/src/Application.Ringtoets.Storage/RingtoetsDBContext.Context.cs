@@ -26,6 +26,6 @@ namespace Application.Ringtoets.Storage
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
+        public virtual IDbSet<ProjectEntity> ProjectEntities { get; set; }
     }
 }

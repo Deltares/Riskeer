@@ -1,24 +1,20 @@
-﻿using System;
-using System.Linq;
+﻿using Application.Ringtoets.Storage.Converter;
 using Core.Common.Base.Data;
 
 namespace Application.Ringtoets.Storage
 {
-    public class StorageSqLite : IStoreProject
+    public class StorageSqLite
     {
+        /// <summary>
+        /// Saves the <paramref name="project"/> at the default location.
+        /// </summary>
+        /// <param name="project"><see cref="Project"/> to save.</param>
+        /// <returns>Returns the number of changes, see <see cref="IRingtoetsDbContext.SaveChanges()"/>.</returns>
         public int SaveProject(Project project)
         {
             using (var dbContext = new RingtoetsEntities())
             {
-                var entry = dbContext.ProjectEntities.SingleOrDefault(db => db.ProjectEntityId == project.StorageId);
-                if (entry == null)
-                {
-                    return 0;
-                }
-
-                entry.Name = project.Name;
-                entry.Description = project.Description;
-                entry.LastUpdated = new DateTime().Ticks;
+                ProjectEntityConverter.UpdateProjectEntity(dbContext.ProjectEntities, project);
 
                 return dbContext.SaveChanges();
             }
@@ -33,22 +29,8 @@ namespace Application.Ringtoets.Storage
         {
             using (var dbContext = new RingtoetsEntities())
             {
-                var entry = dbContext.ProjectEntities.SingleOrDefault(db => db.ProjectEntityId == projectId);
-                if (entry == null)
-                {
-                    return null;
-                }
-
-                var project = new Project
-                {
-                    StorageId = entry.ProjectEntityId,
-                    Name = entry.Name,
-                    Description = entry.Description
-                };
-
-                return project;
+                return ProjectEntityConverter.GetProject(dbContext.ProjectEntities, projectId);
             }
         }
-    
     }
 }

@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="26a0f7861edd4ba59e8393e1f2494b81" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="RingtoetsEntityModel.ProjectEntity" Width="2.25" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="RingtoetsEntityModel.ProjectEntity" Width="2.125" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
