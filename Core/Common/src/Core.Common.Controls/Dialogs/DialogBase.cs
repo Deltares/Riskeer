@@ -31,6 +31,10 @@ namespace Core.Common.Controls.Dialogs
     /// </item>
     /// </list>
     /// </summary>
+    /// <remarks>
+    /// The "new" implementation for <see cref="ShowDialog"/> only hides the base method. Therefore, don't cast to <see cref="Form"/>.
+    /// Otherwise the original <see cref="Form.ShowDialog()"/> implementation will be used.
+    /// </remarks>
     public abstract partial class DialogBase : Form
     {
         private readonly int minWidth;

@@ -92,7 +92,7 @@ namespace Core.Common.Controls.Test.Dialogs
                 dialog.ShowDialog();
 
                 // Assert
-                Assert.AreEqual(exception.ToString().Replace("\r\n", "\n"), exceptionText);
+                Assert.AreEqual(exception.ToString().Replace(Environment.NewLine, "\n"), exceptionText);
             }
         }
 
