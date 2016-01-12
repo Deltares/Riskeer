@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.TreeView
@@ -126,11 +125,6 @@ namespace Core.Common.Controls.TreeView
         /// Returns context menu based on current data
         /// </summary>
         ContextMenuStrip GetContextMenu(TreeNode node, object nodeData);
-
-        /// <summary>
-        /// Updates node due to it's property change.
-        /// </summary>
-        void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e);
 
         // TODO: check it we need to replace these methods with OnKeyPressed()
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.Base;
@@ -436,31 +435,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Call
             nodePresenter.GetContextMenu(nodeMock, nodeData);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnPropertyChange_Always_DoNothing()
-        {
-            // Setup
-            var nodeMock = mockRepository.StrictMock<TreeNode>();
-            var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mockRepository.ReplayAll();
-
-            var pipingCalculationContextNodePresenter = new PipingCalculationContextNodePresenter(contextMenuBuilderProvider);
-
-            var dataMock = new PipingCalculationContext(new PipingCalculation(),
-                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>());
-
-            var nodePresenter = pipingCalculationContextNodePresenter;
-
-            // Call
-            nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
 
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments

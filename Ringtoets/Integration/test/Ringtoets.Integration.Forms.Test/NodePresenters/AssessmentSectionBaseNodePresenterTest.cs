@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -342,27 +341,6 @@ namespace Ringtoets.Integration.Forms.Test.NodePresenters
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OnPropertyChange_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<AssessmentSectionBase>();
-            var nodeMock = mocks.StrictMock<TreeNode>();
-            var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionBaseNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]

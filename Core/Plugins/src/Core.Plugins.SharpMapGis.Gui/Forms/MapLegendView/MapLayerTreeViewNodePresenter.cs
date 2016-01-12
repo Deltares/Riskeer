@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -164,31 +163,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
 
             return true;
-        }
-
-        protected override void OnPropertyChanged(ILayer layer, TreeNode node, PropertyChangedEventArgs e)
-        {
-            if (node == null)
-            {
-                return;
-            }
-
-            if (e.PropertyName.Equals("Name", StringComparison.Ordinal))
-            {
-                node.Text = layer.Name;
-                return;
-            }
-
-            if (e.PropertyName.Equals("Enabled", StringComparison.Ordinal) || e.PropertyName.Equals("Visible", StringComparison.Ordinal))
-            {
-                node.Checked = layer.Visible;
-                return;
-            }
-
-            if (e.PropertyName.Equals("Style", StringComparison.Ordinal) || e.PropertyName.Equals("Theme", StringComparison.Ordinal))
-            {
-                TreeView.UpdateNode(node);
-            }
         }
 
         protected override bool RemoveNodeData(object parentNodeData, ILayer layer)

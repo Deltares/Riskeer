@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -103,11 +102,6 @@ namespace Ringtoets.Common.Forms.NodePresenters
             return GetContextMenu(node, (T)nodeData);
         }
 
-        public void OnPropertyChanged(object sender, TreeNode node, PropertyChangedEventArgs e)
-        {
-            OnPropertyChanged((T)sender, node, e);
-        }
-
         public bool CanRemove(object parentNodeData, object nodeData)
         {
             return CanRemove(parentNodeData, (T)nodeData);
@@ -167,15 +161,6 @@ namespace Ringtoets.Common.Forms.NodePresenters
         protected virtual ContextMenuStrip GetContextMenu(TreeNode node, T nodeData)
         {
             return null;
-        }
-
-        /// <summary>
-        /// Typed implementation of method <see cref="ITreeNodePresenter.OnPropertyChanged"/>.
-        /// </summary>
-        /// <seealso cref="OnPropertyChanged(object, Core.Common.Controls.TreeView.TreeNode, PropertyChangedEventArgs)"/>
-        protected virtual void OnPropertyChanged(T sender, TreeNode node, PropertyChangedEventArgs e)
-        {
-            // Do nothing
         }
 
         /// <summary>

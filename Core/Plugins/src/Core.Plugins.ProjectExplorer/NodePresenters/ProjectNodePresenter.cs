@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -79,15 +78,6 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
         public override DragOperations CanDrag(Project nodeData)
         {
             return DragOperations.None;
-        }
-
-
-        protected override void OnPropertyChanged(Project item, TreeNode node, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Name")
-            {
-                node.Text = item.Name;
-            }
         }
     }
 }

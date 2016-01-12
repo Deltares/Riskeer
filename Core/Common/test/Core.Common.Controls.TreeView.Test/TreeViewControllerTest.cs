@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -225,10 +224,6 @@ namespace Core.Common.Controls.TreeView.Test
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(nodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
             Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-
-            // Property changed is bubbled to nodePresenter => expect 1 call during parent.Name = "Test"
-            // not that in some cases Full refresh can be called
-            Expect.Call(() => nodePresenter.OnPropertyChanged(parent, null, new PropertyChangedEventArgs(""))).IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 

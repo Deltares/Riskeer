@@ -305,25 +305,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnPropertyChange_Always_DoNothing()
-        {
-            // Setup
-            var dataMock = mockRepository.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-            var nodeMock = mockRepository.StrictMock<TreeNode>();
-            var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
-            var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            mockRepository.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter(contextMenuBuilderProviderMock);
-
-            // Call
-            nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
-
-            // Assert
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void CanRemove_Always_ReturnFalse()
         {
             // Setup

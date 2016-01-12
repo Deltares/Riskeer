@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Core.Common.Controls.TreeView;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
@@ -18,16 +17,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             {
                 node.Image = (themeItem.Style as VectorStyle).LegendSymbol;
             }
-        }
-
-        protected override void OnPropertyChanged(IThemeItem themeItem, TreeNode node, PropertyChangedEventArgs e)
-        {
-            if (node == null)
-            {
-                return;
-            }
-
-            UpdateNode(null, node, themeItem);
         }
     }
 }
