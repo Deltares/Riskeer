@@ -1,86 +1,72 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using Application.Ringtoets.Storage.Converter;
-using Core.Common.Base.Data;
+﻿using System.IO;
+using Application.Ringtoets.Storage.Properties;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Application.Ringtoets.Storage.Test
 {
     [TestFixture]
     public class StorageSqLiteTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
 
         [Test]
-        public void ProjectEntityMapping_ProjectEntity_Project()
+        [TestCase("empty.rt")]
+        public void Constructor_validPath_NewInstance(string validPath)
         {
             // Setup
-            const long projectId = 1;
-            var projectEntity = new ProjectEntity()
-            {
-                ProjectEntityId = projectId,
-                Name = "test",
-                Description = "description"
-            };
+            var dbFile = Path.Combine(testDataPath, validPath);
 
-            var projectEntities = GetDbSetTest(new List<ProjectEntity> { projectEntity });
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
 
             // Call
-            var project = ProjectEntityConverter.GetProject(projectEntities, projectId);
-
-            // Assert
-            Assert.IsInstanceOf<Project>(project);
-            Assert.AreEqual(project.StorageId, projectId);
-            Assert.That(project.Name == projectEntity.Name);
-            Assert.That(project.Description == projectEntity.Description);
-            Assert.IsEmpty(project.Items);
+            TestDelegate test = () => new StorageSqLite(dbFile);
+            Assert.DoesNotThrow(test);
         }
 
         [Test]
-        public void ProjectEntityMapping_Project_ProjectEntity()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("NonExistingFile")]
+        public void Constructor_invalidPath_throwsFileNotFoundException(string invalidPath)
         {
-            // Setup
-            const long projectId = 1;
-            var project = new Project
-            {
-                StorageId = projectId,
-                Name = "test",
-                Description = "description"
-            };
-            var projectEnties = new List<ProjectEntity>
-            {
-                new ProjectEntity()
-                {
-                    ProjectEntityId = projectId
-                }
-            };
-            var projectEntities = GetDbSetTest(projectEnties);
-
             // Call
-            ProjectEntityConverter.UpdateProjectEntity(projectEntities, project);
+            TestDelegate test = () => new StorageSqLite(invalidPath);
 
             // Assert
-            Assert.IsInstanceOf<Project>(project);
-            var projectEntitiesArray = projectEntities.ToList();
-            Assert.AreEqual(projectEntitiesArray.Count, 1);
-            Assert.AreEqual(project.StorageId, projectEntitiesArray[0].ProjectEntityId);
-            Assert.AreEqual(project.Name, projectEntitiesArray[0].Name);
-            Assert.AreEqual(project.Description, projectEntitiesArray[0].Description);
+            var exception = Assert.Throws<FileNotFoundException>(test);
+            Assert.AreEqual(Resources.Error_File_does_not_exist, exception.Message);
         }
 
-        private static IDbSet<T> GetDbSetTest<T>(IList<T> data) where T : class
+        [Test]
+        [TestCase("ValidRingtoetsDatabase.rt")]
+        public void TestConnection_validConnection_ReturnsTrue(string validPath)
         {
-            IQueryable<T> queryable = data.AsQueryable();
+            // Setup
+            var dbFile = Path.Combine(testDataPath, validPath);
 
-            IDbSet<T> dbSet = MockRepository.GenerateMock<IDbSet<T>, IQueryable>();
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
 
-            dbSet.Stub(m => m.Provider).Return(queryable.Provider);
-            dbSet.Stub(m => m.Expression).Return(queryable.Expression);
-            dbSet.Stub(m => m.ElementType).Return(queryable.ElementType);
-            dbSet.Stub(m => m.GetEnumerator()).Return(queryable.GetEnumerator());
+            // Call
+            var storage = new StorageSqLite(dbFile);
+            Assert.True(storage.TestConnection());
+        }
 
-            return dbSet;
+        [Test]
+        [TestCase("empty.rt")]
+        public void TestConnection_invalidConnection_ReturnsFalse(string invalidPath)
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, invalidPath);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
+
+            // Call
+            var storage = new StorageSqLite(dbFile);
+            Assert.False(storage.TestConnection());
         }
     }
 }

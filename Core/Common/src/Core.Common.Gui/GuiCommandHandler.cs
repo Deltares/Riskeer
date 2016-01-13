@@ -5,12 +5,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+
 using System.Windows.Input;
+using Application.Ringtoets.Storage;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
@@ -56,6 +57,10 @@ namespace Core.Common.Gui
             RefreshGui();
         }
 
+        /// <summary>
+        /// Opens a new <see cref="OpenFileDialog"/> where a file can be selected to open.
+        /// </summary>
+        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
         public bool TryOpenExistingProject()
         {
             var openFileDialog = new OpenFileDialog
@@ -65,33 +70,48 @@ namespace Core.Common.Gui
                 RestoreDirectory = true
             };
 
-            if (openFileDialog.ShowDialog(gui.MainWindow) == DialogResult.Cancel)
+            if (openFileDialog.ShowDialog(gui.MainWindow) != DialogResult.Cancel)
             {
-                Log.Warn(Resources.Opening_existing_project_cancelled);
+                return TryOpenExistingProject(openFileDialog.FileName);
+            }
+            Log.Warn(Resources.Opening_existing_project_cancelled);
+            return false;
+        }
+
+        /// <summary>
+        /// Loads a <see cref="Project"/>, based upon <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="filePath">Location of the storage file.</param>
+        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
+        public bool TryOpenExistingProject(string filePath)
+        {
+            Log.Info(Resources.Opening_existing_project);
+
+            var storage = new StorageSqLite(filePath);
+            if (!storage.TestConnection())
+            {
+                Log.Warn(Resources.Opening_existing_project_failed);
+                return false;
+            }
+            var projectFromStorage = storage.LoadProject();
+            if (projectFromStorage == null)
+            {
+                Log.Warn(Resources.Opening_existing_project_failed);
                 return false;
             }
 
-            Log.Info(Resources.Opening_existing_project);
-
-            return TryOpenExistingProject(openFileDialog.FileName);
-        }
-
-        public bool TryOpenExistingProject(string filePath)
-        {
+            // Project loaded successfully, close current project
             if (!TryCloseProject())
             {
                 Log.Warn(Resources.Opening_existing_project_cancelled);
                 return false;
             }
-
-            var result = false;
-
-            // TODO: Implement logic for opening the project from the provided file path and show progress indicator
-            gui.Project = new Project();
+            gui.ProjectFilePath = filePath;
+            gui.Project = projectFromStorage;
 
             RefreshGui();
-
-            return result;
+            Log.Info(Resources.Opening_existing_project);
+            return true;
         }
 
         public bool TryCloseProject()
@@ -116,6 +136,36 @@ namespace Core.Common.Gui
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Saves the <see cref="Project"/> to the storage.
+        /// </summary>
+        /// <returns>Returns if the save was succesful.</returns>
+        public bool SaveProject()
+        {
+            if (string.IsNullOrEmpty(gui.ProjectFilePath))
+            {
+                return SaveProjectAs();
+            }
+            var storage = new StorageSqLite(gui.ProjectFilePath);
+            if (!storage.TestConnection())
+            {
+                return false;
+            }
+            var projectFromStorage = storage.SaveProject(gui.Project);
+            if (projectFromStorage < 1)
+            {
+                Log.Info("Nothing saved");
+                return true;
+            }
+            Log.Info("Changes saved");
+            return false;
+        }
+        
+        public bool SaveProjectAs()
+        {
+            throw new NotImplementedException();
         }
 
         public object GetDataOfActiveView()

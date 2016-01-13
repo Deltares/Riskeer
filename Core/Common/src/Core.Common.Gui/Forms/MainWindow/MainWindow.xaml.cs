@@ -589,7 +589,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             // TODO: remove when implemented
-            ButtonMenuFileOpenProject.IsEnabled = false;
             ButtonMenuFileSaveProject.IsEnabled = false;
             ButtonMenuFileSaveProjectAs.IsEnabled = false;
             ButtonMenuFileCloseProject.IsEnabled = false;
@@ -654,11 +653,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: Implement
-
-            // Original code:
-            //var succesful = Gui.CommandHandler.TryOpenExistingProject();
-            //OnAfterProjectSaveOrOpen(succesful);
+            var succesful = Gui.CommandHandler.TryOpenExistingProject();
+            OnAfterProjectSaveOrOpen(succesful);
         }
 
         private void OnFileCloseClicked(object sender, RoutedEventArgs e)
@@ -831,8 +827,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             LicenseButton.IsEnabled = File.Exists(Gui.FixedSettings.LicenseFilePath);
             FeedbackButton.IsEnabled = false;
 
-            ButtonQuickAccessOpenProject.IsEnabled = false;
-            ButtonQuickAccessSaveProject.IsEnabled = false;
+            ButtonQuickAccessOpenProject.IsEnabled = ButtonMenuFileOpenProject.IsEnabled;
+            ButtonQuickAccessSaveProject.IsEnabled = ButtonMenuFileSaveProject.IsEnabled;
 
             UpdateMainWindowRibbonElements();
             UpdateRibbonExtensions();

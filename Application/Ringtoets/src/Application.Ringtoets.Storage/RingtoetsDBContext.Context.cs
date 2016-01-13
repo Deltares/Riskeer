@@ -23,7 +23,7 @@ namespace Application.Ringtoets.Storage
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //throw new UnintentionalCodeFirstException();
         }
     
         public virtual IDbSet<ProjectEntity> ProjectEntities { get; set; }

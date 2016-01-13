@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
+using WindowsApplication = System.Windows.Forms.Application;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
@@ -90,7 +90,7 @@ namespace Core.Common.Gui
 
             CommandHandler = new GuiCommandHandler(this);
 
-            Application.EnableVisualStyles();
+            WindowsApplication.EnableVisualStyles();
 
             ProjectOpened += ApplicationProjectOpened;
         }
@@ -491,7 +491,7 @@ namespace Core.Common.Gui
                 RemoveLogging();
             }
 
-            Application.ApplicationExit -= HandleApplicationExit;
+            WindowsApplication.ApplicationExit -= HandleApplicationExit;
 
             // prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
             var systemAssembly = typeof(Component).Assembly;
@@ -644,7 +644,7 @@ namespace Core.Common.Gui
 
             InitializeMenusAndToolbars();
 
-            Application.ApplicationExit += HandleApplicationExit;
+            WindowsApplication.ApplicationExit += HandleApplicationExit;
 
             CopyDefaultViewsFromUserSettings();
 

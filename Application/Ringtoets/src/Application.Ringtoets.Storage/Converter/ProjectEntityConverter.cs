@@ -14,11 +14,10 @@ namespace Application.Ringtoets.Storage.Converter
         /// Gets a new <see cref="Project"/>, based on the <see cref="ProjectEntity"/> found in the database.
         /// </summary>
         /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
-        /// <param name="projectId">Unique identifier to find the <see cref="ProjectEntity"/>.</param>
         /// <returns>A new <see cref="Project"/> or null when not found.</returns>
-        public static Project GetProject(IDbSet<ProjectEntity> dbSet, long projectId)
+        public static Project GetProject(IDbSet<ProjectEntity> dbSet)
         {
-            var entry = dbSet.SingleOrDefault(db => db.ProjectEntityId == projectId);
+            var entry = dbSet.FirstOrDefault();
             return entry == null ? null : ProjectEntityToProject(entry);
         }
 
@@ -30,6 +29,11 @@ namespace Application.Ringtoets.Storage.Converter
         public static void UpdateProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
         {
             var entry = dbSet.SingleOrDefault(db => db.ProjectEntityId == project.StorageId);
+            if (entry == null)
+            {
+                entry = new ProjectEntity();
+                dbSet.Add(entry);
+            }
             ProjectToProjectEntity(project, entry);
         }
 

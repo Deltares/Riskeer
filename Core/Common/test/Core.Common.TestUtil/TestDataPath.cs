@@ -15,6 +15,17 @@ namespace Core.Common.TestUtil
             };
         }
 
+        public static class Application
+        {
+            public static class Ringtoets
+            {
+                public static readonly TestDataPath Storage = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Storage.Test");
+            }
+
+            public static readonly TestDataPath CorePluginsSharpMapGisTests =
+                @"Core/Plugins/test/Core.Plugins.SharpMapGis.Test/";
+        }
+
         public static class Common
         {
             public static readonly TestDataPath CoreCommonUtilsTests =
