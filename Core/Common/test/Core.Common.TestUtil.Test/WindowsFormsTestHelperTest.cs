@@ -47,8 +47,8 @@ namespace Core.Common.TestUtil.Test
             WindowsFormsTestHelper.CloseAll();
         }
 
-        [Test]
-        public void ExceptionsInActionLogsStackTraceCorrectlyCorrectly()
+        [Test]        
+        public void Action_ThrowsException_StackTraceCorrectly()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void UnhandledThreadExceptionsInActionLogsStackTraceCorrectlyCorrectly()
+        public void Thread_ThrowsUnhandledException_StackTraceCorrectly()
         {
             var thread = new Thread(MethodWithExceptionInSeparateThread);
 
@@ -129,7 +129,7 @@ namespace Core.Common.TestUtil.Test
 
         private void MethodWithExceptionInSeparateThread()
         {
-            throw new InvalidOperationException("my message from thread");
+            throw new InvalidOperationException("my message from thread");   
         }
     }
 }
