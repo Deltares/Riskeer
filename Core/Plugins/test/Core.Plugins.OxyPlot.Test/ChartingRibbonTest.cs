@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
-using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Button = Fluent.Button;
+using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
 using ICommand = Core.Common.Controls.Commands.ICommand;
 using ToggleButton = Fluent.ToggleButton;
 
@@ -16,16 +16,13 @@ namespace Core.Plugins.OxyPlot.Test
     {
         [Test]
         [RequiresSTA]
-        public void Commands_NoCommandsAssigned_ReturnsNullForCommands()
+        public void Commands_NoCommandsAssigned_ReturnsEmptyCommandsCollection()
         {
             // Setup
             var ribbon = new ChartingRibbon();
 
-            // Call
-            var commands = ribbon.Commands.ToArray();
-
-            // Assert
-            CollectionAssert.AreEqual(Enumerable.Repeat<ICommand>(null,2),commands);
+            // Call & Assert
+            CollectionAssert.IsEmpty(ribbon.Commands);
         }
 
         [Test]

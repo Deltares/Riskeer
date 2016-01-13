@@ -80,7 +80,7 @@
     <Compile Include="Forms\ChartDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IOxyPlotGuiPlugin.cs" />
+    <Compile Include="IToolViewController.cs" />
     <Compile Include="Legend\ChartDataNodePresenter.cs" />
     <Compile Include="Legend\ChartNodePresenter.cs" />
     <Compile Include="Legend\LegendTreeView.cs">

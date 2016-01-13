@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
+using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
@@ -19,6 +20,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IView>(view);
+            Assert.IsNull(view.Data);
+            Assert.AreEqual(Resources.General_Chart, view.Text);
         }
 
         [Test]
@@ -33,6 +36,19 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.AreSame(baseChart, view.Data);
+        }
+
+        [Test]
+        public void Data_ForNull_NullSet()
+        {
+            // Setup 
+            var view = new LegendView();
+
+            // Call
+            view.Data = null;
+
+            // Assert
+            Assert.IsNull(view.Data);
         }
 
         [Test]

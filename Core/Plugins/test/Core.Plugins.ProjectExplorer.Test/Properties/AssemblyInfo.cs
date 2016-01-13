@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using NUnit.Framework;
 
 [assembly: AssemblyTitle("Core.Plugins.ProjectExplorer.Test")]
 [assembly: AssemblyProduct("Core.Plugins.ProjectExplorer.Test")]

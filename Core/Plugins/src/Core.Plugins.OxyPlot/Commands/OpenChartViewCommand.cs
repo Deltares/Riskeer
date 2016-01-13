@@ -2,11 +2,16 @@
 using System.Collections.ObjectModel;
 using Core.Common.Gui;
 using Core.Components.OxyPlot.Data;
+using Core.Plugins.OxyPlot.Forms;
 using OxyPlot;
 
 namespace Core.Plugins.OxyPlot.Commands
 {
+    /// <summary>
+    /// This class describes the command for opening a <see cref="ChartDataView"/> with some random data.
+    /// </summary>
     public class OpenChartViewCommand : IGuiCommand {
+
         public bool Enabled
         {
             get

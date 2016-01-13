@@ -1,5 +1,7 @@
+using System;
 using Core.Common.Controls.TreeView;
 using Core.Components.OxyPlot.Data;
+using Core.Plugins.OxyPlot.Properties;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
@@ -10,18 +12,24 @@ namespace Core.Plugins.OxyPlot.Legend
     {
         public override void UpdateNode(TreeNode parentNode, TreeNode node, IChartData nodeData)
         {
-            node.Text = nodeData.GetType().Name;
             if (nodeData is AreaData)
             {
-                node.Image = Properties.Resources.AreaIcon;
+                node.Text = Resources.ChartDataNodePresenter_Area_data_label;
+                node.Image = Resources.AreaIcon;
             }
-            if (nodeData is LineData)
+            else if (nodeData is LineData)
             {
-                node.Image = Properties.Resources.LineIcon;
+                node.Text = Resources.ChartDataNodePresenter_Line_data_label;
+                node.Image = Resources.LineIcon;
             }
-            if (nodeData is PointData)
+            else if (nodeData is PointData)
             {
-                node.Image = Properties.Resources.PointsIcon;
+                node.Text = Resources.ChartDataNodePresenter_Point_data_label;
+                node.Image = Resources.PointsIcon;
+            }
+            else
+            {
+                throw new NotSupportedException("Cannot add chart data of type other than points, lines or area.");
             }
             node.ShowCheckBox = true;
             node.Checked = true;

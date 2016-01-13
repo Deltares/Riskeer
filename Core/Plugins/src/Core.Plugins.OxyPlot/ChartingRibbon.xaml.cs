@@ -33,8 +33,14 @@ namespace Core.Plugins.OxyPlot
         {
             get
             {
-                yield return OpenChartViewCommand;
-                yield return ToggleLegendViewCommand;
+                if (OpenChartViewCommand != null)
+                {
+                    yield return OpenChartViewCommand;
+                }
+                if (ToggleLegendViewCommand != null)
+                {
+                    yield return ToggleLegendViewCommand;
+                }
             }
         }
 

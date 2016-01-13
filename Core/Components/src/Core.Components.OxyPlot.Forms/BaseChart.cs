@@ -8,6 +8,9 @@ using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms
 {
+    /// <summary>
+    /// This class describes a plot view with configured representation of axes.
+    /// </summary>
     public sealed class BaseChart : PlotView
     {
         private LinearAxis xAxis;
@@ -20,20 +23,8 @@ namespace Core.Components.OxyPlot.Forms
         {
             Model = new PlotModel();
             InitializeAxes();
-            InitializeDefaultStyle();
 
             MinimumSize = new System.Drawing.Size(50, 75);
-        }
-
-        /// <summary>
-        /// Sets the default look and feel of the <see cref="BaseChart"/>
-        /// </summary>
-        private void InitializeDefaultStyle()
-        {
-            xAxis.MajorGridlineStyle = LineStyle.Solid;
-            xAxis.MinorGridlineStyle = LineStyle.Dot;
-            yAxis.MajorGridlineStyle = LineStyle.Solid;
-            yAxis.MinorGridlineStyle = LineStyle.Dot;
         }
 
         /// <summary>
@@ -41,25 +32,31 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         private void InitializeAxes()
         {
-            xAxis = new LinearAxis
-            {
-                Title = Resources.BaseChart_XAxisTitle,
-                Position = AxisPosition.Bottom,
-                TickStyle = TickStyle.None,
-                ExtraGridlines = new[] { 0.0 },
-                ExtraGridlineThickness = 1,
-                Layer = AxisLayer.AboveSeries
-            };
-            yAxis = new LinearAxis
-            {
-                Title = Resources.BaseChart_YAxisTitle,
-                TickStyle = TickStyle.None,
-                ExtraGridlines = new[] { 0.0 },
-                ExtraGridlineThickness = 1,
-                Layer = AxisLayer.AboveSeries
-            };
+            xAxis = CreateAxis(Resources.BaseChart_XAxisTitle, AxisPosition.Bottom);
+            yAxis = CreateAxis(Resources.BaseChart_YAxisTitle, AxisPosition.Left);
             Model.Axes.Add(xAxis);
             Model.Axes.Add(yAxis);
+        }
+
+        /// <summary>
+        /// Creates an axis with default style set.
+        /// </summary>
+        /// <param name="title">The title of the <see cref="LinearAxis"/>.</param>
+        /// <param name="position">The <see cref="AxisPosition"/> of the <see cref="LinearAxis"/>.</param>
+        /// <returns></returns>
+        private static LinearAxis CreateAxis(string title, AxisPosition position)
+        {
+            return new LinearAxis
+            {
+                Title = title,
+                Position = position,
+                TickStyle = TickStyle.None,
+                ExtraGridlines = new[] { 0.0 },
+                ExtraGridlineThickness = 1,
+                Layer = AxisLayer.AboveSeries,
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot
+            };
         }
 
         /// <summary>
@@ -77,7 +74,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Remove all the <see cref="LineData"/> that has been added to the <see cref="BaseChart"/>.
+        /// Remove all the <see cref="IChartData"/> that has been added to the <see cref="BaseChart"/>.
         /// </summary>
         public void ClearData()
         {

@@ -195,9 +195,13 @@ namespace Core.Plugins.OxyPlot.Test
     public class TestChartView : Control, IChartView
     {
         public object Data { get; set; }
-        public BaseChart Chart { get
+
+        public BaseChart Chart
         {
-            return (BaseChart) Data;
-        } }
+            get
+            {
+                return (BaseChart) Data;
+            }
+        }
     }
 }

@@ -708,7 +708,7 @@ namespace Core.Common.Gui
             {
                 mainWindow.LoadLayout();
 
-                toolWindowViewsDockingManager.LayoutChange();
+                toolWindowViewsDockingManager.UpdateLayout();
 
                 // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
                 toolWindowViews.SynchronizeViews(toolWindowViewsDockingManager.Views.ToArray());

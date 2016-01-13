@@ -23,6 +23,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsInstanceOf<TreeViewNodePresenterBase<IChartData>>(nodePresenter);
+            Assert.IsNull(nodePresenter.TreeView);
+            Assert.AreEqual(typeof(IChartData), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -36,7 +38,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             nodePresenter.UpdateNode(null, treeNode, new PointData(emptyCollection));
 
             // Assert
-            Assert.AreEqual("PointData", treeNode.Text);
+            Assert.AreEqual("Punten", treeNode.Text);
             Assert.IsTrue(treeNode.ShowCheckBox);
             Assert.IsTrue(treeNode.Checked);
             TestHelper.AssertImagesAreEqual(Resources.PointsIcon, treeNode.Image);
@@ -53,7 +55,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             nodePresenter.UpdateNode(null, treeNode, new LineData(emptyCollection));
 
             // Assert
-            Assert.AreEqual("LineData", treeNode.Text);
+            Assert.AreEqual("Lijn", treeNode.Text);
             TestHelper.AssertImagesAreEqual(Resources.LineIcon, treeNode.Image);
         }
 
@@ -68,12 +70,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             nodePresenter.UpdateNode(null, treeNode, new AreaData(emptyCollection));
 
             // Assert
-            Assert.AreEqual("AreaData", treeNode.Text);
+            Assert.AreEqual("Gebied", treeNode.Text);
             TestHelper.AssertImagesAreEqual(Resources.AreaIcon, treeNode.Image);
         }
 
         [Test]
-        public void UpdateNode_ForOtherIChartData_SetsText()
+        public void UpdateNode_ForOtherIChartData_ThrowsNotSupportedException()
         {
             // Setup
             var nodePresenter = new ChartDataNodePresenter();
@@ -81,11 +83,10 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var data = new TestChartData();
 
             // Call
-            nodePresenter.UpdateNode(null, treeNode, data);
+            TestDelegate test = () => nodePresenter.UpdateNode(null, treeNode, data);
 
             // Assert
-            Assert.AreEqual("TestChartData", treeNode.Text);
-            Assert.IsNull(treeNode.Image);
+            Assert.Throws<NotSupportedException>(test);
         }
     }
 

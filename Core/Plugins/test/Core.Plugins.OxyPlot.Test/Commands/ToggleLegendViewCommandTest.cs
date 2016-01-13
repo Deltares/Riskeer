@@ -41,7 +41,7 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IOxyPlotGuiPlugin>();
+            var plugin = mocks.StrictMock<IToolViewController>();
             plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
 
             mocks.ReplayAll();
@@ -62,16 +62,18 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IOxyPlotGuiPlugin>();
+            var plugin = mocks.StrictMock<IToolViewController>();
 
             // Open first
-            plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);
-            plugin.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(v => true)));
+            using (mocks.Ordered())
+            {
+                plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);
+                plugin.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(v => true)));
 
-            // Then close
-            plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(true);
-            plugin.Expect(p => p.CloseToolView(Arg<LegendView>.Matches(v => true)));
-
+                // Then close
+                plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(true);
+                plugin.Expect(p => p.CloseToolView(Arg<LegendView>.Matches(v => true)));
+            }
             mocks.ReplayAll();
 
             var controller = new LegendController(plugin);

@@ -5,18 +5,18 @@ using Core.Components.OxyPlot.Forms;
 namespace Core.Plugins.OxyPlot.Legend
 {
     /// <summary>
-    /// This class controls the actions which are related to a <see cref="LegendView"/> and act upon a <see cref="OxyPlotGuiPlugin"/>.
+    /// This class controls the actions which are related to controlling visibility and updating contents of a <see cref="LegendView"/>.
     /// </summary>
     public class LegendController
     {
-        private readonly IOxyPlotGuiPlugin plugin;
+        private readonly IToolViewController plugin;
         private IView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="LegendController"/>.
         /// </summary>
         /// <param name="plugin">The <see cref="OxyPlotGuiPlugin"/> to invoke actions upon.</param>
-        public LegendController(IOxyPlotGuiPlugin plugin)
+        public LegendController(IToolViewController plugin)
         {
             if (plugin == null)
             {

@@ -39,7 +39,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IOxyPlotGuiPlugin>();
+            var plugin = mocks.StrictMock<IToolViewController>();
             plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
 
             mocks.ReplayAll();
@@ -61,7 +61,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IOxyPlotGuiPlugin>();
+            var plugin = mocks.StrictMock<IToolViewController>();
             if (open)
             {
                 plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);

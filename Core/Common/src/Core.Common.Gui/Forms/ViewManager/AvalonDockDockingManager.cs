@@ -72,7 +72,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         /// <summary>
         /// Called after layout is changed (e.g. loaded).
         /// </summary>
-        public void LayoutChange()
+        public void UpdateLayout()
         {
             var existingContents = dockingManager.Layout.Descendents().OfType<LayoutContent>().ToArray();
             var existingHostControls = existingContents.Select(c => c.Content as WindowsFormsHost);

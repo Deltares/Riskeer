@@ -20,6 +20,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             Assert.IsInstanceOf<TreeViewNodePresenterBase<BaseChart>>(nodePresenter);
+            Assert.IsNull(nodePresenter.TreeView);
+            Assert.AreEqual(typeof(BaseChart), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -42,14 +44,13 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var nodePresenter = new ChartNodePresenter();
-            var treeNode = new TreeNode(null);
             var chart = new BaseChart();
 
             // Call
             var result = nodePresenter.GetChildNodeObjects(chart);
 
             // Assert
-            Assert.AreSame(chart.Model.Series, result);
+            CollectionAssert.AreEquivalent(chart.Model.Series, result);
         } 
     }
 }

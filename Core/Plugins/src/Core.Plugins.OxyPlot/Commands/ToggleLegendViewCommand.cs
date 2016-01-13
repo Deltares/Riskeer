@@ -4,8 +4,7 @@ using Core.Plugins.OxyPlot.Legend;
 namespace Core.Plugins.OxyPlot.Commands
 {
     /// <summary>
-    /// This class describes commands which control the state of a <see cref="LegendView"/> and uses a <see cref="LegendController"/>
-    /// to do so. The state of this command is determined by the state of the <see cref="LegendView"/>.
+    /// This class describes the command which toggles the <see cref="LegendView"/>.
     /// </summary>
     public class ToggleLegendViewCommand : ICommand
     {

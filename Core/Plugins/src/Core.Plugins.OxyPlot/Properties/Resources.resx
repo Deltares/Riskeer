@@ -121,6 +121,15 @@
   <data name="AreaIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\area.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ChartDataNodePresenter_Area_data_label" xml:space="preserve">
+    <value>Gebied</value>
+  </data>
+  <data name="ChartDataNodePresenter_Line_data_label" xml:space="preserve">
+    <value>Lijn</value>
+  </data>
+  <data name="ChartDataNodePresenter_Point_data_label" xml:space="preserve">
+    <value>Punten</value>
+  </data>
   <data name="ChartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

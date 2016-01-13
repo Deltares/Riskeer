@@ -1,13 +1,11 @@
 ﻿using Core.Common.Controls.Views;
-using Core.Common.Gui;
 
 namespace Core.Plugins.OxyPlot
 {
     /// <summary>
-    /// Interface for the <see cref="OxyPlotGuiPlugin"/>. Describes methods which require knowledge of
-    /// the <see cref="RingtoetsGui"/>.
+    /// Interface defining methods for controlling the tool <see cref="IView"/> instances.
     /// </summary>
-    public interface IOxyPlotGuiPlugin {
+    public interface IToolViewController {
         
         /// <summary>
         /// Checks whether a tool window of type <typeparamref name="T"/> is open.

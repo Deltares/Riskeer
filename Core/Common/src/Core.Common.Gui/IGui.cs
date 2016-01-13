@@ -58,6 +58,11 @@ namespace Core.Common.Gui
         IList<IGuiCommand> Commands { get; }
 
         /// <summary>
+        /// Gets the currently active document <see cref="IView"/>.
+        /// </summary>
+        IView ActiveView { get; }
+
+        /// <summary>
         ///  Gets all document views currently opened in the gui.
         /// </summary>
         IViewList DocumentViews { get; }
@@ -115,11 +120,6 @@ namespace Core.Common.Gui
         /// Gets the <see cref="IContextMenuBuilderProvider"/> of the <see cref="IGui"/>
         /// </summary>
         IContextMenuBuilderProvider ContextMenuProvider { get; }
-
-        /// <summary>
-        /// Gets the currently active document <see cref="IView"/>.
-        /// </summary>
-        IView ActiveView { get; }
 
         #endregion
 

@@ -13,7 +13,7 @@ using Core.Plugins.OxyPlot.Properties;
 
 namespace Core.Plugins.OxyPlot
 {
-    public class OxyPlotGuiPlugin : GuiPlugin, IOxyPlotGuiPlugin
+    public class OxyPlotGuiPlugin : GuiPlugin, IToolViewController
     {
         private ChartingRibbon chartingRibbon;
         private LegendController legendController;
@@ -74,12 +74,12 @@ namespace Core.Plugins.OxyPlot
         /// <summary>
         /// Creates a new <see cref="LegendController"/>.
         /// </summary>
-        /// <param name="oxyPlotGuiPlugin">The <see cref="IOxyPlotGuiPlugin"/> to use for the controller
+        /// <param name="toolViewController">The <see cref="IToolViewController"/> to use for the controller
         /// <see cref="LegendController"/>.</param>
         /// <returns>A new <see cref="LegendController"/> instance.</returns>
-        private static LegendController CreateLegendController(IOxyPlotGuiPlugin oxyPlotGuiPlugin)
+        private static LegendController CreateLegendController(IToolViewController toolViewController)
         {
-            var controller = new LegendController(oxyPlotGuiPlugin);
+            var controller = new LegendController(toolViewController);
             return controller;
         }
 
