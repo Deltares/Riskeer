@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resource;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Core.Common.Utils.Attributes
+namespace Core.Common.Gui.Attributes
 {
     /// <summary>
     /// Marks property as a conditional visible property. When this attribute is declared
@@ -51,7 +51,7 @@ namespace Core.Common.Utils.Attributes
             var propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(CoreCommonUtilsResources.Could_not_find_property_0_on_type_1_, propertyName,
+                throw new MissingMemberException(string.Format(CoreCommonGuiResources.Could_not_find_property_0_on_type_1_, propertyName,
                                                                obj.GetType()));
             }
 

@@ -1,6 +1,6 @@
-﻿using Core.Common.Utils.Attributes;
+﻿using Core.Common.Gui.Attributes;
 
-namespace Core.Common.Utils.Test.Attributes.TestCaseClasses
+namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
 {
     internal class ClassWithPropertyWithoutDynamicVisibleAttribute
     {

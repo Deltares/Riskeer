@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
+
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;

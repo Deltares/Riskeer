@@ -85,13 +85,7 @@
   <ItemGroup>
     <Compile Include="Attributes\ResourcesDisplayNameAttributeTest.cs" />
     <Compile Include="Attributes\ResourcesDescriptionAttributeTest.cs" />
-    <Compile Include="Attributes\DynamicVisibleValidationMethodAttributeTest.cs" />
-    <Compile Include="Attributes\DynamicVisibleAttributeTest.cs" />
-    <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />
-    <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttributeTest.cs" />
     <Compile Include="Attributes\ResourcesCategoryAttributeTest.cs" />
-    <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
-    <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
     <Compile Include="Drawing\GraphicsExtensionsTest.cs" />
     <Compile Include="Drawing\ImageExtensionsTest.cs" />
     <Compile Include="Events\EventArgsTest.cs" />

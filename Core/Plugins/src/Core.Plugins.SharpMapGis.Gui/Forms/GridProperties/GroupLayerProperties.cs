@@ -1,4 +1,5 @@
 using Core.Common.Gui;
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.Layers;
 using Core.Plugins.SharpMapGis.Gui.Properties;

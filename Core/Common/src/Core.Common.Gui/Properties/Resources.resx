@@ -916,4 +916,37 @@
   <data name="RenameIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\textfield_rename.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Could_not_find_property_0_on_type_1_" xml:space="preserve">
+    <value>Kon eigenschap {0} van type {1} niet vinden.</value>
+  </data>
+  <data name="DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_" xml:space="preserve">
+    <value>DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicReadOnlyValidationMethod_must_have_string_argument_on_Class_0_" xml:space="preserve">
+    <value>Argument van DynamicReadOnlyValidationMethod moet van het type 'string' zijn. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicReadOnlyValidationMethod_must_return_bool_on_Class_0_" xml:space="preserve">
+    <value>DynamicReadOnlyValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicReadOnlyValidationMethod_not_found_or_not_public_on_Class_0_" xml:space="preserve">
+    <value>DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.</value>
+  </data>
+  <data name="DynamicReadOnlyValidationMethod_only_one_allowed_per_Class_0_" xml:space="preserve">
+    <value>Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {0}.</value>
+  </data>
+  <data name="DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_" xml:space="preserve">
+    <value>DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicVisibleValidationMethod_must_have_string_argument_on_Class_0_" xml:space="preserve">
+    <value>Argument van DynamicVisibleValidationMethod moet van het type 'string' zijn. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicVisibleValidationMethod_must_return_bool_on_Class_0_" xml:space="preserve">
+    <value>DynamicVisibleValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicVisibleValidationMethod_not_found_or_not_public_on_Class_0_" xml:space="preserve">
+    <value>DynamicVisibleValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.</value>
+  </data>
+  <data name="DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_" xml:space="preserve">
+    <value>Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.</value>
+  </data>
 </root>

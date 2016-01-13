@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Drawing.Drawing2D;
 using Core.Common.Gui;
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.Rendering.Thematics;

@@ -1,5 +1,6 @@
 using System.ComponentModel;
 
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Core.GIS.SharpMap.Styles;
 

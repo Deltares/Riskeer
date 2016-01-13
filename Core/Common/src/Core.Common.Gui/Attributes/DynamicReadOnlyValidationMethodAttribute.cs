@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resource;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Core.Common.Utils.Attributes
+namespace Core.Common.Gui.Attributes
 {
     /// <summary>
     /// Marks a method to be used to determine if a property value can be set or not. The
@@ -45,7 +45,7 @@ namespace Core.Common.Utils.Attributes
         {
             if (methodInfo.ReturnType != typeof(bool))
             {
-                var message = String.Format(CoreCommonUtilsResources.DynamicReadOnlyValidationMethod_must_return_bool_on_Class_0_,
+                var message = String.Format(CoreCommonGuiResources.DynamicReadOnlyValidationMethod_must_return_bool_on_Class_0_,
                                             methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
@@ -53,14 +53,14 @@ namespace Core.Common.Utils.Attributes
             ParameterInfo[] parameterInfos = methodInfo.GetParameters();
             if (parameterInfos.Length != 1)
             {
-                var message = String.Format(CoreCommonUtilsResources.DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_,
+                var message = String.Format(CoreCommonGuiResources.DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_,
                                             methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
 
             if (parameterInfos[0].ParameterType != typeof(string))
             {
-                var message = String.Format(CoreCommonUtilsResources.DynamicReadOnlyValidationMethod_must_have_string_argument_on_Class_0_,
+                var message = String.Format(CoreCommonGuiResources.DynamicReadOnlyValidationMethod_must_have_string_argument_on_Class_0_,
                                             methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
@@ -74,14 +74,14 @@ namespace Core.Common.Utils.Attributes
 
             if (validationMethods.Length == 0)
             {
-                var message = String.Format(CoreCommonUtilsResources.DynamicReadOnlyValidationMethod_not_found_or_not_public_on_Class_0_,
+                var message = String.Format(CoreCommonGuiResources.DynamicReadOnlyValidationMethod_not_found_or_not_public_on_Class_0_,
                                             obj.GetType());
                 throw new MissingMethodException(message);
             }
 
             if (validationMethods.Length > 1)
             {
-                var message = String.Format(CoreCommonUtilsResources.DynamicReadOnlyValidationMethod_only_one_allowed_per_Class_0_,
+                var message = String.Format(CoreCommonGuiResources.DynamicReadOnlyValidationMethod_only_one_allowed_per_Class_0_,
                                             obj.GetType());
                 throw new MissingMethodException(message);
             }

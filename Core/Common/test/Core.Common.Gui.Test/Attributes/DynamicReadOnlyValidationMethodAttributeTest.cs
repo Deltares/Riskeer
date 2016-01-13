@@ -1,11 +1,11 @@
 ﻿using System;
 
-using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Test.Attributes.TestCaseClasses;
+using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Test.Attributes.TestCaseClasses;
 
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test.Attributes
+namespace Core.Common.Gui.Test.Attributes
 {
     [TestFixture]
     public class DynamicReadOnlyValidationMethodAttributeTest
