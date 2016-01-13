@@ -50,16 +50,11 @@ namespace Core.Common.TestUtil.Test
         [Test]        
         public void Action_ThrowsException_StackTraceCorrectly()
         {
-            try
-            {
-                WindowsFormsTestHelper.Show(new Label(), MethodWithException);
-            }
-            catch (Exception e)
-            {
-                Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
-                Assert.AreEqual("my message", e.Message);
-                Assert.IsTrue(e.StackTrace.Contains("MethodWithException"));
-            }
+            TestDelegate testDelegate = () => WindowsFormsTestHelper.Show(new Label(), MethodWithException);
+            
+            var exception = Assert.Throws<InvalidOperationException>(testDelegate);
+            Assert.AreEqual("my message", exception.Message);
+            Assert.IsTrue(exception.StackTrace.Contains("MethodWithException"));
 
             WindowsFormsTestHelper.CloseAll();
         }
@@ -69,21 +64,17 @@ namespace Core.Common.TestUtil.Test
         {
             var thread = new Thread(MethodWithExceptionInSeparateThread);
 
-            try
-            {
-                WindowsFormsTestHelper.Show(new Label(),
-                                            delegate
-                                            {
-                                                thread.Start();
-                                                thread.Join();
-                                            });
-            }
-            catch (Exception e)
-            {
-                Assert.AreEqual(typeof(GuiTestHelper.UnhandledException), e.GetType());
-                Assert.IsTrue(e.Message.Contains("my message from thread"));
-                Assert.IsTrue(e.StackTrace.Contains("MethodWithExceptionInSeparateThread"));
-            }
+            TestDelegate testDelegate = () => WindowsFormsTestHelper.Show(new Label(),
+                                                                          delegate
+                                                                          {
+                                                                              thread.Start();
+                                                                              thread.Join();
+                                                                          });
+            
+            var exception = Assert.Throws<GuiTestHelper.UnhandledException>(testDelegate);
+
+            Assert.IsTrue(exception.Message.Contains("my message from thread"));
+            Assert.IsTrue(exception.StackTrace.Contains("MethodWithExceptionInSeparateThread"));
 
             WindowsFormsTestHelper.CloseAll();
         }
@@ -129,7 +120,7 @@ namespace Core.Common.TestUtil.Test
 
         private void MethodWithExceptionInSeparateThread()
         {
-            throw new InvalidOperationException("my message from thread");   
+            throw new InvalidOperationException("my message from thread");
         }
     }
 }

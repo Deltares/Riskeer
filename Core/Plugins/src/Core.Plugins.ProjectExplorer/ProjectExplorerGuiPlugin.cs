@@ -91,8 +91,11 @@ namespace Core.Plugins.ProjectExplorer
 
         public override void Dispose()
         {
-            ProjectExplorer.Dispose();
-            ProjectExplorer = null;
+            if (ProjectExplorer != null)
+            {
+                ProjectExplorer.Dispose();
+                ProjectExplorer = null;
+            }
 
             foreach (var projectTreeViewNodePresenter in projectTreeViewNodePresenters)
             {

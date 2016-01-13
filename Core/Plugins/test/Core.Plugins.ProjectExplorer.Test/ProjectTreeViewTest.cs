@@ -1,6 +1,5 @@
 using System.Configuration;
 using System.Linq;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
@@ -36,9 +35,10 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Gui = gui
             };
 
-            var projectTreeView = new ProjectTreeView(pluginGui);
-
-            Assert.IsNotNull(projectTreeView);
+            using (var projectTreeView = new ProjectTreeView(pluginGui))
+            {
+                Assert.IsNotNull(projectTreeView);
+            }
 
             mocks.VerifyAll();
         }
@@ -77,19 +77,17 @@ namespace Core.Plugins.ProjectExplorer.Test
             gui.CommandHandler = commandHandler;
             mocks.ReplayAll();
 
-            var guiPlugin = new ProjectExplorerGuiPlugin
+            using(var guiPlugin = new ProjectExplorerGuiPlugin { Gui = gui })
+            using (var projectTree = new ProjectTreeView(guiPlugin))
             {
-                Gui = gui
-            };
+                projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, commandHandler));
+                projectTree.TreeView.RegisterNodePresenter(integerNodePresenter);
+                projectTree.Project = project;
 
-            var projectTree = new ProjectTreeView(guiPlugin);
-            projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, commandHandler));
-            projectTree.TreeView.RegisterNodePresenter(integerNodePresenter);
-            projectTree.Project = project;
-
-            // Call
-            projectTree.TreeView.SelectedNode = projectTree.TreeView.Nodes[0].Nodes.First();
-            projectTree.TreeView.TryDeleteSelectedNodeData();
+                // Call
+                projectTree.TreeView.SelectedNode = projectTree.TreeView.Nodes[0].Nodes.First();
+                projectTree.TreeView.TryDeleteSelectedNodeData();
+            }
 
             // Assert
             mocks.VerifyAll();
