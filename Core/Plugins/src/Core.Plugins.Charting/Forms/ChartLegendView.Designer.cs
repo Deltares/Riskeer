@@ -109,7 +109,6 @@ namespace Core.Plugins.Charting.Forms
             this.treeView.HideSelection = false;
             this.treeView.LabelEdit = true;
             this.treeView.Name = "treeView";
-            this.treeView.SelectNodeOnRightMouseClick = true;
             // 
             // ChartLegendView
             // 

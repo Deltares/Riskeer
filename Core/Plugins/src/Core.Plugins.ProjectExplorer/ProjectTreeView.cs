@@ -166,22 +166,19 @@ namespace Core.Plugins.ProjectExplorer
                 return false;
             }
 
-            var control = (keyData & Keys.Control) == Keys.Control;
-            var alt = (keyData & Keys.Alt) == Keys.Alt;
-
             if (keyData == Keys.Enter)
             {
                 gui.CommandHandler.OpenViewForSelection();
 
                 return true;
             }
+
             if (keyData == Keys.Delete)
             {
                 treeView.TryDeleteSelectedNodeData();
 
                 return true;
             }
-            if (control) {}
 
             if (keyData == Keys.Escape)
             {

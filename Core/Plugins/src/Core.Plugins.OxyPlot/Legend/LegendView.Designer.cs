@@ -43,7 +43,6 @@ namespace Core.Plugins.OxyPlot.Legend
             this.seriesTree.HideSelection = false;
             this.seriesTree.LabelEdit = true;
             this.seriesTree.Name = "seriesTree";
-            this.seriesTree.SelectNodeOnRightMouseClick = true;
             // 
             // LegendView
             // 

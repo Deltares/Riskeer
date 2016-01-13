@@ -70,8 +70,6 @@ namespace Core.Common.Controls.TreeView
             MouseDown += TreeViewMouseDown;
             MouseClick += TreeViewClick;
 
-            SelectNodeOnRightMouseClick = true; // default behaviour
-
             // http://dev.nomad-net.info/articles/double-buffered-tree-and-list-views
             // Enable default double buffering processing
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
@@ -87,8 +85,6 @@ namespace Core.Common.Controls.TreeView
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<Keys, bool> OnProcessCmdKey { get; set; }
-
-        public bool SelectNodeOnRightMouseClick { get; set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -115,18 +111,10 @@ namespace Core.Common.Controls.TreeView
         {
             get
             {
-                if (IsDisposed || controller == null)
-                {
-                    return null;
-                }
                 return controller.Data;
             }
             set
             {
-                if (IsDisposed || controller == null)
-                {
-                    return;
-                }
                 controller.Data = value;
             }
         }
@@ -255,11 +243,8 @@ namespace Core.Common.Controls.TreeView
 
         public void UpdateNode(TreeNode treeNode)
         {
-            if (controller != null)
-            {
-                controller.UpdateNode(treeNode, treeNode.Tag);
-                FireOnUpdateEvent(treeNode);
-            }
+            controller.UpdateNode(treeNode, treeNode.Tag);
+            FireOnUpdateEvent(treeNode);
         }
 
         /// <summary>
@@ -276,10 +261,7 @@ namespace Core.Common.Controls.TreeView
 
         public void RefreshChildNodes(TreeNode treeNode)
         {
-            if (controller != null)
-            {
-                controller.RefreshChildNodes(treeNode);
-            }
+            controller.RefreshChildNodes(treeNode);
         }
 
         public void TryDeleteNodeData(TreeNode treeNode)
@@ -318,7 +300,7 @@ namespace Core.Common.Controls.TreeView
 
         public override void Refresh()
         {
-            if (Nodes.Count == 0 || controller == null)
+            if (Nodes.Count == 0)
             {
                 return;
             }
@@ -415,19 +397,6 @@ namespace Core.Common.Controls.TreeView
             var selected = (e.State & TreeNodeStates.Selected) == TreeNodeStates.Selected;
 
             ((TreeNode) e.Node).DrawNode(e.Graphics, selected);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && controller != null)
-            {
-                controller = null;
-            }
-
-            if (IsHandleCreated)
-            {
-                base.Dispose(disposing);
-            }
         }
 
         protected override void OnAfterLabelEdit(NodeLabelEditEventArgs e)
@@ -719,11 +688,6 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && !SelectNodeOnRightMouseClick)
-            {
-                return;
-            }
-
             var point = PointToClient(MousePosition);
             var node = (TreeNode) GetNodeAt(point);
             if (node == null)

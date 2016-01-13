@@ -229,7 +229,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.TreeView.HideSelection = false;
             this.TreeView.LabelEdit = true;
             this.TreeView.Name = "TreeView";
-            this.TreeView.SelectNodeOnRightMouseClick = true;
             // 
             // contextMenuMap
             // 
