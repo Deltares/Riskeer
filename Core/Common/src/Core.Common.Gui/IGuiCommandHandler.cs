@@ -16,40 +16,40 @@ namespace Core.Common.Gui
         bool SaveProject();
 
         /// <summary>
-        /// Tries to create a new project.
+        /// Creates a new project.
         /// </summary>
         /// <remarks>
         /// The creation action might be cancelled (due to user interaction).
         /// </remarks>
-        void TryCreateNewProject();
+        void CreateNewProject();
 
         /// <summary>
-        /// Tries to open an existing project.
+        /// Opens an existing project.
         /// </summary>
         /// <remarks>
         /// The opening action might be cancelled (due to user interaction).
         /// </remarks>
         /// <returns>Whether or not an existing project was correctly opened.</returns>
-        bool TryOpenExistingProject();
+        bool OpenExistingProject();
 
         /// <summary>
-        /// Tries to open an existing project from file.
+        /// Opens an existing project from file.
         /// </summary>
         /// <param name="filePath">The path to the existing project file.</param>
         /// <remarks>
         /// The opening action might be cancelled (due to user interaction).
         /// </remarks>
         /// <returns>Whether or not an existing project was correctly opened.</returns>
-        bool TryOpenExistingProject(string filePath);
+        bool OpenExistingProject(string filePath);
 
         /// <summary>
-        /// Tries to close a project.
+        /// Closes a project.
         /// </summary>
         /// <remarks>
         /// The closing action might be cancelled (due to user interaction).
         /// </remarks>
         /// <returns>Whether or not the project was correctly closed.</returns>
-        bool TryCloseProject();
+        bool CloseProject();
 
         /// <summary>
         /// Presents the user with a dialog to choose an editor for the selected dataitem

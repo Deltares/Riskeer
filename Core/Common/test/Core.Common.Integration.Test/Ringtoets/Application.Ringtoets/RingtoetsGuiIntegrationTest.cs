@@ -26,7 +26,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 gui.MainWindow = new MainWindow(gui);
                 gui.Run();
-                gui.CommandHandler.TryCloseProject(); //should not trigger exception
+                gui.CommandHandler.CloseProject(); //should not trigger exception
             }
         }
 

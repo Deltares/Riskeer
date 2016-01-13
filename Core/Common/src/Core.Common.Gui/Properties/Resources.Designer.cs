@@ -1193,15 +1193,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project is gesloten..
-        /// </summary>
-        public static string GuiCommandHandler_CloseProject_Project_closed {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_CloseProject_Project_closed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan niet importeren naar {0}..
         /// </summary>
         public static string GuiCommandHandler_ImportOn_Unable_to_import_on_0_ {
@@ -1226,15 +1217,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_di" +
                         "rectory_instead", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sluiten van huidig project..
-        /// </summary>
-        public static string GuiCommandHandler_TryCloseProject_Closing_current_project {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_TryCloseProject_Closing_current_project", resourceCulture);
             }
         }
         
@@ -1610,15 +1592,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw project succesvol geopend..
-        /// </summary>
-        public static string New_project_successfully_opened {
-            get {
-                return ResourceManager.GetString("New_project_successfully_opened", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap newspaper {
@@ -1691,51 +1664,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("OpenIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project..
-        /// </summary>
-        public static string Opening_existing_project {
-            get {
-                return ResourceManager.GetString("Opening_existing_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project geannuleerd..
-        /// </summary>
-        public static string Opening_existing_project_cancelled {
-            get {
-                return ResourceManager.GetString("Opening_existing_project_cancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoets project te laden..
-        /// </summary>
-        public static string Opening_existing_project_failed {
-            get {
-                return ResourceManager.GetString("Opening_existing_project_failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project..
-        /// </summary>
-        public static string Opening_new_project {
-            get {
-                return ResourceManager.GetString("Opening_new_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project geannuleerd..
-        /// </summary>
-        public static string Opening_new_project_cancelled {
-            get {
-                return ResourceManager.GetString("Opening_new_project_cancelled", resourceCulture);
             }
         }
         
@@ -1873,6 +1801,69 @@ namespace Core.Common.Gui.Properties {
         public static string ProgressDialog_SetButtonState_Cancelling {
             get {
                 return ResourceManager.GetString("ProgressDialog_SetButtonState_Cancelling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project..
+        /// </summary>
+        public static string Project_existing_opening_project {
+            get {
+                return ResourceManager.GetString("Project_existing_opening_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project geannuleerd..
+        /// </summary>
+        public static string Project_existing_project_opening_cancelled {
+            get {
+                return ResourceManager.GetString("Project_existing_project_opening_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoets project te laden..
+        /// </summary>
+        public static string Project_existing_project_opening_failed {
+            get {
+                return ResourceManager.GetString("Project_existing_project_opening_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestaand Ringtoets project succesvol geopend..
+        /// </summary>
+        public static string Project_existing_successfully_opened {
+            get {
+                return ResourceManager.GetString("Project_existing_successfully_opened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project..
+        /// </summary>
+        public static string Project_new_opening {
+            get {
+                return ResourceManager.GetString("Project_new_opening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project geannuleerd..
+        /// </summary>
+        public static string Project_new_opening_cancelled {
+            get {
+                return ResourceManager.GetString("Project_new_opening_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw Ringtoets project succesvol geopend..
+        /// </summary>
+        public static string Project_new_successfully_opened {
+            get {
+                return ResourceManager.GetString("Project_new_successfully_opened", resourceCulture);
             }
         }
         

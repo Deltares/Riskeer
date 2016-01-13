@@ -142,7 +142,7 @@
   <data name="RelationshipsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RelationshipsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Opening_new_project_cancelled" xml:space="preserve">
+  <data name="Project_new_opening_cancelled" xml:space="preserve">
     <value>Openen van nieuw Ringtoets project geannuleerd.</value>
   </data>
   <data name="information_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -304,7 +304,7 @@
   <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Opening_existing_project_cancelled" xml:space="preserve">
+  <data name="Project_existing_project_opening_cancelled" xml:space="preserve">
     <value>Openen van bestaand Ringtoets project geannuleerd.</value>
   </data>
   <data name="graphhs" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -409,8 +409,8 @@
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Berichten</value>
   </data>
-  <data name="New_project_successfully_opened" xml:space="preserve">
-    <value>Nieuw project succesvol geopend.</value>
+  <data name="Project_new_successfully_opened" xml:space="preserve">
+    <value>Nieuw Ringtoets project succesvol geopend.</value>
   </data>
   <data name="brick1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -544,7 +544,7 @@
   <data name="RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars" xml:space="preserve">
     <value>Menu's en werkbalken instellen...</value>
   </data>
-  <data name="Opening_new_project" xml:space="preserve">
+  <data name="Project_new_opening" xml:space="preserve">
     <value>Openen van nieuw Ringtoets project.</value>
   </data>
   <data name="chart_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -625,7 +625,7 @@
   <data name="Ribbon_Properties" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
-  <data name="Opening_existing_project" xml:space="preserve">
+  <data name="Project_existing_opening_project" xml:space="preserve">
     <value>Openen van bestaand Ringtoets project.</value>
   </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -636,9 +636,6 @@
   </data>
   <data name="folder_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_output.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GuiCommandHandler_CloseProject_Project_closed" xml:space="preserve">
-    <value>Project is gesloten.</value>
   </data>
   <data name="Ribbon_Recent" xml:space="preserve">
     <value>Recent</value>
@@ -744,9 +741,6 @@
   </data>
   <data name="SplashScreen_Version" xml:space="preserve">
     <value>Versie</value>
-  </data>
-  <data name="GuiCommandHandler_TryCloseProject_Closing_current_project" xml:space="preserve">
-    <value>Sluiten van huidig project.</value>
   </data>
   <data name="RingtoetsGui_UpdateTitle_Unknown" xml:space="preserve">
     <value>Onbekend</value>
@@ -949,7 +943,10 @@
   <data name="DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_" xml:space="preserve">
     <value>Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.</value>
   </data>
-  <data name="Opening_existing_project_failed" xml:space="preserve">
+  <data name="Project_existing_project_opening_failed" xml:space="preserve">
     <value>Het is niet gelukt om het Ringtoets project te laden.</value>
+  </data>
+  <data name="Project_existing_successfully_opened" xml:space="preserve">
+    <value>Bestaand Ringtoets project succesvol geopend.</value>
   </data>
 </root>

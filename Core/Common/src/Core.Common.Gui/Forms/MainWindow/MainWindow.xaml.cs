@@ -529,7 +529,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 try
                 {
-                    Gui.CommandHandler.TryOpenExistingProject(path);
+                    Gui.CommandHandler.OpenExistingProject(path);
                     RecentProjectsTabControl.Items.Remove(newItem);
                     RecentProjectsTabControl.Items.Insert(1, newItem);
                 }
@@ -653,7 +653,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            var succesful = Gui.CommandHandler.TryOpenExistingProject();
+            var succesful = Gui.CommandHandler.OpenExistingProject();
             OnAfterProjectSaveOrOpen(succesful);
         }
 
@@ -662,14 +662,14 @@ namespace Core.Common.Gui.Forms.MainWindow
             //TODO: Implement
 
             // Original code:
-            //Gui.CommandHandler.TryCloseProject();
+            //Gui.CommandHandler.CloseProject();
             //ValidateItems();
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
             // Original code:
-            Gui.CommandHandler.TryCreateNewProject();
+            Gui.CommandHandler.CreateNewProject();
             ValidateItems();
         }
 

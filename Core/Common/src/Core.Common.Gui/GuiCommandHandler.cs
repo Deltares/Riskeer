@@ -42,17 +42,17 @@ namespace Core.Common.Gui
             guiExportHandler = CreateGuiExportHandler();
         }
 
-        public void TryCreateNewProject()
+        public void CreateNewProject()
         {
-            if (!TryCloseProject())
+            if (!CloseProject())
             {
-                Log.Warn(Resources.Opening_new_project_cancelled);
+                Log.Warn(Resources.Project_new_opening_cancelled);
                 return;
             }
 
-            Log.Info(Resources.Opening_new_project);
+            Log.Info(Resources.Project_new_opening);
             gui.Project = new Project();
-            Log.Info(Resources.New_project_successfully_opened);
+            Log.Info(Resources.Project_new_successfully_opened);
 
             RefreshGui();
         }
@@ -61,7 +61,7 @@ namespace Core.Common.Gui
         /// Opens a new <see cref="OpenFileDialog"/> where a file can be selected to open.
         /// </summary>
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
-        public bool TryOpenExistingProject()
+        public bool OpenExistingProject()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -72,9 +72,9 @@ namespace Core.Common.Gui
 
             if (openFileDialog.ShowDialog(gui.MainWindow) != DialogResult.Cancel)
             {
-                return TryOpenExistingProject(openFileDialog.FileName);
+                return OpenExistingProject(openFileDialog.FileName);
             }
-            Log.Warn(Resources.Opening_existing_project_cancelled);
+            Log.Warn(Resources.Project_existing_project_opening_cancelled);
             return false;
         }
 
@@ -83,43 +83,40 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
-        public bool TryOpenExistingProject(string filePath)
+        public bool OpenExistingProject(string filePath)
         {
-            Log.Info(Resources.Opening_existing_project);
-
+            Log.Info(Resources.Project_existing_opening_project);
             var storage = new StorageSqLite(filePath);
             if (!storage.TestConnection())
             {
-                Log.Warn(Resources.Opening_existing_project_failed);
-                return false;
-            }
-            var projectFromStorage = storage.LoadProject();
-            if (projectFromStorage == null)
-            {
-                Log.Warn(Resources.Opening_existing_project_failed);
+                Log.Warn(Resources.Project_existing_project_opening_failed);
                 return false;
             }
 
             // Project loaded successfully, close current project
-            if (!TryCloseProject())
+            if (!CloseProject())
             {
-                Log.Warn(Resources.Opening_existing_project_cancelled);
+                Log.Warn(Resources.Project_existing_project_opening_cancelled);
                 return false;
             }
+            
             gui.ProjectFilePath = filePath;
-            gui.Project = projectFromStorage;
+            gui.Project = storage.LoadProject();
+            if (gui.Project == null)
+            {
+                Log.Warn(Resources.Project_existing_project_opening_failed);
+                return false;
+            }
 
             RefreshGui();
-            Log.Info(Resources.Opening_existing_project);
+            Log.Info(Resources.Project_existing_successfully_opened);
             return true;
         }
 
-        public bool TryCloseProject()
+        public bool CloseProject()
         {
             if (gui.Project != null)
             {
-                Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project);
-
                 // DO NOT REMOVE CODE BELOW. If the views are not cleaned up here we access disposable stuff like in issue 4161.
                 // SO VIEWS SHOULD ALWAYS BE CLOSED!
                 // remove views before closing project. 
@@ -131,8 +128,6 @@ namespace Core.Common.Gui
                 gui.Project = null;
 
                 RefreshGui();
-
-                Log.Info(Resources.GuiCommandHandler_CloseProject_Project_closed);
             }
 
             return true;
