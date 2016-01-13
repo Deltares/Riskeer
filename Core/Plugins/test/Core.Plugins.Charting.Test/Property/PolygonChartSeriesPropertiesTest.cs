@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Controls.Charting.Series;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 using Core.Plugins.Charting.Property;
 using NUnit.Framework;
 using Rhino.Mocks;

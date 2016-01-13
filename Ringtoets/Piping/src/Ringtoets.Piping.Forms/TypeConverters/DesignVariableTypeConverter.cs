@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;

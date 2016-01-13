@@ -14,7 +14,7 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 
 namespace Core.Common.Gui
 {

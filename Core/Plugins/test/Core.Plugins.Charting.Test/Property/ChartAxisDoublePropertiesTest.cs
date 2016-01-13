@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Common.Controls.Charting;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 using Core.Plugins.Charting.Property;
 using NUnit.Framework;
 using Rhino.Mocks;

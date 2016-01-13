@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {

@@ -89,7 +89,6 @@
     <Compile Include="Attributes\DynamicVisibleAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttributeTest.cs" />
-    <Compile Include="Attributes\PropertyOrderAttributeTest.cs" />
     <Compile Include="Attributes\ResourcesCategoryAttributeTest.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
@@ -107,7 +106,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
     <Compile Include="Reflection\TypeConverterTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />

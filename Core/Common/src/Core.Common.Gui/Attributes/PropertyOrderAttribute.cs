@@ -1,11 +1,9 @@
 using System;
 
-using Core.Common.Utils.PropertyBag;
-
-namespace Core.Common.Utils.Attributes
+namespace Core.Common.Gui.Attributes
 {
     /// <summary>
-    /// Attribute that allows for controlling the order that properties appear in <see cref="DynamicPropertyBag"/>.
+    /// Attribute that allows for controlling the order that properties appear in <see cref="Core.Common.Gui.PropertyBag.DynamicPropertyBag"/>.
     /// Ordering should occur on ascending order. Not having this attribute defined means
     /// an order value of <see cref="int.MinValue"/>.
     /// </summary>

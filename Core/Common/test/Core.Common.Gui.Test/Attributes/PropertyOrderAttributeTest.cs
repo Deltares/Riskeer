@@ -1,10 +1,10 @@
 ﻿using System;
 
-using Core.Common.Utils.Attributes;
+using Core.Common.Gui.Attributes;
 
 using NUnit.Framework;
 
-namespace Core.Common.Utils.Test.Attributes
+namespace Core.Common.Gui.Test.Attributes
 {
     [TestFixture]
     public class PropertyOrderAttributeTest

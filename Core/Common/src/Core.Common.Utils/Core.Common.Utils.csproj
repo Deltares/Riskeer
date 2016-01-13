@@ -91,7 +91,6 @@
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="Attributes\DynamicVisibleAttribute.cs" />
     <Compile Include="Attributes\DynamicVisibleValidationMethodAttribute.cs" />
-    <Compile Include="Attributes\PropertyOrderAttribute.cs" />
     <Compile Include="Attributes\ResourceHelper.cs" />
     <Compile Include="Attributes\ResourcesCategoryAttribute.cs" />
     <Compile Include="Attributes\ResourcesDescriptionAttribute.cs" />
@@ -110,14 +109,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
-    <Compile Include="PropertyBag\PropertySpecCollection.cs" />
-    <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="MathUtils.cs" />
-    <Compile Include="PropertyBag\PropertySpec.cs" />
-    <Compile Include="PropertyBag\PropertySpecEventArgs.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />
@@ -176,9 +170,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PropertyBag\Dynamic\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

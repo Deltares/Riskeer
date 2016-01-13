@@ -2,7 +2,7 @@
 using System.Linq;
 
 using Core.Common.Base;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 

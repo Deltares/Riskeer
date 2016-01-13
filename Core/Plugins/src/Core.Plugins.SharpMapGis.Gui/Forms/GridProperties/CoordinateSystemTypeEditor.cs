@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;

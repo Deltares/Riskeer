@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 
 using Ringtoets.Piping.Forms.PropertyClasses;
 

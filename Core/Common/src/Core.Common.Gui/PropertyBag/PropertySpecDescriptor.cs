@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Core.Common.Utils.PropertyBag
+namespace Core.Common.Gui.PropertyBag
 {
     public class PropertySpecDescriptor : PropertyDescriptor
     {

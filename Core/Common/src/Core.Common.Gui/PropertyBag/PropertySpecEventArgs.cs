@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Common.Utils.PropertyBag
+namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
     /// Provides data for the GetValue and SetValue events of the PropertyBag class.

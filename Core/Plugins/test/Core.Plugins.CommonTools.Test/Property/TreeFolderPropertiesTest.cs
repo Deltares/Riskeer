@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Swf;
-using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 

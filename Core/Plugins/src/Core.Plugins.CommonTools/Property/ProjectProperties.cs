@@ -1,5 +1,6 @@
 using Core.Common.Base.Data;
 using Core.Common.Gui;
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Core.Plugins.CommonTools.Properties;
 

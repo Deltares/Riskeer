@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 
+using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 
-namespace Core.Common.Utils.PropertyBag
+namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
     /// Creates a custom type descriptor for an object using reflection as a property bag. Used for Property Grid.
@@ -101,31 +101,8 @@ namespace Core.Common.Utils.PropertyBag
 
             foreach (var propertyInfo in propertyObject.GetType().GetProperties().OrderBy(x => x.MetadataToken).ToArray())
             {
-                var propertySpec = GetProperySpecForProperty(propertyInfo);
-                Properties.Add(propertySpec);
+                Properties.Add(new PropertySpec(propertyInfo));
             }
-        }
-
-        private static PropertySpec GetProperySpecForProperty(PropertyInfo propertyInfo)
-        {
-            var propertySpec = new PropertySpec(propertyInfo.Name, propertyInfo.PropertyType);
-
-            var attributeList = new List<Attribute>();
-            foreach (object attrib in propertyInfo.GetCustomAttributes(true))
-            {
-                if (attrib is Attribute)
-                {
-                    attributeList.Add(attrib as Attribute);
-                }
-            }
-
-            if (propertyInfo.GetSetMethod() == null)
-            {
-                attributeList.Add(new ReadOnlyAttribute(true));
-            }
-            propertySpec.Attributes = attributeList.ToArray();
-
-            return propertySpec;
         }
 
         /// <summary>
@@ -133,7 +110,7 @@ namespace Core.Common.Utils.PropertyBag
         /// </summary>
         /// <param name="propertyInfo"></param>
         /// <returns></returns>
-        private bool IsNestedExpandablePropertiesObject(PropertyInfo propertyInfo)
+        private bool IsNestedExpandablePropertiesObject(System.Reflection.PropertyInfo propertyInfo)
         {
             try
             {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Core.Common.Utils.PropertyBag
+namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
     /// Encapsulates a collection of PropertySpec objects.

@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="Appenders\RunReportLogAppender.cs" />
+    <Compile Include="Attributes\PropertyOrderAttribute.cs" />
     <Compile Include="Forms\MainWindow\Interop\NativeWin32.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
       <SubType>Form</SubType>
@@ -124,6 +125,11 @@
     <Compile Include="Forms\RichTextFile.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
     <Compile Include="PngToIconConverter.cs" />
+    <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
+    <Compile Include="PropertyBag\PropertySpec.cs" />
+    <Compile Include="PropertyBag\PropertySpecCollection.cs" />
+    <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
+    <Compile Include="PropertyBag\PropertySpecEventArgs.cs" />
     <Compile Include="Theme\ColorTheme.cs" />
     <Compile Include="Theme\ColorThemeExtensions.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Common.Gui;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
-using Core.Common.Utils.PropertyBag;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 

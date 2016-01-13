@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Utils.PropertyBag;
+using Core.Common.Gui.PropertyBag;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
 
