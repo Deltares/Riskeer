@@ -47,39 +47,6 @@ namespace Core.Components.OxyPlot.Test.Data
             Assert.IsInstanceOf<IChartData>(data);
         }
 
-        [Test]
-        public void AddTo_NoModel_ThrowsArgumentNullException()
-        {
-            // Setup
-            var points = CreateTestPoints();
-            var testData = new LineData(points);
-
-            // Call
-            TestDelegate test = () => testData.AddTo(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void AddTo_Model_DataAddedToModelAsSeries()
-        {
-            // Setup
-            var points = CreateTestPoints();
-            var testData = new LineData(points);
-            var model = new PlotModel();
-
-            // Call
-            testData.AddTo(model);
-
-            // Assert
-            Assert.AreEqual(1, model.Series.Count);
-            Assert.IsInstanceOf<LineSeries>(model.Series.First());
-            
-            var series = (LineSeries)model.Series.First();
-            Assert.AreSame(points, series.ItemsSource);
-        }
-
         private Collection<Tuple<double, double>> CreateTestPoints()
         {
             return new Collection<Tuple<double, double>>

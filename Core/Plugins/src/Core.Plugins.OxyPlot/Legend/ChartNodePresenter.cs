@@ -18,7 +18,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
         public override IEnumerable GetChildNodeObjects(BaseChart parentNodeData)
         {
-            return parentNodeData.Model.Series;
+            return parentNodeData.Series;
         }
     }
 }

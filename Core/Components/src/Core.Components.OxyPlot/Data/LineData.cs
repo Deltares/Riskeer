@@ -8,8 +8,9 @@ namespace Core.Components.OxyPlot.Data
     /// <summary>
     /// This class represents data which is represented as a line on <see cref="BaseChart"/>.
     /// </summary>
-    public class LineData : LineSeries, IChartData
+    public class LineData : ISeries
     {
+        private LineSeries series = new LineSeries();
 
         /// <summary>
         /// Creates a new instance of <see cref="LineData"/>.
@@ -23,8 +24,8 @@ namespace Core.Components.OxyPlot.Data
             {
                 throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
             }
-            ItemsSource = points;
-            Mapping = TupleToDataPoint;
+            series.ItemsSource = points;
+            series.Mapping = TupleToDataPoint;
         }
 
         private DataPoint TupleToDataPoint(object obj)
@@ -33,18 +34,24 @@ namespace Core.Components.OxyPlot.Data
             return new DataPoint(point.Item1, point.Item2);
         }
 
-        /// <summary>
-        /// Adds the information in the <see cref="LineData"/> as a series of the <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="PlotModel"/> to add a series to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        public void AddTo(PlotModel model)
+        public Series Series
         {
-            if (model == null)
+            get
             {
-                throw new ArgumentNullException("model", "A model is required to add points to.");
+                return series;
             }
-            model.Series.Add(this);
+        }
+
+        public bool IsVisible
+        {
+            get
+            {
+                return series.IsVisible;
+            }
+            set
+            {
+                series.IsVisible = value;
+            }
         }
     }
 }

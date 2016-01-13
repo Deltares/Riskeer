@@ -91,9 +91,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
     }
 
     public class TestChartData : IChartData {
-        public void AddTo(PlotModel model)
-        {
-            throw new NotImplementedException();
-        }
+        public bool IsVisible { get; set; }
     }
 }

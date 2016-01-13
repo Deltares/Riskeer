@@ -9,8 +9,10 @@ namespace Core.Components.OxyPlot.Data
     /// <summary>
     /// This class represents data which is represented as an area on <see cref="BaseChart"/>.
     /// </summary>
-    public class AreaData : AreaSeries, IChartData
+    public class AreaData : ISeries
     {
+        private AreaSeries series = new AreaSeries();
+
         /// <summary>
         /// Creates a new instance of <see cref="AreaData"/>.
         /// </summary>
@@ -25,11 +27,11 @@ namespace Core.Components.OxyPlot.Data
             }
             foreach (var p in points)
             {
-                Points.Add(TupleToDataPoint(p));
+                series.Points.Add(TupleToDataPoint(p));
             }
             if (points.Count > 0)
             {
-                Points2.Add(TupleToDataPoint(points.First()));
+                series.Points2.Add(TupleToDataPoint(points.First()));
             }
         }
 
@@ -38,18 +40,24 @@ namespace Core.Components.OxyPlot.Data
             return new DataPoint(point.Item1, point.Item2);
         }
 
-        /// <summary>
-        /// Adds the information in the <see cref="AreaData"/> as a series of the <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="PlotModel"/> to add a series to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        public void AddTo(PlotModel model)
+        public Series Series
         {
-            if (model == null)
+            get
             {
-                throw new ArgumentNullException("model", "A model is required to add points to.");
+                return series;
             }
-            model.Series.Add(this);
+        }
+
+        public bool IsVisible
+        {
+            get
+            {
+                return series.IsVisible;
+            }
+            set
+            {
+                series.IsVisible = value;
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var result = nodePresenter.GetChildNodeObjects(chart);
 
             // Assert
-            CollectionAssert.AreEquivalent(chart.Model.Series, result);
+            CollectionAssert.AreEquivalent(chart.Series, result);
         } 
     }
 }

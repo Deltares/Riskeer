@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
@@ -92,7 +93,7 @@ namespace Core.Plugins.OxyPlot.Test
 
                 // Assert
                 Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(IChartData), views[0].DataType);
+                Assert.AreEqual(typeof(ICollection<IChartData>), views[0].DataType);
                 Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
                 Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
             }

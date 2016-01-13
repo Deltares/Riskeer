@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Components.OxyPlot.Data;
 using NUnit.Framework;
-using OxyPlot;
 using OxyPlot.Series;
-using OxyPlot.WindowsForms;
 using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Forms.Test
@@ -20,11 +19,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             var chart = new BaseChart();
 
             // Assert
-            Assert.IsInstanceOf<PlotView>(chart);
-            Assert.IsInstanceOf<PlotModel>(chart.Model);
-            Assert.IsNull(chart.Controller);
-            Assert.AreEqual(2, chart.Model.Axes.Count);
-
+            Assert.IsInstanceOf<Control>(chart);
             Assert.AreEqual(75, chart.MinimumSize.Height);
             Assert.AreEqual(50, chart.MinimumSize.Width);
         }
@@ -43,31 +38,12 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void AddData_WithIChartData_Added()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var chart = new BaseChart();
-            var dataMock = mocks.StrictMock<IChartData>();
-            dataMock.Expect(d => d.AddTo(chart.Model));
-
-            mocks.ReplayAll();
-
-            // Call
-            chart.AddData(dataMock);
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ClearData_Always_RemovesSeriesFromModel()
         {
             // Setup
             var mocks = new MockRepository();
             var chart = new BaseChart();
-            var dataMock = mocks.StrictMock<IChartData>();
-            dataMock.Expect(d => d.AddTo(chart.Model));
+            var dataMock = new TestChartData(mocks.Stub<Series>());
             mocks.ReplayAll();
 
             chart.AddData(dataMock);
@@ -76,73 +52,42 @@ namespace Core.Components.OxyPlot.Forms.Test
             chart.ClearData();
             
             // Assert
-            Assert.IsEmpty(chart.Model.Series);
+            Assert.IsEmpty(chart.Series);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenBaseChart_WhenPointDataAdded_ThenSeriesHasPointStyle()
+        public void AddData_Always_AddsToSeries()
         {
             // Given
+            var mocks = new MockRepository();
             var chart = new BaseChart();
-            var pointData = new PointData(new Collection<Tuple<double, double>>());
+            var dataMock = new TestChartData(mocks.Stub<Series>());
 
             // When
-            chart.AddData(pointData);
+            chart.AddData(dataMock);
 
             // Then
-            var pointSeries = (LineSeries)chart.Model.Series.First();
-            Assert.AreEqual(LineStyle.None, pointSeries.LineStyle);
-            Assert.AreEqual(MarkerType.Circle, pointSeries.MarkerType);
+            Assert.IsInstanceOf<TestChartData>(chart.Series.First());
+        }
+    }
+
+    public class TestChartData : ISeries {
+        private Series series;
+
+        public TestChartData(Series series)
+        {
+            this.series = series;
         }
 
-        [Test]
-        public void GivenBaseChart_WhenLineDataAdded_ThenSeriesIsLineSeries()
+        public bool IsVisible { get; set; }
+
+        public Series Series
         {
-            // Given
-            var chart = new BaseChart();
-            var pointData = new LineData(new Collection<Tuple<double, double>>());
-
-            // When
-            chart.AddData(pointData);
-
-            // Then
-            Assert.IsInstanceOf<LineSeries>(chart.Model.Series.First());
-        }
-
-        [Test]
-        public void GivenBaseChart_WhenAreaDataAdded_ThenSeriesIsAreaSeries()
-        {
-            // Given
-            var chart = new BaseChart();
-            var pointData = new AreaData(new Collection<Tuple<double, double>>());
-
-            // When
-            chart.AddData(pointData);
-
-            // Then
-            Assert.IsInstanceOf<AreaSeries>(chart.Model.Series.First());
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(11)]
-        public void GivenANumberOfChartData_WhenAddedToChart_AddsSameNumberOfSeriesToModel(int numberOfSeries)
-        {
-            // Given
-            var chart = new BaseChart();
-            var data = new CollectionData();
-            for (int i = 0; i < numberOfSeries; i++)
+            get
             {
-                data.Add(new LineData(new Collection<Tuple<double, double>>()));
+                return series;
             }
-
-            // When
-            chart.AddData(data);
-
-            // Assert
-            Assert.AreEqual(numberOfSeries, chart.Model.Series.Count);
         }
     }
 }

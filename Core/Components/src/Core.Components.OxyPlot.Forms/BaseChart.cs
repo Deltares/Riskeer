@@ -1,41 +1,49 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using Core.Components.OxyPlot.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
-using OxyPlot.Series;
 using OxyPlot.WindowsForms;
+using TickStyle = OxyPlot.Axes.TickStyle;
 
 namespace Core.Components.OxyPlot.Forms
 {
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class BaseChart : PlotView
+    public sealed class BaseChart : Control
     {
-        private LinearAxis xAxis;
-        private LinearAxis yAxis;
-        
+        private PlotView view;
+
+        public ICollection<IChartData> Series { get; private set; }
+
         /// <summary>
         /// Creates a new instance of <see cref="BaseChart"/>.
         /// </summary>
         public BaseChart()
         {
-            Model = new PlotModel();
-            InitializeAxes();
-
+            InitializePlotView();
+            Series = new List<IChartData>();
             MinimumSize = new System.Drawing.Size(50, 75);
         }
 
-        /// <summary>
-        /// Sets up default axes representations.
-        /// </summary>
-        private void InitializeAxes()
+        private void InitializePlotView()
         {
-            xAxis = CreateAxis(Resources.BaseChart_XAxisTitle, AxisPosition.Bottom);
-            yAxis = CreateAxis(Resources.BaseChart_YAxisTitle, AxisPosition.Left);
-            Model.Axes.Add(xAxis);
-            Model.Axes.Add(yAxis);
+            view = new PlotView
+            {
+                Dock = DockStyle.Fill,
+                Model = new PlotModel
+                {
+                    Axes =
+                    {
+                        CreateAxis(Resources.BaseChart_XAxisTitle, AxisPosition.Bottom),
+                        CreateAxis(Resources.BaseChart_YAxisTitle, AxisPosition.Left)
+                    }
+                }
+            };
+            Controls.Add(view);
         }
 
         /// <summary>
@@ -70,7 +78,8 @@ namespace Core.Components.OxyPlot.Forms
             {
                 throw new ArgumentNullException("data", "Cannot add null data to the chart.");
             }
-            data.AddTo(Model);
+            Series.Add(data);
+            UpdateTree();
         }
 
         /// <summary>
@@ -78,7 +87,17 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         public void ClearData()
         {
-            Model.Series.Clear();
+            Series.Clear();
+            UpdateTree();
+        }
+
+        private void UpdateTree()
+        {
+            view.Model.Series.Clear();
+            foreach (var data in Series)
+            {
+                view.Model.Series.Add(((ISeries)data).Series);
+            }
         }
 
         /// <summary>
@@ -88,11 +107,10 @@ namespace Core.Components.OxyPlot.Forms
         /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="series"/>.</param>
         public void SetVisibility(IChartData series, bool visibility)
         {
-            var chartData = series as Series;
-            if (chartData != null)
+            if (series != null)
             {
-                chartData.IsVisible = visibility;
-                Invalidate();
+                series.IsVisible = visibility;
+                view.Invalidate();
             }
             else
             {

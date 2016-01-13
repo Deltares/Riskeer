@@ -1,6 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using Core.Components.OxyPlot.Data;
 using Core.Components.OxyPlot.Forms;
+using UserControl = System.Windows.Forms.UserControl;
 
 namespace Core.Plugins.OxyPlot.Forms
 {
@@ -10,7 +13,7 @@ namespace Core.Plugins.OxyPlot.Forms
     public class ChartDataView : UserControl, IChartView
     {
         private readonly BaseChart baseChart;
-        private IChartData data;
+        private ICollection<IChartData> data;
 
         /// <summary>
         /// Creates an instance of <see cref="ChartDataView"/> with just a <see cref="BaseChart"/> on it.
@@ -33,10 +36,13 @@ namespace Core.Plugins.OxyPlot.Forms
             set
             {
                 baseChart.ClearData();
-                data = (IChartData) value;
+                data = (ICollection<IChartData>) value;
                 if (data != null)
                 {
-                    baseChart.AddData(data);
+                    foreach (var series in data)
+                    {
+                        baseChart.AddData(series);
+                    }
                 }
             }
         }

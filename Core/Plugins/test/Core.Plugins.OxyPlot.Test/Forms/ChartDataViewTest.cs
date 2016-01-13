@@ -38,26 +38,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             chartView.Data = null;
 
             // Assert
-            Assert.IsEmpty(chart.Model.Series);
-        }
-
-        [Test]
-        public void Data_SetToIChartData_ChartDataAdded()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var chartView = new ChartDataView();
-            var chart = (BaseChart)chartView.Controls[0];
-            var chartData = mocks.StrictMock<IChartData>();
-            chartData.Expect(d => d.AddTo(chart.Model));
-            mocks.ReplayAll();
-
-            // Call
-            chartView.Data = chartData;
-
-            // Assert
-            Assert.AreSame(chartData, chartView.Data);
-            mocks.VerifyAll();
+            Assert.IsEmpty(chart.Series);
         }
 
         [Test]

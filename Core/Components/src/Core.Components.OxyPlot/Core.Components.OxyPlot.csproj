@@ -49,7 +49,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Data\AreaData.cs" />
-    <Compile Include="Data\CollectionData.cs" />
+    <Compile Include="Data\ISeries.cs" />
     <Compile Include="Data\PointData.cs" />
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\IChartData.cs" />

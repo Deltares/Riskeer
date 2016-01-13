@@ -65,6 +65,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Plugins\test\Core.Plugins.OxyPlot.Test\Core.Plugins.OxyPlot.Test.csproj">
+      <Project>{45EF3071-5C30-40AA-8B99-CE174DCEEE48}</Project>
+      <Name>Core.Plugins.OxyPlot.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>
