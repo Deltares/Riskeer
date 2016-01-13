@@ -66,11 +66,7 @@ namespace Core.Common.Gui.PropertyBag
 
         public override void SetValue(object component, object value)
         {
-            // Have the property bag raise an event to set the current value
-            // of the property.
-
-            PropertySpecEventArgs e = new PropertySpecEventArgs(item, value);
-            bag.OnSetValue(e.Property.Name, e.Value);
+            item.SetValue(component, value);
         }
 
         public override bool ShouldSerializeValue(object component)

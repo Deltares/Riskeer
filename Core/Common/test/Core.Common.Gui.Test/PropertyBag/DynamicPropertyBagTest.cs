@@ -5,7 +5,6 @@ using System.Windows.Forms;
 
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils.Attributes;
 
 using NUnit.Framework;
 
@@ -175,7 +174,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             propertyGrid.SelectedObject = dynamicPropertyBag;
 
             var expected = "newName";
-            propertyGrid.SelectedGridItem.PropertyDescriptor.SetValue(null, expected);
+            propertyGrid.SelectedGridItem.PropertyDescriptor.SetValue(testProperties, expected);
 
             Assert.AreEqual(expected, testProperties.Name, "Name not correctly set");
         }

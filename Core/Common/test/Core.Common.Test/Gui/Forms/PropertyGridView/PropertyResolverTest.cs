@@ -59,7 +59,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<A>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<SimpleProperties<A>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -100,8 +100,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
             var objectProperties = resolver.GetObjectProperties(new C());
 
             // Assert
-            Assert.AreSame(typeof(SimpleProperties<C>),
-                           ((DynamicPropertyBag) objectProperties).GetContentType(), "we got A, expected C");
+            Assert.IsInstanceOf<SimpleProperties<C>>(((DynamicPropertyBag) objectProperties).WrappedObject, "we got A, expected C");
         }
 
         [Test]
@@ -120,7 +119,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<D>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<SimpleProperties<D>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -139,7 +138,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<SimpleProperties<C>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -164,7 +163,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<SimpleProperties<C>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -186,7 +185,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<SimpleProperties<B>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -208,7 +207,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(OtherSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<OtherSimpleProperties<B>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -227,7 +226,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<DerivedSimpleProperties<B>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -252,7 +251,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<DerivedSimpleProperties<B>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         [Test]
@@ -307,7 +306,7 @@ namespace Core.Common.Test.Gui.Forms.PropertyGridView
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(DerivedSimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
+            Assert.IsInstanceOf<DerivedSimpleProperties<C>>(((DynamicPropertyBag) objectProperties).WrappedObject);
         }
 
         # region Nested types

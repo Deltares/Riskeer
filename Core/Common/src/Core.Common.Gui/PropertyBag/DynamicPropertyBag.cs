@@ -5,17 +5,22 @@ using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.Gui.Attributes;
-using Core.Common.Utils.Attributes;
+using Core.Common.Gui.Forms.PropertyGridView;
 
 namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
-    /// Creates a custom type descriptor for an object using reflection as a property bag. Used for Property Grid.
-    /// Additionally it scans the object for any dynamic attributes and processes those, eg checks their condition
-    /// at runtime and if met, adds them as static attribute.
+    /// Defines a custom type descriptor for an object to be used as view-model for <see cref="PropertyGridView"/>.
+    /// It processes the special attributes defined in <c>Core.Common.Gui.Attributes</c>
+    /// to dynamically affect property order or adding/removing <see cref="Attributes"/>.
     /// </summary>
     public class DynamicPropertyBag : ICustomTypeDescriptor
     {
+        /// <summary>
+        /// Instantiates a new instance of <see cref="DynamicPropertyBag"/>, wrapping another
+        /// object an exposing properties for that object.
+        /// </summary>
+        /// <param name="propertyObject">The object to be wrapped.</param>
         public DynamicPropertyBag(object propertyObject)
         {
             Properties = new PropertySpecCollection();
@@ -23,16 +28,14 @@ namespace Core.Common.Gui.PropertyBag
         }
 
         /// <summary>
-        /// Gets the collection of properties contained within this PropertyBag.
+        /// Gets the collection of properties contained within this <see cref="DynamicPropertyBag"/>.
         /// </summary>
         public PropertySpecCollection Properties { get; private set; }
 
+        /// <summary>
+        /// Gets the object wrapped inside this <see cref="DynamicPropertyBag"/>
+        /// </summary>
         public object WrappedObject { get; private set; }
-
-        public Type GetContentType()
-        {
-            return WrappedObject.GetType();
-        }
 
         public override string ToString()
         {
@@ -85,16 +88,6 @@ namespace Core.Common.Gui.PropertyBag
             e.Value = isNestedPropertiesObject ? new DynamicPropertyBag(value) : value;
         }
 
-        /// <summary>
-        /// Raises the SetValue event.
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <param name="propertyValue"></param>
-        internal void OnSetValue(string propertyName, object propertyValue)
-        {
-            WrappedObject.GetType().GetProperty(propertyName).SetValue(WrappedObject, propertyValue, null);
-        }
-
         private void Initialize(object propertyObject)
         {
             WrappedObject = propertyObject;
@@ -105,11 +98,6 @@ namespace Core.Common.Gui.PropertyBag
             }
         }
 
-        /// <summary>
-        /// Determines if the property represents nested object properties, by checking for an ExpandableObjectConverter type converter.
-        /// </summary>
-        /// <param name="propertyInfo"></param>
-        /// <returns></returns>
         private bool IsNestedExpandablePropertiesObject(System.Reflection.PropertyInfo propertyInfo)
         {
             try
