@@ -49,7 +49,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(treeView, presenter.TreeView);
 
             mockRepository.ReplayAll();
-            Assert.AreEqual(presenter, treeView.GetTreeViewNodePresenter(new object(), null));
+            Assert.AreEqual(presenter, treeView.GetTreeViewNodePresenter(new object()));
             mockRepository.VerifyAll();
         }
 

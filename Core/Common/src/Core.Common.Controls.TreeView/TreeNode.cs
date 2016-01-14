@@ -121,38 +121,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public new TreeNode NextNode
-        {
-            get
-            {
-                return (TreeNode) base.NextNode;
-            }
-        }
-
-        public new TreeNode NextVisibleNode
-        {
-            get
-            {
-                return (TreeNode) base.NextVisibleNode;
-            }
-        }
-
-        public TreeNode PreviousNode
-        {
-            get
-            {
-                return (TreeNode) PrevNode;
-            }
-        }
-
-        public TreeNode PreviousVisibleNode
-        {
-            get
-            {
-                return (TreeNode) PrevVisibleNode;
-            }
-        }
-
         public new IList<TreeNode> Nodes
         {
             get

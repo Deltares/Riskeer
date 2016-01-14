@@ -194,7 +194,7 @@ namespace Core.Common.Controls.TreeView
             controller.RegisterNodePresenter(presenter);
         }
 
-        public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, TreeNode node)
+        public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData)
         {
             if (nodeData == null)
             {
@@ -270,7 +270,7 @@ namespace Core.Common.Controls.TreeView
 
         private void DeleteNodeData(TreeNode node)
         {
-            var presenter = GetTreeViewNodePresenter(node.Tag, node);
+            var presenter = GetTreeViewNodePresenter(node.Tag);
             presenter.RemoveNodeData(node.Parent.Tag, node.Tag);
 
             SelectedNode = SelectedNode ?? Nodes.FirstOrDefault();
@@ -392,7 +392,7 @@ namespace Core.Common.Controls.TreeView
                         return;
                     }
 
-                    var nodePresenter = GetTreeViewNodePresenter(treeNode.Tag, treeNode);
+                    var nodePresenter = GetTreeViewNodePresenter(treeNode.Tag);
                     if (nodePresenter == null)
                     {
                         return;
@@ -511,7 +511,7 @@ namespace Core.Common.Controls.TreeView
                 {
                     //hack: we manually handle this because ms doesnot fire selectednodechanged
                     // Select the previous node
-                    var treeNode = SelectedNode.PreviousVisibleNode;
+                    var treeNode = SelectedNode.PrevVisibleNode as TreeNode;
                     if (treeNode != null)
                     {
                         SelectedNode = treeNode;
@@ -522,7 +522,7 @@ namespace Core.Common.Controls.TreeView
                 {
                     //hack: we manually handle this because ms doesnot fire selectednodechanged
                     // Select the next node
-                    var treeNode = SelectedNode.NextVisibleNode;
+                    var treeNode = SelectedNode.NextVisibleNode as TreeNode;
                     if (treeNode != null)
                     {
                         SelectedNode = treeNode;
@@ -732,7 +732,7 @@ namespace Core.Common.Controls.TreeView
         {
             // gather allowed effects for the current item.
             var sourceNode = (TreeNode) e.Item;
-            ITreeNodePresenter presenter = GetTreeViewNodePresenter(sourceNode.Tag, sourceNode);
+            ITreeNodePresenter presenter = GetTreeViewNodePresenter(sourceNode.Tag);
 
             if (presenter == null)
             {
@@ -793,7 +793,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            ITreeNodePresenter presenter = GetTreeViewNodePresenter(nodeDropTarget.Tag, nodeDropTarget);
+            ITreeNodePresenter presenter = GetTreeViewNodePresenter(nodeDropTarget.Tag);
             DragOperations allowedOperations = presenter.CanDrop(nodeDragging.Tag, nodeDragging, nodeDropTarget, ToDragOperation(e.AllowedEffect));
             e.Effect = ToDragDropEffects(allowedOperations);
 
@@ -825,7 +825,7 @@ namespace Core.Common.Controls.TreeView
             {
                 if (nodeOver.Parent != null)
                 {
-                    ITreeNodePresenter parentNodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag, nodeOver.Parent);
+                    ITreeNodePresenter parentNodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag);
                     if (parentNodePresenter.CanInsert(nodeDragging.Tag, nodeDragging, nodeOver))
                     {
                         nodeDropTarget = nodeOver.Parent;
@@ -846,10 +846,10 @@ namespace Core.Common.Controls.TreeView
                     loc = PlaceholderLocation.Middle;
                 }
             }
-            else if ((nodeOver.Parent != null) && (offsetY > (nodeOver.Bounds.Height - (nodeOver.Bounds.Height/3))) &&
-                     nodeDragging.PreviousNode != nodeOver)
+            else if ((nodeOver.Parent != null) && (offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height / 3) &&
+                     nodeDragging.PrevNode != nodeOver)
             {
-                ITreeNodePresenter nodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag, nodeOver.Parent);
+                ITreeNodePresenter nodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag);
                 if (nodePresenter.CanInsert(nodeDragging.Tag, nodeDragging, nodeOver))
                 {
                     nodeDropTarget = nodeOver.Parent;
@@ -899,16 +899,18 @@ namespace Core.Common.Controls.TreeView
             int delta = treeView.Height - point.Y;
             if ((delta < treeView.Height/2) && (delta > 0))
             {
-                if (nodeOver.NextVisibleNode != null)
+                var nextVisibleNode = nodeOver.NextVisibleNode as TreeNode;
+                if (nextVisibleNode != null)
                 {
-                    nodeOver.NextVisibleNode.ScrollTo();
+                    nextVisibleNode.ScrollTo();
                 }
             }
             if ((delta > treeView.Height/2) && (delta < treeView.Height))
             {
-                if (nodeOver.PreviousVisibleNode != null)
+                var previousVisibleNode = nodeOver.PrevVisibleNode as TreeNode;
+                if (previousVisibleNode != null)
                 {
-                    nodeOver.PreviousVisibleNode.ScrollTo();
+                    previousVisibleNode.ScrollTo();
                 }
             }
         }
