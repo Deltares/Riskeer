@@ -19,17 +19,17 @@
         
         <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Demo_Header}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.General_Chart}" fluent:KeyTip.Keys="C">
-                <fluent:Button Name="OpenChartViewButton"  Header="{x:Static p:Resources.General_Chart}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click"/>
+                <fluent:Button Name="OpenChartViewButton"  Header="{x:Static p:Resources.General_Chart}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
         <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
-            <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="G">
-                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
+            <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="S">
+                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click" fluent:KeyTip.Keys="T"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
-        <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Chart}" Group="{Binding Source={x:Reference ChartingContextualGroup}}">
+        <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Chart}" Group="{Binding Source={x:Reference ChartingContextualGroup}}" fluent:KeyTip.Keys="G">
         </fluent:RibbonTabItem>
     </fluent:Ribbon>
 </UserControl>

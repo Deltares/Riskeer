@@ -11,7 +11,7 @@ namespace Core.Components.OxyPlot.Data
     /// </summary>
     public class AreaData : ISeries
     {
-        private AreaSeries series = new AreaSeries();
+        private readonly AreaSeries series = new AreaSeries();
 
         /// <summary>
         /// Creates a new instance of <see cref="AreaData"/>.

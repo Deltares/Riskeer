@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Core.Components.OxyPlot.Data;
 using NUnit.Framework;
-using OxyPlot;
-using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Test.Data
 {

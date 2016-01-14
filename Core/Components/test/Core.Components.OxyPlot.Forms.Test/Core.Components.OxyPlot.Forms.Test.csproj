@@ -42,13 +42,6 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="OxyPlot">
-      <HintPath>..\..\..\..\packages\OxyPlot.Core.1.0.0-unstable1953\lib\net40\OxyPlot.dll</HintPath>
-    </Reference>
-    <Reference Include="OxyPlot.WindowsForms">
-      <HintPath>..\..\..\..\packages\OxyPlot.WindowsForms.1.0.0-unstable1953\lib\net40\OxyPlot.WindowsForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
@@ -65,10 +58,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Plugins\test\Core.Plugins.OxyPlot.Test\Core.Plugins.OxyPlot.Test.csproj">
-      <Project>{45EF3071-5C30-40AA-8B99-CE174DCEEE48}</Project>
-      <Name>Core.Plugins.OxyPlot.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
       <Project>{dadaa0a5-288c-49cb-9f08-337f16832c86}</Project>
       <Name>Core.Components.OxyPlot.Forms</Name>

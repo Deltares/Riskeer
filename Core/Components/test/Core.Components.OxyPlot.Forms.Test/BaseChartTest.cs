@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.Data;
 using NUnit.Framework;
-using OxyPlot.Series;
 using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Forms.Test
@@ -43,7 +41,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             var mocks = new MockRepository();
             var chart = new BaseChart();
-            var dataMock = new TestChartData(mocks.Stub<Series>());
+            var dataMock = new PointData(new Collection<Tuple<double, double>>());
             mocks.ReplayAll();
 
             chart.AddData(dataMock);
@@ -59,35 +57,19 @@ namespace Core.Components.OxyPlot.Forms.Test
         [Test]
         public void AddData_Always_AddsToSeries()
         {
-            // Given
-            var mocks = new MockRepository();
+            // Setup
             var chart = new BaseChart();
-            var dataMock = new TestChartData(mocks.Stub<Series>());
+            var pointData = new PointData(new Collection<Tuple<double,double>>());
+            var lineData = new LineData(new Collection<Tuple<double,double>>());
+            var areaData = new AreaData(new Collection<Tuple<double,double>>());
 
-            // When
-            chart.AddData(dataMock);
+            // Call
+            chart.AddData(pointData);
+            chart.AddData(lineData);
+            chart.AddData(areaData);
 
-            // Then
-            Assert.IsInstanceOf<TestChartData>(chart.Series.First());
-        }
-    }
-
-    public class TestChartData : ISeries {
-        private Series series;
-
-        public TestChartData(Series series)
-        {
-            this.series = series;
-        }
-
-        public bool IsVisible { get; set; }
-
-        public Series Series
-        {
-            get
-            {
-                return series;
-            }
+            // Assert
+            CollectionAssert.AreEqual(new IChartData[] {pointData, lineData, areaData}, chart.Series);
         }
     }
 }

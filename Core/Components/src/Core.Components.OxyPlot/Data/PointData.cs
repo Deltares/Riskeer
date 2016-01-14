@@ -10,7 +10,7 @@ namespace Core.Components.OxyPlot.Data
     /// </summary>
     public class PointData : ISeries
     {
-        private LineSeries series = new LineSeries();
+        private readonly LineSeries series = new LineSeries();
 
         /// <summary>
         /// Creates a new instance of <see cref="PointData"/>.

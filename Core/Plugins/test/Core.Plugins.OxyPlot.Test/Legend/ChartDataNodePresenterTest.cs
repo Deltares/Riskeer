@@ -6,7 +6,6 @@ using Core.Components.OxyPlot.Data;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
-using OxyPlot;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
