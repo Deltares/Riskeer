@@ -141,6 +141,10 @@
       <Name>Core.Plugins.CommonTools</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
+      <Project>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</Project>
+      <Name>Core.Plugins.DotSpatial</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.OxyPlot\Core.Plugins.OxyPlot.csproj">
       <Project>{4163B996-3455-4324-A38A-9F2F0E6FCB52}</Project>
       <Name>Core.Plugins.OxyPlot</Name>
