@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using TickStyle = OxyPlot.Axes.TickStyle;
 
@@ -16,6 +18,8 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     public sealed class BaseChart : Control
     {
+        private readonly SeriesFactory seriesFactory = new SeriesFactory();
+        private readonly IDictionary<IChartData, Series> series = new Dictionary<IChartData, Series>(new ReferenceEqualityComparer());
         private PlotView view;
 
         /// <summary>
@@ -24,46 +28,58 @@ namespace Core.Components.OxyPlot.Forms
         public BaseChart()
         {
             InitializePlotView();
-            Series = new List<IChartData>();
+            Data = new List<IChartData>();
             MinimumSize = new Size(50, 75);
         }
 
-        public ICollection<IChartData> Series { get; private set; }
-
-        /// <summary>
-        /// Add <see cref="IChartData"/> to the <see cref="BaseChart"/>.
-        /// </summary>
-        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public void AddData(IChartData data)
+        public ICollection<IChartData> Data
         {
-            if (data == null)
+            get
             {
-                throw new ArgumentNullException("data", "Cannot add null data to the chart.");
+                return series.Keys;
             }
-            Series.Add(data);
+            set
+            {
+                SetData(value);
+            }
+        }
+
+        private void SetData(ICollection<IChartData> value)
+        {
+            series.Clear();
+
+            if (value != null)
+            {
+                foreach (var serie in value)
+                {
+                    AddSeries(serie);
+                }
+            }
+
             UpdateTree();
         }
 
         /// <summary>
-        /// Remove all the <see cref="IChartData"/> that has been added to the <see cref="BaseChart"/>.
+        /// Add <see cref="Core.Components.Charting.Data.IChartData"/> to the <see cref="BaseChart"/>.
         /// </summary>
-        public void ClearData()
+        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        private void AddSeries(IChartData data)
         {
-            Series.Clear();
-            UpdateTree();
+            series.Add(data, seriesFactory.Create(data));
         }
 
         /// <summary>
         /// Sets the visibility of a series in this <see cref="BaseChart"/>.
         /// </summary>
-        /// <param name="series">The <see cref="IChartData"/> to set the visibility for.</param>
-        /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="series"/>.</param>
-        public void SetVisibility(IChartData series, bool visibility)
+        /// <param name="serie">The <see cref="Core.Components.Charting.Data.IChartData"/> to set the visibility for.</param>
+        /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="serie"/>.</param>
+        public void SetVisibility(IChartData serie, bool visibility)
         {
-            if (series != null)
+            if (serie != null)
             {
-                series.IsVisible = visibility;
+                serie.IsVisible = visibility;
+                series[serie].IsVisible = visibility;
                 view.Invalidate();
             }
             else
@@ -115,11 +131,23 @@ namespace Core.Components.OxyPlot.Forms
 
         private void UpdateTree()
         {
-            view.Model.Series.Clear();
-            foreach (var data in Series)
+            foreach (var data in series.Values)
             {
-                view.Model.Series.Add(((ISeries) data).Series);
+                view.Model.Series.Add(data);
             }
+        }
+    }
+
+    internal class ReferenceEqualityComparer : IEqualityComparer<IChartData>
+    {
+        public bool Equals(IChartData x, IChartData y)
+        {
+            return ReferenceEquals(x, y);
+        }
+
+        public int GetHashCode(IChartData obj)
+        {
+            return RuntimeHelpers.GetHashCode(obj);
         }
     }
 }

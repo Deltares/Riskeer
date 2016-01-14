@@ -1,7 +1,6 @@
 ﻿using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
-using Core.Components.OxyPlot.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
@@ -50,7 +49,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var result = nodePresenter.GetChildNodeObjects(chart);
 
             // Assert
-            CollectionAssert.AreEquivalent(chart.Series, result);
+            CollectionAssert.AreEquivalent(chart.Data, result);
         } 
     }
 }

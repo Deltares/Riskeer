@@ -1,12 +1,12 @@
 using System;
 using Core.Common.Controls.TreeView;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Properties;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
     /// <summary>
-    /// This class describes the presentation of <see cref="IChartData"/> in a <see cref="TreeView"/>.
+    /// This class describes the presentation of <see cref="Core.Components.Charting.Data.IChartData"/> in a <see cref="TreeView"/>.
     /// </summary>
     public class ChartDataNodePresenter : TreeViewNodePresenterBase<IChartData>
     {

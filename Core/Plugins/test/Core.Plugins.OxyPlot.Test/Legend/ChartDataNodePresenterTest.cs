@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
@@ -91,5 +92,6 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
     public class TestChartData : IChartData {
         public bool IsVisible { get; set; }
+        public IEnumerable<Tuple<double, double>> Points { get; private set; }
     }
 }

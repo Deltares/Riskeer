@@ -46,10 +46,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\AreaDataTest.cs" />
-    <Compile Include="Data\PointDataTest.cs" />
-    <Compile Include="Data\LineDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeriesFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Windows.Forms;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using UserControl = System.Windows.Forms.UserControl;
 
@@ -35,15 +34,8 @@ namespace Core.Plugins.OxyPlot.Forms
             }
             set
             {
-                baseChart.ClearData();
                 data = (ICollection<IChartData>) value;
-                if (data != null)
-                {
-                    foreach (var series in data)
-                    {
-                        baseChart.AddData(series);
-                    }
-                }
+                baseChart.Data = data;
             }
         }
 

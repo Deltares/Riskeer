@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using NUnit.Framework;
 
-namespace Core.Components.OxyPlot.Test.Data
+namespace Core.Components.Charting.Test.Data
 {
     [TestFixture]
-    public class AreaDataTest
+    public class LineDataTest
     {
         [Test]
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new AreaData(null);
+            TestDelegate test = () => new LineData(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -25,7 +25,7 @@ namespace Core.Components.OxyPlot.Test.Data
             var points = new Collection<Tuple<double, double>>();
 
             // Call
-            var data = new AreaData(points);
+            var data = new LineData(points);
 
             // Assert
             Assert.IsInstanceOf<IChartData>(data);
@@ -38,7 +38,7 @@ namespace Core.Components.OxyPlot.Test.Data
             var points = CreateTestPoints();
 
             // Call
-            var data = new AreaData(points);
+            var data = new LineData(points);
 
             // Assert
             Assert.IsInstanceOf<IChartData>(data);
@@ -54,4 +54,4 @@ namespace Core.Components.OxyPlot.Test.Data
             };
         }
     }
-} 
+}

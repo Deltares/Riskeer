@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -23,20 +23,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void AddData_WithoutData_ThrowsArgumentNullException()
-        {
-            // Setup
-            var chart = new BaseChart();
-            
-            // Call
-            TestDelegate test = () => chart.AddData(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void ClearData_Always_RemovesSeriesFromModel()
+        public void Data_SetToNull_RemovesSeriesFromModel()
         {
             // Setup
             var mocks = new MockRepository();
@@ -44,13 +31,13 @@ namespace Core.Components.OxyPlot.Forms.Test
             var dataMock = new PointData(new Collection<Tuple<double, double>>());
             mocks.ReplayAll();
 
-            chart.AddData(dataMock);
+            chart.Data = new [] { dataMock };
 
             // Call
-            chart.ClearData();
+            chart.Data = null;
             
             // Assert
-            Assert.IsEmpty(chart.Series);
+            Assert.IsEmpty(chart.Data);
             mocks.VerifyAll();
         }
 
@@ -64,12 +51,9 @@ namespace Core.Components.OxyPlot.Forms.Test
             var areaData = new AreaData(new Collection<Tuple<double,double>>());
 
             // Call
-            chart.AddData(pointData);
-            chart.AddData(lineData);
-            chart.AddData(areaData);
-
+            chart.Data = new IChartData[] { pointData, lineData, areaData };
             // Assert
-            CollectionAssert.AreEqual(new IChartData[] {pointData, lineData, areaData}, chart.Series);
+            CollectionAssert.AreEqual(new IChartData[] {pointData, lineData, areaData}, chart.Data);
         }
     }
 }

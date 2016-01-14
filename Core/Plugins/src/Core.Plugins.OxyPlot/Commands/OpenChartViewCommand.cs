@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Core.Common.Gui;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Commands

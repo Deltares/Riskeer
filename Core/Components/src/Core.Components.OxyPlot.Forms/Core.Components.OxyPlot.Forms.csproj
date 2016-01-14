@@ -67,6 +67,10 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Charting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
       <Project>{2344a7bd-7e25-4a1a-982e-6c674af5167a}</Project>
       <Name>Core.Components.OxyPlot</Name>

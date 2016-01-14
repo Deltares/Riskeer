@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Core.Components.OxyPlot.Data;
+using Core.Components.Charting.Data;
 using NUnit.Framework;
 
-namespace Core.Components.OxyPlot.Test.Data
+namespace Core.Components.Charting.Test.Data
 {
     [TestFixture]
     public class PointDataTest
