@@ -9,15 +9,16 @@ namespace Core.Common.Controls.TreeView
 {
     public class TreeNode : System.Windows.Forms.TreeNode, IObserver
     {
-        private readonly TreeNodeList nodes;
-        private readonly TreeView treeView;
         private object tag;
         private IObservable observable;
+        private readonly TreeView treeView;
+        private readonly TreeNodeList nodes;
         private readonly int maximumTextLength = 259; // Having very big strings causes problems by tree-view
 
         public TreeNode(TreeView treeView)
         {
             this.treeView = treeView;
+
             nodes = new TreeNodeList(base.Nodes);
         }
 
@@ -209,18 +210,6 @@ namespace Core.Common.Controls.TreeView
             IsUpdating = true;
             TreeView.UpdateNode(this);
             IsUpdating = false;
-        }
-
-        public TreeNode GetParentOfLevel(int level)
-        {
-            TreeNode node = this;
-
-            for (var i = Level; i != level; i--)
-            {
-                node = node.Parent;
-            }
-
-            return node;
         }
 
         public void ScrollTo()

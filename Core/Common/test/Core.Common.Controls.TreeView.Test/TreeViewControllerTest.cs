@@ -23,8 +23,6 @@ namespace Core.Common.Controls.TreeView.Test
             var mocks = new MockRepository();
             var treeview = mocks.StrictMock<TreeView>();
 
-            Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null);
-
             mocks.ReplayAll();
 
             var controller = new TreeViewController(treeview);
@@ -44,8 +42,6 @@ namespace Core.Common.Controls.TreeView.Test
         {
             var mocks = new MockRepository();
             var treeview = mocks.StrictMock<TreeView>();
-
-            Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null);
 
             mocks.ReplayAll();
 
@@ -77,8 +73,6 @@ namespace Core.Common.Controls.TreeView.Test
             var mocks = new MockRepository();
             var treeview = mocks.StrictMock<TreeView>();
 
-            Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null);
-
             mocks.ReplayAll();
 
             var presenter = new TreeViewController(treeview);
@@ -105,9 +99,6 @@ namespace Core.Common.Controls.TreeView.Test
             treeNode.Presenter = nodePresenter;
 
             Expect.Call(() => nodePresenter.OnNodeChecked(treeNode));
-            //Expect.Call(nodePresenter.NodeTagType).Return(typeof(object));
-            //Expect.Call(nodePresenter.IsPresenterForNode(null)).IgnoreArguments().Return(true);
-            Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
 
             treeNode.Tag = new object();
             Expect.Call(treeNode.IsUpdating).Return(true);

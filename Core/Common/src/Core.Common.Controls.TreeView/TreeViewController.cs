@@ -21,7 +21,6 @@ namespace Core.Common.Controls.TreeView
 
         private bool updatingExpandedState; // prevents recursive entries
         private TreeNode expandedStateRootNode;
-        private string[] loadedNodePaths;
         private string[] expandedNodePaths;
 
         public TreeViewController(TreeView treeView)
@@ -85,19 +84,8 @@ namespace Core.Common.Controls.TreeView
         /// It is in the helper to allow heavy testing since this is complex logic.
         /// </summary>
         /// <param name="item">Object to search a node presenter for</param>
-        /// <param name="parentNode">Parent node of the node to resolve</param>
-        public ITreeNodePresenter ResolveNodePresenterForData(object item, TreeNode parentNode = null)
+        public ITreeNodePresenter ResolveNodePresenterForData(object item)
         {
-            if (parentNode == null)
-            {
-                var nodeByTag = treeView.GetNodeByTag(item);
-
-                if (nodeByTag != null)
-                {
-                    parentNode = nodeByTag.Parent;
-                }
-            }
-
             //try to find a match on the exact type
             if (item == null)
             {
@@ -113,7 +101,7 @@ namespace Core.Common.Controls.TreeView
             // resolve presenter for type
             if (presenter == null)
             {
-                presenter = GetNodePresenterForType(type, parentNode) ??
+                presenter = GetNodePresenterForType(type) ??
                             nodePresenters.FirstOrDefault(np => np.NodeTagType.IsInstanceOfType(item));
 
                 nodeTagTypePresenters[type] = presenter;
@@ -303,13 +291,13 @@ namespace Core.Common.Controls.TreeView
             treeView.Refresh(); // Ensure the treeview is always up to date after creating handle (data is set and might be changed before enabling the delayed event handlers)
         }
 
-        private IEnumerable<TreeNode> GetAllLoadedChildNodes(TreeNode node, string[] forceNodeLoad = null)
+        private IEnumerable<TreeNode> GetAllChildNodes(TreeNode node)
         {
             foreach (var childNode in node.Nodes)
             {
                 yield return childNode;
 
-                foreach (var childChildNode in GetAllLoadedChildNodes(childNode, forceNodeLoad))
+                foreach (var childChildNode in GetAllChildNodes(childNode))
                 {
                     yield return childChildNode;
                 }
@@ -326,9 +314,7 @@ namespace Core.Common.Controls.TreeView
             updatingExpandedState = true;
 
             // we need to remember all loaded nodes since after clear / build we have no idea anymore which nodes were loaded 
-            var allLoadedNodes = GetAllLoadedChildNodes(node).ToArray();
-            loadedNodePaths = allLoadedNodes.Select(n => n.FullPath).ToArray();
-            expandedNodePaths = GetAllLoadedChildNodes(node).Where(n => n.IsExpanded).Select(n => n.FullPath).ToArray();
+            expandedNodePaths = GetAllChildNodes(node).Where(n => n.IsExpanded).Select(n => n.FullPath).ToArray();
             expandedStateRootNode = node;
         }
 
@@ -339,7 +325,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            GetAllLoadedChildNodes(node, loadedNodePaths).Where(n => expandedNodePaths.Contains(n.FullPath)).ToArray().ForEachElementDo(n => n.Expand());
+            GetAllChildNodes(node).Where(n => expandedNodePaths.Contains(n.FullPath)).ToArray().ForEachElementDo(n => n.Expand());
             expandedStateRootNode = null;
             updatingExpandedState = false;
         }
@@ -389,14 +375,14 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private ITreeNodePresenter GetNodePresenterForType(Type type, TreeNode parentNode)
+        private ITreeNodePresenter GetNodePresenterForType(Type type)
         {
             var nodePresentersForType = nodePresenters.Where(p => p.NodeTagType == type).ToList();
 
             if (!nodePresentersForType.Any() && type.BaseType != null)
             {
                 // Walk up the class hierarchy... ignore interfaces
-                return GetNodePresenterForType(type.BaseType, parentNode);
+                return GetNodePresenterForType(type.BaseType);
             }
 
             // filter base node presenter types
@@ -414,7 +400,7 @@ namespace Core.Common.Controls.TreeView
 
             if (presenter == null)
             {
-                presenter = ResolveNodePresenterForData(nodeData, parentNode);
+                presenter = ResolveNodePresenterForData(nodeData);
                 node.Presenter = presenter;
             }
 

@@ -200,7 +200,7 @@ namespace Core.Common.Controls.TreeView
             {
                 throw new ArgumentNullException("nodeData", Resources.TreeView_Error_Unable_to_resolve_node_presenter_for_null_data);
             }
-            return controller.ResolveNodePresenterForData(nodeData, node == null ? null : node.Parent);
+            return controller.ResolveNodePresenterForData(nodeData);
         }
 
         /// <summary>
@@ -244,11 +244,6 @@ namespace Core.Common.Controls.TreeView
             {
                 OnUpdate(treeNode, EventArgs.Empty);
             }
-        }
-
-        public void RefreshChildNodes(TreeNode treeNode)
-        {
-            controller.RefreshChildNodes(treeNode);
         }
 
         public void TryDeleteNodeData(TreeNode treeNode)
