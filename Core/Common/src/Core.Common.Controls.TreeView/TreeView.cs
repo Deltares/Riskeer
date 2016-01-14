@@ -297,9 +297,6 @@ namespace Core.Common.Controls.TreeView
             {
                 var selectedNodePath = SelectedNode == null ? string.Empty : SelectedNode.FullPath;
 
-                // sometimes collection results in full refresh, as a result root node does not get expanded
-                bool rootNodeIsLoaded = Nodes[0].IsLoaded;
-
                 //don't use allNodes since update of childnodes is done by parent.
                 foreach (TreeNode node in Nodes)
                 {
@@ -318,7 +315,7 @@ namespace Core.Common.Controls.TreeView
                 }
 
                 // expand root node if children were added
-                if (!rootNodeIsLoaded && Nodes.Count > 0 && Nodes[0].Nodes.Count > 0)
+                if (Nodes.Count > 0 && Nodes[0].Nodes.Count > 0)
                 {
                     Nodes[0].Expand();
                 }
@@ -338,9 +335,7 @@ namespace Core.Common.Controls.TreeView
                 currentNode
             };
 
-            return (currentNode.IsLoaded)
-                       ? allChildNodes.Concat(currentNode.Nodes.SelectMany(GetAllLoadedNodes))
-                       : allChildNodes;
+            return allChildNodes.Concat(currentNode.Nodes.SelectMany(GetAllLoadedNodes));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -647,7 +642,7 @@ namespace Core.Common.Controls.TreeView
 
         private TreeNode GetLastNode(TreeNode treeNode)
         {
-            if (treeNode.IsLoaded && treeNode.Nodes.Count > 0)
+            if (treeNode.Nodes.Count > 0)
             {
                 return GetLastNode(treeNode.Nodes.Last());
             }
@@ -729,9 +724,7 @@ namespace Core.Common.Controls.TreeView
                 return rootNode;
             }
 
-            return rootNode.IsLoaded || !skipUnLoadedNodes
-                       ? rootNode.Nodes.Select(n => GetNodeByTag(n, tag, skipUnLoadedNodes)).FirstOrDefault(node => node != null)
-                       : null;
+            return rootNode.Nodes.Select(n => GetNodeByTag(n, tag, skipUnLoadedNodes)).FirstOrDefault(node => node != null);
         }
 
         /// <summary>

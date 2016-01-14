@@ -11,7 +11,6 @@ namespace Core.Common.Controls.TreeView
     {
         private readonly TreeNodeList nodes;
         private readonly TreeView treeView;
-        private bool isLoaded;
         private object tag;
         private IObservable observable;
         private readonly int maximumTextLength = 259; // Having very big strings causes problems by tree-view
@@ -157,20 +156,7 @@ namespace Core.Common.Controls.TreeView
         {
             get
             {
-                if (!isLoaded)
-                {
-                    RefreshChildNodes();
-                }
-
                 return nodes;
-            }
-        }
-
-        public bool IsLoaded
-        {
-            get
-            {
-                return isLoaded;
             }
         }
 
@@ -191,19 +177,6 @@ namespace Core.Common.Controls.TreeView
         public Image Image { get; set; }
 
         public bool IsUpdating { get; private set; }
-
-        private void RefreshChildNodes(bool forcedRefresh = false)
-        {
-            if (IsUpdating && !forcedRefresh)
-            {
-                return; //prevent 're-entrancy' issues
-            }
-
-            IsUpdating = true;
-            TreeView.RefreshChildNodes(this);
-            isLoaded = true;
-            IsUpdating = false;
-        }
 
         /// <summary>
         /// Check if the node is a descendent of another node
@@ -236,16 +209,6 @@ namespace Core.Common.Controls.TreeView
             IsUpdating = true;
             TreeView.UpdateNode(this);
             IsUpdating = false;
-        }
-
-        public new void Expand()
-        {
-            if (!isLoaded)
-            {
-                TreeView.RefreshChildNodes(this);
-            }
-
-            base.Expand();
         }
 
         public TreeNode GetParentOfLevel(int level)

@@ -166,7 +166,7 @@ namespace Core.Common.Controls.TreeView.Test
             LastCall.On(treeview).IgnoreArguments();
 
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
+            Expect.Call(nodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
             Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -204,110 +204,6 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
-        public void TestRegisterAndUnRegisterOnPropertyChangedOnSetData()
-        {
-            var mocks = new MockRepository();
-
-            var treeview = mocks.StrictMock<TreeView>();
-            var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-            var nodes = new List<TreeNode>();
-            var parent = new Parent();
-
-            nodePresenter.TreeView = treeview;
-
-            Expect.Call(treeview.GetNodeByTag(parent)).Return(nodes.FirstOrDefault(n => n.Tag == parent)).Repeat.Any();
-            Expect.Call(treeview.Nodes).Return(nodes).Repeat.Any();
-            Expect.Call(treeview.Refresh).IgnoreArguments().Repeat.Any();
-            treeview.SelectedNode = null;
-            LastCall.On(treeview).IgnoreArguments();
-
-            Expect.Call(nodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
-            Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-
-            mocks.ReplayAll();
-
-            var controller = new TreeViewController(treeview);
-            controller.RegisterNodePresenter(nodePresenter);
-
-            controller.OnTreeViewHandleCreated();
-
-            controller.Data = parent;
-
-            // generate property changed with listeners enabled
-            parent.Name = "Test";
-
-            controller.Data = null;
-
-            // generate property changed with listeners disabled
-            parent.Name = "Test 2";
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void TestRegisterAndUnRegisterOnCollectionChangedOnSetData()
-        {
-            var mocks = new MockRepository();
-
-            var treeview = mocks.StrictMock<TreeView>();
-            var parentNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-            var childNodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-
-            var controller = new TreeViewController(treeview);
-            var treeViewNodes = new List<TreeNode>();
-
-            var parent = new Parent();
-            var child1 = new Child();
-            var child2 = new Child();
-
-            parent.Children.AddRange(new[]
-            {
-                child1,
-                child2
-            });
-            treeview.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments();
-            treeview.Expect(tv => tv.BeginUpdate()).IgnoreArguments().Repeat.Any();
-            treeview.Expect(tv => tv.Refresh()).IgnoreArguments().Repeat.Any();
-
-            treeview.SelectedNode = null;
-            LastCall.On(treeview).IgnoreArguments();
-
-            Expect.Call(treeview.Nodes).Return(treeViewNodes).Repeat.Any();
-            Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
-
-            parentNodePresenter.TreeView = treeview;
-            Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(new[]
-            {
-                child1,
-                child2
-            });
-            Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-
-            childNodePresenter.TreeView = treeview;
-            Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
-
-            mocks.ReplayAll();
-
-            controller.OnTreeViewHandleCreated();
-
-            controller.RegisterNodePresenter(parentNodePresenter);
-            controller.RegisterNodePresenter(childNodePresenter);
-            controller.Data = parent;
-
-            // generate collection changed with listeners enabled
-            parent.Children.Remove(child2);
-
-            controller.Data = null;
-
-            // generate collection changed with listeners disabled
-            parent.Children.Add(child2);
-            
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void TestRefreshChildNodesOfNodeWithoutChildren()
         {
             var mocks = new MockRepository();
@@ -322,7 +218,6 @@ namespace Core.Common.Controls.TreeView.Test
             var nodes = new List<TreeNode>();
             Expect.Call(treeView.Nodes).Return(nodes).Repeat.Any();
             Expect.Call(treeView.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
-            treeView.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments();
 
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(parentNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Twice();
@@ -364,7 +259,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
-            Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(5);
+            Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(3);
             Expect.Call(childNodePresenter.GetChildNodeObjects(parent)).Return(parent.Children).Repeat.Any();
             Expect.Call(childNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
 
@@ -422,7 +317,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
-            Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(6);
+            Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(4);
             Expect.Call(childNodePresenter.GetChildNodeObjects(null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
 
             mocks.ReplayAll();
@@ -439,46 +334,6 @@ namespace Core.Common.Controls.TreeView.Test
             controller.RefreshChildNodes(parentNode);
 
             Assert.AreEqual(2, parentNode.Nodes.Count);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void TestRefreshUnLoadedNode()
-        {
-            var mocks = new MockRepository();
-
-            var treeNode = mocks.StrictMock<TreeNode>();
-            var treeview = mocks.StrictMock<TreeView>();
-            var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-
-            var tag = new object();
-
-            Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
-            Expect.Call(treeview.BeginUpdate).IgnoreArguments().Repeat.Any();
-            Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
-            Expect.Call(treeview.InvokeRequired).Return(false).Repeat.Any();
-
-            treeNode.HasChildren = true;
-            Expect.Call(treeNode.Tag).Return(tag).Repeat.Any();
-            Expect.Call(treeNode.IsLoaded).Return(false).Repeat.Any();
-            Expect.Call(treeNode.Parent).Return(null);
-            Expect.Call(treeNode.Presenter).Return(nodePresenter).Repeat.Any();
-
-            nodePresenter.TreeView = treeview;
-            Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(tag)).IgnoreArguments().Return(new[]
-            {
-                new object()
-            });
-            Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-
-            mocks.ReplayAll();
-
-            var presenter = new TreeViewController(treeview);
-            presenter.RegisterNodePresenter(nodePresenter);
-
-            presenter.UpdateNode(treeNode);
 
             mocks.VerifyAll();
         }
@@ -508,14 +363,12 @@ namespace Core.Common.Controls.TreeView.Test
 
             parentTreeNode.HasChildren = true;
             Expect.Call(parentTreeNode.Tag).Return(parent).Repeat.Any();
-            Expect.Call(parentTreeNode.IsLoaded).Return(true).Repeat.Any();
             Expect.Call(parentTreeNode.Parent).Return(null);
             Expect.Call(parentTreeNode.Nodes).Return(subNodes).Repeat.Any();
             Expect.Call(parentTreeNode.Presenter).Return(parentNodePresenter).Repeat.Any();
 
             childTreeNode.HasChildren = false;
             Expect.Call(childTreeNode.Tag).Return(child).Repeat.Any();
-            Expect.Call(childTreeNode.IsLoaded).Return(false).Repeat.Any();
             Expect.Call(childTreeNode.Parent).Return(parentTreeNode).Repeat.Any();
             Expect.Call(childTreeNode.Nodes).Return(new List<TreeNode>()).Repeat.Any();
             Expect.Call(childTreeNode.Presenter).Return(childNodePresenter).Repeat.Any();

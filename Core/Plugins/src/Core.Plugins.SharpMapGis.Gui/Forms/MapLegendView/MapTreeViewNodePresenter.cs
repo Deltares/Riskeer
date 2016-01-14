@@ -49,16 +49,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         public override void UpdateNode(TreeNode parentNode, TreeNode node, Map map)
         {
             SetNodeText(node, map);
-            node.Image = MapIcon;
 
-            if (!node.IsLoaded)
-            {
-                node.Expand();
-                foreach (var subNode in node.Nodes)
-                {
-                    subNode.Expand();
-                }
-            }
+            node.Image = MapIcon;
         }
 
         public override IEnumerable GetChildNodeObjects(Map map)

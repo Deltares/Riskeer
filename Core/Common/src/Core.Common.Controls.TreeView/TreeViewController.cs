@@ -172,7 +172,6 @@ namespace Core.Common.Controls.TreeView
                         return;
                     }
 
-                    bool wasLoaded = treeNode.IsLoaded;
                     if (!ReferenceEquals(treeNode.Tag, tag))
                     {
                         treeNode.Tag = tag;
@@ -186,11 +185,6 @@ namespace Core.Common.Controls.TreeView
                     var count = childNodeObjects.Length;
 
                     treeNode.HasChildren = count > 0;
-
-                    if (!treeNode.IsLoaded && !wasLoaded)
-                    {
-                        return;
-                    }
 
                     if (treeNode.Nodes.Count != count)
                     {
@@ -252,8 +246,6 @@ namespace Core.Common.Controls.TreeView
         {
             var newNode = treeView.NewNode();
 
-            newNode.Tag = nodeData;
-
             if (treeView.CheckBoxes)
             {
                 newNode.Checked = parentNode.Checked;
@@ -261,16 +253,13 @@ namespace Core.Common.Controls.TreeView
 
             UpdateNode(parentNode, newNode, nodeData);
 
-            //if (newNode.IsVisible)
+            if (insertionIndex != -1)
             {
-                if (insertionIndex != -1)
-                {
-                    parentNode.Nodes.Insert(insertionIndex, newNode);
-                }
-                else
-                {
-                    parentNode.Nodes.Add(newNode);
-                }
+                parentNode.Nodes.Insert(insertionIndex, newNode);
+            }
+            else
+            {
+                parentNode.Nodes.Add(newNode);
             }
 
             newNode.HasChildren = HasChildren(newNode);
@@ -316,11 +305,6 @@ namespace Core.Common.Controls.TreeView
 
         private IEnumerable<TreeNode> GetAllLoadedChildNodes(TreeNode node, string[] forceNodeLoad = null)
         {
-            if (!node.IsLoaded && (forceNodeLoad == null || !forceNodeLoad.Contains(node.FullPath)))
-            {
-                yield break;
-            }
-
             foreach (var childNode in node.Nodes)
             {
                 yield return childNode;
@@ -394,9 +378,9 @@ namespace Core.Common.Controls.TreeView
                 Tag = data
             };
 
-            treeView.Nodes.Add(rootNode);
-
             UpdateNode(null, rootNode, data);
+
+            treeView.Nodes.Add(rootNode);
 
             if (HasChildren(rootNode))
             {
@@ -443,6 +427,7 @@ namespace Core.Common.Controls.TreeView
 
             node.Tag = nodeData;
             presenter.UpdateNode(parentNode, node, nodeData);
+            RefreshChildNodes(node);
         }
 
         /// <summary>

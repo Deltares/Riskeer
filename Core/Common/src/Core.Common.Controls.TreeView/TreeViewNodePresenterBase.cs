@@ -79,11 +79,6 @@ namespace Core.Common.Controls.TreeView
 
         public virtual void OnNodeChecked(TreeNode node)
         {
-            if (!node.IsLoaded)
-            {
-                return;
-            }
-
             foreach (var childNode in node.Nodes)
             {
                 childNode.Checked = node.Checked;
