@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.Data;
 using Core.Components.OxyPlot.Properties;
@@ -17,8 +18,6 @@ namespace Core.Components.OxyPlot.Forms
     {
         private PlotView view;
 
-        public ICollection<IChartData> Series { get; private set; }
-
         /// <summary>
         /// Creates a new instance of <see cref="BaseChart"/>.
         /// </summary>
@@ -26,7 +25,51 @@ namespace Core.Components.OxyPlot.Forms
         {
             InitializePlotView();
             Series = new List<IChartData>();
-            MinimumSize = new System.Drawing.Size(50, 75);
+            MinimumSize = new Size(50, 75);
+        }
+
+        public ICollection<IChartData> Series { get; private set; }
+
+        /// <summary>
+        /// Add <see cref="IChartData"/> to the <see cref="BaseChart"/>.
+        /// </summary>
+        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public void AddData(IChartData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data", "Cannot add null data to the chart.");
+            }
+            Series.Add(data);
+            UpdateTree();
+        }
+
+        /// <summary>
+        /// Remove all the <see cref="IChartData"/> that has been added to the <see cref="BaseChart"/>.
+        /// </summary>
+        public void ClearData()
+        {
+            Series.Clear();
+            UpdateTree();
+        }
+
+        /// <summary>
+        /// Sets the visibility of a series in this <see cref="BaseChart"/>.
+        /// </summary>
+        /// <param name="series">The <see cref="IChartData"/> to set the visibility for.</param>
+        /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="series"/>.</param>
+        public void SetVisibility(IChartData series, bool visibility)
+        {
+            if (series != null)
+            {
+                series.IsVisible = visibility;
+                view.Invalidate();
+            }
+            else
+            {
+                throw new ArgumentException("Visibility set for IChartData which was not of type Series.");
+            }
         }
 
         private void InitializePlotView()
@@ -59,7 +102,10 @@ namespace Core.Components.OxyPlot.Forms
                 Title = title,
                 Position = position,
                 TickStyle = TickStyle.None,
-                ExtraGridlines = new[] { 0.0 },
+                ExtraGridlines = new[]
+                {
+                    0.0
+                },
                 ExtraGridlineThickness = 1,
                 Layer = AxisLayer.AboveSeries,
                 MajorGridlineStyle = LineStyle.Solid,
@@ -67,54 +113,12 @@ namespace Core.Components.OxyPlot.Forms
             };
         }
 
-        /// <summary>
-        /// Add <see cref="IChartData"/> to the <see cref="BaseChart"/>.
-        /// </summary>
-        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public void AddData(IChartData data)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException("data", "Cannot add null data to the chart.");
-            }
-            Series.Add(data);
-            UpdateTree();
-        }
-
-        /// <summary>
-        /// Remove all the <see cref="IChartData"/> that has been added to the <see cref="BaseChart"/>.
-        /// </summary>
-        public void ClearData()
-        {
-            Series.Clear();
-            UpdateTree();
-        }
-
         private void UpdateTree()
         {
             view.Model.Series.Clear();
             foreach (var data in Series)
             {
-                view.Model.Series.Add(((ISeries)data).Series);
-            }
-        }
-
-        /// <summary>
-        /// Sets the visibility of a series in this <see cref="BaseChart"/>.
-        /// </summary>
-        /// <param name="series">The <see cref="IChartData"/> to set the visibility for.</param>
-        /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="series"/>.</param>
-        public void SetVisibility(IChartData series, bool visibility)
-        {
-            if (series != null)
-            {
-                series.IsVisible = visibility;
-                view.Invalidate();
-            }
-            else
-            {
-                throw new ArgumentException("Visibility set for IChartData which was not of type Series.");
+                view.Model.Series.Add(((ISeries) data).Series);
             }
         }
     }

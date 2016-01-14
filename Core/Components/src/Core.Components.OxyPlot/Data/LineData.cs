@@ -6,52 +6,27 @@ using OxyPlot.Series;
 namespace Core.Components.OxyPlot.Data
 {
     /// <summary>
-    /// This class represents data which is represented as a line on <see cref="BaseChart"/>.
+    /// This class represents data which is represented as a line.
     /// </summary>
-    public class LineData : ISeries
+    public class LineData : DataSeries
     {
-        private readonly LineSeries series = new LineSeries();
-
         /// <summary>
         /// Creates a new instance of <see cref="LineData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T,T}"/> which represents points 
+        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> which represents points 
         /// which when connected form a line.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public LineData(Collection<Tuple<double, double>> points)
         {
+            var series = new LineSeries();
             if (points == null)
             {
                 throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
             }
             series.ItemsSource = points;
             series.Mapping = TupleToDataPoint;
-        }
 
-        private DataPoint TupleToDataPoint(object obj)
-        {
-            var point = (Tuple<double, double>) obj;
-            return new DataPoint(point.Item1, point.Item2);
-        }
-
-        public Series Series
-        {
-            get
-            {
-                return series;
-            }
-        }
-
-        public bool IsVisible
-        {
-            get
-            {
-                return series.IsVisible;
-            }
-            set
-            {
-                series.IsVisible = value;
-            }
+            Series = series;
         }
     }
 }
