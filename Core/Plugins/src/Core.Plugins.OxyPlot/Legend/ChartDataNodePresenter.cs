@@ -32,7 +32,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 throw new NotSupportedException("Cannot add chart data of type other than points, lines or area.");
             }
             node.ShowCheckBox = true;
-            node.Checked = true;
+            node.Checked = nodeData.IsVisible;
         }
 
         public override void OnNodeChecked(TreeNode node)

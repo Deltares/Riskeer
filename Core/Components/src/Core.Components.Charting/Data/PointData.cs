@@ -22,6 +22,7 @@ namespace Core.Components.Charting.Data
                 throw new ArgumentNullException("points", "A point collection is required when creating PointData.");
             }
             Points = points.ToArray();
+            IsVisible = true;
         }
 
         public bool IsVisible { get; set; }
