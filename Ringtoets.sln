@@ -272,6 +272,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.DotSpatial", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.DotSpatial.Test", "Core\Plugins\test\Core.Plugins.DotSpatial.Test\Core.Plugins.DotSpatial.Test.csproj", "{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Test", "Core\Components\src\Core.Components.Charting.Test\Core.Components.Charting.Test.csproj", "{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -1013,6 +1015,16 @@ Global
 		{D07BB841-15D7-4127-8B46-CFC61C546B45}.Release|x86.Build.0 = Release|x86
 		{D07BB841-15D7-4127-8B46-CFC61C546B45}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{D07BB841-15D7-4127-8B46-CFC61C546B45}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstaller|x86.Build.0 = Release|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Debug|x86.ActiveCfg = Debug|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Debug|x86.Build.0 = Debug|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Release|x86.ActiveCfg = Release|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Release|x86.Build.0 = Release|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}.CreateInstaller|x86.Build.0 = Release|x86
 		{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
@@ -1049,16 +1061,14 @@ Global
 		{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}.Release|x86.Build.0 = Release|x86
 		{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstaller|x86.Build.0 = Release|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Debug|x86.ActiveCfg = Debug|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Debug|x86.Build.0 = Debug|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Release|x86.ActiveCfg = Release|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.Release|x86.Build.0 = Release|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.Debug|x86.ActiveCfg = Debug|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.Debug|x86.Build.0 = Debug|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.Release|x86.ActiveCfg = Release|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.Release|x86.Build.0 = Release|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1172,11 +1182,12 @@ Global
 		{D9DC93FF-DCF3-44A4-9193-9911966CDFF4} = {502CA963-E0E9-4F4A-A1D4-612C6A08386B}
 		{2344A7BD-7E25-4A1A-982E-6C674AF5167A} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
 		{DADAA0A5-288C-49CB-9F08-337F16832C86} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
-		{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
 		{516EBC95-B8F2-428C-B7F6-733F01BF8FDD} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
+		{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
 		{4BB4D2AA-332E-42D6-8D34-FFABBCE1F1D8} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{D07BB841-15D7-4127-8B46-CFC61C546B45} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{DD7ECAFF-D8A1-4D92-99C0-27498ACB32D4} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
+		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{594C5C6D-5833-4E1C-9F30-13A202628EEF} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
