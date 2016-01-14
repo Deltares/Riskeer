@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -148,7 +147,7 @@ namespace Core.Common.Gui.PropertyBag
 
         public object GetPropertyOwner(PropertyDescriptor pd)
         {
-            return this;
+            return WrappedObject;
         }
 
         #endregion
