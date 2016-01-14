@@ -272,7 +272,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.DotSpatial", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.DotSpatial.Test", "Core\Plugins\test\Core.Plugins.DotSpatial.Test\Core.Plugins.DotSpatial.Test.csproj", "{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Test", "Core\Components\src\Core.Components.Charting.Test\Core.Components.Charting.Test.csproj", "{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Test", "Core\Components\test\Core.Components.Charting.Test\Core.Components.Charting.Test.csproj", "{F40A7DC1-A697-41A7-8676-6C0AD8274FB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.TestUtil", "Core\Components\test\Core.Components.Charting.TestUtil\Core.Components.Charting.TestUtil.csproj", "{E900A014-CA87-4374-87F0-813D653A9698}"
 EndProject
