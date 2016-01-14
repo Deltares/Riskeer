@@ -42,52 +42,6 @@ namespace Core.Common.Gui.PropertyBag
             return WrappedObject.ToString();
         }
 
-        /// <summary>
-        /// Raises the GetValue event.
-        /// </summary>
-        /// <param name="e">A PropertySpecEventArgs that contains the event data.</param>
-        /// <param name="propertySpec"></param>
-        internal void OnGetValue(PropertySpecEventArgs e, PropertySpec propertySpec)
-        {
-            var attributeList = new List<Attribute>();
-            attributeList.AddRange(propertySpec.Attributes.ToList());
-
-            //check all of the attributes: if we find a dynamic one, evaluate it and possibly add/overwrite a static attribute
-            foreach (Attribute customAttribute in propertySpec.Attributes)
-            {
-                if (customAttribute is DynamicReadOnlyAttribute)
-                {
-                    attributeList.RemoveAll(x => x is ReadOnlyAttribute);
-
-                    if (DynamicReadOnlyAttribute.IsReadOnly(WrappedObject, propertySpec.Name))
-                    {
-                        //condition is true: the dynamic attribute should be applied (as static attribute)
-                        attributeList.Add(new ReadOnlyAttribute(true)); //add static read only attribute
-                    }
-                }
-
-                if (customAttribute is DynamicVisibleAttribute)
-                {
-                    attributeList.RemoveAll(x => x is BrowsableAttribute);
-
-                    if (!DynamicVisibleAttribute.IsVisible(WrappedObject, propertySpec.Name))
-                    {
-                        attributeList.Add(new BrowsableAttribute(false));
-                    }
-                }
-            }
-
-            propertySpec.Attributes = attributeList.ToArray();
-
-            var propertyInfo = WrappedObject.GetType().GetProperty(propertySpec.Name);
-            var value = propertyInfo.GetValue(WrappedObject, null);
-
-            var isNestedPropertiesObject = IsNestedExpandablePropertiesObject(propertyInfo);
-
-            // if nested properties object, wrap in DynamicPropertyBag to provide support for things like DynamicReadOnly
-            e.Value = isNestedPropertiesObject ? new DynamicPropertyBag(value) : value;
-        }
-
         private void Initialize(object propertyObject)
         {
             WrappedObject = propertyObject;
@@ -96,31 +50,6 @@ namespace Core.Common.Gui.PropertyBag
             {
                 Properties.Add(new PropertySpec(propertyInfo));
             }
-        }
-
-        private bool IsNestedExpandablePropertiesObject(System.Reflection.PropertyInfo propertyInfo)
-        {
-            try
-            {
-                var typeConverterAttributes = propertyInfo.GetCustomAttributes(typeof(TypeConverterAttribute), false);
-                foreach (TypeConverterAttribute typeConverterAttribute in typeConverterAttributes)
-                {
-                    var typeString = typeConverterAttribute.ConverterTypeName;
-                    var type = Type.GetType(typeString);
-                    if (type != null)
-                    {
-                        if (typeof(ExpandableObjectConverter) == type)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                //gulp
-            }
-            return false;
         }
 
         #region ICustomTypeDescriptor explicit interface definitions
@@ -142,7 +71,7 @@ namespace Core.Common.Gui.PropertyBag
             return TypeDescriptor.GetComponentName(this, true);
         }
 
-        public System.ComponentModel.TypeConverter GetConverter()
+        public TypeConverter GetConverter()
         {
             return TypeDescriptor.GetConverter(this, true);
         }
@@ -176,7 +105,7 @@ namespace Core.Common.Gui.PropertyBag
 
         public PropertyDescriptor GetDefaultProperty()
         {
-            return Properties.Count > 0 ? new PropertySpecDescriptor(Properties[0], this, Properties[0].Name, null) : null;
+            return Properties.Count > 0 ? new PropertySpecDescriptor(Properties[0], WrappedObject) : null;
         }
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
@@ -190,20 +119,8 @@ namespace Core.Common.Gui.PropertyBag
 
             foreach (PropertySpec property in Properties)
             {
-                var attrs = new ArrayList();
-
-                // Additionally, append the custom attributes associated with the
-                // PropertySpec, if any.
-                if (property.Attributes != null)
-                {
-                    attrs.AddRange(property.Attributes);
-                }
-
-                Attribute[] attrArray = (Attribute[])attrs.ToArray(typeof(Attribute));
-
-                // Create a new property descriptor for the property item, and add
-                // it to the list.
-                var pd = new PropertySpecDescriptor(property, this, property.Name, attrArray);
+                // Create a new property descriptor for the property item, and add it to the list.
+                var pd = new PropertySpecDescriptor(property, WrappedObject);
 
                 var propertyOrderAttribute = property.Attributes != null ? property.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault() : null;
                 if (propertyOrderAttribute != null)

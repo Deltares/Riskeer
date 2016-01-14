@@ -8,67 +8,83 @@ using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 
-using CategoryComponentModelAttribute = System.ComponentModel.CategoryAttribute;
-
 namespace Core.Common.Gui.Test.PropertyBag
 {
     [TestFixture]
     public class DynamicPropertyBagTest
     {
         [Test]
-        public void DynamicPropertyBagReturnsCorrectProperties()
+        public void ParameteredConstructor_ExpectedValues()
         {
-            var dynamicPropertyBag = new DynamicPropertyBag(new TestProperties());
+            // Setup
+            var propertyObject = new object();
 
+            // Call
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            // Assert
+            CollectionAssert.IsEmpty(dynamicPropertyBag.Properties,
+                "Object has no properties, therefore bag should have none too.");
+            Assert.AreSame(propertyObject, dynamicPropertyBag.WrappedObject);
+        }
+
+        [Test]
+        public void GivenTestProperties_WhenConstructing_ThenCorrectNumberOfPropertiesCreated()
+        {
+            // Setup
+            var propertyObject = new TestProperties();
+
+            // Call
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            // Assert
             Assert.AreEqual(4, dynamicPropertyBag.Properties.Count, "Expected property count wrong");
         }
 
         [Test]
-        public void DynamicPropertyBagCopiesStaticAttributes()
+        public void GivenTestProperties_WhenConstructing_ThenPropertySpecsHaveAttributesSet()
         {
-            var dynamicPropertyBag = new DynamicPropertyBag(new TestProperties());
+            // Setup
+            var propertyObject = new TestProperties();
 
-            PropertySpec nameProperty = null;
-            PropertySpec descriptionProperty = null;
+            // Call
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
-            foreach (PropertySpec spec in dynamicPropertyBag.Properties)
-            {
-                if (spec.Name.Equals("Description"))
-                {
-                    descriptionProperty = spec;
-                }
-                else if (spec.Name.Equals("Name"))
-                {
-                    nameProperty = spec;
-                }
+            // Assert
+            var namePropertySpec = dynamicPropertyBag.Properties.OfType<PropertySpec>().First(ps => ps.Name == "Name");
+            Assert.IsTrue(namePropertySpec.Attributes.Any(a => a is System.ComponentModel.CategoryAttribute));
+
+            var descriptionPropertySpec = dynamicPropertyBag.Properties.OfType<PropertySpec>().First(ps => ps.Name == "Description");
+            CollectionAssert.Contains(descriptionPropertySpec.Attributes, ReadOnlyAttribute.Yes, 
+                "Should have initialized Attributes of the property spec with declared ReadOnlyAttribute.");
             }
 
-            // asserts
-            Assert.IsTrue(nameProperty.Attributes.Any(x => x.GetType() == typeof(CategoryComponentModelAttribute)), "Static Category attribute not copied!");
-
-            CollectionAssert.Contains(descriptionProperty.Attributes, ReadOnlyAttribute.Yes, "Static ReadOnly attribute not copied!");
-        }
-
         [Test]
-        public void DynamicPropertyBagResolvesDynamicAttributesToNothing()
+        public void GivenClassWithDynamicReadOnlyAttribute_WhenNotReadOnly_ThenTypeDescriptorDoesNotHaveReadOnlyAttribute()
         {
+            // Setup
             var testProperties = new TestProperties
             {
                 IsNameReadOnly = false
             };
 
+            // Precondition
+            var namePropertyAttributes = testProperties.GetType().GetProperty("Name").GetCustomAttributes(true);
+            Assert.IsFalse(namePropertyAttributes.Any(a => a is ReadOnlyAttribute));
+            CollectionAssert.Contains(namePropertyAttributes, new DynamicReadOnlyAttribute());
+            Assert.IsFalse(testProperties.DynamicReadOnlyValidationMethod("Name"));
+
+            // Call
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
+            // Assert
+            PropertyDescriptorCollection propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
+            PropertyDescriptor namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
 
-            var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-
-            namePropertyDescriptor.GetValue(dynamicPropertyBag);
-
-            // asserts
-            Assert.IsTrue(namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute()),"Dynamic ReadOnly attribute was not added");
-
-            Assert.IsFalse(namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true)), "Inactive dynamic ReadOnly attribute was resolved to static attribute: wrong.");
+            CollectionAssert.Contains(namePropertyDescriptor.Attributes, new DynamicReadOnlyAttribute(),
+                "DynamicReadOnlyAttribute declared on Name property should also be present on PropertyDescriptor.");
+            Assert.IsFalse(namePropertyDescriptor.Attributes.OfType<Attribute>().Any(a => a is ReadOnlyAttribute),
+                "As Name property has no ReadOnlyAttribute nor does DyanmicReadOnlyValidationMethod evaluate to true, no ReadOnlyAttribute should be on PropertyDescriptor.");
         }
 
         [Test]
@@ -287,7 +303,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             /// </summary>
             [DynamicReadOnly]
             [DynamicVisible]
-            [CategoryComponentModelAttribute("General")]
+            [System.ComponentModel.Category("General")]
             public string Name { get; set; }
 
             public bool IsNameReadOnly { get; set; }

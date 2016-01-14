@@ -1,19 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+
+using Core.Common.Gui.Attributes;
 
 namespace Core.Common.Gui.PropertyBag
 {
     public class PropertySpecDescriptor : PropertyDescriptor
     {
-        private readonly DynamicPropertyBag bag;
         private readonly PropertySpec item;
+        private readonly object instance;
 
-        public PropertySpecDescriptor(PropertySpec item, DynamicPropertyBag bag, string name, Attribute[] attrs)
-            :
-                base(name, attrs)
+        public PropertySpecDescriptor(PropertySpec propertySpec, object instance)
+            : base(propertySpec.Name, propertySpec.Attributes)
         {
-            this.bag = bag;
-            this.item = item;
+            item = propertySpec;
+            this.instance = instance;
         }
 
         public override Type ComponentType
@@ -28,7 +31,11 @@ namespace Core.Common.Gui.PropertyBag
         {
             get
             {
-                return (Attributes.Matches(ReadOnlyAttribute.Yes));
+                if (Attributes.Matches(new DynamicReadOnlyAttribute()))
+                {
+                    return DynamicReadOnlyAttribute.IsReadOnly(instance, item.Name);
+                }
+                return Attributes.Matches(ReadOnlyAttribute.Yes);
             }
         }
 
@@ -76,12 +83,87 @@ namespace Core.Common.Gui.PropertyBag
 
         private PropertySpecEventArgs ReEvaluateAttributes()
         {
-            // Have the property bag raise an event to get the current value
-            // of the property and evaluate the dynamic attributes
+            UpdateDynamicAttributes();
+
+            // Have the property bag raise an event to get the current value of the property:
             var e = new PropertySpecEventArgs(item, null);
-            bag.OnGetValue(e, e.Property);
-            AttributeArray = e.Property.Attributes;
+            OnGetValue(e, e.Property);
+            AttributeArray = e.Property.Attributes; // TODO: Override AttributeArray to reroute to 'item.Attributes'
             return e;
+        }
+
+        private void UpdateDynamicAttributes()
+        {
+            var attributeList = new List<Attribute>();
+            attributeList.AddRange(item.Attributes.ToList());
+
+            //check all of the attributes: if we find a dynamic one, evaluate it and possibly add/overwrite a static attribute
+            foreach (Attribute customAttribute in item.Attributes)
+            {
+                if (customAttribute is DynamicReadOnlyAttribute)
+                {
+                    attributeList.RemoveAll(x => x is ReadOnlyAttribute);
+
+                    if (DynamicReadOnlyAttribute.IsReadOnly(instance, item.Name))
+                    {
+                        //condition is true: the dynamic attribute should be applied (as static attribute)
+                        attributeList.Add(new ReadOnlyAttribute(true)); //add static read only attribute
+                    }
+                }
+
+                if (customAttribute is DynamicVisibleAttribute)
+                {
+                    attributeList.RemoveAll(x => x is BrowsableAttribute);
+
+                    if (!DynamicVisibleAttribute.IsVisible(instance, item.Name))
+                    {
+                        attributeList.Add(new BrowsableAttribute(false));
+                    }
+                }
+            }
+
+            item.Attributes = attributeList.ToArray();
+        }
+
+        /// <summary>
+        /// Raises the GetValue event.
+        /// </summary>
+        /// <param name="e">A PropertySpecEventArgs that contains the event data.</param>
+        /// <param name="propertySpec"></param>
+        private void OnGetValue(PropertySpecEventArgs e, PropertySpec propertySpec)
+        {
+            var propertyInfo = instance.GetType().GetProperty(propertySpec.Name);
+            var value = propertyInfo.GetValue(instance, null);
+
+            var isNestedPropertiesObject = IsNestedExpandablePropertiesObject(propertyInfo);
+
+            // if nested properties object, wrap in DynamicPropertyBag to provide support for things like DynamicReadOnly
+            e.Value = isNestedPropertiesObject ? new DynamicPropertyBag(value) : value;
+        }
+
+        private bool IsNestedExpandablePropertiesObject(System.Reflection.PropertyInfo propertyInfo)
+        {
+            try
+            {
+                var typeConverterAttributes = propertyInfo.GetCustomAttributes(typeof(TypeConverterAttribute), false);
+                foreach (TypeConverterAttribute typeConverterAttribute in typeConverterAttributes)
+                {
+                    var typeString = typeConverterAttribute.ConverterTypeName;
+                    var type = Type.GetType(typeString);
+                    if (type != null)
+                    {
+                        if (typeof(ExpandableObjectConverter) == type)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //gulp
+            }
+            return false;
         }
     }
 }
