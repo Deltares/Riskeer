@@ -4,13 +4,14 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.Test.TestHelpers;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -29,7 +30,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(Resources.Error_File_does_not_exist);
+            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -44,7 +45,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
             var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, Resources.Error_Path_must_be_specified);
+                                                fileName, UtilsResources.Error_Path_must_be_specified);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

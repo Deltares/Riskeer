@@ -3,7 +3,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.IO.Test
+namespace Core.Common.Utils.Test
 {
     [TestFixture]
     public class FileUtilsTest
@@ -12,7 +12,7 @@ namespace Ringtoets.Piping.IO.Test
         public void ValidateFilePath_ValidPath_DoesNotThrowAnyExceptions()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "validFile.txt");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
 
             // Call
             TestDelegate call = () => FileUtils.ValidateFilePath(path);
@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Test
         public void ValidateFilePath_PathContainingInvalidFileCharacters_ThrowsArgumentException()
         {
             // Setup
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "validFile.txt");
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "validFile.txt");
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
             var invalidPath = path.Replace('d', invalidFileNameChars[0]);
 
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.IO.Test
         public void ValidateFilePath_PathIsActuallyFolder_ThrowsArgumentException()
         {
             // Setup
-            var folderPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO) + Path.DirectorySeparatorChar;
+            var folderPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils) + Path.DirectorySeparatorChar;
 
             // Call
             TestDelegate call = () => FileUtils.ValidateFilePath(folderPath);

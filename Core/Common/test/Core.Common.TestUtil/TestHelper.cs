@@ -7,11 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
-
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil
@@ -196,12 +194,12 @@ namespace Core.Common.TestUtil
             }
 
             var userMessage = String.IsNullOrEmpty(message) ? "" : message + ". ";
-            if ( ! rank.Equals(1.0f))
+            if (!rank.Equals(1.0f))
             {
-                Assert.IsTrue(rank * actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
-                              maxMilliseconds, actualMillisecond, actualMillisecond * rank);
+                Assert.IsTrue(rank*actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
+                              maxMilliseconds, actualMillisecond, actualMillisecond*rank);
                 Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
-                                                              maxMilliseconds, actualMillisecond, actualMillisecond * rank));
+                                                              maxMilliseconds, actualMillisecond, actualMillisecond*rank));
             }
             else
             {
@@ -243,7 +241,7 @@ namespace Core.Common.TestUtil
             AssertExpectedMessagesInRenderedMessages(messages, renderedMessages);
             if (expectedLogMessageCount != null)
             {
-                Assert.AreEqual((int)expectedLogMessageCount, renderedMessages.Count());
+                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
             }
         }
 
@@ -331,6 +329,30 @@ namespace Core.Common.TestUtil
             AssertContextMenuStripContainsItem(menu.DropDownItems, position, text, toolTip, icon, enabled);
         }
 
+        /// <summary>
+        /// Asserts that the exception is of type <typeparamref name="T"/> and that the custom part of <see cref="Exception.Message"/> 
+        /// is equal to <paramref name="expectedCustomMessage"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the expected exception.</typeparam>
+        /// <param name="test">The test to execute and should throw exception of type <typeparamref name="T"/>.</param>
+        /// <param name="expectedCustomMessage">The expected custom part of the exception message.</param>
+        public static void AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
+        {
+            var exception = Assert.Throws<T>(test);
+            var message = exception.Message;
+            if (exception.ParamName != null)
+            {
+                var customMessageParts = message.Split(new[]
+                {
+                    Environment.NewLine
+                }, StringSplitOptions.None).ToList();
+                customMessageParts.RemoveAt(customMessageParts.Count - 1);
+
+                message = String.Join(Environment.NewLine, customMessageParts.ToArray());
+            }
+            Assert.AreEqual(expectedCustomMessage, message);
+        }
+
         private static void AssertContextMenuStripContainsItem(ToolStripItemCollection items, int position, string text, string toolTip, Image icon, bool enabled = true)
         {
             Assert.Less(position, items.Count);
@@ -366,30 +388,6 @@ namespace Core.Common.TestUtil
             {
                 Directory.CreateDirectory(path);
             }
-        }
-
-        /// <summary>
-        /// Asserts that the exception is of type <typeparamref name="T"/> and that the custom part of <see cref="Exception.Message"/> 
-        /// is equal to <paramref name="expectedCustomMessage"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the expected exception.</typeparam>
-        /// <param name="test">The test to execute and should throw exception of type <typeparamref name="T"/>.</param>
-        /// <param name="expectedCustomMessage">The expected custom part of the exception message.</param>
-        public static void AssertThrowsArgumentExceptionAndTestMessage<T>(TestDelegate test, string expectedCustomMessage) where T : ArgumentException
-        {
-            var exception = Assert.Throws<T>(test);
-            var message = exception.Message;
-            if (exception.ParamName != null)
-            {
-                var customMessageParts = message.Split(new[]
-                {
-                    Environment.NewLine
-                }, StringSplitOptions.None).ToList();
-                customMessageParts.RemoveAt(customMessageParts.Count - 1);
-
-                message = String.Join(Environment.NewLine, customMessageParts.ToArray());
-            }
-            Assert.AreEqual(expectedCustomMessage, message);
         }
 
         private static string GetCurrentTestClassMethodName()
@@ -498,15 +496,15 @@ namespace Core.Common.TestUtil
         private static Color[] GetImageAsColorArray(Image image)
         {
             // Convert image to ARGB bitmap using 8bits/channel:
-            var bitmap = new Bitmap(image).Clone(new Rectangle(0,0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
+            var bitmap = new Bitmap(image).Clone(new Rectangle(0, 0, image.Size.Width, image.Size.Height), PixelFormat.Format32bppArgb);
 
             var index = 0;
-            var imageColors = new Color[image.Size.Width * image.Size.Height];
+            var imageColors = new Color[image.Size.Width*image.Size.Height];
             for (int i = 0; i < bitmap.Height; i++)
             {
                 for (int j = 0; j < bitmap.Width; j++)
                 {
-                    imageColors[index] = bitmap.GetPixel(i,j);
+                    imageColors[index] = bitmap.GetPixel(i, j);
                 }
             }
             return imageColors;

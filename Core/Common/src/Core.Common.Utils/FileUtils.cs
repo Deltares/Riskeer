@@ -1,15 +1,14 @@
 using System;
 using System.IO;
+using Core.Common.Utils.Properties;
+using Core.Common.Utils.Builders;
 
-using Ringtoets.Piping.IO.Builders;
-using Ringtoets.Piping.IO.Properties;
-
-namespace Ringtoets.Piping.IO
+namespace Core.Common.Utils
 {
     /// <summary>
     /// Class with reusable File related utility methods.
     /// </summary>
-    static internal class FileUtils 
+    public static class FileUtils 
     {
         /// <summary>
         /// Validates the file path.

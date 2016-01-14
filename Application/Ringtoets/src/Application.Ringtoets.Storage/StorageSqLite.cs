@@ -3,8 +3,11 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.IO;
 using Application.Ringtoets.Storage.Converter;
-using Application.Ringtoets.Storage.Properties;
+using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;
+using Core.Common.Utils;
+using Core.Common.Utils.Builders;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
 {
@@ -21,11 +24,20 @@ namespace Application.Ringtoets.Storage
         /// <param name="databaseFilePath">Path to database file.</param>
         public StorageSqLite(string databaseFilePath)
         {
+            try
+            {
+                FileUtils.ValidateFilePath(databaseFilePath);
+            }
+            catch (ArgumentException e)
+            {
+                throw new InvalidFileException(e.Message, e);
+            }
             if (!File.Exists(databaseFilePath))
             {
-                var message = Resources.Error_File_does_not_exist;
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
                 throw new FileNotFoundException(message);
             }
+
             connectionString = SqLiteStorageConnection.BuildConnectionString(databaseFilePath);
         }
 
@@ -46,7 +58,7 @@ namespace Application.Ringtoets.Storage
                 {
                     dbContext.Database.Initialize(true);
                     dbContext.Database.Connection.Open();
-                    dbContext.ProjectEntities.Load();
+                    dbContext.Versions.Load();
                     return true;
                 }
                 catch (InvalidOperationException)

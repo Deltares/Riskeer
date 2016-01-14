@@ -31,14 +31,18 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void TestPredefinedTestPath()
+        public void GetTestDataPath_Always_VerifiedTestPaths()
         {
-            // common
-            var path = TestHelper.GetTestDataPath(TestDataPath.Common.Base.CoreCommonBaseTests);
+            // Core Common Base
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Base);
             Assert.IsTrue(Directory.Exists(path));
 
-            // Ringtoets
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.CorePluginsSharpMapGisTests);
+            // Core Common Utils
+            path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            Assert.IsTrue(Directory.Exists(path));
+
+            // Ringtoets Piping IO
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
             Assert.IsTrue(Directory.Exists(path));
         }
 
@@ -54,36 +58,6 @@ namespace Core.Common.Utils.Test
             TestHelper.AssertLogMessageIsGenerated(() => log.Warn("hello"), "hello");
             TestHelper.AssertLogMessageIsGenerated(() => log.Debug("hello"), "hello");
             TestHelper.AssertLogMessageIsGenerated(() => log.Error("hello"), "hello");
-        }
-
-        private static void DeleteIfExists(string path)
-        {
-            if (!File.Exists(path) & !Directory.Exists(path))
-            {
-                return;
-            }
-
-            var attributes = File.GetAttributes(path);
-
-            // if file is readonly - make it non-readonly
-            if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                File.SetAttributes(path, attributes ^ FileAttributes.ReadOnly);
-            }
-
-            // now delete everything
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-            else if (Directory.Exists(path))
-            {
-                foreach (var path2 in Directory.GetDirectories(path).Union(Directory.GetFiles(path)))
-                {
-                    DeleteIfExists(path2);
-                }
-                Directory.Delete(path);
-            }
         }
 
         [Test]
@@ -102,7 +76,7 @@ namespace Core.Common.Utils.Test
 
             // Call
             TestDelegate call = () => TestHelper.AssertImagesAreEqual(image, image);
-            
+
             // Assert
             Assert.DoesNotThrow(call);
         }
@@ -170,10 +144,7 @@ namespace Core.Common.Utils.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image);
-            };
+            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -188,10 +159,7 @@ namespace Core.Common.Utils.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image);
-            };
+            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -206,10 +174,7 @@ namespace Core.Common.Utils.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, Resources.acorn);
-            };
+            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, Resources.acorn); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -227,10 +192,7 @@ namespace Core.Common.Utils.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled);
-            };
+            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -277,10 +239,7 @@ namespace Core.Common.Utils.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image);
-            };
+            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -295,10 +254,7 @@ namespace Core.Common.Utils.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image);
-            };
+            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -313,10 +269,7 @@ namespace Core.Common.Utils.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, Resources.acorn);
-            };
+            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, Resources.acorn); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -334,10 +287,7 @@ namespace Core.Common.Utils.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled);
-            };
+            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -362,10 +312,7 @@ namespace Core.Common.Utils.Test
             TestDelegate t = () => { };
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, String.Empty);
-            };
+            TestDelegate call = () => { TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, String.Empty); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -380,10 +327,7 @@ namespace Core.Common.Utils.Test
             TestDelegate t = () => { throw new ArgumentException(someMessage); };
 
             // Call
-            TestDelegate call = () =>
-            {
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, differentMessage);
-            };
+            TestDelegate call = () => { TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, differentMessage); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -402,7 +346,6 @@ namespace Core.Common.Utils.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
         }
 
-
         [Test]
         [TestCase("param")]
         [TestCase(null)]
@@ -414,6 +357,36 @@ namespace Core.Common.Utils.Test
 
             // Call & Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
+        }
+
+        private static void DeleteIfExists(string path)
+        {
+            if (!File.Exists(path) & !Directory.Exists(path))
+            {
+                return;
+            }
+
+            var attributes = File.GetAttributes(path);
+
+            // if file is readonly - make it non-readonly
+            if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                File.SetAttributes(path, attributes ^ FileAttributes.ReadOnly);
+            }
+
+            // now delete everything
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            else if (Directory.Exists(path))
+            {
+                foreach (var path2 in Directory.GetDirectories(path).Union(Directory.GetFiles(path)))
+                {
+                    DeleteIfExists(path2);
+                }
+                Directory.Delete(path);
+            }
         }
 
         private static ToolStripMenuItem CreateContextMenuItem()

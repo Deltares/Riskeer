@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
+using Core.Common.Utils;
+using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO
 {
@@ -142,6 +143,15 @@ namespace Ringtoets.Piping.IO
             return null;
         }
 
+        public void Dispose()
+        {
+            if (fileReader != null)
+            {
+                fileReader.Dispose();
+                fileReader = null;
+            }
+        }
+
         /// <summary>
         /// Checks if the geometry defining the surface line is valid.
         /// </summary>
@@ -156,15 +166,6 @@ namespace Ringtoets.Piping.IO
                 {
                     throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
                 }
-            }
-        }
-
-        public void Dispose()
-        {
-            if (fileReader != null)
-            {
-                fileReader.Dispose();
-                fileReader = null;
             }
         }
 
@@ -204,20 +205,20 @@ namespace Ringtoets.Piping.IO
             const int expectedValuesForPoint = 3;
 
             var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
-            if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
+            if (worldCoordinateValues.Length%expectedValuesForPoint != 0)
             {
                 throw CreateLineParseException(lineNumber, surfaceLineName, Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
             }
 
-            int coordinateCount = worldCoordinateValues.Length / expectedValuesForPoint;
+            int coordinateCount = worldCoordinateValues.Length/expectedValuesForPoint;
             var points = new Point3D[coordinateCount];
             for (int i = 0; i < coordinateCount; i++)
             {
                 points[i] = new Point3D
                 {
-                    X = worldCoordinateValues[i * expectedValuesForPoint],
-                    Y = worldCoordinateValues[i * expectedValuesForPoint + 1],
-                    Z = worldCoordinateValues[i * expectedValuesForPoint + 2]
+                    X = worldCoordinateValues[i*expectedValuesForPoint],
+                    Y = worldCoordinateValues[i*expectedValuesForPoint + 1],
+                    Z = worldCoordinateValues[i*expectedValuesForPoint + 2]
                 };
             }
             return points;
@@ -284,17 +285,17 @@ namespace Ringtoets.Piping.IO
             }
             catch (FileNotFoundException e)
             {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_File_does_not_exist);
+                string message = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message, e);
             }
             catch (DirectoryNotFoundException e)
             {
-                string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Directory_missing);
+                string message = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 throw new CriticalFileReadException(message, e);
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(path).Build(string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message));
+                var message = new FileReaderErrorMessageBuilder(path).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -317,7 +318,7 @@ namespace Ringtoets.Piping.IO
             }
             else
             {
-                throw CreateCriticalFileReadException(currentLine, Resources.Error_File_empty);
+                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_File_empty);
             }
         }
 
@@ -405,11 +406,11 @@ namespace Ringtoets.Piping.IO
             }
             catch (OutOfMemoryException e)
             {
-                throw CreateCriticalFileReadException(currentLine, Resources.Error_File_does_not_exist, e);
+                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_File_does_not_exist, e);
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message));
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }

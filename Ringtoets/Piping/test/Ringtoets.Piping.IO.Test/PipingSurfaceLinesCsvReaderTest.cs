@@ -2,12 +2,11 @@
 using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Builders;
 using NUnit.Framework;
-
-using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
-
 using IOResources = Ringtoets.Piping.IO.Properties.Resources;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test
 {
@@ -27,7 +26,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(IOResources.Error_Path_must_be_specified);
+            var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -46,7 +45,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(IOResources.Error_Path_cannot_contain_Characters_0_,
+            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
                                                                                               String.Join(", ", Path.GetInvalidFileNameChars())));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -59,7 +58,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(IOResources.Error_Path_must_not_point_to_folder);
+            var expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_folder);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -125,7 +124,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedError = new FileReaderErrorMessageBuilder(path).Build(IOResources.Error_File_does_not_exist);
+                var expectedError = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 Assert.AreEqual(expectedError, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
@@ -147,7 +146,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(IOResources.Error_Directory_missing);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -169,7 +168,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(IOResources.Error_File_empty);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -303,7 +302,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(IOResources.Error_File_does_not_exist);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
@@ -325,7 +324,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(IOResources.Error_Directory_missing);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -347,7 +346,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(IOResources.Error_File_empty);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

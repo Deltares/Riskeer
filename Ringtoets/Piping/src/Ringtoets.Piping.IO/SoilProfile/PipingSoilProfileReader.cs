@@ -2,10 +2,12 @@
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using Core.Common.Utils;
+using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
@@ -48,7 +50,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             if (!File.Exists(databaseFilePath))
             {
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.Error_File_does_not_exist);
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
                 throw new CriticalFileReadException(message);
             }
 

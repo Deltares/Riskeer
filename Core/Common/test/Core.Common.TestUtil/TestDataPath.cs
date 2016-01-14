@@ -21,19 +21,14 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath Storage = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Storage.Test");
             }
-
-            public static readonly TestDataPath CorePluginsSharpMapGisTests =
-                @"Core/Plugins/test/Core.Plugins.SharpMapGis.Test/";
         }
 
-        public static class Common
+        public static class Core
         {
-            public static readonly TestDataPath CoreCommonUtilsTests =
-                System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Utils.Test");
-
-            public static class Base
+            public static class Common
             {
-                public static readonly TestDataPath CoreCommonBaseTests = @"Core/Common/test/Core.Common.Base.Test";
+                public static readonly TestDataPath Base = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Base.Test");
+                public static readonly TestDataPath Utils = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Utils.Test");
             }
         }
 
@@ -43,9 +38,6 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
             }
-
-            public static readonly TestDataPath CorePluginsSharpMapGisTests =
-                @"Core/Plugins/test/Core.Plugins.SharpMapGis.Test/";
         }
     }
 }

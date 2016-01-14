@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntityModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rt" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntityModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rt" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ProjectEntity">
           <Key>
             <PropertyRef Name="ProjectEntityId" />
@@ -14,8 +14,18 @@
           <Property Name="Description" Type="varchar" MaxLength="1024" />
           <Property Name="LastUpdated" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="VersionId" />
+          </Key>
+          <Property Name="VersionId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromVersion" Type="varchar" MaxLength="50" />
+          <Property Name="ToVersion" Type="varchar" MaxLength="50" />
+          <Property Name="Timestamp" Type="decimal" Precision="53" Scale="0" />
+        </EntityType>
         <EntityContainer Name="RingtoetsEntityModelStoreContainer">
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
+          <EntitySet Name="Version" EntityType="Self.Version" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -23,6 +33,7 @@
       <Schema Namespace="RingtoetsEntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntityModel.ProjectEntity" />
+          <EntitySet Name="Versions" EntityType="RingtoetsEntityModel.Version" />
         </EntityContainer>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -32,6 +43,15 @@
           <Property Name="Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="LastUpdated" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="VersionId" />
+          </Key>
+          <Property Name="VersionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromVersion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToVersion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Timestamp" Type="Decimal" Precision="53" Scale="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -46,6 +66,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versions">
+            <EntityTypeMapping TypeName="RingtoetsEntityModel.Version">
+              <MappingFragment StoreEntitySet="Version">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="ToVersion" ColumnName="ToVersion" />
+                <ScalarProperty Name="FromVersion" ColumnName="FromVersion" />
+                <ScalarProperty Name="VersionId" ColumnName="VersionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -64,7 +94,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

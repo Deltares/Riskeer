@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Converter
         /// </summary>
         /// <param name="projectEntity"><see cref="ProjectEntity"/> to convert.</param>
         /// <returns>A new instance of <see cref="Project"/>, based on the properties of <paramref name="projectEntity"/>.</returns>
-        public static Project ProjectEntityToProject( ProjectEntity projectEntity )
+        public static Project ProjectEntityToProject(ProjectEntity projectEntity)
         {
             var project = new Project
             {
@@ -65,6 +65,5 @@ namespace Application.Ringtoets.Storage.Converter
             projectEntity.Description = project.Description;
             projectEntity.LastUpdated = new DateTime().Ticks;
         }
-
     }
 }

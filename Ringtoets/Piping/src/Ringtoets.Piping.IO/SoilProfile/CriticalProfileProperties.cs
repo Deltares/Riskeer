@@ -1,6 +1,5 @@
 ﻿using System;
-
-using Ringtoets.Piping.IO.Builders;
+using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 

@@ -5,14 +5,11 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Builders;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.Plugin.FileImporter;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -37,7 +34,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Prepare
             var expectedFileFilter = String.Format("{0} {1} (*.soil)|*.soil",
-                PipingFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
+                                                   PipingFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
 
             // Call
             var importer = new PipingSoilProfilesImporter();
@@ -261,7 +258,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(observableSoilProfileList,
-                "No items should be added to collection when import is aborted.");
+                                     "No items should be added to collection when import is aborted.");
             Assert.AreEqual(1, progress);
 
             mocks.VerifyAll(); // Expect no calls on 'observer'

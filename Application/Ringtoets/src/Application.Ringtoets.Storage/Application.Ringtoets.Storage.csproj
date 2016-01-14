@@ -63,7 +63,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exceptions\InvalidFileException.cs" />
-    <Compile Include="Exceptions\FileNotFoundException.cs" />
     <Compile Include="IRingtoetsDBContext.cs" />
     <Compile Include="Converter\ProjectEntityConverter.cs" />
     <Compile Include="ProjectEntity.cs">
@@ -92,11 +91,18 @@
     </Compile>
     <Compile Include="SqLiteStorageConnection.cs" />
     <Compile Include="StorageSqLite.cs" />
+    <Compile Include="Version.cs">
+      <DependentUpon>RingtoetsDBContext.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>

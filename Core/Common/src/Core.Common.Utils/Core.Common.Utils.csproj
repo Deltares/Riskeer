@@ -91,6 +91,7 @@
     <Compile Include="Attributes\ResourcesCategoryAttribute.cs" />
     <Compile Include="Attributes\ResourcesDescriptionAttribute.cs" />
     <Compile Include="Attributes\ResourcesDisplayNameAttribute.cs" />
+    <Compile Include="Builders\FileReaderErrorMessageBuilder.cs" />
     <Compile Include="Drawing\GraphicsExtensions.cs" />
     <Compile Include="Events\EventArgs.cs" />
     <Compile Include="Events\INotifyCollectionChanged.cs" />
@@ -100,10 +101,11 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ComparableExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Properties\Resource.Designer.cs">
+    <Compile Include="FileUtils.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
@@ -153,10 +155,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

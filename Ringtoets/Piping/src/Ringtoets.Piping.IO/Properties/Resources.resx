@@ -120,35 +120,11 @@
   <data name="Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_" xml:space="preserve">
     <value>Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
   </data>
-  <data name="Error_Directory_missing" xml:space="preserve">
-    <value>Het bestandspad verwijst naar een map die niet bestaat.</value>
-  </data>
-  <data name="Error_Line_too_big_for_RAM" xml:space="preserve">
-    <value>Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden.</value>
-  </data>
-  <data name="Error_File_does_not_exist" xml:space="preserve">
-    <value>Het bestand bestaat niet.</value>
-  </data>
-  <data name="Error_File_empty" xml:space="preserve">
-    <value>Het bestand is leeg.</value>
-  </data>
   <data name="Error_SurfaceLine_has_not_double" xml:space="preserve">
     <value>Profielmeting heeft een waarde die niet omgezet kan worden naar een getal.</value>
   </data>
   <data name="Error_SurfaceLine_parsing_causes_overflow" xml:space="preserve">
     <value>Profielmeting heeft een waarde die te groot of te klein is om ingelezen te worden.</value>
-  </data>
-  <data name="Error_General_IO_ErrorMessage_0_" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand: {0}</value>
-  </data>
-  <data name="Error_Path_cannot_contain_Characters_0_" xml:space="preserve">
-    <value>Bestandspad mag niet de volgende tekens bevatten: {0}</value>
-  </data>
-  <data name="Error_Path_must_be_specified" xml:space="preserve">
-    <value>Bestandspad mag niet leeg of ongedefinieerd zijn.</value>
-  </data>
-  <data name="Error_Path_must_not_point_to_folder" xml:space="preserve">
-    <value>Bestandspad mag niet naar een map verwijzen.</value>
   </data>
   <data name="Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN" xml:space="preserve">
     <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>

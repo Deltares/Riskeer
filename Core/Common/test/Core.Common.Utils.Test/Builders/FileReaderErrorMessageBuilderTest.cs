@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Core.Common.Utils.Builders;
+using NUnit.Framework;
 
-using Ringtoets.Piping.IO.Builders;
-
-namespace Ringtoets.Piping.IO.Test.Builders
+namespace Core.Common.Utils.Test.Builders
 {
     [TestFixture]
     public class FileReaderErrorMessageBuilderTest

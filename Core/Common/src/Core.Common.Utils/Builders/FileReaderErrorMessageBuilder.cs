@@ -1,4 +1,4 @@
-﻿namespace Ringtoets.Piping.IO.Builders
+﻿namespace Core.Common.Utils.Builders
 {
     /// <summary>
     /// Class to help create consistent file reader error messages.
