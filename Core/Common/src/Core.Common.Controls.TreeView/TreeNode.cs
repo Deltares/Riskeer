@@ -190,7 +190,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public bool Bold { get; set; }
         public Image Image { get; set; }
         public bool IsUpdating { get; private set; }
 
@@ -230,25 +229,6 @@ namespace Core.Common.Controls.TreeView
 
         public void UpdateObserver()
         {
-            Update();
-        }
-
-        public new void EnsureVisible()
-        {
-            base.EnsureVisible();
-        }
-
-        public new void Expand()
-        {
-            if (!isLoaded)
-            {
-                TreeView.RefreshChildNodes(this);
-            }
-            base.Expand();
-        }
-
-        public void Update()
-        {
             if (IsUpdating)
             {
                 return; //prevent 're-entrancy' issues
@@ -257,6 +237,16 @@ namespace Core.Common.Controls.TreeView
             IsUpdating = true;
             TreeView.UpdateNode(this);
             IsUpdating = false;
+        }
+
+        public new void Expand()
+        {
+            if (!isLoaded)
+            {
+                TreeView.RefreshChildNodes(this);
+            }
+
+            base.Expand();
         }
 
         public TreeNode GetParentOfLevel(int level)

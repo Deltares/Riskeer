@@ -370,7 +370,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private void ContextMenuLayerRenameClick(object sender, EventArgs e)
         {
-            TreeView.StartLabelEdit();
+            TreeView.StartLabelEdit(TreeView.SelectedNode);
         }
 
         // TODO: inject it from GuiPlugin (as event/delegate) and remove dependency from IGui

@@ -7,7 +7,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -82,73 +81,6 @@ namespace Core.Common.Controls.TreeView.Test
                 delegate { Assert.Fail("Child nodes which are not loaded should not be updated"); };
 
             treeView.Refresh();
-        }
-
-        [Test]
-        public void GetAllLoadedNodes()
-        {
-            /* 
-             * RootNode
-               |-LoadedChild
-               |-NotLoadedChild
-               |-LoadedChild2
-                    |-LoadedGrandChild
-               |-NotLoadedChild2
-                    |-LoadedGrandChild2
-             */
-            var treeView = new TreeView();
-
-            TreeNode rootNode = new MockTestNode(treeView, true)
-            {
-                Text = "RootNode"
-            };
-            var loadedChild = new MockTestNode(treeView, true)
-            {
-                Text = "LoadedChild"
-            };
-            rootNode.Nodes.Add(loadedChild);
-            var notLoadedChild = new MockTestNode(treeView, false)
-            {
-                Text = "NotLoadedChild"
-            };
-            rootNode.Nodes.Add(notLoadedChild);
-
-            var loadedChild2 = new MockTestNode(treeView, true)
-            {
-                Text = "LoadedChild2"
-            };
-            rootNode.Nodes.Add(loadedChild2);
-            var loadedGrandChild = new MockTestNode(treeView, true)
-            {
-                Text = "LoadedGrandChild"
-            };
-            loadedChild2.Nodes.Add(loadedGrandChild);
-
-            var notLoadedChild2 = new MockTestNode(treeView, false)
-            {
-                Text = "NotLoadedChild2"
-            };
-            rootNode.Nodes.Add(notLoadedChild2);
-            notLoadedChild2.Nodes.Add(new MockTestNode(treeView, true)
-            {
-                Text = "LoadedGrandChild2"
-            });
-            //reset the loaded flag. It was set set to true by the previous call
-            notLoadedChild2.SetLoaded(false);
-
-            treeView.Nodes.Add(rootNode);
-
-            Assert.AreEqual(
-                new[]
-                {
-                    rootNode,
-                    loadedChild,
-                    notLoadedChild,
-                    loadedChild2,
-                    loadedGrandChild,
-                    notLoadedChild2
-                },
-                treeView.AllLoadedNodes.ToArray());
         }
 
         [Test]
@@ -557,20 +489,6 @@ namespace Core.Common.Controls.TreeView.Test
             public override IEnumerable GetChildNodeObjects(Child parentNodeData)
             {
                 return parentNodeData.Children;
-            }
-        }
-
-        private class MockTestNode : TreeNode
-        {
-            public MockTestNode(TreeView treeView, bool loaded)
-                : base(treeView)
-            {
-                SetLoaded(loaded);
-            }
-
-            public void SetLoaded(bool value)
-            {
-                TypeUtils.SetField(this, "isLoaded", value);
             }
         }
     }

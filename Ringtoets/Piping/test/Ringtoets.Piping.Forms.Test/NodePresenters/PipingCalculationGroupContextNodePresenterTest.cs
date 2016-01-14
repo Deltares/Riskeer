@@ -537,7 +537,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
                 }
             }).Return(preUpdateCalculationContextNode).Repeat.Twice();
             treeView.Expect(v => v.GetNodeByTag(newOwnerGroupContext)).Return(newOwnerGroupContextNode);
-            treeView.Expect(v => v.StartLabelEdit());
+            treeView.Expect(v => v.StartLabelEdit(postUpdateCalculationContextNode));
 
             var contextMenuBuilderProviderMock = mockRepository.StrictMock<IContextMenuBuilderProvider>();
 

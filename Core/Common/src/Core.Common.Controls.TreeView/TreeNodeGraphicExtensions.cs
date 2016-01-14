@@ -229,7 +229,7 @@ namespace Core.Common.Controls.TreeView
                                             ? node.BackColor
                                             : treeView.BackColor;
 
-            var font = new Font(node.NodeFont ?? treeView.Font, node.Bold ? FontStyle.Bold : FontStyle.Regular);
+            var font = new Font(node.NodeFont ?? treeView.Font, FontStyle.Regular);
             var topOffset = (node.Bounds.Height - TextRenderer.MeasureText(node.Text, font).Height)/2;
 
             var startPoint = new Point(GetTextLeft(node), bounds.Top + topOffset);

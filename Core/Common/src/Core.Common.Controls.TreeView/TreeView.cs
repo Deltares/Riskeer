@@ -35,7 +35,7 @@ namespace Core.Common.Controls.TreeView
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TreeNodeList nodes;
 
-        private TreeViewController controller;
+        private readonly TreeViewController controller;
         private int dropAtLocation;
         private Point lastDragOverPoint;
         private PlaceholderLocation lastPlaceholderLocation;
@@ -119,16 +119,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEnumerable<TreeNode> AllLoadedNodes
-        {
-            get
-            {
-                return Nodes.SelectMany(GetAllLoadedNodes);
-            }
-        }
-
         /// <summary>
         /// The nodepresenters handle building logic for dataobjects added to the tree.
         /// </summary>
@@ -164,6 +154,7 @@ namespace Core.Common.Controls.TreeView
         public void CollapseAll(TreeNode node)
         {
             node.Collapse();
+
             foreach (var childNode in node.Nodes)
             {
                 CollapseAll(childNode);
@@ -181,15 +172,11 @@ namespace Core.Common.Controls.TreeView
         public void ExpandAll(TreeNode node)
         {
             node.Expand();
+
             foreach (var childNode in node.Nodes)
             {
                 ExpandAll(childNode);
             }
-        }
-
-        public void StartLabelEdit()
-        {
-            StartLabelEdit(SelectedNode);
         }
 
         public void StartLabelEdit(TreeNode node)
@@ -495,7 +482,7 @@ namespace Core.Common.Controls.TreeView
             {
                 case Keys.F2:
                     //start editing the label
-                    StartLabelEdit();
+                    StartLabelEdit(SelectedNode);
                     return true;
 
                 case Keys.Apps:

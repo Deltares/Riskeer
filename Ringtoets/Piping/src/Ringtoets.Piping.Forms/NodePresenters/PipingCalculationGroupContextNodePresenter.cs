@@ -510,7 +510,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 recordedNodeState.Restore(draggedNode);
                 if (renamed)
                 {
-                    treeView.StartLabelEdit();
+                    treeView.StartLabelEdit(draggedNode);
                 }
             }
 
