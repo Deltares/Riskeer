@@ -20,7 +20,6 @@ namespace Core.Common.Controls.TreeView
         {
             this.treeView = treeView;
             nodes = new TreeNodeList(base.Nodes);
-            IsVisible = true;
         }
 
         /// <summary>
@@ -85,6 +84,7 @@ namespace Core.Common.Controls.TreeView
                 {
                     throw new ArgumentNullException();
                 }
+
                 if (tag == value)
                 {
                     return;
@@ -96,16 +96,14 @@ namespace Core.Common.Controls.TreeView
                 }
 
                 tag = value;
-
                 observable = tag as IObservable;
+
                 if (observable != null)
                 {
                     observable.Attach(this);
                 }
             }
         }
-
-        public new bool IsVisible { get; set; }
 
         public new TreeNode Parent
         {
@@ -139,19 +137,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public new IList<TreeNode> Nodes
-        {
-            get
-            {
-                if (!isLoaded)
-                {
-                    RefreshChildNodes();
-                }
-
-                return nodes;
-            }
-        }
-
         public TreeNode PreviousNode
         {
             get
@@ -165,6 +150,19 @@ namespace Core.Common.Controls.TreeView
             get
             {
                 return (TreeNode) PrevVisibleNode;
+            }
+        }
+
+        public new IList<TreeNode> Nodes
+        {
+            get
+            {
+                if (!isLoaded)
+                {
+                    RefreshChildNodes();
+                }
+
+                return nodes;
             }
         }
 
@@ -191,6 +189,7 @@ namespace Core.Common.Controls.TreeView
         }
 
         public Image Image { get; set; }
+
         public bool IsUpdating { get; private set; }
 
         private void RefreshChildNodes(bool forcedRefresh = false)
@@ -269,14 +268,6 @@ namespace Core.Common.Controls.TreeView
         public TreeNode GetNodeByTag(object item)
         {
             return nodes.FirstOrDefault(node => node.Tag == item);
-        }
-
-        public void ShowContextMenu(Point location)
-        {
-            if (base.ContextMenuStrip != null)
-            {
-                base.ContextMenuStrip.Show(location);
-            }
         }
 
         public void Dispose()

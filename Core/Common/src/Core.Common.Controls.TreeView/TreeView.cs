@@ -486,11 +486,11 @@ namespace Core.Common.Controls.TreeView
                     return true;
 
                 case Keys.Apps:
-                    if (SelectedNode != null && ContextMenu != null)
+                    if (SelectedNode != null && ContextMenu != null && SelectedNode.ContextMenuStrip != null)
                     {
                         Point location = SelectedNode.Bounds.Location;
                         location.Offset(0, SelectedNode.Bounds.Height);
-                        SelectedNode.ShowContextMenu(location);
+                        SelectedNode.ContextMenuStrip.Show(location);
                     }
                     return true;
 

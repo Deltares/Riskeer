@@ -40,7 +40,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             node.Text = layer.Name;
             node.Checked = layer.Visible;
             node.ShowCheckBox = true;
-            node.IsVisible = layer.ShowInTreeView;
         }
 
         public override IEnumerable GetChildNodeObjects(ILayer mapLayer)
