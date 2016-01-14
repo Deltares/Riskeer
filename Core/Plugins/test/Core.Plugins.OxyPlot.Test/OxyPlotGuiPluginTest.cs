@@ -93,7 +93,7 @@ namespace Core.Plugins.OxyPlot.Test
 
                 // Assert
                 Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(ICollection<IChartData>), views[0].DataType);
+                Assert.AreEqual(typeof(ICollection<ChartData>), views[0].DataType);
                 Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
                 Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
             }

@@ -12,7 +12,7 @@ namespace Core.Plugins.OxyPlot.Forms
     public class ChartDataView : UserControl, IChartView
     {
         private readonly BaseChart baseChart;
-        private ICollection<IChartData> data;
+        private ICollection<ChartData> data;
 
         /// <summary>
         /// Creates an instance of <see cref="ChartDataView"/> with just a <see cref="BaseChart"/> on it.
@@ -34,7 +34,7 @@ namespace Core.Plugins.OxyPlot.Forms
             }
             set
             {
-                data = (ICollection<IChartData>) value;
+                data = (ICollection<ChartData>) value;
                 baseChart.Data = data;
             }
         }

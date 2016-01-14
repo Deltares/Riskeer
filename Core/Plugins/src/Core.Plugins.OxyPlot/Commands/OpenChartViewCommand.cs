@@ -59,7 +59,7 @@ namespace Core.Plugins.OxyPlot.Commands
                 new Tuple<double, double>(0.5, 1.6),  
                 new Tuple<double, double>(1.0, 2.1)
             });
-            Gui.DocumentViewsResolver.OpenViewForData(new Collection<IChartData>() { area, clearArea, line, points });
+            Gui.DocumentViewsResolver.OpenViewForData(new Collection<ChartData>() { area, clearArea, line, points });
         }
     }
 }

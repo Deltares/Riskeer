@@ -19,7 +19,7 @@ namespace Core.Components.OxyPlot.Forms
     public sealed class BaseChart : Control
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
-        private readonly IDictionary<IChartData, Series> series = new Dictionary<IChartData, Series>(new ReferenceEqualityComparer());
+        private readonly IDictionary<ChartData, Series> series = new Dictionary<ChartData, Series>(new ReferenceEqualityComparer());
         private PlotView view;
 
         /// <summary>
@@ -28,11 +28,14 @@ namespace Core.Components.OxyPlot.Forms
         public BaseChart()
         {
             InitializePlotView();
-            Data = new List<IChartData>();
+            Data = new List<ChartData>();
             MinimumSize = new Size(50, 75);
         }
 
-        public ICollection<IChartData> Data
+        /// <summary>
+        /// Gets or sets the data to show in the <see cref="BaseChart"/>.
+        /// </summary>
+        public ICollection<ChartData> Data
         {
             get
             {
@@ -44,37 +47,12 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        private void SetData(ICollection<IChartData> value)
-        {
-            series.Clear();
-
-            if (value != null)
-            {
-                foreach (var serie in value)
-                {
-                    AddSeries(serie);
-                }
-            }
-
-            UpdateTree();
-        }
-
-        /// <summary>
-        /// Add <see cref="Core.Components.Charting.Data.IChartData"/> to the <see cref="BaseChart"/>.
-        /// </summary>
-        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        private void AddSeries(IChartData data)
-        {
-            series.Add(data, seriesFactory.Create(data));
-        }
-
         /// <summary>
         /// Sets the visibility of a series in this <see cref="BaseChart"/>.
         /// </summary>
-        /// <param name="serie">The <see cref="Core.Components.Charting.Data.IChartData"/> to set the visibility for.</param>
+        /// <param name="serie">The <see cref="ChartData"/> to set the visibility for.</param>
         /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="serie"/>.</param>
-        public void SetVisibility(IChartData serie, bool visibility)
+        public void SetVisibility(ChartData serie, bool visibility)
         {
             if (serie != null)
             {
@@ -88,6 +66,40 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        /// <summary>
+        /// Sets the new data. When <paramref name="data"/> is <c>null</c> the <see cref="BaseChart"/> is
+        /// cleared.
+        /// </summary>
+        /// <param name="data">The <see cref="ICollection{T}"/> of <see cref="ChartData"/> to set.</param>
+        private void SetData(ICollection<ChartData> data)
+        {
+            series.Clear();
+
+            if (data != null)
+            {
+                foreach (var serie in data)
+                {
+                    AddSeries(serie);
+                }
+            }
+
+            UpdateTree();
+        }
+
+        /// <summary>
+        /// Add <see cref="ChartData"/> to the <see cref="BaseChart"/>.
+        /// </summary>
+        /// <param name="data">The data to add to the <see cref="BaseChart"/>.</param>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="data"/> is of a non-supported <see cref="ChartData"/>
+        /// type.</exception>
+        private void AddSeries(ChartData data)
+        {
+            series.Add(data, seriesFactory.Create(data));
+        }
+
+        /// <summary>
+        /// Initialize the <see cref="PlotView"/> for the <see cref="BaseChart"/>.
+        /// </summary>
         private void InitializePlotView()
         {
             view = new PlotView
@@ -128,7 +140,10 @@ namespace Core.Components.OxyPlot.Forms
                 MinorGridlineStyle = LineStyle.Dot
             };
         }
-
+        
+        /// <summary>
+        /// Updates the tree with the currently known <see cref="Data"/>.
+        /// </summary>
         private void UpdateTree()
         {
             foreach (var data in series.Values)
@@ -138,14 +153,17 @@ namespace Core.Components.OxyPlot.Forms
         }
     }
 
-    internal class ReferenceEqualityComparer : IEqualityComparer<IChartData>
+    /// <summary>
+    /// This class determines whether two objects are equal based on their references.
+    /// </summary>
+    internal class ReferenceEqualityComparer : IEqualityComparer<ChartData>
     {
-        public bool Equals(IChartData x, IChartData y)
+        public bool Equals(ChartData x, ChartData y)
         {
             return ReferenceEquals(x, y);
         }
 
-        public int GetHashCode(IChartData obj)
+        public int GetHashCode(ChartData obj)
         {
             return RuntimeHelpers.GetHashCode(obj);
         }

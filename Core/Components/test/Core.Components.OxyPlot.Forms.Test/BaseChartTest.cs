@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -23,7 +25,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void Data_SetToNull_RemovesSeriesFromModel()
+        public void Data_SetToNull_EmptyData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -42,7 +44,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void AddData_Always_AddsToSeries()
+        public void Data_NotNull_DataSet()
         {
             // Setup
             var chart = new BaseChart();
@@ -51,9 +53,55 @@ namespace Core.Components.OxyPlot.Forms.Test
             var areaData = new AreaData(new Collection<Tuple<double,double>>());
 
             // Call
-            chart.Data = new IChartData[] { pointData, lineData, areaData };
+            chart.Data = new ChartData[] { pointData, lineData, areaData };
+
             // Assert
-            CollectionAssert.AreEqual(new IChartData[] {pointData, lineData, areaData}, chart.Data);
+            CollectionAssert.AreEqual(new ChartData[] {pointData, lineData, areaData}, chart.Data);
+        }
+
+        [Test]
+        public void Data_NotKnownChartData_ThrowsNotSupportedException()
+        {
+            // Setup
+            var chart = new BaseChart();
+            var testData = new TestChartData();
+
+            // Call
+            TestDelegate test = () => chart.Data = new ChartData[] { testData };
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetVisibility_ForContainingData_SetsDataVisibility(bool visibility)
+        {
+            // Setup
+            var chart = new BaseChart();
+            var pointData = new PointData(new Collection<Tuple<double, double>>());
+            chart.Data = new ChartData[] { pointData };
+
+            // Call
+            chart.SetVisibility(pointData, visibility);
+
+            // Assert
+            Assert.AreEqual(visibility, pointData.IsVisible);
+        }
+
+        [Test]
+        public void SetVisibility_ForNonContainingData_ThrowsKeyNotFoundException()
+        {
+            // Setup
+            var chart = new BaseChart();
+            var pointData = new PointData(new Collection<Tuple<double,double>>());
+
+            // Call
+            TestDelegate test = () => chart.SetVisibility(pointData, true);
+            
+            // Assert
+            Assert.Throws<KeyNotFoundException>(test);
         }
     }
 }

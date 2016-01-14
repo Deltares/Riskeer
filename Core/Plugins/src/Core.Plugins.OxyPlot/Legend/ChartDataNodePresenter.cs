@@ -6,11 +6,11 @@ using Core.Plugins.OxyPlot.Properties;
 namespace Core.Plugins.OxyPlot.Legend
 {
     /// <summary>
-    /// This class describes the presentation of <see cref="Core.Components.Charting.Data.IChartData"/> in a <see cref="TreeView"/>.
+    /// This class describes the presentation of <see cref="ChartData"/> in a <see cref="TreeView"/>.
     /// </summary>
-    public class ChartDataNodePresenter : TreeViewNodePresenterBase<IChartData>
+    public class ChartDataNodePresenter : TreeViewNodePresenterBase<ChartData>
     {
-        public override void UpdateNode(TreeNode parentNode, TreeNode node, IChartData nodeData)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, ChartData nodeData)
         {
             if (nodeData is AreaData)
             {
@@ -37,7 +37,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
         public override void OnNodeChecked(TreeNode node)
         {
-            ((LegendTreeView) TreeView).Chart.SetVisibility((IChartData)node.Tag, node.Checked);
+            ((LegendTreeView) TreeView).Chart.SetVisibility((ChartData)node.Tag, node.Checked);
         }
     }
 }

@@ -1,33 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Core.Components.Charting.Data
 {
     /// <summary>
-    /// This class represents data which is represented as a line.
+    /// This class represents data in 2D space which is visible as a line.
     /// </summary>
-    public class LineData : IChartData
+    public class LineData : ChartData
     {
         /// <summary>
         /// Creates a new instance of <see cref="LineData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> which represents points 
-        /// which, when connected, form a line.</param>
+        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> which forms a line
+        /// in 2D space.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public LineData(Collection<Tuple<double, double>> points)
+        public LineData(IEnumerable<Tuple<double, double>> points) : base(points)
         {
-            if (points == null)
-            {
-                throw new ArgumentNullException("points", "A point collection is required when creating ChartData.");
-            }
-            Points = points.ToArray();
-            IsVisible = true;
         }
-
-        public bool IsVisible { get; set; }
-
-        public IEnumerable<Tuple<double, double>> Points { get; private set; }
     }
 }

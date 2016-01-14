@@ -28,7 +28,8 @@ namespace Core.Components.Charting.Test.Data
             var data = new PointData(points);
 
             // Assert
-            Assert.IsInstanceOf<IChartData>(data);
+            Assert.IsInstanceOf<ChartData>(data);
+            Assert.AreNotSame(points, data.Points);
         }
 
         [Test]
@@ -41,7 +42,9 @@ namespace Core.Components.Charting.Test.Data
             var data = new PointData(points);
 
             // Assert
-            Assert.IsInstanceOf<IChartData>(data);
+            Assert.IsInstanceOf<ChartData>(data);
+            Assert.AreNotSame(points, data.Points);
+            CollectionAssert.AreEqual(points, data.Points);
         }
 
         private Collection<Tuple<double, double>> CreateTestPoints()

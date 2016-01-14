@@ -42,6 +42,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\OxyPlot.Core.1.0.0-unstable1953\lib\net40\OxyPlot.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -53,9 +57,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Charting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
       <Project>{2344A7BD-7E25-4A1A-982E-6C674AF5167A}</Project>
       <Name>Core.Components.OxyPlot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Charting.TestUtil\Core.Components.Charting.TestUtil.csproj">
+      <Project>{E900A014-CA87-4374-87F0-813D653A9698}</Project>
+      <Name>Core.Components.Charting.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

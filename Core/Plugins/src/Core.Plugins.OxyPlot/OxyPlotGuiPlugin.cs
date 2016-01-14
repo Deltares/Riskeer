@@ -38,7 +38,7 @@ namespace Core.Plugins.OxyPlot
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
-            yield return new ViewInfo<ICollection<IChartData>, ChartDataView>
+            yield return new ViewInfo<ICollection<ChartData>, ChartDataView>
             {
                 Image = Resources.ChartIcon,
                 GetViewName = (v, o) => "Diagram"

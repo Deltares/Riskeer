@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
@@ -22,9 +23,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var nodePresenter = new ChartDataNodePresenter();
 
             // Assert
-            Assert.IsInstanceOf<TreeViewNodePresenterBase<IChartData>>(nodePresenter);
+            Assert.IsInstanceOf<TreeViewNodePresenterBase<ChartData>>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(IChartData), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(ChartData), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void UpdateNode_ForOtherIChartData_ThrowsNotSupportedException()
+        public void UpdateNode_ForOtherChartData_ThrowsNotSupportedException()
         {
             // Setup
             var nodePresenter = new ChartDataNodePresenter();
@@ -88,10 +89,5 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Assert
             Assert.Throws<NotSupportedException>(test);
         }
-    }
-
-    public class TestChartData : IChartData {
-        public bool IsVisible { get; set; }
-        public IEnumerable<Tuple<double, double>> Points { get; private set; }
     }
 }

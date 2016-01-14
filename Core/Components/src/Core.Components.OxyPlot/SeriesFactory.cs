@@ -6,9 +6,17 @@ using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot
 {
+    /// <summary>
+    /// This class creates new <see cref="Series"/> objects from <see cref="ChartData"/>.
+    /// </summary>
     public class SeriesFactory
     {
-        public Series Create(IChartData data)
+        /// <summary>
+        /// Creates a new <see cref="Series"/> from the given <paramref name="data"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="ChartData"/> to base the creation of a <see cref="Series"/> upon.</param>
+        /// <returns>A new <see cref="Series"/>.</returns>
+        public Series Create(ChartData data)
         {
             var lineData = data as LineData;
             if (lineData != null)
@@ -28,7 +36,12 @@ namespace Core.Components.OxyPlot
             throw new NotSupportedException(String.Format("IChartData of type {0} is not supported.", data.GetType().Name));
         }
 
-        private Series Create(AreaData data)
+        /// <summary>
+        /// Creates a new <see cref="AreaSeries"/> for <see cref="AreaData"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="AreaData"/> to base the new <see cref="AreaSeries"/> upon.</param>
+        /// <returns>A new <see cref="AreaSeries"/>.</returns>
+        private static AreaSeries Create(AreaData data)
         {
             var series = new AreaSeries();
             foreach (var p in data.Points)
@@ -42,7 +55,12 @@ namespace Core.Components.OxyPlot
             return series;
         }
 
-        private Series Create(LineData data)
+        /// <summary>
+        /// Creates a new <see cref="LineSeries"/> for <see cref="LineData"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="LineData"/> to base the new <see cref="LineSeries"/> upon.</param>
+        /// <returns>A new <see cref="LineSeries"/>.</returns>
+        private static LineSeries Create(LineData data)
         {
             var series = new LineSeries
             {
@@ -52,7 +70,12 @@ namespace Core.Components.OxyPlot
             return series;
         }
 
-        private Series Create(PointData data)
+        /// <summary>
+        /// Creates a new <see cref="LineSeries"/> with point styling for <see cref="PointData"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="PointData"/> to base the new <see cref="LineSeries"/> upon.</param>
+        /// <returns>A new <see cref="LineSeries"/>.</returns>
+        private static LineSeries Create(PointData data)
         {
             var series = new LineSeries
             {
@@ -64,6 +87,13 @@ namespace Core.Components.OxyPlot
             return series;
         }
 
+        /// <summary>
+        /// Transforms a given object into a <see cref="DataPoint"/>
+        /// </summary>
+        /// <param name="obj">The object to convert into a <see cref="DataPoint"/>.</param>
+        /// <returns>A new <see cref="DataPoint"/> based on <paramref name="obj"/>.</returns>
+        /// <exception cref="InvalidCastException">Thrown when <paramref name="obj"/> is not of type <see cref="Tuple{T,T}"/> of 
+        /// <see cref="Double"/>.</exception>
         private static DataPoint TupleToDataPoint(object obj)
         {
             var point = (Tuple<double, double>)obj;
