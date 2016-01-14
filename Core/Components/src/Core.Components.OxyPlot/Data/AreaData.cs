@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Data
