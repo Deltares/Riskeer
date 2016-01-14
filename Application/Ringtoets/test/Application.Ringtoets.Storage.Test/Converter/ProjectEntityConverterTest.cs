@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Converter
         {
             // Setup
             const long projectId = 1;
-            const long projectEntityId = 1;
+            const long projectEntityId = 2;
             var project = new Project
             {
                 StorageId = projectId
