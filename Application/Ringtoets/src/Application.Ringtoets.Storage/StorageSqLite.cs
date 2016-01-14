@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.IO;
 using Application.Ringtoets.Storage.Converter;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;
 using Core.Common.Utils;
@@ -61,14 +64,11 @@ namespace Application.Ringtoets.Storage
                     dbContext.Versions.Load();
                     return true;
                 }
-                catch (InvalidOperationException)
-                {
-                    return false;
-                }
-                catch (EntityCommandExecutionException)
-                {
-                    return false;
-                }
+                catch (MetadataException) { }
+                catch (InvalidOperationException){}
+                catch (EntityCommandExecutionException){}
+                catch (Exception) { }
+                return false;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage
         /// Saves the <paramref name="project"/> at the default location.
         /// </summary>
         /// <param name="project"><see cref="Project"/> to save.</param>
-        /// <returns>Returns the number of changes, see <see cref="IRingtoetsDbContext.SaveChanges()"/>.</returns>
+        /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         public int SaveProject(Project project)
         {
             using (var dbContext = new RingtoetsEntities(connectionString))
@@ -87,16 +87,19 @@ namespace Application.Ringtoets.Storage
                     ProjectEntityConverter.UpdateProjectEntity(dbContext.ProjectEntities, project);
                     changes = dbContext.SaveChanges();
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.InnerException);
-                }
+                catch (ArgumentNullException) {}
+                catch (DbEntityValidationException) {}
+                catch (NotSupportedException) {}
+                catch (ObjectDisposedException) {}
+                catch (InvalidOperationException) {}
+                catch (DbUpdateConcurrencyException) {}
+                catch (DbUpdateException) {}
                 return changes;
             }
         }
 
         /// <summary>
-        /// Attempts to load the <see cref="Project"/> from the databaseconnection <see cref="RingtoetsEntities"/>.
+        /// Attempts to load the <see cref="Project"/> from the SQLite database.
         /// </summary>
         /// <returns>Returns a new instance of <see cref="Project"/> with the data from the database or <c>null</c> when not found.</returns>
         public Project LoadProject()
@@ -107,25 +110,9 @@ namespace Application.Ringtoets.Storage
                 {
                     return ProjectEntityConverter.GetProject(dbContext.ProjectEntities);
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.InnerException);
-                }
+                catch (ArgumentNullException) {}
             }
             return null;
         }
-    }
-
-    /// <summary>
-    /// Partial implementation of <see cref="RingtoetsEntities"/> that support a connection string and dos not read the connection string from the configuration.
-    /// </summary>
-    public partial class RingtoetsEntities
-    {
-        /// <summary>
-        /// A new instance of <see cref="RingtoetsEntities"/>.
-        /// </summary>
-        /// <param name="connString">A connection string.</param>
-        public RingtoetsEntities(string connString)
-            : base(connString) {}
     }
 }

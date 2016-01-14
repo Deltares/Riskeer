@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converter;
+using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -9,10 +12,10 @@ using Rhino.Mocks;
 namespace Application.Ringtoets.Storage.Test.Converter
 {
     [TestFixture]
-    class ProjectEntityConverterTest
+    public class ProjectEntityConverterTest
     {
         [Test]
-        public void ProjectEntityMapping_ProjectEntity_Project()
+        public void GetProject_ProjectEntity_Project()
         {
             // Setup
             const long projectId = 1;
@@ -23,7 +26,10 @@ namespace Application.Ringtoets.Storage.Test.Converter
                 Description = "description"
             };
 
-            var projectEntities = GetDbSetTest(new List<ProjectEntity> { projectEntity });
+            var projectEntities = GetDbSetTest(new List<ProjectEntity>
+            {
+                projectEntity
+            });
 
             // Call
             var project = ProjectEntityConverter.GetProject(projectEntities);
@@ -37,7 +43,94 @@ namespace Application.Ringtoets.Storage.Test.Converter
         }
 
         [Test]
-        public void ProjectEntityMapping_Project_ProjectEntity()
+        public void GetProject_NullDataSet_ThrowsArgumentNullException()
+        {
+            // Setup
+            TestDelegate test = () => ProjectEntityConverter.GetProject(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void UpdateProjectEntity_NullDataValidProject_ThrowsArgumentNullException()
+        {
+            // Setup
+            var project = new Project();
+            TestDelegate test = () => ProjectEntityConverter.UpdateProjectEntity(null, project);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void UpdateProjectEntity_ValidDataSetNullProject_ThrowsArgumentNullException()
+        {
+            // Setup
+            var projectEntities = GetDbSetTest(new List<ProjectEntity>());
+            TestDelegate test = () => ProjectEntityConverter.UpdateProjectEntity(projectEntities, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void UpdateProjectEntity_DuplicateProjectEntityId_ThrowsInvalidOperationException()
+        {
+            // Setup
+            const long projectId = 1;
+            var project = new Project
+            {
+                StorageId = projectId
+            };
+            var projectEnties = new List<ProjectEntity>
+            {
+                new ProjectEntity()
+                {
+                    ProjectEntityId = projectId
+                },
+                new ProjectEntity()
+                {
+                    ProjectEntityId = projectId
+                }
+            };
+            var projectEntities = GetDbSetTest(projectEnties);
+
+            // Call
+            TestDelegate test = () => ProjectEntityConverter.UpdateProjectEntity(projectEntities, project);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+        
+        [Test]
+        public void UpdateProjectEntity_UnknownProjectEntityId_ThrowsEntityNotFoundException()
+        {
+            // Setup
+            const long projectId = 1;
+            const long projectEntityId = 1;
+            var project = new Project
+            {
+                StorageId = projectId
+            };
+            var projectEnties = new List<ProjectEntity>
+            {
+                new ProjectEntity()
+                {
+                    ProjectEntityId = projectEntityId
+                }
+            };
+            var projectEntities = GetDbSetTest(projectEnties);
+
+            // Call
+            TestDelegate test = () => ProjectEntityConverter.UpdateProjectEntity(projectEntities, project);
+
+            // Assert
+            Assert.Throws<EntityNotFoundException>(test);
+        }
+
+        [Test]
+        public void UpdateProjectEntity_Project_ProjectEntity()
         {
             // Setup
             const long projectId = 1;
@@ -67,8 +160,6 @@ namespace Application.Ringtoets.Storage.Test.Converter
             Assert.AreEqual(project.Name, projectEntitiesArray[0].Name);
             Assert.AreEqual(project.Description, projectEntitiesArray[0].Description);
         }
-
-
 
         private static IDbSet<T> GetDbSetTest<T>(IList<T> data) where T : class
         {

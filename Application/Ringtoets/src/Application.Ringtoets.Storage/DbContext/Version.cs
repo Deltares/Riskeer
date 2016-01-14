@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Application.Ringtoets.Storage
+namespace Application.Ringtoets.Storage.DbContext
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectEntity
+    public partial class Version
     {
-        public long ProjectEntityId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public long LastUpdated { get; set; }
+        public long VersionId { get; set; }
+        public string FromVersion { get; set; }
+        public string ToVersion { get; set; }
+        public Nullable<decimal> Timestamp { get; set; }
     }
 }

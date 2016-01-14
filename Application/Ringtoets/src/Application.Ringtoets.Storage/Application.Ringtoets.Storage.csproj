@@ -62,11 +62,13 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="DbContext\RingtoetsEntitiesPartial.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidFileException.cs" />
-    <Compile Include="IRingtoetsDBContext.cs" />
     <Compile Include="Converter\ProjectEntityConverter.cs" />
-    <Compile Include="ProjectEntity.cs">
-      <DependentUpon>RingtoetsDBContext.tt</DependentUpon>
+    <Compile Include="DbContext\IRingtoetsEntities.cs" />
+    <Compile Include="DbContext\ProjectEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -74,25 +76,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsDBContext.Context.cs">
+    <Compile Include="DbContext\RingtoetsEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RingtoetsDBContext.Context.tt</DependentUpon>
+      <DependentUpon>RingtoetsEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsDBContext.cs">
+    <Compile Include="DbContext\RingtoetsEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RingtoetsDBContext.tt</DependentUpon>
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="RingtoetsDBContext.Designer.cs">
+    <Compile Include="DbContext\RingtoetsEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RingtoetsDBContext.edmx</DependentUpon>
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="SqLiteStorageConnection.cs" />
     <Compile Include="StorageSqLite.cs" />
-    <Compile Include="Version.cs">
-      <DependentUpon>RingtoetsDBContext.tt</DependentUpon>
+    <Compile Include="DbContext\Version.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -114,26 +116,25 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="RingtoetsDBContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RingtoetsDBContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="Ringtoets.rt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="RingtoetsDBContext.Context.tt">
+    <EntityDeploy Include="DbContext\RingtoetsEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RingtoetsEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DbContext\RingtoetsEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RingtoetsDBContext.edmx</DependentUpon>
-      <LastGenOutput>RingtoetsDBContext.Context.cs</LastGenOutput>
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
+      <LastGenOutput>RingtoetsEntities.Context.cs</LastGenOutput>
     </None>
-    <None Include="RingtoetsDBContext.edmx.diagram">
-      <DependentUpon>RingtoetsDBContext.edmx</DependentUpon>
-      <SubType>Designer</SubType>
+    <None Include="DbContext\RingtoetsEntities.edmx.diagram">
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
     </None>
-    <None Include="RingtoetsDBContext.tt">
+    <None Include="DbContext\RingtoetsEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RingtoetsDBContext.edmx</DependentUpon>
-      <LastGenOutput>RingtoetsDBContext.cs</LastGenOutput>
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
+      <LastGenOutput>RingtoetsEntities.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

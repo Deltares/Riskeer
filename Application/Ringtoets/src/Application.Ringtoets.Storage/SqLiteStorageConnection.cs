@@ -17,7 +17,7 @@ namespace Application.Ringtoets.Storage
         {
             return new EntityConnectionStringBuilder
             {
-                Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "RingtoetsDBContext"),
+                Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "DbContext.RingtoetsEntities"),
                 Provider = @"System.Data.SQLite.EF6",
                 ProviderConnectionString = new SQLiteConnectionStringBuilder()
                 {
