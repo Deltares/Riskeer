@@ -38,12 +38,12 @@ namespace Core.Common.Base.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or set a method for determining whether or not the data item information is relevant for the proposed owner.
+        /// Gets or sets a method for determining whether or not the data item information is relevant for the proposed owner.
         /// </summary>
         public Func<object, bool> AdditionalOwnerCheck { get; set; }
 
         /// <summary>
-        /// Gets or set a function for creating the data.
+        /// Gets or sets a function for creating the data.
         /// The object parameter holds the proposed owner of the data to create.
         /// </summary>
         public Func<object, object> CreateData { get; set; }
@@ -91,12 +91,12 @@ namespace Core.Common.Base.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or set a method for determining whether or not the data item information is relevant for the proposed owner.
+        /// Gets or sets a method for determining whether or not the data item information is relevant for the proposed owner.
         /// </summary>
         public Func<object, bool> AdditionalOwnerCheck { get; set; }
 
         /// <summary>
-        /// Gets or set a function for creating the data.
+        /// Gets or sets a function for creating the data.
         /// The object parameter holds the proposed owner of the data to create.
         /// </summary>
         public Func<object, TValue> CreateData { get; set; }

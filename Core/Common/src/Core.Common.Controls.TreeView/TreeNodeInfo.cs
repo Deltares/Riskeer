@@ -13,7 +13,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         public TreeNodeInfo()
         {
-            Text = () => "";
+            Text = tag => "";
         }
 
         /// <summary>
@@ -22,14 +22,16 @@ namespace Core.Common.Controls.TreeView
         public Type TagType { get; set; }
 
         /// <summary>
-        /// Gets or sets a <see cref="Func{TResult}"/> for obtaining the tree node text.
+        /// Gets or sets a function for obtaining the tree node text.
+        /// The <c>object</c> parameter holds the wrapped data of the tree node.
         /// </summary>
-        public Func<string> Text { get; set; }
+        public Func<object, string> Text { get; set; }
 
         /// <summary>
-        /// Gets or sets a <see cref="Func{TResult}"/> for obtaining the tree node image.
+        /// Gets or sets a function for obtaining the tree node image.
+        /// The <c>object</c> parameter holds the wrapped data of the tree node.
         /// </summary>
-        public Func<Image> Image { get; set; }
+        public Func<object, Image> Image { get; set; }
     }
 
     /// <summary>
@@ -43,7 +45,7 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         public TreeNodeInfo()
         {
-            Text = () => "";
+            Text = tag => "";
         }
 
         /// <summary>
@@ -58,14 +60,16 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
-        /// Gets or sets a <see cref="Func{TResult}"/> for obtaining the tree node text.
+        /// Gets or sets a function for obtaining the tree node text.
+        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
         /// </summary>
-        public Func<string> Text { get; set; }
+        public Func<TData, string> Text { get; set; }
 
         /// <summary>
-        /// Gets or sets a <see cref="Func{TResult}"/> for obtaining the tree node image.
+        /// Gets or sets a function for obtaining the tree node image.
+        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
         /// </summary>
-        public Func<Image> Image { get; set; }
+        public Func<TData, Image> Image { get; set; }
 
         /// <summary>
         /// This operator converts a <see cref="TreeNodeInfo{TData}"/> into a <see cref="TreeNodeInfo"/>.
@@ -77,8 +81,8 @@ namespace Core.Common.Controls.TreeView
             return new TreeNodeInfo
             {
                 TagType = treeNodeInfo.TagType,
-                Text = treeNodeInfo.Text,
-                Image = treeNodeInfo.Image
+                Text = tag => treeNodeInfo.Text((TData) tag),
+                Image = tag => treeNodeInfo.Image((TData) tag)
             };
         }
     }
