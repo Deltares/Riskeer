@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var descriptionPropertySpec = dynamicPropertyBag.Properties.OfType<PropertySpec>().First(ps => ps.Name == "Description");
             CollectionAssert.Contains(descriptionPropertySpec.Attributes, ReadOnlyAttribute.Yes, 
                 "Should have initialized Attributes of the property spec with declared ReadOnlyAttribute.");
-            }
+        }
 
         [Test]
         public void GivenClassWithDynamicReadOnlyAttribute_WhenNotReadOnly_ThenTypeDescriptorDoesNotHaveReadOnlyAttribute()
@@ -85,23 +85,6 @@ namespace Core.Common.Gui.Test.PropertyBag
                 "DynamicReadOnlyAttribute declared on Name property should also be present on PropertyDescriptor.");
             Assert.IsFalse(namePropertyDescriptor.Attributes.OfType<Attribute>().Any(a => a is ReadOnlyAttribute),
                 "As Name property has no ReadOnlyAttribute nor does DyanmicReadOnlyValidationMethod evaluate to true, no ReadOnlyAttribute should be on PropertyDescriptor.");
-        }
-
-        [Test]
-        public void DynamicPropertyBagResolvesDynamicAttributes()
-        {
-            var dynamicPropertyBag = new DynamicPropertyBag(new TestProperties());
-
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
-
-            var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-
-            namePropertyDescriptor.GetValue(dynamicPropertyBag);
-
-            // asserts
-            Assert.IsTrue(namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute()), "Dynamic ReadOnly attribute was not added");
-
-            Assert.IsTrue(namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true)), "Dynamic ReadOnly attribute was not resolved to static attribute: wrong.");
         }
 
         [Test]
@@ -133,17 +116,6 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: Core.Common.Gui.Test.PropertyBag.DynamicPropertyBagTest+TestWithoutValidationMethodClassProperties.")]
-        public void ThrowsExceptionOnTypoInDynamicAttributeFunction()
-        {
-            var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutValidationMethodClassProperties());
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
-            var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-
-            namePropertyDescriptor.GetValue(dynamicPropertyBag);
-        }
-
-        [Test]
         public void DynamicPropertyBagMaintainsDesiredOrdering()
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestOrderedProperties());
@@ -170,7 +142,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
             var propertiesCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
-            var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag);
+            var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject);
 
             // check the object properties are wrapped in a dynamic property bag
             Assert.IsInstanceOf<DynamicPropertyBag>(wrappedValue, "Object properties wrapped in dynamic property bag");
@@ -196,17 +168,6 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: Core.Common.Gui.Test.PropertyBag.DynamicPropertyBagTest+TestInvalidValidationMethodClassProperties.")]
-        public void ThrowsExceptionOnInvalidValidationMethod()
-        {
-            var dynamicPropertyBag = new DynamicPropertyBag(new TestInvalidValidationMethodClassProperties());
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
-            var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-
-            namePropertyDescriptor.GetValue(dynamicPropertyBag);
-        }
-
-        [Test]
         public void PropertyWithNoSetterAreReadOnly()
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutSetterPropertyClassProperties());
@@ -217,61 +178,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.IsTrue(propertyDescriptorCollection[1].Attributes.Matches(new ReadOnlyAttribute(true)));
         }
 
-        [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: Core.Common.Gui.Test.PropertyBag.DynamicPropertyBagTest+TestWithTwoValidationMethodsClassProperties.")]
-        public void OnlySingleValidationMethodIsAllowed()
-        {
-            var dynamicPropertyBag = new DynamicPropertyBag(new TestWithTwoValidationMethodsClassProperties());
-
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
-            var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-
-            namePropertyDescriptor.GetValue(dynamicPropertyBag);
-        }
-
         #region Test Classes
-
-        private class TestWithNestedPropertiesClassProperties
-        {
-            [TypeConverter(typeof(ExpandableObjectConverter))]
-            public TestProperties SubProperties { get; set; }
-        }
-
-        private class TestInvalidValidationMethodClassProperties
-        {
-            [DynamicReadOnly]
-            public string Name { get; set; }
-
-            [DynamicReadOnlyValidationMethod]
-            public bool InvalidMethod() //method is invalid because it does not accept a string
-            {
-                return false;
-            }
-        }
-
-        private class TestWithoutValidationMethodClassProperties
-        {
-            [DynamicReadOnly]
-            public string Name { get; set; }
-        }
-
-        private class TestWithTwoValidationMethodsClassProperties
-        {
-            [DynamicReadOnly]
-            public string Name { get; set; }
-
-            [DynamicReadOnlyValidationMethod]
-            public bool Method1(string property)
-            {
-                return false;
-            }
-
-            [DynamicReadOnlyValidationMethod]
-            public bool Method2(string property)
-            {
-                return false;
-            }
-        }
 
         private class TestOrderedProperties
         {
@@ -286,6 +193,12 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             [PropertyOrder(0)]
             public string PropTwo { get; set; }
+        }
+
+        private class TestWithNestedPropertiesClassProperties
+        {
+            [TypeConverter(typeof(ExpandableObjectConverter))]
+            public TestProperties SubProperties { get; set; }
         }
 
         private class TestProperties
@@ -333,7 +246,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             }
         }
 
-        public class TestWithoutSetterPropertyClassProperties
+        private class TestWithoutSetterPropertyClassProperties
         {
             public string PrivateSetter { get; private set; }
 

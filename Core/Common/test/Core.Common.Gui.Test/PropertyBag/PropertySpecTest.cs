@@ -197,6 +197,133 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.IsNull(exception.InnerException);
         }
 
+        [Test]
+        public void GetValue_ProperInstanceType_ReturnPropertyValue()
+        {
+            // Setup
+            var target = new ClassWithProperties
+            {
+                IntegerProperty = 5
+            };
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
+
+            // Call
+            var value = propertySpec.GetValue(target);
+
+            // Assert
+            Assert.AreEqual(target.IntegerProperty, value);
+        }
+
+        [Test]
+        public void GetValue_PropertyHasNoPublicGetter_ThrowInvalidOperationException()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("DoublePropertyWithOnlyPublicSet"));
+
+            // Call
+            TestDelegate call = () => propertySpec.GetValue(target);
+
+            // Assert
+            var message = Assert.Throws<InvalidOperationException>(call).Message;
+            Assert.AreEqual("Property lacks public getter!", message);
+        }
+
+        [Test]
+        public void GetValue_IncorrectInstanceType_ThrowArgumentException()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
+
+            // Call
+            TestDelegate call = () => propertySpec.GetValue(new object());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.IsInstanceOf<TargetException>(exception.InnerException);
+        }
+
+        [Test]
+        public void GetValue_InstanceIsNull_ThrowArgumentException()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
+
+            // Call
+            TestDelegate call = () => propertySpec.GetValue(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.IsInstanceOf<TargetException>(exception.InnerException);
+        }
+
+        [Test]
+        public void IsNonCustomExpandableObjectProperty_PropertyWithoutTypeConverter_ReturnFalse()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("IntegerProperty"));
+
+            // Call
+            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+
+            // Assert
+            Assert.False(hasExpandableObjectTypeConverter);
+        }
+
+        [Test]
+        public void IsNonCustomExpandableObjectProperty_PropertyWithExpandableObjectTypeConverter_ReturnTrue()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithExpandableObjectConverter"));
+
+            // Call
+            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+
+            // Assert
+            Assert.True(hasExpandableObjectTypeConverter);
+        }
+
+        [Test]
+        public void IsNonCustomExpandableObjectProperty_PropertyWithCustomExpandableObjectTypeConverter_ReturnFalse()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithCustomExpandableObjectConverter"));
+
+            // Call
+            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+
+            // Assert
+            Assert.False(hasExpandableObjectTypeConverter,
+                "As we cannot copy the same behavior of a ExpandableObjectConverter with customizations, we should not recognize it as such.");
+        }
+
+        [Test]
+        public void IsNonCustomExpandableObjectProperty_PropertyWithSomeTypeConverter_ReturnFalse()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithSomeTypeConverter"));
+
+            // Call
+            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+
+            // Assert
+            Assert.False(hasExpandableObjectTypeConverter);
+        }
+
         private class ClassWithProperties
         {
             public int IntegerProperty { get; set; }
@@ -215,6 +342,8 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             public double DoublePropertyWithOnlyPublicGet { get; private set; }
 
+            public double DoublePropertyWithOnlyPublicSet { private get; set; }
+
             public double DoublePropertyWithOnlyGetter
             {
                 get
@@ -229,12 +358,31 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             [Browsable(true)]
             public bool BoolPropertyWithAttributes { get; set; }
+
+            [TypeConverter(typeof(ExpandableObjectConverter))]
+            public string StringPropertyWithExpandableObjectConverter { get; set; }
+
+            [TypeConverter(typeof(CustomExpandableObjectConverter))]
+            public string StringPropertyWithCustomExpandableObjectConverter { get; set; }
+
+            [TypeConverter(typeof(SomeTypeConverter))]
+            public string StringPropertyWithSomeTypeConverter { get; set; }
         }
 
         private class InheritorSettingPropertyToNotBrowsable : ClassWithProperties
         {
             [Browsable(false)]
             public override string StringPropertyWithAttributes { get; set; }
+        }
+
+        private class SomeTypeConverter : TypeConverter
+        {
+            
+        }
+
+        private class CustomExpandableObjectConverter : ExpandableObjectConverter
+        {
+            
         }
     }
 }

@@ -68,9 +68,8 @@ namespace Core.Common.Gui.PropertyBag
         /// <item><paramref name="instance"/> does not match the target type.</item>
         /// <item>Property is an instance property but <paramref name="instance"/> is null.</item>
         /// <item><paramref name="newValue"/> is of incorrect type.</item>
-        /// <item>An error occurred while setting 
-        /// the property value. The <see cref="Exception.InnerException"/> property 
-        /// indicates the reason for the error.</item>
+        /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
+        /// property indicates the reason for the error.</item>
         /// </list></exception>
         /// <exception cref="InvalidOperationException">Calling this method while property
         /// has no setter.</exception>
@@ -98,10 +97,87 @@ namespace Core.Common.Gui.PropertyBag
             }
             catch (TargetInvocationException e)
             {
-                var message = string.Format("Something when wrong while setting property with value '{0}'; Check InnerException for more information.",
+                var message = string.Format("Something went wrong while setting property with value '{0}'; Check InnerException for more information.",
                                             newValue);
                 throw new ArgumentException(message, "newValue", e);
             }
+        }
+
+        /// <summary>
+        /// Gets the property value represented by this instance of some object instance.
+        /// </summary>
+        /// <param name="instance">The instance that holds the property to be retrieved.</param>
+        /// <exception cref="ArgumentException">When
+        /// <list type="bullet">
+        /// <item>Represented property is an index-property.</item>
+        /// <item>Property getter is not available.</item>
+        /// <item><paramref name="instance"/> does not match the target type.</item>
+        /// <item>Property is an instance property but <paramref name="instance"/> is null.</item>
+        /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
+        /// property indicates the reason for the error.</item>
+        /// </list></exception>
+        /// <exception cref="InvalidOperationException">Calling this method while property
+        /// has no getter.</exception>
+        public object GetValue(object instance)
+        {
+            var getMethodInfo = propertyInfo.GetGetMethod();
+            if (getMethodInfo == null)
+            {
+                throw new InvalidOperationException("Property lacks public getter!");
+            }
+
+            try
+            {
+                return getMethodInfo.Invoke(instance, new object[0]);
+            }
+            catch (TargetException e)
+            {
+                object type = instance == null ? null : instance.GetType();
+                var message = string.Format("Are you calling GetValue on the correct instance? Expected '{0}', but was '{1}'",
+                                            propertyInfo.DeclaringType, type);
+                throw new ArgumentException(message, "instance", e);
+            }
+            catch (TargetInvocationException e)
+            {
+                throw new ArgumentException("Something went wrong while getting property; Check InnerException for more information.", "instance", e);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the captured property is decorated with <see cref="TypeConverterAttribute"/>[is non custom expandable object property].
+        /// that is configured to use <see cref="ExpandableObjectConverter"/>.
+        /// </summary>
+        /// <returns>Returns true if a <see cref="TypeConverterAttribute"/> is declared using
+        /// <see cref="ExpandableObjectConverter"/>, false if no match has been found or when
+        /// the type converter inherits from <see cref="ExpandableObjectConverter"/>.</returns>
+        /// <remarks>Custom implementations of <see cref="ExpandableObjectConverter"/> is
+        /// likely to have behavior that Core.Common.Gui namespace cannot account for. As
+        /// such those properties will be considered not having the expandable object type converter.</remarks>
+        public bool IsNonCustomExpandableObjectProperty()
+        {
+            var typeConverterClassName = propertyInfo.GetCustomAttributes(typeof(TypeConverterAttribute), false)
+                                                        .OfType<TypeConverterAttribute>()
+                                                        .Select(tca => tca.ConverterTypeName)
+                                                        .Where(n => !string.IsNullOrEmpty(n));
+            foreach (string typeName in typeConverterClassName)
+            {
+                try
+                {
+                    var type = Type.GetType(typeName);
+                    if (type != null)
+                    {
+                        if (typeof(ExpandableObjectConverter) == type)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // gulp
+                }
+            }
+            return false;
         }
     }
 }
