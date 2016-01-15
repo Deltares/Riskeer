@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Core.Common.Controls.TreeView
 {
@@ -92,8 +93,26 @@ namespace Core.Common.Controls.TreeView
         /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
         /// </summary>
-        /// <remarks>When dragging a node, the <see cref="OnDragDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Action<object, TreeNode, TreeNode, DragOperations, int> OnDragDrop { get; set; }
+        /// <remarks>When dragging a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        public Action<object, TreeNode, TreeNode, DragOperations, int> OnDrop { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for obtaining the tree node context menu.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<object, ContextMenuStrip> ContextMenu { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be removed.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<object, bool> CanRemove { get; set; }
+
+        /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Action<object> OnNodeRemoved { get; set; }
     }
 
     /// <summary>
@@ -192,8 +211,26 @@ namespace Core.Common.Controls.TreeView
         /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
         /// </summary>
-        /// <remarks>When dragging a node, the <see cref="OnDragDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Action<TData, TreeNode, TreeNode, DragOperations, int> OnDragDrop { get; set; }
+        /// <remarks>When dragging a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        public Action<TData, TreeNode, TreeNode, DragOperations, int> OnDrop { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for obtaining the tree node context menu.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<TData, ContextMenuStrip> ContextMenu { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be removed.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<TData, bool> CanRemove { get; set; }
+
+        /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Action<TData> OnNodeRemoved { get; set; }
 
         /// <summary>
         /// This operator converts a <see cref="TreeNodeInfo{TData}"/> into a <see cref="TreeNodeInfo"/>.
@@ -212,7 +249,12 @@ namespace Core.Common.Controls.TreeView
                 OnNodeRenamed = (tag, name) => treeNodeInfo.OnNodeRenamed((TData) tag, name),
                 OnNodeChecked = (tag, checkedState) => treeNodeInfo.OnNodeChecked((TData) tag, checkedState),
                 CanDrag = tag => treeNodeInfo.CanDrag((TData) tag),
-                CanDrop = (tag, sourceNode, targetNode, dragOperations) => treeNodeInfo.CanDrop((TData) tag, sourceNode, targetNode, dragOperations)
+                CanDrop = (tag, sourceNode, targetNode, dragOperations) => treeNodeInfo.CanDrop((TData) tag, sourceNode, targetNode, dragOperations),
+                CanInsert = (tag, sourceNode, targetNode) => treeNodeInfo.CanInsert((TData) tag, sourceNode, targetNode),
+                OnDrop = (tag, sourceNode, targetNode, dragOperations, index) => treeNodeInfo.OnDrop((TData) tag, sourceNode, targetNode, dragOperations, index),
+                ContextMenu = tag => treeNodeInfo.ContextMenu((TData) tag),
+                CanRemove = tag => treeNodeInfo.CanRemove((TData) tag),
+                OnNodeRemoved = tag => treeNodeInfo.OnNodeRemoved((TData) tag)
             };
         }
     }
