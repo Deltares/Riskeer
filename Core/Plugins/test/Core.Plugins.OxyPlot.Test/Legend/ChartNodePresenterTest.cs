@@ -89,26 +89,13 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             BaseChart baseChart = CreateTestBaseChart();
 
             ChartData testElement = baseChart.Data.ElementAt(0);
-            
+
             // Call
             nodePresenter.OnDragDrop(testElement, null, baseChart, 0, position);
 
             // Assert
             var reversedIndex = 2 - position;
             Assert.AreSame(testElement, baseChart.Data.ElementAt(reversedIndex));
-        }
-
-        private static BaseChart CreateTestBaseChart()
-        {
-            return new BaseChart
-            {
-                Data = new ChartData[]
-                {
-                    new LineData(new List<Tuple<double,double>>()), 
-                    new PointData(new List<Tuple<double,double>>()), 
-                    new AreaData(new List<Tuple<double,double>>())
-                }
-            };
         }
 
         [Test]
@@ -144,7 +131,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Assert
             Assert.AreEqual("Grafiek", treeNode.Text);
             TestHelper.AssertImagesAreEqual(Resources.folder, treeNode.Image);
-        } 
+        }
 
         [Test]
         public void GetChildNodeObjects_Always_ReturnsReverseSeries()
@@ -158,6 +145,19 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
             // Assert
             CollectionAssert.AreEqual(chart.Data.Reverse(), result);
-        } 
+        }
+
+        private static BaseChart CreateTestBaseChart()
+        {
+            return new BaseChart
+            {
+                Data = new ChartData[]
+                {
+                    new LineData(new List<Tuple<double, double>>()),
+                    new PointData(new List<Tuple<double, double>>()),
+                    new AreaData(new List<Tuple<double, double>>())
+                }
+            };
+        }
     }
 }

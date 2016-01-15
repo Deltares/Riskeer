@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
@@ -111,9 +112,23 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
+        public void SetVisibility_SerieNotOnChart_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var chart = new BaseChart();
+            var pointData = new PointData(new Collection<Tuple<double, double>>());
+
+            // Call
+            TestDelegate test = () => chart.SetVisibility(pointData, true);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void SetVisibility_ForContainingData_SetsDataVisibility(bool visibility)
+        public void SetVisibility_SerieOnChart_SetsDataVisibility(bool visibility)
         {
             // Setup
             var chart = new BaseChart();
@@ -128,20 +143,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void SetVisibility_ForNonContainingData_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var chart = new BaseChart();
-            var pointData = new PointData(new Collection<Tuple<double,double>>());
-
-            // Call
-            TestDelegate test = () => chart.SetVisibility(pointData, true);
-            
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
         public void SetVisibility_ForNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -152,6 +153,66 @@ namespace Core.Components.OxyPlot.Forms.Test
             
             // Assert
             Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void SetPosition_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var chart = new BaseChart();
+
+            // Call
+            TestDelegate test = () => chart.SetPosition(null, new Random(21).Next());
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void SetPosition_SerieNotOnChart_ThrowsInvalidOperationException()
+        {
+            // Setup
+            BaseChart chart = CreateTestBaseChart();
+
+            // Call
+            TestDelegate test = () => chart.SetPosition(new TestChartData(), 0);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        [TestCase(-50)]
+        [TestCase(-1)]
+        [TestCase(3)]
+        [TestCase(50)]
+        public void SetPosition_SerieOnChartPositionOutsideRange_ThrowsInvalidOperationException(int position)
+        {
+            // Setup
+            BaseChart chart = CreateTestBaseChart();
+
+            // Call
+            TestDelegate test = () => chart.SetPosition(new TestChartData(), position);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void SetPosition_SerieOnChartPositionInRange_SetsNewPosition(int position)
+        {
+            // Setup
+            BaseChart chart = CreateTestBaseChart();
+            var testElement = chart.Data.ElementAt(new Random(21).Next(0,3));
+
+            // Call
+            chart.SetPosition(testElement, position);
+
+            // Assert
+            Assert.AreSame(testElement, chart.Data.ElementAt(position));
         }
 
         [Test]
@@ -226,6 +287,19 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static BaseChart CreateTestBaseChart()
+        {
+            return new BaseChart
+            {
+                Data = new ChartData[]
+                {
+                    new LineData(new List<Tuple<double,double>>()), 
+                    new PointData(new List<Tuple<double,double>>()), 
+                    new AreaData(new List<Tuple<double,double>>())
+                }
+            };
         }
     }
 }
