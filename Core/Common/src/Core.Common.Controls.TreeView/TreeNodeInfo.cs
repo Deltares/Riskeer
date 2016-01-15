@@ -29,10 +29,23 @@ namespace Core.Common.Controls.TreeView
         public Func<object, string> Text { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for obtaining the tree node foreground color.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<object, Color> ForegroundColor { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining the tree node image.
         /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<object, Image> Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for obtaining the tree node context menu.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <see cref="TreeNode"/> parameter represents the tree node.
+        /// </summary>
+        public Func<object, TreeNode, ContextMenuStrip> ContextMenu { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -42,9 +55,9 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <see cref="TreeNode"/> parameter represents the tree node.
         /// </summary>
-        public Func<object, bool> CanRename { get; set; }
+        public Func<TreeNode, bool> CanRename { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
@@ -52,6 +65,20 @@ namespace Core.Common.Controls.TreeView
         /// The <c>string</c> parameter represents the new name of the tree node.
         /// </summary>
         public Action<object, string> OnNodeRenamed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be removed.
+        /// The first <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The second <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// </summary>
+        public Func<object, object, bool> CanRemove { get; set; }
+
+        /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// </summary>
+        public Action<object, object> OnNodeRemoved { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
@@ -64,7 +91,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
         /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// </summary>
-        public Func<object, bool> CanDrag { get; set; }
+        public Func<object, DragOperations> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -95,24 +122,6 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <remarks>When dragging a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<object, TreeNode, TreeNode, DragOperations, int> OnDrop { get; set; }
-
-        /// <summary>
-        /// Gets or sets a function for obtaining the tree node context menu.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
-        /// </summary>
-        public Func<object, ContextMenuStrip> ContextMenu { get; set; }
-
-        /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node can be removed.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
-        /// </summary>
-        public Func<object, bool> CanRemove { get; set; }
-
-        /// <summary>
-        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
-        /// </summary>
-        public Action<object> OnNodeRemoved { get; set; }
     }
 
     /// <summary>
@@ -147,10 +156,23 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, string> Text { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for obtaining the tree node foreground color.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<object, Color> ForegroundColor { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining the tree node image.
         /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<TData, Image> Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for obtaining the tree node context menu.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <see cref="TreeNode"/> parameter represents the tree node.
+        /// </summary>
+        public Func<TData, TreeNode, ContextMenuStrip> ContextMenu { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -160,9 +182,9 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <see cref="TreeNode"/> parameter represents the tree node.
         /// </summary>
-        public Func<TData, bool> CanRename { get; set; }
+        public Func<TreeNode, bool> CanRename { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
@@ -170,6 +192,20 @@ namespace Core.Common.Controls.TreeView
         /// The <c>string</c> parameter represents the new name of the tree node.
         /// </summary>
         public Action<TData, string> OnNodeRenamed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be removed.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// </summary>
+        public Func<TData, object, bool> CanRemove { get; set; }
+
+        /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// </summary>
+        public Action<TData, object> OnNodeRemoved { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
@@ -182,7 +218,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
         /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
-        public Func<TData, bool> CanDrag { get; set; }
+        public Func<TData, DragOperations> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -215,24 +251,6 @@ namespace Core.Common.Controls.TreeView
         public Action<TData, TreeNode, TreeNode, DragOperations, int> OnDrop { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for obtaining the tree node context menu.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
-        /// </summary>
-        public Func<TData, ContextMenuStrip> ContextMenu { get; set; }
-
-        /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node can be removed.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
-        /// </summary>
-        public Func<TData, bool> CanRemove { get; set; }
-
-        /// <summary>
-        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
-        /// </summary>
-        public Action<TData> OnNodeRemoved { get; set; }
-
-        /// <summary>
         /// This operator converts a <see cref="TreeNodeInfo{TData}"/> into a <see cref="TreeNodeInfo"/>.
         /// </summary>
         /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo{TData}"/> to convert.</param>
@@ -243,18 +261,19 @@ namespace Core.Common.Controls.TreeView
             {
                 TagType = treeNodeInfo.TagType,
                 Text = tag => treeNodeInfo.Text((TData) tag),
+                ForegroundColor = tag => treeNodeInfo.ForegroundColor((TData) tag),
                 Image = tag => treeNodeInfo.Image((TData) tag),
+                ContextMenu = (tag, sourceNode) => treeNodeInfo.ContextMenu((TData) tag, sourceNode),
                 ChildNodeObjects = tag => treeNodeInfo.ChildNodeObjects((TData) tag),
-                CanRename = tag => treeNodeInfo.CanRename((TData) tag),
+                CanRename = sourceNode => treeNodeInfo.CanRename(sourceNode),
                 OnNodeRenamed = (tag, name) => treeNodeInfo.OnNodeRenamed((TData) tag, name),
+                CanRemove = (tag, parentTag) => treeNodeInfo.CanRemove((TData) tag, parentTag),
+                OnNodeRemoved = (tag, parentTag) => treeNodeInfo.OnNodeRemoved((TData) tag, parentTag),
                 OnNodeChecked = (tag, checkedState) => treeNodeInfo.OnNodeChecked((TData) tag, checkedState),
                 CanDrag = tag => treeNodeInfo.CanDrag((TData) tag),
                 CanDrop = (tag, sourceNode, targetNode, dragOperations) => treeNodeInfo.CanDrop((TData) tag, sourceNode, targetNode, dragOperations),
                 CanInsert = (tag, sourceNode, targetNode) => treeNodeInfo.CanInsert((TData) tag, sourceNode, targetNode),
                 OnDrop = (tag, sourceNode, targetNode, dragOperations, index) => treeNodeInfo.OnDrop((TData) tag, sourceNode, targetNode, dragOperations, index),
-                ContextMenu = tag => treeNodeInfo.ContextMenu((TData) tag),
-                CanRemove = tag => treeNodeInfo.CanRemove((TData) tag),
-                OnNodeRemoved = tag => treeNodeInfo.OnNodeRemoved((TData) tag)
             };
         }
     }

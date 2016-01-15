@@ -69,6 +69,15 @@ namespace Core.Common.Gui
             yield break;
         }
 
+        /// <summary>
+        /// This method returns an enumeration of <see cref="TreeNodeInfo"/>.
+        /// </summary>
+        /// <returns>The enumeration of <see cref="TreeNodeInfo"/> provided by the <see cref="GuiPlugin"/>.</returns>
+        public virtual IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
+        {
+            yield break;
+        }
+
         public virtual void Dispose()
         {
             Gui = null;
