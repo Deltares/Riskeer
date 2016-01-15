@@ -107,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReferenceEqualityComparer.cs" />
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="MathUtils.cs" />

@@ -103,5 +103,18 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Assert
             Assert.Throws<KeyNotFoundException>(test);
         }
+
+        [Test]
+        public void SetVisibility_ForNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var chart = new BaseChart();
+
+            // Call
+            TestDelegate test = () => chart.SetVisibility(null, true);
+            
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
     }
 }

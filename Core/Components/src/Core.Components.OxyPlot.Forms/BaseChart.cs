@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using Core.Common.Utils;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
@@ -19,7 +19,7 @@ namespace Core.Components.OxyPlot.Forms
     public sealed class BaseChart : Control
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
-        private readonly IDictionary<ChartData, Series> series = new Dictionary<ChartData, Series>(new ReferenceEqualityComparer());
+        private readonly IDictionary<ChartData, Series> series = new Dictionary<ChartData, Series>(new ReferenceEqualityComparer<ChartData>());
         private PlotView view;
 
         /// <summary>
@@ -54,16 +54,13 @@ namespace Core.Components.OxyPlot.Forms
         /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="serie"/>.</param>
         public void SetVisibility(ChartData serie, bool visibility)
         {
-            if (serie != null)
+            if (serie == null)
             {
-                serie.IsVisible = visibility;
-                series[serie].IsVisible = visibility;
-                view.Invalidate();
+                throw new ArgumentNullException("serie", "Cannot set visibility of a null serie.");
             }
-            else
-            {
-                throw new ArgumentException("Visibility set for IChartData which was not of type Series.");
-            }
+            serie.IsVisible = visibility;
+            series[serie].IsVisible = visibility;
+            view.Invalidate();
         }
 
         /// <summary>
@@ -150,22 +147,6 @@ namespace Core.Components.OxyPlot.Forms
             {
                 view.Model.Series.Add(data);
             }
-        }
-    }
-
-    /// <summary>
-    /// This class determines whether two objects are equal based on their references.
-    /// </summary>
-    internal class ReferenceEqualityComparer : IEqualityComparer<ChartData>
-    {
-        public bool Equals(ChartData x, ChartData y)
-        {
-            return ReferenceEquals(x, y);
-        }
-
-        public int GetHashCode(ChartData obj)
-        {
-            return RuntimeHelpers.GetHashCode(obj);
         }
     }
 }
