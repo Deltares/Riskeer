@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-[assembly: AssemblyTitle("Core.Common.NewProjectExample")]
-[assembly: AssemblyProduct("Core.Common.NewProjectExample")]
-[assembly: Guid("844dca4c-6779-4474-8f12-efbee9907c2c")]
+[assembly: AssemblyTitle("Core.Plugins.DotSpatial.Test")]
+[assembly: AssemblyProduct("Core.Plugins.DotSpatial.Test")]
+[assembly: Guid("93AB5AFB-F58E-4EC4-A25E-FF439B1895E7")]
