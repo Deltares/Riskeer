@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
@@ -127,7 +128,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void SetVisibility_ForNonContainingData_ThrowsKeyNotFoundException()
+        public void SetVisibility_ForNonContainingData_ThrowsInvalidOperationException()
         {
             // Setup
             var chart = new BaseChart();
@@ -137,7 +138,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             TestDelegate test = () => chart.SetVisibility(pointData, true);
             
             // Assert
-            Assert.Throws<KeyNotFoundException>(test);
+            Assert.Throws<InvalidOperationException>(test);
         }
 
         [Test]
@@ -151,6 +152,80 @@ namespace Core.Components.OxyPlot.Forms.Test
             
             // Assert
             Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var observable = new BaseChart();
+            observable.Attach(observer);
+
+            // Call
+            observable.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NotifyObserver_AttachedObserverDetachedAgain_ObserverNoLongerNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var observable = new BaseChart();
+            observable.Attach(observer);
+            observable.Detach(observer);
+
+            // Call
+            observable.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void NotifyObservers_MultipleObserversDetachingOrAttachingOthers_NoUpdatesForAttachedAndDetachedObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var testObservable = new BaseChart();
+
+            var observer1 = mocks.Stub<IObserver>();
+            var observer2 = mocks.Stub<IObserver>();
+            var observer3 = mocks.Stub<IObserver>();
+            var observer4 = mocks.Stub<IObserver>();
+            var observer5 = mocks.Stub<IObserver>();
+            var observer6 = mocks.Stub<IObserver>();
+
+            testObservable.Attach(observer1);
+            testObservable.Attach(observer2);
+            testObservable.Attach(observer3);
+            testObservable.Attach(observer4);
+            testObservable.Attach(observer6);
+
+            observer1.Expect(o => o.UpdateObserver());
+            observer2.Expect(o => o.UpdateObserver()).Do((Action)(() => testObservable.Detach(observer3)));
+            observer3.Expect(o => o.UpdateObserver()).Repeat.Never(); // A detached observer should no longer be updated
+            observer4.Expect(o => o.UpdateObserver()).Do((Action)(() => testObservable.Attach(observer5)));
+            observer5.Expect(o => o.UpdateObserver()).Repeat.Never(); // An attached observer should not be updated either
+            observer6.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            // Call
+            testObservable.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

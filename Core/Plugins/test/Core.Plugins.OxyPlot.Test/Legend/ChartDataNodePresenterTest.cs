@@ -5,9 +5,11 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
+using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
@@ -26,6 +28,67 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             Assert.IsInstanceOf<TreeViewNodePresenterBase<ChartData>>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
             Assert.AreEqual(typeof(ChartData), nodePresenter.NodeTagType);
+        }
+
+        [Test]
+        public void CanDrag_Always_ReturnsMove()
+        {
+            // Setup
+            var nodePresenter = new ChartDataNodePresenter();
+
+            // Call
+            var operation = nodePresenter.CanDrag(null);
+
+            // Assert
+            Assert.AreEqual(DragOperations.Move, operation);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenTreeViewWithChartWithData_WhenOnNodeChecked_SetIsVisibleForData(bool isVisible)
+        {
+            // Given
+            var lineData = new LineData(new List<Tuple<double,double>>());
+            var pointData = new PointData(new List<Tuple<double,double>>());
+            var areaData = new AreaData(new List<Tuple<double,double>>());
+
+            var legendTreeView = new LegendTreeView
+            {
+                Chart = new BaseChart
+                {
+                    Data = new ChartData[]{lineData, pointData, areaData}
+                }
+            };
+            var nodePresenter = new ChartDataNodePresenter
+            {
+                TreeView = legendTreeView
+            };
+            var lineNode = new TreeNode(legendTreeView)
+            {
+                Tag = lineData,
+                Checked = isVisible
+            };
+            var pointNode = new TreeNode(legendTreeView)
+            {
+                Tag = pointData,
+                Checked = isVisible
+            };
+            var areaNode = new TreeNode(legendTreeView)
+            {
+                Tag = areaData,
+                Checked = isVisible
+            };
+
+            // When
+            nodePresenter.OnNodeChecked(lineNode);
+            nodePresenter.OnNodeChecked(pointNode);
+            nodePresenter.OnNodeChecked(areaNode);
+
+            // Then
+            Assert.AreEqual(isVisible, lineData.IsVisible);
+            Assert.AreEqual(isVisible, pointData.IsVisible);
+            Assert.AreEqual(isVisible, areaData.IsVisible);
         }
 
         [Test]

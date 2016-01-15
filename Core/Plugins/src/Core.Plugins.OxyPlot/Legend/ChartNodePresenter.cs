@@ -29,7 +29,7 @@ namespace Core.Plugins.OxyPlot.Legend
         public override void OnDragDrop(object item, object itemParent, BaseChart target, DragOperations operation, int position)
         {
             var draggedData = item as ChartData;
-            target.SetIndex(draggedData, target.Data.Count - 1 - position);
+            target.SetPosition(draggedData, target.Data.Count - 1 - position);
             target.NotifyObservers();
         }
 

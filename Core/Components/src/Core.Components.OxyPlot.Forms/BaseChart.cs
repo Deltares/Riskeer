@@ -55,7 +55,7 @@ namespace Core.Components.OxyPlot.Forms
         /// Sets the visibility of a series in this <see cref="BaseChart"/>.
         /// </summary>
         /// <param name="serie">The <see cref="ChartData"/> to set the visibility for.</param>
-        /// <param name="visibility">A boolean value representing the new visibility of the <paramref name="serie"/>.</param>
+        /// <param name="visibility">A boolean value representing the new visibility.</param>
         public void SetVisibility(ChartData serie, bool visibility)
         {
             if (serie == null)
@@ -67,23 +67,28 @@ namespace Core.Components.OxyPlot.Forms
             view.Invalidate();
         }
 
-        public void SetIndex(ChartData data, int index)
+        /// <summary>
+        /// Sets the position of the <see cref="ChartData"/> amongst the other data of the <see cref="BaseChart"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="ChartData"/> to change the position for.</param>
+        /// <param name="position">The new position.</param>
+        public void SetPosition(ChartData data, int position)
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data", "Cannot set visibility of a null serie.");
+                throw new ArgumentNullException("data", "Cannot set index of a null serie.");
             }
-            if (index < 0 || index >= Data.Count)
+            if (position < 0 || position >= Data.Count)
             {
-                throw new ArgumentNullException("index", string.Format("Cannot set index outside of range [0,{0})", Data.Count));
+                throw new ArgumentException(string.Format("Cannot set index outside of range [0,{0})", Data.Count), "position");
             }
             var tuple = series.First(s => ReferenceEquals(s.Item1, data));
 
             series.Remove(tuple);
-            series.Insert(index, tuple);
+            series.Insert(position, tuple);
 
             view.Model.Series.Remove(tuple.Item2);
-            view.Model.Series.Insert(index, tuple.Item2);
+            view.Model.Series.Insert(position, tuple.Item2);
         }
 
         /// <summary>
@@ -142,7 +147,7 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         /// <param name="title">The title of the <see cref="LinearAxis"/>.</param>
         /// <param name="position">The <see cref="AxisPosition"/> of the <see cref="LinearAxis"/>.</param>
-        /// <returns></returns>
+        /// <returns>A new <see cref="LinearAxis"/> with given <paramref name="title"/> and <paramref name="position"/>.</returns>
         private static LinearAxis CreateAxis(string title, AxisPosition position)
         {
             return new LinearAxis
