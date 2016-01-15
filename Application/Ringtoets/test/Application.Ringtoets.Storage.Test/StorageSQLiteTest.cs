@@ -73,6 +73,21 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        [TestCase("empty.rt")]
+        public void TestConnection_invalidConnection_ReturnsFalse(string invalidPath)
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, invalidPath);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
+
+            // Call
+            var storage = new StorageSqLite(dbFile);
+            Assert.False(storage.TestConnection());
+        }
+
+        [Test]
         [TestCase("ValidRingtoetsDatabase.rt")]
         public void LoadProject_validDatabase_ReturnsProject(string validPath)
         {
@@ -89,20 +104,6 @@ namespace Application.Ringtoets.Storage.Test
             var loadedProject = storage.LoadProject();
             Assert.IsInstanceOf<Project>(loadedProject);
         }
-
-        [Test]
-        [TestCase("empty.rt")]
-        public void TestConnection_invalidConnection_ReturnsFalse(string invalidPath)
-        {
-            // Setup
-            var dbFile = Path.Combine(testDataPath, invalidPath);
-
-            // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-
-            // Call
-            var storage = new StorageSqLite(dbFile);
-            Assert.False(storage.TestConnection());
-        }
+    
     }
 }

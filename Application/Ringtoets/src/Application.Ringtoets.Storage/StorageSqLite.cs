@@ -50,11 +50,6 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns <c>true</c> if a valid connection can be made, <c>false</c> otherwise.</returns>
         public bool TestConnection()
         {
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                return false;
-            }
-
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try
