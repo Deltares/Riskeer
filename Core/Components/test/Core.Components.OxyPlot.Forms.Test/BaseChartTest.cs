@@ -74,6 +74,42 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
+        public void Data_UpdateReturnedValue_DoesNotAlterData()
+        {
+
+            // Setup
+            var chart = new BaseChart();
+            var pointData = new PointData(new Collection<Tuple<double, double>>());
+            chart.Data = new ChartData[] { pointData };
+
+            var data = chart.Data;
+
+            // Call
+            data.Remove(pointData);
+            data.Add(pointData);
+
+            // Assert
+            CollectionAssert.AreEqual(new ChartData[] { pointData }, chart.Data);
+        }
+
+        [Test]
+        public void Data_SetNewData_NewDataSet()
+        {
+
+            // Setup
+            var chart = new BaseChart();
+            var pointData = new PointData(new Collection<Tuple<double, double>>());
+            var otherPointData = new PointData(new Collection<Tuple<double, double>>());
+            chart.Data = new ChartData[] { pointData };
+
+            // Call
+            chart.Data = new ChartData[] { otherPointData };
+
+            // Assert
+            CollectionAssert.AreEqual(new ChartData[] { otherPointData }, chart.Data);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void SetVisibility_ForContainingData_SetsDataVisibility(bool visibility)

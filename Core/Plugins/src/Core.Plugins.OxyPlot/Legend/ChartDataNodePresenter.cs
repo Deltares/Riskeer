@@ -10,6 +10,11 @@ namespace Core.Plugins.OxyPlot.Legend
     /// </summary>
     public class ChartDataNodePresenter : TreeViewNodePresenterBase<ChartData>
     {
+        public override DragOperations CanDrag(ChartData nodeData)
+        {
+            return DragOperations.Move;
+        }
+
         public override void UpdateNode(TreeNode parentNode, TreeNode node, ChartData nodeData)
         {
             if (nodeData is AreaData)
