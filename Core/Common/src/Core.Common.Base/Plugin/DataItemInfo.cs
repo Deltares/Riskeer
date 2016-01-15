@@ -8,6 +8,9 @@ namespace Core.Common.Base.Plugin
     /// </summary>
     public class DataItemInfo
     {
+        /// <summary>
+        /// Constructs a new <see cref="DataItemInfo"/>.
+        /// </summary>
         public DataItemInfo()
         {
             Name = "";
@@ -52,6 +55,9 @@ namespace Core.Common.Base.Plugin
     /// <typeparam name="TValue">The type of data to create.</typeparam>
     public class DataItemInfo<TValue>
     {
+        /// <summary>
+        /// Constructs a new <see cref="DataItemInfo{TValue}"/>.
+        /// </summary>
         public DataItemInfo()
         {
             Name = "";
