@@ -4,7 +4,7 @@ using System.Drawing;
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// Class that holds information for updating tree nodes.
+    /// Class that represents information for updating tree nodes.
     /// </summary>
     public class TreeNodeInfo
     {
@@ -23,45 +23,62 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node text.
-        /// The <c>object</c> parameter holds the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<object, string> Text { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node image.
-        /// The <c>object</c> parameter holds the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<object, Image> Image { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
-        /// The <c>object</c> parameter holds the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<object, object[]> ChildNodeObjects { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The <c>object</c> parameter holds the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<object, bool> CanRename { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
-        /// The <c>object</c> parameter holds the wrapped data of the tree node.
-        /// The <c>string</c> parameter holds the new name of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>string</c> parameter represents the new name of the tree node.
         /// </summary>
         public Action<object, string> OnNodeRenamed { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
-        /// The <c>object</c> parameter holds the wrapped data of the tree node.
-        /// The <c>bool</c> parameter holds the new checked state of the tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>bool</c> parameter represents the new checked state of the tree node.
         /// </summary>
         public Action<object, bool> OnNodeChecked { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<object, bool> CanDrag { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// The <see cref="DragOperations"/> parameter represents the supported drop operations for the tree node which is dragged.
+        /// The <see cref="DragOperations"/> return value indicates what operation is valid when the tree node is dropped onto the drop target.
+        /// </summary>
+        /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        public Func<object, TreeNode, TreeNode, DragOperations, DragOperations> CanDrop { get; set; }
     }
 
     /// <summary>
-    /// Class that holds information for updating tree nodes.
+    /// Class that represents information for updating tree nodes.
     /// </summary>
     /// <typeparam name="TData">The type of data wrapped by the tree node.</typeparam>
     public class TreeNodeInfo<TData>
@@ -87,41 +104,58 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node text.
-        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<TData, string> Text { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node image.
-        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<TData, Image> Image { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
-        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<TData, object[]> ChildNodeObjects { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
         public Func<TData, bool> CanRename { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
-        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
-        /// The <c>string</c> parameter holds the new name of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <c>string</c> parameter represents the new name of the tree node.
         /// </summary>
         public Action<TData, string> OnNodeRenamed { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
-        /// The <typeparamref name="TData"/> parameter holds the wrapped data of the tree node.
-        /// The <c>bool</c> parameter holds the new checked state of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <c>bool</c> parameter represents the new checked state of the tree node.
         /// </summary>
         public Action<TData, bool> OnNodeChecked { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// </summary>
+        public Func<object, bool> CanDrag { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// The <see cref="DragOperations"/> parameter represents the supported drop operations for the tree node which is dragged.
+        /// The <see cref="DragOperations"/> return value indicates what operation is valid when the tree node is dropped onto the drop target.
+        /// </summary>
+        /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        public Func<object, TreeNode, TreeNode, DragOperations, DragOperations> CanDrop { get; set; }
 
         /// <summary>
         /// This operator converts a <see cref="TreeNodeInfo{TData}"/> into a <see cref="TreeNodeInfo"/>.
@@ -138,7 +172,9 @@ namespace Core.Common.Controls.TreeView
                 ChildNodeObjects = tag => treeNodeInfo.ChildNodeObjects((TData) tag),
                 CanRename = tag => treeNodeInfo.CanRename((TData) tag),
                 OnNodeRenamed = (tag, name) => treeNodeInfo.OnNodeRenamed((TData) tag, name),
-                OnNodeChecked = (tag, checkedState) => treeNodeInfo.OnNodeChecked((TData) tag, checkedState)
+                OnNodeChecked = (tag, checkedState) => treeNodeInfo.OnNodeChecked((TData) tag, checkedState),
+                CanDrag = tag => treeNodeInfo.CanDrag((TData) tag),
+                CanDrop = (tag, sourceNode, targetNode, dragOperations) => treeNodeInfo.CanDrop((TData) tag, sourceNode, targetNode, dragOperations)
             };
         }
     }
