@@ -45,6 +45,15 @@ namespace Core.Plugins.OxyPlot
             };
         }
 
+        public override void Dispose()
+        {
+            if (activated)
+            {
+                Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+            }
+            base.Dispose();
+        }
+
         public bool IsToolWindowOpen<T>()
         {
             return Gui.ToolWindowViews.Any(t => t.GetType() == typeof(T));
@@ -59,15 +68,6 @@ namespace Core.Plugins.OxyPlot
         public void CloseToolView(IView toolView)
         {
             Gui.CloseToolView(toolView);
-        }
-
-        public override void Dispose()
-        {
-            if (activated)
-            {
-                Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
-            }
-            base.Dispose();
         }
 
         /// <summary>

@@ -137,7 +137,7 @@ namespace Core.Components.OxyPlot.Forms
                 MinorGridlineStyle = LineStyle.Dot
             };
         }
-        
+
         /// <summary>
         /// Updates the tree with the currently known <see cref="Data"/>.
         /// </summary>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Components.Charting.Data;
 using NUnit.Framework;

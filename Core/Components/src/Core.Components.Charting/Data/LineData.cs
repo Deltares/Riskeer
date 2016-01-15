@@ -12,8 +12,7 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Creates a new instance of <see cref="LineData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> which forms a line
-        /// in 2D space.</param>
+        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public LineData(IEnumerable<Tuple<double, double>> points) : base(points)
         {

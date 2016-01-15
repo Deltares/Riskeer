@@ -12,8 +12,7 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Creates a new instance of <see cref="ChartData"/>.
         /// </summary>
-        /// <param name="points">An <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> of the 
-        /// <see cref="ChartData"/> in 2D space.</param>
+        /// <param name="points">An <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (x,y) points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         protected ChartData(IEnumerable<Tuple<double, double>> points)
         {
