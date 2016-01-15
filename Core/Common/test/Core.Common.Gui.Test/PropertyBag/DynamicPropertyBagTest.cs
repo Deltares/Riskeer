@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Linq;
-using System.Windows.Forms;
 
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -51,40 +51,166 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
             // Assert
-            var namePropertySpec = dynamicPropertyBag.Properties.OfType<PropertySpec>().First(ps => ps.Name == "Name");
-            Assert.IsTrue(namePropertySpec.Attributes.Any(a => a is System.ComponentModel.CategoryAttribute));
+            var namePropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Name");
+            CollectionAssert.Contains(namePropertySpec.Attributes, new System.ComponentModel.CategoryAttribute("General"),
+                "Should have initialized Attributes of the property spec with declared Category(\"General\").");
 
-            var descriptionPropertySpec = dynamicPropertyBag.Properties.OfType<PropertySpec>().First(ps => ps.Name == "Description");
+            var descriptionPropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Description");
             CollectionAssert.Contains(descriptionPropertySpec.Attributes, ReadOnlyAttribute.Yes, 
                 "Should have initialized Attributes of the property spec with declared ReadOnlyAttribute.");
         }
 
         [Test]
-        public void GivenClassWithDynamicReadOnlyAttribute_WhenNotReadOnly_ThenTypeDescriptorDoesNotHaveReadOnlyAttribute()
+        public void ToString_ReturnToStringFromWrappedObject()
         {
             // Setup
-            var testProperties = new TestProperties
-            {
-                IsNameReadOnly = false
-            };
-
-            // Precondition
-            var namePropertyAttributes = testProperties.GetType().GetProperty("Name").GetCustomAttributes(true);
-            Assert.IsFalse(namePropertyAttributes.Any(a => a is ReadOnlyAttribute));
-            CollectionAssert.Contains(namePropertyAttributes, new DynamicReadOnlyAttribute());
-            Assert.IsFalse(testProperties.DynamicReadOnlyValidationMethod("Name"));
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
 
             // Call
-            var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
+            var text = dynamicPropertyBag.ToString();
 
             // Assert
-            PropertyDescriptorCollection propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
+            Assert.AreEqual(target.ToString(), text);
+        }
 
-            CollectionAssert.Contains(namePropertyDescriptor.Attributes, new DynamicReadOnlyAttribute(),
-                "DynamicReadOnlyAttribute declared on Name property should also be present on PropertyDescriptor.");
-            Assert.IsFalse(namePropertyDescriptor.Attributes.OfType<Attribute>().Any(a => a is ReadOnlyAttribute),
-                "As Name property has no ReadOnlyAttribute nor does DyanmicReadOnlyValidationMethod evaluate to true, no ReadOnlyAttribute should be on PropertyDescriptor.");
+        [Test]
+        public void GetAttributes_Always_ReturnEmpty()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var attributes = dynamicPropertyBag.GetAttributes();
+
+            // Assert
+            CollectionAssert.IsEmpty(attributes);
+        }
+
+        [Test]
+        public void GetClassName_Always_ReturnDynamicPropertyBagClassName()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var className = dynamicPropertyBag.GetClassName();
+
+            // Assert
+            Assert.AreEqual(dynamicPropertyBag.GetType().FullName, className);
+        }
+
+        [Test]
+        public void GetComponentName_Always_ReturnNull()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var componentName = dynamicPropertyBag.GetComponentName();
+
+            // Assert
+            Assert.IsNull(componentName);
+        }
+
+        [Test]
+        public void GetConverter_Always_ReturnDefaultTypeConverter()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var typeConverter = dynamicPropertyBag.GetConverter();
+
+            // Assert
+            Assert.AreEqual(TypeDescriptor.GetConverter(dynamicPropertyBag, true), typeConverter);
+        }
+
+        [Test]
+        public void GetDefaultEvent_Always_ReturnNull()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var eventDescriptor = dynamicPropertyBag.GetDefaultEvent();
+
+            // Assert
+            Assert.IsNull(eventDescriptor);
+        }
+
+        [Test]
+        public void GetEvents_Always_ReturnEmpty()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var events = dynamicPropertyBag.GetEvents();
+
+            // Assert
+            CollectionAssert.IsEmpty(events);
+        }
+
+        [Test]
+        public void GetEventsParametered_Always_ReturnEmpty()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var events = dynamicPropertyBag.GetEvents(new Attribute[0]);
+
+            // Assert
+            CollectionAssert.IsEmpty(events);
+        }
+
+        [Test]
+        public void GetEditor_Always_ReturnNull()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var editor = dynamicPropertyBag.GetEditor(typeof(UITypeEditor));
+
+            // Assert
+            Assert.IsNull(editor);
+        }
+
+        [Test]
+        public void GetDefaultProperty_ObjectHasNotProperties_ReturnNull()
+        {
+            // Setup
+            var dynamicPropertyBag = new DynamicPropertyBag(new object());
+
+            // Call
+            var defaultProperty = dynamicPropertyBag.GetDefaultProperty();
+
+            // Assert
+            Assert.IsNull(defaultProperty);
+        }
+
+        [Test]
+        public void GetDefaultProperty_ObjectWithProperties_ReturnFirstFromProperties()
+        {
+            // Setup
+            var target = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(target);
+
+            // Call
+            var defaultProperty = dynamicPropertyBag.GetDefaultProperty();
+
+            // Assert
+            Assert.AreEqual(dynamicPropertyBag.Properties.First().Name, defaultProperty.Name);
         }
 
         [Test]
@@ -116,66 +242,188 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void DynamicPropertyBagMaintainsDesiredOrdering()
+        public void GetProperties_SomePropertiesWithOrderAttribute_ReturnElementsInDesiredOrdering()
         {
+            // Setup
             var dynamicPropertyBag = new DynamicPropertyBag(new TestOrderedProperties());
 
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
+            // Call
+            var propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
 
-            Assert.AreEqual("Name", propertyDescriptorCollection[3].DisplayName);
-            Assert.AreEqual("Description", propertyDescriptorCollection[2].DisplayName);
-            Assert.AreEqual("PropOne", propertyDescriptorCollection[1].DisplayName);
-            Assert.AreEqual("PropTwo", propertyDescriptorCollection[0].DisplayName);
+            // Assert
+            var index = 0;
+            Assert.AreEqual("PropTwo", propertyDescriptorCollection[index++].DisplayName);
+            Assert.AreEqual("PropOne", propertyDescriptorCollection[index++].DisplayName);
+            Assert.AreEqual("Description", propertyDescriptorCollection[index++].DisplayName);
+            Assert.AreEqual("Name", propertyDescriptorCollection[index++].DisplayName);
+
+            var propThreeDescriptor = propertyDescriptorCollection.Find("PropThree", false);
+            Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propThreeDescriptor), index,
+                "PropThree is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
+            var propFourDescriptor = propertyDescriptorCollection.Find("PropFour", false);
+            Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propFourDescriptor), index,
+                "PropFour is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
         }
 
         [Test]
         public void DynamicPropertyBagWrapsNestedPropertyObjects()
         {
-            var subProperties = new TestProperties()
+            // Setup
+            var subProperties = new TestProperties
             {
                 Name = "test"
             };
-            var testProperties = new TestWithNestedPropertiesClassProperties()
+            var testProperties = new TestWithNestedPropertiesClassProperties
             {
                 SubProperties = subProperties
             };
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
-            var propertiesCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
+            var propertiesCollection = dynamicPropertyBag.GetProperties();
+
+            // Call
             var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject);
 
-            // check the object properties are wrapped in a dynamic property bag
-            Assert.IsInstanceOf<DynamicPropertyBag>(wrappedValue, "Object properties wrapped in dynamic property bag");
+            // Assert
+            var bag = (DynamicPropertyBag)wrappedValue;
+            Assert.AreSame(subProperties, bag.WrappedObject);
         }
 
         [Test]
-        public void DynamicPropertyBagPropagatesValueSetter()
+        public void GivenPropertyDescriptorFromDynamicPropertyBag_WhenSettingProperty_ThenWrappedObjectUpdated()
         {
-            var propertyGrid = new PropertyGrid();
-
+            // Setup
             var testProperties = new TestProperties
             {
                 Name = "name"
             };
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
-            propertyGrid.SelectedObject = dynamicPropertyBag;
+            var newName = "newName";
 
-            var expected = "newName";
-            propertyGrid.SelectedGridItem.PropertyDescriptor.SetValue(testProperties, expected);
+            // Call
+            dynamicPropertyBag.GetProperties()["Name"].SetValue(testProperties, newName);
 
-            Assert.AreEqual(expected, testProperties.Name, "Name not correctly set");
+            // Assert
+            Assert.AreEqual(newName, testProperties.Name);
         }
 
         [Test]
-        public void PropertyWithNoSetterAreReadOnly()
+        public void GivenPropertiesWithoutPublicSetter_WhenGettingPropertyDescriptors_ThenPropertiesDecoratedWithReadOnlyAttribute()
         {
+            // Setup
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutSetterPropertyClassProperties());
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
 
-            //check both properties have the readonly attribute 
-            Assert.IsTrue(propertyDescriptorCollection[0].Attributes.Matches(new ReadOnlyAttribute(true)));
-            Assert.IsTrue(propertyDescriptorCollection[1].Attributes.Matches(new ReadOnlyAttribute(true)));
+            // Call
+            var propertyDescriptorCollection = dynamicPropertyBag.GetProperties();
+
+            // Assert
+            Assert.IsTrue(propertyDescriptorCollection[0].Attributes.Matches(ReadOnlyAttribute.Yes));
+            Assert.IsTrue(propertyDescriptorCollection[1].Attributes.Matches(ReadOnlyAttribute.Yes));
+        }
+
+        [Test]
+        public void GetProperties_RepeatedCallForSameState_RetainSameElementOrderAndContents()
+        {
+            // Setup
+            var propertyObject = new TestOrderedProperties();
+
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            var originalProperties = dynamicPropertyBag.GetProperties();
+
+            // Call
+            for (int i = 0; i < 100; i++)
+            {
+                var currentProperties = dynamicPropertyBag.GetProperties();
+
+                // Assert
+                CollectionAssert.AreEqual(originalProperties, currentProperties);
+            }
+        }
+
+        [Test]
+        public void GetProperties_RepeatedConstructionsForSameState_RetainSameElementOrderAndContents()
+        {
+            // Setup
+            var propertyObject = new TestOrderedProperties();
+
+            var originalProperties = new DynamicPropertyBag(propertyObject).GetProperties();
+
+            // Call
+            for (int i = 0; i < 100; i++)
+            {
+                var currentProperties = new DynamicPropertyBag(propertyObject).GetProperties();
+
+                // Assert
+                CollectionAssert.AreEqual(originalProperties, currentProperties);
+            }
+        }
+
+        [Test]
+        public void GetProperties_BrowsableTrueFilter_ReturnOnlyPropertiesThatAreBrowsable()
+        {
+            // Setup
+            var propertyObject = new TestProperties
+            {
+                Visible = false
+            };
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            // Call
+            var properties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                BrowsableAttribute.Yes
+            });
+
+            // Assert
+            Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);
+            Assert.IsNull(properties.Find("Name", false),
+                "Name is dynamically not browsable, therefore should not be returned.");
+            Assert.IsNotNull(properties.Find("Description", false));
+            Assert.IsNotNull(properties.Find("IsNameReadOnly", false));
+            Assert.IsNull(properties.Find("Visible", false),
+                "Visible is statically not browsable, therefore should not be returned.");
+        }
+
+        [Test]
+        public void GetProperties_BrowsableNoFilter_ReturnOnlyPropertiesThatAreBrowsable()
+        {
+            // Setup
+            var propertyObject = new TestProperties
+            {
+                Visible = false
+            };
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            // Call
+            var properties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                BrowsableAttribute.No
+            });
+
+            // Assert
+            Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);
+            Assert.IsNotNull(properties.Find("Name", false),
+                "Name is dynamically not browsable, therefore should be returned.");
+            Assert.IsNull(properties.Find("Description", false));
+            Assert.IsNull(properties.Find("IsNameReadOnly", false));
+            Assert.IsNotNull(properties.Find("Visible", false),
+                "Visible is statically not browsable, therefore should be returned.");
+        }
+
+        [Test]
+        public void GetPropertyOwner_Always_ReturnWrappedObject()
+        {
+            // Setup
+            var propertyObject = new TestProperties();
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            // Call
+            var owner = dynamicPropertyBag.GetPropertyOwner(null);
+
+            // Assert
+            Assert.AreSame(propertyObject, owner);
         }
 
         #region Test Classes
@@ -193,6 +441,10 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             [PropertyOrder(0)]
             public string PropTwo { get; set; }
+
+            public int PropThree { get; set; }
+
+            public int PropFour { get; set; }
         }
 
         private class TestWithNestedPropertiesClassProperties
@@ -219,8 +471,10 @@ namespace Core.Common.Gui.Test.PropertyBag
             [System.ComponentModel.Category("General")]
             public string Name { get; set; }
 
+            [Browsable(true)]
             public bool IsNameReadOnly { get; set; }
 
+            [Browsable(false)]
             public bool Visible { get; set; }
 
             [ReadOnly(true)] //one static property
@@ -243,6 +497,11 @@ namespace Core.Common.Gui.Test.PropertyBag
             public bool DynamicVisibleValidationMethod(string propertyName)
             {
                 return Visible;
+            }
+
+            public override string ToString()
+            {
+                return Name;
             }
         }
 

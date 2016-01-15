@@ -44,7 +44,7 @@ namespace Core.Common.Gui.PropertyBag
         /// <see cref="PropertySpec"/> class, such as <see cref="System.ComponentModel.ReadOnlyAttribute"/> 
         /// and <see cref="BrowsableAttribute"/>.
         /// </summary>
-        public Attribute[] Attributes { get; set; }
+        public Attribute[] Attributes { get; private set; }
 
         /// <summary>
         /// Gets the name of the property.

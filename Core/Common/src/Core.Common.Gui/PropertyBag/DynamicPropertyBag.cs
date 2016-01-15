@@ -17,19 +17,31 @@ namespace Core.Common.Gui.PropertyBag
     {
         /// <summary>
         /// Instantiates a new instance of <see cref="DynamicPropertyBag"/>, wrapping another
-        /// object an exposing properties for that object.
+        /// object and exposing properties for that object.
         /// </summary>
         /// <param name="propertyObject">The object to be wrapped.</param>
+        /// <remarks>This class makes sure the following special attributes on properties are processed:
+        /// <list type="bullet">
+        /// <item><see cref="DynamicReadOnlyAttribute"/></item>
+        /// <item><see cref="DynamicVisibleAttribute"/></item>
+        /// <item><see cref="PropertyOrderAttribute"/></item>
+        /// </list></remarks>
         public DynamicPropertyBag(object propertyObject)
         {
-            Properties = new PropertySpecCollection();
-            Initialize(propertyObject);
+            Properties = new HashSet<PropertySpec>();
+            WrappedObject = propertyObject;
+
+            foreach (var propertyInfo in propertyObject.GetType().GetProperties()
+                                                       .OrderBy(x => x.MetadataToken))
+            {
+                Properties.Add(new PropertySpec(propertyInfo));
+            }
         }
 
         /// <summary>
         /// Gets the collection of properties contained within this <see cref="DynamicPropertyBag"/>.
         /// </summary>
-        public PropertySpecCollection Properties { get; private set; }
+        public ICollection<PropertySpec> Properties { get; private set; }
 
         /// <summary>
         /// Gets the object wrapped inside this <see cref="DynamicPropertyBag"/>
@@ -39,16 +51,6 @@ namespace Core.Common.Gui.PropertyBag
         public override string ToString()
         {
             return WrappedObject.ToString();
-        }
-
-        private void Initialize(object propertyObject)
-        {
-            WrappedObject = propertyObject;
-
-            foreach (var propertyInfo in propertyObject.GetType().GetProperties().OrderBy(x => x.MetadataToken).ToArray())
-            {
-                Properties.Add(new PropertySpec(propertyInfo));
-            }
         }
 
         #region ICustomTypeDescriptor explicit interface definitions
@@ -80,11 +82,6 @@ namespace Core.Common.Gui.PropertyBag
             return TypeDescriptor.GetDefaultEvent(this, true);
         }
 
-        public object GetEditor(Type editorBaseType)
-        {
-            return TypeDescriptor.GetEditor(this, editorBaseType, true);
-        }
-
         public EventDescriptorCollection GetEvents()
         {
             return TypeDescriptor.GetEvents(this, true);
@@ -95,54 +92,58 @@ namespace Core.Common.Gui.PropertyBag
             return TypeDescriptor.GetEvents(this, attributes, true);
         }
 
-        public PropertyDescriptorCollection GetProperties()
+        public object GetEditor(Type editorBaseType)
         {
-            return GetProperties(new Attribute[0]);
+            return TypeDescriptor.GetEditor(this, editorBaseType, true);
         }
 
         #endregion
 
         public PropertyDescriptor GetDefaultProperty()
         {
-            return Properties.Count > 0 ? new PropertySpecDescriptor(Properties[0], WrappedObject) : null;
+            return Properties.Count > 0 ? new PropertySpecDescriptor(Properties.First(), WrappedObject) : null;
         }
 
-        public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+        public PropertyDescriptorCollection GetProperties()
         {
-            // Rather than passing this function on to the default TypeDescriptor,
-            // which would return the actual properties of PropertyBag, I construct
-            // a list here that contains property descriptors for the elements of the
-            // Properties list in the bag.
-            var props = new List<PropertySpecDescriptor>();
-            var propsToOrder = new List<Tuple<int, PropertySpecDescriptor>>();
+            return GetProperties(new Attribute[0]);
+        }
 
-            foreach (PropertySpec property in Properties)
+        public PropertyDescriptorCollection GetProperties(Attribute[] attributesFilter)
+        {
+            var propertyDescriptorsToReturn = Properties.Select(p => new PropertySpecDescriptor(p, WrappedObject))
+                                                        .Where(t => ShouldDescriptorBeReturned(t, attributesFilter));
+
+            var propertySpecDescriptors = OrderPropertyDescriptors(propertyDescriptorsToReturn);
+            return new PropertyDescriptorCollection(propertySpecDescriptors);
+        }
+
+        private static PropertyDescriptor[] OrderPropertyDescriptors(IEnumerable<PropertyDescriptor> propertyDescriptorsToReturn)
+        {
+            var unorderedProperties = new List<PropertyDescriptor>();
+            var propertiesWithOrdering = new List<Tuple<int, PropertyDescriptor>>();
+
+            foreach (PropertyDescriptor pd in propertyDescriptorsToReturn)
             {
-                // Create a new property descriptor for the property item, and add it to the list.
-                var pd = new PropertySpecDescriptor(property, WrappedObject);
-
-                var propertyOrderAttribute = property.Attributes != null ? property.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault() : null;
+                var propertyOrderAttribute = pd.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault();
                 if (propertyOrderAttribute != null)
                 {
-                    propsToOrder.Add(new Tuple<int, PropertySpecDescriptor>(propertyOrderAttribute.Order, pd));
+                    propertiesWithOrdering.Add(new Tuple<int, PropertyDescriptor>(propertyOrderAttribute.Order, pd));
                 }
                 else
                 {
-                    props.Add(pd);
+                    unorderedProperties.Add(pd);
                 }
             }
+            var orderedProperties = propertiesWithOrdering.OrderBy(p => p.Item1).Select(p => p.Item2);
 
-            var orderedProperties = propsToOrder.OrderBy(p => p.Item1).Select(p => p.Item2).ToList();
+            return orderedProperties.Concat(unorderedProperties).ToArray();
+        }
 
-            // Convert the list of PropertyDescriptors to a collection that the
-            // ICustomTypeDescriptor can use, and return it.
-            var browsableAttribute = attributes.OfType<BrowsableAttribute>().FirstOrDefault();
-
-            var propertySpecDescriptors = (browsableAttribute != null)
-                                              ? orderedProperties.Concat(props).Where(p => p.IsBrowsable == browsableAttribute.Browsable)
-                                              : orderedProperties.Concat(props);
-
-            return new PropertyDescriptorCollection(propertySpecDescriptors.ToArray());
+        private static bool ShouldDescriptorBeReturned(PropertyDescriptor propertySpecDescriptor, IEnumerable<Attribute> attributesFilter)
+        {
+            var browsableAttribute = attributesFilter.OfType<BrowsableAttribute>().FirstOrDefault();
+            return browsableAttribute == null || propertySpecDescriptor.IsBrowsable == browsableAttribute.Browsable;
         }
 
         public object GetPropertyOwner(PropertyDescriptor pd)
