@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Utils;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
@@ -22,9 +21,7 @@ namespace Core.Components.OxyPlot.Forms
     public sealed class BaseChart : Control, IObservable
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
-        private readonly IDictionary<ChartData, Series> series = new Dictionary<ChartData, Series>(new ReferenceEqualityComparer<ChartData>());
-        private readonly List<ChartData> order = new List<ChartData>();
-
+        private readonly List<Tuple<ChartData, Series>> series = new List<Tuple<ChartData, Series>>();
         private readonly ICollection<IObserver> observers = new Collection<IObserver>();
 
         private PlotView view;
@@ -35,7 +32,6 @@ namespace Core.Components.OxyPlot.Forms
         public BaseChart()
         {
             InitializePlotView();
-            Data = new List<ChartData>();
             MinimumSize = new Size(50, 75);
         }
 
@@ -47,7 +43,7 @@ namespace Core.Components.OxyPlot.Forms
         {
             get
             {
-                return order.ToList();
+                return series.Select(t => t.Item1).ToList();
             }
             set
             {
@@ -67,49 +63,27 @@ namespace Core.Components.OxyPlot.Forms
                 throw new ArgumentNullException("serie", "Cannot set visibility of a null serie.");
             }
             serie.IsVisible = visibility;
-            series[serie].IsVisible = visibility;
+            series.First(t => ReferenceEquals(t.Item1, serie)).Item2.IsVisible = visibility;
             view.Invalidate();
         }
 
-        public void SetIndex(ChartData serie, int index)
+        public void SetIndex(ChartData data, int index)
         {
-            if (serie == null)
+            if (data == null)
             {
-                throw new ArgumentNullException("serie", "Cannot set visibility of a null serie.");
+                throw new ArgumentNullException("data", "Cannot set visibility of a null serie.");
             }
             if (index < 0 || index >= Data.Count)
             {
                 throw new ArgumentNullException("index", string.Format("Cannot set index outside of range [0,{0})", Data.Count));
             }
-            var newOrder = order.ToList();
-            newOrder.Remove(serie);
-            newOrder.Insert(index, serie);
-        }
+            var tuple = series.First(s => ReferenceEquals(s.Item1, data));
 
-        public void Attach(IObserver observer)
-        {
-            observers.Add(observer);
-        }
+            series.Remove(tuple);
+            series.Insert(index, tuple);
 
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            // Iterate through a copy of the list of observers; an update of one observer might result in detaching
-            // another observer (which will result in a "list modified" exception over here otherwise)
-            foreach (var observer in observers.ToArray())
-            {
-                // Ensure the observer is still part of the original list of observers
-                if (!observers.Contains(observer))
-                {
-                    continue;
-                }
-
-                observer.UpdateObserver();
-            }
+            view.Model.Series.Remove(tuple.Item2);
+            view.Model.Series.Insert(index, tuple.Item2);
         }
 
         /// <summary>
@@ -120,7 +94,6 @@ namespace Core.Components.OxyPlot.Forms
         private void SetData(ICollection<ChartData> dataCollection)
         {
             series.Clear();
-            order.Clear();
 
             if (dataCollection != null)
             {
@@ -130,7 +103,7 @@ namespace Core.Components.OxyPlot.Forms
                 }
             }
 
-            UpdateTree();
+            UpdateTreeData();
         }
 
         /// <summary>
@@ -141,12 +114,11 @@ namespace Core.Components.OxyPlot.Forms
         /// type.</exception>
         private void AddDataAsSeries(ChartData data)
         {
-            series.Add(data, seriesFactory.Create(data));
-            order.Add(data);
+            series.Add(new Tuple<ChartData, Series>(data, seriesFactory.Create(data)));
         }
 
         /// <summary>
-        /// Initialize the <see cref="PlotView"/> for the <see cref="BaseChart"/>.
+        /// Initialize the <see cref="PlotView"/> for the <see cref="BaseChart"/>, disposing the old one if it existed.
         /// </summary>
         private void InitializePlotView()
         {
@@ -192,12 +164,44 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Updates the tree with the currently known <see cref="Data"/>.
         /// </summary>
-        private void UpdateTree()
+        private void UpdateTreeData()
         {
-            foreach (var data in order)
+            view.Model.Series.Clear();
+
+            foreach (var data in series.Select(s => s.Item2))
             {
-                view.Model.Series.Add(series[data]);
+                view.Model.Series.Add(data);
             }
         }
+
+        #region IObserver
+
+        public void Attach(IObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            // Iterate through a copy of the list of observers; an update of one observer might result in detaching
+            // another observer (which will result in a "list modified" exception over here otherwise)
+            foreach (var observer in observers.ToArray())
+            {
+                // Ensure the observer is still part of the original list of observers
+                if (!observers.Contains(observer))
+                {
+                    continue;
+                }
+
+                observer.UpdateObserver();
+            }
+        }
+
+        #endregion
     }
 }

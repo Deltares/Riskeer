@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
 using Core.Components.Charting.Data;
@@ -28,7 +29,7 @@ namespace Core.Plugins.OxyPlot.Legend
         public override void OnDragDrop(object item, object itemParent, BaseChart target, DragOperations operation, int position)
         {
             var draggedData = item as ChartData;
-            target.SetIndex(draggedData, position);
+            target.SetIndex(draggedData, target.Data.Count - 1 - position);
             target.NotifyObservers();
         }
 
@@ -40,7 +41,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
         public override IEnumerable GetChildNodeObjects(BaseChart parentNodeData)
         {
-            return parentNodeData.Data;
+            return parentNodeData.Data.Reverse();
         }
     }
 }
