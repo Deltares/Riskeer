@@ -75,6 +75,25 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Func<object, TreeNode, TreeNode, DragOperations, DragOperations> CanDrop { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be inserted into the drop target at a specific index.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// </summary>
+        public Func<object, TreeNode, TreeNode, bool> CanInsert { get; set; }
+
+        /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after dropping a tree node.
+        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
+        /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
+        /// </summary>
+        /// <remarks>When dragging a node, the <see cref="OnDragDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        public Action<object, TreeNode, TreeNode, DragOperations, int> OnDragDrop { get; set; }
     }
 
     /// <summary>
@@ -144,7 +163,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
         /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
-        public Func<object, bool> CanDrag { get; set; }
+        public Func<TData, bool> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -155,7 +174,26 @@ namespace Core.Common.Controls.TreeView
         /// The <see cref="DragOperations"/> return value indicates what operation is valid when the tree node is dropped onto the drop target.
         /// </summary>
         /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Func<object, TreeNode, TreeNode, DragOperations, DragOperations> CanDrop { get; set; }
+        public Func<TData, TreeNode, TreeNode, DragOperations, DragOperations> CanDrop { get; set; }
+
+        /// <summary>
+        /// Gets or sets a function for checking whether or not the tree node can be inserted into the drop target at a specific index.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// </summary>
+        public Func<TData, TreeNode, TreeNode, bool> CanInsert { get; set; }
+
+        /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after dropping a tree node.
+        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
+        /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
+        /// </summary>
+        /// <remarks>When dragging a node, the <see cref="OnDragDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        public Action<TData, TreeNode, TreeNode, DragOperations, int> OnDragDrop { get; set; }
 
         /// <summary>
         /// This operator converts a <see cref="TreeNodeInfo{TData}"/> into a <see cref="TreeNodeInfo"/>.
