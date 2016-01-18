@@ -30,6 +30,9 @@
         </fluent:RibbonTabItem>
 
         <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Chart}" Group="{Binding Source={x:Reference ChartingContextualGroup}}" fluent:KeyTip.Keys="G">
+            <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Navigation}" fluent:KeyTip.Keys="N">
+                <fluent:ToggleButton Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}" Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P"/>
+            </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>
 </UserControl>

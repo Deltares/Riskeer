@@ -29,6 +29,11 @@ namespace Core.Plugins.OxyPlot
         /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
 
+        /// <summary>
+        /// Sets the command used when the enable panning button is clicked.
+        /// </summary>
+        public ICommand TogglePanningCommand { private get; set; }
+
         public IEnumerable<ICommand> Commands
         {
             get
@@ -41,8 +46,13 @@ namespace Core.Plugins.OxyPlot
                 {
                     yield return ToggleLegendViewCommand;
                 }
+                if (TogglePanningCommand != null)
+                {
+                    yield return TogglePanningCommand;
+                }
             }
         }
+
 
         /// <summary>
         /// Shows the charting contextual tab.
@@ -86,6 +96,11 @@ namespace Core.Plugins.OxyPlot
         private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
         {
             ToggleLegendViewCommand.Execute();
+        }
+
+        private void ButtonTogglePanning_Click(object sender, RoutedEventArgs e)
+        {
+            TogglePanningCommand.Execute();
         }
     }
 }

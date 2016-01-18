@@ -24,6 +24,8 @@ namespace Core.Components.OxyPlot.Forms
         private readonly List<Tuple<ChartData, Series>> series = new List<Tuple<ChartData, Series>>();
         private readonly ICollection<IObserver> observers = new Collection<IObserver>();
 
+        public bool IsPanning { get; private set; }
+
         private PlotView view;
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace Core.Components.OxyPlot.Forms
         public BaseChart()
         {
             InitializePlotView();
+            IsPanning = false;
             MinimumSize = new Size(50, 75);
         }
 
@@ -92,6 +95,39 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
+        /// Enables panning of the <see cref="BaseChart"/>. Panning is invoked by clicking the left mouse-button.
+        /// </summary>
+        private void EnablePanning()
+        {
+            view.Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.PanAt);
+            IsPanning = true;
+        }
+
+        /// <summary>
+        /// Toggles panning of the <see cref="BaseChart"/>. Panning is invoked by clicking the left mouse-button.
+        /// </summary>
+        public void TogglePanning()
+        {
+            if (IsPanning)
+            {
+                DisableInteraction();
+            }
+            else
+            {
+                EnablePanning();
+            }
+        }
+
+        /// <summary>
+        /// Disables all the interaction with the <see cref="BaseChart"/>.
+        /// </summary>
+        private void DisableInteraction()
+        {
+            view.Controller.UnbindAll();
+            IsPanning = false;
+        }
+
+        /// <summary>
         /// Sets the new data. When <paramref name="dataCollection"/> is <c>null</c> the <see cref="BaseChart"/> is
         /// cleared.
         /// </summary>
@@ -130,6 +166,7 @@ namespace Core.Components.OxyPlot.Forms
             view = new PlotView
             {
                 Dock = DockStyle.Fill,
+                Controller = new PlotController(),
                 Model = new PlotModel
                 {
                     Axes =
@@ -139,6 +176,7 @@ namespace Core.Components.OxyPlot.Forms
                     }
                 }
             };
+            DisableInteraction();
             Controls.Add(view);
         }
 

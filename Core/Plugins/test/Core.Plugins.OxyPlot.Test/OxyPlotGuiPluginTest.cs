@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -27,6 +26,8 @@ namespace Core.Plugins.OxyPlot.Test
             {
                 // Assert
                 Assert.IsInstanceOf<GuiPlugin>(plugin);
+                Assert.IsInstanceOf<IToolViewController>(plugin);
+                Assert.IsInstanceOf<IDocumentViewController>(plugin);
                 Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
@@ -123,6 +124,30 @@ namespace Core.Plugins.OxyPlot.Test
         }
 
         [Test]
+        public void ActiveView_Always_ReturnGuiActiveView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.StrictMock<IGui>();
+            var view = mocks.StrictMock<IView>();
+
+            gui.Expect(g => g.ActiveView).Return(view);
+
+            mocks.ReplayAll();
+
+            using (var plugin = new OxyPlotGuiPlugin())
+            {
+                plugin.Gui = gui;
+
+                // Call
+                var result = plugin.ActiveView;
+
+                // Assert
+                Assert.AreSame(view, result);
+            }
+        }
+
+        [Test]
         [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
@@ -184,24 +209,6 @@ namespace Core.Plugins.OxyPlot.Test
                 // Then
                 Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
                 mocks.VerifyAll();
-            }
-        }
-    }
-
-    public class TestView : Control, IView
-    {
-        public object Data { get; set; }
-    }
-
-    public class TestChartView : Control, IChartView
-    {
-        public object Data { get; set; }
-
-        public BaseChart Chart
-        {
-            get
-            {
-                return (BaseChart) Data;
             }
         }
     }

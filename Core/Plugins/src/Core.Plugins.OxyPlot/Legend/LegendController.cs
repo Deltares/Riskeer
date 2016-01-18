@@ -9,20 +9,20 @@ namespace Core.Plugins.OxyPlot.Legend
     /// </summary>
     public class LegendController
     {
-        private readonly IToolViewController plugin;
+        private readonly IToolViewController toolViewController;
         private IView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="LegendController"/>.
         /// </summary>
-        /// <param name="plugin">The <see cref="OxyPlotGuiPlugin"/> to invoke actions upon.</param>
-        public LegendController(IToolViewController plugin)
+        /// <param name="toolViewController">The <see cref="OxyPlotGuiPlugin"/> to invoke actions upon.</param>
+        public LegendController(IToolViewController toolViewController)
         {
-            if (plugin == null)
+            if (toolViewController == null)
             {
-                throw new ArgumentNullException("plugin", "Cannot create a LegendController when the plugin is null.");
+                throw new ArgumentNullException("toolViewController", "Cannot create a LegendController when the plugin is null.");
             }
-            this.plugin = plugin;
+            this.toolViewController = toolViewController;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Core.Plugins.OxyPlot.Legend
         /// <returns><c>true</c> if the <see cref="LegendView"/> is open, <c>false</c> otherwise.</returns>
         public bool IsLegendViewOpen()
         {
-            return plugin.IsToolWindowOpen<LegendView>();
+            return toolViewController.IsToolWindowOpen<LegendView>();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Core.Plugins.OxyPlot.Legend
         private void OpenLegendView()
         {
             legendView = new LegendView();
-            plugin.OpenToolView(legendView);
+            toolViewController.OpenToolView(legendView);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Core.Plugins.OxyPlot.Legend
         /// </summary>
         private void CloseLegendView()
         {
-            plugin.CloseToolView(legendView);
+            toolViewController.CloseToolView(legendView);
             legendView.Dispose();
             legendView = null;
         }

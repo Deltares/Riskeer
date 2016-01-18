@@ -59,10 +59,13 @@
     <Compile Include="ChartingRibbon.xaml.cs">
       <DependentUpon>ChartingRibbon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChartingInteractionController.cs" />
+    <Compile Include="Commands\TogglePanningCommand.cs" />
     <Compile Include="Commands\ToggleLegendViewCommand.cs" />
     <Compile Include="Forms\ChartDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="IDocumentViewController.cs" />
     <Compile Include="IToolViewController.cs" />
     <Compile Include="Legend\ChartDataNodePresenter.cs" />
     <Compile Include="Legend\ChartNodePresenter.cs" />
@@ -148,6 +151,7 @@
     <CodeAnalysisDictionary Include="Resources\chart.png" />
     <Content Include="Resources\area.png" />
     <Content Include="Resources\document.png" />
+    <Content Include="Resources\hand.png" />
     <Content Include="Resources\line.png" />
     <Content Include="Resources\points.png" />
   </ItemGroup>

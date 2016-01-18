@@ -33,17 +33,19 @@ namespace Core.Plugins.OxyPlot.Test
             using(var oxyPlotGuiPlugin = new OxyPlotGuiPlugin()) {
                 var openChartViewCommand = new OpenChartViewCommand();
                 var toggleLegendViewCommand = new ToggleLegendViewCommand(new LegendController(oxyPlotGuiPlugin));
+                var togglePanningCommand = new TogglePanningCommand(new ChartingInteractionController(oxyPlotGuiPlugin));
                 var ribbon = new ChartingRibbon
                 {
                     OpenChartViewCommand = openChartViewCommand,
-                    ToggleLegendViewCommand = toggleLegendViewCommand
+                    ToggleLegendViewCommand = toggleLegendViewCommand,
+                    TogglePanningCommand = togglePanningCommand
                 };
 
                 // Call
                 var commands = ribbon.Commands.ToArray();
 
                 // Assert
-                CollectionAssert.AreEqual(new ICommand[]{openChartViewCommand, toggleLegendViewCommand}, commands);
+                CollectionAssert.AreEqual(new ICommand[]{openChartViewCommand, toggleLegendViewCommand, togglePanningCommand}, commands);
             }
         }
 
@@ -112,6 +114,33 @@ namespace Core.Plugins.OxyPlot.Test
                 ToggleLegendViewCommand = command
             };
             var button = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have an open chart view button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TogglePanningButton_OnClick_ExecutesTogglePanningCommand()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var command = mocks.StrictMock<ICommand>();
+            command.Expect(c => c.Execute());
+
+            mocks.ReplayAll();
+
+            var ribbon = new ChartingRibbon
+            {
+                TogglePanningCommand = command
+            };
+            var button = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
 
             // Precondition
             Assert.IsNotNull(button, "Ribbon should have an open chart view button.");

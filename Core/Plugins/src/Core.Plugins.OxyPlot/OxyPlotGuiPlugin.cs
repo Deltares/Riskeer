@@ -12,10 +12,16 @@ using Core.Plugins.OxyPlot.Properties;
 
 namespace Core.Plugins.OxyPlot
 {
-    public class OxyPlotGuiPlugin : GuiPlugin, IToolViewController
+    /// <summary>
+    /// This class ties all the components together to enable charting interaction.
+    /// </summary>
+    public class OxyPlotGuiPlugin : GuiPlugin, IToolViewController, IDocumentViewController
     {
         private ChartingRibbon chartingRibbon;
+
         private LegendController legendController;
+        private static ChartingInteractionController chartInteractionController;
+
         private bool activated;
 
         public override IRibbonCommandHandler RibbonCommandHandler
@@ -29,6 +35,7 @@ namespace Core.Plugins.OxyPlot
         public override void Activate()
         {
             legendController = CreateLegendController(this);
+            chartInteractionController = CreateChartInteractionController(this);
             chartingRibbon = CreateRibbon(legendController);
 
             legendController.ToggleLegend();
@@ -54,6 +61,8 @@ namespace Core.Plugins.OxyPlot
             base.Dispose();
         }
 
+        #region IToolWindowController
+
         public bool IsToolWindowOpen<T>()
         {
             return Gui.ToolWindowViews.Any(t => t.GetType() == typeof(T));
@@ -70,6 +79,20 @@ namespace Core.Plugins.OxyPlot
             Gui.CloseToolView(toolView);
         }
 
+        #endregion
+
+        #region IDocumentViewController
+
+        public IView ActiveView
+        {
+            get
+            {
+                return Gui.ActiveView;
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Creates a new <see cref="LegendController"/>.
         /// </summary>
@@ -83,6 +106,16 @@ namespace Core.Plugins.OxyPlot
         }
 
         /// <summary>
+        /// Creates a new <see cref="ChartingInteractionController"/>.
+        /// </summary>
+        /// <param name="controller">The <see cref="IDocumentViewController"/> to use for the controller.</param>
+        /// <returns>A new <see cref="ChartingInteractionController"/> instance.</returns>
+        private ChartingInteractionController CreateChartInteractionController(IDocumentViewController controller)
+        {
+            return new ChartingInteractionController(controller);
+        }
+
+        /// <summary>
         /// Creates the <see cref="ChartingRibbon"/> and the commands that will be used when clicking on the buttons.
         /// </summary>
         /// <param name="legendController">The <see cref="LegendController"/> to use for the 
@@ -93,7 +126,8 @@ namespace Core.Plugins.OxyPlot
             return new ChartingRibbon
             {
                 OpenChartViewCommand = new OpenChartViewCommand(),
-                ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController)
+                ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController),
+                TogglePanningCommand = new TogglePanningCommand(chartInteractionController)
             };
         }
 

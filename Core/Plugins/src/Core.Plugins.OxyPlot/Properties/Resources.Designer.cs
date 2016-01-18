@@ -148,6 +148,16 @@ namespace Core.Plugins.OxyPlot.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap PanIcon {
+            get {
+                object obj = ResourceManager.GetObject("PanIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap PointsIcon {
             get {
                 object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
@@ -174,6 +184,15 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navigatie.
+        /// </summary>
+        public static string Ribbon_GroupBox_Navigation {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Navigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grafiek.
         /// </summary>
         public static string Ribbon_Toggle_Legend {
@@ -188,6 +207,24 @@ namespace Core.Plugins.OxyPlot.Properties {
         public static string Ribbon_Toggle_Legend_ToolTip {
             get {
                 return ResourceManager.GetString("Ribbon_Toggle_Legend_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschuiven.
+        /// </summary>
+        public static string Ribbon_Toggle_Panning {
+            get {
+                return ResourceManager.GetString("Ribbon_Toggle_Panning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om te verschuiven houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt..
+        /// </summary>
+        public static string Ribbon_Toggle_Panning_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Toggle_Panning_ToolTip", resourceCulture);
             }
         }
     }
