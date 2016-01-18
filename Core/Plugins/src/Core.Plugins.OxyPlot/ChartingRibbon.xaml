@@ -33,6 +33,7 @@
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Navigation}" fluent:KeyTip.Keys="N">
                 <fluent:ToggleButton Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}" Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P"/>
                 <fluent:ToggleButton Name="ToggleRectangleZoomingButton" Header="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming_ToolTip}" Icon="{Binding Source={x:Static p:Resources.RectangleZoomIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleRectangleZooming_Click" fluent:KeyTip.Keys="Z"/>
+                <fluent:Button Name="ZoomToAllButton" Header="{x:Static p:Resources.Ribbon_ZoomToAll}" ToolTip="{x:Static p:Resources.Ribbon_ZoomToAll_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ZoomToAllIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonZoomToAll_Click" fluent:KeyTip.Keys="A"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

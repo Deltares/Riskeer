@@ -142,6 +142,11 @@ namespace Core.Plugins.OxyPlot
             Chart.NotifyObservers();
         }
 
+        private void ButtonZoomToAll_Click(object sender, RoutedEventArgs e)
+        {
+            Chart.ZoomToAll();
+        }
+
         public void UpdateObserver()
         {
             ValidateItems();

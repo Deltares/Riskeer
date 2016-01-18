@@ -127,6 +127,36 @@ namespace Core.Plugins.OxyPlot.Test
 
         [Test]
         [RequiresSTA]
+        public void ZoomToAll_OnClick_ExecutesChartZoomToAll()
+        {
+            // Setup
+            var ribbon = new ChartingRibbon();
+            var mocks = new MockRepository();
+            var chart = mocks.StrictMock<IChart>();
+
+            chart.Expect(c => c.Attach(ribbon));
+            chart.Expect(c => c.IsPanning).Return(true);
+            chart.Expect(c => c.IsRectangleZooming).Return(true);
+            chart.Expect(c => c.ZoomToAll());
+
+            mocks.ReplayAll();
+
+            ribbon.Chart = chart;
+
+            var button = ribbon.GetRibbonControl().FindName("ZoomToAllButton") as Button;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a zoom to all button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
         public void Chart_Always_AttachesToChartAndUpdatesChartingCommands(bool buttonChecked)

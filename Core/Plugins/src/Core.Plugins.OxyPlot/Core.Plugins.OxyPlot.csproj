@@ -151,6 +151,7 @@
     <Content Include="Resources\hand.png" />
     <Content Include="Resources\line.png" />
     <Content Include="Resources\points.png" />
+    <Content Include="Resources\zoomExtents.png" />
     <Content Include="Resources\zoomRectangle.png" />
   </ItemGroup>
   <ItemGroup>

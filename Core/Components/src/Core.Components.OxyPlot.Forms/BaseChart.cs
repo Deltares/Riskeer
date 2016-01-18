@@ -134,6 +134,12 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
+        public void ZoomToAll()
+        {
+            view.InvalidatePlot(true);
+            view.Model.ResetAllAxes();
+        }
+
         /// <summary>
         /// Disables all the interaction with the <see cref="BaseChart"/>.
         /// </summary>

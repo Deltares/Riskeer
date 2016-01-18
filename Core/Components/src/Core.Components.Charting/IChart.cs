@@ -44,5 +44,10 @@ namespace Core.Components.Charting
         /// Toggles rectangle zooming of the <see cref="IChart"/>. Rectangle zooming is invoked by clicking the left mouse-button.
         /// </summary>
         void ToggleRectangleZooming();
+
+        /// <summary>
+        /// Zooms to a level so that everything is in view.
+        /// </summary>
+        void ZoomToAll();
     }
 }

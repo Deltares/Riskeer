@@ -255,5 +255,33 @@ namespace Core.Plugins.OxyPlot.Properties {
                 return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming_ToolTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string Ribbon_ZoomToAll {
+            get {
+                return ResourceManager.GetString("Ribbon_ZoomToAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar een niveau waarop alles in de grafiek zichtbaar is..
+        /// </summary>
+        public static string Ribbon_ZoomToAll_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_ZoomToAll_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ZoomToAllIcon {
+            get {
+                object obj = ResourceManager.GetObject("ZoomToAllIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
