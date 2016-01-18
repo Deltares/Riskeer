@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Windows;
+using Core.Components.Charting;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
+using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Button = Fluent.Button;
@@ -114,7 +116,7 @@ namespace Core.Plugins.OxyPlot.Test
             var button = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
 
             // Precondition
-            Assert.IsNotNull(button, "Ribbon should have an open chart view button.");
+            Assert.IsNotNull(button, "Ribbon should have a toggle legend view button.");
 
             // Call
             button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
@@ -127,7 +129,62 @@ namespace Core.Plugins.OxyPlot.Test
         [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
-        public void ValidateItems_Always_IsCheckedEqualToCommandChecked(bool commandChecked)
+        public void Chart_Always_UpdatesTogglePanningIsCheckedAndChartingContextualVisibility(bool buttonChecked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var chart = mocks.StrictMock<IChart>();
+            chart.Expect(c => c.IsPanning).Return(buttonChecked);
+
+            mocks.ReplayAll();
+
+            var ribbon = new ChartingRibbon();
+
+            var togglePanningButton = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(togglePanningButton, "Ribbon should have a toggle panning button.");
+
+            // Call
+            ribbon.Chart = chart;
+
+            // Assert
+            Assert.AreEqual(buttonChecked, togglePanningButton.IsChecked);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Chart_WithOrWithoutChart_UpdatesChartingContextualVisibility(bool chartVisible)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var chart = mocks.Stub<IChart>();
+
+            mocks.ReplayAll();
+
+            var ribbon = new ChartingRibbon();
+
+            var contextualGroup = ribbon.GetRibbonControl().FindName("ChartingContextualGroup") as RibbonContextualTabGroup;
+
+            // Precondition
+            Assert.IsNotNull(contextualGroup, "Ribbon should have a charting contextual group button.");
+
+            // Call
+            ribbon.Chart = chartVisible ? chart : null;
+
+            // Assert
+            Assert.AreEqual(chartVisible ? Visibility.Visible : Visibility.Collapsed, contextualGroup.Visibility);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateItems_Always_ToggleLegendViewIsCheckedEqualToCommandChecked(bool commandChecked)
         {
             // Setup
             var mocks = new MockRepository();
@@ -138,19 +195,50 @@ namespace Core.Plugins.OxyPlot.Test
 
             var ribbon = new ChartingRibbon
             {
-                ToggleLegendViewCommand = command
+                ToggleLegendViewCommand = command,
             };
-            
-            var button = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
+
+            var toggleLegendViewButton = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
             
             // Precondition
-            Assert.IsNotNull(button, "Ribbon should have an open chart view button.");
+            Assert.IsNotNull(toggleLegendViewButton, "Ribbon should have a toggle legend view button.");
 
             // Call
             ribbon.ValidateItems();
 
             // Assert
-            Assert.AreEqual(commandChecked, button.IsChecked);
+            Assert.AreEqual(commandChecked, toggleLegendViewButton.IsChecked);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateItems_Always_TogglePanningIsCheckedEqualToChartIsPanning(bool buttonChecked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var chart = mocks.StrictMock<IChart>();
+            chart.Expect(c => c.IsPanning).Return(buttonChecked).Repeat.Twice();
+
+            mocks.ReplayAll();
+
+            var ribbon = new ChartingRibbon
+            {
+                Chart = chart
+            };
+
+            var togglePanningButton = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
+            
+            // Precondition
+            Assert.IsNotNull(togglePanningButton, "Ribbon should have a toggle panning button.");
+
+            // Call
+            ribbon.ValidateItems();
+
+            // Assert
+            Assert.AreEqual(buttonChecked, togglePanningButton.IsChecked);
             mocks.VerifyAll();
         }
     }

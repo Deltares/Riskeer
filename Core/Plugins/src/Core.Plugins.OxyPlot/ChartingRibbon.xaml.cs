@@ -93,7 +93,7 @@ namespace Core.Plugins.OxyPlot
 
         public void ValidateItems()
         {
-            ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand.Checked;
+            ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
             TogglePanningButton.IsChecked = Chart != null && Chart.IsPanning;
         }
 
