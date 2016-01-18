@@ -160,7 +160,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for obtaining the tree node foreground color.
         /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// </summary>
-        public Func<object, Color> ForegroundColor { get; set; }
+        public Func<TData, Color> ForegroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node image.

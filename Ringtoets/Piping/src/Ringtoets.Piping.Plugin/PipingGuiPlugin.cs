@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -111,6 +112,112 @@ namespace Ringtoets.Piping.Plugin
                 CanDrop = PipingCalculationGroupContextCanDrop,
                 CanInsert = PipingCalculationGroupContextCanInsert,
                 OnDrop = PipingCalculationGroupContextOnDrop
+            };
+
+            yield return new TreeNodeInfo<PipingInputContext>
+            {
+                Text = pipingInputContext => PipingFormsResources.PipingInputContextNodePresenter_NodeDisplayName,
+                Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddImportItem()
+                                                     .AddExportItem()
+                                                     .AddSeparator()
+                                                     .AddPropertiesItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<IEnumerable<RingtoetsPipingSurfaceLine>>
+            {
+                Text = ringtoetsPipingSurfaceLine => PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                Image = ringtoetsPipingSurfaceLine => PipingFormsResources.FolderIcon,
+                ForegroundColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Cast<object>().ToArray(),
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddImportItem()
+                                                     .AddExportItem()
+                                                     .AddSeparator()
+                                                     .AddExpandAllItem()
+                                                     .AddCollapseAllItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>
+            {
+                Text = pipingSurfaceLine => pipingSurfaceLine.Name,
+                Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
+
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddPropertiesItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<IEnumerable<PipingSoilProfile>>
+            {
+                Text = pipingSoilProfiles => PipingFormsResources.PipingSoilProfilesCollection_DisplayName,
+                Image = pipingSoilProfiles => PipingFormsResources.FolderIcon,
+                ForegroundColor = pipingSoilProfiles => pipingSoilProfiles.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = pipingSoilProfiles => pipingSoilProfiles.Cast<object>().ToArray(),
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddImportItem()
+                                                     .AddExportItem()
+                                                     .AddSeparator()
+                                                     .AddExpandAllItem()
+                                                     .AddCollapseAllItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<PipingSoilProfile>
+            {
+                Text = pipingSoilProfile => pipingSoilProfile.Name,
+                Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddPropertiesItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<PipingOutput>
+            {
+                Text = pipingOutput => PipingFormsResources.PipingOutput_DisplayName,
+                Image = pipingOutput => PipingFormsResources.PipingOutputIcon,
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddExportItem()
+                                                     .AddSeparator()
+                                                     .AddPropertiesItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyPipingOutput>
+            {
+                Text = emptyPipingOutput => PipingFormsResources.PipingOutput_DisplayName,
+                Image = emptyPipingOutput => PipingFormsResources.PipingOutputIcon,
+                ForegroundColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddExportItem()
+                                                     .AddSeparator()
+                                                     .AddPropertiesItem()
+                                                     .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyPipingCalculationReport>
+            {
+                Text = emptyPipingCalculationReport => PipingDataResources.CalculationReport_DisplayName,
+                Image = emptyPipingCalculationReport => PipingFormsResources.PipingCalculationReportIcon,
+                ForegroundColor = emptyPipingCalculationReport => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                                                     .Get(node)
+                                                     .AddOpenItem()
+                                                     .AddSeparator()
+                                                     .AddExportItem()
+                                                     .AddSeparator()
+                                                     .AddPropertiesItem()
+                                                     .Build()
             };
         }
 
