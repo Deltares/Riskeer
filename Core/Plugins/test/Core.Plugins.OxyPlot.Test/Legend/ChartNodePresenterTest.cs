@@ -86,16 +86,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var nodePresenter = new ChartNodePresenter();
-            BaseChart baseChart = CreateTestBaseChart();
+            BaseChart chart = CreateTestBaseChart();
 
-            ChartData testElement = baseChart.Data.ElementAt(0);
+            ChartData testElement = chart.Data.ElementAt(0);
 
             // Call
-            nodePresenter.OnDragDrop(testElement, null, baseChart, 0, position);
+            nodePresenter.OnDragDrop(testElement, null, chart, 0, position);
 
             // Assert
             var reversedIndex = 2 - position;
-            Assert.AreSame(testElement, baseChart.Data.ElementAt(reversedIndex));
+            Assert.AreSame(testElement, chart.Data.ElementAt(reversedIndex));
         }
 
         [Test]
@@ -107,12 +107,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var nodePresenter = new ChartNodePresenter();
-            BaseChart baseChart = CreateTestBaseChart();
+            BaseChart chart = CreateTestBaseChart();
 
-            ChartData testElement = baseChart.Data.ElementAt(0);
+            ChartData testElement = chart.Data.ElementAt(0);
 
             // Call
-            TestDelegate test = () => nodePresenter.OnDragDrop(testElement, null, baseChart, 0, position);
+            TestDelegate test = () => nodePresenter.OnDragDrop(testElement, null, chart, 0, position);
 
             // Assert
             Assert.Throws<ArgumentException>(test);

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Components.Charting;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
@@ -18,7 +19,7 @@ namespace Core.Components.OxyPlot.Forms
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class BaseChart : Control, IObservable
+    public sealed class BaseChart : Control, IObservable, IChart
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
         private readonly List<Tuple<ChartData, Series>> series = new List<Tuple<ChartData, Series>>();

@@ -27,7 +27,6 @@ namespace Core.Plugins.OxyPlot.Test
                 // Assert
                 Assert.IsInstanceOf<GuiPlugin>(plugin);
                 Assert.IsInstanceOf<IToolViewController>(plugin);
-                Assert.IsInstanceOf<IDocumentViewController>(plugin);
                 Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
@@ -124,30 +123,6 @@ namespace Core.Plugins.OxyPlot.Test
         }
 
         [Test]
-        public void ActiveView_Always_ReturnGuiActiveView()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            var view = mocks.StrictMock<IView>();
-
-            gui.Expect(g => g.ActiveView).Return(view);
-
-            mocks.ReplayAll();
-
-            using (var plugin = new OxyPlotGuiPlugin())
-            {
-                plugin.Gui = gui;
-
-                // Call
-                var result = plugin.ActiveView;
-
-                // Assert
-                Assert.AreSame(view, result);
-            }
-        }
-
-        [Test]
         [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
@@ -186,7 +161,7 @@ namespace Core.Plugins.OxyPlot.Test
         [TestCase(true)]
         [TestCase(false)]
         [RequiresSTA]
-        public void GivenConfiguredGui_WhenActiveViewChangesToIChartView_ThenRibbonSetVisibility(bool visible)
+        public void GivenConfiguredGui_WhenActiveViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
         {
             // Given
             using (var gui = new RingtoetsGui())
@@ -194,9 +169,13 @@ namespace Core.Plugins.OxyPlot.Test
                 var plugin = new OxyPlotGuiPlugin();
                 gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
-                IView viewMock = visible ? (IView) new TestChartView() : new TestView();
+                var testChartView = new TestChartView();
+                var chart = new BaseChart();
+                IView viewMock = visible ? (IView) testChartView : new TestView();
 
                 mocks.ReplayAll();
+
+                testChartView.Data = chart;
 
                 gui.Plugins.Add(plugin);
                 plugin.Gui = gui;

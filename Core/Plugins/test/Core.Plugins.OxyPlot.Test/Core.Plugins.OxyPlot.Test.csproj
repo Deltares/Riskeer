@@ -59,9 +59,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartingInteractionControllerTest.cs" />
     <Compile Include="Commands\ToggleLegendViewCommandTest.cs" />
-    <Compile Include="Commands\TogglePanningCommandTest.cs" />
     <Compile Include="Forms\ChartDataViewTest.cs" />
     <Compile Include="Commands\OpenChartViewCommandTest.cs" />
     <Compile Include="Legend\ChartDataNodePresenterTest.cs" />

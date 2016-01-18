@@ -2,6 +2,7 @@
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
+using Core.Components.Charting;
 using Fluent;
 
 namespace Core.Plugins.OxyPlot
@@ -11,12 +12,35 @@ namespace Core.Plugins.OxyPlot
     /// </summary>
     public partial class ChartingRibbon : IRibbonCommandHandler
     {
+        private IChart chart;
+
         /// <summary>
         /// Creates a new instance of <see cref="ChartingRibbon"/>.
         /// </summary>
         public ChartingRibbon()
         {
             InitializeComponent();
+        }
+
+        public IChart Chart
+        {
+            private get
+            {
+                return chart;
+            }
+            set
+            {
+                chart = value;
+
+                if (chart != null)
+                {
+                    ShowChartingTab();
+                }
+                else
+                {
+                    HideChartingTab();
+                }
+            }
         }
 
         /// <summary>
@@ -28,11 +52,6 @@ namespace Core.Plugins.OxyPlot
         /// Sets the command used when the toggle legend view button is clicked.
         /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
-
-        /// <summary>
-        /// Sets the command used when the enable panning button is clicked.
-        /// </summary>
-        public ICommand TogglePanningCommand { private get; set; }
 
         public IEnumerable<ICommand> Commands
         {
@@ -46,10 +65,6 @@ namespace Core.Plugins.OxyPlot
                 {
                     yield return ToggleLegendViewCommand;
                 }
-                if (TogglePanningCommand != null)
-                {
-                    yield return TogglePanningCommand;
-                }
             }
         }
 
@@ -57,15 +72,16 @@ namespace Core.Plugins.OxyPlot
         /// <summary>
         /// Shows the charting contextual tab.
         /// </summary>
-        public void ShowChartingTab()
+        private void ShowChartingTab()
         {
             ChartingContextualGroup.Visibility = Visibility.Visible;
+            ValidateItems();
         }
 
         /// <summary>
         /// Hides the charting contextual tab.
         /// </summary>
-        public void HideChartingTab()
+        private void HideChartingTab()
         {
             ChartingContextualGroup.Visibility = Visibility.Collapsed;
         }
@@ -78,6 +94,7 @@ namespace Core.Plugins.OxyPlot
         public void ValidateItems()
         {
             ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand.Checked;
+            TogglePanningButton.IsChecked = Chart != null && Chart.IsPanning;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
@@ -100,7 +117,7 @@ namespace Core.Plugins.OxyPlot
 
         private void ButtonTogglePanning_Click(object sender, RoutedEventArgs e)
         {
-            TogglePanningCommand.Execute();
+            Chart.TogglePanning();
         }
     }
 }

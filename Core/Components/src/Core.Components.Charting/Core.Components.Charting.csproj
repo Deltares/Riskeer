@@ -41,6 +41,7 @@
     <Compile Include="Data\ChartData.cs" />
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\PointData.cs" />
+    <Compile Include="IChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

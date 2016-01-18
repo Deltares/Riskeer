@@ -15,12 +15,11 @@ namespace Core.Plugins.OxyPlot
     /// <summary>
     /// This class ties all the components together to enable charting interaction.
     /// </summary>
-    public class OxyPlotGuiPlugin : GuiPlugin, IToolViewController, IDocumentViewController
+    public class OxyPlotGuiPlugin : GuiPlugin, IToolViewController
     {
         private ChartingRibbon chartingRibbon;
 
         private LegendController legendController;
-        private static ChartingInteractionController chartInteractionController;
 
         private bool activated;
 
@@ -35,7 +34,6 @@ namespace Core.Plugins.OxyPlot
         public override void Activate()
         {
             legendController = CreateLegendController(this);
-            chartInteractionController = CreateChartInteractionController(this);
             chartingRibbon = CreateRibbon(legendController);
 
             legendController.ToggleLegend();
@@ -81,18 +79,6 @@ namespace Core.Plugins.OxyPlot
 
         #endregion
 
-        #region IDocumentViewController
-
-        public IView ActiveView
-        {
-            get
-            {
-                return Gui.ActiveView;
-            }
-        }
-
-        #endregion
-
         /// <summary>
         /// Creates a new <see cref="LegendController"/>.
         /// </summary>
@@ -106,16 +92,6 @@ namespace Core.Plugins.OxyPlot
         }
 
         /// <summary>
-        /// Creates a new <see cref="ChartingInteractionController"/>.
-        /// </summary>
-        /// <param name="controller">The <see cref="IDocumentViewController"/> to use for the controller.</param>
-        /// <returns>A new <see cref="ChartingInteractionController"/> instance.</returns>
-        private ChartingInteractionController CreateChartInteractionController(IDocumentViewController controller)
-        {
-            return new ChartingInteractionController(controller);
-        }
-
-        /// <summary>
         /// Creates the <see cref="ChartingRibbon"/> and the commands that will be used when clicking on the buttons.
         /// </summary>
         /// <param name="legendController">The <see cref="LegendController"/> to use for the 
@@ -126,8 +102,7 @@ namespace Core.Plugins.OxyPlot
             return new ChartingRibbon
             {
                 OpenChartViewCommand = new OpenChartViewCommand(),
-                ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController),
-                TogglePanningCommand = new TogglePanningCommand(chartInteractionController)
+                ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController)
             };
         }
 
@@ -145,12 +120,12 @@ namespace Core.Plugins.OxyPlot
             var chartView = Gui.ActiveView as IChartView;
             if (chartView != null)
             {
-                chartingRibbon.ShowChartingTab();
+                chartingRibbon.Chart = chartView.Chart;
                 legendController.UpdateForChart(chartView.Chart);
             }
             else
             {
-                chartingRibbon.HideChartingTab();
+                chartingRibbon.Chart = null;
                 legendController.UpdateForChart(null);
             }
         }

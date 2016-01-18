@@ -11,7 +11,7 @@ namespace Core.Plugins.OxyPlot.Forms
     /// </summary>
     public class ChartDataView : UserControl, IChartView
     {
-        private readonly BaseChart baseChart;
+        private readonly BaseChart chart;
         private ICollection<ChartData> data;
 
         /// <summary>
@@ -19,11 +19,11 @@ namespace Core.Plugins.OxyPlot.Forms
         /// </summary>
         public ChartDataView()
         {
-            baseChart = new BaseChart
+            chart = new BaseChart
             {
                 Dock = DockStyle.Fill
             };
-            Controls.Add(baseChart);
+            Controls.Add(chart);
         }
 
         public object Data
@@ -35,7 +35,7 @@ namespace Core.Plugins.OxyPlot.Forms
             set
             {
                 data = (ICollection<ChartData>) value;
-                baseChart.Data = data;
+                chart.Data = data;
             }
         }
 
@@ -43,7 +43,7 @@ namespace Core.Plugins.OxyPlot.Forms
         {
             get
             {
-                return baseChart;
+                return chart;
             }
         }
     }
