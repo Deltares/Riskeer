@@ -46,7 +46,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             var mapView = new MapDataView();
             var baseMap = (BaseMap)mapView.Controls[0];
 
-            var map = (Map) TypeUtils.GetField(baseMap, "map");
+            var map = TypeUtils.GetField<Map>(baseMap, "map");
 
             //Pre-condition
             var preLayerCount = map.GetLayers().Count;
