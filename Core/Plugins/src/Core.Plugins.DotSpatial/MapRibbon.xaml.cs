@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
@@ -19,15 +18,21 @@ namespace Core.Plugins.DotSpatial
 
         private void ButtonOpenMapView_Click(object sender, RoutedEventArgs e)
         {
+            OpenMapViewCommand.Execute();
         }
 
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                yield break;
+                if (OpenMapViewCommand != null)
+                {
+                    yield return OpenMapViewCommand;
+                }
             }
         }
+
+        public ICommand OpenMapViewCommand { private get; set; }
 
         public Ribbon GetRibbonControl()
         {
