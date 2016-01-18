@@ -180,4 +180,7 @@
   <data name="ValidationReport_ToString_0_severity_1_2_error_s_3_warnings_4_info" xml:space="preserve">
     <value>{0}, ernst: {1} ({2} fout(en), {3} waarschuwing(en), {4} info).</value>
   </data>
+  <data name="ValidationReport_Category_or_concept_cannot_be_null" xml:space="preserve">
+    <value>Category/Concept moet gespecificeerd worden om een validatie rapport te maken.</value>
+  </data>
 </root>

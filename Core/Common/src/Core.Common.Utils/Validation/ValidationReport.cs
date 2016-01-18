@@ -1,53 +1,63 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Validation
 {
-    public class ValidationReport
+    /// <summary>
+    /// A complete hierarchical overview of validation messages related to a particular
+    /// category or concept.
+    /// </summary>
+    public class ValidationReport : IEquatable<ValidationReport>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidationReport"/> class.
+        /// </summary>
+        /// <param name="category">The category/concept to which this report applies.</param>
+        /// <param name="issues">The validation issues related to <paramref name="category"/>.</param>
+        /// <param name="subReports">Optional: The child reports with more specialized 
+        /// information on <paramref name="category"/>.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="category"/>.</exception>
         public ValidationReport(string category, IEnumerable<ValidationIssue> issues, IEnumerable<ValidationReport> subReports = null)
         {
+            if (category == null)
+            {
+                throw new ArgumentNullException("category", Resources.ValidationReport_Category_or_concept_cannot_be_null);
+            }
+
             Category = category;
-            Issues = AsList(issues ?? new ValidationIssue[0]);
-            SubReports = AsList(subReports ?? new ValidationReport[0]);
-            Severity = DetermineSeverity();
+            ValidationIssue[] validationIssues = issues != null ? issues.ToArray() : new ValidationIssue[0];
+            Issues = validationIssues;
+            ValidationReport[] validationReports = subReports != null ? subReports.ToArray() : new ValidationReport[0];
+            SubReports = validationReports;
+            Severity = DetermineSeverity(validationIssues, validationReports);
         }
 
-        public ValidationReport(string category, IEnumerable<ValidationReport> subReports)
-            : this(category, null, subReports) {}
-
         /// <summary>
-        /// Gets the severity of the report, eg the maximum severity of any of its issues.
+        /// Gets the severity of the report, determined by the maximum severity of any of its issues.
         /// </summary>
         public ValidationSeverity Severity { get; private set; }
 
+        /// <summary>
+        /// Gets the category/concept to which this report applies.
+        /// </summary>
         public string Category { get; private set; }
+
+        /// <summary>
+        /// Gets the validation issues related to <see cref="Category"/>.
+        /// </summary>
         public IEnumerable<ValidationIssue> Issues { get; private set; }
+
+        /// <summary>
+        /// Gets the child reports with more specialized information on <see cref="Category"/>.
+        /// </summary>
         public IEnumerable<ValidationReport> SubReports { get; private set; }
 
         /// <summary>
-        /// IsEmpty is true when the report contains no issues and no subreports
-        /// </summary>
-        public bool IsEmpty
-        {
-            get
-            {
-                return !Issues.Any() && !SubReports.Any();
-            }
-        }
-
-        public IEnumerable<ValidationIssue> AllErrors
-        {
-            get
-            {
-                return GetAllIssuesRecursive().Where(i => i.Severity == ValidationSeverity.Error);
-            }
-        }
-
-        /// <summary>
-        /// The total number of issues (recursive) with severity level 'Error'
+        /// The total number of issues (recursive) with severity level <see cref="ValidationSeverity.Error"/>.
         /// </summary>
         public int ErrorCount
         {
@@ -58,7 +68,7 @@ namespace Core.Common.Utils.Validation
         }
 
         /// <summary>
-        /// The total number of issues (recursive) with severity level 'Warning'
+        /// The total number of issues (recursive) with severity level <see cref="ValidationSeverity.Warning"/>.
         /// </summary>
         public int WarningCount
         {
@@ -69,7 +79,7 @@ namespace Core.Common.Utils.Validation
         }
 
         /// <summary>
-        /// The total number of issues (recursive) with severity level 'Info'
+        /// The total number of issues (recursive) with severity level <see cref="ValidationSeverity.Info"/>.
         /// </summary>
         public int InfoCount
         {
@@ -77,14 +87,6 @@ namespace Core.Common.Utils.Validation
             {
                 return GetIssueCount(ValidationSeverity.Info);
             }
-        }
-
-        /// <summary>
-        /// Creates an empty validation report. Validation reports are read-only so they cannot be added to.
-        /// </summary>
-        public static ValidationReport Empty(string name)
-        {
-            return new ValidationReport(name, null);
         }
 
         public IList<ValidationIssue> GetAllIssuesRecursive()
@@ -118,69 +120,69 @@ namespace Core.Common.Utils.Validation
 
             var issues = Issues.ToList();
             var otherIssues = other.Issues.ToList();
-
             if (issues.Count != otherIssues.Count)
             {
                 return false;
             }
-
-            for (int i = 0; i < issues.Count; i++)
-            {
-                if (!issues[i].Equals(otherIssues[i]))
-                {
-                    return false;
-                }
-            }
-
-            var subreports = SubReports.ToList();
-            var otherSubreports = other.SubReports.ToList();
-
-            if (subreports.Count != otherSubreports.Count)
+            if (issues.Where((t, i) => !t.Equals(otherIssues[i])).Any()) 
             {
                 return false;
             }
 
-            for (int i = 0; i < subreports.Count; i++)
+            var subreports = SubReports.ToList();
+            var otherSubreports = other.SubReports.ToList();
+            if (subreports.Count != otherSubreports.Count)
             {
-                if (!subreports[i].Equals(otherSubreports[i]))
-                {
-                    return false;
-                }
+                return false;
             }
-            return true;
+            return !subreports.Where((t, i) => !t.Equals(otherSubreports[i])).Any();
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is ValidationReport)
+            return Equals(obj as ValidationReport);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
             {
-                return Equals(obj as ValidationReport);
+                var hashCode = Category.GetHashCode();
+                hashCode = (hashCode * 397) ^ GetHashCodeBasedOnElements(Issues);
+                hashCode = (hashCode * 397) ^ GetHashCodeBasedOnElements(SubReports);
+                return hashCode;
             }
-            return false;
+        }
+
+        private int GetHashCodeBasedOnElements(IEnumerable enummerable)
+        {
+            unchecked
+            {
+                int hash = 19;
+                foreach (var foo in enummerable)
+                {
+                    hash = hash * 31 + foo.GetHashCode();
+                }
+                return hash;
+            }
         }
 
         public override string ToString()
         {
             return string.Format(Resources.ValidationReport_ToString_0_severity_1_2_error_s_3_warnings_4_info,
-                                 Category, Severity,
-                                 ErrorCount, WarningCount, InfoCount);
+                                 Category, Severity, ErrorCount, WarningCount, InfoCount);
         }
 
-        private ValidationSeverity DetermineSeverity()
+        private ValidationSeverity DetermineSeverity(ValidationIssue[] validationIssues, ValidationReport[] validationReports)
         {
-            var issueMax = Issues.Any() ? Issues.Max(i => i.Severity) : ValidationSeverity.None;
-            var reportMax = SubReports.Any() ? SubReports.Max(i => i.Severity) : ValidationSeverity.None;
-            return (ValidationSeverity) Math.Max((int) issueMax, (int) reportMax);
+            var issueMax = validationIssues.Any() ? validationIssues.Max(i => i.Severity) : ValidationSeverity.None;
+            var reportMax = validationReports.Any() ? validationReports.Max(i => i.Severity) : ValidationSeverity.None;
+            return (ValidationSeverity)Math.Max((int)issueMax, (int)reportMax);
         }
 
         private int GetIssueCount(ValidationSeverity severity)
         {
             return SubReports.Sum(r => r.GetIssueCount(severity)) + Issues.Count(i => i.Severity == severity);
-        }
-
-        private static IList<T> AsList<T>(IEnumerable<T> enumerable)
-        {
-            return enumerable as IList<T> ?? enumerable.ToList();
         }
     }
 }

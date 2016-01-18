@@ -109,6 +109,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UrlTest.cs" />
+    <Compile Include="Validation\ValidationIssueTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
   </ItemGroup>
   <ItemGroup>
