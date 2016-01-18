@@ -87,7 +87,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TreeFolder.cs" />
     <Compile Include="Validation\DoubleBufferedTreeView.cs">
       <SubType>Component</SubType>
     </Compile>

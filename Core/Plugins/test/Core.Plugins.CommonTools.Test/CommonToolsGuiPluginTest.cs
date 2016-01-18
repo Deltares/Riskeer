@@ -2,7 +2,6 @@
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Swf;
 using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;
 using NUnit.Framework;
@@ -18,15 +17,13 @@ namespace Core.Plugins.CommonTools.Test
             var guiPlugin = new CommonToolsGuiPlugin();
             var propertyInfos = guiPlugin.GetPropertyInfos().ToList();
 
-            Assert.AreEqual(3, propertyInfos.Count);
+            Assert.AreEqual(2, propertyInfos.Count);
 
             var projectPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(Project));
             var urlPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(Url));
-            var treePropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(TreeFolder));
 
             Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyType);
             Assert.AreEqual(typeof(UrlProperties), urlPropertyInfo.PropertyType);
-            Assert.AreEqual(typeof(TreeFolderProperties), treePropertyInfo.PropertyType);
         }
 
         [Test]

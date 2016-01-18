@@ -4,7 +4,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
-using Core.Plugins.ProjectExplorer.NodePresenters;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
@@ -57,10 +56,6 @@ namespace Core.Plugins.ProjectExplorer
                 gui = guiPlugin.Gui;
 
                 gui.SelectionChanged += GuiSelectionChanged;
-
-                var treeFolderNodePresenter = new TreeFolderNodePresenter();
-
-                treeView.RegisterNodePresenter(treeFolderNodePresenter);
             }
         }
 

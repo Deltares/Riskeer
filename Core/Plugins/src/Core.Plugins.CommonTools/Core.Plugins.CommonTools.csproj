@@ -56,7 +56,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Property\ProjectProperties.cs" />
-    <Compile Include="Property\TreeFolderProperties.cs" />
     <Compile Include="Property\UrlProperties.cs" />
   </ItemGroup>
   <ItemGroup>

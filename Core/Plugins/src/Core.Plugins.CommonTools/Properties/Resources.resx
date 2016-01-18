@@ -153,12 +153,6 @@
   <data name="FolderProperties_Name_Description" xml:space="preserve">
     <value>Naam van de getoonde map.</value>
   </data>
-  <data name="TreeFolderProperties_DisplayName" xml:space="preserve">
-    <value>Folder</value>
-  </data>
-  <data name="TreeFolderProperties_Name_Description" xml:space="preserve">
-    <value>Naam van de map getoond aan de gebruiker.</value>
-  </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Browser" xml:space="preserve">
     <value>Browser</value>
   </data>
