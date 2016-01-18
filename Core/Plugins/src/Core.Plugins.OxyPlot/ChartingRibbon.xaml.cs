@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using Core.Common.Base;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Core.Components.Charting;
@@ -10,7 +11,7 @@ namespace Core.Plugins.OxyPlot
     /// <summary>
     /// This class represents the ribbon interaction which has to do with charting.
     /// </summary>
-    public partial class ChartingRibbon : IRibbonCommandHandler
+    public partial class ChartingRibbon : IRibbonCommandHandler, IObserver
     {
         private IChart chart;
 
@@ -30,7 +31,7 @@ namespace Core.Plugins.OxyPlot
             }
             set
             {
-                chart = value;
+                SetChart(value);
 
                 if (chart != null)
                 {
@@ -40,6 +41,19 @@ namespace Core.Plugins.OxyPlot
                 {
                     HideChartingTab();
                 }
+            }
+        }
+
+        private void SetChart(IChart value)
+        {
+            if (chart != null)
+            {
+                chart.Detach(this);
+            }
+            chart = value;
+            if (chart != null)
+            {
+                chart.Attach(this);
             }
         }
 
@@ -95,6 +109,7 @@ namespace Core.Plugins.OxyPlot
         {
             ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
             TogglePanningButton.IsChecked = Chart != null && Chart.IsPanning;
+            ToggleRectangleZoomingButton.IsChecked = Chart != null && Chart.IsRectangleZooming;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
@@ -118,6 +133,18 @@ namespace Core.Plugins.OxyPlot
         private void ButtonTogglePanning_Click(object sender, RoutedEventArgs e)
         {
             Chart.TogglePanning();
+            Chart.NotifyObservers();
+        }
+
+        private void ButtonToggleRectangleZooming_Click(object sender, RoutedEventArgs e)
+        {
+            Chart.ToggleRectangleZooming();
+            Chart.NotifyObservers();
+        }
+
+        public void UpdateObserver()
+        {
+            ValidateItems();
         }
     }
 }

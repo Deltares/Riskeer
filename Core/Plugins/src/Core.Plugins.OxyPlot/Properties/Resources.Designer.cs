@@ -166,6 +166,16 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap RectangleZoomIcon {
+            get {
+                object obj = ResourceManager.GetObject("RectangleZoomIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grafieken.
         /// </summary>
         public static string Ribbon_ContextualGroup_Charting {
@@ -220,11 +230,29 @@ namespace Core.Plugins.OxyPlot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om te verschuiven houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt..
+        ///   Looks up a localized string similar to Om te verschuiven, houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt..
         /// </summary>
         public static string Ribbon_Toggle_Panning_ToolTip {
             get {
                 return ResourceManager.GetString("Ribbon_Toggle_Panning_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom door rechthoek.
+        /// </summary>
+        public static string Ribbon_Toggle_RectangleZooming {
+            get {
+                return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om in te zoomen met behulp van een rechthoek, houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt..
+        /// </summary>
+        public static string Ribbon_Toggle_RectangleZooming_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming_ToolTip", resourceCulture);
             }
         }
     }

@@ -129,27 +129,32 @@ namespace Core.Plugins.OxyPlot.Test
         [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
-        public void Chart_Always_UpdatesTogglePanningIsCheckedAndChartingContextualVisibility(bool buttonChecked)
+        public void Chart_Always_AttachesToChartAndUpdatesChartingCommands(bool buttonChecked)
         {
             // Setup
             var mocks = new MockRepository();
             var chart = mocks.StrictMock<IChart>();
+            var ribbon = new ChartingRibbon();
+
             chart.Expect(c => c.IsPanning).Return(buttonChecked);
+            chart.Expect(c => c.IsRectangleZooming).Return(buttonChecked);
+            chart.Expect(c => c.Attach(ribbon));
 
             mocks.ReplayAll();
 
-            var ribbon = new ChartingRibbon();
-
             var togglePanningButton = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
+            var toggleRectangleZoomingButton = ribbon.GetRibbonControl().FindName("ToggleRectangleZoomingButton") as ToggleButton;
 
             // Precondition
             Assert.IsNotNull(togglePanningButton, "Ribbon should have a toggle panning button.");
+            Assert.IsNotNull(toggleRectangleZoomingButton, "Ribbon should have a rectangle zoom panning button.");
 
             // Call
             ribbon.Chart = chart;
 
             // Assert
             Assert.AreEqual(buttonChecked, togglePanningButton.IsChecked);
+            Assert.AreEqual(buttonChecked, toggleRectangleZoomingButton.IsChecked);
             mocks.VerifyAll();
         }
 
@@ -220,25 +225,30 @@ namespace Core.Plugins.OxyPlot.Test
             // Setup
             var mocks = new MockRepository();
             var chart = mocks.StrictMock<IChart>();
+
+            var ribbon = new ChartingRibbon();
+
             chart.Expect(c => c.IsPanning).Return(buttonChecked).Repeat.Twice();
+            chart.Expect(c => c.IsRectangleZooming).Return(buttonChecked).Repeat.Twice(); ;
+            chart.Expect(c => c.Attach(ribbon));
 
             mocks.ReplayAll();
 
-            var ribbon = new ChartingRibbon
-            {
-                Chart = chart
-            };
+            ribbon.Chart = chart;
 
             var togglePanningButton = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
-            
+            var toggleRectangleZoomingButton = ribbon.GetRibbonControl().FindName("ToggleRectangleZoomingButton") as ToggleButton;
+
             // Precondition
             Assert.IsNotNull(togglePanningButton, "Ribbon should have a toggle panning button.");
+            Assert.IsNotNull(toggleRectangleZoomingButton, "Ribbon should have a rectangle zoom panning button.");
 
             // Call
             ribbon.ValidateItems();
 
             // Assert
             Assert.AreEqual(buttonChecked, togglePanningButton.IsChecked);
+            Assert.AreEqual(buttonChecked, toggleRectangleZoomingButton.IsChecked);
             mocks.VerifyAll();
         }
     }

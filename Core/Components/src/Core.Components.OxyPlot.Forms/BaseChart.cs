@@ -19,13 +19,14 @@ namespace Core.Components.OxyPlot.Forms
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class BaseChart : Control, IObservable, IChart
+    public sealed class BaseChart : Control, IChart
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
         private readonly List<Tuple<ChartData, Series>> series = new List<Tuple<ChartData, Series>>();
         private readonly ICollection<IObserver> observers = new Collection<IObserver>();
 
         public bool IsPanning { get; private set; }
+        public bool IsRectangleZooming { get; private set; }
 
         private PlotView view;
 
@@ -105,17 +106,31 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Toggles panning of the <see cref="BaseChart"/>. Panning is invoked by clicking the left mouse-button.
+        /// Enables zooming by rectangle of the <see cref="BaseChart"/>. Zooming by rectangle is invoked by clicking the left mouse-button.
         /// </summary>
+        private void EnableRectangleZoom()
+        {
+            view.Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.ZoomRectangle);
+            IsRectangleZooming = true;
+        }
+
         public void TogglePanning()
         {
-            if (IsPanning)
-            {
-                DisableInteraction();
-            }
-            else
+            var enablePanning = !IsPanning;
+            DisableInteraction();
+            if (enablePanning)
             {
                 EnablePanning();
+            }
+        }
+
+        public void ToggleRectangleZooming()
+        {
+            var enableRectangleZoom = !IsRectangleZooming;
+            DisableInteraction();
+            if (enableRectangleZoom)
+            {
+                EnableRectangleZoom();
             }
         }
 
@@ -126,6 +141,7 @@ namespace Core.Components.OxyPlot.Forms
         {
             view.Controller.UnbindAll();
             IsPanning = false;
+            IsRectangleZooming = false;
         }
 
         /// <summary>
