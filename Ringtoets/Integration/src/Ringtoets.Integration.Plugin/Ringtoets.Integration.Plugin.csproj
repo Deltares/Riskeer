@@ -89,15 +89,22 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Placeholder\Ringtoets.Common.Placeholder.csproj">
+      <Project>{e38c11e0-4384-44dd-9f5b-ee73d79fd7f5}</Project>
+      <Name>Ringtoets.Common.Placeholder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
-      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
       <Project>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</Project>

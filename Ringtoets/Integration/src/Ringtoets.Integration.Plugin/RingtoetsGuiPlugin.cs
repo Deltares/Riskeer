@@ -1,18 +1,29 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-
-using Core.Common.Controls;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Forms.NodePresenters;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
+using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -70,5 +81,241 @@ namespace Ringtoets.Integration.Plugin
             yield return new CategoryTreeFolderNodePresenter(Gui.ContextMenuProvider);
             yield return new FailureMechanismContributionNodePresenter(Gui.ContextMenuProvider);
         }
+
+        public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
+        {
+            yield return new TreeNodeInfo<AssessmentSectionBase>
+            {
+                Text = assessmentSectionBase => assessmentSectionBase.Name,
+                Image = assessmentSectionBase => RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                ChildNodeObjects = AssessmentSectionBaseChildNodeObjects,
+                ContextMenu = AssessmentSectionBaseContextMenu,
+                CanRename = assessmentSectionBase => true,
+                OnNodeRenamed = AssessmentSectionBaseOnNodeRenamed,
+                CanRemove = (assessmentSectionBase, parentNodeData) => true,
+                OnNodeRemoved = AssessmentSectionBaseOnNodeRemoved
+            };
+
+            yield return new TreeNodeInfo<FailureMechanismPlaceholder>
+            {
+                Text = failureMechanismPlaceholder => failureMechanismPlaceholder.Name,
+                Image = failureMechanismPlaceholder => RingtoetsFormsResources.FailureMechanismIcon,
+                ForegroundColor = failureMechanismPlaceholder => Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = FailureMechanismPlaceholderChildNodeObjects,
+                ContextMenu = FailureMechanismPlaceholderContextMenu
+            };
+
+            yield return new TreeNodeInfo<PlaceholderWithReadonlyName>
+            {
+                Text = placeholderWithReadonlyName => placeholderWithReadonlyName.Name,
+                Image = placeholderWithReadonlyName => GetIconForPlaceholder(placeholderWithReadonlyName),
+                ForegroundColor = placeholderWithReadonlyName => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenu = PlaceholderWithReadonlyNameContextMenu
+            };
+
+            yield return new TreeNodeInfo<CategoryTreeFolder>
+            {
+                Text = categoryTreeFolder => categoryTreeFolder.Name,
+                Image = categoryTreeFolder => GetFolderIcon(categoryTreeFolder.Category),
+                ChildNodeObjects = categoryTreeFolder => categoryTreeFolder.Contents.Cast<object>().ToArray(),
+                ContextMenu = CategoryTreeFolderContextMenu
+            };
+
+            yield return new TreeNodeInfo<FailureMechanismContribution>
+            {
+                Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
+                Image = failureMechanismContribution => RingtoetsFormsResources.GenericInputOutputIcon,
+                ContextMenu = (failureMechanismContribution, sourceNode) => Gui.ContextMenuProvider
+                                                                               .Get(sourceNode)
+                                                                               .AddOpenItem()
+                                                                               .AddSeparator()
+                                                                               .AddExportItem()
+                                                                               .Build()
+            };
+        }
+
+        # region AssessmentSectionBase
+
+        private object[] AssessmentSectionBaseChildNodeObjects(AssessmentSectionBase nodeData)
+        {
+            var childNodes = new List<object>
+            {
+                nodeData.ReferenceLine,
+                nodeData.FailureMechanismContribution,
+                nodeData.HydraulicBoundaryDatabase
+            };
+
+            childNodes.AddRange(nodeData.GetFailureMechanisms());
+
+            return childNodes.ToArray();
+        }
+
+        private void AssessmentSectionBaseOnNodeRenamed(AssessmentSectionBase nodeData, string newName)
+        {
+            nodeData.Name = newName;
+            nodeData.NotifyObservers();
+        }
+
+        private void AssessmentSectionBaseOnNodeRemoved(AssessmentSectionBase nodeData, object parentNodeData)
+        {
+            var parentProject = (Project) parentNodeData;
+
+            parentProject.Items.Remove(nodeData);
+            parentProject.NotifyObservers();
+        }
+
+        private ContextMenuStrip AssessmentSectionBaseContextMenu(AssessmentSectionBase nodeData, TreeNode node)
+        {
+            return Gui.ContextMenuProvider.Get(node)
+                      .AddRenameItem()
+                      .AddDeleteItem()
+                      .AddSeparator()
+                      .AddImportItem()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddExpandAllItem()
+                      .AddCollapseAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        # endregion
+
+        # region FailureMechanismPlaceholder
+
+        private object[] FailureMechanismPlaceholderChildNodeObjects(FailureMechanismPlaceholder nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private IEnumerable GetInputs(FailureMechanismPlaceholder nodeData)
+        {
+            yield return nodeData.SectionDivisions;
+            yield return nodeData.Locations;
+            yield return nodeData.BoundaryConditions;
+        }
+
+        private IEnumerable GetOutputs(FailureMechanismPlaceholder nodeData)
+        {
+            yield return nodeData.AssessmentResult;
+        }
+
+        private ContextMenuStrip FailureMechanismPlaceholderContextMenu(FailureMechanismPlaceholder nodeData, TreeNode node)
+        {
+            var calculateItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_all,
+                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                null)
+            {
+                Enabled = false
+            };
+            var clearOutputItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Clear_all_output,
+                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
+                RingtoetsCommonFormsResources.ClearIcon, null
+                )
+            {
+                Enabled = false
+            };
+
+            return Gui.ContextMenuProvider.Get(node)
+                      .AddCustomItem(calculateItem)
+                      .AddCustomItem(clearOutputItem)
+                      .AddSeparator()
+                      .AddImportItem()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddExpandAllItem()
+                      .AddCollapseAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        # endregion
+
+        # region PlaceholderWithReadonlyName
+
+        private static Bitmap GetIconForPlaceholder(PlaceholderWithReadonlyName nodeData)
+        {
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
+            {
+                return RingtoetsFormsResources.GenericInputOutputIcon;
+            }
+            return RingtoetsFormsResources.PlaceholderIcon;
+        }
+
+        private ContextMenuStrip PlaceholderWithReadonlyNameContextMenu(PlaceholderWithReadonlyName nodeData, TreeNode node)
+        {
+            IContextMenuBuilder menuBuilder = Gui.ContextMenuProvider.Get(node);
+
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
+            {
+                menuBuilder.AddOpenItem();
+            }
+
+            if (nodeData is OutputPlaceholder)
+            {
+                var clearItem = new StrictContextMenuItem(
+                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
+                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
+                    RingtoetsCommonFormsResources.ClearIcon,
+                    null)
+                {
+                    Enabled = false
+                };
+
+                menuBuilder.AddCustomItem(clearItem);
+            }
+
+            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
+            {
+                menuBuilder.AddSeparator();
+            }
+            return menuBuilder.AddImportItem()
+                              .AddExportItem()
+                              .AddSeparator()
+                              .AddPropertiesItem()
+                              .Build();
+        }
+
+        # endregion
+
+        # region CategoryTreeFolder
+
+        private Image GetFolderIcon(TreeFolderCategory category)
+        {
+            switch (category)
+            {
+                case TreeFolderCategory.General:
+                    return RingtoetsCommonFormsResources.GeneralFolderIcon;
+                case TreeFolderCategory.Input:
+                    return RingtoetsCommonFormsResources.InputFolderIcon;
+                case TreeFolderCategory.Output:
+                    return RingtoetsCommonFormsResources.OutputFolderIcon;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, TreeNode node)
+        {
+            return Gui.ContextMenuProvider.Get(node)
+                      .AddExpandAllItem()
+                      .AddCollapseAllItem()
+                      .Build();
+        }
+
+        # endregion
     }
 }
