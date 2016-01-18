@@ -42,7 +42,7 @@ namespace Core.GIS.SharpMap.Data.Providers
                 // We only accept a class because we want to use Activator to create object
                 throw new ArgumentException("Can only instantiate FeatureCollection with class");
             }
-            if (!typeof(IFeature).IsAssignableFrom((featureType)))
+            if (!featureType.Implements<IFeature>())
             {
                 throw new ArgumentException("Feature type should be IFeature");
             }

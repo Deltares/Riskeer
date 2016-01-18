@@ -423,8 +423,6 @@ namespace Core.Common.Gui
 
                 MapCursors.DisposeCursors();
 
-                TypeUtils.ClearCaches();
-
                 Selection = null;
 
                 Project = null;

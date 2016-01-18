@@ -13,37 +13,13 @@ namespace Core.Common.Utils.Reflection
     /// </summary>
     public static class AssemblyUtils
     {
-        private enum MachineType : ushort
-        {
-            IMAGE_FILE_MACHINE_UNKNOWN = 0x0,
-            IMAGE_FILE_MACHINE_AM33 = 0x1d3,
-            IMAGE_FILE_MACHINE_AMD64 = 0x8664,
-            IMAGE_FILE_MACHINE_ARM = 0x1c0,
-            IMAGE_FILE_MACHINE_EBC = 0xebc,
-            IMAGE_FILE_MACHINE_I386 = 0x14c,
-            IMAGE_FILE_MACHINE_IA64 = 0x200,
-            IMAGE_FILE_MACHINE_M32R = 0x9041,
-            IMAGE_FILE_MACHINE_MIPS16 = 0x266,
-            IMAGE_FILE_MACHINE_MIPSFPU = 0x366,
-            IMAGE_FILE_MACHINE_MIPSFPU16 = 0x466,
-            IMAGE_FILE_MACHINE_POWERPC = 0x1f0,
-            IMAGE_FILE_MACHINE_POWERPCFP = 0x1f1,
-            IMAGE_FILE_MACHINE_R4000 = 0x166,
-            IMAGE_FILE_MACHINE_SH3 = 0x1a2,
-            IMAGE_FILE_MACHINE_SH3DSP = 0x1a3,
-            IMAGE_FILE_MACHINE_SH4 = 0x1a6,
-            IMAGE_FILE_MACHINE_SH5 = 0x1a8,
-            IMAGE_FILE_MACHINE_THUMB = 0x1c2,
-            IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x169,
-        }
-
         private static readonly ILog log = LogManager.GetLogger(typeof(AssemblyUtils));
 
         /// <summary>
         /// Return attributes for a specific assembly
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <returns></returns>
+        /// <param name="assembly">The assembly to read.</param>
+        /// <returns>A structure containing all the assembly info provided.</returns>
         public static AssemblyInfo GetAssemblyInfo(Assembly assembly)
         {
             AssemblyInfo info = new AssemblyInfo();
@@ -89,71 +65,20 @@ namespace Core.Common.Utils.Reflection
         }
 
         /// <summary>
-        /// Return attributes for the executing assembly
+        /// Return attributes for the current executing assembly.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A structure containing all the assembly info provided.</returns>
         public static AssemblyInfo GetExecutingAssemblyInfo()
         {
             return GetAssemblyInfo(Assembly.GetExecutingAssembly());
         }
 
         /// <summary>
-        /// Gets types in a given assembly derived from a given type.
+        /// Returns the type based on the full type name.
         /// </summary>
-        /// <param name="baseType"></param>
-        /// <param name="assembly"></param>
-        /// <returns></returns>
-        public static IList<Type> GetDerivedTypes(Type baseType, Assembly assembly)
-        {
-            List<Type> types = new List<Type>();
-
-            // log.Debug(assembly.ToString());
-            try
-            {
-                foreach (Type t in assembly.GetTypes())
-                {
-                    if (t.IsSubclassOf(baseType))
-                    {
-                        types.Add(t);
-                    }
-                    else if (t.GetInterface(baseType.ToString()) != null)
-                    {
-                        types.Add(t);
-                    }
-                }
-            }
-            catch (Exception e) //hack because of unregistered ocx files TOOLS-518
-            {
-                log.Debug(e);
-            }
-
-            return types;
-        }
-
-        /// <summary>
-        /// Gets types derived from a given type. Searches all assemblies in a current application domain.
-        /// </summary>
-        /// <param name="baseType"></param>
-        /// <returns></returns>
-        public static IList<Type> GetDerivedTypes(Type baseType)
-        {
-            List<Type> types = new List<Type>();
-            IList<Assembly> assemblies = new List<Assembly>(AppDomain.CurrentDomain.GetAssemblies());
-
-            foreach (Assembly a in assemblies)
-            {
-                types.AddRange(GetDerivedTypes(baseType, a));
-            }
-
-            return types;
-        }
-
-        /// <summary>
-        /// Returns the type based on the full type name. Throws an exception if the types
-        /// is found in multiple assemblies
-        /// </summary>
-        /// <param name="typeName"></param>
-        /// <returns></returns>
+        /// <param name="typeName">Full type name.</param>
+        /// <returns>The <see cref="Type"/> matching the string name, null otherwise.</returns>
+        /// <exception cref="Exception">Specified type string is found in multiple assemblies.</exception>
         public static Type GetTypeByName(string typeName)
         {
             Type result = null;
@@ -175,34 +100,76 @@ namespace Core.Common.Utils.Reflection
             return result;
         }
 
-        public static IEnumerable<Stream> GetAssemblyResourceStreams(Assembly assembly, Func<string, bool> resourceNameFilter)
-        {
-            return from resourceName in assembly.GetManifestResourceNames()
-                   where resourceNameFilter(resourceName)
-                   select assembly.GetManifestResourceStream(resourceName);
-        }
-
+        /// <summary>
+        /// Gets a <see cref="Stream"/> to a embedded resource of an assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly from which to retrieve the embedded resource.</param>
+        /// <param name="fileName">Name of the embedded file.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">Embedded resource file with name <paramref name="fileName"/>
+        /// cannot be found in <paramref name="assembly"/>.</exception>
         public static Stream GetAssemblyResourceStream(Assembly assembly, string fileName)
         {
-            return
-                assembly.GetManifestResourceNames().Where(resourceName => resourceName.EndsWith(fileName)).Select(
-                    assembly.GetManifestResourceStream).First();
+            try
+            {
+                return assembly.GetManifestResourceNames()
+                               .Where(resourceName => resourceName.EndsWith(fileName))
+                               .Select(assembly.GetManifestResourceStream)
+                               .First();
+            }
+            catch (InvalidOperationException e)
+            {
+                var message = string.Format("Cannot find embedded resource file '{0}' in '{1}.",
+                    fileName, assembly.FullName);
+                throw new ArgumentException(message, "fileName", e);
+            }
         }
 
         /// <summary>
-        /// This method checks if a file is a managed dll. It's based on how the file command on linux works, as explained in http://www.darwinsys.com/file/
+        /// Loads all assemblies from a given directory.
         /// </summary>
-        /// <param name="path">path of dll</param>
-        /// <returns>true if file is a managed dll</returns>
-        public static bool IsManagedDll(string path)
+        /// <param name="path">The directory path.</param>
+        /// <returns>The assemblies that have been loaded.</returns>
+        /// <exception cref="IOException"><paramref name="path"/> is a file name or a network error occurred.</exception>
+        /// <exception cref="UnauthorizedAccessException">The called does not have the required permission.</exception>
+        /// <exception cref="ArgumentException"><paramref name="path"/> is a zero-length string, contains
+        /// only white space or contains one or more invalid characters as defined by <see cref="Path.GetInvalidPathChars"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/> is null.</exception>
+        /// <exception cref="PathTooLongException">The specified path, file name, or both 
+        /// exceed the system-defined maximum length. For example, on Windows-based platforms, 
+        /// paths must be less than 248 characters and file names must be less than 260 characters.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="path"/> is invalid.</exception>
+        public static IEnumerable<Assembly> LoadAllAssembliesFromDirectory(string path)
         {
-            if (!path.EndsWith(".dll", StringComparison.Ordinal) && !path.EndsWith(".exe", StringComparison.Ordinal))
+            foreach (string filename in Directory.GetFiles(path).Where(name => name.EndsWith(".dll")))
             {
-                return false;
-            }
+                if (!IsManagedDll(filename))
+                {
+                    continue;
+                }
 
-            // HACK: skip python dlls somehow they look like .NET assemblies
-            if (path.Contains("ic_msvcr90.dll") || path.Contains("python26.dll"))
+                Assembly a;
+                try
+                {
+                    a = Assembly.LoadFrom(filename);
+                }
+                catch (Exception exception)
+                {
+                    var assemblyName = Path.GetFileNameWithoutExtension(filename);
+                    log.ErrorFormat(Resources.AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for_0_1_,
+                                    assemblyName, exception.Message);
+                    continue;
+                }
+
+                yield return a;
+            }
+        }
+
+        private static bool IsManagedDll(string path)
+        {
+            // Implementation based on http://www.darwinsys.com/file/
+
+            if (!path.EndsWith(".dll", StringComparison.Ordinal) && !path.EndsWith(".exe", StringComparison.Ordinal))
             {
                 return false;
             }
@@ -218,58 +185,7 @@ namespace Core.Common.Utils.Reflection
 
             var isManagedDll = i1 == 0x80 && i2 == 0x03;
 
-            //Debug.WriteLine(path + ": " + (isManagedDll?"managed":"unmanaged"));
-
             return isManagedDll;
-        }
-
-        public static bool Is64BitDll(string path)
-        {
-            if (IsManagedDll(path))
-            {
-                var assemblyName = AssemblyName.GetAssemblyName(path);
-                return assemblyName.ProcessorArchitecture == ProcessorArchitecture.Amd64 ||
-                       assemblyName.ProcessorArchitecture == ProcessorArchitecture.IA64;
-            }
-
-            switch (GetDllMachineType(path))
-            {
-                case MachineType.IMAGE_FILE_MACHINE_AMD64:
-                case MachineType.IMAGE_FILE_MACHINE_IA64:
-                    return true;
-                case MachineType.IMAGE_FILE_MACHINE_I386:
-                    return false;
-                default:
-                    return false;
-            }
-        }
-
-        public static IEnumerable<Assembly> LoadAllAssembliesFromDirectory(string path)
-        {
-            foreach (string filename in Directory.GetFiles(path).Where(name => name.EndsWith(".dll")))
-            {
-                if (!IsManagedDll(filename))
-                {
-                    continue;
-                }
-
-                var assemblyName = Path.GetFileNameWithoutExtension(filename);
-
-                //log.DebugFormat("Loading {0}", filename);
-
-                Assembly a;
-                try
-                {
-                    a = Assembly.LoadFrom(filename);
-                }
-                catch (Exception exception)
-                {
-                    log.ErrorFormat(Resources.AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for_0_1_, assemblyName, exception.Message);
-                    continue;
-                }
-
-                yield return a;
-            }
         }
 
         private static T GetAssemblyAttributeValue<T>(Assembly assembly) where T : class
@@ -284,41 +200,38 @@ namespace Core.Common.Utils.Reflection
             return (T) attributes[0];
         }
 
-        private static MachineType GetDllMachineType(string dllPath)
-        {
-            //see http://www.microsoft.com/whdc/system/platform/firmware/PECOFF.mspx
-            //offset to PE header is always at 0x3C
-            //PE header starts with "PE\0\0" =  0x50 0x45 0x00 0x00
-            //followed by 2-byte machine type field (see document above for enum)
-            var fs = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
-            var br = new BinaryReader(fs);
-            fs.Seek(0x3c, SeekOrigin.Begin);
-            var peOffset = br.ReadInt32();
-            fs.Seek(peOffset, SeekOrigin.Begin);
-            var peHead = br.ReadUInt32();
-            if (peHead != 0x00004550) // "PE\0\0", little-endian
-            {
-                throw new Exception("Can't find PE header");
-            }
-            var machineType = (MachineType) br.ReadUInt16();
-            br.Close();
-            fs.Close();
-            return machineType;
-        }
-
         #region Nested type: AssemblyInfo
 
         /// <summary>
         /// structure containing assembly attributes as strings.
         /// </summary>
+        /// <remarks>Values will be null if they were not specified.</remarks>
         [Serializable]
         public struct AssemblyInfo
         {
+            /// <summary>
+            /// The company specified in the assembly.
+            /// </summary>
             public string Company;
+            /// <summary>
+            /// The copyright text specified in the assembly.
+            /// </summary>
             public string Copyright;
+            /// <summary>
+            /// The description text specified in the assembly.
+            /// </summary>
             public string Description;
+            /// <summary>
+            /// The product text specified in the assembly.
+            /// </summary>
             public string Product;
+            /// <summary>
+            /// The title text specified in the assembly.
+            /// </summary>
             public string Title;
+            /// <summary>
+            /// The version specified in the assembly.
+            /// </summary>
             public string Version;
         }
 

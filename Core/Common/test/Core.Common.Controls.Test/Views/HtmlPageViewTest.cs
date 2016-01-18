@@ -21,7 +21,7 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             Assert.IsInstanceOf<IView>(htmlPageView);
 
-            var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+            var webBrowser = TypeUtils.GetField<WebBrowser>(htmlPageView, "webBrowser");
             Assert.IsTrue(webBrowser.ScriptErrorsSuppressed);
             Assert.IsFalse(webBrowser.IsWebBrowserContextMenuEnabled);
         }
@@ -42,7 +42,7 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             ShowHtmlPageView(htmlPageView, () =>
             {
-                var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+                var webBrowser = TypeUtils.GetField<WebBrowser>(htmlPageView, "webBrowser");
 
                 Assert.AreSame(url, htmlPageView.Data);
                 Assert.IsNotNull(webBrowser.Url);
@@ -63,7 +63,7 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             ShowHtmlPageView(htmlPageView, () =>
             {
-                var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+                var webBrowser = TypeUtils.GetField<WebBrowser>(htmlPageView, "webBrowser");
 
                 Assert.IsNull(htmlPageView.Data);
                 Assert.IsNotNull(webBrowser.Url);
@@ -87,7 +87,7 @@ namespace Core.Common.Controls.Test.Views
             // Assert
             ShowHtmlPageView(htmlPageView, () =>
             {
-                var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+                var webBrowser = TypeUtils.GetField<WebBrowser>(htmlPageView, "webBrowser");
 
                 Assert.AreSame(url, htmlPageView.Data);
                 Assert.IsNotNull(webBrowser.Url);
@@ -98,7 +98,7 @@ namespace Core.Common.Controls.Test.Views
         private static void ShowHtmlPageView(HtmlPageView htmlPageView, Action assertAction)
         {
             var documentCompleted = false;
-            var webBrowser = (WebBrowser) TypeUtils.GetField(htmlPageView, "webBrowser");
+            var webBrowser = TypeUtils.GetField<WebBrowser>(htmlPageView, "webBrowser");
 
             webBrowser.DocumentCompleted += (s, e) => { documentCompleted = true; };
 

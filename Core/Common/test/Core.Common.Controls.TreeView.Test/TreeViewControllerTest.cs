@@ -256,7 +256,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             mocks.ReplayAll();
 
-            var controller = TypeUtils.GetField<TreeView, TreeViewController>(treeview, "controller");
+            var controller = TypeUtils.GetField<TreeViewController>(treeview, "controller");
             controller.RegisterNodePresenter(parentNodePresenter);
             controller.RegisterNodePresenter(childNodePresenter);
 
@@ -313,7 +313,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             mocks.ReplayAll();
 
-            var controller = TypeUtils.GetField<TreeView, TreeViewController>(treeview, "controller");
+            var controller = TypeUtils.GetField<TreeViewController>(treeview, "controller");
             controller.RegisterNodePresenter(parentNodePresenter);
             controller.RegisterNodePresenter(childNodePresenter);
 

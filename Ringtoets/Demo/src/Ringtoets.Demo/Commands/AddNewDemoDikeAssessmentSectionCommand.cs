@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Core.Common.Gui;
+using Core.Common.Utils.Reflection;
+
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -112,9 +113,7 @@ namespace Ringtoets.Demo.Commands
 
             private Stream GetStreamToFileInResource(string embeddedResourceFileName)
             {
-                var assembly = Assembly.GetAssembly(GetType());
-                string embeddedResourceName = assembly.GetManifestResourceNames().First(n => n.EndsWith(embeddedResourceFileName));
-                return assembly.GetManifestResourceStream(embeddedResourceName);
+                return AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, embeddedResourceFileName);
             }
 
             private static byte[] GetBinaryDataOfStream(Stream stream)

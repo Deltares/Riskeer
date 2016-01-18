@@ -104,7 +104,6 @@
     </Compile>
     <Compile Include="ReferenceEqualityComparerTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
-    <Compile Include="Reflection\TypeConverterTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
     <Compile Include="TestHelperTests.cs">
       <SubType>Component</SubType>
@@ -167,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TestImageWithBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\testFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

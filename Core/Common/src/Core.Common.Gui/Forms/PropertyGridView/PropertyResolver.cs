@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {
@@ -74,7 +75,8 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
             for (var i = 0; i < propertyInfoCount; i++)
             {
-                var firstType = getTypeAction(propertyInfo.ElementAt(i));
+                var propertyToBeConsidered = propertyInfo[i];
+                var firstType = getTypeAction(propertyToBeConsidered);
 
                 for (var j = 0; j < propertyInfoCount; j++)
                 {
@@ -83,11 +85,11 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                         continue;
                     }
 
-                    var secondType = getTypeAction(propertyInfo.ElementAt(j));
+                    var secondType = getTypeAction(propertyInfo[j]);
 
-                    if (firstType != secondType && firstType.IsAssignableFrom(secondType))
+                    if (firstType != secondType && secondType.Implements(firstType))
                     {
-                        propertyInfoWithUnInheritedType.Remove(propertyInfo.ElementAt(i));
+                        propertyInfoWithUnInheritedType.Remove(propertyToBeConsidered);
 
                         break;
                     }

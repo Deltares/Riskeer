@@ -1,33 +1,46 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Properties;
-using log4net;
 
 namespace Core.Common.Utils.Reflection
 {
+    /// <summary>
+    /// Helper methods dealing with <see cref="Type"/> and reflection.
+    /// </summary>
     public static class TypeUtils
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TypeUtils));
-
-        private static readonly IDictionary<Type, IDictionary<string, PropertyInfo>> PropertyInfoDictionary = new Dictionary<Type, IDictionary<string, PropertyInfo>>();
-
-        private static readonly IDictionary<string, MethodInfo> CachedMethods = new Dictionary<string, MethodInfo>();
-
+        /// <summary>
+        /// Checks if a type implements, inherits from or is a certain other type.
+        /// </summary>
+        /// <typeparam name="T">The type to check for.</typeparam>
+        /// <param name="thisType">Type to check.</param>
+        /// <returns>True if <paramref name="thisType"/> is the same type as <typeparamref name="T"/>,
+        /// or has that as (one of) its supertypes.</returns>
+        /// <seealso cref="Implements(Type,Type)"/>
         public static bool Implements<T>(this Type thisType)
         {
             return typeof(T).IsAssignableFrom(thisType);
         }
 
+        /// <summary>
+        /// Checks if a type implements, inherits from or is a certain other type.
+        /// </summary>
+        /// <param name="thisType">Type to check.</param>
+        /// <param name="type">The type to check for.</param>
+        /// <returns>True if <paramref name="thisType"/> is the same type as <paramref name="type"/>,
+        /// or has that as (one of) its supertypes.</returns>
+        /// <seealso cref="Implements{T}"/>
         public static bool Implements(this Type thisType, Type type)
         {
             return type.IsAssignableFrom(thisType);
         }
 
+        /// <summary>
+        /// Determines whether the given type can be considered a number or not.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
         public static bool IsNumericalType(this Type type)
         {
             return (type == typeof(Single) ||
@@ -36,184 +49,28 @@ namespace Core.Common.Utils.Reflection
                     type == typeof(Int64) ||
                     type == typeof(Int32) ||
                     type == typeof(Int16) ||
-                    type == typeof(Double));
+                    type == typeof(byte) ||
+                    type == typeof(Double) ||
+                    type == typeof(Decimal));
         }
 
         /// <summary>
-        /// Usage: CreateGeneric(typeof(List&lt;&gt;), typeof(string));
+        /// Gets the name of the member.
         /// </summary>
-        /// <param name="generic"></param>
-        /// <param name="innerType"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static object CreateGeneric(Type generic, Type innerType, params object[] args)
+        /// <typeparam name="TClass">The type of the class on which the expression takes place.</typeparam>
+        /// <param name="expression">The expression.</param>
+        /// <returns>The string name of the member.</returns>
+        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> is invalid.</exception>
+        public static string GetMemberName<TClass>(Expression<Func<TClass, object>> expression)
         {
-            Type specificType = generic.MakeGenericType(new[]
-            {
-                innerType
-            });
-            return Activator.CreateInstance(specificType, args);
-        }
-
-        public static object CreateGeneric(Type generic, Type[] innerTypes, params object[] args)
-        {
-            Type specificType = generic.MakeGenericType(innerTypes);
-            return Activator.CreateInstance(specificType, args);
-        }
-
-        public static object GetPropertyValue(object instance, string propertyName, bool throwOnError = true)
-        {
-            var implementingType = instance.GetType();
-
-            var propertyInfo = GetPropertyInfo(implementingType, propertyName);
-
-            if (!throwOnError && propertyInfo.GetIndexParameters().Any())
-            {
-                return null; //invalid combo, would throw
-            }
-
-            return propertyInfo.GetValue(instance, new object[0]);
-        }
-
-        public static PropertyInfo GetPropertyInfo(Type type, string propertyName)
-        {
-            IDictionary<string, PropertyInfo> propertyInfoForType;
-            PropertyInfo propertyInfo;
-
-            lock (PropertyInfoDictionary)
-            {
-                if (!PropertyInfoDictionary.TryGetValue(type, out propertyInfoForType))
-                {
-                    propertyInfoForType = new Dictionary<string, PropertyInfo>();
-                    PropertyInfoDictionary.Add(type, propertyInfoForType);
-                }
-            }
-
-            lock (propertyInfoForType)
-            {
-                if (!propertyInfoForType.TryGetValue(propertyName, out propertyInfo))
-                {
-                    propertyInfo = GetPrivatePropertyInfo(type, propertyName);
-                    propertyInfoForType.Add(propertyName, propertyInfo);
-                }
-            }
-            return propertyInfo;
-        }
-
-        public static object CallGenericMethod(Type declaringType, string methodName, Type genericType,
-                                               object instance, params object[] args)
-        {
-            var key = declaringType + "_" + genericType + "_" + methodName;
-
-            MethodInfo methodInfo;
-
-            CachedMethods.TryGetValue(key, out methodInfo);
-
-            if (methodInfo != null) // performance optimization, reflaction is very expensive
-            {
-                return CallMethod(methodInfo, instance, args);
-            }
-
-            MethodInfo nonGeneric = GetGenericMethod(declaringType, methodName);
-
-            methodInfo = nonGeneric.MakeGenericMethod(genericType); // generify
-
-            CachedMethods[key] = methodInfo;
-
-            return CallMethod(methodInfo, instance, args);
-        }
-
-        public static object CallStaticGenericMethod(Type type, string methodName, Type genericType,
-                                                     params object[] args)
-        {
-            MethodInfo nonGeneric = type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public);
-            MethodInfo methodGeneric = nonGeneric.MakeGenericMethod(genericType);
-            return methodGeneric.Invoke(null, args);
-        }
-
-        public static IList GetTypedList(Type t)
-        {
-            return (IList) CreateGeneric(typeof(List<>), t);
-        }
-
-        public static IEnumerable ConvertEnumerableToType(IEnumerable enumerable, Type type)
-        {
-            return (IEnumerable) CallStaticGenericMethod(typeof(Enumerable), "Cast", type, enumerable);
-        }
-
-        /// <summary>
-        /// Returns typeof(int) for List&lt;int&gt; etc.
-        /// </summary>
-        /// <param name="t"></param>
-        public static Type GetFirstGenericTypeParameter(Type t)
-        {
-            Type[] types = t.GetGenericArguments();
-            if (types.Length > 0)
-            {
-                return types[0];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public static IEnumerable<FieldInfo> GetAllFields(Type t, BindingFlags bindingFlags)
-        {
-            if (t == null)
-            {
-                return Enumerable.Empty<FieldInfo>();
-            }
-
-            BindingFlags flags = bindingFlags;
-            return t.GetFields(flags).Union(GetAllFields(t.BaseType, bindingFlags));
-        }
-
-        public static string GetMemberDescription<T>(Expression<Func<T>> e)
-        {
-            var member = e.Body as MemberExpression;
-
-            // If the method gets a lambda expression 
-            // that is not a member access,
-            // for example, () => x + y, an exception is thrown.
-            if (member != null)
-            {
-                var descriptionAttribute = member.Member.GetCustomAttributes(false).OfType<DescriptionAttribute>().FirstOrDefault();
-                return descriptionAttribute != null ? descriptionAttribute.Description : member.Member.Name;
-            }
-
-            throw new ArgumentException("'" + e + "': is not a valid expression for this method");
-        }
-
-        /// <summary>
-        /// Gets the attribute that is declared on a field.
-        /// </summary>
-        /// <example>
-        /// class A
-        /// {
-        ///     [Description("int property")]
-        ///     int field
-        /// }
-        /// </example>
-        /// <typeparam name="TAttribute">Attribute type to get</typeparam>
-        /// <param name="classType">Class type containing the field</param>
-        /// <param name="fieldName">Name of the field</param>
-        public static TAttribute GetFieldAttribute<TAttribute>(Type classType, string fieldName) where TAttribute : class
-        {
-            var fieldInfo = GetFieldInfo(classType, fieldName);
-            return ((TAttribute[]) fieldInfo.GetCustomAttributes(typeof(TAttribute), false)).FirstOrDefault();
-        }
-
-        public static string GetMemberName<TClass>(Expression<Func<TClass, object>> e)
-        {
-            var member = e.Body as MemberExpression;
+            var member = expression.Body as MemberExpression;
 
             if (member != null)
             {
                 return GetMemberNameFromMemberExpression(member);
             }
 
-            var unary = e.Body as UnaryExpression;
+            var unary = expression.Body as UnaryExpression;
 
             // If the method gets a lambda expression 
             // that is not a member access,
@@ -223,287 +80,137 @@ namespace Core.Common.Utils.Reflection
                 return GetMemberNameFromMemberExpression(unary.Operand as MemberExpression);
             }
 
-            var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method, e);
+            var message = string.Format(Resources.TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method,
+                                        expression);
             throw new ArgumentException(message);
         }
 
-        public static string GetMemberName<T>(Expression<Func<T>> e)
+        /// <summary>
+        /// Gets the value of a field of an instance.
+        /// </summary>
+        /// <typeparam name="TField">Type of the field.</typeparam>
+        /// <param name="instance">Instance holding the field. Cannot be null.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>The value of the field.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">When <paramref name="instance"/>
+        /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
+        /// <exception cref="ArgumentNullException">When <paramref name="fieldName"/> is null.</exception>
+        /// <remarks>This method can be used for fields of any visibility.</remarks>
+        public static TField GetField<TField>(object instance, string fieldName)
         {
-            return GetMemberNameFromMemberExpression(e.Body as MemberExpression);
-        }
-
-        public static object GetDefaultValue(Type type)
-        {
-            return type.IsValueType
-                       ? Activator.CreateInstance(type)
-                       : type == typeof(string) ? "" : null;
-        }
-
-        public static object GetField(object instance, string fieldName)
-        {
-            Type type = instance.GetType();
-
-            FieldInfo fieldInfo = GetFieldInfo(type, fieldName);
-
+            FieldInfo fieldInfo = GetFieldInfo(instance.GetType(), fieldName);
             if (fieldInfo == null)
             {
                 throw new ArgumentOutOfRangeException("fieldName");
             }
 
-            return fieldInfo.GetValue(instance);
-        }
-
-        public static bool HasField(Type type, string fieldName)
-        {
-            return GetFieldInfoCore(type, fieldName) != null;
+            return (TField)fieldInfo.GetValue(instance);
         }
 
         /// <summary>
-        /// 
+        /// Gets the value of a field of an instance.
         /// </summary>
-        /// <typeparam name="TObject">Type of the object where field is stored.</typeparam>
-        /// <typeparam name="TField">Type of the field, used as return type</typeparam>
-        /// <param name="instance"></param>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        public static TField GetField<TObject, TField>(object instance, string fieldName)
+        /// <param name="obj">Instance holding the field. Cannot be null.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="newValue">The new value for the field.</param>
+        /// <exception cref="ArgumentOutOfRangeException">When <paramref name="obj"/>
+        /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="newValue"/> is of incorrect type.</exception>
+        /// <exception cref="ArgumentNullException">When <paramref name="fieldName"/> is null.</exception>
+        /// <remarks>This method can be used for fields of any visibility.</remarks>
+        public static void SetField(object obj, string fieldName, object newValue)
         {
-            var fieldInfo = typeof(TObject).GetField(fieldName, BindingFlags.Instance
-                                                                | BindingFlags.NonPublic
-                                                                | BindingFlags.Public);
-
+            FieldInfo fieldInfo = GetFieldInfo(obj.GetType(), fieldName);
             if (fieldInfo == null)
             {
                 throw new ArgumentOutOfRangeException("fieldName");
             }
 
-            return (TField) fieldInfo.GetValue(instance);
+            fieldInfo.SetValue(obj, newValue);
         }
 
         /// <summary>
-        /// Returns the value of a private static field
+        /// Calls the private method that returns a value.
         /// </summary>
-        /// <typeparam name="TField">Type of the field, used as return type</typeparam>
-        /// <param name="type">The type of the class that holds the private static field</param>
-        /// <param name="staticFieldName">The name of the private static field</param>
-        public static TField GetStaticField<TField>(Type type, string staticFieldName)
-        {
-            var fieldInfo = type.GetField(staticFieldName, BindingFlags.NonPublic | BindingFlags.Static);
-
-            if (fieldInfo == null)
-            {
-                throw new ArgumentOutOfRangeException("staticFieldName");
-            }
-
-            return (TField) fieldInfo.GetValue(null);
-        }
-
-        public static void SetField(object obj, string fieldName, object value)
-        {
-            var fieldInfo = GetFieldInfo(obj.GetType(), fieldName);
-
-            if (fieldInfo == null)
-            {
-                throw new ArgumentOutOfRangeException("fieldName");
-            }
-
-            fieldInfo.SetValue(obj, value);
-        }
-
-        public static void SetField<T>(object obj, string fieldName, object value)
-        {
-            var fieldInfo = typeof(T).GetField(fieldName, BindingFlags.Instance
-                                                          | BindingFlags.NonPublic
-                                                          | BindingFlags.Public | BindingFlags.FlattenHierarchy);
-
-            if (fieldInfo == null)
-            {
-                throw new ArgumentOutOfRangeException("fieldName");
-            }
-
-            fieldInfo.SetValue(obj, value);
-        }
-
+        /// <typeparam name="T">The return type of the method.</typeparam>
+        /// <param name="instance">The instance declaring the method. Cannot be null.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <param name="arguments">The arguments for the method.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The method referred to by <paramref name="methodName"/>
+        /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
+        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception.</exception>
+        /// <exception cref="TargetParameterCountException">The <paramref name="arguments"/>
+        /// array does not have the correct number of arguments.</exception>
+        /// <exception cref="InvalidOperationException">The type that declares the method 
+        /// is an open generic type. That is, the <see cref="Type.ContainsGenericParameters"/>
+        /// property returns true for the declaring type.</exception>
+        /// <exception cref="AmbiguousMatchException">More than one method is found with 
+        /// the specified name and matching the specified binding constraints.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="methodName"/> is null.</exception>
+        /// <returns>The return value of the method.</returns>
         public static T CallPrivateMethod<T>(object instance, string methodName, params object[] arguments)
         {
-            var type = instance.GetType();
-            var methodInfo = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (methodInfo == null)
+            {
+                throw new ArgumentOutOfRangeException("methodName");
+            }
 
             return (T) methodInfo.Invoke(instance, arguments);
         }
 
+        /// <summary>
+        /// Calls the private method that without returning its value.
+        /// </summary>
+        /// <param name="instance">The instance declaring the method. Cannot be null.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <param name="arguments">The arguments for the method.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The method referred to by <paramref name="methodName"/>
+        /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
+        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception.</exception>
+        /// <exception cref="TargetParameterCountException">The <paramref name="arguments"/>
+        /// array does not have the correct number of arguments.</exception>
+        /// <exception cref="InvalidOperationException">The type that declares the method 
+        /// is an open generic type. That is, the <see cref="Type.ContainsGenericParameters"/>
+        /// property returns true for the declaring type.</exception>
+        /// <exception cref="AmbiguousMatchException">More than one method is found with 
+        /// the specified name and matching the specified binding constraints.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="methodName"/> is null.</exception>
         public static void CallPrivateMethod(object instance, string methodName, params object[] arguments)
         {
-            var type = instance.GetType();
-            var methodInfo = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (methodInfo == null)
+            {
+                throw new ArgumentOutOfRangeException("methodName");
+            }
 
             methodInfo.Invoke(instance, arguments);
         }
 
-        public static IEnumerable<PropertyInfo> GetPublicProperties(Type type)
-        {
-            return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
-        }
-
-        public static object CallPrivateStaticMethod(Type type, string methodName, params object[] arguments)
-        {
-            var methodInfo = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
-
-            return methodInfo.Invoke(null, arguments);
-        }
-
-        public static void SetPropertyValue(object instance, string propertyName, object value)
-        {
-            instance.GetType().GetProperty(propertyName).GetSetMethod().Invoke(instance, new[]
-            {
-                value
-            });
-        }
-
+        /// <summary>
+        /// Sets the value of a property with a setter.
+        /// </summary>
+        /// <param name="instance">The instance declaring the property. Cannot be null.</param>
+        /// <param name="propertyName">Name of the property to be set.</param>
+        /// <param name="value">The new value of the property.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The property referred to by <paramref name="propertyName"/>
+        /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
+        /// <exception cref="ArgumentException">The property has not setter.</exception>
+        /// <exception cref="TargetParameterCountException">Property is an indexed property.</exception>
+        /// <exception cref="TargetInvocationException">An error occurred while setting the
+        /// property value. For example, an index value specified for an indexed property
+        /// is out of range. The <see cref="Exception.InnerException"/> property indicates
+        /// the reason for the error.</exception>
         public static void SetPrivatePropertyValue(object instance, string propertyName, object value)
         {
-            instance.GetType().GetProperty(propertyName).SetValue(instance, value, null);
-        }
-
-        public static bool TrySetValueAnyVisibility(object instance, Type type, string propertyName, object value)
-        {
-            if (type == null)
-            {
-                return false;
-            }
-
-            var propertyInfo = type.GetProperties().First(p => p.Name == propertyName);
-
+            var propertyInfo = instance.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                return false;
+                throw new ArgumentOutOfRangeException("propertyName");
             }
 
-            if (!propertyInfo.CanWrite)
-            {
-                //try base type
-                return TrySetValueAnyVisibility(instance, type.BaseType, propertyName, value);
-            }
             propertyInfo.SetValue(instance, value, null);
-            return true;
-        }
-
-        /// <summary>
-        /// Test if the assembly is dynamic using a HACK...rewrite if we have more knowledge
-        /// </summary>
-        /// <param name="assembly"></param>
-        /// <returns></returns>
-        public static bool IsDynamic(this Assembly assembly)
-        {
-            //see http://stackoverflow.com/questions/1423733/how-to-tell-if-a-net-assembly-is-dynamic
-            //more nice than depending on an exception..
-            return (assembly.ManifestModule.GetType().Namespace == "System.Reflection.Emit");
-        }
-
-        public static void ClearCaches()
-        {
-            PropertyInfoDictionary.Clear();
-            CachedMethods.Clear();
-        }
-
-        internal static IEnumerable<KeyValuePair<FieldInfo, object>> GetNonInfrastructureFields(object inst, Type type)
-        {
-            foreach (var fi in GetAllAccessibleFieldsForType(type))
-            {
-                //skip events
-                var value = fi.GetValue(inst);
-                if (value is Delegate)
-                {
-                    continue; //don't copy events
-                }
-
-                yield return new KeyValuePair<FieldInfo, object>(fi, value);
-            }
-        }
-
-        internal static T CreateInstance<T>(Type type)
-        {
-            if (type.IsArray)
-            {
-                return (T) (object) Array.CreateInstance(type.GetElementType(), 0);
-            }
-
-            var defaultConstructor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                         .FirstOrDefault(c => c.GetParameters().Length == 0);
-
-            if (defaultConstructor == null)
-            {
-                throw new NotImplementedException(string.Format(Resources.TypeUtils_CreateInstance_No_default_constructor_available_for_type_0_, type));
-            }
-
-            return (T) Activator.CreateInstance(type, true);
-        }
-
-        private static PropertyInfo GetPrivatePropertyInfo(Type type, string propertyName)
-        {
-            //get the property by walking up the inheritance chain. See NHibernate's BasicPropertyAccessor
-            //we could extend this logic more by looking there...
-            if (type == typeof(object) || type == null)
-            {
-                // the full inheritance chain has been walked and we could
-                // not find the PropertyInfo get
-                return null;
-            }
-
-            var propertyInfo = type.GetProperty(propertyName,
-                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
-            if (propertyInfo != null)
-            {
-                return propertyInfo;
-            }
-
-            return GetPrivatePropertyInfo(type.BaseType, propertyName);
-        }
-
-        /// <summary>
-        /// Returns generic instance method of given name. Cannot use GetMethod() because this does not
-        /// work if 2 members have the same name (eg. SetValues and SetValues&lt;T&gt;)
-        /// </summary>
-        /// <param name="declaringType"></param>
-        /// <param name="methodName"></param>
-        /// <returns></returns>
-        private static MethodInfo GetGenericMethod(Type declaringType, string methodName)
-            //,Type genericType,object instance,params object[]args )
-        {
-            var methods = declaringType.GetMembers(BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            return methods.OfType<MethodInfo>().First(m => m.Name == methodName && m.IsGenericMethod);
-        }
-
-        private static object CallMethod(MethodInfo methodInfo, object instance, object[] args)
-        {
-            object result;
-            try
-            {
-                result = methodInfo.Invoke(instance, args);
-            }
-            catch (TargetInvocationException e)
-            {
-                // re-throw original exception
-                if (e.InnerException != null)
-                {
-                    log.Error(Resources.TypeUtils_CallMethod_Exception_occured, e); // log outer exception
-
-                    throw e.InnerException;
-                }
-
-                throw;
-            }
-
-            return result;
-        }
-
-        private static IEnumerable<FieldInfo> GetAllAccessibleFieldsForType(Type type)
-        {
-            return type == null
-                       ? new FieldInfo[0]
-                       : type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                             .Where(fi => !fi.IsLiteral && !fi.IsInitOnly)
-                             .Concat(GetAllAccessibleFieldsForType(type.BaseType)).Distinct();
         }
 
         private static string GetMemberNameFromMemberExpression(MemberExpression member)
@@ -518,12 +225,16 @@ namespace Core.Common.Utils.Reflection
             throw new ArgumentException(Resources.TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method);
         }
 
+        /// <summary>
+        /// Gets a field (of any visibility specification) declared on the type (as instance
+        /// or static field).
+        /// </summary>
+        /// <param name="type">Declaring type of the field.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>A <see cref="FieldInfo"/> object capturing the requested field, or null
+        /// if the field cannot be found in <paramref name="type"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="fieldName"/> is null.</exception>
         private static FieldInfo GetFieldInfo(Type type, string fieldName)
-        {
-            return GetFieldInfoCore(type, fieldName);
-        }
-
-        private static FieldInfo GetFieldInfoCore(Type type, string fieldName)
         {
             if (type == typeof(object) || type == null)
             {
@@ -533,11 +244,7 @@ namespace Core.Common.Utils.Reflection
                                                            | BindingFlags.NonPublic
                                                            | BindingFlags.Public
                                                            | BindingFlags.Static);
-            if (fieldInfo != null)
-            {
-                return fieldInfo;
-            }
-            return GetFieldInfoCore(type.BaseType, fieldName);
+            return fieldInfo ?? GetFieldInfo(type.BaseType, fieldName);
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
+
+using Core.Common.Utils.Reflection;
+
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
@@ -112,7 +115,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private XmlSchemaSet LoadXmlSchema()
         {
-            var schemaFile = GetType().Assembly.GetManifestResourceStream("Ringtoets.Piping.IO.SoilProfile.XmlGeometrySchema.xsd");
+            var schemaFile = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, 
+                "Ringtoets.Piping.IO.SoilProfile.XmlGeometrySchema.xsd");
             var xmlSchema = new XmlSchemaSet();
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
             return xmlSchema;

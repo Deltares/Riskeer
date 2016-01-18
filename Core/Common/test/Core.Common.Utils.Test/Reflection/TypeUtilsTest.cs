@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
+
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
-using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace Core.Common.Utils.Test.Reflection
 {
@@ -14,336 +10,440 @@ namespace Core.Common.Utils.Test.Reflection
     public class TypeUtilsTest
     {
         [Test]
-        public void GetFieldAttribute()
+        public void Implements_TypeIsSameClassAsGenericType_ReturnTrue()
         {
-            Assert.AreEqual("Public Field", TypeUtils.GetFieldAttribute<DescriptionAttribute>(typeof(TestClass), "PublicField").Description);
+            // Call
+            var isTypeUtilsTest = GetType().Implements<TypeUtilsTest>();
 
-            //also works for static classes such as Enum
-            Assert.AreEqual("Enum value 2", TypeUtils.GetFieldAttribute<DescriptionAttribute>(typeof(TestEnum), "Value2").Description);
+            // Assert
+            Assert.IsTrue(isTypeUtilsTest);
         }
 
         [Test]
-        public void GetMemberName()
+        public void Implements_SuperTypeComparedWithGenericTypeAsImplementedSubType_ReturnFalse()
         {
-            Assert.AreEqual("PublicPropertyPrivateSetter", TypeUtils.GetMemberName<TestClass>(t => t.PublicPropertyPrivateSetter));
+            // Call
+            var isTypeUtilsTest = typeof(object).Implements<TypeUtilsTest>();
+
+            // Assert
+            Assert.IsFalse(isTypeUtilsTest);
         }
 
         [Test]
-        public void GetMemberDescription()
+        public void Implements_SubTypeComparedWithGenericTypeAsImplementedSuperType_ReturnTrue()
         {
-            var testClass = new TestClass(22);
-            Assert.AreEqual("Public Property", TypeUtils.GetMemberDescription(() => testClass.PublicProperty));
+            // Call
+            var isTypeUtilsTest = typeof(TypeUtilsTest).Implements<object>();
+
+            // Assert
+            Assert.IsTrue(isTypeUtilsTest);
         }
 
         [Test]
-        public void GetMemberDescriptionOfMemberWithoutDescription()
+        public void Implements_TypeIsSameClassAsType_ReturnTrue()
         {
-            var testClass = new TestClass(22);
-            Assert.AreEqual("Public Field", TypeUtils.GetMemberDescription(() => testClass.PublicField));
+            // Setup
+            var type = GetType();
+
+            // Call
+            var isTypeUtilsTest = type.Implements(typeof(TypeUtilsTest));
+
+            // Assert
+            Assert.IsTrue(isTypeUtilsTest);
         }
 
         [Test]
-        public void GetPrivateField()
+        public void Implements_SuperTypeComparedWitTypeAsImplementedSubType_ReturnFalse()
         {
+            // Call
+            var isTypeUtilsTest = typeof(object).Implements(typeof(TypeUtilsTest));
+
+            // Assert
+            Assert.IsFalse(isTypeUtilsTest);
+        }
+
+        [Test]
+        public void Implements_SubTypeComparedWithTypeAsImplementedSuperType_ReturnTrue()
+        {
+            // Call
+            var isTypeUtilsTest = typeof(TypeUtilsTest).Implements(typeof(object));
+
+            // Assert
+            Assert.IsTrue(isTypeUtilsTest);
+        }
+
+        [Test]
+        public void IsNumericalType_ForNumericalTypes_ReturnTrue()
+        {
+            // Setup
+            var numbericalObjects = new object[]
+            {
+                default(float),
+                default(int),
+                default(long),
+                default(double),
+                default(byte),
+                default(short),
+                default(uint),
+                default(ushort),
+                default(decimal)
+            };
+
+            // Call
+            foreach (var numbericalObject in numbericalObjects)
+            {
+                var isNumerical = numbericalObject.GetType().IsNumericalType();
+
+                // Assert
+                Assert.True(isNumerical,
+                    string.Format("'{0}' should be considered a numerical value.", numbericalObject.GetType()));
+            }
+        }
+
+        [Test]
+        public void IsNumericalType_ThisTestClass_ReturnFalse()
+        {
+            // Call
+            var isNumbercal = GetType().IsNumericalType();
+
+            // Assert
+            Assert.IsFalse(isNumbercal);
+        }
+
+        [Test]
+        public void GetMemberName_PropertyExpression_ReturnPropertyName()
+        {
+            // Call
+            var memberName = TypeUtils.GetMemberName<TestClass>(t => t.PublicPropertyPrivateSetter);
+
+            // Assert
+            Assert.AreEqual("PublicPropertyPrivateSetter", memberName);
+        }
+
+        [Test]
+        public void GetMemberName_FieldExpression_ReturnFieldName()
+        {
+            // Call
+            var testClass = new TestClass();
+            var memberName = TypeUtils.GetMemberName<TestClass>(t => testClass.PublicField);
+
+            // Assert
+            Assert.AreEqual("PublicField", memberName);
+        }
+
+        [Test]
+        public void GetMemberName_MethodExpressionOfDifferentType_ThrowArgumentException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.GetMemberName<TestClass>(t => new object());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'t => new Object()' is geen geldige expressie voor deze methode.", exception.Message);
+        }
+
+        [Test]
+        public void GetField_PrivateField_ReturnFieldValue()
+        {
+            // Setup
             TestClass testClass = new TestClass(22);
-            Assert.AreEqual(22, TypeUtils.GetField(testClass, "privateInt"));
+
+            // Call
+            var privateIntValue = TypeUtils.GetField<int>(testClass, "privateInt");
+
+            // Assert
+            Assert.AreEqual(22, privateIntValue);
+        }
+
+
+        [Test]
+        public void GetField_PrivateFieldOfDerivedClass_ReturnFieldValue()
+        {
+            // Setup
+            var testClass = new DerivedTestClass(55);
+
+            // Call
+            var privateIntValue = TypeUtils.GetField<int>(testClass, "privateInt");
+
+            // Assert
+            Assert.AreEqual(55, privateIntValue);
         }
 
         [Test]
-        public void GetPrivateStaticField()
+        public void GetField_PublicField_ReturnPublicFieldValue()
         {
-            new TestClass(22, 23);
-            Assert.AreEqual(23, TypeUtils.GetStaticField<int>(typeof(TestClass), "privateStaticInt"));
+            // Setup
+            var testClass = new TestClass
+            {
+                PublicField = 1234
+            };
+
+            // Call
+            var publicFieldValue = TypeUtils.GetField<int>(testClass, "PublicField");
+
+            // Assert
+            Assert.AreEqual(testClass.PublicField, publicFieldValue);
         }
 
         [Test]
-        public void SetField()
+        public void GetField_PublicFieldFromBaseClass_ReturnPublicFieldValue()
         {
-            var testClass = new TestClass(22);
-            TypeUtils.SetField(testClass, "privateInt", 23);
-            Assert.AreEqual(23, TypeUtils.GetField(testClass, "privateInt"));
-        }
+            // Setup
+            var derivedTestClass = new DerivedTestClass(1)
+            {
+                PublicField = 2
+            };
 
-        [Test]
-        public void SetPrivateFieldOfBaseClassViaDerivedClass()
-        {
-            var derivedTestClass = new DerivedTestClass(0);
-            TypeUtils.SetField<TestClass>(derivedTestClass, "privateInt", 23);
-            Assert.AreEqual(23, TypeUtils.GetField<TestClass, int>(derivedTestClass, "privateInt"));
+            // Call
+            var publicFieldValue = TypeUtils.GetField<int>(derivedTestClass, "PublicField");
+
+            // Assert
+            Assert.AreEqual(derivedTestClass.PublicField, publicFieldValue);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void SetNonExistingPrivateFieldThrowsException()
+        public void GetField_GetNonExistingPrivateField_ThrowsArgumentOutOfRangeException()
         {
+            // Setup
             var testClass = new TestClass(0);
+
+            // Call
+            TypeUtils.GetField<int>(testClass, "nonExistingField");
+        }
+
+        [Test]
+        public void SetField_SettingPrivateField_FieldHasBeenUpdated()
+        {
+            // Setup
+            var testClass = new TestClass(22);
+
+            // Call
+            TypeUtils.SetField(testClass, "privateInt", 23);
+
+            // Assert
+            Assert.AreEqual(23, TypeUtils.GetField<int>(testClass, "privateInt"));
+        }
+
+        [Test]
+        public void SetField_SettingPrivateFieldWithIncorrectValueType_ThrowArgumentException()
+        {
+            // Setup
+            var testClass = new TestClass(22);
+
+            // Call
+            TestDelegate call = () => TypeUtils.SetField(testClass, "privateInt", new object());
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void SetField_SetPrivateFieldOfBaseClass_FieldHasBeenUpdated()
+        {
+            // Setup
+            var derivedTestClass = new DerivedTestClass(0);
+
+            // Call
+            TypeUtils.SetField(derivedTestClass, "privateInt", 23);
+
+            // Assert
+            Assert.AreEqual(23, TypeUtils.GetField<int>(derivedTestClass, "privateInt"));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void SetField_SetNonExistingPrivateField_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var testClass = new TestClass(0);
+
+            // Call
             TypeUtils.SetField(testClass, "nonExistingField", 0);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void GetNonExistingPrivateFieldThrowsException()
+        public void SetField_SetPrivateFieldFromBaseClass_FieldHasBeenSet()
         {
-            var testClass = new TestClass(0);
-            TypeUtils.GetField(testClass, "nonExistingField");
+            // Setup
+            var derivedTestClass = new DerivedTestClass(1);
+
+            // Call
+            TypeUtils.SetField(derivedTestClass, "privateInt", 10);
+
+            // Assert
+            Assert.AreEqual(10, TypeUtils.GetField<int>(derivedTestClass, "privateInt"));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void GetNonExistingPrivateFieldThrowsExceptionGeneric()
+        public void CallPrivateMethod_MethodWithReturnValue_ReturnMethodReturnValue()
         {
-            var testClass = new TestClass(0);
-            TypeUtils.GetField<TestClass, int>(testClass, "nonExistingField");
-        }
-
-        [Test]
-        public void CallGenericMethodUsingDynamicType()
-        {
-            int value = (int) TypeUtils.CallGenericMethod(GetType(), "ReturnValue", typeof(int), this, 8);
-            Assert.AreEqual(8, value);
-
-            DateTime t = (DateTime) TypeUtils.CallGenericMethod(GetType(), "ReturnValue", typeof(DateTime), this, new DateTime(2000, 1, 1));
-            Assert.AreEqual(new DateTime(2000, 1, 1), t);
-
-            TypeUtils.CallGenericMethod(GetType(), "VoidMethod", typeof(int), this, 2);
-        }
-
-        [Test]
-        public void CallStaticMethod()
-        {
-            IEnumerable values = Enumerable.Range(1, 4);
-            var b = Enumerable.Cast<int>(values);
-            Assert.IsTrue(b is IEnumerable<int>);
-            //same call dynamic :)
-            var o = TypeUtils.CallStaticGenericMethod(typeof(Enumerable), "Cast", typeof(int), values);
-            Assert.IsTrue(o is IEnumerable<int>);
-        }
-
-        [Test]
-        public void CallPrivateStaticMethod()
-        {
-            Assert.AreEqual(3, TypeUtils.CallPrivateStaticMethod(typeof(TestClass), "PrivateStaticMethod", 2));
-        }
-
-        [Test]
-        public void GetTypedList()
-        {
-            Assert.IsTrue(TypeUtils.GetTypedList(typeof(int)) is List<int>);
-            Assert.IsTrue(TypeUtils.GetTypedList(typeof(DateTime)) is List<DateTime>);
-        }
-
-        [Test]
-        public void ConvertEnumerableToType()
-        {
-            IEnumerable values = Enumerable.Repeat(1.0, 10);
-            Assert.IsTrue(TypeUtils.ConvertEnumerableToType(values, typeof(double)) is IEnumerable<double>);
-        }
-
-        [Test]
-        public void TestGetFirstGenericType()
-        {
-            IList<int> listInt = new List<int>();
-            Assert.AreEqual(typeof(int), TypeUtils.GetFirstGenericTypeParameter(listInt.GetType()));
-            //do it on a non generic type and expect null
-            Assert.IsNull(TypeUtils.GetFirstGenericTypeParameter(typeof(int)));
-        }
-
-        [Test]
-        public void CreateGeneric()
-        {
-            Assert.IsTrue(TypeUtils.CreateGeneric(typeof(List<>), typeof(int)) is List<int>);
-        }
-
-        [Test]
-        public void GetDefaultValue()
-        {
-            Assert.AreEqual(0, TypeUtils.GetDefaultValue(typeof(int)));
-            Assert.AreEqual(null, TypeUtils.GetDefaultValue(typeof(List<int>)));
-        }
-
-        [Test]
-        public void CallPrivateMethod()
-        {
+            // Setup
             var instance = new TestClass();
 
+            // Call
             var returnValue = TypeUtils.CallPrivateMethod<int>(instance, "PrivateMethod", 1);
 
+            // Assert
             Assert.AreEqual(2, returnValue);
         }
 
         [Test]
-        public void SetPropertyValue()
+        public void CallPrivateMethodWithReturnValue_MethodDoesNotExist_ThrowArgumentOutOfRangeException()
         {
+            // Setup
             var instance = new TestClass();
 
-            TypeUtils.SetPropertyValue(instance, "PublicProperty", 1.0);
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod<int>(instance, "IDontExist", 1);
 
-            Assert.AreEqual(1.0, instance.PublicProperty);
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call);
         }
 
         [Test]
-        public void IsDynamic()
+        public void CallPrivateMethodWithReturnValue_MethodDoesNotGetEnoughArguments_ThrowArgumentException()
         {
-            var assembly = GetDynamicAssembly();
-            Assert.IsTrue(assembly.IsDynamic());
-            //assembly of this test class is not dynamic
-            Assert.IsFalse(GetType().Assembly.IsDynamic());
+            // Setup
+            var instance = new TestClass();
+
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod<int>(instance, "PrivateMethod");
+
+            // Assert
+            Assert.Throws<TargetParameterCountException>(call);
         }
 
         [Test]
-        public void GetPropertyBaseClass()
+        public void CallPrivateMethodWithReturnValue_MethodNameNull_ThrowArgumentNullException()
         {
-            var derivedTestClass = new DerivedTestClass(1)
-            {
-                PublicProperty = 1.0d
-            };
-            Assert.AreEqual(1.0d, TypeUtils.GetPropertyValue(derivedTestClass, "PublicProperty"));
+            // Setup
+            var instance = new TestClass();
+
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod<int>(instance, null, 1);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
-        public void GetValueUsesMostSpecificImplementation()
+        public void CallPrivateMethod_ValidMethod_CallWithoutExceptions()
         {
-            var testClass = new OverridingClass
-            {
-                Data = 5
-            };
-            Assert.AreEqual(5, TypeUtils.GetPropertyValue(testClass, "Data"));
+            // Setup
+            var instance = new TestClass();
+
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, "PrivateMethod", 1);
+
+            // Assert
+            Assert.DoesNotThrow(call);
         }
 
         [Test]
-        public void GetFieldFromBaseClass()
+        public void CallPrivateMethod_MethodDoesNotExist_ThrowArgumentOutOfRangeException()
         {
-            var derivedTestClass = new DerivedTestClass(1)
-            {
-                PublicProperty = 1.0d
-            };
-            derivedTestClass.PublicField = 2;
-            Assert.AreEqual(2, TypeUtils.GetField(derivedTestClass, "PublicField"));
+            // Setup
+            var instance = new TestClass();
+
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, "IDontExist", 1);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call);
         }
 
         [Test]
-        public void SetPrivateFieldFromBaseClass()
+        public void CallPrivateMethod_MethodDoesNotGetEnoughArguments_ThrowArgumentException()
         {
-            var derivedTestClass = new DerivedTestClass(1);
-            TypeUtils.SetField(derivedTestClass, "privateInt", 10);
+            // Setup
+            var instance = new TestClass();
 
-            Assert.AreEqual(10, TypeUtils.GetField(derivedTestClass, "privateInt"));
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, "PrivateMethod");
+
+            // Assert
+            Assert.Throws<TargetParameterCountException>(call);
         }
 
         [Test]
-        public void PublicPropertyPrivateSetter()
+        public void CallPrivateMethod_MethodNameNull_ThrowArgumentNullException()
         {
+            // Setup
+            var instance = new TestClass();
+
+            // Call
+            TestDelegate call = () => TypeUtils.CallPrivateMethod(instance, null, 1);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void SetPrivatePropertyValue_PublicPropertyPrivateSetter_PropertyIsSet()
+        {
+            // Setup
             var testClass = new TestClass(1);
 
+            // Precondition
             Assert.AreEqual(0.0, testClass.PublicPropertyPrivateSetter);
 
+            // Call
             TypeUtils.SetPrivatePropertyValue(testClass, "PublicPropertyPrivateSetter", 1.2);
 
+            // Assert
             Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
         }
 
-        private enum TestEnum
+        [Test]
+        public void SetPrivatePropertyValue_NotExistingProperty_ThrowArgumentOutOfRangeException()
         {
-            [Description("Enum value 1")]
-            Value1,
+            // Setup
+            var testClass = new TestClass(1);
 
-            [Description("Enum value 2")]
-            Value2
+            // Precondition
+            Assert.AreEqual(0.0, testClass.PublicPropertyPrivateSetter);
+
+            // Call
+            TestDelegate call = () => TypeUtils.SetPrivatePropertyValue(testClass, "IDonNotExist", 1.2);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call);
         }
 
         private class TestClass
         {
-            private static int privateStaticInt;
-
-            [Description("Public Field")]
+            /// <summary>
+            /// Property used in reflection for tests above
+            /// </summary>
             public int PublicField;
 
+            /// <summary>
+            /// Property used in reflection for tests above
+            /// </summary>
             private int privateInt;
 
             public TestClass() {}
 
-            public TestClass(int privateInt, int privateStaticInt = 0)
+            public TestClass(int privateInt)
             {
                 this.privateInt = privateInt;
-                TestClass.privateStaticInt = privateStaticInt;
             }
-
-            [Description("Public Property")]
-            public double PublicProperty { get; set; }
 
             public double PublicPropertyPrivateSetter { get; private set; }
 
+            /// <summary>
+            /// Method used in reflection for tests above
+            /// </summary>
             private int PrivateMethod(int i)
             {
-                return i*2;
-            }
-
-            private static int PrivateStaticMethod(int i)
-            {
-                return i + 1;
+                return i * 2;
             }
         }
 
         private class DerivedTestClass : TestClass
         {
             public DerivedTestClass(int privateInt) : base(privateInt) {}
-        }
-
-        /// Dont'remove used by reflection test below
-        private T ReturnValue<T>(T value)
-        {
-            return value;
-        }
-
-        /// Dont'remove used by reflection test below
-        private void VoidMethod<T>(T value)
-        {
-        }
-
-        public Assembly GetDynamicAssembly()
-        {
-            // Get the current Application Domain.
-            // This is needed when building code.
-            var currentDomain = AppDomain.CurrentDomain;
-
-            // Create a new Assembly for Methods
-            var assemName = new AssemblyName
-            {
-                Name = "dynamicAssembly"
-            };
-            var assemBuilder = currentDomain.DefineDynamicAssembly(assemName, AssemblyBuilderAccess.Run);
-
-            // Create a new module within this assembly
-            var moduleBuilder = assemBuilder.DefineDynamicModule("dynamicAssemblyModule");
-
-            // Create a new type within the module
-            return moduleBuilder.Assembly;
-        }
-
-        internal class CloneTestClass
-        {
-            public long Id { get; set; }
-            public string Name { get; set; }
-
-            public object Clone()
-            {
-                return MemberwiseClone(); //intensionally wrong
-            }
-        }
-
-        internal class SuperCloneTestClass : CloneTestClass
-        {
-            public string OtherName { get; set; }
-        }
-
-        public class BaseClass
-        {
-            public object Data { get; set; }
-        }
-
-        public class OverridingClass : BaseClass
-        {
-            public int Data { get; set; }
         }
     }
 }

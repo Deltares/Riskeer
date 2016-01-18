@@ -165,7 +165,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             var infos = ViewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
 
             return viewType != null
-                       ? infos.Where(vi => viewType.IsAssignableFrom(vi.ViewType))
+                       ? infos.Where(vi => viewType.Implements(vi.ViewType))
                        : infos;
         }
 
