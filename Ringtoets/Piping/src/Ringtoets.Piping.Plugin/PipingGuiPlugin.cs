@@ -21,6 +21,7 @@ using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Piping.Plugin
 {
@@ -87,13 +88,29 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
                 Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
-                ContextMenu = GetPipingCalculationContextContextMenu,
+                ContextMenu = PipingCalculationContextContextMenu,
                 ChildNodeObjects = PipingCalculationContextChildNodeObjects,
                 CanRename = pipingCalculationContext => true,
                 OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
                 CanRemove = PipingCalculationContextCanRemove,
                 OnNodeRemoved = PipingCalculationContextOnNodeRemoved,
-                CanDrag = pipingCalculationContext => DragOperations.Move
+                CanDrag = (pipingCalculationContext, sourceNode) => DragOperations.Move
+            };
+
+            yield return new TreeNodeInfo<PipingCalculationGroupContext>
+            {
+                Text = pipingCalculationGroupContext => pipingCalculationGroupContext.WrappedData.Name,
+                Image = pipingCalculationGroupContext => PipingFormsResources.FolderIcon,
+                ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects,
+                ContextMenu = PipingCalculationGroupContextContextMenu,
+                CanRename = PipingCalculationGroupContextCanRenameNode,
+                OnNodeRenamed = PipingCalculationGroupContextOnNodeRenamed,
+                CanRemove = PipingCalculationGroupContextCanRemove,
+                OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved,
+                CanDrag = PipingCalculationGroupContextCanDrag,
+                CanDrop = PipingCalculationGroupContextCanDrop,
+                CanInsert = PipingCalculationGroupContextCanInsert,
+                OnDrop = PipingCalculationGroupContextOnDrop
             };
         }
 
@@ -219,7 +236,7 @@ namespace Ringtoets.Piping.Plugin
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.NotifyObservers();
 
-            SelectNewlyAddedItemInTreeView(failureMechanismNode);
+            SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode);
         }
 
         private void AddCalculation(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode)
@@ -231,10 +248,10 @@ namespace Ringtoets.Piping.Plugin
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.NotifyObservers();
 
-            SelectNewlyAddedItemInTreeView(failureMechanismNode);
+            SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode);
         }
 
-        private void SelectNewlyAddedItemInTreeView(TreeNode failureMechanismNode)
+        private void SelectNewlyAddedPipingFailureMechanismItemInTreeView(TreeNode failureMechanismNode)
         {
             if (!failureMechanismNode.IsExpanded)
             {
@@ -284,9 +301,9 @@ namespace Ringtoets.Piping.Plugin
 
         # endregion
 
-        # region PipingFailureMechanism PipingCalculationContext
+        # region PipingCalculationContext TreeNodeInfo
 
-        private ContextMenuStrip GetPipingCalculationContextContextMenu(PipingCalculationContext nodeData, TreeNode node)
+        private ContextMenuStrip PipingCalculationContextContextMenu(PipingCalculationContext nodeData, TreeNode node)
         {
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(RingtoetsFormsResources.Validate,
@@ -391,6 +408,505 @@ namespace Ringtoets.Piping.Plugin
             calculation.ClearOutput();
             calculation.NotifyObservers();
         }
+
+        # endregion
+
+        # region PipingCalculationGroupContextNodePresenter TreeNodeInfo
+
+        private object[] PipingCalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
+        {
+            var childNodeObjects = new List<object>();
+
+            foreach (IPipingCalculationItem item in nodeData.WrappedData.Children)
+            {
+                var calculation = item as PipingCalculation;
+                var group = item as PipingCalculationGroup;
+
+                if (calculation != null)
+                {
+                    childNodeObjects.Add(new PipingCalculationContext(calculation,
+                                                              nodeData.AvailablePipingSurfaceLines,
+                                                              nodeData.AvailablePipingSoilProfiles));
+                }
+                else if (group != null)
+                {
+                    childNodeObjects.Add(new PipingCalculationGroupContext(group,
+                                                                   nodeData.AvailablePipingSurfaceLines,
+                                                                   nodeData.AvailablePipingSoilProfiles));
+                }
+                else
+                {
+                    childNodeObjects.Add(item);
+                }
+            }
+
+            return childNodeObjects.ToArray();
+        }
+
+        private ContextMenuStrip PipingCalculationGroupContextContextMenu(PipingCalculationGroupContext nodeData, TreeNode node)
+        {
+            var group = nodeData.WrappedData;
+            var addCalculationGroupItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip,
+                PipingFormsResources.AddFolderIcon, (o, args) =>
+                {
+                    var newGroup = new PipingCalculationGroup
+                    {
+                        Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
+                    };
+
+                    group.Children.Add(newGroup);
+                    nodeData.NotifyObservers();
+
+                    SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(node);
+                });
+
+            var addCalculationItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
+                PipingFormsResources.PipingIcon, (o, args) =>
+                {
+                    var calculation = new PipingCalculation
+                    {
+                        Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
+                    };
+
+                    group.Children.Add(calculation);
+                    nodeData.NotifyObservers();
+
+                    SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(node);
+                });
+
+            var validateAllItem = CreateValidateAllItem(group);
+
+            var calculateAllItem = CreateCalculateAllItem(group);
+
+            var clearAllItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Clear_all_output,
+                PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
+                RingtoetsFormsResources.ClearIcon, (o, args) =>
+                {
+                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    foreach (PipingCalculation calc in group.GetPipingCalculations().Where(c => c.HasOutput))
+                    {
+                        calc.ClearOutput();
+                        calc.NotifyObservers();
+                    }
+                });
+
+            if (!nodeData.WrappedData.GetPipingCalculations().Any(c => c.HasOutput))
+            {
+                clearAllItem.Enabled = false;
+                clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
+            }
+
+            var builder = Gui.ContextMenuProvider.Get(node)
+                .AddCustomItem(addCalculationGroupItem)
+                .AddCustomItem(addCalculationItem)
+                .AddSeparator()
+                .AddCustomItem(validateAllItem)
+                .AddCustomItem(calculateAllItem)
+                .AddCustomItem(clearAllItem)
+                .AddSeparator();
+
+            var isRenamable = PipingCalculationGroupContextCanRenameNode(node);
+            var isRemovable = PipingCalculationGroupContextCanRemove(nodeData, node.Parent.Tag);
+
+            if (isRenamable)
+            {
+                builder.AddRenameItem();
+            }
+            if (isRemovable)
+            {
+                builder.AddDeleteItem();
+            }
+
+            if (isRemovable || isRenamable)
+            {
+                builder.AddSeparator();
+            }
+
+            return builder
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
+        }
+
+        private StrictContextMenuItem CreateCalculateAllItem(PipingCalculationGroup group)
+        {
+            var menuItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Calculate_all,
+                PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
+                RingtoetsFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
+
+
+            if (!group.GetPipingCalculations().Any())
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run;
+            }
+
+            return menuItem;
+        }
+
+        private static StrictContextMenuItem CreateValidateAllItem(PipingCalculationGroup group)
+        {
+            var menuItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.Validate_all,
+                PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
+                RingtoetsFormsResources.ValidateAllIcon, (o, args) =>
+                {
+                    ValidateAll(group);
+                });
+
+            if (!group.GetPipingCalculations().Any())
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate;
+            }
+
+            return menuItem;
+        }
+
+        private void CalculateAll(PipingCalculationGroup group)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
+        }
+
+        private static void ValidateAll(PipingCalculationGroup group)
+        {
+            foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
+            {
+                PipingCalculationService.Validate(calculation);
+            }
+        }
+
+        private bool PipingCalculationGroupContextCanRenameNode(TreeNode node)
+        {
+            var parentNode = node.Parent;
+            return parentNode == null || !(parentNode.Tag is PipingFailureMechanism);
+        }
+
+        private void PipingCalculationGroupContextOnNodeRenamed(PipingCalculationGroupContext nodeData, string newName)
+        {
+            nodeData.WrappedData.Name = newName;
+            nodeData.NotifyObservers();
+        }
+
+        private bool PipingCalculationGroupContextCanRemove(PipingCalculationGroupContext nodeData, object parentNodeData)
+        {
+            var group = parentNodeData as PipingCalculationGroupContext;
+            if (group != null)
+            {
+                return group.WrappedData.Children.Contains(nodeData.WrappedData);
+            }
+
+            return false;
+        }
+
+        private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
+        {
+            var group = parentNodeData as PipingCalculationGroupContext;
+            if (group != null)
+            {
+                group.WrappedData.Children.Remove(nodeData.WrappedData);
+                group.NotifyObservers();
+            }
+        }
+
+        private DragOperations PipingCalculationGroupContextCanDrag(PipingCalculationGroupContext nodeData, TreeNode sourceNode)
+        {
+            if (sourceNode.Parent.Tag is PipingFailureMechanism)
+            {
+                return DragOperations.None;
+            }
+            return DragOperations.Move;
+        }
+
+        private DragOperations PipingCalculationGroupContextCanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
+        {
+            if (GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
+            {
+                return validOperations;
+            }
+
+            return DragOperations.None;
+        }
+
+        private static IPipingCalculationItem GetAsIPipingCalculationItem(object item)
+        {
+            var calculationContext = item as PipingCalculationContext;
+            if (calculationContext != null)
+            {
+                return calculationContext.WrappedData;
+            }
+
+            var groupContext = item as PipingCalculationGroupContext;
+            if (groupContext != null)
+            {
+                return groupContext.WrappedData;
+            }
+
+            return null;
+        }
+
+        private bool NodesHaveSameParentFailureMechanism(TreeNode sourceNode, TreeNode targetNode)
+        {
+            var sourceFailureMechanism = GetParentFailureMechanism(sourceNode);
+            var targetFailureMechanism = GetParentFailureMechanism(targetNode);
+
+            return ReferenceEquals(sourceFailureMechanism, targetFailureMechanism);
+        }
+
+        private static PipingFailureMechanism GetParentFailureMechanism(TreeNode sourceNode)
+        {
+            PipingFailureMechanism sourceFailureMechanism;
+            var node = sourceNode;
+            while ((sourceFailureMechanism = node.Tag as PipingFailureMechanism) == null)
+            {
+                // No parent found, go search higher up hierarchy!
+                node = node.Parent;
+                if (node == null)
+                {
+                    break;
+                }
+            }
+            return sourceFailureMechanism;
+        }
+
+        private bool PipingCalculationGroupContextCanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
+        {
+            return GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode);
+        }
+
+        private void PipingCalculationGroupContextOnDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations operation, int position)
+        {
+            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(item);
+            var originalOwnerContext = sourceNode.Parent.Tag as PipingCalculationGroupContext;
+            var target = targetNode.Tag as PipingCalculationGroupContext;
+
+            if (pipingCalculationItem != null && originalOwnerContext != null && target != null)
+            {
+                var isMoveWithinSameContainer = ReferenceEquals(targetNode.Tag, originalOwnerContext);
+
+                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target, targetNode.TreeView);
+                dropHandler.Execute(item, pipingCalculationItem, position);
+            }
+        }
+
+        private DroppingPipingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target, TreeView treeView)
+        {
+            if (isMoveWithinSameContainer)
+            {
+                return new DroppingPipingCalculationWithinSameContainer(treeView, originalOwnerContext, target);
+            }
+            return new DroppingPipingCalculationToNewContainer(treeView, originalOwnerContext, target);
+        }
+
+        private void SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(TreeNode node)
+        {
+            // Expand parent of 'newItem' to ensure its selected state is visible.
+            if (!node.IsExpanded)
+            {
+                node.Expand();
+            }
+            TreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
+            node.TreeView.SelectedNode = newlyAppendedNodeForNewItem;
+        }
+
+        #region Nested Types: DroppingPipingCalculationInContainerStrategy and implementations
+
+        /// <summary>
+        /// Strategy pattern implementation for dealing with drag & dropping a <see cref="IPipingCalculationItem"/>
+        /// onto <see cref="PipingCalculationGroup"/> data.
+        /// </summary>
+        private abstract class DroppingPipingCalculationInContainerStrategy
+        {
+            protected readonly TreeView treeView;
+            protected readonly PipingCalculationGroupContext target;
+            private readonly PipingCalculationGroupContext originalOwnerContext;
+
+            protected DroppingPipingCalculationInContainerStrategy(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
+            {
+                this.treeView = treeView;
+                this.originalOwnerContext = originalOwnerContext;
+                this.target = target;
+            }
+
+            /// <summary>
+            /// Perform the drag & drop operation.
+            /// </summary>
+            /// <param name="draggedDataObject">The actual dragged data object.</param>
+            /// <param name="pipingCalculationItem">The piping calculation item corresponding with <see cref="draggedDataObject"/>.</param>
+            /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
+            public virtual void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            {
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
+
+                MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
+
+                NotifyObservers();
+
+                TreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                UpdateTreeView(draggedNode, targetRecordedNodeState);
+            }
+
+            /// <summary>
+            /// Moves the <see cref="IPipingCalculationItem"/> instance to its new location.
+            /// </summary>
+            /// <param name="pipingCalculationItem">The instance to be relocated.</param>
+            /// <param name="position">The index in the new <see cref="PipingCalculationGroup"/>
+            /// owner within its <see cref="PipingCalculationGroup.Children"/>.</param>
+            protected void MoveCalculationItemToNewOwner(IPipingCalculationItem pipingCalculationItem, int position)
+            {
+                originalOwnerContext.WrappedData.Children.Remove(pipingCalculationItem);
+                target.WrappedData.Children.Insert(position, pipingCalculationItem);
+            }
+
+            /// <summary>
+            /// Notifies observers of the change in state.
+            /// </summary>
+            protected virtual void NotifyObservers()
+            {
+                originalOwnerContext.NotifyObservers();
+            }
+
+            /// <summary>
+            /// Updates the <see cref="System.Windows.Forms.TreeView"/> where the drag & drop
+            /// operation took place.
+            /// </summary>
+            /// <param name="draggedNode">The dragged node.</param>
+            /// <param name="targetRecordedNodeState">Recorded state of the target node
+            /// before the drag & drop operation.</param>
+            protected virtual void UpdateTreeView(TreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
+            {
+                HandlePostDragExpandCollapseOfNewOwner(draggedNode.Parent, targetRecordedNodeState);
+                treeView.SelectedNode = draggedNode;
+            }
+
+            private static void HandlePostDragExpandCollapseOfNewOwner(TreeNode parentOfDraggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
+            {
+                newOwnerRecordedNodeState.Restore(parentOfDraggedNode);
+
+                // Expand parent of 'draggedNode' to ensure 'draggedNode' is visible.
+                if (!parentOfDraggedNode.IsExpanded)
+                {
+                    parentOfDraggedNode.Expand();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Strategy implementation for rearranging the order of an <see cref="IPipingCalculationItem"/>
+        /// within a <see cref="PipingCalculationGroup"/> through a drag & drop action.
+        /// </summary>
+        private class DroppingPipingCalculationWithinSameContainer : DroppingPipingCalculationInContainerStrategy
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DroppingPipingCalculationWithinSameContainer"/> class.
+            /// </summary>
+            /// <param name="treeView">The tree view where the drag & drop operation occurs.</param>
+            /// <param name="originalOwnerContext">The calculation group context that is 
+            /// the original owner of the dragged item.</param>
+            /// <param name="target">The calculation group context that is the target
+            /// of the drag & drop operation.</param>
+            public DroppingPipingCalculationWithinSameContainer(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+                base(treeView, originalOwnerContext, target) { }
+        }
+
+        /// <summary>
+        /// Strategy implementation for moving an <see cref="IPipingCalculationItem"/> from
+        /// one <see cref="PipingCalculationGroup"/> to another using a drag & drop action.
+        /// </summary>
+        private class DroppingPipingCalculationToNewContainer : DroppingPipingCalculationInContainerStrategy
+        {
+            private TreeNodeExpandCollapseState recordedNodeState;
+
+            private bool renamed;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DroppingPipingCalculationToNewContainer"/> class.
+            /// </summary>
+            /// <param name="treeView">The tree view where the drag & drop operation occurs.</param>
+            /// <param name="originalOwnerContext">The calculation group context that is 
+            /// the original owner of the dragged item.</param>
+            /// <param name="target">The calculation group context that is the target
+            /// of the drag & drop operation.</param>
+            public DroppingPipingCalculationToNewContainer(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+                base(treeView, originalOwnerContext, target) { }
+
+            public override void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            {
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
+
+                recordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(draggedDataObject));
+                EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
+
+                MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
+
+                NotifyObservers();
+
+                TreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                UpdateTreeView(draggedNode, targetRecordedNodeState);
+            }
+
+            protected override void UpdateTreeView(TreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
+            {
+                base.UpdateTreeView(draggedNode, targetRecordedNodeState);
+                recordedNodeState.Restore(draggedNode);
+                if (renamed)
+                {
+                    treeView.StartLabelEdit(draggedNode);
+                }
+            }
+
+            protected override void NotifyObservers()
+            {
+                base.NotifyObservers();
+                target.NotifyObservers();
+            }
+
+            private void EnsureDraggedNodeHasUniqueNameInNewOwner(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroupContext newOwner)
+            {
+                renamed = false;
+                string uniqueName = NamingHelper.GetUniqueName(newOwner.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
+                if (!pipingCalculationItem.Name.Equals(uniqueName))
+                {
+                    renamed = TryRenameTo(pipingCalculationItem, uniqueName);
+                }
+            }
+
+            private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string newName)
+            {
+                var calculation = pipingCalculationItem as PipingCalculation;
+                if (calculation != null)
+                {
+                    calculation.Name = newName;
+                    return true;
+                }
+
+                var group = pipingCalculationItem as PipingCalculationGroup;
+                if (group != null && group.IsNameEditable)
+                {
+                    group.Name = newName;
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        # endregion
 
         # endregion
     }

@@ -90,8 +90,9 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
         /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <see cref="TreeNode"/> parameter represents the tree node which is dragged.
         /// </summary>
-        public Func<object, DragOperations> CanDrag { get; set; }
+        public Func<object, TreeNode, DragOperations> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -217,8 +218,9 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
         /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <see cref="TreeNode"/> parameter represents the tree node which is dragged.
         /// </summary>
-        public Func<TData, DragOperations> CanDrag { get; set; }
+        public Func<TData, TreeNode, DragOperations> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -270,7 +272,7 @@ namespace Core.Common.Controls.TreeView
                 CanRemove = (tag, parentTag) => treeNodeInfo.CanRemove((TData) tag, parentTag),
                 OnNodeRemoved = (tag, parentTag) => treeNodeInfo.OnNodeRemoved((TData) tag, parentTag),
                 OnNodeChecked = (tag, checkedState) => treeNodeInfo.OnNodeChecked((TData) tag, checkedState),
-                CanDrag = tag => treeNodeInfo.CanDrag((TData) tag),
+                CanDrag = (tag, sourceNode) => treeNodeInfo.CanDrag((TData) tag, sourceNode),
                 CanDrop = (tag, sourceNode, targetNode, dragOperations) => treeNodeInfo.CanDrop((TData) tag, sourceNode, targetNode, dragOperations),
                 CanInsert = (tag, sourceNode, targetNode) => treeNodeInfo.CanInsert((TData) tag, sourceNode, targetNode),
                 OnDrop = (tag, sourceNode, targetNode, dragOperations, index) => treeNodeInfo.OnDrop((TData) tag, sourceNode, targetNode, dragOperations, index),
