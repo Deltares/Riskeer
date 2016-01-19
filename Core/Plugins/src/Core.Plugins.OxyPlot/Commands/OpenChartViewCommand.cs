@@ -7,7 +7,7 @@ using Core.Plugins.OxyPlot.Forms;
 namespace Core.Plugins.OxyPlot.Commands
 {
     /// <summary>
-    /// This class describes the command for opening a <see cref="ChartDataView"/> with some random data.
+    /// This class describes the command for opening a <see cref="ChartDataView"/> with some arbitrary data.
     /// </summary>
     public class OpenChartViewCommand : IGuiCommand {
 

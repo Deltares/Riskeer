@@ -24,9 +24,9 @@ namespace Core.Components.Charting
         /// <summary>
         /// Sets the visibility of a series in this <see cref="IChart"/>.
         /// </summary>
-        /// <param name="serie">The <see cref="ChartData"/> to set the visibility for.</param>
+        /// <param name="data">The <see cref="ChartData"/> to set the visibility for.</param>
         /// <param name="visibility">A boolean value representing the new visibility.</param>
-        void SetVisibility(ChartData serie, bool visibility);
+        void SetVisibility(ChartData data, bool visibility);
 
         /// <summary>
         /// Sets the position of the <see cref="ChartData"/> amongst the other data of the <see cref="IChart"/>.

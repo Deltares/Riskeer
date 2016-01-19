@@ -60,16 +60,17 @@ namespace Core.Components.OxyPlot.Forms
         /// <summary>
         /// Sets the visibility of a series in this <see cref="BaseChart"/>.
         /// </summary>
-        /// <param name="serie">The <see cref="ChartData"/> to set the visibility for.</param>
+        /// <param name="data">The <see cref="ChartData"/> to set the visibility for.</param>
         /// <param name="visibility">A boolean value representing the new visibility.</param>
-        public void SetVisibility(ChartData serie, bool visibility)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public void SetVisibility(ChartData data, bool visibility)
         {
-            if (serie == null)
+            if (data == null)
             {
-                throw new ArgumentNullException("serie", "Cannot set visibility of a null serie.");
+                throw new ArgumentNullException("data", "Cannot set visibility of a null serie.");
             }
-            serie.IsVisible = visibility;
-            series.First(t => ReferenceEquals(t.Item1, serie)).Item2.IsVisible = visibility;
+            data.IsVisible = visibility;
+            series.First(t => ReferenceEquals(t.Item1, data)).Item2.IsVisible = visibility;
             view.Invalidate();
         }
 
@@ -78,6 +79,8 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         /// <param name="data">The <see cref="ChartData"/> to change the position for.</param>
         /// <param name="position">The new position.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="position"/> is out of range.</exception>
         public void SetPosition(ChartData data, int position)
         {
             if (data == null)
@@ -168,7 +171,7 @@ namespace Core.Components.OxyPlot.Forms
                 }
             }
 
-            UpdateTreeData();
+            UpdateData();
         }
 
         /// <summary>
@@ -229,9 +232,9 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Updates the tree with the currently known <see cref="Data"/>.
+        /// Updates the <see cref="BaseChart"/> with the currently known <see cref="Data"/>.
         /// </summary>
-        private void UpdateTreeData()
+        private void UpdateData()
         {
             view.Model.Series.Clear();
 

@@ -4,7 +4,7 @@ using TreeView = Core.Common.Controls.TreeView.TreeView;
 namespace Core.Plugins.OxyPlot.Legend
 {
     /// <summary>
-    /// This class extends the <see cref="TreeView"/> so that it can visualize charting data.
+    /// This class describes the view for showing and configuring the data of a <see cref="BaseChart"/>.
     /// </summary>
     public class LegendTreeView : TreeView
     {

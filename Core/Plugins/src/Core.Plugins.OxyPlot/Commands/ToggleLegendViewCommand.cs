@@ -4,7 +4,7 @@ using Core.Plugins.OxyPlot.Legend;
 namespace Core.Plugins.OxyPlot.Commands
 {
     /// <summary>
-    /// This class describes the command which toggles the <see cref="LegendView"/>.
+    /// This class describes the command which toggles the visibility of the <see cref="LegendView"/>.
     /// </summary>
     public class ToggleLegendViewCommand : ICommand
     {

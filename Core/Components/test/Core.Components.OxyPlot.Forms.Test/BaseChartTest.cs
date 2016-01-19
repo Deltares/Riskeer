@@ -31,10 +31,8 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void Data_SetToNull_EmptyData()
         {
             // Setup
-            var mocks = new MockRepository();
             var chart = new BaseChart();
             var dataMock = new PointData(new Collection<Tuple<double, double>>());
-            mocks.ReplayAll();
 
             chart.Data = new [] { dataMock };
 
@@ -43,7 +41,6 @@ namespace Core.Components.OxyPlot.Forms.Test
             
             // Assert
             Assert.IsEmpty(chart.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
