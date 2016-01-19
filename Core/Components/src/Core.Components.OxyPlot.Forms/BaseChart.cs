@@ -146,7 +146,7 @@ namespace Core.Components.OxyPlot.Forms
         public void UpdateObserver()
         {
             series.Update();
-            view.InvalidatePlot(true);
+            Refresh();
         }
     }
 }

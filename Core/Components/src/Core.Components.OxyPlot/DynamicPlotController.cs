@@ -2,13 +2,8 @@
 
 namespace Core.Components.OxyPlot
 {
-    public sealed class DynamicPlotController : PlotController
+    public sealed class DynamicPlotController : ControllerBase, IPlotController
     {
-        public DynamicPlotController()
-        {
-            DisableInteraction();
-        }
-
         public bool IsPanningEnabled { get; private set; }
         public bool IsRectangleZoomingEnabled { get; private set; }
 
