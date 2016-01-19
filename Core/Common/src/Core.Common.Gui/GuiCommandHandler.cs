@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-
 using System.Windows.Input;
 using Application.Ringtoets.Storage;
 using Core.Common.Base;
@@ -14,12 +13,13 @@ using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
 using log4net;
 using log4net.Appender;
-using MainWindow = Core.Common.Gui.Forms.MainWindow.MainWindow;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
@@ -99,7 +99,7 @@ namespace Core.Common.Gui
                 Log.Warn(Resources.Project_existing_project_opening_cancelled);
                 return false;
             }
-            
+
             gui.ProjectFilePath = filePath;
             gui.Project = storage.LoadProject();
             if (gui.Project == null)
@@ -134,33 +134,50 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Saves the <see cref="Project"/> to the storage.
+        /// Saves the current <see cref="Project"/> to the selected storage file.
         /// </summary>
         /// <returns>Returns if the save was succesful.</returns>
-        public bool SaveProject()
+        public bool SaveProjectAs()
         {
-            if (string.IsNullOrEmpty(gui.ProjectFilePath))
-            {
-                return SaveProjectAs();
-            }
-            var storage = new StorageSqLite(gui.ProjectFilePath);
-            if (!storage.TestConnection())
+            var project = gui.Project;
+            if (project == null)
             {
                 return false;
             }
-            var projectFromStorage = storage.SaveProject(gui.Project);
-            if (projectFromStorage < 1)
+
+            Log.Info(Resources.Project_saving_project);
+            // show file open dialog and select project file
+            var saveFileDialog = new SaveFileDialog
             {
-                Log.Info("Nothing saved");
-                return true;
+                Filter = string.Format(Resources.Ringtoets_project_file_filter),
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                FileName = string.Format("{0}", project.Name)
+            };
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                Log.Warn(Resources.Project_saving_project_cancelled);
+                return false;
             }
-            Log.Info("Changes saved");
-            return false;
-        }
-        
-        public bool SaveProjectAs()
-        {
-            throw new NotImplementedException();
+
+            var filePath = saveFileDialog.FileName;
+
+            try
+            {
+                var ringtoetsDatabaseCreator = new RingtoetsDatabaseCreator(filePath);
+                ringtoetsDatabaseCreator.CreateDatabaseStructure();
+                var storage = new StorageSqLite(filePath);
+                storage.SaveProjectAs(gui.Project);
+            }
+            catch
+            {
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+            gui.ProjectFilePath = filePath;
+            Log.Info(Resources.Project_saving_project_saved);
+            return true;
         }
 
         public object GetDataOfActiveView()
@@ -332,6 +349,17 @@ namespace Core.Common.Gui
             gui.ProjectClosing -= ApplicationProjectClosing;
         }
 
+        public void AddItemToProject(object newItem)
+        {
+            gui.Project.Items.Add(newItem);
+            gui.Project.NotifyObservers();
+        }
+
+        public void UpdateObserver()
+        {
+            RefreshGui();
+        }
+
         private GuiImportHandler CreateGuiImportHandler()
         {
             return new GuiImportHandler(gui);
@@ -433,12 +461,6 @@ namespace Core.Common.Gui
             return dataItemInfo.CreateData != null ? dataItemInfo.CreateData(parent) : null;
         }
 
-        public void AddItemToProject(object newItem)
-        {
-            gui.Project.Items.Add(newItem);
-            gui.Project.NotifyObservers();
-        }
-
         private void RemoveViewsAndData(IEnumerable<IView> toolViews)
         {
             // set all tool windows where dataObject was used to null
@@ -455,11 +477,6 @@ namespace Core.Common.Gui
 
             // Update the window title
             gui.UpdateTitle();
-        }
-
-        public void UpdateObserver()
-        {
-            RefreshGui();
         }
     }
 }

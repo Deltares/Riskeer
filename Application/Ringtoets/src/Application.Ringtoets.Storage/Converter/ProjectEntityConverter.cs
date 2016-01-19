@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Converter
         /// </summary>
         /// <param name="project">The <see cref="Project"/> to convert.</param>
         /// <param name="projectEntity">A reference to the <see cref="ProjectEntity"/> to be saved.</param>
-        private static void ProjectToProjectEntity(Project project, ProjectEntity projectEntity)
+        public static void ProjectToProjectEntity(Project project, ProjectEntity projectEntity)
         {
             projectEntity.Name = project.Name;
             projectEntity.Description = project.Description;

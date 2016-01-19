@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
@@ -38,12 +37,12 @@ namespace Application.Ringtoets.Storage.Test
             TestDelegate test = () => new StorageSqLite(invalidPath);
 
             // Assert
-            var exception = Assert.Throws<InvalidFileException>(test);
+            var exception = Assert.Throws<ArgumentException>(test);
             var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                 invalidPath, UtilsResources.Error_Path_must_be_specified);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
-        
+
         [Test]
         [TestCase("NonExistingFile")]
         public void Constructor_invalidPath_throwsFileNotFoundException(string invalidPath)
@@ -104,6 +103,5 @@ namespace Application.Ringtoets.Storage.Test
             var loadedProject = storage.LoadProject();
             Assert.IsInstanceOf<Project>(loadedProject);
         }
-    
     }
 }

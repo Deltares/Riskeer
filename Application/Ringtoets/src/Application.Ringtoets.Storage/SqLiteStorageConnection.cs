@@ -9,11 +9,11 @@ namespace Application.Ringtoets.Storage
     public static class SqLiteStorageConnection
     {
         /// <summary>
-        /// Constructs a connection string to connect to <paramref name="filePath"/>
+        /// Constructs a connection string to connect the Entity Framework to <paramref name="filePath"/>.
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns>A new connection string.</returns>
-        public static string BuildConnectionString(string filePath)
+        public static string BuildSqLiteEntityConnectionString(string filePath)
         {
             return new EntityConnectionStringBuilder
             {
@@ -24,8 +24,27 @@ namespace Application.Ringtoets.Storage
                     FailIfMissing = true,
                     DataSource = filePath,
                     ReadOnly = false,
-                    ForeignKeys = true
+                    ForeignKeys = true,
+                    Version = 3,
+                    Pooling = true
                 }.ConnectionString
+            }.ConnectionString;
+        }
+
+        /// <summary>
+        /// Constructs a connection string to connect to <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="filePath">Location of the storage file.</param>
+        /// <returns>A new connection string.</returns>
+        public static string BuildSqLiteConnectionString(string filePath)
+        {
+            return new SQLiteConnectionStringBuilder()
+            {
+                FailIfMissing = true,
+                DataSource = filePath,
+                ReadOnly = false,
+                ForeignKeys = true,
+                Version = 3
             }.ConnectionString;
         }
     }

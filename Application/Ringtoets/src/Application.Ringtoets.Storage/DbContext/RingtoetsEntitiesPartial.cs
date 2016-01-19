@@ -10,6 +10,6 @@
         /// </summary>
         /// <param name="connString">A connection string.</param>
         public RingtoetsEntities(string connString)
-            : base(connString) { }
+            : base(connString) {}
     }
 }

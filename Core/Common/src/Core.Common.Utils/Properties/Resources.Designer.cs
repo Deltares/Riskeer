@@ -152,6 +152,15 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bestandspad is te lang om te gebruiken..
+        /// </summary>
+        public static string Error_Path_too_long {
+            get {
+                return ResourceManager.GetString("Error_Path_too_long", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kopiëren van {0}\{1}.
         /// </summary>
         public static string FileUtils_CopyAll_Copying_0_1_ {

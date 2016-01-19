@@ -117,71 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for_0_1_" xml:space="preserve">
-    <value>Kon 'Assembly' informatie niet lezen voor {0} : {1}</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DatabaseStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\DbContext\DatabaseStructure.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0" xml:space="preserve">
-    <value>Parameter 'GroupSize' moet groter zijn dan 0.</value>
+  <data name="Error_During_Connection" xml:space="preserve">
+    <value>Er is een fout opgetreden in de verbinding met het Ringtoets bestand.</value>
   </data>
-  <data name="Error_Directory_missing" xml:space="preserve">
-    <value>Het bestandspad verwijst naar een map die niet bestaat.</value>
+  <data name="Error_Update_Database" xml:space="preserve">
+    <value>Een fout is opgetreden met het updaten van het Ringtoets bestand.</value>
   </data>
-  <data name="Error_File_does_not_exist" xml:space="preserve">
-    <value>Het bestand bestaat niet.</value>
+  <data name="Error_Write_Structure_to_Database" xml:space="preserve">
+    <value>Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.</value>
   </data>
-  <data name="Error_File_empty" xml:space="preserve">
-    <value>Het bestand is leeg.</value>
-  </data>
-  <data name="Error_General_IO_ErrorMessage_0_" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand: {0}</value>
-  </data>
-  <data name="Error_Line_too_big_for_RAM" xml:space="preserve">
-    <value>Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden.</value>
-  </data>
-  <data name="Error_Path_cannot_contain_Characters_0_" xml:space="preserve">
-    <value>Bestandspad mag niet de volgende tekens bevatten: {0}</value>
-  </data>
-  <data name="Error_Path_must_be_specified" xml:space="preserve">
-    <value>Bestandspad mag niet leeg of ongedefinieerd zijn.</value>
-  </data>
-  <data name="Error_Path_must_not_point_to_folder" xml:space="preserve">
-    <value>Bestandspad mag niet naar een map verwijzen.</value>
-  </data>
-  <data name="FileUtils_CopyAll_Copying_0_1_" xml:space="preserve">
-    <value>Kopiëren van {0}\{1}</value>
-  </data>
-  <data name="InvokeRequiredAttribute_LogInvokeError_aborted" xml:space="preserve">
-    <value>afgebroken</value>
-  </data>
-  <data name="InvokeRequiredAttribute_LogInvokeError_skipping" xml:space="preserve">
-    <value>wordt overgeslagen</value>
-  </data>
-  <data name="InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_" xml:space="preserve">
-    <value>Thread synchronisatiefout (aanroep {1}): {0}</value>
-  </data>
-  <data name="ObjectHelper_CouldNotFindFeatureInOriginalContext" xml:space="preserve">
-    <value>Geprobeerd het kenmerk in de beschikbare spatiale data te vervangen, maar kon kenmerk niet vinden in de oorspronkelijke context: {0}.</value>
-  </data>
-  <data name="ParseHelper_ParseHelper_Cannot_find_method_0_TryParse_string_out_0_" xml:space="preserve">
-    <value>Kan methode {0}.TryParse(string, out {0}) niet vinden.</value>
-  </data>
-  <data name="TypeUtils_CallMethod_Exception_occured" xml:space="preserve">
-    <value>Kritieke fout opgetreden.</value>
-  </data>
-  <data name="TypeUtils_CreateInstance_No_default_constructor_available_for_type_0_" xml:space="preserve">
-    <value>Geen 'default constructor' gevonden voor type {0}.</value>
-  </data>
-  <data name="TypeUtils_GetMemberNameFromMemberExpression_member_not_a_valid_expression_for_this_method" xml:space="preserve">
-    <value>Parameter 'member' is geen geldige expressie voor deze methode.</value>
-  </data>
-  <data name="TypeUtils_GetMemberName_0_is_not_a_valid_expression_for_this_method" xml:space="preserve">
-    <value>'{0}' is geen geldige expressie voor deze methode.</value>
-  </data>
-  <data name="ValidationReport_ToString_0_severity_1_2_error_s_3_warnings_4_info" xml:space="preserve">
-    <value>{0}, ernst: {1} ({2} fout(en), {3} waarschuwing(en), {4} info).</value>
-  </data>
-<data name="ValidationReport_Category_or_concept_cannot_be_null" xml:space="preserve">
-    <value>Category/Concept moet gespecificeerd worden om een validatie rapport te maken.</value>
-  </data><data name="Error_Path_too_long" xml:space="preserve">
-    <value>Bestandspad is te lang om te gebruiken.</value>
-  </data></root>
+</root>

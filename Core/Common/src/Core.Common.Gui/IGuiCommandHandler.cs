@@ -10,10 +10,10 @@ namespace Core.Common.Gui
     public interface IGuiCommandHandler : IDisposable
     {
         /// <summary>
-        /// Saves the project.
+        /// Saves the project to a new file.
         /// </summary>
         /// <returns>Returns if the project was succesfully saved.</returns>
-        bool SaveProject();
+        bool SaveProjectAs();
 
         /// <summary>
         /// Creates a new project.

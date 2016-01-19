@@ -70,6 +70,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         private string lastNonContextualTab;
 
+
         private const string dockingLayoutFileName = "WindowLayout_normal.xml";
 
         public MainWindow(IGui gui)
@@ -590,7 +591,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             // TODO: remove when implemented
             ButtonMenuFileSaveProject.IsEnabled = false;
-            ButtonMenuFileSaveProjectAs.IsEnabled = false;
             ButtonMenuFileCloseProject.IsEnabled = false;
         }
 
@@ -629,11 +629,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: Implement
-
-            // Original code:
-            //var saveProject = Gui.CommandHandler.SaveProjectAs();
-            //OnAfterProjectSaveOrOpen(saveProject);
+            var saveProject = Gui.CommandHandler.SaveProjectAs();
+            OnAfterProjectSaveOrOpen(saveProject);
         }
 
         private void OnAfterProjectSaveOrOpen(bool actionSuccesful)

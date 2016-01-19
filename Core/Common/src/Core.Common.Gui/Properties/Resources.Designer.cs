@@ -1868,6 +1868,42 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opslaan van het Ringtoets project..
+        /// </summary>
+        public static string Project_saving_project {
+            get {
+                return ResourceManager.GetString("Project_saving_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opslaan van het Ringtoets project geannuleerd..
+        /// </summary>
+        public static string Project_saving_project_cancelled {
+            get {
+                return ResourceManager.GetString("Project_saving_project_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoets project op te slaan..
+        /// </summary>
+        public static string Project_saving_project_failed {
+            get {
+                return ResourceManager.GetString("Project_saving_project_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het Ringtoets project succesvol opgeslagen..
+        /// </summary>
+        public static string Project_saving_project_saved {
+            get {
+                return ResourceManager.GetString("Project_saving_project_saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er ging iets fout bij het ophalen van de &apos;NodePresenters&apos; van alle plugins..
         /// </summary>
         public static string ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin {

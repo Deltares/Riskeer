@@ -949,4 +949,16 @@
   <data name="Project_existing_successfully_opened" xml:space="preserve">
     <value>Bestaand Ringtoets project succesvol geopend.</value>
   </data>
+  <data name="Project_saving_project" xml:space="preserve">
+    <value>Opslaan van het Ringtoets project.</value>
+  </data>
+  <data name="Project_saving_project_cancelled" xml:space="preserve">
+    <value>Opslaan van het Ringtoets project geannuleerd.</value>
+  </data>
+  <data name="Project_saving_project_failed" xml:space="preserve">
+    <value>Het is niet gelukt om het Ringtoets project op te slaan.</value>
+  </data>
+  <data name="Project_saving_project_saved" xml:space="preserve">
+    <value>Het Ringtoets project succesvol opgeslagen.</value>
+  </data>
 </root>
