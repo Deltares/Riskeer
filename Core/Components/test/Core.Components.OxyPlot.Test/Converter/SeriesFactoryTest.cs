@@ -4,11 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
+using Core.Components.OxyPlot.Converter;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Series;
 
-namespace Core.Components.OxyPlot.Test
+namespace Core.Components.OxyPlot.Test.Converter
 {
     [TestFixture]
     public class SeriesFactoryTest
@@ -28,6 +29,7 @@ namespace Core.Components.OxyPlot.Test
             Assert.IsInstanceOf<AreaSeries>(series);
             var areaSeries = ((AreaSeries)series);
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
+            CollectionAssert.AreEqual(new Collection<DataPoint>{expectedData.First()}, areaSeries.Points2);
             Assert.AreNotSame(expectedData, areaSeries.ItemsSource);
         }
 
@@ -81,9 +83,9 @@ namespace Core.Components.OxyPlot.Test
             Assert.Throws<NotSupportedException>(test);
         }
 
-        private static IEnumerable<DataPoint> CreateExpectedData(IEnumerable<Tuple<double, double>> testData)
+        private static ICollection<DataPoint> CreateExpectedData(IEnumerable<Tuple<double, double>> testData)
         {
-            return testData.Select(p => new DataPoint(p.Item1, p.Item2));
+            return testData.Select(p => new DataPoint(p.Item1, p.Item2)).ToArray();
         }
 
         private static Collection<Tuple<double, double>> CreateTestData()

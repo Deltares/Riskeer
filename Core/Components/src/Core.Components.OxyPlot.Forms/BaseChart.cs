@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting;
 using Core.Components.Charting.Data;
+using Core.Components.OxyPlot.Converter;
 using Core.Components.OxyPlot.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
