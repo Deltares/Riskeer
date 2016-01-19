@@ -68,7 +68,7 @@
     <Compile Include="DbContext\RingtoetsEntitiesPartial.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidFileException.cs" />
-    <Compile Include="Converter\ProjectEntityConverter.cs" />
+    <Compile Include="Converters\ProjectEntityConverter.cs" />
     <Compile Include="DbContext\IRingtoetsEntities.cs" />
     <Compile Include="DbContext\ProjectEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>

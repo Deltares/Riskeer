@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Application.Ringtoets.Storage.Converter;
+using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;

@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.Entity;
 using System.IO;
-using Application.Ringtoets.Storage.Converter;
+using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage
                 try
                 {
                     dbContext.Database.Initialize(true);
-                    dbContext.Database.Connection.Open();
                     dbContext.Versions.Load();
                     return true;
                 }

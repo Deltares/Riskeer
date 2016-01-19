@@ -5,7 +5,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;
 
-namespace Application.Ringtoets.Storage.Converter
+namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
     /// Converter for <see cref="ProjectEntity"/> to <see cref="Project"/> and <see cref="Project"/> to <see cref="ProjectEntity"/>.
