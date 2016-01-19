@@ -25,14 +25,6 @@ namespace Core.Components.Charting
         ICollection<ChartData> Data { get; set; }
 
         /// <summary>
-        /// Sets the visibility of a series in this <see cref="IChart"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to set the visibility for.</param>
-        /// <param name="visibility">A boolean value representing the new visibility.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        void SetVisibility(ChartData data, bool visibility);
-
-        /// <summary>
         /// Sets the position of the <see cref="ChartData"/> amongst the other data of the <see cref="IChart"/>.
         /// </summary>
         /// <param name="data">The <see cref="ChartData"/> to change the position for.</param>

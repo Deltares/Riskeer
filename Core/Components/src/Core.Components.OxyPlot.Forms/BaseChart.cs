@@ -51,17 +51,6 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        public void SetVisibility(ChartData data, bool visibility)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException("data", "Cannot set visibility of a null serie.");
-            }
-            data.IsVisible = visibility;
-            series.First(t => ReferenceEquals(t.Item1, data)).Item2.IsVisible = visibility;
-            view.Invalidate();
-        }
-
         public void SetPosition(ChartData data, int position)
         {
             if (data == null)
@@ -142,6 +131,10 @@ namespace Core.Components.OxyPlot.Forms
         /// <param name="dataCollection">The <see cref="ICollection{T}"/> of <see cref="ChartData"/> to set.</param>
         private void SetData(ICollection<ChartData> dataCollection)
         {
+            foreach (var seriesTuple in series)
+            {
+                seriesTuple.Item1.Detach(this);
+            }
             series.Clear();
 
             if (dataCollection != null)
@@ -149,6 +142,7 @@ namespace Core.Components.OxyPlot.Forms
                 foreach (var data in dataCollection)
                 {
                     AddDataAsSeries(data);
+                    data.Attach(this);
                 }
             }
 
@@ -257,6 +251,10 @@ namespace Core.Components.OxyPlot.Forms
 
         public void UpdateObserver()
         {
+            foreach (var serieTuple in series)
+            {
+                serieTuple.Item2.IsVisible = serieTuple.Item1.IsVisible;
+            }
             view.InvalidatePlot(true);
         }
     }

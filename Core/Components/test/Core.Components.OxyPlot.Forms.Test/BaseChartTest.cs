@@ -110,50 +110,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void SetVisibility_SerieNotOnChart_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var chart = new BaseChart();
-            var pointData = new PointData(new Collection<Tuple<double, double>>());
-
-            // Call
-            TestDelegate test = () => chart.SetVisibility(pointData, true);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(test);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void SetVisibility_SerieOnChart_SetsDataVisibility(bool visibility)
-        {
-            // Setup
-            var chart = new BaseChart();
-            var pointData = new PointData(new Collection<Tuple<double, double>>());
-            chart.Data = new ChartData[] { pointData };
-
-            // Call
-            chart.SetVisibility(pointData, visibility);
-
-            // Assert
-            Assert.AreEqual(visibility, pointData.IsVisible);
-        }
-
-        [Test]
-        public void SetVisibility_ForNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var chart = new BaseChart();
-
-            // Call
-            TestDelegate test = () => chart.SetVisibility(null, true);
-            
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
         public void SetPosition_DataNull_ThrowsArgumentNullException()
         {
             // Setup

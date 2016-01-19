@@ -42,7 +42,9 @@ namespace Core.Plugins.OxyPlot.Legend
 
         public override void OnNodeChecked(TreeNode node)
         {
-            ((LegendTreeView) TreeView).Chart.SetVisibility((ChartData)node.Tag, node.Checked);
+            var chartData = ((ChartData)node.Tag);
+            chartData.IsVisible = node.Checked;
+            chartData.NotifyObservers();
         }
     }
 }
