@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -20,14 +19,11 @@ namespace Core.Components.OxyPlot.Forms
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class BaseChart : Control, IChart
+    public class BaseChart : Control, IObserver, IChart
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
         private readonly List<Tuple<ChartData, Series>> series = new List<Tuple<ChartData, Series>>();
         private readonly ICollection<IObserver> observers = new Collection<IObserver>();
-
-        public bool IsPanning { get; private set; }
-        public bool IsRectangleZooming { get; private set; }
 
         private PlotView view;
 
@@ -37,14 +33,12 @@ namespace Core.Components.OxyPlot.Forms
         public BaseChart()
         {
             InitializePlotView();
-            IsPanning = false;
-            MinimumSize = new Size(50, 75);
+            IsPanningEnabled = false;
         }
 
-        /// <summary>
-        /// Gets or sets the data to show in the <see cref="BaseChart"/>.
-        /// </summary>
-        /// <remarks>The returned collection is a copy of the previously set data.</remarks>
+        public bool IsPanningEnabled { get; private set; }
+        public bool IsRectangleZoomingEnabled { get; private set; }
+
         public ICollection<ChartData> Data
         {
             get
@@ -57,12 +51,6 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        /// <summary>
-        /// Sets the visibility of a series in this <see cref="BaseChart"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to set the visibility for.</param>
-        /// <param name="visibility">A boolean value representing the new visibility.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public void SetVisibility(ChartData data, bool visibility)
         {
             if (data == null)
@@ -74,13 +62,6 @@ namespace Core.Components.OxyPlot.Forms
             view.Invalidate();
         }
 
-        /// <summary>
-        /// Sets the position of the <see cref="ChartData"/> amongst the other data of the <see cref="BaseChart"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to change the position for.</param>
-        /// <param name="position">The new position.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="position"/> is out of range.</exception>
         public void SetPosition(ChartData data, int position)
         {
             if (data == null)
@@ -100,27 +81,9 @@ namespace Core.Components.OxyPlot.Forms
             view.Model.Series.Insert(position, tuple.Item2);
         }
 
-        /// <summary>
-        /// Enables panning of the <see cref="BaseChart"/>. Panning is invoked by clicking the left mouse-button.
-        /// </summary>
-        private void EnablePanning()
-        {
-            view.Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.PanAt);
-            IsPanning = true;
-        }
-
-        /// <summary>
-        /// Enables zooming by rectangle of the <see cref="BaseChart"/>. Zooming by rectangle is invoked by clicking the left mouse-button.
-        /// </summary>
-        private void EnableRectangleZoom()
-        {
-            view.Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.ZoomRectangle);
-            IsRectangleZooming = true;
-        }
-
         public void TogglePanning()
         {
-            var enablePanning = !IsPanning;
+            var enablePanning = !IsPanningEnabled;
             DisableInteraction();
             if (enablePanning)
             {
@@ -130,7 +93,7 @@ namespace Core.Components.OxyPlot.Forms
 
         public void ToggleRectangleZooming()
         {
-            var enableRectangleZoom = !IsRectangleZooming;
+            var enableRectangleZoom = !IsRectangleZoomingEnabled;
             DisableInteraction();
             if (enableRectangleZoom)
             {
@@ -145,13 +108,31 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
+        /// Enables panning of the <see cref="BaseChart"/>. Panning is invoked by clicking the left mouse-button.
+        /// </summary>
+        private void EnablePanning()
+        {
+            view.Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.PanAt);
+            IsPanningEnabled = true;
+        }
+
+        /// <summary>
+        /// Enables zooming by rectangle of the <see cref="BaseChart"/>. Zooming by rectangle is invoked by clicking the left mouse-button.
+        /// </summary>
+        private void EnableRectangleZoom()
+        {
+            view.Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.ZoomRectangle);
+            IsRectangleZoomingEnabled = true;
+        }
+
+        /// <summary>
         /// Disables all the interaction with the <see cref="BaseChart"/>.
         /// </summary>
         private void DisableInteraction()
         {
             view.Controller.UnbindAll();
-            IsPanning = false;
-            IsRectangleZooming = false;
+            IsPanningEnabled = false;
+            IsRectangleZoomingEnabled = false;
         }
 
         /// <summary>
@@ -273,5 +254,10 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         #endregion
+
+        public void UpdateObserver()
+        {
+            view.InvalidatePlot(true);
+        }
     }
 }

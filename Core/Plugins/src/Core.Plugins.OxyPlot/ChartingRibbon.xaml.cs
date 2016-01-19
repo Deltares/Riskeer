@@ -108,8 +108,8 @@ namespace Core.Plugins.OxyPlot
         public void ValidateItems()
         {
             ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
-            TogglePanningButton.IsChecked = Chart != null && Chart.IsPanning;
-            ToggleRectangleZoomingButton.IsChecked = Chart != null && Chart.IsRectangleZooming;
+            TogglePanningButton.IsChecked = Chart != null && Chart.IsPanningEnabled;
+            ToggleRectangleZoomingButton.IsChecked = Chart != null && Chart.IsRectangleZoomingEnabled;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)

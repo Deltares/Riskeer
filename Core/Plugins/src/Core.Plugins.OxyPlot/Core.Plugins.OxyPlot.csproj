@@ -63,6 +63,9 @@
     <Compile Include="Forms\ChartDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\ChartDataView.Designer.cs">
+      <DependentUpon>ChartDataView.cs</DependentUpon>
+    </Compile>
     <Compile Include="IToolViewController.cs" />
     <Compile Include="Legend\ChartDataNodePresenter.cs" />
     <Compile Include="Legend\ChartNodePresenter.cs" />
