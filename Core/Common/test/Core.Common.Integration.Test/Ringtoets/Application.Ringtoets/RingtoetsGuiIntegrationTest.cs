@@ -1,11 +1,11 @@
 using System.Linq;
+using System.Windows.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
 using NUnit.Framework;
-using Control = System.Windows.Controls.Control;
 
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
@@ -20,13 +20,14 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
         [Test]
         [RequiresSTA]
-        public void ClosingEmptyProjectShouldNotGiveException()
+        public void CloseProject_EmptyProject_DoesNotThrowException()
         {
             using (var gui = new RingtoetsGui())
             {
                 gui.MainWindow = new MainWindow(gui);
                 gui.Run();
-                gui.CommandHandler.CloseProject(); //should not trigger exception
+                TestDelegate closeProject = () => gui.CommandHandler.CloseProject();
+                Assert.DoesNotThrow(closeProject);
             }
         }
 

@@ -10,10 +10,10 @@ namespace Application.Ringtoets.Storage.Test.DbContext
         public void DefaultConstructor_Always_ExpectedValues()
         {
             // Call
-            var projectEntity = new ProjectEntity();
+            ProjectEntity projectEntity = new ProjectEntity();
 
             // Assert
-            Assert.AreEqual(new long(), projectEntity.ProjectEntityId);
+            Assert.AreEqual(0, projectEntity.ProjectEntityId);
             Assert.IsNull(projectEntity.LastUpdated);
         }
 
@@ -42,10 +42,12 @@ namespace Application.Ringtoets.Storage.Test.DbContext
         }
 
         [Test]
-        public void GetProperties_WithNullableData_ReturnExpectedValues()
+        [TestCase(null)]
+        [TestCase(0L)]
+        [TestCase(1234L)]
+        public void LastUpdated_DifferentValues_ReturnExpectedValues(long? someTimestamp)
         {
             // Setup
-            long? someTimestamp = null;
             var projectEntity = new ProjectEntity
             {
                 LastUpdated = someTimestamp

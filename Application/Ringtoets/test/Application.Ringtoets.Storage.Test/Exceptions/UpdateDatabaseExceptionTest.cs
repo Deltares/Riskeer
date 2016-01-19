@@ -5,16 +5,16 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Exceptions
 {
     [TestFixture]
-    public class InvalidFileExceptionTest
+    public class UpdateDatabaseExceptionTest
     {
         [Test]
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(InvalidFileException).FullName);
+            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(UpdateDatabaseException).FullName);
 
             // Call
-            var exception = new InvalidFileException();
+            UpdateDatabaseException exception = new UpdateDatabaseException();
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -25,10 +25,10 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void Constructor_WithCustomMessage_InnerExceptionNullAndMessageSetToCustom()
         {
             // Setup
-            var expectedMessage ="Some exception message";
+            const string expectedMessage = "Some exception message";
 
             // Call
-            var exception = new InvalidFileException(expectedMessage);
+            UpdateDatabaseException exception = new UpdateDatabaseException(expectedMessage);
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -39,11 +39,11 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void Constructor_WithCustomMessageAndInnerException_InnerExceptionSetAndMessageSetToCustom()
         {
             // Setup
-            var expectedMessage = "Some exception message";
-            var expectedInnerException = new Exception();
+            const string expectedMessage = "Some exception message";
+            Exception expectedInnerException = new Exception();
 
             // Call
-            var exception = new InvalidFileException(expectedMessage, expectedInnerException);
+            UpdateDatabaseException exception = new UpdateDatabaseException(expectedMessage, expectedInnerException);
 
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);

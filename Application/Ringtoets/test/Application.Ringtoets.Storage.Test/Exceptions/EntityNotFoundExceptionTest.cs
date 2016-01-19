@@ -11,12 +11,13 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(EntityNotFoundException).FullName);
+            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(EntityNotFoundException).FullName);
 
             // Call
-            var exception = new EntityNotFoundException();
+            EntityNotFoundException exception = new EntityNotFoundException();
 
             // Assert
+            Assert.IsInstanceOf<Exception>(exception);
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -25,10 +26,10 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void Constructor_WithCustomMessage_InnerExceptionNullAndMessageSetToCustom()
         {
             // Setup
-            var expectedMessage ="Some exception message";
+            const string expectedMessage = "Some exception message";
 
             // Call
-            var exception = new EntityNotFoundException(expectedMessage);
+            EntityNotFoundException exception = new EntityNotFoundException(expectedMessage);
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -39,11 +40,11 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void Constructor_WithCustomMessageAndInnerException_InnerExceptionSetAndMessageSetToCustom()
         {
             // Setup
-            var expectedMessage = "Some exception message";
-            var expectedInnerException = new Exception();
+            const string expectedMessage = "Some exception message";
+            Exception expectedInnerException = new Exception();
 
             // Call
-            var exception = new EntityNotFoundException(expectedMessage, expectedInnerException);
+            EntityNotFoundException exception = new EntityNotFoundException(expectedMessage, expectedInnerException);
 
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);

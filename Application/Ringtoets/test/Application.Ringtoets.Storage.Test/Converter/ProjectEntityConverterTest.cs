@@ -15,7 +15,7 @@ namespace Application.Ringtoets.Storage.Test.Converter
     public class ProjectEntityConverterTest
     {
         [Test]
-        public void GetProject_ProjectEntity_Project()
+        public void GetProject_DbSetWithValidProjectEntity_ReturnsTheProjectEntityAsProject()
         {
             // Setup
             const long projectId = 1;
@@ -32,13 +32,13 @@ namespace Application.Ringtoets.Storage.Test.Converter
             });
 
             // Call
-            var project = ProjectEntityConverter.GetProject(projectEntities);
+            Project project = ProjectEntityConverter.GetProject(projectEntities);
 
             // Assert
             Assert.IsInstanceOf<Project>(project);
             Assert.AreEqual(project.StorageId, projectId);
-            Assert.That(project.Name == projectEntity.Name);
-            Assert.That(project.Description == projectEntity.Description);
+            Assert.AreEqual(project.Name, projectEntity.Name);
+            Assert.AreEqual(project.Description, projectEntity.Description);
             Assert.IsEmpty(project.Items);
         }
 
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test.Converter
         }
 
         [Test]
-        public void UpdateProjectEntity_Project_ProjectEntity()
+        public void UpdateProjectEntity_WithSingleProject_ProjectEntriesEqualToProject()
         {
             // Setup
             const long projectId = 1;
@@ -147,18 +147,22 @@ namespace Application.Ringtoets.Storage.Test.Converter
                     ProjectEntityId = projectId
                 }
             };
-            var projectEntities = GetDbSetTest(projectEnties);
+            IDbSet<ProjectEntity> projectEntities = GetDbSetTest(projectEnties);
 
             // Call
             ProjectEntityConverter.UpdateProjectEntity(projectEntities, project);
 
             // Assert
             Assert.IsInstanceOf<Project>(project);
-            var projectEntitiesArray = projectEntities.ToList();
+            List<ProjectEntity> projectEntitiesArray = projectEntities.ToList();
             Assert.AreEqual(projectEntitiesArray.Count, 1);
-            Assert.AreEqual(project.StorageId, projectEntitiesArray[0].ProjectEntityId);
-            Assert.AreEqual(project.Name, projectEntitiesArray[0].Name);
-            Assert.AreEqual(project.Description, projectEntitiesArray[0].Description);
+
+            ProjectEntity projectEntity = projectEntitiesArray[0];
+
+            Assert.AreEqual(project.StorageId, projectEntity.ProjectEntityId);
+            Assert.AreEqual(project.Name, projectEntity.Name);
+            Assert.AreEqual(project.Description, projectEntity.Description);
+            Assert.AreNotEqual(project, projectEntity);
         }
 
         private static IDbSet<T> GetDbSetTest<T>(IList<T> data) where T : class

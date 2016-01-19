@@ -1,21 +1,21 @@
 using System;
 using System.IO;
-using Core.Common.Utils.Properties;
 using Core.Common.Utils.Builders;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils
 {
     /// <summary>
     /// Class with reusable File related utility methods.
     /// </summary>
-    public static class FileUtils 
+    public static class FileUtils
     {
         /// <summary>
         /// Validates the file path.
         /// </summary>
         /// <param name="path">The file path to be validated.</param>
         /// <exception cref="System.ArgumentException"><paramref name="path"/> is invalid.</exception>
-        public  static void ValidateFilePath(string path)
+        public static void ValidateFilePath(string path)
         {
             if (String.IsNullOrWhiteSpace(path))
             {

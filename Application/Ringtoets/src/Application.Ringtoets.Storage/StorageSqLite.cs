@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
 using Core.Common.Utils;
@@ -21,7 +22,8 @@ namespace Application.Ringtoets.Storage
         /// Creates a new instance of <see cref="StorageSqLite"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="FileNotFoundException">Thrown when <paramref name="databaseFilePath"/> does not exist.</exception>
         public StorageSqLite(string databaseFilePath)
             : base(databaseFilePath)
         {
@@ -62,6 +64,12 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="project"><see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
+        /// <exception cref="UpdateDatabaseException">Thrown when
+        /// <list type="bullet">
+        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
+        /// <item>The connection to the database file failed.</item>
+        /// </list>
+        /// </exception>
         public int SaveProjectAs(Project project)
         {
             using (var dbContext = new RingtoetsEntities(ConnectionString))
