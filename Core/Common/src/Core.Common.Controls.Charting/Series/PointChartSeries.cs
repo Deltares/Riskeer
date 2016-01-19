@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using Core.Common.Utils;
+using Core.Common.Utils.Extensions;
+
 using Steema.TeeChart.Styles;
 
 namespace Core.Common.Controls.Charting.Series
@@ -44,8 +46,8 @@ namespace Core.Common.Controls.Charting.Series
             set
             {
                 // just keep it square at this moment.
-                pointSeries.Pointer.VertSize = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
-                pointSeries.Pointer.HorizSize = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+                pointSeries.Pointer.VertSize = value.ClipValue(MinimumAllowedSize, MaximumAllowedSize);
+                pointSeries.Pointer.HorizSize = value.ClipValue(MinimumAllowedSize, MaximumAllowedSize);
             }
         }
 

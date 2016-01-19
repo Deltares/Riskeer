@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Controls.Charting.Properties;
 using Core.Common.Utils;
+using Core.Common.Utils.Extensions;
 
 namespace Core.Common.Controls.Charting.Series
 {
@@ -59,7 +60,7 @@ namespace Core.Common.Controls.Charting.Series
             }
             set
             {
-                polygonSeries.Pen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+                polygonSeries.Pen.Width = value.ClipValue(MinimumAllowedSize, MaximumAllowedSize);
             }
         }
 

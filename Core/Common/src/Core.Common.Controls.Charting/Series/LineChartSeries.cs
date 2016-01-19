@@ -2,6 +2,8 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Utils;
+using Core.Common.Utils.Extensions;
+
 using Steema.TeeChart.Styles;
 
 namespace Core.Common.Controls.Charting.Series
@@ -49,7 +51,7 @@ namespace Core.Common.Controls.Charting.Series
             }
             set
             {
-                lineSeries.LinePen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+                lineSeries.LinePen.Width = value.ClipValue(MinimumAllowedSize, MaximumAllowedSize);
             }
         }
 
@@ -110,8 +112,8 @@ namespace Core.Common.Controls.Charting.Series
             set
             {
                 // just keep it square at this moment.
-                lineSeries.Pointer.VertSize = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
-                lineSeries.Pointer.HorizSize = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+                lineSeries.Pointer.VertSize = value.ClipValue(MinimumAllowedSize, MaximumAllowedSize);
+                lineSeries.Pointer.HorizSize = value.ClipValue(MinimumAllowedSize, MaximumAllowedSize);
             }
         }
 

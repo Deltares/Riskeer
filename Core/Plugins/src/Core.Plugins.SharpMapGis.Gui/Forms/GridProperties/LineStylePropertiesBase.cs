@@ -6,6 +6,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Extensions;
 using Core.GIS.SharpMap.Rendering.Thematics;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.Styles.Shapes;
@@ -65,7 +66,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                Style.Line = ThemeFactory.CreatePen(MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize), Style.Line);
+                Style.Line = ThemeFactory.CreatePen(value.ClipValue(MinimumAllowedSize, MaximumAllowedSize), Style.Line);
             }
         }
 
@@ -98,7 +99,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                Style.Outline = ThemeFactory.CreatePen(MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize), Style.Outline);
+                Style.Outline = ThemeFactory.CreatePen(value.ClipValue(MinimumAllowedSize, MaximumAllowedSize), Style.Outline);
             }
         }
 

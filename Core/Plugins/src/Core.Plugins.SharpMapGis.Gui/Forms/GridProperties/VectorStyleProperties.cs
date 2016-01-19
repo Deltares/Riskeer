@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Extensions;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.Styles.Shapes;
 using Core.Plugins.SharpMapGis.Gui.Properties;
@@ -47,7 +48,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                data.Line = new Pen(data.Line.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize))
+                data.Line = new Pen(data.Line.Color, value.ClipValue(MinimumAllowedSize, MaximumAllowedSize))
                 {
                     DashStyle = data.Line.DashStyle
                 };
@@ -99,7 +100,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                data.Outline = new Pen(data.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize))
+                data.Outline = new Pen(data.Outline.Color, value.ClipValue(MinimumAllowedSize, MaximumAllowedSize))
                 {
                     DashStyle = data.Outline.DashStyle
                 };

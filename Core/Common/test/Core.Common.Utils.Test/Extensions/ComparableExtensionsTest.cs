@@ -125,5 +125,25 @@ namespace Core.Common.Utils.Test.Extensions
             // Assert
             Assert.Throws<ArgumentException>(call);
         }
+
+        [Test]
+        [TestCase(-4.4, -2.2, 3.3, -2.2)]
+        [TestCase(-2.2, -2.2, 3.3, -2.2)]
+        [TestCase(1.1, -2.2, 3.3, 1.1)]
+        [TestCase(3.3, -2.2, 3.3, 3.3)]
+        [TestCase(5.5, -2.2, 3.3, 3.3)]
+        [TestCase(-4.4, 3.3, -2.2, -2.2)]
+        [TestCase(-2.2, 3.3, -2.2, -2.2)]
+        [TestCase(1.1, 3.3, -2.2, 1.1)]
+        [TestCase(3.3, 3.3, -2.2, 3.3)]
+        [TestCase(5.5, 3.3, -2.2, 3.3)]
+        public void ClipValue_VariousTestCases_ReturnExpectedValue(double input, double limit1, double limit2, double expectedValue)
+        {
+            // Call
+            var result = input.ClipValue(limit1, limit2);
+
+            // Assert
+            Assert.AreEqual(expectedValue, result);
+        }
     }
 }

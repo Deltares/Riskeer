@@ -7,6 +7,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Extensions;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.Styles.Shapes;
 using Core.Plugins.SharpMapGis.Gui.Properties;
@@ -85,7 +86,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                Style.Outline = new Pen(Style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize))
+                Style.Outline = new Pen(Style.Outline.Color, value.ClipValue(MinimumAllowedSize, MaximumAllowedSize))
                 {
                     DashStyle = Style.Outline.DashStyle
                 };
@@ -159,7 +160,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                Style.ShapeSize = MathUtils.ClipValue(value, MinimumAllowedShapeSize, MaximalAllowedShapeSize);
+                Style.ShapeSize = value.ClipValue(MinimumAllowedShapeSize, MaximalAllowedShapeSize);
             }
         }
 

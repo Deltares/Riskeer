@@ -5,6 +5,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Extensions;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Layers;
@@ -80,7 +81,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                data.Style.Line = new Pen(data.Style.Line.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize));
+                data.Style.Line = new Pen(data.Style.Line.Color, value.ClipValue(MinimumAllowedSize, MaximumAllowedSize));
             }
         }
 
@@ -113,7 +114,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
             set
             {
-                data.Style.Outline = new Pen(data.Style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize));
+                data.Style.Outline = new Pen(data.Style.Outline.Color, value.ClipValue(MinimumAllowedSize, MaximumAllowedSize));
             }
         }
 

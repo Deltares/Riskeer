@@ -53,28 +53,65 @@ namespace Core.Common.Utils.Extensions
         /// Determines where one object is within the inclusive bounds of some range.
         /// </summary>
         /// <param name="value">Value to be checked.</param>
-        /// <param name="limitOne">First range value.</param>
-        /// <param name="limitTwo">Second range value.</param>
+        /// <param name="limit1">First range value.</param>
+        /// <param name="limit2">Second range value.</param>
         /// <returns>True if <paramref name="value"/> falls within the inclusive bounds, false otherwise.</returns>
         /// <exception cref="ArgumentException">Object type of <paramref name="value"/>
-        /// is not the same as that of <paramref name="limitOne"/> or <paramref name="limitTwo"/>.</exception>
-        public static bool IsInRange(this IComparable value, IComparable limitOne, IComparable limitTwo)
+        /// is not the same as that of <paramref name="limit1"/> or <paramref name="limit2"/>.</exception>
+        public static bool IsInRange(this IComparable value, IComparable limit1, IComparable limit2)
         {
             IComparable min;
             IComparable max;
 
-            if (limitOne.IsSmaller(limitTwo))
+            if (limit1.IsSmaller(limit2))
             {
-                min = limitOne;
-                max = limitTwo;
+                min = limit1;
+                max = limit2;
             }
             else
             {
-                min = limitTwo;
-                max = limitOne;
+                min = limit2;
+                max = limit1;
             }
 
             return (min.IsSmaller(value) && max.IsBigger(value)) || min.CompareTo(value) == 0 || max.CompareTo(value) == 0;
+        }
+
+        /// <summary>
+        /// This method returns the clipped value of a value given an inclusive value range.
+        /// </summary>
+        /// <typeparam name="T">A comparable object type.</typeparam>
+        /// <param name="value">The value to be clipped.</param>
+        /// <param name="limit1">First range value.</param>
+        /// <param name="limit2">Second range value.</param>
+        /// <returns>The clipped value within the given validity range.</returns>
+        /// <exception cref="ArgumentException">Object type of <paramref name="value"/>
+        /// is not the same as that of <paramref name="limit1"/> or <paramref name="limit2"/>.</exception>
+        public static T ClipValue<T>(this T value, T limit1, T limit2) where T : IComparable
+        {
+            T min;
+            T max;
+
+            if (limit1.IsSmaller(limit2))
+            {
+                min = limit1;
+                max = limit2;
+            }
+            else
+            {
+                min = limit2;
+                max = limit1;
+            }
+
+            if (value.IsSmaller(min))
+            {
+                return min;
+            }
+            if (value.IsBigger(max))
+            {
+                return max;
+            }
+            return value;
         }
     }
 }
