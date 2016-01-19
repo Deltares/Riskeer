@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -19,7 +20,7 @@ namespace Core.Components.OxyPlot.Forms
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public class BaseChart : Control, IObserver, IChart
+    public sealed class BaseChart : Control, IObserver, IChart
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
         private readonly List<Tuple<ChartData, Series>> series = new List<Tuple<ChartData, Series>>();
@@ -34,6 +35,7 @@ namespace Core.Components.OxyPlot.Forms
         {
             InitializePlotView();
             IsPanningEnabled = false;
+            MinimumSize = new Size(50, 75);
         }
 
         public bool IsPanningEnabled { get; private set; }
