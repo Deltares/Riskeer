@@ -172,7 +172,7 @@
     <value>0</value>
   </data>
   <data name="buttonScrollToItemInActiveView.ToolTipText" xml:space="preserve">
-    <value>Zoek scherm behorende bij het actieve item in de projectverkenner.</value>
+    <value>Zoek in de projectverkenner het element behorende bij het actieve venster.</value>
   </data>
   <data name="toolStrip1.Text" xml:space="preserve">
     <value>toolStrip1</value>
