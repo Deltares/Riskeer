@@ -56,6 +56,9 @@
     <Compile Include="BaseChart.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LinearPlotView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

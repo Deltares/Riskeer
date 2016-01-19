@@ -151,8 +151,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             return new BaseChart
             {
-                Data = new ChartData[]
-                {
+                Data = {
                     new LineData(new List<Tuple<double, double>>()),
                     new PointData(new List<Tuple<double, double>>()),
                     new AreaData(new List<Tuple<double, double>>())

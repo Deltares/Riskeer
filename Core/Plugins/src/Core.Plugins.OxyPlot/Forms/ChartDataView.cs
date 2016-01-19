@@ -29,10 +29,22 @@ namespace Core.Plugins.OxyPlot.Forms
             set
             {
                 data = (ICollection<ChartData>) value;
-                Chart.Data = data;
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+                        Chart.Data.Add(item);
+                    }
+                }
             }
         }
 
-        public BaseChart Chart { get; private set; }
+        public BaseChart Chart
+        {
+            get
+            {
+                return chart;
+            }
+        }
     }
 }

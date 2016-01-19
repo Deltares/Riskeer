@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 
@@ -18,11 +17,10 @@ namespace Core.Components.Charting
         bool IsRectangleZoomingEnabled { get; }
 
         /// <summary>
-        /// Gets or sets the data to show in the <see cref="IChart"/>.
+        /// Gets the data to show in the <see cref="IChart"/>.
         /// </summary>
         /// <remarks>The returned collection is a copy of the previously set data.</remarks>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] 
-        ICollection<ChartData> Data { get; set; }
+        ICollection<ChartData> Data { get; }
 
         /// <summary>
         /// Sets the position of the <see cref="ChartData"/> amongst the other data of the <see cref="IChart"/>.

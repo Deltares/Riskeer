@@ -57,7 +57,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             {
                 Chart = new BaseChart
                 {
-                    Data = new ChartData[]{lineData, pointData, areaData}
+                    Data = {lineData, pointData, areaData}
                 }
             };
             var nodePresenter = new ChartDataNodePresenter

@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Deltares.Standard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31fe100197c68040, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
