@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using Core.Components.OxyPlot.Properties;
+using Core.Components.OxyPlot.Forms.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.WindowsForms;
@@ -7,9 +7,9 @@ using TickStyle = OxyPlot.Axes.TickStyle;
 
 namespace Core.Components.OxyPlot.Forms
 {
-    public sealed class LinearPlotView : PlotView
+    internal sealed class LinearPlotView : PlotView
     {
-        internal LinearPlotView()
+        public LinearPlotView()
         {
             Dock = DockStyle.Fill;
             Model = new PlotModel
