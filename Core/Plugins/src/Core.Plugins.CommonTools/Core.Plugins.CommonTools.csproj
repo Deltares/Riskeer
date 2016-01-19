@@ -79,11 +79,6 @@
       <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
-      <Project>{08205620-d756-4533-922c-d6a4c0038535}</Project>
-      <Name>Core.Common.Gui.Swf</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
