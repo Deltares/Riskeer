@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using Application.Ringtoets.Storage;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
@@ -138,7 +139,8 @@ namespace Application.Ringtoets
                     , new OxyPlotGuiPlugin()
                     , new DotSpatialGuiPlugin()
 #endif
-                }
+                },
+                Storage = new StorageSqLite()
             };
 
             var mainWindow = new MainWindow(gui);

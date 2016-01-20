@@ -70,14 +70,25 @@ namespace Application.Ringtoets.Storage.Properties {
         ///BEGIN TRANSACTION;
         ///
         ///-- Table: Version
-        ///CREATE TABLE IF NOT EXISTS Version (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FromVersion VARCHAR (50), ToVersion VARCHAR (50), Timestamp NUMERIC);
+        ///DROP TABLE IF EXISTS Version;
+        ///CREATE TABLE Version (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FromVersion VARCHAR (50), ToVersion VARCHAR (50), Timestamp NUMERIC);
         ///
         ///-- Table: ProjectEntity
-        ///njnklnk CREATE TABLE IF NOT EXISTS ProjectEntity (ProjectEntityId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Name VARCHAR (1024), Des [rest of string was truncated]&quot;;.
+        ///DROP TABLE IF EXISTS ProjectEntity;
+        ///CREATE TABLE ProjectEntity (ProjectEntityId INTEGER NOT NULL PRIMARY KEY AUTOINC [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DatabaseStructure {
             get {
                 return ResourceManager.GetString("DatabaseStructure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen verbinding maken naar het Ringtoets bestand &apos;{0}&apos;..
+        /// </summary>
+        internal static string Error_Connecting_To_0 {
+            get {
+                return ResourceManager.GetString("Error_Connecting_To_0", resourceCulture);
             }
         }
         
@@ -96,6 +107,15 @@ namespace Application.Ringtoets.Storage.Properties {
         internal static string Error_Update_Database {
             get {
                 return ResourceManager.GetString("Error_Update_Database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; is geen geldig Ringtoets bestand..
+        /// </summary>
+        internal static string Error_Validating_Database_0 {
+            get {
+                return ResourceManager.GetString("Error_Validating_Database_0", resourceCulture);
             }
         }
         

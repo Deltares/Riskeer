@@ -9,8 +9,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
@@ -115,6 +117,11 @@ namespace Core.Common.Gui
         /// Default implementation will also show it in the PropertyGrid.
         /// </summary>
         object Selection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current storage.
+        /// </summary>
+        IStoreProject Storage { get; }
 
         /// <summary>
         /// Gets the <see cref="IContextMenuBuilderProvider"/> of the <see cref="IGui"/>

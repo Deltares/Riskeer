@@ -258,10 +258,6 @@
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
-      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
-      <Name>Application.Ringtoets.Storage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.UI\Core.GIS.SharpMap.UI.csproj">
       <Project>{DD1CC1DB-4BF9-4C88-A100-733D84795F3A}</Project>
       <Name>Core.GIS.SharpMap.UI</Name>

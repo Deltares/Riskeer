@@ -11,6 +11,7 @@ using WindowsApplication = System.Windows.Forms.Application;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
@@ -284,6 +285,8 @@ namespace Core.Common.Gui
             }
             return resultSet;
         }
+
+        public IStoreProject Storage { get; set; }
 
         public void Dispose()
         {

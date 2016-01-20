@@ -21,10 +21,10 @@ namespace Application.Ringtoets.Storage.Test.DbContext
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            const long expectedId = 1024;
+            const long expectedId = 1024L;
             const string expectedName = "<some name>";
             const string someDescription = "<some description>";
-            const long someTimestamp = 123456789;
+            const long someTimestamp = 123456789L;
 
             var projectEntity = new ProjectEntity
             {

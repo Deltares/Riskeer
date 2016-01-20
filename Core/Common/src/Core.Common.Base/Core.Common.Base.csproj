@@ -84,6 +84,9 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="IO\ProgressChangedDelegate.cs" />
+    <Compile Include="Storage\StorageValidationException.cs" />
+    <Compile Include="Storage\CouldNotConnectException.cs" />
+    <Compile Include="Storage\IStoreProject.cs" />
     <Compile Include="Plugin\ApplicationPlugin.cs" />
     <Compile Include="Plugin\DataItemInfo.cs" />
     <Compile Include="Plugin\ApplicationCore.cs" />
@@ -103,7 +106,8 @@
     <Compile Include="Service\Activity.cs" />
     <Compile Include="Service\ActivityState.cs" />
     <Compile Include="Service\FileImportActivity.cs" />
-    <Compile Include="IStorable.cs" />
+    <Compile Include="Storage\IStorable.cs" />
+    <Compile Include="Storage\UpdateStorageException.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

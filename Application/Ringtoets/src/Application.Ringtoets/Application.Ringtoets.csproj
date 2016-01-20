@@ -180,6 +180,10 @@
       <Name>Ringtoets.Piping.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
+      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
+      <Name>Application.Ringtoets.Storage</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

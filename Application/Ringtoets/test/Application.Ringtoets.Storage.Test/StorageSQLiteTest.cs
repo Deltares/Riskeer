@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -13,29 +14,12 @@ namespace Application.Ringtoets.Storage.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
 
         [Test]
-        [TestCase("empty.rt")]
-        public void Constructor_ValidPath_NewInstance(string validPath)
-        {
-            // Setup
-            var dbFile = Path.Combine(testDataPath, validPath);
-
-            // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-
-            // Call
-            TestDelegate test = () => new StorageSqLite(dbFile);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_FileNullOrEmpty_ThrowsFileNotFoundException(string invalidPath)
+        public void LoadProject_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate test = () => new StorageSqLite(invalidPath);
+            TestDelegate test = () => new StorageSqLite().LoadProject(invalidPath);
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(test);
@@ -45,51 +29,32 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        [TestCase("NonExistingFile")]
-        public void Constructor_InvalidPath_ThrowsFileNotFoundException(string invalidPath)
+        [TestCase("fileDoesNotExist")]
+        public void LoadProject_NonExistingPath_ThrowsCouldNotConnectException(string nonExistingPath)
         {
             // Call
-            TestDelegate test = () => new StorageSqLite(invalidPath);
+            TestDelegate test = () => new StorageSqLite().LoadProject(nonExistingPath);
 
             // Assert
-            FileNotFoundException exception = Assert.Throws<FileNotFoundException>(test);
-            string expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                   invalidPath, UtilsResources.Error_File_does_not_exist);
+            CouldNotConnectException exception = Assert.Throws<CouldNotConnectException>(test);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", nonExistingPath);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        [TestCase("ValidRingtoetsDatabase.rt")]
-        public void TestConnection_ValidConnection_ReturnsTrue(string validPath)
+        [TestCase("empty.rt")]
+        public void LoadProject_InvalidRingtoetsFile_ThrowsStorageValidationException(string validPath)
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, validPath);
 
-            // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-
             // Call
-            StorageSqLite storage = new StorageSqLite(dbFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(dbFile);
 
             // Assert
-            Assert.True(storage.TestConnection());
-        }
-
-        [Test]
-        [TestCase("empty.rt")]
-        public void TestConnection_InvalidConnection_ReturnsFalse(string invalidPath)
-        {
-            // Setup
-            var dbFile = Path.Combine(testDataPath, invalidPath);
-
-            // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-
-            // Call
-            StorageSqLite storage = new StorageSqLite(dbFile);
-
-            // Assert
-            Assert.False(storage.TestConnection());
+            StorageValidationException exception = Assert.Throws<StorageValidationException>(test);
+            string expectedMessage = String.Format(@"Het bestand '{0}' is geen geldig Ringtoets bestand.", dbFile);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -98,14 +63,13 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, validPath);
+            var storage = new StorageSqLite();
 
             // Precondition
             Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-            var storage = new StorageSqLite(dbFile);
-            Assert.True(storage.TestConnection(), "Precondition: file must be a valid Ringtoets database.");
 
             // Call
-            Project loadedProject = storage.LoadProject();
+            Project loadedProject = storage.LoadProject(dbFile);
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);

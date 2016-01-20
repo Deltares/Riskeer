@@ -1,33 +1,32 @@
 ﻿using System;
 
-namespace Application.Ringtoets.Storage.Exceptions
+namespace Core.Common.Base.Storage
 {
     /// <summary>
-    /// The exception that is thrown when a database updater class encounters an error while
-    /// parsing a row/line during the read.
+    /// The exception that is thrown when a storage is not valid.
     /// </summary>
-    public class UpdateDatabaseException : Exception
+    public class StorageValidationException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateDatabaseException"/> class.
+        /// Initializes a new instance of the <see cref="StorageValidationException"/> class.
         /// </summary>
-        public UpdateDatabaseException() {}
+        public StorageValidationException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateDatabaseException"/> class
+        /// Initializes a new instance of the <see cref="StorageValidationException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public UpdateDatabaseException(string message) : base(message) {}
+        public StorageValidationException(string message) : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateDatabaseException"/> class
+        /// Initializes a new instance of the <see cref="StorageValidationException"/> class
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public UpdateDatabaseException(string message, Exception inner) : base(message, inner) {}
+        public StorageValidationException(string message, Exception inner) : base(message, inner) { }
     }
 }

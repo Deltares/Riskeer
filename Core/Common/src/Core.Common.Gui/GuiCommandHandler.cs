@@ -6,11 +6,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
-using Application.Ringtoets.Storage;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
@@ -86,8 +86,33 @@ namespace Core.Common.Gui
         public bool OpenExistingProject(string filePath)
         {
             Log.Info(Resources.Project_existing_opening_project);
-            var storage = new StorageSqLite(filePath);
-            if (!storage.TestConnection())
+
+            var storage = gui.Storage;
+            Project loadedProject;
+            try
+            {
+                loadedProject = storage.LoadProject(filePath);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_existing_project_opening_failed);
+                return false;
+            }
+            catch (CouldNotConnectException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_existing_project_opening_failed);
+                return false;
+            }
+            catch (StorageValidationException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+
+            if (loadedProject == null)
             {
                 Log.Warn(Resources.Project_existing_project_opening_failed);
                 return false;
@@ -101,12 +126,7 @@ namespace Core.Common.Gui
             }
 
             gui.ProjectFilePath = filePath;
-            gui.Project = storage.LoadProject();
-            if (gui.Project == null)
-            {
-                Log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
+            gui.Project = loadedProject;
 
             RefreshGui();
             Log.Info(Resources.Project_existing_successfully_opened);
@@ -162,19 +182,37 @@ namespace Core.Common.Gui
             }
 
             var filePath = saveFileDialog.FileName;
-
+            var storage = gui.Storage;
             try
             {
-                var ringtoetsDatabaseCreator = new RingtoetsDatabaseCreator(filePath);
-                ringtoetsDatabaseCreator.CreateDatabaseStructure();
-                var storage = new StorageSqLite(filePath);
-                storage.SaveProjectAs(gui.Project);
+                storage.SaveProjectAs(filePath, gui.Project);
             }
-            catch
+            catch (ArgumentException e)
             {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_existing_project_opening_failed);
+                return false;
+            }
+            catch (CouldNotConnectException e)
+            {
+                Log.Warn(e.Message);
                 Log.Warn(Resources.Project_saving_project_failed);
                 return false;
             }
+            catch (StorageValidationException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+            catch (UpdateStorageException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+
+            // Save was successful, store location
             gui.ProjectFilePath = filePath;
             Log.Info(Resources.Project_saving_project_saved);
             return true;

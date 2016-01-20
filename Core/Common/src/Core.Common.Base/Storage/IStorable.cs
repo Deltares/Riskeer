@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Base
+﻿namespace Core.Common.Base.Storage
 {
     /// <summary>
     /// Interface that describes the property that need to be implemented on classes that are stored in the storage.

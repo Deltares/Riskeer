@@ -1,20 +1,20 @@
 ﻿using System;
-using Application.Ringtoets.Storage.Exceptions;
+using Core.Common.Base.Storage;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.Exceptions
+namespace Core.Common.Base.Test.Storage
 {
     [TestFixture]
-    public class UpdateDatabaseExceptionTest
+    public class UpdateStorageExceptionTest
     {
         [Test]
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(UpdateDatabaseException).FullName);
+            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(UpdateStorageException).FullName);
 
             // Call
-            UpdateDatabaseException exception = new UpdateDatabaseException();
+            UpdateStorageException exception = new UpdateStorageException();
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
             const string expectedMessage = "Some exception message";
 
             // Call
-            UpdateDatabaseException exception = new UpdateDatabaseException(expectedMessage);
+            UpdateStorageException exception = new UpdateStorageException(expectedMessage);
 
             // Assert
             Assert.IsNull(exception.InnerException);
@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
             Exception expectedInnerException = new Exception();
 
             // Call
-            UpdateDatabaseException exception = new UpdateDatabaseException(expectedMessage, expectedInnerException);
+            UpdateStorageException exception = new UpdateStorageException(expectedMessage, expectedInnerException);
 
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);
