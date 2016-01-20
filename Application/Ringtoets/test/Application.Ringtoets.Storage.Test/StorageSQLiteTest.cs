@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        [TestCase("empty.rt")]
+        [TestCase("empty.rtd")]
         public void LoadProject_InvalidRingtoetsFile_ThrowsStorageValidationException(string validPath)
         {
             // Setup
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        [TestCase("ValidRingtoetsDatabase.rt")]
+        [TestCase("ValidRingtoetsDatabase.rtd")]
         public void LoadProject_ValidDatabase_ReturnsProject(string validPath)
         {
             // Setup

@@ -118,7 +118,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Ringtoets.rt">
+    <None Include="Ringtoets.rtd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <EntityDeploy Include="DbContext\RingtoetsEntities.edmx">

@@ -2263,7 +2263,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets project files (.rt)|*.rt.
+        ///   Looks up a localized string similar to Ringtoets project files (.rtd)|*.rtd.
         /// </summary>
         public static string Ringtoets_project_file_filter {
             get {
