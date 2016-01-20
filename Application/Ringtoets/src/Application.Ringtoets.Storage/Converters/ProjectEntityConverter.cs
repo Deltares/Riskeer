@@ -17,7 +17,7 @@ namespace Application.Ringtoets.Storage.Converters
         /// </summary>
         /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
         /// <returns>A new <see cref="Project"/> or null when not found.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="dbSet"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> is null.</exception>
         public static Project GetProject(IDbSet<ProjectEntity> dbSet)
         {
             var entry = dbSet.FirstOrDefault();
@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Converters
         /// <remarks>Execute <paramref name="dbSet"/>.SaveChanges() afterwards to update the storage.</remarks>
         /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
         /// <param name="project"><see cref="Project"/> to be saved in the database.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="dbSet"/> or <paramref name="project"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> or <paramref name="project"/> is null.</exception>
         /// <exception cref="InvalidOperationException">When multiple instances are found that refer to <paramref name="project"/>.</exception>
         /// <exception cref="EntityNotFoundException">When no entities was found that refer to <paramref name="project"/>.</exception>
         public static void UpdateProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
@@ -48,12 +48,31 @@ namespace Application.Ringtoets.Storage.Converters
         }
 
         /// <summary>
+        /// Insert the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the <paramref name="dbSet"/>.
+        /// </summary>
+        /// <remarks>Execute <paramref name="dbSet"/>.SaveChanges() afterwards to update the storage.</remarks>
+        /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
+        /// <param name="project"><see cref="Project"/> to be saved in the database.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> or <paramref name="project"/> is null.</exception>
+        public static void InsertProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
+        {
+            var projectEntity = new ProjectEntity();
+            ProjectToProjectEntity(project, projectEntity);
+            dbSet.Add(projectEntity);
+        }
+
+        /// <summary>
         /// Converts <paramref name="project"/> to <paramref name="projectEntity"/>.
         /// </summary>
         /// <param name="project">The <see cref="Project"/> to convert.</param>
         /// <param name="projectEntity">A reference to the <see cref="ProjectEntity"/> to be saved.</param>
-        public static void ProjectToProjectEntity(Project project, ProjectEntity projectEntity)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> or <paramref name="projectEntity"/> is null.</exception>
+        private static void ProjectToProjectEntity(Project project, ProjectEntity projectEntity)
         {
+            if (project == null || projectEntity == null)
+            {
+                throw new ArgumentNullException();
+            }
             projectEntity.Name = project.Name;
             projectEntity.Description = project.Description;
             projectEntity.LastUpdated = new DateTime().Ticks;

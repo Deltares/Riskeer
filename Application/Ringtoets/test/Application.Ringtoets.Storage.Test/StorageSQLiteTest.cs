@@ -16,6 +16,7 @@ namespace Application.Ringtoets.Storage.Test
         [Test]
         [TestCase(null)]
         [TestCase("")]
+        [TestCase("  ")]
         public void LoadProject_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
@@ -73,6 +74,120 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("  ")]
+        public void SaveProjectAs_InvalidPath_ThrowsArgumentException(string invalidPath)
+        {
+            // Setup
+            Project project = new Project();
+            // Call
+            TestDelegate test = () => new StorageSqLite().SaveProjectAs(invalidPath, project);
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            string expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   invalidPath, UtilsResources.Error_Path_must_be_specified);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void SaveProjectAs_InvalidProject_ThrowsArgumentNullException()
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProjectAs(tempFile, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+
+            // Tear Down
+            TearDownRingtoetsFile(tempFile);
+        }
+
+        [Test]
+        public void SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException()
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            var project = new Project();
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+
+            // Tear Down
+            TearDownRingtoetsFile(tempFile);
+        }
+
+        [Test]
+        public void SaveProjectAs_ValidPathToExistingFile_ThrowsStorageValidationException()
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            SetUpRingtoetsFile(tempFile);
+            var project = new Project();
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+
+            // Tear Down
+            TearDownRingtoetsFile(tempFile);
+        }
+
+        [Test]
+        public void SaveProjectAs_ValidPathToLockedFile_ThrowsException()
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            var project = new Project();
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+
+            // Assert
+            UpdateStorageException updateStorageException;
+            using (File.Create(tempFile)) // Locks file
+            {
+                updateStorageException = Assert.Throws<UpdateStorageException>(test);
+            }
+            string expectedMessage = String.Format("Fout bij het schrijven van bestand '{0}': {1}",
+                                                   tempFile,
+                                                   "Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.");
+            Assert.AreEqual(expectedMessage, updateStorageException.Message);
+
+            // Tear Down
+            TearDownRingtoetsFile(tempFile);
+        }
+
+        private void SetUpRingtoetsFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                TearDownRingtoetsFile(filePath);
+            }
+            using (File.Create(filePath)) {}
+        }
+
+        private void TearDownRingtoetsFile(string filePath)
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            File.Delete(filePath);
         }
     }
 }

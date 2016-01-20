@@ -29,17 +29,16 @@ namespace Application.Ringtoets.Storage
             {
                 using (var command = dbContext.CreateCommand())
                 {
-                    dbContext.Open();
-                    command.CommandText = Resources.DatabaseStructure;
                     try
                     {
+                        dbContext.Open();
+                        command.CommandText = Resources.DatabaseStructure;
                         command.ExecuteNonQuery();
                     }
                     catch (SQLiteException exception)
                     {
                         throw CreateUpdateStorageException(Resources.Error_Write_Structure_to_Database, exception);
                     }
-                    dbContext.Close();
                 }
             }
         }

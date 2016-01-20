@@ -23,6 +23,10 @@ namespace Application.Ringtoets.Storage
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <param name="project"><see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
+        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
+        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> was not created.</exception>
         /// <exception cref="UpdateStorageException">Thrown when
         /// <list type="bullet">
         /// <item>Saving the <paramref name="project"/> to the database failed.</item>
@@ -34,11 +38,9 @@ namespace Application.Ringtoets.Storage
             ConnectToNew(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(ConnectionString))
             {
+                ProjectEntityConverter.InsertProjectEntity(dbContext.ProjectEntities, project);
                 try
                 {
-                    var projectEntity = new ProjectEntity();
-                    ProjectEntityConverter.ProjectToProjectEntity(project, projectEntity);
-                    dbContext.ProjectEntities.Add(projectEntity);
                     return dbContext.SaveChanges();
                 }
                 catch (DataException exception)
