@@ -18,7 +18,8 @@ namespace Core.Components.OxyPlot.Converter
         {
             new AreaDataConverter(),
             new LineDataConverter(),
-            new PointDataConverter()
+            new PointDataConverter(),
+            new ChartDataCollectionConverter()
         };
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace Core.Components.OxyPlot.Converter
         /// </summary>
         /// <param name="data">The <see cref="ChartData"/> to base the creation of a <see cref="Series"/> upon.</param>
         /// <returns>A new <see cref="Series"/>.</returns>
-        public Series Create(ChartData data)
+        public IList<Series> Create(ChartData data)
         {
             foreach (var converter in converters)
             {

@@ -5,11 +5,11 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
+using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
@@ -53,16 +53,25 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var pointData = new PointData(new List<Tuple<double,double>>());
             var areaData = new AreaData(new List<Tuple<double,double>>());
 
+            var chartDataCollection = new ChartDataCollection(new ChartData[]
+            {
+                lineData,
+                pointData,
+                areaData
+            });
             var legendTreeView = new LegendTreeView
             {
-                Chart = new BaseChart
-                {
-                    Data = {lineData, pointData, areaData}
-                }
+                Data = chartDataCollection
             };
+            legendTreeView.ChartData = chartDataCollection;
+
             var nodePresenter = new ChartDataNodePresenter
             {
                 TreeView = legendTreeView
+            };
+            var parentNode = new TreeNode(legendTreeView)
+            {
+                Tag = chartDataCollection
             };
             var lineNode = new TreeNode(legendTreeView)
             {
@@ -79,6 +88,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 Tag = areaData,
                 Checked = isVisible
             };
+            parentNode.Nodes.Add(lineNode);
+            parentNode.Nodes.Add(pointNode);
+            parentNode.Nodes.Add(areaNode);
 
             // When
             nodePresenter.OnNodeChecked(lineNode);

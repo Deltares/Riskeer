@@ -7,6 +7,7 @@ using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
+using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
@@ -23,9 +24,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var nodePresenter = new ChartNodePresenter();
 
             // Assert
-            Assert.IsInstanceOf<TreeViewNodePresenterBase<BaseChart>>(nodePresenter);
+            Assert.IsInstanceOf<TreeViewNodePresenterBase<ChartDataCollection>>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(BaseChart), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(ChartDataCollection), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -86,16 +87,17 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var nodePresenter = new ChartNodePresenter();
-            BaseChart chart = CreateTestBaseChart();
+            ChartDataCollection chart = CreateTestBaseChart();
 
-            ChartData testElement = chart.Data.ElementAt(0);
+
+            ChartData testElement = chart.List.ElementAt(0);
 
             // Call
             nodePresenter.OnDragDrop(testElement, null, chart, 0, position);
 
             // Assert
             var reversedIndex = 2 - position;
-            Assert.AreSame(testElement, chart.Data.ElementAt(reversedIndex));
+            Assert.AreSame(testElement, chart.List.ElementAt(reversedIndex));
         }
 
         [Test]
@@ -103,19 +105,19 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         [TestCase(-1)]
         [TestCase(3)]
         [TestCase(50)]
-        public void OnDragDrop_ChartDataAndBaseChartOutsideRange_ThrowsArgumentException(int position)
+        public void OnDragDrop_ChartDataAndBaseChartOutsideRange_ThrowsArgumentOutOfRangeException(int position)
         {
             // Setup
             var nodePresenter = new ChartNodePresenter();
-            BaseChart chart = CreateTestBaseChart();
+            ChartDataCollection chart = CreateTestBaseChart();
 
-            ChartData testElement = chart.Data.ElementAt(0);
+            ChartData testElement = chart.List.ElementAt(0);
 
             // Call
             TestDelegate test = () => nodePresenter.OnDragDrop(testElement, null, chart, 0, position);
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.Throws<ArgumentOutOfRangeException>(test);
         }
 
         [Test]
@@ -138,25 +140,23 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var nodePresenter = new ChartNodePresenter();
-            BaseChart chart = CreateTestBaseChart();
+            ChartDataCollection chart = CreateTestBaseChart();
 
             // Call
             IEnumerable result = nodePresenter.GetChildNodeObjects(chart);
 
             // Assert
-            CollectionAssert.AreEqual(chart.Data.Reverse(), result);
+            CollectionAssert.AreEqual(chart.List.Reverse(), result);
         }
 
-        private static BaseChart CreateTestBaseChart()
+        private static ChartDataCollection CreateTestBaseChart()
         {
-            return new BaseChart
+            return new ChartDataCollection(new List<ChartData>
             {
-                Data = {
-                    new LineData(new List<Tuple<double, double>>()),
-                    new PointData(new List<Tuple<double, double>>()),
-                    new AreaData(new List<Tuple<double, double>>())
-                }
-            };
+                new LineData(new List<Tuple<double, double>>()),
+                new PointData(new List<Tuple<double, double>>()),
+                new AreaData(new List<Tuple<double, double>>())
+            });
         }
     }
 }

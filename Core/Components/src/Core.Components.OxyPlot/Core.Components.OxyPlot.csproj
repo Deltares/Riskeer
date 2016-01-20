@@ -48,9 +48,8 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Collection\ChartDataCollection.cs" />
-    <Compile Include="Collection\ChartDataCollectionEventArgs.cs" />
     <Compile Include="Converter\AreaDataConverter.cs" />
+    <Compile Include="Converter\ChartDataCollectionConverter.cs" />
     <Compile Include="Converter\LineDataConverter.cs" />
     <Compile Include="Converter\PointDataConverter.cs" />
     <Compile Include="DynamicPlotController.cs" />

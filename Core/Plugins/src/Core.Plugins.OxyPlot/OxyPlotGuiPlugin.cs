@@ -4,7 +4,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Components.Charting.Data;
+using Core.Components.OxyPlot.Collection;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
@@ -43,7 +43,7 @@ namespace Core.Plugins.OxyPlot
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
-            yield return new ViewInfo<ICollection<ChartData>, ChartDataView>
+            yield return new ViewInfo<ChartDataCollection, ChartDataView>
             {
                 Image = Resources.ChartIcon,
                 GetViewName = (v, o) => "Diagram"
@@ -121,12 +121,12 @@ namespace Core.Plugins.OxyPlot
             if (chartView != null)
             {
                 chartingRibbon.Chart = chartView.Chart;
-                legendController.UpdateForChart(chartView.Chart);
+                legendController.Update(chartView.Chart.Data);
             }
             else
             {
                 chartingRibbon.Chart = null;
-                legendController.UpdateForChart(null);
+                legendController.Update(null);
             }
         }
     }

@@ -51,7 +51,8 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         public void ZoomToAll()
         {
-            Model.InvalidatePlot(true);
+            ActualModel.ResetAllAxes();
+            InvalidatePlot(false);
         }
     }
 }

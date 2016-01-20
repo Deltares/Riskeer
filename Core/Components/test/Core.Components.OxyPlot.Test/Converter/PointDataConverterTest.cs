@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
@@ -64,8 +65,8 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(pointData);
 
             // Assert
-            Assert.IsInstanceOf<LineSeries>(series);
-            var lineSeries = ((LineSeries)series);
+            Assert.IsInstanceOf<IList<Series>>(series);
+            var lineSeries = ((LineSeries)series[0]);
             CollectionAssert.AreEqual(points, lineSeries.ItemsSource);
             Assert.AreNotSame(points, lineSeries.ItemsSource);
             Assert.AreEqual(LineStyle.None, lineSeries.LineStyle);

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Components.Charting.Data;
+using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
@@ -29,7 +32,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup 
             var view = new LegendView();
-            var baseChart = new BaseChart();
+            var baseChart = new ChartDataCollection(new List<ChartData>());
 
             // Call
             view.Data = baseChart;

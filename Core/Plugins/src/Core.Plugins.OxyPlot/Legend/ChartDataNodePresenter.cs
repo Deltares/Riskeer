@@ -21,29 +21,45 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 node.Text = Resources.ChartDataNodePresenter_Area_data_label;
                 node.Image = Resources.AreaIcon;
+                node.Checked = ((AreaData)nodeData).IsVisible;
             }
             else if (nodeData is LineData)
             {
                 node.Text = Resources.ChartDataNodePresenter_Line_data_label;
                 node.Image = Resources.LineIcon;
+                node.Checked = ((LineData)nodeData).IsVisible;
             }
             else if (nodeData is PointData)
             {
                 node.Text = Resources.ChartDataNodePresenter_Point_data_label;
                 node.Image = Resources.PointsIcon;
+                node.Checked = ((PointData)nodeData).IsVisible;
             }
             else
             {
                 throw new NotSupportedException("Cannot add chart data of type other than points, lines or area.");
             }
             node.ShowCheckBox = true;
-            node.Checked = nodeData.IsVisible;
         }
 
         public override void OnNodeChecked(TreeNode node)
         {
-            var chartData = ((ChartData)node.Tag);
-            chartData.IsVisible = node.Checked;
+            var chartData = (ChartData)node.Parent.Tag;
+            var lineData = node.Tag as LineData;
+            var pointData = node.Tag as PointData;
+            var areaData = node.Tag as AreaData;
+            if (lineData != null)
+            {
+                lineData.IsVisible = node.Checked;
+            }
+            if (pointData != null)
+            {
+                pointData.IsVisible = node.Checked;
+            }
+            if (areaData != null)
+            {
+                areaData.IsVisible = node.Checked;
+            }
             chartData.NotifyObservers();
         }
     }

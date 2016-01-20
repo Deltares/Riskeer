@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
@@ -7,9 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting;
-using Core.Components.Charting.Collection;
 using Core.Components.Charting.Data;
-using Core.Components.OxyPlot.Collection;
+using Core.Components.OxyPlot.Converter;
 using OxyPlot.WindowsForms;
 
 namespace Core.Components.OxyPlot.Forms
@@ -20,10 +18,12 @@ namespace Core.Components.OxyPlot.Forms
     public sealed class BaseChart : Control, IObserver, IChart
     {
         private readonly ICollection<IObserver> observers = new Collection<IObserver>();
-        private readonly ChartDataCollection series;
+
+        private ChartData data;
 
         private LinearPlotView view;
         private DynamicPlotController controller;
+        private SeriesFactory seriesFactory = new SeriesFactory();
 
         /// <summary>
         /// Creates a new instance of <see cref="BaseChart"/>.
@@ -31,20 +31,7 @@ namespace Core.Components.OxyPlot.Forms
         public BaseChart()
         {
             InitializePlotView();
-            series = new ChartDataCollection(view.Model.Series);
-            series.OnChartDataRemoved += OnChartDataRemoved;
-            series.OnChartDataAdded += OnChartDataAdded;
             MinimumSize = new Size(50, 75);
-        }
-
-        private void OnChartDataAdded(object sender, ChartDataCollectionEventArgs chartDataCollectionEventArgs)
-        {
-            chartDataCollectionEventArgs.Data.Attach(this);
-        }
-
-        private void OnChartDataRemoved(object sender, ChartDataCollectionEventArgs chartDataCollectionEventArgs)
-        {
-            chartDataCollectionEventArgs.Data.Detach(this);
         }
 
         public bool IsPanningEnabled
@@ -64,27 +51,35 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] 
-        public ICollection<ChartData> Data
+        public ChartData Data
         {
             get
             {
-                return series;
+                return data;
+            }
+            set
+            {
+                DetachFromData();
+                data = value;
+                AttachToData();
+                DrawSeries();
             }
         }
 
-        public void SetPosition(ChartData data, int position)
+        private void AttachToData()
         {
-            if (data == null)
+            if (data != null)
             {
-                throw new ArgumentNullException("data", "Cannot set index of a null serie.");
+                data.Attach(this);
             }
-            if (position < 0 || position >= Data.Count)
+        }
+
+        private void DetachFromData()
+        {
+            if (data != null)
             {
-                throw new ArgumentException(string.Format("Cannot set index outside of range [0,{0})", Data.Count), "position");
+                data.Detach(this);
             }
-            series.Remove(data);
-            series.Insert(position, data);
-            view.InvalidatePlot(true);
         }
 
         public void TogglePanning()
@@ -145,8 +140,17 @@ namespace Core.Components.OxyPlot.Forms
 
         public void UpdateObserver()
         {
-            series.Update();
-            Refresh();
+            DrawSeries();
+            view.InvalidatePlot(true);
+        }
+
+        private void DrawSeries()
+        {
+            view.Model.Series.Clear();
+            foreach (var series in seriesFactory.Create(data))
+            {
+                view.Model.Series.Add(series);
+            }
         }
     }
 }

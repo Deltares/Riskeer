@@ -408,7 +408,7 @@ namespace Core.Common.Controls.TreeView
             {
                 var message = String.Format(Resources.TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView, nodeData);
 
-                throw new ArgumentNullException(message);
+                throw new ArgumentException(message);
             }
 
             node.Tag = nodeData;

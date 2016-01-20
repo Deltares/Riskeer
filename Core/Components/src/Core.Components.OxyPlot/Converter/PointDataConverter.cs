@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
 using OxyPlot;
@@ -16,16 +17,19 @@ namespace Core.Components.OxyPlot.Converter
             }
         }
 
-        internal override Series Convert(ChartData data)
+        internal override IList<Series> Convert(ChartData data)
         {
+            var pointData = (PointData) data;
             var series = new LineSeries
             {
-                ItemsSource = data.Points.ToArray(),
+                ItemsSource = pointData.Points.ToArray(),
+                IsVisible = pointData.IsVisible,
                 Mapping = TupleToDataPoint,
                 LineStyle = LineStyle.None,
-                MarkerType = MarkerType.Circle
+                MarkerType = MarkerType.Circle,
+                Tag = data,
             };
-            return series;
+            return new List<Series> { series };
         }
     }
 }

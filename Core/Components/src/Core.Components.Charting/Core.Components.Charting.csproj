@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="Data\AreaData.cs" />
     <Compile Include="Data\ChartData.cs" />
+    <Compile Include="Data\ChartDataCollection.cs" />
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\PointData.cs" />
     <Compile Include="IChart.cs" />

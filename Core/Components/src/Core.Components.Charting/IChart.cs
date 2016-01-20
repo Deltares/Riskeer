@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 
@@ -17,19 +15,10 @@ namespace Core.Components.Charting
         bool IsRectangleZoomingEnabled { get; }
 
         /// <summary>
-        /// Gets the data to show in the <see cref="IChart"/>.
+        /// Gets or sets the data to show in the <see cref="IChart"/>.
         /// </summary>
         /// <remarks>The returned collection is a copy of the previously set data.</remarks>
-        ICollection<ChartData> Data { get; }
-
-        /// <summary>
-        /// Sets the position of the <see cref="ChartData"/> amongst the other data of the <see cref="IChart"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to change the position for.</param>
-        /// <param name="position">The new position.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="position"/> is out of range.</exception>
-        void SetPosition(ChartData data, int position);
+        ChartData Data { get; set; }
 
         /// <summary>
         /// Toggles panning of the <see cref="IChart"/>. Panning is invoked by clicking the left mouse-button.

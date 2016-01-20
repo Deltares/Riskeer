@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
+using Core.Components.OxyPlot.Collection;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -110,66 +111,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         }*/
 
         [Test]
-        public void SetPosition_DataNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var chart = new BaseChart();
-
-            // Call
-            TestDelegate test = () => chart.SetPosition(null, new Random(21).Next());
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void SetPosition_SerieNotOnChart_ThrowsNotSupportedException()
-        {
-            // Setup
-            BaseChart chart = CreateTestBaseChart();
-
-            // Call
-            TestDelegate test = () => chart.SetPosition(new TestChartData(), 0);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
-        }
-
-        [Test]
-        [TestCase(-50)]
-        [TestCase(-1)]
-        [TestCase(3)]
-        [TestCase(50)]
-        public void SetPosition_SerieOnChartPositionOutsideRange_ThrowsInvalidOperationException(int position)
-        {
-            // Setup
-            BaseChart chart = CreateTestBaseChart();
-
-            // Call
-            TestDelegate test = () => chart.SetPosition(new TestChartData(), position);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void SetPosition_SerieOnChartPositionInRange_SetsNewPosition(int position)
-        {
-            // Setup
-            BaseChart chart = CreateTestBaseChart();
-            var testElement = chart.Data.ElementAt(new Random(21).Next(0,3));
-
-            // Call
-            chart.SetPosition(testElement, position);
-
-            // Assert
-            Assert.AreSame(testElement, chart.Data.ElementAt(position));
-        }
-
-        [Test]
         public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
         {
             // Setup
@@ -247,12 +188,12 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             return new BaseChart
             {
-                Data =
+                Data = new ChartDataCollection(new List<ChartData>
                 {
                     new LineData(new List<Tuple<double,double>>()), 
                     new PointData(new List<Tuple<double,double>>()), 
                     new AreaData(new List<Tuple<double,double>>())
-                }
+                })
             };
         }
     }

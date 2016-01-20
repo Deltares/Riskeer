@@ -7,6 +7,8 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
+using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
@@ -93,7 +95,7 @@ namespace Core.Plugins.OxyPlot.Test
 
                 // Assert
                 Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(ICollection<ChartData>), views[0].DataType);
+                Assert.AreEqual(typeof(ChartDataCollection), views[0].DataType);
                 Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
                 Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
             }
@@ -135,7 +137,11 @@ namespace Core.Plugins.OxyPlot.Test
                 gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
                 IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
-                viewMock.Data = new BaseChart();
+                var baseChart = new BaseChart
+                {
+                    Data = new LineData(Enumerable.Empty<Tuple<double,double>>())
+                };
+                viewMock.Data = baseChart;
 
                 mocks.ReplayAll();
 
@@ -152,7 +158,7 @@ namespace Core.Plugins.OxyPlot.Test
                 plugin.OpenToolView(legendView);
 
                 // Then
-                Assert.AreSame(isChartViewActive ? viewMock.Data : null, legendView.Data);
+                Assert.AreSame(isChartViewActive ? baseChart.Data : null, legendView.Data);
                 mocks.VerifyAll();
             }
         }

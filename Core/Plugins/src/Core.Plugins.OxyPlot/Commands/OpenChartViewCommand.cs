@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Common.Gui;
 using Core.Components.Charting.Data;
+using Core.Components.OxyPlot.Collection;
 using Core.Plugins.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Commands
@@ -59,7 +61,7 @@ namespace Core.Plugins.OxyPlot.Commands
                 new Tuple<double, double>(0.5, 1.6),  
                 new Tuple<double, double>(1.0, 2.1)
             });
-            Gui.DocumentViewsResolver.OpenViewForData(new Collection<ChartData>() { area, clearArea, line, points });
+            Gui.DocumentViewsResolver.OpenViewForData(new ChartDataCollection( new List<ChartData> { area, clearArea, line, points }));
         }
     }
 }

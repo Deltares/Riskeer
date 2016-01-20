@@ -1,4 +1,5 @@
-﻿using Core.Components.OxyPlot.Forms;
+﻿using Core.Components.Charting.Data;
+using Core.Components.OxyPlot.Forms;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.OxyPlot.Legend
@@ -20,11 +21,11 @@ namespace Core.Plugins.OxyPlot.Legend
         /// <summary>
         /// Gets or sets the <see cref="BaseChart"/> that is used as the source of the <see cref="LegendTreeView"/>.
         /// </summary>
-        public BaseChart Chart
+        public ChartData ChartData
         {
             get
             {
-                return (BaseChart)Data;
+                return (ChartData)Data;
             }
             set
             {

@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
 using Core.Components.Charting.Data;
+using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Legend
@@ -10,7 +11,7 @@ namespace Core.Plugins.OxyPlot.Legend
     /// <summary>
     /// This class describes the presentation of <see cref="BaseChart"/> in a <see cref="TreeView"/>.
     /// </summary>
-    public class ChartNodePresenter : TreeViewNodePresenterBase<BaseChart>
+    public class ChartNodePresenter : TreeViewNodePresenterBase<ChartDataCollection>
     {
         public override DragOperations CanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
@@ -26,22 +27,23 @@ namespace Core.Plugins.OxyPlot.Legend
             return item is ChartData;
         }
 
-        public override void OnDragDrop(object item, object itemParent, BaseChart target, DragOperations operation, int position)
+        public override void OnDragDrop(object item, object itemParent, ChartDataCollection target, DragOperations operation, int position)
         {
             var draggedData = item as ChartData;
-            target.SetPosition(draggedData, target.Data.Count - 1 - position);
+            target.List.Remove(draggedData);
+            target.List.Insert(target.List.Count - position, draggedData);
             target.NotifyObservers();
         }
 
-        public override void UpdateNode(TreeNode parentNode, TreeNode node, BaseChart nodeData)
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, ChartDataCollection nodeData)
         {
             node.Text = Properties.Resources.General_Chart;
             node.Image = Resources.folder;
         }
 
-        public override IEnumerable GetChildNodeObjects(BaseChart parentNodeData)
+        public override IEnumerable GetChildNodeObjects(ChartDataCollection parentNodeData)
         {
-            return parentNodeData.Data.Reverse();
+            return parentNodeData.List.Reverse();
         }
     }
 }

@@ -67,8 +67,8 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(areaData);
 
             // Assert
-            Assert.IsInstanceOf<AreaSeries>(series);
-            var areaSeries = ((AreaSeries)series);
+            Assert.IsInstanceOf<IList<Series>>(series);
+            var areaSeries = ((AreaSeries)series[0]);
             var expectedData = points.Select(t => new DataPoint(t.Item1, t.Item2)).ToArray();
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
             CollectionAssert.AreEqual(new Collection<DataPoint> { expectedData.First() }, areaSeries.Points2);

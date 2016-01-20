@@ -17,7 +17,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             Assert.AreEqual(2, view.NodePresenters.Count());
             Assert.IsInstanceOf<ChartDataNodePresenter>(view.NodePresenters.ElementAt(0));
             Assert.IsInstanceOf<ChartNodePresenter>(view.NodePresenters.ElementAt(1));
-            Assert.IsNull(view.Chart);
+            Assert.IsNull(view.ChartData);
         }
     }
 }

@@ -23,11 +23,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var expectedData = CreateExpectedData(testData);
 
             // Call
-            Series series = factory.Create(new AreaData(testData));
+            IList<Series> series = factory.Create(new AreaData(testData));
 
             // Assert
-            Assert.IsInstanceOf<AreaSeries>(series);
-            var areaSeries = ((AreaSeries)series);
+            Assert.AreEqual(1, series.Count);
+            Assert.IsInstanceOf<IList<Series>>(series);
+            var areaSeries = ((AreaSeries)series[0]);
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
             CollectionAssert.AreEqual(new Collection<DataPoint>{expectedData.First()}, areaSeries.Points2);
             Assert.AreNotSame(expectedData, areaSeries.ItemsSource);
@@ -41,11 +42,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var testData = CreateTestData();
 
             // Call
-            Series series = factory.Create(new LineData(testData));
+            IList<Series> series = factory.Create(new LineData(testData));
 
             // Assert
-            Assert.IsInstanceOf<LineSeries>(series);
-            var lineSeries = ((LineSeries)series);
+            Assert.AreEqual(1, series.Count);
+            Assert.IsInstanceOf<IList<Series>>(series);
+            var lineSeries = ((LineSeries)series[0]);
             CollectionAssert.AreEqual(testData, lineSeries.ItemsSource);
             Assert.AreNotSame(testData, lineSeries.ItemsSource);
         }
@@ -58,11 +60,12 @@ namespace Core.Components.OxyPlot.Test.Converter
             var testData = CreateTestData();
 
             // Call
-            Series series = factory.Create(new PointData(testData));
+            IList<Series> series = factory.Create(new PointData(testData));
 
             // Assert
-            Assert.IsInstanceOf<LineSeries>(series);
-            var lineSeries = ((LineSeries)series);
+            Assert.AreEqual(1, series.Count);
+            Assert.IsInstanceOf<IList<Series>>(series);
+            var lineSeries = ((LineSeries)series[0]);
             CollectionAssert.AreEqual(testData, lineSeries.ItemsSource);
             Assert.AreNotSame(testData, lineSeries.ItemsSource);
             Assert.AreEqual(LineStyle.None, lineSeries.LineStyle);

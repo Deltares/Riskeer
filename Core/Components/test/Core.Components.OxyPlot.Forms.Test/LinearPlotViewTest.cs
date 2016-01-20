@@ -4,7 +4,6 @@ using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
 using Core.Components.OxyPlot.Forms.Properties;
-using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using TickStyle = OxyPlot.Axes.TickStyle;
 

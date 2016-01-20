@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Components.Charting.Data;
 using OxyPlot;
 using OxyPlot.Series;
@@ -43,10 +44,10 @@ namespace Core.Components.OxyPlot.Converter
         }
 
         /// <summary>
-        /// Creates a <see cref="Series"/> based on the <paramref name="data"/> that was given.
+        /// Creates one or more <see cref="Series"/> based on the <paramref name="data"/> that was given.
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="Series"/>.</param>
-        /// <returns>A new <see cref="Series"/> instance.</returns>
-        internal abstract Series Convert(ChartData data);
+        /// <returns>A new <see cref="IList{T}"/> of <see cref="Series"/>.</returns>
+        internal abstract IList<Series> Convert(ChartData data);
     }
 }

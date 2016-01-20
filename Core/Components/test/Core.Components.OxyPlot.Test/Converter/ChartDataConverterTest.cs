@@ -48,9 +48,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.IsFalse(childResult);
         }
 
-        private class Class : ChartData {
-            public Class() : base(new Collection<Tuple<double, double>>()) { }
-        }
+        private class Class : ChartData {}
 
         private class Child : Class {}
 
@@ -71,7 +69,7 @@ namespace Core.Components.OxyPlot.Test.Converter
                 }
             }
 
-            internal override Series Convert(ChartData data)
+            internal override IList<Series> Convert(ChartData data)
             {
                 throw new NotImplementedException();
             }

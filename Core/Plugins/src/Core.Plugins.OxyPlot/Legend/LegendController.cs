@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Resources;
 using Core.Common.Controls.Views;
+using Core.Components.Charting;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Legend
@@ -73,11 +76,11 @@ namespace Core.Plugins.OxyPlot.Legend
         /// </summary>
         /// <param name="chart">The <see cref="BaseChart"/> for which to show data. If <c>null</c> the 
         /// data will be cleared.</param>
-        public void UpdateForChart(BaseChart chart)
+        public void Update(ChartData data)
         {
             if (IsLegendViewOpen())
             {
-                legendView.Data = chart;
+                legendView.Data = data;
             }
         }
     }

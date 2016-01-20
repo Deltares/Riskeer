@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Properties;
 
@@ -23,24 +24,24 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             get
             {
-                return seriesTree.Chart;
+                return seriesTree.ChartData;
             }
             set
             {
-                UpdateTree((BaseChart)value);
+                UpdateTree((ChartData)value);
             }
         }
 
         /// <summary>
         /// Updates the tree with the current state of the chart.
         /// </summary>
-        private void UpdateTree(BaseChart data)
+        private void UpdateTree(ChartData data)
         {
             if (IsDisposed)
             {
                 return;
             }
-            seriesTree.Chart = data;
+            seriesTree.ChartData = data;
         }
     }
 }
