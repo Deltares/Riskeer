@@ -63,6 +63,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
 
         private readonly CreateNewProjectCommand newProjectCommand;
+        private readonly OpenProjectCommand openProjectCommand;
 
         /// <summary>
         /// This is used when user selects non-contextual tab explicitly. Then we won't activate contextual tab on the next view activation.
@@ -85,6 +86,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             windowInteropHelper = new WindowInteropHelper(this);
 
             newProjectCommand = new CreateNewProjectCommand { Gui = gui };
+            openProjectCommand = new OpenProjectCommand { Gui = gui };
 
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
@@ -536,7 +538,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 try
                 {
-                    Gui.CommandHandler.OpenExistingProject(path);
+                    openProjectCommand.Execute(path);
                     RecentProjectsTabControl.Items.Remove(newItem);
                     RecentProjectsTabControl.Items.Insert(1, newItem);
                 }

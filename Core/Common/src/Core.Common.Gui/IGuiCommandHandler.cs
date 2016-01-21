@@ -25,16 +25,6 @@ namespace Core.Common.Gui
         bool OpenExistingProject();
 
         /// <summary>
-        /// Opens an existing project from file.
-        /// </summary>
-        /// <param name="filePath">The path to the existing project file.</param>
-        /// <remarks>
-        /// The opening action might be cancelled (due to user interaction).
-        /// </remarks>
-        /// <returns>Whether or not an existing project was correctly opened.</returns>
-        bool OpenExistingProject(string filePath);
-
-        /// <summary>
         /// Closes the current project.
         /// </summary>
         void CloseProject();

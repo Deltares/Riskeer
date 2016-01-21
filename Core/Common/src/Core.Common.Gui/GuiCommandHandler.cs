@@ -68,7 +68,7 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
-        public bool OpenExistingProject(string filePath)
+        private bool OpenExistingProject(string filePath)
         {
             Log.Info(Resources.Project_existing_opening_project);
 
