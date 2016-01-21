@@ -28,7 +28,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
         public override void OnDragDrop(object item, object itemParent, ChartDataCollection target, DragOperations operation, int position)
         {
-            var draggedData = item as ChartData;
+            var draggedData = (ChartData)item;
             target.List.Remove(draggedData);
             target.List.Insert(target.List.Count - position, draggedData);
             target.NotifyObservers();

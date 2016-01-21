@@ -43,7 +43,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <fluent:Ribbon Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="public">
+        <fluent:Ribbon Focusable="False" Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="public">
             <!--Backstage-->
             <fluent:Ribbon.Menu>
                 <fluent:Backstage Background="#008fc5" Name="Menu" x:FieldModifier="private">

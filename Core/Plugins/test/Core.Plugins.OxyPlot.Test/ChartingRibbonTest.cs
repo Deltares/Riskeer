@@ -134,7 +134,6 @@ namespace Core.Plugins.OxyPlot.Test
             var mocks = new MockRepository();
             var chart = mocks.StrictMock<IChart>();
 
-            chart.Expect(c => c.Attach(ribbon));
             chart.Expect(c => c.IsPanningEnabled).Return(true);
             chart.Expect(c => c.IsRectangleZoomingEnabled).Return(true);
             chart.Expect(c => c.ZoomToAll());
@@ -168,7 +167,6 @@ namespace Core.Plugins.OxyPlot.Test
 
             chart.Expect(c => c.IsPanningEnabled).Return(buttonChecked);
             chart.Expect(c => c.IsRectangleZoomingEnabled).Return(buttonChecked);
-            chart.Expect(c => c.Attach(ribbon));
 
             mocks.ReplayAll();
 
@@ -260,7 +258,6 @@ namespace Core.Plugins.OxyPlot.Test
 
             chart.Expect(c => c.IsPanningEnabled).Return(buttonChecked).Repeat.Twice();
             chart.Expect(c => c.IsRectangleZoomingEnabled).Return(buttonChecked).Repeat.Twice(); ;
-            chart.Expect(c => c.Attach(ribbon));
 
             mocks.ReplayAll();
 

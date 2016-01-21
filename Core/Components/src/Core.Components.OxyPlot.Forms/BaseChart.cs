@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Charting;
@@ -135,36 +134,6 @@ namespace Core.Components.OxyPlot.Forms
         {
             DrawSeries();
             view.InvalidatePlot(true);
-        }
-
-        #endregion
-
-        #region IObservable
-
-        public void Attach(IObserver observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            // Iterate through a copy of the list of observers; an update of one observer might result in detaching
-            // another observer (which will result in a "list modified" exception over here otherwise)
-            foreach (var observer in observers.ToArray())
-            {
-                // Ensure the observer is still part of the original list of observers
-                if (!observers.Contains(observer))
-                {
-                    continue;
-                }
-
-                observer.UpdateObserver();
-            }
         }
 
         #endregion

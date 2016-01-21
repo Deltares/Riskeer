@@ -3,7 +3,7 @@ using Core.Components.Charting.Data;
 
 namespace Core.Components.Charting
 {
-    public interface IChart : IObservable {
+    public interface IChart {
         /// <summary>
         /// Gets a value representing whether the chart can be panned with the left mouse button.
         /// </summary>
