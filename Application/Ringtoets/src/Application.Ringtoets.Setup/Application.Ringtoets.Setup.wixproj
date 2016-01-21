@@ -66,6 +66,7 @@
     <Content Include="Banner_493x77.bmp" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
+    <Content Include="Licentie.rtf" />
     <Content Include="Ringtoets.ico" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
