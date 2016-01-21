@@ -16,6 +16,8 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow.Interop;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
@@ -60,6 +62,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
 
+        private readonly CreateNewProjectCommand newProjectCommand;
+
         /// <summary>
         /// This is used when user selects non-contextual tab explicitly. Then we won't activate contextual tab on the next view activation.
         /// </summary>
@@ -79,6 +83,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             InitializeComponent();
             
             windowInteropHelper = new WindowInteropHelper(this);
+
+            newProjectCommand = new CreateNewProjectCommand { Gui = gui };
 
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
@@ -665,8 +671,9 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
+            newProjectCommand.Execute();
+
             // Original code:
-            Gui.CommandHandler.CreateNewProject();
             ValidateItems();
         }
 

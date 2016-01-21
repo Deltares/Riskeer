@@ -16,14 +16,6 @@ namespace Core.Common.Gui
         bool SaveProjectAs();
 
         /// <summary>
-        /// Creates a new project.
-        /// </summary>
-        /// <remarks>
-        /// The creation action might be cancelled (due to user interaction).
-        /// </remarks>
-        void CreateNewProject();
-
-        /// <summary>
         /// Opens an existing project.
         /// </summary>
         /// <remarks>

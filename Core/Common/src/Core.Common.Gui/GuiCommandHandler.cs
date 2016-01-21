@@ -42,17 +42,6 @@ namespace Core.Common.Gui
             guiExportHandler = CreateGuiExportHandler();
         }
 
-        public void CreateNewProject()
-        {
-            CloseProject();
-
-            Log.Info(Resources.Project_new_opening);
-            gui.Project = new Project();
-            Log.Info(Resources.Project_new_successfully_opened);
-
-            RefreshGui();
-        }
-
         /// <summary>
         /// Opens a new <see cref="OpenFileDialog"/> where a file can be selected to open.
         /// </summary>
