@@ -18,7 +18,7 @@
     <!-- Specify default installer UI and which folder the user can configure during setup -->
     <UIRef Id="WixUI_Deltares"/>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
-    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="Licentie.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.bmp" />
 
@@ -53,7 +53,7 @@
             </Component>
             
             <Component Id ="LicenseFile" Guid="4D4EEEBE-E7C4-493D-89D2-901D149C1785">
-              <File Id="FileID" Name="License.rtf" Source="License.rtf" KeyPath="yes"/>  
+              <File Id="FileID" Name="Licentie.rtf" Source="Licentie.rtf" KeyPath="yes"/>  
             </Component>
             
           </Directory>
