@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -118,6 +119,7 @@ namespace Core.Common.Gui
 
             gui.ProjectFilePath = filePath;
             gui.Project = loadedProject;
+            gui.Project.Name = Path.GetFileNameWithoutExtension(filePath);
 
             RefreshGui();
             Log.Info(Resources.Project_existing_successfully_opened);
@@ -203,6 +205,7 @@ namespace Core.Common.Gui
 
             // Save was successful, store location
             gui.ProjectFilePath = filePath;
+            project.Name = Path.GetFileNameWithoutExtension(filePath);
             Log.Info(Resources.Project_saving_project_saved);
             return true;
         }
