@@ -43,6 +43,20 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
+        /// Loads a new instance of <see cref="Project"/>.
+        /// </summary>
+        public void CreateNewProject()
+        {
+            CloseProject();
+
+            Log.Info(Resources.Project_new_opening);
+            gui.Project = new Project();
+            Log.Info(Resources.Project_new_successfully_opened);
+
+            RefreshGui();
+        }
+
+        /// <summary>
         /// Opens a new <see cref="OpenFileDialog"/> where a file can be selected to open.
         /// </summary>
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
@@ -195,6 +209,60 @@ namespace Core.Common.Gui
             // Save was successful, store location
             gui.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
+            Log.Info(Resources.Project_saving_project_saved);
+            return true;
+        }
+
+        /// <summary>
+        /// Saves the current <see cref="Project"/> to the defined storage file.
+        /// </summary>
+        /// <returns>Returns if the save was succesful.</returns>
+        public bool SaveProject()
+        {
+            var project = gui.Project;
+            if (project == null)
+            {
+                return false;
+            }
+            var filePath = gui.ProjectFilePath;
+
+            // If filepath is not set, go to SaveAs
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                return SaveProjectAs();
+            }
+
+            Log.Info(Resources.Project_saving_project);
+            var storage = gui.Storage;
+            try
+            {
+                storage.SaveProject(filePath, gui.Project);
+            }
+            catch (ArgumentException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+            catch (CouldNotConnectException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+            catch (StorageValidationException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+            catch (UpdateStorageException e)
+            {
+                Log.Warn(e.Message);
+                Log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+
             Log.Info(Resources.Project_saving_project_saved);
             return true;
         }

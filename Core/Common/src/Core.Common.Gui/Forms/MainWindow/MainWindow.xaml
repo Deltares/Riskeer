@@ -19,7 +19,6 @@
         <CommandBinding Command="Save"  Executed="OnFileSaveClicked" />
         <CommandBinding Command="SaveAs"  Executed="OnFileSaveAsClicked" />
         <CommandBinding Command="Open"  Executed="OnFileOpenClicked" />
-        <CommandBinding Command="Close"  Executed="OnFileExitClicked" />
         <CommandBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Executed="CloseDocumentTab" CanExecute="CanCloseDocumentTab"/>
     </Window.CommandBindings>
     
@@ -73,12 +72,6 @@
                                        fluent:KeyTip.Keys="O"
                                        Click="OnFileOpenClicked" x:FieldModifier="private" />
 
-                        <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Close}"
-                                       Name="ButtonMenuFileCloseProject"
-                                       Icon="/Core.Common.Gui;component\Resources\CloseFolder.png"
-                                       fluent:KeyTip.Keys="C"
-                                       Click="OnFileCloseClicked" x:FieldModifier="private" />
-
                         <fluent:SeparatorTabItem />
 
                         <fluent:BackstageTabItem Header="{x:Static Properties:Resources.Ribbon_Recent}"
@@ -108,10 +101,6 @@
                                        fluent:KeyTip.Keys="T"
                                        Click="OnFileOptionsClicked" />
 
-                        <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Exit}"
-                                       Icon="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"
-                                       fluent:KeyTip.Keys="X"
-                                       Click="OnFileExitClicked" />
                     </fluent:BackstageTabControl>
                 </fluent:Backstage>
             </fluent:Ribbon.Menu>

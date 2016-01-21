@@ -102,6 +102,15 @@ namespace Application.Ringtoets.Storage.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het object &apos;{0}&apos; met id &apos;{1}&apos; is niet gevonden..
+        /// </summary>
+        internal static string Error_Entity_Not_Found_0_1 {
+            get {
+                return ResourceManager.GetString("Error_Entity_Not_Found_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een fout is opgetreden met het updaten van het Ringtoets bestand..
         /// </summary>
         internal static string Error_Update_Database {

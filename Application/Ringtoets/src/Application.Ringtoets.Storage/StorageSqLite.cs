@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -38,10 +39,41 @@ namespace Application.Ringtoets.Storage
             ConnectToNew(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(ConnectionString))
             {
-                ProjectEntityConverter.InsertProjectEntity(dbContext.ProjectEntities, project);
+                var entity = ProjectEntityConverter.InsertProjectEntity(dbContext.ProjectEntities, project);
                 try
                 {
+                    var changes = dbContext.SaveChanges();
+                    project.StorageId = entity.ProjectEntityId;
+                    return changes;
+                }
+                catch (DataException exception)
+                {
+                    throw CreateUpdateStorageException(Resources.Error_Update_Database, exception);
+                }
+                catch (SystemException exception)
+                {
+                    throw CreateUpdateStorageException(Resources.Error_During_Connection, exception);
+                }
+            }
+        }
+
+        public int SaveProject(string databaseFilePath, Project project)
+        {
+            Connect(databaseFilePath);
+            if (project == null)
+            {
+                throw new ArgumentNullException();
+            }
+            using (var dbContext = new RingtoetsEntities(ConnectionString))
+            {
+                try
+                {
+                    ProjectEntityConverter.UpdateProjectEntity(dbContext.ProjectEntities, project);
                     return dbContext.SaveChanges();
+                }
+                catch (EntityNotFoundException)
+                {
+                    throw CreateUpdateStorageException(string.Format(Resources.Error_Entity_Not_Found_0_1, "project", project.StorageId));
                 }
                 catch (DataException exception)
                 {

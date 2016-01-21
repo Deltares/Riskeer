@@ -435,7 +435,6 @@
     <Resource Include="Resources\chart_organisation.png" />
     <Resource Include="Resources\chart_pie.png" />
     <Resource Include="Resources\clipboard_32.png" />
-    <Resource Include="Resources\CloseFolder.png" />
     <Resource Include="Resources\ClosePreviewHH.png" />
     <Resource Include="Resources\cog.png" />
     <Resource Include="Resources\cog_active.png" />

@@ -26,6 +26,14 @@ namespace Core.Common.Base.Storage
         int SaveProjectAs(string connectionArguments, Project project);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connectionArguments"></param>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        int SaveProject(string connectionArguments, Project project);
+
+        /// <summary>
         /// Attempts to load the <see cref="Project"/> from the storage.
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>

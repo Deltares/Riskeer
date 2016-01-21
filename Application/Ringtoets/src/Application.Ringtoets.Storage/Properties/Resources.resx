@@ -127,6 +127,9 @@
   <data name="Error_During_Connection" xml:space="preserve">
     <value>Er is een fout opgetreden in de verbinding met het Ringtoets bestand.</value>
   </data>
+  <data name="Error_Entity_Not_Found_0_1" xml:space="preserve">
+    <value>Het object '{0}' met id '{1}' is niet gevonden.</value>
+  </data>
   <data name="Error_Update_Database" xml:space="preserve">
     <value>Een fout is opgetreden met het updaten van het Ringtoets bestand.</value>
   </data>

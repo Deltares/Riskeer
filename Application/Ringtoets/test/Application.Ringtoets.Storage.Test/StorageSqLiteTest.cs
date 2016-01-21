@@ -174,6 +174,78 @@ namespace Application.Ringtoets.Storage.Test
             TearDownRingtoetsFile(tempFile);
         }
 
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("  ")]
+        public void SaveProject_InvalidPath_ThrowsArgumentException(string invalidPath)
+        {
+            // Setup
+            Project project = new Project();
+            // Call
+            TestDelegate test = () => new StorageSqLite().SaveProject(invalidPath, project);
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            string expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                   invalidPath, UtilsResources.Error_Path_must_be_specified);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void SaveProject_InvalidProject_ThrowsArgumentNullException()
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProject(tempFile, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void SaveProject_InvalidProject_ThrowsCouldNotConnectException()
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProject(tempFile, null);
+
+            // Assert
+            CouldNotConnectException exception = Assert.Throws<CouldNotConnectException>(test);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", tempFile);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            // Tear Down
+            TearDownRingtoetsFile(tempFile);
+        }
+
+        [Test]
+        public void SaveProject_EmptyDatabaseFile_ThrowsUpdateStorageException()
+        {
+            // Setup
+            var project = new Project
+            {
+                StorageId = 1234L
+            };
+            var tempFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProject(tempFile, project);
+
+            // Assert
+            UpdateStorageException exception = Assert.Throws<UpdateStorageException>(test);
+            string expectedMessage = String.Format(@"Fout bij het schrijven van bestand '{0}'{1}: {2}", tempFile, "",
+                                                   String.Format("Het object '{0}' met id '{1}' is niet gevonden.", "project", project.StorageId));
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
         private void SetUpRingtoetsFile(string filePath)
         {
             if (File.Exists(filePath))

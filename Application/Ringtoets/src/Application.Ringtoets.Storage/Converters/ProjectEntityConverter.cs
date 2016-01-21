@@ -53,12 +53,18 @@ namespace Application.Ringtoets.Storage.Converters
         /// <remarks>Execute <paramref name="dbSet"/>.SaveChanges() afterwards to update the storage.</remarks>
         /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
         /// <param name="project"><see cref="Project"/> to be saved in the database.</param>
+        /// <returns>New instance of <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> or <paramref name="project"/> is null.</exception>
-        public static void InsertProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
+        public static ProjectEntity InsertProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
         {
+            if (dbSet == null)
+            {
+                throw new ArgumentNullException();
+            }
             var projectEntity = new ProjectEntity();
             ProjectToProjectEntity(project, projectEntity);
             dbSet.Add(projectEntity);
+            return projectEntity;
         }
 
         /// <summary>

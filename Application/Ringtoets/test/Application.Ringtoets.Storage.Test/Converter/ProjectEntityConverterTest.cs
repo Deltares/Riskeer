@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Converter
             // Assert
             Assert.Throws<InvalidOperationException>(test);
         }
-        
+
         [Test]
         public void UpdateProjectEntity_UnknownProjectEntityId_ThrowsEntityNotFoundException()
         {
@@ -165,6 +165,52 @@ namespace Application.Ringtoets.Storage.Test.Converter
             Assert.AreNotEqual(project, projectEntity);
         }
 
+        [Test]
+        public void InsertProjectEntity_NullDataValidProject_ThrowsArgumentNullException()
+        {
+            // Setup
+            var project = new Project();
+            TestDelegate test = () => ProjectEntityConverter.InsertProjectEntity(null, project);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void InsertProjectEntity_ValidDataSetNullProject_ThrowsArgumentNullException()
+        {
+            // Setup
+            var projectEntities = GetDbSetTest(new List<ProjectEntity>());
+            TestDelegate test = () => ProjectEntityConverter.InsertProjectEntity(projectEntities, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void InsertProjectEntity_ValidProject_ReturnsTheProjectAsProjectEntity()
+        {
+            // Setup
+            const long projectId = 1;
+            var project = new Project
+            {
+                StorageId = projectId,
+                Name = "test",
+                Description = "description"
+            };
+            var projectEnties = new List<ProjectEntity>();
+            IDbSet<ProjectEntity> projectEntities = GetDbSetTest(projectEnties);
+
+            // Call
+            ProjectEntity projectEntity = ProjectEntityConverter.InsertProjectEntity(projectEntities, project);
+
+            // Assert
+            Assert.AreNotEqual(project.StorageId, projectEntity.ProjectEntityId); // Insert will decide the id of the entity
+            Assert.AreEqual(project.Name, projectEntity.Name);
+            Assert.AreEqual(project.Description, projectEntity.Description);
+            Assert.AreNotEqual(project, projectEntity);
+        }
+
         private static IDbSet<T> GetDbSetTest<T>(IList<T> data) where T : class
         {
             var queryable = data.AsQueryable();
@@ -175,7 +221,6 @@ namespace Application.Ringtoets.Storage.Test.Converter
             dbSet.Stub(m => m.Expression).Return(queryable.Expression);
             dbSet.Stub(m => m.ElementType).Return(queryable.ElementType);
             dbSet.Stub(m => m.GetEnumerator()).Return(queryable.GetEnumerator());
-
             return dbSet;
         }
     }

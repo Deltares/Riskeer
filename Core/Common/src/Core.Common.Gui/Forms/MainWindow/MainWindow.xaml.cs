@@ -45,6 +45,7 @@ namespace Core.Common.Gui.Forms.MainWindow
     /// </summary>
     public partial class MainWindow : IMainWindow, IDisposable, IWin32Window, ISynchronizeInvoke
     {
+        private const string dockingLayoutFileName = "WindowLayout_normal.xml";
         private static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
 
         private static Form synchronizationForm;
@@ -75,14 +76,11 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         private string lastNonContextualTab;
 
-
-        private const string dockingLayoutFileName = "WindowLayout_normal.xml";
-
         public MainWindow(IGui gui)
         {
             Gui = gui;
             InitializeComponent();
-            
+
             windowInteropHelper = new WindowInteropHelper(this);
 
             newProjectCommand = new CreateNewProjectCommand { Gui = gui };
@@ -181,19 +179,19 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public bool InvokeRequired
-        {
-            get
-            {
-                return !Dispatcher.CheckAccess();
-            }
-        }
-
         public IntPtr Handle
         {
             get
             {
                 return windowInteropHelper.Handle;
+            }
+        }
+
+        public bool InvokeRequired
+        {
+            get
+            {
+                return !Dispatcher.CheckAccess();
             }
         }
 
@@ -596,10 +594,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 ButtonShowMessages.IsChecked = Gui.ToolWindowViews.Contains(MessageWindow);
                 ButtonShowProperties.IsChecked = Gui.ToolWindowViews.Contains(PropertyGrid);
             }
-
-            // TODO: remove when implemented
-            ButtonMenuFileSaveProject.IsEnabled = false;
-            ButtonMenuFileCloseProject.IsEnabled = false;
         }
 
         private void InitMessagesWindowOrActivate()
@@ -628,11 +622,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: Implement
-
-            // Original code:
-            //var saveProject = Gui.CommandHandler.SaveProject();
-            //OnAfterProjectSaveOrOpen(saveProject);
+            var saveProject = Gui.CommandHandler.SaveProject();
+            OnAfterProjectSaveOrOpen(saveProject);
         }
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
@@ -660,15 +651,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             var succesful = Gui.CommandHandler.OpenExistingProject();
             OnAfterProjectSaveOrOpen(succesful);
-        }
-
-        private void OnFileCloseClicked(object sender, RoutedEventArgs e)
-        {
-            //TODO: Implement
-
-            // Original code:
-            //Gui.CommandHandler.CloseProject();
-            //ValidateItems();
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
@@ -968,7 +950,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 if (optionsDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    SetColorTheme((ColorTheme)Gui.UserSettings["colorTheme"]);
+                    SetColorTheme((ColorTheme) Gui.UserSettings["colorTheme"]);
                 }
             }
         }
@@ -1061,9 +1043,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             });
         }
 
-        private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e)
-        {
-        }
+        private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e) {}
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
         {
