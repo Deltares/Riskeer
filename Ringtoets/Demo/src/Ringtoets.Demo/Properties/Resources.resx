@@ -126,10 +126,73 @@
   <data name="DemoDuneAssessmentSection" xml:space="preserve">
     <value>Demo duintraject</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DR10_cross_sections" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_cross_sections.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dr10_cross_sections1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dr10_cross_sections.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_cross_sections2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_cross_sections.sbn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_cross_sections3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_cross_sections.sbx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_cross_sections4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_cross_sections.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_cross_sections5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_cross_sections.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_cross_sections_shp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_cross_sections.shp.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DR10_dammen_caissons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dammen_caissons.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dr10_dammen_caissons1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dr10_dammen_caissons.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dammen_caissons2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dammen_caissons.sbn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dammen_caissons3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dammen_caissons.sbx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dammen_caissons4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dammen_caissons.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dammen_caissons5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dammen_caissons.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dammen_caissons_shp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dammen_caissons.shp.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DR10_dijkvakgebieden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.sbn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.sbx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden_shp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shp.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="ExampleData" xml:space="preserve">
     <value>Voorbeeld data</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="folder_horizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-horizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
