@@ -10,13 +10,18 @@ namespace Core.Components.OxyPlot
         public bool IsPanningEnabled { get; private set; }
         public bool IsRectangleZoomingEnabled { get; private set; }
 
+        public DynamicPlotController()
+        {
+            EnableScrollWheelZooming();
+        }
+
         /// <summary>
         /// Toggles panning by click and holding the left mouse button while moving.
         /// </summary>
         public void TogglePanning()
         {
             var enablePanning = !IsPanningEnabled;
-            DisableInteraction();
+            ResetDefaultInteraction();
             if (enablePanning)
             {
                 EnablePanning();
@@ -29,7 +34,7 @@ namespace Core.Components.OxyPlot
         public void ToggleRectangleZooming()
         {
             var enableRectangleZoom = !IsRectangleZoomingEnabled;
-            DisableInteraction();
+            ResetDefaultInteraction();
             if (enableRectangleZoom)
             {
                 EnableRectangleZoom();
@@ -37,13 +42,23 @@ namespace Core.Components.OxyPlot
         }
 
         /// <summary>
-        /// Disables all the interaction with the <see cref="DynamicPlotController"/>.
+        /// Resets all the toggleable interaction with the <see cref="DynamicPlotController"/>.
         /// </summary>
-        private void DisableInteraction()
+        private void ResetDefaultInteraction()
         {
             UnbindAll();
             IsPanningEnabled = false;
             IsRectangleZoomingEnabled = false;
+
+            EnableScrollWheelZooming();
+        }
+
+        /// <summary>
+        /// Enables zooming in and out by using the scroll wheel of the <see cref="DynamicPlotController"/>.
+        /// </summary>
+        private void EnableScrollWheelZooming()
+        {
+            this.BindMouseWheel(PlotCommands.ZoomWheel);
         }
 
         /// <summary>
