@@ -43,13 +43,9 @@ namespace Core.Common.Gui
         bool OpenExistingProject(string filePath);
 
         /// <summary>
-        /// Closes a project.
+        /// Closes the current project.
         /// </summary>
-        /// <remarks>
-        /// The closing action might be cancelled (due to user interaction).
-        /// </remarks>
-        /// <returns>Whether or not the project was correctly closed.</returns>
-        bool CloseProject();
+        void CloseProject();
 
         /// <summary>
         /// Presents the user with a dialog to choose an editor for the selected dataitem

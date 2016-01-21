@@ -17,6 +17,7 @@ namespace Core.Common.Base.Test.Storage
             UpdateStorageException exception = new UpdateStorageException();
 
             // Assert
+            Assert.IsInstanceOf<Exception>(exception);
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProjectAs_ValidPathToExistingFile_ThrowsStorageValidationException()
+        public void SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException()
         {
             // Setup
             var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");

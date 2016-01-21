@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Events;
-
 using log4net;
 
 namespace Core.Common.Gui.Forms.ViewManager
@@ -63,11 +62,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         }
 
         public IGui Gui { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether DoNotDisposeViewsOnRemove.
-        /// </summary>
-        public static bool DoNotDisposeViewsOnRemove { get; set; }
 
         public Action<IView> UpdateViewNameAction { get; set; }
 
@@ -126,6 +120,19 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
+        public void AddRange(IEnumerable<IView> enumerable)
+        {
+            foreach (var v in enumerable)
+            {
+                Add(v);
+            }
+        }
+
+        public void SetImage(IView view, Image image)
+        {
+            dockingManager.SetImage(view, image);
+        }
+
         public void Dispose()
         {
             dockingManager.ViewBarClosing -= DockingManagerViewBarClosing;
@@ -144,14 +151,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         public void Add(IView item)
         {
             Insert(Count, item);
-        }
-
-        public void AddRange(IEnumerable<IView> enumerable)
-        {
-            foreach (var v in enumerable)
-            {
-                Add(v);
-            }
         }
 
         public void Clear()
@@ -239,11 +238,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         public void SetTooltip(IView view, string tooltip)
         {
             dockingManager.SetToolTip(view, tooltip);
-        }
-
-        public void SetImage(IView view, Image image)
-        {
-            dockingManager.SetImage(view, image);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -365,11 +359,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             view.Data = null; // reset data for view
 
-            if (!DoNotDisposeViewsOnRemove)
-            {
-                // performance improvement.
-                view.Dispose(); // get rid of view.
-            }
+            view.Dispose(); // get rid of view.
         }
 
         private void DockingManagerViewActivated(object sender, ActiveViewChangeEventArgs e)

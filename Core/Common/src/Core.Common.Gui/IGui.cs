@@ -9,7 +9,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;

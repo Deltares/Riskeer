@@ -14,7 +14,6 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
 using log4net;
@@ -44,11 +43,7 @@ namespace Core.Common.Gui
 
         public void CreateNewProject()
         {
-            if (!CloseProject())
-            {
-                Log.Warn(Resources.Project_new_opening_cancelled);
-                return;
-            }
+            CloseProject();
 
             Log.Info(Resources.Project_new_opening);
             gui.Project = new Project();
@@ -119,11 +114,7 @@ namespace Core.Common.Gui
             }
 
             // Project loaded successfully, close current project
-            if (!CloseProject())
-            {
-                Log.Warn(Resources.Project_existing_project_opening_cancelled);
-                return false;
-            }
+            CloseProject();
 
             gui.ProjectFilePath = filePath;
             gui.Project = loadedProject;
@@ -133,24 +124,22 @@ namespace Core.Common.Gui
             return true;
         }
 
-        public bool CloseProject()
+        /// <summary>
+        /// Close current project (if any) and related views.
+        /// </summary>
+        public void CloseProject()
         {
-            if (gui.Project != null)
+            if (gui.Project == null)
             {
-                // DO NOT REMOVE CODE BELOW. If the views are not cleaned up here we access disposable stuff like in issue 4161.
-                // SO VIEWS SHOULD ALWAYS BE CLOSED!
-                // remove views before closing project. 
-                if (!ViewList.DoNotDisposeViewsOnRemove)
-                {
-                    RemoveAllViewsForItem(gui.Project);
-                }
-
-                gui.Project = null;
-
-                RefreshGui();
+                return;
             }
 
-            return true;
+            // remove views before closing project. 
+            RemoveAllViewsForItem(gui.Project);
+
+            gui.Project = null;
+
+            RefreshGui();
         }
 
         /// <summary>

@@ -342,8 +342,6 @@ namespace Core.Common.Gui
 
             isExiting = true;
 
-            ViewList.DoNotDisposeViewsOnRemove = true; // persormance optimization
-
             CopyDefaultViewsToUserSettings();
 
             mainWindow.ClearDocumentTabs();
