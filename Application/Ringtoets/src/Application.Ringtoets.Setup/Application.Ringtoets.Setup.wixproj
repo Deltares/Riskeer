@@ -60,12 +60,12 @@
     <Compile Include="Installer UI\wixUI_Deltares.wxs" />
     <Compile Include="Product.wxs" />
     <Compile Include="RingtoetsPayload.wxs" />
+    <Compile Include="ThirdPartyLicensesPayload.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
-    <Content Include="License.rtf" />
     <Content Include="Ringtoets.ico" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Installer UI" />
+    <Folder Include="licenses\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.Ringtoets\Application.Ringtoets.csproj">
@@ -99,10 +100,11 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);</DefineConstants>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);InstallerLicensesFolder=licenses\</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RingtoetsApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RingtoetsApplicationComponents -gg -dr BINDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
+"$(WIX)bin\heat.exe" dir $(ProjectDir)licenses -cg ThirdPartyLicenseComponents -gg -dr BINDIR -var var.InstallerLicensesFolder -sfrag -sreg -srd -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
 $(ProjectDir)..\..\..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--
