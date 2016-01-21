@@ -18,12 +18,12 @@ namespace Core.Components.OxyPlot.Forms
     public sealed class BaseChart : Control, IObserver, IChart
     {
         private readonly ICollection<IObserver> observers = new Collection<IObserver>();
+        private readonly SeriesFactory seriesFactory = new SeriesFactory();
 
         private ChartData data;
 
         private LinearPlotView view;
         private DynamicPlotController controller;
-        private SeriesFactory seriesFactory = new SeriesFactory();
 
         /// <summary>
         /// Creates a new instance of <see cref="BaseChart"/>.
@@ -33,6 +33,56 @@ namespace Core.Components.OxyPlot.Forms
             InitializePlotView();
             MinimumSize = new Size(50, 75);
         }
+
+        /// <summary>
+        /// Attaches the <see cref="BaseChart"/> to the currently set <see cref="Data"/>, if there is any.
+        /// </summary>
+        private void AttachToData()
+        {
+            if (data != null)
+            {
+                data.Attach(this);
+            }
+        }
+
+        /// <summary>
+        /// Detaches the <see cref="BaseChart"/> to the currently set <see cref="Data"/>, if there is any.
+        /// </summary>
+        private void DetachFromData()
+        {
+            if (data != null)
+            {
+                data.Detach(this);
+            }
+        }
+
+        /// <summary>
+        /// Initialize the <see cref="PlotView"/> for the <see cref="BaseChart"/>.
+        /// </summary>
+        private void InitializePlotView()
+        {
+            view = new LinearPlotView();
+            controller = new DynamicPlotController();
+            view.Controller = controller;
+            Controls.Add(view);
+        }
+
+        /// <summary>
+        /// Draws series based on the currently set <see cref="Data"/>.
+        /// </summary>
+        private void DrawSeries()
+        {
+            view.Model.Series.Clear();
+            if (data != null)
+            {
+                foreach (var series in seriesFactory.Create(data))
+                {
+                    view.Model.Series.Add(series);
+                }
+            }
+        }
+
+        #region IChart
 
         public bool IsPanningEnabled
         {
@@ -50,7 +100,7 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ChartData Data
         {
             get
@@ -63,22 +113,6 @@ namespace Core.Components.OxyPlot.Forms
                 data = value;
                 AttachToData();
                 DrawSeries();
-            }
-        }
-
-        private void AttachToData()
-        {
-            if (data != null)
-            {
-                data.Attach(this);
-            }
-        }
-
-        private void DetachFromData()
-        {
-            if (data != null)
-            {
-                data.Detach(this);
             }
         }
 
@@ -97,16 +131,13 @@ namespace Core.Components.OxyPlot.Forms
             view.ZoomToAll();
         }
 
-        /// <summary>
-        /// Initialize the <see cref="PlotView"/> for the <see cref="BaseChart"/>.
-        /// </summary>
-        private void InitializePlotView()
+        public void UpdateObserver()
         {
-            view = new LinearPlotView();
-            controller = new DynamicPlotController();
-            view.Controller = controller;
-            Controls.Add(view);
+            DrawSeries();
+            view.InvalidatePlot(true);
         }
+
+        #endregion
 
         #region IObservable
 
@@ -137,20 +168,5 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         #endregion
-
-        public void UpdateObserver()
-        {
-            DrawSeries();
-            view.InvalidatePlot(true);
-        }
-
-        private void DrawSeries()
-        {
-            view.Model.Series.Clear();
-            foreach (var series in seriesFactory.Create(data))
-            {
-                view.Model.Series.Add(series);
-            }
-        }
     }
 }

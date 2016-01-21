@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using NUnit.Framework;
@@ -36,7 +38,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             chartView.Data = null;
 
             // Assert
-//            Assert.IsEmpty(chart.Data);
+            Assert.IsNull(chart.Data);
         }
 
         [Test]
@@ -50,6 +52,22 @@ namespace Core.Plugins.OxyPlot.Test.Forms
 
             // Assert
             Assert.Throws<InvalidCastException>(test);
+        }
+
+        [Test]
+        public void Data_SetToChartData_ChartDataSet()
+        {
+            // Setup
+            var chartView = new ChartDataView();
+            var chart = (BaseChart)chartView.Controls[0];
+            var lineData = new LineData(Enumerable.Empty<Tuple<double, double>>());
+
+            // Call
+            chartView.Data = lineData;
+
+            // Assert
+            Assert.AreSame(lineData, chart.Data);
+            Assert.AreSame(lineData, chartView.Data);
         }
     }
 }

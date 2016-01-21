@@ -36,7 +36,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void ZoomToAll_Always_InvalidatesView()
+        public void ZoomToAll_ViewInForm_InvalidatesView()
         {
             // Setup
             var form = new Form();

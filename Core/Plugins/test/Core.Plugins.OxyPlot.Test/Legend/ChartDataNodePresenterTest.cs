@@ -5,7 +5,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
-using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;

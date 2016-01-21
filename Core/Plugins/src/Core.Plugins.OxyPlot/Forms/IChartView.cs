@@ -1,4 +1,5 @@
 ﻿using Core.Common.Controls.Views;
+using Core.Components.Charting;
 using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Forms
@@ -11,6 +12,6 @@ namespace Core.Plugins.OxyPlot.Forms
         /// <summary>
         /// Gets the <see cref="BaseChart"/> set for this <see cref="IChartView"/>.
         /// </summary>
-        BaseChart Chart { get; }
+        IChart Chart { get; }
     }
 }

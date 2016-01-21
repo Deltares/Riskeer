@@ -23,7 +23,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        public void CanConvertSeries_PointData_ReturnTrue()
+        public void CanConvertSeries_LineData_ReturnTrue()
         {
             // Setup
             var converter = new LineDataConverter();

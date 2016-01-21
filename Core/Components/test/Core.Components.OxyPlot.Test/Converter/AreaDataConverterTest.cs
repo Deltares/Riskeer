@@ -26,7 +26,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        public void CanConvertSeries_PointData_ReturnTrue()
+        public void CanConvertSeries_AreaData_ReturnTrue()
         {
             // Setup
             var converter = new AreaDataConverter();

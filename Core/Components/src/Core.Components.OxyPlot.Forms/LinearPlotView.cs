@@ -7,8 +7,14 @@ using TickStyle = OxyPlot.Axes.TickStyle;
 
 namespace Core.Components.OxyPlot.Forms
 {
+    /// <summary>
+    /// This class describes a plot view with two linear axes.
+    /// </summary>
     internal sealed class LinearPlotView : PlotView
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="LinearPlotView"/>.
+        /// </summary>
         public LinearPlotView()
         {
             Dock = DockStyle.Fill;

@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
 using Core.Components.Charting.Data;
-using Core.Components.OxyPlot.Collection;
 using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Legend

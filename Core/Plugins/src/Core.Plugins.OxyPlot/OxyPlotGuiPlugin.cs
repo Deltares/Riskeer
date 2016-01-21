@@ -4,7 +4,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Components.OxyPlot.Collection;
+using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;

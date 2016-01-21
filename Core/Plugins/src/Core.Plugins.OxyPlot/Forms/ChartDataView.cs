@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using Core.Components.Charting;
 using Core.Components.Charting.Data;
-using Core.Components.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Forms
 {
@@ -37,7 +36,7 @@ namespace Core.Plugins.OxyPlot.Forms
             }
         }
 
-        public BaseChart Chart
+        public IChart Chart
         {
             get
             {

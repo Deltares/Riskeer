@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Components.Charting.Data;
-using Core.Components.OxyPlot.Collection;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
 {
+    /// <summary>
+    /// This class converts the <see cref="ChartData"/> in <see cref="ChartDataCollection"/> into 
+    /// (one or more) <see cref="Series"/>.
+    /// </summary>
     public class ChartDataCollectionConverter : ChartDataConverter
     {
         protected override Type SupportedType

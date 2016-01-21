@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\AreaDataConverterTest.cs" />
+    <Compile Include="Converter\ChartDataCollectionConverterTest.cs" />
     <Compile Include="Converter\ChartDataConverterTest.cs" />
     <Compile Include="Converter\LineDataConverterTest.cs" />
     <Compile Include="Converter\PointDataConverterTest.cs" />

@@ -7,6 +7,9 @@ using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Converter
 {
+    /// <summary>
+    /// This class converts <see cref="PointData"/> into <see cref="LineSeries"/> with point styling.
+    /// </summary>
     public class PointDataConverter : ChartDataConverter
     {
         protected override Type SupportedType

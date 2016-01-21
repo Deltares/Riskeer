@@ -2,6 +2,9 @@
 
 namespace Core.Components.OxyPlot
 {
+    /// <summary>
+    /// This class represents a controller for which certain interactions can be toggled.
+    /// </summary>
     internal sealed class DynamicPlotController : ControllerBase, IPlotController
     {
         public bool IsPanningEnabled { get; private set; }

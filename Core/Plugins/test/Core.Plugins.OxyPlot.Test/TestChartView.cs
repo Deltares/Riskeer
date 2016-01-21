@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using Core.Components.Charting;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 
@@ -11,7 +12,7 @@ namespace Core.Plugins.OxyPlot.Test
     {
         public object Data { get; set; }
 
-        public BaseChart Chart
+        public IChart Chart
         {
             get
             {

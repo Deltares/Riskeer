@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\AreaDataTest.cs" />
+    <Compile Include="Data\ChartDataCollectionTest.cs" />
     <Compile Include="Data\ChartDataTest.cs" />
     <Compile Include="Data\LineDataTest.cs" />
     <Compile Include="Data\PointDataTest.cs" />
