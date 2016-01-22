@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -73,8 +74,15 @@ namespace Core.Plugins.ProjectExplorer.Test
             var commandHandler = mocks.Stub<IGuiCommandHandler>();
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
 
+            var applicationCoreStub = mocks.Stub<ApplicationCore>();
+
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.CommandHandler).Return(commandHandler);
+            gui.Stub(g => g.ApplicationCore).Return(applicationCoreStub);
+            gui.Stub(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Stub(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Stub(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
+            gui.Stub(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
             mocks.ReplayAll();
 
             using(var guiPlugin = new ProjectExplorerGuiPlugin { Gui = gui })

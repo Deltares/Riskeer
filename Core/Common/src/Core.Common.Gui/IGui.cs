@@ -167,6 +167,11 @@ namespace Core.Common.Gui
         void Run(string projectPath);
 
         /// <summary>
+        /// Fully refreshes the user interface.
+        /// </summary>
+        void RefreshGui();
+
+        /// <summary>
         /// Updates the title of the main window.
         /// </summary>
         void UpdateTitle();

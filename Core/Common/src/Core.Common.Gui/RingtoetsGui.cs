@@ -390,6 +390,15 @@ namespace Core.Common.Gui
             return null;
         }
 
+        public void RefreshGui()
+        {
+            // Set the gui selection to the current project
+            Selection = Project;
+
+            // Update the window title
+            UpdateTitle();
+        }
+
         public void UpdateTitle()
         {
             if (mainWindow != null)

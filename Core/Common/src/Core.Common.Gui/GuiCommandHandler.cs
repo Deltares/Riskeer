@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -11,7 +10,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
-using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
@@ -30,6 +28,7 @@ namespace Core.Common.Gui
         private readonly GuiImportHandler guiImportHandler;
         private readonly GuiExportHandler guiExportHandler;
         private readonly IGui gui;
+        private readonly StorageCommandHandler storageCommandHandler;
 
         public GuiCommandHandler(IGui gui)
         {
@@ -40,17 +39,14 @@ namespace Core.Common.Gui
 
             guiImportHandler = CreateGuiImportHandler();
             guiExportHandler = CreateGuiExportHandler();
+            storageCommandHandler = new StorageCommandHandler(this, gui);
         }
+
+        #region Implementation: IStorageCommands
 
         public void CreateNewProject()
         {
-            CloseProject();
-
-            Log.Info(Resources.Project_new_opening);
-            gui.Project = new Project();
-            Log.Info(Resources.Project_new_successfully_opened);
-
-            RefreshGui();
+            storageCommandHandler.CreateNewProject();
         }
 
         /// <summary>
@@ -59,19 +55,7 @@ namespace Core.Common.Gui
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
         public bool OpenExistingProject()
         {
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = Resources.Ringtoets_project_file_filter,
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            if (openFileDialog.ShowDialog(gui.MainWindow) != DialogResult.Cancel)
-            {
-                return OpenExistingProject(openFileDialog.FileName);
-            }
-            Log.Warn(Resources.Project_existing_project_opening_cancelled);
-            return false;
+            return storageCommandHandler.OpenExistingProject();
         }
 
         /// <summary>
@@ -81,49 +65,7 @@ namespace Core.Common.Gui
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
         public bool OpenExistingProject(string filePath)
         {
-            Log.Info(Resources.Project_existing_opening_project);
-
-            var storage = gui.Storage;
-            Project loadedProject;
-            try
-            {
-                loadedProject = storage.LoadProject(filePath);
-            }
-            catch (ArgumentException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-            catch (CouldNotConnectException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-            catch (StorageValidationException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-
-            if (loadedProject == null)
-            {
-                Log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-
-            // Project loaded successfully, close current project
-            CloseProject();
-
-            gui.ProjectFilePath = filePath;
-            gui.Project = loadedProject;
-            gui.Project.Name = Path.GetFileNameWithoutExtension(filePath);
-
-            RefreshGui();
-            Log.Info(Resources.Project_existing_successfully_opened);
-            return true;
+            return storageCommandHandler.OpenExistingProject(filePath);
         }
 
         /// <summary>
@@ -131,17 +73,7 @@ namespace Core.Common.Gui
         /// </summary>
         public void CloseProject()
         {
-            if (gui.Project == null)
-            {
-                return;
-            }
-
-            // remove views before closing project. 
-            RemoveAllViewsForItem(gui.Project);
-
-            gui.Project = null;
-
-            RefreshGui();
+            storageCommandHandler.CloseProject();
         }
 
         /// <summary>
@@ -150,64 +82,7 @@ namespace Core.Common.Gui
         /// <returns>Returns if the save was succesful.</returns>
         public bool SaveProjectAs()
         {
-            var project = gui.Project;
-            if (project == null)
-            {
-                return false;
-            }
-
-            Log.Info(Resources.Project_saving_project);
-            // show file open dialog and select project file
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = string.Format(Resources.Ringtoets_project_file_filter),
-                FilterIndex = 1,
-                RestoreDirectory = true,
-                FileName = string.Format("{0}", project.Name)
-            };
-
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                Log.Warn(Resources.Project_saving_project_cancelled);
-                return false;
-            }
-
-            var filePath = saveFileDialog.FileName;
-            var storage = gui.Storage;
-            try
-            {
-                storage.SaveProjectAs(filePath, gui.Project);
-            }
-            catch (ArgumentException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-            catch (CouldNotConnectException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (StorageValidationException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (UpdateStorageException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-
-            // Save was successful, store location
-            gui.ProjectFilePath = filePath;
-            project.Name = Path.GetFileNameWithoutExtension(filePath);
-            Log.Info(Resources.Project_saving_project_saved);
-            return true;
+            return storageCommandHandler.SaveProjectAs();
         }
 
         /// <summary>
@@ -216,53 +91,10 @@ namespace Core.Common.Gui
         /// <returns>Returns if the save was succesful.</returns>
         public bool SaveProject()
         {
-            var project = gui.Project;
-            if (project == null)
-            {
-                return false;
-            }
-            var filePath = gui.ProjectFilePath;
-
-            // If filepath is not set, go to SaveAs
-            if (string.IsNullOrWhiteSpace(filePath))
-            {
-                return SaveProjectAs();
-            }
-
-            Log.Info(Resources.Project_saving_project);
-            var storage = gui.Storage;
-            try
-            {
-                storage.SaveProject(filePath, gui.Project);
-            }
-            catch (ArgumentException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (CouldNotConnectException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (StorageValidationException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (UpdateStorageException e)
-            {
-                Log.Warn(e.Message);
-                Log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-
-            Log.Info(Resources.Project_saving_project_saved);
-            return true;
+            return storageCommandHandler.SaveProject();
         }
+
+        #endregion
 
         public object GetDataOfActiveView()
         {
@@ -441,7 +273,7 @@ namespace Core.Common.Gui
 
         public void UpdateObserver()
         {
-            RefreshGui();
+            gui.RefreshGui();
         }
 
         private GuiImportHandler CreateGuiImportHandler()
@@ -552,15 +384,6 @@ namespace Core.Common.Gui
             {
                 view.Data = null;
             }
-        }
-
-        private void RefreshGui()
-        {
-            // Set the gui selection to the current project
-            gui.Selection = gui.Project;
-
-            // Update the window title
-            gui.UpdateTitle();
         }
     }
 }
