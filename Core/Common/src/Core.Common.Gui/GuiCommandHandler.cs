@@ -23,16 +23,14 @@ namespace Core.Common.Gui
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
-        private readonly GuiImportHandler guiImportHandler;
-        private readonly GuiExportHandler guiExportHandler;
         private readonly IGui gui;
+        private readonly ExportImportCommandHandler exportImportCommandHandler;
 
         public GuiCommandHandler(IGui gui)
         {
             this.gui = gui;
 
-            guiImportHandler = CreateGuiImportHandler();
-            guiExportHandler = CreateGuiExportHandler();
+            exportImportCommandHandler = new ExportImportCommandHandler(gui);
         }
 
         public object GetDataOfActiveView()
@@ -167,56 +165,25 @@ namespace Core.Common.Gui
 
         public bool CanImportOn(object obj)
         {
-            return gui.ApplicationCore.GetSupportedFileImporters(obj).Any();
+            return exportImportCommandHandler.CanImportOn(obj);
         }
 
         public void ImportOn(object target, IFileImporter importer = null)
         {
-            try
-            {
-                if (importer == null)
-                {
-                    guiImportHandler.ImportDataTo(target);
-                }
-                else
-                {
-                    guiImportHandler.ImportUsingImporter(importer, target);
-                }
-            }
-            catch (Exception)
-            {
-                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, target);
-            }
+            exportImportCommandHandler.ImportOn(target, importer);
         }
 
         public bool CanExportFrom(object obj)
         {
-            return gui.ApplicationCore.GetSupportedFileExporters(obj).Any();
+            return exportImportCommandHandler.CanExportFrom(obj);
         }
 
         public void ExportFrom(object data, IFileExporter exporter = null)
         {
-            if (exporter == null)
-            {
-                guiExportHandler.ExportFrom(data);
-            }
-            else
-            {
-                guiExportHandler.GetExporterDialog(exporter, data);
-            }
+            exportImportCommandHandler.ExportFrom(data, exporter);
         }
 
         #endregion
-
-        private GuiImportHandler CreateGuiImportHandler()
-        {
-            return new GuiImportHandler(gui);
-        }
-
-        private GuiExportHandler CreateGuiExportHandler()
-        {
-            return new GuiExportHandler(gui.MainWindow, o => gui.ApplicationCore.GetSupportedFileExporters(o), o => gui.DocumentViewsResolver.CreateViewForData(o));
-        }
 
         private void AddProjectToMruList()
         {

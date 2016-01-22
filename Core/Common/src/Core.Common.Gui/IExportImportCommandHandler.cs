@@ -2,6 +2,9 @@
 
 namespace Core.Common.Gui
 {
+    /// <summary>
+    /// Interface declaring commands/methods related to importing and exporting data.
+    /// </summary>
     public interface IExportImportCommandHandler
     {
         /// <summary>

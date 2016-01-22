@@ -119,6 +119,7 @@
     <Compile Include="Attributes\DynamicVisibleAttribute.cs" />
     <Compile Include="Attributes\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="Attributes\PropertyOrderAttribute.cs" />
+    <Compile Include="ExportImportCommandHandler.cs" />
     <Compile Include="Forms\MainWindow\Interop\NativeWin32.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
       <SubType>Form</SubType>
