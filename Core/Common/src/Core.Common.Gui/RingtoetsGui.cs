@@ -68,8 +68,9 @@ namespace Core.Common.Gui
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
-        private GuiCommandHandler guiCommandHandler;
+        private readonly GuiCommandHandler guiCommandHandler;
         private StorageCommandHandler storageCommandHandler;
+        private readonly ExportImportCommandHandler exportImportCommandHandler;
 
         public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
@@ -93,6 +94,7 @@ namespace Core.Common.Gui
 
             guiCommandHandler = new GuiCommandHandler(this);
             storageCommandHandler = new StorageCommandHandler(guiCommandHandler, this);
+            exportImportCommandHandler = new ExportImportCommandHandler(this);
 
             WindowsApplication.EnableVisualStyles();
 
@@ -276,7 +278,7 @@ namespace Core.Common.Gui
 
         public IContextMenuBuilder Get(TreeNode treeNode)
         {
-            return new ContextMenuBuilder(guiCommandHandler, guiCommandHandler, treeNode);
+            return new ContextMenuBuilder(guiCommandHandler, exportImportCommandHandler, treeNode);
         }
 
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)

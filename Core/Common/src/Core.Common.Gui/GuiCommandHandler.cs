@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
-using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
@@ -19,18 +18,15 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler, IExportImportCommandHandler
+    public class GuiCommandHandler : IGuiCommandHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
         private readonly IGui gui;
-        private readonly ExportImportCommandHandler exportImportCommandHandler;
 
         public GuiCommandHandler(IGui gui)
         {
             this.gui = gui;
-
-            exportImportCommandHandler = new ExportImportCommandHandler(gui);
         }
 
         public object GetDataOfActiveView()
@@ -160,30 +156,6 @@ namespace Core.Common.Gui
             gui.Project.Items.Add(newItem);
             gui.Project.NotifyObservers();
         }
-
-        #region Implementation: IExportImportCommandHandler
-
-        public bool CanImportOn(object obj)
-        {
-            return exportImportCommandHandler.CanImportOn(obj);
-        }
-
-        public void ImportOn(object target, IFileImporter importer = null)
-        {
-            exportImportCommandHandler.ImportOn(target, importer);
-        }
-
-        public bool CanExportFrom(object obj)
-        {
-            return exportImportCommandHandler.CanExportFrom(obj);
-        }
-
-        public void ExportFrom(object data, IFileExporter exporter = null)
-        {
-            exportImportCommandHandler.ExportFrom(data, exporter);
-        }
-
-        #endregion
 
         private void AddProjectToMruList()
         {
