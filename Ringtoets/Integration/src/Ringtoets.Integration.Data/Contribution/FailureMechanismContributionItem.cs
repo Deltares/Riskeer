@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Data.Contribution
         /// <summary>
         /// Gets or sets the norm of the complete dike section.
         /// </summary>
-        public double Norm { get; internal set; }
+        public int Norm { get; internal set; }
 
         /// <summary>
         /// Gets the probability space per year for the <see cref="FailureMechanismContribution"/>.
