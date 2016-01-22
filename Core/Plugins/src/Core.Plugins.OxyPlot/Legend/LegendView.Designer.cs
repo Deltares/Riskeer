@@ -19,6 +19,7 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 components.Dispose();
             }
+            seriesTree.Dispose();
             base.Dispose(disposing);
         }
 

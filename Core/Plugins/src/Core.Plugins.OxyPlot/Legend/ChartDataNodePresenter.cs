@@ -21,19 +21,31 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 node.Text = Resources.ChartDataNodePresenter_Area_data_label;
                 node.Image = Resources.AreaIcon;
-                node.Checked = ((AreaData)nodeData).IsVisible;
+                var isVisible = ((AreaData)nodeData).IsVisible;
+                if (node.Checked != isVisible)
+                {
+                    node.Checked = isVisible;
+                }
             }
             else if (nodeData is LineData)
             {
                 node.Text = Resources.ChartDataNodePresenter_Line_data_label;
                 node.Image = Resources.LineIcon;
-                node.Checked = ((LineData)nodeData).IsVisible;
+                var isVisible = ((LineData)nodeData).IsVisible;
+                if (node.Checked != isVisible)
+                {
+                    node.Checked = isVisible;
+                }
             }
             else if (nodeData is PointData)
             {
                 node.Text = Resources.ChartDataNodePresenter_Point_data_label;
                 node.Image = Resources.PointsIcon;
-                node.Checked = ((PointData)nodeData).IsVisible;
+                var isVisible = ((PointData)nodeData).IsVisible;
+                if (node.Checked != isVisible)
+                {
+                    node.Checked = isVisible;
+                }
             }
             else
             {
