@@ -6,8 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Views;
@@ -21,7 +19,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler, IObserver
+    public class GuiCommandHandler : IGuiCommandHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
@@ -32,9 +30,6 @@ namespace Core.Common.Gui
         public GuiCommandHandler(IGui gui)
         {
             this.gui = gui;
-
-            this.gui.ProjectOpened += ApplicationProjectOpened;
-            this.gui.ProjectClosing += ApplicationProjectClosing;
 
             guiImportHandler = CreateGuiImportHandler();
             guiExportHandler = CreateGuiExportHandler();
@@ -203,21 +198,10 @@ namespace Core.Common.Gui
             }
         }
 
-        public void Dispose()
-        {
-            gui.ProjectOpened -= ApplicationProjectOpened;
-            gui.ProjectClosing -= ApplicationProjectClosing;
-        }
-
         public void AddItemToProject(object newItem)
         {
             gui.Project.Items.Add(newItem);
             gui.Project.NotifyObservers();
-        }
-
-        public void UpdateObserver()
-        {
-            gui.RefreshGui();
         }
 
         private GuiImportHandler CreateGuiImportHandler()
@@ -228,32 +212,6 @@ namespace Core.Common.Gui
         private GuiExportHandler CreateGuiExportHandler()
         {
             return new GuiExportHandler(gui.MainWindow, o => gui.ApplicationCore.GetSupportedFileExporters(o), o => gui.DocumentViewsResolver.CreateViewForData(o));
-        }
-
-        private void ApplicationProjectClosing(Project project)
-        {
-            // clean all views
-            if (gui.DocumentViews != null)
-            {
-                RemoveAllViewsForItem(project);
-            }
-
-            if (gui.ToolWindowViews != null)
-            {
-                foreach (IView view in gui.ToolWindowViews)
-                {
-                    view.Data = null;
-                }
-            }
-
-            project.Detach(this);
-        }
-
-        private void ApplicationProjectOpened(Project project)
-        {
-            gui.Selection = project;
-
-            project.Attach(this);
         }
 
         private void AddProjectToMruList()

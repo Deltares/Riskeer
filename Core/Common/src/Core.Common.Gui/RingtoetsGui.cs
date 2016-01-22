@@ -453,10 +453,10 @@ namespace Core.Common.Gui
                     ToolWindowViews.Clear();
                 }
 
-                if (guiCommandHandler != null)
+                if (storageCommandHandler != null)
                 {
-                    guiCommandHandler.Dispose();
-                    guiCommandHandler = null;
+                    storageCommandHandler.Dispose();
+                    storageCommandHandler = null;
                 }
 
                 if (Plugins != null)

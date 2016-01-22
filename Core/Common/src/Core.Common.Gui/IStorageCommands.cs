@@ -1,11 +1,13 @@
-﻿using Core.Common.Base.Data;
+﻿using System;
+
+using Core.Common.Base.Data;
 
 namespace Core.Common.Gui
 {
     /// <summary>
     /// Interface for exposing commands/methods related to saving/loading a <see cref="Project"/>.
     /// </summary>
-    public interface IStorageCommands
+    public interface IStorageCommands : IDisposable
     {
         /// <summary>
         /// Creates a new project.

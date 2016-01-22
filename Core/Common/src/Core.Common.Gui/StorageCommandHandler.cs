@@ -2,8 +2,10 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 
 using log4net;
@@ -13,7 +15,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Class responsible for persistency of <see cref="Project"/>.
     /// </summary>
-    public class StorageCommandHandler : IStorageCommands
+    public class StorageCommandHandler : IStorageCommands, IObserver
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
@@ -29,6 +31,9 @@ namespace Core.Common.Gui
         {
             this.guiCommandHandler = guiCommandHandler;
             this.gui = gui;
+
+            this.gui.ProjectOpened += ApplicationProjectOpened;
+            this.gui.ProjectClosing += ApplicationProjectClosing;
         }
 
         public void CreateNewProject()
@@ -251,6 +256,43 @@ namespace Core.Common.Gui
 
             log.Info(Resources.Project_saving_project_saved);
             return true;
+        }
+
+        public void UpdateObserver()
+        {
+            gui.RefreshGui();
+        }
+
+        public void Dispose()
+        {
+            gui.ProjectOpened -= ApplicationProjectOpened;
+            gui.ProjectClosing -= ApplicationProjectClosing;
+        }
+
+        private void ApplicationProjectClosing(Project project)
+        {
+            // clean all views
+            if (gui.DocumentViews != null)
+            {
+                guiCommandHandler.RemoveAllViewsForItem(project);
+            }
+
+            if (gui.ToolWindowViews != null)
+            {
+                foreach (IView view in gui.ToolWindowViews)
+                {
+                    view.Data = null;
+                }
+            }
+
+            project.Detach(this);
+        }
+
+        private void ApplicationProjectOpened(Project project)
+        {
+            gui.Selection = project;
+
+            project.Attach(this);
         }
     }
 }

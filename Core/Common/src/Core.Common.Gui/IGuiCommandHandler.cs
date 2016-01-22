@@ -7,7 +7,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Handles all common high-level commands in the graphical user interface invoked via menu / toolbar.
     /// </summary>
-    public interface IGuiCommandHandler : IDisposable
+    public interface IGuiCommandHandler
     {
         /// <summary>
         /// Presents the user with a dialog to choose an editor for the selected dataitem
