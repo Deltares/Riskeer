@@ -42,9 +42,6 @@ namespace Core.Common.Gui
             guiExportHandler = CreateGuiExportHandler();
         }
 
-        /// <summary>
-        /// Loads a new instance of <see cref="Project"/>.
-        /// </summary>
         public void CreateNewProject()
         {
             CloseProject();
@@ -82,7 +79,7 @@ namespace Core.Common.Gui
         /// </summary>
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
-        private bool OpenExistingProject(string filePath)
+        public bool OpenExistingProject(string filePath)
         {
             Log.Info(Resources.Project_existing_opening_project);
 
