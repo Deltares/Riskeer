@@ -1,40 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
+using Core.Components.DotSpatial.Data;
 using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
 using log4net;
 
 namespace Core.Components.DotSpatial
 {
+    /// <summary>
+    /// This class describes a map view
+    /// </summary>
     public sealed class BaseMap : Control
     {
-        private ICollection<string> data;
- 
-        public ICollection<string> Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value;
-                if (data != null)
-                {
-                    LoadData();
-                }
-            }
-        }
-
         private static readonly ILog log = LogManager.GetLogger(typeof(BaseMap));
+        private MapData data;
         private Map map;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="BaseMap"/>
+        /// </summary>
         public BaseMap()
         {
             InitializeMapView();
+        }
+
+        /// <summary>
+        /// Gets and sets the <see cref="Data"/>. When <see cref="Data"/> is not empty it will load the data on the map.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> is invalid.</exception>
+        public void SetMapData(MapData mapData)
+        {
+            try
+            {
+                if (mapData.IsValid())
+                {
+                    data = mapData;
+                    LoadData();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Could not set the data on the map.", e.Message);
+            }
         }
 
         /// <summary>
@@ -42,7 +50,6 @@ namespace Core.Components.DotSpatial
         /// </summary>
         private void InitializeMapView()
         {
-            data = new List<string>();
             map = new Map
             {
                 Dock = DockStyle.Fill,
@@ -52,24 +59,15 @@ namespace Core.Components.DotSpatial
         }
 
         /// <summary>
-        /// Loads the data from the files given in <see cref="data"/> and shows them on the <see cref="Map"/>
+        /// Loads the data from the files given in <see cref="Data"/> and shows them on the <see cref="Map"/>.
         /// </summary>
         private void LoadData()
         {
-            try
+            foreach (string filePath in data.FilePaths)
             {
-                foreach (string fileName in data)
-                {
-                    map.AddLayer(fileName);
-                }
-            }
-            catch (ApplicationException applicationException)
-            {
-                log.Error(Resources.BaseMap_LoadData_Cannot_open_file_extension);
-            }
-            catch (FileNotFoundException fileException)
-            {
-                log.ErrorFormat(Resources.BaseMap_LoadData_File_loading_failded__The_file__0__could_not_be_found, fileException.FileName);
+                map.AddLayer(filePath);
+
+                log.InfoFormat(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, filePath);
             }
         }
     }

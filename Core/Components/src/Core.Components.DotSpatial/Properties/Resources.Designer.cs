@@ -86,5 +86,32 @@ namespace Core.Components.DotSpatial.Properties {
                 return ResourceManager.GetString("BaseMap_LoadData_NullException_in_file", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shape file op pad {0} is aan de kaart toegevoegd..
+        /// </summary>
+        public static string BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_ {
+            get {
+                return ResourceManager.GetString("BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestand op pad {0} bestaat niet..
+        /// </summary>
+        public static string MapData_IsPathValid_File_on_path__0__does_not_exist {
+            get {
+                return ResourceManager.GetString("MapData_IsPathValid_File_on_path__0__does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestand op pad {0} heeft niet de juiste .shp extensie..
+        /// </summary>
+        public static string MapData_IsPathValid_File_on_path__0__does_not_have_the_shp_extension {
+            get {
+                return ResourceManager.GetString("MapData_IsPathValid_File_on_path__0__does_not_have_the_shp_extension", resourceCulture);
+            }
+        }
     }
 }

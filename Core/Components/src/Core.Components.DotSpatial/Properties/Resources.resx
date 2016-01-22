@@ -126,4 +126,13 @@
   <data name="BaseMap_LoadData_Cannot_open_file_extension" xml:space="preserve">
     <value>Kan bestand met deze extensie niet openen.</value>
   </data>
+  <data name="MapData_IsPathValid_File_on_path__0__does_not_exist" xml:space="preserve">
+    <value>Bestand op pad {0} bestaat niet.</value>
+  </data>
+  <data name="MapData_IsPathValid_File_on_path__0__does_not_have_the_shp_extension" xml:space="preserve">
+    <value>Bestand op pad {0} heeft niet de juiste .shp extensie.</value>
+  </data>
+  <data name="BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_" xml:space="preserve">
+    <value>Shape file op pad {0} is aan de kaart toegevoegd.</value>
+  </data>
 </root>

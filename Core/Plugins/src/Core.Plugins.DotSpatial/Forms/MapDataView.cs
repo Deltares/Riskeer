@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial;
+using Core.Components.DotSpatial.Data;
 
 namespace Core.Plugins.DotSpatial.Forms
 {
+    /// <summary>
+    /// This class describes the user control for the Map.
+    /// </summary>
     public partial class MapDataView : UserControl, IView
     {
         private readonly BaseMap baseMap;
-        private ICollection<string> data;
+        private MapData data;
 
+        /// <summary>
+        /// Creates a new instance of MapDataView and adds the <see cref="BaseMap"/> to the <see cref="Control.Controls"/>.
+        /// </summary>
         public MapDataView()
         {
             baseMap = new BaseMap
@@ -19,6 +25,9 @@ namespace Core.Plugins.DotSpatial.Forms
             Controls.Add(baseMap);
         }
 
+        /// <summary>
+        /// The <see cref="MapData"/> that will be set on the <see cref="BaseMap"/>.
+        /// </summary>
         public object Data
         {
             get
@@ -27,8 +36,8 @@ namespace Core.Plugins.DotSpatial.Forms
             }
             set
             {
-                data = (ICollection<string>) value;
-                baseMap.Data = data;
+                data = (MapData) value;
+                baseMap.SetMapData(data);
             }
         }
     }
