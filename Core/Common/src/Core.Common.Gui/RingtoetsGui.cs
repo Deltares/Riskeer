@@ -69,6 +69,7 @@ namespace Core.Common.Gui
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
         private GuiCommandHandler guiCommandHandler;
+        private StorageCommandHandler storageCommandHandler;
 
         public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
@@ -91,6 +92,7 @@ namespace Core.Common.Gui
             UserSettings = Settings.Default;
 
             guiCommandHandler = new GuiCommandHandler(this);
+            storageCommandHandler = new StorageCommandHandler(guiCommandHandler, this);
 
             WindowsApplication.EnableVisualStyles();
 
@@ -189,7 +191,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return guiCommandHandler;
+                return storageCommandHandler;
             }
         }
 

@@ -21,14 +21,13 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler, IStorageCommands, IObserver
+    public class GuiCommandHandler : IGuiCommandHandler, IObserver
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
         private readonly GuiImportHandler guiImportHandler;
         private readonly GuiExportHandler guiExportHandler;
         private readonly IGui gui;
-        private readonly StorageCommandHandler storageCommandHandler;
 
         public GuiCommandHandler(IGui gui)
         {
@@ -39,62 +38,7 @@ namespace Core.Common.Gui
 
             guiImportHandler = CreateGuiImportHandler();
             guiExportHandler = CreateGuiExportHandler();
-            storageCommandHandler = new StorageCommandHandler(this, gui);
         }
-
-        #region Implementation: IStorageCommands
-
-        public void CreateNewProject()
-        {
-            storageCommandHandler.CreateNewProject();
-        }
-
-        /// <summary>
-        /// Opens a new <see cref="OpenFileDialog"/> where a file can be selected to open.
-        /// </summary>
-        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
-        public bool OpenExistingProject()
-        {
-            return storageCommandHandler.OpenExistingProject();
-        }
-
-        /// <summary>
-        /// Loads a <see cref="Project"/>, based upon <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">Location of the storage file.</param>
-        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
-        public bool OpenExistingProject(string filePath)
-        {
-            return storageCommandHandler.OpenExistingProject(filePath);
-        }
-
-        /// <summary>
-        /// Close current project (if any) and related views.
-        /// </summary>
-        public void CloseProject()
-        {
-            storageCommandHandler.CloseProject();
-        }
-
-        /// <summary>
-        /// Saves the current <see cref="Project"/> to the selected storage file.
-        /// </summary>
-        /// <returns>Returns if the save was succesful.</returns>
-        public bool SaveProjectAs()
-        {
-            return storageCommandHandler.SaveProjectAs();
-        }
-
-        /// <summary>
-        /// Saves the current <see cref="Project"/> to the defined storage file.
-        /// </summary>
-        /// <returns>Returns if the save was succesful.</returns>
-        public bool SaveProject()
-        {
-            return storageCommandHandler.SaveProject();
-        }
-
-        #endregion
 
         public object GetDataOfActiveView()
         {
