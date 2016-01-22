@@ -13,6 +13,7 @@ namespace Core.Common.Gui.ContextMenu
     internal class GuiContextMenuItemFactory
     {
         private readonly IGuiCommandHandler commandHandler;
+        private readonly IExportImportCommandHandler exportImportCommandHandler;
         private readonly TreeNode treeNode;
 
         /// <summary>
@@ -21,19 +22,27 @@ namespace Core.Common.Gui.ContextMenu
         /// </summary>
         /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> which contains information for creating the 
         /// <see cref="ToolStripItem"/>.</param>
+        /// <param name="exportImportCommandHandler">The <see cref="IExportImportCommandHandler"/>
+        /// which contains information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="commandHandler"/> is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, TreeNode treeNode)
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="commandHandler"/> 
+        /// or <paramref name="exportImportCommandHandler"/> is <c>null</c>.</exception>
+        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, IExportImportCommandHandler exportImportCommandHandler, TreeNode treeNode)
         {
             if (commandHandler == null)
             {
                 throw new ArgumentNullException("commandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
+            }
+            if (exportImportCommandHandler == null)
+            {
+                throw new ArgumentNullException("exportImportCommandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_exportImport_handler);
             }
             if (treeNode == null)
             {
                 throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
             }
             this.commandHandler = commandHandler;
+            this.exportImportCommandHandler = exportImportCommandHandler;
             this.treeNode = treeNode;
         }
 
@@ -65,14 +74,14 @@ namespace Core.Common.Gui.ContextMenu
         public ToolStripItem CreateExportItem()
         {
             object dataObject = treeNode.Tag;
-            bool canExport = commandHandler.CanExportFrom(dataObject);
+            bool canExport = exportImportCommandHandler.CanExportFrom(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
                 Image = Resources.ExportIcon,
                 Enabled = canExport
             };
-            newItem.Click += (s, e) => commandHandler.ExportFrom(dataObject);
+            newItem.Click += (s, e) => exportImportCommandHandler.ExportFrom(dataObject);
 
             return newItem;
         }
@@ -85,14 +94,14 @@ namespace Core.Common.Gui.ContextMenu
         public ToolStripItem CreateImportItem()
         {
             object dataObject = treeNode.Tag;
-            bool canImport = commandHandler.CanImportOn(dataObject);
+            bool canImport = exportImportCommandHandler.CanImportOn(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
                 Image = Resources.ImportIcon,
                 Enabled = canImport
             };
-            newItem.Click += (s, e) => commandHandler.ImportOn(dataObject);
+            newItem.Click += (s, e) => exportImportCommandHandler.ImportOn(dataObject);
 
             return newItem;
         }

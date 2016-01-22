@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.IO;
 
 namespace Core.Common.Gui
 {
@@ -50,18 +49,6 @@ namespace Core.Common.Gui
         void ShowPropertiesFor(object obj);
 
         /// <summary>
-        /// Indicates if there are importers for the current Gui.Selection
-        /// </summary>
-        /// <param name="obj"></param>
-        bool CanImportOn(object obj);
-
-        /// <summary>
-        /// Indicates if there are exporters for the current Gui.Selection
-        /// </summary>
-        /// <param name="obj"></param>
-        bool CanExportFrom(object obj);
-
-        /// <summary>
         /// Indicates if there is a property view object for the current <see cref="IGui.Selection"/>.
         /// </summary>
         /// <param name="obj"></param>
@@ -71,9 +58,5 @@ namespace Core.Common.Gui
         object GetDataOfActiveView();
 
         void OpenLogFileExternal();
-
-        void ExportFrom(object data, IFileExporter exporter = null);
-
-        void ImportOn(object target, IFileImporter importer = null);
     }
 }

@@ -276,7 +276,7 @@ namespace Core.Common.Gui
 
         public IContextMenuBuilder Get(TreeNode treeNode)
         {
-            return new ContextMenuBuilder(CommandHandler, treeNode);
+            return new ContextMenuBuilder(guiCommandHandler, guiCommandHandler, treeNode);
         }
 
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)

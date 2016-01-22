@@ -19,7 +19,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler
+    public class GuiCommandHandler : IGuiCommandHandler, IExportImportCommandHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
@@ -51,38 +51,9 @@ namespace Core.Common.Gui
             gui.Selection = obj;
         }
 
-        public bool CanImportOn(object obj)
-        {
-            return gui.ApplicationCore.GetSupportedFileImporters(obj).Any();
-        }
-
-        public bool CanExportFrom(object obj)
-        {
-            return gui.ApplicationCore.GetSupportedFileExporters(obj).Any();
-        }
-
         public bool CanShowPropertiesFor(object obj)
         {
             return gui.PropertyResolver.GetObjectProperties(obj) != null;
-        }
-
-        public void ImportOn(object target, IFileImporter importer = null)
-        {
-            try
-            {
-                if (importer == null)
-                {
-                    guiImportHandler.ImportDataTo(target);
-                }
-                else
-                {
-                    guiImportHandler.ImportUsingImporter(importer, target);
-                }
-            }
-            catch (Exception)
-            {
-                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, target);
-            }
         }
 
         public bool CanOpenSelectViewDialog()
@@ -169,18 +140,6 @@ namespace Core.Common.Gui
             }
         }
 
-        public void ExportFrom(object data, IFileExporter exporter = null)
-        {
-            if (exporter == null)
-            {
-                guiExportHandler.ExportFrom(data);
-            }
-            else
-            {
-                guiExportHandler.GetExporterDialog(exporter, data);
-            }
-        }
-
         /// <summary>
         /// Removes all document and tool views that are associated to the dataObject and/or its children.
         /// </summary>
@@ -203,6 +162,51 @@ namespace Core.Common.Gui
             gui.Project.Items.Add(newItem);
             gui.Project.NotifyObservers();
         }
+
+        #region Implementation: IExportImportCommandHandler
+
+        public bool CanImportOn(object obj)
+        {
+            return gui.ApplicationCore.GetSupportedFileImporters(obj).Any();
+        }
+
+        public void ImportOn(object target, IFileImporter importer = null)
+        {
+            try
+            {
+                if (importer == null)
+                {
+                    guiImportHandler.ImportDataTo(target);
+                }
+                else
+                {
+                    guiImportHandler.ImportUsingImporter(importer, target);
+                }
+            }
+            catch (Exception)
+            {
+                Log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, target);
+            }
+        }
+
+        public bool CanExportFrom(object obj)
+        {
+            return gui.ApplicationCore.GetSupportedFileExporters(obj).Any();
+        }
+
+        public void ExportFrom(object data, IFileExporter exporter = null)
+        {
+            if (exporter == null)
+            {
+                guiExportHandler.ExportFrom(data);
+            }
+            else
+            {
+                guiExportHandler.GetExporterDialog(exporter, data);
+            }
+        }
+
+        #endregion
 
         private GuiImportHandler CreateGuiImportHandler()
         {

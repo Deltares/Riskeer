@@ -955,4 +955,7 @@
   <data name="Project_saving_project_saved_0" xml:space="preserve">
     <value>Het Ringtoetsproject '{0}' is succesvol opgeslagen.</value>
   </data>
+  <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_exportImport_handler" xml:space="preserve">
+    <value>Kan geen 'IExportImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IExportImportCommandHandler'.</value>
+  </data>
 </root>

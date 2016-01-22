@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -403,10 +402,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodeMock.Tag = failureMechanism;
 
             var commandHandler = mockRepository.Stub<IGuiCommandHandler>();
-
+            var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
             mockRepository.ReplayAll();
 
-            var contextMenuBuilder = new ContextMenuBuilder(commandHandler, nodeMock);
+            var contextMenuBuilder = new ContextMenuBuilder(commandHandler, exportImportHandler, nodeMock);
             var contextMenuBuilderProviderMock = new SimpleContextMenuBuilderProvider(contextMenuBuilder);
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);
