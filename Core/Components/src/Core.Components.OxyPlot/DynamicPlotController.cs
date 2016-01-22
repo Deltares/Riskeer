@@ -7,9 +7,19 @@ namespace Core.Components.OxyPlot
     /// </summary>
     internal sealed class DynamicPlotController : ControllerBase, IPlotController
     {
+        /// <summary>
+        /// Gets a value representing whether panning is enabled for the <see cref="DynamicPlotController"/>.
+        /// </summary>
         public bool IsPanningEnabled { get; private set; }
+
+        /// <summary>
+        /// Gets a value representing whether zooming by rectangle is enabled for the <see cref="DynamicPlotController"/>.
+        /// </summary>
         public bool IsRectangleZoomingEnabled { get; private set; }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="DynamicPlotController"/>.
+        /// </summary>
         public DynamicPlotController()
         {
             EnableScrollWheelZooming();

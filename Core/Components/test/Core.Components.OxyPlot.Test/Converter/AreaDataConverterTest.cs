@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
@@ -14,7 +15,6 @@ namespace Core.Components.OxyPlot.Test.Converter
     [TestFixture]
     public class AreaDataConverterTest
     {
-
         [Test]
         public void DefaultConstructor_IsChartDataConverter()
         {
@@ -22,7 +22,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new AreaDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ChartDataConverter>(converter);
+            Assert.IsInstanceOf<ChartDataConverter<AreaData>>(converter);
         }
 
         [Test]
@@ -32,8 +32,11 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new AreaDataConverter();
             var areaData = new AreaData(new Collection<Tuple<double, double>>());
 
-            // Call & Assert
-            Assert.IsTrue(converter.CanConvertSeries(areaData));
+            // Call
+            var canConvert = converter.CanConvertSeries(areaData);
+
+            // Assert
+            Assert.IsTrue(canConvert);
         }
 
         [Test]
@@ -43,8 +46,11 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new AreaDataConverter();
             var chartData = new TestChartData();
 
-            // Call & Assert
-            Assert.IsFalse(converter.CanConvertSeries(chartData));
+            // Call
+            var canConvert = converter.CanConvertSeries(chartData);
+            
+            // Assert
+            Assert.IsFalse(canConvert);
         }
 
         [Test]
@@ -72,6 +78,36 @@ namespace Core.Components.OxyPlot.Test.Converter
             var expectedData = points.Select(t => new DataPoint(t.Item1, t.Item2)).ToArray();
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
             CollectionAssert.AreEqual(new Collection<DataPoint> { expectedData.First() }, areaSeries.Points2);
+        }
+
+        [Test]
+        public void Convert_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new AreaDataConverter();
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
+        {
+            // Setup
+            var testConverter = new AreaDataConverter();
+            var testChartData = new TestChartData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            // Precondition
+            Assert.IsFalse(testConverter.CanConvertSeries(testChartData));
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(testChartData);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
     }
 }

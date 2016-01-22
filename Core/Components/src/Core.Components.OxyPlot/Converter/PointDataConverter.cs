@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
 using OxyPlot;
@@ -10,23 +9,14 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// This class converts <see cref="PointData"/> into <see cref="LineSeries"/> with point styling.
     /// </summary>
-    public class PointDataConverter : ChartDataConverter
+    public class PointDataConverter : ChartDataConverter<PointData>
     {
-        protected override Type SupportedType
+        protected override IList<Series> Convert(PointData data)
         {
-            get
-            {
-                return typeof(PointData);
-            }
-        }
-
-        internal override IList<Series> Convert(ChartData data)
-        {
-            var pointData = (PointData) data;
             var series = new LineSeries
             {
-                ItemsSource = pointData.Points.ToArray(),
-                IsVisible = pointData.IsVisible,
+                ItemsSource = data.Points.ToArray(),
+                IsVisible = data.IsVisible,
                 Mapping = TupleToDataPoint,
                 LineStyle = LineStyle.None,
                 MarkerType = MarkerType.Circle,

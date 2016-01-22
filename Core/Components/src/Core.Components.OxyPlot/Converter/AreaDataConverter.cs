@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Components.Charting.Data;
 using OxyPlot.Series;
 
@@ -8,25 +7,16 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// This class converts <see cref="AreaData"/> into <see cref="AreaSeries"/>.
     /// </summary>
-    public class AreaDataConverter : ChartDataConverter
+    public class AreaDataConverter : ChartDataConverter<AreaData>
     {
-        protected override Type SupportedType
+        protected override IList<Series> Convert(AreaData data)
         {
-            get
-            {
-                return typeof(AreaData);
-            }
-        }
-
-        internal override IList<Series> Convert(ChartData data)
-        {
-            var areaData = (AreaData) data;
             var series = new AreaSeries
             {
-                IsVisible = areaData.IsVisible,
+                IsVisible = data.IsVisible,
                 Tag = data
             };
-            foreach (var p in areaData.Points)
+            foreach (var p in data.Points)
             {
                 series.Points.Add(TupleToDataPoint(p));
             }

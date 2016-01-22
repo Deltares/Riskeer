@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="Converter\AreaDataConverter.cs" />
     <Compile Include="Converter\ChartDataCollectionConverter.cs" />
+    <Compile Include="Converter\IChartDataConverter.cs" />
     <Compile Include="Converter\LineDataConverter.cs" />
     <Compile Include="Converter\PointDataConverter.cs" />
     <Compile Include="DynamicPlotController.cs" />

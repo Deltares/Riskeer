@@ -8,7 +8,6 @@ using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using NUnit.Framework;
 using OxyPlot.WindowsForms;
-using Rhino.Mocks;
 
 namespace Core.Components.OxyPlot.Forms.Test
 {
@@ -58,7 +57,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void Data_KnownChartData_BaseChartAttachedSeriesDrawn()
+        public void Data_KnownChartData_BaseChartAttachedSeriesAdded()
         {
             // Setup
             var chart = new BaseChart();

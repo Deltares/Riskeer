@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
@@ -19,7 +20,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new LineDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<ChartDataConverter>(converter);
+            Assert.IsInstanceOf<ChartDataConverter<LineData>>(converter);
         }
 
         [Test]
@@ -29,8 +30,11 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new LineDataConverter();
             var lineData = new LineData(new Collection<Tuple<double, double>>());
 
-            // Call & Assert
-            Assert.IsTrue(converter.CanConvertSeries(lineData));
+            // Call
+            var canConvert = converter.CanConvertSeries(lineData);
+
+            // Assert
+            Assert.IsTrue(canConvert);
         }
 
         [Test]
@@ -40,8 +44,11 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new LineDataConverter();
             var chartData = new TestChartData();
 
-            // Call & Assert
-            Assert.IsFalse(converter.CanConvertSeries(chartData));
+            // Call
+            var canConvert = converter.CanConvertSeries(chartData);
+
+            // Assert
+            Assert.IsFalse(canConvert);
         }
 
         [Test]
@@ -68,6 +75,36 @@ namespace Core.Components.OxyPlot.Test.Converter
             var lineSeries = ((LineSeries)series[0]);
             CollectionAssert.AreEqual(points, lineSeries.ItemsSource);
             Assert.AreNotSame(points, lineSeries.ItemsSource);
+        }
+
+        [Test]
+        public void Convert_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new LineDataConverter();
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
+        {
+            // Setup
+            var testConverter = new LineDataConverter();
+            var testChartData = new TestChartData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            // Precondition
+            Assert.IsFalse(testConverter.CanConvertSeries(testChartData));
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(testChartData);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
     }
 }

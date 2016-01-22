@@ -9,21 +9,13 @@ namespace Core.Components.OxyPlot.Converter
     /// This class converts the <see cref="ChartData"/> in <see cref="ChartDataCollection"/> into 
     /// (one or more) <see cref="Series"/>.
     /// </summary>
-    public class ChartDataCollectionConverter : ChartDataConverter
+    public class ChartDataCollectionConverter : ChartDataConverter<ChartDataCollection>
     {
-        protected override Type SupportedType
-        {
-            get
-            {
-                return typeof(ChartDataCollection);
-            }
-        }
-
-        internal override IList<Series> Convert(ChartData data)
+        protected override IList<Series> Convert(ChartDataCollection data)
         {
             var factory = new SeriesFactory();
             var seriesCollection = new List<Series>();
-            foreach(var series in ((ChartDataCollection)data).List)
+            foreach(var series in data.List)
             {
                 seriesCollection.AddRange(factory.Create(series));
             }

@@ -14,7 +14,9 @@ namespace Core.Plugins.OxyPlot.Legend
         /// </summary>
         public LegendTreeView()
         {
-            RegisterNodePresenter(new ChartDataNodePresenter());
+            RegisterNodePresenter(new LineDataNodePresenter());
+            RegisterNodePresenter(new PointDataNodePresenter());
+            RegisterNodePresenter(new AreaDataNodePresenter());
             RegisterNodePresenter(new ChartNodePresenter());
         }
 

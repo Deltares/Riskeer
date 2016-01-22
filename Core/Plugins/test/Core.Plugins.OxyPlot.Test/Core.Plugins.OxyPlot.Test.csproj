@@ -64,9 +64,12 @@
     <Compile Include="Commands\OpenChartViewCommandTest.cs" />
     <Compile Include="Legend\ChartDataNodePresenterTest.cs" />
     <Compile Include="Legend\ChartNodePresenterTest.cs" />
+    <Compile Include="Legend\PointDataNodePresenterTest.cs" />
+    <Compile Include="Legend\AreaDataNodePresenterTest.cs" />
     <Compile Include="Legend\LegendTreeViewTest.cs" />
     <Compile Include="Legend\LegendViewTest.cs" />
     <Compile Include="Legend\LegendControllerTest.cs" />
+    <Compile Include="Legend\LineDataNodePresenterTest.cs" />
     <Compile Include="OxyPlotGuiPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChartingRibbonTest.cs" />

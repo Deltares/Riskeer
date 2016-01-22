@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Charting.Data;
 using OxyPlot.Series;
@@ -9,24 +8,15 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// This class converts <see cref="LineData"/> into <see cref="LineSeries"/>.
     /// </summary>
-    public class LineDataConverter : ChartDataConverter
+    public class LineDataConverter : ChartDataConverter<LineData>
     {
-        protected override Type SupportedType
+        protected override IList<Series> Convert(LineData data)
         {
-            get
-            {
-                return typeof(LineData);
-            }
-        }
-
-        internal override IList<Series> Convert(ChartData data)
-        {
-            var lineData = (LineData) data;
             var series = new LineSeries
             {
-                ItemsSource = lineData.Points.ToArray(),
+                ItemsSource = data.Points.ToArray(),
                 Mapping = TupleToDataPoint,
-                IsVisible = lineData.IsVisible,
+                IsVisible = data.IsVisible,
                 Tag = data
             };
             return new List<Series>{ series };

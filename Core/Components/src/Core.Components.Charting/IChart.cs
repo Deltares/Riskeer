@@ -1,4 +1,3 @@
-using Core.Common.Base;
 using Core.Components.Charting.Data;
 
 namespace Core.Components.Charting

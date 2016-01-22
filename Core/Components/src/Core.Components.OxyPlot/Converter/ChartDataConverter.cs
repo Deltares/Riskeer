@@ -10,13 +10,26 @@ namespace Core.Components.OxyPlot.Converter
     /// Provides an abstract base class for transforming <see cref="ChartData"/> in specific
     /// <see cref="Series"/> instances.
     /// </summary>
-    public abstract class ChartDataConverter
+    public abstract class ChartDataConverter<T> : IChartDataConverter where T : ChartData
     {
-        /// <summary>
-        /// Returns the type that the <see cref="ChartDataConverter"/> can convert
-        /// into a new <see cref="Series"/> instance.
-        /// </summary>
-        protected abstract Type SupportedType { get; }
+        public bool CanConvertSeries(ChartData data)
+        {
+            return data.GetType() == typeof(T);
+        }
+
+        public IList<Series> Convert(ChartData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("Null data cannot be converted into series.");
+            }
+            if (!CanConvertSeries(data))
+            {
+                var message = string.Format("The data of type {0} cannot be converted by this converter.", data.GetType());
+                throw new ArgumentException(message);
+            }
+            return Convert((T) data);
+        }
 
         /// <summary>
         /// Transforms a given object into a <see cref="DataPoint"/>. Can be used as a 
@@ -33,21 +46,10 @@ namespace Core.Components.OxyPlot.Converter
         }
 
         /// <summary>
-        /// Checks whether the <see cref="ChartDataConverter"/> can convert the <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref name="data"/> can be converted by the
-        /// <see cref="ChartDataConverter"/>, <c>false</c> otherwise.</returns>
-        internal bool CanConvertSeries(ChartData data)
-        {
-            return data.GetType() == SupportedType;
-        }
-
-        /// <summary>
         /// Creates one or more <see cref="Series"/> based on the <paramref name="data"/> that was given.
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="Series"/>.</param>
         /// <returns>A new <see cref="IList{T}"/> of <see cref="Series"/>.</returns>
-        internal abstract IList<Series> Convert(ChartData data);
+        protected abstract IList<Series> Convert(T data);
     }
 }

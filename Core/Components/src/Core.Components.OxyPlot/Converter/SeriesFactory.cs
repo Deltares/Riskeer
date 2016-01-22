@@ -14,7 +14,7 @@ namespace Core.Components.OxyPlot.Converter
         /// <summary>
         /// Collection of converters that the <see cref="SeriesFactory"/> can use to transform <see cref="ChartData"/>.
         /// </summary>
-        private readonly IEnumerable<ChartDataConverter> converters = new Collection<ChartDataConverter>
+        private readonly IEnumerable<IChartDataConverter> converters = new Collection<IChartDataConverter>
         {
             new AreaDataConverter(),
             new LineDataConverter(),
@@ -36,7 +36,7 @@ namespace Core.Components.OxyPlot.Converter
                     return converter.Convert(data);
                 }
             }
-            throw new NotSupportedException(string.Format("IChartData of type {0} is not supported.", data.GetType().Name));
+            throw new NotSupportedException(string.Format("ChartData of type {0} is not supported.", data.GetType().Name));
         }
     }
 }

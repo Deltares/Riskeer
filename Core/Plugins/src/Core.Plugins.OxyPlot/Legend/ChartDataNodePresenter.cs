@@ -1,78 +1,97 @@
 using System;
+using System.Drawing;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Components.Charting.Data;
-using Core.Plugins.OxyPlot.Properties;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
     /// <summary>
-    /// This class describes the presentation of <see cref="ChartData"/> in a <see cref="TreeView"/>.
+    /// This class describes the presentation of <see cref="PointBasedChartData"/> as a tree node.
     /// </summary>
-    public class ChartDataNodePresenter : TreeViewNodePresenterBase<ChartData>
+    public abstract class ChartDataNodePresenter<T> : TreeViewNodePresenterBase<T> where T : PointBasedChartData
     {
-        public override DragOperations CanDrag(ChartData nodeData)
+        /// <summary>
+        /// Gets the text to set on the node.
+        /// </summary>
+        protected abstract string Text { get; }
+
+        /// <summary>
+        /// Gets the icon to set for the node.
+        /// </summary>
+        protected abstract Bitmap Icon { get; }
+
+        /// <summary>
+        /// Returns the <see cref="DragOperations"/> possible on <paramref name="nodeData"/>.
+        /// </summary>
+        /// <param name="nodeData">The data of type <typeparamref name="T"/> to base <see cref="DragOperations"/>
+        /// on.</param>
+        /// <returns>The <see cref="DragOperations"/> possible on <paramref name="nodeData"/>.</returns>
+        public override DragOperations CanDrag(T nodeData)
         {
             return DragOperations.Move;
         }
 
-        public override void UpdateNode(TreeNode parentNode, TreeNode node, ChartData nodeData)
+        /// <summary>
+        /// Updates the <paramref name="node"/> with data taken from <see cref="nodeData"/>.
+        /// </summary>
+        /// <param name="parentNode">The parent <see cref="TreeNode"/> of the <paramref name="node"/>.</param>
+        /// <param name="node">The <see cref="TreeNode"/> to update.</param>
+        /// <param name="nodeData">The data of type <typeparamref name="T"/> to update the <paramref name="node"/>
+        /// with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="node"/> is <c>null</c></item>
+        /// <item><paramref name="nodeData"/> is <c>null</c></item>
+        /// </list> 
+        /// </exception>
+        public override void UpdateNode(TreeNode parentNode, TreeNode node, T nodeData)
         {
-            if (nodeData is AreaData)
+            if (node == null)
             {
-                node.Text = Resources.ChartDataNodePresenter_Area_data_label;
-                node.Image = Resources.AreaIcon;
-                var isVisible = ((AreaData)nodeData).IsVisible;
-                if (node.Checked != isVisible)
-                {
-                    node.Checked = isVisible;
-                }
+                throw new ArgumentNullException("node", "Cannot update node without data.");
             }
-            else if (nodeData is LineData)
+            if (nodeData == null)
             {
-                node.Text = Resources.ChartDataNodePresenter_Line_data_label;
-                node.Image = Resources.LineIcon;
-                var isVisible = ((LineData)nodeData).IsVisible;
-                if (node.Checked != isVisible)
-                {
-                    node.Checked = isVisible;
-                }
+                throw new ArgumentNullException("nodeData", "Cannot update node without data.");
             }
-            else if (nodeData is PointData)
-            {
-                node.Text = Resources.ChartDataNodePresenter_Point_data_label;
-                node.Image = Resources.PointsIcon;
-                var isVisible = ((PointData)nodeData).IsVisible;
-                if (node.Checked != isVisible)
-                {
-                    node.Checked = isVisible;
-                }
-            }
-            else
-            {
-                throw new NotSupportedException("Cannot add chart data of type other than points, lines or area.");
-            }
+
+            node.Text = Text;
+            node.Image = Icon;
             node.ShowCheckBox = true;
+
+            var isVisible = nodeData.IsVisible;
+
+            if (node.Checked != isVisible)
+            {
+                node.Checked = isVisible;
+            }
         }
 
+        /// <summary>
+        /// Updates the state of the data associated with <paramref name="node"/> based on its <see cref="TreeNode.Checked"/> property.
+        /// </summary>
+        /// <param name="node">The <see cref="TreeNode"/> which had its <see cref="TreeNode.Checked"/> property updated.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="node"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="TreeNode.Tag"/> of <paramref name="node"/> is <c>null</c>.</exception>
         public override void OnNodeChecked(TreeNode node)
         {
-            var chartData = (ChartData)node.Parent.Tag;
-            var lineData = node.Tag as LineData;
-            var pointData = node.Tag as PointData;
-            var areaData = node.Tag as AreaData;
-            if (lineData != null)
+            if (node == null)
             {
-                lineData.IsVisible = node.Checked;
+                throw new ArgumentNullException("node", "Cannot update node without data.");
             }
-            if (pointData != null)
+            var data = node.Tag as T;
+            if (data == null)
             {
-                pointData.IsVisible = node.Checked;
+                throw new ArgumentException("Cannot invoke OnNodeChecked for a node without tag.");
             }
-            if (areaData != null)
+            data.IsVisible = node.Checked;
+
+            var parentData = node.Parent == null ? null : node.Parent.Tag as IObservable;
+            if (parentData != null)
             {
-                areaData.IsVisible = node.Checked;
+                parentData.NotifyObservers();
             }
-            chartData.NotifyObservers();
         }
     }
 }

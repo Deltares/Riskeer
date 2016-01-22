@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Core.Components.Charting.Data
 {
     /// <summary>
-    /// This class represents collections of <see cref="ChartData"/>.
+    /// This class represents a collection of <see cref="ChartData"/>.
     /// </summary>
     public class ChartDataCollection : ChartData
     {

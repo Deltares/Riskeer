@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Converter;
@@ -21,7 +21,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var a = random.NextDouble();
             var b = random.NextDouble();
             var tuple = new Tuple<double,double>(a,b);
-            var testConverter = new TestChartDataConverter(typeof(object));
+            var testConverter = new TestChartDataConverter<ChartData>();
 
             // Call
             var point = testConverter.PublicTupleToDataPoint(tuple);
@@ -35,7 +35,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         public void CanConvertSeries_DifferentInherritingTypes_OnlySupportsExactType()
         {
             // Setup
-            var testConverter = new TestChartDataConverter(typeof(Class));
+            var testConverter = new TestChartDataConverter<Class>();
 
             // Call
             var chartDataResult = testConverter.CanConvertSeries(new TestChartData());
@@ -48,28 +48,43 @@ namespace Core.Components.OxyPlot.Test.Converter
             Assert.IsFalse(childResult);
         }
 
+        [Test]
+        public void Convert_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new TestChartDataConverter<Class>();
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
+        {
+            // Setup
+            var testConverter = new TestChartDataConverter<Class>();
+            var testChartData = new TestChartData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            // Precondition
+            Assert.IsFalse(testConverter.CanConvertSeries(testChartData));
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(testChartData);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
         private class Class : ChartData {}
 
         private class Child : Class {}
 
-        private class TestChartDataConverter : ChartDataConverter 
+        private class TestChartDataConverter<T> : ChartDataConverter<T> where T : ChartData
         {
-            private readonly Type supportedType;
-
-            public TestChartDataConverter(Type type)
-            {
-                supportedType = type;
-            }
-
-            protected override Type SupportedType
-            {
-                get
-                {
-                    return supportedType;
-                }
-            }
-
-            internal override IList<Series> Convert(ChartData data)
+            protected override IList<Series> Convert(T data)
             {
                 throw new NotImplementedException();
             }
