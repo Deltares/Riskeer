@@ -19,17 +19,17 @@
         <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
         <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.LicenseAgreementDlgDescription)" />
         <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.LicenseAgreementDlgTitle)" />
-        <Control Id="LicenseAcceptedCheckBox" Type="CheckBox" X="20" Y="207" Width="330" Height="18" CheckBoxValue="1" Property="LicenseAccepted" Text="!(loc.LicenseAgreementDlgLicenseAcceptedCheckBox)" />
-        <Control Id="Print" Type="PushButton" X="112" Y="243" Width="56" Height="17" Text="!(loc.WixUIPrint)">
+        <Control Id="LicenseAcceptedCheckBox" Type="CheckBox" X="20" Y="207" Width="330" Height="18" CheckBoxValue="1" Property="LicenseAccepted" Text="!(loc.LicenseAgreementDlgLicenseAcceptedCheckBoxText)" />
+        <Control Id="Print" Type="PushButton" X="112" Y="243" Width="56" Height="17" Text="!(loc.PrintButtonText)">
           <Publish Event="DoAction" Value="WixUIPrintEula">1</Publish>
         </Control>
-        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
-        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.BackButtonText)" />
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.NextButtonText)">
           <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">!(wix.WixUICostingPopupOptOut) OR CostingComplete = 1</Publish>
           <Condition Action="disable"><![CDATA[LicenseAccepted <> "1"]]></Condition>
           <Condition Action="enable">LicenseAccepted = "1"</Condition>
         </Control>
-        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.CancelButtonText)">
           <Publish Event="SpawnDialog" Value="CancelDlgDeltares">1</Publish>
         </Control>
         <Control Id="LicenseText" Type="ScrollableText" X="20" Y="65" Width="330" Height="140" Sunken="yes" TabSkip="no">

@@ -14,7 +14,7 @@
     <Fragment>
         <UI>
             <Dialog Id="VerifyReadyDlgDeltares" Width="370" Height="270" Title="!(loc.VerifyReadyDlg_Title)" TrackDiskSpace="yes">
-                <Control Id="Install" Type="PushButton" ElevationShield="yes" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+                <Control Id="Install" Type="PushButton" ElevationShield="yes" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.InstallButtonText)">
                     <Condition Action="show">NOT Installed AND ALLUSERS</Condition>
                     <Condition Action="enable">NOT Installed</Condition>
                     <Condition Action="default">NOT Installed</Condition>
@@ -24,7 +24,7 @@
                     <Publish Event="EnableRollback" Value="False">OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 0 AND PROMPTROLLBACKCOST="D"</Publish>
                     <Publish Event="SpawnDialog" Value="OutOfDiskDlgDeltares">(OutOfDiskSpace = 1 AND OutOfNoRbDiskSpace = 1) OR (OutOfDiskSpace = 1 AND PROMPTROLLBACKCOST="F")</Publish>
                 </Control>
-                <Control Id="InstallNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.VerifyReadyDlgInstall)">
+                <Control Id="InstallNoShield" Type="PushButton" ElevationShield="no" X="212" Y="243" Width="80" Height="17" Default="yes" Hidden="yes" Disabled="yes" Text="!(loc.InstallButtonText)">
                     <Condition Action="show">NOT Installed AND NOT ALLUSERS</Condition>
                     <Condition Action="enable">NOT Installed</Condition>
                     <Condition Action="default">NOT Installed</Condition>
@@ -134,13 +134,13 @@
                 <Control Id="UpdateText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgUpdateText)">
                     <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
                 </Control>
-		<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17"  Cancel="yes" Text="!(loc.WixUICancel)">
+		            <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17"  Cancel="yes" Text="!(loc.CancelButtonText)">
                     <Publish Event="SpawnDialog" Value="CancelDlgDeltares">1</Publish>
                 </Control>
                 
-		<Control Id="Back" Type="PushButton" X="156" Y="243" Width="56" Height="17" Hidden="yes" TabSkip="yes" Text="!(loc.WixUIBack)">
-		     <Condition Action="show">NOT Installed</Condition>
-		</Control>
+		            <Control Id="Back" Type="PushButton" X="156" Y="243" Width="56" Height="17" Hidden="yes" TabSkip="yes" Text="!(loc.BackButtonText)">
+		                 <Condition Action="show">NOT Installed</Condition>
+		            </Control>
                  
                 <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="58" TabSkip="no" Text="!(loc.VerifyReadyDlgBannerBitmap)" />
                 <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
