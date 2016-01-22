@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
+using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
 
@@ -49,9 +50,9 @@ namespace Core.Plugins.DotSpatial.Test
 
                 // Assert
                 Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(ICollection<string>), views[0].DataType);
+                Assert.AreEqual(typeof(MapData), views[0].DataType);
                 Assert.AreEqual(typeof(MapDataView), views[0].ViewType);
-                Assert.AreEqual("Map", views[0].GetViewName(view, null));
+                Assert.AreEqual("Kaart", views[0].GetViewName(view, null));
             }
         }
     }
