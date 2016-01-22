@@ -24,7 +24,7 @@ namespace Core.Common.Gui
     /// </summary>
     public interface IGui : IDisposable
     {
-        #region Public properties
+        #region Public events
 
         event Action<Project> ProjectOpened;
         event Action<Project> ProjectClosing;
@@ -51,7 +51,9 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets or sets CommandHandler.
         /// </summary>
-        IGuiCommandHandler CommandHandler { get; set; }
+        IGuiCommandHandler CommandHandler { get; }
+
+        IStorageCommands StorageCommands { get; }
 
         /// <summary>
         /// Gets commands.

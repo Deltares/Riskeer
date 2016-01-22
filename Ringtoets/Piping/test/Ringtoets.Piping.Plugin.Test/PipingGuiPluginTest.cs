@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.Test
             var applicationCore = new ApplicationCore();
 
             var guiStub = mocks.Stub<IGui>();
-            guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
+            guiStub.Stub(g => g.CommandHandler).Return(mocks.Stub<IGuiCommandHandler>());
             var contextMenuProviderMock = mocks.DynamicMock<IContextMenuBuilderProvider>();
 
             Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();

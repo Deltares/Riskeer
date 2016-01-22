@@ -23,7 +23,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler, IObserver
+    public class GuiCommandHandler : IGuiCommandHandler, IStorageCommands, IObserver
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 

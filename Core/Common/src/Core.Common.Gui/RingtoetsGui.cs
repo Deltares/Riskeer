@@ -68,6 +68,7 @@ namespace Core.Common.Gui
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
+        private GuiCommandHandler guiCommandHandler;
 
         public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
@@ -89,7 +90,7 @@ namespace Core.Common.Gui
 
             UserSettings = Settings.Default;
 
-            CommandHandler = new GuiCommandHandler(this);
+            guiCommandHandler = new GuiCommandHandler(this);
 
             WindowsApplication.EnableVisualStyles();
 
@@ -182,7 +183,15 @@ namespace Core.Common.Gui
             }
         }
 
-        public IGuiCommandHandler CommandHandler { get; set; }
+        public IGuiCommandHandler CommandHandler { get { return guiCommandHandler; } }
+
+        public IStorageCommands StorageCommands 
+        {
+            get
+            {
+                return guiCommandHandler;
+            }
+        }
 
         public IViewList DocumentViews
         {
@@ -433,10 +442,10 @@ namespace Core.Common.Gui
                     ToolWindowViews.Clear();
                 }
 
-                if (CommandHandler != null)
+                if (guiCommandHandler != null)
                 {
-                    CommandHandler.Dispose();
-                    CommandHandler = null;
+                    guiCommandHandler.Dispose();
+                    guiCommandHandler = null;
                 }
 
                 if (Plugins != null)

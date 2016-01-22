@@ -47,7 +47,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 projectExplorerPluginGui, pluginGui
             }).Repeat.Any();
             gui.Expect(g => g.ContextMenuProvider).Return(mocks.StrictMock<IContextMenuBuilderProvider>()).Repeat.Any();
-            gui.CommandHandler = mocks.StrictMock<IGuiCommandHandler>();
+            gui.Stub(g=>g.CommandHandler).Return(mocks.StrictMock<IGuiCommandHandler>());
 
             gui.Project = project;
 

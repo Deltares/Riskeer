@@ -26,7 +26,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             {
                 gui.MainWindow = new MainWindow(gui);
                 gui.Run();
-                TestDelegate closeProject = () => gui.CommandHandler.CloseProject();
+                TestDelegate closeProject = () => gui.StorageCommands.CloseProject();
                 Assert.DoesNotThrow(closeProject);
             }
         }

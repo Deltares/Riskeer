@@ -74,7 +74,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
 
             var gui = mocks.Stub<IGui>();
-            gui.CommandHandler = commandHandler;
+            gui.Stub(g => g.CommandHandler).Return(commandHandler);
             mocks.ReplayAll();
 
             using(var guiPlugin = new ProjectExplorerGuiPlugin { Gui = gui })

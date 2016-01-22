@@ -528,7 +528,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 try
                 {
-                    Gui.CommandHandler.OpenExistingProject(path);
+                    Gui.StorageCommands.OpenExistingProject(path);
                     RecentProjectsTabControl.Items.Remove(newItem);
                     RecentProjectsTabControl.Items.Insert(1, newItem);
                 }
@@ -614,13 +614,13 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
-            var saveProject = Gui.CommandHandler.SaveProject();
+            var saveProject = Gui.StorageCommands.SaveProject();
             OnAfterProjectSaveOrOpen(saveProject);
         }
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
-            var saveProject = Gui.CommandHandler.SaveProjectAs();
+            var saveProject = Gui.StorageCommands.SaveProjectAs();
             OnAfterProjectSaveOrOpen(saveProject);
         }
 
@@ -641,14 +641,14 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            var succesful = Gui.CommandHandler.OpenExistingProject();
+            var succesful = Gui.StorageCommands.OpenExistingProject();
             OnAfterProjectSaveOrOpen(succesful);
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
             // Original code:
-            Gui.CommandHandler.CreateNewProject();
+            Gui.StorageCommands.CreateNewProject();
             ValidateItems();
         }
 
