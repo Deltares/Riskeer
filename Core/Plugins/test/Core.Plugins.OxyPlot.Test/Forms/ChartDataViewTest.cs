@@ -55,7 +55,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
         }
 
         [Test]
-        public void Data_SetToChartData_ChartDataSet()
+        public void Data_SetToLineData_ChartDataSet()
         {
             // Setup
             var chartView = new ChartDataView();
@@ -68,6 +68,54 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Assert
             Assert.AreSame(lineData, chart.Data);
             Assert.AreSame(lineData, chartView.Data);
+        }
+
+        [Test]
+        public void Data_SetToPointData_ChartDataSet()
+        {
+            // Setup
+            var chartView = new ChartDataView();
+            var chart = (BaseChart)chartView.Controls[0];
+            var pointData = new PointData(Enumerable.Empty<Tuple<double, double>>());
+
+            // Call
+            chartView.Data = pointData;
+
+            // Assert
+            Assert.AreSame(pointData, chart.Data);
+            Assert.AreSame(pointData, chartView.Data);
+        }
+
+        [Test]
+        public void Data_SetToAreaData_ChartDataSet()
+        {
+            // Setup
+            var chartView = new ChartDataView();
+            var chart = (BaseChart)chartView.Controls[0];
+            var areaData = new AreaData(Enumerable.Empty<Tuple<double, double>>());
+
+            // Call
+            chartView.Data = areaData;
+
+            // Assert
+            Assert.AreSame(areaData, chart.Data);
+            Assert.AreSame(areaData, chartView.Data);
+        }
+
+        [Test]
+        public void Data_SetToCollectionChartData_ChartDataSet()
+        {
+            // Setup
+            var chartView = new ChartDataView();
+            var chart = (BaseChart)chartView.Controls[0];
+            var chartDataCollection = new ChartDataCollection(new ChartData[0]);
+
+            // Call
+            chartView.Data = chartDataCollection;
+
+            // Assert
+            Assert.AreSame(chartDataCollection, chart.Data);
+            Assert.AreSame(chartDataCollection, chartView.Data);
         }
     }
 }
