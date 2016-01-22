@@ -57,6 +57,23 @@ namespace Application.Ringtoets.Storage
             }
         }
 
+        /// <summary>
+        /// Converts <paramref name="project"/> to an existing <see cref="ProjectEntity"/> in the database.
+        /// </summary>
+        /// <param name="databaseFilePath">Path to database file.</param>
+        /// <param name="project"><see cref="Project"/> to save.</param>
+        /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
+        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
+        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> does not exist.</exception>
+        /// <exception cref="UpdateStorageException">Thrown when
+        /// <list type="bullet">
+        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
+        /// <item>The connection to the database file failed.</item>
+        /// <item>The related entity was not found in the database. Therefore, no update was possible.</item>
+        /// </list>
+        /// </exception>
         public int SaveProject(string databaseFilePath, Project project)
         {
             Connect(databaseFilePath);

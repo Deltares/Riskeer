@@ -12,6 +12,13 @@ namespace Application.Ringtoets.Storage.Test
     public class StorageSqLiteTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
+        private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
+
+        [TestFixtureTearDown]
+        public void TearDownTempRingtoetsFile()
+        {
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
+        }
 
         [Test]
         [TestCase(null)]
@@ -271,20 +278,25 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProject_ValidPathToSetFilePath_ValidContentsFromDatabase()
+        public void SaveProjectLoadProject_ValidPathToSetFilePath_ValidContentsFromDatabase()
         {
             // Setup
             long projectId = 1234L;
             var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
             var project = new Project()
             {
-                StorageId = projectId
+                StorageId = projectId,
+                Name = "test",
+                Description = "description"
             };
             var storage = new StorageSqLite();
             TestDelegate precondition = () => storage.SaveProjectAs(tempFile, project);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempFile));
 
+            // Call
             TestDelegate test = () => storage.SaveProject(tempFile, project);
+
+            // Assert
             Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempFile));
 
             // Call
@@ -292,7 +304,10 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
+            Assert.AreNotEqual(project, loadedProject);
             Assert.AreEqual(project.StorageId, loadedProject.StorageId);
+            Assert.AreEqual(project.Name, loadedProject.Name);
+            Assert.AreEqual(project.Description, loadedProject.Description);
 
             // TearDown
             TearDownTempRingtoetsFile(tempFile);
@@ -311,7 +326,10 @@ namespace Application.Ringtoets.Storage.Test
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            File.Delete(filePath);
+            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
     }
 }
