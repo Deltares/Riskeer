@@ -32,6 +32,7 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
             EntityNotFoundException exception = new EntityNotFoundException(expectedMessage);
 
             // Assert
+            Assert.IsInstanceOf<Exception>(exception);
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -47,6 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
             EntityNotFoundException exception = new EntityNotFoundException(expectedMessage, expectedInnerException);
 
             // Assert
+            Assert.IsInstanceOf<Exception>(exception);
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
