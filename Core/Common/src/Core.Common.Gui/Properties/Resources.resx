@@ -143,7 +143,7 @@
     <value>..\Resources\RelationshipsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Project_new_opening_cancelled" xml:space="preserve">
-    <value>Openen van nieuw Ringtoets project geannuleerd.</value>
+    <value>Openen van nieuw Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="information_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -191,7 +191,7 @@
     <value>..\Resources\ClosePreviewHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ringtoets_project_file_filter" xml:space="preserve">
-    <value>Ringtoets project files (.rtd)|*.rtd</value>
+    <value>Ringtoetsproject (*.rtd)|*.rtd</value>
   </data>
   <data name="PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_" xml:space="preserve">
     <value>Fout bij het opslaan van de instellingen in {0}.</value>
@@ -305,7 +305,7 @@
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Project_existing_project_opening_cancelled" xml:space="preserve">
-    <value>Openen van bestaand Ringtoets project geannuleerd.</value>
+    <value>Openen van bestaand Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="graphhs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\graphhs.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -410,7 +410,7 @@
     <value>Berichten</value>
   </data>
   <data name="Project_new_successfully_opened" xml:space="preserve">
-    <value>Nieuw Ringtoets project succesvol geopend.</value>
+    <value>Nieuw Ringtoetsproject succesvol geopend.</value>
   </data>
   <data name="brick1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -542,7 +542,7 @@
     <value>Menu's en werkbalken instellen...</value>
   </data>
   <data name="Project_new_opening" xml:space="preserve">
-    <value>Openen van nieuw Ringtoets project.</value>
+    <value>Openen van nieuw Ringtoetsproject.</value>
   </data>
   <data name="chart_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_bar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -623,7 +623,7 @@
     <value>Eigenschappen</value>
   </data>
   <data name="Project_existing_opening_project" xml:space="preserve">
-    <value>Openen van bestaand Ringtoets project.</value>
+    <value>Openen van bestaand Ringtoetsproject.</value>
   </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -941,21 +941,18 @@
     <value>Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.</value>
   </data>
   <data name="Project_existing_project_opening_failed" xml:space="preserve">
-    <value>Het is niet gelukt om het Ringtoets project te laden.</value>
+    <value>Het is niet gelukt om het Ringtoetsproject te laden.</value>
   </data>
   <data name="Project_existing_successfully_opened" xml:space="preserve">
-    <value>Bestaand Ringtoets project succesvol geopend.</value>
-  </data>
-  <data name="Project_saving_project" xml:space="preserve">
-    <value>Opslaan van het Ringtoets project.</value>
+    <value>Bestaand Ringtoetsproject succesvol geopend.</value>
   </data>
   <data name="Project_saving_project_cancelled" xml:space="preserve">
-    <value>Opslaan van het Ringtoets project geannuleerd.</value>
+    <value>Opslaan van het Ringtoetsproject geannuleerd.</value>
   </data>
   <data name="Project_saving_project_failed" xml:space="preserve">
-    <value>Het is niet gelukt om het Ringtoets project op te slaan.</value>
+    <value>Het is niet gelukt om het Ringtoetsproject op te slaan.</value>
   </data>
-  <data name="Project_saving_project_saved" xml:space="preserve">
-    <value>Het Ringtoets project succesvol opgeslagen.</value>
+  <data name="Project_saving_project_saved_0" xml:space="preserve">
+    <value>Het Ringtoetsproject '{0}' is succesvol opgeslagen.</value>
   </data>
 </root>

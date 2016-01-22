@@ -1,13 +1,11 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
-
 using log4net;
 
 namespace Core.Common.Gui
@@ -36,6 +34,14 @@ namespace Core.Common.Gui
             this.gui.ProjectClosing += ApplicationProjectClosing;
         }
 
+        public void UpdateObserver()
+        {
+            gui.RefreshGui();
+        }
+
+        /// <summary>
+        /// Closes the current <see cref="Project"/> and creates a new (empty) <see cref="Project"/>.
+        /// </summary>
         public void CreateNewProject()
         {
             CloseProject();
@@ -150,7 +156,6 @@ namespace Core.Common.Gui
                 return false;
             }
 
-            log.Info(Resources.Project_saving_project);
             // show file open dialog and select project file
             var saveFileDialog = new SaveFileDialog
             {
@@ -168,39 +173,17 @@ namespace Core.Common.Gui
 
             var filePath = saveFileDialog.FileName;
             var storage = gui.Storage;
-            try
+            if (!TrySaveProjectAs(storage, filePath))
             {
-                storage.SaveProjectAs(filePath, gui.Project);
-            }
-            catch (ArgumentException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-            catch (CouldNotConnectException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (StorageValidationException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (UpdateStorageException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
                 return false;
             }
 
             // Save was successful, store location
             gui.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
-            log.Info(Resources.Project_saving_project_saved);
+            project.NotifyObservers();
+            gui.RefreshGui();
+            log.Info(String.Format(Resources.Project_saving_project_saved_0, project.Name));
             return true;
         }
 
@@ -223,50 +206,58 @@ namespace Core.Common.Gui
                 return SaveProjectAs();
             }
 
-            log.Info(Resources.Project_saving_project);
             var storage = gui.Storage;
-            try
+            if (!TrySaveProject(storage, filePath))
             {
-                storage.SaveProject(filePath, gui.Project);
-            }
-            catch (ArgumentException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (CouldNotConnectException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (StorageValidationException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
-                return false;
-            }
-            catch (UpdateStorageException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
                 return false;
             }
 
-            log.Info(Resources.Project_saving_project_saved);
+            log.Info(String.Format(Resources.Project_saving_project_saved_0, project.Name));
             return true;
-        }
-
-        public void UpdateObserver()
-        {
-            gui.RefreshGui();
         }
 
         public void Dispose()
         {
             gui.ProjectOpened -= ApplicationProjectOpened;
             gui.ProjectClosing -= ApplicationProjectClosing;
+        }
+
+        private bool TrySaveProjectAs(IStoreProject storage, string filePath)
+        {
+            try
+            {
+                storage.SaveProjectAs(filePath, gui.Project);
+                return true;
+            }
+            catch (Exception e)
+            {
+                if (!(e is ArgumentException || e is CouldNotConnectException || e is StorageValidationException || e is UpdateStorageException))
+                {
+                    throw;
+                }
+                log.Warn(e.Message);
+                log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
+        }
+
+        private bool TrySaveProject(IStoreProject storage, string filePath)
+        {
+            try
+            {
+                storage.SaveProject(filePath, gui.Project);
+                return true;
+            }
+            catch (Exception e)
+            {
+                if (!(e is ArgumentException || e is CouldNotConnectException || e is StorageValidationException || e is UpdateStorageException))
+                {
+                    throw;
+                }
+                log.Warn(e.Message);
+                log.Warn(Resources.Project_saving_project_failed);
+                return false;
+            }
         }
 
         private void ApplicationProjectClosing(Project project)

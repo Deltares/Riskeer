@@ -1795,7 +1795,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project..
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject..
         /// </summary>
         public static string Project_existing_opening_project {
             get {
@@ -1804,7 +1804,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project geannuleerd..
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoetsproject geannuleerd..
         /// </summary>
         public static string Project_existing_project_opening_cancelled {
             get {
@@ -1813,7 +1813,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoets project te laden..
+        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoetsproject te laden..
         /// </summary>
         public static string Project_existing_project_opening_failed {
             get {
@@ -1822,7 +1822,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestaand Ringtoets project succesvol geopend..
+        ///   Looks up a localized string similar to Bestaand Ringtoetsproject succesvol geopend..
         /// </summary>
         public static string Project_existing_successfully_opened {
             get {
@@ -1831,7 +1831,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project..
+        ///   Looks up a localized string similar to Openen van nieuw Ringtoetsproject..
         /// </summary>
         public static string Project_new_opening {
             get {
@@ -1840,7 +1840,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project geannuleerd..
+        ///   Looks up a localized string similar to Openen van nieuw Ringtoetsproject geannuleerd..
         /// </summary>
         public static string Project_new_opening_cancelled {
             get {
@@ -1849,7 +1849,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw Ringtoets project succesvol geopend..
+        ///   Looks up a localized string similar to Nieuw Ringtoetsproject succesvol geopend..
         /// </summary>
         public static string Project_new_successfully_opened {
             get {
@@ -1858,16 +1858,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opslaan van het Ringtoets project..
-        /// </summary>
-        public static string Project_saving_project {
-            get {
-                return ResourceManager.GetString("Project_saving_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan van het Ringtoets project geannuleerd..
+        ///   Looks up a localized string similar to Opslaan van het Ringtoetsproject geannuleerd..
         /// </summary>
         public static string Project_saving_project_cancelled {
             get {
@@ -1876,7 +1867,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoets project op te slaan..
+        ///   Looks up a localized string similar to Het is niet gelukt om het Ringtoetsproject op te slaan..
         /// </summary>
         public static string Project_saving_project_failed {
             get {
@@ -1885,11 +1876,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het Ringtoets project succesvol opgeslagen..
+        ///   Looks up a localized string similar to Het Ringtoetsproject &apos;{0}&apos; is succesvol opgeslagen..
         /// </summary>
-        public static string Project_saving_project_saved {
+        public static string Project_saving_project_saved_0 {
             get {
-                return ResourceManager.GetString("Project_saving_project_saved", resourceCulture);
+                return ResourceManager.GetString("Project_saving_project_saved_0", resourceCulture);
             }
         }
         
@@ -2253,7 +2244,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets project files (.rtd)|*.rtd.
+        ///   Looks up a localized string similar to Ringtoetsproject (*.rtd)|*.rtd.
         /// </summary>
         public static string Ringtoets_project_file_filter {
             get {
