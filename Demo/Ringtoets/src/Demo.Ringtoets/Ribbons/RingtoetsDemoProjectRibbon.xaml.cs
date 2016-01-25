@@ -5,7 +5,7 @@ using Core.Common.Gui.Forms;
 using Demo.Ringtoets.Commands;
 using Fluent;
 
-namespace Demo.Ringtoets
+namespace Demo.Ringtoets.Ribbons
 {
     /// <summary>
     /// Interaction logic for RingtoetsDemoProjectRibbon.xaml

@@ -27,7 +27,7 @@ using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
-using Demo.Ringtoets;
+using Demo.Ringtoets.GUIs;
 #endif
 
 namespace Application.Ringtoets
@@ -133,11 +133,12 @@ namespace Application.Ringtoets
                     new CommonToolsGuiPlugin(),
                     new SharpMapGisGuiPlugin(),
                     new RingtoetsGuiPlugin(),
-                    new PipingGuiPlugin()
+                    new PipingGuiPlugin(),
+                    new DotSpatialGuiPlugin()
 #if INCLUDE_DEMOPROJECT
                     , new DemoProjectGuiPlugin()
                     , new OxyPlotGuiPlugin()
-                    , new DotSpatialGuiPlugin()
+                    , new DemoDotSpatialGuiPlugin()
 #endif
                 },
                 Storage = new StorageSqLite()

@@ -8,7 +8,7 @@ using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Demo.Ringtoets.Test
+namespace Demo.Ringtoets.Test.Ribbons
 {
     [TestFixture]
     public class MapRibbonTest
@@ -18,7 +18,7 @@ namespace Demo.Ringtoets.Test
         public void Commands_NoCommandsAssigned_ReturnsEmptyCommandCollection()
         {
             // Call
-            var ribbon = new MapRibbon();
+            var ribbon = new Ringtoets.Ribbons.MapRibbon();
 
             // Assert
             CollectionAssert.IsEmpty(ribbon.Commands);
@@ -29,10 +29,10 @@ namespace Demo.Ringtoets.Test
         public void Commands_CommandsAssigned_ReturnsAssignedCommands()
         {
             // Setup
-            using (var plugin = new DotSpatialGuiPlugin())
+            using (new DotSpatialGuiPlugin())
             {
                 var openMapViewCommand = new OpenMapViewCommand();
-                var ribbon = new MapRibbon
+                var ribbon = new Ringtoets.Ribbons.MapRibbon
                 {
                     OpenMapViewCommand = openMapViewCommand
                 };
@@ -50,7 +50,7 @@ namespace Demo.Ringtoets.Test
         public void DefaultConstructor_Always_CreatesControl()
         {
             // Call
-            var ribbon = new MapRibbon();
+            var ribbon = new Ringtoets.Ribbons.MapRibbon();
 
             // Assert
             Assert.IsNotNull(ribbon);
@@ -62,7 +62,7 @@ namespace Demo.Ringtoets.Test
         public void IsContextualTabVisible_Always_ReturnsFalse()
         {
             // Call
-            var ribbon = new MapRibbon();
+            var ribbon = new Ringtoets.Ribbons.MapRibbon();
 
             // Assert
             Assert.IsFalse(ribbon.IsContextualTabVisible(null, null));
@@ -79,7 +79,7 @@ namespace Demo.Ringtoets.Test
 
             mocks.ReplayAll();
 
-            var ribbon = new MapRibbon
+            var ribbon = new Ringtoets.Ribbons.MapRibbon
             {
                 OpenMapViewCommand = command
             };

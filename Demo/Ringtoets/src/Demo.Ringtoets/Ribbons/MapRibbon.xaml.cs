@@ -4,7 +4,7 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 
-namespace Demo.Ringtoets
+namespace Demo.Ringtoets.Ribbons
 {
     /// <summary>
     /// Interaction logic for MapRibbon.xaml

@@ -13,7 +13,7 @@ namespace Core.Components.DotSpatial
     /// </summary>
     public sealed class BaseMap : Control
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(BaseMap));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(BaseMap));
         private MapData data;
         private Map map;
 
@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial
             {
                 map.AddLayer(filePath);
 
-                log.InfoFormat(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, filePath);
+                Log.InfoFormat(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, filePath);
             }
         }
     }

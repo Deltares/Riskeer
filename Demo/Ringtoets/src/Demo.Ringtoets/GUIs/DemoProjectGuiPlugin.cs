@@ -1,7 +1,7 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 
-namespace Demo.Ringtoets
+namespace Demo.Ringtoets.GUIs
 {
     /// <summary>
     /// UI plugin the provides access to the demo projects for Ringtoets.
@@ -12,7 +12,7 @@ namespace Demo.Ringtoets
         {
             get
             {
-                return new RingtoetsDemoProjectRibbon();
+                return new Ribbons.RingtoetsDemoProjectRibbon();
             }
         }
     }
