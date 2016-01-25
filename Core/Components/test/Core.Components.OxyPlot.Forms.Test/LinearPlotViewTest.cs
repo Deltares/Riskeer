@@ -56,28 +56,22 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             WindowsFormsTestHelper.Show(view, f =>
             {
-
-                var maxX = view.Model.Axes[0].ActualMaximum;
-                var minX = view.Model.Axes[0].ActualMinimum;
-                var maxY = view.Model.Axes[1].ActualMaximum;
-                var minY = view.Model.Axes[1].ActualMinimum;
-
                 view.Model.ZoomAllAxes(1.2);
 
                 // Preconditions
-                Assert.AreNotEqual(maxX, view.Model.Axes[0].ActualMaximum);
-                Assert.AreNotEqual(minX, view.Model.Axes[0].ActualMinimum);
-                Assert.AreNotEqual(maxY, view.Model.Axes[1].ActualMaximum);
-                Assert.AreNotEqual(minY, view.Model.Axes[1].ActualMinimum);
+                Assert.Greater(10, view.Model.Axes[0].ActualMaximum);
+                Assert.Less(0, view.Model.Axes[0].ActualMinimum);
+                Assert.Greater(10, view.Model.Axes[1].ActualMaximum);
+                Assert.Less(0, view.Model.Axes[1].ActualMinimum);
 
                 // Call
                 view.ZoomToAll();
 
                 // Assert
-                Assert.AreEqual(maxX, view.Model.Axes[0].ActualMaximum);
-                Assert.AreEqual(minX, view.Model.Axes[0].ActualMinimum);
-                Assert.AreEqual(maxY, view.Model.Axes[1].ActualMaximum);
-                Assert.AreEqual(minY, view.Model.Axes[1].ActualMinimum);
+                Assert.AreEqual(10.1, view.Model.Axes[0].ActualMaximum, 1e-3);
+                Assert.AreEqual(-0.1, view.Model.Axes[0].ActualMinimum, 1e-3);
+                Assert.AreEqual(10.1, view.Model.Axes[1].ActualMaximum, 1e-3);
+                Assert.AreEqual(-0.1, view.Model.Axes[1].ActualMinimum, 1e-3);
             });
             WindowsFormsTestHelper.CloseAll();
         }
@@ -112,11 +106,6 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             WindowsFormsTestHelper.Show(view, f =>
             {
-                var maxX = view.Model.Axes[0].ActualMaximum;
-                var minX = view.Model.Axes[0].ActualMinimum;
-                var maxY = view.Model.Axes[1].ActualMaximum;
-                var minY = view.Model.Axes[1].ActualMinimum;
-
                 lineSeriesToBeUpdated.IsVisible = false;
                 view.InvalidatePlot(true);
                 view.Refresh();
@@ -125,10 +114,10 @@ namespace Core.Components.OxyPlot.Forms.Test
                 view.ZoomToAll();
 
                 // Assert
-                Assert.Greater(maxX, view.Model.Axes[0].ActualMaximum);
-                Assert.AreEqual(minX/2, view.Model.Axes[0].ActualMinimum, 1e-6);
-                Assert.Greater(maxY, view.Model.Axes[1].ActualMaximum);
-                Assert.AreEqual(minY/2, view.Model.Axes[1].ActualMinimum, 1e-6);
+                Assert.AreEqual(5.05, view.Model.Axes[0].ActualMaximum, 1e-3);
+                Assert.AreEqual(-0.05, view.Model.Axes[0].ActualMinimum, 1e-3);
+                Assert.AreEqual(5.05, view.Model.Axes[1].ActualMaximum, 1e-3);
+                Assert.AreEqual(-0.05, view.Model.Axes[1].ActualMinimum, 1e-3);
             });
             WindowsFormsTestHelper.CloseAll();
         }
