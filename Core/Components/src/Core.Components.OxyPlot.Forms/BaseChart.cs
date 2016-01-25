@@ -79,6 +79,7 @@ namespace Core.Components.OxyPlot.Forms
                     view.Model.Series.Add(series);
                 }
             }
+            view.InvalidatePlot(true);
         }
 
         #region IChart
@@ -133,7 +134,6 @@ namespace Core.Components.OxyPlot.Forms
         public void UpdateObserver()
         {
             DrawSeries();
-            view.InvalidatePlot(true);
         }
 
         #endregion

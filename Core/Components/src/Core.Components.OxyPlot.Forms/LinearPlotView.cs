@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Core.Components.OxyPlot.Forms.Properties;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -26,6 +27,21 @@ namespace Core.Components.OxyPlot.Forms
                     CreateAxis(Resources.BaseChart_YAxisTitle, AxisPosition.Left)
                 }
             };
+
+            Invalidated += OnInvalidated;
+        }
+
+        private void OnInvalidated(object sender, EventArgs e)
+        {
+            FixateZoom();
+        }
+
+        /// <summary>
+        /// Performs a 'fake' zoom, so that the view is not updated when series are hidden or shown.
+        /// </summary>
+        private void FixateZoom()
+        {
+            ActualModel.ZoomAllAxes(1.0);
         }
 
         /// <summary>

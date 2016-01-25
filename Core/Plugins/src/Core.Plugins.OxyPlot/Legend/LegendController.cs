@@ -74,7 +74,7 @@ namespace Core.Plugins.OxyPlot.Legend
         /// <summary>
         /// Updates the data for the <see cref="LegendView"/> if it is open.
         /// </summary>
-        /// <param name="chart">The <see cref="BaseChart"/> for which to show data. If <c>null</c> the 
+        /// <param name="data">The <see cref="BaseChart"/> for which to show data. If <c>null</c> the 
         /// data will be cleared.</param>
         public void Update(ChartData data)
         {

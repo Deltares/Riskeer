@@ -1,11 +1,9 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
 using Core.Components.OxyPlot.Forms.Properties;
-using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using TickStyle = OxyPlot.Axes.TickStyle;
 
@@ -38,88 +36,22 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void ZoomToAll_ViewInForm_AxesAreSetToOriginal()
+        public void ZoomToAll_ViewInForm_InvalidatesView()
         {
             // Setup
-            var view = new LinearPlotView
-            {
-                Dock = DockStyle.Fill
-            };
-            view.Model.Series.Add(new LineSeries
-            {
-                Points =
-                {
-                    new DataPoint(0,0),
-                    new DataPoint(10,10)
-                }
-            });
+            var form = new Form();
+            var view = new LinearPlotView();
+            form.Controls.Add(view);
+            var invalidated = 0;
+            view.Invalidated += (sender, args) => invalidated++;
 
-            WindowsFormsTestHelper.Show(view, f =>
-            {
-                view.Model.ZoomAllAxes(1.2);
+            form.Show();
 
-                // Preconditions
-                Assert.Greater(10, view.Model.Axes[0].ActualMaximum);
-                Assert.Less(0, view.Model.Axes[0].ActualMinimum);
-                Assert.Greater(10, view.Model.Axes[1].ActualMaximum);
-                Assert.Less(0, view.Model.Axes[1].ActualMinimum);
+            // Call
+            view.ZoomToAll();
 
-                // Call
-                view.ZoomToAll();
-
-                // Assert
-                Assert.AreEqual(10.1, view.Model.Axes[0].ActualMaximum, 1e-3);
-                Assert.AreEqual(-0.1, view.Model.Axes[0].ActualMinimum, 1e-3);
-                Assert.AreEqual(10.1, view.Model.Axes[1].ActualMaximum, 1e-3);
-                Assert.AreEqual(-0.1, view.Model.Axes[1].ActualMinimum, 1e-3);
-            });
-            WindowsFormsTestHelper.CloseAll();
-        }
-
-        [Test]
-        public void ZoomToAll_ViewInFormSerieVisibilityUpdated_AxesAreUpdated()
-        {
-            // Setup
-            var view = new LinearPlotView
-            {
-                Dock = DockStyle.Fill,
-                Padding = new Padding(0)
-            };
-            var lineSeries = new LineSeries
-            {
-                Points =
-                    {
-                        new DataPoint(0, 0),
-                        new DataPoint(5, 5)
-                    }
-            };
-            var lineSeriesToBeUpdated = new LineSeries
-            {
-                Points =
-                    {
-                        new DataPoint(5, 5),
-                        new DataPoint(10, 10)
-                    }
-            };
-            view.Model.Series.Add(lineSeries);
-            view.Model.Series.Add(lineSeriesToBeUpdated);
-
-            WindowsFormsTestHelper.Show(view, f =>
-            {
-                lineSeriesToBeUpdated.IsVisible = false;
-                view.InvalidatePlot(true);
-                view.Refresh();
-
-                // Call
-                view.ZoomToAll();
-
-                // Assert
-                Assert.AreEqual(5.05, view.Model.Axes[0].ActualMaximum, 1e-3);
-                Assert.AreEqual(-0.05, view.Model.Axes[0].ActualMinimum, 1e-3);
-                Assert.AreEqual(5.05, view.Model.Axes[1].ActualMaximum, 1e-3);
-                Assert.AreEqual(-0.05, view.Model.Axes[1].ActualMinimum, 1e-3);
-            });
-            WindowsFormsTestHelper.CloseAll();
+            // Assert
+            Assert.AreEqual(1, invalidated);
         }
     }
 }
