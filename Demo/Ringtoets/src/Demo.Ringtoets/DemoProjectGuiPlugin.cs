@@ -1,7 +1,7 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 
-namespace Ringtoets.Demo
+namespace Demo.Ringtoets
 {
     /// <summary>
     /// UI plugin the provides access to the demo projects for Ringtoets.

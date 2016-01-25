@@ -27,7 +27,7 @@ using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
-using Ringtoets.Demo;
+using Demo.Ringtoets;
 #endif
 
 namespace Application.Ringtoets

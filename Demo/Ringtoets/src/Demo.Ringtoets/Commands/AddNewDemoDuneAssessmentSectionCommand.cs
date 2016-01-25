@@ -1,7 +1,7 @@
 ﻿using Core.Common.Gui;
 using Ringtoets.Integration.Data;
 
-namespace Ringtoets.Demo.Commands
+namespace Demo.Ringtoets.Commands
 {
     /// <summary>
     /// Command that adds a new <see cref="DuneAssessmentSection"/> with demo data to the project tree.

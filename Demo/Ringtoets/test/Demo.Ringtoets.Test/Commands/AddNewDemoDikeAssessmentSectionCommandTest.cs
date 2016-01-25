@@ -2,17 +2,16 @@
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
-using Core.Common.Controls;
 using Core.Common.Gui;
+using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Demo.Commands;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 
-namespace Ringtoets.Demo.Test.Commands
+namespace Demo.Ringtoets.Test.Commands
 {
     [TestFixture]
     public class AddNewDemoDikeAssessmentSectionCommandTest

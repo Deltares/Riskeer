@@ -1,9 +1,9 @@
 ﻿using Core.Common.Gui;
+using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Demo.Commands;
 
-namespace Ringtoets.Demo.Test.Commands
+namespace Demo.Ringtoets.Test.Commands
 {
     [TestFixture]
     public class OpenMapViewCommandTest

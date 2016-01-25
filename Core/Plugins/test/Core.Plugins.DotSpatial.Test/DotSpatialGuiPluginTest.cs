@@ -3,7 +3,6 @@ using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
-using Ringtoets.Demo;
 
 namespace Core.Plugins.DotSpatial.Test
 {
@@ -19,23 +18,6 @@ namespace Core.Plugins.DotSpatial.Test
                 // Assert
                 Assert.IsInstanceOf<GuiPlugin>(plugin);
                 Assert.IsNull(plugin.RibbonCommandHandler);
-            }
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void Activate_Always_InitializesRibbon()
-        {
-            // Setup
-            using (var plugin = new DotSpatialGuiPlugin())
-            {
-                // Call
-                plugin.Activate();
-                var commandHandler = plugin.RibbonCommandHandler;
-
-                // Assert
-                Assert.NotNull(commandHandler);
-                Assert.IsInstanceOf<MapRibbon>(commandHandler);
             }
         }
 

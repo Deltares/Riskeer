@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
 
-namespace Ringtoets.Demo.Commands
+namespace Demo.Ringtoets.Commands
 {
     /// <summary>
     /// This class describes the command for opening a <see cref="Core.Plugins.DotSpatial.Forms.MapDataView"/> with some arbitrary data.

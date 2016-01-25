@@ -3,12 +3,11 @@ using System.IO;
 using System.Linq;
 using Core.Common.Gui;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Ringtoets.Demo.Commands
+namespace Demo.Ringtoets.Commands
 {
     /// <summary>
     /// Command that adds a new <see cref="DikeAssessmentSection"/> with demo data to the project tree.

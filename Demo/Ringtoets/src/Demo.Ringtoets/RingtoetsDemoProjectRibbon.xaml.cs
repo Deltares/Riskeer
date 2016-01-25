@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-
-using Core.Common.Controls;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
+using Demo.Ringtoets.Commands;
 using Fluent;
-using Ringtoets.Demo.Commands;
 
-using DemoResources = Ringtoets.Demo.Properties.Resources;
-
-namespace Ringtoets.Demo
+namespace Demo.Ringtoets
 {
     /// <summary>
     /// Interaction logic for RingtoetsDemoProjectRibbon.xaml

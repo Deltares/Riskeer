@@ -4,11 +4,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Plugins.DotSpatial;
+using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Demo.Commands;
 
-namespace Ringtoets.Demo.Test
+namespace Demo.Ringtoets.Test
 {
     [TestFixture]
     public class MapRibbonTest
