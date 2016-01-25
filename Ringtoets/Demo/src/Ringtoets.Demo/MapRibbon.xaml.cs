@@ -4,7 +4,7 @@ using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 
-namespace Core.Plugins.DotSpatial
+namespace Ringtoets.Demo
 {
     /// <summary>
     /// Interaction logic for MapRibbon.xaml

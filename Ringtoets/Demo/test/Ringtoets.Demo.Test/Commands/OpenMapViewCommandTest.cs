@@ -1,9 +1,9 @@
 ﻿using Core.Common.Gui;
-using Core.Plugins.DotSpatial.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Demo.Commands;
 
-namespace Core.Plugins.DotSpatial.Test.Commands
+namespace Ringtoets.Demo.Test.Commands
 {
     [TestFixture]
     public class OpenMapViewCommandTest

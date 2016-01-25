@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
+using Ringtoets.Demo;
 
 namespace Core.Plugins.DotSpatial.Test
 {

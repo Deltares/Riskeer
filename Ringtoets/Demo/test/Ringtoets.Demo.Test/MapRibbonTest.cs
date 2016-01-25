@@ -3,11 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
-using Core.Plugins.DotSpatial.Commands;
+using Core.Plugins.DotSpatial;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Demo.Commands;
 
-namespace Core.Plugins.DotSpatial.Test
+namespace Ringtoets.Demo.Test
 {
     [TestFixture]
     public class MapRibbonTest
@@ -86,7 +87,7 @@ namespace Core.Plugins.DotSpatial.Test
             var button = ribbon.GetRibbonControl().FindName("OpenMapViewButton") as Button;
 
             // Precondition
-            Assert.IsNotNull(button, "Ribbon should have an open map view button");
+            Assert.IsNotNull((object) button, "Ribbon should have an open map view button");
 
             // Call
             button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));

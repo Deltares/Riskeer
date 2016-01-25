@@ -325,5 +325,42 @@ namespace Ringtoets.Demo.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaart.
+        /// </summary>
+        public static string General_Map {
+            get {
+                return ResourceManager.GetString("General_Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap map {
+            get {
+                object obj = ResourceManager.GetObject("map", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open een documentvenster met een kaart..
+        /// </summary>
+        public static string OpenMapView_ToolTip {
+            get {
+                return ResourceManager.GetString("OpenMapView_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demo.
+        /// </summary>
+        public static string Ribbon_Demo_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Demo_Header", resourceCulture);
+            }
+        }
     }
 }

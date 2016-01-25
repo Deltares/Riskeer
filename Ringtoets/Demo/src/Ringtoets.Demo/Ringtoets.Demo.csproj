@@ -52,7 +52,11 @@
     </Compile>
     <Compile Include="Commands\AddNewDemoDikeAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AddNewDemoDuneAssessmentSectionCommand.cs" />
+    <Compile Include="Commands\OpenMapViewCommand.cs" />
     <Compile Include="DemoProjectGuiPlugin.cs" />
+    <Compile Include="MapRibbon.xaml.cs">
+      <DependentUpon>MapRibbon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -88,6 +92,10 @@
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
+      <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
+      <Name>Core.Components.DotSpatial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
@@ -170,6 +178,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="MapRibbon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RingtoetsDemoProjectRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,6 +214,9 @@
     <None Include="Resources\DR10_dijkvakgebieden.shp.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

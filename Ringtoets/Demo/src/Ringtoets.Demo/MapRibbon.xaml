@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Core.Plugins.DotSpatial.MapRibbon"
+﻿<UserControl x:Class="Ringtoets.Demo.MapRibbon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gui="clr-namespace:Core.Common.Gui;assembly=Core.Common.Gui"
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
-             xmlns:p="clr-namespace:Core.Plugins.DotSpatial.Properties"
+             xmlns:p="clr-namespace:Ringtoets.Demo.Properties"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
         <gui:PngToIconConverter x:Key="IconConverter"/>
@@ -21,3 +21,5 @@
         
     </fluent:Ribbon>
 </UserControl>
+
+    
