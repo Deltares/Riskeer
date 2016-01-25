@@ -31,9 +31,11 @@ namespace Core.Plugins.DotSpatial.Test
             {
                 // Call
                 plugin.Activate();
+                var commandHandler = plugin.RibbonCommandHandler;
 
                 // Assert
-                Assert.NotNull(plugin.RibbonCommandHandler);
+                Assert.NotNull(commandHandler);
+                Assert.IsInstanceOf<MapRibbon>(commandHandler);
             }
         }
 

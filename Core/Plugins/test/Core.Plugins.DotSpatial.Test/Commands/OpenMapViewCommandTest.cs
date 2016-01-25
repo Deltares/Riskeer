@@ -9,6 +9,19 @@ namespace Core.Plugins.DotSpatial.Test.Commands
     public class OpenMapViewCommandTest
     {
         [Test]
+        public void DefaultConstructor_DefaultValues()
+        {
+            // Call
+            var command = new OpenMapViewCommand();
+
+            // Assert
+            Assert.IsInstanceOf<IGuiCommand>(command);
+            Assert.IsTrue(command.Enabled);
+            Assert.IsFalse(command.Checked);
+            Assert.IsNull(command.Gui);
+        }
+
+        [Test]
         public void Execute_Always_OpensViewForStringCollection()
         {
             // Setup
@@ -33,20 +46,20 @@ namespace Core.Plugins.DotSpatial.Test.Commands
         [Test]
         public void Enabled_Always_ReturnsTrue()
         {
-            // Setup
+            // Call
             var command = new OpenMapViewCommand();
 
-            // Call / Assert
+            // Assert
             Assert.IsTrue(command.Enabled);
         }
 
         [Test]
         public void Checked_Always_ReturnsFalse()
         {
-            // Setup
+            // Call
             var command = new OpenMapViewCommand();
 
-            // Call / Assert
+            // Assert
             Assert.IsFalse(command.Checked);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
@@ -10,6 +11,18 @@ namespace Core.Plugins.DotSpatial.Test.Forms
     [TestFixture]
     public class MapDataViewTest
     {
+        [Test]
+        public void DefaultConstructor_DefaultValues()
+        {
+            // Call
+            var mapView = new MapDataView();
+
+            // Assert
+            Assert.IsInstanceOf<UserControl>(mapView);
+            var interfaceImplementation = mapView as IView;
+            Assert.IsNotNull(interfaceImplementation);
+        }
+
         [Test]
         public void DefaultConstructor_Always_AddsBaseMap()
         {
@@ -36,6 +49,19 @@ namespace Core.Plugins.DotSpatial.Test.Forms
 
             // Assert
             Assert.Throws<ArgumentNullException>(testDelegate);
+        }
+
+        [Test]
+        public void Data_SetToObject_ThrowsInvalidCastException()
+        {
+            // Setup
+            var mapView = new MapDataView();
+
+            // Call
+            TestDelegate testDelegate = () => mapView.Data = new object();
+
+            // Assert
+            Assert.Throws<InvalidCastException>(testDelegate);
         }
 
         [Test]

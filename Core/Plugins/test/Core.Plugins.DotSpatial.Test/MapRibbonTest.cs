@@ -16,10 +16,10 @@ namespace Core.Plugins.DotSpatial.Test
         [RequiresSTA]
         public void Commands_NoCommandsAssigned_ReturnsEmptyCommandCollection()
         {
-            // Setup
+            // Call
             var ribbon = new MapRibbon();
 
-            // Call / Assert
+            // Assert
             CollectionAssert.IsEmpty(ribbon.Commands);
         }
 
@@ -40,7 +40,7 @@ namespace Core.Plugins.DotSpatial.Test
                 var commands = ribbon.Commands.ToArray();
 
                 // Assert
-                CollectionAssert.AreEqual(new ICommand[] {openMapViewCommand}, commands);
+                CollectionAssert.AreEquivalent(new ICommand[] {openMapViewCommand}, commands);
             }
         }
 
@@ -48,10 +48,11 @@ namespace Core.Plugins.DotSpatial.Test
         [RequiresSTA]
         public void DefaultConstructor_Always_CreatesControl()
         {
-            // Setup
+            // Call
             var ribbon = new MapRibbon();
 
-            // Call / Assert
+            // Assert
+            Assert.IsNotNull(ribbon);
             Assert.IsInstanceOf<Control>(ribbon.GetRibbonControl());
         }
 
@@ -59,10 +60,10 @@ namespace Core.Plugins.DotSpatial.Test
         [RequiresSTA]
         public void IsContextualTabVisible_Always_ReturnsFalse()
         {
-            // Setup
+            // Call
             var ribbon = new MapRibbon();
 
-            // Call / Assert
+            // Assert
             Assert.IsFalse(ribbon.IsContextualTabVisible(null, null));
         }
 
