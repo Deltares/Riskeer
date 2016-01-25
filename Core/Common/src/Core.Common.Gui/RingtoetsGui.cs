@@ -197,6 +197,14 @@ namespace Core.Common.Gui
             }
         }
 
+        public IProjectCommands ProjectCommands
+        {
+            get
+            {
+                return guiCommandHandler;
+            }
+        }
+
         public IViewList DocumentViews
         {
             get

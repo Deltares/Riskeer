@@ -18,7 +18,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler
+    public class GuiCommandHandler : IGuiCommandHandler, IProjectCommands
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
 

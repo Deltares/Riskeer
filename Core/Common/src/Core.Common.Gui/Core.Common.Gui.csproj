@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Forms\RichTextFile.cs" />
     <Compile Include="IExportImportCommandHandler.cs" />
+    <Compile Include="IProjectCommands.cs" />
     <Compile Include="IStorageCommands.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
     <Compile Include="PngToIconConverter.cs" />

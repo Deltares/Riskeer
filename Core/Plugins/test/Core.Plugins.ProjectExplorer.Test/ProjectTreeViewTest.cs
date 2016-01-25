@@ -71,6 +71,8 @@ namespace Core.Plugins.ProjectExplorer.Test
             integerNodePresenter.Stub(np => np.UpdateNode(null, null, null)).IgnoreArguments();
             integerNodePresenter.Stub(np => np.GetChildNodeObjects(item)).Return(new object[0]);
 
+            var projectCommands = mocks.Stub<IProjectCommands>();
+
             var commandHandler = mocks.Stub<IGuiCommandHandler>();
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
 
@@ -88,7 +90,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             using(var guiPlugin = new ProjectExplorerGuiPlugin { Gui = gui })
             using (var projectTree = new ProjectTreeView(guiPlugin))
             {
-                projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, commandHandler));
+                projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, projectCommands));
                 projectTree.TreeView.RegisterNodePresenter(integerNodePresenter);
                 projectTree.Project = project;
 

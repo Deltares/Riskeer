@@ -55,6 +55,8 @@ namespace Core.Common.Gui
 
         IStorageCommands StorageCommands { get; }
 
+        IProjectCommands ProjectCommands { get; }
+
         /// <summary>
         /// Gets commands.
         /// </summary>

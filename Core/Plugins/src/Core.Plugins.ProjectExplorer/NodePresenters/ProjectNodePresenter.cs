@@ -14,7 +14,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
     public class ProjectNodePresenter : TreeViewNodePresenterBase<Project>
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
-        private readonly IGuiCommandHandler commandHandler;
+        private readonly IProjectCommands commandHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="ProjectNodePresenter"/>, which uses the 
@@ -25,7 +25,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
         /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
         /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> to defer the add
         /// item action to.</param>
-        public ProjectNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider, IGuiCommandHandler commandHandler)
+        public ProjectNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider, IProjectCommands commandHandler)
         {
             if (contextMenuBuilderProvider == null)
             {

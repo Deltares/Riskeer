@@ -41,7 +41,7 @@ namespace Core.Plugins.ProjectExplorer
         /// </list></exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new ProjectNodePresenter(Gui.ContextMenuProvider, Gui.CommandHandler);
+            yield return new ProjectNodePresenter(Gui.ContextMenuProvider, Gui.ProjectCommands);
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)

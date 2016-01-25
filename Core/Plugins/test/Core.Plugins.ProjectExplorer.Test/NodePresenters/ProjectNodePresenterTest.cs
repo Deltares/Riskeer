@@ -62,7 +62,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var guiCommandHandler = mocks.StrictMock<IGuiCommandHandler>();
+            var guiCommandHandler = mocks.StrictMock<IProjectCommands>();
 
             mocks.ReplayAll();
 
@@ -82,7 +82,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var nodeMock = mocks.StrictMock<TreeNode>();
-            var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            var guiCommandHandlerMock = mocks.StrictMock<IProjectCommands>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -114,7 +114,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
             var contextMenuBuilderProviderMock = mocks.StrictMock<IContextMenuBuilderProvider>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var nodeMock = mocks.StrictMock<TreeNode>();
-            var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            var guiCommandHandlerMock = mocks.StrictMock<IProjectCommands>();
 
             contextMenuBuilderProviderMock.Expect(cmp => cmp.Get(nodeMock)).Return(menuBuilder);
 
@@ -135,7 +135,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
+            var commandHandler = mocks.StrictMock<IProjectCommands>();
 
             mocks.ReplayAll();
 
@@ -156,7 +156,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
+            var commandHandler = mocks.StrictMock<IProjectCommands>();
 
             var node = mocks.StrictMock<TreeNode>();
             var targetNode = mocks.StrictMock<TreeNode>();
@@ -180,7 +180,7 @@ namespace Core.Plugins.ProjectExplorer.Test.NodePresenters
         {
             // Setup
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var commandHandler = mocks.StrictMock<IGuiCommandHandler>();
+            var commandHandler = mocks.StrictMock<IProjectCommands>();
 
             var node = mocks.StrictMock<TreeNode>();
             var targetNode = mocks.StrictMock<TreeNode>();

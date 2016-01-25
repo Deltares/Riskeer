@@ -20,16 +20,6 @@ namespace Core.Common.Gui
         void RemoveAllViewsForItem(object dataObject);
 
         /// <summary>
-        /// Presents the user with a dialog from which items can be selected and then created. The items are retrieved 
-        /// using the DataItemInfo objects of plugins. The item is NOT added to the project or wrapped in a DataItem.
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="childItemTypes">The predicate which must evaluate to true for an item type to be included in the list</param>
-        object AddNewChildItem(object parent, IEnumerable<Type> childItemTypes);
-
-        void AddNewItem(object parent);
-
-        /// <summary>
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>true if there is a default view for the current selection</returns>
@@ -39,8 +29,6 @@ namespace Core.Common.Gui
         /// </summary>
         /// <returns>true if there are more supported views for the current selection</returns>
         bool CanOpenSelectViewDialog();
-
-        void AddItemToProject(object item);
 
         /// <summary>
         /// Activates the propertyGrid toolbox
