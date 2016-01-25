@@ -207,6 +207,14 @@ namespace Core.Common.Gui
             }
         }
 
+        public IViewCommands ViewCommands
+        {
+            get
+            {
+                return guiCommandHandler;
+            }
+        }
+
         public IViewList DocumentViews
         {
             get
@@ -288,7 +296,7 @@ namespace Core.Common.Gui
 
         public IContextMenuBuilder Get(TreeNode treeNode)
         {
-            return new ContextMenuBuilder(guiCommandHandler, exportImportCommandHandler, treeNode);
+            return new ContextMenuBuilder(guiCommandHandler, exportImportCommandHandler, ViewCommands, treeNode);
         }
 
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)

@@ -59,7 +59,7 @@ namespace Core.Plugins.SharpMapGis.Test
 
                 gui.Project.Items.Add(map);
 
-                gui.CommandHandler.OpenView(map);
+                gui.ViewCommands.OpenView(map);
 
                 var mapView = (MapView) gui.DocumentViews.ActiveView;
 
@@ -124,7 +124,7 @@ namespace Core.Plugins.SharpMapGis.Test
 
                 gui.Project.Items.Add(map);
 
-                gui.CommandHandler.OpenView(map);
+                gui.ViewCommands.OpenView(map);
 
                 var mapView = (MapView) gui.DocumentViews.ActiveView;
 

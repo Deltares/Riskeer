@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -17,17 +18,17 @@ namespace Core.Common.Gui
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiCommandHandler));
 
-        private readonly IGuiCommandHandler guiCommandHandler;
+        private readonly IViewCommands viewCommands;
         private readonly IGui gui;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
         /// </summary>
-        /// <param name="guiCommandHandler">The GUI command handler.</param>
+        /// <param name="viewCommands">The view command handler.</param>
         /// <param name="gui">The GUI.</param>
-        public StorageCommandHandler(IGuiCommandHandler guiCommandHandler, IGui gui)
+        public StorageCommandHandler(IViewCommands viewCommands, IGui gui)
         {
-            this.guiCommandHandler = guiCommandHandler;
+            this.viewCommands = viewCommands;
             this.gui = gui;
 
             this.gui.ProjectOpened += ApplicationProjectOpened;
@@ -137,7 +138,7 @@ namespace Core.Common.Gui
             }
 
             // remove views before closing project. 
-            guiCommandHandler.RemoveAllViewsForItem(gui.Project);
+            viewCommands.RemoveAllViewsForItem(gui.Project);
 
             gui.Project = null;
 
@@ -265,7 +266,7 @@ namespace Core.Common.Gui
             // clean all views
             if (gui.DocumentViews != null)
             {
-                guiCommandHandler.RemoveAllViewsForItem(project);
+                viewCommands.RemoveAllViewsForItem(project);
             }
 
             if (gui.ToolWindowViews != null)
@@ -284,6 +285,17 @@ namespace Core.Common.Gui
             gui.Selection = project;
 
             project.Attach(this);
+        }
+
+        private void AddProjectToMruList()
+        {
+            var mruList = (StringCollection)Settings.Default["mruList"];
+            if (mruList.Contains(gui.ProjectFilePath))
+            {
+                mruList.Remove(gui.ProjectFilePath);
+            }
+
+            mruList.Insert(0, gui.ProjectFilePath);
         }
     }
 }

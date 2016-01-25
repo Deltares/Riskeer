@@ -23,7 +23,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithoutCommandHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(null, null,  null);
+            TestDelegate test = () => new GuiContextMenuItemFactory(null, null,  null, null);
 
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -37,10 +37,11 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var exportImportCommandHandler = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, exportImportCommandHandler, null);
+            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, exportImportCommandHandler, viewCommandsMock, null);
         
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -55,10 +56,11 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, null, null);
+            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, null, viewCommandsMock, null);
 
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -69,16 +71,36 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
+        public void Constructor_WithoutViewCommandsHandler_ThrowsArgumentNullException()
+        {
+            // Setup
+            var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
+            var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, exportImportCommandHandlerMock, null, null);
+
+            // Assert
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands, message);
+            StringAssert.EndsWith("viewCommandsHandler", message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_WithAllInput_DoesNotThrow()
         {
             // Setup
             var guiCommandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeNodeMock = mocks.Stub<TreeNode>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, exportImportCommandHandlerMock, treeNodeMock);
+            TestDelegate test = () => new GuiContextMenuItemFactory(guiCommandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, treeNodeMock);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -94,19 +116,20 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
             var nodeStub = mocks.Stub<TreeNode>();
-            commandHandlerMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewersForNodeData);
+            viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewersForNodeData);
             if (hasViewersForNodeData)
             {
-                commandHandlerMock.Expect(ch => ch.OpenView(nodeData));
+                viewCommandsMock.Expect(ch => ch.OpenView(nodeData));
             }
 
             mocks.ReplayAll();
 
             nodeStub.Tag = nodeData;
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, nodeStub);
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, nodeStub);
 
             // Call
             var item = contextMenuFactory.CreateOpenItem();
@@ -129,6 +152,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
             var nodeStub = mocks.Stub<TreeNode>();
             exportImportCommandHandlerMock.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
@@ -141,7 +165,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             nodeStub.Tag = nodeData;
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, nodeStub);
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, nodeStub);
 
             // Call
             var item = contextMenuFactory.CreateExportItem();
@@ -164,6 +188,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
             var nodeStub = mocks.Stub<TreeNode>();
             exportImportCommandHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
@@ -176,7 +201,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             nodeStub.Tag = nodeData;
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, nodeStub);
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, nodeStub);
 
             // Call
             var item = contextMenuFactory.CreateImportItem();
@@ -199,6 +224,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             var commandHandlerMock = mocks.StrictMock<IGuiCommandHandler>();
             var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
             var nodeStub = mocks.Stub<TreeNode>();
             commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
@@ -207,7 +233,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                 commandHandlerMock.Expect(ch => ch.ShowPropertiesFor(nodeData));
             }
 
-            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, nodeStub);
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, nodeStub);
 
             mocks.ReplayAll();
 

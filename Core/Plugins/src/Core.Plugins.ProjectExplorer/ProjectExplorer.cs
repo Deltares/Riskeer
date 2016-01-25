@@ -83,12 +83,12 @@ namespace Core.Plugins.ProjectExplorer
         private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
             buttonScrollToItemInActiveView.Enabled = gui.DocumentViews.ActiveView != null &&
-                                                     gui.CommandHandler.GetDataOfActiveView() != null;
+                                                     gui.ViewCommands.GetDataOfActiveView() != null;
         }
 
         private void ButtonScrollToItemInActiveViewClick(object sender, EventArgs e)
         {
-            var dataOfActiveView = gui.CommandHandler.GetDataOfActiveView();
+            var dataOfActiveView = gui.ViewCommands.GetDataOfActiveView();
             if (dataOfActiveView != null)
             {
                 ScrollTo(dataOfActiveView);

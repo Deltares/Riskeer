@@ -26,14 +26,17 @@ namespace Core.Common.Gui.ContextMenu
         /// from which to obtain information to render and bind actions to the items of the 
         /// <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items
         /// which require this type of information.</param>
+        /// <param name="viewsCommandsHandler">The <see cref="IViewCommands"/> from which 
+        /// to obtain information to render and bind actions to the items of the <see cref="ContextMenu"/>. 
+        /// If <c>null</c>, this builder will not render items which require this type of information.</param>
         /// <param name="treeNode">The <see cref="Controls.TreeView.TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
         /// the <paramref name="commandHandler"/> or <paramref name="treeNode"/>.</exception>
-        public ContextMenuBuilder(IGuiCommandHandler commandHandler, IExportImportCommandHandler importExportHandler, TreeNode treeNode)
+        public ContextMenuBuilder(IGuiCommandHandler commandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode)
         {
             try
             {
-                guiItemsFactory = new GuiContextMenuItemFactory(commandHandler, importExportHandler, treeNode);
+                guiItemsFactory = new GuiContextMenuItemFactory(commandHandler, importExportHandler, viewsCommandsHandler, treeNode);
                 treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             }
             catch (ArgumentNullException e)

@@ -958,4 +958,7 @@
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_exportImport_handler" xml:space="preserve">
     <value>Kan geen 'IExportImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IExportImportCommandHandler'.</value>
   </data>
+  <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands" xml:space="preserve">
+    <value>Kan geen 'IViewCommands'-afhankelijk element in het contextmenu creëren zonder een 'IViewCommands'.</value>
+  </data>
 </root>

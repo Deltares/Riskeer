@@ -387,7 +387,7 @@ namespace Core.Plugins.SharpMapGis.Gui
 
             var data = selectedFeatures.First();
 
-            gui.CommandHandler.OpenView(data);
+            gui.ViewCommands.OpenView(data);
         }
     }
 }

@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using System.Windows.Input;
 
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MainWindow;
@@ -17,7 +14,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler
+    public class GuiCommandHandler : IGuiCommandHandler, IViewCommands
     {
         private readonly IGui gui;
 
@@ -112,29 +109,6 @@ namespace Core.Common.Gui
                 gui.DocumentViewsResolver.CloseAllViewsFor(data);
                 RemoveViewsAndData(gui.ToolWindowViews.Where(v => v.Data == data).ToArray());
             }
-        }
-
-        private void AddProjectToMruList()
-        {
-            var mruList = (StringCollection) Settings.Default["mruList"];
-            if (mruList.Contains(gui.ProjectFilePath))
-            {
-                mruList.Remove(gui.ProjectFilePath);
-            }
-
-            mruList.Insert(0, gui.ProjectFilePath);
-        }
-
-        private static void UnselectActiveControlToForceBinding()
-        {
-            var elementWithFocus = Keyboard.FocusedElement;
-
-            if (elementWithFocus is WindowsFormsHost)
-            {
-                var host = (WindowsFormsHost) elementWithFocus;
-                ControlHelper.UnfocusActiveControl(host.Child as IContainerControl, true);
-            }
-            // add more if more cases are found (like a pure wpf case, for example)
         }
 
         private void RemoveViewsAndData(IEnumerable<IView> toolViews)

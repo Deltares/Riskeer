@@ -73,13 +73,13 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var projectCommands = mocks.Stub<IProjectCommands>();
 
-            var commandHandler = mocks.Stub<IGuiCommandHandler>();
+            var commandHandler = mocks.Stub<IViewCommands>();
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
 
             var applicationCoreStub = mocks.Stub<ApplicationCore>();
 
             var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.CommandHandler).Return(commandHandler);
+            gui.Stub(g => g.ViewCommands).Return(commandHandler);
             gui.Stub(g => g.ApplicationCore).Return(applicationCoreStub);
             gui.Stub(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             gui.Stub(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);

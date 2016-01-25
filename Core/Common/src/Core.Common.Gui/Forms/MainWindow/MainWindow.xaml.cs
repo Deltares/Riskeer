@@ -1058,7 +1058,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             var url = new Url(welcomePageName, welcomePageUrl);
 
-            Gui.CommandHandler.OpenView(url);
+            Gui.ViewCommands.OpenView(url);
         }
 
         private void CloseContent(LayoutContent c)

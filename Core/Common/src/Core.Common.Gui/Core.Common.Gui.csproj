@@ -131,6 +131,7 @@
     <Compile Include="IExportImportCommandHandler.cs" />
     <Compile Include="IProjectCommands.cs" />
     <Compile Include="IStorageCommands.cs" />
+    <Compile Include="IViewCommands.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
     <Compile Include="PngToIconConverter.cs" />
     <Compile Include="ProjectCommandsHandler.cs" />

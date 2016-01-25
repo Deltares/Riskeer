@@ -920,9 +920,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, node);
+            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, viewCommandsHandler, node);
             var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
@@ -1022,9 +1023,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, node);
+            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, viewCommandsHandler ,node);
             var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
@@ -1120,9 +1122,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, node);
+            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, viewCommandsHandler,node);
             var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 

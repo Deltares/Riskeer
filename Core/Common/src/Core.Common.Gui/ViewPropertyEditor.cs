@@ -36,7 +36,7 @@ namespace Core.Common.Gui
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            Gui.CommandHandler.OpenView(value);
+            Gui.ViewCommands.OpenView(value);
             return value;
         }
     }

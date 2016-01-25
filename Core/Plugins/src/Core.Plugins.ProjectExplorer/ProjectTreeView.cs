@@ -163,7 +163,7 @@ namespace Core.Plugins.ProjectExplorer
 
             if (keyData == Keys.Enter)
             {
-                gui.CommandHandler.OpenViewForSelection();
+                gui.ViewCommands.OpenViewForSelection();
 
                 return true;
             }
@@ -218,12 +218,12 @@ namespace Core.Plugins.ProjectExplorer
                 // Necessary if WinForms skips single click event (see TOOLS-8722)...
                 gui.Selection = TreeView.SelectedNode.Tag;
             }
-            gui.CommandHandler.OpenViewForSelection();
+            gui.ViewCommands.OpenViewForSelection();
         }
 
         private void ProjectDataDeleted(object sender, TreeView.TreeViewDataDeletedEventArgs e)
         {
-            gui.CommandHandler.RemoveAllViewsForItem(e.DeletedDataInstance);
+            gui.ViewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
         }
 
         ~ProjectTreeView()
