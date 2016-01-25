@@ -262,6 +262,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfoExtensions.cs" />
     <Compile Include="ActiveViewChangeEventArgs.cs" />
+    <Compile Include="ViewCommandHandler.cs" />
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -70,7 +70,8 @@ namespace Core.Common.Gui
         private ApplicationSettingsBase userSettings;
         private readonly GuiCommandHandler guiCommandHandler;
         private StorageCommandHandler storageCommandHandler;
-        private ProjectCommandsHandler projectCommandsHandler;
+        private readonly ViewCommandHandler viewCommandHandler;
+        private readonly ProjectCommandsHandler projectCommandsHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
 
         public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
@@ -94,7 +95,8 @@ namespace Core.Common.Gui
             UserSettings = Settings.Default;
 
             guiCommandHandler = new GuiCommandHandler(this);
-            storageCommandHandler = new StorageCommandHandler(guiCommandHandler, this);
+            viewCommandHandler = new ViewCommandHandler(this);
+            storageCommandHandler = new StorageCommandHandler(viewCommandHandler, this);
             exportImportCommandHandler = new ExportImportCommandHandler(this);
             projectCommandsHandler = new ProjectCommandsHandler(this);
 
@@ -211,7 +213,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return guiCommandHandler;
+                return viewCommandHandler;
             }
         }
 

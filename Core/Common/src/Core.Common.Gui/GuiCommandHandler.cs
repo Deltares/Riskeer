@@ -14,18 +14,13 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler, IViewCommands
+    public class GuiCommandHandler : IGuiCommandHandler
     {
         private readonly IGui gui;
 
         public GuiCommandHandler(IGui gui)
         {
             this.gui = gui;
-        }
-
-        public object GetDataOfActiveView()
-        {
-            return gui.DocumentViews.ActiveView != null ? gui.DocumentViews.ActiveView.Data : null;
         }
 
         /// <summary>
@@ -35,38 +30,13 @@ namespace Core.Common.Gui
         /// <param name="obj">The object for which to show its properties.</param>
         public void ShowPropertiesFor(object obj)
         {
-            ((MainWindow) gui.MainWindow).InitPropertiesWindowAndActivate();
+            ((MainWindow)gui.MainWindow).InitPropertiesWindowAndActivate();
             gui.Selection = obj;
         }
 
         public bool CanShowPropertiesFor(object obj)
         {
             return gui.PropertyResolver.GetObjectProperties(obj) != null;
-        }
-
-        public bool CanOpenSelectViewDialog()
-        {
-            return gui.Selection != null && gui.DocumentViewsResolver.GetViewInfosFor(gui.Selection).Count() > 1;
-        }
-
-        public void OpenSelectViewDialog()
-        {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection, true);
-        }
-
-        public bool CanOpenViewFor(object obj)
-        {
-            return gui.DocumentViewsResolver.GetViewInfosFor(obj).Any();
-        }
-
-        public void OpenView(object dataObject)
-        {
-            gui.DocumentViewsResolver.OpenViewForData(dataObject);
-        }
-
-        public void OpenViewForSelection()
-        {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection);
         }
 
         public void OpenLogFileExternal()
@@ -85,38 +55,12 @@ namespace Core.Common.Gui
                     logFileOpened = true;
                 }
             }
-            catch (Exception) {}
+            catch (Exception) { }
 
             if (!logFileOpened)
             {
                 MessageBox.Show(Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
                 Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
-            }
-        }
-
-        /// <summary>
-        /// Removes all document and tool views that are associated to the dataObject and/or its children.
-        /// </summary>
-        /// <param name="dataObject"></param>
-        public void RemoveAllViewsForItem(object dataObject)
-        {
-            if (dataObject == null || gui == null || gui.DocumentViews == null || gui.DocumentViews.Count == 0)
-            {
-                return;
-            }
-            foreach (var data in gui.GetAllDataWithViewDefinitionsRecursively(dataObject))
-            {
-                gui.DocumentViewsResolver.CloseAllViewsFor(data);
-                RemoveViewsAndData(gui.ToolWindowViews.Where(v => v.Data == data).ToArray());
-            }
-        }
-
-        private void RemoveViewsAndData(IEnumerable<IView> toolViews)
-        {
-            // set all tool windows where dataObject was used to null
-            foreach (var view in toolViews)
-            {
-                view.Data = null;
             }
         }
     }
