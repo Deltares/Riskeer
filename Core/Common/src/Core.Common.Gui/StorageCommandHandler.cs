@@ -104,7 +104,7 @@ namespace Core.Common.Gui
             catch (StorageValidationException e)
             {
                 log.Warn(e.Message);
-                log.Warn(Resources.Project_saving_project_failed);
+                log.Warn(Resources.Project_existing_project_opening_failed);
                 return false;
             }
 
