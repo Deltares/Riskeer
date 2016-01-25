@@ -23,7 +23,7 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
         /// </summary>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> 
         /// to use for  building a <see cref="ContextMenuStrip"/>.</param>
-        /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> to defer the add
+        /// <param name="commandHandler">The <see cref="IProjectCommands"/> to defer the add
         /// item action to.</param>
         public ProjectNodePresenter(IContextMenuBuilderProvider contextMenuBuilderProvider, IProjectCommands commandHandler)
         {

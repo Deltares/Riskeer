@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Core.Common.Base.Data;
+
 namespace Core.Common.Gui
 {
+    /// <summary>
+    /// Interface declaring a set of methods related to adding data to an instance of <see cref="Project"/>.
+    /// </summary>
     public interface IProjectCommands
     {
         /// <summary>

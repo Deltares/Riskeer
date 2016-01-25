@@ -6,9 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
-using Core.Common.Base.Plugin;
+
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
@@ -18,10 +17,8 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler, IProjectCommands
+    public class GuiCommandHandler : IGuiCommandHandler
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
-
         private readonly IGui gui;
 
         public GuiCommandHandler(IGui gui)
@@ -100,40 +97,6 @@ namespace Core.Common.Gui
             }
         }
 
-        public object AddNewChildItem(object parent, IEnumerable<Type> childItemValueTypes)
-        {
-            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToList()))
-            {
-                if (selectDataDialog.ShowDialog() == DialogResult.OK)
-                {
-                    return GetNewDataObject(selectDataDialog, parent);
-                }
-                return null;
-            }
-        }
-
-        public void AddNewItem(object parent)
-        {
-            if (gui.Project == null)
-            {
-                Log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
-            }
-
-            using (var selectDataDialog = CreateSelectionDialogWithItems(gui.ApplicationCore.GetSupportedDataItemInfos(parent).ToList()))
-            {
-                if (selectDataDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var newItem = GetNewItem(selectDataDialog, parent);
-
-                    if (newItem != null)
-                    {
-                        gui.Selection = newItem;
-                        OpenViewForSelection();
-                    }
-                }
-            }
-        }
-
         /// <summary>
         /// Removes all document and tool views that are associated to the dataObject and/or its children.
         /// </summary>
@@ -149,12 +112,6 @@ namespace Core.Common.Gui
                 gui.DocumentViewsResolver.CloseAllViewsFor(data);
                 RemoveViewsAndData(gui.ToolWindowViews.Where(v => v.Data == data).ToArray());
             }
-        }
-
-        public void AddItemToProject(object newItem)
-        {
-            gui.Project.Items.Add(newItem);
-            gui.Project.NotifyObservers();
         }
 
         private void AddProjectToMruList()
@@ -178,48 +135,6 @@ namespace Core.Common.Gui
                 ControlHelper.UnfocusActiveControl(host.Child as IContainerControl, true);
             }
             // add more if more cases are found (like a pure wpf case, for example)
-        }
-
-        private IEnumerable<DataItemInfo> GetSupportedDataItemInfosByValueTypes(object parent, IEnumerable<Type> valueTypes)
-        {
-            return gui.ApplicationCore.GetSupportedDataItemInfos(parent).Where(dii => valueTypes.Contains(dii.ValueType));
-        }
-
-        private SelectItemDialog CreateSelectionDialogWithItems(IList<DataItemInfo> dataItemInfos)
-        {
-            var selectDataDialog = new SelectItemDialog(gui.MainWindow);
-
-            foreach (var dataItemInfo in dataItemInfos)
-            {
-                selectDataDialog.AddItemType(dataItemInfo.Name, dataItemInfo.Category, dataItemInfo.Image, dataItemInfo);
-            }
-
-            return selectDataDialog;
-        }
-
-        private object GetNewItem(SelectItemDialog selectDataDialog, object parent)
-        {
-            var newDataObject = GetNewDataObject(selectDataDialog, parent);
-
-            if (newDataObject == null)
-            {
-                return null;
-            }
-
-            AddItemToProject(newDataObject);
-
-            return newDataObject;
-        }
-
-        private static object GetNewDataObject(SelectItemDialog selectDataDialog, object parent = null)
-        {
-            var dataItemInfo = selectDataDialog.SelectedItemTag as DataItemInfo;
-            if (dataItemInfo == null)
-            {
-                return null;
-            }
-
-            return dataItemInfo.CreateData != null ? dataItemInfo.CreateData(parent) : null;
         }
 
         private void RemoveViewsAndData(IEnumerable<IView> toolViews)

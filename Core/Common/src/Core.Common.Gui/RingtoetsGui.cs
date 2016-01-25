@@ -70,6 +70,7 @@ namespace Core.Common.Gui
         private ApplicationSettingsBase userSettings;
         private readonly GuiCommandHandler guiCommandHandler;
         private StorageCommandHandler storageCommandHandler;
+        private ProjectCommandsHandler projectCommandsHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
 
         public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
@@ -95,6 +96,7 @@ namespace Core.Common.Gui
             guiCommandHandler = new GuiCommandHandler(this);
             storageCommandHandler = new StorageCommandHandler(guiCommandHandler, this);
             exportImportCommandHandler = new ExportImportCommandHandler(this);
+            projectCommandsHandler = new ProjectCommandsHandler(this);
 
             WindowsApplication.EnableVisualStyles();
 
@@ -201,7 +203,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return guiCommandHandler;
+                return projectCommandsHandler;
             }
         }
 

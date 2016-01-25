@@ -133,6 +133,7 @@
     <Compile Include="IStorageCommands.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
     <Compile Include="PngToIconConverter.cs" />
+    <Compile Include="ProjectCommandsHandler.cs" />
     <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
