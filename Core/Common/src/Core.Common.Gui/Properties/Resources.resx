@@ -794,7 +794,7 @@
     <value>Kan geen contextmenu opbouwen voor een lege knoop.</value>
   </data>
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui" xml:space="preserve">
-    <value>Kan geen 'GuiCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'GuiCommandHandler'.</value>
+    <value>Kan geen 'ApplicationFeatureCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'ApplicationFeatureCommandHandler'.</value>
   </data>
   <data name="ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node" xml:space="preserve">
     <value>Kan geen element in het contextmenu creëren zonder dat de knoop bekend is.</value>

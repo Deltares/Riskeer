@@ -1,9 +1,9 @@
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Handles all common high-level commands in the graphical user interface invoked via menu / toolbar.
+    /// Interface that declares application feature manipulation.
     /// </summary>
-    public interface IGuiCommandHandler
+    public interface IApplicationFeatureCommands
     {
         /// <summary>
         /// Activates the propertyGrid toolbox

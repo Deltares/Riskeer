@@ -918,12 +918,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             presenter.Expect(p => p.CanRemove(parentData, group)).Return(true);
             presenter.Expect(p => p.CanRenameNode(node)).Return(true);
 
-            var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
+            var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, viewCommandsHandler, node);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node);
             var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
@@ -1021,12 +1021,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             node.Stub(n => n.Parent).Return(nodeParent);
             node.Stub(n => n.Nodes).Return(new TreeNode[0]);
 
-            var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
+            var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, viewCommandsHandler ,node);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler ,node);
             var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 
@@ -1120,12 +1120,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             node.Stub(n => n.Parent).Return(nodeParent);
             node.Stub(n => n.Nodes).Return(new TreeNode[0]);
 
-            var guiCommandHandler = mockRepository.Stub<IGuiCommandHandler>();
+            var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(guiCommandHandler, exportImportHandler, viewCommandsHandler,node);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler,node);
             var contextMenuBuilderProvider = new SimpleContextMenuBuilderProvider(menuBuilder);
             var nodePresenter = new PipingCalculationGroupContextNodePresenter(contextMenuBuilderProvider);
 

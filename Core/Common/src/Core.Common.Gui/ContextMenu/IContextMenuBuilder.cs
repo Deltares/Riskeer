@@ -37,28 +37,28 @@ namespace Core.Common.Gui.ContextMenu
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="Controls.TreeView.TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IGuiCommandHandler"/> was not passed on construction.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddOpenItem();
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="Controls.TreeView.TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IGuiCommandHandler"/> was not passed on construction.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddExportItem();
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports the data of the <see cref="Controls.TreeView.TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IGuiCommandHandler"/> was not passed on construction.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddImportItem();
 
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="Controls.TreeView.TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IGuiCommandHandler"/> was not passed on construction.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddPropertiesItem();
 
         /// <summary>

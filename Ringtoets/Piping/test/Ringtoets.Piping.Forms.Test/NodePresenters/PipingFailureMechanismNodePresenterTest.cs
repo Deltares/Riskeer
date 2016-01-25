@@ -401,12 +401,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mockRepository.Stub<TreeNode>();
             nodeMock.Tag = failureMechanism;
 
-            var commandHandler = mockRepository.Stub<IGuiCommandHandler>();
+            var applicationFeatureCommandHandler = mockRepository.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mockRepository.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mockRepository.StrictMock<IViewCommands>();
             mockRepository.ReplayAll();
 
-            var contextMenuBuilder = new ContextMenuBuilder(commandHandler, exportImportHandler, viewCommandsHandler, nodeMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeMock);
             var contextMenuBuilderProviderMock = new SimpleContextMenuBuilderProvider(contextMenuBuilder);
 
             var nodePresenter = new PipingFailureMechanismNodePresenter(contextMenuBuilderProviderMock);

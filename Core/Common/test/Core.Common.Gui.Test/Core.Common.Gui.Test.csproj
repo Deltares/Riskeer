@@ -69,7 +69,7 @@
     <Compile Include="Theme\ColorThemeTest.cs" />
     <Compile Include="Forms\Options\OptionsDialogTest.cs" />
     <Compile Include="Forms\SplashScreenTest.cs" />
-    <Compile Include="GuiCommandHandlerTest.cs" />
+    <Compile Include="ApplicationFeatureCommandHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewCommandHandlerTest.cs" />
   </ItemGroup>

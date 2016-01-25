@@ -16,10 +16,10 @@ namespace Core.Common.Gui.ContextMenu
         private readonly ContextMenuStrip contextMenu;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ContextMenuBuilder"/>, which uses the given <paramref name="commandHandler"/> to 
+        /// Creates a new instance of <see cref="ContextMenuBuilder"/>, which uses the given <paramref name="featureCommandHandler"/> to 
         /// create a <see cref="ContextMenuStrip"/> for the given <paramref name="treeNode"/>.
         /// </summary>
-        /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> from which to obtain information to render and bind actions
+        /// <param name="featureCommandHandler">The <see cref="IApplicationFeatureCommands"/> from which to obtain information to render and bind actions
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
         /// require this type of information.</param>
         /// <param name="importExportHandler">The <see cref="IExportImportCommandHandler"/> 
@@ -31,12 +31,12 @@ namespace Core.Common.Gui.ContextMenu
         /// If <c>null</c>, this builder will not render items which require this type of information.</param>
         /// <param name="treeNode">The <see cref="Controls.TreeView.TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
-        /// the <paramref name="commandHandler"/> or <paramref name="treeNode"/>.</exception>
-        public ContextMenuBuilder(IGuiCommandHandler commandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode)
+        /// the <paramref name="featureCommandHandler"/> or <paramref name="treeNode"/>.</exception>
+        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode)
         {
             try
             {
-                guiItemsFactory = new GuiContextMenuItemFactory(commandHandler, importExportHandler, viewsCommandsHandler, treeNode);
+                guiItemsFactory = new GuiContextMenuItemFactory(featureCommandHandler, importExportHandler, viewsCommandsHandler, treeNode);
                 treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
             }
             catch (ArgumentNullException e)

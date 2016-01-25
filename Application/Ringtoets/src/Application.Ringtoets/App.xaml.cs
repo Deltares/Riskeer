@@ -270,9 +270,9 @@ namespace Application.Ringtoets
                 {
                     OpenLogClicked = () =>
                     {
-                        if (gui.CommandHandler != null)
+                        if (gui.ApplicationCommands != null)
                         {
-                            gui.CommandHandler.OpenLogFileExternal();
+                            gui.ApplicationCommands.OpenLogFileExternal();
                         }
                     }
                 })

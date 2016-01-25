@@ -4,7 +4,7 @@ using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test
 {
-    public class GuiCommandHandlerTest
+    public class ApplicationFeatureCommandHandlerTest
     {
         private MockRepository mocks;
 
@@ -27,10 +27,10 @@ namespace Core.Common.Gui.Test
 
             mocks.ReplayAll();
 
-            var guiCommandHandler = new GuiCommandHandler(gui);
+            var commandHandler = new ApplicationFeatureCommandHandler(gui);
 
             // Call
-            var canShowProperties = guiCommandHandler.CanShowPropertiesFor(anObject);
+            var canShowProperties = commandHandler.CanShowPropertiesFor(anObject);
 
             // Assert
             Assert.IsTrue(canShowProperties);
@@ -51,10 +51,10 @@ namespace Core.Common.Gui.Test
 
             mocks.ReplayAll();
 
-            var guiCommandHandler = new GuiCommandHandler(gui);
+            var commandHandler = new ApplicationFeatureCommandHandler(gui);
 
             // Call
-            var canShowProperties = guiCommandHandler.CanShowPropertiesFor(aSubObject);
+            var canShowProperties = commandHandler.CanShowPropertiesFor(aSubObject);
 
             // Assert
             Assert.IsTrue(canShowProperties);

@@ -1,24 +1,24 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils;
 using log4net;
 using log4net.Appender;
-using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Core.Common.Gui
 {
-    public class GuiCommandHandler : IGuiCommandHandler
+    /// <summary>
+    /// This class provides concrete implementations for <see cref="IApplicationFeatureCommands"/>.
+    /// </summary>
+    public class ApplicationFeatureCommandHandler : IApplicationFeatureCommands
     {
         private readonly IGui gui;
 
-        public GuiCommandHandler(IGui gui)
+        public ApplicationFeatureCommandHandler(IGui gui)
         {
             this.gui = gui;
         }

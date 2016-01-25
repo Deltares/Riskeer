@@ -68,7 +68,7 @@ namespace Core.Common.Gui
 
         private bool userSettingsDirty;
         private ApplicationSettingsBase userSettings;
-        private readonly GuiCommandHandler guiCommandHandler;
+        private readonly ApplicationFeatureCommandHandler appFeatureApplicationCommands;
         private StorageCommandHandler storageCommandHandler;
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly ProjectCommandsHandler projectCommandsHandler;
@@ -94,7 +94,7 @@ namespace Core.Common.Gui
 
             UserSettings = Settings.Default;
 
-            guiCommandHandler = new GuiCommandHandler(this);
+            appFeatureApplicationCommands = new ApplicationFeatureCommandHandler(this);
             viewCommandHandler = new ViewCommandHandler(this);
             storageCommandHandler = new StorageCommandHandler(viewCommandHandler, this);
             exportImportCommandHandler = new ExportImportCommandHandler(this);
@@ -191,7 +191,7 @@ namespace Core.Common.Gui
             }
         }
 
-        public IGuiCommandHandler CommandHandler { get { return guiCommandHandler; } }
+        public IApplicationFeatureCommands ApplicationCommands { get { return appFeatureApplicationCommands; } }
 
         public IStorageCommands StorageCommands 
         {
@@ -298,7 +298,7 @@ namespace Core.Common.Gui
 
         public IContextMenuBuilder Get(TreeNode treeNode)
         {
-            return new ContextMenuBuilder(guiCommandHandler, exportImportCommandHandler, ViewCommands, treeNode);
+            return new ContextMenuBuilder(appFeatureApplicationCommands, exportImportCommandHandler, ViewCommands, treeNode);
         }
 
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)

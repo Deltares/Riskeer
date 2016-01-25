@@ -16,7 +16,7 @@ namespace Core.Common.Gui
     /// </summary>
     public class StorageCommandHandler : IStorageCommands, IObserver
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GuiCommandHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(StorageCommandHandler));
 
         private readonly IViewCommands viewCommands;
         private readonly IGui gui;

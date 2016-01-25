@@ -1221,7 +1221,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen &apos;GuiCommandHandler&apos;-afhankelijk element in het contextmenu creëren zonder een &apos;GuiCommandHandler&apos;..
+        ///   Looks up a localized string similar to Kan geen &apos;ApplicationFeatureCommandHandler&apos;-afhankelijk element in het contextmenu creëren zonder een &apos;ApplicationFeatureCommandHandler&apos;..
         /// </summary>
         public static string GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui {
             get {

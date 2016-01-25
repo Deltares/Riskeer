@@ -37,7 +37,7 @@ namespace Core.Plugins.ProjectExplorer
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><see cref="IGui.ContextMenuProvider"/> is <c>null</c></item>
-        /// <item><see cref="IGui.CommandHandler"/> is <c>null</c></item>
+        /// <item><see cref="IGui.ApplicationCommands"/> is <c>null</c></item>
         /// </list></exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {

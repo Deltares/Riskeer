@@ -51,7 +51,7 @@ namespace Core.Common.Gui
         /// <summary>
         /// Gets or sets CommandHandler.
         /// </summary>
-        IGuiCommandHandler CommandHandler { get; }
+        IApplicationFeatureCommands ApplicationCommands { get; }
 
         IStorageCommands StorageCommands { get; }
 

@@ -12,29 +12,29 @@ namespace Core.Common.Gui.ContextMenu
     /// </summary>
     internal class GuiContextMenuItemFactory
     {
-        private readonly IGuiCommandHandler commandHandler;
+        private readonly IApplicationFeatureCommands applicationFeatureCommandHandler;
         private readonly IExportImportCommandHandler exportImportCommandHandler;
         private readonly IViewCommands viewCommands;
         private readonly TreeNode treeNode;
 
         /// <summary>
         /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the 
-        /// <paramref name="commandHandler"/> to create <see cref="ToolStripItem"/>.
+        /// <paramref name="applicationFeatureCommandHandler"/> to create <see cref="ToolStripItem"/>.
         /// </summary>
-        /// <param name="commandHandler">The <see cref="IGuiCommandHandler"/> which contains information for creating the 
+        /// <param name="applicationFeatureCommandHandler">The <see cref="IApplicationFeatureCommands"/> which contains information for creating the 
         /// <see cref="ToolStripItem"/>.</param>
         /// <param name="exportImportCommandHandler">The <see cref="IExportImportCommandHandler"/>
         /// which contains information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="viewCommandsHandler">The <see cref="IViewCommands"/> which contains
         /// information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="commandHandler"/> 
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="applicationFeatureCommandHandler"/> 
         /// or <paramref name="exportImportCommandHandler"/> is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IGuiCommandHandler commandHandler, IExportImportCommandHandler exportImportCommandHandler, IViewCommands viewCommandsHandler, TreeNode treeNode)
+        public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler, IExportImportCommandHandler exportImportCommandHandler, IViewCommands viewCommandsHandler, TreeNode treeNode)
         {
-            if (commandHandler == null)
+            if (applicationFeatureCommandHandler == null)
             {
-                throw new ArgumentNullException("commandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
+                throw new ArgumentNullException("applicationFeatureCommandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
             if (exportImportCommandHandler == null)
             {
@@ -48,7 +48,7 @@ namespace Core.Common.Gui.ContextMenu
             {
                 throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
             }
-            this.commandHandler = commandHandler;
+            this.applicationFeatureCommandHandler = applicationFeatureCommandHandler;
             this.exportImportCommandHandler = exportImportCommandHandler;
             viewCommands = viewCommandsHandler;
             this.treeNode = treeNode;
@@ -122,14 +122,14 @@ namespace Core.Common.Gui.ContextMenu
         public ToolStripItem CreatePropertiesItem()
         {
             object dataObject = treeNode.Tag;
-            bool canShowProperties = commandHandler.CanShowPropertiesFor(dataObject);
+            bool canShowProperties = applicationFeatureCommandHandler.CanShowPropertiesFor(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Properties)
             {
                 ToolTipText = Resources.Properties_ToolTip,
                 Image = Resources.PropertiesIcon,
                 Enabled = canShowProperties
             };
-            newItem.Click += (s, e) => commandHandler.ShowPropertiesFor(dataObject);
+            newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesFor(dataObject);
             
             return newItem;
         }

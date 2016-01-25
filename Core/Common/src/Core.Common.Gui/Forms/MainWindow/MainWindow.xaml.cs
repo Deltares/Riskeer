@@ -1038,7 +1038,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
         {
-            Gui.CommandHandler.OpenLogFileExternal();
+            Gui.ApplicationCommands.OpenLogFileExternal();
         }
 
         private void OnFileManual_Clicked(object sender, RoutedEventArgs e)
