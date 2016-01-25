@@ -63,6 +63,146 @@ namespace Core.Components.DotSpatial.Test.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] DR10_binnenteen {
+            get {
+                object obj = ResourceManager.GetObject("DR10_binnenteen", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;metadata xml:lang=&quot;en&quot;&gt;&lt;Esri&gt;&lt;CreaDate&gt;20140305&lt;/CreaDate&gt;&lt;CreaTime&gt;17083100&lt;/CreaTime&gt;&lt;ArcGISFormat&gt;1.0&lt;/ArcGISFormat&gt;&lt;SyncOnce&gt;TRUE&lt;/SyncOnce&gt;&lt;DataProperties&gt;&lt;lineage&gt;&lt;Process ToolSource=&quot;c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\DefineProjection&quot; Date=&quot;20140305&quot; Time=&quot;170831&quot;&gt;DefineProjection DR10_binnenteen PROJCS[&apos;RD_New&apos;,GEOGCS[&apos;GCS_Amersfoort&apos;,DATUM[&apos;D_Amersfoort&apos;,SPHEROID[&apos;Bessel_1841&apos;,6377397.155,299.1528128]],P [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DR10_binnenteen_shp {
+            get {
+                return ResourceManager.GetString("DR10_binnenteen_shp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_binnenteen1 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_binnenteen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_binnenteen2 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_binnenteen2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_binnenteen3 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_binnenteen3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_binnenteen4 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_binnenteen4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_binnenteen5 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_binnenteen5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_dijkvakgebieden {
+            get {
+                object obj = ResourceManager.GetObject("DR10_dijkvakgebieden", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;metadata xml:lang=&quot;nl&quot;&gt;&lt;Esri&gt;&lt;CreaDate&gt;20120830&lt;/CreaDate&gt;&lt;CreaTime&gt;15014200&lt;/CreaTime&gt;&lt;ArcGISFormat&gt;1.0&lt;/ArcGISFormat&gt;&lt;SyncOnce&gt;FALSE&lt;/SyncOnce&gt;&lt;DataProperties&gt;&lt;itemProps&gt;&lt;itemName Sync=&quot;TRUE&quot;&gt;DR10_dijkvakgebieden&lt;/itemName&gt;&lt;imsContentType Sync=&quot;TRUE&quot;&gt;002&lt;/imsContentType&gt;&lt;itemSize Sync=&quot;TRUE&quot;&gt;0.000&lt;/itemSize&gt;&lt;itemLocation&gt;&lt;linkage Sync=&quot;TRUE&quot;&gt;file://\\D00347\D$\Ringtoets dataset WGS DR10 Piping\dataset piping\DR10_dijkvakgebieden.shp&lt;/linkage&gt;&lt;protocol Sync=&quot;TRUE&quot;&gt;L [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DR10_dijkvakgebieden_shp {
+            get {
+                return ResourceManager.GetString("DR10_dijkvakgebieden_shp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_dijkvakgebieden1 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_dijkvakgebieden1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_dijkvakgebieden2 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_dijkvakgebieden2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_dijkvakgebieden3 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_dijkvakgebieden3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_dijkvakgebieden4 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_dijkvakgebieden4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DR10_dijkvakgebieden5 {
+            get {
+                object obj = ResourceManager.GetObject("DR10_dijkvakgebieden5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] DR10_segments {
             get {
                 object obj = ResourceManager.GetObject("DR10_segments", resourceCulture);

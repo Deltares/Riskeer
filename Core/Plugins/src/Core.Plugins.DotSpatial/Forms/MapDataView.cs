@@ -25,9 +25,6 @@ namespace Core.Plugins.DotSpatial.Forms
             Controls.Add(baseMap);
         }
 
-        /// <summary>
-        /// The <see cref="MapData"/> that will be set on the <see cref="BaseMap"/>.
-        /// </summary>
         public object Data
         {
             get

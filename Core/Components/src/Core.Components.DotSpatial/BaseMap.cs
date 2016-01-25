@@ -28,20 +28,25 @@ namespace Core.Components.DotSpatial
         /// <summary>
         /// Gets and sets the <see cref="Data"/>. When <see cref="Data"/> is not empty it will load the data on the map.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> is invalid.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is null.</exception>
+        /// <exception cref="FileNotFoundException">Thrown when <paramref name="mapData"/> does not exist.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> has an unaccepted extension.</exception>
         public void SetMapData(MapData mapData)
         {
-            try
+            if (IsDisposed)
             {
-                if (mapData.IsValid())
-                {
-                    data = mapData;
-                    LoadData();
-                }
+                return;
             }
-            catch (Exception e)
+            
+            if(mapData == null)
             {
-                throw new ArgumentException("Could not set the data on the map.", e.Message);
+                throw new ArgumentNullException("mapData", "MapData is required when adding shapeFiles");
+            }
+
+            if (mapData.IsValid())
+            {
+                data = mapData;
+                LoadData();
             }
         }
 

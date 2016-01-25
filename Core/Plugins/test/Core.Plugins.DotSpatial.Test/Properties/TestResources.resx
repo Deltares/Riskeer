@@ -117,13 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MapData_IsPathValid_File_on_path__0__does_not_exist" xml:space="preserve">
-    <value>Bestand op pad {0} bestaat niet.</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DR10_dijkvakgebieden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="MapData_IsPathValid_File_on_path__0__does_not_have_the_shp_extension" xml:space="preserve">
-    <value>Bestand op pad {0} heeft niet de juiste .shp extensie.</value>
+  <data name="DR10_dijkvakgebieden1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_" xml:space="preserve">
-    <value>Shape file op pad {0} is aan de kaart toegevoegd.</value>
+  <data name="DR10_dijkvakgebieden2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.sbn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.sbx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden_shp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shp.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

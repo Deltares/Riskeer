@@ -61,33 +61,6 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan bestand met deze extensie niet openen..
-        /// </summary>
-        public static string BaseMap_LoadData_Cannot_open_file_extension {
-            get {
-                return ResourceManager.GetString("BaseMap_LoadData_Cannot_open_file_extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand {0} kon niet worden gevonden..
-        /// </summary>
-        public static string BaseMap_LoadData_File_loading_failded__The_file__0__could_not_be_found {
-            get {
-                return ResourceManager.GetString("BaseMap_LoadData_File_loading_failded__The_file__0__could_not_be_found", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestand is niet compleet..
-        /// </summary>
-        public static string BaseMap_LoadData_NullException_in_file {
-            get {
-                return ResourceManager.GetString("BaseMap_LoadData_NullException_in_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Shape file op pad {0} is aan de kaart toegevoegd..
         /// </summary>
         public static string BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_ {

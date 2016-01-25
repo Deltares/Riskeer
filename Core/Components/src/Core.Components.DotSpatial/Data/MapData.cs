@@ -10,7 +10,7 @@ namespace Core.Components.DotSpatial.Data
     /// </summary>
     public class MapData
     {
-        private const string extension = "shp";
+        private const string extension = ".shp";
 
         private readonly HashSet<string> filePaths;
 
@@ -37,6 +37,7 @@ namespace Core.Components.DotSpatial.Data
         /// Adds the shape file to the list. Each <paramref name="filePath"/> should be unique.
         /// </summary>
         /// <param name="filePath">The path to the file.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is null.</exception>
         /// <exception cref="FileNotFoundException">Thrown when <paramref name="filePath"/> does not exist.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> has an unaccepted extension.</exception>
         /// <returns>True when added to the list. False when it is not added, for example when <paramref name="filePath"/> is not unique.</returns>
@@ -50,12 +51,13 @@ namespace Core.Components.DotSpatial.Data
         /// <summary>
         /// Checks if the given paths are valid.
         /// </summary>
-        /// <exception cref="FileNotFoundException">Thrown when <paramref name="FilePaths"/> does not exist.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="FilePaths"/> has an unaccepted extension.</exception>
+        /// <exception cref="ArgumentNullException">Throwns when value in <see cref="FilePaths"/> is null.</exception>
+        /// <exception cref="FileNotFoundException">Thrown when value in <see cref="FilePaths"/> does not exist.</exception>
+        /// <exception cref="ArgumentException">Thrown when value <see cref="FilePaths"/> has an unaccepted extension.</exception>
         /// <returns></returns>
         public bool IsValid()
         {
-            foreach (var path in FilePaths)
+            foreach (var path in filePaths)
             {
                 IsPathValid(path);
             }
@@ -65,6 +67,11 @@ namespace Core.Components.DotSpatial.Data
 
         private void IsPathValid(string path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path", "A path is required when adding shape files");
+            }
+
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException(string.Format(Resources.MapData_IsPathValid_File_on_path__0__does_not_exist, path));

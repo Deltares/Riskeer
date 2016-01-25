@@ -118,6 +118,48 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DR10_binnenteen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_binnenteen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_binnenteen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.sbn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_binnenteen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.sbx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_binnenteen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_binnenteen5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_binnenteen_shp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_binnenteen.shp.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DR10_dijkvakgebieden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.prj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.sbn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.sbx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DR10_dijkvakgebieden_shp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR10_dijkvakgebieden.shp.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="DR10_segments" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DR10_segments.shp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
