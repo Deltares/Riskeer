@@ -187,7 +187,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void UpdateObserver_ChartInForm_ViewInvalidatedSeriesUpdated()
+        public void UpdateObserver_ChartInForm_ViewInvalidatedSeriesRenewed()
         {
             // Setup
             var form = new Form();

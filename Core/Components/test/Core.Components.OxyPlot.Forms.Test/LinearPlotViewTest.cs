@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
 using Core.Components.OxyPlot.Forms.Properties;
+using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using TickStyle = OxyPlot.Axes.TickStyle;
 
@@ -36,22 +38,99 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void ZoomToAll_ViewInForm_InvalidatesView()
+        public void ZoomToAll_ViewInForm_AxesAreSetToOriginal()
         {
             // Setup
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+            var view = new LinearPlotView
+            {
+                Dock = DockStyle.Fill
+            };
+            view.Model.Series.Add(new LineSeries
+            {
+                Points =
+                {
+                    new DataPoint(0,0),
+                    new DataPoint(10,10)
+                }
+            });
 
-            form.Show();
+            WindowsFormsTestHelper.Show(view, f =>
+            {
 
-            // Call
-            view.ZoomToAll();
+                var maxX = view.Model.Axes[0].ActualMaximum;
+                var minX = view.Model.Axes[0].ActualMinimum;
+                var maxY = view.Model.Axes[1].ActualMaximum;
+                var minY = view.Model.Axes[1].ActualMinimum;
 
-            // Assert
-            Assert.AreEqual(1, invalidated);
+                view.Model.ZoomAllAxes(1.2);
+
+                // Preconditions
+                Assert.AreNotEqual(maxX, view.Model.Axes[0].ActualMaximum);
+                Assert.AreNotEqual(minX, view.Model.Axes[0].ActualMinimum);
+                Assert.AreNotEqual(maxY, view.Model.Axes[1].ActualMaximum);
+                Assert.AreNotEqual(minY, view.Model.Axes[1].ActualMinimum);
+
+                // Call
+                view.ZoomToAll();
+
+                // Assert
+                Assert.AreEqual(maxX, view.Model.Axes[0].ActualMaximum);
+                Assert.AreEqual(minX, view.Model.Axes[0].ActualMinimum);
+                Assert.AreEqual(maxY, view.Model.Axes[1].ActualMaximum);
+                Assert.AreEqual(minY, view.Model.Axes[1].ActualMinimum);
+            });
+            WindowsFormsTestHelper.CloseAll();
+        }
+
+        [Test]
+        public void ZoomToAll_ViewInFormSerieVisibilityUpdated_AxesAreUpdated()
+        {
+            // Setup
+            var view = new LinearPlotView
+            {
+                Dock = DockStyle.Fill,
+                Padding = new Padding(0)
+            };
+            var lineSeries = new LineSeries
+            {
+                Points =
+                    {
+                        new DataPoint(0, 0),
+                        new DataPoint(5, 5)
+                    }
+            };
+            var lineSeriesToBeUpdated = new LineSeries
+            {
+                Points =
+                    {
+                        new DataPoint(5, 5),
+                        new DataPoint(10, 10)
+                    }
+            };
+            view.Model.Series.Add(lineSeries);
+            view.Model.Series.Add(lineSeriesToBeUpdated);
+
+            WindowsFormsTestHelper.Show(view, f =>
+            {
+                var maxX = view.Model.Axes[0].ActualMaximum;
+                var minX = view.Model.Axes[0].ActualMinimum;
+                var maxY = view.Model.Axes[1].ActualMaximum;
+                var minY = view.Model.Axes[1].ActualMinimum;
+
+                lineSeriesToBeUpdated.IsVisible = false;
+                view.InvalidatePlot(true);
+                view.Refresh();
+
+                // Call
+                view.ZoomToAll();
+
+                // Assert
+                Assert.Greater(maxX, view.Model.Axes[0].ActualMaximum);
+                Assert.AreEqual(minX/2, view.Model.Axes[0].ActualMinimum, 1e-6);
+                Assert.Greater(maxY, view.Model.Axes[1].ActualMaximum);
+                Assert.AreEqual(minY/2, view.Model.Axes[1].ActualMinimum, 1e-6);
+            });
+            WindowsFormsTestHelper.CloseAll();
         }
     }
 }
