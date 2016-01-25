@@ -11,15 +11,18 @@ namespace Core.Plugins.DotSpatial
     /// </summary>
     public partial class MapRibbon : IRibbonCommandHandler
     {
+        /// <summary>
+        /// Creates an instance of <see cref="MapRibbon"/>
+        /// </summary>
         public MapRibbon()
         {
             InitializeComponent();
         }
 
-        private void ButtonOpenMapView_Click(object sender, RoutedEventArgs e)
-        {
-            OpenMapViewCommand.Execute();
-        }
+        /// <summary>
+        /// Sets the command used when open map button is clicked.
+        /// </summary>
+        public ICommand OpenMapViewCommand { private get; set; }
 
         public IEnumerable<ICommand> Commands
         {
@@ -32,20 +35,21 @@ namespace Core.Plugins.DotSpatial
             }
         }
 
-        public ICommand OpenMapViewCommand { private get; set; }
-
         public Ribbon GetRibbonControl()
         {
             return RibbonControl;
         }
 
-        public void ValidateItems()
-        {
-        }
+        public void ValidateItems() {}
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {
             return false;
+        }
+
+        private void ButtonOpenMapView_Click(object sender, RoutedEventArgs e)
+        {
+            OpenMapViewCommand.Execute();
         }
     }
 }

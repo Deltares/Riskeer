@@ -13,9 +13,9 @@
     
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
         
-        <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Demo_Header}" fluent:KeyTip.Keys="F">
-            <fluent:RibbonGroupBox Header="{x:Static p:Resources.General_Map}" fluent:KeyTip.Keys="M">
-                <fluent:Button Name="OpenMapViewButton" Header="{x:Static p:Resources.General_Map}" ToolTip="{x:Static p:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click"/>  
+        <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Demo_Header}" fluent:KeyTip.Keys="D">
+            <fluent:RibbonGroupBox Header="{x:Static p:Resources.General_Map}">
+                <fluent:Button Name="OpenMapViewButton" Header="{x:Static p:Resources.General_Map}" ToolTip="{x:Static p:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="M"/>  
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
         
