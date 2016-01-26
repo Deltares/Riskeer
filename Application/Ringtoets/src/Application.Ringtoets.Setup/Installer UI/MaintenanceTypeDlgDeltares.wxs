@@ -14,7 +14,7 @@
     <Fragment>
         <UI>
 	     <Dialog Id="MaintenanceTypeDlgDeltares" Width="370" Height="270" Title="!(loc.MaintenanceTypeDlg_Title)">
-                <Control Id="ChangeButton" Type="PushButton" X="40" Y="65" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgChangeButtonTooltip)" Default="yes" Text="!(loc.MaintenanceTypeDlgChangeButton)">
+                <Control Id="ChangeButton" Type="PushButton" X="40" Y="65" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgChangeButtonTooltip)" Default="yes" Text="!(loc.MaintenanceTypeChangeButtonText)">
                 <Publish Property="WixUI_InstallMode" Value="Change">1</Publish>
                     <Condition Action="disable">ARPNOMODIFY</Condition>
                 </Control>
@@ -24,7 +24,7 @@
                 <Control Id="ChangeDisabledText" Type="Text" X="60" Y="85" Width="280" Height="20" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgChangeDisabledText)" Hidden="yes">
                     <Condition Action="show">ARPNOMODIFY</Condition>
                 </Control>
-                <Control Id="RepairButton" Type="PushButton" X="40" Y="118" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRepairButtonTooltip)" Text="!(loc.MaintenanceTypeDlgRepairButton)">
+                <Control Id="RepairButton" Type="PushButton" X="40" Y="118" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRepairButtonTooltip)" Text="!(loc.MaintenanceTypeRepairButtonText)">
                     <Publish Property="WixUI_InstallMode" Value="Repair">1</Publish>
                     <Condition Action="disable">ARPNOREPAIR</Condition>
                 </Control>
@@ -34,7 +34,7 @@
                 <Control Id="RepairDisabledText" Type="Text" X="60" Y="138" Width="280" Height="30" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgRepairDisabledText)" Hidden="yes">
                     <Condition Action="show">ARPNOREPAIR</Condition>
                 </Control>
-                <Control Id="RemoveButton" Type="PushButton" X="40" Y="171" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRemoveButtonTooltip)" Text="!(loc.MaintenanceTypeDlgRemoveButton)">
+                <Control Id="RemoveButton" Type="PushButton" X="40" Y="171" Width="80" Height="17" ToolTip="!(loc.MaintenanceTypeDlgRemoveButtonTooltip)" Text="!(loc.MaintenanceTypeRemoveButtonText)">
                     <Publish Property="WixUI_InstallMode" Value="Remove">1</Publish>
                     <Condition Action="disable">ARPNOREMOVE</Condition>
                 </Control>
@@ -44,9 +44,9 @@
                 <Control Id="RemoveDisabledText" Type="Text" X="60" Y="191" Width="280" Height="20" NoPrefix="yes" Text="!(loc.MaintenanceTypeDlgRemoveDisabledText)" Hidden="yes">
                     <Condition Action="show">ARPNOREMOVE</Condition>
                 </Control>
-                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
-                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUINext)" />
-                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.BackButtonText)" />
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.NextButtonText)" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.CancelButtonText)">
                     <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
                 </Control>
                 <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="58" TabSkip="no" Text="!(loc.MaintenanceTypeDlgBannerBitmap)" />

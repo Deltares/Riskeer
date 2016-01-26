@@ -13,6 +13,10 @@
   <String Id="CancelButtonText">A&amp;nnuleren</String>
   <String Id="CompleetInstallationButtonText">Vo&amp;lledig</String>
   <String Id="InstallButtonText">&amp;Installeren</String>
+  <String Id="MaintenanceTypeChangeButtonText">&amp;Wijzigen</String>
+  <String Id="MaintenanceTypeRepairButtonText">&amp;Herstellen</String>
+  <String Id="MaintenanceTypeRemoveButtonText">V&amp;erwijderen</String>
+  <String Id="DiskUsageButtonText">&amp;Schijfgebruik</String>
   <String Id="NoButtonText">&amp;Nee</String>
   <String Id="YesButtonText">&amp;Ja</String>
   <String Id="FinishButtonText">&amp;Voltooien</String>
