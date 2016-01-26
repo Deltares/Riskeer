@@ -172,7 +172,7 @@ namespace Application.Ringtoets.Storage.Test
             {
                 updateStorageException = Assert.Throws<UpdateStorageException>(test);
             }
-            string expectedMessage = String.Format("Fout bij het schrijven van bestand '{0}': {1}",
+            string expectedMessage = String.Format("Fout bij het schrijven naar bestand '{0}': {1}",
                                                    tempFile,
                                                    "Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.");
             Assert.AreEqual(expectedMessage, updateStorageException.Message);
@@ -248,7 +248,7 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             UpdateStorageException exception = Assert.Throws<UpdateStorageException>(test);
-            string expectedMessage = String.Format(@"Fout bij het schrijven van bestand '{0}'{1}: {2}", tempFile, "",
+            string expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempFile, "",
                                                    String.Format("Het object '{0}' met id '{1}' is niet gevonden.", "project", project.StorageId));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
