@@ -1,4 +1,5 @@
-﻿using Core.Components.Charting.Data;
+﻿using Core.Common.Base;
+using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
@@ -38,6 +39,12 @@ namespace Core.Plugins.OxyPlot.Legend
                     Nodes.Clear();
                 }
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            Data = null;
+            base.Dispose(disposing);
         }
     }
 }
