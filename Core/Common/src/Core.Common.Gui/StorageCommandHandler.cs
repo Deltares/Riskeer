@@ -49,6 +49,7 @@ namespace Core.Common.Gui
 
             log.Info(Resources.Project_new_opening);
             gui.Project = new Project();
+            gui.ProjectFilePath = "";
             log.Info(Resources.Project_new_successfully_opened);
 
             gui.RefreshGui();
