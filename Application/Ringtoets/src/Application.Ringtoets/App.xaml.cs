@@ -121,7 +121,7 @@ namespace Application.Ringtoets
                 Copyright = "© Deltares 2016",
                 LicenseDescription = "Gratis",
                 MainWindowTitle = "Ringtoets",
-                LicenseFilePath = "Licentie.rtf",
+                LicenseFilePath = "..\\Licentie.rtf",
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
 
