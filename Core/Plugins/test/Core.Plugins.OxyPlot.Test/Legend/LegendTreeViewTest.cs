@@ -30,16 +30,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         [Test]
         public void Dispose_DataSet_DataSetToNull()
         {
-            // Given
+            // Setup
             var tree = new LegendTreeView();
             var data = new TestChartData();
 
             tree.ChartData = data;
 
-            // When
+            // Call
             tree.Dispose();
 
-            // Then
+            // Assert
             Assert.IsNull(tree.Data);
         }
 
