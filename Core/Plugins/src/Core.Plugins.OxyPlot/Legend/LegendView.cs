@@ -28,7 +28,7 @@ namespace Core.Plugins.OxyPlot.Legend
             }
             set
             {
-                UpdateTree((ChartData)value);
+                UpdateTree((ChartData) value);
             }
         }
 

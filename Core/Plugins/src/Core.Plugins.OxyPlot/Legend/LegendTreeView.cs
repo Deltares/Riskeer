@@ -1,7 +1,6 @@
-﻿using Core.Common.Base;
+﻿using Core.Common.Controls.TreeView;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
@@ -28,12 +27,12 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             get
             {
-                return (ChartData)Data;
+                return (ChartData) Data;
             }
             set
             {
                 Data = value;
-                
+
                 if (value == null)
                 {
                     Nodes.Clear();

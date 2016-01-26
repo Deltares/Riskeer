@@ -49,10 +49,10 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             CollectionAssert.IsEmpty(lineObservers);
         }
 
-        class TestChartData : ChartDataCollection
+        private class TestChartData : ChartDataCollection
         {
-            public static PointData Point = new PointData(Enumerable.Empty<Tuple<double, double>>());
-            public static LineData Line = new LineData(Enumerable.Empty<Tuple<double, double>>());
+            public static readonly PointData Point = new PointData(Enumerable.Empty<Tuple<double, double>>());
+            public static readonly LineData Line = new LineData(Enumerable.Empty<Tuple<double, double>>());
 
             public TestChartData() : base(new List<ChartData>
             {
