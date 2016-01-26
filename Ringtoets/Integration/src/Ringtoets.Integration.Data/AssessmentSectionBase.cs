@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Core.Common.Base;
-
+using Core.Common.Base.Storage;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data.Contribution;
@@ -12,7 +12,7 @@ namespace Ringtoets.Integration.Data
     /// <summary>
     /// Base implementation of assessment sections.
     /// </summary>
-    public abstract class AssessmentSectionBase : Observable
+    public abstract class AssessmentSectionBase : Observable, IStorable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSectionBase"/> class.
@@ -48,5 +48,10 @@ namespace Ringtoets.Integration.Data
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
         public abstract IEnumerable<IFailureMechanism> GetFailureMechanisms();
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        public long StorageId { get; set; }
     }
 }

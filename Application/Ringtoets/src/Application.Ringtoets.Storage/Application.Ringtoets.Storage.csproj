@@ -63,6 +63,11 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Builders\FileWriterErrorMessageBuilder.cs" />
+    <Compile Include="Converters\DikeAssessmentSectionEntityConverter.cs" />
+    <Compile Include="Converters\IEntityConverter.cs" />
+    <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\RingtoetsEntitiesPartial.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
@@ -111,6 +116,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

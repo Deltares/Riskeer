@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DikeAssessmentSectionEntity">
+          <Key>
+            <PropertyRef Name="DikeAssessmentSectionEntityId" />
+          </Key>
+          <Property Name="DikeAssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="1024" />
+          <Property Name="Norm" Type="int" />
+        </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
             <PropertyRef Name="ProjectEntityId" />
@@ -23,9 +32,26 @@
           <Property Name="ToVersion" Type="varchar" MaxLength="50" />
           <Property Name="Timestamp" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
+        <Association Name="FK_DikeAssessmentSectionEntity_0_0">
+          <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
+          <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEntity">
+              <PropertyRef Name="ProjectEntityId" />
+            </Principal>
+            <Dependent Role="DikeAssessmentSectionEntity">
+              <PropertyRef Name="ProjectEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
+          <EntitySet Name="DikeAssessmentSectionEntity" EntityType="Self.DikeAssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="Version" EntityType="Self.Version" store:Type="Tables" />
+          <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="Self.FK_DikeAssessmentSectionEntity_0_0">
+            <End Role="ProjectEntity" EntitySet="ProjectEntity" />
+            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -39,6 +65,7 @@
           <Property Name="Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="LastUpdated" Type="Int64" />
+          <NavigationProperty Name="DikeAssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="DikeAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -52,7 +79,34 @@
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ProjectEntities" EntityType="Self.ProjectEntity" />
           <EntitySet Name="Versions" EntityType="Self.Version" />
+          <EntitySet Name="DikeAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" />
+          <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0">
+            <End Role="ProjectEntity" EntitySet="ProjectEntities" />
+            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DikeAssessmentSectionEntity">
+          <Key>
+            <PropertyRef Name="DikeAssessmentSectionEntityId" />
+          </Key>
+          <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="Norm" Type="Int32" />
+          <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="ProjectEntity" />
+        </EntityType>
+        <Association Name="FK_DikeAssessmentSectionEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectEntity">
+              <PropertyRef Name="ProjectEntityId" />
+            </Principal>
+            <Dependent Role="DikeAssessmentSectionEntity">
+              <PropertyRef Name="ProjectEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -76,6 +130,16 @@
                 <ScalarProperty Name="FromVersion" ColumnName="FromVersion" />
                 <ScalarProperty Name="ToVersion" ColumnName="ToVersion" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DikeAssessmentSectionEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DikeAssessmentSectionEntity">
+              <MappingFragment StoreEntitySet="DikeAssessmentSectionEntity">
+                <ScalarProperty Name="Norm" ColumnName="Norm" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
+                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

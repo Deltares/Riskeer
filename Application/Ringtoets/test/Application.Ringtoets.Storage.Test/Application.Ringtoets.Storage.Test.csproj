@@ -71,6 +71,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbContext\DbSet.cs" />
+    <Compile Include="Converter\DikeAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="Converter\ProjectEntityConverterTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
@@ -90,6 +92,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>

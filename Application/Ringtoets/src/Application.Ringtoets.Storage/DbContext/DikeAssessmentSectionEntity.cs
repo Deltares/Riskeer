@@ -12,20 +12,13 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectEntity
+    public partial class DikeAssessmentSectionEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectEntity()
-        {
-            this.DikeAssessmentSectionEntities = new HashSet<DikeAssessmentSectionEntity>();
-        }
-    
+        public long DikeAssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public Nullable<long> LastUpdated { get; set; }
+        public Nullable<int> Norm { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
+        public virtual ProjectEntity ProjectEntity { get; set; }
     }
 }

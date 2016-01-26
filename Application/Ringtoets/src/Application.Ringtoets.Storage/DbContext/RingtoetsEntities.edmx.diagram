@@ -7,6 +7,8 @@
       <Diagram DiagramId="143406871b624a3080def7c3c31a548f" Name="Diagram1">
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.Version" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
