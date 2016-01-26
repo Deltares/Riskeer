@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage
             Connect(databaseFilePath);
             if (project == null)
             {
-                throw new ArgumentNullException("project"");
+                throw new ArgumentNullException("project");
             }
             using (var dbContext = new RingtoetsEntities(ConnectionString))
             {
