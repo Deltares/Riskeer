@@ -28,7 +28,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void GivenTreeWithNodes_WhenTreeDisposed_ThenNodesDetachedFromIObservableData()
+        public void Dispose_DataSet_DataSetToNull()
         {
             // Given
             var tree = new LegendTreeView();
@@ -40,25 +40,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             tree.Dispose();
 
             // Then
-            var dataObservers = TypeUtils.GetField<ICollection<IObserver>>(data, "observers");
-            var pointObservers = TypeUtils.GetField<ICollection<IObserver>>(TestChartData.Point, "observers");
-            var lineObservers = TypeUtils.GetField<ICollection<IObserver>>(TestChartData.Line, "observers");
-
-            CollectionAssert.IsEmpty(dataObservers);
-            CollectionAssert.IsEmpty(pointObservers);
-            CollectionAssert.IsEmpty(lineObservers);
+            Assert.IsNull(tree.Data);
         }
 
         private class TestChartData : ChartDataCollection
         {
-            public static readonly PointData Point = new PointData(Enumerable.Empty<Tuple<double, double>>());
-            public static readonly LineData Line = new LineData(Enumerable.Empty<Tuple<double, double>>());
-
-            public TestChartData() : base(new List<ChartData>
-            {
-                Point,
-                Line
-            }) {}
+            public TestChartData() : base(new List<ChartData>()) {}
         }
     }
 }
