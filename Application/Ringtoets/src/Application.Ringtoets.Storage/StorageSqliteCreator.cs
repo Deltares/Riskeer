@@ -24,7 +24,7 @@ namespace Application.Ringtoets.Storage
             {
                 SQLiteConnection.CreateFile(databaseFilePath);
             }
-            ConnectionString = SqLiteStorageConnection.BuildSqLiteConnectionString(databaseFilePath);
+            ConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
             using (var dbContext = new SQLiteConnection(ConnectionString))
             {
                 using (var command = dbContext.CreateCommand())

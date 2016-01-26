@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test
 {
     [TestFixture]
-    public class SqLiteStorageConnectionTest
+    public class SqLiteConnectionStringBuilderTest
     {
         [Test]
         [TestCase(null)]
@@ -13,7 +13,7 @@ namespace Application.Ringtoets.Storage.Test
         public void BuildSqLiteEntityConnectionString_InvalidPathToSqLiteFile_ThrowsArgumentNullException(string invalidPathToSqLiteFile)
         {
             // Call
-            TestDelegate test = () => SqLiteStorageConnection.BuildSqLiteEntityConnectionString(invalidPathToSqLiteFile);
+            TestDelegate test = () => SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(invalidPathToSqLiteFile);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -23,7 +23,7 @@ namespace Application.Ringtoets.Storage.Test
         public void BuildSqLiteEntityConnectionString_ValidPathToSqLiteFile_ValidConnectionString()
         {
             // Call
-            var connectionString = SqLiteStorageConnection.BuildSqLiteEntityConnectionString(pathToSqLiteFile);
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(pathToSqLiteFile);
 
             // Assert
             Assert.IsNotNullOrEmpty(connectionString);
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test
         public void BuildSqLiteConnectionString_InvalidPath_ThrowsArgumentNullException(string invalidPath)
         {
             // Call
-            TestDelegate test = () => SqLiteStorageConnection.BuildSqLiteConnectionString(invalidPath);
+            TestDelegate test = () => SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(invalidPath);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test
         public void BuildSqLiteConnectionString_ValidPathToSqLiteFile_ValidConnectionString()
         {
             // Call
-            var connectionString = SqLiteStorageConnection.BuildSqLiteConnectionString(pathToSqLiteFile);
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(pathToSqLiteFile);
 
             // Assert
             Assert.IsNotNullOrEmpty(connectionString);

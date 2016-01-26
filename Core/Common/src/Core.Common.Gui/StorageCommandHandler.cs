@@ -149,7 +149,7 @@ namespace Core.Common.Gui
         /// <summary>
         /// Saves the current <see cref="Project"/> to the selected storage file.
         /// </summary>
-        /// <returns>Returns if the save was successful.</returns>
+        /// <returns>Returns <c>true</c> if the save was successful, <c>false</c> otherwise.</returns>
         public bool SaveProjectAs()
         {
             var project = gui.Project;
@@ -158,22 +158,12 @@ namespace Core.Common.Gui
                 return false;
             }
 
-            // show file open dialog and select project file
-            var saveFileDialog = new SaveFileDialog
+            var filePath = OpenRingtoetsProjectFileSaveDialog(project.Name);
+            if (String.IsNullOrWhiteSpace(filePath))
             {
-                Filter = string.Format(Resources.Ringtoets_project_file_filter),
-                FilterIndex = 1,
-                RestoreDirectory = true,
-                FileName = string.Format("{0}", project.Name)
-            };
-
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                log.Warn(Resources.Project_saving_project_cancelled);
                 return false;
             }
 
-            var filePath = saveFileDialog.FileName;
             var storage = gui.Storage;
             if (!TrySaveProjectAs(storage, filePath))
             {
@@ -222,6 +212,30 @@ namespace Core.Common.Gui
         {
             gui.ProjectOpened -= ApplicationProjectOpened;
             gui.ProjectClosing -= ApplicationProjectClosing;
+        }
+
+        /// <summary>
+        /// Prompts a new <see cref="SaveFileDialog"/> to select a location for saving the Ringtoets project file.
+        /// </summary>
+        /// <param name="projectName">A string containing the file name selected in the file dialog box.</param>
+        /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
+        private static string OpenRingtoetsProjectFileSaveDialog(string projectName)
+        {
+            // show file open dialog and select project file
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = string.Format(Resources.Ringtoets_project_file_filter),
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                FileName = string.Format("{0}", projectName)
+            };
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                log.Warn(Resources.Project_saving_project_cancelled);
+                return null;
+            }
+            return saveFileDialog.FileName;
         }
 
         private bool TrySaveProjectAs(IStoreProject storage, string filePath)
@@ -290,7 +304,7 @@ namespace Core.Common.Gui
 
         private void AddProjectToMruList()
         {
-            var mruList = (StringCollection)Settings.Default["mruList"];
+            var mruList = (StringCollection) Settings.Default["mruList"];
             if (mruList.Contains(gui.ProjectFilePath))
             {
                 mruList.Remove(gui.ProjectFilePath);

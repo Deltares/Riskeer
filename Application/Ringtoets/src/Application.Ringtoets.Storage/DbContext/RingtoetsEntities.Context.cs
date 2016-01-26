@@ -20,6 +20,12 @@ namespace Application.Ringtoets.Storage.DbContext
         {
         }
     
+    	/// <summary>
+        /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
+        /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
+        /// </summary>
+        /// <param name="modelBuilder">The <see cref="DbModelBuilder"/> that defines the model for the context being created.</param>
+        /// <exception cref="UnintentionalCodeFirstException">Thrown because the <see cref="DbContext"/> is created in a 'code first' approach.</exception>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

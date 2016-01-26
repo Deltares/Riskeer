@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage
             Connect(databaseFilePath);
             if (project == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("project"");
             }
             using (var dbContext = new RingtoetsEntities(ConnectionString))
             {
@@ -137,7 +137,7 @@ namespace Application.Ringtoets.Storage
                 throw new CouldNotConnectException(message);
             }
 
-            ConnectionString = SqLiteStorageConnection.BuildSqLiteEntityConnectionString(databaseFilePath);
+            ConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
             ValidateStorage();
         }

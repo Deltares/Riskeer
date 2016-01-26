@@ -12,8 +12,8 @@ DROP TABLE IF EXISTS Version;
 CREATE TABLE Version (
     VersionId   INTEGER      PRIMARY KEY AUTOINCREMENT
                              NOT NULL,
-    FromVersion VARCHAR (50),
-    ToVersion   VARCHAR (50),
+    FromVersion VARCHAR (16),
+    ToVersion   VARCHAR (16),
     Timestamp   NUMERIC
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE DikeAssessmentSectionEntity (
     ProjectEntityId               INTEGER        REFERENCES ProjectEntity (ProjectEntityId) ON DELETE CASCADE
                                                                                             ON UPDATE CASCADE
                                                  NOT NULL,
-    Name                          VARCHAR (1024),
+    Name                          VARCHAR (260),
     Norm                          INT
 );
 
@@ -38,8 +38,8 @@ DROP TABLE IF EXISTS ProjectEntity;
 CREATE TABLE ProjectEntity (
     ProjectEntityId INTEGER        NOT NULL
                                    PRIMARY KEY AUTOINCREMENT,
-    Name            VARCHAR (1024),
-    Description     VARCHAR (1024),
+    Name            VARCHAR (260),
+    Description     TEXT (0),
     LastUpdated     INTEGER        DEFAULT (CURRENT_TIMESTAMP) 
 );
 
