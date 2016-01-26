@@ -28,7 +28,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
             StringAssert.StartsWith(Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui, message);
-            StringAssert.EndsWith("commandHandler", message);
+            StringAssert.EndsWith("applicationFeatureCommandHandler", message);
         }
 
         [Test]
