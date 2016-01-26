@@ -90,6 +90,7 @@
     <Compile Include="Attributes\ResourcesDescriptionAttribute.cs" />
     <Compile Include="Attributes\ResourcesDisplayNameAttribute.cs" />
     <Compile Include="Builders\FileReaderErrorMessageBuilder.cs" />
+    <Compile Include="Builders\FileWriterErrorMessageBuilder.cs" />
     <Compile Include="Drawing\GraphicsExtensions.cs" />
     <Compile Include="Events\EventArgs.cs" />
     <Compile Include="Events\INotifyCollectionChanged.cs" />

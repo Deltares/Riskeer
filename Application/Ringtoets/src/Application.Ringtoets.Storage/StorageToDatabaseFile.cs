@@ -1,7 +1,7 @@
 ﻿using System;
-using Application.Ringtoets.Storage.Builders;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
+using Core.Common.Utils.Builders;
 
 namespace Application.Ringtoets.Storage
 {

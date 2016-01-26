@@ -180,8 +180,13 @@
   <data name="ValidationReport_ToString_0_severity_1_2_error_s_3_warnings_4_info" xml:space="preserve">
     <value>{0}, ernst: {1} ({2} fout(en), {3} waarschuwing(en), {4} info).</value>
   </data>
-<data name="ValidationReport_Category_or_concept_cannot_be_null" xml:space="preserve">
+  <data name="ValidationReport_Category_or_concept_cannot_be_null" xml:space="preserve">
     <value>Category/Concept moet gespecificeerd worden om een validatie rapport te maken.</value>
-  </data><data name="Error_Path_too_long" xml:space="preserve">
+  </data>
+  <data name="Error_Path_too_long" xml:space="preserve">
     <value>Bestandspad is te lang om te gebruiken.</value>
-  </data></root>
+  </data>
+  <data name="Error_Writing_To_File_0_1" xml:space="preserve">
+    <value>Fout bij het schrijven naar bestand '{0}': {1}</value>
+  </data>
+</root>

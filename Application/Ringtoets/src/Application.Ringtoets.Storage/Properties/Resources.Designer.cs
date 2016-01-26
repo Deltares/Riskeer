@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to --
-        ///-- File generated with SQLiteStudio v3.0.7 on Fri Jan 15 14:48:04 2016
+        ///-- File generated with SQLiteStudio v3.0.7 on Mon Jan 25 12:12:02 2016
         ///--
         ///-- Text encoding used: windows-1252
         ///--
@@ -71,11 +71,18 @@ namespace Application.Ringtoets.Storage.Properties {
         ///
         ///-- Table: Version
         ///DROP TABLE IF EXISTS Version;
-        ///CREATE TABLE Version (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FromVersion VARCHAR (50), ToVersion VARCHAR (50), Timestamp NUMERIC);
         ///
-        ///-- Table: ProjectEntity
-        ///DROP TABLE IF EXISTS ProjectEntity;
-        ///CREATE TABLE ProjectEntity (ProjectEntityId INTEGER NOT NULL PRIMARY KEY AUTOINC [rest of string was truncated]&quot;;.
+        ///CREATE TABLE Version (
+        ///    VersionId   INTEGER      PRIMARY KEY AUTOINCREMENT
+        ///                             NOT NULL,
+        ///    FromVersion VARCHAR (16),
+        ///    ToVersion   VARCHAR (16),
+        ///    Timestamp   NUMERIC
+        ///);
+        ///
+        ///
+        ///-- Table: DikeAssessmentSectionEntity
+        ///DROP TABLE IF EXISTS DikeAssessment [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DatabaseStructure {
             get {

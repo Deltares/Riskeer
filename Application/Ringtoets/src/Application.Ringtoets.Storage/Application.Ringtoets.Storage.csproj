@@ -54,7 +54,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Builders\FileWriterErrorMessageBuilder.cs" />
     <Compile Include="Converters\DikeAssessmentSectionEntityConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
@@ -151,6 +150,9 @@
     <None Include="DbContext\DatabaseStructure.sql">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Builders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
