@@ -104,30 +104,6 @@
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
-      <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
-      <Name>Core.GIS.GeoAPI.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
-      <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
-      <Name>Core.GIS.GeoAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
-      <Project>{5770DAA9-84E5-4770-AF43-F6B815894368}</Project>
-      <Name>Core.GIS.NetTopologySuite</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
-      <Project>{a3c9df74-978a-44b1-b55d-a72ac4221e3a}</Project>
-      <Name>Core.GIS.SharpMap.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.UI\Core.GIS.SharpMap.UI.csproj">
-      <Project>{dd1cc1db-4bf9-4c88-a100-733d84795f3a}</Project>
-      <Name>Core.GIS.SharpMap.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap\Core.GIS.SharpMap.csproj">
-      <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
-      <Name>Core.GIS.SharpMap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
       <Project>{93e73fab-fae8-49c6-9abb-27d24df761f6}</Project>
       <Name>Core.Plugins.CommonTools</Name>

@@ -236,7 +236,6 @@
     <Compile Include="GuiExportHandler.cs" />
     <Compile Include="GuiImportHandler.cs" />
     <Compile Include="IGuiCommand.cs" />
-    <Compile Include="IMapLayerProvider.cs" />
     <Compile Include="IObjectProperties.cs" />
     <Compile Include="IViewResolver.cs" />
     <Compile Include="ObjectProperties.cs" />
@@ -258,7 +257,6 @@
     <Compile Include="IApplicationFeatureCommands.cs" />
     <Compile Include="GuiPlugin.cs">
     </Compile>
-    <Compile Include="MapLayerProviderHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfoExtensions.cs" />
     <Compile Include="ActiveViewChangeEventArgs.cs" />
@@ -284,11 +282,6 @@
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
-      <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
-      <Name>Core.GIS.SharpMap.Api</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Common.Version\Core.Common.Version.csproj">
