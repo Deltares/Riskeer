@@ -110,9 +110,6 @@
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="WebLink.cs" />
-    <Compile Include="Validation\ValidationIssue.cs" />
-    <Compile Include="Validation\ValidationReport.cs" />
-    <Compile Include="Validation\ValidationSeverity.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

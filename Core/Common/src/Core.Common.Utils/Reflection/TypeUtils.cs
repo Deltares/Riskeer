@@ -40,7 +40,7 @@ namespace Core.Common.Utils.Reflection
         /// Determines whether the given type can be considered a number or not.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
+        /// <returns>True if the type represents a numerical value; False when this is not the case.</returns>
         public static bool IsNumericalType(this Type type)
         {
             return (type == typeof(Single) ||
@@ -57,11 +57,12 @@ namespace Core.Common.Utils.Reflection
         /// <summary>
         /// Gets the name of the member.
         /// </summary>
-        /// <typeparam name="TClass">The type of the class on which the expression takes place.</typeparam>
+        /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
-        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> is invalid.</exception>
-        public static string GetMemberName<TClass>(Expression<Func<TClass, object>> expression)
+        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
+        /// is not an expression with a member, such as a expression calling multiple methods.</exception>
+        public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
             var member = expression.Body as MemberExpression;
 
@@ -88,7 +89,7 @@ namespace Core.Common.Utils.Reflection
         /// <summary>
         /// Gets the value of a field of an instance.
         /// </summary>
-        /// <typeparam name="TField">Type of the field.</typeparam>
+        /// <typeparam name="T">Type of the field.</typeparam>
         /// <param name="instance">Instance holding the field. Cannot be null.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>The value of the field.</returns>
@@ -96,7 +97,7 @@ namespace Core.Common.Utils.Reflection
         /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
         /// <exception cref="ArgumentNullException">When <paramref name="fieldName"/> is null.</exception>
         /// <remarks>This method can be used for fields of any visibility.</remarks>
-        public static TField GetField<TField>(object instance, string fieldName)
+        public static T GetField<T>(object instance, string fieldName)
         {
             FieldInfo fieldInfo = GetFieldInfo(instance.GetType(), fieldName);
             if (fieldInfo == null)
@@ -104,7 +105,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentOutOfRangeException("fieldName");
             }
 
-            return (TField)fieldInfo.GetValue(instance);
+            return (T)fieldInfo.GetValue(instance);
         }
 
         /// <summary>

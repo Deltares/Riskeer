@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeGridColumns()
         {
-            var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(e => e.Assessment);
+            var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.Assessment);
             var columnNameFormat = "column_{0}";
             var assessmentColumn = new DataGridViewTextBoxColumn
             {
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
             };
 
-            var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(e => e.Contribution);
+            var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.Contribution);
             var probabilityColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = contributionName,
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
-            var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(e => e.ProbabilitySpace);
+            var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.ProbabilitySpace);
             var probabilityPerYearColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = probabilitySpaceName,

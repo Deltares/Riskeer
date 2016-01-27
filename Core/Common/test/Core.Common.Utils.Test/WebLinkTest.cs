@@ -23,7 +23,7 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void SipleProperties_SetAndGetValue_ReturnNewlySetValue()
+        public void SimpleProperties_SetAndGetValue_ReturnNewlySetValue()
         {
             // Setup
             var url = new WebLink("Deltares", new Uri("http://www.deltares.com"));

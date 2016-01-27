@@ -522,7 +522,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             var anchorable = sender as LayoutAnchorable;
 
-            if (anchorable != null && e.PropertyName == TypeUtils.GetMemberName<LayoutAnchorable>(o => o.IsHidden) && anchorable.IsHidden)
+            if (anchorable != null && e.PropertyName == TypeUtils.GetMemberName<LayoutAnchorable>(la => la.IsHidden) && anchorable.IsHidden)
             {
                 AnchorableOnClosing(sender, new CancelEventArgs());
 

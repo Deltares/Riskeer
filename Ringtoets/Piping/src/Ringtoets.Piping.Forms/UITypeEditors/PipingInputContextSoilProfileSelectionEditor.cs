@@ -16,7 +16,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// </summary>
         public PipingInputContextSoilProfileSelectionEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<PipingSoilProfile>(sl => sl.Name);
+            DisplayMember = TypeUtils.GetMemberName<PipingSoilProfile>(sp => sp.Name);
         }
 
         protected override IEnumerable<PipingSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
