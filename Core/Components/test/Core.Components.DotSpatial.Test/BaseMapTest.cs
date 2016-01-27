@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.Data;
+using Core.Components.DotSpatial.Exceptions;
 using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
 using NUnit.Framework;
@@ -54,16 +55,25 @@ namespace Core.Components.DotSpatial.Test
             var map = new BaseMap();
             var data = new MapData();
             var filePath = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
+            var newPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
 
             data.AddShapeFile(filePath);
 
-            File.Delete(filePath);
+            RenameFile(newPath, filePath);
 
             // Call
             TestDelegate testDelegate = () => map.SetMapData(data);
 
-            // Assert
-            Assert.Throws<FileNotFoundException>(testDelegate);
+            try
+            {
+                // Assert
+                Assert.Throws<MapDataException>(testDelegate);
+            }
+            finally
+            {
+                // Place the original file back for other tests.
+                RenameFile(filePath, newPath);
+            }
         }
 
         [Test]
@@ -81,7 +91,7 @@ namespace Core.Components.DotSpatial.Test
             // Assert
             Assert.DoesNotThrow(setDataDelegate);
         }
-        
+
         [Test]
         public void SetDataOnMap_Succeeds_AddOneMapLayerAndWriteLog()
         {
@@ -95,7 +105,7 @@ namespace Core.Components.DotSpatial.Test
             data.AddShapeFile(filePath);
 
             var mapComponent = TypeUtils.GetField<Map>(map, "map");
-            
+
             // Pre-condition
             var preLayerCount = mapComponent.GetLayers().Count;
 
@@ -104,7 +114,13 @@ namespace Core.Components.DotSpatial.Test
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(action, excpectedLog);
-            Assert.AreEqual(preLayerCount+1, mapComponent.GetLayers().Count);
+            Assert.AreEqual(preLayerCount + 1, mapComponent.GetLayers().Count);
+        }
+
+        private static void RenameFile(string newPath, string path)
+        {
+            File.Delete(newPath);
+            File.Move(path, newPath);
         }
     }
 }

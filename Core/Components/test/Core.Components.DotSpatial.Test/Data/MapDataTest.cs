@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.Data;
+using Core.Components.DotSpatial.Exceptions;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test.Data
 {
@@ -20,7 +20,7 @@ namespace Core.Components.DotSpatial.Test.Data
 
             // Assert
             Assert.IsNotNull(filePaths);
-            Assert.IsInstanceOf<IEnumerable<string>>(data.FilePaths);
+            CollectionAssert.IsEmpty(data.FilePaths);
         }
 
         [Test]
@@ -35,6 +35,10 @@ namespace Core.Components.DotSpatial.Test.Data
 
             // Assert
             Assert.IsTrue(succeeded);
+            CollectionAssert.AreEquivalent(data.FilePaths, new[]
+            {
+                filePath
+            });
         }
 
         [Test]
@@ -51,10 +55,14 @@ namespace Core.Components.DotSpatial.Test.Data
             // Assert
             Assert.IsTrue(succeededFirst);
             Assert.IsFalse(succeededSecond);
+            CollectionAssert.AreEquivalent(data.FilePaths, new[]
+            {
+                filePath
+            });
         }
 
         [Test]
-        public void AddShapeFile_FileDoesNotExist_ThrowsFileNotFoundException()
+        public void AddShapeFile_FileDoesNotExist_ThrowsMapDataException()
         {
             // Setup
             var data = new MapData();
@@ -64,11 +72,13 @@ namespace Core.Components.DotSpatial.Test.Data
             TestDelegate testDelegate = () => data.AddShapeFile(filePath);
 
             // Assert
-            Assert.Throws<FileNotFoundException>(testDelegate);
+            MapDataException exception = Assert.Throws<MapDataException>(testDelegate);
+            string expectedMessage = string.Format("Bestand op pad {0} bestaat niet.", filePath);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void AddShapeFile_ExtensionIsInvalid_ThrowsArgumentException()
+        public void AddShapeFile_ExtensionIsInvalid_ThrowsMapDataException()
         {
             // Setup
             var data = new MapData();
@@ -78,20 +88,24 @@ namespace Core.Components.DotSpatial.Test.Data
             TestDelegate testDelegate = () => data.AddShapeFile(filePath);
 
             // Assert
-            Assert.Throws<ArgumentException>(testDelegate);
+            MapDataException exception = Assert.Throws<MapDataException>(testDelegate);
+            string expectedMessage = string.Format("Bestand op pad {0} heeft niet de juiste .shp extensie.", filePath);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void AddShapeFile_IsNull_ThrowsArgumentNullException()
+        public void AddShapeFile_IsNull_ThrowsMapDataException()
         {
             // Setup
             var data = new MapData();
-            
+
             // Call
             TestDelegate testDelegate = () => data.AddShapeFile(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(testDelegate);
+            MapDataException exception = Assert.Throws<MapDataException>(testDelegate);
+            string expectedMessage = "A path is required when adding shape files";
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -114,8 +128,110 @@ namespace Core.Components.DotSpatial.Test.Data
                 addedPaths.Add(path);
 
                 // Assert
-                Assert.AreEqual(data.FilePaths, addedPaths);
+                CollectionAssert.AreEqual(data.FilePaths, addedPaths);
             }
+        }
+
+        [Test]
+        public void IsValid_FilePathsEmpty_ReturnsFalse()
+        {
+            // Setup
+            var data = new MapData();
+
+            // Call
+            bool result = data.IsValid();
+
+            // Assert
+            Assert.IsFalse(result);
+            CollectionAssert.AreEqual(new string[]
+            {}, data.FilePaths);
+        }
+
+        [Test]
+        public void IsValid_FilePathValid_ReturnsTrue()
+        {
+            // Setup
+            var data = new MapData();
+            var path = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
+            data.AddShapeFile(path);
+
+            // Call
+            bool result = data.IsValid();
+
+            // Assert
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(data.FilePaths, new[]
+            {
+                path
+            });
+        }
+
+        [Test]
+        public void IsValid_FilePathsNotValid_ReturnsFalse()
+        {
+            // Setup
+            var data = new MapData();
+            var path = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
+            var newPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
+
+            data.AddShapeFile(path);
+
+            // Pre-condition
+            bool result = data.IsValid();
+
+            RenameFile(newPath, path);
+
+            // Call
+            bool resultAfterDelete = data.IsValid();
+
+            // Place original file back for other tests.
+            RenameFile(path, newPath);
+
+            // Assert
+            Assert.AreNotEqual(result, resultAfterDelete);
+            Assert.IsTrue(result);
+            Assert.IsFalse(resultAfterDelete);
+        }
+
+        [Test]
+        public void IsValid_OneFilePathIsInvalid_ReturnsFalse()
+        {
+            // Setup
+            var data = new MapData();
+            var paths = new[]
+            {
+                string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory),
+                string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory),
+            };
+            var newPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
+
+            foreach (var path in paths)
+            {
+                data.AddShapeFile(path);
+            }
+
+            // Pre-condition
+            bool result = data.IsValid();
+
+            RenameFile(newPath, paths[0]);
+
+            // Call
+            bool resultAfterDelete = data.IsValid();
+
+            // Place the original file back for other tests.
+            RenameFile(paths[0], newPath);
+
+            // Assert
+            Assert.AreNotEqual(result, resultAfterDelete);
+            Assert.IsTrue(result);
+            Assert.IsFalse(resultAfterDelete);
+            CollectionAssert.AreEquivalent(paths, data.FilePaths);
+        }
+
+        private static void RenameFile(string newPath, string path)
+        {
+            File.Delete(newPath);
+            File.Move(path, newPath);
         }
     }
 }

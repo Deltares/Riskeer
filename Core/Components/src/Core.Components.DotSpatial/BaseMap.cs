@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using Core.Components.DotSpatial.Data;
+using Core.Components.DotSpatial.Exceptions;
 using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
 using log4net;
@@ -30,15 +31,15 @@ namespace Core.Components.DotSpatial
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is null.</exception>
         /// <exception cref="FileNotFoundException">Thrown when <paramref name="mapData"/> does not exist.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> has an unaccepted extension.</exception>
+        /// <exception cref="MapDataException">Thrown when the data in <paramref name="mapData"/> is not valid.</exception>
         public void SetMapData(MapData mapData)
         {
             if (IsDisposed)
             {
                 return;
             }
-            
-            if(mapData == null)
+
+            if (mapData == null)
             {
                 throw new ArgumentNullException("mapData", "MapData is required when adding shapeFiles");
             }
@@ -47,6 +48,10 @@ namespace Core.Components.DotSpatial
             {
                 data = mapData;
                 LoadData();
+            }
+            else
+            {
+                throw new MapDataException("The data available in MapData is not valid.");
             }
         }
 
