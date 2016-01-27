@@ -10,7 +10,7 @@ using log4net;
 namespace Core.Components.DotSpatial
 {
     /// <summary>
-    /// This class describes a map view
+    /// The map view
     /// </summary>
     public sealed class BaseMap : Control
     {

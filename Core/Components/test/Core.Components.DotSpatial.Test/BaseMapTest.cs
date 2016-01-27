@@ -8,7 +8,6 @@ using Core.Components.DotSpatial.Exceptions;
 using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test
 {
@@ -18,18 +17,11 @@ namespace Core.Components.DotSpatial.Test
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var map = mocks.StrictMock<Map>();
-            mocks.ReplayAll();
-
             // Call
             var baseMap = new BaseMap();
 
             // Assert
             Assert.IsInstanceOf<Control>(baseMap);
-            Assert.IsNotNull(map);
-            mocks.VerifyAll();
         }
 
         [Test]

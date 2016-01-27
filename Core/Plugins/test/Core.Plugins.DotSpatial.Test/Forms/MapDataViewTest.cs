@@ -19,8 +19,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
 
             // Assert
             Assert.IsInstanceOf<UserControl>(mapView);
-            var interfaceImplementation = mapView as IView;
-            Assert.IsNotNull(interfaceImplementation);
+            Assert.IsInstanceOf<IView>(mapView);
         }
 
         [Test]
@@ -39,7 +38,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         }
 
         [Test]
-        public void Data_SetToNull_ThrowsArgumentNullException()
+        public void Data_SetToNull_DoesNotThrowException()
         {
             // Setup
             var mapView = new MapDataView();
@@ -48,7 +47,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             TestDelegate testDelegate = () => mapView.Data = null;
 
             // Assert
-            Assert.Throws<ArgumentNullException>(testDelegate);
+            Assert.DoesNotThrow(testDelegate);
         }
 
         [Test]
