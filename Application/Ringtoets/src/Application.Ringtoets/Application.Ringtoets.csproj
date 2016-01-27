@@ -224,12 +224,7 @@
     <PostBuildEvent>IF EXIST "%25VS120COMNTOOLS%25vsvars32.bat" CALL “%25VS120COMNTOOLS%25vsvars32.bat” &amp;&amp; GOTO endvsvars
 IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32.bat” &amp;&amp; GOTO endvsvars
 :endvsvars
-editbin /LARGEADDRESSAWARE $(TargetFileName)
-
-
-if not exist "$(TargetDir)gdal" md "$(TargetDir)gdal"
-xcopy /s /y "$(SolutionDir)packages\GDAL.Native.1.9.2\gdal\data\*.*" "$(TargetDir)gdal\data\"
-xcopy /s /y "$(SolutionDir)packages\GDAL.Native.1.9.2\gdal\x86\*.*" "$(TargetDir)gdal\x86\"</PostBuildEvent>
+editbin /LARGEADDRESSAWARE $(TargetFileName)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
