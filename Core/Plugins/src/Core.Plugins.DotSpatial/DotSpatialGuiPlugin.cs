@@ -12,16 +12,12 @@ namespace Core.Plugins.DotSpatial
     /// </summary>
     public class DotSpatialGuiPlugin : GuiPlugin
     {
-        /// <summary>
-        /// Gets the view info objects.
-        /// </summary>
-        /// <returns></returns>
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
             yield return new ViewInfo<MapData, MapDataView>
             {
                 Image = Resources.DocumentHS,
-                GetViewName = (v, o) => "Kaart"
+                GetViewName = (v, o) => Resources.DotSpatialGuiPlugin_GetViewInfoObjects_Map
             };
         }
     }
