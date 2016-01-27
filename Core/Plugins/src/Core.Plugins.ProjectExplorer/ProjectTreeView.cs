@@ -121,6 +121,7 @@ namespace Core.Plugins.ProjectExplorer
             base.Dispose();
 
             applicationCore = null;
+            gui = null;
         }
 
         /// <summary>
@@ -224,16 +225,6 @@ namespace Core.Plugins.ProjectExplorer
         private void ProjectDataDeleted(object sender, TreeView.TreeViewDataDeletedEventArgs e)
         {
             gui.ViewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
-        }
-
-        ~ProjectTreeView()
-        {
-            if (gui == null)
-            {
-                return;
-            }
-            gui.SelectionChanged -= GuiSelectionChanged;
-            UnsubscribeProjectEvents();
         }
     }
 }
