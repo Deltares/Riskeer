@@ -33,7 +33,8 @@ namespace Core.Common.Base.IO
         /// Gets the file filter of the <see cref="IFileImporter"/>.
         /// </summary>
         /// <example>
-        /// "My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2".
+        /// An example string would be:
+        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
         /// </example>
         string FileFilter { get; }
 

@@ -1,27 +1,35 @@
+using System;
+
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test
 {
     [TestFixture]
-    public class UrlTest
+    public class WebLinkTest
     {
         [Test]
         public void Initialization()
         {
-            var url = new Url("Deltares", "http://www.deltares.com");
+            // Setup
+            const string name = "Deltares";
+            var path = new Uri("http://www.deltares.com");
 
-            Assert.AreEqual("Deltares", url.Name);
-            Assert.AreEqual("http://www.deltares.com", url.Path);
+            // Call
+            var url = new WebLink(name, path);
+
+            // Assert
+            Assert.AreEqual(name, url.Name);
+            Assert.AreEqual(path, url.Path);
         }
 
         [Test]
         public void SipleProperties_SetAndGetValue_ReturnNewlySetValue()
         {
             // Setup
-            var url = new Url("Deltares", "http://www.deltares.com");
+            var url = new WebLink("Deltares", new Uri("http://www.deltares.com"));
 
             const string newName = "Google";
-            const string newPath = "http://www.google.com";
+            var newPath = new Uri("http://www.google.com");
 
             // Call
             url.Name = newName;

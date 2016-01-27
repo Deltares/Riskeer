@@ -10,9 +10,9 @@ namespace Core.Common.Gui
     {
         /// <summary>
         /// Default view types registered for data object types.
-        /// 
-        /// <example>DefaultViewTypes[objectType] = viewType;</example>
         /// </summary>
+        /// <remarks>The keys in this dictionary are the object types and the values the 
+        /// corresponding view object types.</remarks>
         IDictionary<Type, Type> DefaultViewTypes { get; }
 
         /// <summary>

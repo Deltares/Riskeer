@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
-
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using System.Reflection;
+using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Attributes
 {
     /// <summary>
     /// Marks property as a conditional read-only property. When this attribute is declared
-    /// on a property, the declaring a class should have a public method marked with 
+    /// on a property, the declaring class should have a public method marked with 
     /// <see cref="DynamicReadOnlyValidationMethodAttribute"/> to be used to evaluate if
     /// that property should be read-only or not.
     /// </summary>
@@ -35,23 +35,21 @@ namespace Core.Common.Gui.Attributes
                 return ReadOnlyAttribute.Default.IsReadOnly;
             }
 
-            var isDynamicReadOnlyProperty = PropertyIsDynamicallyReadOnly(obj, propertyName);
-            if (!isDynamicReadOnlyProperty)
+            if (!IsPropertyDynamicallyReadOnly(obj, propertyName))
             {
                 return ReadOnlyAttribute.Default.IsReadOnly;
             }
 
             var isPropertyReadOnlyDelegate = DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(obj);
-
             return isPropertyReadOnlyDelegate(propertyName);
         }
 
-        private static bool PropertyIsDynamicallyReadOnly(object obj, string propertyName)
+        private static bool IsPropertyDynamicallyReadOnly(object obj, string propertyName)
         {
-            var propertyInfo = obj.GetType().GetProperty(propertyName);
+            MemberInfo propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(CoreCommonGuiResources.Could_not_find_property_0_on_type_1_, propertyName,
+                throw new MissingMemberException(string.Format(Resources.Could_not_find_property_0_on_type_1_, propertyName,
                                                                obj.GetType()));
             }
 

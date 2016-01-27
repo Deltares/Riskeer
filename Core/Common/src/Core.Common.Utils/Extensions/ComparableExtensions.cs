@@ -8,12 +8,13 @@ namespace Core.Common.Utils.Extensions
     public static class ComparableExtensions
     {
         /// <summary>
-        /// Determines whether one object is greater then another.
+        /// Determines whether one object is greater than another.
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
         /// <returns>True if <paramref name="object1"/> is considered greater then <paramref name="object2"/>,
         /// false otherwise.</returns>
+        /// <remarks><c>null</c> is considered smaller than any other not-null value.</remarks>
         /// <exception cref="ArgumentException">Object type of <paramref name="object1"/>
         /// is not the same as that of <paramref name="object2"/>.</exception>
         public static bool IsBigger(this IComparable object1, IComparable object2)
@@ -31,12 +32,13 @@ namespace Core.Common.Utils.Extensions
         }
 
         /// <summary>
-        /// Determines whether one object is smaller then another.
+        /// Determines whether one object is smaller than another.
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
         /// <returns>True if <paramref name="object1"/> is considered smaller then <paramref name="object2"/>,
         /// false otherwise.</returns>
+        /// <remarks><c>null</c> is considered smaller then any not-null value.</remarks>
         /// <exception cref="ArgumentException">Object type of <paramref name="object1"/>
         /// is not the same as that of <paramref name="object2"/>.</exception>
         public static bool IsSmaller(this IComparable object1, IComparable object2)

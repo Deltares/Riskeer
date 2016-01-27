@@ -92,7 +92,7 @@
     <Compile Include="ReferenceEqualityComparerTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
-    <Compile Include="UrlTest.cs" />
+    <Compile Include="WebLinkTest.cs" />
     <Compile Include="Validation\ValidationIssueTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
   </ItemGroup>

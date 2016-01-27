@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
@@ -138,12 +139,12 @@ namespace Core.Common.Test.Gui
         [RequiresSTA]
         public void OpeningViewForDataTwiceShouldOnlySetActiveView()
         {
-            var url = new Url("Deltares", "www.deltares.nl");
+            var url = new WebLink("Deltares", new Uri("http://www.deltares.nl"));
 
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document);
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
             {
-                new ViewInfo<Url, HtmlPageView>()
+                new ViewInfo<WebLink, HtmlPageView>()
             }, null);
 
             viewResolver.OpenViewForData(url);

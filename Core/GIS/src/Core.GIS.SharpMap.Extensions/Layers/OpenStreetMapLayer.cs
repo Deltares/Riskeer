@@ -38,28 +38,11 @@ namespace Core.GIS.SharpMap.Extensions.Layers
             0.597164283
         };
 
-        public static string CacheLocation
-        {
-            get
-            {
-                var path = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-                return Path.Combine(path, "cache_open_street_map");
-            }
-        }
-
         protected override ITileCache<byte[]> GetOrCreateCache()
         {
             if (omsCache == null)
             {
-                if (CacheLocation == null)
-                {
-                    omsCache = new MemoryCache<byte[]>(1000, 100000);
-                }
-                else
-                {
-                    var cacheDirectoryPath = CacheLocation;
-                    omsCache = new FileCache(cacheDirectoryPath, "png");
-                }
+                omsCache = new MemoryCache<byte[]>(1000, 100000);
             }
             return omsCache;
         }

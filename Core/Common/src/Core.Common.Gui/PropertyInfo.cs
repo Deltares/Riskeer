@@ -21,9 +21,8 @@ namespace Core.Common.Gui
         /// Function for determining whether or not the property information is relevant in a specfic context 
         /// </summary>
         /// <example>
-        /// <code>
-        /// var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties} { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };
-        /// </code>
+        /// As an example, you could implement this as follows:
+        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties} { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
         /// </example>
         /// <remarks>
         /// This property breaks the single responsibility principle; besides <see cref="ObjectType"/> and <see cref="PropertyType"/> an additional method is 
@@ -34,17 +33,20 @@ namespace Core.Common.Gui
         /// <summary>
         /// Function for obtaining the data that should be set while creating object properties
         /// </summary>
-        /// <example><code>
-        /// var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };
-        /// </code></example>
+        /// As an example, you could implement this as follows:
+        /// <example>
+        /// As an example, you could implement this as follows:
+        /// <code>var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };</code>
+        /// </example>
         public Func<object, object> GetObjectPropertiesData { get; set; }
 
         /// <summary>
         /// Action that must be performed after creating object properties
         /// </summary>
-        /// <example><code>
-        /// var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };
-        /// </code></example>
+        /// <example>
+        /// As an example, you could implement this as follows:
+        /// <code>var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };</code>
+        /// </example>
         public Action<object> AfterCreate { get; set; }
     }
 
@@ -81,6 +83,7 @@ namespace Core.Common.Gui
         /// Function for determining whether or not the property information is relevant in a specfic context 
         /// </summary>
         /// <example>
+        /// As an example, you could implement this as follows:
         /// <code>
         /// var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties&gt; { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };
         /// </code>
@@ -94,7 +97,9 @@ namespace Core.Common.Gui
         /// <summary>
         /// Function for obtaining the data that should be set while creating object properties
         /// </summary>
-        /// <example><code>
+        /// <example>
+        /// As an example, you could implement this as follows:
+        /// <code>
         /// var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };
         /// </code></example>
         public Func<TObject, object> GetObjectPropertiesData { get; set; }
@@ -102,9 +107,10 @@ namespace Core.Common.Gui
         /// <summary>
         /// Action that must be performed after creating object properties
         /// </summary>
-        /// <example><code>
-        /// var propertyInfo = new PropertyInfo&lt; ModelImplementation, ModelImplementationProperties&gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };
-        /// </code></example>
+        /// <example>
+        /// As an example, you could implement this as follows:
+        /// <code>var propertyInfo = new PropertyInfo&lt; ModelImplementation, ModelImplementationProperties&gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };</code>
+        /// </example>
         public Action<TProperty> AfterCreate { get; set; }
 
         public static implicit operator PropertyInfo(PropertyInfo<TObject, TProperty> pi)

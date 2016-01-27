@@ -82,7 +82,6 @@
   <ItemGroup>
     <Compile Include="CoordinateSystems\GeodeticDistanceTest.cs" />
     <Compile Include="Layers\BingLayerTest.cs" />
-    <Compile Include="Layers\OpenStreetMapLayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace Core.Plugins.CommonTools
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<Url, UrlProperties>();
+            yield return new PropertyInfo<WebLink, UrlProperties>();
             yield return new PropertyInfo<Project, ProjectProperties>();
         }
 
@@ -26,7 +26,7 @@ namespace Core.Plugins.CommonTools
                 Image = Common.Gui.Properties.Resources.key,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
-            yield return new ViewInfo<Url, HtmlPageView>
+            yield return new ViewInfo<WebLink, HtmlPageView>
             {
                 Image = Resources.home,
                 Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser,

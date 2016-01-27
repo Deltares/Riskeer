@@ -1055,8 +1055,12 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             var welcomePageName = (string) Gui.UserSettings["startPageName"];
             var welcomePageUrl = Gui.FixedSettings.StartPageUrl;
+            if (string.IsNullOrEmpty(welcomePageUrl))
+            {
+                welcomePageUrl = "about:blank";
+            }
 
-            var url = new Url(welcomePageName, welcomePageUrl);
+            var url = new WebLink(welcomePageName, new Uri(welcomePageUrl));
 
             Gui.ViewCommands.OpenView(url);
         }

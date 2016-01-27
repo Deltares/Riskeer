@@ -18,7 +18,7 @@ namespace Core.Plugins.CommonTools.Test.Property
             var urlProperties = new UrlProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<Url>>(urlProperties);
+            Assert.IsInstanceOf<ObjectProperties<WebLink>>(urlProperties);
 
         }
 
@@ -29,7 +29,7 @@ namespace Core.Plugins.CommonTools.Test.Property
             var someName = "some name";
             var otherName = "some other name";
 
-            var url = new Url(someName, string.Empty);
+            var url = new WebLink(someName, new Uri("https://www.google.nl"));
             var properties = new UrlProperties
             {
                 Data = url
@@ -49,23 +49,23 @@ namespace Core.Plugins.CommonTools.Test.Property
         public void Path_WithData_ReturnsPath()
         {
             // Setup
-            var somePath = "some path";
-            var otherPath = "some path";
+            var somePath = "http://www.deltares.nl";
+            var otherPath = "http://www.google.nl";
 
-            var url = new Url(string.Empty, somePath);
+            var url = new WebLink(string.Empty, new Uri(somePath));
             var properties = new UrlProperties
             {
                 Data = url
             };
 
             // Call & Assert
-            Assert.AreEqual(otherPath, properties.Path);
+            Assert.AreEqual(new Uri(somePath), properties.Path);
 
             // Call
             properties.Path = otherPath;
 
             // Assert
-            Assert.AreEqual(otherPath, url.Path);
+            Assert.AreEqual(new Uri(otherPath), url.Path);
         }
 
         [Test]
@@ -73,8 +73,8 @@ namespace Core.Plugins.CommonTools.Test.Property
         {
             // Setup
             var someName = "some name";
-            var somePath = "some path";
-            var url = new Url(someName, somePath);
+            var somePath = "http://www.google.nl";
+            var url = new WebLink(someName, new Uri(somePath));
 
             var bag = new DynamicPropertyBag(new UrlProperties
             {

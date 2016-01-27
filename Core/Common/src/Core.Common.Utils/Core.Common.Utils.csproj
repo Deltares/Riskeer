@@ -107,10 +107,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReferenceEqualityComparer.cs" />
-    <Compile Include="SettingsHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
-    <Compile Include="Url.cs" />
+    <Compile Include="WebLink.cs" />
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />

@@ -154,6 +154,24 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
+        public void ResetValue_CanNotReset_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var instance = new ClassWithProperties();
+            var spec = new PropertySpec(instance.GetType().GetProperty("PropertyWithOnlyGetter"));
+            var propertyDescriptor = new PropertySpecDescriptor(spec, instance);
+
+            // Precondition
+            Assert.IsFalse(propertyDescriptor.CanResetValue(instance));
+
+            // Call
+            TestDelegate call = () => propertyDescriptor.ResetValue(instance);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
         public void ShouldSerializeValue_ReturnFalse()
         {
             // Setup

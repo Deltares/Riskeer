@@ -1,13 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Attributes
 {
     /// <summary>
     /// Marks property as a conditional visible property. When this attribute is declared
-    /// on a property, the declaring a class should have a public method marked with 
+    /// on a property, the declaring class should have a public method marked with 
     /// <see cref="DynamicVisibleValidationMethodAttribute"/> to be used to evaluate if
     /// that property should be visible or not.
     /// </summary>
@@ -35,8 +36,7 @@ namespace Core.Common.Gui.Attributes
                 return BrowsableAttribute.Default.Browsable;
             }
 
-            var isPropertyWithDynamicVisibility = PropertyIsDynamicallyVisible(obj, propertyName);
-            if (!isPropertyWithDynamicVisibility)
+            if (!IsPropertyDynamicallyVisible(obj, propertyName))
             {
                 return BrowsableAttribute.Default.Browsable;
             }
@@ -46,12 +46,12 @@ namespace Core.Common.Gui.Attributes
             return isPropertyVisibleDelegate(propertyName);
         }
 
-        private static bool PropertyIsDynamicallyVisible(object obj, string propertyName)
+        private static bool IsPropertyDynamicallyVisible(object obj, string propertyName)
         {
-            var propertyInfo = obj.GetType().GetProperty(propertyName);
+            MemberInfo propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format(CoreCommonGuiResources.Could_not_find_property_0_on_type_1_, propertyName,
+                throw new MissingMemberException(string.Format(Resources.Could_not_find_property_0_on_type_1_, propertyName,
                                                                obj.GetType()));
             }
 

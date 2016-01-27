@@ -1,3 +1,5 @@
+using System;
+
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
@@ -6,7 +8,7 @@ using Core.Plugins.CommonTools.Properties;
 namespace Core.Plugins.CommonTools.Property
 {
     [ResourcesDisplayName(typeof(Resources), "UrlProperties_DisplayName")]
-    public class UrlProperties : ObjectProperties<Url>
+    public class UrlProperties : ObjectProperties<WebLink>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "Common_Name_DisplayName")]
@@ -30,11 +32,11 @@ namespace Core.Plugins.CommonTools.Property
         {
             get
             {
-                return data.Path;
+                return data.Path.ToString();
             }
             set
             {
-                data.Path = value;
+                data.Path = new Uri(value);
             }
         }
     }

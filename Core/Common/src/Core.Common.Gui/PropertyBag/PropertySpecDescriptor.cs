@@ -81,7 +81,7 @@ namespace Core.Common.Gui.PropertyBag
 
         public override void ResetValue(object component)
         {
-
+            throw new InvalidOperationException("Do not call 'ResetValue' if 'CanResetValue(object)' returns false.");
         }
 
         public override object GetValue(object component)

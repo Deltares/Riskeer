@@ -138,6 +138,7 @@
     <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
+    <Compile Include="SettingsHelper.cs" />
     <Compile Include="StorageCommandHandler.cs" />
     <Compile Include="Theme\ColorTheme.cs" />
     <Compile Include="Theme\ColorThemeExtensions.cs" />

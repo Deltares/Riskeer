@@ -13,7 +13,9 @@ namespace Core.Common.Utils.Test.Drawing
     public class GraphicsExtensionsTest
     {
         [Test]
-        public void DrawImageTransparent_DrawWithOpacity1_TargetShouldBeIdenticalToSource()
+        [TestCase(1.0f)]
+        [TestCase(3.0f)]
+        public void DrawImageTransparent_DrawWithOpacity1OrGreater_TargetShouldBeIdenticalToSource(float opacity)
         {
             // Setup
             var rect2x2 = new RectangleF(0f, 0f, 2f, 2f);
@@ -23,7 +25,7 @@ namespace Core.Common.Utils.Test.Drawing
             using (var target = Resources.Black2x2.Clone(rect2x2, imageFormat))
             {
                 // Call
-                Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, 1f);
+                Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, opacity);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(image, target);
@@ -31,7 +33,9 @@ namespace Core.Common.Utils.Test.Drawing
         }
 
         [Test]
-        public void DrawImageTransparent_DrawWithOpacity0_TargetShouldBeUnaffected()
+        [TestCase(0f)]
+        [TestCase(-3f)]
+        public void DrawImageTransparent_DrawWithOpacity0OrLess_TargetShouldBeUnaffected(float opacity)
         {
             // Setup
             var rect2x2 = new RectangleF(0f, 0f, 2f, 2f);
@@ -42,7 +46,7 @@ namespace Core.Common.Utils.Test.Drawing
             using (var expectedtarget = Resources.Black2x2.Clone(rect2x2, imageFormat))
             {
                 // Call
-                Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, 0f);
+                Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, opacity);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(expectedtarget, target);

@@ -65,6 +65,7 @@
     <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptorTest.cs" />
     <Compile Include="PropertyBag\PropertySpecTest.cs" />
+    <Compile Include="SettingsHelperTest.cs" />
     <Compile Include="StorageCommandHandlerTest.cs" />
     <Compile Include="Theme\ColorThemeExtensionsTest.cs" />
     <Compile Include="Theme\ColorThemeTest.cs" />

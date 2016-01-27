@@ -4,11 +4,11 @@ using Core.Common.Utils;
 namespace Core.Common.Controls.Views
 {
     /// <summary>
-    /// Class for showing a html page based on an <see cref="Url"/>.
+    /// Class for showing a html page based on an <see cref="WebLink"/>.
     /// </summary>
     public partial class HtmlPageView : UserControl, IView
     {
-        private Url url;
+        private WebLink url;
 
         /// <summary>
         /// Constructs a new <see cref="HtmlPageView"/>.
@@ -26,7 +26,7 @@ namespace Core.Common.Controls.Views
             }
             set
             {
-                url = value as Url;
+                url = value as WebLink;
 
                 if (url != null && url.Path != null)
                 {

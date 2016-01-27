@@ -1,7 +1,10 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+
+using log4net;
 
 namespace Core.Common.Gui.PropertyBag
 {
@@ -10,6 +13,7 @@ namespace Core.Common.Gui.PropertyBag
     /// </summary>
     public class PropertySpec
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(PropertySpec));
         private readonly System.Reflection.PropertyInfo propertyInfo;
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace Core.Common.Gui.PropertyBag
             Name = propertyInfo.Name;
             TypeName = propertyInfo.PropertyType.AssemblyQualifiedName;
 
-            var attributeList = propertyInfo.GetCustomAttributes(true).OfType<Attribute>().Select(attrib => attrib).ToList();
+            var attributeList = propertyInfo.GetCustomAttributes(true).OfType<Attribute>().ToList();
             if (propertyInfo.GetSetMethod() == null)
             {
                 attributeList.Add(new ReadOnlyAttribute(true));
@@ -107,6 +111,7 @@ namespace Core.Common.Gui.PropertyBag
         /// Gets the property value represented by this instance of some object instance.
         /// </summary>
         /// <param name="instance">The instance that holds the property to be retrieved.</param>
+        /// <returns>The property value on <paramref name="instance"/>.</returns>
         /// <exception cref="ArgumentException">When
         /// <list type="bullet">
         /// <item>Represented property is an index-property.</item>
@@ -144,7 +149,7 @@ namespace Core.Common.Gui.PropertyBag
         }
 
         /// <summary>
-        /// Determines whether the captured property is decorated with <see cref="TypeConverterAttribute"/>[is non custom expandable object property].
+        /// Determines whether the captured property is decorated with <see cref="TypeConverterAttribute"/>
         /// that is configured to use <see cref="ExpandableObjectConverter"/>.
         /// </summary>
         /// <returns>Returns true if a <see cref="TypeConverterAttribute"/> is declared using
@@ -164,17 +169,22 @@ namespace Core.Common.Gui.PropertyBag
                 try
                 {
                     var type = Type.GetType(typeName);
-                    if (type != null)
+                    if (type != null && typeof(ExpandableObjectConverter) == type)
                     {
-                        if (typeof(ExpandableObjectConverter) == type)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    // gulp
+                    if (e is TargetInvocationException || e is ArgumentException ||
+                        e is TypeLoadException || e is FileLoadException || e is BadImageFormatException)
+                    {
+                        log.DebugFormat("Unable to find TypeConverter of type '{0}", typeConverterClassName);
+                    }
+                    else
+                    {
+                        throw; // Not expected exception -> Fail fast
+                    }
                 }
             }
             return false;

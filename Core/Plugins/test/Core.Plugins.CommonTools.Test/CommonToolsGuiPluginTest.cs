@@ -20,7 +20,7 @@ namespace Core.Plugins.CommonTools.Test
             Assert.AreEqual(2, propertyInfos.Count);
 
             var projectPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(Project));
-            var urlPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(Url));
+            var urlPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(WebLink));
 
             Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyType);
             Assert.AreEqual(typeof(UrlProperties), urlPropertyInfo.PropertyType);
@@ -35,7 +35,7 @@ namespace Core.Plugins.CommonTools.Test
             Assert.NotNull(viewInfos);
             Assert.AreEqual(2, viewInfos.Count);
             Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(RichTextFile) && vi.ViewType == typeof(RichTextView)));
-            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(Url) && vi.ViewType == typeof(HtmlPageView)));
+            Assert.IsTrue(viewInfos.Any(vi => vi.DataType == typeof(WebLink) && vi.ViewType == typeof(HtmlPageView)));
         }
     }
 }

@@ -1,9 +1,10 @@
 using System;
 using System.IO;
 using System.Reflection;
+
 using Core.Common.Utils.Reflection;
 
-namespace Core.Common.Utils
+namespace Core.Common.Gui
 {
     public static class SettingsHelper
     {

@@ -3,9 +3,8 @@ using System;
 namespace Core.Common.Gui.Attributes
 {
     /// <summary>
-    /// Attribute that allows for controlling the order that properties appear in <see cref="Core.Common.Gui.PropertyBag.DynamicPropertyBag"/>.
-    /// Ordering should occur on ascending order. Not having this attribute defined means
-    /// an order value of <see cref="int.MinValue"/>.
+    /// Attribute that allows for controlling the order that properties appear in a property grid.
+    /// Ordering should occur on ascending order.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class PropertyOrderAttribute : Attribute

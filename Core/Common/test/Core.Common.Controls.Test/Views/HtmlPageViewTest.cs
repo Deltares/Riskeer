@@ -31,7 +31,7 @@ namespace Core.Common.Controls.Test.Views
         public void Data_SetValidUrl_ShouldReturnSetValueAndNavigateToCorrespondingPage()
         {
             // Setup
-            var url = new Url("", "http://www.google.nl");
+            var url = new WebLink("", new Uri("http://www.google.nl"));
 
             // Call
             var htmlPageView = new HtmlPageView
@@ -76,7 +76,7 @@ namespace Core.Common.Controls.Test.Views
         public void Data_SetInvalidUrl_ShouldReturnValueAndAndNavigateToBlankPage()
         {
             // Setup
-            var url = new Url("", null);
+            var url = new WebLink("", null);
 
             // Call
             var htmlPageView = new HtmlPageView

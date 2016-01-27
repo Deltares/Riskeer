@@ -40,16 +40,6 @@ namespace Core.GIS.SharpMap.Extensions.Layers
 
         public virtual string Url { get; set; }
 
-        public virtual string CacheLocation
-        {
-            get
-            {
-                var path = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-                return Path.Combine(path,
-                                    "cache_wms_" + Url.Replace(':', '_').Replace('/', '_').Replace('&', '_').Replace('?', '_') + WmsLayer);
-            }
-        }
-
         public virtual string WmsLayer { get; set; }
 
         public static ILayer CreateWmsLayersFromUrl(string url)
@@ -94,15 +84,7 @@ namespace Core.GIS.SharpMap.Extensions.Layers
         {
             if (cache == null)
             {
-                //no cache so mem
-                if (CacheLocation == null)
-                {
-                    cache = new MemoryCache<byte[]>(1000, 100000);
-                }
-                else
-                {
-                    cache = new FileCache(CacheLocation, "jpg");
-                }
+                cache = new MemoryCache<byte[]>(1000, 100000);
             }
             return cache;
         }

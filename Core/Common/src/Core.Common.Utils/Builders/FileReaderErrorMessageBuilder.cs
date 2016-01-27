@@ -37,7 +37,7 @@
         /// </summary>
         /// <param name="locationDescription">The location description.</param>
         /// <returns>The builder being configured.</returns>
-        /// <example>line 7</example>
+        /// <remarks>Call this method with a location description such as <c>"line 7"</c>.</remarks>
         public FileReaderErrorMessageBuilder WithLocation(string locationDescription)
         {
             location = " " + locationDescription;
@@ -49,7 +49,7 @@
         /// </summary>
         /// <param name="subjectDescription">The subject description.</param>
         /// <returns>The builder being configured.</returns>
-        /// <example>soil profile 'blabla'</example>
+        /// <remarks>Call this method with a subject description such as <c>"soil profile 'blabla'"</c>.</remarks>
         public FileReaderErrorMessageBuilder WithSubject(string subjectDescription)
         {
             subject = string.Format(" ({0})", subjectDescription);

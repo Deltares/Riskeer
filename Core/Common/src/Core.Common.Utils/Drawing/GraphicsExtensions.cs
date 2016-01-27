@@ -31,7 +31,7 @@ namespace Core.Common.Utils.Drawing
 
         private static ImageAttributes CalculateOpacityImageAttributes(float opacity)
         {
-            var colorMatrix = CreateColorMatrixForOpacityChange(opacity);
+            ColorMatrix colorMatrix = CreateColorMatrixForOpacityChange(opacity);
 
             var imgAttributes = new ImageAttributes();
             imgAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);

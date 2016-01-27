@@ -18,15 +18,6 @@ namespace Core.GIS.SharpMap.Extensions.Layers
 
         private BingMapType? mapType;
 
-        public virtual string CacheLocation
-        {
-            get
-            {
-                var path = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-                return Path.Combine(path, "cache_bing_" + MapType.ToLower());
-            }
-        }
-
         public virtual string MapType { get; set; }
 
         public override object Clone()
@@ -47,15 +38,7 @@ namespace Core.GIS.SharpMap.Extensions.Layers
 
                 if (!bingCache.ContainsKey(MapType))
                 {
-                    //no cache so mem
-                    if (CacheLocation == null)
-                    {
-                        bingCache[MapType] = new MemoryCache<byte[]>(1000, 100000);
-                    }
-                    else
-                    {
-                        bingCache[MapType] = new FileCache(CacheLocation, "jpg");
-                    }
+                    bingCache[MapType] = new MemoryCache<byte[]>(1000, 100000);
                 }
 
                 cache = bingCache[MapType];
