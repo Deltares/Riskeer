@@ -73,44 +73,6 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void IsNumericalType_ForNumericalTypes_ReturnTrue()
-        {
-            // Setup
-            var numbericalObjects = new object[]
-            {
-                default(float),
-                default(int),
-                default(long),
-                default(double),
-                default(byte),
-                default(short),
-                default(uint),
-                default(ushort),
-                default(decimal)
-            };
-
-            // Call
-            foreach (var numbericalObject in numbericalObjects)
-            {
-                var isNumerical = numbericalObject.GetType().IsNumericalType();
-
-                // Assert
-                Assert.True(isNumerical,
-                    string.Format("'{0}' should be considered a numerical value.", numbericalObject.GetType()));
-            }
-        }
-
-        [Test]
-        public void IsNumericalType_ThisTestClass_ReturnFalse()
-        {
-            // Call
-            var isNumbercal = GetType().IsNumericalType();
-
-            // Assert
-            Assert.IsFalse(isNumbercal);
-        }
-
-        [Test]
         public void GetMemberName_PropertyExpression_ReturnPropertyName()
         {
             // Call

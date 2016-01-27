@@ -37,24 +37,6 @@ namespace Core.Common.Utils.Reflection
         }
 
         /// <summary>
-        /// Determines whether the given type can be considered a number or not.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>True if the type represents a numerical value; False when this is not the case.</returns>
-        public static bool IsNumericalType(this Type type)
-        {
-            return (type == typeof(Single) ||
-                    type == typeof(UInt32) ||
-                    type == typeof(UInt16) ||
-                    type == typeof(Int64) ||
-                    type == typeof(Int32) ||
-                    type == typeof(Int16) ||
-                    type == typeof(byte) ||
-                    type == typeof(Double) ||
-                    type == typeof(Decimal));
-        }
-
-        /// <summary>
         /// Gets the name of the member.
         /// </summary>
         /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
