@@ -132,10 +132,6 @@
       <Project>{ed20dba9-d577-423f-a68d-a0a8130fb10b}</Project>
       <Name>Core.Plugins.ProjectExplorer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.SharpMapGis.Gui\Core.Plugins.SharpMapGis.Gui.csproj">
-      <Project>{0bc3751e-ec42-40a0-a7d3-b7c2aa66976e}</Project>
-      <Name>Core.Plugins.SharpMapGis.Gui</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
       <Project>{696daaee-d1d8-42d0-86ac-471b970fb17e}</Project>
       <Name>Core.Plugins.SharpMapGis</Name>

@@ -155,16 +155,6 @@
       <Name>Core.Plugins.ProjectExplorer</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.SharpMapGis.Gui\Core.Plugins.SharpMapGis.Gui.csproj">
-      <Project>{0BC3751E-EC42-40A0-A7D3-B7C2AA66976E}</Project>
-      <Name>Core.Plugins.SharpMapGis.Gui</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
-      <Project>{696DAAEE-D1D8-42D0-86AC-471B970FB17E}</Project>
-      <Name>Core.Plugins.SharpMapGis</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Demo\Ringtoets\src\Demo.Ringtoets\Demo.Ringtoets.csproj" Condition="$(DefineConstants.Contains('INCLUDE_DEMOPROJECT'))">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Demo.Ringtoets</Name>

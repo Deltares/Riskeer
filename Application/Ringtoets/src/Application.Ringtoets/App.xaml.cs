@@ -20,8 +20,6 @@ using Core.Plugins.CommonTools;
 using Core.Plugins.DotSpatial;
 using Core.Plugins.OxyPlot;
 using Core.Plugins.ProjectExplorer;
-using Core.Plugins.SharpMapGis;
-using Core.Plugins.SharpMapGis.Gui;
 using log4net;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
@@ -107,9 +105,6 @@ namespace Application.Ringtoets
 
             var applicationCore = new ApplicationCore();
 
-#if INCLUDE_DEMOPROJECT
-            applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
-#endif
             applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
             applicationCore.AddPlugin(new PipingApplicationPlugin());
 
@@ -131,7 +126,6 @@ namespace Application.Ringtoets
                 {
                     new ProjectExplorerGuiPlugin(),
                     new CommonToolsGuiPlugin(),
-                    new SharpMapGisGuiPlugin(),
                     new RingtoetsGuiPlugin(),
                     new PipingGuiPlugin(),
                     new DotSpatialGuiPlugin()
