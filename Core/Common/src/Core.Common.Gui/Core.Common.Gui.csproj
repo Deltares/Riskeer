@@ -86,7 +86,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -267,11 +266,6 @@
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.UI\Core.GIS.SharpMap.UI.csproj">
-      <Project>{DD1CC1DB-4BF9-4C88-A100-733D84795F3A}</Project>
-      <Name>Core.GIS.SharpMap.UI</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
@@ -290,11 +284,6 @@
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
-      <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
-      <Name>Core.GIS.GeoAPI.Extensions</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">

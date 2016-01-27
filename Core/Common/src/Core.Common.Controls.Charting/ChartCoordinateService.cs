@@ -1,6 +1,4 @@
 ﻿using System;
-using Core.GIS.GeoAPI.Geometries;
-using Core.GIS.NetTopologySuite.Geometries;
 
 namespace Core.Common.Controls.Charting
 {
@@ -55,11 +53,6 @@ namespace Core.Common.Controls.Charting
             return Math.Abs(yAxis.CalcPosPoint(y) - yAxis.CalcPosPoint(0));
         }
 
-        public static ICoordinate ToCoordinate(IChart chart, int x, int y)
-        {
-            return new Coordinate(ToWorldX(chart, x), ToWorldY(chart, y));
-        }
-
         public int ToDeviceX(double x)
         {
             return ToDeviceX(Chart, x);
@@ -98,11 +91,6 @@ namespace Core.Common.Controls.Charting
         public double ToWorldHeight(int y)
         {
             return ToWorldHeight(Chart, y);
-        }
-
-        public ICoordinate ToCoordinate(int x, int y)
-        {
-            return ToCoordinate(Chart, x, y);
         }
 
         private IChart Chart { get; set; }

@@ -118,16 +118,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
-      <Project>{ffb69466-79de-466a-ada7-5c47c5c5ca3a}</Project>
-      <Name>Core.GIS.GeoAPI</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
-      <Project>{5770daa9-84e5-4770-af43-f6b815894368}</Project>
-      <Name>Core.GIS.NetTopologySuite</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>

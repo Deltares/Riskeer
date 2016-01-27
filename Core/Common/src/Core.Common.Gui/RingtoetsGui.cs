@@ -24,8 +24,6 @@ using Core.Common.Utils;
 using Core.Common.Utils.Events;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
-using Core.GIS.SharpMap.UI.Helpers;
-
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
@@ -463,8 +461,6 @@ namespace Core.Common.Gui
                 {
                     mainWindow.UnsubscribeFromGui();
                 }
-
-                MapCursors.DisposeCursors();
 
                 Selection = null;
 
