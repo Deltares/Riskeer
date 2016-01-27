@@ -112,8 +112,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer", "Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj", "{ED20DBA9-D577-423F-A68D-A0A8130FB10B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.SharpMapGis", "Core\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj", "{696DAAEE-D1D8-42D0-86AC-471B970FB17E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Test", "Core\Plugins\test\Core.Plugins.CommonTools.Test\Core.Plugins.CommonTools.Test.csproj", "{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer.Test", "Core\Plugins\test\Core.Plugins.ProjectExplorer.Test\Core.Plugins.ProjectExplorer.Test.csproj", "{07206938-9671-4DC7-BDE4-35B0F6E20DBC}"
@@ -499,16 +497,6 @@ Global
 		{ED20DBA9-D577-423F-A68D-A0A8130FB10B}.Release|x86.Build.0 = Release|x86
 		{ED20DBA9-D577-423F-A68D-A0A8130FB10B}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{ED20DBA9-D577-423F-A68D-A0A8130FB10B}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.CreateInstaller|x86.Build.0 = Release|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.Debug|x86.ActiveCfg = Debug|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.Debug|x86.Build.0 = Debug|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.Release|x86.ActiveCfg = Release|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.Release|x86.Build.0 = Release|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}.Debug|x86.ActiveCfg = Debug|x86
@@ -1088,7 +1076,6 @@ Global
 		{0A82E7D2-26F8-4A30-9787-7EEABCD7F470} = {75F0E289-C1EC-497F-934B-738987FC6E7A}
 		{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{ED20DBA9-D577-423F-A68D-A0A8130FB10B} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
-		{696DAAEE-D1D8-42D0-86AC-471B970FB17E} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{16050ED1-3E4F-4540-9B5D-6ADD4FC43D9D} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{4163B996-3455-4324-A38A-9F2F0E6FCB52} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}
 		{610E0A9C-1997-4C43-A10E-39D4C66ADA93} = {4B4F0984-5730-4E28-93E7-DDE0F29BA550}

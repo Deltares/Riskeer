@@ -4,8 +4,8 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
-using Core.Plugins.SharpMapGis;
 using NUnit.Framework;
+using Ringtoets.Integration.Plugin;
 
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
@@ -40,7 +40,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 gui.MainWindow = new MainWindow(gui);
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
+                applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
 
                 gui.Run();
             }
@@ -110,7 +110,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 gui.MainWindow = new MainWindow(gui);
                 var applicationCore = gui.ApplicationCore;
 
-                applicationCore.AddPlugin(new SharpMapGisApplicationPlugin());
+                applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
 
                 gui.Run();

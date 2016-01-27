@@ -100,6 +100,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+      <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
+      <Name>Ringtoets.Integration.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
       <Name>Core.GIS.GeoAPI.Extensions</Name>
@@ -131,10 +135,6 @@
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
       <Project>{ed20dba9-d577-423f-a68d-a0a8130fb10b}</Project>
       <Name>Core.Plugins.ProjectExplorer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
-      <Project>{696daaee-d1d8-42d0-86ac-471b970fb17e}</Project>
-      <Name>Core.Plugins.SharpMapGis</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets\Application.Ringtoets.csproj">
       <Project>{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}</Project>
