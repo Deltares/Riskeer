@@ -2,30 +2,32 @@
 using System.IO;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Storage;
+using Core.Common.Utils;
+using Core.Common.Utils.Builders;
 
 namespace Application.Ringtoets.Storage
 {
     /// <summary>
     /// This class interacts with an empty or new SQLite database file.
     /// </summary>
-    public class StorageSqliteCreator : StorageToDatabaseFile
+    public static class StorageSqliteCreator
     {
         /// <summary>
         /// Creates the basic database structure for a Ringtoets database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="UpdateStorageException">Thrown when executing <c>DatabaseStructure</c> script fails.</exception>
-        public void CreateDatabaseStructure(string databaseFilePath)
+        /// <exception cref="StorageException">Thrown when executing <c>DatabaseStructure</c> script fails.</exception>
+        public static void CreateDatabaseStructure(string databaseFilePath)
         {
-            Connect(databaseFilePath);
+            FileUtils.ValidateFilePath(databaseFilePath);
 
             if (!File.Exists(databaseFilePath))
             {
                 SQLiteConnection.CreateFile(databaseFilePath);
             }
-            ConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
-            using (var dbContext = new SQLiteConnection(ConnectionString))
+            var connectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(databaseFilePath);
+            using (var dbContext = new SQLiteConnection(connectionString))
             {
                 using (var command = dbContext.CreateCommand())
                 {
@@ -37,7 +39,8 @@ namespace Application.Ringtoets.Storage
                     }
                     catch (SQLiteException exception)
                     {
-                        throw CreateUpdateStorageException(Resources.Error_Write_Structure_to_Database, exception);
+                        var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_Write_Structure_to_Database);
+                        throw new StorageException(message, new UpdateStorageException("", exception));
                     }
                 }
             }

@@ -89,7 +89,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
-    <Compile Include="StorageToDatabaseFile.cs" />
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="DbContext\Version.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>

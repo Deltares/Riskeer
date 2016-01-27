@@ -8,6 +8,7 @@ using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
+using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -16,8 +17,11 @@ namespace Application.Ringtoets.Storage
     /// <summary>
     /// This class interacts with an SQLite database file using the Entity Framework.
     /// </summary>
-    public class StorageSqLite : StorageToDatabaseFile, IStoreProject
+    public class StorageSqLite : IStoreProject
     {
+        private string filePath;
+        private string connectionString;
+
         /// <summary>
         /// Converts <paramref name="project"/> to a new <see cref="ProjectEntity"/> in the database.
         /// </summary>
@@ -26,18 +30,18 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> was not created.</exception>
-        /// <exception cref="UpdateStorageException">Thrown when
+        /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
+        /// <item>The database does not contain the table <c>version</c></item>
+        /// <item>THe file <paramref name="databaseFilePath"/> was not created.</item>
         /// <item>Saving the <paramref name="project"/> to the database failed.</item>
         /// <item>The connection to the database file failed.</item>
         /// </list>
         /// </exception>
         public int SaveProjectAs(string databaseFilePath, Project project)
         {
-            ConnectToNew(databaseFilePath);
-            using (var dbContext = new RingtoetsEntities(ConnectionString))
+            SetConnectionToNewFile(databaseFilePath);
+            using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 var entity = ProjectEntityConverter.InsertProjectEntity(dbContext.ProjectEntities, project);
                 try
@@ -48,11 +52,11 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (DataException exception)
                 {
-                    throw CreateUpdateStorageException(Resources.Error_Update_Database, exception);
+                    throw CreateStorageWriterException(Resources.Error_Update_Database, exception);
                 }
                 catch (SystemException exception)
                 {
-                    throw CreateUpdateStorageException(Resources.Error_During_Connection, exception);
+                    throw CreateStorageWriterException(Resources.Error_During_Connection, exception);
                 }
             }
         }
@@ -65,10 +69,10 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> does not exist.</exception>
         /// <exception cref="UpdateStorageException">Thrown when
         /// <list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> does not exist.</item>
+        /// <item>The database does not contain the table <c>version</c>.</item>
         /// <item>Saving the <paramref name="project"/> to the database failed.</item>
         /// <item>The connection to the database file failed.</item>
         /// <item>The related entity was not found in the database. Therefore, no update was possible.</item>
@@ -76,12 +80,12 @@ namespace Application.Ringtoets.Storage
         /// </exception>
         public int SaveProject(string databaseFilePath, Project project)
         {
-            Connect(databaseFilePath);
+            SetConnectionToFile(databaseFilePath);
             if (project == null)
             {
                 throw new ArgumentNullException("project");
             }
-            using (var dbContext = new RingtoetsEntities(ConnectionString))
+            using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try
                 {
@@ -90,15 +94,15 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (EntityNotFoundException)
                 {
-                    throw CreateUpdateStorageException(string.Format(Resources.Error_Entity_Not_Found_0_1, "project", project.StorageId));
+                    throw CreateStorageWriterException(string.Format(Resources.Error_Entity_Not_Found_0_1, "project", project.StorageId));
                 }
                 catch (DataException exception)
                 {
-                    throw CreateUpdateStorageException(Resources.Error_Update_Database, exception);
+                    throw CreateStorageWriterException(Resources.Error_Update_Database, exception);
                 }
                 catch (SystemException exception)
                 {
-                    throw CreateUpdateStorageException(Resources.Error_During_Connection, exception);
+                    throw CreateStorageWriterException(Resources.Error_During_Connection, exception);
                 }
             }
         }
@@ -113,61 +117,86 @@ namespace Application.Ringtoets.Storage
         /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
         public Project LoadProject(string databaseFilePath)
         {
-            Connect(databaseFilePath);
-            using (var dbContext = new RingtoetsEntities(ConnectionString))
+            SetConnectionToFile(databaseFilePath);
+            using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 return ProjectEntityConverter.GetProject(dbContext.ProjectEntities);
             }
         }
 
         /// <summary>
-        /// Attempts to connect to existing storage file <paramref name="databaseFilePath"/>.
+        /// Throws a configured instance of <see cref="StorageException"/> when writing to the storage file failed.
+        /// </summary>
+        /// <param name="errorMessage">The critical error message.</param>
+        /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
+        /// <returns>Returns a new <see cref="StorageException"/>.</returns>
+        private StorageException CreateStorageWriterException(string errorMessage, Exception innerException = null)
+        {
+            var message = new FileWriterErrorMessageBuilder(filePath).Build(errorMessage);
+            return new StorageException(message, innerException);
+        }
+
+        /// <summary>
+        /// Throws a configured instance of <see cref="StorageException"/> when reading the storage file failed.
+        /// </summary>
+        /// <param name="errorMessage">The critical error message.</param>
+        /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
+        /// <returns>Returns a new <see cref="StorageException"/>.</returns>
+        private StorageException CreateStorageReaderException(string errorMessage, Exception innerException = null)
+        {
+            var message = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
+            return new StorageException(message, innerException);
+        }
+
+        /// <summary>
+        /// Attempts to set the connection to an existing storage file <paramref name="databaseFilePath"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> does not exist.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        protected override void Connect(string databaseFilePath)
+        /// <exception cref="StorageException">Thrown when:<list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> does not exist</item>/// <item>the database does not contain the table <c>version</c>.</item>
+        /// </list>
+        /// </exception>
+        private void SetConnectionToFile(string databaseFilePath)
         {
-            base.Connect(databaseFilePath);
+            FileUtils.ValidateFilePath(databaseFilePath);
+            filePath = databaseFilePath;
 
             if (!File.Exists(databaseFilePath))
             {
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
-                throw new CouldNotConnectException(message);
+                throw CreateStorageReaderException("", new CouldNotConnectException(UtilsResources.Error_File_does_not_exist));
             }
 
-            ConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
+            connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
             ValidateStorage();
         }
 
         /// <summary>
-        /// Creates a new (empty) Ringtoets database file.
+        /// Sets the connection to a newly created (empty) Ringtoets database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> was not created.</exception>
-        /// <exception cref="UpdateStorageException">Thrown when executing <c>DatabaseStructure</c> script fails.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        private void ConnectToNew(string databaseFilePath)
+        /// <exception cref="UpdateStorageException">Thrown when:<list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> was not created</item>
+        /// <item>executing <c>DatabaseStructure</c> script failed</item>
+        /// <item>the database does not contain the table <c>version</c>.</item>
+        /// </list>
+        /// </exception>
+        private void SetConnectionToNewFile(string databaseFilePath)
         {
-            base.Connect(databaseFilePath);
+            StorageSqliteCreator.CreateDatabaseStructure(databaseFilePath);
 
-            var creator = new StorageSqliteCreator();
-            creator.CreateDatabaseStructure(databaseFilePath);
-
-            Connect(databaseFilePath);
+            SetConnectionToFile(databaseFilePath);
         }
 
         /// <summary>
         /// Validates if the connected storage is a valid Ringtoets database.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <c>ConnectionString</c> has not been set.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
+        /// <exception cref="StorageException">Thrown when the database does not contain the table <c>version</c>.</exception>
         private void ValidateStorage()
         {
-            using (var dbContext = new RingtoetsEntities(ConnectionString))
+            using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 try
                 {
@@ -176,7 +205,7 @@ namespace Application.Ringtoets.Storage
                 }
                 catch
                 {
-                    throw new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, FilePath));
+                    throw CreateStorageReaderException("", new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath)));
                 }
             }
         }

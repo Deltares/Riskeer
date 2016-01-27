@@ -91,21 +91,9 @@ namespace Core.Common.Gui
             {
                 loadedProject = storage.LoadProject(filePath);
             }
-            catch (ArgumentException e)
+            catch (StorageException e)
             {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-            catch (CouldNotConnectException e)
-            {
-                log.Warn(e.Message);
-                log.Warn(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
-            catch (StorageValidationException e)
-            {
-                log.Warn(e.Message);
+                log.Warn(e.Message, e.InnerException);
                 log.Warn(Resources.Project_existing_project_opening_failed);
                 return false;
             }
@@ -245,13 +233,9 @@ namespace Core.Common.Gui
                 storage.SaveProjectAs(filePath, gui.Project);
                 return true;
             }
-            catch (Exception e)
+            catch (StorageException e)
             {
-                if (!(e is ArgumentException || e is CouldNotConnectException || e is StorageValidationException || e is UpdateStorageException))
-                {
-                    throw;
-                }
-                log.Warn(e.Message);
+                log.Warn(e.Message, e.InnerException);
                 log.Warn(Resources.Project_saving_project_failed);
                 return false;
             }
@@ -264,13 +248,9 @@ namespace Core.Common.Gui
                 storage.SaveProject(filePath, gui.Project);
                 return true;
             }
-            catch (Exception e)
+            catch (StorageException e)
             {
-                if (!(e is ArgumentException || e is CouldNotConnectException || e is StorageValidationException || e is UpdateStorageException))
-                {
-                    throw;
-                }
-                log.Warn(e.Message);
+                log.Warn(e.Message, e.InnerException);
                 log.Warn(Resources.Project_saving_project_failed);
                 return false;
             }

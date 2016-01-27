@@ -84,6 +84,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="IO\ProgressChangedDelegate.cs" />
+    <Compile Include="Storage\StorageException.cs" />
     <Compile Include="Storage\StorageValidationException.cs" />
     <Compile Include="Storage\CouldNotConnectException.cs" />
     <Compile Include="Storage\IStoreProject.cs" />
