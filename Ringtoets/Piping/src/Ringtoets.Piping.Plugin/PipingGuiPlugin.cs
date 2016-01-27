@@ -50,29 +50,29 @@ namespace Ringtoets.Piping.Plugin
         /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="PipingGuiPlugin"/>.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="IGui.ContextMenuProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="IContextMenuBuilderProvider"/> is <c>null</c>.</exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new PipingFailureMechanismNodePresenter(Gui.ContextMenuProvider)
+            yield return new PipingFailureMechanismNodePresenter(Gui)
             {
                 RunActivitiesAction = activities => ActivityProgressDialogRunner.Run(Gui.MainWindow, activities)
             };
-            yield return new PipingCalculationContextNodePresenter(Gui.ContextMenuProvider)
+            yield return new PipingCalculationContextNodePresenter(Gui)
             {
                 RunActivityAction = activity => ActivityProgressDialogRunner.Run(Gui.MainWindow, activity)
             };
-            yield return new PipingCalculationGroupContextNodePresenter(Gui.ContextMenuProvider)
+            yield return new PipingCalculationGroupContextNodePresenter(Gui)
             {
                 RunActivitiesAction = activities => ActivityProgressDialogRunner.Run(Gui.MainWindow, activities)
             };
-            yield return new PipingInputContextNodePresenter(Gui.ContextMenuProvider);
-            yield return new PipingSurfaceLineCollectionNodePresenter(Gui.ContextMenuProvider);
-            yield return new PipingSurfaceLineNodePresenter(Gui.ContextMenuProvider);
-            yield return new PipingSoilProfileCollectionNodePresenter(Gui.ContextMenuProvider);
-            yield return new PipingSoilProfileNodePresenter(Gui.ContextMenuProvider);
-            yield return new PipingOutputNodePresenter(Gui.ContextMenuProvider);
-            yield return new EmptyPipingOutputNodePresenter(Gui.ContextMenuProvider);
-            yield return new EmptyPipingCalculationReportNodePresenter(Gui.ContextMenuProvider);
+            yield return new PipingInputContextNodePresenter(Gui);
+            yield return new PipingSurfaceLineCollectionNodePresenter(Gui);
+            yield return new PipingSurfaceLineNodePresenter(Gui);
+            yield return new PipingSoilProfileCollectionNodePresenter(Gui);
+            yield return new PipingSoilProfileNodePresenter(Gui);
+            yield return new PipingOutputNodePresenter(Gui);
+            yield return new EmptyPipingOutputNodePresenter(Gui);
+            yield return new EmptyPipingCalculationReportNodePresenter(Gui);
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingInputContext => PipingFormsResources.PipingInputContextNodePresenter_NodeDisplayName,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddImportItem()
                                                      .AddExportItem()
@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = ringtoetsPipingSurfaceLine => PipingFormsResources.FolderIcon,
                 ForegroundColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Cast<object>().ToArray(),
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddImportItem()
                                                      .AddExportItem()
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Plugin
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
 
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddPropertiesItem()
                                                      .Build()
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = pipingSoilProfiles => PipingFormsResources.FolderIcon,
                 ForegroundColor = pipingSoilProfiles => pipingSoilProfiles.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = pipingSoilProfiles => pipingSoilProfiles.Cast<object>().ToArray(),
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddImportItem()
                                                      .AddExportItem()
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingSoilProfile => pipingSoilProfile.Name,
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddPropertiesItem()
                                                      .Build()
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingOutput => PipingFormsResources.PipingOutput_DisplayName,
                 Image = pipingOutput => PipingFormsResources.PipingOutputIcon,
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddExportItem()
                                                      .AddSeparator()
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Plugin
                 Text = emptyPipingOutput => PipingFormsResources.PipingOutput_DisplayName,
                 Image = emptyPipingOutput => PipingFormsResources.PipingOutputIcon,
                 ForegroundColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddExportItem()
                                                      .AddSeparator()
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Plugin
                 Text = emptyPipingCalculationReport => PipingDataResources.CalculationReport_DisplayName,
                 Image = emptyPipingCalculationReport => PipingFormsResources.PipingCalculationReportIcon,
                 ForegroundColor = emptyPipingCalculationReport => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenu = (nodeData, node) => Gui.ContextMenuProvider
+                ContextMenu = (nodeData, node) => Gui
                                                      .Get(node)
                                                      .AddOpenItem()
                                                      .AddSeparator()
@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return Gui.ContextMenuProvider.Get(node)
+            return Gui.Get(node)
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)
                       .AddSeparator()
@@ -433,7 +433,7 @@ namespace Ringtoets.Piping.Plugin
                 clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
             }
 
-            return Gui.ContextMenuProvider.Get(node)
+            return Gui.Get(node)
                       .AddCustomItem(validateItem)
                       .AddCustomItem(calculateItem)
                       .AddCustomItem(clearOutputItem)
@@ -612,7 +612,7 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            var builder = Gui.ContextMenuProvider.Get(node)
+            var builder = Gui.Get(node)
                 .AddCustomItem(addCalculationGroupItem)
                 .AddCustomItem(addCalculationItem)
                 .AddSeparator()

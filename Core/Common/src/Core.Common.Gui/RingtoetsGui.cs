@@ -20,7 +20,6 @@ using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils;
 using Core.Common.Utils.Events;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
@@ -34,7 +33,7 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for a given IApplication.
     /// </summary>
-    public class RingtoetsGui : IGui, IContextMenuBuilderProvider
+    public class RingtoetsGui : IGui
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;

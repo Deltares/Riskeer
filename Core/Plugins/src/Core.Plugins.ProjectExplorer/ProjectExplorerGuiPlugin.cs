@@ -36,12 +36,12 @@ namespace Core.Plugins.ProjectExplorer
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
-        /// <item><see cref="IGui.ContextMenuProvider"/> is <c>null</c></item>
-        /// <item><see cref="IGui.ApplicationCommands"/> is <c>null</c></item>
+        /// <item><see cref="IContextMenuBuilderProvider"/> is <c>null</c></item>
+        /// <item><see cref="ICommandsOwner.ProjectCommands"/> is <c>null</c></item>
         /// </list></exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new ProjectNodePresenter(Gui.ContextMenuProvider, Gui.ProjectCommands);
+            yield return new ProjectNodePresenter(Gui, Gui.ProjectCommands);
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)

@@ -72,14 +72,14 @@ namespace Ringtoets.Integration.Plugin
         /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="RingtoetsGuiPlugin"/>.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="IGui.ContextMenuProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="IContextMenuBuilderProvider"/> is <c>null</c>.</exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new AssessmentSectionBaseNodePresenter(Gui.ContextMenuProvider);
-            yield return new FailureMechanismNodePresenter(Gui.ContextMenuProvider);
-            yield return new PlaceholderWithReadonlyNameNodePresenter(Gui.ContextMenuProvider);
-            yield return new CategoryTreeFolderNodePresenter(Gui.ContextMenuProvider);
-            yield return new FailureMechanismContributionNodePresenter(Gui.ContextMenuProvider);
+            yield return new AssessmentSectionBaseNodePresenter(Gui);
+            yield return new FailureMechanismNodePresenter(Gui);
+            yield return new PlaceholderWithReadonlyNameNodePresenter(Gui);
+            yield return new CategoryTreeFolderNodePresenter(Gui);
+            yield return new FailureMechanismContributionNodePresenter(Gui);
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -125,8 +125,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 Image = failureMechanismContribution => RingtoetsFormsResources.GenericInputOutputIcon,
-                ContextMenu = (failureMechanismContribution, sourceNode) => Gui.ContextMenuProvider
-                                                                               .Get(sourceNode)
+                ContextMenu = (failureMechanismContribution, sourceNode) => Gui.Get(sourceNode)
                                                                                .AddOpenItem()
                                                                                .AddSeparator()
                                                                                .AddExportItem()
@@ -166,7 +165,7 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip AssessmentSectionBaseContextMenu(AssessmentSectionBase nodeData, TreeNode node)
         {
-            return Gui.ContextMenuProvider.Get(node)
+            return Gui.Get(node)
                       .AddRenameItem()
                       .AddDeleteItem()
                       .AddSeparator()
@@ -228,7 +227,7 @@ namespace Ringtoets.Integration.Plugin
                 Enabled = false
             };
 
-            return Gui.ContextMenuProvider.Get(node)
+            return Gui.Get(node)
                       .AddCustomItem(calculateItem)
                       .AddCustomItem(clearOutputItem)
                       .AddSeparator()
@@ -257,7 +256,7 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip PlaceholderWithReadonlyNameContextMenu(PlaceholderWithReadonlyName nodeData, TreeNode node)
         {
-            IContextMenuBuilder menuBuilder = Gui.ContextMenuProvider.Get(node);
+            IContextMenuBuilder menuBuilder = Gui.Get(node);
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
@@ -310,7 +309,7 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, TreeNode node)
         {
-            return Gui.ContextMenuProvider.Get(node)
+            return Gui.Get(node)
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
                       .Build();
