@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Properties="clr-namespace:Core.Common.Gui.Properties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.SplashScreen.SplashScreen"
-             Width="492px" Height="312px" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,1" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico">
+             Width="492px" Height="312px" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,0" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico">
     <Window.Background>
         <ImageBrush ImageSource="/Core.Common.Gui;component\Resources\SplashScreenBackground.png" />
     </Window.Background>
