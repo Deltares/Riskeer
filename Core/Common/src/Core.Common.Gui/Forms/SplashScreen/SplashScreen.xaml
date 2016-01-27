@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Properties="clr-namespace:Core.Common.Gui.Properties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.SplashScreen.SplashScreen"
-             Width="455px" Height="389px" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,1" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico">
+             Width="492px" Height="312px" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,1" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico">
     <Window.Background>
         <ImageBrush ImageSource="/Core.Common.Gui;component\Resources\SplashScreenBackground.png" />
     </Window.Background>
     <Grid Margin="0,10,0,-10">
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="18px" Margin="6,274,0,0" VerticalAlignment="Top" Width="441" Value="55" Background="White" Opacity="0.8" Foreground="#FF8094A8" IsTabStop="False" Tag="tytyrttqweqweqwewqeqweqweqweqwe">
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="18px" Margin="0,200,0,0" VerticalAlignment="Top" Width="482" Value="55" Background="White" Opacity="0.8" Foreground="#FF8094A8" IsTabStop="False" Tag="tytyrttqweqweqwewqeqweqweqweqwe">
             <ProgressBar.BorderBrush>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF8094A8" Offset="0"/>
@@ -16,8 +16,8 @@
                 </LinearGradientBrush>
             </ProgressBar.BorderBrush>
         </ProgressBar>
-        <Label x:Name="labelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" Margin="5,249,0,0" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" BorderBrush="Black" RenderTransformOrigin="0.51,-1.4"/>
-        <Label x:Name="labelProgressBar" Content="0 %" Margin="0,274,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Padding="0" Height="18px" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Right" Width="455"
+        <Label x:Name="labelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" Margin="5,172,0,0" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" BorderBrush="Black" RenderTransformOrigin="0.51,-1.4"/>
+        <Label x:Name="labelProgressBar" Content="0 %" Margin="0,200,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Padding="0" Height="18px" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Right" Width="482"
                x:FieldModifier="protected" />
         <Border x:Name="labelsBox" Margin="10,0,230,16" Height="72" VerticalAlignment="Bottom" >
             <Grid>
