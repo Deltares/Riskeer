@@ -4,8 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils;
 using log4net;
 using log4net.Appender;
 
@@ -16,27 +16,31 @@ namespace Core.Common.Gui
     /// </summary>
     public class ApplicationFeatureCommandHandler : IApplicationFeatureCommands
     {
-        private readonly IGui gui;
+        private readonly IPropertyResolver propertyResolver;
+        private readonly IMainWindow mainWindow;
+        private readonly IApplicationSelection applicationSelection;
 
-        public ApplicationFeatureCommandHandler(IGui gui)
+        public ApplicationFeatureCommandHandler(IPropertyResolver propertyResolver, IMainWindow mainWindow, IApplicationSelection applicationSelection)
         {
-            this.gui = gui;
+            this.propertyResolver = propertyResolver;
+            this.mainWindow = mainWindow;
+            this.applicationSelection = applicationSelection;
         }
 
         /// <summary>
-        /// Makes the properties window visible and updates the <see cref="IGui.Selection"/> to the
+        /// Makes the properties window visible and updates the <see cref="IApplicationSelection.Selection"/> to the
         /// given <paramref name="obj"/>.
         /// </summary>
         /// <param name="obj">The object for which to show its properties.</param>
         public void ShowPropertiesFor(object obj)
         {
-            ((MainWindow)gui.MainWindow).InitPropertiesWindowAndActivate();
-            gui.Selection = obj;
+            ((MainWindow)mainWindow).InitPropertiesWindowAndActivate();
+            applicationSelection.Selection = obj;
         }
 
         public bool CanShowPropertiesFor(object obj)
         {
-            return gui.PropertyResolver.GetObjectProperties(obj) != null;
+            return propertyResolver.GetObjectProperties(obj) != null;
         }
 
         public void OpenLogFileExternal()

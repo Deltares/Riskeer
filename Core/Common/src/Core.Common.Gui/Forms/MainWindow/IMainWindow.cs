@@ -9,11 +9,6 @@ namespace Core.Common.Gui.Forms.MainWindow
     public interface IMainWindow : IWin32Window
     {
         /// <summary>
-        /// Project explorer tool window. See also <seealso cref="IGui.ToolWindowViews"/>.
-        /// </summary>
-        IProjectExplorer ProjectExplorer { get; }
-
-        /// <summary>
         /// Property grid tool window. See also <seealso cref="IGui.ToolWindowViews"/>.
         /// </summary>
         IPropertyGrid PropertyGrid { get; }

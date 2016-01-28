@@ -1,4 +1,6 @@
 ﻿using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -21,23 +23,25 @@ namespace Core.Common.Gui.Test
             // SetUp
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
 
-            IGui guiMock = mocks.StrictMock<IGui>();
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            guiMock.Expect(x => x.Project).PropertyBehavior();
-            guiMock.Expect(x => x.ProjectFilePath).PropertyBehavior();
-            guiMock.Stub(x => x.RefreshGui());
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            projectOwner.Stub(g => g.ProjectClosing += null).IgnoreArguments();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
 
             mocks.ReplayAll();
 
-            StorageCommandHandler storageCommandHandler = new StorageCommandHandler(viewCommands, guiMock);
+            var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
+                                                                  mainWindowController, toolViewController, viewCommands);
 
             // Call
             storageCommandHandler.CreateNewProject();
 
             // Assert
-            Assert.IsInstanceOf<Project>(guiMock.Project);
-            Assert.AreEqual("", guiMock.ProjectFilePath);
+            Assert.IsInstanceOf<Project>(projectOwner.Project);
+            Assert.AreEqual("", projectOwner.ProjectFilePath);
             mocks.VerifyAll();
         }
 
@@ -53,30 +57,30 @@ namespace Core.Common.Gui.Test
             projectMock.Name = "test";
             projectMock.StorageId = 1234L;
 
-            IGui guiMock = mocks.StrictMock<IGui>();
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            guiMock.Expect(x => x.Project).PropertyBehavior();
-            guiMock.Expect(x => x.ProjectFilePath).PropertyBehavior();
-            guiMock.Expect(x => x.Selection).PropertyBehavior();
-            guiMock.Stub(x => x.RefreshGui());
-
-            guiMock.Project = projectMock;
-            guiMock.ProjectFilePath = savedProjectPath;
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Project = projectMock;
+            projectOwner.ProjectFilePath = savedProjectPath;
+            projectOwner.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            projectOwner.Stub(g => g.ProjectClosing += null).IgnoreArguments();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
 
             mocks.ReplayAll();
 
-            StorageCommandHandler storageCommandHandler = new StorageCommandHandler(viewCommands, guiMock);
+            var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
+                                                                  mainWindowController, toolViewController, viewCommands);
 
             // Call
             storageCommandHandler.CreateNewProject();
 
             // Assert
-            Assert.IsInstanceOf<Project>(guiMock.Project);
-            Assert.AreNotEqual(projectMock, guiMock.Project);
-            Assert.AreNotEqual(projectMock.StorageId, guiMock.Project.StorageId);
-            Assert.AreNotEqual(savedProjectPath, guiMock.ProjectFilePath);
-            Assert.AreEqual("", guiMock.ProjectFilePath);
+            Assert.IsInstanceOf<Project>(projectOwner.Project);
+            Assert.AreNotEqual(projectMock, projectOwner.Project);
+            Assert.AreNotEqual(projectMock.StorageId, projectOwner.Project.StorageId);
+            Assert.AreNotEqual(savedProjectPath, projectOwner.ProjectFilePath);
+            Assert.AreEqual("", projectOwner.ProjectFilePath);
             mocks.VerifyAll();
         }
 
@@ -90,29 +94,29 @@ namespace Core.Common.Gui.Test
 
             Project projectMock = mocks.StrictMock<Project>();
 
-            IGui guiMock = mocks.StrictMock<IGui>();
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            guiMock.Expect(x => x.Project).PropertyBehavior();
-            guiMock.Expect(x => x.ProjectFilePath).PropertyBehavior();
-            guiMock.Expect(x => x.Selection).PropertyBehavior();
-            guiMock.Stub(x => x.RefreshGui());
-
-            guiMock.Project = projectMock;
-            guiMock.Selection = projectMock;
-            guiMock.ProjectFilePath = savedProjectPath;
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Project = projectMock;
+            projectOwner.ProjectFilePath = savedProjectPath;
+            projectOwner.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            projectOwner.Stub(g => g.ProjectClosing += null).IgnoreArguments();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            applicationSelection.Selection = projectMock;
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
 
             mocks.ReplayAll();
 
-            StorageCommandHandler storageCommandHandler = new StorageCommandHandler(viewCommands, guiMock);
+            var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
+                                                                  mainWindowController, toolViewController, viewCommands);
 
             // Call
             storageCommandHandler.CloseProject();
 
             // Assert
-            Assert.IsNull(guiMock.Project);
-            Assert.IsNull(guiMock.Selection);
-            Assert.AreEqual("", guiMock.ProjectFilePath);
+            Assert.IsNull(projectOwner.Project);
+            Assert.IsNull(applicationSelection.Selection);
+            Assert.AreEqual("", projectOwner.ProjectFilePath);
             mocks.VerifyAll();
         }
 
@@ -124,20 +128,20 @@ namespace Core.Common.Gui.Test
 
             Project projectMock = mocks.StrictMock<Project>();
 
-            IGui guiMock = mocks.StrictMock<IGui>();
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            guiMock.Expect(x => x.Project).PropertyBehavior();
-            guiMock.Expect(x => x.ProjectFilePath).PropertyBehavior();
-            guiMock.Expect(x => x.Selection).PropertyBehavior();
-            guiMock.Stub(x => x.RefreshGui());
-
-            guiMock.Project = projectMock;
-            guiMock.Selection = guiMock.Project;
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Project = projectMock;
+            projectOwner.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            projectOwner.Stub(g => g.ProjectClosing += null).IgnoreArguments();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            applicationSelection.Selection = projectMock;
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
 
             mocks.ReplayAll();
 
-            StorageCommandHandler storageCommandHandler = new StorageCommandHandler(viewCommands, guiMock);
+            var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
+                                                                  mainWindowController, toolViewController, viewCommands);
 
             TestDelegate closeProject = () => storageCommandHandler.CloseProject();
             Assert.DoesNotThrow(closeProject);

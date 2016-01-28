@@ -27,7 +27,7 @@ namespace Core.Common.Gui
     /// </example>
     public class ViewPropertyEditor : UITypeEditor
     {
-        public static IGui Gui { get; set; } //static: injected in RingtoetsGui
+        public static IViewCommands ViewCommands { get; set; } //static: injected in RingtoetsGui
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
@@ -36,7 +36,7 @@ namespace Core.Common.Gui
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            Gui.ViewCommands.OpenView(value);
+            ViewCommands.OpenView(value);
             return value;
         }
     }

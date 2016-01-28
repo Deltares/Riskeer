@@ -1,4 +1,5 @@
-﻿using Core.Common.Gui.Forms.PropertyGridView;
+﻿using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.PropertyGridView;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -18,16 +19,18 @@ namespace Core.Common.Gui.Test
         public void CanShowPropertiesFor_PropertiesForObjectDefined_True()
         {
             // Setup
-            var gui = mocks.DynamicMock<IGui>();
-            var propertyResolverMock = mocks.StrictMock<IPropertyResolver>();
             var anObject = new AnObject();
 
+            var propertyResolverMock = mocks.StrictMock<IPropertyResolver>();
             propertyResolverMock.Expect(pr => pr.GetObjectProperties(anObject)).Return(new object());
-            gui.Expect(g => g.PropertyResolver).Return(propertyResolverMock);
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
 
             mocks.ReplayAll();
 
-            var commandHandler = new ApplicationFeatureCommandHandler(gui);
+            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolverMock, mainWindow, applicationSelection);
 
             // Call
             var canShowProperties = commandHandler.CanShowPropertiesFor(anObject);
@@ -51,7 +54,7 @@ namespace Core.Common.Gui.Test
 
             mocks.ReplayAll();
 
-            var commandHandler = new ApplicationFeatureCommandHandler(gui);
+            var commandHandler = new ApplicationFeatureCommandHandler(gui.PropertyResolver, gui.MainWindow, gui);
 
             // Call
             var canShowProperties = commandHandler.CanShowPropertiesFor(aSubObject);

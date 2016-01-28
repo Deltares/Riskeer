@@ -15,6 +15,7 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
@@ -50,7 +51,7 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
 
-        public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
+        public RingtoetsGui(IMainWindow mainWindow, ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (isAlreadyRunningInstanceOfIGui)
@@ -59,24 +60,25 @@ namespace Core.Common.Gui
                 throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
 
+            MainWindow = mainWindow;
             ApplicationCore = applicationCore ?? new ApplicationCore();
             FixedSettings = fixedSettings ?? new GuiCoreSettings();
 
             isAlreadyRunningInstanceOfIGui = true;
             instanceCreationStackTrace = new StackTrace().ToString();
-            ViewPropertyEditor.Gui = this;
 
             Plugins = new List<GuiPlugin>();
 
             UserSettings = Settings.Default;
 
-            appFeatureApplicationCommands = new ApplicationFeatureCommandHandler(this);
             viewCommandHandler = new ViewCommandHandler(this);
-            storageCommandHandler = new StorageCommandHandler(viewCommandHandler, this);
-            exportImportCommandHandler = new ExportImportCommandHandler(this);
-            projectCommandsHandler = new ProjectCommandsHandler(this);
+            storageCommandHandler = new StorageCommandHandler(Storage, this, this, this, this, viewCommandHandler);
+            appFeatureApplicationCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
+            exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore, this);
+            projectCommandsHandler = new ProjectCommandsHandler(this, MainWindow, ApplicationCore, this, this);
 
             WindowsApplication.EnableVisualStyles();
+            ViewPropertyEditor.ViewCommands = ViewCommands;
 
             ProjectOpened += ApplicationProjectOpened;
         }
@@ -86,6 +88,14 @@ namespace Core.Common.Gui
         public IPropertyResolver PropertyResolver { get; private set; }
 
         public IStoreProject Storage { get; set; }
+
+        private IProjectExplorer ProjectExplorer
+        {
+            get
+            {
+                return ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
+            }
+        }
 
         public void Dispose()
         {
@@ -344,12 +354,12 @@ namespace Core.Common.Gui
         // Sets the tooltip for given view, assuming that ProjectExplorer is not null.
         private void SetToolTipForView(IView view)
         {
-            if (mainWindow == null || mainWindow.ProjectExplorer == null)
+            if (mainWindow == null || ProjectExplorer == null)
             {
                 return;
             }
 
-            var node = mainWindow.ProjectExplorer.TreeView.GetNodeByTag(view.Data);
+            var node = ProjectExplorer.TreeView.GetNodeByTag(view.Data);
             if (node != null)
             {
                 DocumentViews.SetTooltip(view, node.FullPath);
@@ -468,9 +478,9 @@ namespace Core.Common.Gui
                     ToolWindowViews.ActiveView = mainWindow.MessageWindow;
                 }
 
-                if (ToolWindowViews.Contains(mainWindow.ProjectExplorer))
+                if (ToolWindowViews.Contains(ProjectExplorer))
                 {
-                    ToolWindowViews.ActiveView = mainWindow.ProjectExplorer;
+                    ToolWindowViews.ActiveView = ProjectExplorer;
                 }
 
                 mainWindow.ValidateItems();
@@ -511,7 +521,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            if (mainWindow.ProjectExplorer != null)
+            if (ProjectExplorer != null)
             {
                 SetToolTipForView(e.View);
             }
@@ -534,7 +544,6 @@ namespace Core.Common.Gui
             {
                 IgnoreActivation = true,
                 UpdateViewNameAction = v => UpdateViewName(v),
-                Gui = this
             };
 
             documentViewManager.EnableTabContextMenus();
@@ -562,7 +571,6 @@ namespace Core.Common.Gui
             toolWindowViews = new ViewList(toolWindowViewsDockingManager, ViewLocation.Left)
             {
                 IgnoreActivation = true,
-                Gui = this
             };
 
             toolWindowViews.CollectionChanged += ToolWindowViewsOnCollectionChanged;
@@ -816,20 +824,11 @@ namespace Core.Common.Gui
 
         #region Implementation: ICommandsOwner
 
-        private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
         private readonly ApplicationFeatureCommandHandler appFeatureApplicationCommands;
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly ProjectCommandsHandler projectCommandsHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
         private StorageCommandHandler storageCommandHandler;
-
-        public IList<IGuiCommand> Commands
-        {
-            get
-            {
-                return commands;
-            }
-        }
 
         public IApplicationFeatureCommands ApplicationCommands
         {
@@ -990,7 +989,7 @@ namespace Core.Common.Gui
             {
                 return mainWindow;
             }
-            set
+            private set
             {
                 mainWindow = (MainWindow)value;
                 mainWindow.Gui = this;

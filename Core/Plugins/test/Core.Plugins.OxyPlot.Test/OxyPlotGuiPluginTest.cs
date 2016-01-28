@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Core.Common.Controls.Views;
@@ -7,7 +6,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Components.Charting.Data;
-using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
@@ -130,10 +128,9 @@ namespace Core.Plugins.OxyPlot.Test
         public void GivenConfiguredGui_WhenOpenToolView_UpdateComponentsWithDataFromActiveView(bool isChartViewActive)
         {
             // Given
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
                 var plugin = new OxyPlotGuiPlugin();
-                gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
                 IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
                 var baseChart = new BaseChart
@@ -169,10 +166,9 @@ namespace Core.Plugins.OxyPlot.Test
         public void GivenConfiguredGui_WhenActiveViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
         {
             // Given
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
                 var plugin = new OxyPlotGuiPlugin();
-                gui.MainWindow = new MainWindow(gui);
                 var mocks = new MockRepository();
                 var testChartView = new TestChartView();
                 var chart = new BaseChart();

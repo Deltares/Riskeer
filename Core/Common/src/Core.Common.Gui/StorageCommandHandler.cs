@@ -19,25 +19,39 @@ namespace Core.Common.Gui
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageCommandHandler));
 
         private readonly IViewCommands viewCommands;
-        private readonly IGui gui;
+        private readonly IMainWindowController mainWindowController;
+        private readonly IProjectOwner projectOwner;
+        private readonly IStoreProject projectPersistor;
+        private readonly IApplicationSelection applicationSelection;
+        private readonly IToolViewController toolViewController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
         /// </summary>
+        /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
+        /// <param name="projectOwner">The class owning the application project.</param>
+        /// <param name="applicationSelection">Class managing the application selection.</param>
+        /// <param name="mainWindowController">Controller for UI.</param>
+        /// <param name="toolViewController">Controller for Tool Windows.</param>
         /// <param name="viewCommands">The view command handler.</param>
-        /// <param name="gui">The GUI.</param>
-        public StorageCommandHandler(IViewCommands viewCommands, IGui gui)
+        public StorageCommandHandler(IStoreProject projectStorage, IProjectOwner projectOwner,
+                                     IApplicationSelection applicationSelection, IMainWindowController mainWindowController,
+                                     IToolViewController toolViewController, IViewCommands viewCommands)
         {
             this.viewCommands = viewCommands;
-            this.gui = gui;
+            this.mainWindowController = mainWindowController;
+            this.projectOwner = projectOwner;
+            projectPersistor = projectStorage;
+            this.applicationSelection = applicationSelection;
+            this.toolViewController = toolViewController;
 
-            this.gui.ProjectOpened += ApplicationProjectOpened;
-            this.gui.ProjectClosing += ApplicationProjectClosing;
+            this.projectOwner.ProjectOpened += ApplicationProjectOpened;
+            this.projectOwner.ProjectClosing += ApplicationProjectClosing;
         }
 
         public void UpdateObserver()
         {
-            gui.RefreshGui();
+            mainWindowController.RefreshGui();
         }
 
         /// <summary>
@@ -48,11 +62,11 @@ namespace Core.Common.Gui
             CloseProject();
 
             log.Info(Resources.Project_new_opening);
-            gui.Project = new Project();
-            gui.ProjectFilePath = "";
+            projectOwner.Project = new Project();
+            projectOwner.ProjectFilePath = "";
             log.Info(Resources.Project_new_successfully_opened);
 
-            gui.RefreshGui();
+            mainWindowController.RefreshGui();
         }
 
         /// <summary>
@@ -68,7 +82,7 @@ namespace Core.Common.Gui
                 RestoreDirectory = true
             };
 
-            if (openFileDialog.ShowDialog(gui.MainWindow) != DialogResult.Cancel)
+            if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel)
             {
                 return OpenExistingProject(openFileDialog.FileName);
             }
@@ -85,11 +99,10 @@ namespace Core.Common.Gui
         {
             log.Info(Resources.Project_existing_opening_project);
 
-            var storage = gui.Storage;
             Project loadedProject;
             try
             {
-                loadedProject = storage.LoadProject(filePath);
+                loadedProject = projectPersistor.LoadProject(filePath);
             }
             catch (StorageException e)
             {
@@ -107,11 +120,11 @@ namespace Core.Common.Gui
             // Project loaded successfully, close current project
             CloseProject();
 
-            gui.ProjectFilePath = filePath;
-            gui.Project = loadedProject;
-            gui.Project.Name = Path.GetFileNameWithoutExtension(filePath);
-            gui.Project.NotifyObservers();
-            gui.RefreshGui();
+            projectOwner.ProjectFilePath = filePath;
+            projectOwner.Project = loadedProject;
+            projectOwner.Project.Name = Path.GetFileNameWithoutExtension(filePath);
+            projectOwner.Project.NotifyObservers();
+            mainWindowController.RefreshGui();
             log.Info(Resources.Project_existing_successfully_opened);
             return true;
         }
@@ -121,19 +134,19 @@ namespace Core.Common.Gui
         /// </summary>
         public void CloseProject()
         {
-            if (gui.Project == null)
+            if (projectOwner.Project == null)
             {
                 return;
             }
 
             // remove views before closing project. 
-            viewCommands.RemoveAllViewsForItem(gui.Project);
+            viewCommands.RemoveAllViewsForItem(projectOwner.Project);
 
-            gui.Project = null;
-            gui.Selection = null;
-            gui.ProjectFilePath = "";
+            projectOwner.Project = null;
+            projectOwner.ProjectFilePath = "";
+            applicationSelection.Selection = null;
 
-            gui.RefreshGui();
+            mainWindowController.RefreshGui();
         }
 
         /// <summary>
@@ -142,7 +155,7 @@ namespace Core.Common.Gui
         /// <returns>Returns <c>true</c> if the save was successful, <c>false</c> otherwise.</returns>
         public bool SaveProjectAs()
         {
-            var project = gui.Project;
+            var project = projectOwner.Project;
             if (project == null)
             {
                 return false;
@@ -154,17 +167,16 @@ namespace Core.Common.Gui
                 return false;
             }
 
-            var storage = gui.Storage;
-            if (!TrySaveProjectAs(storage, filePath))
+            if (!TrySaveProjectAs(projectPersistor, filePath))
             {
                 return false;
             }
 
             // Save was successful, store location
-            gui.ProjectFilePath = filePath;
+            projectOwner.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
             project.NotifyObservers();
-            gui.RefreshGui();
+            mainWindowController.RefreshGui();
             log.Info(String.Format(Resources.Project_saving_project_saved_0, project.Name));
             return true;
         }
@@ -172,15 +184,15 @@ namespace Core.Common.Gui
         /// <summary>
         /// Saves the current <see cref="Project"/> to the defined storage file.
         /// </summary>
-        /// <returns>Returns if the save was succesful.</returns>
+        /// <returns>Returns if the save was successful.</returns>
         public bool SaveProject()
         {
-            var project = gui.Project;
+            var project = projectOwner.Project;
             if (project == null)
             {
                 return false;
             }
-            var filePath = gui.ProjectFilePath;
+            var filePath = projectOwner.ProjectFilePath;
 
             // If filepath is not set, go to SaveAs
             if (string.IsNullOrWhiteSpace(filePath))
@@ -188,8 +200,7 @@ namespace Core.Common.Gui
                 return SaveProjectAs();
             }
 
-            var storage = gui.Storage;
-            if (!TrySaveProject(storage, filePath))
+            if (!TrySaveProject(projectPersistor, filePath))
             {
                 return false;
             }
@@ -200,8 +211,8 @@ namespace Core.Common.Gui
 
         public void Dispose()
         {
-            gui.ProjectOpened -= ApplicationProjectOpened;
-            gui.ProjectClosing -= ApplicationProjectClosing;
+            projectOwner.ProjectOpened -= ApplicationProjectOpened;
+            projectOwner.ProjectClosing -= ApplicationProjectClosing;
         }
 
         /// <summary>
@@ -232,7 +243,7 @@ namespace Core.Common.Gui
         {
             try
             {
-                storage.SaveProjectAs(filePath, gui.Project);
+                storage.SaveProjectAs(filePath, projectOwner.Project);
                 return true;
             }
             catch (StorageException e)
@@ -247,7 +258,7 @@ namespace Core.Common.Gui
         {
             try
             {
-                storage.SaveProject(filePath, gui.Project);
+                storage.SaveProject(filePath, projectOwner.Project);
                 return true;
             }
             catch (StorageException e)
@@ -261,14 +272,11 @@ namespace Core.Common.Gui
         private void ApplicationProjectClosing(Project project)
         {
             // clean all views
-            if (gui.DocumentViews != null)
-            {
-                viewCommands.RemoveAllViewsForItem(project);
-            }
+            viewCommands.RemoveAllViewsForItem(project);
 
-            if (gui.ToolWindowViews != null)
+            if (toolViewController.ToolWindowViews != null)
             {
-                foreach (IView view in gui.ToolWindowViews)
+                foreach (IView view in toolViewController.ToolWindowViews)
                 {
                     view.Data = null;
                 }
@@ -279,7 +287,7 @@ namespace Core.Common.Gui
 
         private void ApplicationProjectOpened(Project project)
         {
-            gui.Selection = project;
+            applicationSelection.Selection = project;
 
             project.Attach(this);
         }
@@ -287,12 +295,12 @@ namespace Core.Common.Gui
         private void AddProjectToMruList()
         {
             var mruList = (StringCollection) Settings.Default["mruList"];
-            if (mruList.Contains(gui.ProjectFilePath))
+            if (mruList.Contains(projectOwner.ProjectFilePath))
             {
-                mruList.Remove(gui.ProjectFilePath);
+                mruList.Remove(projectOwner.ProjectFilePath);
             }
 
-            mruList.Insert(0, gui.ProjectFilePath);
+            mruList.Insert(0, projectOwner.ProjectFilePath);
         }
     }
 }

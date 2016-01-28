@@ -10,7 +10,7 @@ namespace Core.Common.Gui.Forms
     public interface IRibbonCommandHandler
     {
         /// <summary>
-        /// Call this action in the implementation when command needs to be handled in the graphical user interface.
+        /// Returns all commands provided by this command handler.
         /// </summary>
         IEnumerable<ICommand> Commands { get; }
 

@@ -61,8 +61,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        public IGui Gui { get; set; }
-
         public Action<IView> UpdateViewNameAction { get; set; }
 
         public IView ActiveView
@@ -139,8 +137,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             dockingManager.ViewActivated -= DockingManagerViewActivated;
 
             dockingManager.Dispose();
-
-            Gui = null;
         }
 
         public void Add(IView view, ViewLocation viewLocation)

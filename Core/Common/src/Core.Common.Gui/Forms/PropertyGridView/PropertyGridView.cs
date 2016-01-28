@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
@@ -18,10 +17,11 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         private delegate void ArgumentlessDelegate();
 
         private readonly IApplicationSelection applicationSelection;
-        private readonly IGui gui;
+        private readonly IPropertyResolver propertyResolver;
+
         private IObservable observable;
 
-        public PropertyGridView(IGui gui, IApplicationSelection applicationSelection)
+        public PropertyGridView(IApplicationSelection applicationSelection, IPropertyResolver propertyResolver)
         {
             HideTabsButton();
             FixDescriptionArea();
@@ -29,10 +29,10 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
             PropertySort = PropertySort.Categorized;
 
-            this.applicationSelection = applicationSelection;
-            this.gui = gui;
+            this.propertyResolver = propertyResolver;
 
-            gui.SelectionChanged += GuiSelectionChanged;
+            this.applicationSelection = applicationSelection;
+            this.applicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// <param name="e"></param>
         protected override void OnPropertySortChanged(EventArgs e)
         {
-            // Needed for maintaining property order (no support for both categorized and alphabethical sorting)
+            // Needed for maintaining property order (no support for both categorized and alphabetical sorting)
             if (PropertySort == PropertySort.CategorizedAlphabetical)
             {
                 PropertySort = PropertySort.Categorized;
@@ -128,7 +128,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// <returns></returns>
         public object GetObjectProperties(object sourceData)
         {
-            return gui != null ? gui.PropertyResolver.GetObjectProperties(sourceData) : null;
+            return propertyResolver.GetObjectProperties(sourceData);
         }
 
         #endregion

@@ -12,7 +12,7 @@ namespace Core.Common.Gui
         void ShowPropertiesFor(object obj);
 
         /// <summary>
-        /// Indicates if there is a property view object for the current <see cref="IGui.Selection"/>.
+        /// Indicates if there is a property view object for some object.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns><c>true</c> if a property view is defined, <c>false</c> otherwise.</returns>

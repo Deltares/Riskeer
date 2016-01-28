@@ -22,9 +22,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         [RequiresSTA]
         public void StartGuiWithToolboxDoesNotCrash()
         {
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
-                gui.MainWindow = new MainWindow(gui);
                 var applicationCore = gui.ApplicationCore;
 
                 applicationCore.AddPlugin(new RingtoetsApplicationPlugin());
@@ -45,9 +44,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
         {
             // initialize
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
-                gui.MainWindow = new MainWindow(gui);
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -61,9 +59,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             //testing testhelper + visible changed event of mainwindow.
             //could be tested separately but the combination is vital to many tests. That's why this test is here.
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
-                gui.MainWindow = new MainWindow(gui);
                 gui.Run();
                 int callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
@@ -75,9 +72,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         [RequiresSTA]
         public void SelectingProjectNodeSetsSelectedItemToProject()
         {
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
-                gui.MainWindow = new MainWindow(gui);
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
@@ -92,9 +88,8 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
         private static void StartWithCommonPlugins()
         {
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
-                gui.MainWindow = new MainWindow(gui);
                 var applicationCore = gui.ApplicationCore;
 
                 applicationCore.AddPlugin(new RingtoetsApplicationPlugin());

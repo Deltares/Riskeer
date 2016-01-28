@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
@@ -17,12 +16,12 @@ namespace Core.Common.Gui
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiExportHandler));
         private static readonly Bitmap brickImage = Resources.brick;
 
-        private readonly IWin32Window owner;
+        private readonly IWin32Window dialogParent;
 
         // TODO: refactor it, remove Funcs - too complicated design, initialize exporters in a different way
-        public GuiExportHandler(IWin32Window owner, Func<object, IEnumerable<IFileExporter>> fileExportersGetter, Func<object, IView> viewGetter)
+        public GuiExportHandler(IWin32Window dialogParent, Func<object, IEnumerable<IFileExporter>> fileExportersGetter, Func<object, IView> viewGetter)
         {
-            this.owner = owner;
+            this.dialogParent = dialogParent;
             FileExportersGetter = fileExportersGetter;
             ViewGetter = viewGetter;
         }
@@ -48,7 +47,7 @@ namespace Core.Common.Gui
         private IFileExporter GetSupportedExporterForItemUsingDialog(object itemToExport)
         {
             var sourceType = itemToExport.GetType();
-            var selectExporterDialog = new SelectItemDialog(owner);
+            var selectExporterDialog = new SelectItemDialog(dialogParent);
 
             var fileExporters = FileExportersGetter(itemToExport);
 
@@ -91,7 +90,7 @@ namespace Core.Common.Gui
                 FilterIndex = 2
             };
 
-            if (saveFileDialog.ShowDialog(owner) == DialogResult.OK)
+            if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
             {
                 if (exporter.Export(item, saveFileDialog.FileName))
                 {

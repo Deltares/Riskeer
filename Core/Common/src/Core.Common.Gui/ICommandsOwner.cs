@@ -17,10 +17,5 @@ namespace Core.Common.Gui
         IProjectCommands ProjectCommands { get; }
 
         IViewCommands ViewCommands { get; }
-
-        /// <summary>
-        /// Gets commands.
-        /// </summary>
-        IList<IGuiCommand> Commands { get; }
     }
 }

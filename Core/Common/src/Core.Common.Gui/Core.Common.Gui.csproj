@@ -243,7 +243,6 @@
     <Compile Include="ApplicationFeatureCommandHandler.cs" />
     <Compile Include="GuiExportHandler.cs" />
     <Compile Include="GuiImportHandler.cs" />
-    <Compile Include="IGuiCommand.cs" />
     <Compile Include="IObjectProperties.cs" />
     <Compile Include="IViewResolver.cs" />
     <Compile Include="ObjectProperties.cs" />

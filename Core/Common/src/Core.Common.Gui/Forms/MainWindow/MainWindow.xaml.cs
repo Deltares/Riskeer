@@ -33,7 +33,6 @@ using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Xceed.Wpf.AvalonDock.Themes;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
-using IWin32Window = System.Windows.Forms.IWin32Window;
 using WindowsFormApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Forms.MainWindow
@@ -41,17 +40,21 @@ namespace Core.Common.Gui.Forms.MainWindow
     /// <summary>
     /// Main windows of Ringtoets
     /// </summary>
-    public partial class MainWindow : IMainWindow, IDisposable, IWin32Window, ISynchronizeInvoke
+    public partial class MainWindow : IMainWindow, IDisposable, ISynchronizeInvoke
     {
         private const string dockingLayoutFileName = "WindowLayout_normal.xml";
         private static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
-
-        private static Form synchronizationForm;
 
         /// <summary>
         /// Remember last active contextual tab per view.
         /// </summary>
         private readonly IDictionary<Type, string> lastActiveContextTabNamePerViewType = new Dictionary<Type, string>();
+
+        private IToolViewController toolViewController;
+        private IDocumentViewController documentViewController;
+        private ICommandsOwner commands;
+        private ISettingsOwner settings;
+        private IApplicationSelection applicationSelection;
 
         private bool resetDefaultLayout;
 
@@ -71,6 +74,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         private string lastNonContextualTab;
 
+        private IGui gui;
+
         public MainWindow(IGui gui)
         {
             Gui = gui;
@@ -81,7 +86,23 @@ namespace Core.Common.Gui.Forms.MainWindow
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
-        public IGui Gui { get; set; }
+        public IGui Gui
+        {
+            get
+            {
+                return gui;
+            }
+            set
+            {
+                gui = value;
+
+                toolViewController = gui;
+                documentViewController = gui;
+                settings = gui;
+                commands = gui;
+                applicationSelection = gui;
+            }
+        }
 
         public bool IsWindowDisposed { get; private set; }
 
@@ -155,14 +176,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public IProjectExplorer ProjectExplorer
-        {
-            get
-            {
-                return Gui.ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
-            }
-        }
-
         public IPropertyGrid PropertyGrid
         {
             get
@@ -189,21 +202,27 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         public void SubscribeToGui()
         {
-            if (Gui != null)
+            if (toolViewController != null && toolViewController.ToolWindowViews != null)
             {
-                Gui.ToolWindowViews.CollectionChanged += ToolWindowViews_CollectionChanged;
-                Gui.DocumentViews.ActiveViewChanged += DocumentViewsOnActiveViewChanged;
-                Gui.DocumentViews.ActiveViewChanging += DocumentViewsOnActiveViewChanging;
+                toolViewController.ToolWindowViews.CollectionChanged += ToolWindowViews_CollectionChanged;
+            }
+            if (documentViewController != null && documentViewController.DocumentViews != null)
+            {
+                documentViewController.DocumentViews.ActiveViewChanged += DocumentViewsOnActiveViewChanged;
+                documentViewController.DocumentViews.ActiveViewChanging += DocumentViewsOnActiveViewChanging;
             }
         }
 
         public void UnsubscribeFromGui()
         {
-            if (Gui != null)
+            if (toolViewController != null && toolViewController.ToolWindowViews != null)
             {
-                Gui.ToolWindowViews.CollectionChanged -= ToolWindowViews_CollectionChanged;
-                Gui.DocumentViews.ActiveViewChanged -= DocumentViewsOnActiveViewChanged;
-                Gui.DocumentViews.ActiveViewChanging -= DocumentViewsOnActiveViewChanging;
+                toolViewController.ToolWindowViews.CollectionChanged -= ToolWindowViews_CollectionChanged;
+            }
+            if (documentViewController != null && documentViewController.DocumentViews != null)
+            {
+                documentViewController.DocumentViews.ActiveViewChanged -= DocumentViewsOnActiveViewChanged;
+                documentViewController.DocumentViews.ActiveViewChanging -= DocumentViewsOnActiveViewChanging;
             }
         }
 
@@ -233,21 +252,21 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if ((propertyGrid == null) || (propertyGrid.IsDisposed))
             {
-                propertyGrid = new PropertyGridView.PropertyGridView(Gui, Gui);
+                propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, Gui.PropertyResolver);
             }
 
             propertyGrid.Text = Properties.Resources.Properties_Title;
-            propertyGrid.Data = propertyGrid.GetObjectProperties(Gui.Selection);
+            propertyGrid.Data = propertyGrid.GetObjectProperties(applicationSelection.Selection);
 
-            Gui.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
+            toolViewController.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
 
-            Gui.ToolWindowViews.ActiveView = null;
-            Gui.ToolWindowViews.ActiveView = Gui.MainWindow.PropertyGrid;
+            toolViewController.ToolWindowViews.ActiveView = null;
+            toolViewController.ToolWindowViews.ActiveView = propertyGrid;
         }
 
         public void ShowStartPage(bool checkUseSettings = true)
         {
-            if (!checkUseSettings || Convert.ToBoolean(Gui.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
+            if (!checkUseSettings || Convert.ToBoolean(settings.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
                 log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
@@ -338,19 +357,22 @@ namespace Core.Common.Gui.Forms.MainWindow
             // I pulled this code from some internet sources combined with the reflector to remove a well-known leak
             var handlers = typeof(SystemEvents).GetField("_handlers", BindingFlags.Static | BindingFlags.NonPublic)
                                                .GetValue(null);
-            var upcHandler = typeof(SystemEvents).GetField("OnUserPreferenceChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-            var eventLockObject = typeof(SystemEvents).GetField("eventLockObject", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-
-            lock (eventLockObject)
+            if (handlers != null)
             {
-                var upcHandlerList = (IList) ((IDictionary) handlers)[upcHandler];
-                for (int i = upcHandlerList.Count - 1; i >= 0; i--)
+                var upcHandler = typeof(SystemEvents).GetField("OnUserPreferenceChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+                var eventLockObject = typeof(SystemEvents).GetField("eventLockObject", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+
+                lock (eventLockObject)
                 {
-                    var target = (Delegate) upcHandlerList[i].GetType().GetField("_delegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(upcHandlerList[i]);
-                    upcHandlerList.RemoveAt(i);
+                    var upcHandlerList = (IList)((IDictionary)handlers)[upcHandler];
+                    for (int i = upcHandlerList.Count - 1; i >= 0; i--)
+                    {
+                        var target = (Delegate)upcHandlerList[i].GetType().GetField("_delegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(upcHandlerList[i]);
+                        upcHandlerList.RemoveAt(i);
+                    }
                 }
             }
-
+            
             ribbonCommandHandlers = null;
             windowInteropHelper = null;
 
@@ -528,7 +550,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 try
                 {
-                    Gui.StorageCommands.OpenExistingProject(path);
+                    commands.StorageCommands.OpenExistingProject(path);
                     RecentProjectsTabControl.Items.Remove(newItem);
                     RecentProjectsTabControl.Items.Insert(1, newItem);
                 }
@@ -581,10 +603,10 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void ValidateMainWindowRibbonItems()
         {
-            if (Gui.ToolWindowViews != null)
+            if (toolViewController.ToolWindowViews != null)
             {
-                ButtonShowMessages.IsChecked = Gui.ToolWindowViews.Contains(MessageWindow);
-                ButtonShowProperties.IsChecked = Gui.ToolWindowViews.Contains(PropertyGrid);
+                ButtonShowMessages.IsChecked = toolViewController.ToolWindowViews.Contains(MessageWindow);
+                ButtonShowProperties.IsChecked = toolViewController.ToolWindowViews.Contains(PropertyGrid);
             }
         }
 
@@ -598,29 +620,29 @@ namespace Core.Common.Gui.Forms.MainWindow
                 };
             }
 
-            if (Gui == null || Gui.ToolWindowViews == null)
+            if (toolViewController.ToolWindowViews == null)
             {
                 return;
             }
 
-            if (Gui.ToolWindowViews.Contains(messageWindow))
+            if (toolViewController.ToolWindowViews.Contains(messageWindow))
             {
-                Gui.ToolWindowViews.ActiveView = messageWindow;
+                toolViewController.ToolWindowViews.ActiveView = messageWindow;
                 return;
             }
 
-            Gui.ToolWindowViews.Add(messageWindow, ViewLocation.Bottom);
+            toolViewController.ToolWindowViews.Add(messageWindow, ViewLocation.Bottom);
         }
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
-            var saveProject = Gui.StorageCommands.SaveProject();
+            var saveProject = commands.StorageCommands.SaveProject();
             OnAfterProjectSaveOrOpen(saveProject);
         }
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
-            var saveProject = Gui.StorageCommands.SaveProjectAs();
+            var saveProject = commands.StorageCommands.SaveProjectAs();
             OnAfterProjectSaveOrOpen(saveProject);
         }
 
@@ -641,14 +663,14 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            var succesful = Gui.StorageCommands.OpenExistingProject();
+            var succesful = commands.StorageCommands.OpenExistingProject();
             OnAfterProjectSaveOrOpen(succesful);
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
             // Original code:
-            Gui.StorageCommands.CreateNewProject();
+            commands.StorageCommands.CreateNewProject();
             ValidateItems();
         }
 
@@ -799,11 +821,11 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             AddRecentlyOpenedProjectsToFileMenu();
 
-            SetColorTheme((ColorTheme) Gui.UserSettings["colorTheme"]);
+            SetColorTheme((ColorTheme) settings.UserSettings["colorTheme"]);
 
-            FileManualButton.IsEnabled = File.Exists(Gui.FixedSettings.ManualFilePath);
+            FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 
-            LicenseButton.IsEnabled = File.Exists(Gui.FixedSettings.LicenseFilePath);
+            LicenseButton.IsEnabled = File.Exists(settings.FixedSettings.LicenseFilePath);
             FeedbackButton.IsEnabled = false;
 
             ButtonQuickAccessOpenProject.IsEnabled = ButtonMenuFileOpenProject.IsEnabled;
@@ -921,27 +943,15 @@ namespace Core.Common.Gui.Forms.MainWindow
                     }
                 }
             }
-
-            foreach (var ribbonExtension in ribbonCommandHandlers)
-            {
-                foreach (var command in ribbonExtension.Commands)
-                {
-                    var guiCommand = command as IGuiCommand;
-                    if (guiCommand != null)
-                    {
-                        guiCommand.Gui = Gui;
-                    }
-                }
-            }
         }
 
         private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
         {
-            using (var optionsDialog = new OptionsDialog(this, Gui.UserSettings))
+            using (var optionsDialog = new OptionsDialog(this, settings.UserSettings))
             {
                 if (optionsDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    SetColorTheme((ColorTheme) Gui.UserSettings["colorTheme"]);
+                    SetColorTheme((ColorTheme) settings.UserSettings["colorTheme"]);
                 }
             }
         }
@@ -973,16 +983,16 @@ namespace Core.Common.Gui.Forms.MainWindow
                 DockingManager.Theme = new GenericTheme();
             }
 
-            Gui.UserSettings["colorTheme"] = colorTheme;
+            settings.UserSettings["colorTheme"] = colorTheme;
         }
 
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
         {
-            var active = Gui.ToolWindowViews.Contains(PropertyGrid);
+            var active = toolViewController.ToolWindowViews.Contains(PropertyGrid);
 
             if (active)
             {
-                Gui.ToolWindowViews.Remove(PropertyGrid);
+                toolViewController.ToolWindowViews.Remove(PropertyGrid);
                 ButtonShowProperties.IsChecked = false;
             }
             else
@@ -994,11 +1004,11 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void ButtonShowMessages_Click(object sender, RoutedEventArgs e)
         {
-            var active = Gui.ToolWindowViews.Contains(MessageWindow);
+            var active = toolViewController.ToolWindowViews.Contains(MessageWindow);
 
             if (active)
             {
-                Gui.ToolWindowViews.Remove(MessageWindow);
+                toolViewController.ToolWindowViews.Remove(MessageWindow);
                 ButtonShowMessages.IsChecked = false;
             }
             else
@@ -1017,20 +1027,20 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             var licensePageName = Properties.Resources.MainWindow_LicenseView_Name;
 
-            foreach (var view in Gui.DocumentViews.OfType<RichTextView>())
+            foreach (var view in documentViewController.DocumentViews.OfType<RichTextView>())
             {
                 if (view.Text == licensePageName)
                 {
-                    Gui.DocumentViews.ActiveView = view;
+                    documentViewController.DocumentViews.ActiveView = view;
 
                     return;
                 }
             }
 
-            Gui.DocumentViewsResolver.OpenViewForData(new RichTextFile
+            documentViewController.DocumentViewsResolver.OpenViewForData(new RichTextFile
             {
                 Name = licensePageName,
-                FilePath = Gui.FixedSettings.LicenseFilePath
+                FilePath = settings.FixedSettings.LicenseFilePath
             });
         }
 
@@ -1038,12 +1048,12 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
         {
-            Gui.ApplicationCommands.OpenLogFileExternal();
+            commands.ApplicationCommands.OpenLogFileExternal();
         }
 
         private void OnFileManual_Clicked(object sender, RoutedEventArgs e)
         {
-            var manualFileName = Gui.FixedSettings.ManualFilePath;
+            var manualFileName = settings.FixedSettings.ManualFilePath;
 
             if (File.Exists(manualFileName))
             {
@@ -1053,8 +1063,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OpenStartPage()
         {
-            var welcomePageName = (string) Gui.UserSettings["startPageName"];
-            var welcomePageUrl = Gui.FixedSettings.StartPageUrl;
+            var welcomePageName = (string) settings.UserSettings["startPageName"];
+            var welcomePageUrl = settings.FixedSettings.StartPageUrl;
             if (string.IsNullOrEmpty(welcomePageUrl))
             {
                 welcomePageUrl = "about:blank";
@@ -1062,7 +1072,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             var url = new WebLink(welcomePageName, new Uri(welcomePageUrl));
 
-            Gui.ViewCommands.OpenView(url);
+            commands.ViewCommands.OpenView(url);
         }
 
         private void CloseContent(LayoutContent c)
@@ -1072,12 +1082,12 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void CloseDocumentTab(object sender, ExecutedRoutedEventArgs e)
         {
-            Gui.DocumentViews.Remove(Gui.DocumentViews.ActiveView);
+            documentViewController.DocumentViews.Remove(documentViewController.DocumentViews.ActiveView);
         }
 
         private void CanCloseDocumentTab(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = Gui.DocumentViews.Any();
+            e.CanExecute = documentViewController.DocumentViews.Any();
         }
 
         private void ButtonResetUILayout_Click(object sender, RoutedEventArgs e)
@@ -1091,8 +1101,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 HasProgress = false,
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = Gui.FixedSettings.Copyright,
-                LicenseText = Gui.FixedSettings.LicenseDescription,
+                CopyrightText = settings.FixedSettings.Copyright,
+                LicenseText = settings.FixedSettings.LicenseDescription,
                 CompanyText = SettingsHelper.ApplicationCompany,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,

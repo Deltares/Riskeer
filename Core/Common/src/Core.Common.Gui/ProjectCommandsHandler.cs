@@ -17,15 +17,30 @@ namespace Core.Common.Gui
     public class ProjectCommandsHandler : IProjectCommands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ProjectCommandsHandler));
-        private readonly IGui gui;
+
+        private readonly IProjectOwner projectOwner;
+        private readonly IWin32Window dialogOwner;
+        private readonly ApplicationCore applicationCore;
+        private readonly IApplicationSelection applicationSelection;
+        private readonly IDocumentViewController documentViewController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectCommandsHandler"/> class.
         /// </summary>
-        /// <param name="gui">The GUI.</param>
-        public ProjectCommandsHandler(IGui gui)
+        /// <param name="projectOwner"></param>
+        /// <param name="dialogParent"></param>
+        /// <param name="applicationCore"></param>
+        /// <param name="applicationSelection"></param>
+        /// <param name="documentViewController"></param>
+        public ProjectCommandsHandler(IProjectOwner projectOwner, IWin32Window dialogParent,
+                                      ApplicationCore applicationCore, IApplicationSelection applicationSelection,
+                                      IDocumentViewController documentViewController)
         {
-            this.gui = gui;
+            this.projectOwner = projectOwner;
+            dialogOwner = dialogParent;
+            this.applicationCore = applicationCore;
+            this.applicationSelection = applicationSelection;
+            this.documentViewController = documentViewController;
         }
 
         public object AddNewChildItem(object parent, IEnumerable<Type> childItemValueTypes)
@@ -42,12 +57,12 @@ namespace Core.Common.Gui
 
         public void AddNewItem(object parent)
         {
-            if (gui.Project == null)
+            if (projectOwner.Project == null)
             {
                 log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
 
-            using (var selectDataDialog = CreateSelectionDialogWithItems(gui.ApplicationCore.GetSupportedDataItemInfos(parent).ToList()))
+            using (var selectDataDialog = CreateSelectionDialogWithItems(applicationCore.GetSupportedDataItemInfos(parent).ToList()))
             {
                 if (selectDataDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -56,8 +71,8 @@ namespace Core.Common.Gui
                     {
                         AddItemToProject(newItem);
 
-                        gui.Selection = newItem;
-                        gui.DocumentViewsResolver.OpenViewForData(gui.Selection);
+                        applicationSelection.Selection = newItem;
+                        documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection);
                     }
                 }
             }
@@ -65,18 +80,18 @@ namespace Core.Common.Gui
 
         public void AddItemToProject(object newItem)
         {
-            gui.Project.Items.Add(newItem);
-            gui.Project.NotifyObservers();
+            projectOwner.Project.Items.Add(newItem);
+            projectOwner.Project.NotifyObservers();
         }
 
         private IEnumerable<DataItemInfo> GetSupportedDataItemInfosByValueTypes(object parent, IEnumerable<Type> valueTypes)
         {
-            return gui.ApplicationCore.GetSupportedDataItemInfos(parent).Where(dii => valueTypes.Contains(dii.ValueType));
+            return applicationCore.GetSupportedDataItemInfos(parent).Where(dii => valueTypes.Contains(dii.ValueType));
         }
 
-        private SelectItemDialog CreateSelectionDialogWithItems(IList<DataItemInfo> dataItemInfos)
+        private SelectItemDialog CreateSelectionDialogWithItems(IEnumerable<DataItemInfo> dataItemInfos)
         {
-            var selectDataDialog = new SelectItemDialog(gui.MainWindow);
+            var selectDataDialog = new SelectItemDialog(dialogOwner);
 
             foreach (var dataItemInfo in dataItemInfos)
             {

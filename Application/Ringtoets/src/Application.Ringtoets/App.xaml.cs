@@ -119,8 +119,8 @@ namespace Application.Ringtoets
                 LicenseFilePath = "..\\Licentie.rtf",
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
-
-            gui = new RingtoetsGui(applicationCore, settings)
+            var mainWindow = new MainWindow(null);
+            gui = new RingtoetsGui(mainWindow, applicationCore, settings)
             {
                 Plugins =
                 {
@@ -136,9 +136,6 @@ namespace Application.Ringtoets
                 },
                 Storage = new StorageSqLite()
             };
-
-            var mainWindow = new MainWindow(gui);
-            gui.MainWindow = mainWindow;
 
             RunRingtoets();
 

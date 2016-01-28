@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using System.Windows.Forms;
 
 using Core.Common.Base.IO;
+using Core.Common.Base.Plugin;
 using Core.Common.Gui.Properties;
 
 using log4net;
@@ -15,24 +17,32 @@ namespace Core.Common.Gui
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ExportImportCommandHandler));
 
-        private readonly IGui gui;
+        private readonly ApplicationCore applicationCore;
+
+        private readonly IDocumentViewController documentViewController;
+
         private readonly GuiImportHandler importHandler;
         private readonly GuiExportHandler exportHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExportImportCommandHandler"/> class.
         /// </summary>
-        /// <param name="gui">The GUI.</param>
-        public ExportImportCommandHandler(IGui gui)
+        /// <param name="dialogParent"></param>
+        /// <param name="applicationCore"></param>
+        /// <param name="documentViewController"></param>
+        public ExportImportCommandHandler(IWin32Window dialogParent, ApplicationCore applicationCore, IDocumentViewController documentViewController)
         {
-            this.gui = gui;
-            importHandler = CreateGuiImportHandler(this.gui);
-            exportHandler = CreateGuiExportHandler(this.gui);
+            this.applicationCore = applicationCore;
+            this.documentViewController = documentViewController;
+            importHandler = new GuiImportHandler(dialogParent, this.applicationCore);
+            exportHandler = new GuiExportHandler(dialogParent,
+                                                 o => this.applicationCore.GetSupportedFileExporters(o),
+                                                 o => this.documentViewController.DocumentViewsResolver.CreateViewForData(o));
         }
 
         public bool CanImportOn(object obj)
         {
-            return gui.ApplicationCore.GetSupportedFileImporters(obj).Any();
+            return applicationCore.GetSupportedFileImporters(obj).Any();
         }
 
         public void ImportOn(object target, IFileImporter importer = null)
@@ -56,7 +66,7 @@ namespace Core.Common.Gui
 
         public bool CanExportFrom(object obj)
         {
-            return gui.ApplicationCore.GetSupportedFileExporters(obj).Any();
+            return applicationCore.GetSupportedFileExporters(obj).Any();
         }
 
         public void ExportFrom(object data, IFileExporter exporter = null)
@@ -69,16 +79,6 @@ namespace Core.Common.Gui
             {
                 exportHandler.GetExporterDialog(exporter, data);
             }
-        }
-
-        private static GuiImportHandler CreateGuiImportHandler(IGui gui)
-        {
-            return new GuiImportHandler(gui);
-        }
-
-        private static GuiExportHandler CreateGuiExportHandler(IGui gui)
-        {
-            return new GuiExportHandler(gui.MainWindow, o => gui.ApplicationCore.GetSupportedFileExporters(o), o => gui.DocumentViewsResolver.CreateViewForData(o));
         }
     }
 }

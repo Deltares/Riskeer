@@ -20,12 +20,12 @@ namespace Core.Common.Gui
         event Action<Project> ProjectClosing;
 
         /// <summary>
-        /// Gets or sets the project of the <see cref="IGui"/>.
+        /// Gets or sets the project of the application.
         /// </summary>
         Project Project { get; set; }
 
         /// <summary>
-        /// Gets or sets the project path of the <see cref="IGui"/>.
+        /// Gets or sets the project path of the application.
         /// </summary>
         string ProjectFilePath { get; set; } 
     }

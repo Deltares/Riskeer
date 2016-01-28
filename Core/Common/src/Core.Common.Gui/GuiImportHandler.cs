@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
+using Core.Common.Base.Plugin;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -14,13 +15,15 @@ namespace Core.Common.Gui
     /// </summary>
     public class GuiImportHandler
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(GuiImportHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(GuiImportHandler));
 
-        private readonly IGui gui;
+        private readonly IWin32Window dialogParent;
+        private readonly ApplicationCore applicationCore;
 
-        public GuiImportHandler(IGui gui)
+        public GuiImportHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
         {
-            this.gui = gui;
+            this.dialogParent = dialogParent;
+            this.applicationCore = applicationCore;
         }
 
         public void ImportUsingImporter(IFileImporter importer, object target)
@@ -35,14 +38,14 @@ namespace Core.Common.Gui
 
         public IFileImporter GetSupportedImporterForTargetType(object target)
         {
-            var selectImporterDialog = new SelectItemDialog(gui.MainWindow);
+            var selectImporterDialog = new SelectItemDialog(dialogParent);
 
-            var importers = gui.ApplicationCore.GetSupportedFileImporters(target);
+            var importers = applicationCore.GetSupportedFileImporters(target);
             //if there is only one available exporter use that.
             if (!importers.Any())
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item, Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
-                Log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_, target);
+                log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_, target);
                 return null;
             }
 
@@ -97,14 +100,14 @@ namespace Core.Common.Gui
                 RestoreDirectory = true
             };
 
-            if (dialog.ShowDialog(gui.MainWindow) != DialogResult.OK)
+            if (dialog.ShowDialog(dialogParent) != DialogResult.OK)
             {
                 return;
             }
 
-            Log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
+            log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
 
-            ActivityProgressDialogRunner.Run(gui.MainWindow, dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)));
+            ActivityProgressDialogRunner.Run(dialogParent, dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)));
         }
     }
 }

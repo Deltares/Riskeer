@@ -11,23 +11,16 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
     [TestFixture]
     public class GuiImportHandlerTest : NUnitFormTest
     {
-        private MockRepository mocks;
-        private IGui gui;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-            gui = mocks.Stub<IGui>();
-        }
-
         [Test]
         public void NoImporterAvailableGivesMessageBox()
         {
-            var mainWindow = mocks.Stub<IMainWindow>();
             var applicationCore = new ApplicationCore();
-            gui.Stub(g => g.ApplicationCore).Return(applicationCore);
-            gui.Stub(g => g.MainWindow).Return(mainWindow);
+            
+            var mocks = new MockRepository();
+            var mainWindow = mocks.Stub<IMainWindow>();
+
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mainWindowController.Stub(g => g.MainWindow).Return(mainWindow);
 
             mocks.ReplayAll();
 
@@ -39,7 +32,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 messageBox.ClickOk();
             };
 
-            var importHandler = new GuiImportHandler(gui);
+            var importHandler = new GuiImportHandler(mainWindowController.MainWindow, applicationCore);
 
             var item = importHandler.GetSupportedImporterForTargetType(typeof(Int64));
 

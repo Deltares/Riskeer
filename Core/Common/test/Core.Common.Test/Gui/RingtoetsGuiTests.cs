@@ -1,7 +1,7 @@
+using System;
 using System.Linq;
 
 using Core.Common.Base.Plugin;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Test.TestObjects;
@@ -14,17 +14,16 @@ namespace Core.Common.Test.Gui
     public class RingtoetsGuiTests
     {
         [Test]
+        [STAThread]
         public void DisposingGuiDisposesApplication()
         {
             // Setup
             var mocks = new MockRepository();
             var applicationCore = mocks.Stub<ApplicationCore>();
-
             applicationCore.Expect(ac => ac.Dispose());
-
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(applicationCore);
+            var gui = new RingtoetsGui(new MainWindow(null), applicationCore);
 
             // Call
             gui.Dispose();
@@ -34,19 +33,21 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
+        [STAThread]
         public void CheckViewPropertyEditorIsInitialized()
         {
-            using (new RingtoetsGui())
+            using (new RingtoetsGui(new MainWindow(null)))
             {
-                Assert.NotNull(ViewPropertyEditor.Gui);
+                Assert.NotNull(ViewPropertyEditor.ViewCommands);
             }
         }
 
         [Test]
+        [STAThread]
         public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnEmpty()
         {
             // Setup
-            using (var ringtoetsGui = new RingtoetsGui())
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null)))
             {
                 var rootData = new object();
 
@@ -59,12 +60,14 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
+        [STAThread]
         public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRoot_ReturnRootObject()
         {
             // Setup
             var rootData = new object();
 
             var mocks = new MockRepository();
+
             var plugin1 = mocks.StrictMock<GuiPlugin>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
@@ -81,7 +84,7 @@ namespace Core.Common.Test.Gui
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui())
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null)))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -100,6 +103,7 @@ namespace Core.Common.Test.Gui
         }
 
         [Test]
+        [STAThread]
         public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRootAndChild_ReturnRootAndChild()
         {
             // Setup
@@ -107,6 +111,7 @@ namespace Core.Common.Test.Gui
             object rootChild = 2;
 
             var mocks = new MockRepository();
+
             var plugin1 = mocks.StrictMock<GuiPlugin>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
@@ -131,7 +136,7 @@ namespace Core.Common.Test.Gui
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui())
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null)))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -154,9 +159,8 @@ namespace Core.Common.Test.Gui
         public void ActiveViewChanged_LastDocumentViewClosed_EventFired()
         {
             // Setup
-            using (var gui = new RingtoetsGui())
+            using (var gui = new RingtoetsGui(new MainWindow(null)))
             {
-                gui.MainWindow = new MainWindow(gui);
                 gui.Run();
 
                 var view = new TestView();
