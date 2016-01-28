@@ -14,6 +14,11 @@ namespace Core.Components.DotSpatial.Test
     [TestFixture]
     public class BaseMapTest
     {
+        private readonly string segmentsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_segments.shp");
+        private readonly string dijkvakgebiedenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_dijkvakgebieden.shp");
+        private readonly string binnenTeenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_binnenteen.shp");
+        private readonly string tempTeenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_teen.shp");
+
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {
@@ -31,7 +36,7 @@ namespace Core.Components.DotSpatial.Test
             var map = new BaseMap();
             var data = new MapData();
 
-            data.AddShapeFile(string.Format("{0}\\Resources\\DR10_segments.shp", Environment.CurrentDirectory));
+            data.AddShapeFile(segmentsFile);
 
             // Call
             TestDelegate setDataDelegate = () => map.SetMapData(data);
@@ -46,12 +51,10 @@ namespace Core.Components.DotSpatial.Test
             // Setup
             var map = new BaseMap();
             var data = new MapData();
-            var filePath = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
-            var newPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
 
-            data.AddShapeFile(filePath);
+            data.AddShapeFile(binnenTeenFile);
 
-            RenameFile(newPath, filePath);
+            RenameFile(tempTeenFile, binnenTeenFile);
 
             // Call
             TestDelegate testDelegate = () => map.SetMapData(data);
@@ -64,7 +67,7 @@ namespace Core.Components.DotSpatial.Test
             finally
             {
                 // Place the original file back for other tests.
-                RenameFile(filePath, newPath);
+                RenameFile(binnenTeenFile, tempTeenFile);
             }
         }
 
@@ -75,7 +78,7 @@ namespace Core.Components.DotSpatial.Test
             var map = new BaseMap();
             var data = new MapData();
 
-            data.AddShapeFile(string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory));
+            data.AddShapeFile(dijkvakgebiedenFile);
 
             // Call
             TestDelegate setDataDelegate = () => map.SetMapData(data);
@@ -91,10 +94,9 @@ namespace Core.Components.DotSpatial.Test
             var map = new BaseMap();
             var data = new MapData();
 
-            var filePath = string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory);
-            var excpectedLog = string.Format(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, filePath);
+            var excpectedLog = string.Format(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, dijkvakgebiedenFile);
 
-            data.AddShapeFile(filePath);
+            data.AddShapeFile(dijkvakgebiedenFile);
 
             var mapComponent = TypeUtils.GetField<Map>(map, "map");
 
@@ -111,7 +113,10 @@ namespace Core.Components.DotSpatial.Test
 
         private static void RenameFile(string newPath, string path)
         {
-            File.Delete(newPath);
+            if (File.Exists(newPath))
+            {
+                File.Delete(newPath);
+            }
             File.Move(path, newPath);
         }
     }

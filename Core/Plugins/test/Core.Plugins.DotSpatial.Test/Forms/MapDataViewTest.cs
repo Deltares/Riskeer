@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
@@ -11,6 +13,8 @@ namespace Core.Plugins.DotSpatial.Test.Forms
     [TestFixture]
     public class MapDataViewTest
     {
+        private readonly string dijkvakgebiedenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Plugins.DotSpatial, "ShapeFiles"), "DR10_dijkvakgebieden.shp");
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -69,8 +73,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             // Setup
             var mapData = new MapData();
             var mapView = new MapDataView();
-            var filePath = string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory);
-            mapData.AddShapeFile(filePath);
+            mapData.AddShapeFile(dijkvakgebiedenFile);
             mapView.Data = mapData;
 
             // Call

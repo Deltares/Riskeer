@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.Data;
 using Core.Components.DotSpatial.Exceptions;
@@ -11,19 +11,11 @@ namespace Core.Components.DotSpatial.Test.Data
     [TestFixture]
     public class MapDataTest
     {
-        [TestFixtureTearDown]
-        public void CleanRenamedFile()
-        {
-            var newPath = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
-            var oldPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
-
-            RenameFile(newPath, oldPath);
-
-            if (File.Exists(oldPath))
-            {
-                File.Delete(oldPath);
-            }
-        }
+        private readonly string segmentsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_segments.shp");
+        private readonly string dijkvakgebiedenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_dijkvakgebieden.shp");
+        private readonly string dijkvakgebiedenDbf = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_dijkvakgebieden.dbf");
+        private readonly string binnenTeenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_binnenteen.shp");
+        private readonly string tempTeenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_teen.shp");
 
         [Test]
         public void Constructor_Always_CreatesHashSet()
@@ -42,16 +34,15 @@ namespace Core.Components.DotSpatial.Test.Data
         {
             // Setup
             var data = new MapData();
-            var filePath = string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory);
 
             // Call
-            var succeeded = data.AddShapeFile(filePath);
+            var succeeded = data.AddShapeFile(dijkvakgebiedenFile);
 
             // Assert
             Assert.IsTrue(succeeded);
             CollectionAssert.AreEquivalent(new[]
             {
-                filePath
+                dijkvakgebiedenFile
             }, data.FilePaths);
         }
 
@@ -60,18 +51,17 @@ namespace Core.Components.DotSpatial.Test.Data
         {
             // Setup
             var data = new MapData();
-            var filePath = string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory);
 
             // Call
-            var succeededFirst = data.AddShapeFile(filePath);
-            var succeededSecond = data.AddShapeFile(filePath);
+            var succeededFirst = data.AddShapeFile(dijkvakgebiedenFile);
+            var succeededSecond = data.AddShapeFile(dijkvakgebiedenFile);
 
             // Assert
             Assert.IsTrue(succeededFirst);
             Assert.IsFalse(succeededSecond);
             CollectionAssert.AreEquivalent(new[]
             {
-                filePath
+                dijkvakgebiedenFile
             }, data.FilePaths);
         }
 
@@ -96,14 +86,13 @@ namespace Core.Components.DotSpatial.Test.Data
         {
             // Setup
             var data = new MapData();
-            var filePath = string.Format("{0}\\Resources\\DR10_dijkvakgebieden.dbf", Environment.CurrentDirectory);
 
             // Call
-            TestDelegate testDelegate = () => data.AddShapeFile(filePath);
+            TestDelegate testDelegate = () => data.AddShapeFile(dijkvakgebiedenDbf);
 
             // Assert
             MapDataException exception = Assert.Throws<MapDataException>(testDelegate);
-            string expectedMessage = string.Format("Bestand op pad {0} heeft niet de juiste .shp extensie.", filePath);
+            string expectedMessage = string.Format("Bestand op pad {0} heeft niet de juiste .shp extensie.", dijkvakgebiedenDbf);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -129,8 +118,8 @@ namespace Core.Components.DotSpatial.Test.Data
             var data = new MapData();
             var filePathsToAdd = new string[]
             {
-                string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory),
-                string.Format("{0}\\Resources\\DR10_segments.shp", Environment.CurrentDirectory)
+                dijkvakgebiedenFile,
+                segmentsFile
             };
 
             var addedPaths = new HashSet<string>();
@@ -165,8 +154,7 @@ namespace Core.Components.DotSpatial.Test.Data
         {
             // Setup
             var data = new MapData();
-            var path = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
-            data.AddShapeFile(path);
+            data.AddShapeFile(binnenTeenFile);
 
             // Call
             bool result = data.IsValid();
@@ -175,7 +163,7 @@ namespace Core.Components.DotSpatial.Test.Data
             Assert.IsTrue(result);
             CollectionAssert.AreEqual(new[]
             {
-                path
+                binnenTeenFile
             }, data.FilePaths);
         }
 
@@ -184,15 +172,13 @@ namespace Core.Components.DotSpatial.Test.Data
         {
             // Setup
             var data = new MapData();
-            var path = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
-            var newPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
 
-            data.AddShapeFile(path);
+            data.AddShapeFile(binnenTeenFile);
 
             // Pre-condition
             bool result = data.IsValid();
 
-            RenameFile(newPath, path);
+            RenameFile(tempTeenFile, binnenTeenFile);
 
             try
             {
@@ -207,7 +193,7 @@ namespace Core.Components.DotSpatial.Test.Data
             finally
             {
                 // Place original file back for other tests.
-                RenameFile(path, newPath);
+                RenameFile(binnenTeenFile, tempTeenFile);
             }
         }
 
@@ -218,10 +204,9 @@ namespace Core.Components.DotSpatial.Test.Data
             var data = new MapData();
             var paths = new[]
             {
-                string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory),
-                string.Format("{0}\\Resources\\DR10_dijkvakgebieden.shp", Environment.CurrentDirectory),
+                binnenTeenFile,
+                dijkvakgebiedenFile
             };
-            var newPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
 
             foreach (var path in paths)
             {
@@ -231,7 +216,7 @@ namespace Core.Components.DotSpatial.Test.Data
             // Pre-condition
             bool result = data.IsValid();
 
-            RenameFile(newPath, paths[0]);
+            RenameFile(tempTeenFile, paths[0]);
 
             try
             {
@@ -247,13 +232,16 @@ namespace Core.Components.DotSpatial.Test.Data
             finally
             {
                 // Place the original file back for other tests.
-                RenameFile(paths[0], newPath);
+                RenameFile(paths[0], tempTeenFile);
             }
         }
 
         private static void RenameFile(string newPath, string path)
         {
-            File.Delete(newPath);
+            if (File.Exists(newPath))
+            {
+                File.Delete(newPath);
+            }
             File.Move(path, newPath);
         }
     }

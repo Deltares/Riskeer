@@ -30,6 +30,17 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath Base = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Base.Test");
                 public static readonly TestDataPath Utils = System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Utils.Test");
             }
+
+            public static class Components
+            {
+                public static readonly TestDataPath DotSpatial = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.DotSpatial.Test");
+            }
+            
+            public static class Plugins
+            {
+                public static readonly TestDataPath DotSpatial = System.IO.Path.Combine("Core", "Plugins", "test", "Core.Plugins.DotSpatial.Test");
+            }
+
         }
 
         public static class Ringtoets
