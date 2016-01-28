@@ -14,24 +14,19 @@ namespace Core.Plugins.ProjectExplorer
         private readonly IDocumentViewController documentViewController;
         private readonly IViewCommands viewCommands;
 
-        public ProjectExplorer()
+        public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands,
+                               IProjectOwner projectOwner, IDocumentViewController documentViewController)
         {
             InitializeComponent();
-        }
-
-        public ProjectExplorer(IGui gui)
-        {
-            documentViewController = gui;
-            viewCommands = gui.ViewCommands;
-
-            InitializeComponent();
-            ProjectTreeView = new ProjectTreeView(gui, viewCommands, gui, documentViewController)
+            ProjectTreeView = new ProjectTreeView(applicationSelection, viewCommands, projectOwner, documentViewController)
             {
                 Dock = DockStyle.Fill
             };
             treeViewPanel.Controls.Add(ProjectTreeView);
 
-            documentViewController.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
+            this.viewCommands = viewCommands;
+            this.documentViewController = documentViewController;
+            this.documentViewController.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
         }
 
         public ProjectTreeView ProjectTreeView { get; private set; }

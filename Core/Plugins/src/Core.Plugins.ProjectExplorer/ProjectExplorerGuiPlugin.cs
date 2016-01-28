@@ -16,6 +16,14 @@ namespace Core.Plugins.ProjectExplorer
     {
         private readonly IList<ITreeNodePresenter> projectTreeViewNodePresenters;
 
+        private IToolViewController toolViewController;
+        private IDocumentViewController documentViewController;
+        private IViewCommands viewCommands;
+        private IProjectOwner projectOwner;
+        private IProjectCommands projectCommands;
+        private IApplicationSelection applicationSelection;
+        private IGuiPluginsHost guiPluginsHost;
+
         public ProjectExplorerGuiPlugin()
         {
             Instance = this;
@@ -26,7 +34,41 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                return new Ribbon(Gui);
+                return new Ribbon(toolViewController);
+            }
+        }
+
+        public override IGui Gui
+        {
+            get
+            {
+                return base.Gui;
+            }
+            set
+            {
+                base.Gui = value;
+
+                if (value != null)
+                {
+                    toolViewController = value;
+                    projectOwner = value;
+                    projectCommands = value.ProjectCommands;
+                    applicationSelection = value;
+                    documentViewController = value;
+                    viewCommands = value.ViewCommands;
+                    guiPluginsHost = value;
+                }
+                else
+                {
+                    toolViewController = null;
+                    projectOwner = null;
+                    projectCommands = null;
+                    applicationSelection = null;
+                    documentViewController = null;
+                    viewCommands = null;
+                    guiPluginsHost = null;
+                }
+
             }
         }
 
@@ -41,7 +83,7 @@ namespace Core.Plugins.ProjectExplorer
         /// </list></exception>
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new ProjectNodePresenter(Gui, Gui.ProjectCommands);
+            yield return new ProjectNodePresenter(Gui, projectCommands);
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
@@ -64,17 +106,17 @@ namespace Core.Plugins.ProjectExplorer
         {
             if ((ProjectExplorer == null) || (ProjectExplorer.IsDisposed))
             {
-                ProjectExplorer = new ProjectExplorer(Gui);
+                ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands, projectOwner, documentViewController);
 
                 UpdateProjectTreeViewWithRegisteredNodePresenters();
 
-                ProjectExplorer.ProjectTreeView.Project = Gui.Project;
+                ProjectExplorer.ProjectTreeView.Project = projectOwner.Project;
+                ProjectExplorer.ProjectTreeView.TreeView.OnUpdate += (s, e) => documentViewController.UpdateToolTips();
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
-                ProjectExplorer.ProjectTreeView.TreeView.OnUpdate += (s, e) => Gui.UpdateToolTips();
             }
 
             //add project treeview as a toolwindowview.
-            Gui.ToolWindowViews.Add(ProjectExplorer, ViewLocation.Left | ViewLocation.Top);
+            toolViewController.ToolWindowViews.Add(ProjectExplorer, ViewLocation.Left | ViewLocation.Top);
         }
 
         public override void Activate()
@@ -85,8 +127,8 @@ namespace Core.Plugins.ProjectExplorer
 
             InitializeProjectTreeView();
 
-            Gui.ProjectOpened += ApplicationProjectOpened;
-            Gui.ProjectClosing += ApplicationProjectClosed;
+            projectOwner.ProjectOpened += ApplicationProjectOpened;
+            projectOwner.ProjectClosing += ApplicationProjectClosed;
         }
 
         public override void Dispose()
@@ -108,19 +150,19 @@ namespace Core.Plugins.ProjectExplorer
         public override void Deactivate()
         {
             base.Deactivate();
-            Gui.ProjectOpened -= ApplicationProjectOpened;
-            Gui.ProjectClosing -= ApplicationProjectClosed;
-            Gui.ToolWindowViews.Remove(ProjectExplorer);
+            projectOwner.ProjectOpened -= ApplicationProjectOpened;
+            projectOwner.ProjectClosing -= ApplicationProjectClosed;
+            toolViewController.ToolWindowViews.Remove(ProjectExplorer);
 
             //should the 'instance' be set to null as well???
         }
 
         /// <summary>
-        /// Query all node presenters from <see cref="IGui.Plugins"/> and registers them
+        /// Query all node presenters from <see cref="IGuiPluginsHost.Plugins"/> and registers them.
         /// </summary>
         private void FillProjectTreeViewNodePresentersFromPlugins()
         {
-            var pluginGuis = Gui.Plugins;
+            var pluginGuis = guiPluginsHost.Plugins;
 
             try
             {

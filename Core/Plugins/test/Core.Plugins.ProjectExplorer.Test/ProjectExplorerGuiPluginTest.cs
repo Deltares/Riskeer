@@ -29,10 +29,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var project = new Project();
             var plugin = mocks.Stub<ApplicationPlugin>();
             var pluginGui = mocks.Stub<GuiPlugin>();
-            projectExplorerPluginGui = new ProjectExplorerGuiPlugin
-            {
-                Gui = gui
-            };
+            projectExplorerPluginGui = new ProjectExplorerGuiPlugin();
 
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
             gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
@@ -63,6 +60,8 @@ namespace Core.Plugins.ProjectExplorer.Test
             gui.Expect(g => g.ApplicationCore).Return(applicationCore).Repeat.Any();
 
             mocks.ReplayAll();
+
+            projectExplorerPluginGui.Gui = gui;
 
             gui.ApplicationCore.AddPlugin(plugin);
         }
