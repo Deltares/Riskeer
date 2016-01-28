@@ -115,5 +115,32 @@ namespace Core.Common.Gui.Test
             Assert.AreEqual("", guiMock.ProjectFilePath);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void CloseProject_EmptyProject_DoesNotThrowException()
+        {
+            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(g => g.RemoveAllViewsForItem(null)).IgnoreArguments();
+
+            Project projectMock = mocks.StrictMock<Project>();
+
+            IGui guiMock = mocks.StrictMock<IGui>();
+            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectClosing += null).IgnoreArguments();
+            guiMock.Expect(x => x.Project).PropertyBehavior();
+            guiMock.Expect(x => x.ProjectFilePath).PropertyBehavior();
+            guiMock.Expect(x => x.Selection).PropertyBehavior();
+            guiMock.Stub(x => x.RefreshGui());
+
+            guiMock.Project = projectMock;
+            guiMock.Selection = guiMock.Project;
+
+            mocks.ReplayAll();
+
+            StorageCommandHandler storageCommandHandler = new StorageCommandHandler(viewCommands, guiMock);
+
+            TestDelegate closeProject = () => storageCommandHandler.CloseProject();
+            Assert.DoesNotThrow(closeProject);
+        }
     }
 }

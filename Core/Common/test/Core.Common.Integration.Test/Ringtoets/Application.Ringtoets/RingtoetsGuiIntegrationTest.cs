@@ -20,19 +20,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
         [Test]
         [RequiresSTA]
-        public void CloseProject_EmptyProject_DoesNotThrowException()
-        {
-            using (var gui = new RingtoetsGui())
-            {
-                gui.MainWindow = new MainWindow(gui);
-                gui.Run();
-                TestDelegate closeProject = () => gui.StorageCommands.CloseProject();
-                Assert.DoesNotThrow(closeProject);
-            }
-        }
-
-        [Test]
-        [RequiresSTA]
         public void StartGuiWithToolboxDoesNotCrash()
         {
             using (var gui = new RingtoetsGui())
