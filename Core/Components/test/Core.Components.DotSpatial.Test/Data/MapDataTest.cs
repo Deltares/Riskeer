@@ -14,7 +14,7 @@ namespace Core.Components.DotSpatial.Test.Data
         [TestFixtureTearDown]
         public void CleanRenamedFile()
         {
-            var newPath = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory
+            var newPath = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory);
             var oldPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
 
             RenameFile(newPath, oldPath);
