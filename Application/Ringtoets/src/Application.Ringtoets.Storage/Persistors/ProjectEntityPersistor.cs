@@ -39,7 +39,17 @@ namespace Application.Ringtoets.Storage.Persistors
         public Project GetEntityAsModel()
         {
             var entry = dbSet.SingleOrDefault();
-            return entry == null ? null : converter.ConvertEntityToModel(entry);
+            if (entry == null)
+            {
+                return null;
+            }
+            var project = converter.ConvertEntityToModel(entry);
+            if (entry.DikeAssessmentSectionEntities.Count > 0)
+            {
+                //var dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionEntityPersistor(entry.DikeAssessmentSectionEntities);
+            }
+
+            return project;
         }
 
         /// <summary>

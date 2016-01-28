@@ -13,14 +13,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
     [TestFixture]
     public class ProjectEntityPersistorTest
     {
-        private MockRepository mocksRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocksRepository = new MockRepository();
-        }
-
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_NullDataSet_ThrowsArgumentNullException()
@@ -110,14 +102,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void AddEntity_NullData_ThrowsArgumentNullException()
         {
             // Setup
+            var dbSetMethodAddWasHit = 0;
             var dbset = DbTestSet.GetDbTestSet(new List<ProjectEntity>());
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(dbset);
+            dbset.Stub(m => m.Add(new ProjectEntity())).IgnoreArguments().Return(new ProjectEntity())
+                 .WhenCalled(invocation => dbSetMethodAddWasHit++);
 
             // Call
             TestDelegate test = () => persistor.AddEntity(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual(0, dbSetMethodAddWasHit);
         }
 
         [Test]

@@ -4,7 +4,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.Converter
+namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
     public class ProjectEntityConverterTest

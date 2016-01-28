@@ -63,9 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\ProjectEntityConverterTest.cs" />
+    <Compile Include="Converters\ProjectEntityConverterTest.cs" />
     <Compile Include="DbContext\DbTestSet.cs" />
-    <Compile Include="Converter\DikeAssessmentSectionEntityConverterTest.cs" />
+    <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="Persistors\ProjectEntityPersistorTest.cs" />

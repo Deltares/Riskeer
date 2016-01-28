@@ -4,11 +4,21 @@ using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.Test.Converter
+namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
     public class DikeAssessmentSectionEntityConverterTest
     {
+        [Test]
+        public void DefaultConstructor_Always_NewDikeAssessmentSectionEntityConverter()
+        {
+            // Call
+            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+
+            // Assert
+            Assert.IsInstanceOf<IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>>(converter);
+        }
+
         [Test]
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
@@ -88,9 +98,12 @@ namespace Application.Ringtoets.Storage.Test.Converter
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
                 StorageId = storageId,
-                Name = name
+                Name = name,
+                FailureMechanismContribution =
+                {
+                    Norm = norm
+                }
             };
-            dikeAssessmentSection.FailureMechanismContribution.Norm = norm;
             DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity
             {
                 ProjectEntityId = projectId
@@ -102,9 +115,10 @@ namespace Application.Ringtoets.Storage.Test.Converter
 
             // Assert
             Assert.AreNotEqual(dikeAssessmentSectionEntity, dikeAssessmentSection);
-            Assert.AreEqual(storageId, dikeAssessmentSection.StorageId);
-            Assert.AreEqual(name, dikeAssessmentSection.Name);
-            Assert.AreEqual(norm, dikeAssessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(storageId, dikeAssessmentSectionEntity.DikeAssessmentSectionEntityId);
+            Assert.AreEqual(projectId, dikeAssessmentSectionEntity.ProjectEntityId);
+            Assert.AreEqual(name, dikeAssessmentSectionEntity.Name);
+            Assert.AreEqual(norm, dikeAssessmentSectionEntity.Norm);
         }
     }
 }
