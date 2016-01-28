@@ -1,6 +1,5 @@
 ﻿using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -20,7 +19,7 @@ namespace Core.Common.Gui.Test
         [Test]
         public void CreateNewProject_NoProjectSet_NewProjectIsSet()
         {
-            // SetUp
+            // Setup
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
 
             var projectStorage = mocks.Stub<IStoreProject>();
@@ -48,7 +47,7 @@ namespace Core.Common.Gui.Test
         [Test]
         public void CreateNewProject_SavedProjectThenNewProject_NewProjectAndPathAreSet()
         {
-            // SetUp
+            // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(g => g.RemoveAllViewsForItem(null)).IgnoreArguments();
@@ -87,7 +86,7 @@ namespace Core.Common.Gui.Test
         [Test]
         public void CloseProject_ProjectSet_NullsProjectSelectionAndPath()
         {
-            // SetUp
+            // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(g => g.RemoveAllViewsForItem(null)).IgnoreArguments();
@@ -123,6 +122,7 @@ namespace Core.Common.Gui.Test
         [Test]
         public void CloseProject_EmptyProject_DoesNotThrowException()
         {
+            // Setup
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(g => g.RemoveAllViewsForItem(null)).IgnoreArguments();
 
@@ -143,7 +143,10 @@ namespace Core.Common.Gui.Test
             var storageCommandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
                                                                   mainWindowController, toolViewController, viewCommands);
 
+            // Call
             TestDelegate closeProject = () => storageCommandHandler.CloseProject();
+
+            // Assert
             Assert.DoesNotThrow(closeProject);
         }
     }
