@@ -11,6 +11,17 @@ namespace Core.Components.DotSpatial.Test.Data
     [TestFixture]
     public class MapDataTest
     {
+        [TestFixtureTearDown]
+        public void CleanRenamedFile()
+        {
+            var newPath = string.Format("{0}\\Resources\\DR10_binnenteen.shp", Environment.CurrentDirectory
+            var oldPath = string.Format("{0}\\Resources\\DR10_teen.shp", Environment.CurrentDirectory);
+
+            RenameFile(newPath, oldPath);
+
+            File.Delete(oldPath);
+        }
+
         [Test]
         public void Constructor_Always_CreatesHashSet()
         {
@@ -35,10 +46,10 @@ namespace Core.Components.DotSpatial.Test.Data
 
             // Assert
             Assert.IsTrue(succeeded);
-            CollectionAssert.AreEquivalent(data.FilePaths, new[]
+            CollectionAssert.AreEquivalent(new[]
             {
                 filePath
-            });
+            }, data.FilePaths);
         }
 
         [Test]
@@ -55,10 +66,10 @@ namespace Core.Components.DotSpatial.Test.Data
             // Assert
             Assert.IsTrue(succeededFirst);
             Assert.IsFalse(succeededSecond);
-            CollectionAssert.AreEquivalent(data.FilePaths, new[]
+            CollectionAssert.AreEquivalent(new[]
             {
                 filePath
-            });
+            }, data.FilePaths);
         }
 
         [Test]
@@ -128,7 +139,7 @@ namespace Core.Components.DotSpatial.Test.Data
                 addedPaths.Add(path);
 
                 // Assert
-                CollectionAssert.AreEqual(data.FilePaths, addedPaths);
+                CollectionAssert.AreEqual(addedPaths, data.FilePaths);
             }
         }
 
@@ -143,8 +154,7 @@ namespace Core.Components.DotSpatial.Test.Data
 
             // Assert
             Assert.IsFalse(result);
-            CollectionAssert.AreEqual(new string[]
-            {}, data.FilePaths);
+            CollectionAssert.IsEmpty(data.FilePaths);
         }
 
         [Test]
@@ -160,10 +170,10 @@ namespace Core.Components.DotSpatial.Test.Data
 
             // Assert
             Assert.IsTrue(result);
-            CollectionAssert.AreEqual(data.FilePaths, new[]
+            CollectionAssert.AreEqual(new[]
             {
                 path
-            });
+            }, data.FilePaths);
         }
 
         [Test]
@@ -181,16 +191,21 @@ namespace Core.Components.DotSpatial.Test.Data
 
             RenameFile(newPath, path);
 
-            // Call
-            bool resultAfterDelete = data.IsValid();
+            try
+            {
+                // Call
+                bool resultAfterRename = data.IsValid();
 
-            // Place original file back for other tests.
-            RenameFile(path, newPath);
-
-            // Assert
-            Assert.AreNotEqual(result, resultAfterDelete);
-            Assert.IsTrue(result);
-            Assert.IsFalse(resultAfterDelete);
+                // Assert
+                Assert.AreNotEqual(result, resultAfterRename);
+                Assert.IsTrue(result);
+                Assert.IsFalse(resultAfterRename);
+            }
+            finally
+            {
+                // Place original file back for other tests.
+                RenameFile(path, newPath);
+            }
         }
 
         [Test]
@@ -215,17 +230,22 @@ namespace Core.Components.DotSpatial.Test.Data
 
             RenameFile(newPath, paths[0]);
 
-            // Call
-            bool resultAfterDelete = data.IsValid();
+            try
+            {
+                // Call
+                bool resultAfterRename = data.IsValid();
 
-            // Place the original file back for other tests.
-            RenameFile(paths[0], newPath);
-
-            // Assert
-            Assert.AreNotEqual(result, resultAfterDelete);
-            Assert.IsTrue(result);
-            Assert.IsFalse(resultAfterDelete);
-            CollectionAssert.AreEquivalent(paths, data.FilePaths);
+                // Assert
+                Assert.AreNotEqual(result, resultAfterRename);
+                Assert.IsTrue(result);
+                Assert.IsFalse(resultAfterRename);
+                CollectionAssert.AreEquivalent(paths, data.FilePaths);
+            }
+            finally
+            {
+                // Place the original file back for other tests.
+                RenameFile(paths[0], newPath);
+            }
         }
 
         private static void RenameFile(string newPath, string path)

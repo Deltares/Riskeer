@@ -1,9 +1,10 @@
 ﻿using System;
+using Core.Components.DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when an entity is not found.
+    /// The exception that is thrown when the <see cref="MapData"/> is not valid.
     /// </summary>
     public class MapDataException : Exception
     {

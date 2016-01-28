@@ -51,7 +51,7 @@ namespace Core.Components.DotSpatial
             }
             else
             {
-                throw new MapDataException("The data available in MapData is not valid.");
+                throw new MapDataException(Resources.BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_);
             }
         }
 

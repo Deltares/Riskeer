@@ -70,6 +70,15 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De data in MapData is niet valide..
+        /// </summary>
+        public static string BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_ {
+            get {
+                return ResourceManager.GetString("BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bestand op pad {0} bestaat niet..
         /// </summary>
         public static string MapData_IsPathValid_File_on_path__0__does_not_exist {
