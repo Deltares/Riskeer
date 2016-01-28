@@ -110,7 +110,7 @@ namespace Core.Common.Gui
             gui.ProjectFilePath = filePath;
             gui.Project = loadedProject;
             gui.Project.Name = Path.GetFileNameWithoutExtension(filePath);
-
+            gui.Project.NotifyObservers();
             gui.RefreshGui();
             log.Info(Resources.Project_existing_successfully_opened);
             return true;
@@ -130,6 +130,8 @@ namespace Core.Common.Gui
             viewCommands.RemoveAllViewsForItem(gui.Project);
 
             gui.Project = null;
+            gui.Selection = null;
+            gui.ProjectFilePath = "";
 
             gui.RefreshGui();
         }
