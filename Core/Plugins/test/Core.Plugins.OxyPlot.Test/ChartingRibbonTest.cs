@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
+
+using Core.Common.Gui;
 using Core.Components.Charting;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
@@ -32,8 +34,13 @@ namespace Core.Plugins.OxyPlot.Test
         public void Commands_CommandsAssigned_ReturnsAssignedCommands()
         {
             // Setup
-            using(var oxyPlotGuiPlugin = new OxyPlotGuiPlugin()) {
-                var openChartViewCommand = new OpenChartViewCommand();
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
+            using(var oxyPlotGuiPlugin = new OxyPlotGuiPlugin()) 
+            {
+                var openChartViewCommand = new OpenChartViewCommand(documentViewController);
                 var toggleLegendViewCommand = new ToggleLegendViewCommand(new LegendController(oxyPlotGuiPlugin));
                 var ribbon = new ChartingRibbon
                 {
@@ -47,6 +54,7 @@ namespace Core.Plugins.OxyPlot.Test
                 // Assert
                 CollectionAssert.AreEqual(new ICommand[]{openChartViewCommand, toggleLegendViewCommand}, commands);
             }
+            mocks.VerifyAll();
         }
 
         [Test]

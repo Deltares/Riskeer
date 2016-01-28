@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Forms;
@@ -10,7 +12,14 @@ namespace Core.Plugins.OxyPlot.Commands
     /// <summary>
     /// This class describes the command for opening a <see cref="ChartDataView"/> with some arbitrary data.
     /// </summary>
-    public class OpenChartViewCommand : IGuiCommand {
+    public class OpenChartViewCommand : ICommand
+    {
+        private readonly IDocumentViewController documentViewController;
+
+        public OpenChartViewCommand(IDocumentViewController documentViewController)
+        {
+            this.documentViewController = documentViewController;
+        }
 
         public bool Enabled
         {
@@ -27,8 +36,6 @@ namespace Core.Plugins.OxyPlot.Commands
                 return false;
             }
         }
-
-        public IGui Gui { get; set; }
 
         public void Execute(params object[] arguments)
         {
@@ -60,7 +67,7 @@ namespace Core.Plugins.OxyPlot.Commands
                 new Tuple<double, double>(0.5, 1.6),  
                 new Tuple<double, double>(1.0, 2.1)
             });
-            Gui.DocumentViewsResolver.OpenViewForData(new ChartDataCollection( new List<ChartData> { area, clearArea, line, points }));
+            documentViewController.DocumentViewsResolver.OpenViewForData(new ChartDataCollection(new List<ChartData> { area, clearArea, line, points }));
         }
     }
 }

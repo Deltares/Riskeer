@@ -12,7 +12,7 @@ namespace Demo.Ringtoets.GUIs
         {
             get
             {
-                return new Ribbons.RingtoetsDemoProjectRibbon();
+                return new Ribbons.RingtoetsDemoProjectRibbon(Gui, Gui);
             }
         }
     }

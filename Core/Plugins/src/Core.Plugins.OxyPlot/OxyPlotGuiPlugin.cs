@@ -34,7 +34,7 @@ namespace Core.Plugins.OxyPlot
         public override void Activate()
         {
             legendController = CreateLegendController(this);
-            chartingRibbon = CreateRibbon(legendController);
+            chartingRibbon = CreateRibbon(legendController, Gui);
 
             legendController.ToggleLegend();
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
@@ -96,12 +96,13 @@ namespace Core.Plugins.OxyPlot
         /// </summary>
         /// <param name="legendController">The <see cref="LegendController"/> to use for the 
         /// <see cref="ChartingRibbon"/>.</param>
+        /// <param name="documentViewController">The controller for Document Views.</param>
         /// <returns>A new <see cref="ChartingRibbon"/> instance.</returns>
-        private static ChartingRibbon CreateRibbon(LegendController legendController)
+        private static ChartingRibbon CreateRibbon(LegendController legendController, IDocumentViewController documentViewController)
         {
             return new ChartingRibbon
             {
-                OpenChartViewCommand = new OpenChartViewCommand(),
+                OpenChartViewCommand = new OpenChartViewCommand(documentViewController),
                 ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController)
             };
         }

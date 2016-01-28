@@ -1,6 +1,6 @@
 ﻿using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Plugin;
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
@@ -13,41 +13,39 @@ namespace Demo.Ringtoets.Test.Commands
     public class AddNewDemoDuneAssessmentSectionCommandTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            mocks.ReplayAll();
+
             // Call
-            var command = new AddNewDemoDuneAssessmentSectionCommand();
+            var command = new AddNewDemoDuneAssessmentSectionCommand(projectOwner);
 
             // Assert
-            Assert.IsInstanceOf<IGuiCommand>(command);
+            Assert.IsInstanceOf<ICommand>(command);
             Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);
-            Assert.IsNull(command.Gui);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Execute_GuiIsProperlyInitialized_AddNewDuneAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiMock = mocks.Stub<IGui>();
+            var project = new Project();
 
-            var applicationCore = new ApplicationCore();
-            Expect.Call(guiMock.ApplicationCore).Return(applicationCore).Repeat.Any();
+            var mocks = new MockRepository();
+            var projectOwnerStub = mocks.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
 
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
 
-            var project = new Project();
-
-            guiMock.Project = project;
-
-            var command = new AddNewDemoDuneAssessmentSectionCommand
-            {
-                Gui = guiMock
-            };
+            var command = new AddNewDemoDuneAssessmentSectionCommand(projectOwnerStub);
 
             project.Attach(observerMock);
 

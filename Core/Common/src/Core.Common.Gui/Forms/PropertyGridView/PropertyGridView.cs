@@ -17,10 +17,11 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// </summary>
         private delegate void ArgumentlessDelegate();
 
+        private readonly IApplicationSelection applicationSelection;
         private readonly IGui gui;
         private IObservable observable;
 
-        public PropertyGridView(IGui gui)
+        public PropertyGridView(IGui gui, IApplicationSelection applicationSelection)
         {
             HideTabsButton();
             FixDescriptionArea();
@@ -28,6 +29,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
             PropertySort = PropertySort.Categorized;
 
+            this.applicationSelection = applicationSelection;
             this.gui = gui;
 
             gui.SelectionChanged += GuiSelectionChanged;
@@ -66,9 +68,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         protected override void Dispose(bool disposing)
         {
-            if (gui != null)
+            if (applicationSelection != null)
             {
-                gui.SelectionChanged -= GuiSelectionChanged;
+                applicationSelection.SelectionChanged -= GuiSelectionChanged;
             }
 
             if (observable != null)
@@ -86,7 +88,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                 observable.Detach(this);
             }
 
-            var selection = gui.Selection;
+            var selection = applicationSelection.Selection;
             if (selection == null)
             {
                 SelectedObject = null;

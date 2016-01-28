@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Demo.Ringtoets.Commands;
 using Fluent;
@@ -14,13 +15,13 @@ namespace Demo.Ringtoets.Ribbons
     {
         private readonly ICommand addNewDikeAssessmentSection, addNewDuneAssessmentSection, openMapViewCommand;
 
-        public RingtoetsDemoProjectRibbon()
+        public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IDocumentViewController documentViewController)
         {
             InitializeComponent();
 
-            addNewDikeAssessmentSection = new AddNewDemoDikeAssessmentSectionCommand();
-            addNewDuneAssessmentSection = new AddNewDemoDuneAssessmentSectionCommand();
-            openMapViewCommand = new OpenMapViewCommand();
+            addNewDikeAssessmentSection = new AddNewDemoDikeAssessmentSectionCommand(projectOwner);
+            addNewDuneAssessmentSection = new AddNewDemoDuneAssessmentSectionCommand(projectOwner);
+            openMapViewCommand = new OpenMapViewCommand(documentViewController);
         }
 
         public IEnumerable<ICommand> Commands

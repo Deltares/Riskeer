@@ -40,7 +40,7 @@ namespace Core.Common.Gui
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsGui));
 
-        private static RingtoetsGui instance;
+        private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
 
         private AvalonDockDockingManager toolWindowViewsDockingManager;
@@ -53,16 +53,16 @@ namespace Core.Common.Gui
         public RingtoetsGui(ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
-            if (instance != null)
+            if (isAlreadyRunningInstanceOfIGui)
             {
-                instance = null; // reset to that the consequent creations won't fail.
+                isAlreadyRunningInstanceOfIGui = false; // reset to that the consequent creations won't fail.
                 throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
 
             ApplicationCore = applicationCore ?? new ApplicationCore();
             FixedSettings = fixedSettings ?? new GuiCoreSettings();
 
-            instance = this;
+            isAlreadyRunningInstanceOfIGui = true;
             instanceCreationStackTrace = new StackTrace().ToString();
             ViewPropertyEditor.Gui = this;
 
@@ -309,7 +309,7 @@ namespace Core.Common.Gui
             GC.Collect();
 
             instanceCreationStackTrace = "";
-            instance = null;
+            isAlreadyRunningInstanceOfIGui = false;
         }
 
         private void DeactivatePlugin(GuiPlugin plugin)

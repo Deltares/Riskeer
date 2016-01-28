@@ -233,7 +233,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if ((propertyGrid == null) || (propertyGrid.IsDisposed))
             {
-                propertyGrid = new PropertyGridView.PropertyGridView(Gui);
+                propertyGrid = new PropertyGridView.PropertyGridView(Gui, Gui);
             }
 
             propertyGrid.Text = Properties.Resources.Properties_Title;

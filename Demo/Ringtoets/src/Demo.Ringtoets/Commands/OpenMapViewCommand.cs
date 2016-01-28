@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
@@ -9,8 +11,15 @@ namespace Demo.Ringtoets.Commands
     /// <summary>
     /// The command for opening a <see cref="MapDataView"/> with some arbitrary data.
     /// </summary>
-    public class OpenMapViewCommand : IGuiCommand
+    public class OpenMapViewCommand : ICommand
     {
+        private readonly IDocumentViewController documentViewController;
+
+        public OpenMapViewCommand(IDocumentViewController documentViewController)
+        {
+            this.documentViewController = documentViewController;
+        }
+
         public bool Enabled
         {
             get
@@ -26,8 +35,6 @@ namespace Demo.Ringtoets.Commands
                 return false;
             }
         }
-
-        public IGui Gui { get; set; }
 
         public void Execute(params object[] arguments)
         {
@@ -52,7 +59,7 @@ namespace Demo.Ringtoets.Commands
                 }
             }
 
-            Gui.DocumentViewsResolver.OpenViewForData(data);
+            documentViewController.DocumentViewsResolver.OpenViewForData(data);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Common.Gui;
+﻿using Core.Common.Controls.Commands;
+using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
@@ -10,16 +11,21 @@ namespace Demo.Ringtoets.Test.Commands
     public class OpenMapViewCommandTest
     {
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void ParameteredConstructor_DefaultValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             // Call
-            var command = new OpenMapViewCommand();
+            var command = new OpenMapViewCommand(documentViewController);
 
             // Assert
-            Assert.IsInstanceOf<IGuiCommand>(command);
+            Assert.IsInstanceOf<ICommand>(command);
             Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);
-            Assert.IsNull(command.Gui);
+            mocks.VerifyAll();;
         }
 
         [Test]
@@ -27,17 +33,14 @@ namespace Demo.Ringtoets.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var guiMock = mocks.StrictMock<IGui>();
+            var documentViewControllerMock = mocks.StrictMock<IDocumentViewController>();
             var viewResolverMock = mocks.StrictMock<IViewResolver>();
-            guiMock.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
+            documentViewControllerMock.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
             viewResolverMock.Expect(vr => vr.OpenViewForData(Arg<MapData>.Matches(md => md.IsValid()), Arg<bool>.Matches(b => b == false))).Return(true);
 
             mocks.ReplayAll();
 
-            var command = new OpenMapViewCommand
-            {
-                Gui = guiMock
-            };
+            var command = new OpenMapViewCommand(documentViewControllerMock);
 
             // Call
             command.Execute();
@@ -49,21 +52,33 @@ namespace Demo.Ringtoets.Test.Commands
         [Test]
         public void Enabled_Always_ReturnsTrue()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             // Call
-            var command = new OpenMapViewCommand();
+            var command = new OpenMapViewCommand(documentViewController);
 
             // Assert
             Assert.IsTrue(command.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Checked_Always_ReturnsFalse()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            mocks.ReplayAll();
+
             // Call
-            var command = new OpenMapViewCommand();
+            var command = new OpenMapViewCommand(documentViewController);
 
             // Assert
             Assert.IsFalse(command.Checked);
+            mocks.VerifyAll();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Integration.Data;
@@ -12,8 +14,15 @@ namespace Demo.Ringtoets.Commands
     /// <summary>
     /// Command that adds a new <see cref="DikeAssessmentSection"/> with demo data to the project tree.
     /// </summary>
-    public class AddNewDemoDikeAssessmentSectionCommand : IGuiCommand
+    public class AddNewDemoDikeAssessmentSectionCommand : ICommand
     {
+        private readonly IProjectOwner projectOwner;
+
+        public AddNewDemoDikeAssessmentSectionCommand(IProjectOwner projectOwner)
+        {
+            this.projectOwner = projectOwner;
+        }
+
         public bool Enabled
         {
             get
@@ -30,11 +39,9 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        public IGui Gui { get; set; }
-
         public void Execute(params object[] arguments)
         {
-            var project = Gui.Project;
+            var project = projectOwner.Project;
             project.Items.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();
         }
