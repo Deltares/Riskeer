@@ -26,7 +26,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                return new Ribbon();
+                return new Ribbon(Gui);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             if ((ProjectExplorer == null) || (ProjectExplorer.IsDisposed))
             {
-                ProjectExplorer = new ProjectExplorer(this);
+                ProjectExplorer = new ProjectExplorer(Gui);
 
                 UpdateProjectTreeViewWithRegisteredNodePresenters();
 

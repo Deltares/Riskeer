@@ -2,6 +2,7 @@
 using System.Windows;
 using Core.Common.Controls;
 using Core.Common.Controls.Commands;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Plugins.ProjectExplorer.Commands;
 
@@ -14,11 +15,11 @@ namespace Core.Plugins.ProjectExplorer
     {
         private readonly ICommand showProjectExplorerCommand;
 
-        public Ribbon()
+        public Ribbon(IToolViewController toolViewController)
         {
             InitializeComponent();
 
-            showProjectExplorerCommand = new ShowProjectExplorerCommand();
+            showProjectExplorerCommand = new ShowProjectExplorerCommand(toolViewController);
         }
 
         public IEnumerable<ICommand> Commands

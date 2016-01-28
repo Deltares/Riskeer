@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Base.Plugin;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using TreeNode = Core.Common.Controls.TreeView.TreeNode;
@@ -15,19 +14,29 @@ namespace Core.Plugins.ProjectExplorer
     public class ProjectTreeView : UserControl, IView
     {
         private readonly TreeView treeView;
-        private GuiPlugin guiPlugin;
-        private ApplicationCore applicationCore;
-        private IGui gui;
+        private readonly IApplicationSelection applicationSelection;
+        private readonly IViewCommands viewCommands;
+        private readonly IProjectOwner projectOwner;
+        private readonly IDocumentViewController documentViewController;
         private Project project;
 
         private bool selectingNode;
 
-        public ProjectTreeView(GuiPlugin guiPlugin) : this()
+        public ProjectTreeView(IApplicationSelection applicationSelection, IViewCommands viewCommands,
+                               IProjectOwner projectOwner, IDocumentViewController documentViewController)
+            : this()
         {
-            GuiPlugin = guiPlugin;
+            this.applicationSelection = applicationSelection;
+            this.applicationSelection.SelectionChanged += GuiSelectionChanged;
+
+            this.viewCommands = viewCommands;
+
+            this.projectOwner = projectOwner;
+
+            this.documentViewController = documentViewController;
         }
 
-        public ProjectTreeView()
+        private ProjectTreeView()
         {
             treeView = new TreeView
             {
@@ -44,19 +53,6 @@ namespace Core.Plugins.ProjectExplorer
             treeView.OnProcessCmdKey = OnProcessCmdKey;
 
             Controls.Add(treeView);
-        }
-
-        public GuiPlugin GuiPlugin
-        {
-            set
-            {
-                guiPlugin = value;
-
-                applicationCore = guiPlugin.Gui.ApplicationCore;
-                gui = guiPlugin.Gui;
-
-                gui.SelectionChanged += GuiSelectionChanged;
-            }
         }
 
         public TreeView TreeView
@@ -105,12 +101,9 @@ namespace Core.Plugins.ProjectExplorer
 
         public new void Dispose()
         {
-            if (gui != null)
-            {
-                gui.SelectionChanged -= GuiSelectionChanged;
-            }
+            applicationSelection.SelectionChanged -= GuiSelectionChanged;
 
-            if (applicationCore != null)
+            if (project != null)
             {
                 UnsubscribeProjectEvents();
             }
@@ -119,9 +112,6 @@ namespace Core.Plugins.ProjectExplorer
             treeView.Dispose();
 
             base.Dispose();
-
-            applicationCore = null;
-            gui = null;
         }
 
         /// <summary>
@@ -131,13 +121,13 @@ namespace Core.Plugins.ProjectExplorer
         /// <param name="e"></param>
         protected virtual void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (selectingNode || gui.Selection == null
-                || (treeView.SelectedNode != null && treeView.SelectedNode.Tag == gui.Selection))
+            if (selectingNode || applicationSelection.Selection == null
+                || (treeView.SelectedNode != null && treeView.SelectedNode.Tag == applicationSelection.Selection))
             {
                 return;
             }
 
-            TreeNode node = treeView.GetNodeByTag(gui.Selection);
+            TreeNode node = treeView.GetNodeByTag(applicationSelection.Selection);
             if (node != null)
             {
                 treeView.SelectedNode = node;
@@ -150,7 +140,7 @@ namespace Core.Plugins.ProjectExplorer
 
             var tag = treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
 
-            gui.Selection = tag;
+            applicationSelection.Selection = tag;
 
             selectingNode = false;
         }
@@ -164,7 +154,7 @@ namespace Core.Plugins.ProjectExplorer
 
             if (keyData == Keys.Enter)
             {
-                gui.ViewCommands.OpenViewForSelection();
+                viewCommands.OpenViewForSelection();
 
                 return true;
             }
@@ -178,9 +168,9 @@ namespace Core.Plugins.ProjectExplorer
 
             if (keyData == Keys.Escape)
             {
-                if (gui.DocumentViews.ActiveView != null)
+                if (documentViewController.DocumentViews.ActiveView != null)
                 {
-                    ((Control) gui.DocumentViews.ActiveView).Focus();
+                    ((Control)documentViewController.DocumentViews.ActiveView).Focus();
                 }
 
                 return true;
@@ -196,15 +186,12 @@ namespace Core.Plugins.ProjectExplorer
 
         private void SubscribeProjectEvents()
         {
-            gui.ProjectOpened += ApplicationCoreProjectOpened;
+            projectOwner.ProjectOpened += ApplicationCoreProjectOpened;
         }
 
         private void UnsubscribeProjectEvents()
         {
-            if (project != null)
-            {
-                gui.ProjectOpened -= ApplicationCoreProjectOpened;
-            }
+            projectOwner.ProjectOpened -= ApplicationCoreProjectOpened;
         }
 
         private void ApplicationCoreProjectOpened(Project project)
@@ -214,17 +201,17 @@ namespace Core.Plugins.ProjectExplorer
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
         {
-            if (!Equals(gui.Selection, TreeView.SelectedNode.Tag))
+            if (!Equals(applicationSelection.Selection, TreeView.SelectedNode.Tag))
             {
                 // Necessary if WinForms skips single click event (see TOOLS-8722)...
-                gui.Selection = TreeView.SelectedNode.Tag;
+                applicationSelection.Selection = TreeView.SelectedNode.Tag;
             }
-            gui.ViewCommands.OpenViewForSelection();
+            viewCommands.OpenViewForSelection();
         }
 
         private void ProjectDataDeleted(object sender, TreeView.TreeViewDataDeletedEventArgs e)
         {
-            gui.ViewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
+            viewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
         }
     }
 }

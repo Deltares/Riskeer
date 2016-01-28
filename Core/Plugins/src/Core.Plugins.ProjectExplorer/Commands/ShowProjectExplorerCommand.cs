@@ -1,9 +1,17 @@
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 
 namespace Core.Plugins.ProjectExplorer.Commands
 {
-    public class ShowProjectExplorerCommand : IGuiCommand
+    public class ShowProjectExplorerCommand : ICommand
     {
+        private readonly IToolViewController toolViewController;
+
+        public ShowProjectExplorerCommand(IToolViewController toolViewController)
+        {
+            this.toolViewController = toolViewController;
+        }
+
         public bool Enabled
         {
             get
@@ -16,25 +24,23 @@ namespace Core.Plugins.ProjectExplorer.Commands
         {
             get
             {
-                if (Gui == null || Gui.ToolWindowViews == null)
+                if (toolViewController == null || toolViewController.ToolWindowViews == null)
                 {
                     return false;
                 }
 
-                return Gui.ToolWindowViews.Contains(ProjectExplorerGuiPlugin.Instance.ProjectExplorer);
+                return toolViewController.ToolWindowViews.Contains(ProjectExplorerGuiPlugin.Instance.ProjectExplorer);
             }
         }
-
-        public IGui Gui { get; set; }
 
         public void Execute(params object[] arguments)
         {
             var view = ProjectExplorerGuiPlugin.Instance.ProjectExplorer;
-            var active = Gui.ToolWindowViews.Contains(view);
+            var active = toolViewController.ToolWindowViews.Contains(view);
 
             if (active)
             {
-                Gui.ToolWindowViews.Remove(view);
+                toolViewController.ToolWindowViews.Remove(view);
             }
             else
             {

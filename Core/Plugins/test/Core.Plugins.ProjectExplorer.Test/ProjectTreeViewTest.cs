@@ -20,23 +20,13 @@ namespace Core.Plugins.ProjectExplorer.Test
         public void Init()
         {
             var mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
-            var documentViews = mocks.Stub<IViewList>();
-            var settings = mocks.Stub<ApplicationSettingsBase>();
-            var applicationCore = new ApplicationCore();
-
-            Expect.Call(gui.ApplicationCore).Return(applicationCore).Repeat.Any();
-            Expect.Call(gui.UserSettings).Return(settings).Repeat.Any();
-            Expect.Call(gui.DocumentViews).Return(documentViews).Repeat.Any();
-
+            var selectionStub = mocks.Stub<IApplicationSelection>();
+            var viewCommandsStub = mocks.Stub<IViewCommands>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
             mocks.ReplayAll();
 
-            var pluginGui = new ProjectExplorerGuiPlugin
-            {
-                Gui = gui
-            };
-
-            using (var projectTreeView = new ProjectTreeView(pluginGui))
+            using (var projectTreeView = new ProjectTreeView(selectionStub, viewCommandsStub, projectOwner, documentViewController))
             {
                 Assert.IsNotNull(projectTreeView);
             }
@@ -76,19 +66,19 @@ namespace Core.Plugins.ProjectExplorer.Test
             var commandHandler = mocks.Stub<IViewCommands>();
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
 
-            var applicationCoreStub = mocks.Stub<ApplicationCore>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
+            projectOwner.Stub(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ViewCommands).Return(commandHandler);
-            gui.Stub(g => g.ApplicationCore).Return(applicationCoreStub);
-            gui.Stub(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
-            gui.Stub(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
-            gui.Stub(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
-            gui.Stub(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
+            var selectionStub = mocks.Stub<IApplicationSelection>();
+            selectionStub.Stub(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            selectionStub.Stub(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+
             mocks.ReplayAll();
 
-            using(var guiPlugin = new ProjectExplorerGuiPlugin { Gui = gui })
-            using (var projectTree = new ProjectTreeView(guiPlugin))
+            using (var projectTree = new ProjectTreeView(selectionStub, commandHandler, projectOwner, documentViewController))
             {
                 projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, projectCommands));
                 projectTree.TreeView.RegisterNodePresenter(integerNodePresenter);

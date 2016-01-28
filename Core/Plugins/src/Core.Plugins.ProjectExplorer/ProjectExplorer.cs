@@ -11,25 +11,27 @@ namespace Core.Plugins.ProjectExplorer
     public partial class ProjectExplorer : UserControl, IProjectExplorer
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ProjectExplorer));
-        private IGui gui;
+        private readonly IDocumentViewController documentViewController;
+        private readonly IViewCommands viewCommands;
 
         public ProjectExplorer()
         {
             InitializeComponent();
         }
 
-        public ProjectExplorer(GuiPlugin guiPlugin)
+        public ProjectExplorer(IGui gui)
         {
-            gui = guiPlugin.Gui;
+            documentViewController = gui;
+            viewCommands = gui.ViewCommands;
 
             InitializeComponent();
-            ProjectTreeView = new ProjectTreeView(guiPlugin)
+            ProjectTreeView = new ProjectTreeView(gui, viewCommands, gui, documentViewController)
             {
                 Dock = DockStyle.Fill
             };
             treeViewPanel.Controls.Add(ProjectTreeView);
 
-            gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
+            documentViewController.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
         }
 
         public ProjectTreeView ProjectTreeView { get; private set; }
@@ -49,11 +51,10 @@ namespace Core.Plugins.ProjectExplorer
         public new void Dispose()
         {
             ProjectTreeView.Data = null;
-            if (gui != null && gui.DocumentViews != null)
+            if (documentViewController != null && documentViewController.DocumentViews != null)
             {
-                gui.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
+                documentViewController.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
             }
-            gui = null;
 
             ProjectTreeView.Dispose();
             base.Dispose();
@@ -82,13 +83,13 @@ namespace Core.Plugins.ProjectExplorer
 
         private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
-            buttonScrollToItemInActiveView.Enabled = gui.DocumentViews.ActiveView != null &&
-                                                     gui.ViewCommands.GetDataOfActiveView() != null;
+            buttonScrollToItemInActiveView.Enabled = documentViewController.DocumentViews.ActiveView != null &&
+                                                     viewCommands.GetDataOfActiveView() != null;
         }
 
         private void ButtonScrollToItemInActiveViewClick(object sender, EventArgs e)
         {
-            var dataOfActiveView = gui.ViewCommands.GetDataOfActiveView();
+            var dataOfActiveView = viewCommands.GetDataOfActiveView();
             if (dataOfActiveView != null)
             {
                 ScrollTo(dataOfActiveView);
@@ -96,7 +97,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            log.WarnFormat(Resources.ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data_0_, gui.DocumentViews.ActiveView.Data);
+            log.WarnFormat(Resources.ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data_0_, documentViewController.DocumentViews.ActiveView.Data);
         }
     }
 }

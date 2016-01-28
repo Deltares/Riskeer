@@ -48,6 +48,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             }).Repeat.Any();
             gui.Stub(g=>g.ApplicationCommands).Return(mocks.StrictMock<IApplicationFeatureCommands>());
             gui.Stub(g => g.ProjectCommands).Return(mocks.StrictMock<IProjectCommands>());
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
             gui.Project = project;
 
