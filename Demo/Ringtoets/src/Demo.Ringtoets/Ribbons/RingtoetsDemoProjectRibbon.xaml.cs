@@ -12,7 +12,7 @@ namespace Demo.Ringtoets.Ribbons
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewDikeAssessmentSection, addNewDuneAssessmentSection;
+        private readonly ICommand addNewDikeAssessmentSection, addNewDuneAssessmentSection, openMapViewCommand;
 
         public RingtoetsDemoProjectRibbon()
         {
@@ -20,6 +20,7 @@ namespace Demo.Ringtoets.Ribbons
 
             addNewDikeAssessmentSection = new AddNewDemoDikeAssessmentSectionCommand();
             addNewDuneAssessmentSection = new AddNewDemoDuneAssessmentSectionCommand();
+            openMapViewCommand = new OpenMapViewCommand();
         }
 
         public IEnumerable<ICommand> Commands
@@ -28,6 +29,7 @@ namespace Demo.Ringtoets.Ribbons
             {
                 yield return addNewDikeAssessmentSection;
                 yield return addNewDuneAssessmentSection;
+                yield return openMapViewCommand;
             }
         }
 
@@ -36,10 +38,7 @@ namespace Demo.Ringtoets.Ribbons
             return RingtoetsDemoProjectRibbonControl;
         }
 
-        public void ValidateItems()
-        {
-            
-        }
+        public void ValidateItems() {}
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {
@@ -54,6 +53,11 @@ namespace Demo.Ringtoets.Ribbons
         private void AddNewDemoDuneAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
         {
             addNewDuneAssessmentSection.Execute();
+        }
+
+        private void ButtonOpenMapView_Click(object sender, RoutedEventArgs e)
+        {
+            openMapViewCommand.Execute();
         }
     }
 }

@@ -3,46 +3,30 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
-using Core.Plugins.DotSpatial;
+using Core.Common.Gui;
+using Core.Components.DotSpatial.Data;
 using Demo.Ringtoets.Commands;
+using Demo.Ringtoets.Ribbons;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Demo.Ringtoets.Test.Ribbons
 {
     [TestFixture]
-    public class MapRibbonTest
+    public class RingtoestDemoProjectRibbonTest
     {
         [Test]
         [RequiresSTA]
-        public void Commands_NoCommandsAssigned_ReturnsEmptyCommandCollection()
+        public void DefaultContructor_CreatesCommands()
         {
             // Call
-            var ribbon = new Ringtoets.Ribbons.MapRibbon();
+            var ribbon = new RingtoetsDemoProjectRibbon();
+            var commands = ribbon.Commands.ToArray();
 
             // Assert
-            CollectionAssert.IsEmpty(ribbon.Commands);
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void Commands_CommandsAssigned_ReturnsAssignedCommands()
-        {
-            // Setup
-            using (new DotSpatialGuiPlugin())
-            {
-                var openMapViewCommand = new OpenMapViewCommand();
-                var ribbon = new Ringtoets.Ribbons.MapRibbon
-                {
-                    OpenMapViewCommand = openMapViewCommand
-                };
-
-                // Call
-                var commands = ribbon.Commands.ToArray();
-
-                // Assert
-                CollectionAssert.AreEquivalent(new ICommand[] {openMapViewCommand}, commands);
-            }
+            CollectionAssert.IsNotEmpty(commands);
+            CollectionAssert.AllItemsAreInstancesOfType(commands, typeof(ICommand));
+            CollectionAssert.AllItemsAreUnique(commands);
         }
 
         [Test]
@@ -50,7 +34,7 @@ namespace Demo.Ringtoets.Test.Ribbons
         public void DefaultConstructor_Always_CreatesControl()
         {
             // Call
-            var ribbon = new Ringtoets.Ribbons.MapRibbon();
+            var ribbon = new RingtoetsDemoProjectRibbon();
 
             // Assert
             Assert.IsNotNull(ribbon);
@@ -62,7 +46,7 @@ namespace Demo.Ringtoets.Test.Ribbons
         public void IsContextualTabVisible_Always_ReturnsFalse()
         {
             // Call
-            var ribbon = new Ringtoets.Ribbons.MapRibbon();
+            var ribbon = new RingtoetsDemoProjectRibbon();
 
             // Assert
             Assert.IsFalse(ribbon.IsContextualTabVisible(null, null));
@@ -70,19 +54,20 @@ namespace Demo.Ringtoets.Test.Ribbons
 
         [Test]
         [RequiresSTA]
-        public void OpenMapViewButton_OnClick_ExecutesOpenMapViewCommand()
+        public void OpenMapViewButton_OnClick_OpensView()
         {
             // Setup
             var mocks = new MockRepository();
-            var command = mocks.StrictMock<ICommand>();
-            command.Expect(c => c.Execute());
+            var viewResolver = mocks.StrictMock<IViewResolver>();
+            viewResolver.Expect(vr => vr.OpenViewForData(Arg<MapData>.Matches(md => md.IsValid()), Arg<bool>.Matches(b=>b==false))).Return(true);
+
+            var gui = mocks.StrictMock<IGui>();
+            gui.Expect(g => g.DocumentViewsResolver).Return(viewResolver);
 
             mocks.ReplayAll();
 
-            var ribbon = new Ringtoets.Ribbons.MapRibbon
-            {
-                OpenMapViewCommand = command
-            };
+            var ribbon = new RingtoetsDemoProjectRibbon();
+            ribbon.Commands.OfType<OpenMapViewCommand>().First().Gui = gui;
 
             var button = ribbon.GetRibbonControl().FindName("OpenMapViewButton") as Button;
 

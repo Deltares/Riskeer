@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
+using Core.Plugins.DotSpatial.Forms;
 
 namespace Demo.Ringtoets.Commands
 {
     /// <summary>
-    /// This class describes the command for opening a <see cref="Core.Plugins.DotSpatial.Forms.MapDataView"/> with some arbitrary data.
+    /// The command for opening a <see cref="MapDataView"/> with some arbitrary data.
     /// </summary>
     public class OpenMapViewCommand : IGuiCommand
     {

@@ -132,7 +132,6 @@ namespace Application.Ringtoets
 #if INCLUDE_DEMOPROJECT
                     , new DemoProjectGuiPlugin()
                     , new OxyPlotGuiPlugin()
-                    , new DemoDotSpatialGuiPlugin()
 #endif
                 },
                 Storage = new StorageSqLite()
