@@ -70,7 +70,7 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De data in MapData is niet valide..
+        ///   Looks up a localized string similar to De kaartdata is niet valide..
         /// </summary>
         public static string BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_ {
             get {

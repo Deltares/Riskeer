@@ -127,6 +127,6 @@
     <value>Shape file op pad {0} is aan de kaart toegevoegd.</value>
   </data>
   <data name="BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_" xml:space="preserve">
-    <value>De data in MapData is niet valide.</value>
+    <value>De kaartdata is niet valide.</value>
   </data>
 </root>
