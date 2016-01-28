@@ -163,7 +163,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProjectAs_ValidPathToLockedFile_ThrowsException()
+        public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
             var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
@@ -222,7 +222,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProject_InvalidProject_ThrowsCouldNotConnectException()
+        public void SaveProject_InvalidProject_ThrowsStorageExceptionAndCouldNotConnectException()
         {
             // Setup
             var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");

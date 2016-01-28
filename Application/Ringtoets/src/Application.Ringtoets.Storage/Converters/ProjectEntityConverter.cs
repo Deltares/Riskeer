@@ -1,104 +1,60 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.Base.Data;
 
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="ProjectEntity"/> to <see cref="Project"/> and <see cref="Project"/> to <see cref="ProjectEntity"/>.
+    /// Converter for <see cref="ProjectEntity"/> to <see cref="Project"/> 
+    /// and <see cref="Project"/> to <see cref="ProjectEntity"/>.
     /// </summary>
-    public static class ProjectEntityConverter
+    public class ProjectEntityConverter : IEntityConverter<Project, ProjectEntity>
     {
         /// <summary>
-        /// Gets a new <see cref="Project"/>, based on the <see cref="ProjectEntity"/> found in the database.
+        /// Converts <paramref name="entity"/> to <see cref="Project"/>.
         /// </summary>
-        /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
-        /// <returns>A new <see cref="Project"/> or null when not found.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> is null.</exception>
-        public static Project GetProject(IDbSet<ProjectEntity> dbSet)
+        /// <param name="entity">The <see cref="ProjectEntity"/> to convert.</param>
+        /// <returns>A new instance of <see cref="Project"/>, based on the properties of <paramref name="entity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        public Project ConvertEntityToModel(ProjectEntity entity)
         {
-            var entry = dbSet.FirstOrDefault();
-            return entry == null ? null : ProjectEntityToProject(entry);
-        }
-
-        /// <summary>
-        /// Updates the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the <paramref name="dbSet"/>.
-        /// </summary>
-        /// <remarks>Execute <paramref name="dbSet"/>.SaveChanges() afterwards to update the storage.</remarks>
-        /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
-        /// <param name="project"><see cref="Project"/> to be saved in the database.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> or <paramref name="project"/> is null.</exception>
-        /// <exception cref="InvalidOperationException">When multiple instances are found that refer to <paramref name="project"/>.</exception>
-        /// <exception cref="EntityNotFoundException">When no entities was found that refer to <paramref name="project"/>.</exception>
-        public static void UpdateProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
-        {
-            if (project == null)
+            if (entity == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("entity");
             }
-            var entry = dbSet.SingleOrDefault(db => db.ProjectEntityId == project.StorageId);
-            if (entry == null)
-            {
-                throw new EntityNotFoundException();
-            }
-            ProjectToProjectEntity(project, entry);
-        }
-
-        /// <summary>
-        /// Insert the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the <paramref name="dbSet"/>.
-        /// </summary>
-        /// <remarks>Execute <paramref name="dbSet"/>.SaveChanges() afterwards to update the storage.</remarks>
-        /// <param name="dbSet">Database set of <see cref="ProjectEntity"/>.</param>
-        /// <param name="project"><see cref="Project"/> to be saved in the database.</param>
-        /// <returns>New instance of <see cref="ProjectEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dbSet"/> or <paramref name="project"/> is null.</exception>
-        public static ProjectEntity InsertProjectEntity(IDbSet<ProjectEntity> dbSet, Project project)
-        {
-            if (dbSet == null)
-            {
-                throw new ArgumentNullException();
-            }
-            var projectEntity = new ProjectEntity();
-            ProjectToProjectEntity(project, projectEntity);
-            dbSet.Add(projectEntity);
-            return projectEntity;
-        }
-
-        /// <summary>
-        /// Converts <paramref name="project"/> to <paramref name="projectEntity"/>.
-        /// </summary>
-        /// <param name="project">The <see cref="Project"/> to convert.</param>
-        /// <param name="projectEntity">A reference to the <see cref="ProjectEntity"/> to be saved.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> or <paramref name="projectEntity"/> is null.</exception>
-        private static void ProjectToProjectEntity(Project project, ProjectEntity projectEntity)
-        {
-            if (project == null || projectEntity == null)
-            {
-                throw new ArgumentNullException();
-            }
-            projectEntity.Name = project.Name;
-            projectEntity.Description = project.Description;
-            projectEntity.LastUpdated = new DateTime().Ticks;
-        }
-
-        /// <summary>
-        /// Converts <paramref name="projectEntity"/> to a new instance of <see cref="Project"/>.
-        /// </summary>
-        /// <param name="projectEntity"><see cref="ProjectEntity"/> to convert.</param>
-        /// <returns>A new instance of <see cref="Project"/>, based on the properties of <paramref name="projectEntity"/>.</returns>
-        private static Project ProjectEntityToProject(ProjectEntity projectEntity)
-        {
             var project = new Project
             {
-                StorageId = projectEntity.ProjectEntityId,
-                Name = projectEntity.Name,
-                Description = projectEntity.Description
+                StorageId = entity.ProjectEntityId,
+                Name = entity.Name,
+                Description = entity.Description
             };
 
             return project;
+        }
+
+        /// <summary>
+        /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.
+        /// </summary>
+        /// <param name="modelObject">The <see cref="Project"/> to convert.</param>
+        /// <param name="entity">A reference to the <see cref="ProjectEntity"/> to be saved.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="modelObject"/> is <c>null</c></item>
+        /// <item><paramref name="entity"/> is <c>null</c>.</item>
+        /// </list></exception>
+        public void ConvertModelToEntity(Project modelObject, ProjectEntity entity)
+        {
+            if (modelObject == null)
+            {
+                throw new ArgumentNullException("modelObject");
+            }
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            entity.ProjectEntityId = modelObject.StorageId;
+            entity.Name = modelObject.Name;
+            entity.Description = modelObject.Description;
+            entity.LastUpdated = new DateTime().Ticks;
         }
     }
 }

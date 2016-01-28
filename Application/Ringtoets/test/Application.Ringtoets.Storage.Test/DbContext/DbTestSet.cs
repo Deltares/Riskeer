@@ -5,11 +5,11 @@ using Rhino.Mocks;
 
 namespace Application.Ringtoets.Storage.Test.DbContext
 {
-    public static class DbSet {
-        public static IDbSet<T> GetDbSetTest<T>(IList<T> data) where T : class
+    public static class DbTestSet
+    {
+        public static IDbSet<T> GetDbTestSet<T>(IList<T> data) where T : class
         {
             var queryable = data.AsQueryable();
-
             var dbSet = MockRepository.GenerateMock<IDbSet<T>, IQueryable>();
 
             dbSet.Stub(m => m.Provider).Return(queryable.Provider);

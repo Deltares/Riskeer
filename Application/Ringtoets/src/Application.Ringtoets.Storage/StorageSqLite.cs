@@ -2,9 +2,9 @@
 using System.Data;
 using System.Data.Entity;
 using System.IO;
-using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -43,11 +43,12 @@ namespace Application.Ringtoets.Storage
             SetConnectionToNewFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var entity = ProjectEntityConverter.InsertProjectEntity(dbContext.ProjectEntities, project);
+                var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
+                var projectEntity = projectEntityPersistor.AddEntity(project);
                 try
                 {
                     var changes = dbContext.SaveChanges();
-                    project.StorageId = entity.ProjectEntityId;
+                    project.StorageId = projectEntity.ProjectEntityId;
                     return changes;
                 }
                 catch (DataException exception)
@@ -87,9 +88,10 @@ namespace Application.Ringtoets.Storage
             }
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
+                var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
                 try
                 {
-                    ProjectEntityConverter.UpdateProjectEntity(dbContext.ProjectEntities, project);
+                    projectEntityPersistor.UpdateEntity(project);
                     return dbContext.SaveChanges();
                 }
                 catch (EntityNotFoundException)
@@ -120,7 +122,8 @@ namespace Application.Ringtoets.Storage
             SetConnectionToFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                return ProjectEntityConverter.GetProject(dbContext.ProjectEntities);
+                var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
+                return projectEntityPersistor.GetEntityAsModel();
             }
         }
 

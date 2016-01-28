@@ -1,5 +1,8 @@
 ﻿namespace Application.Ringtoets.Storage.Converters
 {
+    /// <summary>
+    /// Interface for entity converters.
+    /// </summary>
     public interface IEntityConverter<T1, T2>
     {
         /// <summary>
