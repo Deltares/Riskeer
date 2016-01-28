@@ -59,7 +59,7 @@ namespace Demo.Ringtoets.Test.Ribbons
             // Setup
             var mocks = new MockRepository();
             var viewResolver = mocks.StrictMock<IViewResolver>();
-            viewResolver.Expect(vr => vr.OpenViewForData(Arg<MapData>.Matches(md => md.IsValid()), Arg<bool>.Matches(b=>b==false))).Return(true);
+            viewResolver.Expect(vr => vr.OpenViewForData(Arg<MapData>.Matches(md => md.IsValid()), Arg<bool>.Matches(b => b == false))).Return(true);
 
             var gui = mocks.StrictMock<IGui>();
             gui.Expect(g => g.DocumentViewsResolver).Return(viewResolver);

@@ -1,4 +1,5 @@
 ﻿using Core.Common.Gui;
+using Core.Components.DotSpatial.Data;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -22,19 +23,21 @@ namespace Demo.Ringtoets.Test.Commands
         }
 
         [Test]
-        public void Execute_Always_OpensViewForStringCollection()
+        public void Execute_Always_OpensViewForMapData()
         {
             // Setup
             var mocks = new MockRepository();
             var guiMock = mocks.StrictMock<IGui>();
             var viewResolverMock = mocks.StrictMock<IViewResolver>();
             guiMock.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
-            viewResolverMock.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
+            viewResolverMock.Expect(vr => vr.OpenViewForData(Arg<MapData>.Matches(md => md.IsValid()), Arg<bool>.Matches(b => b == false))).Return(true);
 
             mocks.ReplayAll();
 
-            var command = new OpenMapViewCommand();
-            command.Gui = guiMock;
+            var command = new OpenMapViewCommand
+            {
+                Gui = guiMock
+            };
 
             // Call
             command.Execute();
