@@ -19,7 +19,10 @@ namespace Core.Components.DotSpatial.Test.Data
 
             RenameFile(newPath, oldPath);
 
-            File.Delete(oldPath);
+            if (File.Exists(oldPath))
+            {
+                File.Delete(oldPath);
+            }
         }
 
         [Test]
