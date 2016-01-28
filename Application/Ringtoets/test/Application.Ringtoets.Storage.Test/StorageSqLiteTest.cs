@@ -88,6 +88,9 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
+            Assert.AreEqual(1, loadedProject.StorageId);
+            Assert.AreEqual("TestProject", loadedProject.Name);
+            Assert.AreEqual("Test description", loadedProject.Description);
         }
 
         [Test]
