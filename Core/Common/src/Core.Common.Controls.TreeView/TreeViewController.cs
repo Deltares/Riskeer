@@ -458,14 +458,19 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            treeView.SelectedNode = clickedNode;
-
             var treeNodeInfo = GetTreeNodeInfoForData(clickedNode.Tag);
 
-            // Update the context menu
-            clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, treeNodeInfo)
-                                : null;
+            if ((e.Button & MouseButtons.Right) != 0)
+            {
+                treeView.SelectedNode = clickedNode;
+
+                // Update the context menu
+                clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
+                                    ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, treeNodeInfo)
+                                    : null;
+
+                return;
+            }
 
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(clickedNode.Tag) && clickedNode.IsOnCheckBox(point))
             {
