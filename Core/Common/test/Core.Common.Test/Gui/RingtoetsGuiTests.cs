@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 
 using Core.Common.Base.Plugin;
+using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Test.TestObjects;
@@ -19,11 +20,12 @@ namespace Core.Common.Test.Gui
         {
             // Setup
             var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
             var applicationCore = mocks.Stub<ApplicationCore>();
             applicationCore.Expect(ac => ac.Dispose());
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(null), applicationCore);
+            var gui = new RingtoetsGui(new MainWindow(null), projectStore, applicationCore);
 
             // Call
             gui.Dispose();
@@ -36,10 +38,15 @@ namespace Core.Common.Test.Gui
         [STAThread]
         public void CheckViewPropertyEditorIsInitialized()
         {
-            using (new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 Assert.NotNull(ViewPropertyEditor.ViewCommands);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -47,7 +54,11 @@ namespace Core.Common.Test.Gui
         public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnEmpty()
         {
             // Setup
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 var rootData = new object();
 
@@ -57,6 +68,7 @@ namespace Core.Common.Test.Gui
                 // Assert
                 CollectionAssert.IsEmpty(dataInstancesWithViewDefinitions);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -67,6 +79,7 @@ namespace Core.Common.Test.Gui
             var rootData = new object();
 
             var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
 
             var plugin1 = mocks.StrictMock<GuiPlugin>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
@@ -84,7 +97,7 @@ namespace Core.Common.Test.Gui
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null)))
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -111,7 +124,7 @@ namespace Core.Common.Test.Gui
             object rootChild = 2;
 
             var mocks = new MockRepository();
-
+            var projectStore = mocks.Stub<IStoreProject>();
             var plugin1 = mocks.StrictMock<GuiPlugin>();
             plugin1.Expect(p => p.GetChildDataWithViewDefinitions(rootData)).Return(new[]
             {
@@ -136,7 +149,7 @@ namespace Core.Common.Test.Gui
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null)))
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -159,7 +172,11 @@ namespace Core.Common.Test.Gui
         public void ActiveViewChanged_LastDocumentViewClosed_EventFired()
         {
             // Setup
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 gui.Run();
 
@@ -180,6 +197,7 @@ namespace Core.Common.Test.Gui
                 Assert.AreEqual(0, gui.DocumentViews.Count);
                 Assert.AreEqual(1, hitCount);
             }
+            mocks.VerifyAll();
         }
     }
 }

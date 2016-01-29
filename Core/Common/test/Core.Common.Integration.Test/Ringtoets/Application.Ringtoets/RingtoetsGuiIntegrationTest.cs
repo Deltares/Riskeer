@@ -1,10 +1,15 @@
 using System.Linq;
 using System.Windows.Controls;
+
+using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
 using NUnit.Framework;
+
+using Rhino.Mocks;
+
 using Ringtoets.Integration.Plugin;
 
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
@@ -22,7 +27,11 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         [RequiresSTA]
         public void StartGuiWithToolboxDoesNotCrash()
         {
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 var applicationCore = gui.ApplicationCore;
 
@@ -30,6 +39,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
                 gui.Run();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -44,13 +54,18 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
         {
             // initialize
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
                 Assert.AreEqual(gui.Project, gui.Selection);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -59,20 +74,29 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
         {
             //testing testhelper + visible changed event of mainwindow.
             //could be tested separately but the combination is vital to many tests. That's why this test is here.
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 gui.Run();
                 int callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
                 Assert.AreEqual(1, callCount);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
         [RequiresSTA]
         public void SelectingProjectNodeSetsSelectedItemToProject()
         {
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -84,11 +108,16 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
                 Assert.AreEqual(gui.Project, gui.Selection);
             }
+            mocks.VerifyAll();
         }
 
         private static void StartWithCommonPlugins()
         {
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 var applicationCore = gui.ApplicationCore;
 
@@ -99,6 +128,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow);
             }
+            mocks.VerifyAll();
         }
     }
 }

@@ -120,7 +120,7 @@ namespace Application.Ringtoets
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
             var mainWindow = new MainWindow(null);
-            gui = new RingtoetsGui(mainWindow, applicationCore, settings)
+            gui = new RingtoetsGui(mainWindow, new StorageSqLite(), applicationCore, settings)
             {
                 Plugins =
                 {
@@ -133,8 +133,7 @@ namespace Application.Ringtoets
                     , new DemoProjectGuiPlugin()
                     , new OxyPlotGuiPlugin()
 #endif
-                },
-                Storage = new StorageSqLite()
+                }
             };
 
             RunRingtoets();

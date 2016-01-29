@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+
+using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
@@ -128,18 +130,19 @@ namespace Core.Plugins.OxyPlot.Test
         public void GivenConfiguredGui_WhenOpenToolView_UpdateComponentsWithDataFromActiveView(bool isChartViewActive)
         {
             // Given
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 var plugin = new OxyPlotGuiPlugin();
-                var mocks = new MockRepository();
                 IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
                 var baseChart = new BaseChart
                 {
                     Data = new LineData(Enumerable.Empty<Tuple<double,double>>())
                 };
                 viewMock.Data = baseChart;
-
-                mocks.ReplayAll();
 
                 gui.Plugins.Add(plugin);
                 gui.Run();
@@ -166,15 +169,16 @@ namespace Core.Plugins.OxyPlot.Test
         public void GivenConfiguredGui_WhenActiveViewChangesToViewWithChart_ThenRibbonSetVisibility(bool visible)
         {
             // Given
-            using (var gui = new RingtoetsGui(new MainWindow(null)))
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
             {
                 var plugin = new OxyPlotGuiPlugin();
-                var mocks = new MockRepository();
                 var testChartView = new TestChartView();
                 var chart = new BaseChart();
                 IView viewMock = visible ? (IView) testChartView : new TestView();
-
-                mocks.ReplayAll();
 
                 testChartView.Data = chart;
 

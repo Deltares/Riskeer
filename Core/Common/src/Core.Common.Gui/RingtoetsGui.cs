@@ -51,7 +51,7 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
 
-        public RingtoetsGui(IMainWindow mainWindow, ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
+        public RingtoetsGui(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (isAlreadyRunningInstanceOfIGui)
@@ -61,6 +61,7 @@ namespace Core.Common.Gui
             }
 
             MainWindow = mainWindow;
+            Storage = projectStore;
             ApplicationCore = applicationCore ?? new ApplicationCore();
             FixedSettings = fixedSettings ?? new GuiCoreSettings();
 
@@ -72,7 +73,7 @@ namespace Core.Common.Gui
             UserSettings = Settings.Default;
 
             viewCommandHandler = new ViewCommandHandler(this);
-            storageCommandHandler = new StorageCommandHandler(Storage, this, this, this, this, viewCommandHandler);
+            storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore, this);
             projectCommandsHandler = new ProjectCommandsHandler(this, MainWindow, ApplicationCore, this, this);
 
@@ -86,7 +87,7 @@ namespace Core.Common.Gui
 
         public IPropertyResolver PropertyResolver { get; private set; }
 
-        public IStoreProject Storage { get; set; }
+        public IStoreProject Storage { get; private set; }
 
         private IProjectExplorer ProjectExplorer
         {
