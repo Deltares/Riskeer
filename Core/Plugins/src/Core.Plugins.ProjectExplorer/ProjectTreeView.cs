@@ -67,7 +67,6 @@ namespace Core.Plugins.ProjectExplorer
             treeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
 
             treeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
-            treeView.NodeMouseClick += TreeViewNodeMouseClick;
             treeView.AfterSelect += TreeViewSelectedNodeChanged;
 
             treeView.Dock = DockStyle.Fill;
@@ -163,11 +162,6 @@ namespace Core.Plugins.ProjectExplorer
             applicationSelection.Selection = tag;
 
             selectingNode = false;
-        }
-
-        private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            treeView.SelectedNode = e.Node;
         }
 
         private void SubscribeProjectEvents()
