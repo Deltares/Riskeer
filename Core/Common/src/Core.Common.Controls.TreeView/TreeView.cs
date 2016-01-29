@@ -35,7 +35,7 @@ namespace Core.Common.Controls.TreeView
         {
             controller = new TreeViewController(this);
 
-            DrawMode = TreeViewDrawMode.OwnerDrawAll;
+            DrawMode = TreeViewDrawMode.OwnerDrawText;
             LabelEdit = true;
             HideSelection = false;
 
