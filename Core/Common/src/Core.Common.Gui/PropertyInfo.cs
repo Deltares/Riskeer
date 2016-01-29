@@ -54,7 +54,6 @@ namespace Core.Common.Gui
         /// <summary>
         /// Function for obtaining the data that should be set while creating object properties
         /// </summary>
-        /// As an example, you could implement this as follows:
         /// <example>
         /// As an example, you could implement this as follows:
         /// <code>var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };</code>

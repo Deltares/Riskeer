@@ -20,21 +20,53 @@
 // All rights preserved.
 
 using System;
+
 using log4net.Appender;
 using log4net.Core;
 
 namespace Core.Common.Gui.Appenders
 {
+    /// <summary>
+    /// Singleton log-appender for Log4Net that is used to fill a 'Run-report' when executing
+    /// a particular piece of code.
+    /// </summary>
     public class RunReportLogAppender : AppenderSkeleton
     {
-        public RunReportLogAppender()
+        private Action<string> appendMessageLineAction;
+
+        /// <summary>
+        /// Initializes the singleton.
+        /// </summary>
+        public RunReportLogAppender() // Constructor might be marked as unused, but is called in app.config.
         {
             Instance = this;
         }
 
-        public static RunReportLogAppender Instance { get; set; }
+        /// <summary>
+        /// The singleton value.
+        /// </summary>
+        public static RunReportLogAppender Instance { get; private set; }
 
-        public Action<string> AppendMessageLineAction { get; set; }
+        /// <summary>
+        /// The action to be called when a new message is logged.
+        /// </summary>
+        public Action<string> AppendMessageLineAction
+        {
+            get
+            {
+                return appendMessageLineAction;
+            }
+            set
+            {
+                if (value != null && appendMessageLineAction != null)
+                {
+                    // Setting 2nd action: fail fast!
+                    throw new InvalidOperationException("An action is already set");
+                }
+
+                appendMessageLineAction = value;
+            }
+        }
 
         protected override void Append(LoggingEvent loggingEvent)
         {

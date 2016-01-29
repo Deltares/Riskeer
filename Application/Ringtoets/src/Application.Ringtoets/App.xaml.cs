@@ -36,6 +36,7 @@ using Application.Ringtoets.Storage;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
+using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.CommonTools;
 using Core.Plugins.DotSpatial;
@@ -122,6 +123,8 @@ namespace Application.Ringtoets
                 return;
             }
 
+            DeleteOldLogFiles();
+
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
             var applicationCore = new ApplicationCore();
@@ -160,6 +163,24 @@ namespace Application.Ringtoets
             RunRingtoets();
 
             mainWindow.Show();
+        }
+
+        /// <summary>
+        /// <code>app.config</code> has been configured to use <see cref="RingtoetsUserDataFolderConverter"/>
+        /// to write log files to the ringtoets user data folder. This method deletes the old log files
+        /// that have been written there.
+        /// </summary>
+        private void DeleteOldLogFiles()
+        {
+            var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+            var logFiles = Directory.GetFiles(settingsDirectory, "*.log");
+            foreach (var logFile in logFiles)
+            {
+                if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > 30)
+                {
+                    File.Delete(logFile);
+                }
+            }
         }
 
         private bool ShutdownIfNotFirstInstance()

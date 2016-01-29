@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using Core.Common.Utils;
 using log4net.Util;
 
 namespace Core.Common.Gui.Appenders
@@ -30,33 +29,14 @@ namespace Core.Common.Gui.Appenders
     //Any arguments are ignored and just just return c:\user\muurman\appdata\deltares\ds1.0.0.0\
     //from http://logging.apache.org/log4net/release/release-notes.html
     /// <summary>
-    /// PatternConverter for 'Special' Folder 
+    /// Converter that injects the application user data folder.
     /// </summary>
- 
     public class RingtoetsUserDataFolderConverter : PatternConverter // NOTE: Class might be marked as unused, but it's actually created in Application.Ringtoets/app.config!
     {
         protected override void Convert(TextWriter writer, object state)
         {
             var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-
-            DeleteOldLogFiles(settingsDirectory);
-
             writer.Write(settingsDirectory);
         }
-
-        private void DeleteOldLogFiles(string settingsDirectory)
-        {
-            var daysToKeepLogFiles = 30;
-
-            var logFiles = Directory.GetFiles(settingsDirectory, "*.log");
-            foreach (var logFile in logFiles)
-            {
-                if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > daysToKeepLogFiles)
-                {
-                    File.Delete(logFile);
-                }
-            }
-        }
     }
-
 }
