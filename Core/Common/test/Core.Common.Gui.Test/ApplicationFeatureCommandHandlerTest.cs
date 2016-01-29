@@ -45,16 +45,17 @@ namespace Core.Common.Gui.Test
         public void CanShowPropertiesFor_PropertiesForSuperObjectDefined_True()
         {
             // Setup
-            var gui = mocks.DynamicMock<IGui>();
             var aSubObject = new ASubObject();
-            var propertyResolverMock = mocks.StrictMock<IPropertyResolver>();
 
+            var propertyResolverMock = mocks.StrictMock<IPropertyResolver>();
             propertyResolverMock.Expect(pr => pr.GetObjectProperties(aSubObject)).Return(new object());
-            gui.Expect(g => g.PropertyResolver).Return(propertyResolverMock);
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
 
             mocks.ReplayAll();
 
-            var commandHandler = new ApplicationFeatureCommandHandler(gui.PropertyResolver, gui.MainWindow, gui);
+            var commandHandler = new ApplicationFeatureCommandHandler(propertyResolverMock, mainWindow, applicationSelection);
 
             // Call
             var canShowProperties = commandHandler.CanShowPropertiesFor(aSubObject);

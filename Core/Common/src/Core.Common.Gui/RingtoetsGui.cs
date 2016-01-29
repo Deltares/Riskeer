@@ -73,7 +73,7 @@ namespace Core.Common.Gui
 
             UserSettings = Settings.Default;
 
-            viewCommandHandler = new ViewCommandHandler(this);
+            viewCommandHandler = new ViewCommandHandler(this, this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore, this);
             projectCommandsHandler = new ProjectCommandsHandler(this, MainWindow, ApplicationCore, this, this);

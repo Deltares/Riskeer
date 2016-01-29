@@ -10,45 +10,55 @@ namespace Core.Common.Gui
     /// </summary>
     public class ViewCommandHandler : IViewCommands
     {
-        private readonly IGui gui;
+        private readonly IDocumentViewController documentViewController;
+        private readonly IToolViewController toolViewController;
+        private readonly IApplicationSelection applicationSelection;
+        private readonly IGuiPluginsHost guiPluginsHost;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewCommandHandler"/> class.
         /// </summary>
-        /// <param name="gui">The GUI.</param>
-        public ViewCommandHandler(IGui gui)
+        /// <param name="documentViewController"></param>
+        /// <param name="toolViewController"></param>
+        /// <param name="applicationSelection"></param>
+        /// <param name="pluginsHost"></param>
+        public ViewCommandHandler(IDocumentViewController documentViewController, IToolViewController toolViewController,
+                                  IApplicationSelection applicationSelection, IGuiPluginsHost pluginsHost)
         {
-            this.gui = gui;
+            this.documentViewController = documentViewController;
+            this.toolViewController = toolViewController;
+            this.applicationSelection = applicationSelection;
+            guiPluginsHost = pluginsHost;
         }
 
         public object GetDataOfActiveView()
         {
-            return gui.DocumentViews.ActiveView != null ? gui.DocumentViews.ActiveView.Data : null;
+            return documentViewController.DocumentViews.ActiveView != null ? documentViewController.DocumentViews.ActiveView.Data : null;
         }
 
         public bool CanOpenSelectViewDialog()
         {
-            return gui.Selection != null && gui.DocumentViewsResolver.GetViewInfosFor(gui.Selection).Count() > 1;
+            return applicationSelection.Selection != null && documentViewController.DocumentViewsResolver.GetViewInfosFor(applicationSelection.Selection).Count() > 1;
         }
 
         public void OpenSelectViewDialog()
         {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection, true);
+            documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection, true);
         }
 
         public bool CanOpenViewFor(object obj)
         {
-            return gui.DocumentViewsResolver.GetViewInfosFor(obj).Any();
+            return documentViewController.DocumentViewsResolver.GetViewInfosFor(obj).Any();
         }
 
         public void OpenView(object dataObject)
         {
-            gui.DocumentViewsResolver.OpenViewForData(dataObject);
+            documentViewController.DocumentViewsResolver.OpenViewForData(dataObject);
         }
 
         public void OpenViewForSelection()
         {
-            gui.DocumentViewsResolver.OpenViewForData(gui.Selection);
+            documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection);
         }
 
         /// <summary>
@@ -57,14 +67,14 @@ namespace Core.Common.Gui
         /// <param name="dataObject"></param>
         public void RemoveAllViewsForItem(object dataObject)
         {
-            if (dataObject == null || gui == null || gui.DocumentViews == null || gui.DocumentViews.Count == 0)
+            if (dataObject == null || documentViewController == null || documentViewController.DocumentViews == null || documentViewController.DocumentViews.Count == 0)
             {
                 return;
             }
-            foreach (var data in gui.GetAllDataWithViewDefinitionsRecursively(dataObject))
+            foreach (var data in guiPluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject))
             {
-                gui.DocumentViewsResolver.CloseAllViewsFor(data);
-                RemoveViewsAndData(gui.ToolWindowViews.Where(v => v.Data == data).ToArray());
+                documentViewController.DocumentViewsResolver.CloseAllViewsFor(data);
+                RemoveViewsAndData(toolViewController.ToolWindowViews.Where(v => v.Data == data).ToArray());
             }
         }
 

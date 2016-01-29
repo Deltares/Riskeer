@@ -252,7 +252,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if ((propertyGrid == null) || (propertyGrid.IsDisposed))
             {
-                propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, Gui.PropertyResolver);
+                propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, gui.PropertyResolver);
             }
 
             propertyGrid.Text = Properties.Resources.Properties_Title;
@@ -827,7 +827,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             ButtonQuickAccessSaveProject.IsEnabled = ButtonMenuFileSaveProject.IsEnabled;
 
             UpdateMainWindowRibbonElements();
-            UpdateRibbonExtensions();
+            UpdateRibbonExtensions(gui);
 
             ValidateItems();
         }
@@ -842,10 +842,10 @@ namespace Core.Common.Gui.Forms.MainWindow
             };
         }
 
-        private void UpdateRibbonExtensions()
+        private void UpdateRibbonExtensions(IGuiPluginsHost guiPluginsHost)
         {
             // get all ribbon controls
-            ribbonCommandHandlers = Gui.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
+            ribbonCommandHandlers = guiPluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
 
             foreach (var ribbonExtension in ribbonCommandHandlers)
             {

@@ -37,21 +37,21 @@ namespace Core.Common.Gui.Test
             toolWindows.Stub(ws => ws.GetEnumerator()).WhenCalled(invocation => invocation.ReturnValue = viewsArray.GetEnumerator()).Return(null);
             toolWindows.Expect(ws => ws.Count).Return(viewsArray.Count);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Expect(g => g.GetAllDataWithViewDefinitionsRecursively(data)).Return(new[]
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
+            guiPluginsHost.Expect(g => g.GetAllDataWithViewDefinitionsRecursively(data)).Return(new[]
             {
                 data,
                 childData
             });
-            gui.Expect(g => g.DocumentViews).Return(toolWindows).Repeat.AtLeastOnce();
-            gui.Expect(g => g.DocumentViewsResolver).Return(documentViewsResolver).Repeat.AtLeastOnce();
-            gui.Expect(g => g.ToolWindowViews).Return(toolWindows).Repeat.AtLeastOnce();
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectClosing += null).IgnoreArguments();
-            gui.Stub(g => g.MainWindow).Return(null);
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            documentViewController.Expect(g => g.DocumentViews).Return(toolWindows).Repeat.AtLeastOnce();
+            documentViewController.Expect(g => g.DocumentViewsResolver).Return(documentViewsResolver).Repeat.AtLeastOnce();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            toolViewController.Expect(g => g.ToolWindowViews).Return(toolWindows).Repeat.AtLeastOnce();
             mocks.ReplayAll();
-
-            var viewCommandHandler = new ViewCommandHandler(gui);
+            
+            var viewCommandHandler = new ViewCommandHandler(documentViewController, toolViewController, applicationSelection, guiPluginsHost);
 
             // Call
             viewCommandHandler.RemoveAllViewsForItem(data);
