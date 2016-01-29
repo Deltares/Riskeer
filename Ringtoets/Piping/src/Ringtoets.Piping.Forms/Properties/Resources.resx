@@ -386,7 +386,7 @@
     <value>Ondergrondschematisering</value>
   </data>
   <data name="PipingCalculationGroup_Add_PipingCalculation" xml:space="preserve">
-    <value>Berekening toevoegen</value>
+    <value>&amp;Berekening toevoegen</value>
   </data>
   <data name="PipingFailureMechanism_Add_PipingCalculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe piping berekening toe aan dit faalmechanisme.</value>
@@ -461,7 +461,7 @@
     <value>..\Resources\folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PipingCalculationGroup_Add_PipingCalculationGroup" xml:space="preserve">
-    <value>Map toevoegen</value>
+    <value>&amp;Map toevoegen</value>
   </data>
   <data name="PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.</value>
