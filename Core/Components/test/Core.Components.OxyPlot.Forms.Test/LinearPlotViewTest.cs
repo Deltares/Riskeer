@@ -33,6 +33,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             CollectionAssert.AreEqual(new [] {AxisLayer.AboveSeries, AxisLayer.AboveSeries} , axes.Select(a => a.Layer));
             CollectionAssert.AreEqual(new [] {LineStyle.Solid, LineStyle.Solid} , axes.Select(a => a.MajorGridlineStyle));
             CollectionAssert.AreEqual(new [] {LineStyle.Dot,LineStyle.Dot} , axes.Select(a => a.MinorGridlineStyle));
+            CollectionAssert.AreEqual(new [] {0.1, 0.1} , axes.Select(a => a.MinimumRange));
         }
 
         [Test]

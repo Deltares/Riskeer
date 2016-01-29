@@ -64,7 +64,8 @@ namespace Core.Components.OxyPlot.Forms
                 ExtraGridlineThickness = 1,
                 Layer = AxisLayer.AboveSeries,
                 MajorGridlineStyle = LineStyle.Solid,
-                MinorGridlineStyle = LineStyle.Dot
+                MinorGridlineStyle = LineStyle.Dot,
+                MinimumRange = 0.1
             };
         }
 
