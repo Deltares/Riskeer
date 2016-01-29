@@ -170,6 +170,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

@@ -109,6 +109,9 @@
     <Compile Include="Service\FileImportActivity.cs" />
     <Compile Include="Storage\IStorable.cs" />
     <Compile Include="Storage\UpdateStorageException.cs" />
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

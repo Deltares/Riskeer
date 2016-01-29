@@ -298,6 +298,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="app.config" />
     <None Include="Forms\MessageWindow\MessageWindowData.xsc">
       <DependentUpon>MessageWindowData.xsd</DependentUpon>
