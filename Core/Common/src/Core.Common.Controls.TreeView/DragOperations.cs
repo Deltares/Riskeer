@@ -1,7 +1,7 @@
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// Enum that specifies dragoperations.
+    /// Enum that specifies drag operations.
     /// </summary>
     public enum DragOperations
     {

@@ -1,21 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.Extensions;
-using Core.Plugins.ProjectExplorer.Exceptions;
-using Core.Plugins.ProjectExplorer.NodePresenters;
+using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
 
 namespace Core.Plugins.ProjectExplorer
 {
     public class ProjectExplorerGuiPlugin : GuiPlugin
     {
-        private readonly IList<ITreeNodePresenter> projectTreeViewNodePresenters;
-
         private IToolViewController toolViewController;
         private IDocumentViewController documentViewController;
         private IViewCommands viewCommands;
@@ -27,7 +23,6 @@ namespace Core.Plugins.ProjectExplorer
         public ProjectExplorerGuiPlugin()
         {
             Instance = this;
-            projectTreeViewNodePresenters = new List<ITreeNodePresenter>();
         }
 
         public override IRibbonCommandHandler RibbonCommandHandler
@@ -72,18 +67,34 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        /// <summary>
-        /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="ProjectExplorerGuiPlugin"/>.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><see cref="IContextMenuBuilderProvider"/> is <c>null</c></item>
-        /// <item><see cref="ICommandsOwner.ProjectCommands"/> is <c>null</c></item>
-        /// </list></exception>
-        public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
+        public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new ProjectNodePresenter(Gui, projectCommands);
+            yield return new TreeNodeInfo<Project>
+            {
+                Text = project => project.Name,
+                Image = project => ProjectExplorerResources.Project,
+                ChildNodeObjects = project => project.Items.ToArray(),
+                ContextMenuStrip = (project, sourceNode, treeNodeInfo) =>
+                {
+                    var addItem = new StrictContextMenuItem(
+                        ProjectExplorerResources.AddItem,
+                        ProjectExplorerResources.AddItem_ToolTip,
+                        ProjectExplorerResources.plus,
+                        (s, e) => Gui.ProjectCommands.AddNewItem(project));
+
+                    return Gui.Get(sourceNode, treeNodeInfo)
+                              .AddCustomItem(addItem)
+                              .AddSeparator()
+                              .AddImportItem()
+                              .AddExportItem()
+                              .AddSeparator()
+                              .AddExpandAllItem()
+                              .AddCollapseAllItem()
+                              .AddSeparator()
+                              .AddPropertiesItem()
+                              .Build();
+                }
+            };
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
@@ -104,14 +115,16 @@ namespace Core.Plugins.ProjectExplorer
 
         public void InitializeProjectTreeView()
         {
-            if ((ProjectExplorer == null) || (ProjectExplorer.IsDisposed))
+            if (ProjectExplorer == null || ProjectExplorer.IsDisposed)
             {
                 ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands, projectOwner, documentViewController);
 
-                UpdateProjectTreeViewWithRegisteredNodePresenters();
+                Gui.Plugins
+                   .SelectMany(pluginGui => pluginGui.GetTreeNodeInfos())
+                   .ForEachElementDo(tni => ProjectExplorer.ProjectTreeView.TreeView.TreeViewController.RegisterTreeNodeInfo(tni));
 
                 ProjectExplorer.ProjectTreeView.Project = projectOwner.Project;
-                ProjectExplorer.ProjectTreeView.TreeView.OnUpdate += (s, e) => documentViewController.UpdateToolTips();
+                ProjectExplorer.ProjectTreeView.TreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
             }
 
@@ -122,8 +135,6 @@ namespace Core.Plugins.ProjectExplorer
         public override void Activate()
         {
             base.Activate();
-
-            FillProjectTreeViewNodePresentersFromPlugins();
 
             InitializeProjectTreeView();
 
@@ -139,11 +150,6 @@ namespace Core.Plugins.ProjectExplorer
                 ProjectExplorer = null;
             }
 
-            foreach (var projectTreeViewNodePresenter in projectTreeViewNodePresenters)
-            {
-                projectTreeViewNodePresenter.TreeView = null;
-            }
-            projectTreeViewNodePresenters.Clear();
             base.Dispose();
         }
 
@@ -153,27 +159,6 @@ namespace Core.Plugins.ProjectExplorer
             projectOwner.ProjectOpened -= ApplicationProjectOpened;
             projectOwner.ProjectClosing -= ApplicationProjectClosed;
             toolViewController.ToolWindowViews.Remove(ProjectExplorer);
-
-            //should the 'instance' be set to null as well???
-        }
-
-        /// <summary>
-        /// Query all node presenters from <see cref="IGuiPluginsHost.Plugins"/> and registers them.
-        /// </summary>
-        private void FillProjectTreeViewNodePresentersFromPlugins()
-        {
-            var pluginGuis = guiPluginsHost.Plugins;
-
-            try
-            {
-                pluginGuis
-                    .SelectMany(pluginGui => pluginGui.GetProjectTreeViewNodePresenters())
-                    .ForEachElementDo(np => projectTreeViewNodePresenters.Add(np));
-            }
-            catch (ArgumentNullException e)
-            {
-                throw new ProjectExplorerGuiPluginException(Resources.ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin, e);
-            }
         }
 
         private void ApplicationProjectClosed(Project project)
@@ -184,14 +169,6 @@ namespace Core.Plugins.ProjectExplorer
         private void ApplicationProjectOpened(Project project)
         {
             ProjectExplorer.ProjectTreeView.Project = project;
-        }
-
-        private void UpdateProjectTreeViewWithRegisteredNodePresenters()
-        {
-            foreach (var np in projectTreeViewNodePresenters)
-            {
-                ProjectExplorer.ProjectTreeView.TreeView.RegisterNodePresenter(np);
-            }
         }
     }
 }

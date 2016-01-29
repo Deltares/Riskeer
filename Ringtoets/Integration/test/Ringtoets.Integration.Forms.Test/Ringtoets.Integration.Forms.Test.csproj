@@ -58,10 +58,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NodePresenters\AssessmentSectionBaseNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\FailureMechanismContributionNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\FailureMechanismNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PlaceholderWithReadonlyNameNodePresenterTest.cs" />
+    <Compile Include="TreeNodeInfos\AssessmentSectionBaseTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismContributionTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismPlaceholderTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PlaceholderWithReadonlyNameTreeNodeInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DikeAssessmentSectionPropertiesTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
@@ -118,6 +118,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
       <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
       <Name>Ringtoets.Integration.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+      <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
+      <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,7 +11,6 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Service;
@@ -21,7 +19,6 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
-using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Piping.Plugin
@@ -46,50 +43,21 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
         }
 
-        /// <summary>
-        /// Get the <see cref="ITreeNodePresenter"/> defined for the <see cref="PipingGuiPlugin"/>.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITreeNodePresenter"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="IContextMenuBuilderProvider"/> is <c>null</c>.</exception>
-        public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
-        {
-            yield return new PipingFailureMechanismNodePresenter(Gui)
-            {
-                RunActivitiesAction = activities => ActivityProgressDialogRunner.Run(Gui.MainWindow, activities)
-            };
-            yield return new PipingCalculationContextNodePresenter(Gui)
-            {
-                RunActivityAction = activity => ActivityProgressDialogRunner.Run(Gui.MainWindow, activity)
-            };
-            yield return new PipingCalculationGroupContextNodePresenter(Gui)
-            {
-                RunActivitiesAction = activities => ActivityProgressDialogRunner.Run(Gui.MainWindow, activities)
-            };
-            yield return new PipingInputContextNodePresenter(Gui);
-            yield return new PipingSurfaceLineCollectionNodePresenter(Gui);
-            yield return new PipingSurfaceLineNodePresenter(Gui);
-            yield return new PipingSoilProfileCollectionNodePresenter(Gui);
-            yield return new PipingSoilProfileNodePresenter(Gui);
-            yield return new PipingOutputNodePresenter(Gui);
-            yield return new EmptyPipingOutputNodePresenter(Gui);
-            yield return new EmptyPipingCalculationReportNodePresenter(Gui);
-        }
-
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return new TreeNodeInfo<PipingFailureMechanism>
             {
                 Text = pipingFailureMechanism => pipingFailureMechanism.Name,
                 Image = pipingFailureMechanism => PipingFormsResources.PipingIcon,
-                ContextMenu = FailureMechanismContextMenu,
-                ChildNodeObjects = FailureMechanismChildNodeObjects
+                ContextMenuStrip = FailureMechanismContextMenuStrip,
+                ChildNodeObjects = FailureMechanismChildNodeObjects,
             };
 
             yield return new TreeNodeInfo<PipingCalculationContext>
             {
                 Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
                 Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
-                ContextMenu = PipingCalculationContextContextMenu,
+                ContextMenuStrip = PipingCalculationContextContextMenuStrip,
                 ChildNodeObjects = PipingCalculationContextChildNodeObjects,
                 CanRename = pipingCalculationContext => true,
                 OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
@@ -103,7 +71,7 @@ namespace Ringtoets.Piping.Plugin
                 Text = pipingCalculationGroupContext => pipingCalculationGroupContext.WrappedData.Name,
                 Image = pipingCalculationGroupContext => PipingFormsResources.FolderIcon,
                 ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects,
-                ContextMenu = PipingCalculationGroupContextContextMenu,
+                ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip,
                 CanRename = PipingCalculationGroupContextCanRenameNode,
                 OnNodeRenamed = PipingCalculationGroupContextOnNodeRenamed,
                 CanRemove = PipingCalculationGroupContextCanRemove,
@@ -111,119 +79,110 @@ namespace Ringtoets.Piping.Plugin
                 CanDrag = PipingCalculationGroupContextCanDrag,
                 CanDrop = PipingCalculationGroupContextCanDrop,
                 CanInsert = PipingCalculationGroupContextCanInsert,
-                OnDrop = PipingCalculationGroupContextOnDrop
+                OnDrop = PipingCalculationGroupContextOnDrop,
             };
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
                 Text = pipingInputContext => PipingFormsResources.PipingInputContextNodePresenter_NodeDisplayName,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddImportItem()
-                                                     .AddExportItem()
-                                                     .AddSeparator()
-                                                     .AddPropertiesItem()
-                                                     .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddImportItem()
+                                                                        .AddExportItem()
+                                                                        .AddSeparator()
+                                                                        .AddPropertiesItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<IEnumerable<RingtoetsPipingSurfaceLine>>
             {
                 Text = ringtoetsPipingSurfaceLine => PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                 Image = ringtoetsPipingSurfaceLine => PipingFormsResources.FolderIcon,
-                ForegroundColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Cast<object>().ToArray(),
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddImportItem()
-                                                     .AddExportItem()
-                                                     .AddSeparator()
-                                                     .AddExpandAllItem()
-                                                     .AddCollapseAllItem()
-                                                     .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddImportItem()
+                                                                        .AddExportItem()
+                                                                        .AddSeparator()
+                                                                        .AddExpandAllItem()
+                                                                        .AddCollapseAllItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>
             {
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
-
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddPropertiesItem()
-                                                     .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddPropertiesItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<IEnumerable<PipingSoilProfile>>
             {
                 Text = pipingSoilProfiles => PipingFormsResources.PipingSoilProfilesCollection_DisplayName,
                 Image = pipingSoilProfiles => PipingFormsResources.FolderIcon,
-                ForegroundColor = pipingSoilProfiles => pipingSoilProfiles.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = pipingSoilProfiles => pipingSoilProfiles.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = pipingSoilProfiles => pipingSoilProfiles.Cast<object>().ToArray(),
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddImportItem()
-                                                     .AddExportItem()
-                                                     .AddSeparator()
-                                                     .AddExpandAllItem()
-                                                     .AddCollapseAllItem()
-                                                     .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddImportItem()
+                                                                        .AddExportItem()
+                                                                        .AddSeparator()
+                                                                        .AddExpandAllItem()
+                                                                        .AddCollapseAllItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<PipingSoilProfile>
             {
                 Text = pipingSoilProfile => pipingSoilProfile.Name,
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddPropertiesItem()
-                                                     .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddPropertiesItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<PipingOutput>
             {
                 Text = pipingOutput => PipingFormsResources.PipingOutput_DisplayName,
                 Image = pipingOutput => PipingFormsResources.PipingOutputIcon,
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddExportItem()
-                                                     .AddSeparator()
-                                                     .AddPropertiesItem()
-                                                     .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddExportItem()
+                                                                        .AddSeparator()
+                                                                        .AddPropertiesItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<EmptyPipingOutput>
             {
                 Text = emptyPipingOutput => PipingFormsResources.PipingOutput_DisplayName,
                 Image = emptyPipingOutput => PipingFormsResources.PipingOutputIcon,
-                ForegroundColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddExportItem()
-                                                     .AddSeparator()
-                                                     .AddPropertiesItem()
-                                                     .Build()
+                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddExportItem()
+                                                                        .AddSeparator()
+                                                                        .AddPropertiesItem()
+                                                                        .Build()
             };
 
             yield return new TreeNodeInfo<EmptyPipingCalculationReport>
             {
                 Text = emptyPipingCalculationReport => PipingDataResources.CalculationReport_DisplayName,
                 Image = emptyPipingCalculationReport => PipingFormsResources.PipingCalculationReportIcon,
-                ForegroundColor = emptyPipingCalculationReport => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenu = (nodeData, node) => Gui
-                                                     .Get(node)
-                                                     .AddOpenItem()
-                                                     .AddSeparator()
-                                                     .AddExportItem()
-                                                     .AddSeparator()
-                                                     .AddPropertiesItem()
-                                                     .Build()
+                ForeColor = emptyPipingCalculationReport => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
+                                                                        .AddOpenItem()
+                                                                        .AddSeparator()
+                                                                        .AddExportItem()
+                                                                        .AddSeparator()
+                                                                        .AddPropertiesItem()
+                                                                        .Build()
             };
         }
 
         # region PipingFailureMechanism TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismContextMenu(PipingFailureMechanism failureMechanism, TreeNode node)
+        private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanism failureMechanism, TreeNode node, TreeNodeInfo treeNodeInfo)
         {
             var addCalculationGroupItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
@@ -256,7 +215,7 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return Gui.Get(node)
+            return Gui.Get(node, treeNodeInfo)
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)
                       .AddSeparator()
@@ -341,7 +300,7 @@ namespace Ringtoets.Piping.Plugin
                 Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculationGroup_DefaultName, c => c.Name)
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.NotifyObservers();
+            failureMechanism.CalculationsGroup.NotifyObservers();
 
             SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode);
         }
@@ -353,7 +312,7 @@ namespace Ringtoets.Piping.Plugin
                 Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.NotifyObservers();
+            failureMechanism.CalculationsGroup.NotifyObservers();
 
             SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode);
         }
@@ -369,7 +328,7 @@ namespace Ringtoets.Piping.Plugin
             TreeNode failureMechanismsCalculationsNode = failureMechanismNode.Nodes[1];
 
             // New childnode is appended at the end of PipingCalculationGroup:
-            TreeNode newlyAddedGroupNode = failureMechanismsCalculationsNode.Nodes.Last();
+            TreeNode newlyAddedGroupNode = failureMechanismsCalculationsNode.Nodes.OfType<TreeNode>().Last();
             if (!failureMechanismsCalculationsNode.IsExpanded)
             {
                 failureMechanismsCalculationsNode.Expand();
@@ -393,24 +352,30 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IEnumerable GetInputs(PipingFailureMechanism failureMechanism)
+        private static IList GetInputs(PipingFailureMechanism failureMechanism)
         {
-            yield return failureMechanism.SectionDivisions;
-            yield return failureMechanism.SurfaceLines;
-            yield return failureMechanism.SoilProfiles;
-            yield return failureMechanism.BoundaryConditions;
+            return new ArrayList
+            {
+                failureMechanism.SectionDivisions,
+                failureMechanism.SurfaceLines,
+                failureMechanism.SoilProfiles,
+                failureMechanism.BoundaryConditions
+            };
         }
 
-        private IEnumerable GetOutputs(PipingFailureMechanism failureMechanism)
+        private IList GetOutputs(PipingFailureMechanism failureMechanism)
         {
-            yield return failureMechanism.AssessmentResult;
+            return new ArrayList
+            {
+                failureMechanism.AssessmentResult
+            };
         }
 
         # endregion
 
         # region PipingCalculationContext TreeNodeInfo
 
-        private ContextMenuStrip PipingCalculationContextContextMenu(PipingCalculationContext nodeData, TreeNode node)
+        private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationContext nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
         {
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(RingtoetsFormsResources.Validate,
@@ -433,7 +398,7 @@ namespace Ringtoets.Piping.Plugin
                 clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
             }
 
-            return Gui.Get(node)
+            return Gui.Get(node, treeNodeInfo)
                       .AddCustomItem(validateItem)
                       .AddCustomItem(calculateItem)
                       .AddCustomItem(clearOutputItem)
@@ -550,7 +515,7 @@ namespace Ringtoets.Piping.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip PipingCalculationGroupContextContextMenu(PipingCalculationGroupContext nodeData, TreeNode node)
+        private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
         {
             var group = nodeData.WrappedData;
             var addCalculationGroupItem = new StrictContextMenuItem(
@@ -612,14 +577,14 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            var builder = Gui.Get(node)
-                .AddCustomItem(addCalculationGroupItem)
-                .AddCustomItem(addCalculationItem)
-                .AddSeparator()
-                .AddCustomItem(validateAllItem)
-                .AddCustomItem(calculateAllItem)
-                .AddCustomItem(clearAllItem)
-                .AddSeparator();
+            var builder = Gui.Get(node, treeNodeInfo)
+                             .AddCustomItem(addCalculationGroupItem)
+                             .AddCustomItem(addCalculationItem)
+                             .AddSeparator()
+                             .AddCustomItem(validateAllItem)
+                             .AddCustomItem(calculateAllItem)
+                             .AddCustomItem(clearAllItem)
+                             .AddSeparator();
 
             var isRenamable = PipingCalculationGroupContextCanRenameNode(node);
             var isRemovable = PipingCalculationGroupContextCanRemove(nodeData, node.Parent.Tag);
@@ -740,9 +705,9 @@ namespace Ringtoets.Piping.Plugin
             return DragOperations.Move;
         }
 
-        private DragOperations PipingCalculationGroupContextCanDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
+        private DragOperations PipingCalculationGroupContextCanDrop(TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
         {
-            if (GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
+            if (GetAsIPipingCalculationItem(sourceNode.Tag) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode))
             {
                 return validOperations;
             }
@@ -791,14 +756,14 @@ namespace Ringtoets.Piping.Plugin
             return sourceFailureMechanism;
         }
 
-        private bool PipingCalculationGroupContextCanInsert(object item, TreeNode sourceNode, TreeNode targetNode)
+        private bool PipingCalculationGroupContextCanInsert(TreeNode sourceNode, TreeNode targetNode)
         {
-            return GetAsIPipingCalculationItem(item) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode);
+            return GetAsIPipingCalculationItem(sourceNode.Tag) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode);
         }
 
-        private void PipingCalculationGroupContextOnDrop(object item, TreeNode sourceNode, TreeNode targetNode, DragOperations operation, int position)
+        private void PipingCalculationGroupContextOnDrop(TreeNode sourceNode, TreeNode targetNode, DragOperations operation, int position)
         {
-            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(item);
+            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(sourceNode.Tag);
             var originalOwnerContext = sourceNode.Parent.Tag as PipingCalculationGroupContext;
             var target = targetNode.Tag as PipingCalculationGroupContext;
 
@@ -806,8 +771,8 @@ namespace Ringtoets.Piping.Plugin
             {
                 var isMoveWithinSameContainer = ReferenceEquals(targetNode.Tag, originalOwnerContext);
 
-                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target, targetNode.TreeView);
-                dropHandler.Execute(item, pipingCalculationItem, position);
+                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target, (TreeView) targetNode.TreeView);
+                dropHandler.Execute(sourceNode.Tag, pipingCalculationItem, position);
             }
         }
 
@@ -827,7 +792,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 node.Expand();
             }
-            TreeNode newlyAppendedNodeForNewItem = node.Nodes.Last();
+            TreeNode newlyAppendedNodeForNewItem = node.Nodes.OfType<TreeNode>().Last();
             node.TreeView.SelectedNode = newlyAppendedNodeForNewItem;
         }
 
@@ -858,13 +823,13 @@ namespace Ringtoets.Piping.Plugin
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
             public virtual void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
-                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.TreeViewController.GetNodeByTag(target));
 
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
                 NotifyObservers();
 
-                TreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                TreeNode draggedNode = treeView.TreeViewController.GetNodeByTag(draggedDataObject);
                 UpdateTreeView(draggedNode, targetRecordedNodeState);
             }
 
@@ -954,16 +919,16 @@ namespace Ringtoets.Piping.Plugin
 
             public override void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
-                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(target));
+                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.TreeViewController.GetNodeByTag(target));
 
-                recordedNodeState = new TreeNodeExpandCollapseState(treeView.GetNodeByTag(draggedDataObject));
+                recordedNodeState = new TreeNodeExpandCollapseState(treeView.TreeViewController.GetNodeByTag(draggedDataObject));
                 EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
 
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
                 NotifyObservers();
 
-                TreeNode draggedNode = treeView.GetNodeByTag(draggedDataObject);
+                TreeNode draggedNode = treeView.TreeViewController.GetNodeByTag(draggedDataObject);
                 UpdateTreeView(draggedNode, targetRecordedNodeState);
             }
 
@@ -973,7 +938,7 @@ namespace Ringtoets.Piping.Plugin
                 recordedNodeState.Restore(draggedNode);
                 if (renamed)
                 {
-                    treeView.StartLabelEdit(draggedNode);
+                    draggedNode.BeginEdit();
                 }
             }
 

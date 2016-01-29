@@ -1,9 +1,9 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
-using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
@@ -42,15 +42,14 @@ namespace Core.Plugins.ProjectExplorer
             {
                 AllowDrop = true
             };
-            treeView.DataDeleted += ProjectDataDeleted;
 
+            treeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
+
+            treeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
             treeView.NodeMouseClick += TreeViewNodeMouseClick;
-            treeView.DoubleClick += TreeViewDoubleClick;
-            treeView.SelectedNodeChanged += TreeViewSelectedNodeChanged;
+            treeView.AfterSelect += TreeViewSelectedNodeChanged;
 
             treeView.Dock = DockStyle.Fill;
-
-            treeView.OnProcessCmdKey = OnProcessCmdKey;
 
             Controls.Add(treeView);
         }
@@ -90,7 +89,7 @@ namespace Core.Plugins.ProjectExplorer
                 }
 
                 project = value as Project;
-                treeView.Data = project;
+                treeView.TreeViewController.Data = project;
 
                 if (project != null)
                 {
@@ -108,7 +107,7 @@ namespace Core.Plugins.ProjectExplorer
                 UnsubscribeProjectEvents();
             }
 
-            treeView.Data = null;
+            treeView.TreeViewController.Data = null;
             treeView.Dispose();
 
             base.Dispose();
@@ -127,7 +126,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            TreeNode node = treeView.GetNodeByTag(applicationSelection.Selection);
+            TreeNode node = treeView.TreeViewController.GetNodeByTag(applicationSelection.Selection);
             if (node != null)
             {
                 treeView.SelectedNode = node;
@@ -145,43 +144,9 @@ namespace Core.Plugins.ProjectExplorer
             selectingNode = false;
         }
 
-        private bool OnProcessCmdKey(Keys keyData)
-        {
-            if (treeView.SelectedNode == null)
-            {
-                return false;
-            }
-
-            if (keyData == Keys.Enter)
-            {
-                viewCommands.OpenViewForSelection();
-
-                return true;
-            }
-
-            if (keyData == Keys.Delete)
-            {
-                treeView.TryDeleteSelectedNodeData();
-
-                return true;
-            }
-
-            if (keyData == Keys.Escape)
-            {
-                if (documentViewController.DocumentViews.ActiveView != null)
-                {
-                    ((Control)documentViewController.DocumentViews.ActiveView).Focus();
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
         private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            treeView.SelectedNode = ((TreeNode) e.Node);
+            treeView.SelectedNode = e.Node;
         }
 
         private void SubscribeProjectEvents()
@@ -203,13 +168,13 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (!Equals(applicationSelection.Selection, TreeView.SelectedNode.Tag))
             {
-                // Necessary if WinForms skips single click event (see TOOLS-8722)...
+                // Necessary if WinForms skips single click event
                 applicationSelection.Selection = TreeView.SelectedNode.Tag;
             }
             viewCommands.OpenViewForSelection();
         }
 
-        private void ProjectDataDeleted(object sender, TreeView.TreeViewDataDeletedEventArgs e)
+        private void ProjectDataDeleted(object sender, TreeNodeDataDeletedEventArgs e)
         {
             viewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
         }

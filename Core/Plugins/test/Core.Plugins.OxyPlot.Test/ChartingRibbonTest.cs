@@ -265,7 +265,7 @@ namespace Core.Plugins.OxyPlot.Test
             var ribbon = new ChartingRibbon();
 
             chart.Expect(c => c.IsPanningEnabled).Return(buttonChecked).Repeat.Twice();
-            chart.Expect(c => c.IsRectangleZoomingEnabled).Return(buttonChecked).Repeat.Twice(); ;
+            chart.Expect(c => c.IsRectangleZoomingEnabled).Return(buttonChecked).Repeat.Twice();
 
             mocks.ReplayAll();
 

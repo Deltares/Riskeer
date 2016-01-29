@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Resources;
 using Core.Common.Controls.Views;
-using Core.Components.Charting;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 

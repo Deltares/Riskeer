@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
+using System.Windows.Forms;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
@@ -30,6 +30,7 @@ using log4net.Appender;
 using log4net.Repository.Hierarchy;
 
 using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
+using Application = System.Windows.Application;
 using WindowsApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui
@@ -359,7 +360,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            var node = ProjectExplorer.TreeView.GetNodeByTag(view.Data);
+            var node = ProjectExplorer.TreeView.TreeViewController.GetNodeByTag(view.Data);
             if (node != null)
             {
                 DocumentViews.SetTooltip(view, node.FullPath);
@@ -721,9 +722,9 @@ namespace Core.Common.Gui
 
         #region Implementation: IContextMenuBuilderProvider
 
-        public IContextMenuBuilder Get(TreeNode treeNode)
+        public IContextMenuBuilder Get(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
-            return new ContextMenuBuilder(appFeatureApplicationCommands, exportImportCommandHandler, ViewCommands, treeNode);
+            return new ContextMenuBuilder(appFeatureApplicationCommands, exportImportCommandHandler, ViewCommands, treeNode, treeNodeInfo);
         }
 
         #endregion

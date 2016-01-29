@@ -45,7 +45,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DragOperations.cs" />
-    <Compile Include="ITreeNodePresenter.cs" />
     <Compile Include="TreeNodeInfo.cs" />
     <Compile Include="PlaceholderLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,15 +53,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TreeNode.cs" />
     <Compile Include="TreeNodeExpandCollapseState.cs" />
     <Compile Include="TreeNodeGraphicExtensions.cs" />
-    <Compile Include="TreeNodeList.cs" />
     <Compile Include="TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TreeViewController.cs" />
-    <Compile Include="TreeViewNodePresenterBase.cs" />
+    <Compile Include="TreeNodeDataDeletedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">

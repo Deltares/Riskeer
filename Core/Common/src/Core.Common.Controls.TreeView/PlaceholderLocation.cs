@@ -1,7 +1,7 @@
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// Enum to specify whether the mouse is above or below a treenode.
+    /// Enum to specify whether or not the mouse is above or below a tree node.
     /// </summary>
     public enum PlaceholderLocation
     {

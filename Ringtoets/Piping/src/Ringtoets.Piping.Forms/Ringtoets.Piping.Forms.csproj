@@ -49,16 +49,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="NodePresenters\EmptyPipingCalculationReportNodePresenter.cs" />
-    <Compile Include="NodePresenters\EmptyPipingOutputNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingFailureMechanismNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingInputContextNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingCalculationContextNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingSoilProfileNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingSurfaceLineNodePresenter.cs" />
     <Compile Include="PresentationObjects\EmptyPipingCalculationReport.cs" />
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
     <Compile Include="PresentationObjects\PipingCalculationContext.cs" />
@@ -72,7 +62,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\PipingCalculationContextProperties.cs" />
-    <Compile Include="NodePresenters\PipingCalculationGroupContextNodePresenter.cs" />
     <Compile Include="PropertyClasses\PipingCalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputProperties.cs" />

@@ -66,6 +66,13 @@ namespace Core.Common.Base.Service
             fileImporter.Cancel();
         }
 
-        protected override void OnFinish() {}
+        protected override void OnFinish()
+        {
+            var observableTarget = target as IObservable;
+            if (observableTarget != null)
+            {
+                observableTarget.NotifyObservers();
+            }
+        }
     }
 }

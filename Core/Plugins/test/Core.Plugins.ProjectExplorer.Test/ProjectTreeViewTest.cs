@@ -1,11 +1,11 @@
 using System;
 using System.Configuration;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-using Core.Plugins.ProjectExplorer.NodePresenters;
 
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -47,29 +47,26 @@ namespace Core.Plugins.ProjectExplorer.Test
             };
 
             object item = 1;
-
             var project = new Project();
             project.Items.Add(item);
 
+            bool removedCalled = false;
+
             var mocks = new MockRepository();
-            var menuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
 
-            var integerNodePresenter = mocks.Stub<ITreeNodePresenter>();
-            integerNodePresenter.Expect(np => np.CanRemove(project, item)).Return(true);
-            integerNodePresenter.Expect(np => np.RemoveNodeData(project, item)).Return(true);
-            integerNodePresenter.Stub(np => np.NodeTagType).Return(typeof(int));
-            integerNodePresenter.Stub(np => np.UpdateNode(null, null, null)).IgnoreArguments();
-            integerNodePresenter.Stub(np => np.GetChildNodeObjects(item)).Return(new object[0]);
+            var projectTreeNodeInfo = mocks.Stub<TreeNodeInfo<Project>>();
+            projectTreeNodeInfo.ChildNodeObjects = p => p.Items.ToArray();
 
-            var projectCommands = mocks.Stub<IProjectCommands>();
+            var integerTreeNodeInfo = mocks.Stub<TreeNodeInfo>();
+            integerTreeNodeInfo.TagType = typeof(int);
+            integerTreeNodeInfo.CanRemove = (nd, pnd) => nd == item && pnd == project;
+            integerTreeNodeInfo.OnNodeRemoved = (nd, pnd) => removedCalled = true; 
 
             var commandHandler = mocks.Stub<IViewCommands>();
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));
-
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
             projectOwner.Stub(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
-
             var selectionStub = mocks.Stub<IApplicationSelection>();
             selectionStub.Stub(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             selectionStub.Stub(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
@@ -80,16 +77,18 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var projectTree = new ProjectTreeView(selectionStub, commandHandler, projectOwner, documentViewController))
             {
-                projectTree.TreeView.RegisterNodePresenter(new ProjectNodePresenter(menuBuilderProvider, projectCommands));
-                projectTree.TreeView.RegisterNodePresenter(integerNodePresenter);
+                projectTree.TreeView.TreeViewController.RegisterTreeNodeInfo(projectTreeNodeInfo);
+                projectTree.TreeView.TreeViewController.RegisterTreeNodeInfo(integerTreeNodeInfo);
                 projectTree.Project = project;
 
                 // Call
-                projectTree.TreeView.SelectedNode = projectTree.TreeView.Nodes[0].Nodes.First();
-                projectTree.TreeView.TryDeleteSelectedNodeData();
+                var nodeToDelete = projectTree.TreeView.Nodes[0].Nodes.OfType<TreeNode>().First();
+                projectTree.TreeView.TreeViewController.DeleteNode(nodeToDelete, integerTreeNodeInfo);
             }
 
             // Assert
+            Assert.IsTrue(removedCalled);
+
             mocks.VerifyAll();
         }
     }

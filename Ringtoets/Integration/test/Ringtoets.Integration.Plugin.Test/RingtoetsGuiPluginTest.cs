@@ -5,9 +5,11 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Forms.NodePresenters;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.NodePresenters;
+using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -67,15 +69,15 @@ namespace Ringtoets.Integration.Plugin.Test
             })
             {
                 // call
-                ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
+                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(5, nodePresenters.Length);
-                Assert.IsTrue(nodePresenters.Any(np => np is AssessmentSectionBaseNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PlaceholderWithReadonlyNameNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is FailureMechanismNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is CategoryTreeFolderNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is FailureMechanismContributionNodePresenter));
+                Assert.AreEqual(5, treeNodeInfos.Length);
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionBase)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PlaceholderWithReadonlyName)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismPlaceholder)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContribution)));
             }
             mocks.VerifyAll();
         }

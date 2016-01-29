@@ -52,7 +52,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
@@ -106,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -118,7 +117,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
@@ -154,7 +152,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -413,7 +411,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -445,7 +442,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             Assert.AreEqual(5, progressCallCount,
                             "Expect 1 call for each surfaceline (3 in total) +1 for 0/N progress, and 1 for putting data in model.");
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -457,7 +454,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
@@ -487,7 +483,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
     }
 }

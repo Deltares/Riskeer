@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 
@@ -26,7 +27,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
             this.contextMenuBuilder = contextMenuBuilder;
         }
 
-        public IContextMenuBuilder Get(TreeNode treeNode)
+        public IContextMenuBuilder Get(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
             return contextMenuBuilder;
         }

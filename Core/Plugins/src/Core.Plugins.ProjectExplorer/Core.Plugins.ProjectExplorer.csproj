@@ -88,8 +88,6 @@
     </Compile>
     <Compile Include="Commands\ShowProjectExplorerCommand.cs" />
     <Compile Include="Exceptions\ProjectExplorerGuiPluginException.cs" />
-    <Compile Include="NodePresenters\ProjectNodePresenter.cs">
-    </Compile>
     <Compile Include="ProjectExplorer.cs">
       <SubType>UserControl</SubType>
     </Compile>

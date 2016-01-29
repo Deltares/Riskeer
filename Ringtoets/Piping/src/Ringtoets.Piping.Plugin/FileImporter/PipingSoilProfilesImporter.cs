@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Piping.Data;
@@ -161,12 +160,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             foreach (var item in imported.ImportedItems)
             {
                 targetCollection.Add(item);
-            }
-
-            var observableCollection = targetCollection as IObservable;
-            if (observableCollection != null)
-            {
-                observableCollection.NotifyObservers();
             }
         }
 

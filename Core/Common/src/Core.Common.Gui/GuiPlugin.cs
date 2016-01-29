@@ -62,14 +62,6 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Node presenters which can be provided by the gui plugin.
-        /// </summary>
-        public virtual IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
-        {
-            yield break;
-        }
-
-        /// <summary>
         /// This method returns an enumeration of <see cref="TreeNodeInfo"/>.
         /// </summary>
         /// <returns>The enumeration of <see cref="TreeNodeInfo"/> provided by the <see cref="GuiPlugin"/>.</returns>

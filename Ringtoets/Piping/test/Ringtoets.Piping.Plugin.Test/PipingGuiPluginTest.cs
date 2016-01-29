@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
@@ -6,7 +7,6 @@ using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Plugin.Test
         }
 
         [Test]
-        public void GetProjectTreeViewNodePresenters_ReturnsSupportedNodePresenters()
+        public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // setup
             var mocks = new MockRepository();
@@ -99,21 +99,21 @@ namespace Ringtoets.Piping.Plugin.Test
             })
             {
                 // call
-                ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
+                TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(11, nodePresenters.Length);
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingCalculationContextNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingCalculationGroupContextNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingInputContextNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingFailureMechanismNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingOutputNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is EmptyPipingOutputNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is EmptyPipingCalculationReportNodePresenter));
+                Assert.AreEqual(11, treeNodeInfos.Length);
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IEnumerable<RingtoetsPipingSurfaceLine>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IEnumerable<PipingSoilProfile>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSoilProfile)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationGroupContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanism)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingCalculationReport)));
             }
             mocks.VerifyAll();
         }

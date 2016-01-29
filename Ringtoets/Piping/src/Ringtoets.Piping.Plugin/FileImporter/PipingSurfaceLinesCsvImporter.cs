@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 
 using log4net;
@@ -208,12 +207,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             foreach (var readSurfaceLine in readSurfaceLines)
             {
                 targetCollection.Add(readSurfaceLine);
-            }
-
-            var observableTarget = targetCollection as IObservable;
-            if (observableTarget != null)
-            {
-                observableTarget.NotifyObservers();
             }
         }
 

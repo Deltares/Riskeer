@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Properties;
-using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui.ContextMenu
 {
@@ -29,15 +29,16 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="viewsCommandsHandler">The <see cref="IViewCommands"/> from which 
         /// to obtain information to render and bind actions to the items of the <see cref="ContextMenu"/>. 
         /// If <c>null</c>, this builder will not render items which require this type of information.</param>
-        /// <param name="treeNode">The <see cref="Controls.TreeView.TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="treeNode">The <see cref="TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to use while creating the <see cref="ContextMenuStrip"/>.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
         /// the <paramref name="featureCommandHandler"/> or <paramref name="treeNode"/>.</exception>
-        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode)
+        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
             try
             {
                 guiItemsFactory = new GuiContextMenuItemFactory(featureCommandHandler, importExportHandler, viewsCommandsHandler, treeNode);
-                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode);
+                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode, treeNodeInfo);
             }
             catch (ArgumentNullException e)
             {

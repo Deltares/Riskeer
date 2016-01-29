@@ -272,7 +272,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var importer = new PipingSoilProfilesImporter
@@ -301,7 +300,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, observableSoilProfileList.Count);
             Assert.AreEqual(4, progress);
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -312,7 +311,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var importer = new PipingSoilProfilesImporter
@@ -329,7 +327,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, observableSoilProfileList.Count);
 
-            mocks.VerifyAll();
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         private void IncrementProgress(string a, int b, int c)

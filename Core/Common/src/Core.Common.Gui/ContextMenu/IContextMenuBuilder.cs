@@ -10,52 +10,52 @@ namespace Core.Common.Gui.ContextMenu
     {
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="ContextMenuBuilder"/> itself.</returns>
         IContextMenuBuilder AddRenameItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="ContextMenuBuilder"/> itself.</returns>
         IContextMenuBuilder AddDeleteItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which expands the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which expands the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         IContextMenuBuilder AddExpandAllItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which collapses the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which collapses the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         IContextMenuBuilder AddCollapseAllItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddOpenItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddExportItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports the data of the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>
         IContextMenuBuilder AddImportItem();
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="Controls.TreeView.TreeNode"/>.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The <see cref="IContextMenuBuilder"/> itself.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the <see cref="IApplicationFeatureCommands"/> was not passed on construction.</exception>

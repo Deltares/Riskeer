@@ -67,9 +67,6 @@
       <DependentUpon>ChartDataView.cs</DependentUpon>
     </Compile>
     <Compile Include="IToolViewController.cs" />
-    <Compile Include="Legend\AreaDataNodePresenter.cs" />
-    <Compile Include="Legend\ChartDataNodePresenter.cs" />
-    <Compile Include="Legend\ChartNodePresenter.cs" />
     <Compile Include="Legend\LegendTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -82,8 +79,6 @@
     <Compile Include="Forms\IChartView.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Legend\LegendController.cs" />
-    <Compile Include="Legend\LineDataNodePresenter.cs" />
-    <Compile Include="Legend\PointDataNodePresenter.cs" />
     <Compile Include="OxyPlotGuiPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

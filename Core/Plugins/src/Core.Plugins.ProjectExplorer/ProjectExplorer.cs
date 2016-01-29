@@ -65,7 +65,7 @@ namespace Core.Plugins.ProjectExplorer
 
         public void ScrollTo(object o)
         {
-            var nodeToSelect = TreeView.GetNodeByTag(o);
+            var nodeToSelect = TreeView.TreeViewController.GetNodeByTag(o);
 
             if (nodeToSelect == null)
             {

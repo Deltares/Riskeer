@@ -576,6 +576,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan geen element in het contextmenu creëren zonder dat informatie over de knoop bekend is..
+        /// </summary>
+        public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node_info {
+            get {
+                return ResourceManager.GetString("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap control_play {
@@ -1910,16 +1919,6 @@ namespace Core.Common.Gui.Properties {
         public static string Project_saving_project_saved_0 {
             get {
                 return ResourceManager.GetString("Project_saving_project_saved_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er ging iets fout bij het ophalen van de &apos;NodePresenters&apos; van alle plugins..
-        /// </summary>
-        public static string ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_retrieve_NodePresenters_for_a_plugin {
-            get {
-                return ResourceManager.GetString("ProjectExplorerGuiPlugin_FillProjectTreeViewNodePresentersFromPlugins_Could_not_r" +
-                        "etrieve_NodePresenters_for_a_plugin", resourceCulture);
             }
         }
         

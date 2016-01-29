@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
-using TreeNode = Core.Common.Controls.TreeView.TreeNode;
 
 namespace Core.Common.Gui.ContextMenu
 {

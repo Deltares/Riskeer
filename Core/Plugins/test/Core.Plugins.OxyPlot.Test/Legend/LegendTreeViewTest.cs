@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
-using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
@@ -19,11 +16,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var view = new LegendTreeView();
 
             // Assert
-            Assert.AreEqual(4, view.NodePresenters.Count());
-            Assert.IsInstanceOf<LineDataNodePresenter>(view.NodePresenters.ElementAt(0));
-            Assert.IsInstanceOf<PointDataNodePresenter>(view.NodePresenters.ElementAt(1));
-            Assert.IsInstanceOf<AreaDataNodePresenter>(view.NodePresenters.ElementAt(2));
-            Assert.IsInstanceOf<ChartNodePresenter>(view.NodePresenters.ElementAt(3));
+            Assert.AreEqual(4, view.TreeViewController.TreeNodeInfos.Count());
+            Assert.AreEqual(typeof(PointData), view.TreeViewController.TreeNodeInfos.ElementAt(0).TagType);
+            Assert.AreEqual(typeof(LineData), view.TreeViewController.TreeNodeInfos.ElementAt(1).TagType);
+            Assert.AreEqual(typeof(AreaData), view.TreeViewController.TreeNodeInfos.ElementAt(2).TagType);
+            Assert.AreEqual(typeof(ChartDataCollection), view.TreeViewController.TreeNodeInfos.ElementAt(3).TagType);
             Assert.IsNull(view.ChartData);
         }
 
@@ -40,7 +37,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             tree.Dispose();
 
             // Assert
-            Assert.IsNull(tree.Data);
+            Assert.IsNull(tree.ChartData);
         }
 
         private class TestChartData : ChartDataCollection

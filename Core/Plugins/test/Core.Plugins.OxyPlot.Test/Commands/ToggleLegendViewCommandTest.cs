@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Controls.Commands;
-using Core.Common.Controls.Views;
-using Core.Common.Gui;
+﻿using Core.Common.Controls.Commands;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.OxyPlot.Test
+namespace Core.Plugins.OxyPlot.Test.Commands
 {
     [TestFixture]
     public class ToggleLegendViewCommandTest

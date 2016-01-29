@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView.Properties;
 
 namespace Core.Common.Controls.TreeView
@@ -37,7 +37,7 @@ namespace Core.Common.Controls.TreeView
                 throw new ArgumentException(Resources.TreeNodeExpandCollapseState_Node_tag_cannot_be_null_for_record_to_work);
             }
             wasExpanded = nodeToBeRecorded.IsExpanded;
-            childStates = nodeToBeRecorded.Nodes.Where(n => n.Nodes.Any()).ToDictionary(n => n.Tag, n => new TreeNodeExpandCollapseState(n));
+            childStates = nodeToBeRecorded.Nodes.OfType<TreeNode>().Where(n => n.Nodes.Count > 0).ToDictionary(n => n.Tag, n => new TreeNodeExpandCollapseState(n));
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Core.Common.Controls.TreeView
                 }
             }
 
-            foreach (var treeNode in targetNode.Nodes.Where(n => n.Nodes.Any() && childStates.ContainsKey(n.Tag)))
+            foreach (var treeNode in targetNode.Nodes.OfType<TreeNode>().Where(n => n.Nodes.Count > 0 && childStates.ContainsKey(n.Tag)))
             {
                 childStates[treeNode.Tag].Restore(treeNode);
             }

@@ -59,22 +59,22 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NodePresenters\EmptyPipingCalculationReportNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\EmptyPipingOutputNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingCalculationGroupContextNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingInputContextNodePresenterTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingInputContextTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
     <Compile Include="PropertyClasses\PipingCalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingInputContextPropertiesTest.cs" />
-    <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingCalculationContextNodePresenterTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingSoilProfileCollectionTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
-    <Compile Include="NodePresenters\PipingFailureMechanismNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingOutputNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingSoilProfileNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingSurfaceLineNodePresenterTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingFailureMechanismTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingOutputTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingSoilProfileTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineCollectionTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\PipingInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,6 +140,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Ringtoets.Piping.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
+      <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
+      <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10b8d63d-87e8-46df-aca9-a8cf22ee8fb5}</Project>

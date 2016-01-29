@@ -138,14 +138,19 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_FileImportActivityWithFileImporter_NoLogicPerformed()
+        public void Finish_FileImportActivityWithFileImporterAndObservableTarget_ObserversOfTargetAreNotified()
         {
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
-            var target = new object();
+            var observer = mocks.StrictMock<IObserver>();
+
+            observer.Expect(o => o.UpdateObserver());
 
             mocks.ReplayAll();
+
+            var target = new ObservableList<object>();
+            target.Attach(observer);
 
             var fileImportActivity = new FileImportActivity(fileImporter, target, "");
 

@@ -1,80 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Core.Common.Controls.TreeView.Properties;
-using log4net;
-
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Controls.TreeView
 {
-    /// <summary>
-    /// Summary description for Tree.
-    /// </summary>
     public class TreeView : System.Windows.Forms.TreeView
     {
-        public event EventHandler SelectedNodeChanged;
-        public event EventHandler OnUpdate;
-
-        /// <summary>
-        /// Occurs when a node with data has been deleted from the tree view.
-        /// </summary>
-        public event EventHandler<TreeViewDataDeletedEventArgs> DataDeleted;
-
-        private const int TV_FIRST = 0x1100;
-        private const int TVM_SETBKCOLOR = TV_FIRST + 29;
-        private const int TVM_SETEXTENDEDSTYLE = TV_FIRST + 44;
-
-        private const int TVS_EX_DOUBLEBUFFER = 0x0004;
-        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly TreeNodeList nodes;
-
         private readonly TreeViewController controller;
-        private int dropAtLocation;
-        private Point lastDragOverPoint;
-        private PlaceholderLocation lastPlaceholderLocation;
-        private TreeNode nodeDropTarget;
-        private TreeNode lastPlaceholderNode;
-        private Graphics placeHolderGraphics;
-        private bool bufferedNodeExpanded;
 
-        /// <summary>
-        /// TreeView based on system windows forms component.
-        /// </summary>
         public TreeView()
         {
             controller = new TreeViewController(this);
-            ImageList = new ImageList
-            {
-                ColorDepth = ColorDepth.Depth32Bit
-            };
-            nodes = new TreeNodeList(base.Nodes);
+
             DrawMode = TreeViewDrawMode.OwnerDrawAll;
             LabelEdit = true;
             HideSelection = false;
 
-            BeforeLabelEdit += TreeViewBeforeLabelEdit;
-            AfterCheck += TreeViewAfterCheck;
-
-            DragDrop += TreeViewDragDrop;
-            DragOver += TreeViewDragOver;
-            ItemDrag += TreeViewItemDrag;
-            DragLeave += TreeViewDragLeave;
-
-            MouseDown += TreeViewMouseDown;
-            MouseClick += TreeViewClick;
-
-            // http://dev.nomad-net.info/articles/double-buffered-tree-and-list-views
             // Enable default double buffering processing
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
 
-            //SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             // Disable default CommCtrl painting on non-Vista systems
             if (!NativeInterop.IsWinVista)
             {
@@ -82,950 +28,102 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Func<Keys, bool> OnProcessCmdKey { get; set; }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public new TreeNode SelectedNode
+        public TreeViewController TreeViewController
         {
             get
             {
-                return (TreeNode) base.SelectedNode;
-            }
-            set
-            {
-                base.SelectedNode = value;
-
-                if (SelectedNodeChanged != null)
-                {
-                    SelectedNodeChanged(this, new EventArgs());
-                }
+                return controller;
             }
         }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object Data
+        # region Logic for preventing expand/collapse on double click
+
+        protected override void DefWndProc(ref Message m)
         {
-            get
+            const int wmLbuttondblclk = 515;
+            const int wmErasebkgnd = 0x0014;
+
+            if (m.Msg == wmLbuttondblclk)
             {
-                return controller.Data;
+                return; // Don't handle double click
             }
-            set
+
+            if (m.Msg == wmErasebkgnd)
             {
-                controller.Data = value;
+                return; // Don't clear background as this only causes flicker
             }
+
+            base.DefWndProc(ref m);
         }
 
-        /// <summary>
-        /// The nodepresenters handle building logic for dataobjects added to the tree.
-        /// </summary>
-        public IEnumerable<ITreeNodePresenter> NodePresenters
-        {
-            get
-            {
-                return controller.NodePresenters;
-            }
-        }
+        # endregion
 
-        /// <summary>
-        /// List of all nodes that belong to the tree.
-        /// </summary>
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public new IList<TreeNode> Nodes
-        {
-            get
-            {
-                return nodes;
-            }
-        }
+        # region Double buffered tree view related logic (see http://dev.nomad-net.info/articles/double-buffered-tree-and-list-views)
 
-        public new void CollapseAll()
+        private const int tvFirst = 0x1100;
+        private const int tvmSetbkcolor = tvFirst + 29;
+        private const int tvmSetextendedstyle = tvFirst + 44;
+        private const int tvsExDoublebuffer = 0x0004;
+
+        private void UpdateExtendedStyles()
         {
-            foreach (var node in Nodes)
+            var style = 0;
+
+            if (DoubleBuffered)
             {
-                CollapseAll(node);
+                style |= tvsExDoublebuffer;
+            }
+
+            if (style != 0)
+            {
+                NativeInterop.SendMessage(Handle, tvmSetextendedstyle, (IntPtr) tvsExDoublebuffer, (IntPtr) style);
             }
         }
 
-        public void CollapseAll(TreeNode node)
+        protected override void OnHandleCreated(EventArgs e)
         {
-            node.Collapse();
+            base.OnHandleCreated(e);
 
-            foreach (var childNode in node.Nodes)
+            UpdateExtendedStyles();
+
+            if (!NativeInterop.IsWinXp)
             {
-                CollapseAll(childNode);
+                NativeInterop.SendMessage(Handle, tvmSetbkcolor, IntPtr.Zero, (IntPtr) ColorTranslator.ToWin32(BackColor));
             }
-        }
-
-        public new void ExpandAll()
-        {
-            foreach (var node in Nodes)
-            {
-                ExpandAll(node);
-            }
-        }
-
-        public void ExpandAll(TreeNode node)
-        {
-            node.Expand();
-
-            foreach (var childNode in node.Nodes)
-            {
-                ExpandAll(childNode);
-            }
-        }
-
-        public void StartLabelEdit(TreeNode node)
-        {
-            if (!controller.CanRenameNode(node))
-            {
-                return;
-            }
-
-            node.BeginEdit();
-        }
-
-        public void RegisterNodePresenter(ITreeNodePresenter presenter)
-        {
-            controller.RegisterNodePresenter(presenter);
-        }
-
-        public ITreeNodePresenter GetTreeViewNodePresenter(object nodeData)
-        {
-            if (nodeData == null)
-            {
-                throw new ArgumentNullException("nodeData", Resources.TreeView_Error_Unable_to_resolve_node_presenter_for_null_data);
-            }
-            return controller.ResolveNodePresenterForData(nodeData);
-        }
-
-        /// <summary>
-        /// Create a new Node for this tree with default properties
-        /// </summary>
-        /// <returns></returns>
-        public TreeNode NewNode()
-        {
-            return new TreeNode(this);
-        }
-
-        /// <summary>
-        /// Search all the nodes in the treeView, for a node with a matching tag.
-        /// </summary>
-        /// <param name="nodeData"></param>
-        /// <param name="skipUnLoadedNodes">if a node is not loaded, don't do so</param>
-        /// <returns></returns>
-        public TreeNode GetNodeByTag(object nodeData, bool skipUnLoadedNodes = true)
-        {
-            if (Nodes.Count > 0)
-            {
-                return GetNodeByTag(Nodes[0], nodeData, skipUnLoadedNodes);
-            }
-
-            return null;
-        }
-
-        public void UpdateNode(TreeNode treeNode)
-        {
-            controller.UpdateNode(treeNode, treeNode.Tag);
-            FireOnUpdateEvent(treeNode);
-        }
-
-        /// <summary>
-        /// Fires the <see cref="OnUpdate"/> event with the given <see cref="treeNode"/>.
-        /// </summary>
-        /// <param name="treeNode">The <see cref="TreeNode"/> to fire an update event for.</param>
-        private void FireOnUpdateEvent(TreeNode treeNode)
-        {
-            if (OnUpdate != null)
-            {
-                OnUpdate(treeNode, EventArgs.Empty);
-            }
-        }
-
-        public void TryDeleteNodeData(TreeNode treeNode)
-        {
-            if (!controller.CanDeleteNode(treeNode))
-            {
-                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
-                return;
-            }
-
-            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, treeNode.Text);
-            if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-
-            DeleteNodeData(treeNode);
-        }
-
-        public void TryDeleteSelectedNodeData()
-        {
-            TryDeleteNodeData(SelectedNode);
-        }
-
-        private void DeleteNodeData(TreeNode node)
-        {
-            var presenter = GetTreeViewNodePresenter(node.Tag);
-            presenter.RemoveNodeData(node.Parent.Tag, node.Tag);
-
-            SelectedNode = SelectedNode ?? Nodes.FirstOrDefault();
-            if (DataDeleted != null)
-            {
-                DataDeleted(this, new TreeViewDataDeletedEventArgs(node.Tag));
-            }
-        }
-
-        public override void Refresh()
-        {
-            if (Nodes.Count == 0)
-            {
-                return;
-            }
-
-            BeginUpdate();
-            try
-            {
-                var selectedNodePath = SelectedNode == null ? string.Empty : SelectedNode.FullPath;
-
-                //don't use allNodes since update of childnodes is done by parent.
-                foreach (TreeNode node in Nodes)
-                {
-                    controller.UpdateNode(node);
-                }
-
-                if (!string.IsNullOrEmpty(selectedNodePath))
-                {
-                    var nodeToSelect =
-                        Nodes.SelectMany(GetAllLoadedNodes).FirstOrDefault(n => n.FullPath == selectedNodePath);
-
-                    if (nodeToSelect != null)
-                    {
-                        base.SelectedNode = nodeToSelect;
-                    }
-                }
-
-                // expand root node if children were added
-                if (Nodes.Count > 0 && Nodes[0].Nodes.Count > 0)
-                {
-                    Nodes[0].Expand();
-                }
-
-                Sort();
-            }
-            finally
-            {
-                EndUpdate();
-            }
-        }
-
-        private IEnumerable<TreeNode> GetAllLoadedNodes(TreeNode currentNode)
-        {
-            var allChildNodes = new[]
-            {
-                currentNode
-            };
-
-            return allChildNodes.Concat(currentNode.Nodes.SelectMany(GetAllLoadedNodes));
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint))
             {
-                Message m = new Message
+                var m = new Message
                 {
                     HWnd = Handle,
-                    Msg = NativeInterop.WM_PRINTCLIENT,
+                    Msg = NativeInterop.WmPrintclient,
                     WParam = e.Graphics.GetHdc(),
-                    LParam = (IntPtr) NativeInterop.PRF_CLIENT
+                    LParam = (IntPtr) NativeInterop.PrfClient
                 };
 
                 DefWndProc(ref m);
+
                 e.Graphics.ReleaseHdc(m.WParam);
             }
 
             base.OnPaint(e);
         }
 
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-            UpdateExtendedStyles();
-            if (!NativeInterop.IsWinXP || !Application.RenderWithVisualStyles)
-            {
-                NativeInterop.SendMessage(Handle, TVM_SETBKCOLOR, IntPtr.Zero, (IntPtr) ColorTranslator.ToWin32(BackColor));
-            }
-            controller.OnTreeViewHandleCreated();
-        }
-
-        /// <summary>
-        /// Custom drawing.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnDrawNode(DrawTreeNodeEventArgs e)
-        {
-            e.DrawDefault = false;
-
-            var selected = (e.State & TreeNodeStates.Selected) == TreeNodeStates.Selected;
-
-            ((TreeNode) e.Node).DrawNode(e.Graphics, selected);
-        }
-
-        protected override void OnAfterLabelEdit(NodeLabelEditEventArgs e)
-        {
-            BeginUpdate();
-
-            try
-            {
-                var treeNode = e.Node as TreeNode;
-
-                if (treeNode != null)
-                {
-                    //check e.Label for null, this indicates node edit was cancelled.
-                    if (treeNode.IsUpdating || treeNode.Tag == null || e.Label == null)
-                    {
-                        return;
-                    }
-
-                    var nodePresenter = GetTreeViewNodePresenter(treeNode.Tag);
-                    if (nodePresenter == null)
-                    {
-                        return;
-                    }
-
-                    if (nodePresenter.CanRenameNodeTo(treeNode, e.Label))
-                    {
-                        // First set text to prevent eventHandlers from working with a node that
-                        // is not yet updated (with the previous text)
-                        // Setting the node text is done after this method is completed (and e.cancel is false).
-                        treeNode.Text = e.Label;
-                        nodePresenter.OnNodeRenamed(treeNode.Tag, e.Label);
-                    }
-                    else
-                    {
-                        e.CancelEdit = true;
-                        return;
-                    }
-                }
-
-                base.OnAfterLabelEdit(e);
-                BeginInvoke(new Action(Sort));
-            }
-            finally
-            {
-                EndUpdate();
-            }
-        }
-
-        /// <summary>
-        /// Do not expand/collapse on doubleclick
-        /// </summary>
-        /// <param name="m"></param>
-        protected override void DefWndProc(ref Message m)
-        {
-            const int WM_LBUTTONDBLCLK = 515;
-            const int WM_ERASEBKGND = 0x0014;
-
-            if (m.Msg == WM_LBUTTONDBLCLK)
-            {
-                //dont handle doubleclick in base class
-            }
-            else if (m.Msg == WM_ERASEBKGND)
-            {
-                return; //don't clear background (only causes flicker)
-            }
-            else
-            {
-                //log.DebugFormat(m.ToString());
-                base.DefWndProc(ref m);
-            }
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (Nodes.Count == 0)
-            {
-                if (OnProcessCmdKey != null)
-                {
-                    return OnProcessCmdKey(keyData);
-                }
-
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            if (SelectedNode == null)
-            {
-                SelectedNode = Nodes[0];
-            }
-
-            if (SelectedNode.IsEditing)
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            switch (keyData)
-            {
-                case Keys.F2:
-                    //start editing the label
-                    StartLabelEdit(SelectedNode);
-                    return true;
-
-                case Keys.Apps:
-                    if (SelectedNode != null && ContextMenu != null && SelectedNode.ContextMenuStrip != null)
-                    {
-                        Point location = SelectedNode.Bounds.Location;
-                        location.Offset(0, SelectedNode.Bounds.Height);
-                        SelectedNode.ContextMenuStrip.Show(location);
-                    }
-                    return true;
-
-                // TODO: Customize completely within OnProcessCmdKey
-                case Keys.Delete:
-                    if (OnProcessCmdKey == null && SelectedNode != null && SelectedNode.Tag != null)
-                    {
-                        TryDeleteSelectedNodeData();
-                        return true;
-                    }
-                    break;
-
-                case Keys.F5:
-
-                    //refresh treeview
-                    Refresh();
-                    return true;
-
-                case Keys.Space:
-                    var node = SelectedNode;
-                    if (node != null && node.ShowCheckBox)
-                    {
-                        //Toggle checked state
-                        node.Checked = !node.Checked;
-                    }
-                    return true;
-                case Keys.Up:
-                {
-                    //hack: we manually handle this because ms doesnot fire selectednodechanged
-                    // Select the previous node
-                    var treeNode = SelectedNode.PrevVisibleNode as TreeNode;
-                    if (treeNode != null)
-                    {
-                        SelectedNode = treeNode;
-                    }
-                }
-                    return true;
-                case Keys.Down:
-                {
-                    //hack: we manually handle this because ms doesnot fire selectednodechanged
-                    // Select the next node
-                    var treeNode = SelectedNode.NextVisibleNode as TreeNode;
-                    if (treeNode != null)
-                    {
-                        SelectedNode = treeNode;
-                    }
-                }
-                    return true;
-                case Keys.Right:
-                {
-                    //hack: we manually handle this because ms doesnot fire selectednodechanged
-
-                    if (SelectedNode.Nodes.Count > 0)
-                    {
-                        if (!SelectedNode.IsExpanded)
-                        {
-                            SelectedNode.Expand();
-                        }
-                        else
-                        {
-                            SelectedNode = SelectedNode.Nodes[0];
-                        }
-                    }
-                }
-                    return true;
-                case Keys.Left:
-                {
-                    //hack: we manually handle this because ms doesnot fire selectednodechanged
-
-                    if (SelectedNode.IsExpanded)
-                    {
-                        SelectedNode.Collapse();
-                    }
-                    else
-                    {
-                        if (SelectedNode.Parent != null)
-                        {
-                            SelectedNode = SelectedNode.Parent;
-                        }
-                    }
-                }
-                    return true;
-                case Keys.Home:
-                {
-                    //hack: we manually handle this because ms doesnot fire selectednodechanged
-
-                    SelectedNode = Nodes.First();
-                }
-                    return true;
-                case Keys.End:
-                {
-                    //hack: we manually handle this because ms doesnot fire selectednodechanged
-
-                    SelectedNode = GetLastNode(Nodes.Last());
-                }
-                    return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Shift | Keys.Right))
-            {
-                ExpandAll(SelectedNode);
-                SelectedNode.EnsureVisible();
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.Shift | Keys.Left))
-            {
-                CollapseAll(SelectedNode);
-                SelectedNode.EnsureVisible();
-                return true;
-            }
-
-            if (OnProcessCmdKey != null)
-            {
-                if (OnProcessCmdKey(keyData))
-                {
-                    return true;
-                }
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void UpdateExtendedStyles()
-        {
-            int Style = 0;
-
-            if (DoubleBuffered)
-            {
-                Style |= TVS_EX_DOUBLEBUFFER;
-            }
-
-            if (Style != 0)
-            {
-                NativeInterop.SendMessage(Handle, TVM_SETEXTENDEDSTYLE, (IntPtr) TVS_EX_DOUBLEBUFFER, (IntPtr) Style);
-            }
-        }
-
-        private new void Sort()
-        {
-            if (TreeViewNodeSorter == null)
-            {
-                return;
-            }
-
-            var oldSelectedNode = SelectedNode;
-
-            SuspendLayout();
-            base.Sort();
-            ResumeLayout();
-
-            SelectedNode = oldSelectedNode;
-        }
-
-        private TreeNode GetLastNode(TreeNode treeNode)
-        {
-            if (treeNode.Nodes.Count > 0)
-            {
-                return GetLastNode(treeNode.Nodes.Last());
-            }
-
-            return treeNode;
-        }
-
-        private void TreeViewMouseDown(object sender, MouseEventArgs e)
-        {
-            var treeView = sender as TreeView;
-            if (treeView == null)
-            {
-                return;
-            }
-
-            var treeNode = (TreeNode) GetNodeAt(e.X, e.Y);
-            if (treeNode == null)
-            {
-                return;
-            }
-
-            // buffer expanded state for use in TreeViewClick
-            bufferedNodeExpanded = treeNode.IsExpanded;
-        }
-
-        private void TreeViewClick(object sender, MouseEventArgs e)
-        {
-            var point = PointToClient(MousePosition);
-            var node = (TreeNode) GetNodeAt(point);
-            if (node == null)
-            {
-                return;
-            }
-
-            SelectedNode = node;
-
-            if (node.IsOnCheckBox(point))
-            {
-                node.Checked = !node.Checked;
-             }
-
-            if (node.IsOnExpandButton(point))
-            {
-                // Use buffered expanded state because it gets changed just
-                // before Click event is handled
-                if (bufferedNodeExpanded)
-                {
-                    node.Collapse(true);
-                }
-                else
-                {
-                    node.Expand();
-                }
-            }
-        }
-
-        private void TreeViewAfterCheck(object sender, TreeViewEventArgs e)
-        {
-            controller.OnNodeChecked((TreeNode) e.Node);
-        }
-
-        /// <summary>
-        /// Check if node label can be edited 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TreeViewBeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
-        {
-            if (!controller.CanRenameNode(e.Node as TreeNode))
-            {
-                e.CancelEdit = true;
-            }
-        }
-
-        private static TreeNode GetNodeByTag(TreeNode rootNode, object tag, bool skipUnLoadedNodes)
-        {
-            if (Equals(rootNode.Tag, tag))
-            {
-                return rootNode;
-            }
-
-            return rootNode.Nodes.Select(n => GetNodeByTag(n, tag, skipUnLoadedNodes)).FirstOrDefault(node => node != null);
-        }
-
-        /// <summary>
-        /// Use Nodepresenter to see wether the current node can be dragged
-        /// set the allowed effects based on the possible dragoperation.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
-        {
-            // gather allowed effects for the current item.
-            var sourceNode = (TreeNode) e.Item;
-            ITreeNodePresenter presenter = GetTreeViewNodePresenter(sourceNode.Tag);
-
-            if (presenter == null)
-            {
-                return;
-            }
-
-            DragOperations dragOperation = presenter.CanDrag(sourceNode.Tag);
-
-            DragDropEffects effects = ToDragDropEffects(dragOperation);
-
-            if (effects == DragDropEffects.None)
-            {
-                return;
-            }
-
-            // store both treenode and tag of treenode in dataobject
-            // to be dragged.
-            IDataObject dataObject = new DataObject();
-            dataObject.SetData(typeof(TreeNode), sourceNode);
-
-            if (sourceNode.Tag != null)
-            {
-                dataObject.SetData(sourceNode.Tag.GetType(), sourceNode.Tag);
-            }
-
-            DoDragDrop(dataObject, effects);
-        }
-
-        /// <summary>
-        /// Update the UI of the treeview for the current action
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TreeViewDragOver(object sender, DragEventArgs e)
-        {
-            if (lastDragOverPoint.X == e.X && lastDragOverPoint.Y == e.Y)
-            {
-                return;
-            }
-
-            lastDragOverPoint = new Point(e.X, e.Y);
-            var point = PointToClient(lastDragOverPoint);
-
-            var nodeOver = GetNodeAt(point) as TreeNode;
-            var nodeDragging = e.Data.GetData(typeof(TreeNode)) as TreeNode;
-
-            if (nodeOver == null || nodeDragging == null || nodeOver == nodeDragging || nodeOver.IsChildOf(nodeDragging))
-            {
-                ClearPlaceHolders();
-                return;
-            }
-
-            ScrollIntoView(point, nodeOver, sender);
-            PlaceholderLocation placeholderLocation = GetPlaceHoldersLocation(nodeDragging, nodeOver, e);
-
-            if (null == nodeDropTarget)
-            {
-                return;
-            }
-
-            ITreeNodePresenter presenter = GetTreeViewNodePresenter(nodeDropTarget.Tag);
-            DragOperations allowedOperations = presenter.CanDrop(nodeDragging.Tag, nodeDragging, nodeDropTarget, ToDragOperation(e.AllowedEffect));
-            e.Effect = ToDragDropEffects(allowedOperations);
-
-            if (PlaceholderLocation.None == placeholderLocation)
-            {
-                return;
-            }
-
-            // determine if the node can be dropped based on the allowed operations.
-            // A node can also be a valid drop traget if it is the root item! (nodeDragging.Parent == null)
-            // This applies in any case to the MapLegendView
-            if (DragOperations.None != presenter.CanDrop(nodeDragging.Tag, nodeDragging, nodeDropTarget, allowedOperations))
-            {
-                DrawPlaceholder(nodeOver, placeholderLocation);
-            }
-            else
-            {
-                ClearPlaceHolders();
-                e.Effect = DragDropEffects.None;
-            }
-        }
-
-        private PlaceholderLocation GetPlaceHoldersLocation(TreeNode nodeDragging, TreeNode nodeOver, DragEventArgs e)
-        {
-            PlaceholderLocation loc = PlaceholderLocation.None;
-            int offsetY = PointToClient(Cursor.Position).Y - nodeOver.Bounds.Top;
-
-            if (offsetY < (nodeOver.Bounds.Height/3) && nodeDragging.NextNode != nodeOver)
-            {
-                if (nodeOver.Parent != null)
-                {
-                    ITreeNodePresenter parentNodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag);
-                    if (parentNodePresenter.CanInsert(nodeDragging.Tag, nodeDragging, nodeOver))
-                    {
-                        nodeDropTarget = nodeOver.Parent;
-                        dropAtLocation = nodeOver.Parent == null ? 0 : nodeOver.Parent.Nodes.IndexOf(nodeOver);
-                        loc = PlaceholderLocation.Top;
-                    }
-                    else
-                    {
-                        nodeDropTarget = nodeOver;
-                        dropAtLocation = 0;
-                        loc = PlaceholderLocation.Middle;
-                    }
-                }
-                else
-                {
-                    nodeDropTarget = nodeOver;
-                    dropAtLocation = 0;
-                    loc = PlaceholderLocation.Middle;
-                }
-            }
-            else if ((nodeOver.Parent != null) && (offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height / 3) &&
-                     nodeDragging.PrevNode != nodeOver)
-            {
-                ITreeNodePresenter nodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag);
-                if (nodePresenter.CanInsert(nodeDragging.Tag, nodeDragging, nodeOver))
-                {
-                    nodeDropTarget = nodeOver.Parent;
-                    dropAtLocation = nodeOver.Parent == null
-                                         ? 0
-                                         : nodeOver.Parent.Nodes.IndexOf(nodeOver) + 1;
-                    loc = PlaceholderLocation.Bottom;
-                }
-                else
-                {
-                    nodeDropTarget = nodeOver;
-                    dropAtLocation = 0;
-                    loc = PlaceholderLocation.Middle;
-                }
-            }
-            else if (nodeDragging != nodeOver && offsetY < (nodeOver.Bounds.Height - (nodeOver.Bounds.Height/4))
-                     && offsetY > (nodeOver.Bounds.Height/4))
-            {
-                nodeDropTarget = nodeOver;
-                dropAtLocation = 0;
-                loc = PlaceholderLocation.Middle;
-            }
-
-            if (loc == PlaceholderLocation.None ||
-                (loc == PlaceholderLocation.Middle && nodeDropTarget == nodeDragging.Parent))
-            {
-                ClearPlaceHolders();
-                e.Effect = DragDropEffects.None;
-            }
-            return loc;
-        }
-
-        /// <summary>
-        /// handle scrolling
-        /// http://www.syncfusion.com/FAQ/windowsforms/faq_c91c.aspx
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="nodeOver"></param>
-        /// <param name="sender"></param>
-        private static void ScrollIntoView(Point point, TreeNode nodeOver, object sender)
-        {
-            var treeView = sender as TreeView;
-            if (treeView == null)
-            {
-                return;
-            }
-            int delta = treeView.Height - point.Y;
-            if ((delta < treeView.Height/2) && (delta > 0))
-            {
-                var nextVisibleNode = nodeOver.NextVisibleNode as TreeNode;
-                if (nextVisibleNode != null)
-                {
-                    nextVisibleNode.ScrollTo();
-                }
-            }
-            if ((delta > treeView.Height/2) && (delta < treeView.Height))
-            {
-                var previousVisibleNode = nodeOver.PrevVisibleNode as TreeNode;
-                if (previousVisibleNode != null)
-                {
-                    previousVisibleNode.ScrollTo();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Event handler for drag drop. Inserts Node at droplocation when node is being moved
-        /// When node is being copied from other location Dropped should be handled externally
-        /// Triggers afterdrop event.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TreeViewDragDrop(object sender, DragEventArgs e)
-        {
-            ClearPlaceHolders();
-            Point point = PointToClient(new Point(e.X, e.Y));
-            var nodeOver = GetNodeAt(point) as TreeNode;
-
-            var nodeDragging = e.Data.GetData(typeof(TreeNode)) as TreeNode;
-
-            if (nodeOver == null || nodeDragging == null)
-            {
-                //this handler only deals with nodes.
-                ClearPlaceHolders();
-
-                if (nodeOver != null)
-                {
-                    e.Effect = DragDropEffects.All;
-                }
-
-                return;
-            }
-
-            if (e.Effect.Equals(DragDropEffects.Move) && nodeDragging.Parent == nodeDropTarget &&
-                nodeOver.Index > nodeDragging.Index)
-            {
-                // src item higher up in the tree is removed. This means all indices shift by one.
-                if (dropAtLocation > 0)
-                {
-                    dropAtLocation--;
-                }
-            }
-
-            //dropAtLocation should never be < 0
-            if (dropAtLocation < 0)
-            {
-                dropAtLocation = 0;
-            }
-
-            var parentNode = nodeDragging.Parent;
-
-            //ensure droptarget is loaded.
-            Trace.Assert(nodeDropTarget.Nodes != null);
-
-            try
-            {
-                controller.OnDragDrop(nodeDragging, parentNode, nodeDropTarget, ToDragOperation(e.Effect), dropAtLocation);
-            }
-            catch (Exception ex)
-            {
-                log.Error(string.Format(Resources.TreeView_TreeViewDragDrop_Error_during_drag_drop_0_, ex.Message));
-            }
-        }
-
-        private void TreeViewDragLeave(object sender, EventArgs e)
-        {
-            ClearPlaceHolders();
-        }
-
-        /// <summary>
-        /// Indicate the dragged node can be inserted either above or below
-        /// another node
-        /// </summary>
-        private void DrawPlaceholder(TreeNode node, PlaceholderLocation location)
-        {
-            if (lastPlaceholderNode == node && lastPlaceholderLocation == location)
-            {
-                return;
-            }
-
-            ClearPlaceHolders();
-
-            lastPlaceholderNode = node;
-            lastPlaceholderLocation = location;
-
-            placeHolderGraphics = CreateGraphics();
-            node.DrawPlaceHolder(location, CreateGraphics());
-        }
-
-        /// <summary>
-        /// If placeholders were drawn before, refresh the tree
-        /// </summary>
-        private void ClearPlaceHolders()
-        {
-            if (placeHolderGraphics != null)
-            {
-                lastPlaceholderNode = null;
-
-                base.Refresh();
-                placeHolderGraphics.Dispose();
-                placeHolderGraphics = null;
-            }
-        }
-
         private static class NativeInterop
         {
-            public const int WM_PRINTCLIENT = 0x0318;
-            public const int PRF_CLIENT = 0x00000004;
+            public const int WmPrintclient = 0x0318;
+            public const int PrfClient = 0x00000004;
 
-            public static bool IsWinXP
+            public static bool IsWinXp
             {
                 get
                 {
-                    OperatingSystem OS = Environment.OSVersion;
-                    return (OS.Platform == PlatformID.Win32NT) &&
-                           ((OS.Version.Major > 5) || ((OS.Version.Major == 5) && (OS.Version.Minor == 1)));
+                    OperatingSystem os = Environment.OSVersion;
+                    return (os.Platform == PlatformID.Win32NT) &&
+                           ((os.Version.Major > 5) || ((os.Version.Major == 5) && (os.Version.Minor == 1)));
                 }
             }
 
@@ -1033,8 +131,8 @@ namespace Core.Common.Controls.TreeView
             {
                 get
                 {
-                    OperatingSystem OS = Environment.OSVersion;
-                    return (OS.Platform == PlatformID.Win32NT) && (OS.Version.Major >= 6);
+                    OperatingSystem os = Environment.OSVersion;
+                    return (os.Platform == PlatformID.Win32NT) && (os.Version.Major >= 6);
                 }
             }
 
@@ -1042,34 +140,6 @@ namespace Core.Common.Controls.TreeView
             public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
         }
 
-        private DragDropEffects ToDragDropEffects(DragOperations operation)
-        {
-            return (DragDropEffects)Enum.Parse(typeof(DragDropEffects), operation.ToString());
-        }
-
-        private DragOperations ToDragOperation(DragDropEffects dragDropEffects)
-        {
-            return (DragOperations)Enum.Parse(typeof(DragOperations), dragDropEffects.ToString());
-        }
-
-        /// <summary>
-        /// Event arguments to be used in the event that data has been deleted from a <see cref="TreeView"/>.
-        /// </summary>
-        public class TreeViewDataDeletedEventArgs : EventArgs
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TreeViewDataDeletedEventArgs"/> class.
-            /// </summary>
-            /// <param name="deletedDataInstance">The deleted data instance.</param>
-            public TreeViewDataDeletedEventArgs(object deletedDataInstance)
-            {
-                DeletedDataInstance = deletedDataInstance;
-            }
-
-            /// <summary>
-            /// Gets the data instance deleted from the <see cref="TreeView"/>.
-            /// </summary>
-            public object DeletedDataInstance { get; private set; }
-        }
+        # endregion
     }
 }
