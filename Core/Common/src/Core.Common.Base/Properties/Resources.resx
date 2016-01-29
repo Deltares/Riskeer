@@ -135,4 +135,7 @@
   <data name="Confirm" xml:space="preserve">
     <value>Bevestigen</value>
   </data>
+  <data name="App_App_Ringtoets_Copyright" xml:space="preserve">
+    <value>Ringtoets Copyright (C) 2016 Stichting Deltares. Dit programma komt ZONDER ENIGE GARANTIE. Dit programma is gratis en u mag het zelf verder verspreiden en/of aanpassen overeenkomstig de GNU Lesser General Public License versie 3.</value>
+  </data>
 </root>

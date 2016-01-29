@@ -73,6 +73,8 @@ namespace Application.Ringtoets
         {
             SetLanguage();
 
+            log.Info(Core.Common.Base.Properties.Resources.App_App_Ringtoets_Copyright);
+
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
         }
 
