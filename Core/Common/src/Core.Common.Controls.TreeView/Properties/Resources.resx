@@ -161,9 +161,6 @@ verticaal: {1}</value>
   <data name="PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values" xml:space="preserve">
     <value>Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden.</value>
   </data>
-  <data name="TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below_1_" xml:space="preserve">
-    <value>Zou geen indices lager dan -1 moeten teruggeven!</value>
-  </data>
   <data name="KeyEvent_Deletion_not_implemented_for_this_type_of_datasource" xml:space="preserve">
     <value>Verwijderen is niet geïmplementeerd voor dit type databron.</value>
   </data>
