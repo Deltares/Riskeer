@@ -5,7 +5,6 @@ using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
-using Demo.Ringtoets.Commands;
 using Demo.Ringtoets.Ribbons;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -87,7 +86,7 @@ namespace Demo.Ringtoets.Test.Ribbons
             var projectOwner = mocks.Stub<IProjectOwner>();
             var documentViewController = mocks.Stub<IDocumentViewController>();
             documentViewController.Expect(dvc => dvc.DocumentViewsResolver).Return(viewResolver);
-            
+
             mocks.ReplayAll();
 
             var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, documentViewController);

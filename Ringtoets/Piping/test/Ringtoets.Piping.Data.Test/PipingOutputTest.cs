@@ -1,8 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 
-using Ringtoets.Piping.Data;
-
 namespace Ringtoets.Piping.Data.Test
 {
     public class PipingOutputTest

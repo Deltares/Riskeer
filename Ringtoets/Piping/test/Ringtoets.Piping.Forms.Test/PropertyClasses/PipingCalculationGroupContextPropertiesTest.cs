@@ -1,19 +1,13 @@
 ﻿using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
-using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-
 using PropertyInfo = System.Reflection.PropertyInfo;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -92,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             string propertyName = TypeUtils.GetMemberName<PipingCalculationGroupContextProperties>(p => p.Name);
             PropertyInfo nameProperty = properties.GetType().GetProperty(propertyName);
-            
+
             // Call
             object[] namePropertyAttributes = nameProperty.GetCustomAttributes(false);
 

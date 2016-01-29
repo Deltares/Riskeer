@@ -20,10 +20,7 @@
 // All rights preserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-
 using Core.Common.Gui.Attributes;
 
 namespace Core.Common.Gui.PropertyBag

@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-
+﻿using NUnit.Framework;
 using Ringtoets.Integration.Data.Placeholders;
 
 namespace Ringtoets.Integration.Data.Test.Placeholders

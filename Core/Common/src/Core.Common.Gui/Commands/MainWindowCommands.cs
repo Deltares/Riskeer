@@ -20,7 +20,6 @@
 // All rights preserved.
 
 using System.Windows.Input;
-using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Commands
 {

@@ -21,13 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -47,7 +44,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner =>
                 {
-                    var project = (Project)owner;
+                    var project = (Project) owner;
                     var dikeAssessmentSection = new DikeAssessmentSection();
                     dikeAssessmentSection.Name = GetUniqueForAssessmentSectionName(project, dikeAssessmentSection.Name);
                     return dikeAssessmentSection;
@@ -60,7 +57,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner =>
                 {
-                    var project = (Project)owner;
+                    var project = (Project) owner;
                     var duneAssessmentSection = new DuneAssessmentSection();
                     duneAssessmentSection.Name = GetUniqueForAssessmentSectionName(project, duneAssessmentSection.Name);
                     return duneAssessmentSection;

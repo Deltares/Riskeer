@@ -20,7 +20,6 @@
 // All rights preserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Ringtoets.Piping.Plugin.FileImporter;

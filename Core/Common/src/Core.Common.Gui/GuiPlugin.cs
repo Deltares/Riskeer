@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Controls;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
@@ -40,22 +39,6 @@ namespace Core.Common.Gui
         public virtual IGui Gui { get; set; }
 
         /// <summary>
-        /// Activates the gui plugin.
-        /// </summary>
-        public virtual void Activate()
-        {
-
-        }
-
-        /// <summary>
-        /// Deactivates the gui plugin.
-        /// </summary>
-        public virtual void Deactivate()
-        {
-
-        }
-
-        /// <summary>
         /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the gui plugin.
         /// </summary>
         public virtual IRibbonCommandHandler RibbonCommandHandler
@@ -65,6 +48,16 @@ namespace Core.Common.Gui
                 return null;
             }
         }
+
+        /// <summary>
+        /// Activates the gui plugin.
+        /// </summary>
+        public virtual void Activate() {}
+
+        /// <summary>
+        /// Deactivates the gui plugin.
+        /// </summary>
+        public virtual void Deactivate() {}
 
         /// <summary>
         /// Property info objects which can be provided by the gui plugin.
@@ -91,14 +84,14 @@ namespace Core.Common.Gui
             yield break;
         }
 
-        public virtual void Dispose()
-        {
-            Gui = null;
-        }
-
         public virtual IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
         {
             yield break;
+        }
+
+        public virtual void Dispose()
+        {
+            Gui = null;
         }
     }
 }

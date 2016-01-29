@@ -19,18 +19,13 @@ using Ringtoets.Piping.Plugin;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using TreeView = System.Windows.Forms.TreeView;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class PipingCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddCalculationGroupIndex = 0;
-        private const int contextMenuAddCalculationIndex = 1;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearOutputIndex = 5;
-
         private MockRepository mocks;
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
@@ -117,7 +112,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
             CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext);
-            
+
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(draggedItem);
             failureMechanism.CalculationsGroup.Children.Add(targetGroup);
@@ -142,7 +137,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             #endregion
 
             mocks.ReplayAll();
-
 
             switch (methodToTest)
             {
@@ -548,7 +542,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            
+
             var parentNode = mocks.Stub<TreeNode>();
             parentNode.Tag = failureMechanism;
 
@@ -643,8 +637,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var parentGroup = new PipingCalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSoilProfile>());
 
             mocks.ReplayAll();
 
@@ -667,8 +661,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var parentGroup = new PipingCalculationGroup();
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSoilProfile>());
 
             // Precondition
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
@@ -697,10 +691,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var parentGroup = new PipingCalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingSoilProfile>());
             parentNodeData.Attach(observer);
-            
+
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
 
@@ -728,8 +722,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             });
 
             var parentData = new PipingCalculationGroupContext(parentGroup,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                               Enumerable.Empty<PipingSoilProfile>());
 
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -755,7 +749,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             plugin.Gui = gui;
-            
+
             // Call
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, node, info);
 
@@ -819,7 +813,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesIcon,
                                                           false);
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[9], menu.Items[12], menu.Items[15] }, typeof(ToolStripSeparator));
+            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            {
+                menu.Items[2],
+                menu.Items[6],
+                menu.Items[9],
+                menu.Items[12],
+                menu.Items[15]
+            }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
@@ -921,7 +922,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesIcon,
                                                           false);
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[8], menu.Items[11], menu.Items[14] }, typeof(ToolStripSeparator));
+            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            {
+                menu.Items[2],
+                menu.Items[6],
+                menu.Items[8],
+                menu.Items[11],
+                menu.Items[14]
+            }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
@@ -1019,7 +1027,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesIcon,
                                                           false);
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[9], menu.Items[12] }, typeof(ToolStripSeparator));
+            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            {
+                menu.Items[2],
+                menu.Items[6],
+                menu.Items[9],
+                menu.Items[12]
+            }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
@@ -1053,7 +1067,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-
             // Call
             ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, node, info);
 
@@ -1067,7 +1080,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }
-
 
         [Test]
         public void GetContextMenu_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
@@ -1089,7 +1101,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var newCalculationGroupContextNode = new TreeNode();
 
             // Parent node of newly added item, should be expanded from collapsed state to show selected node:
-            var treeView = new System.Windows.Forms.TreeView();
+            var treeView = new TreeView();
             var parentNode = new TreeNode();
             var node = new TreeNode
             {
@@ -1111,7 +1123,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationItem);
 
             nodeData.Attach(observer);
-            
+
             ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, node, info);
 
             // Precondition
@@ -1125,10 +1137,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var newlyAddedItem = group.Children.Last();
             Assert.IsInstanceOf<PipingCalculationGroup>(newlyAddedItem);
             Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
-                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                            "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
 
             Assert.AreSame(newCalculationGroupContextNode, treeView.SelectedNode,
-                "The node of the newly added item should be selected.");
+                           "The node of the newly added item should be selected.");
 
             mocks.VerifyAll();
         }
@@ -1153,7 +1165,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var newCalculationContextNode = new TreeNode();
 
             // Parent node of newly added item, should be expanded from collapsed state to show selected node:
-            var treeView = new System.Windows.Forms.TreeView();
+            var treeView = new TreeView();
             var parentNode = new TreeNode();
             var node = new TreeNode
             {
@@ -1161,7 +1173,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             };
             node.Nodes.Add(newCalculationContextNode);
             node.Collapse();
-            
+
             parentNode.Nodes.Add(node);
 
             treeView.Nodes.Add(parentNode);
@@ -1189,10 +1201,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var newlyAddedItem = group.Children.Last();
             Assert.IsInstanceOf<PipingCalculation>(newlyAddedItem);
             Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
-                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                            "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
 
             Assert.AreSame(newCalculationContextNode, node.TreeView.SelectedNode,
-                "The node of the newly added item should be selected.");
+                           "The node of the newly added item should be selected.");
 
             mocks.VerifyAll();
         }
@@ -1221,7 +1233,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var childGroup = new PipingCalculationGroup();
             childGroup.Children.Add(validCalculation);
-            
+
             var emptyChildGroup = new PipingCalculationGroup();
 
             var group = new PipingCalculationGroup();
@@ -1233,7 +1245,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<PipingSoilProfile>());
 
             var contextMenu = info.ContextMenuStrip(nodeData, node, info);
-            
+
             // Call
             Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
 
@@ -1336,7 +1348,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var childGroup = new PipingCalculationGroup();
             childGroup.Children.Add(calculation1);
-            
+
             var emptyChildGroup = new PipingCalculationGroup();
 
             var group = new PipingCalculationGroup();
@@ -1398,11 +1410,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var calculationItem = mocks.StrictMock<IPipingCalculationItem>();
-            
+
             mocks.ReplayAll();
 
             var childCalculation = new PipingCalculation();
-            
+
             var childGroup = new PipingCalculationGroup();
 
             var group = new PipingCalculationGroup();
@@ -1413,19 +1425,24 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>());
 
-
             // Call
             var children = info.ChildNodeObjects(nodeData).ToArray();
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationContext = (PipingCalculationContext)children[1];
+            var returnedCalculationContext = (PipingCalculationContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             mocks.VerifyAll();
         }
+
+        private const int contextMenuAddCalculationGroupIndex = 0;
+        private const int contextMenuAddCalculationIndex = 1;
+        private const int contextMenuValidateAllIndex = 3;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearOutputIndex = 5;
 
         /// <summary>
         /// Creates a <see cref="TreeNode"/> stub that is in the expanded state.
@@ -1482,7 +1499,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             nodeToBeCollapsed.Nodes.AddRange(childNodes);
             return nodeToBeCollapsed;
         }
-        
+
         /// <summary>
         /// Creates an <see cref="IObserver"/> stub that expects its <see cref="IObserver.UpdateObserver"/>
         /// method will be called once.
@@ -1556,7 +1573,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         /// <summary>
-        /// Use <see cref="mockRepository"/> to creates a stub tree node as a simple node-tree leaf.
+        /// Use <see cref="MockRepository"/> to creates a stub tree node as a simple node-tree leaf.
         /// </summary>
         private TreeNode CreateStubTreeNode()
         {
@@ -1584,6 +1601,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             /// Indicates <see cref="TreeNodeInfo.CanDrop"/>.
             /// </summary>
             CanDrop,
+
             /// <summary>
             /// Indicates <see cref="TreeNodeInfo.CanInsert"/>.
             /// </summary>
@@ -1599,6 +1617,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             /// Indicates <see cref="PipingCalculation"/>.
             /// </summary>
             Calculation,
+
             /// <summary>
             /// Indicates <see cref="PipingCalculationGroup"/>.
             /// </summary>

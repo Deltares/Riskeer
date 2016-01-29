@@ -23,7 +23,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.IO;
-using Core.Common.Utils;
 
 namespace Core.Common.Gui.Properties
 {

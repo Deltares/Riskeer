@@ -1,12 +1,9 @@
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -60,7 +57,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var integerTreeNodeInfo = mocks.Stub<TreeNodeInfo>();
             integerTreeNodeInfo.TagType = typeof(int);
             integerTreeNodeInfo.CanRemove = (nd, pnd) => nd == item && pnd == project;
-            integerTreeNodeInfo.OnNodeRemoved = (nd, pnd) => removedCalled = true; 
+            integerTreeNodeInfo.OnNodeRemoved = (nd, pnd) => removedCalled = true;
 
             var commandHandler = mocks.Stub<IViewCommands>();
             commandHandler.Expect(ch => ch.RemoveAllViewsForItem(item));

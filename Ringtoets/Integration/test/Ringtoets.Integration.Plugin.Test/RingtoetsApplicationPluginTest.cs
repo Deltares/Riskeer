@@ -1,11 +1,8 @@
 ﻿using System.Linq;
-
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-
 using Ringtoets.Integration.Data;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -91,6 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test
             /// Type value representing <see cref="DikeAssessmentSection"/> instances.
             /// </summary>
             Dike,
+
             /// <summary>
             /// Type value representing <see cref="DuneAssessmentSection"/> instances.
             /// </summary>

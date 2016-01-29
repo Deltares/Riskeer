@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 
@@ -57,7 +56,7 @@ namespace Core.Common.Gui
         IView CreateViewForData(object data, Func<ViewInfo, bool> selectViewInfo = null);
 
         /// <summary>
-        /// Check if a view can be created for the <paramref name="data"/> and <paramref name="viewType"/>
+        /// Check if a view can be created for the <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The data to check for</param>
         /// <returns></returns>

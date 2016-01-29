@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Linq.Expressions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Calculation;
 using Ringtoets.Piping.IO.Properties;
@@ -82,7 +81,7 @@ namespace Ringtoets.Piping.IO.Builders
             }
             internal set
             {
-                var loop = value.ToArray();;
+                var loop = value.ToArray();
                 CheckValidLoop(loop);
                 outerLoop = loop;
             }
@@ -246,7 +245,7 @@ namespace Ringtoets.Piping.IO.Builders
         private IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
         {
             var segment2Ds = loop.ToArray();
-            if(segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
+            if (segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
                 var message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX);
                 throw new SoilLayer2DConversionException(message);

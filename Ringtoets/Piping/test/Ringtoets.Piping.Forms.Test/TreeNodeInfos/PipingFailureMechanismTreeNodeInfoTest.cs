@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -24,7 +23,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     public class PipingFailureMechanismTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddFolderIndex = 0; 
+        private const int contextMenuAddFolderIndex = 0;
         private const int contextMenuAddCalculationIndex = 1;
         private const int contextMenuValidateAllIndex = 3;
         private const int contextMenuCalculateAllIndex = 4;
@@ -98,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var inputsFolder = (CategoryTreeFolder)children[0];
+            var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
             CollectionAssert.AreEqual(new object[]
@@ -109,13 +108,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 pipingFailureMechanism.BoundaryConditions
             }, inputsFolder.Contents);
 
-            var calculationsFolder = (PipingCalculationGroupContext)children[1];
+            var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
             Assert.AreSame(pipingFailureMechanism.SoilProfiles, calculationsFolder.AvailablePipingSoilProfiles);
 
-            var outputsFolder = (CategoryTreeFolder)children[2];
+            var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
             CollectionAssert.AreEqual(new object[]
@@ -228,7 +227,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 10, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 11, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
 
-            CollectionAssert.AllItemsAreInstancesOfType(new[] { menu.Items[2], menu.Items[6], menu.Items[9] }, typeof(ToolStripSeparator));
+            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            {
+                menu.Items[2],
+                menu.Items[6],
+                menu.Items[9]
+            }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
@@ -259,7 +263,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }
-        
+
         [Test]
         public void ContextMenuStrip_PipingFailureMechanismWithOutput_ClearAllOutputEnabled()
         {
@@ -291,7 +295,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }
-        
+
         [Test]
         public void ContextMenuStrip_PipingFailureMechanismWithNoCalculations_ValidateAndCalculateAllDisabled()
         {
@@ -359,25 +363,26 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-//        [Test]
-//        public void ContextMenuStrip_ClickOnAddCalculationItem_NewPipingCalculationInstanceAddedToFailureMechanismAndNotifyObservers()
-//        {
-//            // Setup
-//            var failureMechanism = new PipingFailureMechanism();
-//            failureMechanism.CalculationsGroup.Children.Clear();
-//            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation());
+//            {
+//            failureMechanismNode.Nodes.AddRange(new []
+//            failureMechanismNode.Collapse();
+//            var failureMechanismNode = new TreeNode();
 //
-//            var treeView = new Core.Common.Controls.TreeView.TreeView();
+//            failureMechanismCalculationsNode.Collapse();
+//            var failureMechanismCalculationsNode = new TreeNode();
 //
 //            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 //
-//            var failureMechanismCalculationsNode = new TreeNode();
-//            failureMechanismCalculationsNode.Collapse();
+//            var treeView = new Core.Common.Controls.TreeView.TreeView();
 //
-//            var failureMechanismNode = new TreeNode();
-//            failureMechanismNode.Collapse();
-//            failureMechanismNode.Nodes.AddRange(new []
-//            {
+//            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation());
+//            failureMechanism.CalculationsGroup.Children.Clear();
+//            var failureMechanism = new PipingFailureMechanism();
+//            // Setup
+//        {
+//        public void ContextMenuStrip_ClickOnAddCalculationItem_NewPipingCalculationInstanceAddedToFailureMechanismAndNotifyObservers()
+
+//        [Test]
 //                new TreeNode(), 
 //                failureMechanismCalculationsNode,
 //                new TreeNode()

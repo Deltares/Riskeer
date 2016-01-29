@@ -1,5 +1,4 @@
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 
 namespace Core.Common.Test.Gui
@@ -11,16 +10,16 @@ namespace Core.Common.Test.Gui
             Initialize();
         }
 
-        private void Initialize()
-        {
-            InitializeComponent();
-            propertyGrid1.SelectedObject = propertyGrid1;
-        }
-
         #region IView Members
 
         public object Data { get; set; }
 
         #endregion
+
+        private void Initialize()
+        {
+            InitializeComponent();
+            propertyGrid1.SelectedObject = propertyGrid1;
+        }
     }
 }

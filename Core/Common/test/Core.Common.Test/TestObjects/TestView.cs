@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 
 namespace Core.Common.Test.TestObjects
@@ -14,10 +13,7 @@ namespace Core.Common.Test.TestObjects
         public object Data { get; set; }
     }
 
-    public class TestViewDerivative : TestView
-    {
-
-    }
+    public class TestViewDerivative : TestView {}
 
     public class TestWrapper
     {

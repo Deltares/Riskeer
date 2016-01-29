@@ -23,9 +23,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls;
 using Core.Common.Gui.Properties;
 using log4net.Core;
 
@@ -81,6 +79,29 @@ namespace Core.Common.Gui.Forms.MessageWindow
             messagesDataGridView.RowsAdded += messagesDataGridView_RowsAdded;
         }
 
+        #region IView Members
+
+        public object Data
+        {
+            get
+            {
+                return messageWindowData;
+            }
+            set {}
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.Control.Paint"/> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data. </param>
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            PopulateMessages();
+        }
+
         private void PopulateMessages()
         {
             if (newMessages.IsEmpty)
@@ -113,16 +134,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             {
                 messagesDataGridView.CurrentCell = messagesDataGridView.Rows[0].Cells[0];
             }
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.Paint"/> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data. </param>
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            PopulateMessages();
         }
 
         private void messagesDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -272,19 +283,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             public DateTime Time { get; set; }
             public string Message { get; set; }
         }
-
-        #region IView Members
-
-        public object Data
-        {
-            get
-            {
-                return messageWindowData;
-            }
-            set {}
-        }
-
-        #endregion
 
         #region IMessageWindow Members
 

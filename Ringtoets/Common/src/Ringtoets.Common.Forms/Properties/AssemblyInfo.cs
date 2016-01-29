@@ -20,7 +20,6 @@
 // All rights preserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Common.Forms")]

@@ -20,7 +20,6 @@
 // All rights preserved.
 
 using System;
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 using log4net.Core;
 
