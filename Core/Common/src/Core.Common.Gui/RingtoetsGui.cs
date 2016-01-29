@@ -73,7 +73,6 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this);
             storageCommandHandler = new StorageCommandHandler(Storage, this, this, this, this, viewCommandHandler);
-            appFeatureApplicationCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore, this);
             projectCommandsHandler = new ProjectCommandsHandler(this, MainWindow, ApplicationCore, this, this);
 
@@ -556,6 +555,7 @@ namespace Core.Common.Gui
 
             DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()), mainWindow);
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
+            appFeatureApplicationCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
 
             var allowedToolWindowLocations = new[]
             {
@@ -824,7 +824,7 @@ namespace Core.Common.Gui
 
         #region Implementation: ICommandsOwner
 
-        private readonly ApplicationFeatureCommandHandler appFeatureApplicationCommands;
+        private ApplicationFeatureCommandHandler appFeatureApplicationCommands;
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly ProjectCommandsHandler projectCommandsHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
