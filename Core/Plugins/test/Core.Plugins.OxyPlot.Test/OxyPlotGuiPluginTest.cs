@@ -134,7 +134,7 @@ namespace Core.Plugins.OxyPlot.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 var plugin = new OxyPlotGuiPlugin();
                 IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
@@ -173,7 +173,7 @@ namespace Core.Plugins.OxyPlot.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 var plugin = new OxyPlotGuiPlugin();
                 var testChartView = new TestChartView();

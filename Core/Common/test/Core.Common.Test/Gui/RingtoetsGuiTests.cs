@@ -25,7 +25,7 @@ namespace Core.Common.Test.Gui
             applicationCore.Expect(ac => ac.Dispose());
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(null), projectStore, applicationCore);
+            var gui = new RingtoetsGui(new MainWindow(), projectStore, applicationCore);
 
             // Call
             gui.Dispose();
@@ -42,7 +42,7 @@ namespace Core.Common.Test.Gui
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (new RingtoetsGui(new MainWindow(null), projectStore))
+            using (new RingtoetsGui(new MainWindow(), projectStore))
             {
                 Assert.NotNull(ViewPropertyEditor.ViewCommands);
             }
@@ -58,7 +58,7 @@ namespace Core.Common.Test.Gui
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 var rootData = new object();
 
@@ -97,7 +97,7 @@ namespace Core.Common.Test.Gui
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -149,7 +149,7 @@ namespace Core.Common.Test.Gui
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -176,7 +176,7 @@ namespace Core.Common.Test.Gui
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 gui.Run();
 

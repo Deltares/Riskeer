@@ -55,9 +55,6 @@ namespace Core.Common.Utils.Reflection
 
             var unary = expression.Body as UnaryExpression;
 
-            // If the method gets a lambda expression 
-            // that is not a member access,
-            // for example, () => x + y, an exception is thrown.
             if (unary != null)
             {
                 return GetMemberNameFromMemberExpression(unary.Operand as MemberExpression);
@@ -198,9 +195,6 @@ namespace Core.Common.Utils.Reflection
 
         private static string GetMemberNameFromMemberExpression(MemberExpression member)
         {
-            // If the method gets a lambda expression 
-            // that is not a member access,
-            // for example, () => x + y, an exception is thrown.
             if (member != null)
             {
                 return member.Member.Name;

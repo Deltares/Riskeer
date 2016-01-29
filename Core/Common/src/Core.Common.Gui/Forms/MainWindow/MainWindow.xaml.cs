@@ -76,9 +76,8 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private IGui gui;
 
-        public MainWindow(IGui gui)
+        public MainWindow()
         {
-            Gui = gui;
             InitializeComponent();
 
             windowInteropHelper = new WindowInteropHelper(this);

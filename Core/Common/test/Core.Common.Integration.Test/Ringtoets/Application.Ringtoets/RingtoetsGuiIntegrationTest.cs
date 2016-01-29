@@ -31,7 +31,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 var applicationCore = gui.ApplicationCore;
 
@@ -58,7 +58,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -78,7 +78,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 gui.Run();
                 int callCount = 0;
@@ -96,7 +96,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -117,7 +117,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(null), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
             {
                 var applicationCore = gui.ApplicationCore;
 
