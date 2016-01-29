@@ -23,7 +23,7 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using BaseResources = Core.Common.Base.Properties.Resources;
+using System.Windows.Forms.VisualStyles;
 
 namespace Core.Common.Controls.TreeView
 {
@@ -34,6 +34,11 @@ namespace Core.Common.Controls.TreeView
         public TreeView()
         {
             controller = new TreeViewController(this);
+
+            StateImageList = new ImageList();
+
+            StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
+            StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.CheckedNormal));
 
             DrawMode = TreeViewDrawMode.OwnerDrawText;
             LabelEdit = true;
@@ -47,6 +52,18 @@ namespace Core.Common.Controls.TreeView
             {
                 SetStyle(ControlStyles.UserPaint, true);
             }
+        }
+
+        private Image CreateCheckBoxGlyph(CheckBoxState state)
+        {
+            Bitmap result = new Bitmap(16, 16);
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
+                CheckBoxRenderer.DrawCheckBox(g,
+                  new Point((result.Width - glyphSize.Width) / 2, (result.Height - glyphSize.Height) / 2), state);
+            }
+            return result;
         }
 
         public TreeViewController TreeViewController

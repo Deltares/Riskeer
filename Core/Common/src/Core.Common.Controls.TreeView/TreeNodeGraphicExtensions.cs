@@ -33,18 +33,6 @@ namespace Core.Common.Controls.TreeView
         private const int spaceBetweenNodeParts = 2;
 
         /// <summary>
-        /// Checks if the <paramref name="point"/> is on the checkbox of the node
-        /// </summary>
-        /// <param name="node">Node to check for</param>
-        /// <param name="point">Point to search for</param>
-        public static bool IsOnCheckBox(this TreeNode node, Point point)
-        {
-            var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
-            var rectangle = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
-            return rectangle.Contains(point);
-        }
-
-        /// <summary>
         /// Draws a tree node using the boundaries of the node
         /// </summary>
         /// <param name="node">Node to draw</param>
@@ -59,11 +47,6 @@ namespace Core.Common.Controls.TreeView
             }
 
             DrawText(graphics, node, treeNodeInfo, selected);
-
-            if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(node.Tag))
-            {
-                DrawCheckbox(graphics, node);
-            }
 
             if (treeNodeInfo.Image != null)
             {
@@ -95,7 +78,7 @@ namespace Core.Common.Controls.TreeView
                             ? node.Bounds.Top
                             : node.Bounds.Bottom;
 
-            graphics.DrawLine(new Pen(Color.Black, 1), new Point(GetCheckBoxLeft(node), yLine), new Point(node.Bounds.Right, yLine));
+            graphics.DrawLine(new Pen(Color.Black, 1), new Point(GetImageLeft(node), yLine), new Point(node.Bounds.Right, yLine));
         }
 
         private static Point[] MakePlaceHoldeTriangle(this TreeNode node, AnchorStyles anchor, PlaceholderLocation location)
@@ -109,7 +92,7 @@ namespace Core.Common.Controls.TreeView
             switch (anchor)
             {
                 case AnchorStyles.Left:
-                    xPos = GetCheckBoxLeft(node) - placeHolderWidth;
+                    xPos = GetImageLeft(node) - placeHolderWidth;
                     break;
                 case AnchorStyles.Right:
                     xPos = bounds.Right;
@@ -173,54 +156,24 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private static void DrawCheckbox(Graphics graphics, TreeNode node)
-        {
-            var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
-            var imgRect = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
-
-            if (Application.RenderWithVisualStyles)
-            {
-                var point = new Point(imgRect.Left + spaceBetweenNodeParts, imgRect.Top + 2);
-                CheckBoxRenderer.DrawCheckBox(graphics, point,
-                                              node.Checked
-                                                  ? CheckBoxState.CheckedNormal
-                                                  : CheckBoxState.UncheckedNormal);
-            }
-            else
-            {
-                ControlPaint.DrawCheckBox(graphics, imgRect,
-                                          (node.Checked ? ButtonState.Checked : ButtonState.Normal) |
-                                          ButtonState.Flat);
-            }
-        }
-
         private static void DrawImage(Graphics graphics, TreeNode node, TreeNodeInfo treeNodeInfo)
         {
             var image = treeNodeInfo.Image(node.Tag);
             var graphicsUnit = GraphicsUnit.Pixel;
             var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
-            var imgRect = new Rectangle(GetImageLeft(node, treeNodeInfo), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
+            var imgRect = new Rectangle(GetImageLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
 
             graphics.DrawImage(image, imgRect, image.GetBounds(ref graphicsUnit), graphicsUnit);
         }
 
-        private static int GetCheckBoxLeft(TreeNode node)
+        private static int GetImageLeft(TreeNode node)
         {
             return node.Bounds.Left - (defaultImageWidth + spaceBetweenNodeParts);
         }
 
-        private static int GetImageLeft(TreeNode node, TreeNodeInfo treeNodeInfo)
-        {
-            var xCheckBox = GetCheckBoxLeft(node);
-
-            return treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(node.Tag)
-                       ? xCheckBox + defaultImageWidth + spaceBetweenNodeParts
-                       : xCheckBox;
-        }
-
         private static int GetTextLeft(TreeNode node, TreeNodeInfo treeNodeInfo)
         {
-            var xImage = GetImageLeft(node, treeNodeInfo);
+            var xImage = GetImageLeft(node);
 
             return treeNodeInfo.Image != null && treeNodeInfo.Image(node.Tag) != null
                        ? xImage + defaultImageWidth + spaceBetweenNodeParts

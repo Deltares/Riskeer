@@ -116,6 +116,7 @@ namespace Core.Plugins.OxyPlot.Legend
             if (pointBasedChartData != null)
             {
                 pointBasedChartData.IsVisible = node.Checked;
+                pointBasedChartData.NotifyObservers();
 
                 var parentData = node.Parent != null ? node.Parent.Tag as IObservable : null;
                 if (parentData != null)

@@ -39,8 +39,8 @@ namespace Core.Plugins.OxyPlot.Legend
             // seriesTree
             // 
             this.seriesTree.AllowDrop = true;
+            this.seriesTree.ChartData = null;
             resources.ApplyResources(this.seriesTree, "seriesTree");
-            this.seriesTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
             this.seriesTree.HideSelection = false;
             this.seriesTree.LabelEdit = true;
             this.seriesTree.Name = "seriesTree";

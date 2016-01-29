@@ -218,11 +218,15 @@ namespace Core.Common.Controls.TreeView
                                      : Color.FromKnownColor(KnownColor.ControlText);
 
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag)
-                && treeNodeInfo.IsChecked != null && treeNode.Checked != treeNodeInfo.IsChecked(treeNode.Tag))
+                && treeNodeInfo.IsChecked != null)
             {
-                treeView.AfterCheck -= TreeViewAfterCheck;
-                treeNode.Checked = !treeNode.Checked;
-                treeView.AfterCheck += TreeViewAfterCheck;
+                if (treeNode.Checked != treeNodeInfo.IsChecked(treeNode.Tag))
+                {
+                    treeView.AfterCheck -= TreeViewAfterCheck;
+                    treeNode.Checked = !treeNode.Checked;
+                    treeView.AfterCheck += TreeViewAfterCheck;
+                }
+                treeNode.StateImageIndex = treeNode.Checked ? 1 : 0;
             }
 
             OnNodeUpdated(treeNode);
@@ -493,10 +497,16 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(clickedNode.Tag) && clickedNode.IsOnCheckBox(point))
+            var isOnCheckBox = IsOnCheckBox(point);
+            if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(clickedNode.Tag) && isOnCheckBox)
             {
                 clickedNode.Checked = !clickedNode.Checked;
             }
+        }
+
+        private bool IsOnCheckBox(Point point)
+        {
+            return treeView.HitTest(point).Location.ToString() == "StateImage";
         }
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
