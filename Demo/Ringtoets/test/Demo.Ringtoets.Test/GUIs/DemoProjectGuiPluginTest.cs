@@ -1,5 +1,7 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
+
 using Demo.Ringtoets.GUIs;
 using NUnit.Framework;
 

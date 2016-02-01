@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 
 using Core.Common.Gui;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
 using Ringtoets.Piping.Calculation;

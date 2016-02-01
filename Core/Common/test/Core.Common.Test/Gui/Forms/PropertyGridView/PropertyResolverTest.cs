@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.PropertyGridView;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
 

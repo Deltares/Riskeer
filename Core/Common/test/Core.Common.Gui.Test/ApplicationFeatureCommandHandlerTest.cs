@@ -1,5 +1,8 @@
-﻿using Core.Common.Gui.Forms.MainWindow;
+﻿using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
+using Core.Common.Gui.Selection;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 

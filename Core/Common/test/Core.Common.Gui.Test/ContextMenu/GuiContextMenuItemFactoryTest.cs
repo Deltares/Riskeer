@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;

@@ -21,6 +21,8 @@
 
 using System.Linq;
 using Core.Common.Gui;
+using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
 using Ringtoets.Piping.Data;

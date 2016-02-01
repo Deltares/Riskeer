@@ -28,7 +28,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
 using Core.Plugins.CommonTools.Properties;
 using Core.Plugins.CommonTools.Property;
-using PropertyInfo = Core.Common.Gui.PropertyInfo;
+using PropertyInfo = Core.Common.Gui.Plugin.PropertyInfo;
 
 namespace Core.Plugins.CommonTools
 {

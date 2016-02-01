@@ -1,5 +1,8 @@
 ﻿using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.Selection;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 

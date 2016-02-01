@@ -4,6 +4,9 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.Selection;
+
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

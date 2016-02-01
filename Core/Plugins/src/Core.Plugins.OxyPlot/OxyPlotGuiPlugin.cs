@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Commands;

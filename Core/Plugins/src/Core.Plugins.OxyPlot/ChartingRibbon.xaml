@@ -7,9 +7,10 @@
              xmlns:gui="clr-namespace:Core.Common.Gui;assembly=Core.Common.Gui"
              xmlns:p="clr-namespace:Core.Plugins.OxyPlot.Properties"
              xmlns:common="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
+             xmlns:Converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
-        <gui:PngToIconConverter x:Key="IconConverter"/>
+        <Converters:PngToIconConverter x:Key="IconConverter"/>
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
 

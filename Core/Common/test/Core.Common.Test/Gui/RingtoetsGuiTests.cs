@@ -5,6 +5,7 @@ using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Plugin;
 using Core.Common.Test.TestObjects;
 using NUnit.Framework;
 using Rhino.Mocks;

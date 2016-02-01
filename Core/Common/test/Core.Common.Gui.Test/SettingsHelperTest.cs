@@ -1,4 +1,5 @@
-﻿using Core.Common.Utils.Reflection;
+﻿using Core.Common.Gui.Settings;
+using Core.Common.Utils.Reflection;
 
 using NUnit.Framework;
 

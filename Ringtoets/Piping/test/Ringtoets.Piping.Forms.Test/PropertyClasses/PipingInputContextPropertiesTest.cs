@@ -3,6 +3,7 @@ using System.Linq;
 
 using Core.Common.Base;
 using Core.Common.Gui;
+using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 

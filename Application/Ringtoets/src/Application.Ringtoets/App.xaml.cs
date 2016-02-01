@@ -38,6 +38,7 @@ using Core.Common.Controls.Dialogs;
 using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Settings;
 using Core.Plugins.CommonTools;
 using Core.Plugins.DotSpatial;
 using Core.Plugins.OxyPlot;

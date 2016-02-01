@@ -23,6 +23,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using Core.Common.Gui.Plugin;
+
 namespace Core.Common.Gui
 {
     /// <summary>

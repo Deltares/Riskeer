@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Selection;
 
 using NUnit.Framework;
 

@@ -25,6 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.Selection;
+
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer

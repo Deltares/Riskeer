@@ -35,13 +35,17 @@ using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
+using Core.Common.Gui.Selection;
+using Core.Common.Gui.Settings;
 using Core.Common.Utils.Events;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
@@ -92,7 +96,7 @@ namespace Core.Common.Gui
 
             Plugins = new List<GuiPlugin>();
 
-            UserSettings = Settings.Default;
+            UserSettings = Properties.Settings.Default;
 
             viewCommandHandler = new ViewCommandHandler(this, this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
@@ -428,11 +432,11 @@ namespace Core.Common.Gui
             documentViews.IgnoreActivation = false;
             toolWindowViews.IgnoreActivation = false;
 
-            if (Settings.Default.SettingsKey.Contains("mruList"))
+            if (Properties.Settings.Default.SettingsKey.Contains("mruList"))
             {
-                if (Settings.Default["mruList"] == null)
+                if (Properties.Settings.Default["mruList"] == null)
                 {
-                    Settings.Default["mruList"] = new StringCollection();
+                    Properties.Settings.Default["mruList"] = new StringCollection();
                 }
             }
         }

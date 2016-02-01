@@ -24,8 +24,12 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Selection;
 using Core.Common.Utils.Extensions;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
 

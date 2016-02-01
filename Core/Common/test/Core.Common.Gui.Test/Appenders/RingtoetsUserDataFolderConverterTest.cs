@@ -1,6 +1,7 @@
 ﻿using System.IO;
 
 using Core.Common.Gui.Appenders;
+using Core.Common.Gui.Settings;
 
 using log4net.Util;
 

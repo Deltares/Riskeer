@@ -1,6 +1,7 @@
 using System;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;

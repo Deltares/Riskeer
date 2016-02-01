@@ -37,10 +37,15 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow.Interop;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
-using Core.Common.Gui.Properties;
+using Core.Common.Gui.Forms.ViewManager;
+
+using Core.Common.Gui.Selection;
+using Core.Common.Gui.Settings;
 using Core.Common.Gui.Theme;
 using Core.Common.Utils;
 using Core.Common.Utils.Events;
@@ -52,6 +57,7 @@ using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Xceed.Wpf.AvalonDock.Themes;
+using Settings = Core.Common.Gui.Properties.Settings;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using WindowsFormApplication = System.Windows.Forms.Application;
@@ -552,7 +558,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void AddRecentlyOpenedProjectsToFileMenu()
         {
-            var mruList = Settings.Default["mruList"] as StringCollection;
+            var mruList = Properties.Settings.Default["mruList"] as StringCollection;
 
             foreach (var recent in mruList)
             {
@@ -604,7 +610,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void CommitMruToSettings()
         {
-            var mruList = (StringCollection) Settings.Default["mruList"];
+            var mruList = (StringCollection)Properties.Settings.Default["mruList"];
 
             mruList.Clear();
 
@@ -783,10 +789,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void RestoreWindowAppearance()
         {
             WindowStartupLocation = WindowStartupLocation.Manual;
-            var x = Settings.Default.MainWindow_X;
-            var y = Settings.Default.MainWindow_Y;
-            var width = Settings.Default.MainWindow_Width;
-            var height = Settings.Default.MainWindow_Height;
+            var x = Properties.Settings.Default.MainWindow_X;
+            var y = Properties.Settings.Default.MainWindow_Y;
+            var width = Properties.Settings.Default.MainWindow_Width;
+            var height = Properties.Settings.Default.MainWindow_Height;
             var rec = new Rectangle(x, y, width, height);
 
             if (!IsVisibleOnAnyScreen(rec))
@@ -795,7 +801,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 height = Screen.PrimaryScreen.Bounds.Height - 200;
             }
 
-            var fs = Settings.Default.MainWindow_FullScreen;
+            var fs = Properties.Settings.Default.MainWindow_FullScreen;
             Width = width;
             Height = height;
             if (fs)
@@ -821,15 +827,15 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (WindowState == WindowState.Maximized)
             {
-                Settings.Default.MainWindow_FullScreen = true;
+                Properties.Settings.Default.MainWindow_FullScreen = true;
             }
             else
             {
-                Settings.Default.MainWindow_Width = (int) Width;
-                Settings.Default.MainWindow_Height = (int) Height;
-                Settings.Default.MainWindow_FullScreen = false;
+                Properties.Settings.Default.MainWindow_Width = (int) Width;
+                Properties.Settings.Default.MainWindow_Height = (int) Height;
+                Properties.Settings.Default.MainWindow_FullScreen = false;
             }
-            Settings.Default.Save();
+            Properties.Settings.Default.Save();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)

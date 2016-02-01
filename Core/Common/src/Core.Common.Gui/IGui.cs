@@ -23,8 +23,12 @@ using System;
 
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Gui.Selection;
+using Core.Common.Gui.Settings;
 
 namespace Core.Common.Gui
 {

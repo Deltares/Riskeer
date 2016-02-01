@@ -24,6 +24,8 @@ using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 
+using Core.Common.Gui.Settings;
+
 namespace Core.Common.Gui.Properties
 {
     // This class allows you to handle specific events on the settings class:

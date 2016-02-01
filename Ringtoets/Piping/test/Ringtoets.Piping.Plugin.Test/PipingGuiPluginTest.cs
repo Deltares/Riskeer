@@ -4,6 +4,9 @@ using System.Linq;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.Plugin;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;

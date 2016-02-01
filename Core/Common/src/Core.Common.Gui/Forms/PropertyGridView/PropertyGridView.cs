@@ -27,6 +27,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui.Properties;
+using Core.Common.Gui.Selection;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {

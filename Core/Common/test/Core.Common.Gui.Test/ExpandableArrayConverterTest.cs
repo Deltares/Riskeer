@@ -1,5 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+
+using Core.Common.Gui.Converters;
+
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test

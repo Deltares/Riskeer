@@ -1,4 +1,5 @@
 ﻿using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Plugins.OxyPlot.Commands;
 
 using NUnit.Framework;

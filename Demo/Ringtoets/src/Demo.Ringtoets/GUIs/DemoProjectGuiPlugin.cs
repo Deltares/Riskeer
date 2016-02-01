@@ -1,5 +1,6 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 
 namespace Demo.Ringtoets.GUIs
 {

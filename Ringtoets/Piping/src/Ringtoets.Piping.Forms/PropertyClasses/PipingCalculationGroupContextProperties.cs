@@ -21,6 +21,7 @@
 
 using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
 using Ringtoets.Piping.Data;

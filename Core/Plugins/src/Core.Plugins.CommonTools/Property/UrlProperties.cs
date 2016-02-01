@@ -22,6 +22,7 @@
 using System;
 
 using Core.Common.Gui;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Plugins.CommonTools.Properties;

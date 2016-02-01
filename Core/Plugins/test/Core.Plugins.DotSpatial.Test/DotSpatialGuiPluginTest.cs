@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Gui;
+using Core.Common.Gui.Plugin;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;

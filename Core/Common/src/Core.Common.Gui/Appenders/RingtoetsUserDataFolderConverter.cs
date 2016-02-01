@@ -21,6 +21,9 @@
 
 using System;
 using System.IO;
+
+using Core.Common.Gui.Settings;
+
 using log4net.Util;
 
 namespace Core.Common.Gui.Appenders

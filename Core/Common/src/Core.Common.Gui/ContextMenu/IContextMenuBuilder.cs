@@ -22,6 +22,8 @@
 using System;
 using System.Windows.Forms;
 
+using Core.Common.Gui.Commands;
+
 namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>

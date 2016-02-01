@@ -23,6 +23,8 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 
+using Core.Common.Gui.Commands;
+
 namespace Core.Common.Gui
 {
     /// <summary>

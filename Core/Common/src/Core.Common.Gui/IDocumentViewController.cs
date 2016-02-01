@@ -22,6 +22,7 @@
 using System;
 
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Forms.ViewManager;
 
 namespace Core.Common.Gui
 {

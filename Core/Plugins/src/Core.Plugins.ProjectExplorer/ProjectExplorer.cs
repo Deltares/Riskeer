@@ -22,7 +22,10 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ViewManager;
+using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Properties;
 using log4net;
 using TreeView = Core.Common.Controls.TreeView.TreeView;

@@ -118,7 +118,23 @@
     <Compile Include="Attributes\DynamicVisibleAttribute.cs" />
     <Compile Include="Attributes\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="Attributes\PropertyOrderAttribute.cs" />
-    <Compile Include="ExportImportCommandHandler.cs" />
+    <Compile Include="Commands\ApplicationFeatureCommandHandler.cs" />
+    <Compile Include="Commands\ExportImportCommandHandler.cs" />
+    <Compile Include="Commands\GuiExportHandler.cs" />
+    <Compile Include="Commands\GuiImportHandler.cs" />
+    <Compile Include="Commands\IApplicationFeatureCommands.cs" />
+    <Compile Include="Commands\ICommandsOwner.cs" />
+    <Compile Include="Commands\IExportImportCommandHandler.cs" />
+    <Compile Include="Commands\IProjectCommands.cs" />
+    <Compile Include="Commands\IStorageCommands.cs" />
+    <Compile Include="Commands\IViewCommands.cs" />
+    <Compile Include="Commands\ProjectCommandsHandler.cs" />
+    <Compile Include="Commands\StorageCommandHandler.cs" />
+    <Compile Include="Commands\ViewCommandHandler.cs" />
+    <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
+    <Compile Include="Converters\ExpandableArrayConverter.cs" />
+    <Compile Include="Converters\PngToIconConverter.cs" />
+    <Compile Include="Forms\ControlHelper.cs" />
     <Compile Include="Forms\MainWindow\Interop\NativeWin32.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
       <SubType>Form</SubType>
@@ -127,31 +143,33 @@
       <DependentUpon>MessageWindowDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RichTextFile.cs" />
-    <Compile Include="IApplicationSelection.cs" />
-    <Compile Include="ICommandsOwner.cs" />
+    <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgs.cs" />
+    <Compile Include="Forms\ViewManager\IViewList.cs" />
+    <Compile Include="Forms\ViewManager\IViewResolver.cs" />
     <Compile Include="IDocumentViewController.cs" />
-    <Compile Include="IExportImportCommandHandler.cs" />
     <Compile Include="IGuiPluginsHost.cs" />
     <Compile Include="IMainWindowController.cs" />
-    <Compile Include="IProjectCommands.cs" />
     <Compile Include="IProjectOwner.cs" />
-    <Compile Include="ISettingsOwner.cs" />
-    <Compile Include="IStorageCommands.cs" />
     <Compile Include="IToolViewController.cs" />
-    <Compile Include="IViewCommands.cs" />
+    <Compile Include="Plugin\GuiPlugin.cs" />
+    <Compile Include="Plugin\PropertyInfo.cs" />
+    <Compile Include="Plugin\PropertyInfoExtensions.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
-    <Compile Include="PngToIconConverter.cs" />
-    <Compile Include="ProjectCommandsHandler.cs" />
     <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
+    <Compile Include="PropertyBag\IObjectProperties.cs" />
+    <Compile Include="PropertyBag\ObjectProperties.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
-    <Compile Include="SettingsHelper.cs" />
-    <Compile Include="StorageCommandHandler.cs" />
+    <Compile Include="Selection\IApplicationSelection.cs" />
+    <Compile Include="Selection\ItemEventArgs.cs" />
+    <Compile Include="Settings\CustomSettingsProvider.cs" />
+    <Compile Include="Settings\GuiCoreSettings.cs" />
+    <Compile Include="Settings\ISettingsOwner.cs" />
+    <Compile Include="Settings\SettingsHelper.cs" />
     <Compile Include="Theme\ColorTheme.cs" />
     <Compile Include="Theme\ColorThemeExtensions.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
-    <Compile Include="ControlHelper.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
@@ -159,7 +177,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactory.cs" />
-    <Compile Include="CustomSettingsProvider.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,11 +185,8 @@
     </Compile>
     <Compile Include="Forms\ProgressDialog\ProgressReporter.cs" />
     <Compile Include="Forms\PropertyGridView\IPropertyResolver.cs" />
-    <Compile Include="GuiCoreSettings.cs" />
     <Compile Include="RingtoetsGui.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />
-    <Compile Include="IContextMenuBuilderProvider.cs" />
-    <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />
     <Compile Include="Forms\IPropertyGrid.cs" />
@@ -240,12 +254,6 @@
       <DependentUpon>ViewSelectionContextMenuController.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ViewManager\ViewSelectionMouseController.cs" />
-    <Compile Include="ApplicationFeatureCommandHandler.cs" />
-    <Compile Include="GuiExportHandler.cs" />
-    <Compile Include="GuiImportHandler.cs" />
-    <Compile Include="IObjectProperties.cs" />
-    <Compile Include="IViewResolver.cs" />
-    <Compile Include="ObjectProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -257,17 +265,8 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="PropertyInfo.cs" />
-    <Compile Include="IViewList.cs" />
-    <Compile Include="ItemEventArgs.cs" />
     <Compile Include="IGui.cs" />
-    <Compile Include="IApplicationFeatureCommands.cs" />
-    <Compile Include="GuiPlugin.cs">
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInfoExtensions.cs" />
-    <Compile Include="ActiveViewChangeEventArgs.cs" />
-    <Compile Include="ViewCommandHandler.cs" />
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>
   <ItemGroup>

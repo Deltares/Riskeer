@@ -1,5 +1,6 @@
 ﻿using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Components.DotSpatial.Data;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
