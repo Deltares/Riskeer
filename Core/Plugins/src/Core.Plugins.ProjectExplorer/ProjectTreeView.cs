@@ -121,7 +121,7 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public new void Dispose()
+        protected override void Dispose(bool disposing)
         {
             applicationSelection.SelectionChanged -= GuiSelectionChanged;
 
@@ -133,7 +133,7 @@ namespace Core.Plugins.ProjectExplorer
             treeView.TreeViewController.Data = null;
             treeView.Dispose();
 
-            base.Dispose();
+            base.Dispose(disposing);
         }
 
         /// <summary>

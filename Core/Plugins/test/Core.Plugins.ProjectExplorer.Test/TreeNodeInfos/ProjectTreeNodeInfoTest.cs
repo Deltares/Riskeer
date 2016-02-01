@@ -77,7 +77,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             var image = info.Image(project);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.Project, image);
+            TestHelper.AssertImagesAreEqual(Resources.ProjectIcon, image);
 
             mocks.VerifyAll();
         }
@@ -166,7 +166,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             result.Items[0].PerformClick();
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.plus);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.PlusIcon);
             mocks.VerifyAll(); 
         }
     }

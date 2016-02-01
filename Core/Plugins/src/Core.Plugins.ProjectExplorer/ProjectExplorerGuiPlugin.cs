@@ -97,14 +97,14 @@ namespace Core.Plugins.ProjectExplorer
             yield return new TreeNodeInfo<Project>
             {
                 Text = project => project.Name,
-                Image = project => ProjectExplorerResources.Project,
+                Image = project => ProjectExplorerResources.ProjectIcon,
                 ChildNodeObjects = project => project.Items.ToArray(),
                 ContextMenuStrip = (project, sourceNode, treeNodeInfo) =>
                 {
                     var addItem = new StrictContextMenuItem(
                         ProjectExplorerResources.AddItem,
                         ProjectExplorerResources.AddItem_ToolTip,
-                        ProjectExplorerResources.plus,
+                        ProjectExplorerResources.PlusIcon,
                         (s, e) => Gui.ProjectCommands.AddNewItem(project));
 
                     return Gui.Get(sourceNode, treeNodeInfo)

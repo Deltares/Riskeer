@@ -67,18 +67,6 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public new void Dispose()
-        {
-            ProjectTreeView.Data = null;
-            if (documentViewController != null && documentViewController.DocumentViews != null)
-            {
-                documentViewController.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
-            }
-
-            ProjectTreeView.Dispose();
-            base.Dispose();
-        }
-
         public TreeView TreeView
         {
             get

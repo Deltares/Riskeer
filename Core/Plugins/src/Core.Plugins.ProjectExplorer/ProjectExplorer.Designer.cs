@@ -17,6 +17,10 @@
             {
                 components.Dispose();
             }
+            if (documentViewController != null && documentViewController.DocumentViews != null)
+            {
+                documentViewController.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
+            }
             base.Dispose(disposing);
         }
 
