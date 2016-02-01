@@ -23,14 +23,12 @@ using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
-
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -73,6 +71,9 @@ namespace Core.Common.Gui.Commands
             this.projectOwner.ProjectClosing += ApplicationProjectClosing;
         }
 
+        /// <summary>
+        /// This method performs an update of the <seealso cref="IObserver"/>, triggered by a notification of an <seealso cref="IObservable"/>.
+        /// </summary>
         public void UpdateObserver()
         {
             mainWindowController.RefreshGui();
@@ -130,14 +131,14 @@ namespace Core.Common.Gui.Commands
             }
             catch (StorageException e)
             {
-                log.Warn(e.Message, e.InnerException);
-                log.Warn(Resources.Project_existing_project_opening_failed);
+                log.Error(e.Message, e.InnerException);
+                log.Error(Resources.Project_existing_project_opening_failed);
                 return false;
             }
 
             if (loadedProject == null)
             {
-                log.Warn(Resources.Project_existing_project_opening_failed);
+                log.Error(Resources.Project_existing_project_opening_failed);
                 return false;
             }
 
@@ -272,8 +273,8 @@ namespace Core.Common.Gui.Commands
             }
             catch (StorageException e)
             {
-                log.Warn(e.Message, e.InnerException);
-                log.Warn(Resources.Project_saving_project_failed);
+                log.Error(e.Message, e.InnerException);
+                log.Error(Resources.Project_saving_project_failed);
                 return false;
             }
         }
@@ -287,8 +288,8 @@ namespace Core.Common.Gui.Commands
             }
             catch (StorageException e)
             {
-                log.Warn(e.Message, e.InnerException);
-                log.Warn(Resources.Project_saving_project_failed);
+                log.Error(e.Message, e.InnerException);
+                log.Error(Resources.Project_saving_project_failed);
                 return false;
             }
         }

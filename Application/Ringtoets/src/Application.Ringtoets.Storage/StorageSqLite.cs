@@ -137,14 +137,21 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns a new instance of <see cref="Project"/> with the data from the database or <c>null</c> when not found.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> does not exist.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
+        /// <exception cref="StorageValidationException">Thrown when the database does not contain all tables of <see cref="RingtoetsEntities"/>.</exception>
         public Project LoadProject(string databaseFilePath)
         {
             SetConnectionToFile(databaseFilePath);
-            using (var dbContext = new RingtoetsEntities(connectionString))
+            try
             {
-                var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
-                return projectEntityPersistor.GetEntityAsModel();
+                using (var dbContext = new RingtoetsEntities(connectionString))
+                {
+                    var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
+                    return projectEntityPersistor.GetEntityAsModel();
+                }
+            }
+            catch (DataException exception)
+            {
+                throw CreateStorageReaderException(string.Empty, exception);
             }
         }
 
@@ -188,7 +195,7 @@ namespace Application.Ringtoets.Storage
 
             if (!File.Exists(databaseFilePath))
             {
-                throw CreateStorageReaderException("", new CouldNotConnectException(UtilsResources.Error_File_does_not_exist));
+                throw CreateStorageReaderException(string.Empty, new CouldNotConnectException(UtilsResources.Error_File_does_not_exist));
             }
 
             connectionString = SqLiteConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
@@ -229,7 +236,7 @@ namespace Application.Ringtoets.Storage
                 }
                 catch
                 {
-                    throw CreateStorageReaderException("", new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath)));
+                    throw CreateStorageReaderException(string.Empty, new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath)));
                 }
             }
         }
