@@ -1,6 +1,6 @@
 ﻿extensions: designer.cs generated.cs
 extensions: .cs
-// Copyright (C) Stichting Deltares 2016. All rights preserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,11 +19,11 @@ extensions: .cs
 //
 // All names, logos, and references to "Deltares" are registered trademarks of 
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
-// All rights preserved.
+// All rights reserved.
 
 extensions:  .xml .config .xsd
 <!--
-Copyright (C) Stichting Deltares 2016. All rights preserved.
+Copyright (C) Stichting Deltares 2016. All rights reserved.
 
 This file is part of Ringtoets.
 
@@ -42,5 +42,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 All names, logos, and references to "Deltares" are registered trademarks of 
 Stichting Deltares and remain full property of Stichting Deltares at all times. 
-All rights preserved.
+All rights reserved.
 -->

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!--
-Copyright (C) Stichting Deltares 2016. All rights preserved.
+Copyright (C) Stichting Deltares 2016. All rights reserved.
 
 This file is part of Ringtoets.
 
@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 All names, logos, and references to "Deltares" are registered trademarks of 
 Stichting Deltares and remain full property of Stichting Deltares at all times. 
-All rights preserved.
+All rights reserved.
 -->
 <xs:schema id="MessageWindowData" targetNamespace="http://tempuri.org/MessageWindowData.xsd" xmlns:mstns="http://tempuri.org/MessageWindowData.xsd" xmlns="http://tempuri.org/MessageWindowData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>

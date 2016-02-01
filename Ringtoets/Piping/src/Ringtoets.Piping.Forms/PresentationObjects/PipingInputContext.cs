@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights preserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -17,7 +17,7 @@
 //
 // All names, logos, and references to "Deltares" are registered trademarks of 
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
-// All rights preserved.
+// All rights reserved.
 
 using System.Collections.Generic;
 
