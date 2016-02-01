@@ -32,22 +32,17 @@ using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
 {
-    /// <summary>
-    /// TODO: extract Clipboard-related methods into Ringtoets Clipboard class
-    /// </summary>
-    public class ProjectTreeView : UserControl, IView
+    public sealed class ProjectTreeView : TreeView, IView
     {
-        private readonly TreeView treeView;
         private readonly IApplicationSelection applicationSelection;
         private readonly IViewCommands viewCommands;
         private readonly IProjectOwner projectOwner;
-        private readonly IDocumentViewController documentViewController;
         private Project project;
 
         private bool selectingNode;
 
         public ProjectTreeView(IApplicationSelection applicationSelection, IViewCommands viewCommands,
-                               IProjectOwner projectOwner, IDocumentViewController documentViewController)
+                               IProjectOwner projectOwner)
             : this()
         {
             this.applicationSelection = applicationSelection;
@@ -56,33 +51,15 @@ namespace Core.Plugins.ProjectExplorer
             this.viewCommands = viewCommands;
 
             this.projectOwner = projectOwner;
-
-            this.documentViewController = documentViewController;
         }
 
         private ProjectTreeView()
         {
-            treeView = new TreeView
-            {
-                AllowDrop = true
-            };
+            Dock = DockStyle.Fill;
 
-            treeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
-
-            treeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
-            treeView.AfterSelect += TreeViewSelectedNodeChanged;
-
-            treeView.Dock = DockStyle.Fill;
-
-            Controls.Add(treeView);
-        }
-
-        public TreeView TreeView
-        {
-            get
-            {
-                return treeView;
-            }
+            TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
+            TreeViewController.NodeDataDeleted += ProjectDataDeleted;
+            AfterSelect += TreeViewSelectedNodeChanged;
         }
 
         public Project Project
@@ -112,7 +89,7 @@ namespace Core.Plugins.ProjectExplorer
                 }
 
                 project = value as Project;
-                treeView.TreeViewController.Data = project;
+                TreeViewController.Data = project;
 
                 if (project != null)
                 {
@@ -130,8 +107,7 @@ namespace Core.Plugins.ProjectExplorer
                 UnsubscribeProjectEvents();
             }
 
-            treeView.TreeViewController.Data = null;
-            treeView.Dispose();
+            TreeViewController.Data = null;
 
             base.Dispose(disposing);
         }
@@ -141,18 +117,18 @@ namespace Core.Plugins.ProjectExplorer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected virtual void GuiSelectionChanged(object sender, EventArgs e)
+        private void GuiSelectionChanged(object sender, EventArgs e)
         {
             if (selectingNode || applicationSelection.Selection == null
-                || (treeView.SelectedNode != null && treeView.SelectedNode.Tag == applicationSelection.Selection))
+                || (SelectedNode != null && SelectedNode.Tag == applicationSelection.Selection))
             {
                 return;
             }
 
-            TreeNode node = treeView.TreeViewController.GetNodeByTag(applicationSelection.Selection);
+            TreeNode node = TreeViewController.GetNodeByTag(applicationSelection.Selection);
             if (node != null)
             {
-                treeView.SelectedNode = node;
+                SelectedNode = node;
             }
         }
 
@@ -160,7 +136,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             selectingNode = true;
 
-            var tag = treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
+            var tag = SelectedNode != null ? SelectedNode.Tag : null;
 
             applicationSelection.Selection = tag;
 
@@ -184,11 +160,6 @@ namespace Core.Plugins.ProjectExplorer
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
         {
-            if (!Equals(applicationSelection.Selection, TreeView.SelectedNode.Tag))
-            {
-                // Necessary if WinForms skips single click event
-                applicationSelection.Selection = TreeView.SelectedNode.Tag;
-            }
             viewCommands.OpenViewForSelection();
         }
 

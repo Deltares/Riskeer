@@ -27,7 +27,5 @@ namespace Core.Common.Gui.Forms
     public interface IProjectExplorer : IView
     {
         TreeView TreeView { get; }
-
-        void ScrollTo(object o);
     }
 }

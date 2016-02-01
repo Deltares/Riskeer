@@ -26,7 +26,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var documentViewController = mocks.Stub<IDocumentViewController>();
             mocks.ReplayAll();
 
-            using (var projectTreeView = new ProjectTreeView(selectionStub, viewCommandsStub, projectOwner, documentViewController))
+            using (var projectTreeView = new ProjectTreeView(selectionStub, viewCommandsStub, projectOwner))
             {
                 Assert.IsNotNull(projectTreeView);
             }
@@ -70,20 +70,18 @@ namespace Core.Plugins.ProjectExplorer.Test
             var selectionStub = mocks.Stub<IApplicationSelection>();
             selectionStub.Stub(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             selectionStub.Stub(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
-
-            var documentViewController = mocks.Stub<IDocumentViewController>();
-
+            
             mocks.ReplayAll();
 
-            using (var projectTree = new ProjectTreeView(selectionStub, commandHandler, projectOwner, documentViewController))
+            using (var projectTree = new ProjectTreeView(selectionStub, commandHandler, projectOwner))
             {
-                projectTree.TreeView.TreeViewController.RegisterTreeNodeInfo(projectTreeNodeInfo);
-                projectTree.TreeView.TreeViewController.RegisterTreeNodeInfo(integerTreeNodeInfo);
+                projectTree.TreeViewController.RegisterTreeNodeInfo(projectTreeNodeInfo);
+                projectTree.TreeViewController.RegisterTreeNodeInfo(integerTreeNodeInfo);
                 projectTree.Project = project;
 
                 // Call
-                var nodeToDelete = projectTree.TreeView.Nodes[0].Nodes.OfType<TreeNode>().First();
-                projectTree.TreeView.TreeViewController.DeleteNode(nodeToDelete, integerTreeNodeInfo);
+                var nodeToDelete = projectTree.Nodes[0].Nodes.OfType<TreeNode>().First();
+                projectTree.TreeViewController.DeleteNode(nodeToDelete, integerTreeNodeInfo);
             }
 
             // Assert

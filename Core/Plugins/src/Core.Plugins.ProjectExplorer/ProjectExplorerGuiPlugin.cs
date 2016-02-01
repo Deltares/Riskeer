@@ -142,14 +142,14 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (ProjectExplorer == null || ProjectExplorer.IsDisposed)
             {
-                ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands, projectOwner, documentViewController);
+                ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands, projectOwner);
 
                 Gui.Plugins
                    .SelectMany(pluginGui => pluginGui.GetTreeNodeInfos())
-                   .ForEachElementDo(tni => ProjectExplorer.ProjectTreeView.TreeView.TreeViewController.RegisterTreeNodeInfo(tni));
+                   .ForEachElementDo(tni => ProjectExplorer.ProjectTreeView.TreeViewController.RegisterTreeNodeInfo(tni));
 
                 ProjectExplorer.ProjectTreeView.Project = projectOwner.Project;
-                ProjectExplorer.ProjectTreeView.TreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
+                ProjectExplorer.ProjectTreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
             }
 
