@@ -40,7 +40,7 @@ namespace Core.Common.Controls.TreeView
             StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
             StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.CheckedNormal));
 
-            DrawMode = TreeViewDrawMode.OwnerDrawText;
+            DrawMode = TreeViewDrawMode.Normal;
             LabelEdit = true;
             HideSelection = false;
 

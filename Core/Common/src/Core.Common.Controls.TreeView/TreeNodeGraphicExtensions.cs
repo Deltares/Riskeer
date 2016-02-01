@@ -22,37 +22,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace Core.Common.Controls.TreeView
 {
     public static class TreeNodeGraphicExtensions
     {
         private const int defaultImageWidth = 16;
-        private const int defaultImageHeight = 16;
         private const int spaceBetweenNodeParts = 2;
-
-        /// <summary>
-        /// Draws a tree node using the boundaries of the node
-        /// </summary>
-        /// <param name="node">Node to draw</param>
-        /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to use while drawing the node.</param>
-        /// <param name="graphics">Graphic to draw on</param>
-        /// <param name="selected">Is node in selected state</param>
-        public static void DrawNode(this TreeNode node, TreeNodeInfo treeNodeInfo, Graphics graphics, bool selected)
-        {
-            if (node.Bounds.Height == 0) // Nothing to draw
-            {
-                return;
-            }
-
-            DrawText(graphics, node, treeNodeInfo, selected);
-
-            if (treeNodeInfo.Image != null)
-            {
-                DrawImage(graphics, node, treeNodeInfo);
-            }
-        }
 
         /// <summary>
         /// Draws a placeholder for the node on the indicated location
@@ -119,65 +95,9 @@ namespace Core.Common.Controls.TreeView
             return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeigth), anchor);
         }
 
-        private static void DrawText(Graphics graphics, TreeNode node, TreeNodeInfo treeNodeInfo, bool selected)
-        {
-            if (node.IsEditing && node.IsSelected)
-            {
-                return;
-            }
-
-            var bounds = node.Bounds;
-            var treeView = node.TreeView;
-            var foreColor = selected && treeView.Focused
-                                ? SystemColors.HighlightText
-                                : node.ForeColor != Color.Empty ? node.ForeColor : treeView.ForeColor;
-
-            var backgroundColor = selected
-                                      ? treeView.Focused ? SystemColors.Highlight : Color.FromArgb(255, 232, 232, 232)
-                                      : node.BackColor != Color.Empty
-                                            ? node.BackColor
-                                            : treeView.BackColor;
-
-            var font = new Font(node.NodeFont ?? treeView.Font, FontStyle.Regular);
-            var topOffset = (node.Bounds.Height - TextRenderer.MeasureText(node.Text, font).Height)/2;
-
-            var startPoint = new Point(GetTextLeft(node, treeNodeInfo), bounds.Top + topOffset);
-            var drawingBounds = treeView.FullRowSelect
-                                    ? new Rectangle(0, bounds.Top, treeView.Width, bounds.Height)
-                                    : new Rectangle(GetTextLeft(node, treeNodeInfo), bounds.Top, bounds.Width, bounds.Height);
-
-            graphics.FillRectangle(new SolidBrush(backgroundColor), drawingBounds);
-
-            TextRenderer.DrawText(graphics, node.Text, font, startPoint, foreColor, backgroundColor, TextFormatFlags.Default);
-
-            if (selected)
-            {
-                ControlPaint.DrawFocusRectangle(graphics, drawingBounds, foreColor, SystemColors.Highlight);
-            }
-        }
-
-        private static void DrawImage(Graphics graphics, TreeNode node, TreeNodeInfo treeNodeInfo)
-        {
-            var image = treeNodeInfo.Image(node.Tag);
-            var graphicsUnit = GraphicsUnit.Pixel;
-            var topOffset = (node.Bounds.Height - defaultImageHeight)/2;
-            var imgRect = new Rectangle(GetImageLeft(node), node.Bounds.Top + topOffset, defaultImageWidth, defaultImageHeight);
-
-            graphics.DrawImage(image, imgRect, image.GetBounds(ref graphicsUnit), graphicsUnit);
-        }
-
         private static int GetImageLeft(TreeNode node)
         {
             return node.Bounds.Left - (defaultImageWidth + spaceBetweenNodeParts);
-        }
-
-        private static int GetTextLeft(TreeNode node, TreeNodeInfo treeNodeInfo)
-        {
-            var xImage = GetImageLeft(node);
-
-            return treeNodeInfo.Image != null && treeNodeInfo.Image(node.Tag) != null
-                       ? xImage + defaultImageWidth + spaceBetweenNodeParts
-                       : xImage;
         }
 
         private static Point[] CreateTrianglePoints(Rectangle bounds, AnchorStyles anchor)

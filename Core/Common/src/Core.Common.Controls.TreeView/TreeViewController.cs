@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView.Properties;
@@ -77,7 +78,6 @@ namespace Core.Common.Controls.TreeView
             treeView.DragOver += TreeViewDragOver;
             treeView.ItemDrag += TreeViewItemDrag;
             treeView.DragLeave += TreeViewDragLeave;
-            treeView.DrawNode += TreeViewDrawNode;
         }
 
         /// <summary>
@@ -216,6 +216,7 @@ namespace Core.Common.Controls.TreeView
             treeNode.ForeColor = treeNodeInfo.ForeColor != null
                                      ? treeNodeInfo.ForeColor(treeNode.Tag)
                                      : Color.FromKnownColor(KnownColor.ControlText);
+            SetTreeNodeImageKey(treeNode, treeNodeInfo);
 
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag)
                 && treeNodeInfo.IsChecked != null)
@@ -230,6 +231,36 @@ namespace Core.Common.Controls.TreeView
             }
 
             OnNodeUpdated(treeNode);
+        }
+
+        private void SetTreeNodeImageKey(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
+        {
+            if (treeNodeInfo.Image != null)
+            {
+                var image = treeNodeInfo.Image(treeNode.Tag);
+                var imageCollection = treeView.ImageList.Images;
+                var imageKey = GetImageHash(image);
+                if (imageCollection.ContainsKey(imageKey))
+                {
+                    treeNode.ImageKey = imageKey;
+                    treeNode.SelectedImageKey = imageKey;
+                }
+                else
+                {
+                    treeNode.ImageKey = imageKey;
+                    treeNode.SelectedImageKey = imageKey;
+                    imageCollection.Add(imageKey, image);
+                }
+            }
+        }
+
+        private string GetImageHash(Image image)
+        {
+            var stream = new System.IO.MemoryStream();
+            image.Save(stream, image.RawFormat);
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] hash = md5.ComputeHash(stream.ToArray());
+            return System.Text.Encoding.UTF8.GetString(hash);
         }
 
         private void AddRootNode()
@@ -666,15 +697,6 @@ namespace Core.Common.Controls.TreeView
             ClearPlaceHolders();
         }
 
-        private void TreeViewDrawNode(object sender, DrawTreeNodeEventArgs e)
-        {
-            e.DrawDefault = false;
-
-            var selected = (e.State & TreeNodeStates.Selected) == TreeNodeStates.Selected;
-
-            e.Node.DrawNode(GetTreeNodeInfoForData(e.Node.Tag), e.Graphics, selected);
-        }
-
         private void DrawPlaceholder(TreeNode node, PlaceholderLocation location)
         {
             if (lastPlaceholderNode == node && lastPlaceholderLocation == location)
@@ -891,7 +913,6 @@ namespace Core.Common.Controls.TreeView
             treeView.DragOver -= TreeViewDragOver;
             treeView.ItemDrag -= TreeViewItemDrag;
             treeView.DragLeave -= TreeViewDragLeave;
-            treeView.DrawNode -= TreeViewDrawNode;
         }
     }
 }
