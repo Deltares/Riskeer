@@ -42,7 +42,7 @@ namespace Core.Plugins.DotSpatial.Test
 
                 // Assert
                 ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("Gui", exception.ParamName);
+                Assert.AreEqual("toolViewController", exception.ParamName);
             }
         }
 
