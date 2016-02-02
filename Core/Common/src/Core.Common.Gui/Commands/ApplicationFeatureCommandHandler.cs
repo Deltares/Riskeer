@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -51,14 +53,9 @@ namespace Core.Common.Gui.Commands
             this.applicationSelection = applicationSelection;
         }
 
-        /// <summary>
-        /// Makes the properties window visible and updates the <see cref="IApplicationSelection.Selection"/> to the
-        /// given <paramref name="obj"/>.
-        /// </summary>
-        /// <param name="obj">The object for which to show its properties.</param>
         public void ShowPropertiesFor(object obj)
         {
-            ((MainWindow)mainWindow).InitPropertiesWindowAndActivate();
+            mainWindow.InitPropertiesWindowAndActivate();
             applicationSelection.Selection = obj;
         }
 
@@ -69,26 +66,30 @@ namespace Core.Common.Gui.Commands
 
         public void OpenLogFileExternal()
         {
-            bool logFileOpened = false;
-
             try
             {
-                var fileAppender =
-                    LogManager.GetAllRepositories().SelectMany(r => r.GetAppenders()).OfType
-                        <FileAppender>().FirstOrDefault();
+                var fileAppender = LogManager.GetAllRepositories()
+                                             .SelectMany(r => r.GetAppenders())
+                                             .OfType<FileAppender>()
+                                             .FirstOrDefault();
                 if (fileAppender != null)
                 {
                     var logFile = fileAppender.File;
                     Process.Start(logFile);
-                    logFileOpened = true;
                 }
             }
-            catch (Exception) { }
-
-            if (!logFileOpened)
+            catch (Exception e)
             {
-                MessageBox.Show(Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
-                Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
+                if (e is Win32Exception || e is ObjectDisposedException || e is FileNotFoundException)
+                {
+                    MessageBox.Show(Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
+                    Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
+                }
+                else
+                {
+                    // Undocumented exception -> Fail Fast!
+                    throw;
+                }
             }
         }
     }

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
@@ -34,7 +35,7 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// This class provides concrete implementation for <see cref="IProjectCommands"/>;
+    /// This class provides concrete implementation for <see cref="IProjectCommands"/>.
     /// </summary>
     public class ProjectCommandsHandler : IProjectCommands
     {
@@ -49,11 +50,11 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectCommandsHandler"/> class.
         /// </summary>
-        /// <param name="projectOwner"></param>
-        /// <param name="dialogParent"></param>
-        /// <param name="applicationCore"></param>
-        /// <param name="applicationSelection"></param>
-        /// <param name="documentViewController"></param>
+        /// <param name="projectOwner">Class owning the application's <see cref="Project"/> instance.</param>
+        /// <param name="dialogParent">The window on which dialogs should be shown on top.</param>
+        /// <param name="applicationCore">The application-plugins host.</param>
+        /// <param name="applicationSelection">The application selection mechanism.</param>
+        /// <param name="documentViewController">The controller for Document Views.</param>
         public ProjectCommandsHandler(IProjectOwner projectOwner, IWin32Window dialogParent,
                                       ApplicationCore applicationCore, IApplicationSelection applicationSelection,
                                       IDocumentViewController documentViewController)
@@ -67,11 +68,11 @@ namespace Core.Common.Gui.Commands
 
         public object AddNewChildItem(object parent, IEnumerable<Type> childItemValueTypes)
         {
-            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToList()))
+            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToArray()))
             {
                 if (selectDataDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return GetNewDataObject(selectDataDialog, parent);
+                    return GetNewDataObject(parent, selectDataDialog.SelectedItemTag as DataItemInfo);
                 }
                 return null;
             }
@@ -84,11 +85,11 @@ namespace Core.Common.Gui.Commands
                 log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
 
-            using (var selectDataDialog = CreateSelectionDialogWithItems(applicationCore.GetSupportedDataItemInfos(parent).ToList()))
+            using (var selectDataDialog = CreateSelectionDialogWithItems(applicationCore.GetSupportedDataItemInfos(parent).ToArray()))
             {
                 if (selectDataDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var newItem = GetNewDataObject(selectDataDialog, parent);
+                    var newItem = GetNewDataObject(parent, selectDataDialog.SelectedItemTag as DataItemInfo);
                     if (newItem != null)
                     {
                         AddItemToProject(newItem);
@@ -123,9 +124,8 @@ namespace Core.Common.Gui.Commands
             return selectDataDialog;
         }
 
-        private static object GetNewDataObject(SelectItemDialog selectDataDialog, object parent)
+        private static object GetNewDataObject(object parent, DataItemInfo dataItemInfo)
         {
-            var dataItemInfo = selectDataDialog.SelectedItemTag as DataItemInfo;
             if (dataItemInfo == null)
             {
                 return null;

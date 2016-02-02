@@ -40,25 +40,19 @@ namespace Core.Common.Gui.Commands
 
         private readonly ApplicationCore applicationCore;
 
-        private readonly IDocumentViewController documentViewController;
-
         private readonly GuiImportHandler importHandler;
         private readonly GuiExportHandler exportHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExportImportCommandHandler"/> class.
         /// </summary>
-        /// <param name="dialogParent"></param>
-        /// <param name="applicationCore"></param>
-        /// <param name="documentViewController"></param>
-        public ExportImportCommandHandler(IWin32Window dialogParent, ApplicationCore applicationCore, IDocumentViewController documentViewController)
+        /// <param name="dialogParent">The parent window onto which dialogs should be shown.</param>
+        /// <param name="applicationCore">The host of all application plugins.</param>
+        public ExportImportCommandHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
         {
             this.applicationCore = applicationCore;
-            this.documentViewController = documentViewController;
             importHandler = new GuiImportHandler(dialogParent, this.applicationCore);
-            exportHandler = new GuiExportHandler(dialogParent,
-                                                 o => this.applicationCore.GetSupportedFileExporters(o),
-                                                 o => this.documentViewController.DocumentViewsResolver.CreateViewForData(o));
+            exportHandler = new GuiExportHandler(dialogParent, this.applicationCore);
         }
 
         public bool CanImportOn(object obj)

@@ -57,7 +57,6 @@ using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Xceed.Wpf.AvalonDock.Themes;
-using Settings = Core.Common.Gui.Properties.Settings;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using WindowsFormApplication = System.Windows.Forms.Application;

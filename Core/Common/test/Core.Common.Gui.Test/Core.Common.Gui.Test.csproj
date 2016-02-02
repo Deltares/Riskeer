@@ -65,6 +65,11 @@
     <Compile Include="Attributes\PropertyOrderAttributeTest.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
+    <Compile Include="Commands\ApplicationFeatureCommandHandlerTest.cs" />
+    <Compile Include="Commands\ExportImportCommandHandlerTest.cs" />
+    <Compile Include="Commands\ProjectCommandsHandlerTest.cs" />
+    <Compile Include="Commands\StorageCommandHandlerTest.cs" />
+    <Compile Include="Commands\ViewCommandHandlerTest.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderExceptionTest.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilderTest.cs" />
     <Compile Include="ContextMenu\StrictContextMenuItemTest.cs" />
@@ -75,14 +80,11 @@
     <Compile Include="PropertyBag\PropertySpecDescriptorTest.cs" />
     <Compile Include="PropertyBag\PropertySpecTest.cs" />
     <Compile Include="SettingsHelperTest.cs" />
-    <Compile Include="StorageCommandHandlerTest.cs" />
     <Compile Include="Theme\ColorThemeExtensionsTest.cs" />
     <Compile Include="Theme\ColorThemeTest.cs" />
     <Compile Include="Forms\Options\OptionsDialogTest.cs" />
     <Compile Include="Forms\SplashScreenTest.cs" />
-    <Compile Include="ApplicationFeatureCommandHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewCommandHandlerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">

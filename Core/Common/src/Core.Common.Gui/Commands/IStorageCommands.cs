@@ -31,46 +31,42 @@ namespace Core.Common.Gui.Commands
     public interface IStorageCommands : IDisposable
     {
         /// <summary>
-        /// Creates a new project.
+        /// Closes the current project and creates a new one.
         /// </summary>
-        /// <remarks>
-        /// The creation action might be cancelled (due to user interaction).
-        /// </remarks>
         void CreateNewProject();
 
         /// <summary>
-        /// Saves the project to a new location.
+        /// Asks the user for a file-location to save the current project, then proceeds
+        /// to persist the data to that location.
         /// </summary>
-        /// <returns>Returns if the project was successfully saved.</returns>
+        /// <returns>Returns <c>true</c> if the save was successful, <c>false</c> otherwise.</returns>
         bool SaveProjectAs();
 
         /// <summary>
-        /// Saves the project to the currently selected location.
+        /// Saves the current project to the defined file, or asks the user for a location
+        /// if one hasn't been defined yet.
         /// </summary>
-        /// <returns>Returns if the project was successfully saved.</returns>
+        /// <returns>Returns <c>true</c> if the save was successful, <c>false</c> otherwise.</returns>
         bool SaveProject();
 
         /// <summary>
-        /// Opens an existing project.
+        /// Asks the user to select the file to load a project from, then proceeds to perform
+        /// the read of the project data.
         /// </summary>
-        /// <remarks>
-        /// The opening action might be cancelled (due to user interaction).
-        /// </remarks>
-        /// <returns>Whether or not an existing project was correctly opened.</returns>
+        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, 
+        /// <c>false</c> otherwise (for example, user cancelled).</returns>
         bool OpenExistingProject();
 
         /// <summary>
-        /// Opens an existing project from file.
+        /// Loads a project from a given file-location.
         /// </summary>
-        /// <param name="filePath">The path to the existing project file.</param>
-        /// <remarks>
-        /// The opening action might be cancelled (due to user interaction).
-        /// </remarks>
-        /// <returns>Whether or not an existing project was correctly opened.</returns>
+        /// <param name="filePath">Location of the storage file.</param>
+        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, 
+        /// <c>false</c> otherwise.</returns>
         bool OpenExistingProject(string filePath);
 
         /// <summary>
-        /// Closes the current project.
+        /// Close current project and and related views.
         /// </summary>
         void CloseProject();
     }

@@ -64,5 +64,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         void SetWaitCursorOn();
 
         void SetWaitCursorOff();
+
+        void InitPropertiesWindowAndActivate();
     }
 }

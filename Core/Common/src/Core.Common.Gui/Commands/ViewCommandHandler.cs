@@ -40,17 +40,17 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewCommandHandler"/> class.
         /// </summary>
-        /// <param name="documentViewController"></param>
-        /// <param name="toolViewController"></param>
-        /// <param name="applicationSelection"></param>
-        /// <param name="pluginsHost"></param>
+        /// <param name="documentViewController">The controller for Document Views.</param>
+        /// <param name="toolViewController">The controller for Tool Views.</param>
+        /// <param name="applicationSelection">The application selection mechanism.</param>
+        /// <param name="guiPluginsHost">The gui-plugins host.</param>
         public ViewCommandHandler(IDocumentViewController documentViewController, IToolViewController toolViewController,
-                                  IApplicationSelection applicationSelection, IGuiPluginsHost pluginsHost)
+                                  IApplicationSelection applicationSelection, IGuiPluginsHost guiPluginsHost)
         {
             this.documentViewController = documentViewController;
             this.toolViewController = toolViewController;
             this.applicationSelection = applicationSelection;
-            guiPluginsHost = pluginsHost;
+            this.guiPluginsHost = guiPluginsHost;
         }
 
         public object GetDataOfActiveView()
@@ -60,7 +60,8 @@ namespace Core.Common.Gui.Commands
 
         public bool CanOpenSelectViewDialog()
         {
-            return applicationSelection.Selection != null && documentViewController.DocumentViewsResolver.GetViewInfosFor(applicationSelection.Selection).Count() > 1;
+            return applicationSelection.Selection != null && 
+                documentViewController.DocumentViewsResolver.GetViewInfosFor(applicationSelection.Selection).Count() > 1;
         }
 
         public void OpenSelectViewDialog()
@@ -68,9 +69,14 @@ namespace Core.Common.Gui.Commands
             documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection, true);
         }
 
-        public bool CanOpenViewFor(object obj)
+        public void OpenViewForSelection()
         {
-            return documentViewController.DocumentViewsResolver.GetViewInfosFor(obj).Any();
+            OpenView(applicationSelection.Selection);
+        }
+
+        public bool CanOpenViewFor(object dataObject)
+        {
+            return documentViewController.DocumentViewsResolver.GetViewInfosFor(dataObject).Any();
         }
 
         public void OpenView(object dataObject)
@@ -78,21 +84,13 @@ namespace Core.Common.Gui.Commands
             documentViewController.DocumentViewsResolver.OpenViewForData(dataObject);
         }
 
-        public void OpenViewForSelection()
-        {
-            documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection);
-        }
-
-        /// <summary>
-        /// Removes all document and tool views that are associated to the dataObject and/or its children.
-        /// </summary>
-        /// <param name="dataObject"></param>
         public void RemoveAllViewsForItem(object dataObject)
         {
-            if (dataObject == null || documentViewController == null || documentViewController.DocumentViews == null || documentViewController.DocumentViews.Count == 0)
+            if (dataObject == null || documentViewController.DocumentViews == null)
             {
                 return;
             }
+
             foreach (var data in guiPluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject))
             {
                 documentViewController.DocumentViewsResolver.CloseAllViewsFor(data);

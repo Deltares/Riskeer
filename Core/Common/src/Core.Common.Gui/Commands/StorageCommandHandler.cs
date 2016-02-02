@@ -79,9 +79,6 @@ namespace Core.Common.Gui.Commands
             mainWindowController.RefreshGui();
         }
 
-        /// <summary>
-        /// Closes the current <see cref="Project"/> and creates a new (empty) <see cref="Project"/>.
-        /// </summary>
         public void CreateNewProject()
         {
             CloseProject();
@@ -94,32 +91,25 @@ namespace Core.Common.Gui.Commands
             mainWindowController.RefreshGui();
         }
 
-        /// <summary>
-        /// Opens a new <see cref="OpenFileDialog"/> where a file can be selected to open.
-        /// </summary>
-        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
         public bool OpenExistingProject()
         {
-            var openFileDialog = new OpenFileDialog
+            using (var openFileDialog = new OpenFileDialog
             {
                 Filter = Resources.Ringtoets_project_file_filter,
                 FilterIndex = 1,
                 RestoreDirectory = true
-            };
-
-            if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel)
+            })
             {
-                return OpenExistingProject(openFileDialog.FileName);
+                if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel)
+                {
+                    return OpenExistingProject(openFileDialog.FileName);
+                }
             }
+
             log.Warn(Resources.Project_existing_project_opening_cancelled);
             return false;
         }
 
-        /// <summary>
-        /// Loads a <see cref="Project"/>, based upon <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">Location of the storage file.</param>
-        /// <returns><c>true</c> if an existing <see cref="Project"/> has been loaded, <c>false</c> otherwise.</returns>
         public bool OpenExistingProject(string filePath)
         {
             log.Info(Resources.Project_existing_opening_project);
@@ -154,9 +144,6 @@ namespace Core.Common.Gui.Commands
             return true;
         }
 
-        /// <summary>
-        /// Close current project (if any) and related views.
-        /// </summary>
         public void CloseProject()
         {
             if (projectOwner.Project == null)
@@ -174,10 +161,6 @@ namespace Core.Common.Gui.Commands
             mainWindowController.RefreshGui();
         }
 
-        /// <summary>
-        /// Saves the current <see cref="Project"/> to the selected storage file.
-        /// </summary>
-        /// <returns>Returns <c>true</c> if the save was successful, <c>false</c> otherwise.</returns>
         public bool SaveProjectAs()
         {
             var project = projectOwner.Project;
@@ -206,10 +189,6 @@ namespace Core.Common.Gui.Commands
             return true;
         }
 
-        /// <summary>
-        /// Saves the current <see cref="Project"/> to the defined storage file.
-        /// </summary>
-        /// <returns>Returns if the save was successful.</returns>
         public bool SaveProject()
         {
             var project = projectOwner.Project;
@@ -248,20 +227,21 @@ namespace Core.Common.Gui.Commands
         private static string OpenRingtoetsProjectFileSaveDialog(string projectName)
         {
             // show file open dialog and select project file
-            var saveFileDialog = new SaveFileDialog
+            using (var saveFileDialog = new SaveFileDialog
             {
                 Filter = string.Format(Resources.Ringtoets_project_file_filter),
                 FilterIndex = 1,
                 RestoreDirectory = true,
                 FileName = string.Format("{0}", projectName)
-            };
-
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            })
             {
-                log.Warn(Resources.Project_saving_project_cancelled);
-                return null;
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                {
+                    log.Warn(Resources.Project_saving_project_cancelled);
+                    return null;
+                }
+                return saveFileDialog.FileName;
             }
-            return saveFileDialog.FileName;
         }
 
         private bool TrySaveProjectAs(IStoreProject storage, string filePath)

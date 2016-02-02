@@ -27,18 +27,21 @@ namespace Core.Common.Gui.Commands
     public interface IApplicationFeatureCommands
     {
         /// <summary>
-        /// Activates the propertyGrid toolbox
+        /// Makes the properties window visible for the given object and select it.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The object for which to show its properties.</param>
         void ShowPropertiesFor(object obj);
 
         /// <summary>
-        /// Indicates if there is a property view object for some object.
+        /// Indicates if there is a property-edit window is defined for some object.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The object to check.</param>
         /// <returns><c>true</c> if a property view is defined, <c>false</c> otherwise.</returns>
         bool CanShowPropertiesFor(object obj);
 
+        /// <summary>
+        /// Opens the current log-file, or the folder with logs if no current log-file available.
+        /// </summary>
         void OpenLogFileExternal();
     }
 }

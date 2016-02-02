@@ -27,27 +27,49 @@ namespace Core.Common.Gui.Commands
     public interface IViewCommands
     {
         /// <summary>
-        /// Presents the user with a dialog to choose an editor for the selected dataitem
+        /// Asks the user to select a view for the application's selection.
         /// </summary>
         void OpenSelectViewDialog();
 
+        /// <summary>
+        /// Open the view for the application's selection.
+        /// </summary>
+        /// <remarks>If multiple views are available, the user is asked which view to use.</remarks>
+        /// <seealso cref="OpenView"/>
         void OpenViewForSelection();
 
+        /// <summary>
+        /// Open the view for the given data object.
+        /// </summary>
+        /// <param name="dataObject">The data object for which a view must be opened.</param>
+        /// <remarks>If multiple views are available, the user is asked which view to use.</remarks>
+        /// <seealso cref="OpenViewForSelection"/>
         void OpenView(object dataObject);
 
+        /// <summary>
+        /// Removes all document and tool views that are associated to the given data object and/or its children.
+        /// </summary>
+        /// <param name="dataObject">The root data object for which all views must be closed.</param>
         void RemoveAllViewsForItem(object dataObject);
 
         /// <summary>
+        /// Indicates if a there are any views available for the application's selection.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns>true if there is a default view for the current selection</returns>
-        bool CanOpenViewFor(object obj);
+        /// <param name="dataObject">The data object to open views for.</param>
+        /// <returns>true if there are any views for <paramref name="dataObject"/>, false otherwise.</returns>
+        bool CanOpenViewFor(object dataObject);
 
         /// <summary>
+        /// Indicates if a there are any views available for the application's selection.
         /// </summary>
-        /// <returns>true if there are more supported views for the current selection</returns>
+        /// <returns>True if there are any supported views for the current selection,
+        /// false otherwise.</returns>
         bool CanOpenSelectViewDialog();
 
+        /// <summary>
+        /// Gets the data of current active Document View.
+        /// </summary>
+        /// <returns>The view data, or null if there is no active view.</returns>
         object GetDataOfActiveView(); 
     }
 }

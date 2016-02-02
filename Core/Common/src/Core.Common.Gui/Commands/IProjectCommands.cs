@@ -32,15 +32,24 @@ namespace Core.Common.Gui.Commands
     public interface IProjectCommands
     {
         /// <summary>
-        /// Presents the user with a dialog from which items can be selected and then created. The items are retrieved 
-        /// using the DataItemInfo objects of plugins. The item is NOT added to the project or wrapped in a DataItem.
+        /// Ask the user which data object should be created such that it can be added to the project.
         /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="childItemTypes">The predicate which must evaluate to true for an item type to be included in the list</param>
+        /// <param name="parent">The owner of the new child data.</param>
+        /// <param name="childItemTypes">The supported data types.</param>
+        /// <returns>The child data object that should be added to the project.</returns>
+        /// <remarks>This method should not add the new data object to an <see cref="Project"/> instance.</remarks>
         object AddNewChildItem(object parent, IEnumerable<Type> childItemTypes);
 
+        /// <summary>
+        /// Ask the user which data object should be created and then add it to the project.
+        /// </summary>
+        /// <param name="parent">The data parent.</param>
         void AddNewItem(object parent);
 
+        /// <summary>
+        /// Adds the data object to the project.
+        /// </summary>
+        /// <param name="item">The item.</param>
         void AddItemToProject(object item); 
     }
 }

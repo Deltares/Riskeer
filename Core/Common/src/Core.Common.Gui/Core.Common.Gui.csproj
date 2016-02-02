@@ -136,6 +136,7 @@
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="Forms\ControlHelper.cs" />
     <Compile Include="Forms\MainWindow\Interop\NativeWin32.cs" />
+    <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,7 +172,6 @@
     <Compile Include="ContextMenu\ContextMenuBuilderException.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilder.cs" />
     <Compile Include="Forms\ProgressDialog\ActivityProgressDialogRunner.cs" />
-    <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="ContextMenu\ContextMenuBuilder.cs" />
     <Compile Include="ContextMenu\StrictContextMenuItem.cs">
       <SubType>Component</SubType>

@@ -34,7 +34,7 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Class responsible for import handling.
+    /// Class responsible for handling import workflow with user interaction.
     /// </summary>
     public class GuiImportHandler
     {
@@ -43,55 +43,72 @@ namespace Core.Common.Gui.Commands
         private readonly IWin32Window dialogParent;
         private readonly ApplicationCore applicationCore;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GuiImportHandler"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The parent window to show dialogs on top.</param>
+        /// <param name="applicationCore">The application-plugins host.</param>
         public GuiImportHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
         {
             this.dialogParent = dialogParent;
             this.applicationCore = applicationCore;
         }
 
+        /// <summary>
+        /// Ask the user for the source file to import data from, then perform the import
+        /// on the target object.
+        /// </summary>
+        /// <param name="importer">The importer to use.</param>
+        /// <param name="target">The import target.</param>
         public void ImportUsingImporter(IFileImporter importer, object target)
         {
             GetImportedItemsUsingFileOpenDialog(importer, target);
         }
 
+        /// <summary>
+        /// Asks the user to select which importer to use if multiple are available. Then
+        /// if an importer is found/selected, the user is asked for a source to import from.
+        /// Finally the data is being imported to the target object.
+        /// </summary>
+        /// <param name="target">The import target.</param>
         public void ImportDataTo(object target)
         {
             ImportToItem(target);
         }
 
-        public IFileImporter GetSupportedImporterForTargetType(object target)
+        private IFileImporter GetSupportedImporterForTargetType(object target)
         {
-            var selectImporterDialog = new SelectItemDialog(dialogParent);
-
-            var importers = applicationCore.GetSupportedFileImporters(target);
-            //if there is only one available exporter use that.
-            if (!importers.Any())
+            var importers = applicationCore.GetSupportedFileImporters(target).ToArray();
+            if (importers.Length == 0)
             {
-                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item, Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
-                log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_, target);
+                MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
+                                Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
+                log.ErrorFormat(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_0_,
+                                target);
                 return null;
             }
 
-            //if there is only one available importer use that.
-            if (importers.Count() == 1)
+            // If there is only one available importer use that:
+            if (importers.Length == 1)
             {
-                return importers.ElementAt(0);
+                return importers[0];
             }
 
-            foreach (IFileImporter importer in importers)
+            using (var selectImporterDialog = new SelectItemDialog(dialogParent))
             {
-                var category = string.IsNullOrEmpty(importer.Category) ? Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import : importer.Category;
-                var itemImage = importer.Image ?? Resources.brick;
+                foreach (IFileImporter importer in importers)
+                {
+                    var category = string.IsNullOrEmpty(importer.Category) ? Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import : importer.Category;
+                    var itemImage = importer.Image ?? Resources.brick;
 
-                selectImporterDialog.AddItemType(importer.Name, category, itemImage, null);
+                    selectImporterDialog.AddItemType(importer.Name, category, itemImage, null);
+                }
+
+                if (selectImporterDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return importers.First(i => i.Name == selectImporterDialog.SelectedItemTypeName);
+                }
             }
-
-            if (selectImporterDialog.ShowDialog() == DialogResult.OK)
-            {
-                var importerName = selectImporterDialog.SelectedItemTypeName;
-                return importers.First(i => i.Name == importerName);
-            }
-
             return null;
         }
 
@@ -106,31 +123,24 @@ namespace Core.Common.Gui.Commands
             GetImportedItemsUsingFileOpenDialog(importer, item);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="importer">Item to import</param>
-        /// <param name="target"></param>
-        /// <returns></returns>
         private void GetImportedItemsUsingFileOpenDialog(IFileImporter importer, object target)
         {
             var windowTitle = string.Format(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from, importer.Name);
-            var dialog = new OpenFileDialog
+            using (var dialog = new OpenFileDialog
             {
                 Filter = importer.FileFilter,
                 Multiselect = true,
                 Title = windowTitle,
                 RestoreDirectory = true
-            };
-
-            if (dialog.ShowDialog(dialogParent) != DialogResult.OK)
+            })
             {
-                return;
+                if (dialog.ShowDialog(dialogParent) == DialogResult.OK)
+                {
+                    log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
+
+                    ActivityProgressDialogRunner.Run(dialogParent, dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)));
+                }
             }
-
-            log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
-
-            ActivityProgressDialogRunner.Run(dialogParent, dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)));
         }
     }
 }

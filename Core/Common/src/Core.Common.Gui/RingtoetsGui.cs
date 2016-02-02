@@ -100,7 +100,7 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
-            exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore, this);
+            exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore);
             projectCommandsHandler = new ProjectCommandsHandler(this, MainWindow, ApplicationCore, this, this);
 
             WindowsApplication.EnableVisualStyles();

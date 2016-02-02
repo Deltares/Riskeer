@@ -21,15 +21,16 @@
 
 using System.Windows.Input;
 
-namespace Core.Common.Gui.Commands
+namespace Core.Common.Gui.Forms.MainWindow
 {
+    /// <summary>
+    /// This class defines <see cref="RoutedUICommand"/> members for the custom commands of <see cref="MainWindow"/>.
+    /// </summary>
     public static class MainWindowCommands
     {
+        /// <summary>
+        /// The command for closing the current active view.
+        /// </summary>
         public static readonly RoutedUICommand CloseViewTabCommand = new RoutedUICommand();
-        public static readonly RoutedUICommand ShowObjectInTreeViewCommand = new RoutedUICommand();
-        public static readonly RoutedUICommand ShowMessageWindowCommand = new RoutedUICommand();
-        public static readonly RoutedUICommand ShowMapLegendViewCommand = new RoutedUICommand();
-        public static readonly RoutedUICommand ShowPropertiesViewCommand = new RoutedUICommand();
-        public static readonly RoutedUICommand ShowChartContentsViewCommand = new RoutedUICommand();
     }
 }

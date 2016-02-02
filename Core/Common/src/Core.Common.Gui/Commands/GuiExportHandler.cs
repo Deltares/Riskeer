@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 using Core.Common.Base.IO;
-using Core.Common.Controls.Views;
+using Core.Common.Base.Plugin;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
 
@@ -34,21 +32,34 @@ using log4net;
 
 namespace Core.Common.Gui.Commands
 {
+    /// <summary>
+    /// Class responsible for data export commands.
+    /// </summary>
     public class GuiExportHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiExportHandler));
         private static readonly Bitmap brickImage = Resources.brick;
 
         private readonly IWin32Window dialogParent;
+        private readonly ApplicationCore applicationCore;
 
-        // TODO: refactor it, remove Funcs - too complicated design, initialize exporters in a different way
-        public GuiExportHandler(IWin32Window dialogParent, Func<object, IEnumerable<IFileExporter>> fileExportersGetter, Func<object, IView> viewGetter)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GuiExportHandler"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The parent window to show dialogs on top.</param>
+        /// <param name="applicationCore">The application-plugins host.</param>
+        public GuiExportHandler(IWin32Window dialogParent, ApplicationCore applicationCore)
         {
             this.dialogParent = dialogParent;
-            FileExportersGetter = fileExportersGetter;
-            ViewGetter = viewGetter;
+            this.applicationCore = applicationCore;
         }
 
+        /// <summary>
+        /// Asks the user to select which exporter to use if multiple are available. Then
+        /// if an exporter is found/selected, the user is asked for a location to export to.
+        /// Finally the data is being exported from the source object.
+        /// </summary>
+        /// <param name="item">The export source.</param>
         public void ExportFrom(object item)
         {
             var exporter = GetSupportedExporterForItemUsingDialog(item);
@@ -59,45 +70,46 @@ namespace Core.Common.Gui.Commands
             GetExporterDialog(exporter, item);
         }
 
+        /// <summary>
+        /// Ask the user for the source file to import data from, then perform the import
+        /// on the target object.
+        /// </summary>
+        /// <param name="exporter">The importer to use.</param>
+        /// <param name="selectedItem">The import target.</param>
         public void GetExporterDialog(IFileExporter exporter, object selectedItem)
         {
             ExporterItemUsingFileOpenDialog(exporter, selectedItem);
         }
 
-        private Func<object, IEnumerable<IFileExporter>> FileExportersGetter { get; set; }
-        private Func<object, IView> ViewGetter { get; set; }
-
         private IFileExporter GetSupportedExporterForItemUsingDialog(object itemToExport)
         {
-            var sourceType = itemToExport.GetType();
-            var selectExporterDialog = new SelectItemDialog(dialogParent);
+            var fileExporters = applicationCore.GetSupportedFileExporters(itemToExport).ToArray();
 
-            var fileExporters = FileExportersGetter(itemToExport);
-
-            //if there is only one available exporter use that.
-            if (!fileExporters.Any())
+            if (fileExporters.Length == 0)
             {
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available);
-                log.Warn(String.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, sourceType));
+                log.Warn(string.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, itemToExport.GetType()));
                 return null;
             }
 
-            //if there is only one available exporter use that.
-            if (fileExporters.Count() == 1)
+            // If there is only one available exporter use that:
+            if (fileExporters.Length == 1)
             {
-                return fileExporters.ElementAt(0);
+                return fileExporters[0];
             }
 
-            foreach (var fileExporter in fileExporters)
+            using (var selectExporterDialog = new SelectItemDialog(dialogParent))
             {
-                selectExporterDialog.AddItemType(fileExporter.Name, fileExporter.Category, fileExporter.Image ?? brickImage, null);
-            }
+                foreach (var fileExporter in fileExporters)
+                {
+                    selectExporterDialog.AddItemType(fileExporter.Name, fileExporter.Category, fileExporter.Image ?? brickImage, null);
+                }
 
-            if (selectExporterDialog.ShowDialog() == DialogResult.OK)
-            {
-                return fileExporters.First(i => i.Name == selectExporterDialog.SelectedItemTypeName);
+                if (selectExporterDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return fileExporters.First(i => i.Name == selectExporterDialog.SelectedItemTypeName);
+                }
             }
-
             return null;
         }
 
@@ -106,22 +118,23 @@ namespace Core.Common.Gui.Commands
             log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
 
             var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exporter.Name);
-            var saveFileDialog = new SaveFileDialog
+            using (var saveFileDialog = new SaveFileDialog
             {
                 Filter = exporter.FileFilter,
                 Title = windowTitle,
                 FilterIndex = 2
-            };
-
-            if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
+            })
             {
-                if (exporter.Export(item, saveFileDialog.FileName))
+                if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
-                    log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting);
-                }
-                else
-                {
-                    log.Warn(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed);
+                    if (exporter.Export(item, saveFileDialog.FileName))
+                    {
+                        log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting);
+                    }
+                    else
+                    {
+                        log.Warn(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed);
+                    }
                 }
             }
         }

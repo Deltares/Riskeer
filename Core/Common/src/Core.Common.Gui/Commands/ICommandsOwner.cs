@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using Core.Common.Base.Data;
+
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
@@ -27,14 +29,23 @@ namespace Core.Common.Gui.Commands
     public interface ICommandsOwner
     {
         /// <summary>
-        /// Gets or sets CommandHandler.
+        /// Gets the commands related to application features.
         /// </summary>
         IApplicationFeatureCommands ApplicationCommands { get; }
 
+        /// <summary>
+        /// Gets the commands related to persistency.
+        /// </summary>
         IStorageCommands StorageCommands { get; }
 
+        /// <summary>
+        /// Gets the commands related to dealing with the application's <see cref="Project"/>.
+        /// </summary>
         IProjectCommands ProjectCommands { get; }
 
+        /// <summary>
+        /// Gets the commands related to view manipulation.
+        /// </summary>
         IViewCommands ViewCommands { get; }
     }
 }

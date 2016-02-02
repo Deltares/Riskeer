@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:commands="clr-namespace:Core.Common.Gui.Commands"
+        xmlns:commands="clr-namespace:Core.Common.Gui.Forms.MainWindow"
         xmlns:Properties="clr-namespace:Core.Common.Gui.Properties"
         mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.MainWindow.MainWindow"
         Title="MainWindow" Height="768" Width="1024" Background="White" Foreground="Black" x:Name="window"

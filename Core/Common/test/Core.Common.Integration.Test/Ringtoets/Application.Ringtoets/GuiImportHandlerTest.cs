@@ -19,10 +19,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             
             var mocks = new MockRepository();
             var mainWindow = mocks.Stub<IMainWindow>();
-
-            var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Stub(g => g.MainWindow).Return(mainWindow);
-
             mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -33,11 +29,9 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 messageBox.ClickOk();
             };
 
-            var importHandler = new GuiImportHandler(mainWindowController.MainWindow, applicationCore);
+            var importHandler = new GuiImportHandler(mainWindow, applicationCore);
 
-            var item = importHandler.GetSupportedImporterForTargetType(typeof(Int64));
-
-            Assert.IsNull(item);
+            importHandler.ImportDataTo(typeof(Int64));
         }
     }
 }

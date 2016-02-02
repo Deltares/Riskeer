@@ -29,19 +29,41 @@ namespace Core.Common.Gui.Commands
     public interface IExportImportCommandHandler
     {
         /// <summary>
-        /// Indicates if there are importers for the current Gui.Selection
+        /// Indicates if there are importers for the given object.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The object to check importer availability for.</param>
         bool CanImportOn(object obj);
 
         /// <summary>
-        /// Indicates if there are exporters for the current Gui.Selection
+        /// Perform the import workflow by:
+        /// <list type="number">
+        /// <item>If multiple importers are available for target data object, ask the user
+        /// which importer to use;</item>
+        /// <item>Ask the user which file to use to import from;</item>
+        /// <item>Import from the user specified file to the target data object.</item>
+        /// </list>
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="target">The import target.</param>
+        /// <param name="importer">Optional: The specific importer to use.</param>
+        void ImportOn(object target, IFileImporter importer = null);
+
+        /// <summary>
+        /// Indicates if there are exporters for the given object.
+        /// </summary>
+        /// <param name="obj">The object to check exporter availability for.</param>
         bool CanExportFrom(object obj);
 
+        /// <summary>
+        /// Perform the export workflow by:
+        /// <list type="number">
+        /// <item>If multiple exporters are available for target data object, ask the user
+        /// which exporter to use;</item>
+        /// <item>Ask the user which file or file-destination to export to;</item>
+        /// <item>Export from the target data object to the specified location.</item>
+        /// </list>
+        /// </summary>
+        /// <param name="data">The data to export.</param>
+        /// <param name="exporter">Optional: The specific exporter to use.</param>
         void ExportFrom(object data, IFileExporter exporter = null);
-
-        void ImportOn(object target, IFileImporter importer = null);
     }
 }
