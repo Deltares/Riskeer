@@ -22,9 +22,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
 using Core.Common.Gui.Forms;
-using Core.Plugins.ProjectExplorer.Commands;
 
 namespace Core.Plugins.ProjectExplorer
 {
@@ -33,26 +31,24 @@ namespace Core.Plugins.ProjectExplorer
     /// </summary>
     public partial class Ribbon : IRibbonCommandHandler
     {
-        private readonly ICommand showProjectExplorerCommand;
+        public ICommand ShowProjectExplorerCommand { private get; set; }
 
-        public Ribbon(IToolViewController toolViewController)
+        public Ribbon()
         {
             InitializeComponent();
-
-            showProjectExplorerCommand = new ToggleProjectExplorerCommand(toolViewController);
         }
 
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                yield return showProjectExplorerCommand;
+                yield return ShowProjectExplorerCommand;
             }
         }
 
         public void ValidateItems()
         {
-            ButtonShowProjectExplorerToolWindow.IsChecked = showProjectExplorerCommand.Checked;
+            ButtonShowProjectExplorerToolWindow.IsChecked = ShowProjectExplorerCommand.Checked;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
@@ -67,7 +63,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void ButtonShowProjectExplorerToolWindowClick(object sender, RoutedEventArgs e)
         {
-            showProjectExplorerCommand.Execute();
+            ShowProjectExplorerCommand.Execute();
             ValidateItems();
         }
     }

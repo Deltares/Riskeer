@@ -43,7 +43,6 @@ namespace Core.Plugins.ProjectExplorer
             ApplicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
-
         public object Data
         {
             get
@@ -52,7 +51,10 @@ namespace Core.Plugins.ProjectExplorer
             }
             set
             {
-                TreeView.TreeViewController.Data = value;
+                if (!TreeView.IsDisposed)
+                {
+                    TreeView.TreeViewController.Data = value;
+                }
             }
         }
 

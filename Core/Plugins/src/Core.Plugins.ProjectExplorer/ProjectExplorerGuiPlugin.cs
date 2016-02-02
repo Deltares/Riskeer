@@ -31,6 +31,7 @@ using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Selection;
 using Core.Common.Utils.Extensions;
+using Core.Plugins.ProjectExplorer.Commands;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
 
 namespace Core.Plugins.ProjectExplorer
@@ -42,17 +43,13 @@ namespace Core.Plugins.ProjectExplorer
         private IViewCommands viewCommands;
         private IProjectOwner projectOwner;
         private IApplicationSelection applicationSelection;
-
-        public ProjectExplorerGuiPlugin()
-        {
-            Instance = this;
-        }
+        private Ribbon ribbonCommandHandler;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
             {
-                return new Ribbon(toolViewController);
+                return ribbonCommandHandler;
             }
         }
 
@@ -73,6 +70,10 @@ namespace Core.Plugins.ProjectExplorer
                     applicationSelection = value;
                     documentViewController = value;
                     viewCommands = value.ViewCommands;
+                    ribbonCommandHandler = new Ribbon
+                    {
+                        ShowProjectExplorerCommand = new ToggleProjectExplorerCommand(new ProjectExplorerViewController(this, toolViewController))
+                    };
                 }
                 else
                 {
@@ -127,8 +128,6 @@ namespace Core.Plugins.ProjectExplorer
                 }
             }
         }
-
-        public static ProjectExplorerGuiPlugin Instance { get; private set; }
 
         public ProjectExplorer ProjectExplorer { get; private set; }
 

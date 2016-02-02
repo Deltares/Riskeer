@@ -20,17 +20,16 @@
 // All rights reserved.
 
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
 
 namespace Core.Plugins.ProjectExplorer.Commands
 {
     public class ToggleProjectExplorerCommand : ICommand
     {
-        private readonly IToolViewController toolViewController;
+        private readonly ProjectExplorerViewController viewController;
 
-        public ToggleProjectExplorerCommand(IToolViewController toolViewController)
+        public ToggleProjectExplorerCommand(ProjectExplorerViewController viewController)
         {
-            this.toolViewController = toolViewController;
+            this.viewController = viewController;
         }
 
         public bool Enabled
@@ -45,28 +44,13 @@ namespace Core.Plugins.ProjectExplorer.Commands
         {
             get
             {
-                if (toolViewController == null || toolViewController.ToolWindowViews == null)
-                {
-                    return false;
-                }
-
-                return toolViewController.ToolWindowViews.Contains(ProjectExplorerGuiPlugin.Instance.ProjectExplorer);
+                return viewController.IsViewActive();
             }
         }
 
         public void Execute(params object[] arguments)
         {
-            var view = ProjectExplorerGuiPlugin.Instance.ProjectExplorer;
-            var active = toolViewController.ToolWindowViews.Contains(view);
-
-            if (active)
-            {
-                toolViewController.ToolWindowViews.Remove(view);
-            }
-            else
-            {
-                ProjectExplorerGuiPlugin.Instance.InitializeProjectTreeView();
-            }
+            viewController.ToggleView();
         }
     }
 }
