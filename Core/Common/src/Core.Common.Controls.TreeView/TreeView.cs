@@ -74,6 +74,13 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            controller.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         # region Logic for preventing expand/collapse on double click
 
         protected override void DefWndProc(ref Message m)
