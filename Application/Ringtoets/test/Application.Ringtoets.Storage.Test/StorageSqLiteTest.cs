@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -70,6 +72,29 @@ namespace Application.Ringtoets.Storage.Test
             StorageException exception = Assert.Throws<StorageException>(test);
             Assert.IsInstanceOf<StorageValidationException>(exception.InnerException);
             Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
+        }
+
+        [Test]
+        [TestCase("corruptRingtoetsDatabase.rtd")]
+        public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace(string validPath)
+        {
+            // Setup
+            var tempFile = Path.Combine(testDataPath, validPath);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempFile);
+
+            // Call
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
+
+            // Assert
+            StorageException exception = Assert.Throws<StorageException>(test);
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<DataException>(exception.InnerException);
+            string expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
+            Assert.AreEqual(expectedInnerExceptionMessage, exception.InnerException.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
+            string expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
+            Assert.AreEqual(expectedInnerExceptionInnerExceptionMessage, exception.InnerException.InnerException.Message);
         }
 
         [Test]
@@ -268,6 +293,33 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        [TestCase("corruptRingtoetsDatabase.rtd")]
+        public void SaveProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace(string validPath)
+        {
+            // Setup
+            var project = new Project
+            {
+                StorageId = 1234L
+            };
+            var tempFile = Path.Combine(testDataPath, validPath);
+            var storage = new StorageSqLite();
+
+            // Call
+            TestDelegate test = () => storage.SaveProject(tempFile, project);
+
+            // Assert
+            StorageException exception = Assert.Throws<StorageException>(test);
+            string expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempFile, "", "Een fout is opgetreden met het updaten van het Ringtoets bestand.");
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<DataException>(exception.InnerException);
+            string expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
+            Assert.AreEqual(expectedInnerExceptionMessage, exception.InnerException.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
+            string expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
+            Assert.AreEqual(expectedInnerExceptionInnerExceptionMessage, exception.InnerException.InnerException.Message);
+        }
+
+        [Test]
         public void SaveProject_ValidPathToSetFilePath_DoesNotThrowException()
         {
             // Setup
@@ -327,7 +379,7 @@ namespace Application.Ringtoets.Storage.Test
             TearDownTempRingtoetsFile(tempFile);
         }
 
-        private void SetUpTempRingtoetsFile(string filePath)
+        private static void SetUpTempRingtoetsFile(string filePath)
         {
             if (File.Exists(filePath))
             {
@@ -336,7 +388,7 @@ namespace Application.Ringtoets.Storage.Test
             using (File.Create(filePath)) {}
         }
 
-        private void TearDownTempRingtoetsFile(string filePath)
+        private static void TearDownTempRingtoetsFile(string filePath)
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
