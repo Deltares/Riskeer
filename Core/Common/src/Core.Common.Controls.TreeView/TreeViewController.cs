@@ -281,7 +281,7 @@ namespace Core.Common.Controls.TreeView
             treeNodeObserverLookup.Add(rootNode, new TreeNodeObserver(rootNode, this));
         }
 
-        private void AddNode(TreeNode parentNode, object nodeData, int insertionIndex = -1)
+        private TreeNode CreateTreeNode(TreeNode parentNode, object nodeData)
         {
             var newNode = new TreeNode
             {
@@ -295,16 +295,9 @@ namespace Core.Common.Controls.TreeView
 
             UpdateNode(newNode);
 
-            if (insertionIndex != -1)
-            {
-                parentNode.Nodes.Insert(insertionIndex, newNode);
-            }
-            else
-            {
-                parentNode.Nodes.Add(newNode);
-            }
-
             treeNodeObserverLookup.Add(newNode, new TreeNodeObserver(newNode, this));
+
+            return newNode;
         }
 
         private void RemoveAllNodes()
@@ -352,34 +345,40 @@ namespace Core.Common.Controls.TreeView
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
-            var currentTreeNodes = treeNode.Nodes.OfType<TreeNode>().ToList();
-            var currentTreeNodesPerTag = currentTreeNodes.ToDictionary(ctn => ctn.Tag, ctn => ctn);
+            var newTreeNodes = new Dictionary<int, TreeNode>();
+            var outdatedTreeNodes = treeNode.Nodes.OfType<TreeNode>().ToList();
+            var currentTreeNodesPerTag = treeNode.Nodes.OfType<TreeNode>().ToList().ToDictionary(ctn => ctn.Tag, ctn => ctn);
             var newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                           ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
                                           : new object[0];
 
-            treeNode.Nodes.Clear();
-
-            foreach (var newChildNodeObject in newChildNodeObjects)
+            // Create a list of outdated tree nodes and new tree nodes
+            for (var i = 0; i < newChildNodeObjects.Length; i++)
             {
-                // Try to recycle any exiting node
-                if (currentTreeNodesPerTag.ContainsKey(newChildNodeObject))
+                if (currentTreeNodesPerTag.ContainsKey(newChildNodeObjects[i]))
                 {
-                    var existingNode = currentTreeNodesPerTag[newChildNodeObject];
-
-                    treeNode.Nodes.Add(existingNode);
-                    currentTreeNodes.Remove(existingNode);
+                    // Remove any node from the list of outdated nodes that should remain part of the node collection
+                    outdatedTreeNodes.Remove(currentTreeNodesPerTag[newChildNodeObjects[i]]);
                 }
                 else
                 {
-                    // Create a new one otherwise
-                    AddNode(treeNode, newChildNodeObject);
+                    // If there's no existing node yet, create a new one and add it to the list of new nodes
+                    newTreeNodes.Add(i, CreateTreeNode(treeNode, newChildNodeObjects[i]));
                 }
             }
 
-            foreach (var removedNode in currentTreeNodes)
+            // Remove any outdated nodes
+            foreach (var removedNode in outdatedTreeNodes)
             {
+                treeNode.Nodes.Remove(removedNode);
+
                 RemoveTreeNodeFromLookupRecursively(removedNode);
+            }
+
+            // Insert any new nodes
+            foreach (var node in newTreeNodes)
+            {
+                treeNode.Nodes.Insert(node.Key, node.Value);
             }
         }
 
