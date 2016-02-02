@@ -199,6 +199,11 @@ namespace Core.Common.Gui
             }
         }
 
+        public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
+        {
+            return Plugins.SelectMany(pluginGui => pluginGui.GetTreeNodeInfos());
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

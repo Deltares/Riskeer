@@ -3,6 +3,7 @@ using System.Linq;
 
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
@@ -198,6 +199,64 @@ namespace Core.Common.Test.Gui
                 Assert.AreEqual(0, gui.DocumentViews.Count);
                 Assert.AreEqual(1, hitCount);
             }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GetTreeNodeInfos_NoPluginsConfigured_EmptyList()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            {
+                // Call
+                var result = gui.GetTreeNodeInfos();
+
+                // Assert
+                CollectionAssert.IsEmpty(result);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GetTreeNodeInfos_MultiplePluginsConfigured_RetrievesTreeNodeInfosFromPlugins()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+
+            var pluginA = mocks.Stub<GuiPlugin>();
+            pluginA.Expect(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            pluginA.Expect(p => p.Deactivate());
+            pluginA.Expect(p => p.Dispose());
+            var pluginB = mocks.Stub<GuiPlugin>();
+            pluginB.Expect(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            pluginB.Expect(p => p.Deactivate());
+            pluginB.Expect(p => p.Dispose());
+            var pluginC = mocks.Stub<GuiPlugin>();
+            pluginC.Expect(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            pluginC.Expect(p => p.Deactivate());
+            pluginC.Expect(p => p.Dispose());
+
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            {
+                gui.Plugins.Add(pluginA);
+                gui.Plugins.Add(pluginB);
+                gui.Plugins.Add(pluginC);
+
+                // Call
+                var result = gui.GetTreeNodeInfos();
+
+                // Assert
+                CollectionAssert.IsEmpty(result);
+            }
+
             mocks.VerifyAll();
         }
     }

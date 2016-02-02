@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;

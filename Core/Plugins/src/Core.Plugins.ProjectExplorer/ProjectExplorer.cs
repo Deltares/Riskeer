@@ -20,22 +20,31 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Selection;
+using Core.Plugins.ProjectExplorer.Properties;
 using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
 {
-    public partial class ProjectExplorer : UserControl, IProjectExplorer
+    public sealed partial class ProjectExplorer : UserControl, IProjectExplorer
     {
-        public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands)
+        public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
+            Text = Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
+
             InitializeComponent();
             ApplicationSelection = applicationSelection;
             ViewCommands = viewCommands;
+
+            foreach (TreeNodeInfo info in treeNodeInfos)
+            {
+                TreeView.TreeViewController.RegisterTreeNodeInfo(info);
+            }
 
             TreeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
             TreeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
@@ -77,6 +86,8 @@ namespace Core.Plugins.ProjectExplorer
                 components.Dispose();
             }
 
+            Data = null;
+            TreeView.Dispose();
             ApplicationSelection.SelectionChanged -= GuiSelectionChanged;
 
             base.Dispose(disposing);

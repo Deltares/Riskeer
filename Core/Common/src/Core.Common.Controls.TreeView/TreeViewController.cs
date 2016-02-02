@@ -62,7 +62,6 @@ namespace Core.Common.Controls.TreeView
 
             this.treeView = treeView;
 
-            // Ensure tree nodes are correctly aligned
             treeView.ImageList = new ImageList
             {
                 ColorDepth = ColorDepth.Depth32Bit

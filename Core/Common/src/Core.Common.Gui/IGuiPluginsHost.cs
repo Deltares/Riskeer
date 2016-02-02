@@ -22,7 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 
 namespace Core.Common.Gui
@@ -53,5 +53,11 @@ namespace Core.Common.Gui
         /// <param name="rootDataObject">The root data object.</param>
         /// <returns>An enumeration of all (child)data that have view definitions declared.</returns>
         IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject);
+
+        /// <summary>
+        /// Retrieves all the <see cref="TreeNodeInfo"/> defined on the configured plugins.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which are configured in <see cref="Plugins"/>.</returns>
+        IEnumerable<TreeNodeInfo> GetTreeNodeInfos();
     }
 }

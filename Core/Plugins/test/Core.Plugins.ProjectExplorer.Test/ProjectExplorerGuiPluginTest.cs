@@ -31,7 +31,8 @@ namespace Core.Plugins.ProjectExplorer.Test
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            otherGuiPlugin.Expect(g => g.GetTreeNodeInfos()).Return(new List<TreeNodeInfo> { new TreeNodeInfo { TagType = typeof(int) } });
+            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
+            guiStub.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
 
             Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
 
@@ -60,69 +61,9 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Call
                 projectExplorerGuiPlugin.Activate();
-
-                // Assert
-                TreeNodeInfo[] treeNodeInfos = projectExplorerGuiPlugin.ProjectExplorer.TreeView.TreeViewController.TreeNodeInfos.ToArray();
-                Assert.AreEqual(2, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Project)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(int)));
             }
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void ReopeningProjectExplorerKeepsCustomNodePresenter()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-            var guiStub = mocks.Stub<IGui>();
-            var otherGuiPlugin = mocks.Stub<GuiPlugin>();
-
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            otherGuiPlugin.Stub(g => g.GetTreeNodeInfos()).Return(new List<TreeNodeInfo> { new TreeNodeInfo { TagType = typeof(int) } });
-
-            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
-
-            guiStub.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectClosing += Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectClosing -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
-            guiStub.Expect(g => g.DocumentViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
-
-            guiStub.Replay();
-
-            using (var projectExplorerGuiPlugin = new ProjectExplorerGuiPlugin
-            {
-                Gui = guiStub
-            })
-            {
-                guiStub.Expect(g => g.Plugins).Return(new List<GuiPlugin>
-                {
-                    projectExplorerGuiPlugin, otherGuiPlugin
-                }).Repeat.Any();
-
-                mocks.ReplayAll();
-
-                // Call
-                projectExplorerGuiPlugin.Activate(); // This will create the project treeview
-                projectExplorerGuiPlugin.ProjectExplorer.Dispose(); // This is somewhat similar to closing the treeview
-                projectExplorerGuiPlugin.InitializeProjectTreeView(); // This is what the show command does
-
-                // Assert
-                TreeNodeInfo[] treeNodeInfos = projectExplorerGuiPlugin.ProjectExplorer.TreeView.TreeViewController.TreeNodeInfos.ToArray();
-                Assert.AreEqual(2, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Project)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(int)));
-            }
-
+            // Assert
             mocks.VerifyAll();
         }
 

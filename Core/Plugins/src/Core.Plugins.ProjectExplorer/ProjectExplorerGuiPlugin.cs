@@ -27,10 +27,8 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Selection;
-using Core.Common.Utils.Extensions;
 using Core.Plugins.ProjectExplorer.Commands;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
 
@@ -39,6 +37,7 @@ namespace Core.Plugins.ProjectExplorer
     public class ProjectExplorerGuiPlugin : GuiPlugin
     {
         private IToolViewController toolViewController;
+        private ProjectExplorerViewController projectExplorerViewController;
         private IDocumentViewController documentViewController;
         private IViewCommands viewCommands;
         private IProjectOwner projectOwner;
@@ -70,10 +69,6 @@ namespace Core.Plugins.ProjectExplorer
                     applicationSelection = value;
                     documentViewController = value;
                     viewCommands = value.ViewCommands;
-                    ribbonCommandHandler = new Ribbon
-                    {
-                        ShowProjectExplorerCommand = new ToggleProjectExplorerCommand(new ProjectExplorerViewController(this, toolViewController))
-                    };
                 }
                 else
                 {
@@ -83,7 +78,6 @@ namespace Core.Plugins.ProjectExplorer
                     documentViewController = null;
                     viewCommands = null;
                 }
-
             }
         }
 
@@ -129,63 +123,44 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public ProjectExplorer ProjectExplorer { get; private set; }
-
-        public void InitializeProjectTreeView()
-        {
-            if (ProjectExplorer == null || ProjectExplorer.IsDisposed)
-            {
-                ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands);
-
-                Gui.Plugins
-                   .SelectMany(pluginGui => pluginGui.GetTreeNodeInfos())
-                   .ForEachElementDo(tni => ProjectExplorer.TreeView.TreeViewController.RegisterTreeNodeInfo(tni));
-
-                ProjectExplorer.TreeView.TreeViewController.Data = projectOwner.Project;
-                ProjectExplorer.TreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
-                ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
-            }
-
-            toolViewController.ToolWindowViews.Add(ProjectExplorer, ViewLocation.Left | ViewLocation.Top);
-        }
-
         public override void Activate()
         {
             base.Activate();
 
-            InitializeProjectTreeView();
+            projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, Gui.GetTreeNodeInfos());
+            ribbonCommandHandler = new Ribbon
+            {
+                ShowProjectExplorerCommand = new ToggleProjectExplorerCommand(projectExplorerViewController)
+            };
+
+            projectExplorerViewController.OnOpenView += (s,e) => UpdateProject();
+            projectExplorerViewController.OpenView();
 
             projectOwner.ProjectOpened += ApplicationProjectOpened;
-            projectOwner.ProjectClosing += ApplicationProjectClosed;
         }
 
         public override void Dispose()
         {
-            if (ProjectExplorer != null)
+            if (projectExplorerViewController != null)
             {
-                ProjectExplorer.Dispose();
-                ProjectExplorer = null;
+                projectExplorerViewController.Dispose();
             }
-
-            base.Dispose();
         }
 
         public override void Deactivate()
         {
             base.Deactivate();
             projectOwner.ProjectOpened -= ApplicationProjectOpened;
-            projectOwner.ProjectClosing -= ApplicationProjectClosed;
-            toolViewController.ToolWindowViews.Remove(ProjectExplorer);
-        }
-
-        private void ApplicationProjectClosed(Project project)
-        {
-            ProjectExplorer.TreeView.TreeViewController.Data = null;
         }
 
         private void ApplicationProjectOpened(Project project)
         {
-            ProjectExplorer.TreeView.TreeViewController.Data = project;
+            UpdateProject();
+        }
+
+        private void UpdateProject()
+        {
+            projectExplorerViewController.Update(projectOwner.Project);
         }
     }
 }
