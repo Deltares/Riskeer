@@ -35,6 +35,8 @@ namespace Core.Plugins.OxyPlot.Legend
         private readonly IToolViewController toolViewController;
         private IView legendView;
 
+        public EventHandler<EventArgs> OnOpenLegend;
+
         /// <summary>
         /// Creates a new instance of <see cref="LegendController"/>.
         /// </summary>
@@ -79,6 +81,10 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             legendView = new LegendView();
             toolViewController.OpenToolView(legendView);
+            if (OnOpenLegend != null)
+            {
+                OnOpenLegend(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>

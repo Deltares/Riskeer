@@ -85,9 +85,10 @@ namespace Core.Plugins.OxyPlot
         /// <param name="toolViewController">The <see cref="IToolViewController"/> to use for the controller
         /// <see cref="LegendController"/>.</param>
         /// <returns>A new <see cref="LegendController"/> instance.</returns>
-        private static LegendController CreateLegendController(IToolViewController toolViewController)
+        private LegendController CreateLegendController(IToolViewController toolViewController)
         {
             var controller = new LegendController(toolViewController);
+            controller.OnOpenLegend += (s,e) => UpdateComponentsForActiveView();
             return controller;
         }
 
