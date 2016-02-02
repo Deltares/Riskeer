@@ -111,11 +111,9 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             var treeNode = new TreeNode();
             var gui = mocks.StrictMultiMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var projectCommandsMock = mocks.StrictMock<IProjectCommands>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
             gui.Expect(g => g.Get(treeNode, info)).Return(menuBuilderMock);
-            gui.Expect(g => g.ProjectCommands).Return(projectCommandsMock);
             gui.Expect(g => g.ViewCommands).Return(viewCommandsMock);
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);

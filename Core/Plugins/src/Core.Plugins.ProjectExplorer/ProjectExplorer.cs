@@ -18,8 +18,10 @@
 // All names, logos, and references to "Deltares" are registered trademarks of 
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
+
+using System;
 using System.Windows.Forms;
-using Core.Common.Gui;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Selection;
@@ -29,25 +31,28 @@ namespace Core.Plugins.ProjectExplorer
 {
     public partial class ProjectExplorer : UserControl, IProjectExplorer
     {
-        public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands,
-                               IProjectOwner projectOwner)
+        public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands)
         {
             InitializeComponent();
-            ProjectTreeView = new ProjectTreeView(applicationSelection, viewCommands, projectOwner);
-            treeViewPanel.Controls.Add(ProjectTreeView);
+            ApplicationSelection = applicationSelection;
+            ViewCommands = viewCommands;
+
+            TreeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
+            TreeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
+            TreeView.AfterSelect += TreeViewSelectedNodeChanged;
+            ApplicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
-        public ProjectTreeView ProjectTreeView { get; private set; }
 
         public object Data
         {
             get
             {
-                return ProjectTreeView.Data;
+                return TreeView.TreeViewController.Data;
             }
             set
             {
-                ProjectTreeView.Data = value;
+                TreeView.TreeViewController.Data = value;
             }
         }
 
@@ -55,7 +60,60 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                return ProjectTreeView;
+                return projectTreeView;
+            }
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            ApplicationSelection.SelectionChanged -= GuiSelectionChanged;
+
+            base.Dispose(disposing);
+        }
+
+        private IApplicationSelection ApplicationSelection { get; set; }
+        private IViewCommands ViewCommands { get; set; }
+
+        private void TreeViewSelectedNodeChanged(object sender, TreeViewEventArgs e)
+        {
+            ApplicationSelection.Selection = e.Node.Tag;
+        }
+
+        private void TreeViewDoubleClick(object sender, EventArgs e)
+        {
+            ViewCommands.OpenViewForSelection();
+        }
+
+        private void ProjectDataDeleted(object sender, TreeNodeDataDeletedEventArgs e)
+        {
+            ViewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
+        }
+
+        /// <summary>
+        /// Update selected node when selection in gui changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GuiSelectionChanged(object sender, EventArgs e)
+        {
+            if (ApplicationSelection.Selection == null)
+            {
+                return;
+            }
+
+            TreeNode node = TreeView.TreeViewController.GetNodeByTag(ApplicationSelection.Selection);
+            if (node != null)
+            {
+                TreeView.SelectedNode = node;
             }
         }
     }

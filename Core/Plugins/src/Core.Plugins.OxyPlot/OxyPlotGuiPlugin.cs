@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
@@ -37,7 +35,7 @@ namespace Core.Plugins.OxyPlot
     /// <summary>
     /// This class ties all the components together to enable charting interaction.
     /// </summary>
-    public class OxyPlotGuiPlugin : GuiPlugin, IToolViewController
+    public class OxyPlotGuiPlugin : GuiPlugin
     {
         private ChartingRibbon chartingRibbon;
 
@@ -55,7 +53,7 @@ namespace Core.Plugins.OxyPlot
 
         public override void Activate()
         {
-            legendController = CreateLegendController(this);
+            legendController = CreateLegendController(Gui);
             chartingRibbon = CreateRibbon(legendController, Gui);
 
             legendController.ToggleLegend();
@@ -80,26 +78,6 @@ namespace Core.Plugins.OxyPlot
             }
             base.Dispose();
         }
-
-        #region IToolWindowController
-
-        public bool IsToolWindowOpen<T>()
-        {
-            return Gui.ToolWindowViews.Any(t => t.GetType() == typeof(T));
-        }
-
-        public void OpenToolView(IView toolView)
-        {
-            Gui.OpenToolView(toolView);
-            UpdateComponentsForActiveView();
-        }
-
-        public void CloseToolView(IView toolView)
-        {
-            Gui.CloseToolView(toolView);
-        }
-
-        #endregion
 
         /// <summary>
         /// Creates a new <see cref="LegendController"/>.

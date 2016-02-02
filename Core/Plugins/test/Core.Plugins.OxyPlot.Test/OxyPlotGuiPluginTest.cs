@@ -28,14 +28,13 @@ namespace Core.Plugins.OxyPlot.Test
             {
                 // Assert
                 Assert.IsInstanceOf<GuiPlugin>(plugin);
-                Assert.IsInstanceOf<IToolViewController>(plugin);
                 Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
 
         [Test]
         [RequiresSTA]
-        public void Activate_WithoutGui_ThrowsNullReferenceException()
+        public void Activate_WithoutGui_ThrowsArgumentNullException()
         {
             // Setup
             using (var plugin = new OxyPlotGuiPlugin())
@@ -44,7 +43,7 @@ namespace Core.Plugins.OxyPlot.Test
                 TestDelegate test = () => plugin.Activate();
 
                 // Assert
-                Assert.Throws<NullReferenceException>(test);
+                Assert.Throws<ArgumentNullException>(test);
             }
         }
 
@@ -58,15 +57,11 @@ namespace Core.Plugins.OxyPlot.Test
             using (var plugin = new OxyPlotGuiPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
-                var dockingManger = mocks.Stub<IDockingManager>();
-                var toolWindows = new ViewList(dockingManger, null);
-                var view = mocks.StrictMock<IView>();
 
+                gui.Expect(g => g.IsToolWindowOpen<LegendView>()).Return(false);
+                gui.Expect(g => g.OpenToolView(Arg<LegendView>.Matches(c => true)));
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
                 gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
-                gui.Expect(g => g.ToolWindowViews).Return(toolWindows).Repeat.Twice();
-                gui.Expect(g => g.OpenToolView(Arg<LegendView>.Matches(c => true)));
-                gui.Expect(g => g.ActiveView).Return(view);
 
                 mocks.ReplayAll();
 
@@ -98,68 +93,6 @@ namespace Core.Plugins.OxyPlot.Test
                 Assert.AreEqual(typeof(ChartDataCollection), views[0].DataType);
                 Assert.AreEqual(typeof(ChartDataView), views[0].ViewType);
                 Assert.AreEqual("Diagram", views[0].GetViewName(view, null));
-            }
-        }
-
-        [Test]
-        public void CloseToolView_Always_CloseToolView()
-        {
-            // Setup
-            using (var plugin = new OxyPlotGuiPlugin())
-            {
-                var mocks = new MockRepository();
-                var gui = mocks.StrictMock<IGui>();
-                var view = mocks.StrictMock<IView>();
-                gui.Expect(g => g.CloseToolView(view));
-                
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                plugin.CloseToolView(view);
-
-                // Assert
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [RequiresSTA]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenConfiguredGui_WhenOpenToolView_UpdateComponentsWithDataFromActiveView(bool isChartViewActive)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
-            {
-                var plugin = new OxyPlotGuiPlugin();
-                IView viewMock = isChartViewActive ? (IView)new TestChartView() : new TestView();
-                var baseChart = new BaseChart
-                {
-                    Data = new LineData(Enumerable.Empty<Tuple<double,double>>())
-                };
-                viewMock.Data = baseChart;
-
-                gui.Plugins.Add(plugin);
-                gui.Run();
-
-                gui.DocumentViews.Add(viewMock);
-                gui.DocumentViews.ActiveView = viewMock;
-                var legendView = gui.ToolWindowViews.First(t => t is LegendView);
-
-                legendView.Data = null;
-
-                // When
-                plugin.OpenToolView(legendView);
-
-                // Then
-                Assert.AreSame(isChartViewActive ? baseChart.Data : null, legendView.Data);
-                mocks.VerifyAll();
             }
         }
 

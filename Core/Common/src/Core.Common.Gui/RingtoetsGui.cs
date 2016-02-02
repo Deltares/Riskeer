@@ -1062,6 +1062,11 @@ namespace Core.Common.Gui
             ToolWindowViews.Remove(toolView);
         }
 
+        public bool IsToolWindowOpen<T>()
+        {
+            return ToolWindowViews.Any(t => t.GetType() == typeof(T));
+        }
+
         public void OpenToolView(IView toolView)
         {
             ToolWindowViews.Add(toolView);

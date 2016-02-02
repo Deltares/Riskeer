@@ -39,7 +39,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             InitializeComponent();
 
-            showProjectExplorerCommand = new ShowProjectExplorerCommand(toolViewController);
+            showProjectExplorerCommand = new ToggleProjectExplorerCommand(toolViewController);
         }
 
         public IEnumerable<ICommand> Commands

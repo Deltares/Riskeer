@@ -41,9 +41,7 @@ namespace Core.Plugins.ProjectExplorer
         private IDocumentViewController documentViewController;
         private IViewCommands viewCommands;
         private IProjectOwner projectOwner;
-        private IProjectCommands projectCommands;
         private IApplicationSelection applicationSelection;
-        private IGuiPluginsHost guiPluginsHost;
 
         public ProjectExplorerGuiPlugin()
         {
@@ -72,21 +70,17 @@ namespace Core.Plugins.ProjectExplorer
                 {
                     toolViewController = value;
                     projectOwner = value;
-                    projectCommands = value.ProjectCommands;
                     applicationSelection = value;
                     documentViewController = value;
                     viewCommands = value.ViewCommands;
-                    guiPluginsHost = value;
                 }
                 else
                 {
                     toolViewController = null;
                     projectOwner = null;
-                    projectCommands = null;
                     applicationSelection = null;
                     documentViewController = null;
                     viewCommands = null;
-                    guiPluginsHost = null;
                 }
 
             }
@@ -142,18 +136,17 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (ProjectExplorer == null || ProjectExplorer.IsDisposed)
             {
-                ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands, projectOwner);
+                ProjectExplorer = new ProjectExplorer(applicationSelection, viewCommands);
 
                 Gui.Plugins
                    .SelectMany(pluginGui => pluginGui.GetTreeNodeInfos())
-                   .ForEachElementDo(tni => ProjectExplorer.ProjectTreeView.TreeViewController.RegisterTreeNodeInfo(tni));
+                   .ForEachElementDo(tni => ProjectExplorer.TreeView.TreeViewController.RegisterTreeNodeInfo(tni));
 
-                ProjectExplorer.ProjectTreeView.Project = projectOwner.Project;
-                ProjectExplorer.ProjectTreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
+                ProjectExplorer.TreeView.TreeViewController.Data = projectOwner.Project;
+                ProjectExplorer.TreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
                 ProjectExplorer.Text = Properties.Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
             }
 
-            //add project treeview as a toolwindowview.
             toolViewController.ToolWindowViews.Add(ProjectExplorer, ViewLocation.Left | ViewLocation.Top);
         }
 
@@ -188,12 +181,12 @@ namespace Core.Plugins.ProjectExplorer
 
         private void ApplicationProjectClosed(Project project)
         {
-            ProjectExplorer.ProjectTreeView.Project = null;
+            ProjectExplorer.TreeView.TreeViewController.Data = null;
         }
 
         private void ApplicationProjectOpened(Project project)
         {
-            ProjectExplorer.ProjectTreeView.Project = project;
+            ProjectExplorer.TreeView.TreeViewController.Data = project;
         }
     }
 }

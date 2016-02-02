@@ -36,24 +36,23 @@ namespace Core.Plugins.OxyPlot.Test
             // Setup
             var mocks = new MockRepository();
             var documentViewController = mocks.Stub<IDocumentViewController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
             mocks.ReplayAll();
 
-            using(var oxyPlotGuiPlugin = new OxyPlotGuiPlugin()) 
+            var openChartViewCommand = new OpenChartViewCommand(documentViewController);
+            var toggleLegendViewCommand = new ToggleLegendViewCommand(new LegendController(toolViewController));
+            var ribbon = new ChartingRibbon
             {
-                var openChartViewCommand = new OpenChartViewCommand(documentViewController);
-                var toggleLegendViewCommand = new ToggleLegendViewCommand(new LegendController(oxyPlotGuiPlugin));
-                var ribbon = new ChartingRibbon
-                {
-                    OpenChartViewCommand = openChartViewCommand,
-                    ToggleLegendViewCommand = toggleLegendViewCommand,
-                };
+                OpenChartViewCommand = openChartViewCommand,
+                ToggleLegendViewCommand = toggleLegendViewCommand,
+            };
 
-                // Call
-                var commands = ribbon.Commands.ToArray();
+            // Call
+            var commands = ribbon.Commands.ToArray();
 
-                // Assert
-                CollectionAssert.AreEqual(new ICommand[]{openChartViewCommand, toggleLegendViewCommand}, commands);
-            }
+            // Assert
+            CollectionAssert.AreEqual(new ICommand[]{openChartViewCommand, toggleLegendViewCommand}, commands);
+
             mocks.VerifyAll();
         }
 

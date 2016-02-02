@@ -66,7 +66,6 @@
     <Compile Include="Forms\ChartDataView.Designer.cs">
       <DependentUpon>ChartDataView.cs</DependentUpon>
     </Compile>
-    <Compile Include="IToolViewController.cs" />
     <Compile Include="Legend\LegendTreeView.cs">
       <SubType>Component</SubType>
     </Compile>

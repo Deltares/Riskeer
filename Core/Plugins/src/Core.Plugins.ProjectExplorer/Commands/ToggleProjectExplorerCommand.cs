@@ -24,11 +24,11 @@ using Core.Common.Gui;
 
 namespace Core.Plugins.ProjectExplorer.Commands
 {
-    public class ShowProjectExplorerCommand : ICommand
+    public class ToggleProjectExplorerCommand : ICommand
     {
         private readonly IToolViewController toolViewController;
 
-        public ShowProjectExplorerCommand(IToolViewController toolViewController)
+        public ToggleProjectExplorerCommand(IToolViewController toolViewController)
         {
             this.toolViewController = toolViewController;
         }

@@ -83,7 +83,6 @@
     <Compile Include="Exceptions\ProjectExplorerGuiPluginExceptionTest.cs" />
     <Compile Include="TreeNodeInfos\ProjectTreeNodeInfoTest.cs" />
     <Compile Include="ProjectExplorerGuiPluginTest.cs" />
-    <Compile Include="ProjectTreeViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

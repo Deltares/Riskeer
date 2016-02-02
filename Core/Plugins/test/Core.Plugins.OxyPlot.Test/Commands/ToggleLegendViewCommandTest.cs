@@ -1,4 +1,5 @@
 ﻿using Core.Common.Controls.Commands;
+using Core.Common.Gui;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;

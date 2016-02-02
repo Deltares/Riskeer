@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.Views;
+using Core.Common.Gui;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 

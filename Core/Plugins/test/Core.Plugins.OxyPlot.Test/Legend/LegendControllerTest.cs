@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.Gui;
 using Core.Plugins.OxyPlot.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -19,17 +20,20 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void Constructor_WithPlugin_DoesNotThrow()
+        public void Constructor_WithToolViewController_DoesNotThrow()
         {
             // Setup
-            using (var plugin = new OxyPlotGuiPlugin())
-            {
-                // Call
-                TestDelegate test = () => new LegendController(plugin);
+            var mocks = new MockRepository();
+            var toolViewController = mocks.StrictMock<IToolViewController>();
 
-                // Assert
-                Assert.DoesNotThrow(test);
-            }
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new LegendController(toolViewController);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            mocks.VerifyAll();
         }
 
         [Test]
