@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView.Properties;
 using log4net;
@@ -35,10 +36,14 @@ namespace Core.Common.Controls.TreeView
         {
             InitializeComponent();
 
-            treeView.ImageList = new ImageList
-            {
-                ColorDepth = ColorDepth.Depth32Bit
-            };
+            treeView.StateImageList = new ImageList();
+            treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
+            treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.CheckedNormal));
+
+            treeView.DrawMode = TreeViewDrawMode.Normal;
+            treeView.AllowDrop = true;
+            treeView.LabelEdit = true;
+            treeView.HideSelection = false;
 
             treeView.BeforeLabelEdit += TreeViewBeforeLabelEdit;
             treeView.AfterLabelEdit += TreeViewAfterLabelEdit;
@@ -140,6 +145,20 @@ namespace Core.Common.Controls.TreeView
         public TreeNode GetNodeByTag(object nodeData)
         {
             return treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
+        }
+
+        private Image CreateCheckBoxGlyph(CheckBoxState state)
+        {
+            var result = new Bitmap(16, 16);
+
+            using (var g = Graphics.FromImage(result))
+            {
+                Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
+
+                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width) / 2, (result.Height - glyphSize.Height) / 2), state);
+            }
+
+            return result;
         }
 
         private static TreeNode GetNodeByTag(TreeNode rootNode, object tag)
