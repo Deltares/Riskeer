@@ -8,7 +8,9 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
+using Core.Components.Charting;
 using Core.Components.Charting.Data;
+using Core.Components.Charting.TestUtil;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Legend;
@@ -49,19 +51,37 @@ namespace Core.Plugins.OxyPlot.Test
 
         [Test]
         [RequiresSTA]
-        public void Activate_WithGui_InitializesComponentsAndBindsActiveViewChanged()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Activate_WithGui_InitializesComponentsWithIChartViewDataAndBindsActiveViewChanged(bool useChartView)
         {
             // Setup
             var mocks = new MockRepository();
+            IView view;
+
+            if (useChartView)
+            {
+                var chartView = mocks.Stub<IChartView>();
+                var chart = mocks.Stub<IChart>();
+                chart.Data = new TestChartData();
+                chartView.Stub(v => v.Chart).Return(chart);
+                view = chartView;
+            }
+            else
+            {
+                view = mocks.StrictMock<IView>();
+            }
 
             using (var plugin = new OxyPlotGuiPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
 
-                gui.Expect(g => g.IsToolWindowOpen<LegendView>()).Return(false);
+                gui.Stub(g => g.IsToolWindowOpen<LegendView>()).Return(false);
+
                 gui.Expect(g => g.OpenToolView(Arg<LegendView>.Matches(c => true)));
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
                 gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
+                gui.Expect(g => g.ActiveView).Return(view);
 
                 mocks.ReplayAll();
 
