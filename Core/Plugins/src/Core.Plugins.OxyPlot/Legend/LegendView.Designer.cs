@@ -19,7 +19,6 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 components.Dispose();
             }
-            treeView.Dispose();
             base.Dispose(disposing);
         }
 
@@ -33,22 +32,19 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LegendView));
-            this.treeView = new TreeView();
+            this.treeViewControl = new TreeViewControl();
             this.SuspendLayout();
             // 
-            // treeView
+            // treeViewControl
             // 
-            this.treeView.AllowDrop = true;
-            resources.ApplyResources(this.treeView, "treeView");
-            this.treeView.HideSelection = false;
-            this.treeView.LabelEdit = true;
-            this.treeView.Name = "treeView";
+            resources.ApplyResources(this.treeViewControl, "treeViewControl");
+            this.treeViewControl.Name = "treeViewControl";
             // 
             // LegendView
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.treeView);
+            this.Controls.Add(this.treeViewControl);
             this.Name = "LegendView";
             this.ResumeLayout(false);
 
@@ -56,6 +52,6 @@ namespace Core.Plugins.OxyPlot.Legend
 
         #endregion
 
-        private TreeView treeView;
+        private TreeViewControl treeViewControl;
     }
 }

@@ -46,7 +46,7 @@ namespace Core.Plugins.OxyPlot.Legend
             InitializeComponent();
             Text = Resources.General_Chart;
 
-            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<PointData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<PointData>
             {
                 Text = pointData => OxyPlotResources.ChartDataNodePresenter_Point_data_label,
                 Image = pointData => OxyPlotResources.PointsIcon,
@@ -56,7 +56,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
-            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
             {
                 Text = lineData => OxyPlotResources.ChartDataNodePresenter_Line_data_label,
                 Image = lineData => OxyPlotResources.LineIcon,
@@ -66,7 +66,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
-            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
             {
                 Text = areaData => OxyPlotResources.ChartDataNodePresenter_Area_data_label,
                 Image = areaData => OxyPlotResources.AreaIcon,
@@ -76,7 +76,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
-            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
             {
                 Text = baseChart => OxyPlotResources.General_Chart,
                 Image = baseChart => GuiResources.folder,
@@ -91,7 +91,7 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             get
             {
-                return (ChartData) treeView.TreeViewController.Data;
+                return (ChartData) treeViewControl.Data;
             }
             set
             {
@@ -100,7 +100,7 @@ namespace Core.Plugins.OxyPlot.Legend
                     return;
                 }
 
-                treeView.TreeViewController.Data = (ChartData) value;
+                treeViewControl.Data = (ChartData) value;
             }
         }
 

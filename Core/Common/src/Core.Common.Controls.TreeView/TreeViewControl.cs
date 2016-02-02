@@ -36,6 +36,11 @@ namespace Core.Common.Controls.TreeView
         {
             InitializeComponent();
 
+            treeView.ImageList = new ImageList
+            {
+                ColorDepth = ColorDepth.Depth32Bit
+            };
+
             treeView.StateImageList = new ImageList();
             treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
             treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.CheckedNormal));
