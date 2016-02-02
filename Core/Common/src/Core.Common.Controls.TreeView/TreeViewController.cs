@@ -591,9 +591,15 @@ namespace Core.Common.Controls.TreeView
 
             try
             {
+                var previousParentNode = nodeDragging.Parent;
+
+                previousParentNode.Nodes.Remove(nodeDragging);
+                nodeDropTarget.Nodes.Insert(dropAtLocation, nodeDragging);
+                nodeDragging.EnsureVisible();
+
                 if (treeNodeInfo.OnDrop != null)
                 {
-                    treeNodeInfo.OnDrop(nodeDragging, nodeDropTarget, ToDragOperation(e.Effect), dropAtLocation);
+                    treeNodeInfo.OnDrop(nodeDragging, previousParentNode, ToDragOperation(e.Effect), dropAtLocation);
                 }
             }
             catch (Exception ex)

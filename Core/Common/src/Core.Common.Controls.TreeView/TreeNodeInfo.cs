@@ -146,12 +146,12 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after dropping a tree node.
-        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
-        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which was dropped.
+        /// The second <see cref="TreeNode"/> parameter represents the former parent tree node.
         /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
         /// </summary>
-        /// <remarks>When dragging a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        /// <remarks>After dropping a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<TreeNode, TreeNode, DragOperations, int> OnDrop { get; set; }
     }
 
@@ -283,12 +283,12 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after dropping a tree node.
-        /// The first <see cref="TreeNode"/> parameter represents the tree node which is dragged.
-        /// The second <see cref="TreeNode"/> parameter represents the tree node being considered as drop target.
+        /// The first <see cref="TreeNode"/> parameter represents the tree node which was dropped.
+        /// The second <see cref="TreeNode"/> parameter represents the former parent tree node.
         /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
         /// </summary>
-        /// <remarks>When dragging a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        /// <remarks>After dropping a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<TreeNode, TreeNode, DragOperations, int> OnDrop { get; set; }
 
         /// <summary>

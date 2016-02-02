@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -784,17 +783,17 @@ namespace Ringtoets.Piping.Plugin
             return GetAsIPipingCalculationItem(sourceNode.Tag) != null && NodesHaveSameParentFailureMechanism(sourceNode, targetNode);
         }
 
-        private void PipingCalculationGroupContextOnDrop(TreeNode sourceNode, TreeNode targetNode, DragOperations operation, int position)
+        private void PipingCalculationGroupContextOnDrop(TreeNode sourceNode, TreeNode previousParentNode, DragOperations operation, int position)
         {
             IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(sourceNode.Tag);
-            var originalOwnerContext = sourceNode.Parent.Tag as PipingCalculationGroupContext;
-            var target = targetNode.Tag as PipingCalculationGroupContext;
+            var originalOwnerContext = previousParentNode.Tag as PipingCalculationGroupContext;
+            var target = sourceNode.Parent.Tag as PipingCalculationGroupContext;
 
             if (pipingCalculationItem != null && originalOwnerContext != null && target != null)
             {
-                var isMoveWithinSameContainer = ReferenceEquals(targetNode.Tag, originalOwnerContext);
+                var isMoveWithinSameContainer = ReferenceEquals(originalOwnerContext, target);
 
-                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target, (TreeView) targetNode.TreeView);
+                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target, (TreeView) previousParentNode.TreeView);
                 dropHandler.Execute(sourceNode.Tag, pipingCalculationItem, position);
             }
         }
@@ -846,14 +845,9 @@ namespace Ringtoets.Piping.Plugin
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
             public virtual void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
-                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.TreeViewController.GetNodeByTag(target));
-
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
                 NotifyObservers();
-
-                TreeNode draggedNode = treeView.TreeViewController.GetNodeByTag(draggedDataObject);
-                UpdateTreeView(draggedNode, targetRecordedNodeState);
             }
 
             /// <summary>
@@ -874,30 +868,6 @@ namespace Ringtoets.Piping.Plugin
             protected virtual void NotifyObservers()
             {
                 originalOwnerContext.NotifyObservers();
-            }
-
-            /// <summary>
-            /// Updates the <see cref="System.Windows.Forms.TreeView"/> where the drag & drop
-            /// operation took place.
-            /// </summary>
-            /// <param name="draggedNode">The dragged node.</param>
-            /// <param name="targetRecordedNodeState">Recorded state of the target node
-            /// before the drag & drop operation.</param>
-            protected virtual void UpdateTreeView(TreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
-            {
-                HandlePostDragExpandCollapseOfNewOwner(draggedNode.Parent, targetRecordedNodeState);
-                treeView.SelectedNode = draggedNode;
-            }
-
-            private static void HandlePostDragExpandCollapseOfNewOwner(TreeNode parentOfDraggedNode, TreeNodeExpandCollapseState newOwnerRecordedNodeState)
-            {
-                newOwnerRecordedNodeState.Restore(parentOfDraggedNode);
-
-                // Expand parent of 'draggedNode' to ensure 'draggedNode' is visible.
-                if (!parentOfDraggedNode.IsExpanded)
-                {
-                    parentOfDraggedNode.Expand();
-                }
             }
         }
 
@@ -925,8 +895,6 @@ namespace Ringtoets.Piping.Plugin
         /// </summary>
         private class DroppingPipingCalculationToNewContainer : DroppingPipingCalculationInContainerStrategy
         {
-            private TreeNodeExpandCollapseState recordedNodeState;
-
             private bool renamed;
 
             /// <summary>
@@ -942,9 +910,6 @@ namespace Ringtoets.Piping.Plugin
 
             public override void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
-                var targetRecordedNodeState = new TreeNodeExpandCollapseState(treeView.TreeViewController.GetNodeByTag(target));
-
-                recordedNodeState = new TreeNodeExpandCollapseState(treeView.TreeViewController.GetNodeByTag(draggedDataObject));
                 EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
 
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
@@ -952,13 +917,7 @@ namespace Ringtoets.Piping.Plugin
                 NotifyObservers();
 
                 TreeNode draggedNode = treeView.TreeViewController.GetNodeByTag(draggedDataObject);
-                UpdateTreeView(draggedNode, targetRecordedNodeState);
-            }
 
-            protected override void UpdateTreeView(TreeNode draggedNode, TreeNodeExpandCollapseState targetRecordedNodeState)
-            {
-                base.UpdateTreeView(draggedNode, targetRecordedNodeState);
-                recordedNodeState.Restore(draggedNode);
                 if (renamed)
                 {
                     draggedNode.BeginEdit();

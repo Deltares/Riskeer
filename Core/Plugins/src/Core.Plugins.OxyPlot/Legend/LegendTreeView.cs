@@ -145,12 +145,13 @@ namespace Core.Plugins.OxyPlot.Legend
             return sourceNode.Tag is ChartData;
         }
 
-        private void BaseChartOnDrop(TreeNode sourceNode, TreeNode targetNode, DragOperations operation, int position)
+        private void BaseChartOnDrop(TreeNode sourceNode, TreeNode previousParentNode, DragOperations operation, int position)
         {
             var draggedData = (ChartData) sourceNode.Tag;
-            var target = (ChartDataCollection) targetNode.Tag;
+            var target = (ChartDataCollection) previousParentNode.Tag;
+
             target.List.Remove(draggedData);
-            target.List.Insert(target.List.Count - position, draggedData);
+            target.List.Insert(target.List.Count - position, draggedData); // Note: target is the same as the previous parent in this case
             target.NotifyObservers();
         }
 
