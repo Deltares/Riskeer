@@ -203,6 +203,14 @@ namespace Core.Common.Gui
         {
             if (disposing)
             {
+                if (Plugins != null)
+                {
+                    foreach (var plugin in Plugins.ToList())
+                    {
+                        DeactivatePlugin(plugin);
+                    }
+                }
+
                 isExiting = true;
 
                 if (mainWindow != null)
@@ -224,16 +232,6 @@ namespace Core.Common.Gui
                 {
                     storageCommandHandler.Dispose();
                     storageCommandHandler = null;
-                }
-
-                if (Plugins != null)
-                {
-                    foreach (var plugin in Plugins.ToList())
-                    {
-                        DeactivatePlugin(plugin);
-                    }
-
-                    Plugins = null;
                 }
 
                 if (toolWindowViews != null)
@@ -278,6 +276,7 @@ namespace Core.Common.Gui
                 }
 
                 RemoveLogging();
+                Plugins = null;
             }
 
             WindowsApplication.ApplicationExit -= HandleApplicationExit;
