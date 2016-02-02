@@ -19,11 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
 using Core.Plugins.OxyPlot.Properties;
+
+using OxyPlotResources = Core.Plugins.OxyPlot.Properties.Resources;
+using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.OxyPlot.Legend
 {
@@ -39,30 +45,112 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             InitializeComponent();
             Text = Resources.General_Chart;
+
+            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<PointData>
+            {
+                Text = pointData => OxyPlotResources.ChartDataNodePresenter_Point_data_label,
+                Image = pointData => OxyPlotResources.PointsIcon,
+                CanDrag = (pointData, sourceNode) => DragOperations.Move,
+                CanCheck = pointData => true,
+                IsChecked = pointData => pointData.IsVisible,
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
+            });
+
+            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
+            {
+                Text = lineData => OxyPlotResources.ChartDataNodePresenter_Line_data_label,
+                Image = lineData => OxyPlotResources.LineIcon,
+                CanDrag = (lineData, sourceNode) => DragOperations.Move,
+                CanCheck = lineData => true,
+                IsChecked = lineData => lineData.IsVisible,
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
+            });
+
+            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
+            {
+                Text = areaData => OxyPlotResources.ChartDataNodePresenter_Area_data_label,
+                Image = areaData => OxyPlotResources.AreaIcon,
+                CanDrag = (areaData, sourceNode) => DragOperations.Move,
+                CanCheck = areaData => true,
+                IsChecked = areaData => areaData.IsVisible,
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
+            });
+
+            treeView.TreeViewController.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
+            {
+                Text = baseChart => OxyPlotResources.General_Chart,
+                Image = baseChart => GuiResources.folder,
+                ChildNodeObjects = baseChart => baseChart.List.Reverse().Cast<object>().ToArray(),
+                CanDrop = BaseChartCanDrop,
+                CanInsert = BaseChartCanInsert,
+                OnDrop = BaseChartOnDrop
+            });
         }
 
         public object Data
         {
             get
             {
-                return seriesTree.ChartData;
+                return (ChartData) treeView.TreeViewController.Data;
             }
             set
             {
-                UpdateTree((ChartData) value);
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                treeView.TreeViewController.Data = (ChartData) value;
             }
         }
 
-        /// <summary>
-        /// Updates the tree with the current state of the chart.
-        /// </summary>
-        private void UpdateTree(ChartData data)
+        # region ChartData
+
+        private void PointBasedChartDataOnNodeChecked(TreeNode node)
         {
-            if (IsDisposed)
+            var pointBasedChartData = node.Tag as PointBasedChartData;
+            if (pointBasedChartData != null)
             {
-                return;
+                pointBasedChartData.IsVisible = node.Checked;
+                pointBasedChartData.NotifyObservers();
+
+                var parentData = node.Parent != null ? node.Parent.Tag as IObservable : null;
+                if (parentData != null)
+                {
+                    parentData.NotifyObservers();
+                }
             }
-            seriesTree.ChartData = data;
         }
+
+        # endregion
+
+        # region ChartDataCollection
+
+        private DragOperations BaseChartCanDrop(TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
+        {
+            if (sourceNode.Tag is ChartData)
+            {
+                return validOperations;
+            }
+
+            return DragOperations.None;
+        }
+
+        private bool BaseChartCanInsert(TreeNode sourceNode, TreeNode targetNode)
+        {
+            return sourceNode.Tag is ChartData;
+        }
+
+        private void BaseChartOnDrop(TreeNode sourceNode, TreeNode previousParentNode, DragOperations operation, int position)
+        {
+            var draggedData = (ChartData)sourceNode.Tag;
+            var target = (ChartDataCollection)previousParentNode.Tag;
+
+            target.List.Remove(draggedData);
+            target.List.Insert(target.List.Count - position, draggedData); // Note: target is the same as the previous parent in this case
+            target.NotifyObservers();
+        }
+
+        # endregion
     }
 }

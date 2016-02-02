@@ -65,7 +65,6 @@
     <Compile Include="Legend\ChartDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\PointDataTreeNodeInfoTest.cs" />
     <Compile Include="Legend\AreaDataTreeNodeInfoTest.cs" />
-    <Compile Include="Legend\LegendTreeViewTest.cs" />
     <Compile Include="Legend\LegendViewTest.cs" />
     <Compile Include="Legend\LegendControllerTest.cs" />
     <Compile Include="Legend\LineDataTreeNodeInfoTest.cs" />

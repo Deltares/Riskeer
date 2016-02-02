@@ -4,11 +4,13 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
+using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
@@ -16,15 +18,18 @@ namespace Core.Plugins.OxyPlot.Test.Legend
     public class PointDataTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private LegendTreeView legendTreeView;
+        private LegendView legendView;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            legendTreeView = new LegendTreeView();
-            info = legendTreeView.TreeViewController.TreeNodeInfos.First(tni => tni.TagType == typeof(PointData));
+            legendView = new LegendView();
+
+            var treeView = TypeUtils.GetField<TreeView>(legendView, "treeView");
+
+            info = treeView.TreeViewController.TreeNodeInfos.First(tni => tni.TagType == typeof(PointData));
         }
 
         [Test]

@@ -19,7 +19,7 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 components.Dispose();
             }
-            seriesTree.Dispose();
+            treeView.Dispose();
             base.Dispose(disposing);
         }
 
@@ -33,23 +33,22 @@ namespace Core.Plugins.OxyPlot.Legend
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LegendView));
-            this.seriesTree = new Core.Plugins.OxyPlot.Legend.LegendTreeView();
+            this.treeView = new TreeView();
             this.SuspendLayout();
             // 
-            // seriesTree
+            // treeView
             // 
-            this.seriesTree.AllowDrop = true;
-            this.seriesTree.ChartData = null;
-            resources.ApplyResources(this.seriesTree, "seriesTree");
-            this.seriesTree.HideSelection = false;
-            this.seriesTree.LabelEdit = true;
-            this.seriesTree.Name = "seriesTree";
+            this.treeView.AllowDrop = true;
+            resources.ApplyResources(this.treeView, "treeView");
+            this.treeView.HideSelection = false;
+            this.treeView.LabelEdit = true;
+            this.treeView.Name = "treeView";
             // 
             // LegendView
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.seriesTree);
+            this.Controls.Add(this.treeView);
             this.Name = "LegendView";
             this.ResumeLayout(false);
 
@@ -57,6 +56,6 @@ namespace Core.Plugins.OxyPlot.Legend
 
         #endregion
 
-        private LegendTreeView seriesTree;
+        private TreeView treeView;
     }
 }
