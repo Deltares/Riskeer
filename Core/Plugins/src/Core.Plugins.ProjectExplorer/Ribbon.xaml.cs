@@ -27,12 +27,15 @@ using Core.Common.Gui.Forms;
 namespace Core.Plugins.ProjectExplorer
 {
     /// <summary>
-    /// Interaction logic for Ribbon.xaml
+    /// This class defines a ribbon with commands related to exploring a project.
     /// </summary>
     public partial class Ribbon : IRibbonCommandHandler
     {
-        public ICommand ShowProjectExplorerCommand { private get; set; }
+        public ICommand ToggleExplorerCommand { private get; set; }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="Ribbon"/>.
+        /// </summary>
         public Ribbon()
         {
             InitializeComponent();
@@ -42,13 +45,16 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                yield return ShowProjectExplorerCommand;
+                if (ToggleExplorerCommand != null)
+                {
+                    yield return ToggleExplorerCommand;
+                }
             }
         }
 
         public void ValidateItems()
         {
-            ButtonShowProjectExplorerToolWindow.IsChecked = ShowProjectExplorerCommand.Checked;
+            ToggleProjectExplorerButton.IsChecked = ToggleExplorerCommand.Checked;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
@@ -63,7 +69,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void ButtonShowProjectExplorerToolWindowClick(object sender, RoutedEventArgs e)
         {
-            ShowProjectExplorerCommand.Execute();
+            ToggleExplorerCommand.Execute();
             ValidateItems();
         }
     }

@@ -89,7 +89,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\ToggleProjectExplorerCommand.cs" />
-    <Compile Include="Exceptions\ProjectExplorerGuiPluginException.cs" />
     <Compile Include="ProjectExplorer.cs">
       <SubType>UserControl</SubType>
     </Compile>

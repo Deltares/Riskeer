@@ -130,7 +130,7 @@ namespace Core.Plugins.ProjectExplorer
             projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, Gui.GetTreeNodeInfos());
             ribbonCommandHandler = new Ribbon
             {
-                ShowProjectExplorerCommand = new ToggleProjectExplorerCommand(projectExplorerViewController)
+                ToggleExplorerCommand = new ToggleProjectExplorerCommand(projectExplorerViewController)
             };
 
             projectExplorerViewController.OnOpenView += (s,e) => UpdateProject();

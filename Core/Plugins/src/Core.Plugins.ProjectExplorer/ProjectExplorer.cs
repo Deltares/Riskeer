@@ -31,25 +31,54 @@ using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
 {
+    /// <summary>
+    /// This class describes a Project Explorer, which can be used to navigate and open views for elements
+    /// in the project.
+    /// </summary>
     public sealed partial class ProjectExplorer : UserControl, IProjectExplorer
     {
+        private readonly IApplicationSelection applicationSelection;
+        private readonly IViewCommands viewCommands;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProjectExplorer"/>.
+        /// </summary>
+        /// <param name="applicationSelection">The owner of the selection in the application.</param>
+        /// <param name="viewCommands">The provider of view related commands.</param>
+        /// <param name="treeNodeInfos">The <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which 
+        /// are used to draw nodes.</param>
         public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
-            Text = Resources.ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer;
-
             InitializeComponent();
-            ApplicationSelection = applicationSelection;
-            ViewCommands = viewCommands;
 
+            Text = Resources.General_ProjectExplorer;
+
+            this.applicationSelection = applicationSelection;
+            this.viewCommands = viewCommands;
+
+            RegisterTreeNodeInfos(treeNodeInfos);
+            BindTreeInteractionEvents();
+            BindApplicationSelectionEvents();
+        }
+
+        private void BindApplicationSelectionEvents()
+        {
+            applicationSelection.SelectionChanged += GuiSelectionChanged;
+        }
+
+        private void BindTreeInteractionEvents()
+        {
+            TreeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
+            TreeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
+            TreeView.AfterSelect += TreeViewSelectedNodeChanged;
+        }
+
+        private void RegisterTreeNodeInfos(IEnumerable<TreeNodeInfo> treeNodeInfos)
+        {
             foreach (TreeNodeInfo info in treeNodeInfos)
             {
                 TreeView.TreeViewController.RegisterTreeNodeInfo(info);
             }
-
-            TreeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
-            TreeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
-            TreeView.AfterSelect += TreeViewSelectedNodeChanged;
-            ApplicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
         public object Data
@@ -88,42 +117,34 @@ namespace Core.Plugins.ProjectExplorer
 
             Data = null;
             TreeView.Dispose();
-            ApplicationSelection.SelectionChanged -= GuiSelectionChanged;
+            applicationSelection.SelectionChanged -= GuiSelectionChanged;
 
             base.Dispose(disposing);
         }
 
-        private IApplicationSelection ApplicationSelection { get; set; }
-        private IViewCommands ViewCommands { get; set; }
-
         private void TreeViewSelectedNodeChanged(object sender, TreeViewEventArgs e)
         {
-            ApplicationSelection.Selection = e.Node.Tag;
+            applicationSelection.Selection = e.Node.Tag;
         }
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
         {
-            ViewCommands.OpenViewForSelection();
+            viewCommands.OpenViewForSelection();
         }
 
         private void ProjectDataDeleted(object sender, TreeNodeDataDeletedEventArgs e)
         {
-            ViewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
+            viewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
         }
 
-        /// <summary>
-        /// Update selected node when selection in gui changes.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (ApplicationSelection.Selection == null)
+            if (applicationSelection.Selection == null)
             {
                 return;
             }
 
-            TreeNode node = TreeView.TreeViewController.GetNodeByTag(ApplicationSelection.Selection);
+            TreeNode node = TreeView.TreeViewController.GetNodeByTag(applicationSelection.Selection);
             if (node != null)
             {
                 TreeView.SelectedNode = node;

@@ -23,10 +23,18 @@ using Core.Common.Controls.Commands;
 
 namespace Core.Plugins.ProjectExplorer.Commands
 {
+    /// <summary>
+    /// This class describes commands which are used to toggle the project explorer in the GUI.
+    /// </summary>
     public class ToggleProjectExplorerCommand : ICommand
     {
         private readonly ProjectExplorerViewController viewController;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="ToggleProjectExplorerCommand"/>.
+        /// </summary>
+        /// <param name="viewController">The <see cref="ProjectExplorerViewController"/> to use for
+        /// querying and modifying the project explorer's state.</param>
         public ToggleProjectExplorerCommand(ProjectExplorerViewController viewController)
         {
             this.viewController = viewController;

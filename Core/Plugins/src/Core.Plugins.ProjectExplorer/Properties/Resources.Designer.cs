@@ -79,6 +79,15 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Projectverkenner.
+        /// </summary>
+        public static string General_ProjectExplorer {
+            get {
+                return ResourceManager.GetString("General_ProjectExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PlusIcon {
@@ -95,15 +104,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
             get {
                 object obj = ResourceManager.GetObject("ProjectExplorerIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Projectverkenner.
-        /// </summary>
-        public static string ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer {
-            get {
-                return ResourceManager.GetString("ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer", resourceCulture);
             }
         }
         
@@ -132,15 +132,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         public static string Ribbon_GroupBox_ShowHide {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_ShowHide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Projectverkenner.
-        /// </summary>
-        public static string Ribbon_ProjectExplorer {
-            get {
-                return ResourceManager.GetString("Ribbon_ProjectExplorer", resourceCulture);
             }
         }
         
