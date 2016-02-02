@@ -19,19 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
-using Core.Common.Controls.Views;
-using Core.Components.Charting;
+using Core.Components.DotSpatial.Data;
 
-namespace Core.Plugins.OxyPlot.Forms
+namespace Core.Components.DotSpatial
 {
     /// <summary>
-    /// Interface describing <see cref="IView"/> that contain a <see cref="IChart"/> as one of its components.
+    /// Interface describing general map interactions.
     /// </summary>
-    public interface IChartView : IView
+    public interface IMap
     {
         /// <summary>
-        /// Gets the <see cref="IChart"/> set for this <see cref="IChartView"/>.
+        /// Gets or sets the data to show in the <see cref="IMap"/>.
         /// </summary>
-        IChart Chart { get; }
+        MapData Data { get; set; }
     }
 }

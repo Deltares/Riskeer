@@ -46,6 +46,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DotSpatialGuiPlugin.cs" />
+    <Compile Include="Forms\IMapView.cs" />
     <Compile Include="Forms\MapDataView.cs">
       <SubType>UserControl</SubType>
     </Compile>

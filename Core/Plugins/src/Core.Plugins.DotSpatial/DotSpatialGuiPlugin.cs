@@ -20,7 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Gui;
+using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Components.DotSpatial.Data;
@@ -33,6 +34,43 @@ namespace Core.Plugins.DotSpatial
     /// </summary>
     public class DotSpatialGuiPlugin : GuiPlugin
     {
+        private MapRibbon mapRibbon;
+        private bool activated;
+
+        public override IRibbonCommandHandler RibbonCommandHandler
+        {
+            get
+            {
+                return mapRibbon;
+            }
+        }
+
+        public override void Activate()
+        {
+            mapRibbon = CreateMapRibbon();
+            Gui.ActiveViewChanged += GuiOnActiveViewChanged;
+            activated = true;
+        }
+
+        private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Dispose()
+        {
+            if (activated)
+            {
+                Gui.ActiveViewChanged -= GuiOnActiveViewChanged;
+            }
+            base.Dispose();
+        }
+
+        private MapRibbon CreateMapRibbon()
+        {
+            return new MapRibbon();
+        }
+
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
             yield return new ViewInfo<MapData, MapDataView>

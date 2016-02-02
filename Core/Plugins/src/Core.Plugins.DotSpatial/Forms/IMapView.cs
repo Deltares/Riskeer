@@ -20,18 +20,18 @@
 // All rights reserved.
 
 using Core.Common.Controls.Views;
-using Core.Components.Charting;
+using Core.Components.DotSpatial;
 
-namespace Core.Plugins.OxyPlot.Forms
+namespace Core.Plugins.DotSpatial.Forms
 {
     /// <summary>
-    /// Interface describing <see cref="IView"/> that contain a <see cref="IChart"/> as one of its components.
+    /// Interface describing <see cref="IView"/> that contain a <see cref="IMap"/> as one of its components.
     /// </summary>
-    public interface IChartView : IView
+    public interface IMapView : IView
     {
         /// <summary>
-        /// Gets the <see cref="IChart"/> set for this <see cref="IChartView"/>.
+        /// Gets the <see cref="IMap"/> set for this <see cref="IMapView"/>.
         /// </summary>
-        IChart Chart { get; }
+        IMap Map { get; }
     }
 }

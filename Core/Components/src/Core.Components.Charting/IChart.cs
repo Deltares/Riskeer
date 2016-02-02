@@ -23,7 +23,11 @@ using Core.Components.Charting.Data;
 
 namespace Core.Components.Charting
 {
-    public interface IChart {
+    /// <summary>
+    /// Interface describing general chart interactions.
+    /// </summary>
+    public interface IChart
+    {
         /// <summary>
         /// Gets a value representing whether the chart can be panned with the left mouse button.
         /// </summary>
@@ -37,7 +41,6 @@ namespace Core.Components.Charting
         /// <summary>
         /// Gets or sets the data to show in the <see cref="IChart"/>.
         /// </summary>
-        /// <remarks>The returned collection is a copy of the previously set data.</remarks>
         ChartData Data { get; set; }
 
         /// <summary>
