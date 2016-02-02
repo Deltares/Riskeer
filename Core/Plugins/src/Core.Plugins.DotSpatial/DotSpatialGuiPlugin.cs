@@ -54,7 +54,7 @@ namespace Core.Plugins.DotSpatial
 
         private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void Dispose()
