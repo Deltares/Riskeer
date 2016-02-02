@@ -101,6 +101,11 @@
                                        fluent:KeyTip.Keys="T"
                                        Click="OnFileOptionsClicked" />
 
+                        <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Exit}"
+                                       Icon="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"
+                                       fluent:KeyTip.Keys="X"
+                                       Click="OnFileExitClicked" />
+
                     </fluent:BackstageTabControl>
                 </fluent:Backstage>
             </fluent:Ribbon.Menu>

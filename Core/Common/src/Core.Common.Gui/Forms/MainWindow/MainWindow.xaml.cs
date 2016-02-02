@@ -700,6 +700,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             ValidateItems();
         }
 
+        private void OnFileExitClicked(object sender, RoutedEventArgs e)
+        {
+            Gui.Exit();
+        }
+
         private string GetLayoutFilePath()
         {
             string localUserSettingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
