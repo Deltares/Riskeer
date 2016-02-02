@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
+using Core.Components.DotSpatial;
 using Fluent;
 
 namespace Core.Plugins.DotSpatial
@@ -33,21 +34,39 @@ namespace Core.Plugins.DotSpatial
     /// </summary>
     public partial class MapRibbon : IRibbonCommandHandler
     {
+        private IMap map;
+
         public MapRibbon()
         {
             InitializeComponent();
         }
 
-        public ICommand ToggleLegendViewCommand { private get; set; }
+        public IMap Map
+        {
+            private get
+            {
+                return map;
+            }
+            set
+            {
+                map = value;
+
+                if (map != null)
+                {
+                    ShowMapTab();
+                }
+                else
+                {
+                    HideMapTab();
+                }
+            }
+        }
 
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                if (ToggleLegendViewCommand != null)
-                {
-                    yield return ToggleLegendViewCommand;
-                }
+                yield break;
             }
         }
 
@@ -56,23 +75,25 @@ namespace Core.Plugins.DotSpatial
             return RibbonControl;
         }
 
-        public void ValidateItems()
-        {
-            
-        }
+        public void ValidateItems() {}
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {
             // TODO: Required only because this method is called each time ValidateItems is called in MainWindow
             // Once ValidateItems isn't responsible for showing/hiding contextual tabs, then this method can return false,
             // but more ideally be removed.
-            // return MapContextualGroup.Name == tabGroupName && MapContextualGroup.Visibility == Visibility.Visible;
-            return true;
+            return MapContextualGroup.Name == tabGroupName && MapContextualGroup.Visibility == Visibility.Visible;
         }
 
-        private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
+        private void ShowMapTab()
         {
-            throw new NotImplementedException();
+            MapContextualGroup.Visibility = Visibility.Visible;
+            ValidateItems();
+        }
+
+        private void HideMapTab()
+        {
+            MapContextualGroup.Visibility = Visibility.Collapsed;
         }
     }
 }

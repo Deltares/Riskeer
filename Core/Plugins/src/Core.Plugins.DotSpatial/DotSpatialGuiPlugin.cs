@@ -52,11 +52,6 @@ namespace Core.Plugins.DotSpatial
             activated = true;
         }
 
-        private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
-        {
-            
-        }
-
         public override void Dispose()
         {
             if (activated)
@@ -78,6 +73,28 @@ namespace Core.Plugins.DotSpatial
                 Image = Resources.DocumentHS,
                 GetViewName = (v, o) => Resources.DotSpatialGuiPlugin_GetViewInfoObjects_Map
             };
+        }
+
+        private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
+        {
+            UpdateComponentsForActiveView();
+        }
+
+        /// <summary>
+        /// Updates the components which the <see cref="OxyPlotGuiPlugin"/> knows about so that it reflects
+        /// the currently active view.
+        /// </summary>
+        private void UpdateComponentsForActiveView()
+        {
+            var mapView = Gui.ActiveView as IMapView;
+            if (mapView != null)
+            {
+                mapRibbon.Map = mapView.Map;
+            }
+            else
+            {
+                mapRibbon.Map = null;
+            }
         }
     }
 }

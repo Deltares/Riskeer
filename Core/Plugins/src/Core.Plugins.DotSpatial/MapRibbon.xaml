@@ -5,19 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:p="clr-namespace:Core.Plugins.DotSpatial.Properties"
-             xmlns:common="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
 
         <fluent:Ribbon.ContextualGroups>
             <fluent:RibbonContextualTabGroup Header="{x:Static p:Resources.Ribbon_ContextualGroup_Map}" Visibility="Visible" x:Name="MapContextualGroup" Background="MediumPurple" BorderBrush="MediumPurple" />
         </fluent:Ribbon.ContextualGroups>
-        
-        <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
-            <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="G">
-                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToopTip}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
-            </fluent:RibbonGroupBox>
-        </fluent:RibbonTabItem>
         
         <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}"/>
     </fluent:Ribbon>
