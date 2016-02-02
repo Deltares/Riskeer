@@ -61,11 +61,16 @@ namespace Core.Plugins.DotSpatial
             }
         }
 
+        public ICommand ToggleLegendViewCommand { private get; set; }
+
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                yield break;
+                if (ToggleLegendViewCommand != null)
+                {
+                    yield return ToggleLegendViewCommand;
+                }
             }
         }
 
@@ -93,6 +98,11 @@ namespace Core.Plugins.DotSpatial
         private void HideMapTab()
         {
             MapContextualGroup.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleLegendViewCommand.Execute();
         }
     }
 }

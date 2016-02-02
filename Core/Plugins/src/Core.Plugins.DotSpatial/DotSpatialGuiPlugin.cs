@@ -19,14 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Components.DotSpatial.Data;
+using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Forms;
+using Core.Plugins.DotSpatial.Legend;
 
 namespace Core.Plugins.DotSpatial
 {
@@ -36,6 +38,7 @@ namespace Core.Plugins.DotSpatial
     public class DotSpatialGuiPlugin : GuiPlugin
     {
         private MapRibbon mapRibbon;
+        private MapLegendController mapLegendController;
         private bool activated;
 
         public override IRibbonCommandHandler RibbonCommandHandler
@@ -48,15 +51,18 @@ namespace Core.Plugins.DotSpatial
 
         public override void Activate()
         {
-            mapRibbon = CreateMapRibbon();
-
-            if (Gui == null)
-            {
-                throw new ArgumentNullException("Gui", "Cannot create a view when the plugin is null");
-            }
+            mapLegendController = CreateLegendController(Gui);
+            mapRibbon = CreateMapRibbon(mapLegendController);
 
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
             activated = true;
+        }
+
+        private MapLegendController CreateLegendController(IToolViewController toolViewController)
+        {
+            var controller = new MapLegendController(toolViewController);
+            controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveView();
+            return controller;
         }
 
         public override void Dispose()
@@ -77,9 +83,12 @@ namespace Core.Plugins.DotSpatial
             };
         }
 
-        private MapRibbon CreateMapRibbon()
+        private MapRibbon CreateMapRibbon(MapLegendController mapLegendController)
         {
-            return new MapRibbon();
+            return new MapRibbon
+            {
+                ToggleLegendViewCommand = new ToggleMapLegendViewCommand(mapLegendController)
+            };
         }
 
         private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)
@@ -97,10 +106,12 @@ namespace Core.Plugins.DotSpatial
             if (mapView != null)
             {
                 mapRibbon.Map = mapView.Map;
+                mapLegendController.Update(mapView.Map.Data);
             }
             else
             {
                 mapRibbon.Map = null;
+                mapLegendController.Update(null);
             }
         }
     }
