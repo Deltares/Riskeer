@@ -57,6 +57,12 @@
     <Compile Include="TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TreeViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TreeViewControl.Designer.cs">
+      <DependentUpon>TreeViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TreeViewController.cs" />
     <Compile Include="TreeNodeDataDeletedEventArgs.cs" />
   </ItemGroup>
@@ -90,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TreeView.resx">
       <DependentUpon>TreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreeViewControl.resx">
+      <DependentUpon>TreeViewControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
