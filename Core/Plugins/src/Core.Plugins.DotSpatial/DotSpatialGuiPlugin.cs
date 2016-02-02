@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
@@ -48,6 +49,12 @@ namespace Core.Plugins.DotSpatial
         public override void Activate()
         {
             mapRibbon = CreateMapRibbon();
+
+            if (Gui == null)
+            {
+                throw new ArgumentNullException("Gui", "Cannot create a view when the plugin is null");
+            }
+
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
             activated = true;
         }

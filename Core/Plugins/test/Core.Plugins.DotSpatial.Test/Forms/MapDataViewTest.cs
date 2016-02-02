@@ -39,6 +39,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
 
             var map = (BaseMap) mapObject;
             Assert.AreEqual(DockStyle.Fill, map.Dock);
+            Assert.NotNull(mapView.Map);
         }
 
         [Test]

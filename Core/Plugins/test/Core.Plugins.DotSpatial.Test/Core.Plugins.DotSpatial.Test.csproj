@@ -53,6 +53,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -66,9 +69,17 @@
   <ItemGroup>
     <Compile Include="DotSpatialGuiPluginTest.cs" />
     <Compile Include="Forms\MapDataViewTest.cs" />
+    <Compile Include="MapRibbonTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestMapView.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
@@ -82,6 +93,10 @@
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.Test\Core.Common.Test.csproj">
+      <Project>{E0990383-FB2E-47D1-99CD-9B9FA2929E5B}</Project>
+      <Name>Core.Common.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
