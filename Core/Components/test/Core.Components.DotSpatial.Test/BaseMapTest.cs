@@ -8,6 +8,8 @@ using Core.Components.DotSpatial.Exceptions;
 using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Rhino.Mocks.Constraints;
 
 namespace Core.Components.DotSpatial.Test
 {
@@ -72,6 +74,20 @@ namespace Core.Components.DotSpatial.Test
         }
 
         [Test]
+        public void SetData_ToNull_ThrowsArgrumentNullException()
+        {
+            // Setup
+            var map = new BaseMap();
+
+            // Call
+            TestDelegate testDelegate = () => map.Data = null;
+
+            // Assert
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(testDelegate);
+            Assert.AreEqual("MapData", exception.ParamName);
+        }
+
+        [Test]
         public void Data_IsValid_DoesNotThrowException()
         {
             // Setup
@@ -85,6 +101,22 @@ namespace Core.Components.DotSpatial.Test
 
             // Assert
             Assert.DoesNotThrow(setDataDelegate);
+        }
+
+        [Test]
+        public void GetData_Always_ReturnsData()
+        {
+            // Setup
+            var map = new BaseMap();
+            var data = new MapData();
+            data.AddShapeFile(dijkvakgebiedenFile);
+            map.Data = data;
+
+            // Call
+            var getData = map.Data;
+
+            // Assert
+            Assert.AreSame(getData, data);
         }
 
         [Test]

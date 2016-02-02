@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="BaseMapTest.cs" />
     <Compile Include="Data\MapDataTest.cs" />
+    <Compile Include="Exceptions\MapDataExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

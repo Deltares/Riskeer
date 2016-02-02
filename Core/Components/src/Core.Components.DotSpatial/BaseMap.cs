@@ -50,9 +50,9 @@ namespace Core.Components.DotSpatial
         /// <summary>
         /// Gets and sets the <see cref="Data"/>. When <see cref="Data"/> is not empty it will load the data on the map.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is null.</exception>
-        /// <exception cref="FileNotFoundException">Thrown when <paramref name="mapData"/> does not exist.</exception>
-        /// <exception cref="MapDataException">Thrown when the data in <paramref name="mapData"/> is not valid.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="MapData"/> is null.</exception>
+        /// <exception cref="FileNotFoundException">Thrown when <see cref="MapData"/> does not exist.</exception>
+        /// <exception cref="MapDataException">Thrown when the data in <see cref="MapData"/> is not valid.</exception>
         public MapData Data
         {
             get
@@ -68,7 +68,7 @@ namespace Core.Components.DotSpatial
 
                 if (value == null)
                 {
-                    throw new ArgumentNullException("mapData", "MapData is required when adding shapeFiles");
+                    throw new ArgumentNullException("MapData", "MapData is required when adding shapeFiles");
                 }
 
                 if (value.IsValid())
