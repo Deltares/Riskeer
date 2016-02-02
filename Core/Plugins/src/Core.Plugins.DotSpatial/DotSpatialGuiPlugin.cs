@@ -61,11 +61,6 @@ namespace Core.Plugins.DotSpatial
             base.Dispose();
         }
 
-        private MapRibbon CreateMapRibbon()
-        {
-            return new MapRibbon();
-        }
-
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
             yield return new ViewInfo<MapData, MapDataView>
@@ -73,6 +68,11 @@ namespace Core.Plugins.DotSpatial
                 Image = Resources.DocumentHS,
                 GetViewName = (v, o) => Resources.DotSpatialGuiPlugin_GetViewInfoObjects_Map
             };
+        }
+
+        private MapRibbon CreateMapRibbon()
+        {
+            return new MapRibbon();
         }
 
         private void GuiOnActiveViewChanged(object sender, ActiveViewChangeEventArgs activeViewChangeEventArgs)

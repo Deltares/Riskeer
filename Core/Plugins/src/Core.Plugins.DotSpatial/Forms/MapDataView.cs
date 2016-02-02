@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Common.Controls.Views;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
 
@@ -29,7 +28,7 @@ namespace Core.Plugins.DotSpatial.Forms
     /// <summary>
     /// The user control for the Map.
     /// </summary>
-    public partial class MapDataView : UserControl, IView
+    public partial class MapDataView : UserControl, IMapView
     {
         private readonly BaseMap baseMap;
         private MapData data;
@@ -55,11 +54,19 @@ namespace Core.Plugins.DotSpatial.Forms
             set
             {
                 data = (MapData) value;
-                
+
                 if (data != null)
                 {
-                    baseMap.SetMapData(data);
+                    baseMap.Data = data;
                 }
+            }
+        }
+
+        public IMap Map
+        {
+            get
+            {
+                return baseMap;
             }
         }
     }

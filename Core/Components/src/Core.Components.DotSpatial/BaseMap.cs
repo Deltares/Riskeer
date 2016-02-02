@@ -33,7 +33,7 @@ namespace Core.Components.DotSpatial
     /// <summary>
     /// The map view
     /// </summary>
-    public sealed class BaseMap : Control
+    public sealed class BaseMap : Control, IMap
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(BaseMap));
         private MapData data;
@@ -53,26 +53,33 @@ namespace Core.Components.DotSpatial
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is null.</exception>
         /// <exception cref="FileNotFoundException">Thrown when <paramref name="mapData"/> does not exist.</exception>
         /// <exception cref="MapDataException">Thrown when the data in <paramref name="mapData"/> is not valid.</exception>
-        public void SetMapData(MapData mapData)
+        public MapData Data
         {
-            if (IsDisposed)
+            get
             {
-                return;
+                return data;
             }
+            set
+            {
+                if (IsDisposed)
+                {
+                    return;
+                }
 
-            if (mapData == null)
-            {
-                throw new ArgumentNullException("mapData", "MapData is required when adding shapeFiles");
-            }
+                if (value == null)
+                {
+                    throw new ArgumentNullException("mapData", "MapData is required when adding shapeFiles");
+                }
 
-            if (mapData.IsValid())
-            {
-                data = mapData;
-                LoadData();
-            }
-            else
-            {
-                throw new MapDataException(Resources.BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_);
+                if (value.IsValid())
+                {
+                    data = value;
+                    LoadData();
+                }
+                else
+                {
+                    throw new MapDataException(Resources.BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_);
+                }
             }
         }
 

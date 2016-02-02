@@ -39,7 +39,7 @@ namespace Core.Components.DotSpatial.Test
             data.AddShapeFile(segmentsFile);
 
             // Call
-            TestDelegate setDataDelegate = () => map.SetMapData(data);
+            TestDelegate setDataDelegate = () => map.Data = data;
 
             // Assert
             Assert.Throws<FileNotFoundException>(setDataDelegate);
@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Test
             RenameFile(tempTeenFile, binnenTeenFile);
 
             // Call
-            TestDelegate testDelegate = () => map.SetMapData(data);
+            TestDelegate testDelegate = () => map.Data = data;
 
             try
             {
@@ -81,7 +81,7 @@ namespace Core.Components.DotSpatial.Test
             data.AddShapeFile(dijkvakgebiedenFile);
 
             // Call
-            TestDelegate setDataDelegate = () => map.SetMapData(data);
+            TestDelegate setDataDelegate = () => map.Data = data;
 
             // Assert
             Assert.DoesNotThrow(setDataDelegate);
@@ -104,7 +104,7 @@ namespace Core.Components.DotSpatial.Test
             var preLayerCount = mapComponent.GetLayers().Count;
 
             // Call
-            Action action = () => map.SetMapData(data);
+            Action action = () => map.Data = data;
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(action, excpectedLog);
