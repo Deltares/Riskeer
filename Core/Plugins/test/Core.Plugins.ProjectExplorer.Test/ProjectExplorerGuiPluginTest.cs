@@ -19,6 +19,7 @@ namespace Core.Plugins.ProjectExplorer.Test
     public class ProjectExplorerGuiPluginTest
     {
         [Test]
+        [RequiresSTA]
         public void RegisteringTreeNodeAddsToTreeView()
         {
             // Setup
@@ -71,6 +72,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
+        [RequiresSTA]
         public void ReopeningProjectExplorerKeepsCustomNodePresenter()
         {
             // Setup
@@ -125,6 +127,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
+        [RequiresSTA]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // setup

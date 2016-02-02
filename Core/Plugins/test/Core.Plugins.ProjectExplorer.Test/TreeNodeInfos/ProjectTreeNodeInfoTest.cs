@@ -105,6 +105,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
         }
 
         [Test]
+        [RequiresSTA]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
@@ -139,6 +140,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
         }
 
         [Test]
+        [RequiresSTA]
         public void GetContextMenu_Always_AddsAddItem()
         {
             // Setup

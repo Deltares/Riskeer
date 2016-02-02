@@ -216,6 +216,7 @@ namespace Core.Common.Gui
 
                 if (ToolWindowViews != null)
                 {
+                    toolWindowViews.CollectionChanged -= ToolWindowViewsOnCollectionChanged;
                     ToolWindowViews.Clear();
                 }
 
@@ -237,13 +238,16 @@ namespace Core.Common.Gui
 
                 if (toolWindowViews != null)
                 {
-                    toolWindowViews.Clear();
                     toolWindowViews.Dispose();
                     toolWindowViews = null;
                 }
 
                 if (documentViews != null)
                 {
+                    documentViews.ActiveViewChanging -= ActiveViewChanging;
+                    documentViews.ActiveViewChanged -= OnActiveViewChanged;
+                    documentViews.CollectionChanged -= DocumentViewsCollectionChanged;
+
                     documentViews.Clear();
                     documentViews.Dispose();
                     documentViews = null;
