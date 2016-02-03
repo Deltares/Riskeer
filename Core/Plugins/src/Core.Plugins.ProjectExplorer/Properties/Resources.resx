@@ -127,9 +127,6 @@
   <data name="AddItem" xml:space="preserve">
     <value>&amp;Nieuw element...</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>&amp;Hernoemen</value>
-  </data>
   <data name="AddItem_ToolTip" xml:space="preserve">
     <value>Voeg een nieuw element toe aan het project.</value>
   </data>
@@ -144,5 +141,8 @@
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
     <value>Beeld</value>
+  </data>
+  <data name="ProjectExplorerGuiPlugin_Activation_of_0_failed" xml:space="preserve">
+    <value>Het starten van de {0} is mislukt.</value>
   </data>
 </root>

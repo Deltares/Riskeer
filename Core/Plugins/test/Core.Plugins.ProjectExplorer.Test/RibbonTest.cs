@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
-using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
+using ToggleButton = Fluent.ToggleButton;
 
 namespace Core.Plugins.ProjectExplorer.Test
 {
@@ -53,6 +55,27 @@ namespace Core.Plugins.ProjectExplorer.Test
 
         [Test]
         [RequiresSTA]
+        public void Commands_ToggleExplorerCommandSet_ReturnsToggleExplorerCommand()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var command = mocks.StrictMock<ICommand>();
+            mocks.ReplayAll();
+
+            var ribbon = new Ribbon
+            {
+                ToggleExplorerCommand = command
+            };
+
+            // Call
+            var result = ribbon.Commands;
+
+            // Assert
+            CollectionAssert.AreEqual(new[] { command }, result);
+        }
+
+        [Test]
+        [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_ShowProjectExplorerCommandSet_ShowProjectButtonIsCheckedEqualToCommandChecked(bool isChecked)
@@ -78,6 +101,34 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             // Assert
             Assert.AreEqual(isChecked, toggleProjectExplorerButton.IsChecked);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ToggleExplorerCommand_ButtonShowProjectExplorerToolWindowOnClick_ExecutesCommandAndUpdatesButtonState()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var command = mocks.StrictMock<ICommand>();
+            command.Expect(c => c.Execute());
+            command.Expect(c => c.Checked).Return(false);
+            mocks.ReplayAll();
+
+            var ribbon = new Ribbon
+            {
+                ToggleExplorerCommand = command
+            };
+
+            var toggleProjectExplorerButton = ribbon.GetRibbonControl().FindName("ToggleProjectExplorerButton") as ToggleButton;
+            
+            // Precondition
+            Assert.IsNotNull(toggleProjectExplorerButton, "Ribbon should have a toggle project explorer button.");
+
+            // Call
+            toggleProjectExplorerButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -30,6 +31,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Commands;
+using Core.Plugins.ProjectExplorer.Exceptions;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
 
 namespace Core.Plugins.ProjectExplorer
@@ -123,11 +125,23 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
+        /// <summary>
+        /// Activates the <see cref="ProjectExplorerGuiPlugin"/>
+        /// </summary>
+        /// <exception cref="PluginActivationException">Thrown when <see cref="Gui"/> is <c>null</c>.</exception>
         public override void Activate()
         {
             base.Activate();
+            try
+            {
+                projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, Gui.GetTreeNodeInfos());
+            }
+            catch (ArgumentNullException e)
+            {
+                var message = string.Format(ProjectExplorerResources.ProjectExplorerGuiPlugin_Activation_of_0_failed, ProjectExplorerResources.General_ProjectExplorer);
+                throw new PluginActivationException(message, e);
+            }
 
-            projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, Gui.GetTreeNodeInfos());
             ribbonCommandHandler = new Ribbon
             {
                 ToggleExplorerCommand = new ToggleProjectExplorerCommand(projectExplorerViewController)

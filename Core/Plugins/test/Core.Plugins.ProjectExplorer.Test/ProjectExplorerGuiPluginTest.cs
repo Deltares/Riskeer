@@ -6,10 +6,7 @@ using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Selection;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -30,7 +27,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             gui.Expect(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
 
-            gui.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true).Repeat.Times(3);
+            gui.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true).Repeat.Twice();
             gui.Expect(g => g.CloseToolView(Arg<ProjectExplorer>.Matches(r => true)));
 
             gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);

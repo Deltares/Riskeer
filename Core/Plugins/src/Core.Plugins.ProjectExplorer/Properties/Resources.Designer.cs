@@ -98,6 +98,15 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het starten van de {0} is mislukt..
+        /// </summary>
+        public static string ProjectExplorerGuiPlugin_Activation_of_0_failed {
+            get {
+                return ResourceManager.GetString("ProjectExplorerGuiPlugin_Activation_of_0_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ProjectExplorerIcon {
@@ -114,15 +123,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
             get {
                 object obj = ResourceManager.GetObject("ProjectIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Hernoemen.
-        /// </summary>
-        public static string Rename {
-            get {
-                return ResourceManager.GetString("Rename", resourceCulture);
             }
         }
         

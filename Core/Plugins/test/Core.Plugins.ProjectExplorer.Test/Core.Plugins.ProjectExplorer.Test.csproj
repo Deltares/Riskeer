@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleProjectExplorerCommandTest.cs" />
+    <Compile Include="ProjectExplorerTest.cs" />
+    <Compile Include="ProjectExplorerViewControllerTest.cs" />
     <Compile Include="RibbonTest.cs" />
     <Compile Include="TreeNodeInfos\ProjectTreeNodeInfoTest.cs" />
     <Compile Include="ProjectExplorerGuiPluginTest.cs" />

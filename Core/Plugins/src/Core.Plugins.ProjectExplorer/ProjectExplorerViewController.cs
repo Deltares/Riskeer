@@ -31,8 +31,38 @@ namespace Core.Plugins.ProjectExplorer
         /// <param name="toolViewController">The provider of tool view related commands.</param>
         /// <param name="treeNodeInfos">The <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which 
         /// are used to draw nodes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="documentViewController"/> is <c>null</c>,</item>
+        /// <item><paramref name="viewCommands"/> is <c>null</c>,</item>
+        /// <item><paramref name="applicationSelection"/> is <c>null</c>,</item>
+        /// <item><paramref name="toolViewController"/> is <c>null</c>,</item>
+        /// <item><paramref name="treeNodeInfos"/> is <c>null</c></item>
+        /// </list>
+        /// </exception>
         public ProjectExplorerViewController(IDocumentViewController documentViewController, IViewCommands viewCommands, IApplicationSelection applicationSelection, IToolViewController toolViewController, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
+            if (documentViewController == null)
+            {
+                throw new ArgumentNullException("documentViewController");
+            }
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException("viewCommands");
+            }
+            if (applicationSelection == null)
+            {
+                throw new ArgumentNullException("applicationSelection");
+            }
+            if (toolViewController == null)
+            {
+                throw new ArgumentNullException("toolViewController");
+            }
+            if (treeNodeInfos == null)
+            {
+                throw new ArgumentNullException("treeNodeInfos");
+            }
+
             this.toolViewController = toolViewController;
             this.applicationSelection = applicationSelection;
             this.treeNodeInfos = treeNodeInfos;
@@ -97,10 +127,7 @@ namespace Core.Plugins.ProjectExplorer
 
         public void Dispose()
         {
-            if (IsViewActive())
-            {
-                CloseView();
-            }
+            CloseView();
         }
 
         private void CloseView()

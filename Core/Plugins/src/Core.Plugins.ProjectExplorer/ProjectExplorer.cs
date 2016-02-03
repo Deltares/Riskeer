@@ -46,8 +46,27 @@ namespace Core.Plugins.ProjectExplorer
         /// <param name="viewCommands">The provider of view related commands.</param>
         /// <param name="treeNodeInfos">The <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which 
         /// are used to draw nodes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="applicationSelection"/> is <c>null</c>,</item>
+        /// <item><paramref name="viewCommands"/> is <c>null</c>,</item>
+        /// <item><paramref name="treeNodeInfos"/> is <c>null</c></item>
+        /// </list>
+        /// </exception>
         public ProjectExplorer(IApplicationSelection applicationSelection, IViewCommands viewCommands, IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
+            if (applicationSelection == null)
+            {
+                throw new ArgumentNullException("applicationSelection");
+            }
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException("viewCommands");
+            }
+            if (treeNodeInfos == null)
+            {
+                throw new ArgumentNullException("treeNodeInfos");
+            }
             InitializeComponent();
 
             Text = Resources.General_ProjectExplorer;
@@ -58,26 +77,6 @@ namespace Core.Plugins.ProjectExplorer
             RegisterTreeNodeInfos(treeNodeInfos);
             BindTreeInteractionEvents();
             BindApplicationSelectionEvents();
-        }
-
-        private void BindApplicationSelectionEvents()
-        {
-            applicationSelection.SelectionChanged += GuiSelectionChanged;
-        }
-
-        private void BindTreeInteractionEvents()
-        {
-            treeViewControl.TreeNodeDoubleClick += TreeViewDoubleClick;
-            treeViewControl.NodeDataDeleted += ProjectDataDeleted;
-            treeViewControl.SelectedNodeChanged += TreeViewSelectedNodeChanged;
-        }
-
-        private void RegisterTreeNodeInfos(IEnumerable<TreeNodeInfo> treeNodeInfos)
-        {
-            foreach (TreeNodeInfo info in treeNodeInfos)
-            {
-                treeViewControl.RegisterTreeNodeInfo(info);
-            }
         }
 
         public object Data
@@ -114,11 +113,37 @@ namespace Core.Plugins.ProjectExplorer
                 components.Dispose();
             }
 
-            Data = null;
-            treeViewControl.Dispose();
-            applicationSelection.SelectionChanged -= GuiSelectionChanged;
+            if (treeViewControl != null)
+            {
+                Data = null;
+                treeViewControl.Dispose();
+            }
+            if (applicationSelection != null)
+            {
+                applicationSelection.SelectionChanged -= GuiSelectionChanged;
+            }
 
             base.Dispose(disposing);
+        }
+
+        private void BindApplicationSelectionEvents()
+        {
+            applicationSelection.SelectionChanged += GuiSelectionChanged;
+        }
+
+        private void BindTreeInteractionEvents()
+        {
+            treeViewControl.TreeNodeDoubleClick += TreeViewDoubleClick;
+            treeViewControl.NodeDataDeleted += ProjectDataDeleted;
+            treeViewControl.SelectedNodeChanged += TreeViewSelectedNodeChanged;
+        }
+
+        private void RegisterTreeNodeInfos(IEnumerable<TreeNodeInfo> treeNodeInfos)
+        {
+            foreach (TreeNodeInfo info in treeNodeInfos)
+            {
+                treeViewControl.RegisterTreeNodeInfo(info);
+            }
         }
 
         private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
@@ -143,7 +168,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            TreeViewControl.SelectNodeForData(applicationSelection.Selection);
+            treeViewControl.SelectNodeForData(applicationSelection.Selection);
         }
     }
 }
