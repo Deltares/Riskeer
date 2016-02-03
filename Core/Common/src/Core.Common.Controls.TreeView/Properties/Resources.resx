@@ -155,9 +155,6 @@ verticaal: {1}</value>
   <data name="TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_" xml:space="preserve">
     <value>Weet u zeker dat u het volgende element wilt verwijderen: {0}</value>
   </data>
-  <data name="TreeViewController_UpdateNode_Can_t_find_INodePresenter_for_0_make_sure_you_added_it_to_Presenters_collection_of_a_TreeView" xml:space="preserve">
-    <value>Kan INodePresenter voor {0} niet vinden. Zorg ervoor dat u de ontbrekende INodePresenter aan de NodePresenters eigenschap van een TreeView heeft toegevoegd.</value>
-  </data>
   <data name="PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values" xml:space="preserve">
     <value>Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden.</value>
   </data>
@@ -193,9 +190,6 @@ Fout:
   </data>
   <data name="TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class" xml:space="preserve">
     <value>OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse.</value>
-  </data>
-  <data name="TreeViewController_TreeViewController_Tree_view_can_t_be_null" xml:space="preserve">
-    <value>Structuurweergave mag niet leeg zijn.</value>
   </data>
   <data name="TreeView_TreeViewDragDrop_Error_during_drag_drop_0_" xml:space="preserve">
     <value>Fout tijdens slepen/neerzetten: {0}.</value>

@@ -1640,24 +1640,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een &apos;CommandHandler&apos; nodig..
-        /// </summary>
-        public static string NodePresenter_CommandHandler_required {
-            get {
-                return ResourceManager.GetString("NodePresenter_CommandHandler_required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voor het aanmaken van knopen in de boom is een &apos;ContextMenuBuilderProvider&apos; nodig..
-        /// </summary>
-        public static string NodePresenter_ContextMenuBuilderProvider_required {
-            get {
-                return ResourceManager.GetString("NodePresenter_ContextMenuBuilderProvider_required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap note {

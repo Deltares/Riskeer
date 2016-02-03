@@ -832,12 +832,6 @@
   <data name="Delete_ToolTip" xml:space="preserve">
     <value>Verwijder dit element uit de boom.</value>
   </data>
-  <data name="NodePresenter_CommandHandler_required" xml:space="preserve">
-    <value>Voor het aanmaken van knopen in de boom is een 'CommandHandler' nodig.</value>
-  </data>
-  <data name="NodePresenter_ContextMenuBuilderProvider_required" xml:space="preserve">
-    <value>Voor het aanmaken van knopen in de boom is een 'ContextMenuBuilderProvider' nodig.</value>
-  </data>
   <data name="PropertyGridView_Order_Alphabetically" xml:space="preserve">
     <value>Alfabetisch</value>
   </data>

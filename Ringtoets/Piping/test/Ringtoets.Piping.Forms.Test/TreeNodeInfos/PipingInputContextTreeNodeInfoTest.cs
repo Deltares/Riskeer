@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(pipingInputContext);
 
             // Assert
-            Assert.AreEqual(Resources.PipingInputContextNodePresenter_NodeDisplayName, text);
+            Assert.AreEqual(Resources.PipingInputContext_NodeDisplayName, text);
 
             mocks.VerifyAll();
         }

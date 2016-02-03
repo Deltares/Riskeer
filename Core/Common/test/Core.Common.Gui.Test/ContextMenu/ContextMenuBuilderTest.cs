@@ -120,7 +120,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_NoTreeViewController_ThrowsContextMenuBuilderException()
+        public void Constructor_NoTreeViewControl_ThrowsContextMenuBuilderException()
         {
             // Setup
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();

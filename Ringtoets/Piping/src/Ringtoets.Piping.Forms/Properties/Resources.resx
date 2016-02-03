@@ -487,7 +487,7 @@
   <data name="PipingContext_DataDescription_Soilprofiles" xml:space="preserve">
     <value>De verzameling van ondergrondschematiseringen</value>
   </data>
-  <data name="PipingInputContextNodePresenter_NodeDisplayName" xml:space="preserve">
+  <data name="PipingInputContext_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
   </data>
   <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
@@ -514,22 +514,22 @@
   <data name="PipingCalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
     <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output" xml:space="preserve">
+  <data name="PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
   </data>
   <data name="PipingCalculationGroup_Validate_All_ToolTip" xml:space="preserve">
     <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output" xml:space="preserve">
+  <data name="PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output" xml:space="preserve">
     <value>Weet u zeker dat u de uitvoer van deze berekening wilt wissen?</value>
   </data>
   <data name="Clear_output_ToolTip" xml:space="preserve">
     <value>Wis de uitvoer van deze berekening.</value>
   </data>
-  <data name="PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
+  <data name="PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
     <value>Er zijn geen berekeningen om te valideren.</value>
   </data>
-  <data name="PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
+  <data name="PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
     <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
 </root>

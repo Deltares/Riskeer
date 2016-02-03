@@ -291,9 +291,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van deze berekening wilt wissen?.
         /// </summary>
-        public static string PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output {
+        public static string PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output {
             get {
-                return ResourceManager.GetString("PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output", resourceCulture);
             }
         }
         
@@ -399,10 +399,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u alle uitvoer wilt wissen?.
         /// </summary>
-        public static string PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output {
+        public static string PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output {
             get {
-                return ResourceManager.GetString("PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_" +
-                        "output", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output", resourceCulture);
             }
         }
         
@@ -482,20 +481,18 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
         /// </summary>
-        public static string PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run {
+        public static string PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run {
             get {
-                return ResourceManager.GetString("PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen om te valideren..
         /// </summary>
-        public static string PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate {
+        public static string PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate {
             get {
-                return ResourceManager.GetString("PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_vali" +
-                        "date", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate", resourceCulture);
             }
         }
         
@@ -944,9 +941,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
-        public static string PipingInputContextNodePresenter_NodeDisplayName {
+        public static string PipingInputContext_NodeDisplayName {
             get {
-                return ResourceManager.GetString("PipingInputContextNodePresenter_NodeDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingInputContext_NodeDisplayName", resourceCulture);
             }
         }
         

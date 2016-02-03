@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetProjectTreeViewNodePresenters_ReturnsSupportedNodePresenters()
+        public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // setup
             var mocks = new MockRepository();

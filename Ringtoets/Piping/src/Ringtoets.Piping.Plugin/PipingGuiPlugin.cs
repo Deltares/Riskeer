@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
-                Text = pipingInputContext => PipingFormsResources.PipingInputContextNodePresenter_NodeDisplayName,
+                Text = pipingInputContext => PipingFormsResources.PipingInputContext_NodeDisplayName,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
                 ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
                                                                                          .AddImportItem()
@@ -264,7 +264,7 @@ namespace Ringtoets.Piping.Plugin
             if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
             }
 
             return menuItem;
@@ -282,7 +282,7 @@ namespace Ringtoets.Piping.Plugin
             if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
             }
 
             return menuItem;
@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ClearAll(PipingFailureMechanism failureMechanism)
         {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -493,7 +493,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ClearOutput(PipingCalculation calculation)
         {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationContextNodePresenter_GetContextMenu_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(PipingFormsResources.PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -504,7 +504,7 @@ namespace Ringtoets.Piping.Plugin
 
         # endregion
 
-        # region PipingCalculationGroupContextNodePresenter TreeNodeInfo
+        # region PipingCalculationGroupContext TreeNodeInfo
 
         private object[] PipingCalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
         {
@@ -580,7 +580,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
                 RingtoetsFormsResources.ClearIcon, (o, args) =>
                 {
-                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContextNodePresenter_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
                     {
                         return;
                     }
@@ -646,7 +646,7 @@ namespace Ringtoets.Piping.Plugin
             if (!group.GetPipingCalculations().Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateCalculateAllItem_No_calculations_to_run;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
             }
 
             return menuItem;
@@ -665,7 +665,7 @@ namespace Ringtoets.Piping.Plugin
             if (!group.GetPipingCalculations().Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanismNodePresenter_CreateValidateAllItem_No_calculations_to_validate;
+                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
             }
 
             return menuItem;
