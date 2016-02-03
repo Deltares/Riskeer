@@ -146,7 +146,8 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 new TreeNodeInfo
                 {
-                    TagType = typeof(Project)
+                    TagType = typeof(Project),
+                    CanRemove = (item, parent) => true
                 }
             };
 
@@ -170,7 +171,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             })
             {
                 // Call
-                explorer.TreeViewControl.DeleteNode(explorer.TreeViewControl.GetNodeByTag(project), new TreeNodeInfo());
+                explorer.TreeViewControl.DeleteNode(explorer.TreeViewControl.GetNodeByTag(project));
             }
             // Assert
             mocks.VerifyAll();

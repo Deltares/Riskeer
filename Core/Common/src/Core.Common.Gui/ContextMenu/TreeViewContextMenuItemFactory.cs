@@ -95,7 +95,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.DeleteIcon,
                 Enabled = treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.DeleteNode(treeNode, treeNodeInfo);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.DeleteNode(treeNode);
             return toolStripMenuItem;
         }
 

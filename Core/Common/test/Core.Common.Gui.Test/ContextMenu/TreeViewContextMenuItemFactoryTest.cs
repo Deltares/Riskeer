@@ -123,7 +123,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             if (canDelete)
             {
-                treeViewControlMock.Expect(tvc => tvc.DeleteNode(treeNodeMock, treeNodeInfoMock));
+                treeViewControlMock.Expect(tvc => tvc.DeleteNode(treeNodeMock));
             }
 
             mocks.ReplayAll();

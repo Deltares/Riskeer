@@ -123,9 +123,17 @@ namespace Core.Common.Controls.TreeView
             tagTypeTreeNodeInfoLookup[treeNodeInfo.TagType] = treeNodeInfo;
         }
 
-        public void DeleteNode(TreeNode selectedNode, TreeNodeInfo treeNodeInfo)
+        public void DeleteNode(TreeNode node)
         {
-            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, selectedNode.Text);
+            var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
+
+            if (treeNodeInfo.CanRemove == null || !treeNodeInfo.CanRemove(node.Tag, node.Parent != null ? node.Parent.Tag : null))
+            {
+                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
+                return;
+            }
+
+            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, node.Text);
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
@@ -133,10 +141,10 @@ namespace Core.Common.Controls.TreeView
 
             if (treeNodeInfo.OnNodeRemoved != null)
             {
-                treeNodeInfo.OnNodeRemoved(selectedNode.Tag, selectedNode.Parent != null ? selectedNode.Parent.Tag : null);
+                treeNodeInfo.OnNodeRemoved(node.Tag, node.Parent != null ? node.Parent.Tag : null);
             }
 
-            OnNodeDataDeleted(selectedNode);
+            OnNodeDataDeleted(node);
         }
 
         public void CollapseAll(TreeNode node)
@@ -519,17 +527,9 @@ namespace Core.Common.Controls.TreeView
 
                     break;
                 }
-                case Keys.Delete: // If allowed, delete the selected node
+                case Keys.Delete: // Try to delete the selected node
                 {
-                    var treeNodeInfo = GetTreeNodeInfoForData(selectedNode.Tag);
-
-                    if (treeNodeInfo.CanRemove == null || !treeNodeInfo.CanRemove(selectedNode.Tag, selectedNode.Parent != null ? selectedNode.Parent.Tag : null))
-                    {
-                        MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
-                        break;
-                    }
-
-                    DeleteNode(selectedNode, treeNodeInfo);
+                    DeleteNode(selectedNode);
 
                     break;
                 }
