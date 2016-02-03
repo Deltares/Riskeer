@@ -41,7 +41,6 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Ringtoets.Piping.Plugin
 {
@@ -793,18 +792,18 @@ namespace Ringtoets.Piping.Plugin
             {
                 var isMoveWithinSameContainer = ReferenceEquals(originalOwnerContext, target);
 
-                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target, (TreeView) previousParentNode.TreeView);
-                dropHandler.Execute(sourceNode.Tag, pipingCalculationItem, position);
+                DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target);
+                dropHandler.Execute(sourceNode, pipingCalculationItem, position);
             }
         }
 
-        private DroppingPipingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target, TreeView treeView)
+        private DroppingPipingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
         {
             if (isMoveWithinSameContainer)
             {
-                return new DroppingPipingCalculationWithinSameContainer(treeView, originalOwnerContext, target);
+                return new DroppingPipingCalculationWithinSameContainer(originalOwnerContext, target);
             }
-            return new DroppingPipingCalculationToNewContainer(treeView, originalOwnerContext, target);
+            return new DroppingPipingCalculationToNewContainer(originalOwnerContext, target);
         }
 
         private void SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(TreeNode node)
@@ -826,13 +825,11 @@ namespace Ringtoets.Piping.Plugin
         /// </summary>
         private abstract class DroppingPipingCalculationInContainerStrategy
         {
-            protected readonly TreeView treeView;
             protected readonly PipingCalculationGroupContext target;
             private readonly PipingCalculationGroupContext originalOwnerContext;
 
-            protected DroppingPipingCalculationInContainerStrategy(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
+            protected DroppingPipingCalculationInContainerStrategy(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target)
             {
-                this.treeView = treeView;
                 this.originalOwnerContext = originalOwnerContext;
                 this.target = target;
             }
@@ -840,10 +837,10 @@ namespace Ringtoets.Piping.Plugin
             /// <summary>
             /// Perform the drag & drop operation.
             /// </summary>
-            /// <param name="draggedDataObject">The actual dragged data object.</param>
-            /// <param name="pipingCalculationItem">The piping calculation item corresponding with <see cref="draggedDataObject"/>.</param>
+            /// <param name="draggedNode">The dragged node.</param>
+            /// <param name="pipingCalculationItem">The piping calculation item corresponding with the tag of <see cref="draggedNode"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
-            public virtual void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            public virtual void Execute(TreeNode draggedNode, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
@@ -880,13 +877,12 @@ namespace Ringtoets.Piping.Plugin
             /// <summary>
             /// Initializes a new instance of the <see cref="DroppingPipingCalculationWithinSameContainer"/> class.
             /// </summary>
-            /// <param name="treeView">The tree view where the drag & drop operation occurs.</param>
             /// <param name="originalOwnerContext">The calculation group context that is 
             /// the original owner of the dragged item.</param>
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
-            public DroppingPipingCalculationWithinSameContainer(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
-                base(treeView, originalOwnerContext, target) { }
+            public DroppingPipingCalculationWithinSameContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+                base(originalOwnerContext, target) { }
         }
 
         /// <summary>
@@ -900,23 +896,20 @@ namespace Ringtoets.Piping.Plugin
             /// <summary>
             /// Initializes a new instance of the <see cref="DroppingPipingCalculationToNewContainer"/> class.
             /// </summary>
-            /// <param name="treeView">The tree view where the drag & drop operation occurs.</param>
             /// <param name="originalOwnerContext">The calculation group context that is 
             /// the original owner of the dragged item.</param>
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
-            public DroppingPipingCalculationToNewContainer(TreeView treeView, PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
-                base(treeView, originalOwnerContext, target) { }
+            public DroppingPipingCalculationToNewContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
+                base(originalOwnerContext, target) { }
 
-            public override void Execute(object draggedDataObject, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            public override void Execute(TreeNode draggedNode, IPipingCalculationItem pipingCalculationItem, int newPosition)
             {
                 EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
 
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
                 NotifyObservers();
-
-                TreeNode draggedNode = treeView.TreeViewController.GetNodeByTag(draggedDataObject);
 
                 if (renamed)
                 {
