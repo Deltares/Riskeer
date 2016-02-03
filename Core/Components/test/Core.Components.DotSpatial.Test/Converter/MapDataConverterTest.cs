@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.Data;
@@ -83,7 +84,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestMapDataConverter<T> : MapDataConverter<T> where T : MapData
         {
-            protected override FeatureSet Convert(T data)
+            protected override IList<FeatureSet> Convert(T data)
             {
                 throw new NotImplementedException();
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Components.DotSpatial.Converter;
@@ -21,9 +22,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testData = CreateTestData();
 
             // Call
-            FeatureSet featureSet = factory.Create(new MapPointData(testData));
+            IList<FeatureSet> featureSets = factory.Create(new MapPointData(testData));
 
             // Assert
+            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
+            var featureSet = featureSets[0];
             Assert.AreEqual(testData.Count, featureSet.Features.Count);
             Assert.IsInstanceOf<FeatureSet>(featureSet);
             Assert.AreEqual(FeatureType.Point, featureSet.FeatureType);

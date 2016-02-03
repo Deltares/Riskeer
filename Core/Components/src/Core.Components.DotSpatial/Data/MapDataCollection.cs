@@ -19,29 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-using Core.Components.DotSpatial.Data;
-using DotSpatial.Data;
-using DotSpatial.Topology;
 
-namespace Core.Components.DotSpatial.Converter
+namespace Core.Components.DotSpatial.Data
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into <see cref="FeatureType.Point"/> <see cref="FeatureSet"/>.
+    /// A collection of <see cref="MapData"/>.
     /// </summary>
-    public class MapPointDataConverter : MapDataConverter<MapPointData>
+    public class MapDataCollection : MapData
     {
-        protected override IList<FeatureSet> Convert(MapPointData data)
+        /// <summary>
+        /// Creates a new instance of <see cref="MapDataCollection"/>.
+        /// </summary>
+        /// <param name="list">A <see cref="List{T}"/> of <see cref="MapData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is <c>null</c>.</exception>
+        public MapDataCollection(IList<MapData> list)
         {
-            var featureSet = new FeatureSet(FeatureType.Point);
-
-            foreach (var point in data.Points)
+            if (list == null)
             {
-                var coordinate = new Coordinate(point.Item1, point.Item2);
-                featureSet.Features.Add(coordinate);
+                throw new ArgumentNullException("list", "A list collection is required when creating MapDataCollection.");
             }
-
-            return new List<FeatureSet> { featureSet };
+            List = list;
         }
+
+        /// <summary>
+        /// Gets the list of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
+        /// </summary>
+        public IList<MapData> List { get; private set; } 
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Components.DotSpatial.Data;
 using DotSpatial.Data;
 
@@ -35,7 +36,7 @@ namespace Core.Components.DotSpatial.Converter
             return data.GetType() == typeof(T);
         }
 
-        public FeatureSet Convert(MapData data)
+        public IList<FeatureSet> Convert(MapData data)
         {
             if (data == null)
             {
@@ -54,7 +55,7 @@ namespace Core.Components.DotSpatial.Converter
         /// Creates a <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
         /// </summary>
         /// <param name="data">The data to transform into a <see cref="FeatureSet"/>.</param>
-        /// <returns>A new <see cref="FeatureSet"/>.</returns>
-        protected abstract FeatureSet Convert(T data);
+        /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
+        protected abstract IList<FeatureSet> Convert(T data);
     }
 }

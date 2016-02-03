@@ -40,12 +40,18 @@ namespace Demo.Ringtoets.Commands
         {
             var points = new MapPointData(new Collection<Tuple<double, double>>
             {
-                new Tuple<double, double>(10.5, 3),
-                new Tuple<double, double>(11, 5),
-                new Tuple<double, double>(11.5, 4)
+                new Tuple<double, double>(1.5, 2),
+                new Tuple<double, double>(1.1, 1),
+                new Tuple<double, double>(0.8, 0.5)
+            });
+            var lines = new MapLineData(new Collection<Tuple<double, double>>
+            {
+                new Tuple<double, double>(0.0, 1.1),
+                new Tuple<double, double>(1.0, 2.1),
+                new Tuple<double, double>(1.6, 1.6)
             });
 
-            documentViewController.DocumentViewsResolver.OpenViewForData(points);
+            documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData> { points, lines }));
         }
     }
 }

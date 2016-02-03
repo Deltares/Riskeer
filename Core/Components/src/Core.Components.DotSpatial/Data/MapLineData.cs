@@ -19,29 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-using Core.Components.DotSpatial.Data;
-using DotSpatial.Data;
-using DotSpatial.Topology;
 
-namespace Core.Components.DotSpatial.Converter
+namespace Core.Components.DotSpatial.Data
 {
-    /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into <see cref="FeatureType.Point"/> <see cref="FeatureSet"/>.
-    /// </summary>
-    public class MapPointDataConverter : MapDataConverter<MapPointData>
+    public class MapLineData : PointBasedMapData
     {
-        protected override IList<FeatureSet> Convert(MapPointData data)
-        {
-            var featureSet = new FeatureSet(FeatureType.Point);
-
-            foreach (var point in data.Points)
-            {
-                var coordinate = new Coordinate(point.Item1, point.Item2);
-                featureSet.Features.Add(coordinate);
-            }
-
-            return new List<FeatureSet> { featureSet };
-        }
+        public MapLineData(IEnumerable<Tuple<double, double>> points) : base(points) {}
     }
 }

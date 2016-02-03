@@ -34,15 +34,17 @@ namespace Core.Components.DotSpatial.Converter
     {
         private readonly IEnumerable<IMapDataConverter> converters = new Collection<IMapDataConverter>
         {
-            new MapPointDataConverter()
+            new MapDataCollectionConverter(),
+            new MapPointDataConverter(),
+            new MapLineDataConverter()
         };
         /// <summary>
         /// Creates a new <see cref="FeatureSet"/> from the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="FeatureSet"/> upon.</param>
-        /// <returns>A new <see cref="FeatureSet"/>.</returns>
+        /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public FeatureSet Create(MapData data)
+        public IList<FeatureSet> Create(MapData data)
         {
             foreach (var converter in converters)
             {

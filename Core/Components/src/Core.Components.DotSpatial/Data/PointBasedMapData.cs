@@ -27,15 +27,35 @@ using System.Linq;
 namespace Core.Components.DotSpatial.Data
 {
     /// <summary>
-    /// A collection of points for the Map.
+    /// Base class for <see cref="MapData"/> which is based on a collection of points.
     /// </summary>
-    public class MapPointData : PointBasedMapData
+    public abstract class PointBasedMapData : MapData
     {
         /// <summary>
         /// Create a new instance of <see cref="MapPointData"/>.
         /// </summary>
         /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapPointData(IEnumerable<Tuple<double, double>> points) : base(points) {}
+        protected PointBasedMapData(IEnumerable<Tuple<double, double>> points)
+        {
+            if (points == null)
+            {
+                var message = String.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData));
+                throw new ArgumentNullException("points", message);
+            }
+
+            Points = points.ToArray();
+            IsVisible = true;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the <see cref="MapPointData"/> is visible.
+        /// </summary>
+        public bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Gets to collection of points in 2D space.
+        /// </summary>
+        public IEnumerable<Tuple<double, double>> Points { get; private set; }
     }
 }

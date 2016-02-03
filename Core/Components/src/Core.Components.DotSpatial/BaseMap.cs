@@ -69,7 +69,10 @@ namespace Core.Components.DotSpatial
             map.ClearLayers();
             if (data != null)
             {
-                map.Layers.Add(mapDataFactory.Create(data));
+                foreach (var feature in mapDataFactory.Create(data))
+                {
+                    map.Layers.Add(feature);
+                }
             }
         }
 

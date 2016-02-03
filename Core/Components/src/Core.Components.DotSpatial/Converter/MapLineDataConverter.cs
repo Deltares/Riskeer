@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.DotSpatial.Data;
 using DotSpatial.Data;
 using DotSpatial.Topology;
@@ -27,19 +28,23 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into <see cref="FeatureType.Point"/> <see cref="FeatureSet"/>.
+    /// The converter that converts <see cref="MapLineData"/> into a <see cref="FeatureSet"/> containing <see cref="LineString"/>.
     /// </summary>
-    public class MapPointDataConverter : MapDataConverter<MapPointData>
+    public class MapLineDataConverter : MapDataConverter<MapLineData>
     {
-        protected override IList<FeatureSet> Convert(MapPointData data)
+        protected override IList<FeatureSet> Convert(MapLineData data)
         {
-            var featureSet = new FeatureSet(FeatureType.Point);
+            var points = data.Points.ToList();
+            var featureSet = new FeatureSet(FeatureType.Line);
 
-            foreach (var point in data.Points)
+            Coordinate[] coordinates = new Coordinate[points.Count()];
+            for (int i = 0; i < points.Count(); i++)
             {
-                var coordinate = new Coordinate(point.Item1, point.Item2);
-                featureSet.Features.Add(coordinate);
+                coordinates[i] = new Coordinate(points[i].Item1, points[i].Item2);
             }
+            var lineString = new LineString(coordinates);
+            var feature = new Feature(lineString);
+            featureSet.Features.Add(feature);
 
             return new List<FeatureSet> { featureSet };
         }

@@ -22,26 +22,23 @@
 using System.Collections.Generic;
 using Core.Components.DotSpatial.Data;
 using DotSpatial.Data;
-using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into <see cref="FeatureType.Point"/> <see cref="FeatureSet"/>.
+    /// The converter that converts <see cref="MapData"/> in <see cref="MapDataCollection"/> into (one or more) <see cref="FeatureSet"/>.
     /// </summary>
-    public class MapPointDataConverter : MapDataConverter<MapPointData>
+    public class MapDataCollectionConverter : MapDataConverter<MapDataCollection>
     {
-        protected override IList<FeatureSet> Convert(MapPointData data)
+        protected override IList<FeatureSet> Convert(MapDataCollection data)
         {
-            var featureSet = new FeatureSet(FeatureType.Point);
-
-            foreach (var point in data.Points)
+            var factory = new MapDataFactory();
+            var featureSets = new List<FeatureSet>();
+            foreach (var mapData in data.List)
             {
-                var coordinate = new Coordinate(point.Item1, point.Item2);
-                featureSet.Features.Add(coordinate);
+                featureSets.AddRange(factory.Create(mapData));
             }
-
-            return new List<FeatureSet> { featureSet };
+            return featureSets;
         }
     }
 }
