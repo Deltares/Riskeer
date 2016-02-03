@@ -28,7 +28,7 @@ using Core.Common.Gui.Properties;
 namespace Core.Common.Gui.Converters
 {
     /// <summary>
-    /// <see cref="ArrayConverter"/> with modified conversion to string and shows as array
+    /// <see cref="ArrayConverter"/> with modified conversion to string and shows an array
     /// starting with index 1 instead of 0.
     /// </summary>
     public class ExpandableArrayConverter : ArrayConverter

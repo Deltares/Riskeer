@@ -75,7 +75,14 @@
     <Compile Include="ContextMenu\StrictContextMenuItemTest.cs" />
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
+    <Compile Include="Converters\ExpandableArrayConverterTest.cs" />
+    <Compile Include="Converters\PngToIconConverterTest.cs" />
     <Compile Include="ExpandableArrayConverterTest.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptorTest.cs" />
     <Compile Include="PropertyBag\PropertySpecTest.cs" />
@@ -118,6 +125,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abacus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
