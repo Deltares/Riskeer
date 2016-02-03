@@ -765,7 +765,7 @@ namespace Core.Common.Controls.TreeView
 
         private static void ScrollIntoView(Point point, TreeNode nodeOver, object sender)
         {
-            var treeView = sender as System.Windows.Forms.TreeView;
+            var treeView = sender as DoubleBufferedTreeView;
             if (treeView == null)
             {
                 return;

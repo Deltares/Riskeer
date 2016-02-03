@@ -20,7 +20,6 @@ using Ringtoets.Piping.Plugin;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using TreeView = System.Windows.Forms.TreeView;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {

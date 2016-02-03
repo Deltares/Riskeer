@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView = new System.Windows.Forms.TreeView();
+            this.treeView = new Core.Common.Controls.Forms.DoubleBufferedTreeView();
             this.SuspendLayout();
             // 
             // treeView
@@ -52,6 +52,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeView;
+        private Core.Common.Controls.Forms.DoubleBufferedTreeView treeView;
     }
 }
