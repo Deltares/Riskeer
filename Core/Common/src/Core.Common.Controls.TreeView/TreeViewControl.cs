@@ -186,6 +186,13 @@ namespace Core.Common.Controls.TreeView
             treeView.SelectedNode = GetNodeByTag(dataObject);
         }
 
+        public string GetPathForData(object dataObject)
+        {
+            var node = GetNodeByTag(dataObject);
+
+            return node != null ? node.FullPath : "";
+        }
+
         /// <summary>
         /// This method searches all nodes in the tree view for a node with a matching tag.
         /// </summary>

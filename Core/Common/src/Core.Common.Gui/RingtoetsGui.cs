@@ -393,11 +393,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            var node = ProjectExplorer.TreeViewControl.GetNodeByTag(view.Data);
-            if (node != null)
-            {
-                DocumentViews.SetTooltip(view, node.FullPath);
-            }
+            DocumentViews.SetTooltip(view, ProjectExplorer.TreeViewControl.GetPathForData(view.Data));
         }
 
         private void ConfigureLogging()
