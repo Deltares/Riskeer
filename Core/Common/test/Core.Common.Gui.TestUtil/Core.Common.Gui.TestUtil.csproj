@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextMenu\CustomItemsOnlyContextMenuBuilder.cs" />
-    <Compile Include="ContextMenu\SimpleContextMenuBuilderProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
