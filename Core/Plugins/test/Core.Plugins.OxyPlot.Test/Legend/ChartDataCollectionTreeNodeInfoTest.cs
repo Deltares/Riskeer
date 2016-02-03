@@ -12,7 +12,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Resources = Core.Plugins.OxyPlot.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.OxyPlot.Test.Legend
 {
@@ -29,9 +28,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks = new MockRepository();
             legendView = new LegendView();
 
-            var treeView = TypeUtils.GetField<TreeView>(legendView, "treeView");
+            var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
 
-            info = treeView.TreeViewController.TreeNodeInfos.First(tni => tni.TagType == typeof(ChartDataCollection));
+            info = treeViewControl.TreeNodeInfos.First(tni => tni.TagType == typeof(ChartDataCollection));
         }
 
         [Test]
