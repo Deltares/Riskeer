@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Forms;
@@ -13,8 +12,6 @@ namespace Core.Plugins.DotSpatial.Test.Forms
     [TestFixture]
     public class MapDataViewTest
     {
-        private readonly string dijkvakgebiedenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Plugins.DotSpatial, "ShapeFiles"), "DR10_dijkvakgebieden.shp");
-
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -40,6 +37,20 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             var map = (BaseMap) mapObject;
             Assert.AreEqual(DockStyle.Fill, map.Dock);
             Assert.NotNull(mapView.Map);
+        }
+
+        [Test]
+        public void Data_SetToNull_BaseMapNoFeatures()
+        {
+            // Setup
+            var mapView = new MapDataView();
+            var map = (BaseMap)mapView.Controls[0];
+
+            // Call
+            mapView.Data = null;
+
+            // Assert
+            Assert.IsNull(map.Data);
         }
 
         [Test]
@@ -69,19 +80,19 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         }
 
         [Test]
-        public void Data_Always_IsMapData()
+        public void Data_SetToMapPointData_MapDataSet()
         {
             // Setup
-            var mapData = new MapData();
             var mapView = new MapDataView();
-            mapData.AddShapeFile(dijkvakgebiedenFile);
-            mapView.Data = mapData;
+            var map = (BaseMap)mapView.Controls[0];
+            var pointData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
 
             // Call
-            var data = mapView.Data;
+            mapView.Data = pointData;
 
             // Assert
-            Assert.IsInstanceOf<MapData>(data);
+            Assert.AreSame(pointData, map.Data);
+            Assert.AreSame(pointData, mapView.Data);
         }
     }
 }

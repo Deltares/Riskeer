@@ -101,7 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMapTest.cs" />
+    <Compile Include="Converter\MapDataConverterTest.cs" />
+    <Compile Include="Converter\MapDataFactoryTest.cs" />
+    <Compile Include="Converter\MapPointDataConverterTest.cs" />
     <Compile Include="Data\MapDataTest.cs" />
+    <Compile Include="Data\MapPointDataTest.cs" />
     <Compile Include="Exceptions\MapDataExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -117,6 +121,10 @@
     <ProjectReference Include="..\..\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{aa47e858-a2a7-470e-8b2d-c76ae8ed9ccd}</Project>
       <Name>Core.Components.DotSpatial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
+      <Project>{9b6f3987-eaf7-4733-80c1-3dcab44d87ae}</Project>
+      <Name>Core.Components.DotSpatial.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

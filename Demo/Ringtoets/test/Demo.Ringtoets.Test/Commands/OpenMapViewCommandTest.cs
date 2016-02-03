@@ -37,7 +37,7 @@ namespace Demo.Ringtoets.Test.Commands
             var documentViewControllerMock = mocks.StrictMock<IDocumentViewController>();
             var viewResolverMock = mocks.StrictMock<IViewResolver>();
             documentViewControllerMock.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
-            viewResolverMock.Expect(vr => vr.OpenViewForData(Arg<MapData>.Matches(md => md.IsValid()), Arg<bool>.Matches(b => b == false))).Return(true);
+            viewResolverMock.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
 
             mocks.ReplayAll();
 

@@ -1,9 +1,16 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using Core.Common.Controls.Commands;
+using Core.Common.Gui;
 using Core.Components.DotSpatial;
+using Core.Plugins.DotSpatial.Commands;
+using Core.Plugins.DotSpatial.Legend;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
+using ToggleButton = Fluent.ToggleButton;
 
 namespace Core.Plugins.DotSpatial.Test
 {
@@ -30,6 +37,30 @@ namespace Core.Plugins.DotSpatial.Test
 
             // Call & Assert
             CollectionAssert.IsEmpty(ribbon.Commands);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Commands_CommandsAssigned_ReturnsAssignedCommands()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            mocks.ReplayAll();
+
+            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(toolViewController));
+
+            var ribbon = new MapRibbon
+            {
+                ToggleLegendViewCommand = toggleLegendViewCommand
+            };
+
+            // Call
+            var commands = ribbon.Commands.ToArray();
+
+            // Assert
+            CollectionAssert.AreEqual(new ICommand[] { toggleLegendViewCommand }, commands);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,6 +97,33 @@ namespace Core.Plugins.DotSpatial.Test
 
             // Assert
             Assert.AreEqual(mapVisible ? Visibility.Visible : Visibility.Collapsed, contextualGroup.Visibility);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var command = mocks.StrictMock<ICommand>();
+            command.Expect(c => c.Execute());
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                ToggleLegendViewCommand = command
+            };
+            var button = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle legend view button");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
             mocks.VerifyAll();
         }
     }

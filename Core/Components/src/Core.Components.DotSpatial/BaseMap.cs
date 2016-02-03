@@ -19,14 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
-using System;
-using System.IO;
 using System.Windows.Forms;
+using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.Data;
-using Core.Components.DotSpatial.Exceptions;
-using Core.Components.DotSpatial.Properties;
 using DotSpatial.Controls;
-using log4net;
 
 namespace Core.Components.DotSpatial
 {
@@ -35,7 +31,7 @@ namespace Core.Components.DotSpatial
     /// </summary>
     public sealed class BaseMap : Control, IMap
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(BaseMap));
+        private readonly MapDataFactory mapDataFactory = new MapDataFactory();
         private MapData data;
         private Map map;
 
@@ -50,9 +46,6 @@ namespace Core.Components.DotSpatial
         /// <summary>
         /// Gets and sets the <see cref="Data"/>. When <see cref="Data"/> is not empty it will load the data on the map.
         /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="MapData"/> is null.</exception>
-        /// <exception cref="FileNotFoundException">Thrown when <see cref="MapData"/> does not exist.</exception>
-        /// <exception cref="MapDataException">Thrown when the data in <see cref="MapData"/> is not valid.</exception>
         public MapData Data
         {
             get
@@ -66,47 +59,29 @@ namespace Core.Components.DotSpatial
                     return;
                 }
 
-                if (value == null)
-                {
-                    throw new ArgumentNullException("MapData", "MapData is required when adding shapeFiles");
-                }
-
-                if (value.IsValid())
-                {
-                    data = value;
-                    LoadData();
-                }
-                else
-                {
-                    throw new MapDataException(Resources.BaseMap_SetMapData_The_data_available_in_MapData_is_not_valid_);
-                }
+                data = value;
+                DrawFeatureSets();
             }
         }
 
-        /// <summary>
-        /// Initialize the <see cref="Map"/> for the <see cref="BaseMap"/>
-        /// </summary>
+        private void DrawFeatureSets()
+        {
+            map.ClearLayers();
+            if (data != null)
+            {
+                map.Layers.Add(mapDataFactory.Create(data));
+            }
+        }
+
         private void InitializeMapView()
         {
             map = new Map
             {
+                ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
                 FunctionMode = FunctionMode.Pan,
             };
             Controls.Add(map);
-        }
-
-        /// <summary>
-        /// Loads the data from the files given in <see cref="Data"/> and shows them on the <see cref="Map"/>.
-        /// </summary>
-        private void LoadData()
-        {
-            foreach (string filePath in data.FilePaths)
-            {
-                map.AddLayer(filePath);
-
-                Log.InfoFormat(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, filePath);
-            }
         }
     }
 }

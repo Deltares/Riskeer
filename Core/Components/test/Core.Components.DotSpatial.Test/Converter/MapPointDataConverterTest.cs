@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Core.Common.TestUtil;
+using Core.Components.DotSpatial.Converter;
+using Core.Components.DotSpatial.Data;
+using Core.Components.DotSpatial.TestUtil;
+using DotSpatial.Data;
+using DotSpatial.Topology;
+using NUnit.Framework;
+
+namespace Core.Components.DotSpatial.Test.Converter
+{
+    [TestFixture]
+    public class MapPointDataConverterTest
+    {
+        [Test]
+        public void DefaultConstructor_IsMapDataConverter()
+        {
+            // Call
+            var converter = new MapPointDataConverter();
+
+            // Assert
+            Assert.IsInstanceOf<MapDataConverter<MapPointData>>(converter);
+        }
+
+        [Test]
+        public void CanConvertMapData_MapPointData_ReturnsTrue()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var pointData = new MapPointData(new Collection<Tuple<double, double>>());
+
+            // Call
+            var canConvert = converter.CanConvertMapData(pointData);
+
+            // Assert
+            Assert.IsTrue(canConvert);
+        }
+
+        [Test]
+        public void CanConvertMapData_MapData_ReturnsFalse()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var mapData = new TestMapData();
+
+            // Call
+            var canConvert = converter.CanConvertMapData(mapData);
+
+            // Assert
+            Assert.IsFalse(canConvert);
+        }
+
+        [Test]
+        public void Convert_RandomPointData_ReturnsNewSeries()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var random = new Random(21);
+            var randomCount = random.Next(5, 10);
+            var points = new Collection<Tuple<double, double>>();
+
+            for (int i = 0; i < randomCount; i++)
+            {
+                points.Add(new Tuple<double, double>(random.NextDouble(), random.NextDouble()));
+            }
+
+            var pointData = new MapPointData(points);
+
+            // Call
+            var featureSet = converter.Convert(pointData);
+
+            // Assert
+            Assert.AreEqual(pointData.Points.ToArray().Length, featureSet.Features.Count);
+            Assert.IsInstanceOf<FeatureSet>(featureSet);
+            Assert.AreEqual(FeatureType.Point, featureSet.FeatureType);
+            CollectionAssert.AreNotEqual(pointData.Points, featureSet.Features[0].Coordinates);
+        }
+
+        [Test]
+        public void Convert_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var testConverter = new MapPointDataConverter();
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Convert_DataCannotBeConverted_ThrowsArgumentException()
+        {
+            // Setup
+            var testConverter = new MapPointDataConverter();
+            var testChartData = new TestMapData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            // Precondition
+            Assert.IsFalse(testConverter.CanConvertMapData(testChartData));
+
+            // Call
+            TestDelegate test = () => testConverter.Convert(testChartData);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+    }
+}

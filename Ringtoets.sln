@@ -213,6 +213,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Ringtoets", "Demo\Ring
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Ringtoets.Test", "Demo\Ringtoets\test\Demo.Ringtoets.Test\Demo.Ringtoets.Test.csproj", "{C48E2C11-3FDA-4356-A10F-757469A108FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.TestUtil", "Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj", "{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -806,6 +808,14 @@ Global
 		{C48E2C11-3FDA-4356-A10F-757469A108FD}.Release|x86.Build.0 = Release|x86
 		{C48E2C11-3FDA-4356-A10F-757469A108FD}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{C48E2C11-3FDA-4356-A10F-757469A108FD}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Debug|x86.ActiveCfg = Debug|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Debug|x86.Build.0 = Debug|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Release|x86.ActiveCfg = Release|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Release|x86.Build.0 = Release|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -895,6 +905,7 @@ Global
 		{DD7ECAFF-D8A1-4D92-99C0-27498ACB32D4} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{F40A7DC1-A697-41A7-8676-6C0AD8274FB4} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{E900A014-CA87-4374-87F0-813D653A9698} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
+		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{594C5C6D-5833-4E1C-9F30-13A202628EEF} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 		{555F3460-DD3D-4B1D-8319-0AA454050FF7} = {EC6E52A5-2BB1-4080-9784-5DC8D0B08ED3}
 		{F2C4C4F7-4058-4E71-859B-D704F15D2745} = {555F3460-DD3D-4B1D-8319-0AA454050FF7}

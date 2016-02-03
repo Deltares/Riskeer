@@ -67,6 +67,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
     <Compile Include="DotSpatialGuiPluginTest.cs" />
     <Compile Include="Forms\MapDataViewTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
@@ -101,6 +102,10 @@
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
       <Name>Core.Components.DotSpatial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj">
+      <Project>{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}</Project>
+      <Name>Core.Components.DotSpatial.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
       <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>

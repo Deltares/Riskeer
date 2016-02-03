@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
@@ -38,28 +38,14 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute(params object[] arguments)
         {
-            var data = new MapData();
-
-            var paths = new List<string>
+            var points = new MapPointData(new Collection<Tuple<double, double>>
             {
-                "Resources/DR10_dijkvakgebieden.shp",
-                "Resources/DR10_cross_sections.shp",
-                "Resources/DR10_dammen_caissons.shp"
-            };
+                new Tuple<double, double>(10.5, 3),
+                new Tuple<double, double>(11, 5),
+                new Tuple<double, double>(11.5, 4)
+            });
 
-            foreach (string path in paths)
-            {
-                try
-                {
-                    data.AddShapeFile(path);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-
-            documentViewController.DocumentViewsResolver.OpenViewForData(data);
+            documentViewController.DocumentViewsResolver.OpenViewForData(points);
         }
     }
 }

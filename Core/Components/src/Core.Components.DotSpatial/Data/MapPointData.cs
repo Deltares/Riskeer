@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -24,36 +24,36 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Core.Components.Charting.Data
+namespace Core.Components.DotSpatial.Data
 {
     /// <summary>
-    /// Base class for <see cref="ChartData"/> which is based on a collection of points.
+    /// A collection of points for the Map.
     /// </summary>
-    public abstract class PointBasedChartData : ChartData 
+    public class MapPointData : MapData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PointData"/>.
+        /// Create a new instance of <see cref="MapPointData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
+        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        protected PointBasedChartData(IEnumerable<Tuple<double, double>> points)
+        public MapPointData(IEnumerable<Tuple<double, double>> points)
         {
             if (points == null)
             {
-                var message = String.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedChartData));
-                throw new ArgumentNullException("points", message);
+                throw new ArgumentNullException("points", "A point collection is required when creating MapPointData.");
             }
+
             Points = points.ToArray();
             IsVisible = true;
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="ChartData"/> is visible.
+        /// Gets or sets a value indicating whether the <see cref="MapPointData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
 
         /// <summary>
-        /// Gets the collection of points in 2D space.
+        /// Gets to collection of points in 2D space.
         /// </summary>
         public IEnumerable<Tuple<double, double>> Points { get; private set; }
     }

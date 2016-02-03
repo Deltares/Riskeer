@@ -1,155 +1,85 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.Data;
-using Core.Components.DotSpatial.Exceptions;
-using Core.Components.DotSpatial.Properties;
+using Core.Components.DotSpatial.TestUtil;
 using DotSpatial.Controls;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
 
 namespace Core.Components.DotSpatial.Test
 {
     [TestFixture]
     public class BaseMapTest
     {
-        private readonly string segmentsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_segments.shp");
-        private readonly string dijkvakgebiedenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_dijkvakgebieden.shp");
-        private readonly string binnenTeenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_binnenteen.shp");
-        private readonly string tempTeenFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.DotSpatial, "ShapeFiles"), "DR10_teen.shp");
-
         [Test]
-        public void DefaultConstructor_PropertiesSet()
+        public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var baseMap = new BaseMap();
+            var map = new BaseMap();
 
             // Assert
-            Assert.IsInstanceOf<Control>(baseMap);
+            Assert.IsInstanceOf<Control>(map);
+            Assert.IsInstanceOf<IMap>(map);
+            Assert.IsNull(map.Data);
         }
 
         [Test]
-        public void Data_ShapeFileIsValidMissesNeededFiles_ThrowsFileNotFoundException()
+        public void Data_NotKnowMapData_ThrowsNotSupportedException()
         {
             // Setup
             var map = new BaseMap();
-            var data = new MapData();
-
-            data.AddShapeFile(segmentsFile);
+            var testData = new TestMapData();
 
             // Call
-            TestDelegate setDataDelegate = () => map.Data = data;
+            TestDelegate test = () => map.Data = testData;
 
             // Assert
-            Assert.Throws<FileNotFoundException>(setDataDelegate);
+            Assert.Throws<NotSupportedException>(test);
         }
 
         [Test]
-        public void SetDataOnMap_FileDeleted_ThrowsFileNotFoundException()
-        {
-            // Setup
-            var map = new BaseMap();
-            var data = new MapData();
-
-            data.AddShapeFile(binnenTeenFile);
-
-            RenameFile(tempTeenFile, binnenTeenFile);
-
-            // Call
-            TestDelegate testDelegate = () => map.Data = data;
-
-            try
-            {
-                // Assert
-                Assert.Throws<MapDataException>(testDelegate);
-            }
-            finally
-            {
-                // Place the original file back for other tests.
-                RenameFile(binnenTeenFile, tempTeenFile);
-            }
-        }
-
-        [Test]
-        public void SetData_ToNull_ThrowsArgrumentNullException()
+        public void Data_Null_ReturnsNull()
         {
             // Setup
             var map = new BaseMap();
 
             // Call
-            TestDelegate testDelegate = () => map.Data = null;
+            map.Data = null;
 
             // Assert
-            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(testDelegate);
-            Assert.AreEqual("MapData", exception.ParamName);
+            Assert.IsNull(map.Data);
         }
 
         [Test]
-        public void Data_IsValid_DoesNotThrowException()
+        public void Data_NotNull_ReturnsData()
         {
             // Setup
             var map = new BaseMap();
-            var data = new MapData();
-
-            data.AddShapeFile(dijkvakgebiedenFile);
+            var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            map.Data = testData;
 
             // Call
-            TestDelegate setDataDelegate = () => map.Data = data;
+            var data = map.Data;
 
             // Assert
-            Assert.DoesNotThrow(setDataDelegate);
+            Assert.AreSame(testData, data);
         }
 
         [Test]
-        public void GetData_Always_ReturnsData()
+        public void Data_KnownMapData_MapFeatureAdded()
         {
             // Setup
             var map = new BaseMap();
-            var data = new MapData();
-            data.AddShapeFile(dijkvakgebiedenFile);
-            map.Data = data;
+            var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            var mapView = TypeUtils.GetField<Map>(map, "map");
 
             // Call
-            var getData = map.Data;
+            map.Data = testData;
 
             // Assert
-            Assert.AreSame(getData, data);
-        }
-
-        [Test]
-        public void SetDataOnMap_Succeeds_AddOneMapLayerAndWriteLog()
-        {
-            // Setup
-            var map = new BaseMap();
-            var data = new MapData();
-
-            var excpectedLog = string.Format(Resources.BaseMap_LoadData_Shape_file_on_path__0__is_added_to_the_map_, dijkvakgebiedenFile);
-
-            data.AddShapeFile(dijkvakgebiedenFile);
-
-            var mapComponent = TypeUtils.GetField<Map>(map, "map");
-
-            // Pre-condition
-            var preLayerCount = mapComponent.GetLayers().Count;
-
-            // Call
-            Action action = () => map.Data = data;
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(action, excpectedLog);
-            Assert.AreEqual(preLayerCount + 1, mapComponent.GetLayers().Count);
-        }
-
-        private static void RenameFile(string newPath, string path)
-        {
-            if (File.Exists(newPath))
-            {
-                File.Delete(newPath);
-            }
-            File.Move(path, newPath);
+            Assert.AreEqual(1, mapView.Layers.Count);
         }
     }
 }
