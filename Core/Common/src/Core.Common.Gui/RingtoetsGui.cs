@@ -667,20 +667,16 @@ namespace Core.Common.Gui
         private void InitializeMenusAndToolbars()
         {
             log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars);
-            mainWindow.SuspendLayout();
 
             // Validate once when loading is completed
             mainWindow.ValidateItems();
 
-            mainWindow.ResumeLayout();
             log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready);
         }
 
         private void ActivatePlugins()
         {
             var problematicPlugins = new List<GuiPlugin>();
-
-            mainWindow.SuspendLayout();
 
             // Try to activate all plugins
             foreach (var plugin in Plugins)
@@ -700,8 +696,6 @@ namespace Core.Common.Gui
             {
                 DeactivatePlugin(problematicPlugin);
             }
-
-            mainWindow.ResumeLayout();
         }
 
         private void CopyDefaultViewsFromUserSettings()
@@ -1027,7 +1021,7 @@ namespace Core.Common.Gui
             private set
             {
                 mainWindow = (MainWindow)value;
-                mainWindow.Gui = this;
+                mainWindow.SetGui(this);
             }
         }
 

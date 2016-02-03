@@ -42,32 +42,32 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <fluent:Ribbon Focusable="False" Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="public">
+        <fluent:Ribbon Focusable="False" x:Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="protected">
             <!--Backstage-->
             <fluent:Ribbon.Menu>
-                <fluent:Backstage Background="#008fc5" Name="Menu" x:FieldModifier="private">
+                <fluent:Backstage Background="#008fc5" x:Name="Menu" x:FieldModifier="private">
 
                     <fluent:BackstageTabControl>
                         <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_New}"
-                                       Name="ButtonMenuFileNewProject"
+                                       x:Name="ButtonMenuFileNewProject"
                                        Icon="/Core.Common.Gui;component\Resources\DocumentHS.png"
                                        fluent:KeyTip.Keys="N"
                                        Click="OnFileNewClicked" x:FieldModifier="private" />
 
                         <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Save}" 
-                                       Name="ButtonMenuFileSaveProject"
+                                       x:Name="ButtonMenuFileSaveProject"
                                        Icon="/Core.Common.Gui;component\Resources\saveHS.png"
                                        fluent:KeyTip.Keys="S"
                                        Click="OnFileSaveClicked" x:FieldModifier="private" />
 
                         <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Save_As}"
-                                       Name="ButtonMenuFileSaveProjectAs"
+                                       x:Name="ButtonMenuFileSaveProjectAs"
                                        Icon="/Core.Common.Gui;component\Resources\SaveAsHH.png"
                                        fluent:KeyTip.Keys="A" 
                                        Click="OnFileSaveAsClicked" x:FieldModifier="private" />
 
                         <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Open}"
-                                       Name="ButtonMenuFileOpenProject"
+                                       x:Name="ButtonMenuFileOpenProject"
                                        Icon="/Core.Common.Gui;component\Resources\openfolderHS.png"
                                        fluent:KeyTip.Keys="O"
                                        Click="OnFileOpenClicked" x:FieldModifier="private" />
@@ -76,7 +76,7 @@
 
                         <fluent:BackstageTabItem Header="{x:Static Properties:Resources.Ribbon_Recent}"
                                                  fluent:KeyTip.Keys="R">
-                            <TabControl Margin="20,5,20,5" Name="RecentProjectsTabControl"
+                            <TabControl Margin="20,5,20,5" x:Name="RecentProjectsTabControl"
                                         Style="{DynamicResource InnerBackstageTabControlStyle}"
                                         x:FieldModifier="private">
                                 <fluent:SeparatorTabItem Header="{x:Static Properties:Resources.Ribbon_TabItem_Recent_Projects}" />
@@ -89,10 +89,10 @@
                             <fluent:BackstageTabControl>
                                 <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Start_Page}" Icon="/Core.Common.Gui;component\Resources\startpage.png" fluent:KeyTip.Keys="S" Click="OnFileHelpStartPage_Clicked" />
                                 <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Show_Log}" Icon="/Core.Common.Gui;component\Resources\application_view_list.png" fluent:KeyTip.Keys="O" Click="OnFileHelpShowLog_Clicked" />
-                                <fluent:Button Name="FileManualButton" Header="{x:Static Properties:Resources.Ribbon_Open_Manual}" Icon="/Core.Common.Gui;component\Resources\manual.png" fluent:KeyTip.Keys="M" Click="OnFileManual_Clicked" />
-                                <fluent:Button Name ="LicenseButton" Header="{x:Static Properties:Resources.Ribbon_License}" Icon="/Core.Common.Gui;component\Resources\key.png" fluent:KeyTip.Keys="L" Click="OnFileHelpLicense_Clicked" />
-                                <fluent:Button Name ="AboutButton" Header="{x:Static Properties:Resources.Ribbon_About}" Icon="/Core.Common.Gui;component\Resources\information.png" fluent:KeyTip.Keys="A" Click="OnAboutDialog_Clicked"/>
-                                <fluent:Button Name ="FeedbackButton" Header="{x:Static Properties:Resources.Ribbon_Submit_Feedback}" Icon="/Core.Common.Gui;component\Resources\feedback.png" fluent:KeyTip.Keys="F" Click="OnFileHelpSubmitFeedback_Clicked" />
+                                <fluent:Button x:Name="FileManualButton" Header="{x:Static Properties:Resources.Ribbon_Open_Manual}" Icon="/Core.Common.Gui;component\Resources\manual.png" fluent:KeyTip.Keys="M" Click="OnFileManual_Clicked" />
+                                <fluent:Button x:Name ="LicenseButton" Header="{x:Static Properties:Resources.Ribbon_License}" Icon="/Core.Common.Gui;component\Resources\key.png" fluent:KeyTip.Keys="L" Click="OnFileHelpLicense_Clicked" />
+                                <fluent:Button x:Name ="AboutButton" Header="{x:Static Properties:Resources.Ribbon_About}" Icon="/Core.Common.Gui;component\Resources\information.png" fluent:KeyTip.Keys="A" Click="OnAboutDialog_Clicked"/>
+                                <fluent:Button x:Name ="FeedbackButton" Header="{x:Static Properties:Resources.Ribbon_Submit_Feedback}" Icon="/Core.Common.Gui;component\Resources\feedback.png" fluent:KeyTip.Keys="F" Click="OnFileHelpSubmitFeedback_Clicked" />
                             </fluent:BackstageTabControl>
                         </fluent:BackstageTabItem>
                         
@@ -114,21 +114,21 @@
 
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_New}"
-                                    Name="ButtonQuickAccessNewProject"
+                                    x:Name="ButtonQuickAccessNewProject"
                                     Icon="/Core.Common.Gui;component\Resources\DocumentHS.png"
                                     Click="OnFileNewClicked"/>
                 </fluent:QuickAccessMenuItem>
 
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Open}"
-                                   Name="ButtonQuickAccessOpenProject"
+                                   x:Name="ButtonQuickAccessOpenProject"
                                    Icon="/Core.Common.Gui;component\Resources\openfolderHS.png"
                                    Click="OnFileOpenClicked" />
                 </fluent:QuickAccessMenuItem>
 
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Save}" 
-                                   Name="ButtonQuickAccessSaveProject"
+                                   x:Name="ButtonQuickAccessSaveProject"
                                    Icon="/Core.Common.Gui;component\Resources\saveHS.png"
                                    Click="OnFileSaveClicked" />
                 </fluent:QuickAccessMenuItem>
@@ -149,7 +149,7 @@
 
         <avalonDock:DockingManager Grid.Row="1" x:Name="dockingManager" AllowMixedOrientation="True">
             <avalonDock:DockingManager.Theme>
-                <avalonDock:ExpressionDarkTheme/>
+                <avalonDock:GenericTheme/>
             </avalonDock:DockingManager.Theme>
             <avalonDock:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate>
@@ -190,23 +190,9 @@
                         Grid.Row="2">
 
             <fluent:StatusBarItem HorizontalAlignment="Left" Title="{x:Static Properties:Resources.Ribbon_StatusBar_Status_text}">
-                <TextBlock Name="StatusMessageTextBlock" Text="" />
+                <TextBlock x:Name="StatusMessageTextBlock" Text="" />
             </fluent:StatusBarItem>
-
-            <!--
-            <fluent:StatusBarItem Title="Zoom"
-                                HorizontalAlignment="Right"
-                                Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:0}\%}" Margin="0" FontSize="11" VerticalContentAlignment="Bottom" />
-            <fluent:StatusBarItem Title="Zoom Slider"
-                                HorizontalAlignment="Right">
-            <Slider x:Name="zoomSlider"
-                    Minimum="20"
-                    Maximum="500"
-                    IsDirectionReversed="False"
-                    Style="{DynamicResource ZoomSliderStyle}"
-                    Value="100" />
-        </fluent:StatusBarItem>
--->
+            
         </fluent:StatusBar>
     </Grid>
 </fluent:RibbonWindow>

@@ -135,7 +135,6 @@
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="Forms\ControlHelper.cs" />
-    <Compile Include="Forms\MainWindow\Interop\NativeWin32.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
       <SubType>Form</SubType>

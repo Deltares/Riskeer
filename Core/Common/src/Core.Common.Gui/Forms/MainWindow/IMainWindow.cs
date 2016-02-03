@@ -19,52 +19,70 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.MessageWindow;
 
 namespace Core.Common.Gui.Forms.MainWindow
 {
     /// <summary>
-    /// Main window of a shell application
+    /// Interface for the main user interface window of the application.
     /// </summary>
     public interface IMainWindow : IWin32Window
     {
         /// <summary>
-        /// Property grid tool window. See also <seealso cref="IGui.ToolWindowViews"/>.
+        /// Gets the property grid tool window.
         /// </summary>
         IPropertyGrid PropertyGrid { get; }
 
         /// <summary>
-        /// Tool window containing log messages. See also <seealso cref="IGui.ToolWindowViews"/>.
+        /// Gets the log messages tool window.
         /// </summary>
         IMessageWindow MessageWindow { get; }
 
-        //TODO: This is  inconsistent with the form title which is called .Text
         /// <summary>
-        /// The window title
+        /// Gets or sets the title of the main user interface.
         /// </summary>
         string Title { get; set; }
 
         /// <summary>
-        /// Is the window visible?
+        /// Indicates if the main user interface is visible.
         /// </summary>
         bool Visible { get; }
 
+        /// <summary>
+        /// Gets or sets the status bar text.
+        /// </summary>
         string StatusBarMessage { get; set; }
 
+        /// <summary>
+        /// Shows main user interface.
+        /// </summary>
         void Show();
 
         /// <summary>
-        /// Closes main window
+        /// Closes main user interface, shutting it down.
         /// </summary>
         void Close();
 
+        /// <summary>
+        /// Updates the state of the child controls of the main user interface.
+        /// </summary>
         void ValidateItems();
 
+        /// <summary>
+        /// Changes the cursor to display a 'waiting' or 'busy' state.
+        /// </summary>
         void SetWaitCursorOn();
 
+        /// <summary>
+        /// Change the cursor to display the default cursor.
+        /// </summary>
         void SetWaitCursorOff();
 
+        /// <summary>
+        /// Initializes and shows the property grid tool window.
+        /// </summary>
         void InitPropertiesWindowAndActivate();
     }
 }

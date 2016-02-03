@@ -30,7 +30,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -39,7 +38,6 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms.MainWindow.Interop;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
 using Core.Common.Gui.Forms.ViewManager;
@@ -64,7 +62,7 @@ using WindowsFormApplication = System.Windows.Forms.Application;
 namespace Core.Common.Gui.Forms.MainWindow
 {
     /// <summary>
-    /// Main windows of Ringtoets
+    /// Main user interface of the application.
     /// </summary>
     public partial class MainWindow : IMainWindow, IDisposable, ISynchronizeInvoke
     {
@@ -86,64 +84,43 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private MessageWindow.MessageWindow messageWindow;
         private PropertyGridView.PropertyGridView propertyGrid;
-        private WindowInteropHelper windowInteropHelper;
 
         private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
 
         /// <summary>
-        /// This is used when user selects non-contextual tab explicitly. Then we won't activate contextual tab on the next view activation.
+        /// This is used when user selects non-contextual tab explicitly. Then we won't 
+        /// activate contextual tab on the next view activation.
         /// </summary>
         private bool activateContextualTab;
 
         /// <summary>
-        /// Used when contextual tab was activated and we switch back to view which does not support contextual tabs.
+        /// Used when contextual tab was activated and we switch back to view which does 
+        /// not support contextual tabs.
         /// </summary>
         private string lastNonContextualTab;
 
         private IGui gui;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
-            windowInteropHelper = new WindowInteropHelper(this);
+            Handle = new WindowInteropHelper(this).EnsureHandle();
 
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
-        public IGui Gui
-        {
-            get
-            {
-                return gui;
-            }
-            set
-            {
-                gui = value;
-
-                toolViewController = gui;
-                documentViewController = gui;
-                settings = gui;
-                commands = gui;
-                applicationSelection = gui;
-            }
-        }
-
+        /// <summary>
+        /// Indicates whether this instance is disposed or not.
+        /// </summary>
         public bool IsWindowDisposed { get; private set; }
 
-        public bool Enabled
-        {
-            get
-            {
-                return IsEnabled;
-            }
-            set
-            {
-                IsEnabled = value;
-                NativeWin32.EnableWindow(new HandleRef(this, windowInteropHelper.Handle), value); // prevents resize etc
-            }
-        }
-
+        /// <summary>
+        /// Gets the docking manager.
+        /// </summary>
         public DockingManager DockingManager
         {
             get
@@ -160,6 +137,10 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
+        /// <summary>
+        /// Indicates if the main user interface is visible.
+        /// </summary>
+        /// <exception cref="System.InvalidOperationException">When no gui has been set using <see cref="SetGui"/>.</exception>
         public bool Visible
         {
             get
@@ -168,6 +149,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             set
             {
+                if (gui == null)
+                {
+                    throw new InvalidOperationException("First call 'SetGui(IGui)' before settings a value on this property.");
+                }
+
                 if (value)
                 {
                     if (IsVisible)
@@ -209,13 +195,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public IntPtr Handle
-        {
-            get
-            {
-                return windowInteropHelper.Handle;
-            }
-        }
+        public IntPtr Handle { get; private set; }
 
         public bool InvokeRequired
         {
@@ -225,6 +205,24 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
+        /// <summary>
+        /// Sets the GUI and dependencies.
+        /// </summary>
+        /// <param name="value">The GUI implementation.</param>
+        public void SetGui(IGui value)
+        {
+            gui = value;
+
+            toolViewController = gui;
+            documentViewController = gui;
+            settings = gui;
+            commands = gui;
+            applicationSelection = gui;
+        }
+
+        /// <summary>
+        /// Subscribes the main user interface to the GUI provided by <see cref="SetGui"/>.
+        /// </summary>
         public void SubscribeToGui()
         {
             if (toolViewController != null && toolViewController.ToolWindowViews != null)
@@ -238,6 +236,9 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
+        /// <summary>
+        /// Unsubscribes the main user interface from the GUI provided by <see cref="SetGui"/>.
+        /// </summary>
         public void UnsubscribeFromGui()
         {
             if (toolViewController != null && toolViewController.ToolWindowViews != null)
@@ -251,30 +252,49 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
+        /// <summary>
+        /// Loads the layout of the main user interface from AppData.
+        /// </summary>
         public void LoadLayout()
         {
             LoadDockingLayout();
             RestoreWindowAppearance();
         }
 
+        /// <summary>
+        /// Saves the layout of the main user interface to AppData.
+        /// </summary>
         public void SaveLayout()
         {
             SaveWindowAppearance();
             SaveDockingLayout();
         }
 
+        /// <summary>
+        /// Initializes and shows all the tool windows.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// When a gui hasn't been set with <see cref="SetGui"/>.
+        /// </exception>
         public void InitializeToolWindows()
         {
             InitMessagesWindowOrActivate();
             InitPropertiesWindowAndActivate();
         }
 
-        public void SuspendLayout() {}
-
-        public void ResumeLayout() {}
-
+        /// <summary>
+        /// Initializes and shows the property grid tool window.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// When a gui hasn't been set with <see cref="SetGui"/>.
+        /// </exception>
         public void InitPropertiesWindowAndActivate()
         {
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitPropertiesWindowAndActivate'.");
+            }
+
             if ((propertyGrid == null) || (propertyGrid.IsDisposed))
             {
                 propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, gui.PropertyResolver);
@@ -289,24 +309,30 @@ namespace Core.Common.Gui.Forms.MainWindow
             toolViewController.ToolWindowViews.ActiveView = propertyGrid;
         }
 
-        public void ShowStartPage(bool checkUseSettings = true)
+        /// <summary>
+        /// Shows the welcome page.
+        /// </summary>
+        /// <param name="useUserSettings">If set to <c>true</c> the user settings determine
+        /// if the start page should be shown. If set to <c>false</c> the welcome page will
+        /// be shown regardless of user settings.</param>
+        public void ShowStartPage(bool useUserSettings = true)
         {
-            if (!checkUseSettings || Convert.ToBoolean(settings.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
+            if (!useUserSettings || Convert.ToBoolean(settings.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
             {
                 log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page_);
                 OpenStartPage();
             }
         }
 
+        /// <summary>
+        /// Closes all Document views.
+        /// </summary>
         public void ClearDocumentTabs()
         {
-            foreach (var contentToClose in dockingManager.Layout.Descendents().OfType<LayoutContent>().Where(d => (d.Parent is LayoutDocumentPane || d.Parent is LayoutDocumentFloatingWindow)).ToArray())
+            foreach (var contentToClose in dockingManager.Layout.Descendents().OfType<LayoutContent>()
+                                                         .Where(d => (d.Parent is LayoutDocumentPane || d.Parent is LayoutDocumentFloatingWindow) && d.CanClose)
+                                                         .ToArray())
             {
-                if (!contentToClose.CanClose)
-                {
-                    continue;
-                }
-
                 if (contentToClose is LayoutDocument)
                 {
                     CloseContent(contentToClose as LayoutDocument);
@@ -337,8 +363,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 return;
             }
-
-            // TODO: add dispose code
 
             IsWindowDisposed = true;
 
@@ -399,22 +423,18 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             
             ribbonCommandHandlers = null;
-            windowInteropHelper = null;
 
-            Gui = null;
-
-            // Dispatcher.InvokeShutdown();
-            //System.Windows.Threading.Dispatcher.CurrentDispatcher.InvokeShutdown();
+            SetGui(null);
         }
 
         public void ValidateItems()
         {
-            if (Gui == null)
+            if (gui == null)
             {
                 return;
             }
 
-            ValidateMainWindowRibbonItems();
+            UpdateToolWindowButtonState();
 
             if (ribbonCommandHandlers == null)
             {
@@ -463,6 +483,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             Mouse.OverrideCursor = null;
         }
 
+        #region Implementation: ISynchronizeInvoke
+
         public IAsyncResult BeginInvoke(Delegate method, object[] args)
         {
             Dispatcher.BeginInvoke(method, args);
@@ -478,6 +500,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             return Dispatcher.Invoke(method, args);
         }
+
+        #endregion
 
         private void ToolWindowViews_CollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
@@ -561,48 +585,36 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             foreach (var recent in mruList)
             {
-                AddNewMruItem(recent, false);
+                AddNewMruItem(recent);
             }
         }
 
-        private void AddNewMruItem(string path, bool putOnTop = true)
+        private void AddNewMruItem(string path)
         {
-            var newItem = new TabItem
+            if (!RecentProjectsTabControl.Items.OfType<TabItem>().Any(i => Equals(i.Header, path)))
             {
-                Header = path
-            };
-            newItem.MouseDoubleClick += (sender, args) =>
-            {
-                try
+                var newItem = new TabItem
                 {
-                    commands.StorageCommands.OpenExistingProject(path);
-                    RecentProjectsTabControl.Items.Remove(newItem);
-                    RecentProjectsTabControl.Items.Insert(1, newItem);
-                }
-                catch (Exception)
+                    Header = path
+                };
+                newItem.MouseDoubleClick += (sender, args) =>
                 {
-                    //remove item from the list if it cannot be retrieved from file
-                    RecentProjectsTabControl.Items.Remove(newItem);
-                    log.WarnFormat("{0} {1}", Properties.Resources.MainWindow_AddNewMruItem_Can_t_open_project, path);
-                }
-                finally
-                {
+                    if (commands.StorageCommands.OpenExistingProject(path))
+                    {
+                        RecentProjectsTabControl.Items.Remove(newItem);
+                        RecentProjectsTabControl.Items.Insert(1, newItem);
+                    }
+                    else
+                    {
+                        //remove item from the list if it cannot be retrieved from file
+                        RecentProjectsTabControl.Items.Remove(newItem);
+                        log.WarnFormat("{0} {1}", Properties.Resources.MainWindow_AddNewMruItem_Can_t_open_project, path);
+                    }
+
                     CommitMruToSettings();
                     ValidateItems();
                     Menu.IsOpen = false;
-                }
-            };
-            if (RecentProjectsTabControl.Items.OfType<TabItem>().Any(i => Equals(i.Header, path)))
-            {
-                return;
-            }
-
-            if (putOnTop)
-            {
-                RecentProjectsTabControl.Items.Insert(1, newItem);
-            }
-            else
-            {
+                };
                 RecentProjectsTabControl.Items.Add(newItem);
             }
         }
@@ -626,7 +638,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnLayoutRootPropertyChanged(object sender, PropertyChangedEventArgs e) {}
 
-        private void ValidateMainWindowRibbonItems()
+        private void UpdateToolWindowButtonState()
         {
             if (toolViewController.ToolWindowViews != null)
             {
@@ -637,6 +649,11 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void InitMessagesWindowOrActivate()
         {
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
+            }
+
             if (messageWindow == null || messageWindow.IsDisposed)
             {
                 messageWindow = new MessageWindow.MessageWindow(this)
@@ -661,14 +678,14 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
-            var saveProject = commands.StorageCommands.SaveProject();
-            OnAfterProjectSaveOrOpen(saveProject);
+            var saveSuccesful = commands.StorageCommands.SaveProject();
+            OnAfterProjectSaveOrOpen(saveSuccesful);
         }
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
-            var saveProject = commands.StorageCommands.SaveProjectAs();
-            OnAfterProjectSaveOrOpen(saveProject);
+            var saveSuccesful = commands.StorageCommands.SaveProjectAs();
+            OnAfterProjectSaveOrOpen(saveSuccesful);
         }
 
         private void OnAfterProjectSaveOrOpen(bool actionSuccesful)
@@ -701,7 +718,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileExitClicked(object sender, RoutedEventArgs e)
         {
-            Gui.Exit();
+            gui.Exit();
         }
 
         private string GetLayoutFilePath()
@@ -750,13 +767,13 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             try
             {
-                var settings = File.ReadAllText(ribbonSettingsPath).Split('|');
-                if (settings.Length != 2)
+                var tokenizedRibbonSettings = File.ReadAllText(ribbonSettingsPath).Split('|');
+                if (tokenizedRibbonSettings.Length != 2)
                 {
                     return;
                 }
 
-                var ribbonStateSettings = settings[0].Split(',');
+                var ribbonStateSettings = tokenizedRibbonSettings[0].Split(',');
                 Ribbon.IsMinimized = bool.Parse(ribbonStateSettings[0]);
                 Ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonStateSettings[1]);
             }
