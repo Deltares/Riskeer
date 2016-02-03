@@ -33,26 +33,19 @@ namespace Core.Common.Gui.ContextMenu
     internal class TreeViewContextMenuItemFactory
     {
         private readonly TreeNode treeNode;
-        private readonly TreeNodeInfo treeNodeInfo;
         private readonly TreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="treeNode"/>.
         /// </summary>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create the <see cref="ToolStripItem"/> objects.</param>
-        /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to use while creating the <see cref="ToolStripItem"/> objects.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ToolStripItem"/> actions.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
-        public TreeViewContextMenuItemFactory(TreeNode treeNode, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
+        public TreeViewContextMenuItemFactory(TreeNode treeNode, TreeViewControl treeViewControl)
         {
             if (treeNode == null)
             {
                 throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
-            }
-
-            if (treeNodeInfo == null)
-            {
-                throw new ArgumentNullException("treeNodeInfo", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node_info);
             }
 
             if (treeViewControl == null)
@@ -61,7 +54,6 @@ namespace Core.Common.Gui.ContextMenu
             }
 
             this.treeNode = treeNode;
-            this.treeNodeInfo = treeNodeInfo;
             this.treeViewControl = treeViewControl;
         }
 
@@ -76,7 +68,7 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Rename_ToolTip,
                 Image = Resources.RenameIcon,
-                Enabled = treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(treeNode)
+                Enabled = treeViewControl.CanRename(treeNode)
             };
             toolStripMenuItem.Click += (s, e) => treeNode.BeginEdit();
             return toolStripMenuItem;
@@ -93,7 +85,7 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Delete_ToolTip,
                 Image = Resources.DeleteIcon,
-                Enabled = treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null)
+                Enabled = treeViewControl.CanRemove(treeNode)
             };
             toolStripMenuItem.Click += (s, e) => treeViewControl.DeleteNode(treeNode);
             return toolStripMenuItem;

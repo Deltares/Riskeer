@@ -25,11 +25,10 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void Constructor_WithoutTreeNode_ThrowsArgumentNullException()
         {
             // Setup
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(null, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new TreeViewContextMenuItemFactory(null, treeViewControlMock);
 
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -38,34 +37,15 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_WithoutTreeNodeInfo_ThrowsArgumentNullException()
-        {
-            // Setup
-            var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(treeNodeMock, null, treeViewControlMock);
-
-            // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.StartsWith(Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node_info, message);
-            StringAssert.EndsWith("treeNodeInfo", message);
-        }
-
-        [Test]
         public void Constructor_WithoutTreeViewControl_ThrowsArgumentNullException()
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(treeNodeMock, treeNodeInfoMock, null);
+            TestDelegate test = () => new TreeViewContextMenuItemFactory(treeNodeMock, null);
 
             // Assert
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -78,13 +58,12 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new TreeViewContextMenuItemFactory(treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new TreeViewContextMenuItemFactory(treeNodeMock, treeViewControlMock);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -121,6 +100,8 @@ namespace Core.Common.Gui.Test.ContextMenu
                 return !canDelete;
             };
 
+            treeViewControlMock.Expect(tvc => tvc.CanRemove(treeNodeMock)).Return(canDelete);
+
             if (canDelete)
             {
                 treeViewControlMock.Expect(tvc => tvc.DeleteNode(treeNodeMock));
@@ -128,7 +109,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory(treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var factory = new TreeViewContextMenuItemFactory(treeNodeMock, treeViewControlMock);
 
             // Call
             var item = factory.CreateDeleteItem();
@@ -163,6 +144,8 @@ namespace Core.Common.Gui.Test.ContextMenu
                 return !canRename;
             };
 
+            treeViewControlMock.Expect(tvc => tvc.CanRename(treeNodeMock)).Return(canRename);
+
             if (canRename)
             {
                 treeNodeMock.Expect(tv => tv.BeginEdit());
@@ -170,7 +153,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.ReplayAll();
 
-            var factory = new TreeViewContextMenuItemFactory(treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var factory = new TreeViewContextMenuItemFactory(treeNodeMock, treeViewControlMock);
 
             // Call
             var item = factory.CreateRenameItem();
@@ -201,7 +184,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                 treeNodeInfo.ChildNodeObjects = o => new object[] { new TreeNode() }; 
             }
 
-            var factory = new TreeViewContextMenuItemFactory(treeNode, treeNodeInfo, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(treeNode, treeViewControl);
 
             // Precondition
             Assert.IsFalse(treeNode.IsExpanded);
@@ -240,7 +223,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                 Assert.IsTrue(treeNode.IsExpanded);
             }
 
-            var factory = new TreeViewContextMenuItemFactory(treeNode, treeNodeInfo, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(treeNode, treeViewControl);
 
             // Call
             var item = factory.CreateCollapseAllItem();

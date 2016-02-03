@@ -747,6 +747,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, info, treeViewControl);
             gui.Expect(g => g.Get(node, info, treeViewControl)).Return(menuBuilder);
 
+            treeViewControl.Expect(tvc => tvc.CanRename(node)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanRemove(node)).Return(true);
+
             mocks.ReplayAll();
 
             plugin.Gui = gui;
@@ -861,6 +864,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, info, treeViewControl);
             gui.Expect(g => g.Get(node, info, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanRename(node)).Return(true);
 
             mocks.ReplayAll();
 

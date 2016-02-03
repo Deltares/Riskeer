@@ -61,7 +61,7 @@ namespace Core.Common.Gui.ContextMenu
             try
             {
                 guiItemsFactory = new GuiContextMenuItemFactory(featureCommandHandler, importExportHandler, viewsCommandsHandler, treeNode);
-                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode, treeNodeInfo, treeViewControl);
+                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode, treeViewControl);
             }
             catch (ArgumentNullException e)
             {

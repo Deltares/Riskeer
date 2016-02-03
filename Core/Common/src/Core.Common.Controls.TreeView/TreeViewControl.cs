@@ -123,11 +123,23 @@ namespace Core.Common.Controls.TreeView
             tagTypeTreeNodeInfoLookup[treeNodeInfo.TagType] = treeNodeInfo;
         }
 
-        public void DeleteNode(TreeNode node)
+        public bool CanRename(TreeNode node)
         {
             var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
 
-            if (treeNodeInfo.CanRemove == null || !treeNodeInfo.CanRemove(node.Tag, node.Parent != null ? node.Parent.Tag : null))
+            return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(node);
+        }
+
+        public bool CanRemove(TreeNode node)
+        {
+            var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
+
+            return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(node.Tag, node.Parent != null ? node.Parent.Tag : null);
+        }
+
+        public void DeleteNode(TreeNode node)
+        {
+            if (!CanRemove(node))
             {
                 MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
                 return;
@@ -138,6 +150,8 @@ namespace Core.Common.Controls.TreeView
             {
                 return;
             }
+
+            var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
 
             if (treeNodeInfo.OnNodeRemoved != null)
             {
@@ -449,8 +463,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewBeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            var treeNodeInfo = GetTreeNodeInfoForData(e.Node.Tag);
-            if (treeNodeInfo.CanRename == null || !treeNodeInfo.CanRename(e.Node))
+            if (!CanRename(e.Node))
             {
                 e.CancelEdit = true;
             }
