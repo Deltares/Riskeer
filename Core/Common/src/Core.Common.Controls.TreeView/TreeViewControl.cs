@@ -113,14 +113,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public IEnumerable<TreeNodeInfo> TreeNodeInfos
-        {
-            get
-            {
-                return treeNodeInfos;
-            }
-        }
-
         /// <summary>
         /// This method registers the provided <see cref="TreeNodeInfo"/>.
         /// </summary>

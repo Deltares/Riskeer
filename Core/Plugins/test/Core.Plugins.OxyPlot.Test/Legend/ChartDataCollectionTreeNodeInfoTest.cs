@@ -29,8 +29,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             legendView = new LegendView();
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
+            var treeNodeInfos = TypeUtils.GetField<IEnumerable<TreeNodeInfo>>(treeViewControl, "treeNodeInfos");
 
-            info = treeViewControl.TreeNodeInfos.First(tni => tni.TagType == typeof(ChartDataCollection));
+            info = treeNodeInfos.First(tni => tni.TagType == typeof(ChartDataCollection));
         }
 
         [Test]

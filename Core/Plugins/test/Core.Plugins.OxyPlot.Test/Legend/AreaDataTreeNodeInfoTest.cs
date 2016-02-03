@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -27,8 +28,9 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             legendView = new LegendView();
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
+            var treeNodeInfos = TypeUtils.GetField<IEnumerable<TreeNodeInfo>>(treeViewControl, "treeNodeInfos");
 
-            info = treeViewControl.TreeNodeInfos.First(tni => tni.TagType == typeof(AreaData));
+            info = treeNodeInfos.First(tni => tni.TagType == typeof(AreaData));
         }
 
         [Test]
