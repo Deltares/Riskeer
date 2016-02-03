@@ -15,7 +15,7 @@
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
 
         <fluent:Ribbon.ContextualGroups>
-            <fluent:RibbonContextualTabGroup Header="{x:Static p:Resources.Ribbon_ContextualGroup_Map}" Visibility="Visible" x:Name="MapContextualGroup" Background="MediumPurple" BorderBrush="MediumPurple" />
+            <fluent:RibbonContextualTabGroup Header="{x:Static p:Resources.Ribbon_ContextualGroup_Map}" Visibility="Visible" x:Name="MapContextualGroup" Background="ForestGreen" BorderBrush="ForestGreen" />
         </fluent:Ribbon.ContextualGroups>
 
         <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
@@ -24,6 +24,6 @@
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
-        <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}"/>
+        <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}" fluent:KeyTip.Keys="K"/>
     </fluent:Ribbon>
 </UserControl>
