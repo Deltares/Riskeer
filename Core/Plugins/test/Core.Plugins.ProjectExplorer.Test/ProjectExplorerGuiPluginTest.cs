@@ -24,35 +24,25 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationCore = new ApplicationCore();
-            var guiStub = mocks.Stub<IGui>();
-            var otherGuiPlugin = mocks.Stub<GuiPlugin>();
+            var gui = mocks.StrictMock<IGui>();
+            var otherGuiPlugin = mocks.StrictMock<GuiPlugin>();
 
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
-            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            guiStub.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            gui.Expect(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
 
-            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
+            gui.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true).Repeat.Times(3);
+            gui.Expect(g => g.CloseToolView(Arg<ProjectExplorer>.Matches(r => true)));
 
-            guiStub.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectClosing += Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ProjectClosing -= Arg<Action<Project>>.Is.Anything).Repeat.Any();
-            guiStub.Expect(g => g.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
-            guiStub.Expect(g => g.DocumentViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
+            gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
 
-            guiStub.Replay();
+            gui.Replay();
 
             using (var projectExplorerGuiPlugin = new ProjectExplorerGuiPlugin
             {
-                Gui = guiStub
+                Gui = gui
             })
             {
-                guiStub.Expect(g => g.Plugins).Return(new List<GuiPlugin>
+                gui.Expect(g => g.Plugins).Return(new List<GuiPlugin>
                 {
                     projectExplorerGuiPlugin, otherGuiPlugin
                 }).Repeat.Any();

@@ -66,7 +66,7 @@ namespace Core.Plugins.ProjectExplorer
                 projectExplorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
                 projectExplorer.TreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
 
-                toolViewController.ToolWindowViews.Add(projectExplorer, ViewLocation.Left | ViewLocation.Top);
+                toolViewController.OpenToolView(projectExplorer);
 
                 if (OnOpenView != null)
                 {
@@ -108,7 +108,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (IsViewActive())
             {
-                toolViewController.ToolWindowViews.Remove(projectExplorer); // Disposes the view.
+                toolViewController.CloseToolView(projectExplorer); // Disposes the view.
                 projectExplorer = null;
             }
         }

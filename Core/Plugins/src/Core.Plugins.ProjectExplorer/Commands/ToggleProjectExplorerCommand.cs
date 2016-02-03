@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.Commands;
 
 namespace Core.Plugins.ProjectExplorer.Commands
@@ -35,8 +36,13 @@ namespace Core.Plugins.ProjectExplorer.Commands
         /// </summary>
         /// <param name="viewController">The <see cref="ProjectExplorerViewController"/> to use for
         /// querying and modifying the project explorer's state.</param>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="viewController"/> is <c>null</c>.</exception>
         public ToggleProjectExplorerCommand(ProjectExplorerViewController viewController)
         {
+            if (viewController == null)
+            {
+                throw new ArgumentNullException("viewController");
+            }
             this.viewController = viewController;
         }
 
