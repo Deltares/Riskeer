@@ -43,8 +43,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Helpers\NamingHelper.cs" />
-    <Compile Include="NodePresenters\CategoryTreeFolderNodePresenter.cs" />
-    <Compile Include="NodePresenters\RingtoetsNodePresenterBase.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

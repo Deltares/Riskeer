@@ -73,27 +73,27 @@ namespace Core.Plugins.OxyPlot.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gebied.
         /// </summary>
-        public static string ChartDataNodePresenter_Area_data_label {
+        public static string ChartData_Area_data_label {
             get {
-                return ResourceManager.GetString("ChartDataNodePresenter_Area_data_label", resourceCulture);
+                return ResourceManager.GetString("ChartData_Area_data_label", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lijn.
         /// </summary>
-        public static string ChartDataNodePresenter_Line_data_label {
+        public static string ChartData_Line_data_label {
             get {
-                return ResourceManager.GetString("ChartDataNodePresenter_Line_data_label", resourceCulture);
+                return ResourceManager.GetString("ChartData_Line_data_label", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Punten.
         /// </summary>
-        public static string ChartDataNodePresenter_Point_data_label {
+        public static string ChartData_Point_data_label {
             get {
-                return ResourceManager.GetString("ChartDataNodePresenter_Point_data_label", resourceCulture);
+                return ResourceManager.GetString("ChartData_Point_data_label", resourceCulture);
             }
         }
         

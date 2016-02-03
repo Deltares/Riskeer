@@ -63,7 +63,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeGraphicExtensionsTest.cs" />
     <Compile Include="TreeViewControllerTest.cs" />
-    <Compile Include="TreeViewNodePresenterBaseTest.cs" />
     <Compile Include="TreeViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

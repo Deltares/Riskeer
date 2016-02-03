@@ -60,7 +60,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             var text = info.Text(pointData);
 
             // Assert
-            Assert.AreEqual(Resources.ChartDataNodePresenter_Point_data_label, text);
+            Assert.AreEqual(Resources.ChartData_Point_data_label, text);
 
             mocks.VerifyAll();
         }

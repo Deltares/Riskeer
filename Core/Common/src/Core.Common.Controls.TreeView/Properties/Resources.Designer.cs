@@ -586,16 +586,6 @@ namespace Core.Common.Controls.TreeView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse..
-        /// </summary>
-        internal static string TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class {
-            get {
-                return ResourceManager.GetString("TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_deri" +
-                        "ved_class", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. 
         ///
         ///Fout:

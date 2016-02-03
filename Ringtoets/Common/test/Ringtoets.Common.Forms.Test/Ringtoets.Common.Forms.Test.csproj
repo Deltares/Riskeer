@@ -55,8 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\NamingHelperTest.cs" />
-    <Compile Include="NodePresenters\CategoryTreeFolderNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\RingtoetsNodePresenterBaseTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

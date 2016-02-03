@@ -188,9 +188,6 @@ Fout:
   <data name="WizardDialog_WizardControl1NextClick_Error_occurred" xml:space="preserve">
     <value>Fout opgetreden</value>
   </data>
-  <data name="TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class" xml:space="preserve">
-    <value>OnNodeRenamed moet zijn geïmplementeerd in de afgeleide klasse.</value>
-  </data>
   <data name="TreeView_TreeViewDragDrop_Error_during_drag_drop_0_" xml:space="preserve">
     <value>Fout tijdens slepen/neerzetten: {0}.</value>
   </data>

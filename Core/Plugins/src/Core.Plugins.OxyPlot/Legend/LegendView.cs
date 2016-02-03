@@ -48,7 +48,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<PointData>
             {
-                Text = pointData => OxyPlotResources.ChartDataNodePresenter_Point_data_label,
+                Text = pointData => OxyPlotResources.ChartData_Point_data_label,
                 Image = pointData => OxyPlotResources.PointsIcon,
                 CanDrag = (pointData, sourceNode) => DragOperations.Move,
                 CanCheck = pointData => true,
@@ -58,7 +58,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
             {
-                Text = lineData => OxyPlotResources.ChartDataNodePresenter_Line_data_label,
+                Text = lineData => OxyPlotResources.ChartData_Line_data_label,
                 Image = lineData => OxyPlotResources.LineIcon,
                 CanDrag = (lineData, sourceNode) => DragOperations.Move,
                 CanCheck = lineData => true,
@@ -68,7 +68,7 @@ namespace Core.Plugins.OxyPlot.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
             {
-                Text = areaData => OxyPlotResources.ChartDataNodePresenter_Area_data_label,
+                Text = areaData => OxyPlotResources.ChartData_Area_data_label,
                 Image = areaData => OxyPlotResources.AreaIcon,
                 CanDrag = (areaData, sourceNode) => DragOperations.Move,
                 CanCheck = areaData => true,
