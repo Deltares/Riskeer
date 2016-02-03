@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMultiMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            gui.Expect(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(g => g.Get(treeNode, treeViewControlMock)).Return(menuBuilderMock);
             
             menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, treeNode, info, treeViewControlMock);
+            info.ContextMenuStrip(null, treeNode, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();
@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
     public class TestAssessmentSectionBase : AssessmentSectionBase {
 
-        private IEnumerable<IFailureMechanism> failureMechanisms;
+        private readonly IEnumerable<IFailureMechanism> failureMechanisms;
 
         public TestAssessmentSectionBase(FailureMechanismContribution contribution, IEnumerable<IFailureMechanism> failureMechanisms)
         {

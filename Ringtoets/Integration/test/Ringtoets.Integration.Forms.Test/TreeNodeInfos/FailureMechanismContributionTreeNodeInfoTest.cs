@@ -86,14 +86,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(nodeMock, info, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControlMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
             
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, nodeMock, info, treeViewControlMock);
+            info.ContextMenuStrip(null, nodeMock, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();

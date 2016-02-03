@@ -25,14 +25,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var importExportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(null, importExportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new ContextMenuBuilder(null, importExportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
@@ -46,14 +45,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMock, null, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMock, null, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
@@ -69,12 +67,11 @@ namespace Core.Common.Gui.Test.ContextMenu
             var applicationFeatureCommandsMockMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMockMock, exportImportHandlerMock, null, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMockMock, exportImportHandlerMock, null, treeNodeMock, treeViewControlMock);
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
@@ -88,13 +85,12 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var importExportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMock, importExportHandlerMock, viewCommandsMock, null, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMock, importExportHandlerMock, viewCommandsMock, null, treeViewControlMock);
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
@@ -109,10 +105,9 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeNodeMock = mocks.StrictMock<TreeNode>();
             var importExportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMock, importExportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, null);
+            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMock, importExportHandlerMock, viewCommandsMock, treeNodeMock, null);
 
             // Assert
             var message = Assert.Throws<ContextMenuBuilderException>(test).Message;
@@ -127,12 +122,11 @@ namespace Core.Common.Gui.Test.ContextMenu
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMockMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            TestDelegate test = () => new ContextMenuBuilder(applicationFeatureCommandsMockMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -148,11 +142,10 @@ namespace Core.Common.Gui.Test.ContextMenu
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMockMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMockMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Call
             var result = builder.Build();
@@ -182,7 +175,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControl);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControl);
 
             // Call
             var result = builder.AddRenameItem().Build();
@@ -221,7 +214,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControl);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControl);
 
             // Call
             var result = builder.AddDeleteItem().Build();
@@ -246,7 +239,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var treeNode= new TreeNode();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
 
             if (hasChildren)
             {
@@ -255,7 +247,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNode, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNode, treeViewControlMock);
 
             // Call
             var result = builder.AddExpandAllItem().Build();
@@ -280,7 +272,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var treeNode = new TreeNode();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
 
             if (hasChildren)
             {
@@ -289,7 +280,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNode, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNode, treeViewControlMock);
 
             // Call
             var result = builder.AddCollapseAllItem().Build();
@@ -314,7 +305,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var treeNodeMock = mocks.Stub<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             var nodeData = new object();
 
             viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewForNodeData);
@@ -323,7 +313,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             treeNodeMock.Tag = nodeData;
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Call
             var result = builder.AddOpenItem().Build();
@@ -349,14 +339,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var nodeData = new object();
             var treeNodeMock = mocks.Stub<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             exportImportHandlerMock.Expect(ch => ch.CanExportFrom(nodeData)).Return(hasExportersForNodeData);
 
             mocks.ReplayAll();
 
             treeNodeMock.Tag = nodeData;
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Call
             var result = builder.AddExportItem().Build();
@@ -382,14 +371,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var nodeData = new object();
             var treeNodeMock = mocks.Stub<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             exportImportHandlerMock.Expect(ch => ch.CanImportOn(nodeData)).Return(hasImportersForNodeData);
 
             mocks.ReplayAll();
 
             treeNodeMock.Tag = nodeData;
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Call
             var result = builder.AddImportItem().Build();
@@ -415,7 +403,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var nodeData = new object();
             var treeNodeMock = mocks.Stub<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
 
             applicationFeatureCommandsMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertiesForNodeData);
 
@@ -423,7 +410,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             treeNodeMock.Tag = nodeData;
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
             
             // Call
             var result = builder.AddPropertiesItem().Build();
@@ -442,14 +429,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
             var item = new StrictContextMenuItem(null,null,null,null);
 
             // Call
@@ -469,14 +455,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             // Call
             var result = builder.AddSeparator().Build();
@@ -495,14 +480,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             var someItem = new StrictContextMenuItem(null, null, null, null);
 
@@ -529,14 +513,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             var someItem = new StrictContextMenuItem(null, null, null, null);
             var someOtherItem = new StrictContextMenuItem(null, null, null, null);
@@ -567,14 +550,13 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
-            var treeNodeInfoMock = mocks.Stub<TreeNodeInfo>();
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             mocks.ReplayAll();
 
-            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeNodeInfoMock, treeViewControlMock);
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, treeNodeMock, treeViewControlMock);
 
             builder.AddCustomItem(new StrictContextMenuItem(null, null, null, null));
 

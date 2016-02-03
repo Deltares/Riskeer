@@ -116,7 +116,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-            gui.Expect(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(g => g.Get(treeNode, treeViewControlMock)).Return(menuBuilderMock);
             gui.Expect(g => g.ViewCommands).Return(viewCommandsMock);
             gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
 
@@ -136,7 +136,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, treeNode, info, treeViewControlMock);
+            info.ContextMenuStrip(null, treeNode, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();
@@ -155,7 +155,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             var projectCommandsMock = mocks.StrictMock<IProjectCommands>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-            guiMock.Stub(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilder);
+            guiMock.Stub(g => g.Get(treeNode, treeViewControlMock)).Return(menuBuilder);
             guiMock.Stub(g => g.ProjectCommands).Return(projectCommandsMock);
             guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
             guiMock.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
@@ -166,7 +166,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             plugin.Gui = guiMock;
 
             // Call
-            var result = info.ContextMenuStrip(project, treeNode, info, treeViewControlMock);
+            var result = info.ContextMenuStrip(project, treeNode, treeViewControlMock);
 
             result.Items[0].PerformClick();
 

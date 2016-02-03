@@ -52,11 +52,10 @@ namespace Core.Common.Gui.ContextMenu
         /// to obtain information to render and bind actions to the items of the <see cref="ContextMenu"/>. 
         /// If <c>null</c>, this builder will not render items which require this type of information.</param>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
-        /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to use while creating the <see cref="ContextMenuStrip"/>.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
         /// the <paramref name="featureCommandHandler"/> or <paramref name="treeNode"/>.</exception>
-        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
+        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode, TreeViewControl treeViewControl)
         {
             try
             {

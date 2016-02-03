@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
             }
 
-            gui.Expect(cmp => cmp.Get(nodeMock, info, treeViewControl)).Return(menuBuilder);
+            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControl)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             dataMock.CalculationsGroup.Children.ElementAt(0).Attach(observer);
             dataMock.CalculationsGroup.Children.ElementAt(1).Attach(observer);
 
-            ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(dataMock, nodeMock, info, treeViewControl);
+            ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(dataMock, nodeMock, treeViewControl);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -204,15 +204,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, info, treeViewControl);
-            gui.Expect(cmp => cmp.Get(node, info, treeViewControl)).Return(menuBuilder);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, treeViewControl);
+            gui.Expect(cmp => cmp.Get(node, treeViewControl)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(failureMechanism, node, info, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(failureMechanism, node, treeViewControl);
 
             // Assert
             Assert.AreEqual(12, menu.Items.Count);
@@ -251,14 +251,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
 
             var gui = mocks.StrictMock<IGui>();
-            gui.Expect(cmp => cmp.Get(nodeMock, info, treeViewControl)).Return(menuBuilder);
+            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControl)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, nodeMock, info, treeViewControl);
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, nodeMock, treeViewControl);
 
             // Assert
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
@@ -279,7 +279,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var gui = mocks.StrictMock<IGui>();
 
-            gui.Expect(cmp => cmp.Get(nodeMock, info, treeViewControl)).Return(menuBuilder);
+            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControl)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
@@ -291,7 +291,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             });
 
             // Call
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, nodeMock, info, treeViewControl);
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, nodeMock, treeViewControl);
 
             // Assert
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
@@ -312,7 +312,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var dataMock = new PipingFailureMechanism();
             var gui = mocks.StrictMock<IGui>();
 
-            gui.Expect(cmp => cmp.Get(nodeMock, info, treeViewControl)).Return(menuBuilder);
+            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControl)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             dataMock.CalculationsGroup.Children.Clear();
 
             // Call
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, nodeMock, info, treeViewControl);
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, nodeMock, treeViewControl);
 
             // Assert
             ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
@@ -357,14 +357,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(nodeMock, info, treeViewControl)).Return(menuBuilder);
+            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControl)).Return(menuBuilder);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(new PipingFailureMechanism(), nodeMock, info, treeViewControl);
+            info.ContextMenuStrip(new PipingFailureMechanism(), nodeMock, treeViewControl);
 
             // Assert
             mocks.VerifyAll();

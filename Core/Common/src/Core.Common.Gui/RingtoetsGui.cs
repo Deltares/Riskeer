@@ -749,9 +749,9 @@ namespace Core.Common.Gui
 
         #region Implementation: IContextMenuBuilderProvider
 
-        public IContextMenuBuilder Get(TreeNode treeNode, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
+        public IContextMenuBuilder Get(TreeNode treeNode, TreeViewControl treeViewControl)
         {
-            return new ContextMenuBuilder(appFeatureApplicationCommands, exportImportCommandHandler, ViewCommands, treeNode, treeNodeInfo, treeViewControl);
+            return new ContextMenuBuilder(appFeatureApplicationCommands, exportImportCommandHandler, ViewCommands, treeNode, treeViewControl);
         }
 
         #endregion
