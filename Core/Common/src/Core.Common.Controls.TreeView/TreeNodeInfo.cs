@@ -314,7 +314,7 @@ namespace Core.Common.Controls.TreeView
                             : (Func<object, Image>) null,
                 ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
                                        ? (tag, sourceNode, info, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, sourceNode, info, treeViewControl)
-                                       : (Func<object, TreeNode, TreeNodeInfo, TreeViewControl, ContextMenuStrip>)null,
+                                       : (Func<object, TreeNode, TreeNodeInfo, TreeViewControl, ContextMenuStrip>) null,
                 ChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,

@@ -1,8 +1,31 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of 
+// Stichting Deltares and remain full property of Stichting Deltares at all times. 
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Core.Common.Base;
@@ -15,6 +38,12 @@ namespace Core.Common.Controls.TreeView
 {
     public partial class TreeViewControl : UserControl
     {
+        public event EventHandler TreeNodeDoubleClick;
+        public event EventHandler NodeUpdated; // TODO; Way to explicit!
+        public event EventHandler<TreeNodeDataDeletedEventArgs> NodeDataDeleted; // TODO; Way to explicit!
+        public event EventHandler SelectedNodeChanged;
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewControl));
         private readonly ICollection<TreeNodeInfo> treeNodeInfos = new HashSet<TreeNodeInfo>();
         private readonly Dictionary<Type, TreeNodeInfo> tagTypeTreeNodeInfoLookup = new Dictionary<Type, TreeNodeInfo>();
         private readonly int maximumTextLength = 259;
@@ -26,13 +55,6 @@ namespace Core.Common.Controls.TreeView
         private TreeNode nodeDropTarget;
         private TreeNode lastPlaceholderNode;
         private Graphics placeHolderGraphics;
-
-        private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewControl));
-
-        public event EventHandler TreeNodeDoubleClick;
-        public event EventHandler NodeUpdated; // TODO; Way to explicit!
-        public event EventHandler<TreeNodeDataDeletedEventArgs> NodeDataDeleted; // TODO; Way to explicit!
-        public event EventHandler SelectedNodeChanged;
 
         public TreeViewControl()
         {
@@ -168,7 +190,7 @@ namespace Core.Common.Controls.TreeView
             {
                 Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
 
-                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width) / 2, (result.Height - glyphSize.Height) / 2), state);
+                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width)/2, (result.Height - glyphSize.Height)/2), state);
             }
 
             return result;
@@ -260,11 +282,11 @@ namespace Core.Common.Controls.TreeView
 
         private string GetImageHash(Image image)
         {
-            var stream = new System.IO.MemoryStream();
+            var stream = new MemoryStream();
             image.Save(stream, image.RawFormat);
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             byte[] hash = md5.ComputeHash(stream.ToArray());
-            return System.Text.Encoding.UTF8.GetString(hash);
+            return Encoding.UTF8.GetString(hash);
         }
 
         private void AddRootNode()
@@ -387,6 +409,42 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        # region Nested types
+
+        private class TreeNodeObserver : IDisposable, IObserver
+        {
+            private readonly TreeNode treeNode;
+            private readonly TreeViewControl treeViewControl;
+
+            public TreeNodeObserver(TreeNode treeNode, TreeViewControl treeViewControl)
+            {
+                this.treeNode = treeNode;
+                this.treeViewControl = treeViewControl;
+
+                var observable = treeNode.Tag as IObservable;
+                if (observable != null)
+                {
+                    observable.Attach(this);
+                }
+            }
+
+            public void Dispose()
+            {
+                var observable = treeNode.Tag as IObservable;
+                if (observable != null)
+                {
+                    observable.Detach(this);
+                }
+            }
+
+            public void UpdateObserver()
+            {
+                treeViewControl.UpdateNode(treeNode);
+            }
+        }
+
+        # endregion
+
         # region TreeView event handling
 
         private void TreeViewBeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -451,8 +509,8 @@ namespace Core.Common.Controls.TreeView
 
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     selectedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode, treeNodeInfo, this)
-                                        : null;
+                                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode, treeNodeInfo, this)
+                                                        : null;
 
                     if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
                     {
@@ -525,8 +583,8 @@ namespace Core.Common.Controls.TreeView
 
                 // Update the context menu
                 clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                    ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, treeNodeInfo, this)
-                                    : null;
+                                                   ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, treeNodeInfo, this)
+                                                   : null;
 
                 return;
             }
@@ -656,8 +714,8 @@ namespace Core.Common.Controls.TreeView
             // Determine whether ot not the node can be dropped based on the allowed operations.
             // A node can also be a valid drop traget if it is the root item (nodeDragging.Parent == null).
             var dragOperations = treeNodeInfo.CanDrop != null
-                ? treeNodeInfo.CanDrop(nodeDragging, nodeDropTarget, allowedOperations)
-                : DragOperations.None;
+                                     ? treeNodeInfo.CanDrop(nodeDragging, nodeDropTarget, allowedOperations)
+                                     : DragOperations.None;
 
             if (DragOperations.None != dragOperations)
             {
@@ -674,7 +732,7 @@ namespace Core.Common.Controls.TreeView
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
         {
             // gather allowed effects for the current item.
-            var sourceNode = (TreeNode)e.Item;
+            var sourceNode = (TreeNode) e.Item;
             var treeNodeInfo = GetTreeNodeInfoForData(sourceNode.Tag);
 
             DragOperations dragOperation = treeNodeInfo.CanDrag != null
@@ -771,7 +829,7 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
             int delta = treeView.Height - point.Y;
-            if ((delta < treeView.Height / 2) && (delta > 0))
+            if ((delta < treeView.Height/2) && (delta > 0))
             {
                 var nextVisibleNode = nodeOver.NextVisibleNode;
                 if (nextVisibleNode != null)
@@ -779,7 +837,7 @@ namespace Core.Common.Controls.TreeView
                     nextVisibleNode.EnsureVisible();
                 }
             }
-            if ((delta > treeView.Height / 2) && (delta < treeView.Height))
+            if ((delta > treeView.Height/2) && (delta < treeView.Height))
             {
                 var previousVisibleNode = nodeOver.PrevVisibleNode;
                 if (previousVisibleNode != null)
@@ -794,7 +852,7 @@ namespace Core.Common.Controls.TreeView
             var loc = PlaceholderLocation.None;
             int offsetY = treeView.PointToClient(Cursor.Position).Y - nodeOver.Bounds.Top;
 
-            if (offsetY < nodeOver.Bounds.Height / 3 && nodeDragging.NextNode != nodeOver)
+            if (offsetY < nodeOver.Bounds.Height/3 && nodeDragging.NextNode != nodeOver)
             {
                 if (nodeOver.Parent != null)
                 {
@@ -819,7 +877,7 @@ namespace Core.Common.Controls.TreeView
                     loc = PlaceholderLocation.Middle;
                 }
             }
-            else if ((nodeOver.Parent != null) && (offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height / 3) &&
+            else if ((nodeOver.Parent != null) && (offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height/3) &&
                      nodeDragging.PrevNode != nodeOver)
             {
                 var treeNodeInfo = GetTreeNodeInfoForData(nodeOver.Parent.Tag);
@@ -838,8 +896,8 @@ namespace Core.Common.Controls.TreeView
                     loc = PlaceholderLocation.Middle;
                 }
             }
-            else if (nodeDragging != nodeOver && offsetY < nodeOver.Bounds.Height - nodeOver.Bounds.Height / 4
-                     && offsetY > nodeOver.Bounds.Height / 4)
+            else if (nodeDragging != nodeOver && offsetY < nodeOver.Bounds.Height - nodeOver.Bounds.Height/4
+                     && offsetY > nodeOver.Bounds.Height/4)
             {
                 nodeDropTarget = nodeOver;
                 dropAtLocation = 0;
@@ -877,42 +935,6 @@ namespace Core.Common.Controls.TreeView
             if (NodeDataDeleted != null)
             {
                 NodeDataDeleted(this, new TreeNodeDataDeletedEventArgs(node.Tag));
-            }
-        }
-
-        # endregion
-
-        # region Nested types
-
-        private class TreeNodeObserver : IDisposable, IObserver
-        {
-            private readonly TreeNode treeNode;
-            private readonly TreeViewControl treeViewControl;
-
-            public TreeNodeObserver(TreeNode treeNode, TreeViewControl treeViewControl)
-            {
-                this.treeNode = treeNode;
-                this.treeViewControl = treeViewControl;
-
-                var observable = treeNode.Tag as IObservable;
-                if (observable != null)
-                {
-                    observable.Attach(this);
-                }
-            }
-
-            public void Dispose()
-            {
-                var observable = treeNode.Tag as IObservable;
-                if (observable != null)
-                {
-                    observable.Detach(this);
-                }
-            }
-
-            public void UpdateObserver()
-            {
-                treeViewControl.UpdateNode(treeNode);
             }
         }
 
