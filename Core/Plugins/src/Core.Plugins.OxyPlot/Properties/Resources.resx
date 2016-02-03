@@ -167,7 +167,7 @@
     <value>Grafiek</value>
   </data>
   <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
-    <value>Open het gereedschapsvenster voor grafieken.</value>
+    <value>Open het grafiekenpaneel.</value>
   </data>
   <data name="Ribbon_Toggle_Panning" xml:space="preserve">
     <value>Verschuiven</value>

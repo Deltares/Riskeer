@@ -131,6 +131,6 @@
     <value>Kaart</value>
   </data>
   <data name="Ribbon_Toggle_Legend_ToopTip" xml:space="preserve">
-    <value>Open het gereedschapvenster voor kaarten.</value>
+    <value>Open het kaartenpaneel.</value>
   </data>
 </root>
