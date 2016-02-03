@@ -36,7 +36,8 @@ namespace Core.Components.DotSpatial.Converter
         {
             new MapDataCollectionConverter(),
             new MapPointDataConverter(),
-            new MapLineDataConverter()
+            new MapLineDataConverter(),
+            new MapPolygonDataConverter()
         };
         /// <summary>
         /// Creates a new <see cref="FeatureSet"/> from the given <paramref name="data"/>.

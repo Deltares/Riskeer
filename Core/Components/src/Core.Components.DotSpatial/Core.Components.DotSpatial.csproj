@@ -101,6 +101,8 @@
     <Compile Include="Converter\MapDataFactory.cs" />
     <Compile Include="Converter\MapLineDataConverter.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />
+    <Compile Include="Converter\MapPolygonDataConverter.cs" />
+    <Compile Include="Data\MapPolygonData.cs" />
     <Compile Include="Data\MapData.cs" />
     <Compile Include="Data\MapDataCollection.cs" />
     <Compile Include="Data\MapLineData.cs" />

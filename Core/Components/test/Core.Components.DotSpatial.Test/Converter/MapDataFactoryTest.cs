@@ -34,6 +34,44 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Create_MapLineData_ReturnFeatureSetWithLineType()
+        {
+            // Setup
+            var factory = new MapDataFactory();
+            var testData = CreateTestData();
+
+            // Call
+            IList<FeatureSet> featureSets = factory.Create(new MapLineData(testData));
+
+            // Assert
+            Assert.IsInstanceOf<IList<FeatureSet>> (featureSets);
+            var featureSet = featureSets[0];
+            Assert.AreEqual(1, featureSet.Features.Count);
+            Assert.IsInstanceOf<FeatureSet>(featureSet);
+            Assert.IsInstanceOf<LineString>(featureSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Line, featureSet.FeatureType);
+        }
+
+        [Test]
+        public void Create_MapPolygonData_ReturnFeatureSetWithPolygonType()
+        {
+            // Setup
+            var factory = new MapDataFactory();
+            var testData = CreateTestData();
+
+            // Call
+            IList<FeatureSet> featureSets = factory.Create(new MapPolygonData(testData));
+
+            // Assert
+            Assert.IsInstanceOf<IList<FeatureSet>> (featureSets);
+            var featureSet = featureSets[0];
+            Assert.AreEqual(1, featureSet.Features.Count);
+            Assert.IsInstanceOf<FeatureSet>(featureSet);
+            Assert.IsInstanceOf<Polygon>(featureSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Polygon, featureSet.FeatureType);
+        }
+
+        [Test]
         public void Create_OtherData_ThrownsNotSupportedException()
         {
             // Setup

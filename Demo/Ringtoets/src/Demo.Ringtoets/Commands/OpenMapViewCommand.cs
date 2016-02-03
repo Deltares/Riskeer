@@ -50,8 +50,15 @@ namespace Demo.Ringtoets.Commands
                 new Tuple<double, double>(1.0, 2.1),
                 new Tuple<double, double>(1.6, 1.6)
             });
+            var polygons = new MapPolygonData(new Collection<Tuple<double, double>>
+            {
+                new Tuple<double, double>(1.0, 1.3),
+                new Tuple<double, double>(3.0, 2.6),
+                new Tuple<double, double>(5.6, 1.6)
+            });
 
-            documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData> { points, lines }));
+
+            documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData> { points, lines, polygons }));
         }
     }
 }
