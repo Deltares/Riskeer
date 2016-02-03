@@ -29,12 +29,8 @@ namespace Core.Common.Controls.TreeView
 {
     public class TreeView : System.Windows.Forms.TreeView
     {
-        private readonly TreeViewController controller;
-
         public TreeView()
         {
-            controller = new TreeViewController(this);
-
             StateImageList = new ImageList();
 
             StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
@@ -64,21 +60,6 @@ namespace Core.Common.Controls.TreeView
                   new Point((result.Width - glyphSize.Width) / 2, (result.Height - glyphSize.Height) / 2), state);
             }
             return result;
-        }
-
-        public TreeViewController TreeViewController
-        {
-            get
-            {
-                return controller;
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            controller.Dispose();
-
-            base.Dispose(disposing);
         }
 
         # region Logic for preventing expand/collapse on double click
