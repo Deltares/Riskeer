@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace Core.Common.Controls.TreeView
 {
@@ -31,15 +30,6 @@ namespace Core.Common.Controls.TreeView
     {
         public TreeView()
         {
-            StateImageList = new ImageList();
-
-            StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
-            StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.CheckedNormal));
-
-            DrawMode = TreeViewDrawMode.Normal;
-            LabelEdit = true;
-            HideSelection = false;
-
             // Enable default double buffering processing
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
 
@@ -48,18 +38,6 @@ namespace Core.Common.Controls.TreeView
             {
                 SetStyle(ControlStyles.UserPaint, true);
             }
-        }
-
-        private Image CreateCheckBoxGlyph(CheckBoxState state)
-        {
-            Bitmap result = new Bitmap(16, 16);
-            using (Graphics g = Graphics.FromImage(result))
-            {
-                Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
-                CheckBoxRenderer.DrawCheckBox(g,
-                  new Point((result.Width - glyphSize.Width) / 2, (result.Height - glyphSize.Height) / 2), state);
-            }
-            return result;
         }
 
         # region Logic for preventing expand/collapse on double click
