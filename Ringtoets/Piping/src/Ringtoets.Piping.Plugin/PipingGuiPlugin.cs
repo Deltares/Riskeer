@@ -209,14 +209,14 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
                 PipingFormsResources.AddFolderIcon,
-                (o, args) => AddCalculationGroup(failureMechanism, node)
+                (o, args) => AddCalculationGroup(failureMechanism, node, treeViewControl)
                 );
 
             var addCalculationItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
                 PipingFormsResources.PipingIcon,
-                (s, e) => AddCalculation(failureMechanism, node)
+                (s, e) => AddCalculation(failureMechanism, node, treeViewControl)
                 );
 
             var validateAllItem = CreateValidateAllItem(failureMechanism);
@@ -314,7 +314,7 @@ namespace Ringtoets.Piping.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculationsResursively(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
-        private void AddCalculationGroup(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode)
+        private void AddCalculationGroup(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode, TreeViewControl treeViewControl)
         {
             var calculation = new PipingCalculationGroup
             {
@@ -323,10 +323,10 @@ namespace Ringtoets.Piping.Plugin
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.NotifyObservers();
 
-            SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode);
+            SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode, treeViewControl);
         }
 
-        private void AddCalculation(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode)
+        private void AddCalculation(PipingFailureMechanism failureMechanism, TreeNode failureMechanismNode, TreeViewControl treeViewControl)
         {
             var calculation = new PipingCalculation
             {
@@ -335,10 +335,10 @@ namespace Ringtoets.Piping.Plugin
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.NotifyObservers();
 
-            SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode);
+            SelectNewlyAddedPipingFailureMechanismItemInTreeView(failureMechanismNode, treeViewControl);
         }
 
-        private void SelectNewlyAddedPipingFailureMechanismItemInTreeView(TreeNode failureMechanismNode)
+        private void SelectNewlyAddedPipingFailureMechanismItemInTreeView(TreeNode failureMechanismNode, TreeViewControl treeViewControl)
         {
             if (!failureMechanismNode.IsExpanded)
             {
@@ -355,7 +355,7 @@ namespace Ringtoets.Piping.Plugin
                 failureMechanismsCalculationsNode.Expand();
             }
 
-            failureMechanismNode.TreeView.SelectedNode = newlyAddedGroupNode;
+            treeViewControl.SelectNodeForData(newlyAddedGroupNode.Tag);
         }
 
         private static IEnumerable<PipingCalculation> GetAllPipingCalculationsResursively(PipingFailureMechanism failureMechanism)
@@ -552,7 +552,7 @@ namespace Ringtoets.Piping.Plugin
                     group.Children.Add(newGroup);
                     nodeData.NotifyObservers();
 
-                    SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(node);
+                    SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(node, treeViewControl);
                 });
 
             var addCalculationItem = new StrictContextMenuItem(
@@ -568,7 +568,7 @@ namespace Ringtoets.Piping.Plugin
                     group.Children.Add(calculation);
                     nodeData.NotifyObservers();
 
-                    SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(node);
+                    SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(node, treeViewControl);
                 });
 
             var validateAllItem = CreateValidateAllItem(group);
@@ -806,7 +806,7 @@ namespace Ringtoets.Piping.Plugin
             return new DroppingPipingCalculationToNewContainer(originalOwnerContext, target);
         }
 
-        private void SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(TreeNode node)
+        private void SelectNewlyAddedPipingCalculationGroupContextItemInTreeView(TreeNode node, TreeViewControl treeViewControl)
         {
             // Expand parent of 'newItem' to ensure its selected state is visible.
             if (!node.IsExpanded)
@@ -814,7 +814,7 @@ namespace Ringtoets.Piping.Plugin
                 node.Expand();
             }
             TreeNode newlyAppendedNodeForNewItem = node.Nodes.OfType<TreeNode>().Last();
-            node.TreeView.SelectedNode = newlyAppendedNodeForNewItem;
+            treeViewControl.SelectNodeForData(newlyAppendedNodeForNewItem.Tag);
         }
 
         #region Nested Types: DroppingPipingCalculationInContainerStrategy and implementations

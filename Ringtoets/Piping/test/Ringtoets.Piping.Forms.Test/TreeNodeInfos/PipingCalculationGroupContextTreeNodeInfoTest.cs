@@ -1089,8 +1089,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void GetContextMenu_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
             // Setup
+            var tag = new object();
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new PipingCalculationGroup();
             var nodeData = new PipingCalculationGroupContext(group,
@@ -1103,10 +1103,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var newCalculationGroupContextNode = new TreeNode();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            treeViewControl.Expect(tvc => tvc.SelectNodeForData(tag));
+
+            var newCalculationGroupContextNode = new TreeNode { Tag = tag };
 
             // Parent node of newly added item, should be expanded from collapsed state to show selected node:
-            var treeView = new TreeView();
             var parentNode = new TreeNode();
             var node = new TreeNode
             {
@@ -1116,8 +1118,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             node.Collapse();
 
             parentNode.Nodes.Add(node);
-
-            treeView.Nodes.Add(parentNode);
 
             gui.Expect(cmp => cmp.Get(node, info, treeViewControl)).Return(menuBuilder);
 
@@ -1144,9 +1144,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                             "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
 
-            Assert.AreSame(newCalculationGroupContextNode, treeView.SelectedNode,
-                           "The node of the newly added item should be selected.");
-
             mocks.VerifyAll();
         }
 
@@ -1154,8 +1151,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void GetContextMenu_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
         {
             // Setup
+            var tag = new object();
             var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new PipingCalculationGroup();
             var nodeData = new PipingCalculationGroupContext(group,
@@ -1168,10 +1165,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var newCalculationContextNode = new TreeNode();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            treeViewControl.Expect(tvc => tvc.SelectNodeForData(tag));
+
+            var newCalculationContextNode = new TreeNode { Tag = tag };
 
             // Parent node of newly added item, should be expanded from collapsed state to show selected node:
-            var treeView = new TreeView();
             var parentNode = new TreeNode();
             var node = new TreeNode
             {
@@ -1181,8 +1180,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             node.Collapse();
 
             parentNode.Nodes.Add(node);
-
-            treeView.Nodes.Add(parentNode);
 
             gui.Expect(cmp => cmp.Get(node, info, treeViewControl)).Return(menuBuilder);
 
@@ -1208,9 +1205,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsInstanceOf<PipingCalculation>(newlyAddedItem);
             Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                             "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-
-            Assert.AreSame(newCalculationContextNode, node.TreeView.SelectedNode,
-                           "The node of the newly added item should be selected.");
 
             mocks.VerifyAll();
         }
