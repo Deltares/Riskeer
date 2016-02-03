@@ -145,4 +145,7 @@
   <data name="ProjectExplorerGuiPlugin_Activation_of_0_failed" xml:space="preserve">
     <value>Het starten van de {0} is mislukt.</value>
   </data>
+  <data name="ProjectExplorerGuiPlugin_Cannot_activate_0_twice" xml:space="preserve">
+    <value>Kan {0} niet twee keer activeren.</value>
+  </data>
 </root>

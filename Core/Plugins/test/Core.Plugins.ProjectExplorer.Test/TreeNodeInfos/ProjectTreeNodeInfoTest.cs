@@ -18,7 +18,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
     {
         private MockRepository mocks;
         private ProjectExplorerGuiPlugin plugin;
-        private Common.Controls.TreeView.TreeNodeInfo info;
+        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
@@ -118,6 +118,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
 
             gui.Expect(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilderMock);
             gui.Expect(g => g.ViewCommands).Return(viewCommandsMock);
+            gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -157,6 +158,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             guiMock.Stub(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilder);
             guiMock.Stub(g => g.ProjectCommands).Return(projectCommandsMock);
             guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
+            guiMock.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             projectCommandsMock.Expect(g => g.AddNewItem(project));
 
             mocks.ReplayAll();

@@ -107,6 +107,15 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan {0} niet twee keer activeren..
+        /// </summary>
+        public static string ProjectExplorerGuiPlugin_Cannot_activate_0_twice {
+            get {
+                return ResourceManager.GetString("ProjectExplorerGuiPlugin_Cannot_activate_0_twice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ProjectExplorerIcon {

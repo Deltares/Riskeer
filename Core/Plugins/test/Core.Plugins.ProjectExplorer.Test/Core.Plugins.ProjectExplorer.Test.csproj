@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleProjectExplorerCommandTest.cs" />
+    <Compile Include="Exceptions\PluginActivationExceptionTest.cs" />
     <Compile Include="ProjectExplorerTest.cs" />
     <Compile Include="ProjectExplorerViewControllerTest.cs" />
     <Compile Include="RibbonTest.cs" />

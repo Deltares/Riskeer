@@ -45,6 +45,8 @@ namespace Core.Plugins.ProjectExplorer
         private IProjectOwner projectOwner;
         private IApplicationSelection applicationSelection;
         private Ribbon ribbonCommandHandler;
+        private IEnumerable<TreeNodeInfo> treeNodeInfos;
+        private bool active;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -71,6 +73,7 @@ namespace Core.Plugins.ProjectExplorer
                     applicationSelection = value;
                     documentViewController = value;
                     viewCommands = value.ViewCommands;
+                    treeNodeInfos = value.GetTreeNodeInfos();
                 }
                 else
                 {
@@ -79,6 +82,7 @@ namespace Core.Plugins.ProjectExplorer
                     applicationSelection = null;
                     documentViewController = null;
                     viewCommands = null;
+                    treeNodeInfos = null;
                 }
             }
         }
@@ -131,10 +135,16 @@ namespace Core.Plugins.ProjectExplorer
         /// <exception cref="PluginActivationException">Thrown when <see cref="Gui"/> is <c>null</c>.</exception>
         public override void Activate()
         {
+            if (active)
+            {
+                var message = string.Format(ProjectExplorerResources.ProjectExplorerGuiPlugin_Cannot_activate_0_twice, ProjectExplorerResources.General_ProjectExplorer);
+                throw new PluginActivationException(message);
+            }
+
             base.Activate();
             try
             {
-                projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, Gui.GetTreeNodeInfos());
+                projectExplorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos);
             }
             catch (ArgumentNullException e)
             {
@@ -147,14 +157,16 @@ namespace Core.Plugins.ProjectExplorer
                 ToggleExplorerCommand = new ToggleProjectExplorerCommand(projectExplorerViewController)
             };
 
-            projectExplorerViewController.OnOpenView += (s,e) => UpdateProject();
+            projectExplorerViewController.OnOpenView += (s, e) => UpdateProject();
             projectExplorerViewController.OpenView();
 
             projectOwner.ProjectOpened += ApplicationProjectOpened;
+            active = true;
         }
 
         public override void Dispose()
         {
+            Deactivate();
             if (projectExplorerViewController != null)
             {
                 projectExplorerViewController.Dispose();
@@ -163,8 +175,12 @@ namespace Core.Plugins.ProjectExplorer
 
         public override void Deactivate()
         {
-            base.Deactivate();
-            projectOwner.ProjectOpened -= ApplicationProjectOpened;
+            if (active)
+            {
+                base.Deactivate();
+                projectOwner.ProjectOpened -= ApplicationProjectOpened;
+                active = false;
+            }
         }
 
         private void ApplicationProjectOpened(Project project)
