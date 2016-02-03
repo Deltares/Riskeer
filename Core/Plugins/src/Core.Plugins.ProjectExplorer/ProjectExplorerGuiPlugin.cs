@@ -88,7 +88,7 @@ namespace Core.Plugins.ProjectExplorer
                 Text = project => project.Name,
                 Image = project => ProjectExplorerResources.ProjectIcon,
                 ChildNodeObjects = project => project.Items.ToArray(),
-                ContextMenuStrip = (project, sourceNode, treeNodeInfo) =>
+                ContextMenuStrip = (project, sourceNode, treeNodeInfo, treeViewControl) =>
                 {
                     var addItem = new StrictContextMenuItem(
                         ProjectExplorerResources.AddItem,
@@ -96,7 +96,7 @@ namespace Core.Plugins.ProjectExplorer
                         ProjectExplorerResources.PlusIcon,
                         (s, e) => Gui.ProjectCommands.AddNewItem(project));
 
-                    return Gui.Get(sourceNode, treeNodeInfo)
+                    return Gui.Get(sourceNode, treeNodeInfo, treeViewControl)
                               .AddCustomItem(addItem)
                               .AddSeparator()
                               .AddImportItem()

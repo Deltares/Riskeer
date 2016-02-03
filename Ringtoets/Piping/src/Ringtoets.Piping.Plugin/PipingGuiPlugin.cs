@@ -108,12 +108,12 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingInputContext => PipingFormsResources.PipingInputContextNodePresenter_NodeDisplayName,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddImportItem()
-                                                                        .AddExportItem()
-                                                                        .AddSeparator()
-                                                                        .AddPropertiesItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddImportItem()
+                                                                                         .AddExportItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddPropertiesItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<IEnumerable<RingtoetsPipingSurfaceLine>>
@@ -122,22 +122,22 @@ namespace Ringtoets.Piping.Plugin
                 Image = ringtoetsPipingSurfaceLine => PipingFormsResources.FolderIcon,
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddImportItem()
-                                                                        .AddExportItem()
-                                                                        .AddSeparator()
-                                                                        .AddExpandAllItem()
-                                                                        .AddCollapseAllItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddImportItem()
+                                                                                         .AddExportItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddExpandAllItem()
+                                                                                         .AddCollapseAllItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLine>
             {
                 Text = pipingSurfaceLine => pipingSurfaceLine.Name,
                 Image = pipingSurfaceLine => PipingFormsResources.PipingSurfaceLineIcon,
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddPropertiesItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddPropertiesItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<IEnumerable<PipingSoilProfile>>
@@ -146,33 +146,33 @@ namespace Ringtoets.Piping.Plugin
                 Image = pipingSoilProfiles => PipingFormsResources.FolderIcon,
                 ForeColor = pipingSoilProfiles => pipingSoilProfiles.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = pipingSoilProfiles => pipingSoilProfiles.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddImportItem()
-                                                                        .AddExportItem()
-                                                                        .AddSeparator()
-                                                                        .AddExpandAllItem()
-                                                                        .AddCollapseAllItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddImportItem()
+                                                                                         .AddExportItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddExpandAllItem()
+                                                                                         .AddCollapseAllItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<PipingSoilProfile>
             {
                 Text = pipingSoilProfile => pipingSoilProfile.Name,
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddPropertiesItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddPropertiesItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<PipingOutput>
             {
                 Text = pipingOutput => PipingFormsResources.PipingOutput_DisplayName,
                 Image = pipingOutput => PipingFormsResources.PipingOutputIcon,
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddExportItem()
-                                                                        .AddSeparator()
-                                                                        .AddPropertiesItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddExportItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddPropertiesItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<EmptyPipingOutput>
@@ -180,11 +180,11 @@ namespace Ringtoets.Piping.Plugin
                 Text = emptyPipingOutput => PipingFormsResources.PipingOutput_DisplayName,
                 Image = emptyPipingOutput => PipingFormsResources.PipingOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddExportItem()
-                                                                        .AddSeparator()
-                                                                        .AddPropertiesItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddExportItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddPropertiesItem()
+                                                                                         .Build()
             };
 
             yield return new TreeNodeInfo<EmptyPipingCalculationReport>
@@ -192,19 +192,19 @@ namespace Ringtoets.Piping.Plugin
                 Text = emptyPipingCalculationReport => PipingDataResources.CalculationReport_DisplayName,
                 Image = emptyPipingCalculationReport => PipingFormsResources.PipingCalculationReportIcon,
                 ForeColor = emptyPipingCalculationReport => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, node, treeNodeInfo) => Gui.Get(node, treeNodeInfo)
-                                                                        .AddOpenItem()
-                                                                        .AddSeparator()
-                                                                        .AddExportItem()
-                                                                        .AddSeparator()
-                                                                        .AddPropertiesItem()
-                                                                        .Build()
+                ContextMenuStrip = (nodeData, node, treeNodeInfo, treeViewControl) => Gui.Get(node, treeNodeInfo, treeViewControl)
+                                                                                         .AddOpenItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddExportItem()
+                                                                                         .AddSeparator()
+                                                                                         .AddPropertiesItem()
+                                                                                         .Build()
             };
         }
 
         # region PipingFailureMechanism TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanism failureMechanism, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanism failureMechanism, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
             var addCalculationGroupItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
@@ -237,7 +237,7 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return Gui.Get(node, treeNodeInfo)
+            return Gui.Get(node, treeNodeInfo, treeViewControl)
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)
                       .AddSeparator()
@@ -397,7 +397,7 @@ namespace Ringtoets.Piping.Plugin
 
         # region PipingCalculationContext TreeNodeInfo
 
-        private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationContext nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationContext nodeData, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(RingtoetsFormsResources.Validate,
@@ -420,7 +420,7 @@ namespace Ringtoets.Piping.Plugin
                 clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
             }
 
-            return Gui.Get(node, treeNodeInfo)
+            return Gui.Get(node, treeNodeInfo, treeViewControl)
                       .AddCustomItem(validateItem)
                       .AddCustomItem(calculateItem)
                       .AddCustomItem(clearOutputItem)
@@ -537,7 +537,7 @@ namespace Ringtoets.Piping.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
             var addCalculationGroupItem = new StrictContextMenuItem(
@@ -599,7 +599,7 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            var builder = Gui.Get(node, treeNodeInfo)
+            var builder = Gui.Get(node, treeNodeInfo, treeViewControl)
                              .AddCustomItem(addCalculationGroupItem)
                              .AddCustomItem(addCalculationItem)
                              .AddSeparator()

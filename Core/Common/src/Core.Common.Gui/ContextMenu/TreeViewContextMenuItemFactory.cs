@@ -36,14 +36,16 @@ namespace Core.Common.Gui.ContextMenu
     {
         private readonly TreeNode treeNode;
         private readonly TreeNodeInfo treeNodeInfo;
+        private readonly TreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="treeNode"/>.
         /// </summary>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create the <see cref="ToolStripItem"/> objects.</param>
         /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to use while creating the <see cref="ToolStripItem"/> objects.</param>
+        /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ToolStripItem"/> actions.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
-        public TreeViewContextMenuItemFactory(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
+        public TreeViewContextMenuItemFactory(TreeNode treeNode, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
             if (treeNode == null)
             {
@@ -55,8 +57,14 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException("treeNodeInfo", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node_info);
             }
 
+            if (treeViewControl == null)
+            {
+                throw new ArgumentNullException("treeViewControl", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control);
+            }
+
             this.treeNode = treeNode;
             this.treeNodeInfo = treeNodeInfo;
+            this.treeViewControl = treeViewControl;
         }
 
         /// <summary>
@@ -89,7 +97,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.DeleteIcon,
                 Enabled = treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null)
             };
-            toolStripMenuItem.Click += (s, e) => ((Controls.TreeView.TreeView) treeNode.TreeView).TreeViewController.DeleteNode(treeNode, treeNodeInfo);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.DeleteNode(treeNode, treeNodeInfo);
             return toolStripMenuItem;
         }
 
@@ -107,7 +115,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.ExpandAllIcon,
                 Enabled = children.Any()
             };
-            toolStripMenuItem.Click += (s, e) => ((Controls.TreeView.TreeView) treeNode.TreeView).TreeViewController.ExpandAll(treeNode);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.ExpandAll(treeNode);
             return toolStripMenuItem;
         }
 
@@ -125,7 +133,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.CollapseAllIcon,
                 Enabled = children.Any()
             };
-            toolStripMenuItem.Click += (s, e) => ((Controls.TreeView.TreeView) treeNode.TreeView).TreeViewController.CollapseAll(treeNode);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.CollapseAll(treeNode);
             return toolStripMenuItem;
         }
     }

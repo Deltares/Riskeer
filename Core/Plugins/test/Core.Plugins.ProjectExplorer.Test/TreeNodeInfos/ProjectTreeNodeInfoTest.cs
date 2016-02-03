@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
@@ -111,10 +112,11 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             // Setup
             var treeNode = new TreeNode();
             var gui = mocks.StrictMultiMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-            gui.Expect(g => g.Get(treeNode, info)).Return(menuBuilderMock);
+            gui.Expect(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilderMock);
             gui.Expect(g => g.ViewCommands).Return(viewCommandsMock);
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -133,7 +135,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, treeNode, info);
+            info.ContextMenuStrip(null, treeNode, info, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();
@@ -147,11 +149,12 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             var project = new Project();
             var treeNode = new TreeNode();
             var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var projectCommandsMock = mocks.StrictMock<IProjectCommands>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-            guiMock.Stub(g => g.Get(treeNode, info)).Return(menuBuilder);
+            guiMock.Stub(g => g.Get(treeNode, info, treeViewControlMock)).Return(menuBuilder);
             guiMock.Stub(g => g.ProjectCommands).Return(projectCommandsMock);
             guiMock.Stub(g => g.ViewCommands).Return(viewCommandsMock);
             projectCommandsMock.Expect(g => g.AddNewItem(project));
@@ -161,7 +164,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             plugin.Gui = guiMock;
 
             // Call
-            var result = info.ContextMenuStrip(project, treeNode, info);
+            var result = info.ContextMenuStrip(project, treeNode, info, treeViewControlMock);
 
             result.Items[0].PerformClick();
 

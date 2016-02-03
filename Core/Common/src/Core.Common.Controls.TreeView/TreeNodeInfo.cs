@@ -66,8 +66,9 @@ namespace Core.Common.Controls.TreeView
         /// The <c>object</c> parameter represents the wrapped data of the tree node.
         /// The <see cref="TreeNode"/> parameter represents the tree node.
         /// The <see cref="TreeNodeInfo"/> parameter represents the current tree node information object.
+        /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
         /// </summary>
-        public Func<object, TreeNode, TreeNodeInfo, ContextMenuStrip> ContextMenuStrip { get; set; }
+        public Func<object, TreeNode, TreeNodeInfo, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -203,8 +204,9 @@ namespace Core.Common.Controls.TreeView
         /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
         /// The <see cref="TreeNode"/> parameter represents the tree node.
         /// The <see cref="TreeNodeInfo"/> parameter represents the current tree node information object.
+        /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
         /// </summary>
-        public Func<TData, TreeNode, TreeNodeInfo, ContextMenuStrip> ContextMenuStrip { get; set; }
+        public Func<TData, TreeNode, TreeNodeInfo, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -311,8 +313,8 @@ namespace Core.Common.Controls.TreeView
                             ? tag => treeNodeInfo.Image((TData) tag)
                             : (Func<object, Image>) null,
                 ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                       ? (tag, sourceNode, info) => treeNodeInfo.ContextMenuStrip((TData) tag, sourceNode, info)
-                                       : (Func<object, TreeNode, TreeNodeInfo, ContextMenuStrip>) null,
+                                       ? (tag, sourceNode, info, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, sourceNode, info, treeViewControl)
+                                       : (Func<object, TreeNode, TreeNodeInfo, TreeViewControl, ContextMenuStrip>)null,
                 ChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,

@@ -27,7 +27,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
@@ -129,11 +128,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 Image = failureMechanismContribution => RingtoetsFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (failureMechanismContribution, sourceNode, treeNodeInfo) => Gui.Get(sourceNode, treeNodeInfo)
-                                                                                                  .AddOpenItem()
-                                                                                                  .AddSeparator()
-                                                                                                  .AddExportItem()
-                                                                                                  .Build()
+                ContextMenuStrip = (failureMechanismContribution, sourceNode, treeNodeInfo, treeViewControl) => Gui.Get(sourceNode, treeNodeInfo, treeViewControl)
+                                                                                                                   .AddOpenItem()
+                                                                                                                   .AddSeparator()
+                                                                                                                   .AddExportItem()
+                                                                                                                   .Build()
             };
         }
 
@@ -167,9 +166,9 @@ namespace Ringtoets.Integration.Plugin
             parentProject.NotifyObservers();
         }
 
-        private ContextMenuStrip AssessmentSectionBaseContextMenuStrip(AssessmentSectionBase nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip AssessmentSectionBaseContextMenuStrip(AssessmentSectionBase nodeData, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
-            return Gui.Get(node, treeNodeInfo)
+            return Gui.Get(node, treeNodeInfo, treeViewControl)
                       .AddRenameItem()
                       .AddDeleteItem()
                       .AddSeparator()
@@ -218,7 +217,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderContextMenuStrip(FailureMechanismPlaceholder nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip FailureMechanismPlaceholderContextMenuStrip(FailureMechanismPlaceholder nodeData, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
             var calculateItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
@@ -237,7 +236,7 @@ namespace Ringtoets.Integration.Plugin
                 Enabled = false
             };
 
-            return Gui.Get(node, treeNodeInfo)
+            return Gui.Get(node, treeNodeInfo, treeViewControl)
                       .AddCustomItem(calculateItem)
                       .AddCustomItem(clearOutputItem)
                       .AddSeparator()
@@ -264,9 +263,9 @@ namespace Ringtoets.Integration.Plugin
             return RingtoetsFormsResources.PlaceholderIcon;
         }
 
-        private ContextMenuStrip PlaceholderWithReadonlyNameContextMenuStrip(PlaceholderWithReadonlyName nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip PlaceholderWithReadonlyNameContextMenuStrip(PlaceholderWithReadonlyName nodeData, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
-            IContextMenuBuilder menuBuilder = Gui.Get(node, treeNodeInfo);
+            IContextMenuBuilder menuBuilder = Gui.Get(node, treeNodeInfo, treeViewControl);
 
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
@@ -317,9 +316,9 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, TreeNode node, TreeNodeInfo treeNodeInfo)
+        private ContextMenuStrip CategoryTreeFolderContextMenu(CategoryTreeFolder nodeData, TreeNode node, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
-            return Gui.Get(node, treeNodeInfo)
+            return Gui.Get(node, treeNodeInfo, treeViewControl)
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
                       .Build();

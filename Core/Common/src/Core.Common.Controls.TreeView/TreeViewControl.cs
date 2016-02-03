@@ -443,7 +443,7 @@ namespace Core.Common.Controls.TreeView
 
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     selectedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode, treeNodeInfo)
+                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode, treeNodeInfo, this)
                                         : null;
 
                     if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
@@ -517,7 +517,7 @@ namespace Core.Common.Controls.TreeView
 
                 // Update the context menu
                 clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                    ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, treeNodeInfo)
+                                    ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, treeNodeInfo, this)
                                     : null;
 
                 return;

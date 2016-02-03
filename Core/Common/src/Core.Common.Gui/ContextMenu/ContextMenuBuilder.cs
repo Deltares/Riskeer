@@ -53,14 +53,15 @@ namespace Core.Common.Gui.ContextMenu
         /// If <c>null</c>, this builder will not render items which require this type of information.</param>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to use while creating the <see cref="ContextMenuStrip"/>.</param>
+        /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
         /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
         /// the <paramref name="featureCommandHandler"/> or <paramref name="treeNode"/>.</exception>
-        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode, TreeNodeInfo treeNodeInfo)
+        public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, TreeNode treeNode, TreeNodeInfo treeNodeInfo, TreeViewControl treeViewControl)
         {
             try
             {
                 guiItemsFactory = new GuiContextMenuItemFactory(featureCommandHandler, importExportHandler, viewsCommandsHandler, treeNode);
-                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode, treeNodeInfo);
+                treeViewItemsFactory = new TreeViewContextMenuItemFactory(treeNode, treeNodeInfo, treeViewControl);
             }
             catch (ArgumentNullException e)
             {
