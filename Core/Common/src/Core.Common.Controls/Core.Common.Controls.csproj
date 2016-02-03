@@ -91,6 +91,9 @@
     <Compile Include="Dialogs\ExceptionDialog.Designer.cs">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DoubleBufferedTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\HtmlPageView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +143,9 @@
     <EmbeddedResource Include="Dialogs\ExceptionDialog.resx">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DoubleBufferedTreeView.resx">
+      <DependentUpon>DoubleBufferedTreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

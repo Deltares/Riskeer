@@ -28,9 +28,7 @@ using Core.Common.Gui.Properties;
 namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>
-    /// This class represents a factory for creating <see cref="ToolStripItem"/>. The
-    /// items the factory creates are dependent on a <see cref="Controls.TreeView.TreeView"/> set for
-    /// the <see cref="TreeNode"/>.
+    /// This class represents a factory for creating <see cref="ToolStripItem"/>.
     /// </summary>
     internal class TreeViewContextMenuItemFactory
     {

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Core.Common.Base;
+using Core.Common.Controls.Forms;
 using Core.Common.Controls.TreeView.Properties;
 using log4net;
 using BaseResources = Core.Common.Base.Properties.Resources;
@@ -150,7 +151,7 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
-        /// This method searches all nodes in the <see cref="TreeView"/> for a node with a matching tag.
+        /// This method searches all nodes in the tree view for a node with a matching tag.
         /// </summary>
         /// <param name="nodeData">The node data to search the corresponding <see cref="TreeNode"/> for.</param>
         /// <returns>The <see cref="TreeNode"/> corresponding the provided node data or <c>null</c> if not found.</returns>
@@ -764,7 +765,7 @@ namespace Core.Common.Controls.TreeView
 
         private static void ScrollIntoView(Point point, TreeNode nodeOver, object sender)
         {
-            var treeView = sender as TreeView;
+            var treeView = sender as System.Windows.Forms.TreeView;
             if (treeView == null)
             {
                 return;

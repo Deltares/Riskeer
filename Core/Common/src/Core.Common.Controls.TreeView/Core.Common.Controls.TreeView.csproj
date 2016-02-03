@@ -54,9 +54,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TreeNodeGraphicExtensions.cs" />
-    <Compile Include="TreeView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="TreeViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,9 +89,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TreeView.resx">
-      <DependentUpon>TreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TreeViewControl.resx">
       <DependentUpon>TreeViewControl.cs</DependentUpon>

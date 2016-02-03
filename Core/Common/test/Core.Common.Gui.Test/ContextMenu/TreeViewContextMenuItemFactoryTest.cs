@@ -7,7 +7,6 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Common.Gui.Test.ContextMenu
 {
@@ -193,11 +192,8 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNode = new TreeNode();
-            var treeView = new TreeView();
             var treeNodeInfo = new TreeNodeInfo();
             var treeViewControl = new TreeViewControl();
-
-            treeView.Nodes.Add(treeNode);
 
             if (hasChildren)
             {
@@ -231,11 +227,8 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var treeNode = new TreeNode();
-            var treeView = new TreeView();
             var treeNodeInfo = new TreeNodeInfo();
             var treeViewControl = new TreeViewControl();
-
-            treeView.Nodes.Add(treeNode);
 
             if (hasChildren)
             {

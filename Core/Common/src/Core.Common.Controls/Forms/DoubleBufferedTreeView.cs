@@ -24,11 +24,25 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Core.Common.Controls.TreeView
+namespace Core.Common.Controls.Forms
 {
-    public class TreeView : System.Windows.Forms.TreeView
+    /// <summary>
+    /// Double buffered version of<see cref="TreeView"/>.
+    /// </summary>
+    /// <remarks>
+    /// Also see http://dev.nomad-net.info/articles/double-buffered-tree-and-list-views).
+    /// </remarks>
+    public class DoubleBufferedTreeView : TreeView
     {
-        public TreeView()
+        private const int tvFirst = 0x1100;
+        private const int tvmSetbkcolor = tvFirst + 29;
+        private const int tvmSetextendedstyle = tvFirst + 44;
+        private const int tvsExDoublebuffer = 0x0004;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DoubleBufferedTreeView"/>.
+        /// </summary>
+        public DoubleBufferedTreeView()
         {
             // Enable default double buffering processing
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -39,35 +53,6 @@ namespace Core.Common.Controls.TreeView
                 SetStyle(ControlStyles.UserPaint, true);
             }
         }
-
-        # region Logic for preventing expand/collapse on double click
-
-        protected override void DefWndProc(ref Message m)
-        {
-            const int wmLbuttondblclk = 515;
-            const int wmErasebkgnd = 0x0014;
-
-            if (m.Msg == wmLbuttondblclk)
-            {
-                return; // Don't handle double click
-            }
-
-            if (m.Msg == wmErasebkgnd)
-            {
-                return; // Don't clear background as this only causes flicker
-            }
-
-            base.DefWndProc(ref m);
-        }
-
-        # endregion
-
-        # region Double buffered tree view related logic (see http://dev.nomad-net.info/articles/double-buffered-tree-and-list-views)
-
-        private const int tvFirst = 0x1100;
-        private const int tvmSetbkcolor = tvFirst + 29;
-        private const int tvmSetextendedstyle = tvFirst + 44;
-        private const int tvsExDoublebuffer = 0x0004;
 
         private void UpdateExtendedStyles()
         {
@@ -143,7 +128,5 @@ namespace Core.Common.Controls.TreeView
             [DllImport("user32.dll")]
             public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
         }
-
-        # endregion
     }
 }

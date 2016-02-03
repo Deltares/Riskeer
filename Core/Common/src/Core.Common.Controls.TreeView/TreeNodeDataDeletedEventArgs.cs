@@ -24,7 +24,7 @@ using System;
 namespace Core.Common.Controls.TreeView
 {
     /// <summary>
-    /// Event arguments to be used in the event that node data has been deleted from a <see cref="TreeView"/>.
+    /// Event arguments to be used in the event that node data has been deleted from a <see cref="TreeViewControl"/>.
     /// </summary>
     public class TreeNodeDataDeletedEventArgs : EventArgs
     {
@@ -38,7 +38,7 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
-        /// Gets the data instance deleted from the <see cref="TreeView"/>.
+        /// Gets the data instance deleted from the <see cref="TreeViewControl"/>.
         /// </summary>
         public object DeletedDataInstance { get; private set; }
     }
