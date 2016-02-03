@@ -26,6 +26,6 @@ namespace Core.Common.Gui.Forms
 {
     public interface IProjectExplorer : IView
     {
-        TreeView TreeView { get; }
+        TreeViewControl TreeViewControl { get; }
     }
 }

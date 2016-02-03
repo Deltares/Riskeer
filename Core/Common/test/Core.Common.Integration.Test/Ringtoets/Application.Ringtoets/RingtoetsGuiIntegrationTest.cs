@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Windows.Controls;
 
 using Core.Common.Base.Storage;
@@ -84,29 +83,6 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 int callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
                 Assert.AreEqual(1, callCount);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void SelectingProjectNodeSetsSelectedItemToProject()
-        {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
-            {
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-                gui.Run();
-
-                var projectExplorer = gui.ToolWindowViews.OfType<ProjectExplorer>().First();
-
-                var treeView = projectExplorer.TreeView;
-                treeView.SelectedNode = treeView.Nodes[0]; // project node
-
-                Assert.AreEqual(gui.Project, gui.Selection);
             }
             mocks.VerifyAll();
         }

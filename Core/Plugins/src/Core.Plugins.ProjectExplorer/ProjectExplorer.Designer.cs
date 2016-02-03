@@ -18,23 +18,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectExplorer));
             this.treeViewPanel = new System.Windows.Forms.Panel();
-            this.projectTreeView = new Core.Common.Controls.TreeView.TreeView();
+            this.treeViewControl = new Core.Common.Controls.TreeView.TreeViewControl();
             this.treeViewPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewPanel
             // 
-            this.treeViewPanel.Controls.Add(this.projectTreeView);
+            this.treeViewPanel.Controls.Add(this.treeViewControl);
             resources.ApplyResources(this.treeViewPanel, "treeViewPanel");
             this.treeViewPanel.Name = "treeViewPanel";
             // 
-            // projectTreeView
+            // treeViewControl
             // 
-            this.projectTreeView.AllowDrop = true;
-            resources.ApplyResources(this.projectTreeView, "projectTreeView");
-            this.projectTreeView.HideSelection = false;
-            this.projectTreeView.LabelEdit = true;
-            this.projectTreeView.Name = "projectTreeView";
+            resources.ApplyResources(this.treeViewControl, "treeViewControl");
+            this.treeViewControl.Name = "treeViewControl";
             // 
             // ProjectExplorer
             // 
@@ -51,6 +48,6 @@
         #endregion
 
         private System.Windows.Forms.Panel treeViewPanel;
-        private Common.Controls.TreeView.TreeView projectTreeView;
+        private Common.Controls.TreeView.TreeViewControl treeViewControl;
     }
 }

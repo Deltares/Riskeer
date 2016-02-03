@@ -27,7 +27,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Properties;
-using TreeView = Core.Common.Controls.TreeView.TreeView;
 
 namespace Core.Plugins.ProjectExplorer
 {
@@ -68,16 +67,16 @@ namespace Core.Plugins.ProjectExplorer
 
         private void BindTreeInteractionEvents()
         {
-            TreeView.TreeViewController.TreeNodeDoubleClick += TreeViewDoubleClick;
-            TreeView.TreeViewController.NodeDataDeleted += ProjectDataDeleted;
-            TreeView.AfterSelect += TreeViewSelectedNodeChanged;
+            treeViewControl.TreeNodeDoubleClick += TreeViewDoubleClick;
+            treeViewControl.NodeDataDeleted += ProjectDataDeleted;
+            treeViewControl.SelectedNodeChanged += TreeViewSelectedNodeChanged;
         }
 
         private void RegisterTreeNodeInfos(IEnumerable<TreeNodeInfo> treeNodeInfos)
         {
             foreach (TreeNodeInfo info in treeNodeInfos)
             {
-                TreeView.TreeViewController.RegisterTreeNodeInfo(info);
+                treeViewControl.RegisterTreeNodeInfo(info);
             }
         }
 
@@ -85,22 +84,22 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                return TreeView.TreeViewController.Data;
+                return treeViewControl.Data;
             }
             set
             {
-                if (!TreeView.IsDisposed)
+                if (!treeViewControl.IsDisposed)
                 {
-                    TreeView.TreeViewController.Data = value;
+                    treeViewControl.Data = value;
                 }
             }
         }
 
-        public TreeView TreeView
+        public TreeViewControl TreeViewControl
         {
             get
             {
-                return projectTreeView;
+                return treeViewControl;
             }
         }
 
@@ -116,15 +115,15 @@ namespace Core.Plugins.ProjectExplorer
             }
 
             Data = null;
-            TreeView.Dispose();
+            treeViewControl.Dispose();
             applicationSelection.SelectionChanged -= GuiSelectionChanged;
 
             base.Dispose(disposing);
         }
 
-        private void TreeViewSelectedNodeChanged(object sender, TreeViewEventArgs e)
+        private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
         {
-            applicationSelection.Selection = e.Node.Tag;
+            applicationSelection.Selection = ((TreeNode) sender).Tag;
         }
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
@@ -144,11 +143,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            TreeNode node = TreeView.TreeViewController.GetNodeByTag(applicationSelection.Selection);
-            if (node != null)
-            {
-                TreeView.SelectedNode = node;
-            }
+            TreeViewControl.SelectNodeForData(applicationSelection.Selection);
         }
     }
 }

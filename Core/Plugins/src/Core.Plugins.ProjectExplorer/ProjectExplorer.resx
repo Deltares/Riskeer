@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="projectTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="treeViewControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="projectTreeView.ImageIndex" type="System.Int32, mscorlib">
+  <data name="treeViewControl.ImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="projectTreeView.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="treeViewControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="projectTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
+  <data name="treeViewControl.SelectedImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="projectTreeView.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="treeViewControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>375, 352</value>
   </data>
-  <data name="projectTreeView.TabIndex" type="System.Int32, mscorlib">
+  <data name="treeViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;projectTreeView.Name" xml:space="preserve">
-    <value>projectTreeView</value>
+  <data name="&gt;&gt;treeViewControl.Name" xml:space="preserve">
+    <value>treeViewControl</value>
   </data>
-  <data name="&gt;&gt;projectTreeView.Type" xml:space="preserve">
+  <data name="&gt;&gt;treeViewControl.Type" xml:space="preserve">
     <value>Core.Common.Controls.TreeView.TreeView, Core.Common.Controls.TreeView, Version=0.5.0.1894, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;projectTreeView.Parent" xml:space="preserve">
+  <data name="&gt;&gt;treeViewControl.Parent" xml:space="preserve">
     <value>treeViewPanel</value>
   </data>
-  <data name="&gt;&gt;projectTreeView.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;treeViewControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="treeViewPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

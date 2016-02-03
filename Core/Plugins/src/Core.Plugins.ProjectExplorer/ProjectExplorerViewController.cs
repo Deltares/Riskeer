@@ -4,7 +4,6 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Selection;
 
 namespace Core.Plugins.ProjectExplorer
@@ -64,7 +63,7 @@ namespace Core.Plugins.ProjectExplorer
             if (!IsViewActive())
             {
                 projectExplorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
-                projectExplorer.TreeView.TreeViewController.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
+                projectExplorer.TreeViewControl.NodeUpdated += (s, e) => documentViewController.UpdateToolTips();
 
                 toolViewController.OpenToolView(projectExplorer);
 

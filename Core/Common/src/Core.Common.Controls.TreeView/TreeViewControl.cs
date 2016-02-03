@@ -31,6 +31,7 @@ namespace Core.Common.Controls.TreeView
         public event EventHandler TreeNodeDoubleClick;
         public event EventHandler NodeUpdated; // TODO; Way to explicit!
         public event EventHandler<TreeNodeDataDeletedEventArgs> NodeDataDeleted; // TODO; Way to explicit!
+        public event EventHandler SelectedNodeChanged;
 
         public TreeViewControl()
         {
@@ -60,6 +61,7 @@ namespace Core.Common.Controls.TreeView
             treeView.DragOver += TreeViewDragOver;
             treeView.ItemDrag += TreeViewItemDrag;
             treeView.DragLeave += TreeViewDragLeave;
+            treeView.AfterSelect += TreeViewAfterSelect;
         }
 
         /// <summary>
@@ -140,6 +142,11 @@ namespace Core.Common.Controls.TreeView
             {
                 ExpandAll(childNode);
             }
+        }
+
+        public void SelectNodeForData(object dataObject)
+        {
+            treeView.SelectedNode = GetNodeByTag(dataObject);
         }
 
         /// <summary>
@@ -696,6 +703,14 @@ namespace Core.Common.Controls.TreeView
         private void TreeViewDragLeave(object sender, EventArgs e)
         {
             ClearPlaceHolders();
+        }
+
+        private void TreeViewAfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (SelectedNodeChanged != null)
+            {
+                SelectedNodeChanged(treeView.SelectedNode, EventArgs.Empty);
+            }
         }
 
         private void DrawPlaceholder(TreeNode node, PlaceholderLocation location)
