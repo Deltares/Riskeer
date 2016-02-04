@@ -133,4 +133,22 @@
   <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
     <value>Open het kaartenpaneel.</value>
   </data>
+  <data name="MapDataNodePresenter_Line_data_label" xml:space="preserve">
+    <value>Lijn</value>
+  </data>
+  <data name="MapDataNodePresenter_Point_data_label" xml:space="preserve">
+    <value>Punten</value>
+  </data>
+  <data name="MapDataNodePresenter_Polygon_data_label" xml:space="preserve">
+    <value>Gebied</value>
+  </data>
+  <data name="AreaIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\area.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

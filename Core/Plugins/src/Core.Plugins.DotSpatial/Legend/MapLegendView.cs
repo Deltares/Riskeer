@@ -19,10 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial;
+using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Properties;
+
+using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
+using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.DotSpatial.Legend
 {
@@ -31,6 +37,8 @@ namespace Core.Plugins.DotSpatial.Legend
     /// </summary>
     public sealed partial class MapLegendView : UserControl, IView
     {
+        private TreeViewControl treeViewControl;
+
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendView"/>.
         /// </summary>
@@ -38,8 +46,54 @@ namespace Core.Plugins.DotSpatial.Legend
         {
             InitializeComponent();
             Text = Resources.General_Map;
+
+            treeViewControl = new TreeViewControl
+            {
+                Dock = DockStyle.Fill
+            };
+            Controls.Add(treeViewControl);
+
+            RegisterTreeNodes();
         }
 
-        public object Data { get; set; }
+        private void RegisterTreeNodes()
+        {
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
+            {
+                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Point_data_label,
+                Image = mapPointData => DotSpatialResources.PointsIcon
+            });
+            
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
+            {
+                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Line_data_label,
+                Image = mapPointData => DotSpatialResources.LineIcon
+            });
+            
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
+            {
+                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Polygon_data_label,
+                Image = mapPointData => DotSpatialResources.AreaIcon
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
+            {
+                Text = mapPointData => DotSpatialResources.General_Map,
+                Image = mapPointData => GuiResources.folder,
+                ChildNodeObjects = baseMap => baseMap.List.Reverse().Cast<object>().ToArray()
+            });
+        }
+
+        public object Data
+        {
+            get
+            {
+                return (MapData) treeViewControl.Data;
+            }
+            set
+            {
+                treeViewControl.Data = (MapData) value;
+            }
+        }
     }
 }
