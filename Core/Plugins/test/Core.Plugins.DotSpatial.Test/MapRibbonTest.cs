@@ -102,6 +102,37 @@ namespace Core.Plugins.DotSpatial.Test
 
         [Test]
         [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateItems_Always_ToggleLegendViewIsCheckedEqualToCommandChecked(bool commandChecked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var command = mocks.StrictMock<ICommand>();
+            command.Expect(c => c.Checked).Return(commandChecked);
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                ToggleLegendViewCommand = command,
+            };
+
+            var toggleLegendViewButton = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(toggleLegendViewButton, "Ribbon should have a toggle legend view button.");
+
+            // Call
+            ribbon.ValidateItems();
+
+            // Assert
+            Assert.AreEqual(commandChecked, toggleLegendViewButton.IsChecked);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
         public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
         {
             // Setup

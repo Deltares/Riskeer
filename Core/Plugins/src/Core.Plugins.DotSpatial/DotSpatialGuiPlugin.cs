@@ -54,6 +54,7 @@ namespace Core.Plugins.DotSpatial
             mapLegendController = CreateLegendController(Gui);
             mapRibbon = CreateMapRibbon();
 
+            mapLegendController.ToggleLegend();
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
             activated = true;
         }

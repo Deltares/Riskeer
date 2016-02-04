@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -9,7 +10,9 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Test.TestObjects;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
+using Core.Components.DotSpatial.TestUtil;
 using Core.Plugins.DotSpatial.Forms;
+using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -48,17 +51,38 @@ namespace Core.Plugins.DotSpatial.Test
 
         [Test]
         [RequiresSTA]
-        public void Activate_WithGui_BindsActiveViewChanged()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Activate_WithGui_InitializeComponentsWithIMapViewAndBindsActiveViewChanged(bool useMapView)
         {
             // Setup
             var mocks = new MockRepository();
+
+            IView view;
+
+            if (useMapView)
+            {
+                var chartView = mocks.Stub<IMapView>();
+                var chart = mocks.Stub<IMap>();
+                chart.Data = new TestMapData();
+                chartView.Stub(v => v.Map).Return(chart);
+                view = chartView;
+            }
+            else
+            {
+                view = mocks.StrictMock<IView>();
+            }
 
             using (var plugin = new DotSpatialGuiPlugin())
             {
                 var gui = mocks.StrictMock<IGui>();
 
+                gui.Stub(g => g.IsToolWindowOpen<MapLegendView>()).Return(false);
+
+                gui.Expect(g => g.OpenToolView(Arg<MapLegendView>.Matches(c => true)));
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
                 gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
+                gui.Expect(g => g.ActiveView).Return(view);
 
                 mocks.ReplayAll();
 
