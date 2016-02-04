@@ -22,38 +22,68 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Resources;
+
 using Core.Common.Gui.Properties;
+using Core.Common.Utils.Reflection;
+
 using log4net.Appender;
 using log4net.Core;
+using log4net.Util;
 
 namespace Core.Common.Gui.Forms.MessageWindow
 {
+    /// <summary>
+    /// A log-appender for Log4Net that is able to forward received messages to a <see cref="IMessageWindow"/>
+    /// instance.
+    /// </summary>
     public class MessageWindowLogAppender : AppenderSkeleton
     {
         /// <summary>
-        /// This list contains any messages that could not yet be delivered to the MessageWindow (typically because it doesn't exist 
-        /// yet at startup). They are kept in the backlog and send to the MessageWindow upon the first message arriving while there 
-        /// is a MessageWindow.
+        /// This list contains any messages that could not yet be delivered to the <see cref="MessageWindow"/>
+        /// (typically because it doesn't exist yet at startup). They are kept in the backlog 
+        /// and send to <see cref="MessageWindow"/> upon the first message arriving while there is a MessageWindow
+        /// <see cref="MessageWindow"/> has been set.
         /// </summary>
-        protected static IList<LoggingEvent> messageBackLog = new List<LoggingEvent>();
+        private readonly IList<LoggingEvent> messageBackLog = new List<LoggingEvent>();
 
-        private static bool enabled;
-
-        public static IMessageWindow MessageWindow { get; set; }
+        private bool enabled;
+        private IMessageWindow messageWindow;
 
         /// <summary>
-        /// Resource manager for looking up culture/language depended messages
+        /// Initializes a new instance of the <see cref="MessageWindowLogAppender"/> class and
+        /// the singleton instance.
         /// </summary>
-        public static ResourceManager ResourceManager { get; set; }
+        public MessageWindowLogAppender()
+        {
+            Instance = this;
+        }
 
         /// <summary>
-        /// Resource writer makes a catalogue for not found messages at the resources
+        /// Gets the singleton instance.
         /// </summary>
-        public static ResourceWriter ResourceWriter { get; set; }
+        public static MessageWindowLogAppender Instance { get; set; }
 
-        public static bool Enabled
+        /// <summary>
+        /// Gets or sets the message window to which log-messages should be forwarded.
+        /// </summary>
+        public IMessageWindow MessageWindow
+        {
+            get
+            {
+                return messageWindow;
+            }
+            set
+            {
+                messageWindow = value;
+                FlushMessagesToMessageWindow();
+            }
+        }
+
+        /// <summary>
+        /// Indicating whether this appender should forward it's messages to <see cref="MessageWindow"/>
+        /// (set to <c>true</c>) or should cache them when it's enabled at a later time (set to <c>false</c>).
+        /// </summary>
+        public bool Enabled
         {
             get
             {
@@ -68,7 +98,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         protected override void Append(LoggingEvent loggingEvent)
         {
-            if (MessageWindow == null || !Enabled)
+            if (MessageWindow == null || !enabled)
             {
                 messageBackLog.Add(loggingEvent);
             }
@@ -79,39 +109,21 @@ namespace Core.Common.Gui.Forms.MessageWindow
             }
         }
 
-        protected static void AppendToMessageWindow(LoggingEvent loggingEvent)
+        private void AppendToMessageWindow(LoggingEvent loggingEvent)
         {
-            if (MessageWindow == null)
-            {
-                return;
-            }
-
             string message = null;
 
-            if (loggingEvent.MessageObject != null)
+            var stringFormat = loggingEvent.MessageObject as SystemStringFormat;
+            if (stringFormat != null)
             {
-                Type t = loggingEvent.MessageObject.GetType();
-
-                if (t.FullName == "log4net.Util.SystemStringFormat")
-                {
-                    string format =
-                        (string)
-                        t.InvokeMember("m_format",
-                                       BindingFlags.GetField | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                                       loggingEvent.MessageObject, null);
-                    object[] args =
-                        (object[])
-                        t.InvokeMember("m_args",
-                                       BindingFlags.GetField | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                                       loggingEvent.MessageObject, null);
-
-                    message = GetLocalizedMessage(format, args);
-                }
+                string format = TypeUtils.GetField<string>(stringFormat, "m_format");
+                object[] args = TypeUtils.GetField<object[]>(stringFormat, "m_args");
+                message = GetLocalizedMessage(format, args);
             }
 
             if (message == null)
             {
-                message = GetLocalizedMessage(loggingEvent.RenderedMessage);
+                message = loggingEvent.RenderedMessage;
             }
 
             if (loggingEvent.ExceptionObject != null)
@@ -122,9 +134,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
             MessageWindow.AddMessage(loggingEvent.Level, loggingEvent.TimeStamp, message);
         }
 
-        private static void FlushMessagesToMessageWindow()
+        private void FlushMessagesToMessageWindow()
         {
-            if (MessageWindow == null)
+            if (messageWindow == null || !enabled)
             {
                 return;
             }
@@ -143,42 +155,15 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             try
             {
-                return string.Format(GetLocalizedMessage(format), args);
+                return string.Format(format, args);
             }
-            catch
+            catch (ArgumentNullException)
             {
                 return format;
             }
-        }
-
-        private static string GetLocalizedMessage(string message)
-        {
-            string localizedMessage = "";
-            if (ResourceManager != null)
+            catch (FormatException)
             {
-                localizedMessage = ResourceManager.GetString(message);
-            }
-            if (string.IsNullOrEmpty(localizedMessage))
-            {
-                WriteMessageToResourceFile(message);
-                return message; // return non-localized message
-            }
-            return localizedMessage;
-        }
-
-        private static void WriteMessageToResourceFile(string message)
-        {
-            if (ResourceWriter != null)
-            {
-                try
-                {
-                    //   bug: this will fail
-                    // resourceWriter.AddResource(message, message);
-                }
-                catch (ArgumentException)
-                {
-                    //name (or a name that varies only by capitalization) has already been added to this ResourceWriter. 
-                }
+                return format;
             }
         }
     }

@@ -165,7 +165,7 @@ namespace Core.Common.Gui
 
             HideSplashScreen();
 
-            MessageWindowLogAppender.Enabled = true;
+            MessageWindowLogAppender.Instance.Enabled = true;
         }
 
         public void Exit()
@@ -273,7 +273,7 @@ namespace Core.Common.Gui
 
                 splashScreen = null;
 
-                MessageWindowLogAppender.MessageWindow = null;
+                MessageWindowLogAppender.Instance.MessageWindow = null;
 
                 if (ApplicationCore != null)
                 {

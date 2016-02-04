@@ -25,27 +25,29 @@ using log4net.Core;
 
 namespace Core.Common.Gui.Forms.MessageWindow
 {
+    /// <summary>
+    /// Interface declaring the members for a view that can show log messages.
+    /// </summary>
     public interface IMessageWindow : IView
     {
         /// <summary>
-        /// Adds logging event as a log4net event to the window.
-        /// Only some columns are added.
+        /// Adds a logging message to the view.
         /// </summary>
-        /// <param name="level"></param>
-        /// <param name="time"></param>
-        /// <param name="message"></param>
+        /// <param name="level">Type of logging message.</param>
+        /// <param name="time">Time when the message was logged.</param>
+        /// <param name="message">The message text.</param>
         void AddMessage(Level level, DateTime time, string message);
 
         /// <summary>
-        /// Clears all messages in the window.
+        /// Clears all messages in the view.
         /// </summary>
         void Clear();
 
         /// <summary>
-        /// Returns true if message level is enabled in the window (can be shown).
+        /// Indicates if a given logging-level is enabled or not.
         /// </summary>
-        /// <param name="level"></param>
-        /// <returns></returns>
+        /// <param name="level">The type of logging message to check.</param>
+        /// <returns><c>true</c> is the particular logging-level is enabled; <c>false</c> otherwise.</returns>
         bool IsMessageLevelEnabled(Level level);
     }
 }

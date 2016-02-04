@@ -29,42 +29,58 @@ using log4net.Core;
 
 namespace Core.Common.Gui.Forms.MessageWindow
 {
+    /// <summary>
+    /// Class that receives messages from <see cref="MessageWindowLogAppender"/> to be displayed
+    /// in a thread-safe way. This view supports filtering particular logging levels.
+    /// </summary>
     public partial class MessageWindow : UserControl, IMessageWindow
     {
-        public event EventHandler OnError;
-        private readonly IWin32Window owner;
+        #region Constants referring to the item-names of the ImageList
+
+        private const string errorLevelImageName = "exclamation.png";
+        private const string warningLevelImageName = "error.png";
+        private const string informationLevelImageName = "information.png";
+        private const string debugLevelImageName = "debug.png";
+
+        #endregion
+
+        private readonly IWin32Window dialogParent;
         private readonly Dictionary<string, string> levelImageName;
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
         private bool filtering;
 
-        public MessageWindow(IWin32Window owner)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageWindow" /> class.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent for which dialogs should be shown on top.</param>
+        public MessageWindow(IWin32Window dialogParent)
         {
-            this.owner = owner;
+            this.dialogParent = dialogParent;
 
             Text = Resources.MessageWindow_MessageWindow_Messages;
-            MessageWindowLogAppender.MessageWindow = this;
+            MessageWindowLogAppender.Instance.MessageWindow = this;
             InitializeComponent();
 
             levelImageName = new Dictionary<string, string>();
 
             // order is the same as in log4j Level (check sources of log4net)
-            levelImageName[Level.Off.ToString()] = "exclamation.png";
-            levelImageName[Level.Emergency.ToString()] = "exclamation.png";
-            levelImageName[Level.Fatal.ToString()] = "exclamation.png";
-            levelImageName[Level.Alert.ToString()] = "exclamation.png";
-            levelImageName[Level.Critical.ToString()] = "exclamation.png";
-            levelImageName[Level.Severe.ToString()] = "exclamation.png";
-            levelImageName[Level.Error.ToString()] = "exclamation.png";
-            levelImageName[Level.Warn.ToString()] = "error.png";
-            levelImageName[Level.Notice.ToString()] = "error.png";
-            levelImageName[Level.Info.ToString()] = "information.png";
-            levelImageName[Level.Debug.ToString()] = "debug.png";
-            levelImageName[Level.Fine.ToString()] = "debug.png";
-            levelImageName[Level.Trace.ToString()] = "debug.png";
-            levelImageName[Level.Finer.ToString()] = "debug.png";
-            levelImageName[Level.Verbose.ToString()] = "debug.png";
-            levelImageName[Level.Finest.ToString()] = "debug.png";
-            levelImageName[Level.All.ToString()] = "debug.png";
+            levelImageName[Level.Off.ToString()] = errorLevelImageName;
+            levelImageName[Level.Emergency.ToString()] = errorLevelImageName;
+            levelImageName[Level.Fatal.ToString()] = errorLevelImageName;
+            levelImageName[Level.Alert.ToString()] = errorLevelImageName;
+            levelImageName[Level.Critical.ToString()] = errorLevelImageName;
+            levelImageName[Level.Severe.ToString()] = errorLevelImageName;
+            levelImageName[Level.Error.ToString()] = errorLevelImageName;
+            levelImageName[Level.Warn.ToString()] = warningLevelImageName;
+            levelImageName[Level.Notice.ToString()] = warningLevelImageName;
+            levelImageName[Level.Info.ToString()] = informationLevelImageName;
+            levelImageName[Level.Debug.ToString()] = debugLevelImageName;
+            levelImageName[Level.Fine.ToString()] = debugLevelImageName;
+            levelImageName[Level.Trace.ToString()] = debugLevelImageName;
+            levelImageName[Level.Finer.ToString()] = debugLevelImageName;
+            levelImageName[Level.Verbose.ToString()] = debugLevelImageName;
+            levelImageName[Level.Finest.ToString()] = debugLevelImageName;
+            levelImageName[Level.All.ToString()] = debugLevelImageName;
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 
@@ -76,7 +92,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
             // fixes DPI problem
             messagesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            messagesDataGridView.RowsAdded += messagesDataGridView_RowsAdded;
+            messagesDataGridView.RowsAdded += MessagesDataGridViewRowsAdded;
         }
 
         #region IView Members
@@ -92,10 +108,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         #endregion
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.Paint"/> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data. </param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -109,7 +121,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var hasError = false;
             messageWindowData.Messages.BeginLoadData();
             try
             {
@@ -117,17 +128,11 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 while (newMessages.TryDequeue(out msg))
                 {
                     messageWindowData.Messages.AddMessagesRow(msg.ImageName, msg.Time, msg.Message);
-                    hasError = hasError || (msg.ImageName == "ERROR" && OnError != null);
                 }
             }
             finally
             {
                 messageWindowData.Messages.EndLoadData();
-            }
-
-            if (hasError)
-            {
-                OnError(this, null);
             }
 
             if (messagesDataGridView.Rows.Count > 0)
@@ -136,7 +141,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             }
         }
 
-        private void messagesDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void MessagesDataGridViewRowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (filtering)
             {
@@ -180,22 +185,11 @@ namespace Core.Common.Gui.Forms.MessageWindow
             Clear();
         }
 
-        /// <summary>
-        /// Copies selected range to the clipboard
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ButtonCopyClick(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
         }
 
-        /// <summary>
-        /// since the dataset stores the image name and not the actual image, we have to put
-        /// the corresponding image in the datagridviewcell of the first column.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex != 0 || e.Value == null)
@@ -203,6 +197,8 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
+            // Dataset stores image-name instead of actual image, therefore we map to 
+            // actual image during formatting.
             var level = (string) e.Value;
             e.Value = levelImages.Images[levelImageName[level]];
         }
@@ -210,6 +206,19 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private void ApplyFilter()
         {
             filtering = true;
+
+            messagesBindingSource.Filter = CreateLoggingLevelDataGridViewFilter();
+
+            filtering = false;
+
+            foreach (DataGridViewRow row in messagesDataGridView.Rows)
+            {
+                AutoSizeRow(row);
+            }
+        }
+
+        private string CreateLoggingLevelDataGridViewFilter()
+        {
             var filterlines = new List<string>();
             if (buttonShowInfo.Checked)
             {
@@ -224,27 +233,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 filterlines.Add(string.Format("Image = '{0}'", Level.Error));
                 filterlines.Add(string.Format("Image = '{0}'", Level.Fatal));
             }
-
-            if (filterlines.Count == 0)
-            {
-                messagesBindingSource.Filter = "Image = 'NOTHING SHOWN'";
-            }
-            else
-            {
-                string filter = filterlines[0];
-                for (var i = 1; i < filterlines.Count; i++)
-                {
-                    filter += " OR " + filterlines[i];
-                }
-                messagesBindingSource.Filter = filter;
-            }
-
-            filtering = false;
-
-            foreach (DataGridViewRow row in messagesDataGridView.Rows)
-            {
-                AutoSizeRow(row);
-            }
+            return filterlines.Count == 0 ?
+                       "Image = 'NOTHING SHOWN'" :
+                       string.Join(" OR ", filterlines);
         }
 
         private void ButtonShowInfoClick(object sender, EventArgs e)
@@ -272,7 +263,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(owner, (string) messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value);
+            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }
@@ -286,12 +277,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         #region IMessageWindow Members
 
-        /// <summary>
-        /// Appends message to the Top of the messagewindow
-        /// </summary>
-        /// <param name="level"></param>
-        /// <param name="time"></param>
-        /// <param name="message"></param>
         public void AddMessage(Level level, DateTime time, string message)
         {
             newMessages.Enqueue(new MessageData
@@ -301,9 +286,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             Invalidate();
         }
 
-        /// <summary>
-        /// Clears all messages from the view
-        /// </summary>
         public void Clear()
         {
             messageWindowData.Clear();

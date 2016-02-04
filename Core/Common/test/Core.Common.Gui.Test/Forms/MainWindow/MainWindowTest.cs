@@ -31,6 +31,21 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
     [TestFixture]
     public class MainWindowTest
     {
+        private MessageWindowLogAppender originalValue;
+
+        [SetUp]
+        public void SetUp()
+        {
+            originalValue = MessageWindowLogAppender.Instance;
+            MessageWindowLogAppender.Instance = new MessageWindowLogAppender();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            MessageWindowLogAppender.Instance = originalValue;
+        }
+
         [Test]
         [STAThread]
         public void DefaultConstructor_ExpectedValues()
@@ -514,11 +529,11 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                                                                            grid.Data == selectedObjectProperties),
                                              Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
 
-            toolWindowList.Stub(l => l.Contains(Arg<MessageWindow>.Matches(messages => messages.Text == "Berichten")))
+            toolWindowList.Stub(l => l.Contains(Arg<Gui.Forms.MessageWindow.MessageWindow>.Matches(messages => messages.Text == "Berichten")))
                           .Return(messageWindowAddedToViewList);
             if (!messageWindowAddedToViewList)
             {
-                toolWindowList.Expect(l => l.Add(Arg<MessageWindow>.Matches(messages => messages.Text == "Berichten"),
+                toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.MessageWindow.MessageWindow>.Matches(messages => messages.Text == "Berichten"),
                                                  Arg<ViewLocation>.Is.Equal(ViewLocation.Bottom)));
             }
 
@@ -546,7 +561,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
 
-                Assert.IsInstanceOf<MessageWindow>(mainWindow.MessageWindow);
+                Assert.IsInstanceOf<Gui.Forms.MessageWindow.MessageWindow>(mainWindow.MessageWindow);
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
 
                 Assert.AreSame(mainWindow.PropertyGrid, toolWindowList.ActiveView,
