@@ -130,10 +130,10 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
-        /// The <c>object</c> parameter represents the data of the tree node.
-        /// The <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<object, TreeNode, DragOperations> CanDrag { get; set; }
+        public Func<object, object, DragOperations> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -276,9 +276,9 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
-        /// The <see cref="TreeNode"/> parameter represents the tree node which is dragged.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<TData, TreeNode, DragOperations> CanDrag { get; set; }
+        public Func<TData, object, DragOperations> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -357,8 +357,8 @@ namespace Core.Common.Controls.TreeView
                                     ? (tag, parentTag) => treeNodeInfo.OnNodeChecked((TData) tag, parentTag)
                                     : (Action<object, object>) null,
                 CanDrag = treeNodeInfo.CanDrag != null
-                              ? (tag, sourceNode) => treeNodeInfo.CanDrag((TData) tag, sourceNode)
-                              : (Func<object, TreeNode, DragOperations>) null,
+                              ? (tag, parentTag) => treeNodeInfo.CanDrag((TData) tag, parentTag)
+                              : (Func<object, object, DragOperations>) null,
                 CanDrop = treeNodeInfo.CanDrop != null
                               ? (sourceNode, targetNode, dragOperations) => treeNodeInfo.CanDrop(sourceNode, targetNode, dragOperations)
                               : (Func<TreeNode, TreeNode, DragOperations, DragOperations>) null,

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
@@ -89,13 +88,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         public void CanDrag_Always_ReturnsDragOperationsMove()
         {
             // Setup
-            var treeNode = new TreeNode();
             var pointData = mocks.StrictMock<PointData>(Enumerable.Empty<Tuple<double, double>>());
 
             mocks.ReplayAll();
 
             // Call
-            var dragOperations = info.CanDrag(pointData, treeNode);
+            var dragOperations = info.CanDrag(pointData, null);
 
             // Assert
             Assert.AreEqual(DragOperations.Move, dragOperations);

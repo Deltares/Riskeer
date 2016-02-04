@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Plugin
                 OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
                 CanRemove = PipingCalculationContextCanRemove,
                 OnNodeRemoved = PipingCalculationContextOnNodeRemoved,
-                CanDrag = (pipingCalculationContext, sourceNode) => DragOperations.Move
+                CanDrag = (pipingCalculationContext, parentData) => DragOperations.Move
             };
 
             yield return new TreeNodeInfo<PipingCalculationGroupContext>
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Plugin
                 CanDrag = PipingCalculationGroupContextCanDrag,
                 CanDrop = PipingCalculationGroupContextCanDrop,
                 CanInsert = PipingCalculationGroupContextCanInsert,
-                OnDrop = PipingCalculationGroupContextOnDrop,
+                OnDrop = PipingCalculationGroupContextOnDrop
             };
 
             yield return new TreeNodeInfo<PipingInputContext>
@@ -690,9 +690,9 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private DragOperations PipingCalculationGroupContextCanDrag(PipingCalculationGroupContext nodeData, TreeNode sourceNode)
+        private DragOperations PipingCalculationGroupContextCanDrag(PipingCalculationGroupContext nodeData, object parentData)
         {
-            if (sourceNode.Parent.Tag is PipingFailureMechanism)
+            if (parentData is PipingFailureMechanism)
             {
                 return DragOperations.None;
             }

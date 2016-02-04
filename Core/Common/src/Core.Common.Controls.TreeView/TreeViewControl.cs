@@ -840,7 +840,7 @@ namespace Core.Common.Controls.TreeView
             var treeNodeInfo = GetTreeNodeInfoForData(sourceNode.Tag);
 
             DragOperations dragOperation = treeNodeInfo.CanDrag != null
-                                               ? treeNodeInfo.CanDrag(sourceNode.Tag, sourceNode)
+                                               ? treeNodeInfo.CanDrag(sourceNode.Tag, sourceNode.Parent != null ? sourceNode.Parent.Tag : null)
                                                : DragOperations.None;
 
             DragDropEffects effects = ToDragDropEffects(dragOperation);

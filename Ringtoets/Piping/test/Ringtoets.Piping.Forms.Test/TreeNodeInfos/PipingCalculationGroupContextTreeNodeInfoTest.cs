@@ -77,17 +77,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
-            var node = mocks.Stub<TreeNode>();
-            var parentNode = mocks.Stub<TreeNode>();
-            node.Expect(n => n.Parent).Return(parentNode);
-            mocks.ReplayAll();
 
             // Call
-            DragOperations supportedOperation = info.CanDrag(groupContext, node);
+            DragOperations supportedOperation = info.CanDrag(groupContext, null);
 
             // Assert
             Assert.AreEqual(DragOperations.Move, supportedOperation);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -95,26 +90,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-
             var group = pipingFailureMechanism.CalculationsGroup;
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>());
-            var failureMechanismNode = mocks.Stub<TreeNode>();
-            failureMechanismNode.Tag = pipingFailureMechanism;
-
-            var groupContextNode = mocks.Stub<TreeNode>();
-            groupContextNode.Tag = groupContext;
-            groupContextNode.Expect(n => n.Parent).Return(failureMechanismNode);
-
-            mocks.ReplayAll();
 
             // Call
-            DragOperations supportedOperation = info.CanDrag(groupContext, groupContextNode);
+            DragOperations supportedOperation = info.CanDrag(groupContext, pipingFailureMechanism);
 
             // Assert
             Assert.AreEqual(DragOperations.None, supportedOperation);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -1059,7 +1044,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void GetContextMenu_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
             // Setup
-            var tag = new object();
             var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new PipingCalculationGroup();
