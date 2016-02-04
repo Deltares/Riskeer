@@ -45,6 +45,19 @@
 
             </Directory>
             
+            <Component Id="FileAssociation" Guid="9EB4A417-2685-42DA-8167-6C726DC27349">
+              <File Source="Ringtoets.ico" KeyPath="yes"></File>
+              
+              <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Ringtoets.rtd" Name="FriendlyTypeName" Value="!(loc.RtdDescription)" Type="string" />
+              <ProgId Id="Ringtoets.rtd" Description="!(loc.RtdDescription)" Icon="Ringtoets.ico">
+                <Extension Id="rtd" ContentType="application/rtd">
+                  <Verb Id="open" TargetFile="fil758A597518BF1005624609D5C6DDF60D" Command="Open" Argument="&quot;%1&quot;"/>
+                  <MIME ContentType="application/rtd" Default="yes" />
+                </Extension>
+              </ProgId>
+              
+            </Component>
+            
             <Component Id="InstalledShortcut" Guid="441A8BC7-0B13-453D-9FBB-F03293282A3D">
               <Shortcut Id="ApplicationInstallDirShortcut"
                         Name="!(loc.ApplicationLongName)"
@@ -115,6 +128,7 @@
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>
       <ComponentRef Id="LicenseFile"/>
+      <ComponentRef Id="FileAssociation"/>
 		</Feature>
 
     <Icon Id="Ringtoets.ico" SourceFile="Ringtoets.ico"/>
