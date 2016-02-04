@@ -14,6 +14,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
         [TestFixtureTearDown]
+        [TearDown]
         public void TearDownTempRingtoetsFile()
         {
             TearDownTempRingtoetsFile(tempRingtoetsFile);
@@ -45,17 +46,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             // Call
             TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
-            Assert.DoesNotThrow(test);
 
-            // TearDown
-            TearDownTempRingtoetsFile(tempFile);
+            try
+            {
+                Assert.DoesNotThrow(test);
+            }
+            finally
+            {
+                // TearDown
+                TearDownTempRingtoetsFile(tempFile);
+            }
         }
 
         [Test]
         public void SaveAs_LoadProject_ProjectAsEntitiesInNewStorage()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
             Project project = new Project()
             {
                 Name = "tempProjectFile",
@@ -72,24 +78,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             project.Items.Add(dikeAssessmentSection);
 
             StorageSqLite storage = new StorageSqLite();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempFile, project);
-            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempFile));
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, project);
+            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, project);
+            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, project);
 
             // Assert
-            Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempFile));
+            Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
 
             // Call
-            Project loadedProject = storage.LoadProject(tempFile);
+            Project loadedProject = storage.LoadProject(tempRingtoetsFile);
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
             Assert.AreNotSame(project, loadedProject);
-
-            // TearDown
-            TearDownTempRingtoetsFile(tempFile);
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Instanciate a new ProjectEntityPersistor.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
         public ProjectEntityPersistor(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <remarks>Execute <see cref="DbContext"/>.SaveChanges() afterwards to update the storage.</remarks>
         /// <param name="project"><see cref="Project"/> to be saved in the storage.</param>
         /// <returns>The <see cref="ProjectEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
         /// <exception cref="EntityNotFoundException">Thrown when <paramref name="project"/> is not found.</exception>
         public ProjectEntity UpdateEntity(Project project)
         {
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <remarks>Execute <see cref="DbContext"/>.SaveChanges() afterwards to update the storage.</remarks>
         /// <param name="project"><see cref="Project"/> to be inserted in the sequence.</param>
         /// <returns>New instance of <see cref="ProjectEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
         public ProjectEntity AddEntity(Project project)
         {
             if (project == null)
