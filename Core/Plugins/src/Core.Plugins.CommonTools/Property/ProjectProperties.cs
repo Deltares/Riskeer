@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -28,7 +27,9 @@ using Core.Plugins.CommonTools.Properties;
 
 namespace Core.Plugins.CommonTools.Property
 {
-    [ResourcesDisplayName(typeof(Resources), "ProjectProperties_DisplayName")]
+    /// <summary>
+    /// This class describes the presentation of properties of a <see cref="Project"/>.
+    /// </summary>
     public class ProjectProperties : ObjectProperties<Project>
     {
         [PropertyOrder(1)]

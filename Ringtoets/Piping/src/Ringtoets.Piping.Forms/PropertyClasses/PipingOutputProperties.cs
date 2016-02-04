@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
@@ -29,7 +28,6 @@ using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
-    [ResourcesDisplayName(typeof(Resources), "PipingOutputPropertiesDisplayName")]
     public class PipingOutputProperties : ObjectProperties<PipingOutput>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]

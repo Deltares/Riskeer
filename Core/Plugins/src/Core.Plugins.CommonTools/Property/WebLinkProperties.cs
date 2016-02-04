@@ -21,7 +21,6 @@
 
 using System;
 
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
@@ -29,8 +28,10 @@ using Core.Plugins.CommonTools.Properties;
 
 namespace Core.Plugins.CommonTools.Property
 {
-    [ResourcesDisplayName(typeof(Resources), "UrlProperties_DisplayName")]
-    public class UrlProperties : ObjectProperties<WebLink>
+    /// <summary>
+    /// This class describes the presentation of properties of a <see cref="WebLink"/>.
+    /// </summary>
+    public class WebLinkProperties : ObjectProperties<WebLink>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "Common_Name_DisplayName")]

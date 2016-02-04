@@ -15,7 +15,7 @@ namespace Core.Plugins.CommonTools.Test.Property
         public void DefaultConstructor_ReturnsInstanceOfObjectProperties()
         {
             // Call
-            var urlProperties = new UrlProperties();
+            var urlProperties = new WebLinkProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WebLink>>(urlProperties);
@@ -30,7 +30,7 @@ namespace Core.Plugins.CommonTools.Test.Property
             var otherName = "some other name";
 
             var url = new WebLink(someName, new Uri("https://www.google.nl"));
-            var properties = new UrlProperties
+            var properties = new WebLinkProperties
             {
                 Data = url
             };
@@ -53,7 +53,7 @@ namespace Core.Plugins.CommonTools.Test.Property
             var otherPath = "http://www.google.nl";
 
             var url = new WebLink(string.Empty, new Uri(somePath));
-            var properties = new UrlProperties
+            var properties = new WebLinkProperties
             {
                 Data = url
             };
@@ -76,7 +76,7 @@ namespace Core.Plugins.CommonTools.Test.Property
             var somePath = "http://www.google.nl";
             var url = new WebLink(someName, new Uri(somePath));
 
-            var bag = new DynamicPropertyBag(new UrlProperties
+            var bag = new DynamicPropertyBag(new WebLinkProperties
             {
                 Data = url
             });

@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
-using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Utils;
@@ -32,11 +31,14 @@ using PropertyInfo = Core.Common.Gui.Plugin.PropertyInfo;
 
 namespace Core.Plugins.CommonTools
 {
+    /// <summary>
+    /// This class configures general GUI components.
+    /// </summary>
     public class CommonToolsGuiPlugin : GuiPlugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WebLink, UrlProperties>();
+            yield return new PropertyInfo<WebLink, WebLinkProperties>();
             yield return new PropertyInfo<Project, ProjectProperties>();
         }
 
@@ -49,7 +51,7 @@ namespace Core.Plugins.CommonTools
             };
             yield return new ViewInfo<WebLink, HtmlPageView>
             {
-                Image = Resources.home,
+                Image = Resources.HomeIcon,
                 Description = Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
