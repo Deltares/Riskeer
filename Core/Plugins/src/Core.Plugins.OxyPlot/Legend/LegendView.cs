@@ -104,6 +104,18 @@ namespace Core.Plugins.OxyPlot.Legend
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            Data = null;
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         # region ChartData
 
         private void PointDataOnNodeChecked(PointData pointData, object parentData)
