@@ -113,6 +113,14 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        public object SelectedData
+        {
+            get
+            {
+                return treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
+            }
+        }
+
         /// <summary>
         /// This method registers the provided <see cref="TreeNodeInfo"/>.
         /// </summary>
@@ -196,18 +204,6 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null ? treeNode.FullPath : "";
         }
 
-        /// <summary>
-        /// This method searches all nodes in the tree view for a node with a matching tag.
-        /// </summary>
-        /// <param name="nodeData">The node data to search the corresponding <see cref="TreeNode"/> for.</param>
-        /// <returns>The <see cref="TreeNode"/> corresponding the provided node data or <c>null</c> if not found.</returns>
-        public TreeNode GetNodeByTag(object nodeData)
-        {
-            var node = treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
-
-            return node;
-        }
-
         private bool CanRename(TreeNode treeNode)
         {
             var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
@@ -279,6 +275,18 @@ namespace Core.Common.Controls.TreeView
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// This method searches all nodes in the tree view for a node with a matching tag.
+        /// </summary>
+        /// <param name="nodeData">The node data to search the corresponding <see cref="TreeNode"/> for.</param>
+        /// <returns>The <see cref="TreeNode"/> corresponding the provided node data or <c>null</c> if not found.</returns>
+        private TreeNode GetNodeByTag(object nodeData)
+        {
+            var node = treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
+
+            return node;
         }
 
         private static TreeNode GetNodeByTag(TreeNode rootNode, object tag)

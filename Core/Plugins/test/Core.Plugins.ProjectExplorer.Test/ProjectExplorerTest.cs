@@ -8,6 +8,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Selection;
 using Core.Common.TestUtil;
+using Core.Common.Utils.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -222,16 +223,15 @@ namespace Core.Plugins.ProjectExplorer.Test
             })
             {
                 WindowsFormsTestHelper.Show(explorer.TreeViewControl);
-                var node = explorer.TreeViewControl.GetNodeByTag(stringA);
 
                 // Precondition
-                Assert.IsFalse(node.IsSelected);
+                Assert.AreNotSame(explorer.TreeViewControl.SelectedData, stringA);
 
                 // Call
                 explorer.TreeViewControl.SelectNodeForData(stringA);
 
                 // Assert
-                Assert.IsTrue(node.IsSelected);
+                Assert.AreSame(explorer.TreeViewControl.SelectedData, stringA);
             }
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
@@ -280,11 +280,10 @@ namespace Core.Plugins.ProjectExplorer.Test
                 form.Controls.Add(explorer);
                 form.Show();
 
-                var node = explorer.TreeViewControl.GetNodeByTag(project);
-                node.TreeView.Name = treeIdentifier;
+                TypeUtils.GetField<TreeView>(explorer.TreeViewControl, "treeView").Name = treeIdentifier;
 
                 // Precondition
-                Assert.IsTrue(node.IsSelected);
+                Assert.AreSame(explorer.TreeViewControl.SelectedData, project);
 
                 var tester = new TreeViewTester(treeIdentifier);
 
@@ -341,16 +340,15 @@ namespace Core.Plugins.ProjectExplorer.Test
             })
             {
                 WindowsFormsTestHelper.Show(explorer.TreeViewControl);
-                var node = explorer.TreeViewControl.GetNodeByTag(project);
 
                 // Precondition
-                Assert.IsTrue(node.IsSelected);
+                Assert.AreSame(explorer.TreeViewControl.SelectedData, project);
 
                 // Call
                 applicationSelection.Raise(s => s.SelectionChanged += null, null, new SelectedItemChangedEventArgs(null));
 
                 // Assert
-                Assert.IsTrue(node.IsSelected);
+                Assert.AreSame(explorer.TreeViewControl.SelectedData, project);
             }
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
@@ -404,16 +402,15 @@ namespace Core.Plugins.ProjectExplorer.Test
             })
             {
                 WindowsFormsTestHelper.Show(explorer.TreeViewControl);
-                var node = explorer.TreeViewControl.GetNodeByTag(stringA);
 
                 // Precondition
-                Assert.IsFalse(node.IsSelected);
+                Assert.AreNotSame(explorer.TreeViewControl.SelectedData, stringA);
 
                 // Call
                 applicationSelection.Raise(s => s.SelectionChanged += null, null, new SelectedItemChangedEventArgs(stringA));
 
                 // Assert
-                Assert.IsTrue(node.IsSelected);
+                Assert.AreSame(explorer.TreeViewControl.SelectedData, stringA);
             }
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
