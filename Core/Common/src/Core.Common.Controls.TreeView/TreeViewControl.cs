@@ -747,7 +747,12 @@ namespace Core.Common.Controls.TreeView
 
                 previousParentNode.Nodes.Remove(nodeDragging);
                 nodeDropTarget.Nodes.Insert(dropAtLocation, nodeDragging);
+
+                // Ensure the dragged node is visible afterwards
                 nodeDragging.EnsureVisible();
+
+                // Restore any lost selection
+                treeView.SelectedNode = nodeDragging;
 
                 if (treeNodeInfo.OnDrop != null)
                 {
