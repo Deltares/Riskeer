@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
@@ -80,22 +79,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.Throws<InvalidCastException>(test);
-        }
-
-        [Test]
-        public void RegisterTreeNodes_Always_RegisterMapDataObjects()
-        {
-            // Call
-            var view = new MapLegendView();
-            var treeView = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
-
-            // Assert
-            Assert.AreEqual(4, treeView.TreeNodeInfos.Count());
-
-            foreach (var treeNodeInfo in treeView.TreeNodeInfos)
-            {
-                Assert.IsInstanceOf<TreeNodeInfo>(treeNodeInfo);
-            }
         }
     }
 }
