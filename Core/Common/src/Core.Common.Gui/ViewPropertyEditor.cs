@@ -40,13 +40,13 @@ namespace Core.Common.Gui
     /// Usage (for example):
     /// <code>
     /// [Editor(typeof(ViewPropertyEditor), typeof(UITypeEditor))]
-    /// public TimeSeries TimeSeries
+    /// public Foo SomeFooProperty
     /// {
-    ///     get { return data.TimeSeries; }
-    ///     set { data.TimeSeries = value; } //not called
+    ///     get { return data.Foo; }
+    ///     set { data.Foo = value; }
     /// }
     /// </code>
-    /// This would typically open a FunctionView to edit the time series.
+    /// This would open a view registered for the Foo datatype.
     /// </example>
     public class ViewPropertyEditor : UITypeEditor
     {

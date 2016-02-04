@@ -4,13 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
-             xmlns:gui="clr-namespace:Core.Common.Gui;assembly=Core.Common.Gui"
              xmlns:p="clr-namespace:Core.Plugins.OxyPlot.Properties"
              xmlns:common="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
-             xmlns:Converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
+             xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
-        <Converters:PngToIconConverter x:Key="IconConverter"/>
+        <converters:PngToIconConverter x:Key="IconConverter"/>
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
 
@@ -20,21 +19,21 @@
         
         <fluent:RibbonTabItem Header="{x:Static p:Resources.Ribbon_Demo_Header}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.General_Chart}" fluent:KeyTip.Keys="C">
-                <fluent:Button Name="OpenChartViewButton"  Header="{x:Static p:Resources.General_Chart}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
+                <fluent:Button x:Name="OpenChartViewButton"  Header="{x:Static p:Resources.General_Chart}" ToolTip="{x:Static p:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static p:Resources.DocumentIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
         <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
             <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="S">
-                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click" fluent:KeyTip.Keys="T"/>
+                <fluent:ToggleButton x:Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click" fluent:KeyTip.Keys="T"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
         <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Chart}" Group="{Binding Source={x:Reference ChartingContextualGroup}}" fluent:KeyTip.Keys="G">
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Navigation}" fluent:KeyTip.Keys="N">
-                <fluent:ToggleButton Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}" Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P"/>
-                <fluent:ToggleButton Name="ToggleRectangleZoomingButton" Header="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming_ToolTip}" Icon="{Binding Source={x:Static p:Resources.RectangleZoomIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleRectangleZooming_Click" fluent:KeyTip.Keys="Z"/>
-                <fluent:Button Name="ZoomToAllButton" Header="{x:Static p:Resources.Ribbon_ZoomToAll}" ToolTip="{x:Static p:Resources.Ribbon_ZoomToAll_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ZoomToAllIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonZoomToAll_Click" fluent:KeyTip.Keys="A"/>
+                <fluent:ToggleButton x:Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}" Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P"/>
+                <fluent:ToggleButton x:Name="ToggleRectangleZoomingButton" Header="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming_ToolTip}" Icon="{Binding Source={x:Static p:Resources.RectangleZoomIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleRectangleZooming_Click" fluent:KeyTip.Keys="Z"/>
+                <fluent:Button x:Name="ZoomToAllButton" Header="{x:Static p:Resources.Ribbon_ZoomToAll}" ToolTip="{x:Static p:Resources.Ribbon_ZoomToAll_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ZoomToAllIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonZoomToAll_Click" fluent:KeyTip.Keys="A"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

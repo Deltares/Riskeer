@@ -16,14 +16,14 @@ namespace Core.Plugins.OxyPlot.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var guiMock = mocks.StrictMock<IDocumentViewController>();
+            var documentViewController = mocks.StrictMock<IDocumentViewController>();
             var viewResolverMock = mocks.StrictMock<IViewResolver>();
-            guiMock.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
+            documentViewController.Expect(g => g.DocumentViewsResolver).Return(viewResolverMock);
             viewResolverMock.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
 
             mocks.ReplayAll();
 
-            var command = new OpenChartViewCommand(guiMock);
+            var command = new OpenChartViewCommand(documentViewController);
 
             // Call
             command.Execute();

@@ -41,6 +41,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
+using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
@@ -54,7 +55,6 @@ using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
 
-using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
 using Application = System.Windows.Application;
 using WindowsApplication = System.Windows.Forms.Application;
 
@@ -586,7 +586,7 @@ namespace Core.Common.Gui
 
             DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()), mainWindow);
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
-            appFeatureApplicationCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
+            applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
 
             var allowedToolWindowLocations = new[]
             {
@@ -747,7 +747,7 @@ namespace Core.Common.Gui
 
         public IContextMenuBuilder Get(TreeNode treeNode, TreeViewControl treeViewControl)
         {
-            return new ContextMenuBuilder(appFeatureApplicationCommands, exportImportCommandHandler, ViewCommands, treeNode, treeViewControl);
+            return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, treeNode, treeViewControl);
         }
 
         #endregion
@@ -849,7 +849,7 @@ namespace Core.Common.Gui
 
         #region Implementation: ICommandsOwner
 
-        private ApplicationFeatureCommandHandler appFeatureApplicationCommands;
+        private ApplicationFeatureCommandHandler applicationFeatureCommands;
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly ProjectCommandsHandler projectCommandsHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
@@ -859,7 +859,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return appFeatureApplicationCommands;
+                return applicationFeatureCommands;
             }
         }
 

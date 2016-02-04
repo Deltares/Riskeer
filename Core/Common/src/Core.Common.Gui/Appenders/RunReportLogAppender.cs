@@ -60,7 +60,6 @@ namespace Core.Common.Gui.Appenders
             {
                 if (value != null && appendMessageLineAction != null)
                 {
-                    // Setting 2nd action: fail fast!
                     throw new InvalidOperationException("An action is already set");
                 }
 

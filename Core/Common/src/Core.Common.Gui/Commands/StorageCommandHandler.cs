@@ -232,7 +232,7 @@ namespace Core.Common.Gui.Commands
                 Filter = string.Format(Resources.Ringtoets_project_file_filter),
                 FilterIndex = 1,
                 RestoreDirectory = true,
-                FileName = string.Format("{0}", projectName)
+                FileName = projectName
             })
             {
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)

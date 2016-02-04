@@ -50,8 +50,7 @@ namespace Core.Common.Gui.ContextMenu
         /// <param name="viewCommandsHandler">The <see cref="IViewCommands"/> which contains
         /// information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="treeNode">The <see cref="TreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="applicationFeatureCommandHandler"/> 
-        /// or <paramref name="exportImportCommandHandler"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler, IExportImportCommandHandler exportImportCommandHandler, IViewCommands viewCommandsHandler, TreeNode treeNode)
         {
             if (applicationFeatureCommandHandler == null)

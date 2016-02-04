@@ -62,6 +62,7 @@ namespace Application.Ringtoets
 
         // Start application after this process will exit (used during restart)
         private const string argumentWaitForProcess = "--wait-for-process=";
+        private const int numberOfDaysToKeepLogFiles = 30;
 
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
 
@@ -175,11 +176,10 @@ namespace Application.Ringtoets
         /// </summary>
         private void DeleteOldLogFiles()
         {
-            var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-            var logFiles = Directory.GetFiles(settingsDirectory, "*.log");
-            foreach (var logFile in logFiles)
+            string settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+            foreach (string logFile in Directory.GetFiles(settingsDirectory, "*.log"))
             {
-                if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > 30)
+                if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > numberOfDaysToKeepLogFiles)
                 {
                     File.Delete(logFile);
                 }

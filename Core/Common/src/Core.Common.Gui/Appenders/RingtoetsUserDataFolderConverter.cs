@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
-using System;
 using System.IO;
 
 using Core.Common.Gui.Settings;
@@ -28,9 +27,6 @@ using log4net.Util;
 
 namespace Core.Common.Gui.Appenders
 {
-    //special folders not in latests stable (1.2.10) version of log4net hence this for DS user dir.
-    //Any arguments are ignored and just just return c:\user\muurman\appdata\deltares\ds1.0.0.0\
-    //from http://logging.apache.org/log4net/release/release-notes.html
     /// <summary>
     /// Converter that injects the application user data folder.
     /// </summary>

@@ -305,7 +305,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             toolViewController.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
 
-            toolViewController.ToolWindowViews.ActiveView = null;
             toolViewController.ToolWindowViews.ActiveView = propertyGrid;
         }
 
