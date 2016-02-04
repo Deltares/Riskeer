@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -49,7 +48,6 @@ using Core.Common.Utils;
 using Core.Common.Utils.Events;
 using Fluent;
 using log4net;
-using Microsoft.Win32;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -73,6 +71,12 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// Remember last active contextual tab per view.
         /// </summary>
         private readonly IDictionary<Type, string> lastActiveContextTabNamePerViewType = new Dictionary<Type, string>();
+
+        /// <summary>
+        /// Class to help with hybrid winforms - WPF applications. Provides UI handle to
+        /// ensure common UI functionality such as maximizing works as expected.
+        /// </summary>
+        private readonly WindowInteropHelper windowInteropHelper;
 
         private IToolViewController toolViewController;
         private IDocumentViewController documentViewController;
@@ -100,7 +104,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private string lastNonContextualTab;
 
         private IGui gui;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -108,7 +112,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             InitializeComponent();
 
-            Handle = new WindowInteropHelper(this).EnsureHandle();
+            windowInteropHelper = new WindowInteropHelper(this);
 
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
@@ -195,7 +199,10 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public IntPtr Handle { get; private set; }
+        public IntPtr Handle { get
+        {
+            return windowInteropHelper.Handle;
+        } }
 
         public bool InvokeRequired
         {
