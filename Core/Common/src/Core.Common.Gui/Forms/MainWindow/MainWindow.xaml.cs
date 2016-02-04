@@ -401,25 +401,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 messageWindow.Dispose();
                 messageWindow = null;
             }
-
-            // I pulled this code from some internet sources combined with the reflector to remove a well-known leak
-            var handlers = typeof(SystemEvents).GetField("_handlers", BindingFlags.Static | BindingFlags.NonPublic)
-                                               .GetValue(null);
-            if (handlers != null)
-            {
-                var upcHandler = typeof(SystemEvents).GetField("OnUserPreferenceChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-                var eventLockObject = typeof(SystemEvents).GetField("eventLockObject", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-
-                lock (eventLockObject)
-                {
-                    var upcHandlerList = (IList)((IDictionary)handlers)[upcHandler];
-                    for (int i = upcHandlerList.Count - 1; i >= 0; i--)
-                    {
-                        var target = (Delegate)upcHandlerList[i].GetType().GetField("_delegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(upcHandlerList[i]);
-                        upcHandlerList.RemoveAt(i);
-                    }
-                }
-            }
             
             ribbonCommandHandlers = null;
 
