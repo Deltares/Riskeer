@@ -227,11 +227,11 @@ namespace Core.Common.Controls.TreeView
         {
             if (!CanRemove(treeNode))
             {
-                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
+                MessageBox.Show(Resources.TreeViewControl_Remove_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
                 return;
             }
 
-            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, treeNode.Text);
+            var message = string.Format(Resources.TreeViewControl_Remove_Are_you_sure_you_want_to_remove_the_following_item_0_, treeNode.Text);
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
@@ -761,7 +761,7 @@ namespace Core.Common.Controls.TreeView
             }
             catch (Exception ex)
             {
-                Log.Error(string.Format(Resources.TreeView_TreeViewDragDrop_Error_during_drag_drop_0_, ex.Message));
+                Log.Error(string.Format(Resources.TreeViewControl_DragDrop_Error_during_drag_drop_0_, ex.Message));
             }
         }
 
