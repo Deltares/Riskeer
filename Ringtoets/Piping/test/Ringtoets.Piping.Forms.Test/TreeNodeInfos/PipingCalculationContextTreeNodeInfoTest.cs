@@ -40,7 +40,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(typeof(PipingCalculationContext), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -85,6 +84,35 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new PipingCalculation
+            {
+                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            };
+            var pipingCalculationContext = new PipingCalculationContext(calculation,
+                                                                        new[]
+                                                                        {
+                                                                            new RingtoetsPipingSurfaceLine()
+                                                                        },
+                                                                        new[]
+                                                                        {
+                                                                            new TestPipingSoilProfile()
+                                                                        });
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = info.EnsureVisibleOnCreate(pipingCalculationContext);
+
+            // Assert
+            Assert.IsTrue(result);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GetChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // Setup
@@ -108,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
-            var pipingInputContext = (PipingInputContext)children[1];
+            var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
@@ -123,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingCalculationContext = new PipingCalculationContext(new PipingCalculation(),
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                         Enumerable.Empty<PipingSoilProfile>());
-            
+
             // Precondition
             Assert.IsFalse(pipingCalculationContext.WrappedData.HasOutput);
 
@@ -133,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(4, children.Length);
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
-            var pipingInputContext = (PipingInputContext)children[1];
+            var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
@@ -245,7 +273,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, PipingFormsResources.Clear_output, PipingFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
         }
-        
+
         [Test]
         public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
         {
@@ -254,8 +282,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var nodeData = new PipingCalculationContext(new PipingCalculation(),
-                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                            Enumerable.Empty<PipingSoilProfile>());
+                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                        Enumerable.Empty<PipingSoilProfile>());
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -401,8 +429,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var calculation = new PipingCalculation();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                Enumerable.Empty<PipingSoilProfile>());
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<PipingSoilProfile>());
 
             observer.Expect(o => o.UpdateObserver());
 
@@ -414,9 +442,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-            };
+            DialogBoxHandler = (name, wnd) => { };
 
             plugin.Gui = gui;
 
@@ -425,10 +451,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
 
             // When
-            Action action = () =>
-            {
-                contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
-            };
+            Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
 
             // Then
             TestHelper.AssertLogMessages(action, messages =>
@@ -509,9 +532,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-            };
+            DialogBoxHandler = (name, wnd) => { };
 
             plugin.Gui = gui;
 
@@ -544,10 +565,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
 
             // When
-            Action action = () =>
-            {
-                contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
-            };
+            Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
 
             // Then
             TestHelper.AssertLogMessages(action, messages =>

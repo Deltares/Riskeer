@@ -78,6 +78,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
                 Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
+                EnsureVisibleOnCreate = pipingCalculationContext => true,
                 ContextMenuStrip = PipingCalculationContextContextMenuStrip,
                 ChildNodeObjects = PipingCalculationContextChildNodeObjects,
                 CanRename = (pipingCalculationContext, parentData) => true,
@@ -91,6 +92,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingCalculationGroupContext => pipingCalculationGroupContext.WrappedData.Name,
                 Image = pipingCalculationGroupContext => PipingFormsResources.FolderIcon,
+                EnsureVisibleOnCreate = pipingCalculationGroupContext => true,
                 ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects,
                 ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip,
                 CanRename = PipingCalculationGroupContextCanRenameNode,

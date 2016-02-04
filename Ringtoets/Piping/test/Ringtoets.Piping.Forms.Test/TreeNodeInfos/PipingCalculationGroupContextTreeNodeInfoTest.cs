@@ -44,10 +44,29 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
+        }
+
+        [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
+        {
+            // Setup
+            var group = new PipingCalculationGroup();
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingSoilProfile>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = info.EnsureVisibleOnCreate(groupContext);
+
+            // Assert
+            Assert.IsTrue(result);
+
+            mocks.VerifyAll();
         }
 
         [Test]

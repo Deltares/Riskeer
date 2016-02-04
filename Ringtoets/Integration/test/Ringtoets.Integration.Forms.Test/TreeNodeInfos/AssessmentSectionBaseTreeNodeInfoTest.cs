@@ -37,7 +37,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(typeof(AssessmentSectionBase), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -79,6 +78,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.AssessmentSectionFolderIcon, image);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = info.EnsureVisibleOnCreate(assessmentSection);
+
+            // Assert
+            Assert.IsTrue(result);
 
             mocks.VerifyAll();
         }
