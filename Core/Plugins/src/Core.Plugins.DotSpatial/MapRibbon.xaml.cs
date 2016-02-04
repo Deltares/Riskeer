@@ -79,7 +79,10 @@ namespace Core.Plugins.DotSpatial
             return RibbonControl;
         }
 
-        public void ValidateItems() {}
+        public void ValidateItems()
+        {
+            ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
+        }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {

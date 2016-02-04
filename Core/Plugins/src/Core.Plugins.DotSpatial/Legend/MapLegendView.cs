@@ -92,6 +92,11 @@ namespace Core.Plugins.DotSpatial.Legend
             }
             set
             {
+                if (IsDisposed)
+                {
+                    return;
+                }
+
                 treeViewControl.Data = (MapData) value;
             }
         }
