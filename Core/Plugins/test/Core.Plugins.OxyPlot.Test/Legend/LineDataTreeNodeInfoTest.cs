@@ -145,18 +145,13 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
-            var lineDataTreeNode = new TreeNode
-            {
-                Tag = lineData
-            };
 
             mocks.ReplayAll();
 
             lineData.IsVisible = initialVisibleState;
-            lineDataTreeNode.Checked = !initialVisibleState;
 
             // Call
-            info.OnNodeChecked(lineDataTreeNode);
+            info.OnNodeChecked(lineData, null);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
@@ -171,25 +166,15 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup
             var observable = mocks.StrictMock<IObservable>();
             var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
-            var lineDataTreeNode = new TreeNode
-            {
-                Tag = lineData
-            };
-            var parentNode = new TreeNode
-            {
-                Tag = observable
-            };
 
             observable.Expect(o => o.NotifyObservers());
 
             mocks.ReplayAll();
 
             lineData.IsVisible = initialVisibleState;
-            parentNode.Nodes.Add(lineDataTreeNode);
-            lineDataTreeNode.Checked = !initialVisibleState;
 
             // Call
-            info.OnNodeChecked(lineDataTreeNode);
+            info.OnNodeChecked(lineData, observable);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);

@@ -550,7 +550,7 @@ namespace Core.Common.Controls.TreeView
             var treeNodeInfo = GetTreeNodeInfoForData(e.Node.Tag);
             if (treeNodeInfo.OnNodeChecked != null)
             {
-                treeNodeInfo.OnNodeChecked(e.Node);
+                treeNodeInfo.OnNodeChecked(e.Node.Tag, e.Node.Parent != null ? e.Node.Parent.Tag : null);
             }
         }
 

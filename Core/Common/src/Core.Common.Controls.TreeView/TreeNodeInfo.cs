@@ -117,9 +117,10 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
-        /// The <see cref="TreeNode"/> parameter represents the tree node which is checked.
+        /// The first <see cref="object"/> parameter represents the data of the tree node.
+        /// The second <see cref="object"/> parameter represents the data of the parent tree node.
         /// </summary>
-        public Action<TreeNode> OnNodeChecked { get; set; }
+        public Action<object, object> OnNodeChecked { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
@@ -255,9 +256,10 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
-        /// The <see cref="TreeNode"/> parameter represents the tree node which is checked.
+        /// The <see cref="TData"/> parameter represents the data of the tree node.
+        /// The <see cref="object"/> parameter represents the data of the parent tree node.
         /// </summary>
-        public Action<TreeNode> OnNodeChecked { get; set; }
+        public Action<TData, object> OnNodeChecked { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
@@ -337,8 +339,8 @@ namespace Core.Common.Controls.TreeView
                                 ? tag => treeNodeInfo.IsChecked((TData) tag)
                                 : (Func<object, bool>) null,
                 OnNodeChecked = treeNodeInfo.OnNodeChecked != null
-                                    ? sourceNode => treeNodeInfo.OnNodeChecked(sourceNode)
-                                    : (Action<TreeNode>) null,
+                                    ? (tag, parentTag) => treeNodeInfo.OnNodeChecked((TData) tag, parentTag)
+                                    : (Action<object, object>) null,
                 CanDrag = treeNodeInfo.CanDrag != null
                               ? (tag, sourceNode) => treeNodeInfo.CanDrag((TData) tag, sourceNode)
                               : (Func<object, TreeNode, DragOperations>) null,

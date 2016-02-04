@@ -145,18 +145,13 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
-            var areaDataTreeNode = new TreeNode
-            {
-                Tag = areaData
-            };
 
             mocks.ReplayAll();
 
             areaData.IsVisible = initialVisibleState;
-            areaDataTreeNode.Checked = !initialVisibleState;
 
             // Call
-            info.OnNodeChecked(areaDataTreeNode);
+            info.OnNodeChecked(areaData, null);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, areaData.IsVisible);
@@ -171,25 +166,15 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup
             var observable = mocks.StrictMock<IObservable>();
             var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
-            var areaDataTreeNode = new TreeNode
-            {
-                Tag = areaData
-            };
-            var parentNode = new TreeNode
-            {
-                Tag = observable
-            };
 
             observable.Expect(o => o.NotifyObservers());
 
             mocks.ReplayAll();
 
             areaData.IsVisible = initialVisibleState;
-            parentNode.Nodes.Add(areaDataTreeNode);
-            areaDataTreeNode.Checked = !initialVisibleState;
 
             // Call
-            info.OnNodeChecked(areaDataTreeNode);
+            info.OnNodeChecked(areaData, observable);
 
             // Assert
             Assert.AreEqual(!initialVisibleState, areaData.IsVisible);

@@ -53,7 +53,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 CanDrag = (pointData, sourceNode) => DragOperations.Move,
                 CanCheck = pointData => true,
                 IsChecked = pointData => pointData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
+                OnNodeChecked = PointDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
@@ -63,7 +63,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 CanDrag = (lineData, sourceNode) => DragOperations.Move,
                 CanCheck = lineData => true,
                 IsChecked = lineData => lineData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
+                OnNodeChecked = LineDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
@@ -73,7 +73,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 CanDrag = (areaData, sourceNode) => DragOperations.Move,
                 CanCheck = areaData => true,
                 IsChecked = areaData => areaData.IsVisible,
-                OnNodeChecked = PointBasedChartDataOnNodeChecked
+                OnNodeChecked = AreaDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
@@ -106,19 +106,30 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartData
 
-        private void PointBasedChartDataOnNodeChecked(TreeNode node)
+        private void PointDataOnNodeChecked(PointData pointData, object parentData)
         {
-            var pointBasedChartData = node.Tag as PointBasedChartData;
-            if (pointBasedChartData != null)
-            {
-                pointBasedChartData.IsVisible = node.Checked;
-                pointBasedChartData.NotifyObservers();
+            PointBasedChartDataOnNodeChecked(pointData, parentData);
+        }
 
-                var parentData = node.Parent != null ? node.Parent.Tag as IObservable : null;
-                if (parentData != null)
-                {
-                    parentData.NotifyObservers();
-                }
+        private void LineDataOnNodeChecked(LineData lineData, object parentData)
+        {
+            PointBasedChartDataOnNodeChecked(lineData, parentData);
+        }
+
+        private void AreaDataOnNodeChecked(AreaData areaData, object parentData)
+        {
+            PointBasedChartDataOnNodeChecked(areaData, parentData);
+        }
+
+        private void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
+        {
+            pointBasedChartData.IsVisible = !pointBasedChartData.IsVisible;
+            pointBasedChartData.NotifyObservers();
+
+            var observableParent = parentData as IObservable;
+            if (observableParent != null)
+            {
+                observableParent.NotifyObservers();
             }
         }
 
