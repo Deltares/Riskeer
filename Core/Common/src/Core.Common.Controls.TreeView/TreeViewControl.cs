@@ -492,6 +492,21 @@ namespace Core.Common.Controls.TreeView
             {
                 treeNode.Nodes.Insert(node.Key, node.Value);
             }
+
+            // If relevant, set selection to the last of the added nodes
+            var lastAddedNodeToSetSelectionTo = newTreeNodes.Values.LastOrDefault(node =>
+            {
+                var dataObject = node.Tag;
+                var info = GetTreeNodeInfoForData(dataObject);
+
+                return info.EnsureVisibleOnCreate != null && info.EnsureVisibleOnCreate(dataObject);
+            });
+
+            if (lastAddedNodeToSetSelectionTo != null)
+            {
+                lastAddedNodeToSetSelectionTo.EnsureVisible();
+                treeView.SelectedNode = lastAddedNodeToSetSelectionTo;
+            }
         }
 
         # region Nested types
