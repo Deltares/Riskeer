@@ -74,7 +74,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateDeleteItem_DependingOnCanDelete_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
+        public void CreateDeleteItem_DependingOnCanRemoveNodeForData_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
             var treeNodeMock = mocks.StrictMock<TreeNode>();
@@ -100,11 +100,11 @@ namespace Core.Common.Gui.Test.ContextMenu
                 return !canDelete;
             };
 
-            treeViewControlMock.Expect(tvc => tvc.CanRemove(treeNodeMock)).Return(canDelete);
+            treeViewControlMock.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(canDelete);
 
             if (canDelete)
             {
-                treeViewControlMock.Expect(tvc => tvc.DeleteNode(treeNodeMock));
+                treeViewControlMock.Expect(tvc => tvc.RemoveNodeForData(nodeData));
             }
 
             mocks.ReplayAll();
@@ -127,12 +127,15 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateRenameItem_DependingOnCanRename_ItemWithDeleteFunctionWillBeEnabled(bool canRename)
+        public void CreateRenameItem_DependingOnCanRenameNodeForData_ItemWithDeleteFunctionWillBeEnabled(bool canRename)
         {
             // Setup
+            var dataObject = new object();
             var treeNodeMock = mocks.StrictMock<TreeNode>();
             var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            treeNodeMock.Expect(tn => tn.Tag).Return(dataObject);
 
             treeNodeInfoMock.CanRename = tn =>
             {
@@ -144,7 +147,7 @@ namespace Core.Common.Gui.Test.ContextMenu
                 return !canRename;
             };
 
-            treeViewControlMock.Expect(tvc => tvc.CanRename(treeNodeMock)).Return(canRename);
+            treeViewControlMock.Expect(tvc => tvc.CanRenameNodeForData(dataObject)).Return(canRename);
 
             if (canRename)
             {
@@ -174,20 +177,27 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateExpandAllItem_DependingOnChildNodes_ItemWithExpandFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
-            var treeNode = new TreeNode();
-            var treeNodeInfo = new TreeNodeInfo();
+            var dataObject = "string";
+            var treeNodeInfo = new TreeNodeInfo<string>();
+            var childTreeNodeInfo = new TreeNodeInfo<object>();
             var treeViewControl = new TreeViewControl();
 
             if (hasChildren)
             {
-                treeNode.Nodes.Add(new TreeNode());
-                treeNodeInfo.ChildNodeObjects = o => new object[] { new TreeNode() }; 
+                treeNodeInfo.ChildNodeObjects = o => new object[]
+                {
+                    new TreeNode
+                    {
+                        Tag = 10.0
+                    }
+                };
             }
 
-            var factory = new TreeViewContextMenuItemFactory(treeNode, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(new TreeNode { Tag = dataObject }, treeViewControl);
 
-            // Precondition
-            Assert.IsFalse(treeNode.IsExpanded);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            treeViewControl.Data = dataObject;
 
             // Call
             var item = factory.CreateExpandAllItem();
@@ -198,7 +208,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Expand_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ExpandAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
-            Assert.AreEqual(hasChildren, treeNode.IsExpanded);
 
             mocks.VerifyAll();
         }
@@ -209,21 +218,27 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateCollapseAllItem_DependingOnChildNodes_ItemWithCollapseFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
-            var treeNode = new TreeNode();
-            var treeNodeInfo = new TreeNodeInfo();
+            var dataObject = "string";
+            var treeNodeInfo = new TreeNodeInfo<string>();
+            var childTreeNodeInfo = new TreeNodeInfo<object>();
             var treeViewControl = new TreeViewControl();
 
             if (hasChildren)
             {
-                treeNode.Expand();
-                treeNode.Nodes.Add(new TreeNode());
-                treeNodeInfo.ChildNodeObjects = o => new object[] { new TreeNode() };
-
-                // Precondition
-                Assert.IsTrue(treeNode.IsExpanded);
+                treeNodeInfo.ChildNodeObjects = o => new object[]
+                {
+                    new TreeNode
+                    {
+                        Tag = 10.0
+                    }
+                };
             }
 
-            var factory = new TreeViewContextMenuItemFactory(treeNode, treeViewControl);
+            var factory = new TreeViewContextMenuItemFactory(new TreeNode { Tag = dataObject }, treeViewControl);
+
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            treeViewControl.Data = dataObject;
 
             // Call
             var item = factory.CreateCollapseAllItem();
@@ -234,7 +249,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
-            Assert.IsFalse(treeNode.IsExpanded);
 
             mocks.VerifyAll();
         }

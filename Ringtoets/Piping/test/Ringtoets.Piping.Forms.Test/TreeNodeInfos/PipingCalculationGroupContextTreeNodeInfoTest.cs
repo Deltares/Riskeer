@@ -747,8 +747,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, treeViewControl);
             gui.Expect(g => g.Get(node, treeViewControl)).Return(menuBuilder);
 
-            treeViewControl.Expect(tvc => tvc.CanRename(node)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanRemove(node)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(nodeData)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 
@@ -853,7 +854,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var node = new TreeNode
             {
-                Tag = group
+                Tag = nodeData
             };
             nodeParent.Nodes.Add(node);
 
@@ -865,7 +866,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, treeViewControl);
             gui.Expect(g => g.Get(node, treeViewControl)).Return(menuBuilder);
 
-            treeViewControl.Expect(tvc => tvc.CanRename(node)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(nodeData)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 
@@ -976,6 +978,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, treeViewControl);
             gui.Expect(g => g.Get(node, treeViewControl)).Return(menuBuilder);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(nodeData)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 

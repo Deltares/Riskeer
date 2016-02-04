@@ -170,7 +170,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             })
             {
                 // Call
-                explorer.TreeViewControl.DeleteNode(explorer.TreeViewControl.GetNodeByTag(project));
+                explorer.TreeViewControl.RemoveNodeForData(project);
             }
             // Assert
             mocks.VerifyAll();

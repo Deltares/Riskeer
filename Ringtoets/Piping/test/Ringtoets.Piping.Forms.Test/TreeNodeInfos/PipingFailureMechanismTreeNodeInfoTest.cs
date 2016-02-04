@@ -206,6 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, node, treeViewControl);
             gui.Expect(cmp => cmp.Get(node, treeViewControl)).Return(menuBuilder);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(failureMechanism)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 

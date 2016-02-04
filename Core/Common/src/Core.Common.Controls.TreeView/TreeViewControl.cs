@@ -123,62 +123,46 @@ namespace Core.Common.Controls.TreeView
             tagTypeTreeNodeInfoLookup[treeNodeInfo.TagType] = treeNodeInfo;
         }
 
-        public bool CanRename(TreeNode node)
+        public bool CanRenameNodeForData(object dataObject)
         {
-            var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
+            var treeNode = GetNodeByTag(dataObject);
 
-            return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(node);
+            return CanRename(treeNode);
         }
 
-        public bool CanRemove(TreeNode node)
+        public bool CanRemoveNodeForData(object dataObject)
         {
-            var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
+            var treeNode = GetNodeByTag(dataObject);
 
-            return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(node.Tag, node.Parent != null ? node.Parent.Tag : null);
+            return CanRemove(treeNode);
         }
 
-        public void DeleteNode(TreeNode node)
+        public void RemoveNodeForData(object dataObject)
         {
-            if (!CanRemove(node))
-            {
-                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
-                return;
-            }
+            var treeNode = GetNodeByTag(dataObject);
 
-            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, node.Text);
-            if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-
-            var treeNodeInfo = GetTreeNodeInfoForData(node.Tag);
-
-            if (treeNodeInfo.OnNodeRemoved != null)
-            {
-                treeNodeInfo.OnNodeRemoved(node.Tag, node.Parent != null ? node.Parent.Tag : null);
-            }
-
-            OnNodeDataDeleted(node);
+            Remove(treeNode);
         }
 
-        public void CollapseAll(TreeNode node)
+        public bool CanExpandOrCollapseAllNodesForData(object dataObject)
         {
-            node.Collapse();
+            var treeNode = GetNodeByTag(dataObject);
 
-            foreach (var childNode in node.Nodes.OfType<TreeNode>())
-            {
-                CollapseAll(childNode);
-            }
+            return treeNode.Nodes.OfType<TreeNode>().Any();
         }
 
-        public void ExpandAll(TreeNode node)
+        public void CollapseAllNodesForData(object dataObject)
         {
-            node.Expand();
+            var treeNode = GetNodeByTag(dataObject);
 
-            foreach (var childNode in node.Nodes.OfType<TreeNode>())
-            {
-                ExpandAll(childNode);
-            }
+            CollapseAll(treeNode);
+        }
+
+        public void ExpandAllNodesForData(object dataObject)
+        {
+            var treeNode = GetNodeByTag(dataObject);
+
+            ExpandAll(treeNode);
         }
 
         public void SelectNodeForData(object dataObject)
@@ -200,7 +184,72 @@ namespace Core.Common.Controls.TreeView
         /// <returns>The <see cref="TreeNode"/> corresponding the provided node data or <c>null</c> if not found.</returns>
         public TreeNode GetNodeByTag(object nodeData)
         {
-            return treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
+            var node = treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
+
+            if (node == null)
+            {
+                throw new InvalidOperationException("No corresponding node found in the tree view.");
+            }
+
+            return node;
+        }
+
+        private bool CanRename(TreeNode treeNode)
+        {
+            var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
+
+            return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(treeNode);
+        }
+
+        private bool CanRemove(TreeNode treeNode)
+        {
+            var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
+
+            return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null);
+        }
+
+        private void Remove(TreeNode treeNode)
+        {
+            if (!CanRemove(treeNode))
+            {
+                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
+                return;
+            }
+
+            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item_0_, treeNode.Text);
+            if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
+
+            var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
+
+            if (treeNodeInfo.OnNodeRemoved != null)
+            {
+                treeNodeInfo.OnNodeRemoved(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null);
+            }
+
+            OnNodeDataDeleted(treeNode);
+        }
+
+        private static void CollapseAll(TreeNode treeNode)
+        {
+            treeNode.Collapse();
+
+            foreach (var childNode in treeNode.Nodes.OfType<TreeNode>())
+            {
+                CollapseAll(childNode);
+            }
+        }
+
+        private static void ExpandAll(TreeNode treeNode)
+        {
+            treeNode.Expand();
+
+            foreach (var childNode in treeNode.Nodes.OfType<TreeNode>())
+            {
+                ExpandAll(childNode);
+            }
         }
 
         private Image CreateCheckBoxGlyph(CheckBoxState state)
@@ -549,7 +598,7 @@ namespace Core.Common.Controls.TreeView
                 }
                 case Keys.Delete: // Try to delete the selected node
                 {
-                    DeleteNode(selectedNode);
+                    Remove(selectedNode);
 
                     break;
                 }
