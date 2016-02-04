@@ -38,6 +38,29 @@ namespace Core.Common.Test.Gui
 
         [Test]
         [STAThread]
+        public void Run_WithFile_LoadProjectFromFile()
+        {
+            // Setup
+            var testFile = "SomeFile";
+
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            projectStore.Expect(ps => ps.LoadProject(testFile));
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            {
+                // Call
+                gui.Run(testFile);
+
+                // Assert
+                Assert.AreEqual(testFile, gui.ProjectFilePath);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
         public void CheckViewPropertyEditorIsInitialized()
         {
             var mocks = new MockRepository();

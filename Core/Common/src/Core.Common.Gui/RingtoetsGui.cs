@@ -130,7 +130,7 @@ namespace Core.Common.Gui
 
         public void Run()
         {
-            Run("");
+            Run(null);
         }
 
         public void Run(string projectPath)
@@ -141,16 +141,15 @@ namespace Core.Common.Gui
 
             ShowSplashScreen();
 
-            log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
+            log.Info(Resources.RingtoetsGui_Run_Starting_application);
 
             if (!string.IsNullOrEmpty(projectPath))
             {
-                // TODO: Implement logic for opening the project from the provided file path
-                Project = new Project();
+                storageCommandHandler.OpenExistingProject(projectPath);
             }
             else
             {
-                log.Info(Resources.RingtoetsGui_Run_Starting_application);
+                log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
 
                 Project = new Project();
             }

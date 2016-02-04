@@ -39,6 +39,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
+using Core.Common.Utils;
 using Core.Plugins.CommonTools;
 using Core.Plugins.DotSpatial;
 using Core.Plugins.OxyPlot;
@@ -80,7 +81,7 @@ namespace Application.Ringtoets
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
         }
 
-        public static void RunRingtoets()
+        public static void RunRingtoets(string file)
         {
             log.Info(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_Ringtoets_Gui);
 
@@ -101,7 +102,7 @@ namespace Application.Ringtoets
             // handle exception from all threads except UI
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
 
-            gui.Run();
+            gui.Run(file);
 
             // Ringtoets started, clean-up all possible memory
             GC.Collect();
@@ -120,6 +121,7 @@ namespace Application.Ringtoets
         private void App_Startup(object sender, StartupEventArgs e)
         {
             ParseArguments(e.Args);
+            var file = GetFileArgument(e.Args);
 
             WaitForPreviousInstanceToExit();
             if (ShutdownIfNotFirstInstance())
@@ -164,9 +166,27 @@ namespace Application.Ringtoets
                 }
             };
 
-            RunRingtoets();
+            RunRingtoets(file);
 
             mainWindow.Show();
+        }
+
+        private string GetFileArgument(string[] args)
+        {
+            string potentialPath = null;
+            if(args.Length > 0) 
+            {
+                potentialPath = args.Last();
+                try
+                {
+                    FileUtils.ValidateFilePath(potentialPath);
+                }
+                catch (ArgumentException)
+                {
+                    potentialPath = null;
+                }
+            }
+            return potentialPath;
         }
 
         /// <summary>
