@@ -38,10 +38,10 @@ namespace Core.Common.Controls.TreeView
 {
     public partial class TreeViewControl : UserControl
     {
-        public event EventHandler TreeNodeDoubleClick;
+        public event EventHandler DataDoubleClick;
+        public event EventHandler SelectedDataChanged;
         public event EventHandler NodeUpdated; // TODO; Way to explicit!
-        public event EventHandler<TreeNodeDataDeletedEventArgs> NodeDataDeleted; // TODO; Way to explicit!
-        public event EventHandler SelectedNodeChanged;
+        public event EventHandler<TreeNodeDataDeletedEventArgs> DataDeleted; // TODO; Way to explicit!
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewControl));
         private readonly ICollection<TreeNodeInfo> treeNodeInfos = new HashSet<TreeNodeInfo>();
@@ -707,9 +707,9 @@ namespace Core.Common.Controls.TreeView
 
         private void OnTreeNodeDoubleClick()
         {
-            if (TreeNodeDoubleClick != null)
+            if (DataDoubleClick != null)
             {
-                TreeNodeDoubleClick(treeView.SelectedNode, EventArgs.Empty);
+                DataDoubleClick(treeView.SelectedNode, EventArgs.Empty);
             }
         }
 
@@ -870,9 +870,9 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (SelectedNodeChanged != null)
+            if (SelectedDataChanged != null)
             {
-                SelectedNodeChanged(treeView.SelectedNode, EventArgs.Empty);
+                SelectedDataChanged(this, EventArgs.Empty);
             }
         }
 
@@ -1036,9 +1036,9 @@ namespace Core.Common.Controls.TreeView
 
         private void OnNodeDataDeleted(TreeNode node)
         {
-            if (NodeDataDeleted != null)
+            if (DataDeleted != null)
             {
-                NodeDataDeleted(this, new TreeNodeDataDeletedEventArgs(node.Tag));
+                DataDeleted(this, new TreeNodeDataDeletedEventArgs(node.Tag));
             }
         }
 

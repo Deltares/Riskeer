@@ -133,9 +133,9 @@ namespace Core.Plugins.ProjectExplorer
 
         private void BindTreeInteractionEvents()
         {
-            treeViewControl.TreeNodeDoubleClick += TreeViewDoubleClick;
-            treeViewControl.NodeDataDeleted += ProjectDataDeleted;
-            treeViewControl.SelectedNodeChanged += TreeViewSelectedNodeChanged;
+            treeViewControl.DataDoubleClick += TreeViewControlDataDoubleClick;
+            treeViewControl.DataDeleted += TreeViewControlDataDeleted;
+            treeViewControl.SelectedDataChanged += TreeViewControlSelectedDataChanged;
         }
 
         private void RegisterTreeNodeInfos(IEnumerable<TreeNodeInfo> treeNodeInfos)
@@ -146,17 +146,17 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
+        private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
         {
-            applicationSelection.Selection = ((TreeNode) sender).Tag;
+            applicationSelection.Selection = treeViewControl.SelectedData;
         }
 
-        private void TreeViewDoubleClick(object sender, EventArgs e)
+        private void TreeViewControlDataDoubleClick(object sender, EventArgs e)
         {
             viewCommands.OpenViewForSelection();
         }
 
-        private void ProjectDataDeleted(object sender, TreeNodeDataDeletedEventArgs e)
+        private void TreeViewControlDataDeleted(object sender, TreeNodeDataDeletedEventArgs e)
         {
             viewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
         }
