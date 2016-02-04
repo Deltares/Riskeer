@@ -1,6 +1,5 @@
 ﻿using System;
 using Core.Components.DotSpatial.Exceptions;
-using Microsoft.Win32;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Exceptions

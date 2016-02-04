@@ -20,7 +20,7 @@
 
         <fluent:RibbonTabItem Header="{x:Static common:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="B">
             <fluent:RibbonGroupBox Header="{x:Static common:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="G">
-                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToopTip}" Icon="{Binding Source={x:Static p:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
+                <fluent:ToggleButton Name="ToggleLegendViewButton" Header="{x:Static p:Resources.Ribbon_Toggle_Legend}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Legend_ToolTip}" Icon="{Binding Source={x:Static p:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleLegend_Click"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 

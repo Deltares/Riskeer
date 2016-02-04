@@ -26,7 +26,7 @@ using Core.Components.DotSpatial.Data;
 namespace Core.Plugins.DotSpatial.Forms
 {
     /// <summary>
-    /// The user control for the Map.
+    /// This class represents a simple view with a map, to which data can be added.
     /// </summary>
     public partial class MapDataView : UserControl, IMapView
     {
@@ -34,13 +34,13 @@ namespace Core.Plugins.DotSpatial.Forms
         private MapData data;
 
         /// <summary>
-        /// Creates a new instance of MapDataView and adds the map view to the <see cref="Control.Controls"/>.
+        /// Creates a new instance of <see cref="MapDataView"/>.
         /// </summary>
         public MapDataView()
         {
             baseMap = new BaseMap
             {
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Fill
             };
             Controls.Add(baseMap);
         }
@@ -57,7 +57,7 @@ namespace Core.Plugins.DotSpatial.Forms
 
                 if (data != null)
                 {
-                    baseMap.Data = data;
+                    Map.Data = data;
                 }
             }
         }

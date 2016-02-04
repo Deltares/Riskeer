@@ -52,17 +52,10 @@ namespace Core.Plugins.DotSpatial
         public override void Activate()
         {
             mapLegendController = CreateLegendController(Gui);
-            mapRibbon = CreateMapRibbon(mapLegendController);
+            mapRibbon = CreateMapRibbon();
 
             Gui.ActiveViewChanged += GuiOnActiveViewChanged;
             activated = true;
-        }
-
-        private MapLegendController CreateLegendController(IToolViewController toolViewController)
-        {
-            var controller = new MapLegendController(toolViewController);
-            controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveView();
-            return controller;
         }
 
         public override void Dispose()
@@ -83,7 +76,14 @@ namespace Core.Plugins.DotSpatial
             };
         }
 
-        private MapRibbon CreateMapRibbon(MapLegendController mapLegendController)
+        private MapLegendController CreateLegendController(IToolViewController toolViewController)
+        {
+            var controller = new MapLegendController(toolViewController);
+            controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveView();
+            return controller;
+        }
+
+        private MapRibbon CreateMapRibbon()
         {
             return new MapRibbon
             {
@@ -97,7 +97,7 @@ namespace Core.Plugins.DotSpatial
         }
 
         /// <summary>
-        /// Updates the components which the <see cref="OxyPlotGuiPlugin"/> knows about so that it reflects
+        /// Updates the components which the <see cref="DotSpatialGuiPlugin"/> knows about so that it reflects
         /// the currently active view.
         /// </summary>
         private void UpdateComponentsForActiveView()

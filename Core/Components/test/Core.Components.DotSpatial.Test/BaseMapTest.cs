@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
@@ -26,7 +25,7 @@ namespace Core.Components.DotSpatial.Test
         }
 
         [Test]
-        public void Data_NotKnowMapData_ThrowsNotSupportedException()
+        public void Data_UnknownMapData_ThrowsNotSupportedException()
         {
             // Setup
             var map = new BaseMap();
@@ -58,13 +57,12 @@ namespace Core.Components.DotSpatial.Test
             // Setup
             var map = new BaseMap();
             var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
-            map.Data = testData;
 
             // Call
-            var data = map.Data;
+            map.Data = testData;
 
             // Assert
-            Assert.AreSame(testData, data);
+            Assert.AreSame(testData, map.Data);
         }
 
         [Test]
@@ -80,6 +78,27 @@ namespace Core.Components.DotSpatial.Test
 
             // Assert
             Assert.AreEqual(1, mapView.Layers.Count);
+        }
+
+        [Test]
+        public void Data_SetToNull_MapFeaturesCleared()
+        {
+            // Setup
+            var map = new BaseMap();
+            var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            var mapView = TypeUtils.GetField<Map>(map, "map");
+
+            map.Data = testData;
+
+            // Precondition
+            Assert.AreEqual(1, mapView.Layers.Count);
+
+            // Call
+            map.Data = null;
+
+            // Assert
+            Assert.IsNull(map.Data);
+            Assert.AreEqual(0, mapView.Layers.Count);
         }
     }
 }

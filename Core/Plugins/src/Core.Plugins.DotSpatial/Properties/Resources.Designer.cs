@@ -100,9 +100,9 @@ namespace Core.Plugins.DotSpatial.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Open het kaartenpaneel..
         /// </summary>
-        public static string Ribbon_Toggle_Legend_ToopTip {
+        public static string Ribbon_Toggle_Legend_ToolTip {
             get {
-                return ResourceManager.GetString("Ribbon_Toggle_Legend_ToopTip", resourceCulture);
+                return ResourceManager.GetString("Ribbon_Toggle_Legend_ToolTip", resourceCulture);
             }
         }
     }

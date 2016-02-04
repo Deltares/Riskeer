@@ -27,7 +27,7 @@ using DotSpatial.Controls;
 namespace Core.Components.DotSpatial
 {
     /// <summary>
-    /// The map view
+    /// This class describes a map view with configured projection and function mode.
     /// </summary>
     public sealed class BaseMap : Control, IMap
     {
@@ -36,16 +36,13 @@ namespace Core.Components.DotSpatial
         private Map map;
 
         /// <summary>
-        /// Creates a new instance of <see cref="BaseMap"/>
+        /// Creates a new instance of <see cref="BaseMap"/>.
         /// </summary>
         public BaseMap()
         {
             InitializeMapView();
         }
 
-        /// <summary>
-        /// Gets and sets the <see cref="Data"/>. When <see cref="Data"/> is not empty it will load the data on the map.
-        /// </summary>
         public MapData Data
         {
             get
@@ -69,9 +66,9 @@ namespace Core.Components.DotSpatial
             map.ClearLayers();
             if (data != null)
             {
-                foreach (var feature in mapDataFactory.Create(data))
+                foreach (var featureSet in mapDataFactory.Create(data))
                 {
-                    map.Layers.Add(feature);
+                    map.Layers.Add(featureSet);
                 }
             }
         }
@@ -82,8 +79,9 @@ namespace Core.Components.DotSpatial
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan,
+                FunctionMode = FunctionMode.Pan
             };
+
             Controls.Add(map);
         }
     }

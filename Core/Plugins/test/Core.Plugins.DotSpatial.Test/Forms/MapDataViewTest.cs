@@ -47,23 +47,11 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             var map = (BaseMap)mapView.Controls[0];
 
             // Call
-            mapView.Data = null;
-
-            // Assert
-            Assert.IsNull(map.Data);
-        }
-
-        [Test]
-        public void Data_SetToNull_DoesNotThrowException()
-        {
-            // Setup
-            var mapView = new MapDataView();
-
-            // Call
             TestDelegate testDelegate = () => mapView.Data = null;
 
             // Assert
             Assert.DoesNotThrow(testDelegate);
+            Assert.IsNull(map.Data);
         }
 
         [Test]

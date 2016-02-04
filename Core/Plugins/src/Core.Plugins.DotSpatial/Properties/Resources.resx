@@ -130,7 +130,7 @@
   <data name="Ribbon_Toggle_Legend" xml:space="preserve">
     <value>Kaart</value>
   </data>
-  <data name="Ribbon_Toggle_Legend_ToopTip" xml:space="preserve">
+  <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
     <value>Open het kaartenpaneel.</value>
   </data>
 </root>
