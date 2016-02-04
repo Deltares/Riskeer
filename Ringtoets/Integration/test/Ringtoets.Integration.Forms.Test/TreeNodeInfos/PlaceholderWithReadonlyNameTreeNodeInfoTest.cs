@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -106,10 +105,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void GetContextMenu_OutputPlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var outputPlaceholder = new OutputPlaceholder(string.Empty);
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mocks.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -120,14 +119,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(cmp => cmp.Get(outputPlaceholder, treeViewControlMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
-            
+
             // Call
-            info.ContextMenuStrip(new OutputPlaceholder(string.Empty), nodeMock, treeViewControlMock);
+            info.ContextMenuStrip(outputPlaceholder, null, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();
@@ -137,10 +136,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void GetContextMenu_InputPlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var inputPlaceholder = new InputPlaceholder(string.Empty);
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mocks.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -150,14 +149,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(cmp => cmp.Get(inputPlaceholder, treeViewControlMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(new InputPlaceholder(string.Empty), nodeMock, treeViewControlMock);
+            info.ContextMenuStrip(inputPlaceholder, null, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();
@@ -170,7 +169,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var nodeMock = mocks.StrictMock<TreeNode>();
 
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
@@ -178,14 +176,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(nodeMock, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, nodeMock, treeViewControlMock);
+            info.ContextMenuStrip(null, null, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();

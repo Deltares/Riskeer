@@ -567,11 +567,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen element in het contextmenu creëren zonder dat de knoop bekend is..
+        ///   Looks up a localized string similar to Kan geen element in het contextmenu creëren zonder dat de data bekend is..
         /// </summary>
-        public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node {
+        public static string ContextMenuItemFactory_Can_not_create_context_menu_items_without_data {
             get {
-                return ResourceManager.GetString("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node", resourceCulture);
+                return ResourceManager.GetString("ContextMenuItemFactory_Can_not_create_context_menu_items_without_data", resourceCulture);
             }
         }
         

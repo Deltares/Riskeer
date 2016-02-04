@@ -130,6 +130,16 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && CanRename(treeNode);
         }
 
+        public void StartRenameForData(object dataObject)
+        {
+            var treeNode = GetNodeByTag(dataObject);
+
+            if (treeNode != null)
+            {
+                treeNode.BeginEdit();
+            }
+        }
+
         public bool CanRemoveNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
@@ -583,7 +593,7 @@ namespace Core.Common.Controls.TreeView
 
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     selectedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode, this)
+                                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode.Parent != null ? selectedNode.Parent.Tag : null, this)
                                                         : null;
 
                     if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
@@ -649,7 +659,7 @@ namespace Core.Common.Controls.TreeView
 
                 // Update the context menu
                 clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                                   ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode, this)
+                                                   ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode.Parent != null ? clickedNode.Parent.Tag : null, this)
                                                    : null;
 
                 return;

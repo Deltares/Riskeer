@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -116,13 +115,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var treeNode = new TreeNode();
-
             var gui = mocks.StrictMultiMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            gui.Expect(g => g.Get(treeNode, treeViewControlMock)).Return(menuBuilderMock);
-            
+            gui.Expect(g => g.Get(null, treeViewControlMock)).Return(menuBuilderMock);
+
             menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -134,13 +131,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            
+
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, treeNode, treeViewControlMock);
+            info.ContextMenuStrip(null, null, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();

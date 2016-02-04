@@ -63,11 +63,11 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node context menu.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
-        /// The <see cref="TreeNode"/> parameter represents the tree node.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
         /// </summary>
-        public Func<object, TreeNode, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
+        public Func<object, object, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -77,8 +77,8 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The first <see cref="object"/> parameter represents the data of the tree node.
-        /// The second <see cref="object"/> parameter represents the data of the parent tree node.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Func<object, object, bool> CanRename { get; set; }
 
@@ -117,8 +117,8 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
-        /// The first <see cref="object"/> parameter represents the data of the tree node.
-        /// The second <see cref="object"/> parameter represents the data of the parent tree node.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Action<object, object> OnNodeChecked { get; set; }
 
@@ -202,11 +202,11 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node context menu.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
-        /// The <see cref="TreeNode"/> parameter represents the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
         /// </summary>
-        public Func<TData, TreeNode, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
+        public Func<TData, object, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -217,7 +217,7 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
         /// The <see cref="TData"/> parameter represents the data of the tree node.
-        /// The <see cref="object"/> parameter represents the data of the parent tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Func<TData, object, bool> CanRename { get; set; }
 
@@ -257,7 +257,7 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
         /// The <see cref="TData"/> parameter represents the data of the tree node.
-        /// The <see cref="object"/> parameter represents the data of the parent tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Action<TData, object> OnNodeChecked { get; set; }
 
@@ -315,8 +315,8 @@ namespace Core.Common.Controls.TreeView
                             ? tag => treeNodeInfo.Image((TData) tag)
                             : (Func<object, Image>) null,
                 ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                       ? (tag, sourceNode, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, sourceNode, treeViewControl)
-                                       : (Func<object, TreeNode, TreeViewControl, ContextMenuStrip>) null,
+                                       ? (tag, parentTag, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, parentTag, treeViewControl)
+                                       : (Func<object, object, TreeViewControl, ContextMenuStrip>) null,
                 ChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,

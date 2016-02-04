@@ -32,16 +32,16 @@ namespace Core.Common.Gui.ContextMenu
     {
         /// <summary>
         /// Returns a new <see cref="ContextMenuBuilder"/> for creating a <see cref="ContextMenuStrip"/>
-        /// for the given <paramref name="treeNode"/>.
+        /// for the given <paramref name="dataObject"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="TreeNode"/> to have the <see cref="ContextMenuBuilder"/>
+        /// <param name="dataObject">The data object to have the <see cref="ContextMenuBuilder"/>
         /// create a <see cref="ContextMenuStrip"/> for.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the
         /// <see cref="ContextMenuStrip"/> actions.</param>
         /// <returns>The <see cref="ContextMenuBuilder"/> which can be used to create a <see cref="ContextMenuStrip"/>
-        /// for <paramref name="treeNode"/>.</returns>
+        /// for <paramref name="dataObject"/>.</returns>
         /// <exception cref="ContextMenuBuilderException">Thrown when the <see cref="IContextMenuBuilder"/> instance could
         /// not be created.</exception>
-        IContextMenuBuilder Get(TreeNode treeNode, TreeViewControl treeViewControl);
+        IContextMenuBuilder Get(object dataObject, TreeViewControl treeViewControl);
     }
 }

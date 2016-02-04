@@ -28,8 +28,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
@@ -744,9 +742,9 @@ namespace Core.Common.Gui
 
         #region Implementation: IContextMenuBuilderProvider
 
-        public IContextMenuBuilder Get(TreeNode treeNode, TreeViewControl treeViewControl)
+        public IContextMenuBuilder Get(object dataObject, TreeViewControl treeViewControl)
         {
-            return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, treeNode, treeViewControl);
+            return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, dataObject, treeViewControl);
         }
 
         #endregion

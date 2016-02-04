@@ -37,7 +37,7 @@ namespace Core.Common.Gui.ContextMenu
         private readonly IApplicationFeatureCommands applicationFeatureCommandHandler;
         private readonly IExportImportCommandHandler exportImportCommandHandler;
         private readonly IViewCommands viewCommands;
-        private readonly TreeNode treeNode;
+        private readonly object dataObject;
 
         /// <summary>
         /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the 
@@ -49,9 +49,9 @@ namespace Core.Common.Gui.ContextMenu
         /// which contains information for creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="viewCommandsHandler">The <see cref="IViewCommands"/> which contains
         /// information for creating the <see cref="ToolStripItem"/>.</param>
-        /// <param name="treeNode">The <see cref="TreeNode"/> for which to create <see cref="ToolStripItem"/>.</param>
+        /// <param name="dataObject">The data object for which to create <see cref="ToolStripItem"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler, IExportImportCommandHandler exportImportCommandHandler, IViewCommands viewCommandsHandler, TreeNode treeNode)
+        public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler, IExportImportCommandHandler exportImportCommandHandler, IViewCommands viewCommandsHandler, object dataObject)
         {
             if (applicationFeatureCommandHandler == null)
             {
@@ -65,14 +65,14 @@ namespace Core.Common.Gui.ContextMenu
             {
                 throw new ArgumentNullException("viewCommandsHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands);
             }
-            if (treeNode == null)
+            if (dataObject == null)
             {
-                throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
+                throw new ArgumentNullException("dataObject", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
             }
             this.applicationFeatureCommandHandler = applicationFeatureCommandHandler;
             this.exportImportCommandHandler = exportImportCommandHandler;
             viewCommands = viewCommandsHandler;
-            this.treeNode = treeNode;
+            this.dataObject = dataObject;
         }
 
         /// <summary>
@@ -82,7 +82,6 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateOpenItem()
         {
-            object dataObject = treeNode.Tag;
             bool canOpenView = viewCommands.CanOpenViewFor(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Open)
             {
@@ -102,7 +101,6 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExportItem()
         {
-            object dataObject = treeNode.Tag;
             bool canExport = exportImportCommandHandler.CanExportFrom(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
@@ -122,7 +120,6 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
         {
-            object dataObject = treeNode.Tag;
             bool canImport = exportImportCommandHandler.CanImportOn(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
@@ -142,7 +139,6 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreatePropertiesItem()
         {
-            object dataObject = treeNode.Tag;
             bool canShowProperties = applicationFeatureCommandHandler.CanShowPropertiesFor(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Properties)
             {

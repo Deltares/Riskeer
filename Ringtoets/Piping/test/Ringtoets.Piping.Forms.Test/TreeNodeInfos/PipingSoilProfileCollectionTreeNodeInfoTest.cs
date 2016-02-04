@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -146,12 +145,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var treeNode = new TreeNode();
             var gui = mocks.StrictMultiMock<IGui>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            gui.Expect(g => g.Get(treeNode, treeViewControl)).Return(menuBuilderMock);
+            gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
@@ -165,7 +163,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, treeNode, treeViewControl);
+            info.ContextMenuStrip(null, null, treeViewControl);
 
             // Assert
             mocks.VerifyAll();

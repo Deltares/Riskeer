@@ -31,20 +31,20 @@ namespace Core.Common.Gui.ContextMenu
     /// </summary>
     internal class TreeViewContextMenuItemFactory
     {
-        private readonly TreeNode treeNode;
+        private readonly object dataObject;
         private readonly TreeViewControl treeViewControl;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="treeNode"/>.
+        /// Creates a new instance of <see cref="TreeViewContextMenuItemFactory"/> for the given <paramref name="dataObject"/>.
         /// </summary>
-        /// <param name="treeNode">The <see cref="TreeNode"/> for which to create the <see cref="ToolStripItem"/> objects.</param>
+        /// <param name="dataObject">The data object for which to create the <see cref="ToolStripItem"/> objects.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ToolStripItem"/> actions.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="treeNode"/> is <c>null</c>.</exception>
-        public TreeViewContextMenuItemFactory(TreeNode treeNode, TreeViewControl treeViewControl)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataObject"/> or <paramref name="treeViewControl"/> is <c>null</c>.</exception>
+        public TreeViewContextMenuItemFactory(object dataObject, TreeViewControl treeViewControl)
         {
-            if (treeNode == null)
+            if (dataObject == null)
             {
-                throw new ArgumentNullException("treeNode", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_node);
+                throw new ArgumentNullException("dataObject", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
             }
 
             if (treeViewControl == null)
@@ -52,7 +52,7 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException("treeViewControl", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_control);
             }
 
-            this.treeNode = treeNode;
+            this.dataObject = dataObject;
             this.treeViewControl = treeViewControl;
         }
 
@@ -67,9 +67,9 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Rename_ToolTip,
                 Image = Resources.RenameIcon,
-                Enabled = treeViewControl.CanRenameNodeForData(treeNode.Tag)
+                Enabled = treeViewControl.CanRenameNodeForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeNode.BeginEdit();
+            toolStripMenuItem.Click += (s, e) => treeViewControl.StartRenameForData(dataObject);
             return toolStripMenuItem;
         }
 
@@ -84,9 +84,9 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Delete_ToolTip,
                 Image = Resources.DeleteIcon,
-                Enabled = treeViewControl.CanRemoveNodeForData(treeNode.Tag)
+                Enabled = treeViewControl.CanRemoveNodeForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.RemoveNodeForData(treeNode.Tag);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.RemoveNodeForData(dataObject);
             return toolStripMenuItem;
         }
 
@@ -101,9 +101,9 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Expand_all_ToolTip,
                 Image = Resources.ExpandAllIcon,
-                Enabled = treeViewControl.CanExpandOrCollapseAllNodesForData(treeNode.Tag)
+                Enabled = treeViewControl.CanExpandOrCollapseAllNodesForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.ExpandAllNodesForData(treeNode.Tag);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.ExpandAllNodesForData(dataObject);
             return toolStripMenuItem;
         }
 
@@ -118,9 +118,9 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Collapse_all_ToolTip,
                 Image = Resources.CollapseAllIcon,
-                Enabled = treeViewControl.CanExpandOrCollapseAllNodesForData(treeNode.Tag)
+                Enabled = treeViewControl.CanExpandOrCollapseAllNodesForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.CollapseAllNodesForData(treeNode.Tag);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.CollapseAllNodesForData(dataObject);
             return toolStripMenuItem;
         }
     }
