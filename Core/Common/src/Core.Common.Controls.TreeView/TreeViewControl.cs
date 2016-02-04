@@ -127,42 +127,51 @@ namespace Core.Common.Controls.TreeView
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            return CanRename(treeNode);
+            return treeNode != null && CanRename(treeNode);
         }
 
         public bool CanRemoveNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            return CanRemove(treeNode);
+            return treeNode != null && CanRemove(treeNode);
         }
 
         public void RemoveNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            Remove(treeNode);
+            if (treeNode != null)
+            {
+                Remove(treeNode);
+            }
         }
 
         public bool CanExpandOrCollapseAllNodesForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            return treeNode.Nodes.OfType<TreeNode>().Any();
+            return treeNode != null && treeNode.Nodes.OfType<TreeNode>().Any();
         }
 
         public void CollapseAllNodesForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            CollapseAll(treeNode);
+            if (treeNode != null)
+            {
+                CollapseAll(treeNode);
+            }
         }
 
         public void ExpandAllNodesForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            ExpandAll(treeNode);
+            if (treeNode != null)
+            {
+                ExpandAll(treeNode);
+            }
         }
 
         public void SelectNodeForData(object dataObject)
@@ -172,9 +181,9 @@ namespace Core.Common.Controls.TreeView
 
         public string GetPathForData(object dataObject)
         {
-            var node = GetNodeByTag(dataObject);
+            var treeNode = GetNodeByTag(dataObject);
 
-            return node != null ? node.FullPath : "";
+            return treeNode != null ? treeNode.FullPath : "";
         }
 
         /// <summary>
@@ -185,11 +194,6 @@ namespace Core.Common.Controls.TreeView
         public TreeNode GetNodeByTag(object nodeData)
         {
             var node = treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
-
-            if (node == null)
-            {
-                throw new InvalidOperationException("No corresponding node found in the tree view.");
-            }
 
             return node;
         }
