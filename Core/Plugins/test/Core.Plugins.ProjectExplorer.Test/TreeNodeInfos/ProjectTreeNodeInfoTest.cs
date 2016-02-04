@@ -33,6 +33,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(typeof(Project), info.TagType);
             Assert.IsNull(info.ForeColor);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);

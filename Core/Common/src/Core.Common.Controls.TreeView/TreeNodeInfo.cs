@@ -45,19 +45,19 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node text.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, string> Text { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node fore color.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, Color> ForeColor { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node image.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, Image> Image { get; set; }
 
@@ -70,8 +70,14 @@ namespace Core.Common.Controls.TreeView
         public Func<object, object, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for determining whether or not the tree node should become visible and selected on creation.
+        /// The <c>object</c> parameter represents the data of the tree node.
+        /// </summary>
+        public Func<object, bool> EnsureVisibleOnCreate { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining child node objects.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, object[]> ChildNodeObjects { get; set; }
 
@@ -84,34 +90,34 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// The <c>string</c> parameter represents the new name of the tree node.
         /// </summary>
         public Action<object, string> OnNodeRenamed { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be removed.
-        /// The first <c>object</c> parameter represents the wrapped data of the tree node.
-        /// The second <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Func<object, object, bool> CanRemove { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
-        /// The <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Action<object, object> OnNodeRemoved { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be checked.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, bool> CanCheck { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node should be checked.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, bool> IsChecked { get; set; }
 
@@ -124,7 +130,7 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
-        /// The <c>object</c> parameter represents the wrapped data of the tree node.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// The <see cref="TreeNode"/> parameter represents the tree node which is dragged.
         /// </summary>
         public Func<object, TreeNode, DragOperations> CanDrag { get; set; }
@@ -184,19 +190,19 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node text.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, string> Text { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node color.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, Color> ForeColor { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining the tree node image.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, Image> Image { get; set; }
 
@@ -209,8 +215,14 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, object, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for determining whether or not the tree node should become visible and selected on creation.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// </summary>
+        public Func<TData, bool> EnsureVisibleOnCreate { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining child node objects.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, object[]> ChildNodeObjects { get; set; }
 
@@ -223,34 +235,34 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// The <c>string</c> parameter represents the new name of the tree node.
         /// </summary>
         public Action<TData, string> OnNodeRenamed { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be removed.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
-        /// The <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Func<TData, object, bool> CanRemove { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
-        /// The <c>object</c> parameter represents the wrapped data of the parent tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Action<TData, object> OnNodeRemoved { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be checked.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, bool> CanCheck { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node should be checked.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, bool> IsChecked { get; set; }
 
@@ -263,7 +275,7 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dragged to another location.
-        /// The <typeparamref name="TData"/> parameter represents the wrapped data of the tree node.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// The <see cref="TreeNode"/> parameter represents the tree node which is dragged.
         /// </summary>
         public Func<TData, TreeNode, DragOperations> CanDrag { get; set; }
@@ -317,6 +329,9 @@ namespace Core.Common.Controls.TreeView
                 ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
                                        ? (tag, parentTag, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, parentTag, treeViewControl)
                                        : (Func<object, object, TreeViewControl, ContextMenuStrip>) null,
+                EnsureVisibleOnCreate = treeNodeInfo.EnsureVisibleOnCreate != null
+                                            ? tag => treeNodeInfo.EnsureVisibleOnCreate((TData) tag)
+                                            : (Func<object, bool>) null,
                 ChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,

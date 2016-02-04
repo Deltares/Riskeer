@@ -43,8 +43,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.TagType);
-
             Assert.IsNull(info.ForeColor);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -1088,7 +1088,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void GetContextMenu_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
         {
             // Setup
-            var tag = new object();
             var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new PipingCalculationGroup();

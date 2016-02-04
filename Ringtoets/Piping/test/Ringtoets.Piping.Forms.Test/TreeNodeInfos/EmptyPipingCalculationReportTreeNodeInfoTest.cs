@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(EmptyPipingCalculationReport), info.TagType);
-
+            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);

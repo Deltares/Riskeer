@@ -39,8 +39,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingCalculationContext), info.TagType);
-
             Assert.IsNull(info.ForeColor);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);

@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(FailureMechanismPlaceholder), info.TagType);
-
+            Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
