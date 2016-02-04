@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.DbContext
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
         public virtual IDbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual IDbSet<Version> Versions { get; set; }
-        public virtual IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
     }
 }

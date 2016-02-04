@@ -103,6 +103,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, validPath);
+            var projectName = Path.GetFileNameWithoutExtension(validPath);
             var storage = new StorageSqLite();
 
             // Precondition
@@ -114,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
             Assert.AreEqual(1, loadedProject.StorageId);
-            Assert.AreEqual("TestProject", loadedProject.Name);
+            Assert.AreEqual(projectName, loadedProject.Name);
             Assert.AreEqual("Test description", loadedProject.Description);
         }
 
@@ -140,70 +141,66 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProjectAs_InvalidProject_ThrowsArgumentNullException()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
             var storage = new StorageSqLite();
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempFile, null);
+            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempFile);
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         [Test]
         public void SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
             var project = new Project();
             var storage = new StorageSqLite();
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
 
             // Assert
             Assert.DoesNotThrow(test);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempFile);
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         [Test]
         public void SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
-            SetUpTempRingtoetsFile(tempFile);
+            SetUpTempRingtoetsFile(tempRingtoetsFile);
             var project = new Project();
             var storage = new StorageSqLite();
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
 
             // Assert
             Assert.DoesNotThrow(test);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempFile);
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         [Test]
         public void SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
-            string expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}': Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.", tempFile);
+            string expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}': Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.", tempRingtoetsFile);
             var project = new Project();
             var storage = new StorageSqLite();
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
 
             StorageException exception;
-            using (File.Create(tempFile)) // Locks file
+            using (File.Create(tempRingtoetsFile)) // Locks file
             {
                 exception = Assert.Throws<StorageException>(test);
             }
@@ -214,7 +211,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.AreEqual(expectedMessage, exception.Message);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempFile);
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -250,16 +247,20 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProject_InvalidProject_ThrowsStorageExceptionAndCouldNotConnectException()
+        public void SaveProject_ValidProjectNonExistingPath_ThrowsStorageExceptionAndCouldNotConnectException()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            var project = new Project
+            {
+                StorageId = 1234L
+            };
+            var tempFile = Path.Combine(testDataPath, "DoesNotExist.rtd");
             string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempFile);
             string expectedInnerMessage = "Het bestand bestaat niet.";
             var storage = new StorageSqLite();
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, null);
+            TestDelegate test = () => storage.SaveProject(tempFile, project);
 
             // Assert
             StorageException exception = Assert.Throws<StorageException>(test);
@@ -324,59 +325,25 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             long projectId = 1234L;
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
+            var projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
+
             var project = new Project()
             {
                 StorageId = projectId
             };
             var storage = new StorageSqLite();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempFile, project);
-            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempFile));
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, project);
+            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, project);
+            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, project);
 
             // Assert
             Assert.DoesNotThrow(test);
+            Assert.AreEqual(projectName, project.Name);
 
             // TearDown
-            TearDownTempRingtoetsFile(tempFile);
-        }
-
-        [Test]
-        public void SaveProjectLoadProject_ValidPathToSetFilePath_ValidContentsFromDatabase()
-        {
-            // Setup
-            long projectId = 1234L;
-            var tempFile = Path.Combine(testDataPath, "tempProjectFile.rtd");
-            var project = new Project()
-            {
-                StorageId = projectId,
-                Name = "test",
-                Description = "description"
-            };
-            var storage = new StorageSqLite();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempFile, project);
-            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempFile));
-
-            // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, project);
-
-            // Assert
-            Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempFile));
-
-            // Call
-            Project loadedProject = storage.LoadProject(tempFile);
-
-            // Assert
-            Assert.IsInstanceOf<Project>(loadedProject);
-            Assert.AreNotEqual(project, loadedProject);
-            Assert.AreEqual(project.StorageId, loadedProject.StorageId);
-            Assert.AreEqual(project.Name, loadedProject.Name);
-            Assert.AreEqual(project.Description, loadedProject.Description);
-
-            // TearDown
-            TearDownTempRingtoetsFile(tempFile);
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         private static void SetUpTempRingtoetsFile(string filePath)

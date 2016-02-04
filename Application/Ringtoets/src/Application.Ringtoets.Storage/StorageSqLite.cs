@@ -64,12 +64,16 @@ namespace Application.Ringtoets.Storage
             SetConnectionToNewFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
-                var projectEntity = projectEntityPersistor.AddEntity(project);
+                var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
                 try
                 {
+                    projectEntityPersistor.AddEntity(project);
                     var changes = dbContext.SaveChanges();
-                    project.StorageId = projectEntity.ProjectEntityId;
+
+                    projectEntityPersistor.PerformPostSaveActions();
+
+                    project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
+
                     return changes;
                 }
                 catch (DataException exception)
@@ -78,7 +82,11 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (SystemException exception)
                 {
-                    throw CreateStorageWriterException(Resources.Error_During_Connection, exception);
+                    if (exception is InvalidOperationException || exception is NotSupportedException)
+                    {
+                        throw CreateStorageWriterException(Resources.Error_During_Connection, exception);
+                    }
+                    throw;
                 }
             }
         }
@@ -109,11 +117,13 @@ namespace Application.Ringtoets.Storage
             }
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
+                var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
                 try
                 {
                     projectEntityPersistor.UpdateEntity(project);
-                    return dbContext.SaveChanges();
+                    var changes = dbContext.SaveChanges();
+                    projectEntityPersistor.PerformPostSaveActions();
+                    return changes;
                 }
                 catch (EntityNotFoundException)
                 {
@@ -125,7 +135,11 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (SystemException exception)
                 {
-                    throw CreateStorageWriterException(Resources.Error_During_Connection, exception);
+                    if (exception is InvalidOperationException || exception is NotSupportedException)
+                    {
+                        throw CreateStorageWriterException(Resources.Error_During_Connection, exception);
+                    }
+                    throw;
                 }
             }
         }
@@ -145,8 +159,11 @@ namespace Application.Ringtoets.Storage
             {
                 using (var dbContext = new RingtoetsEntities(connectionString))
                 {
-                    var projectEntityPersistor = new ProjectEntityPersistor(dbContext.ProjectEntities);
-                    return projectEntityPersistor.GetEntityAsModel();
+                    var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
+                    var project = projectEntityPersistor.GetEntityAsModel();
+
+                    project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
+                    return project;
                 }
             }
             catch (DataException exception)

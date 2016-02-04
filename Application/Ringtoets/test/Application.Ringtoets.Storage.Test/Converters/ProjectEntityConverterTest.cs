@@ -37,12 +37,10 @@ namespace Application.Ringtoets.Storage.Test.Converters
         {
             // SetUp
             const long storageId = 1234L;
-            const string name = "test";
             const string description = "Description";
             ProjectEntity projectEntity = new ProjectEntity()
             {
                 ProjectEntityId = storageId,
-                Name = name,
                 Description = description
             };
             ProjectEntityConverter converter = new ProjectEntityConverter();
@@ -53,7 +51,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Assert
             Assert.AreNotEqual(projectEntity, project);
             Assert.AreEqual(storageId, project.StorageId);
-            Assert.AreEqual(name, project.Name);
             Assert.AreEqual(description, project.Description);
         }
 
@@ -90,12 +87,10 @@ namespace Application.Ringtoets.Storage.Test.Converters
         {
             // SetUp
             const long storageId = 1234L;
-            const string name = "test";
             const string description = "Description";
             Project project = new Project
             {
                 StorageId = storageId,
-                Name = name,
                 Description = description
             };
             ProjectEntity projectEntity = new ProjectEntity();
@@ -107,7 +102,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Assert
             Assert.AreNotEqual(projectEntity, project);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
-            Assert.AreEqual(name, projectEntity.Name);
             Assert.AreEqual(description, projectEntity.Description);
             Assert.IsNotNull(projectEntity.LastUpdated);
         }

@@ -69,6 +69,8 @@
     <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
+    <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
+    <Compile Include="Persistors\DikeAssessmentSectionEntityPersistorTest.cs" />
     <Compile Include="Persistors\ProjectEntityPersistorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />

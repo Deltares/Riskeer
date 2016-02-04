@@ -46,7 +46,6 @@ namespace Application.Ringtoets.Storage.Converters
             var project = new Project
             {
                 StorageId = entity.ProjectEntityId,
-                Name = entity.Name,
                 Description = entity.Description
             };
 
@@ -73,7 +72,6 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entity");
             }
             entity.ProjectEntityId = modelObject.StorageId;
-            entity.Name = modelObject.Name;
             entity.Description = modelObject.Description;
             entity.LastUpdated = new DateTime().Ticks;
         }

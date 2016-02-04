@@ -42,7 +42,6 @@ namespace Application.Ringtoets.Storage.DbContext
         }
     
         public long ProjectEntityId { get; set; }
-        public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<long> LastUpdated { get; set; }
     

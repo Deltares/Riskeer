@@ -22,20 +22,17 @@ namespace Application.Ringtoets.Storage.Test.DbContext
         {
             // Setup
             const long expectedId = 1024L;
-            const string expectedName = "<some name>";
             const string someDescription = "<some description>";
             const long someTimestamp = 123456789L;
 
             var projectEntity = new ProjectEntity
             {
-                Name = expectedName,
                 ProjectEntityId = expectedId,
                 Description = someDescription,
                 LastUpdated = someTimestamp
             };
 
             // Call & Assert
-            Assert.AreEqual(expectedName, projectEntity.Name);
             Assert.AreEqual(someDescription, projectEntity.Description);
             Assert.AreEqual(expectedId, projectEntity.ProjectEntityId);
             Assert.AreEqual(someTimestamp, projectEntity.LastUpdated);

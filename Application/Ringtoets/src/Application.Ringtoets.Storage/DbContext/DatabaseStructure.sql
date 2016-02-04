@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.0.7 on Mon Jan 25 12:12:02 2016
+-- File generated with SQLiteStudio v3.0.7 on Fri Jan 29 11:47:02 2016
 --
 -- Text encoding used: windows-1252
 --
@@ -18,29 +18,28 @@ CREATE TABLE Version (
 );
 
 
--- Table: DikeAssessmentSectionEntity
-DROP TABLE IF EXISTS DikeAssessmentSectionEntity;
-
-CREATE TABLE DikeAssessmentSectionEntity (
-    DikeAssessmentSectionEntityId INTEGER        PRIMARY KEY AUTOINCREMENT
-                                                 NOT NULL,
-    ProjectEntityId               INTEGER        REFERENCES ProjectEntity (ProjectEntityId) ON DELETE CASCADE
-                                                                                            ON UPDATE CASCADE
-                                                 NOT NULL,
-    Name                          VARCHAR (260),
-    Norm                          INT
-);
-
-
 -- Table: ProjectEntity
 DROP TABLE IF EXISTS ProjectEntity;
 
 CREATE TABLE ProjectEntity (
-    ProjectEntityId INTEGER        NOT NULL
-                                   PRIMARY KEY AUTOINCREMENT,
-    Name            VARCHAR (260),
-    Description     TEXT (0),
-    LastUpdated     INTEGER        DEFAULT (CURRENT_TIMESTAMP) 
+    ProjectEntityId INTEGER           NOT NULL
+                                      PRIMARY KEY AUTOINCREMENT,
+    Description     TEXT (2147483647),
+    LastUpdated     INTEGER           DEFAULT (CURRENT_TIMESTAMP) 
+);
+
+
+-- Table: DikeAssessmentSectionEntity
+DROP TABLE IF EXISTS DikeAssessmentSectionEntity;
+
+CREATE TABLE DikeAssessmentSectionEntity (
+    DikeAssessmentSectionEntityId INTEGER       PRIMARY KEY AUTOINCREMENT
+                                                NOT NULL,
+    ProjectEntityId               INTEGER       REFERENCES ProjectEntity (ProjectEntityId) ON DELETE CASCADE
+                                                                                           ON UPDATE CASCADE
+                                                NOT NULL,
+    Name                          VARCHAR (260),
+    Norm                          INT
 );
 
 
