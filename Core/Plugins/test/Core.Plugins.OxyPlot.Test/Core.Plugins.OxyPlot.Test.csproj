@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="Commands\ToggleLegendViewCommandTest.cs" />
     <Compile Include="Forms\ChartDataViewTest.cs" />
-    <Compile Include="Commands\OpenChartViewCommandTest.cs" />
     <Compile Include="Legend\ChartDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\PointDataTreeNodeInfoTest.cs" />
     <Compile Include="Legend\AreaDataTreeNodeInfoTest.cs" />

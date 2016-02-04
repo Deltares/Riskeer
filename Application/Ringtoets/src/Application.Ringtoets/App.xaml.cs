@@ -156,10 +156,10 @@ namespace Application.Ringtoets
                     new CommonToolsGuiPlugin(),
                     new RingtoetsGuiPlugin(),
                     new PipingGuiPlugin(),
+                    new OxyPlotGuiPlugin(),
                     new DotSpatialGuiPlugin()
 #if INCLUDE_DEMOPROJECT
                     , new DemoProjectGuiPlugin()
-                    , new OxyPlotGuiPlugin()
 #endif
                 }
             };

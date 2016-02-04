@@ -103,7 +103,6 @@ namespace Core.Plugins.OxyPlot
         {
             return new ChartingRibbon
             {
-                OpenChartViewCommand = new OpenChartViewCommand(documentViewController),
                 ToggleLegendViewCommand = new ToggleLegendViewCommand(legendController)
             };
         }

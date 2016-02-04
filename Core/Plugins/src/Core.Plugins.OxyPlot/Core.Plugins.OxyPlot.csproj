@@ -73,7 +73,6 @@
       <DependentUpon>LegendView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\IChartView.cs" />
-    <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Legend\LegendController.cs" />
     <Compile Include="OxyPlotGuiPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

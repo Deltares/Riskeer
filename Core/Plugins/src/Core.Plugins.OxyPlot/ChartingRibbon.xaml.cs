@@ -65,11 +65,6 @@ namespace Core.Plugins.OxyPlot
         }
 
         /// <summary>
-        /// Sets the command used when the open chart button is clicked.
-        /// </summary>
-        public ICommand OpenChartViewCommand { private get; set; }
-
-        /// <summary>
         /// Sets the command used when the toggle legend view button is clicked.
         /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
@@ -78,10 +73,6 @@ namespace Core.Plugins.OxyPlot
         {
             get
             {
-                if (OpenChartViewCommand != null)
-                {
-                    yield return OpenChartViewCommand;
-                }
                 if (ToggleLegendViewCommand != null)
                 {
                     yield return ToggleLegendViewCommand;
@@ -126,12 +117,7 @@ namespace Core.Plugins.OxyPlot
             // but more ideally be removed.
             return ChartingContextualGroup.Name == tabGroupName && ChartingContextualGroup.Visibility == Visibility.Visible;
         }
-
-        private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)
-        {
-            OpenChartViewCommand.Execute();
-        }
-
+        
         private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
         {
             ToggleLegendViewCommand.Execute();

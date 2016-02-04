@@ -35,15 +35,12 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var documentViewController = mocks.Stub<IDocumentViewController>();
             var toolViewController = mocks.Stub<IToolViewController>();
             mocks.ReplayAll();
 
-            var openChartViewCommand = new OpenChartViewCommand(documentViewController);
             var toggleLegendViewCommand = new ToggleLegendViewCommand(new LegendController(toolViewController));
             var ribbon = new ChartingRibbon
             {
-                OpenChartViewCommand = openChartViewCommand,
                 ToggleLegendViewCommand = toggleLegendViewCommand,
             };
 
@@ -51,7 +48,7 @@ namespace Core.Plugins.OxyPlot.Test
             var commands = ribbon.Commands.ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(new ICommand[]{openChartViewCommand, toggleLegendViewCommand}, commands);
+            CollectionAssert.AreEqual(new ICommand[]{toggleLegendViewCommand}, commands);
 
             mocks.VerifyAll();
         }
@@ -80,23 +77,50 @@ namespace Core.Plugins.OxyPlot.Test
 
         [Test]
         [RequiresSTA]
-        public void OpenChartViewButton_OnClick_ExecutesOpenChartViewCommand()
+        public void TogglePanning_OnClick_TogglePanning()
         {
             // Setup
             var mocks = new MockRepository();
-            var command = mocks.StrictMock<ICommand>();
-            command.Expect(c => c.Execute());
+            var chart = mocks.DynamicMock<IChart>();
+            chart.Expect(c => c.TogglePanning());
 
             mocks.ReplayAll();
 
             var ribbon = new ChartingRibbon
             {
-                OpenChartViewCommand = command
+                Chart = chart
             };
-            var button = ribbon.GetRibbonControl().FindName("OpenChartViewButton") as Button;
+            var button = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
 
             // Precondition
-            Assert.IsNotNull(button, "Ribbon should have an open chart view button.");
+            Assert.IsNotNull(button, "Ribbon should have a toggle panning button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ToggleRectangleZooming_OnClick_ToggleRectangleZooming()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var chart = mocks.DynamicMock<IChart>();
+            chart.Expect(c => c.ToggleRectangleZooming());
+
+            mocks.ReplayAll();
+
+            var ribbon = new ChartingRibbon
+            {
+                Chart = chart
+            };
+            var button = ribbon.GetRibbonControl().FindName("ToggleRectangleZoomingButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle rectangle zooming button.");
 
             // Call
             button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));

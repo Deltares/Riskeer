@@ -4,12 +4,11 @@ using System.Collections.ObjectModel;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.DotSpatial.Data;
-using Core.Plugins.DotSpatial.Forms;
 
 namespace Demo.Ringtoets.Commands
 {
     /// <summary>
-    /// The command for opening a <see cref="MapDataView"/> with some arbitrary data.
+    /// The command for opening a view for <see cref="MapData"/> with some arbitrary data.
     /// </summary>
     public class OpenMapViewCommand : ICommand
     {

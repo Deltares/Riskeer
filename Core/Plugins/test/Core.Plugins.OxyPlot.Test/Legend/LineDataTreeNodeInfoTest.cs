@@ -121,6 +121,26 @@ namespace Core.Plugins.OxyPlot.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
+        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
+        {
+            // Setup
+            var lineData = mocks.StrictMock<LineData>(Enumerable.Empty<Tuple<double, double>>());
+
+            lineData.IsVisible = isVisible;
+
+            mocks.ReplayAll();
+
+            // Call
+            var canCheck = info.IsChecked(lineData);
+
+            // Assert
+            Assert.AreEqual(isVisible, canCheck);
+
+            mocks.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
         public void LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup

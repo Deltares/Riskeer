@@ -75,6 +75,34 @@ namespace Demo.Ringtoets.Test.Ribbons
 
         [Test]
         [RequiresSTA]
+        public void OpenChartViewButton_OnClick_ExecutesOpenChartViewCommand()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewResolver = mocks.StrictMock<IViewResolver>();
+            viewResolver.Expect(vr => vr.OpenViewForData(null)).IgnoreArguments().Return(true);
+
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            var documentViewController = mocks.Stub<IDocumentViewController>();
+            documentViewController.Expect(dvc => dvc.DocumentViewsResolver).Return(viewResolver);
+
+            mocks.ReplayAll();
+
+            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, documentViewController);
+            var button = ribbon.GetRibbonControl().FindName("OpenChartViewButton") as Button;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have an open chart view button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
         public void OpenMapViewButton_OnClick_OpensView()
         {
             // Setup

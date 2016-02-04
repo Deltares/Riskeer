@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Commands\AddNewDemoDikeAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AddNewDemoDuneAssessmentSectionCommand.cs" />
+    <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
     <Compile Include="GUIs\DemoProjectGuiPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,13 +91,13 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
+      <Name>Core.Components.Charting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
       <Name>Core.Components.DotSpatial</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
-      <Project>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</Project>
-      <Name>Core.Plugins.DotSpatial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
@@ -215,7 +216,9 @@
   <ItemGroup>
     <None Include="Resources\map.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\chart_line.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

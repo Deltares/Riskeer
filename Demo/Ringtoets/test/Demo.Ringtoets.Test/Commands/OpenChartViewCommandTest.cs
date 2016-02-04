@@ -1,12 +1,10 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
-using Core.Plugins.OxyPlot.Commands;
-
+using Demo.Ringtoets.Commands;
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
-namespace Core.Plugins.OxyPlot.Test.Commands
+namespace Demo.Ringtoets.Test.Commands
 {
     [TestFixture]
     public class OpenChartViewCommandTest

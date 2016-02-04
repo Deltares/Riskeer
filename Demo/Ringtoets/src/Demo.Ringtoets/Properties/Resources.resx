@@ -211,4 +211,13 @@
   <data name="Ribbon_Demo_Header" xml:space="preserve">
     <value>Demo</value>
   </data>
+  <data name="ChartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\chart_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="General_Chart" xml:space="preserve">
+    <value>Grafiek</value>
+  </data>
+  <data name="OpenChartView_ToolTip" xml:space="preserve">
+    <value>Open een documentvenster met een diagram.</value>
+  </data>
 </root>

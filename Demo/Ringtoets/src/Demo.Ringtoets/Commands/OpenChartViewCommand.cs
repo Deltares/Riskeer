@@ -22,16 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.Charting.Data;
-using Core.Plugins.OxyPlot.Forms;
 
-namespace Core.Plugins.OxyPlot.Commands
+namespace Demo.Ringtoets.Commands
 {
     /// <summary>
-    /// This class describes the command for opening a <see cref="ChartDataView"/> with some arbitrary data.
+    /// This class describes the command for opening a view for <see cref="ChartData"/> with some arbitrary data.
     /// </summary>
     public class OpenChartViewCommand : ICommand
     {
