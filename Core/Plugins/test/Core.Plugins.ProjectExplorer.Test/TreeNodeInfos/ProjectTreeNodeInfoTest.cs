@@ -172,7 +172,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.AddItem, Resources.AddItem_ToolTip, Resources.PlusIcon);
-            mocks.VerifyAll(); 
+            mocks.VerifyAll();
         }
     }
 }

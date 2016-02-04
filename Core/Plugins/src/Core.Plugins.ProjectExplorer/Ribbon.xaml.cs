@@ -31,8 +31,6 @@ namespace Core.Plugins.ProjectExplorer
     /// </summary>
     public partial class Ribbon : IRibbonCommandHandler
     {
-        public ICommand ToggleExplorerCommand { private get; set; }
-
         /// <summary>
         /// Creates a new instance of <see cref="Ribbon"/>.
         /// </summary>
@@ -40,6 +38,11 @@ namespace Core.Plugins.ProjectExplorer
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Sets the command used to control the toggle project explorer button.
+        /// </summary>
+        public ICommand ToggleExplorerCommand { private get; set; }
 
         public IEnumerable<ICommand> Commands
         {

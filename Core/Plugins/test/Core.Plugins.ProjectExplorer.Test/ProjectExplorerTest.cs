@@ -37,7 +37,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Assert
             Assert.Throws<ArgumentNullException>(test);
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void Constructor_NoNullArguments_CreatesNewInstanceApplicationSelectionEventBound()
@@ -63,7 +63,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.IsInstanceOf<TreeViewControl>(explorer.TreeViewControl);
             }
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void Data_Always_SetTreeViewControlData()
@@ -96,7 +96,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.AreSame(project, explorer.TreeViewControl.Data);
             }
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void Dispose_Always_DisposeTreeViewControlResetDataAndDesubscribe()
@@ -133,7 +133,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             Assert.IsNull(explorer.Data);
             mocks.VerifyAll();
         }
-
 
         [Test]
         public void ProjectDataDeleted_Always_CallsRemoveAllViewsForItemWithTag()
@@ -181,7 +180,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         [RequiresSTA]
         public void TreeViewSelectedNodeChanged_Always_SetsApplicationSelection()
         {
-
             // Setup
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
@@ -196,7 +194,11 @@ namespace Core.Plugins.ProjectExplorer.Test
                 new TreeNodeInfo
                 {
                     TagType = typeof(Project),
-                    ChildNodeObjects = o => new []{ stringA, stringB }
+                    ChildNodeObjects = o => new[]
+                    {
+                        stringA,
+                        stringB
+                    }
                 },
                 new TreeNodeInfo
                 {
@@ -280,7 +282,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 var node = explorer.TreeViewControl.GetNodeByTag(project);
                 node.TreeView.Name = treeIdentifier;
-                
+
                 // Precondition
                 Assert.IsTrue(node.IsSelected);
 
@@ -297,7 +299,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         [RequiresSTA]
         public void GuiSelectionChanged_NewSelectionIsNull_NoSelectionUpdateInTree()
         {
-
             // Setup
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
@@ -312,7 +313,11 @@ namespace Core.Plugins.ProjectExplorer.Test
                 new TreeNodeInfo
                 {
                     TagType = typeof(Project),
-                    ChildNodeObjects = o => new []{ stringA, stringB }
+                    ChildNodeObjects = o => new[]
+                    {
+                        stringA,
+                        stringB
+                    }
                 },
                 new TreeNodeInfo
                 {
@@ -355,7 +360,6 @@ namespace Core.Plugins.ProjectExplorer.Test
         [RequiresSTA]
         public void GuiSelectionChanged_NewSelectionNotNull_SelectionUpdateInTree()
         {
-
             // Setup
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
@@ -370,7 +374,11 @@ namespace Core.Plugins.ProjectExplorer.Test
                 new TreeNodeInfo
                 {
                     TagType = typeof(Project),
-                    ChildNodeObjects = o => new []{ stringA, stringB }
+                    ChildNodeObjects = o => new[]
+                    {
+                        stringA,
+                        stringB
+                    }
                 },
                 new TreeNodeInfo
                 {

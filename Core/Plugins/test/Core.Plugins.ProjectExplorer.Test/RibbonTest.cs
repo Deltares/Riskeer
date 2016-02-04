@@ -92,7 +92,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             };
 
             var toggleProjectExplorerButton = ribbon.GetRibbonControl().FindName("ToggleProjectExplorerButton") as ToggleButton;
-            
+
             // Precondition
             Assert.IsNotNull(toggleProjectExplorerButton, "Ribbon should have a toggle project explorer button.");
 
@@ -120,7 +120,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             };
 
             var toggleProjectExplorerButton = ribbon.GetRibbonControl().FindName("ToggleProjectExplorerButton") as ToggleButton;
-            
+
             // Precondition
             Assert.IsNotNull(toggleProjectExplorerButton, "Ribbon should have a toggle project explorer button.");
 

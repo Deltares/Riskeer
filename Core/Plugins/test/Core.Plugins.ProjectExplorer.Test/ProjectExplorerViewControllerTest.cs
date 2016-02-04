@@ -112,7 +112,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 // Call
                 controller.OpenView();
-
             }
             // Assert
             mocks.VerifyAll();
@@ -142,7 +141,6 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Call
                 controller.OpenView();
-
             }
             // Assert
             Assert.AreEqual(1, activated);
@@ -319,7 +317,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             // Assert
             mocks.VerifyAll();
         }
-
 
         [Test]
         public void Dispose_ViewActive_ViewClosed()

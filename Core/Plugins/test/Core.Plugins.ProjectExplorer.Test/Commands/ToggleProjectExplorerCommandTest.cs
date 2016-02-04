@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Commands;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Selection;
 using Core.Plugins.ProjectExplorer.Commands;
 using NUnit.Framework;

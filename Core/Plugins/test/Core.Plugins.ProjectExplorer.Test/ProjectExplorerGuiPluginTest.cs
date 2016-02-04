@@ -7,6 +7,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Plugins.ProjectExplorer.Exceptions;
+using Core.Plugins.ProjectExplorer.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -79,7 +80,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Assert
                 var message = Assert.Throws<PluginActivationException>(test).Message;
-                var expected = string.Format(Properties.Resources.ProjectExplorerGuiPlugin_Activation_of_0_failed, Properties.Resources.General_ProjectExplorer);
+                var expected = string.Format(Resources.ProjectExplorerGuiPlugin_Activation_of_0_failed, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
         }
@@ -155,7 +156,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 // Assert
                 var message = Assert.Throws<PluginActivationException>(test).Message;
-                var expected = string.Format(Properties.Resources.ProjectExplorerGuiPlugin_Cannot_activate_0_twice, Properties.Resources.General_ProjectExplorer);
+                var expected = string.Format(Resources.ProjectExplorerGuiPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
             mocks.VerifyAll();
