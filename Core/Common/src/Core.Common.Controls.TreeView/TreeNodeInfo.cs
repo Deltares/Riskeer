@@ -77,9 +77,10 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The <see cref="TreeNode"/> parameter represents the tree node.
+        /// The first <see cref="object"/> parameter represents the data of the tree node.
+        /// The second <see cref="object"/> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<TreeNode, bool> CanRename { get; set; }
+        public Func<object, object, bool> CanRename { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
@@ -214,9 +215,10 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be renamed.
-        /// The <see cref="TreeNode"/> parameter represents the tree node.
+        /// The <see cref="TData"/> parameter represents the data of the tree node.
+        /// The <see cref="object"/> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<TreeNode, bool> CanRename { get; set; }
+        public Func<TData, object, bool> CanRename { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after renaming the tree node.
@@ -317,8 +319,8 @@ namespace Core.Common.Controls.TreeView
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,
                 CanRename = treeNodeInfo.CanRename != null
-                                ? sourceNode => treeNodeInfo.CanRename(sourceNode)
-                                : (Func<TreeNode, bool>) null,
+                                ? (tag, parentTag) => treeNodeInfo.CanRename((TData) tag, parentTag)
+                                : (Func<object, object, bool>) null,
                 OnNodeRenamed = treeNodeInfo.OnNodeRenamed != null
                                     ? (tag, name) => treeNodeInfo.OnNodeRenamed((TData) tag, name)
                                     : (Action<object, string>) null,

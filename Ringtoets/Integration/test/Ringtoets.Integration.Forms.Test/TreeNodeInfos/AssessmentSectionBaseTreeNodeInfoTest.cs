@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void CanRename_Always_ReturnsTrue()
         {
             // Call
-            var canRename = info.CanRename(null);
+            var canRename = info.CanRename(null, null);
 
             // Assert
             Assert.IsTrue(canRename);

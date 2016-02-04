@@ -201,8 +201,9 @@ namespace Core.Common.Controls.TreeView
         private bool CanRename(TreeNode treeNode)
         {
             var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
+            var parentTag = treeNode.Parent != null ? treeNode.Parent.Tag : null;
 
-            return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(treeNode);
+            return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(treeNode.Tag, parentTag);
         }
 
         private bool CanRemove(TreeNode treeNode)

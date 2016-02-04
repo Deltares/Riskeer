@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = assessmentSectionBase => RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 ChildNodeObjects = AssessmentSectionBaseChildNodeObjects,
                 ContextMenuStrip = AssessmentSectionBaseContextMenuStrip,
-                CanRename = assessmentSectionBase => true,
+                CanRename = (assessmentSectionBase, parentData) => true,
                 OnNodeRenamed = AssessmentSectionBaseOnNodeRenamed,
                 CanRemove = (assessmentSectionBase, parentNodeData) => true,
                 OnNodeRemoved = AssessmentSectionBaseOnNodeRemoved

@@ -168,7 +168,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo<object>>();
 
-            treeNodeInfoMock.CanRename = treeNode => treeNode.Tag == dataObject;
+            treeNodeInfoMock.CanRename = (data, parentData) => data == dataObject;
 
             treeViewControl.RegisterTreeNodeInfo(treeNodeInfoMock);
 

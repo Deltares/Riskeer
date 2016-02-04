@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
                 ContextMenuStrip = PipingCalculationContextContextMenuStrip,
                 ChildNodeObjects = PipingCalculationContextChildNodeObjects,
-                CanRename = pipingCalculationContext => true,
+                CanRename = (pipingCalculationContext, parentData) => true,
                 OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
                 CanRemove = PipingCalculationContextCanRemove,
                 OnNodeRemoved = PipingCalculationContextOnNodeRemoved,
@@ -607,7 +607,7 @@ namespace Ringtoets.Piping.Plugin
                              .AddCustomItem(clearAllItem)
                              .AddSeparator();
 
-            var isRenamable = PipingCalculationGroupContextCanRenameNode(node);
+            var isRenamable = PipingCalculationGroupContextCanRenameNode(nodeData, node.Parent.Tag);
             var isRemovable = PipingCalculationGroupContextCanRemove(nodeData, node.Parent.Tag);
 
             if (isRenamable)
@@ -684,10 +684,9 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private bool PipingCalculationGroupContextCanRenameNode(TreeNode node)
+        private bool PipingCalculationGroupContextCanRenameNode(PipingCalculationGroupContext pipingCalculationGroupContext, object parentData)
         {
-            var parentNode = node.Parent;
-            return parentNode == null || !(parentNode.Tag is PipingFailureMechanism);
+            return !(parentData is PipingFailureMechanism);
         }
 
         private void PipingCalculationGroupContextOnNodeRenamed(PipingCalculationGroupContext nodeData, string newName)

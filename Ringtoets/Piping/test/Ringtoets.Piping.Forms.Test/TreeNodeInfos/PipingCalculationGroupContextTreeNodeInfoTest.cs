@@ -543,16 +543,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
-            var parentNode = mocks.Stub<TreeNode>();
-            parentNode.Tag = failureMechanism;
-
-            var node = mocks.StrictMock<TreeNode>();
-            node.Expect(n => n.Parent).Return(parentNode);
-
             mocks.ReplayAll();
 
             // Call
-            bool isRenamingAllowed = info.CanRename(node);
+            bool isRenamingAllowed = info.CanRename(null, failureMechanism);
 
             // Assert
             Assert.IsFalse(isRenamingAllowed);
@@ -562,17 +556,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void CanRenameNode_EverythingElse_ReturnTrue()
         {
-            // Setup
-            var parentNode = mocks.Stub<TreeNode>();
-            parentNode.Tag = new object();
-
-            var node = mocks.StrictMock<TreeNode>();
-            node.Expect(n => n.Parent).Return(parentNode);
-
-            mocks.ReplayAll();
-
             // Call
-            bool isRenamingAllowed = info.CanRename(node);
+            bool isRenamingAllowed = info.CanRename(null, null);
 
             // Assert
             Assert.IsTrue(isRenamingAllowed);

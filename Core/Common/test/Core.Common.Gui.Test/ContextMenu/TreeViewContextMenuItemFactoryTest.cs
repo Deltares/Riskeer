@@ -137,9 +137,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             treeNodeMock.Expect(tn => tn.Tag).Return(dataObject);
 
-            treeNodeInfoMock.CanRename = tn =>
+            treeNodeInfoMock.CanRename = (data, parentData) =>
             {
-                if (tn == treeNodeMock)
+                if (data == dataObject)
                 {
                     return canRename;
                 }

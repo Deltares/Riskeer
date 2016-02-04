@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void CanRenameNode_Always_ReturnTrue()
         {
             // Call
-            var renameAllowed = info.CanRename(null);
+            var renameAllowed = info.CanRename(null, null);
 
             // Assert
             Assert.IsTrue(renameAllowed);
