@@ -202,7 +202,8 @@ namespace Application.Ringtoets.Storage
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when:<list type="bullet">
-        /// <item><paramref name="databaseFilePath"/> does not exist</item>/// <item>the database does not contain the table <c>version</c>.</item>
+        /// <item><paramref name="databaseFilePath"/> does not exist</item>
+        /// <item>the database does not contain the table <c>version</c>.</item>
         /// </list>
         /// </exception>
         private void SetConnectionToFile(string databaseFilePath)

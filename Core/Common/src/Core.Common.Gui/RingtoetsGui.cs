@@ -141,16 +141,7 @@ namespace Core.Common.Gui
 
             log.Info(Resources.RingtoetsGui_Run_Starting_application);
 
-            if (!string.IsNullOrEmpty(projectPath))
-            {
-                storageCommandHandler.OpenExistingProject(projectPath);
-            }
-            else
-            {
-                log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
-
-                Project = new Project();
-            }
+            InitializeProjectFromPath(projectPath);
 
             log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface);
 
@@ -163,6 +154,20 @@ namespace Core.Common.Gui
             HideSplashScreen();
 
             MessageWindowLogAppender.Instance.Enabled = true;
+        }
+
+        private void InitializeProjectFromPath(string projectPath)
+        {
+            var setDefaultProject = string.IsNullOrWhiteSpace(projectPath);
+            if (!setDefaultProject)
+            {
+                setDefaultProject = !storageCommandHandler.OpenExistingProject(projectPath);
+            }
+            if (setDefaultProject)
+            {
+                log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
+                Project = new Project();
+            }
         }
 
         public void Exit()

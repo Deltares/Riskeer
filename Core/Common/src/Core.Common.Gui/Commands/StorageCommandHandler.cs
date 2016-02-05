@@ -114,17 +114,7 @@ namespace Core.Common.Gui.Commands
         {
             log.Info(Resources.Project_existing_opening_project);
 
-            Project loadedProject;
-            try
-            {
-                loadedProject = projectPersistor.LoadProject(filePath);
-            }
-            catch (StorageException e)
-            {
-                log.Error(e.Message, e.InnerException);
-                log.Error(Resources.Project_existing_project_opening_failed);
-                return false;
-            }
+            var loadedProject = LoadProjectFromStorage(filePath);
 
             if (loadedProject == null)
             {
@@ -142,6 +132,32 @@ namespace Core.Common.Gui.Commands
             mainWindowController.RefreshGui();
             log.Info(Resources.Project_existing_successfully_opened);
             return true;
+        }
+
+        /// <summary>
+        /// Loads the project from the <see cref="IStoreProject"/>.
+        /// </summary>
+        /// <param name="filePath">The path to load a <see cref="Project"/> from.</param>
+        /// <returns>The loaded <see cref="Project"/> from <paramref name="filePath"/> or <c>null</c> if the project
+        /// could not be loaded from <paramref name="filePath"/>.</returns>
+        private Project LoadProjectFromStorage(string filePath)
+        {
+            Project loadedProject = null;
+
+            try
+            {
+                loadedProject = projectPersistor.LoadProject(filePath);
+            }
+            catch (StorageException e)
+            {
+                log.Error(e.Message, e.InnerException);
+            }
+            catch (ArgumentException e)
+            {
+                log.Error(e.Message, e.InnerException);
+            }
+
+            return loadedProject;
         }
 
         public void CloseProject()
