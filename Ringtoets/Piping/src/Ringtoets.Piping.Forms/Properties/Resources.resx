@@ -487,6 +487,9 @@
   <data name="PipingContext_DataDescription_Soilprofiles" xml:space="preserve">
     <value>De verzameling van ondergrondschematiseringen</value>
   </data>
+  <data name="PipingContext_DataDescription_PipingFailureMechanism" xml:space="preserve">
+    <value>Het piping faalmechanisme</value>
+  </data>
   <data name="PipingInputContext_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
   </data>

@@ -16,7 +16,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     public class PipingContextTest
     {
         [Test]
-        public void ParameteredConstrcutor_ExpectedValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             RingtoetsPipingSurfaceLine[] surfaceLines = {

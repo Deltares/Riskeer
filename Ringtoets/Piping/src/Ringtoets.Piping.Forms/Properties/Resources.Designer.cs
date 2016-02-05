@@ -434,6 +434,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het piping faalmechanisme.
+        /// </summary>
+        public static string PipingContext_DataDescription_PipingFailureMechanism {
+            get {
+                return ResourceManager.GetString("PipingContext_DataDescription_PipingFailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De verzameling van ondergrondschematiseringen.
         /// </summary>
         public static string PipingContext_DataDescription_Soilprofiles {

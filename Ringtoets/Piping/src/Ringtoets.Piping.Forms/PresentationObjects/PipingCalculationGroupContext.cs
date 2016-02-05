@@ -19,9 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
@@ -37,12 +38,26 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="group">The <see cref="PipingCalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="soilProfiles">The soil profiles available within the piping context.</param>
+        /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         public PipingCalculationGroupContext(PipingCalculationGroup group,
                                              IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
-                                             IEnumerable<PipingSoilProfile> soilProfiles) :
+                                             IEnumerable<PipingSoilProfile> soilProfiles,
+                                             PipingFailureMechanism pipingFailureMechanism) :
                                                  base(group, surfaceLines, soilProfiles)
         {
-            
+            if (pipingFailureMechanism == null)
+            {
+                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
+                throw new ArgumentNullException("pipingFailureMechanism", message);
+            }
+
+            PipingFailureMechanism = pipingFailureMechanism;
         }
+
+        /// <summary>
+        /// Gets the piping failure mechanism which the piping context belongs to.
+        /// </summary>
+        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
     }
 }

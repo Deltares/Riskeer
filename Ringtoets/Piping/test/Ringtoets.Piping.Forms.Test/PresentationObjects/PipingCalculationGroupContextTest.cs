@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Core.Common.Base;
 
@@ -29,8 +30,12 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestPipingSoilProfile()
             };
 
+            var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             // Call
-            var groupContext = new PipingCalculationGroupContext(group, surfaceLines, soilProfiles);
+            var groupContext = new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
@@ -38,6 +43,30 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(group, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilProfiles, groupContext.AvailablePipingSoilProfiles);
+            Assert.AreSame(pipingFailureMechanismMock, groupContext.PipingFailureMechanism);
+        }
+
+        [Test]
+        public void ParameteredConstructor_PipingFailureMechanismIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var group = new PipingCalculationGroup();
+            var surfaceLines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+            var soilProfiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+
+            // Call
+            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
+            Assert.AreEqual("Het piping faalmechanisme mag niet 'null' zijn.", customMessage);
         }
 
         [Test]
@@ -47,11 +76,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var presentationObject = new PipingCalculationGroupContext(new PipingCalculationGroup(),
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingSoilProfile>());
+                                                                       Enumerable.Empty<PipingSoilProfile>(),
+                                                                       pipingFailureMechanismMock);
             presentationObject.Attach(observer);
 
             // Call
@@ -67,11 +98,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var presentationObject = new PipingCalculationGroupContext(new PipingCalculationGroup(),
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingSoilProfile>());
+                                                                       Enumerable.Empty<PipingSoilProfile>(),
+                                                                       pipingFailureMechanismMock);
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 
@@ -89,12 +122,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var group = new PipingCalculationGroup();
             var presentationObject = new PipingCalculationGroupContext(group,
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                       Enumerable.Empty<PipingSoilProfile>());
+                                                                       Enumerable.Empty<PipingSoilProfile>(),
+                                                                       pipingFailureMechanismMock);
             presentationObject.Attach(observer);
 
             // Call

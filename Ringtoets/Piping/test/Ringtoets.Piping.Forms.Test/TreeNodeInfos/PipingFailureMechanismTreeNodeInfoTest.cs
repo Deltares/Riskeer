@@ -114,6 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
             Assert.AreSame(pipingFailureMechanism.SoilProfiles, calculationsFolder.AvailablePipingSoilProfiles);
+            Assert.AreSame(pipingFailureMechanism, calculationsFolder.PipingFailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Uitvoer", outputsFolder.Name);

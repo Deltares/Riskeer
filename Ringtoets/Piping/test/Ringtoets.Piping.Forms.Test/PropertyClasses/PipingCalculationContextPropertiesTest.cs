@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using Core.Common.Base;
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
@@ -37,11 +36,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Name = name
             };
 
+            var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var properties = new PipingCalculationContextProperties
             {
                 Data = new PipingCalculationContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                    Enumerable.Empty<PipingSoilProfile>())
+                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                    pipingFailureMechanismMock)
             };
 
             // Call & Assert
@@ -55,6 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculation();
@@ -64,7 +69,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingCalculationContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                    Enumerable.Empty<PipingSoilProfile>())
+                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                    pipingFailureMechanismMock)
             };
 
             // Call & Assert
@@ -82,6 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var projectObserver = mocks.StrictMock<IObserver>();
             int numberProperties = 1;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculation();
@@ -91,7 +98,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingCalculationContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                    Enumerable.Empty<PipingSoilProfile>())
+                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                    pipingFailureMechanismMock)
             };
 
             // Call

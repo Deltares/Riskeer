@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(pipingFailureMechanism), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(pipingFailureMechanism.CalculationsGroup, pipingFailureMechanism.SurfaceLines, pipingFailureMechanism.SoilProfiles),
+                new PipingCalculationGroupContext(pipingFailureMechanism.CalculationsGroup, pipingFailureMechanism.SurfaceLines, pipingFailureMechanism.SoilProfiles, pipingFailureMechanism),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(pipingFailureMechanism), TreeFolderCategory.Output)
             };
         }
@@ -496,14 +496,16 @@ namespace Ringtoets.Piping.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new PipingCalculationContext(calculation,
-                                                              nodeData.AvailablePipingSurfaceLines,
-                                                              nodeData.AvailablePipingSoilProfiles));
+                                                                      nodeData.AvailablePipingSurfaceLines,
+                                                                      nodeData.AvailablePipingSoilProfiles,
+                                                                      nodeData.PipingFailureMechanism));
                 }
                 else if (group != null)
                 {
                     childNodeObjects.Add(new PipingCalculationGroupContext(group,
-                                                                   nodeData.AvailablePipingSurfaceLines,
-                                                                   nodeData.AvailablePipingSoilProfiles));
+                                                                           nodeData.AvailablePipingSurfaceLines,
+                                                                           nodeData.AvailablePipingSoilProfiles,
+                                                                           nodeData.PipingFailureMechanism));
                 }
                 else
                 {
@@ -736,18 +738,19 @@ namespace Ringtoets.Piping.Plugin
 
         private static PipingFailureMechanism GetParentFailureMechanism(TreeNode sourceNode)
         {
-            PipingFailureMechanism sourceFailureMechanism;
-            var node = sourceNode;
-            while ((sourceFailureMechanism = node.Tag as PipingFailureMechanism) == null)
+            var calculationContext = sourceNode.Tag as PipingCalculationContext;
+            if (calculationContext != null)
             {
-                // No parent found, go search higher up hierarchy!
-                node = node.Parent;
-                if (node == null)
-                {
-                    break;
-                }
+                return calculationContext.PipingFailureMechanism;
             }
-            return sourceFailureMechanism;
+
+            var groupContext = sourceNode.Tag as PipingCalculationGroupContext;
+            if (groupContext != null)
+            {
+                return groupContext.PipingFailureMechanism;
+            }
+
+            return null;
         }
 
         private bool PipingCalculationGroupContextCanInsert(TreeNode sourceNode, TreeNode targetNode)

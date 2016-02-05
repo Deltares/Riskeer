@@ -54,9 +54,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 pipingFailureMechanismMock);
 
             mocks.ReplayAll();
 
@@ -74,9 +78,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 pipingFailureMechanismMock);
 
             // Call
             DragOperations supportedOperation = info.CanDrag(groupContext, null);
@@ -91,9 +99,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
             var group = pipingFailureMechanism.CalculationsGroup;
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 pipingFailureMechanismMock);
 
             // Call
             DragOperations supportedOperation = info.CanDrag(groupContext, pipingFailureMechanism);
@@ -111,13 +123,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             IPipingCalculationItem draggedItem;
             object draggedItemContext;
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
 
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
-            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext);
+            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism);
 
-            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(draggedItem);
             failureMechanism.CalculationsGroup.Children.Add(targetGroup);
 
@@ -128,15 +142,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var failureMechanismGroupNode = mocks.Stub<TreeNode>();
             failureMechanismGroupNode.Tag = failureMechanism.CalculationsGroup;
-            failureMechanismGroupNode.Expect(n => n.Parent).Return(failureMechanismNode).Repeat.AtLeastOnce();
 
             var calculationNode = mocks.Stub<TreeNode>();
             calculationNode.Tag = draggedItemContext;
-            calculationNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
 
             var targetGroupNode = mocks.Stub<TreeNode>();
             targetGroupNode.Tag = targetGroupContext;
-            targetGroupNode.Expect(n => n.Parent).Return(failureMechanismGroupNode).Repeat.AtLeastOnce();
 
             #endregion
 
@@ -174,16 +185,18 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             IPipingCalculationItem draggedItem;
             object draggedItemContext;
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
+
+            var targetFailureMechanism = new PipingFailureMechanism();
+
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism);
 
             var sourceFailureMechanism = new PipingFailureMechanism();
             sourceFailureMechanism.CalculationsGroup.Children.Add(draggedItem);
 
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
-            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext);
+            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism);
 
-            var targetFailureMechanism = new PipingFailureMechanism();
             targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
 
             #region Mock node tree for source IPipingCalculationItem
@@ -193,11 +206,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var sourceFailureMechanismGroupNode = mocks.Stub<TreeNode>();
             sourceFailureMechanismGroupNode.Tag = sourceFailureMechanism.CalculationsGroup;
-            sourceFailureMechanismGroupNode.Expect(n => n.Parent).Return(sourceFailureMechanismNode).Repeat.AtLeastOnce();
 
             var calculationNode = mocks.Stub<TreeNode>();
             calculationNode.Tag = draggedItemContext;
-            calculationNode.Expect(n => n.Parent).Return(sourceFailureMechanismGroupNode).Repeat.AtLeastOnce();
 
             #endregion
 
@@ -208,11 +219,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var targetFailureMechanismGroupNode = mocks.Stub<TreeNode>();
             targetFailureMechanismGroupNode.Tag = targetFailureMechanism.CalculationsGroup;
-            targetFailureMechanismGroupNode.Expect(n => n.Parent).Return(targetFailureMechanismNode).Repeat.AtLeastOnce();
 
             var groupNode = mocks.Stub<TreeNode>();
             groupNode.Tag = targetGroupContext;
-            groupNode.Expect(n => n.Parent).Return(targetFailureMechanismGroupNode).Repeat.AtLeastOnce();
 
             #endregion
 
@@ -574,13 +583,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-
+            var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
-            var group = new PipingCalculationGroup();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
             nodeData.Attach(observer);
 
             // Call
@@ -597,9 +607,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var parentNodeData = new PipingFailureMechanism();
             parentNodeData.CalculationsGroup.Children.Add(group);
@@ -619,15 +633,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var parentGroup = new PipingCalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                   Enumerable.Empty<PipingSoilProfile>());
+                                                                   Enumerable.Empty<PipingSoilProfile>(),
+                                                                   pipingFailureMechanismMock);
 
             mocks.ReplayAll();
 
@@ -644,14 +663,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var parentGroup = new PipingCalculationGroup();
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                   Enumerable.Empty<PipingSoilProfile>());
+                                                                   Enumerable.Empty<PipingSoilProfile>(),
+                                                                   pipingFailureMechanismMock);
 
             // Precondition
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
@@ -669,19 +693,21 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-
+            var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
-            var group = new PipingCalculationGroup();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var parentGroup = new PipingCalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new PipingCalculationGroupContext(parentGroup,
                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                   Enumerable.Empty<PipingSoilProfile>());
+                                                                   Enumerable.Empty<PipingSoilProfile>(),
+                                                                   pipingFailureMechanismMock);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -710,13 +736,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Output = new TestPipingOutput()
             });
 
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
             var parentData = new PipingCalculationGroupContext(parentGroup,
                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                               Enumerable.Empty<PipingSoilProfile>());
+                                                               Enumerable.Empty<PipingSoilProfile>(),
+                                                               pipingFailureMechanismMock);
 
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
@@ -821,10 +851,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Output = new TestPipingOutput()
             });
 
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
             var parentData = new object();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
@@ -923,10 +956,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Output = new TestPipingOutput()
             });
 
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
             var parentData = new PipingFailureMechanism();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
@@ -1016,9 +1052,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var group = new PipingCalculationGroup();
             var parentData = new PipingFailureMechanism();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -1047,9 +1085,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var calculationItem = mocks.Stub<IPipingCalculationItem>();
             calculationItem.Expect(ci => ci.Name).Return("Nieuwe map");
@@ -1094,9 +1134,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             var calculationItem = mocks.Stub<IPipingCalculationItem>();
             calculationItem.Expect(ci => ci.Name).Return("Nieuwe berekening");
@@ -1156,9 +1198,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(childGroup);
             group.Children.Add(emptyChildGroup);
             group.Children.Add(invalidCalculation);
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -1209,9 +1255,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(childGroup);
             group.Children.Add(emptyChildGroup);
             group.Children.Add(invalidCalculation);
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
             gui.Expect(g => g.MainWindow).Return(mainWindow);
@@ -1268,9 +1318,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(childGroup);
             group.Children.Add(emptyChildGroup);
             group.Children.Add(calculation2);
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -1313,9 +1367,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new PipingCalculationGroup();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>());
+                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 pipingFailureMechanismMock);
 
             // Call
             var children = info.ChildNodeObjects(groupContext);
@@ -1330,8 +1388,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var calculationItem = mocks.StrictMock<IPipingCalculationItem>();
 
-            mocks.ReplayAll();
-
             var childCalculation = new PipingCalculation();
 
             var childGroup = new PipingCalculationGroup();
@@ -1340,9 +1396,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationItem);
             group.Children.Add(childCalculation);
             group.Children.Add(childGroup);
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
+            mocks.ReplayAll();
+
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<PipingSoilProfile>());
+                                                             Enumerable.Empty<PipingSoilProfile>(),
+                                                             pipingFailureMechanismMock);
 
             // Call
             var children = info.ChildNodeObjects(nodeData).ToArray();
@@ -1352,8 +1414,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(calculationItem, children[0]);
             var returnedCalculationContext = (PipingCalculationContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
+            Assert.AreSame(pipingFailureMechanismMock, returnedCalculationContext.PipingFailureMechanism);
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
+            Assert.AreSame(pipingFailureMechanismMock, returnedCalculationGroupContext.PipingFailureMechanism);
             mocks.VerifyAll();
         }
 
@@ -1444,12 +1508,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         /// </summary>
         /// <param name="data">The created group without any children.</param>
         /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
-        private static void CreatePipingCalculationGroupAndContext(out PipingCalculationGroup data, out PipingCalculationGroupContext dataContext)
+        /// <param name="failureMechanism"></param>
+        private void CreatePipingCalculationGroupAndContext(out PipingCalculationGroup data, out PipingCalculationGroupContext dataContext, PipingFailureMechanism failureMechanism)
         {
             data = new PipingCalculationGroup();
+
             dataContext = new PipingCalculationGroupContext(data,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>());
+                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            failureMechanism);
         }
 
         /// <summary>
@@ -1458,9 +1525,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         /// <param name="type">Defines the implementation of <see cref="IPipingCalculationItem"/> to be constructed.</param>
         /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
         /// <param name="dataContext">Output: The <see cref="PipingContext{T}"/> corresponding with <paramref name="data"/>.</param>
+        /// <param name="pipingFailureMechanism">The piping failure mechanism the item and context belong to.</param>
         /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
         /// <exception cref="System.NotSupportedException"></exception>
-        private static void CreatePipingCalculationItemAndContext(PipingCalculationItemType type, out IPipingCalculationItem data, out object dataContext, string initialName = null)
+        private void CreatePipingCalculationItemAndContext(PipingCalculationItemType type, out IPipingCalculationItem data, out object dataContext, PipingFailureMechanism pipingFailureMechanism, string initialName = null)
         {
             switch (type)
             {
@@ -1473,7 +1541,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     data = calculation;
                     dataContext = new PipingCalculationContext(calculation,
                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                               Enumerable.Empty<PipingSoilProfile>());
+                                                               Enumerable.Empty<PipingSoilProfile>(),
+                                                               pipingFailureMechanism);
                     break;
                 case PipingCalculationItemType.Group:
                     var group = new PipingCalculationGroup();
@@ -1484,7 +1553,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     data = group;
                     dataContext = new PipingCalculationGroupContext(group,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<PipingSoilProfile>());
+                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    pipingFailureMechanism);
                     break;
                 default:
                     throw new NotSupportedException();
