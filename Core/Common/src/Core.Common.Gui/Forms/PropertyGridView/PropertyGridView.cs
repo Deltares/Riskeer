@@ -31,6 +31,9 @@ using Core.Common.Gui.Selection;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
 {
+    /// <summary>
+    /// View for displaying the properties of an data object.
+    /// </summary>
     public class PropertyGridView : PropertyGrid, IPropertyGrid, IObserver
     {
         /// <summary>
@@ -43,10 +46,16 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         private IObservable observable;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyGridView"/> class.
+        /// </summary>
+        /// <param name="applicationSelection">The application selection mechanism.</param>
+        /// <param name="propertyResolver">The class responsible for finding the object properties
+        /// for a given data object.</param>
         public PropertyGridView(IApplicationSelection applicationSelection, IPropertyResolver propertyResolver)
         {
             HideTabsButton();
-            FixDescriptionArea();
+            DisableDescriptionAreaAutoSizing();
             TranslateToolTips();
 
             PropertySort = PropertySort.Categorized;
@@ -57,9 +66,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             this.applicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
-        /// <summary>
-        /// Comes from IObserver. Reaction to the change in observable.
-        /// </summary>
         public void UpdateObserver()
         {
             if (InvokeRequired)
@@ -73,10 +79,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
         }
 
-        /// <summary>
-        /// Handles properties sorting change.
-        /// </summary>
-        /// <param name="e"></param>
         protected override void OnPropertySortChanged(EventArgs e)
         {
             // Needed for maintaining property order (no support for both categorized and alphabetical sorting)
@@ -143,11 +145,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
         }
 
-        /// <summary>
-        /// Retrieves adapter for the sourceData to be shown as the source object in the grid.
-        /// </summary>
-        /// <param name="sourceData"></param>
-        /// <returns></returns>
         public object GetObjectProperties(object sourceData)
         {
             return propertyResolver.GetObjectProperties(sourceData);
@@ -161,9 +158,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// Do special processing for Tab key. 
         /// http://www.codeproject.com/csharp/wdzPropertyGridUtils.asp
         /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="keyData"></param>
-        /// <returns></returns>
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -245,23 +239,19 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// </summary>
         private void HideTabsButton()
         {
-            var strip = Controls.OfType<ToolStrip>().ToList()[0];
-
+            ToolStrip strip = Controls.OfType<ToolStrip>().First();
             strip.Items[3].Visible = false;
             strip.Items[4].Visible = false;
         }
 
         private void TranslateToolTips()
         {
-            var strip = Controls.OfType<ToolStrip>().ToList()[0];
+            ToolStrip strip = Controls.OfType<ToolStrip>().First();
             strip.Items[0].ToolTipText = Resources.PropertyGridView_Order_Categorized;
             strip.Items[1].ToolTipText = Resources.PropertyGridView_Order_Alphabetically;
         }
 
-        /// <summary>
-        /// Ensures the description area is no longer auto-resizing.
-        /// </summary>
-        private void FixDescriptionArea()
+        private void DisableDescriptionAreaAutoSizing()
         {
             foreach (var control in Controls)
             {

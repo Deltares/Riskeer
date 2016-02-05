@@ -30,11 +30,19 @@ using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Forms.Options
 {
+    /// <summary>
+    /// Dialog for edition user settings.
+    /// </summary>
     public partial class OptionsDialog : DialogBase
     {
         private readonly ApplicationSettingsBase userSettings;
 
-        public OptionsDialog(IWin32Window owner, ApplicationSettingsBase userSettings) : base(owner, Resources.OptionsHS1, 430, 170)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionsDialog"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent for which this should be shown on top.</param>
+        /// <param name="userSettings">The user settings.</param>
+        public OptionsDialog(IWin32Window dialogParent, ApplicationSettingsBase userSettings) : base(dialogParent, Resources.OptionsHS1, 430, 170)
         {
             InitializeComponent();
 

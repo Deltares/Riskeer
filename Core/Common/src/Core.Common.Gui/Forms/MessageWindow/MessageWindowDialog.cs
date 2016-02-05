@@ -33,9 +33,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
         /// <summary>
         /// Constructs a new <see cref="MessageWindowDialog"/>.
         /// </summary>
-        /// <param name="owner">The owner of the dialog.</param>
+        /// <param name="dialogParent">The owner of the dialog.</param>
         /// <param name="text">The text to show in the dialog.</param>
-        public MessageWindowDialog(IWin32Window owner, string text) : base(owner, Resources.application_import_blue1, 200, 150)
+        public MessageWindowDialog(IWin32Window dialogParent, string text) : base(dialogParent, Resources.application_import_blue1, 200, 150)
         {
             InitializeComponent();
 

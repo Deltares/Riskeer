@@ -31,7 +31,8 @@ using Core.Common.Utils.Reflection;
 namespace Core.Common.Gui.Forms.PropertyGridView
 {
     /// <summary>
-    /// Helper class for resolving object properties.
+    /// Class responsible for finding the <see cref="IObjectProperties"/> that has been
+    /// registered for a given data-object.
     /// </summary>
     public class PropertyResolver : IPropertyResolver
     {
@@ -41,6 +42,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         /// Creates a new instance of <see cref="PropertyResolver"/> with the given <paramref name="propertyInfos"/>.
         /// </summary>
         /// <param name="propertyInfos">The list of property information objects to obtain the object properties from.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="propertyInfos"/> is null.</exception>
         public PropertyResolver(IEnumerable<PropertyInfo> propertyInfos)
         {
             if (propertyInfos == null)
@@ -50,11 +52,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             this.propertyInfos = propertyInfos.ToArray();
         }
 
-        /// <summary>
-        /// Returns object properties based on the provided <paramref name="sourceData"/>.
-        /// </summary>
-        /// <param name="sourceData">The source data to get the object properties for.</param>
-        /// <returns>An object properties object, or null when no relevant properties object is found.</returns>
         public object GetObjectProperties(object sourceData)
         {
             if (sourceData == null)
@@ -62,30 +59,30 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                 return null;
             }
 
-            // 1. Match property information based on ObjectType and on AdditionalDataCheck
+            // 1. Match property information based on ObjectType and on AdditionalDataCheck:
             var filteredPropertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToArray();
 
-            // 2. Match property information based on object type inheritance
+            // 2. Match property information based on object type inheritance, prioritizing most specialized object types:
             filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.ObjectType);
 
-            // 3. Match property information based on property type inheritance
+            // 3. Match property information based on property type inheritance, prioritizing most specialized object property types:
             filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.PropertyType);
 
             if (filteredPropertyInfos.Length == 0)
             {
-                // No (or multiple) object properties found: return 'null' so that no object properties are shown in the property grid
+                // No object properties found: return 'null' so that no object properties are shown in the property grid
                 return null;
             }
 
             if (filteredPropertyInfos.Length > 1)
             {
-                // 4. We assume that the propertyInfos with AdditionalDataCheck are the most specific
+                // 4. Prioritize on having AdditionalDataCheck as it's a more specialized property info:
                 filteredPropertyInfos = filteredPropertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToArray();
             }
 
             if (filteredPropertyInfos.Length == 1)
             {
-                return CreateObjectProperties(filteredPropertyInfos.ElementAt(0), sourceData);
+                return CreateObjectProperties(filteredPropertyInfos[0], sourceData);
             }
 
             return null;

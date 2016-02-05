@@ -115,6 +115,7 @@
     <Compile Include="Forms\MainWindow\MainWindowTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowTest.cs" />
+    <Compile Include="Forms\PropertyGridView\PropertyResolverTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

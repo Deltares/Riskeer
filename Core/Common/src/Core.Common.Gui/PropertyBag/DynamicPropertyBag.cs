@@ -34,6 +34,13 @@ namespace Core.Common.Gui.PropertyBag
     /// It processes the special attributes defined in <c>Core.Common.Gui.Attributes</c>
     /// to dynamically affect property order or adding/removing <see cref="Attributes"/>.
     /// </summary>
+    /// <remarks>This class makes sure the following special attributes on properties are processed:
+    /// <list type="bullet">
+    /// <item><see cref="DynamicReadOnlyAttribute"/></item>
+    /// <item><see cref="DynamicVisibleAttribute"/></item>
+    /// <item><see cref="PropertyOrderAttribute"/></item>
+    /// </list>
+    /// </remarks>
     public class DynamicPropertyBag : ICustomTypeDescriptor
     {
         /// <summary>
@@ -41,12 +48,6 @@ namespace Core.Common.Gui.PropertyBag
         /// object and exposing properties for that object.
         /// </summary>
         /// <param name="propertyObject">The object to be wrapped.</param>
-        /// <remarks>This class makes sure the following special attributes on properties are processed:
-        /// <list type="bullet">
-        /// <item><see cref="DynamicReadOnlyAttribute"/></item>
-        /// <item><see cref="DynamicVisibleAttribute"/></item>
-        /// <item><see cref="PropertyOrderAttribute"/></item>
-        /// </list></remarks>
         public DynamicPropertyBag(object propertyObject)
         {
             Properties = new HashSet<PropertySpec>();

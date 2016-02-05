@@ -25,7 +25,7 @@ namespace Core.Common.Controls.Test.Dialogs
             var message = Assert.Throws<ArgumentNullException>(test).Message;
 
             // Assert
-            StringAssert.EndsWith("owner", message);
+            StringAssert.EndsWith("dialogParent", message);
         }
 
         [Test]
@@ -166,8 +166,8 @@ namespace Core.Common.Controls.Test.Dialogs
 
         private class TestDialog : DialogBase
         {
-            public TestDialog(IWin32Window owner, Icon icon, int minWidth, int minHeight)
-                : base(owner, icon, minWidth, minHeight) {}
+            public TestDialog(IWin32Window dialogParent, Icon icon, int minWidth, int minHeight)
+                : base(dialogParent, icon, minWidth, minHeight) {}
 
             protected override Button GetCancelButton()
             {

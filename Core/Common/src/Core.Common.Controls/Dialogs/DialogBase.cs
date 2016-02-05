@@ -60,24 +60,24 @@ namespace Core.Common.Controls.Dialogs
     {
         private readonly int minWidth;
         private readonly int minHeight;
-        private readonly IWin32Window owner;
+        private readonly IWin32Window dialogParent;
 
         /// <summary>
         /// Constructs a new <see cref="DialogBase"/>.
         /// </summary>
-        /// <param name="owner">The owner of the dialog.</param>
+        /// <param name="dialogParent">The owner of the dialog.</param>
         /// <param name="icon">The icon to show in the control box.</param>
         /// <param name="minWidth">The minimum width of the dialog.</param>
         /// <param name="minHeight">The minimum height of the dialog.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="owner"/> or <paramref name="icon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or <paramref name="icon"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minWidth"/> or <paramref name="minHeight"/> is not greater than <c>0</c>.</exception>
-        protected DialogBase(IWin32Window owner, Icon icon, int minWidth, int minHeight)
+        protected DialogBase(IWin32Window dialogParent, Icon icon, int minWidth, int minHeight)
         {
             InitializeComponent();
 
-            if (owner == null)
+            if (dialogParent == null)
             {
-                throw new ArgumentNullException("owner");
+                throw new ArgumentNullException("dialogParent");
             }
 
             if (icon == null)
@@ -95,7 +95,7 @@ namespace Core.Common.Controls.Dialogs
                 throw new ArgumentException("The minimum height of the dialog should be greater than 0");
             }
 
-            this.owner = owner;
+            this.dialogParent = dialogParent;
             this.minWidth = minWidth;
             this.minHeight = minHeight;
 
@@ -109,7 +109,7 @@ namespace Core.Common.Controls.Dialogs
         /// <returns>A <see cref="DialogResult"/>.</returns>
         public new DialogResult ShowDialog()
         {
-            return base.ShowDialog(owner);
+            return base.ShowDialog(dialogParent);
         }
 
         protected override void OnLoad(EventArgs e)

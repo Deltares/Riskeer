@@ -411,7 +411,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
 
             var toolWindowList = mocks.Stub<IViewList>();
-            toolWindowList.Expect(l => l.Add(Arg<PropertyGridView>.Matches(grid =>
+            toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.PropertyGridView.PropertyGridView>.Matches(grid =>
                                                                            grid.Text == "Eigenschappen" &&
                                                                            grid.Data == selectedObjectProperties),
                                              Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
@@ -436,7 +436,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.InitPropertiesWindowAndActivate();
 
                 // Assert
-                Assert.IsInstanceOf<PropertyGridView>(toolWindowList.ActiveView);
+                Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(toolWindowList.ActiveView);
                 Assert.AreEqual("Eigenschappen", toolWindowList.ActiveView.Text);
                 Assert.AreEqual(selectedObjectProperties, toolWindowList.ActiveView.Data);
 
@@ -457,7 +457,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
 
             var toolWindowList = mocks.Stub<IViewList>();
-            toolWindowList.Expect(l => l.Add(Arg<PropertyGridView>.Matches(grid =>
+            toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.PropertyGridView.PropertyGridView>.Matches(grid =>
                                                                            grid.Text == "Eigenschappen" &&
                                                                            grid.Data == selectedObjectProperties),
                                              Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
@@ -524,7 +524,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
 
             var toolWindowList = mocks.Stub<IViewList>();
-            toolWindowList.Expect(l => l.Add(Arg<PropertyGridView>.Matches(grid =>
+            toolWindowList.Expect(l => l.Add(Arg<Gui.Forms.PropertyGridView.PropertyGridView>.Matches(grid =>
                                                                            grid.Text == "Eigenschappen" &&
                                                                            grid.Data == selectedObjectProperties),
                                              Arg<ViewLocation>.Is.Equal(ViewLocation.Right | ViewLocation.Bottom)));
@@ -557,7 +557,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.InitializeToolWindows();
 
                 // Assert
-                Assert.IsInstanceOf<PropertyGridView>(mainWindow.PropertyGrid);
+                Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(mainWindow.PropertyGrid);
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
 

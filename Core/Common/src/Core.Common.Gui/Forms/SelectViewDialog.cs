@@ -32,7 +32,7 @@ namespace Core.Common.Gui.Forms
     {
         private IList<string> items;
 
-        public SelectViewDialog(IWin32Window owner) : base(owner, Resources.arrow_000_medium_question_mark, 350, 200)
+        public SelectViewDialog(IWin32Window dialogParent) : base(dialogParent, Resources.arrow_000_medium_question_mark, 350, 200)
         {
             InitializeComponent();
 

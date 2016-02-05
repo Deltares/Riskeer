@@ -32,15 +32,26 @@ using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.ProgressDialog
 {
+    /// <summary>
+    /// Dialog that runs a sequence of activities, showing their progress during the execution,
+    /// when shown.
+    /// </summary>
     public partial class ActivityProgressDialog : DialogBase
     {
+        private const int maximumNumberOfProgressTextCharacters = 75;
+
         private Task task;
         private Activity runningActivity;
         private readonly IEnumerable<Activity> activities;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ProgressReporter progressReporter = new ProgressReporter();
 
-        public ActivityProgressDialog(IWin32Window owner, IEnumerable<Activity> activities) : base(owner, Resources.Ringtoets, 520, 150)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActivityProgressDialog"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent for which this dialog should be shown on top.</param>
+        /// <param name="activities">The activities to be executed when the dialog is shown.</param>
+        public ActivityProgressDialog(IWin32Window dialogParent, IEnumerable<Activity> activities) : base(dialogParent, Resources.Ringtoets, 520, 150)
         {
             InitializeComponent();
 
@@ -184,9 +195,9 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
                 // Update the activity progress text label
                 labelActivityProgressText.Text = !progressTextNullOrEmpty
-                                                     ? activity.ProgressText.Length <= 75
+                                                     ? activity.ProgressText.Length <= maximumNumberOfProgressTextCharacters
                                                            ? activity.ProgressText
-                                                           : activity.ProgressText.Take(75) + "..."
+                                                           : activity.ProgressText.Take(maximumNumberOfProgressTextCharacters) + "..."
                                                      : "";
             });
         }

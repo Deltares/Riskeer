@@ -30,7 +30,7 @@ namespace Core.Common.Gui.Forms
 {
     public partial class SelectItemDialog : DialogBase
     {
-        public SelectItemDialog(IWin32Window owner) : base(owner, Resources.plus, 320, 220)
+        public SelectItemDialog(IWin32Window dialogParent) : base(dialogParent, Resources.plus, 320, 220)
         {
             InitializeComponent();
 

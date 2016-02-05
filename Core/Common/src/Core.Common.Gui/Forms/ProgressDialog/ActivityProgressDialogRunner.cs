@@ -25,16 +25,29 @@ using Core.Common.Base.Service;
 
 namespace Core.Common.Gui.Forms.ProgressDialog
 {
+    /// <summary>
+    /// Helper methods for running a sequence of activities and observe their progress in a dialog.
+    /// </summary>
     public static class ActivityProgressDialogRunner
     {
-        public static void Run(IWin32Window owner, Activity activity)
+        /// <summary>
+        /// Runs a given activity while showing progress in a dialog.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent for which the progress dialog should be shown on top.</param>
+        /// <param name="activity">The activity to be executed.</param>
+        public static void Run(IWin32Window dialogParent, Activity activity)
         {
-            Run(owner, new[] { activity });
+            Run(dialogParent, new[] { activity });
         }
 
-        public static void Run(IWin32Window owner, IEnumerable<Activity> activities)
+        /// <summary>
+        /// Runs a sequence of activities while showing progress in a dialog.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent.</param>
+        /// <param name="activities">The activities.</param>
+        public static void Run(IWin32Window dialogParent, IEnumerable<Activity> activities)
         {
-            using (var activityProgressDialog = new ActivityProgressDialog(owner, activities))
+            using (var activityProgressDialog = new ActivityProgressDialog(dialogParent, activities))
             {
                 activityProgressDialog.ShowDialog();
             }
