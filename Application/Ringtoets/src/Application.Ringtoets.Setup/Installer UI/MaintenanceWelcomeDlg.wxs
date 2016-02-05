@@ -13,7 +13,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="MaintenanceWelcomeDlgDeltares" Width="370" Height="270" Title="!(loc.MaintenanceWelcomeDlg_Title)">
+            <Dialog Id="MaintenanceWelcomeDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
                 <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.NextButtonText)">
                     <Publish Event="SpawnWaitDialog" Value="WaitForCostingDlg">!(wix.WixUICostingPopupOptOut) OR CostingComplete = 1</Publish>
                 </Control>

@@ -14,7 +14,7 @@
     <Fragment>
         <UI>
             <Property Id="WixUIRMOptionDeltares" Value="UseRM" />
-            <Dialog Id="MsiRMFilesInUseDeltares" Width="370" Height="270" Title="!(loc.MsiRMFilesInUse_Title)" KeepModeless="yes">
+            <Dialog Id="MsiRMFilesInUseDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)" KeepModeless="yes">
                 <Control Id="OK" Type="PushButton" X="240" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUIOK)">
                     <Publish Event="EndDialog" Value="Return">1</Publish>
                     <Publish Event="RMShutdownAndRestart" Value="0">WixUIRMOptionDeltares~="UseRM"</Publish>

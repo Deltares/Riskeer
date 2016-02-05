@@ -13,7 +13,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="UserExitDeltares" Width="370" Height="270" Title="!(loc.UserExit_Title)">
+            <Dialog Id="UserExitDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
                 <Control Id="Finish" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.FinishButtonText)">
                     <Publish Event="EndDialog" Value="Exit">1</Publish>
                 </Control>

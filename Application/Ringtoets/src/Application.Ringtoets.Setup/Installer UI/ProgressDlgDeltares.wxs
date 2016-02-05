@@ -13,7 +13,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="ProgressDlgDeltares" Width="370" Height="270" Title="!(loc.ProgressDlg_Title)" Modeless="yes">
+            <Dialog Id="ProgressDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)" Modeless="yes">
                 <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.CancelButtonText)">
                     <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
                 </Control>

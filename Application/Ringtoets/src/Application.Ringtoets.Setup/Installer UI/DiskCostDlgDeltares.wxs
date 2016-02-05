@@ -13,7 +13,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="DiskCostDlgDeltares" Width="370" Height="270" Title="!(loc.DiskCostDlg_Title)">
+            <Dialog Id="DiskCostDlgDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)">
                 <Control Id="OK" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIOK)">
                     <Publish Event="EndDialog" Value="Return">1</Publish>
                 </Control>

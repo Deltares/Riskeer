@@ -13,7 +13,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="FilesInUseDeltares" Width="370" Height="270" Title="!(loc.FilesInUse_Title)" KeepModeless="yes">
+            <Dialog Id="FilesInUseDeltares" Width="370" Height="270" Title="!(loc.Dlg_Title)" KeepModeless="yes">
                 <Control Id="Retry" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUIRetry)">
                     <Publish Event="EndDialog" Value="Retry">1</Publish>
                 </Control>

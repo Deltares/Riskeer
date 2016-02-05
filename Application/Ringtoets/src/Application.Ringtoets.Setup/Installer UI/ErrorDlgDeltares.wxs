@@ -13,7 +13,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="ErrorDlgDeltares" Width="270" Height="105" Title="!(loc.ErrorDlg_Title)" ErrorDialog="yes">
+            <Dialog Id="ErrorDlgDeltares" Width="270" Height="105" Title="!(loc.Dlg_Title)" ErrorDialog="yes">
                 <Control Id="ErrorText" Type="Text" X="48" Y="15" Width="205" Height="60" TabSkip="no" NoPrefix="yes" Text="!(loc.ErrorDlgErrorText)" />
                 <Control Id="Y" Type="PushButton" X="100" Y="80" Width="56" Height="17" TabSkip="yes" Text="!(loc.WixUIYes)">
                     <Publish Event="EndDialog" Value="ErrorYes">1</Publish>
