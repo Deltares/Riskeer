@@ -764,7 +764,7 @@ namespace Core.Common.Controls.TreeView
 
                 if (treeNodeInfo.OnDrop != null)
                 {
-                    treeNodeInfo.OnDrop(nodeDragging, previousParentNode, ToDragOperation(e.Effect), dropAtLocation);
+                    treeNodeInfo.OnDrop(nodeDragging.Tag, nodeDragging.Parent.Tag, previousParentNode.Tag, ToDragOperation(e.Effect), dropAtLocation, this);
                 }
             }
             catch (Exception ex)

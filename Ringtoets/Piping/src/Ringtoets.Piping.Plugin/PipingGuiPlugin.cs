@@ -758,18 +758,18 @@ namespace Ringtoets.Piping.Plugin
             return GetAsIPipingCalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
         }
 
-        private void PipingCalculationGroupContextOnDrop(TreeNode sourceNode, TreeNode previousParentNode, DragOperations operation, int position)
+        private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, DragOperations operation, int position, TreeViewControl treeViewControl)
         {
-            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(sourceNode.Tag);
-            var originalOwnerContext = previousParentNode.Tag as PipingCalculationGroupContext;
-            var target = sourceNode.Parent.Tag as PipingCalculationGroupContext;
+            IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(droppedData);
+            var originalOwnerContext = oldParentData as PipingCalculationGroupContext;
+            var target = newParentData as PipingCalculationGroupContext;
 
             if (pipingCalculationItem != null && originalOwnerContext != null && target != null)
             {
                 var isMoveWithinSameContainer = ReferenceEquals(originalOwnerContext, target);
 
                 DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target);
-                dropHandler.Execute(sourceNode, pipingCalculationItem, position);
+                dropHandler.Execute(droppedData, pipingCalculationItem, position, treeViewControl);
             }
         }
 
@@ -802,10 +802,11 @@ namespace Ringtoets.Piping.Plugin
             /// <summary>
             /// Perform the drag & drop operation.
             /// </summary>
-            /// <param name="draggedNode">The dragged node.</param>
-            /// <param name="pipingCalculationItem">The piping calculation item corresponding with the tag of <see cref="draggedNode"/>.</param>
+            /// <param name="draggedData">The dragged data.</param>
+            /// <param name="pipingCalculationItem">The piping calculation item wrapped by <see cref="draggedData"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
-            public virtual void Execute(TreeNode draggedNode, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            /// <param name="treeViewControl">The tree view control which is at stake.</param>
+            public virtual void Execute(object draggedData, IPipingCalculationItem pipingCalculationItem, int newPosition, TreeViewControl treeViewControl)
             {
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
@@ -868,7 +869,7 @@ namespace Ringtoets.Piping.Plugin
             public DroppingPipingCalculationToNewContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
                 base(originalOwnerContext, target) { }
 
-            public override void Execute(TreeNode draggedNode, IPipingCalculationItem pipingCalculationItem, int newPosition)
+            public override void Execute(object draggedData, IPipingCalculationItem pipingCalculationItem, int newPosition, TreeViewControl treeViewControl)
             {
                 EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
 
@@ -878,7 +879,7 @@ namespace Ringtoets.Piping.Plugin
 
                 if (renamed)
                 {
-                    draggedNode.BeginEdit();
+                    treeViewControl.StartRenameForData(draggedData);
                 }
             }
 

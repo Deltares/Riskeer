@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
@@ -202,11 +201,8 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 chartData2,
                 chartData3
             });
-            var targetNode = new TreeNode
-            {
-                Tag = chartDataCollection
-            };
-            var sourceNode = new TreeNode { Tag = chartData1 };
+
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             observer.Expect(o => o.UpdateObserver());
 
@@ -215,7 +211,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             chartDataCollection.Attach(observer);
 
             // Call
-            info.OnDrop(sourceNode, targetNode, DragOperations.Move, position);
+            info.OnDrop(chartData1, chartDataCollection, chartDataCollection, DragOperations.Move, position, treeViewControlMock);
 
             // Assert
             var reversedIndex = 2 - position;
@@ -242,18 +238,15 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 chartData2,
                 chartData3
             });
-            var targetNode = new TreeNode
-            {
-                Tag = chartDataCollection
-            };
-            var sourceNode = new TreeNode { Tag = chartData1 };
 
             chartDataCollection.Attach(observer);
+
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => info.OnDrop(sourceNode, targetNode, DragOperations.Move, position);
+            TestDelegate test = () => info.OnDrop(chartData1, chartDataCollection, chartDataCollection, DragOperations.Move, position, treeViewControlMock);
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
