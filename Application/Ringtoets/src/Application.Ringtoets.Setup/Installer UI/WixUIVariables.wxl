@@ -3,9 +3,11 @@
 
   <String Id='Language'>1043</String>
   <!--Set X to 40 when only Deltares logo is displayed, set to 24 when also Rijkswaterstaat logo is displayed-->
-  <String Id='DescriptionBeforeLogosX'>40</String>
+  <!--set X to 25 when no logos are displayed-->
+  <String Id='DescriptionBeforeLogosX'>25</String>
   <!--Set Width to 220 when only Deltares logo is displayed, set to 136 when also Rijkswaterstaat logo is displayed-->
-  <String Id='DescriptionBeforeLogosWidth'>220</String>
+  <!--Set Width to 320 when no logos are displayed-->
+  <String Id='DescriptionBeforeLogosWidth'>320</String>
 
   <String Id="TitleDescriptionX">40</String>
 
