@@ -135,36 +135,18 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(draggedItem);
             failureMechanism.CalculationsGroup.Children.Add(targetGroup);
 
-            #region Mock node tree for source and target in same failure mechanism
-
-            var failureMechanismNode = mocks.Stub<TreeNode>();
-            failureMechanismNode.Tag = failureMechanism;
-
-            var failureMechanismGroupNode = mocks.Stub<TreeNode>();
-            failureMechanismGroupNode.Tag = failureMechanism.CalculationsGroup;
-
-            var calculationNode = mocks.Stub<TreeNode>();
-            calculationNode.Tag = draggedItemContext;
-
-            var targetGroupNode = mocks.Stub<TreeNode>();
-            targetGroupNode.Tag = targetGroupContext;
-
-            #endregion
-
-            mocks.ReplayAll();
-
             switch (methodToTest)
             {
                 case DragDropTestMethod.CanDrop:
                     // Call
-                    DragOperations supportedOperations = info.CanDrop(calculationNode, targetGroupNode, DragOperations.Move);
+                    DragOperations supportedOperations = info.CanDrop(draggedItemContext, targetGroupContext, DragOperations.Move);
 
                     // Assert
                     Assert.AreEqual(DragOperations.Move, supportedOperations);
                     break;
                 case DragDropTestMethod.CanInsert:
                     // Call
-                    bool canInsert = info.CanInsert(calculationNode, targetGroupNode);
+                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.IsTrue(canInsert);
@@ -199,46 +181,18 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
 
-            #region Mock node tree for source IPipingCalculationItem
-
-            var sourceFailureMechanismNode = mocks.Stub<TreeNode>();
-            sourceFailureMechanismNode.Tag = sourceFailureMechanism;
-
-            var sourceFailureMechanismGroupNode = mocks.Stub<TreeNode>();
-            sourceFailureMechanismGroupNode.Tag = sourceFailureMechanism.CalculationsGroup;
-
-            var calculationNode = mocks.Stub<TreeNode>();
-            calculationNode.Tag = draggedItemContext;
-
-            #endregion
-
-            #region Mock node tree for target PipingCalculationGroup
-
-            var targetFailureMechanismNode = mocks.Stub<TreeNode>();
-            targetFailureMechanismNode.Tag = targetFailureMechanism;
-
-            var targetFailureMechanismGroupNode = mocks.Stub<TreeNode>();
-            targetFailureMechanismGroupNode.Tag = targetFailureMechanism.CalculationsGroup;
-
-            var groupNode = mocks.Stub<TreeNode>();
-            groupNode.Tag = targetGroupContext;
-
-            #endregion
-
-            mocks.ReplayAll();
-
             switch (methodToTest)
             {
                 case DragDropTestMethod.CanDrop:
                     // Call
-                    DragOperations supportedOperations = info.CanDrop(calculationNode, groupNode, DragOperations.Move);
+                    DragOperations supportedOperations = info.CanDrop(draggedItemContext, targetGroupContext, DragOperations.Move);
 
                     // Assert
                     Assert.AreEqual(DragOperations.None, supportedOperations);
                     break;
                 case DragDropTestMethod.CanInsert:
                     // Call
-                    bool canInsert = info.CanInsert(calculationNode, groupNode);
+                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.IsFalse(canInsert);

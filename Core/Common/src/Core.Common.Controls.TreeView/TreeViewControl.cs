@@ -805,7 +805,7 @@ namespace Core.Common.Controls.TreeView
             var treeNodeInfo = GetTreeNodeInfoForData(nodeDropTarget.Tag);
 
             DragOperations allowedOperations = treeNodeInfo.CanDrop != null
-                                                   ? treeNodeInfo.CanDrop(nodeDragging, nodeDropTarget, ToDragOperation(e.AllowedEffect))
+                                                   ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag, ToDragOperation(e.AllowedEffect))
                                                    : DragOperations.None;
 
             e.Effect = ToDragDropEffects(allowedOperations);
@@ -818,7 +818,7 @@ namespace Core.Common.Controls.TreeView
             // Determine whether ot not the node can be dropped based on the allowed operations.
             // A node can also be a valid drop traget if it is the root item (nodeDragging.Parent == null).
             var dragOperations = treeNodeInfo.CanDrop != null
-                                     ? treeNodeInfo.CanDrop(nodeDragging, nodeDropTarget, allowedOperations)
+                                     ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag, allowedOperations)
                                      : DragOperations.None;
 
             if (DragOperations.None != dragOperations)
@@ -961,7 +961,7 @@ namespace Core.Common.Controls.TreeView
                 if (nodeOver.Parent != null)
                 {
                     var treeNodeInfo = GetTreeNodeInfoForData(nodeOver.Parent.Tag);
-                    if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging, nodeOver))
+                    if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Tag))
                     {
                         nodeDropTarget = nodeOver.Parent;
                         dropAtLocation = nodeOver.Parent == null ? 0 : nodeOver.Parent.Nodes.IndexOf(nodeOver);
@@ -985,7 +985,7 @@ namespace Core.Common.Controls.TreeView
                      nodeDragging.PrevNode != nodeOver)
             {
                 var treeNodeInfo = GetTreeNodeInfoForData(nodeOver.Parent.Tag);
-                if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging, nodeOver))
+                if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Tag))
                 {
                     nodeDropTarget = nodeOver.Parent;
                     dropAtLocation = nodeOver.Parent == null

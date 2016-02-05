@@ -118,16 +118,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
-            var targetNode = new TreeNode
-            {
-                Tag = chartDataCollection
-            };
-            var sourceNode = new TreeNode { Tag = new object() };
 
             mocks.ReplayAll();
 
             // Call
-            var validOperations = info.CanDrop(sourceNode, targetNode, validDragOperations);
+            var validOperations = info.CanDrop(new object(), chartDataCollection, validDragOperations);
 
             // Assert
             Assert.AreEqual(DragOperations.None, validOperations);
@@ -143,16 +138,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup
             var chartData = mocks.StrictMock<ChartData>();
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
-            var targetNode = new TreeNode
-            {
-                Tag = chartDataCollection
-            };
-            var sourceNode = new TreeNode { Tag = chartData };
 
             mocks.ReplayAll();
 
             // Call
-            var validOperations = info.CanDrop(sourceNode, targetNode, validDragOperations);
+            var validOperations = info.CanDrop(chartData, chartDataCollection, validDragOperations);
 
             // Assert
             Assert.AreEqual(validDragOperations, validOperations);
@@ -165,16 +155,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
-            var targetNode = new TreeNode
-            {
-                Tag = chartDataCollection
-            };
-            var sourceNode = new TreeNode { Tag = new object() };
 
             mocks.ReplayAll();
 
             // Call
-            var canInsert = info.CanInsert(sourceNode, targetNode);
+            var canInsert = info.CanInsert(new object(), chartDataCollection);
 
             // Assert
             Assert.IsFalse(canInsert);
@@ -188,16 +173,11 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             // Setup
             var chartData = mocks.StrictMock<ChartData>();
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
-            var targetNode = new TreeNode
-            {
-                Tag = chartDataCollection
-            };
-            var sourceNode = new TreeNode { Tag = chartData };
 
             mocks.ReplayAll();
 
             // Call
-            var canInsert = info.CanInsert(sourceNode, targetNode);
+            var canInsert = info.CanInsert(chartData, chartDataCollection);
 
             // Assert
             Assert.IsTrue(canInsert);

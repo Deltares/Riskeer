@@ -149,9 +149,9 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartDataCollection
 
-        private DragOperations BaseChartCanDrop(TreeNode sourceNode, TreeNode targetNode, DragOperations validOperations)
+        private DragOperations BaseChartCanDrop(object draggedData, object targetData, DragOperations validOperations)
         {
-            if (sourceNode.Tag is ChartData)
+            if (draggedData is ChartData)
             {
                 return validOperations;
             }
@@ -159,9 +159,9 @@ namespace Core.Plugins.OxyPlot.Legend
             return DragOperations.None;
         }
 
-        private bool BaseChartCanInsert(TreeNode sourceNode, TreeNode targetNode)
+        private bool BaseChartCanInsert(object draggedData, object targetData)
         {
-            return sourceNode.Tag is ChartData;
+            return draggedData is ChartData;
         }
 
         private void BaseChartOnDrop(TreeNode sourceNode, TreeNode previousParentNode, DragOperations operation, int position)
