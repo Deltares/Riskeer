@@ -25,8 +25,7 @@
                     <Publish Property="WixUI_InstallMode" Value="InstallComplete">1</Publish>
                     <Publish Event="SetInstallLevel" Value="1000">1</Publish>
                 </Control>
-                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.BackButtonText)" />
-                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.NextButtonText)" />
+                <Control Id="Back" Type="PushButton" X="236" Y="243" Width="56" Height="17" Text="!(loc.BackButtonText)" />
                 <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.CancelButtonText)">
                     <Publish Event="SpawnDialog" Value="CancelDlgDeltares">1</Publish>
                 </Control>
