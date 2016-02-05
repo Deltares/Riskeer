@@ -33,21 +33,21 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for <see cref="DikeAssessmentSectionEntity"/>.
+    /// Persistor for <see cref="DuneAssessmentSectionEntity"/>.
     /// </summary>
-    public class DikeAssessmentSectionEntityPersistor : IPersistor<DikeAssessmentSectionEntity, DikeAssessmentSection>
+    public class DuneAssessmentSectionEntityPersistor : IPersistor<DuneAssessmentSectionEntity, DuneAssessmentSection>
     {
         private readonly IRingtoetsEntities dbContext;
-        private readonly DikeAssessmentSectionEntityConverter converter;
-        private readonly Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection> insertedList = new Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection>();
-        private readonly ICollection<DikeAssessmentSectionEntity> modifiedList = new List<DikeAssessmentSectionEntity>();
+        private readonly DuneAssessmentSectionEntityConverter converter;
+        private readonly Dictionary<DuneAssessmentSectionEntity, DuneAssessmentSection> insertedList = new Dictionary<DuneAssessmentSectionEntity, DuneAssessmentSection>();
+        private readonly ICollection<DuneAssessmentSectionEntity> modifiedList = new List<DuneAssessmentSectionEntity>();
 
         /// <summary>
-        /// New instance of <see cref="DikeAssessmentSectionEntityPersistor"/>.
+        /// New instance of <see cref="DuneAssessmentSectionEntityPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public DikeAssessmentSectionEntityPersistor(IRingtoetsEntities ringtoetsContext)
+        public DuneAssessmentSectionEntityPersistor(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
             {
@@ -55,21 +55,21 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             dbContext = ringtoetsContext;
 
-            converter = new DikeAssessmentSectionEntityConverter();
+            converter = new DuneAssessmentSectionEntityConverter();
         }
 
         /// <summary>
-        /// Loads the <see cref="DikeAssessmentSectionEntity"/> as <see cref="DikeAssessmentSection"/> from <paramref name="parentNavigationProperty"/>.
+        /// Loads the <see cref="DuneAssessmentSectionEntity"/> as <see cref="DuneAssessmentSection"/> from <paramref name="parentNavigationProperty"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">Collection where <see cref="DikeAssessmentSectionEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <returns>List of <see cref="DikeAssessmentSection"/>.</returns>
-        public IEnumerable<DikeAssessmentSection> LoadModels(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty)
+        /// <param name="parentNavigationProperty">Collection where <see cref="DuneAssessmentSectionEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <returns>List of <see cref="DuneAssessmentSection"/>.</returns>
+        public IEnumerable<DuneAssessmentSection> LoadModels(ICollection<DuneAssessmentSectionEntity> parentNavigationProperty)
         {
             if (parentNavigationProperty == null)
             {
                 throw new ArgumentNullException("parentNavigationProperty");
             }
-            var list = new List<DikeAssessmentSection>();
+            var list = new List<DuneAssessmentSection>();
             var entities = parentNavigationProperty.ToList();
             entities.Sort();
             foreach (var entity in entities)
@@ -80,16 +80,16 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Ensures that the model is added as <see cref="DikeAssessmentSectionEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// Ensures that the model is added as <see cref="DuneAssessmentSectionEntity"/> in the <paramref name="parentNavigationProperty"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">Collection where <see cref="DikeAssessmentSectionEntity"/> objects can be added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <param name="model"><see cref="DikeAssessmentSection"/> to be saved in the storage.</param>
+        /// <param name="parentNavigationProperty">Collection where <see cref="DuneAssessmentSectionEntity"/> objects can be added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="model"><see cref="DuneAssessmentSection"/> to be saved in the storage.</param>
         /// <param name="order">Value used for sorting.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void InsertModel(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty, DikeAssessmentSection model, int order)
+        public void InsertModel(ICollection<DuneAssessmentSectionEntity> parentNavigationProperty, DuneAssessmentSection model, int order)
         {
             if (parentNavigationProperty == null)
             {
@@ -105,10 +105,10 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Ensures that the <paramref name="model"/> is set as <see cref="DikeAssessmentSectionEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// Ensures that the <paramref name="model"/> is set as <see cref="DuneAssessmentSectionEntity"/> in the <paramref name="parentNavigationProperty"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">Collection where <see cref="DikeAssessmentSectionEntity"/> objects can be searched and added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <param name="model"><see cref="DikeAssessmentSection"/> to be saved in the storage.</param>
+        /// <param name="parentNavigationProperty">Collection where <see cref="DuneAssessmentSectionEntity"/> objects can be searched and added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="model"><see cref="DuneAssessmentSection"/> to be saved in the storage.</param>
         /// <param name="order">Value used for sorting.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item>More than one element found in <paramref name="parentNavigationProperty"/> that should have been unique.</item>
         /// <item>No such element exists in <paramref name="parentNavigationProperty"/>.</item>
         /// </list></exception>
-        public void UpdateModel(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty, DikeAssessmentSection model, int order)
+        public void UpdateModel(ICollection<DuneAssessmentSectionEntity> parentNavigationProperty, DuneAssessmentSection model, int order)
         {
             if (parentNavigationProperty == null)
             {
@@ -135,11 +135,11 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// All unmodified <see cref="DikeAssessmentSectionEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
+        /// All unmodified <see cref="DuneAssessmentSectionEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
         /// </summary>
-        /// <param name="parentNavigationProperty">List where <see cref="DikeAssessmentSectionEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="parentNavigationProperty">List where <see cref="DuneAssessmentSectionEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
-        public void RemoveUnModifiedEntries(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty)
+        public void RemoveUnModifiedEntries(ICollection<DuneAssessmentSectionEntity> parentNavigationProperty)
         {
             var originalList = parentNavigationProperty.ToList();
             foreach (var u in modifiedList)
@@ -150,9 +150,9 @@ namespace Application.Ringtoets.Storage.Persistors
             foreach (var toDelete in originalList)
             {
                 // If id = 0, the entity is marked as inserted
-                if (toDelete.DikeAssessmentSectionEntityId > 0)
+                if (toDelete.DuneAssessmentSectionEntityId > 0)
                 {
-                    dbContext.DikeAssessmentSectionEntities.Remove(toDelete);
+                    dbContext.DuneAssessmentSectionEntities.Remove(toDelete);
                 }
             }
 
@@ -170,38 +170,38 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <summary>
         /// Updates the children of <paramref name="model"/>, in reference to <paramref name="entity"/>, in the storage.
         /// </summary>
-        /// <param name="model">The <see cref="DikeAssessmentSection"/> of which children need to be updated.</param>
-        /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
-        public void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity) {}
+        /// <param name="model">The <see cref="DuneAssessmentSection"/> of which children need to be updated.</param>
+        /// <param name="entity">Referenced <see cref="DuneAssessmentSectionEntity"/>.</param>
+        public void UpdateChildren(DuneAssessmentSection model, DuneAssessmentSectionEntity entity) {}
 
         /// <summary>
         /// Inserts the children of <paramref name="model"/>, in reference to <paramref name="model"/>, in the storage.
         /// </summary>
-        /// <param name="model">The <see cref="DikeAssessmentSection"/> of which children need to be inserted.</param>
-        /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
-        public void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity) {}
+        /// <param name="model">The <see cref="DuneAssessmentSection"/> of which children need to be inserted.</param>
+        /// <param name="entity">Referenced <see cref="DuneAssessmentSectionEntity"/>.</param>
+        public void InsertChildren(DuneAssessmentSection model, DuneAssessmentSectionEntity entity) {}
 
         /// <summary>
-        /// Performs the update of <paramref name="model"/> to <see cref="DikeAssessmentSectionEntity"/>.
+        /// Performs the update of <paramref name="model"/> to <see cref="DuneAssessmentSectionEntity"/>.
         /// </summary>
-        /// <param name="model"><see cref="DikeAssessmentSection"/> to update.</param>
-        /// <param name="parentNavigationProperty">Collection where the <see cref="DikeAssessmentSectionEntity"/> can be found.</param>
+        /// <param name="model"><see cref="DuneAssessmentSection"/> to update.</param>
+        /// <param name="parentNavigationProperty">Collection where the <see cref="DuneAssessmentSectionEntity"/> can be found.</param>
         /// <param name="order">Value used for sorting.</param>
-        /// <returns>The <paramref name="model"/> to <see cref="DikeAssessmentSectionEntity"/>.</returns>
-        private DikeAssessmentSectionEntity PerformUpdateModel(DikeAssessmentSection model, ICollection<DikeAssessmentSectionEntity> parentNavigationProperty, int order)
+        /// <returns>The <paramref name="model"/> to <see cref="DuneAssessmentSectionEntity"/>.</returns>
+        private DuneAssessmentSectionEntity PerformUpdateModel(DuneAssessmentSection model, ICollection<DuneAssessmentSectionEntity> parentNavigationProperty, int order)
         {
-            DikeAssessmentSectionEntity entity;
+            DuneAssessmentSectionEntity entity;
             try
             {
-                entity = parentNavigationProperty.SingleOrDefault(db => db.DikeAssessmentSectionEntityId == model.StorageId);
+                entity = parentNavigationProperty.SingleOrDefault(db => db.DuneAssessmentSectionEntityId == model.StorageId);
             }
             catch (InvalidOperationException exception)
             {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "DikeAssessmentSectionEntity", model.StorageId), exception);
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "DuneAssessmentSectionEntity", model.StorageId), exception);
             }
             if (entity == null)
             {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "DikeAssessmentSectionEntity", model.StorageId));
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "DuneAssessmentSectionEntity", model.StorageId));
             }
 
             modifiedList.Add(entity);
@@ -213,17 +213,17 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Inserts the <paramref name="model"/> as <see cref="DikeAssessmentSectionEntity"/> in <paramref name="parentNavigationProperty"/>.
+        /// Inserts the <paramref name="model"/> as <see cref="DuneAssessmentSectionEntity"/> in <paramref name="parentNavigationProperty"/>.
         /// </summary>
-        /// <param name="model"><see cref="DikeAssessmentSection"/> to be added.</param>
-        /// <param name="parentNavigationProperty">Collection where to add the <paramref name="model"/> as <see cref="DikeAssessmentSectionEntity"/>.</param>
+        /// <param name="model"><see cref="DuneAssessmentSection"/> to be added.</param>
+        /// <param name="parentNavigationProperty">Collection where to add the <paramref name="model"/> as <see cref="DuneAssessmentSectionEntity"/>.</param>
         /// <param name="order">Value used for sorting.</param>
-        /// <returns>The added <paramref name="model"/> as <see cref="DikeAssessmentSectionEntity"/>.</returns>
+        /// <returns>The added <paramref name="model"/> as <see cref="DuneAssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parentNavigationProperty"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
-        private DikeAssessmentSectionEntity PerformInsertModel(DikeAssessmentSection model, ICollection<DikeAssessmentSectionEntity> parentNavigationProperty, int order)
+        private DuneAssessmentSectionEntity PerformInsertModel(DuneAssessmentSection model, ICollection<DuneAssessmentSectionEntity> parentNavigationProperty, int order)
         {
-            var entity = new DikeAssessmentSectionEntity();
+            var entity = new DuneAssessmentSectionEntity();
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, model);
 
@@ -233,15 +233,15 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Updates the StorageId of each inserted <see cref="DikeAssessmentSection"/> to the DikeAssessmentSectionEntityId of the corresponding <see cref="DikeAssessmentSectionEntity"/>.
+        /// Updates the StorageId of each inserted <see cref="DuneAssessmentSection"/> to the DuneAssessmentSectionEntityId of the corresponding <see cref="DuneAssessmentSectionEntity"/>.
         /// </summary>
         /// <remarks><see cref="IRingtoetsEntities.SaveChanges"/> must have been called to update the ids.</remarks>
         private void UpdateStorageIdsInModel()
         {
             foreach (var entry in insertedList)
             {
-                Debug.Assert(entry.Key.DikeAssessmentSectionEntityId > 0, "DikeAssessmentSectionEntityId is not set. Have you called IRingtoetsEntities.SaveChanges?");
-                entry.Value.StorageId = entry.Key.DikeAssessmentSectionEntityId;
+                Debug.Assert(entry.Key.DuneAssessmentSectionEntityId > 0, "DuneAssessmentSectionEntityId is not set. Have you called IRingtoetsEntities.SaveChanges?");
+                entry.Value.StorageId = entry.Key.DuneAssessmentSectionEntityId;
             }
             insertedList.Clear();
         }

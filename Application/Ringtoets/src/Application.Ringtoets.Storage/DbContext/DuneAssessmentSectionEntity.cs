@@ -33,13 +33,13 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class DikeAssessmentSectionEntity
+    public partial class DuneAssessmentSectionEntity
     {
-        public long DikeAssessmentSectionEntityId { get; set; }
+        public long DuneAssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
         public string Name { get; set; }
         public int Norm { get; set; }
-        public int Order { get; set; }
+        public long Order { get; set; }
     
         public virtual ProjectEntity ProjectEntity { get; set; }
     }

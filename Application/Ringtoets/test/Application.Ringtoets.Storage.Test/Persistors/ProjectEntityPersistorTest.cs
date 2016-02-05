@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
@@ -7,6 +8,7 @@ using Application.Ringtoets.Storage.Test.DbContext;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
 {
@@ -157,7 +159,54 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void AddEntity_NullData_ThrowsArgumentNullException()
+        public void GetEntityAsModel_SingleEntityWithChildrenInDataSet_ProjectEntityFromDataSetAsModel()
+        {
+            // Setup
+            const long storageId = 1234L;
+            const string description = "description";
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            {
+                new ProjectEntity
+                {
+                    ProjectEntityId = storageId,
+                    Description = description,
+                    DikeAssessmentSectionEntities = new List<DikeAssessmentSectionEntity>
+                    {
+                        new DikeAssessmentSectionEntity
+                        {
+                            Norm = 1
+                        }
+                    },
+                    DuneAssessmentSectionEntities = new List<DuneAssessmentSectionEntity>
+                    {
+                        new DuneAssessmentSectionEntity
+                        {
+                            Norm = 1
+                        }
+                    }
+                }
+            });
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            // Call
+            Project model = persistor.GetEntityAsModel();
+
+            // Assert
+            Assert.IsInstanceOf<Project>(model);
+            Assert.AreEqual(storageId, model.StorageId);
+            Assert.AreEqual(description, model.Description);
+            Assert.AreEqual(2, model.Items.Count);
+            Assert.AreEqual(1, model.Items.OfType<DikeAssessmentSection>().ToList().Count);
+            Assert.AreEqual(1, model.Items.OfType<DuneAssessmentSection>().ToList().Count);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void InsertModel_NullData_ThrowsArgumentNullException()
         {
             // Setup
             var dbSetMethodAddWasHit = 0;
@@ -170,7 +219,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.AddEntity(null);
+            TestDelegate test = () => persistor.InsertModel(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -180,37 +229,90 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void AddEntity_ValidProject_UpdatedDataSet()
+        public void InsertModel_ValidProject_UpdatedDataSet()
         {
             // Setup
-            var dbSetMethodAddWasHit = 0;
             const long storageId = 1234L;
             const string description = "description";
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset).Repeat.Twice();
             ProjectEntity projectEntity = new ProjectEntity();
             Project project = new Project
             {
                 StorageId = storageId,
                 Description = description
             };
-            dbset.Stub(m => m.Add(projectEntity)).IgnoreArguments().Return(projectEntity)
-                 .WhenCalled(invocation => dbSetMethodAddWasHit++);
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            dbset.Expect(m => m.Add(null)).IgnoreArguments().WhenCalled(x =>
+            {
+                var insertedProjectEntity = x.Arguments.GetValue(0);
+                Assert.IsInstanceOf<ProjectEntity>(insertedProjectEntity);
+                projectEntity = (ProjectEntity) insertedProjectEntity;
+            }).Return(projectEntity);
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
             // Call
-            persistor.AddEntity(project);
+            persistor.InsertModel(project);
 
             // Assert
-            Assert.AreEqual(1, dbSetMethodAddWasHit);
+            Assert.AreNotEqual(project, projectEntity);
+            Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
+            Assert.AreEqual(description, projectEntity.Description);
 
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void UpdateEntity_NullData_ThrowsArgumentNullException()
+        public void InsertModel_ValidProjectWithChildren_UpdatedProjectEntityWithChildren()
+        {
+            // Setup
+            const long storageId = 1234L;
+            const string description = "description";
+            ProjectEntity projectEntity = new ProjectEntity();
+            Project project = new Project
+            {
+                StorageId = storageId,
+                Description = description,
+                Items =
+                {
+                    new DikeAssessmentSection(),
+                    new DuneAssessmentSection()
+                }
+            };
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            dbset.Expect(m => m.Add(null)).IgnoreArguments().WhenCalled(x =>
+            {
+                var insertedProjectEntity = x.Arguments.GetValue(0);
+                Assert.IsInstanceOf<ProjectEntity>(insertedProjectEntity);
+                projectEntity = (ProjectEntity) insertedProjectEntity;
+            }).Return(projectEntity);
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            // Call
+            persistor.InsertModel(project);
+
+            // Assert
+            Assert.AreNotEqual(project, projectEntity);
+            Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
+            Assert.AreEqual(description, projectEntity.Description);
+            Assert.AreEqual(1, projectEntity.DikeAssessmentSectionEntities.Count);
+            Assert.AreEqual(1, projectEntity.DuneAssessmentSectionEntities.Count);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateModel_NullData_ThrowsArgumentNullException()
         {
             // Setup
             var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
@@ -220,7 +322,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.UpdateEntity(null);
+            TestDelegate test = () => persistor.UpdateModel(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -229,12 +331,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void UpdateEntity_UnknownProject_ThrowsException()
+        public void UpdateModel_UnknownProject_ThrowsEntityNotFoundException()
         {
             // Setup
+            const long storageId = 1234L;
+            var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
             Project project = new Project
             {
-                StorageId = 1
+                StorageId = storageId
             };
             var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
             {
@@ -249,42 +353,299 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.UpdateEntity(project);
+            TestDelegate test = () => persistor.UpdateModel(project);
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void UpdateEntity_ValidProject_ReturnsTheProjectAsProjectEntity()
+        public void UpdateModel_MultipleEqualEntitiesInDbSet_ThrownEntityNotFoundException()
         {
             // Setup
             const long storageId = 1234L;
+            var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
+            var expectedInnerMessage = "Sequence contains more than one matching element";
             Project project = new Project
             {
                 StorageId = storageId
             };
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var projectEntities = new List<ProjectEntity>
             {
                 new ProjectEntity
                 {
                     ProjectEntityId = storageId
+                },
+                new ProjectEntity
+                {
+                    ProjectEntityId = storageId
                 }
+            };
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, projectEntities);
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            // Call
+            TestDelegate test = () => persistor.UpdateModel(project);
+
+            // Assert
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+            Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateModel_ValidProject_UpdatedDataSet()
+        {
+            // Setup
+            const long storageId = 1234L;
+            const string description = "<some description>";
+
+            Project project = new Project
+            {
+                StorageId = storageId,
+                Description = description
+            };
+            ProjectEntity entity = new ProjectEntity
+            {
+                ProjectEntityId = storageId
+            };
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            {
+                entity
             });
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            // Call
+            persistor.UpdateModel(project);
+
+            // Assert
+            Assert.IsInstanceOf<ProjectEntity>(entity);
+            Assert.AreEqual(project.StorageId, entity.ProjectEntityId);
+            Assert.AreEqual(project.Description, entity.Description);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateModel_ValidProjectWithChildren_UpdatedProjectEntityWithChildren()
+        {
+            // Setup
+            const long storageId = 1234L;
+            const string description = "description";
+            ProjectEntity projectEntity = new ProjectEntity
+            {
+                ProjectEntityId = storageId
+            };
+            Project project = new Project
+            {
+                StorageId = storageId,
+                Description = description,
+                Items =
+                {
+                    new DikeAssessmentSection(),
+                    new DuneAssessmentSection()
+                }
+            };
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            {
+                projectEntity
+            });
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            // Call
+            persistor.UpdateModel(project);
+
+            // Assert
+            Assert.AreNotEqual(project, projectEntity);
+            Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
+            Assert.AreEqual(description, projectEntity.Description);
+            Assert.AreEqual(1, projectEntity.DikeAssessmentSectionEntities.Count);
+            Assert.AreEqual(1, projectEntity.DuneAssessmentSectionEntities.Count);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void PerformPostSaveActions_NoInserts_DoesNotThrowException()
+        {
+            // Setup
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
             // Call
-            ProjectEntity entity = persistor.UpdateEntity(project);
+            TestDelegate test = () => persistor.PerformPostSaveActions();
 
             // Assert
-            Assert.IsInstanceOf<ProjectEntity>(entity);
-            Assert.AreEqual(project.StorageId, entity.ProjectEntityId);
+            Assert.DoesNotThrow(test);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void PerformPostSaveActions_ModelInsertedWithoutStorageId_ModelWithStorageId()
+        {
+            // Setup
+            const long storageId = 1234L;
+            ProjectEntity insertedProjectEntity = new ProjectEntity();
+
+            Project project = new Project
+            {
+                StorageId = 0L
+            };
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            dbset.Expect(x => x.Add(null)).IgnoreArguments().Return(insertedProjectEntity).WhenCalled(x =>
+            {
+                var insertedEntity = x.Arguments.GetValue(0);
+                Assert.IsInstanceOf<ProjectEntity>(insertedEntity);
+                insertedProjectEntity = (ProjectEntity) insertedEntity;
+            });
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            TestDelegate insertTest = () => persistor.InsertModel(project);
+            Assert.DoesNotThrow(insertTest, "Precondition failed: InsertModel failed");
+
+            insertedProjectEntity.ProjectEntityId = storageId;
+            Assert.AreEqual(0L, project.StorageId, "Precondition failed: Id should not have been set already");
+
+            // Call
+            persistor.PerformPostSaveActions();
+
+            // Assert
+            Assert.IsInstanceOf<Project>(project);
+            Assert.AreEqual(storageId, project.StorageId);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUnModifiedEntries_SingleEntityInDbSetSingleProjectWithoutStorageId_UpdatedProjectAsEntityInDbSetAndOthersDeletedInDbSet()
+        {
+            // Setup
+            const string description = "test";
+            const long storageId = 1L;
+            ProjectEntity entityToDelete = new ProjectEntity
+            {
+                ProjectEntityId = 4567L,
+                Description = "Entity to delete"
+            };
+
+            IList<ProjectEntity> parentNavigationProperty = new List<ProjectEntity>
+            {
+                entityToDelete,
+                new ProjectEntity
+                {
+                    ProjectEntityId = storageId,
+                    Description = "Entity to delete"
+                }
+            };
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
+            dbset.Expect(x => x.Remove(entityToDelete)).Return(entityToDelete);
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset).Repeat.Twice();
+
+            Project project = new Project
+            {
+                StorageId = storageId,
+                Description = description
+            };
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            TestDelegate test = () => persistor.UpdateModel(project);
+            Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");
+
+            // Call
+            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
+
+            // Assert
+            Assert.AreEqual(2, parentNavigationProperty.Count);
+            var entity = parentNavigationProperty.SingleOrDefault(x => x.ProjectEntityId == storageId);
+            Assert.IsInstanceOf<ProjectEntity>(entity);
+            Assert.AreEqual(storageId, entity.ProjectEntityId);
+            Assert.AreEqual(storageId, entity.ProjectEntityId);
+            Assert.AreEqual(description, entity.Description);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUnModifiedEntries_MultipleEntitiesInDbSetEmptyProject_EmptyDbSet()
+        {
+            // Setup
+            const long storageId = 1L;
+            ProjectEntity firstEntityToDelete = new ProjectEntity
+            {
+                ProjectEntityId = 1234L,
+                Description = "First entity to delete"
+            };
+            ProjectEntity secondEntityToDelete = new ProjectEntity
+            {
+                ProjectEntityId = 4567L,
+                Description = "Second entity to delete"
+            };
+            IList<ProjectEntity> parentNavigationProperty = new List<ProjectEntity>
+            {
+                firstEntityToDelete,
+                secondEntityToDelete,
+                new ProjectEntity
+                {
+                    ProjectEntityId = storageId,
+                    Description = "Entity to update"
+                }
+            };
+
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
+            dbset.Expect(x => x.Remove(firstEntityToDelete)).Return(firstEntityToDelete);
+            dbset.Expect(x => x.Remove(secondEntityToDelete)).Return(secondEntityToDelete);
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset).Repeat.Times(3);
+
+            Project project = new Project
+            {
+                StorageId = storageId
+            };
+            mockRepository.ReplayAll();
+            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+
+            TestDelegate test = () => persistor.UpdateModel(project);
+            Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");
+
+            // Call
+            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
+
+            // Assert
             mockRepository.VerifyAll();
         }
     }

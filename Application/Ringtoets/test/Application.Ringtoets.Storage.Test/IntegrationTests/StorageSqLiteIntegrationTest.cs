@@ -15,6 +15,28 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
+        private Project fullProject;
+
+        [SetUp]
+        public void Setup()
+        {
+            fullProject = new Project()
+            {
+                Name = "tempProjectFile",
+                Description = "description",
+                Items =
+                {
+                    new DikeAssessmentSection
+                    {
+                        Name = "dikeAssessmentSection"
+                    },
+                    new DuneAssessmentSection
+                    {
+                        Name = "duneAssessmentSection"
+                    }
+                }
+            };
+        }
 
         [TestFixtureTearDown]
         [TearDown]
@@ -28,27 +50,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Setup
             var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
-            Project project = new Project()
-            {
-                Name = "tempProjectFile",
-                Description = "description"
-            };
-            DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
-            {
-                Name = "dikeAssessmentSection",
-                FailureMechanismContribution =
-                {
-                    Norm = 8
-                }
-            };
-            project.Items.Add(dikeAssessmentSection);
 
             StorageSqLite storage = new StorageSqLite();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, project);
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempFile, project);
+            TestDelegate test = () => storage.SaveProjectAs(tempFile, fullProject);
 
             try
             {
@@ -65,27 +73,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void SaveAs_LoadProject_ProjectAsEntitiesInNewStorage()
         {
             // Setup
-            Project project = new Project()
-            {
-                Name = "tempProjectFile",
-                Description = "description"
-            };
-            DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
-            {
-                Name = "dikeAssessmentSection",
-                FailureMechanismContribution =
-                {
-                    Norm = 8
-                }
-            };
-            project.Items.Add(dikeAssessmentSection);
-
             StorageSqLite storage = new StorageSqLite();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, project);
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, project);
+            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, fullProject);
 
             // Assert
             Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
@@ -95,7 +88,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
-            Assert.AreNotSame(project, loadedProject);
+            Assert.AreNotSame(fullProject, loadedProject);
+            Assert.AreEqual(fullProject.Items.Count, loadedProject.Items.Count);
         }
 
         [Test]

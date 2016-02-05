@@ -40,6 +40,11 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; }
 
+        /// <summary>
+        /// <see cref="IDbSet{TEntity}"/> of <see cref="DuneAssessmentSectionEntity"/>
+        /// </summary>
+        IDbSet<DuneAssessmentSectionEntity> DuneAssessmentSectionEntities { get; }
+
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.
         /// </summary>

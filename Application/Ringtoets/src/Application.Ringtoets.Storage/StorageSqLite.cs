@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
@@ -67,7 +69,7 @@ namespace Application.Ringtoets.Storage
                 var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
                 try
                 {
-                    projectEntityPersistor.AddEntity(project);
+                    projectEntityPersistor.InsertModel(project);
                     var changes = dbContext.SaveChanges();
 
                     projectEntityPersistor.PerformPostSaveActions();
@@ -99,7 +101,7 @@ namespace Application.Ringtoets.Storage
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="UpdateStorageException">Thrown when
+        /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="databaseFilePath"/> does not exist.</item>
         /// <item>The database does not contain the table <c>version</c>.</item>
@@ -120,7 +122,10 @@ namespace Application.Ringtoets.Storage
                 var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
                 try
                 {
-                    projectEntityPersistor.UpdateEntity(project);
+                    ICollection<ProjectEntity> projectEntities = dbContext.ProjectEntities.ToList();
+
+                    projectEntityPersistor.UpdateModel(project);
+                    projectEntityPersistor.RemoveUnModifiedEntries(projectEntities);
                     var changes = dbContext.SaveChanges();
                     projectEntityPersistor.PerformPostSaveActions();
                     return changes;
@@ -150,8 +155,14 @@ namespace Application.Ringtoets.Storage
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <returns>Returns a new instance of <see cref="Project"/> with the data from the database or <c>null</c> when not found.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">Thrown when <paramref name="databaseFilePath"/> does not exist.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the database does not contain all tables of <see cref="RingtoetsEntities"/>.</exception>
+        /// <exception cref="StorageException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="databaseFilePath"/> does not exist.</item>
+        /// <item>The database does not contain all requested tables.</item>
+        /// <item>The connection to the database file failed.</item>
+        /// <item>The related entity was not found in the database.</item>
+        /// </list>
+        /// </exception>
         public Project LoadProject(string databaseFilePath)
         {
             SetConnectionToFile(databaseFilePath);
@@ -167,6 +178,10 @@ namespace Application.Ringtoets.Storage
                 }
             }
             catch (DataException exception)
+            {
+                throw CreateStorageReaderException(string.Empty, exception);
+            }
+            catch (InvalidOperationException exception)
             {
                 throw CreateStorageReaderException(string.Empty, exception);
             }
@@ -226,7 +241,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="UpdateStorageException">Thrown when:<list type="bullet">
+        /// <exception cref="StorageException">Thrown when:<list type="bullet">
         /// <item><paramref name="databaseFilePath"/> was not created</item>
         /// <item>executing <c>DatabaseStructure</c> script failed</item>
         /// <item>the database does not contain the table <c>version</c>.</item>

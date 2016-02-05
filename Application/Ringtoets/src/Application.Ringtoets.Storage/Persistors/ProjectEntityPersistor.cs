@@ -36,19 +36,19 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for <see cref="ProjectEntity"/>.
     /// </summary>
-    public class ProjectEntityPersistor
+    public class ProjectEntityPersistor // : IPersistor<ProjectEntity, Project>
     {
+        private readonly IRingtoetsEntities dbContext;
+        private readonly IDbSet<ProjectEntity> dbSet;
+        private readonly ProjectEntityConverter converter;
         private readonly Dictionary<ProjectEntity, Project> insertedList = new Dictionary<ProjectEntity, Project>();
         private readonly ICollection<ProjectEntity> modifiedList = new List<ProjectEntity>();
 
-        private readonly ProjectEntityConverter converter;
-        private readonly IDbSet<ProjectEntity> dbSet;
-        private readonly IRingtoetsEntities dbContext;
-
         private readonly DikeAssessmentSectionEntityPersistor dikeAssessmentSectionEntityPersistor;
+        private readonly DuneAssessmentSectionEntityPersistor duneAssessmentSectionEntityPersistor;
 
         /// <summary>
-        /// Instanciate a new ProjectEntityPersistor.
+        /// Instantiate a new ProjectEntityPersistor.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
@@ -64,6 +64,7 @@ namespace Application.Ringtoets.Storage.Persistors
             converter = new ProjectEntityConverter();
 
             dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionEntityPersistor(dbContext);
+            duneAssessmentSectionEntityPersistor = new DuneAssessmentSectionEntityPersistor(dbContext);
         }
 
         /// <summary>
@@ -86,35 +87,103 @@ namespace Application.Ringtoets.Storage.Persistors
                 {
                     project.Items.Add(section);
                 }
+
+                var duneList = duneAssessmentSectionEntityPersistor.LoadModels(entry.DuneAssessmentSectionEntities);
+                foreach (var section in duneList)
+                {
+                    project.Items.Add(section);
+                }
             }
 
             return project;
         }
 
         /// <summary>
-        /// Updates the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the sequence.
+        /// Insert the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the sequence.
         /// </summary>
-        /// <remarks>Execute <see cref="DbContext"/>.SaveChanges() afterwards to update the storage.</remarks>
-        /// <param name="project"><see cref="Project"/> to be saved in the storage.</param>
-        /// <returns>The <see cref="ProjectEntity"/>.</returns>
+        /// <remarks>Execute <see cref="IRingtoetsEntities.SaveChanges"/> afterwards to update the storage.</remarks>
+        /// <param name="parentNavigationProperty"></param>
+        /// <param name="project"><see cref="Project"/> to be inserted in the sequence.</param>
+        /// <param name="order">Value used for sorting (not used in in <see cref="ProjectEntity"/>).</param>
+        /// <returns>New instance of <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
-        /// <exception cref="EntityNotFoundException">Thrown when <paramref name="project"/> is not found.</exception>
-        public ProjectEntity UpdateEntity(Project project)
+        /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
+        public void InsertModel(Project project)
         {
             if (project == null)
             {
                 throw new ArgumentNullException("project", "Cannot update databaseSet when no project is set.");
             }
-            var entry = dbSet.SingleOrDefault(db => db.ProjectEntityId == project.StorageId);
-            if (entry == null)
-            {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", project.StorageId));
-            }
-            modifiedList.Add(entry);
-            converter.ConvertModelToEntity(project, entry);
 
-            UpdateChildren(project, entry);
-            return entry;
+            var entity = new ProjectEntity();
+            dbSet.Add(entity);
+            insertedList.Add(entity, project);
+
+            converter.ConvertModelToEntity(project, entity);
+            InsertChildren(project, entity);
+        }
+
+        /// <summary>
+        /// Updates the <see cref="ProjectEntity"/>, based upon the <paramref name="model"/>, in the sequence.
+        /// </summary>
+        /// <remarks>Execute <see cref="IRingtoetsEntities.SaveChanges"/> afterwards to update the storage.</remarks>
+        /// <param name="model">The <see cref="ProjectEntity"/> to be saved in the storage.</param>
+        /// <returns>The <see cref="ProjectEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="EntityNotFoundException">Thrown when: <list type="bullet">
+        /// <item><paramref name="model"/> is not found.</item>
+        /// <item>More than one <paramref name="model"/> satisfies the condition in predicate.</item>
+        /// </list> </exception>
+        /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
+        public void UpdateModel(Project model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model", "Cannot update databaseSet when no project is set.");
+            }
+            ProjectEntity entity;
+            try
+            {
+                entity = dbSet.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId), exception);
+            }
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId));
+            }
+            modifiedList.Add(entity);
+            converter.ConvertModelToEntity(model, entity);
+
+            UpdateChildren(model, entity);
+        }
+
+        /// <summary>
+        /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
+        /// </summary>
+        /// <param name="parentNavigationProperty">List where <see cref="ProjectEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <returns>Number of entities removed.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
+        public void RemoveUnModifiedEntries(ICollection<ProjectEntity> parentNavigationProperty)
+        {
+            var originalList = parentNavigationProperty.ToList();
+            foreach (var u in modifiedList)
+            {
+                originalList.Remove(u);
+            }
+
+            foreach (var toDelete in originalList)
+            {
+                // If id = 0, the entity is marked as inserted
+                if (toDelete.ProjectEntityId > 0)
+                {
+                    dbContext.ProjectEntities.Remove(toDelete);
+                }
+            }
+
+            modifiedList.Clear();
         }
 
         /// <summary>
@@ -124,29 +193,55 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             UpdateStorageIdsInModel();
             dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
+            duneAssessmentSectionEntityPersistor.PerformPostSaveActions();
         }
 
         /// <summary>
-        /// Insert the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the sequence.
+        /// Updates the children of <paramref name="project"/>, in reference to <paramref name="entity"/>, in the storage.
         /// </summary>
-        /// <remarks>Execute <see cref="DbContext"/>.SaveChanges() afterwards to update the storage.</remarks>
-        /// <param name="project"><see cref="Project"/> to be inserted in the sequence.</param>
-        /// <returns>New instance of <see cref="ProjectEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
-        public ProjectEntity AddEntity(Project project)
+        /// <param name="project">The <see cref="Project"/> of which children need to be updated.</param>
+        /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
+        private void UpdateChildren(Project project, ProjectEntity entity)
         {
-            if (project == null)
+            var order = 0;
+            foreach (var item in project.Items)
             {
-                throw new ArgumentNullException("project");
+                if (item is DikeAssessmentSection)
+                {
+                    dikeAssessmentSectionEntityPersistor.UpdateModel(entity.DikeAssessmentSectionEntities, (DikeAssessmentSection) item, order);
+                }
+                else if (item is DuneAssessmentSection)
+                {
+                    duneAssessmentSectionEntityPersistor.UpdateModel(entity.DuneAssessmentSectionEntities, (DuneAssessmentSection) item, order);
+                }
+                order++;
             }
-            RemoveRedundant(dbContext.ProjectEntities.ToList());
-            var entity = new ProjectEntity();
-            dbSet.Add(entity);
-            insertedList.Add(entity, project);
+            dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
+            duneAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DuneAssessmentSectionEntities);
+        }
 
-            converter.ConvertModelToEntity(project, entity);
-            InsertChildren(project, entity);
-            return entity;
+        /// <summary>
+        /// Inserts the children of <paramref name="project"/>, in reference to <paramref name="entity"/>, in the storage.
+        /// </summary>
+        /// <param name="project">The <see cref="Project"/> of which children need to be inserted.</param>
+        /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
+        private void InsertChildren(Project project, ProjectEntity entity)
+        {
+            var order = 0;
+            foreach (var item in project.Items)
+            {
+                if (item is DikeAssessmentSection)
+                {
+                    dikeAssessmentSectionEntityPersistor.InsertModel(entity.DikeAssessmentSectionEntities, (DikeAssessmentSection) item, order);
+                }
+                else if (item is DuneAssessmentSection)
+                {
+                    duneAssessmentSectionEntityPersistor.InsertModel(entity.DuneAssessmentSectionEntities, (DuneAssessmentSection) item, order);
+                }
+                order++;
+            }
+            dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
+            duneAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DuneAssessmentSectionEntities);
         }
 
         /// <summary>
@@ -161,55 +256,6 @@ namespace Application.Ringtoets.Storage.Persistors
                 entry.Value.StorageId = entry.Key.ProjectEntityId;
             }
             insertedList.Clear();
-        }
-
-        /// <summary>
-        /// Updates the children of <paramref name="project"/>, in reference to <paramref name="entity"/>, in the storage.
-        /// </summary>
-        /// <param name="project">The <see cref="Project"/> of which children need to be updated.</param>
-        /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
-        private void UpdateChildren(Project project, ProjectEntity entity)
-        {
-            var listOfDikeAssessmentSections = project.Items.OfType<DikeAssessmentSection>();
-            dikeAssessmentSectionEntityPersistor.UpdateModels(entity.DikeAssessmentSectionEntities, listOfDikeAssessmentSections);
-        }
-
-        /// <summary>
-        /// Inserts the children of <paramref name="project"/>, in reference to <paramref name="entity"/>, in the storage.
-        /// </summary>
-        /// <param name="project">The <see cref="Project"/> of which children need to be inserted.</param>
-        /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
-        private void InsertChildren(Project project, ProjectEntity entity)
-        {
-            var listOfDikeAssessmentSections = project.Items.OfType<DikeAssessmentSection>();
-            dikeAssessmentSectionEntityPersistor.InsertModels(entity.DikeAssessmentSectionEntities, listOfDikeAssessmentSections);
-        }
-
-        /// <summary>
-        /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
-        /// </summary>
-        /// <param name="listOfParentNavigationProperty">List where <see cref="ProjectEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <returns>Number of entities removed.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <paramref name="listOfParentNavigationProperty"/> is read-only.</exception>
-        private int RemoveRedundant(ICollection<ProjectEntity> listOfParentNavigationProperty)
-        {
-            foreach (var u in modifiedList)
-            {
-                listOfParentNavigationProperty.Remove(u);
-            }
-
-            var removedCount = 0;
-            foreach (var toDelete in listOfParentNavigationProperty)
-            {
-                // If id = 0, the entity is marked as inserted
-                if (toDelete.ProjectEntityId > 0)
-                {
-                    dbContext.ProjectEntities.Remove(toDelete);
-                    removedCount++;
-                }
-            }
-
-            return removedCount;
         }
     }
 }

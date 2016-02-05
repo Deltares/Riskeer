@@ -26,26 +26,26 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="DikeAssessmentSectionEntity"/> to <see cref="DikeAssessmentSection"/> 
-    /// and <see cref="DikeAssessmentSection"/> to <see cref="DikeAssessmentSectionEntity"/>.
+    /// Converter for <see cref="DuneAssessmentSectionEntity"/> to <see cref="DuneAssessmentSection"/> 
+    /// and <see cref="DuneAssessmentSection"/> to <see cref="DuneAssessmentSectionEntity"/>.
     /// </summary>
-    public class DikeAssessmentSectionEntityConverter : IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>
+    public class DuneAssessmentSectionEntityConverter : IEntityConverter<DuneAssessmentSection, DuneAssessmentSectionEntity>
     {
         /// <summary>
-        /// Converts <paramref name="entity"/> to <see cref="DikeAssessmentSection"/>.
+        /// Converts <paramref name="entity"/> to <see cref="DuneAssessmentSection"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to convert.</param>
-        /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
+        /// <param name="entity">The <see cref="DuneAssessmentSectionEntity"/> to convert.</param>
+        /// <returns>A new instance of <see cref="DuneAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public DikeAssessmentSection ConvertEntityToModel(DikeAssessmentSectionEntity entity)
+        public DuneAssessmentSection ConvertEntityToModel(DuneAssessmentSectionEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            var dikeAssessmentSection = new DikeAssessmentSection
+            var duneAssessmentSection = new DuneAssessmentSection
             {
-                StorageId = entity.DikeAssessmentSectionEntityId,
+                StorageId = entity.DuneAssessmentSectionEntityId,
                 Name = entity.Name ?? string.Empty,
                 FailureMechanismContribution =
                 {
@@ -53,19 +53,19 @@ namespace Application.Ringtoets.Storage.Converters
                 }
             };
 
-            return dikeAssessmentSection;
+            return duneAssessmentSection;
         }
 
         /// <summary>
         /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.
         /// </summary>
-        /// <param name="modelObject">The <see cref="DikeAssessmentSection"/> to convert.</param>
-        /// <param name="entity">A reference to the <see cref="DikeAssessmentSectionEntity"/> to be saved.</param>
+        /// <param name="modelObject">The <see cref="DuneAssessmentSection"/> to convert.</param>
+        /// <param name="entity">A reference to the <see cref="DuneAssessmentSectionEntity"/> to be saved.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="modelObject"/> is <c>null</c></item>
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void ConvertModelToEntity(DikeAssessmentSection modelObject, DikeAssessmentSectionEntity entity)
+        public void ConvertModelToEntity(DuneAssessmentSection modelObject, DuneAssessmentSectionEntity entity)
         {
             if (modelObject == null)
             {
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Converters
             {
                 throw new ArgumentNullException("entity");
             }
-            entity.DikeAssessmentSectionEntityId = modelObject.StorageId;
+            entity.DuneAssessmentSectionEntityId = modelObject.StorageId;
             entity.Name = modelObject.Name;
             entity.Norm = modelObject.FailureMechanismContribution.Norm;
         }
