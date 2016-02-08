@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Globalization;
-
 using Core.Common.Gui.Forms.MessageWindow;
-
 using log4net.Core;
 using log4net.Util;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Forms.MessageWindow
@@ -105,7 +101,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             var mocks = new MockRepository();
             var messageWindow = mocks.Stub<IMessageWindow>();
             messageWindow.Expect(w => w.AddMessage(Arg<Level>.Is.Equal(level),
-                                                   Arg<DateTime>.Matches(time => (time - dataTime) <= new TimeSpan(0, 0, 0, 0, 1)),
+                                                   Arg<DateTime>.Matches(time => (time - dataTime) <= new TimeSpan(0, 0, 0, 0, 5)),
                                                    Arg<string>.Is.Equal(expectedText)));
             mocks.ReplayAll();
 
@@ -114,7 +110,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Enabled = true,
                 MessageWindow = messageWindow
             };
-            
+
             // Call
             appender.DoAppend(logEvent);
 
@@ -195,7 +191,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             // Setup
             const string messageText = "<logmessage text>";
             string expectedText = string.Format("{0} {1}{2}",
-                messageText, Environment.NewLine, "Controleer logbestand voor meer informatie (\"Bestand\"->\"Help\"->\"Log tonen\").");
+                                                messageText, Environment.NewLine, "Controleer logbestand voor meer informatie (\"Bestand\"->\"Help\"->\"Log tonen\").");
             var exception = new Exception();
 
             Level level = CreateLog4NetLevel(LogLevel.Error);
