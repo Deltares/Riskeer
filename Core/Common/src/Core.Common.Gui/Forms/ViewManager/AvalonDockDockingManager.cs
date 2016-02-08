@@ -162,10 +162,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             if (ViewActivated != null)
             {
-                ViewActivated(this, new ActiveViewChangeEventArgs
-                {
-                    View = view
-                });
+                ViewActivated(this, new ActiveViewChangeEventArgs(view));
             }
         }
 
@@ -208,10 +205,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             if (ViewActivated != null)
             {
-                ViewActivated(this, new ActiveViewChangeEventArgs
-                {
-                    View = activeView
-                });
+                ViewActivated(this, new ActiveViewChangeEventArgs(activeView));
             }
         }
 
@@ -375,10 +369,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             if (ViewActivated != null)
             {
-                ViewActivated(this, new ActiveViewChangeEventArgs
-                {
-                    View = view
-                });
+                ViewActivated(this, new ActiveViewChangeEventArgs(view));
             }
         }
 
@@ -444,7 +435,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
                 anchorablePane = dockingManager.Layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(p => p.GetSide() == anchorSide);
 
-                if ((location & ViewLocation.Bottom) == ViewLocation.Bottom)
+                if (location.HasFlag(ViewLocation.Bottom))
                 {
                     anchorablePane = dockingManager.Layout.Descendents().OfType<LayoutAnchorablePane>().LastOrDefault(p => p.GetSide() == anchorSide);
                 }
@@ -470,7 +461,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                 anchorablePane = dockingManager.Layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(p => p.GetSide() == anchorSide);
 
                 // check if Top or Bottom is specified
-                if ((location & ViewLocation.Bottom) == ViewLocation.Bottom)
+                if (location.HasFlag(ViewLocation.Bottom))
                 {
                     anchorablePane = dockingManager.Layout.Descendents().OfType<LayoutAnchorablePane>().LastOrDefault(p => p.GetSide() == anchorSide);
                 }

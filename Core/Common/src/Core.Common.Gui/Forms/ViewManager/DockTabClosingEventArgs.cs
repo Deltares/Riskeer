@@ -24,15 +24,18 @@ using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Event arguments for closing a docked view.
+    /// </summary>
     public class DockTabClosingEventArgs : EventArgs
     {
         /// <summary>
-        /// View trying to close (because a tab is being closed)
+        /// View trying to close (because a tab is being closed).
         /// </summary>
         public IView View { get; set; }
 
         /// <summary>
-        /// Specifies the close action should be cancelled
+        /// Specifies if the close action should be cancelled.
         /// </summary>
         public bool Cancel { get; set; }
     }

@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         private readonly IList<IView> views;
 
         private IView activeView;
-        private bool clearing; // used to skip view activation when it is not necessary
+        //private bool clearing; // used to skip view activation when it is not necessary
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewList"/> class. 
@@ -76,7 +76,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             set
             {
-                // don't just replace the view..we want contexts to kick in etc..so we do a remove / insert at index
                 RemoveAt(index);
                 Insert(index, value);
             }
@@ -139,14 +138,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        public void AddRange(IEnumerable<IView> enumerable)
-        {
-            foreach (var v in enumerable)
-            {
-                Add(v);
-            }
-        }
-
         public void SetImage(IView view, Image image)
         {
             dockingManager.SetImage(view, image);
@@ -172,13 +163,11 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public void Clear()
         {
-            clearing = true;
             while (Count > 0)
             {
                 Close(views[0], true, false);
             }
 
-            clearing = false;
             ActiveView = null;
 
             FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionResetArgs());
@@ -186,7 +175,6 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public void Clear(IView viewToKeep)
         {
-            clearing = true;
             var viewToKeepIndex = views.IndexOf(viewToKeep);
 
             for (int i = views.Count - 1; i >= 0; i--)
@@ -196,8 +184,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                     Close(views[i], true, false);
                 }
             }
-
-            clearing = false;
 
             ActiveView = viewToKeep;
         }
@@ -210,14 +196,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         public void CopyTo(IView[] array, int arrayIndex)
         {
             views.CopyTo(array, arrayIndex);
-        }
-
-        public void UpdateViewName(IView view)
-        {
-            if (UpdateViewNameAction != null)
-            {
-                UpdateViewNameAction(view);
-            }
         }
 
         public IEnumerator<IView> GetEnumerator()
@@ -243,8 +221,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public bool Remove(IView view)
         {
-            Close(view, true, true);
-            return true;
+            return Close(view, true, true);
         }
 
         public void RemoveAt(int index)
@@ -264,13 +241,8 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private void ActivateView(IView view)
         {
-            if (clearing)
-            {
-                return;
-            }
-
             var disposableView = view as Control;
-            if ((disposableView != null) && disposableView.IsDisposed)
+            if (disposableView != null && disposableView.IsDisposed)
             {
                 return; // skip view activation when it is disposed (happens e.g. when closing app)
             }
@@ -280,7 +252,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return;
             }
 
-            if (activeView == view && (activeView != null && ((Control) activeView).Visible))
+            if (activeView == view && activeView != null && ((Control) activeView).Visible)
             {
                 if (activeView is Control)
                 {
@@ -316,31 +288,25 @@ namespace Core.Common.Gui.Forms.ViewManager
             FireActiveViewChangedEvent(oldView);
         }
 
-        /// <summary>
-        /// Set the active view to previous view in the list (if any). Or sets activeview to null if no other view available
-        /// </summary>
-        private void ChangeActiveView()
+        private void ChangeActiveViewToPrevious()
         {
             var activeViewIndex = views.IndexOf(activeView);
 
-            // set active view to next view
             if (Count > 1)
             {
-                activeViewIndex = activeViewIndex > 0
-                                      ? Math.Max(0, activeViewIndex - 1)
-                                      : 1;
+                var viewIndexToActivate = activeViewIndex > 0 ?
+                                              activeViewIndex - 1 :
+                                              1; // There is no previous, so use next instead
 
-                ActiveView = views[activeViewIndex];
+                ActiveView = views[viewIndexToActivate];
             }
             else
             {
-                //Cannot reproduce, but sometimes it doesn't clear ActiveView (and then crashes) because count==0 (iso 1). 
-                //So adjusted the check for 'stability'. Couldn't find the underlying issue.
                 ActiveView = null;
             }
         }
 
-        private void Close(IView view, bool removeTabFromDockingManager, bool activateNextView)
+        private bool Close(IView view, bool removeTabFromDockingManager, bool activateNextView)
         {
             if (ViewResolver.IsViewOpening)
             {
@@ -349,20 +315,17 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             if (!Contains(view))
             {
-                return; // small optimization
+                return false;
             }
 
-            if (activateNextView)
+            if (activateNextView && ActiveView == view)
             {
-                if (ActiveView == view)
-                {
-                    ChangeActiveView();
-                }
+                ChangeActiveViewToPrevious();
             }
 
             int oldIndex = views.IndexOf(view);
 
-            views.Remove(view);
+            var succesfullyRemovedView = views.Remove(view);
 
             FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionRemoveArgs(view, oldIndex));
 
@@ -370,6 +333,8 @@ namespace Core.Common.Gui.Forms.ViewManager
             dockingManager.Remove(view, removeTabFromDockingManager);
 
             ForceViewCleanup(view);
+
+            return succesfullyRemovedView;
         }
 
         private static void ForceViewCleanup(IView view)
@@ -399,10 +364,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             if (ActiveViewChanging != null)
             {
-                ActiveViewChanging(this, new ActiveViewChangeEventArgs
-                {
-                    View = newView, OldView = oldView
-                });
+                ActiveViewChanging(this, new ActiveViewChangeEventArgs(newView, oldView));
             }
         }
 
@@ -410,10 +372,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             if (ActiveViewChanged != null)
             {
-                ActiveViewChanged(this, new ActiveViewChangeEventArgs
-                {
-                    View = ActiveView, OldView = oldView
-                });
+                ActiveViewChanged(this, new ActiveViewChangeEventArgs(ActiveView, oldView));
             }
         }
 

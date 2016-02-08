@@ -116,6 +116,23 @@
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowTest.cs" />
     <Compile Include="Forms\PropertyGridView\PropertyResolverTest.cs" />
+    <Compile Include="Forms\SplashScreen\SplashScreenTest.cs" />
+    <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgsTest.cs" />
+    <Compile Include="Forms\ViewManager\DockTabClosingEventArgsTest.cs" />
+    <Compile Include="Forms\ViewManager\TestView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ViewManager\TestView.Designer.cs">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ViewManager\ToolWindowTestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ViewManager\ToolWindowTestControl.Designer.cs">
+      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ViewManager\ViewListTest.cs" />
+    <Compile Include="Forms\ViewManager\ViewResolverTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,7 +145,6 @@
     <Compile Include="Theme\ColorThemeExtensionsTest.cs" />
     <Compile Include="Theme\ColorThemeTest.cs" />
     <Compile Include="Forms\Options\OptionsDialogTest.cs" />
-    <Compile Include="Forms\SplashScreenTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +181,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\ViewManager\TestView.resx">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ViewManager\ToolWindowTestControl.resx">
+      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
 
 namespace Core.Common.Test.TestObjects

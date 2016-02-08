@@ -1,4 +1,4 @@
-namespace Core.Common.Test.Gui
+namespace Core.Common.Gui.Test.Forms.ViewManager
 {
     partial class ToolWindowTestControl
     {

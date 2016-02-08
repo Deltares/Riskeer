@@ -21,16 +21,14 @@
 
 using System.Windows;
 using System.Windows.Media;
-using log4net;
 
 namespace Core.Common.Gui.Forms.SplashScreen
 {
     /// <summary>
-    ///     Interaction logic for SplashScreen.xaml
+    /// Interaction logic for SplashScreen.xaml
     /// </summary>
     public partial class SplashScreen
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(SplashScreen));
         private string progressText;
         private int progressValuePercent;
         private string licenseText;
@@ -39,6 +37,10 @@ namespace Core.Common.Gui.Forms.SplashScreen
         private string versionText;
         private bool hasProgress;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SplashScreen"/> class with a progress
+        /// bar from 0 to 100%.
+        /// </summary>
         public SplashScreen()
         {
             InitializeComponent();
@@ -71,7 +73,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Version to be shown
+        /// Version to be shown.
         /// </summary>
         public string VersionText
         {
@@ -87,7 +89,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Copyright owner to be shown
+        /// Copyright owner to be shown.
         /// </summary>
         public string CopyrightText
         {
@@ -103,7 +105,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Registred company to be shown
+        /// Registred company to be shown.
         /// </summary>
         public string CompanyText
         {
@@ -119,7 +121,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Type of the license, plain text
+        /// Type of the license, plain text.
         /// </summary>
         public string LicenseText
         {
@@ -151,7 +153,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Text, as a current status of the progress
+        /// Text, as a current status of the progress.
         /// </summary>
         public string ProgressText
         {
@@ -166,16 +168,15 @@ namespace Core.Common.Gui.Forms.SplashScreen
             }
         }
 
+        /// <summary>
+        /// Shuts this instance down.
+        /// </summary>
         public void Shutdown()
         {
             Focusable = false;
             Close();
         }
 
-        /// <summary>
-        /// When overridden in a derived class, participates in rendering operations that are directed by the layout system. The rendering instructions for this element are not used directly when this method is invoked, and are instead preserved for later asynchronous use by layout and drawing. 
-        /// </summary>
-        /// <param name="drawingContext">The drawing instructions for a specific element. This context is provided to the layout system.</param>
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);

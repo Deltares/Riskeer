@@ -1,7 +1,8 @@
 using System.Windows.Forms;
+
 using Core.Common.Controls.Views;
 
-namespace Core.Common.Test.Gui
+namespace Core.Common.Gui.Test.Forms.ViewManager
 {
     public partial class ToolWindowTestControl : UserControl, IView
     {

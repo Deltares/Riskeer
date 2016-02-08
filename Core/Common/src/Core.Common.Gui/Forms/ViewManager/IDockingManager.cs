@@ -28,7 +28,7 @@ using Core.Common.Controls.Views;
 namespace Core.Common.Gui.Forms.ViewManager
 {
     /// <summary>
-    /// Interface providing view docking control. Implemented in DotNetBar for now.
+    /// Interface providing view docking control.
     /// </summary>
     public interface IDockingManager : IDisposable
     {

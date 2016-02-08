@@ -25,16 +25,39 @@ using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Event arguments for changes to the <see cref="IViewList.ActiveView"/>.
+    /// </summary>
     public class ActiveViewChangeEventArgs : EventArgs
     {
         /// <summary>
-        /// Current view.
+        /// Initializes a new instance of the <see cref="ActiveViewChangeEventArgs"/> class.
         /// </summary>
-        public IView View { get; set; }
+        /// <param name="currentActiveView">The current active view.</param>
+        public ActiveViewChangeEventArgs(IView currentActiveView)
+        {
+            View = currentActiveView;
+        }
 
         /// <summary>
-        /// Previous view.
+        /// Initializes a new instance of the <see cref="ActiveViewChangeEventArgs"/> class.
         /// </summary>
-        public IView OldView { get; set; }
+        /// <param name="currentActiveView">The current active view.</param>
+        /// <param name="previousActiveView">The previously active view.</param>
+        public ActiveViewChangeEventArgs(IView currentActiveView, IView previousActiveView)
+        {
+            View = currentActiveView;
+            OldView = previousActiveView;
+        }
+
+        /// <summary>
+        /// The current active view.
+        /// </summary>
+        public IView View { get; private set; }
+
+        /// <summary>
+        /// The previously active view. Is not null when switching from one view to another.
+        /// </summary>
+        public IView OldView { get; private set; }
     }
 }

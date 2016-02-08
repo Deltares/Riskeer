@@ -27,29 +27,50 @@ using Core.Common.Utils.Events;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Flags on where views can be located.
+    /// </summary>
     [Flags]
     public enum ViewLocation
     {
+        /// <summary>
+        /// The location reserved for Document Views.
+        /// </summary>
         Document = 0x0,
+        /// <summary>
+        /// Left of the location reserved for Document Views.
+        /// </summary>
         Left = 0x1,
+        /// <summary>
+        /// Right of the location reserved for Document Views.
+        /// </summary>
         Right = 0x2,
+        /// <summary>
+        /// Above the location reserved for Document Views.
+        /// </summary>
         Top = 0x4,
+        /// <summary>
+        /// Below the location reserved for Document Views.
+        /// </summary>
         Bottom = 0x8,
+        /// <summary>
+        /// Floating panel.
+        /// </summary>
         Floating = 0x16
     };
 
     /// <summary>
-    /// Manages currently displayed views
+    /// Manages currently displayed views.
     /// </summary>
     public interface IViewList : IList<IView>, IDisposable
     {
         /// <summary>
-        /// Fired before active view has been changed.
+        /// Fired before active view has changed.
         /// </summary>
         event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
 
         /// <summary>
-        /// Fired after active view has been changed.
+        /// Fired after active view has changed.
         /// </summary>
         event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 
@@ -64,39 +85,34 @@ namespace Core.Common.Gui.Forms.ViewManager
         bool IgnoreActivation { get; set; }
 
         /// <summary>
-        /// Gets or sets active view, when view is active - its window is activated.
+        /// Gets or sets active view.
         /// </summary>
         IView ActiveView { get; set; }
 
         /// <summary>
-        /// Returns all views. Including views inside composite views
+        /// Returns all views.
         /// </summary>
         IEnumerable<IView> AllViews { get; }
 
         /// <summary>
-        /// Adds a view to the UI. 
+        /// Adds a view to the view list and makes it active. 
         /// </summary>
-        /// <param name="view"></param>
-        /// <param name="viewLocation"></param>
+        /// <param name="view">The view to be added.</param>
+        /// <param name="viewLocation">The location where the view should be added.</param>
         void Add(IView view, ViewLocation viewLocation);
 
         /// <summary>
-        /// Sets the tooltip of the view
+        /// Sets the tooltip of the view's container.
         /// </summary>
-        /// <param name="view"></param>
-        /// <param name="tooltip"></param>
+        /// <param name="view">The view already part of this list.</param>
+        /// <param name="tooltip">The text of the tooltip.</param>
         void SetTooltip(IView view, string tooltip);
 
         /// <summary>
-        /// Updates the name of the view
+        /// Removes all views except <paramref name="viewToKeep"/>
         /// </summary>
-        /// <param name="view"></param>
-        void UpdateViewName(IView view);
-
-        /// <summary>
-        /// Overloaded Clear, removes all views except <paramref name="viewToKeep"/>
-        /// </summary>
-        /// <param name="viewToKeep"></param>
+        /// <param name="viewToKeep">The view that should be kept open and made the active view. 
+        /// If set to null, all views will be closed and <see cref="ActiveView"/> will be null.</param>
         void Clear(IView viewToKeep);
     }
 }

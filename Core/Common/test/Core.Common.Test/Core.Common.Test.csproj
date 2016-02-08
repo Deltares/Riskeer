@@ -105,13 +105,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TestObjects\TestDockingManager.cs" />
-    <Compile Include="Gui\ToolWindowTestControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Gui\ToolWindowTestControl.Designer.cs">
-      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\ViewListTest.cs" />
     <Compile Include="TestObjects\TestView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -136,10 +129,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Gui\ToolWindowTestControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
