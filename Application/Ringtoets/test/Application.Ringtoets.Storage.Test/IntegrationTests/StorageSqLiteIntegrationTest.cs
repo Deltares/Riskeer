@@ -15,28 +15,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
-        private Project fullProject;
-
-        [SetUp]
-        public void Setup()
-        {
-            fullProject = new Project()
-            {
-                Name = "tempProjectFile",
-                Description = "description",
-                Items =
-                {
-                    new DikeAssessmentSection
-                    {
-                        Name = "dikeAssessmentSection"
-                    },
-                    new DuneAssessmentSection
-                    {
-                        Name = "duneAssessmentSection"
-                    }
-                }
-            };
-        }
 
         [TestFixtureTearDown]
         [TearDown]
@@ -49,6 +27,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
+            Project fullProject = GetFullProject();
             var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
 
             StorageSqLite storage = new StorageSqLite();
@@ -102,6 +81,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Setup
             StorageSqLite storage = new StorageSqLite();
+            Project fullProject = GetFullProject();
             TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
@@ -205,6 +185,26 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsEmpty(gui.Project.Description);
                 CollectionAssert.IsEmpty(gui.Project.Items);
             }
+        }
+
+        private static Project GetFullProject()
+        {
+            return new Project()
+            {
+                Name = "tempProjectFile",
+                Description = "description",
+                Items =
+                {
+                    new DikeAssessmentSection
+                    {
+                        Name = "dikeAssessmentSection"
+                    },
+                    new DuneAssessmentSection
+                    {
+                        Name = "duneAssessmentSection"
+                    }
+                }
+            };
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

@@ -28,6 +28,7 @@ namespace Application.Ringtoets.Storage.Test.DbContext
             const string someName = "<some name>";
             const int someNorm = 5000;
 
+            // Call
             var dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity
             {
                 ProjectEntityId = expectedParentId,
@@ -36,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.DbContext
                 Norm = someNorm
             };
 
-            // Call & Assert
+            // Assert
             Assert.AreEqual(expectedParentId, dikeAssessmentSectionEntity.ProjectEntityId);
             Assert.AreEqual(expectedId, dikeAssessmentSectionEntity.DikeAssessmentSectionEntityId);
             Assert.AreEqual(someName, dikeAssessmentSectionEntity.Name);

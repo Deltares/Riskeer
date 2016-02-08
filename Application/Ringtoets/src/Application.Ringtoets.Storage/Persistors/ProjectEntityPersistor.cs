@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for <see cref="ProjectEntity"/>.
     /// </summary>
-    public class ProjectEntityPersistor // : IPersistor<ProjectEntity, Project>
+    public class ProjectEntityPersistor
     {
         private readonly IRingtoetsEntities dbContext;
         private readonly IDbSet<ProjectEntity> dbSet;
@@ -87,7 +87,9 @@ namespace Application.Ringtoets.Storage.Persistors
                 {
                     project.Items.Add(section);
                 }
-
+            }
+            if (entry.DuneAssessmentSectionEntities.Count > 0)
+            {
                 var duneList = duneAssessmentSectionEntityPersistor.LoadModels(entry.DuneAssessmentSectionEntities);
                 foreach (var section in duneList)
                 {
@@ -102,9 +104,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Insert the <see cref="ProjectEntity"/>, based upon the <paramref name="project"/>, in the sequence.
         /// </summary>
         /// <remarks>Execute <see cref="IRingtoetsEntities.SaveChanges"/> afterwards to update the storage.</remarks>
-        /// <param name="parentNavigationProperty"></param>
         /// <param name="project"><see cref="Project"/> to be inserted in the sequence.</param>
-        /// <param name="order">Value used for sorting (not used in in <see cref="ProjectEntity"/>).</param>
         /// <returns>New instance of <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
@@ -170,7 +170,6 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
         /// </summary>
         /// <param name="parentNavigationProperty">List where <see cref="ProjectEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <returns>Number of entities removed.</returns>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<ProjectEntity> parentNavigationProperty)
         {

@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="parentNavigationProperty">Collection where <see cref="TModel"/> objects can be searched and added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
         /// <param name="model">The <see cref="TModel"/> to be saved in the storage.</param>
         /// <param name="order">Value used for sorting.</param>
-        //void UpdateModels(ICollection<TEntity> parentNavigationProperty, IEnumerable<TModel> listOfModels);
         void UpdateModel(ICollection<TEntity> parentNavigationProperty, TModel model, int order);
 
         /// <summary>
@@ -48,7 +47,6 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="parentNavigationProperty">Collection where <see cref="TEntity"/> objects can be added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
         /// <param name="model">The <see cref="TModel"/> to be saved in the storage.</param>
         /// <param name="order">Value used for sorting.</param>
-        //void InsertModels(ICollection<TEntity> parentNavigationProperty, IEnumerable<TModel> listOfModels);
         void InsertModel(ICollection<TEntity> parentNavigationProperty, TModel model, int order);
 
         /// <summary>

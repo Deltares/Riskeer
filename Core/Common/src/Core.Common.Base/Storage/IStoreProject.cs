@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times. 
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Core.Common.Base.Storage
@@ -52,6 +53,8 @@ namespace Core.Common.Base.Storage
         /// <param name="connectionArguments"></param>
         /// <param name="project">The <see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
+        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="connectionArguments"/> does not exist.</item>
@@ -69,9 +72,14 @@ namespace Core.Common.Base.Storage
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
         /// <returns>Returns a new instance of <see cref="Project"/> with the data from the storage or <c>null</c> when not found.</returns>
         /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">Thrown when no new storage was created.</exception>
-        /// <exception cref="UpdateStorageException">Thrown when updating the storage fails.</exception>
-        /// <exception cref="StorageValidationException">Thrown when the storage is no valid Ringtoets project.</exception>
+        /// <exception cref="StorageException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="connectionArguments"/> is invalid.</item>
+        /// <item>The storage does not contain all requested tables.</item>
+        /// <item>The connection to the storage failed.</item>
+        /// <item>The related entity was not found in the storage.</item>
+        /// </list>
+        /// </exception>
         Project LoadProject(string connectionArguments);
     }
 }
