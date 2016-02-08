@@ -229,6 +229,12 @@ namespace Application.Ringtoets.Storage.Persistors
 
             converter.ConvertModelToEntity(model, entity);
             entity.Order = order;
+
+            if (model.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
+
             return entity;
         }
 

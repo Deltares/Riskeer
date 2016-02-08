@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.IntegrationTests
@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
-        public void SaveProjectLoadProject_CompleteProject_ProjectAsEntitiesInStorage()
+        public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
             var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
@@ -56,21 +56,49 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempFile, fullProject);
-
+            Project firstProject = null;
+            Project secondProject = null;
             try
             {
-                Assert.DoesNotThrow(test);
+                storage.SaveProjectAs(tempFile, fullProject);
+                firstProject = storage.LoadProject(tempRingtoetsFile);
+                secondProject = storage.LoadProject(tempFile);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail(exception.Message);
             }
             finally
             {
                 // TearDown
                 TearDownTempRingtoetsFile(tempFile);
             }
+
+            // Assert
+            Assert.IsInstanceOf<Project>(firstProject);
+            Assert.IsInstanceOf<Project>(secondProject);
+
+            var firstProjectDike = firstProject.Items.OfType<DikeAssessmentSection>().ToList();
+            var secondProjectDike = secondProject.Items.OfType<DikeAssessmentSection>().ToList();
+            Assert.AreEqual(firstProjectDike.Count, secondProjectDike.Count);
+            for (var i = 0; i < firstProjectDike.Count; i++)
+            {
+                Assert.AreEqual(firstProjectDike[i].StorageId, secondProjectDike[i].StorageId);
+                Assert.AreEqual(firstProjectDike[i].Name, secondProjectDike[i].Name);
+            }
+
+            var firstProjectDune = firstProject.Items.OfType<DuneAssessmentSection>().ToList();
+            var secondProjectDune = secondProject.Items.OfType<DuneAssessmentSection>().ToList();
+            Assert.AreEqual(firstProjectDune.Count, secondProjectDune.Count);
+            for (var i = 0; i < firstProjectDune.Count; i++)
+            {
+                Assert.AreEqual(firstProjectDune[i].StorageId, secondProjectDune[i].StorageId);
+                Assert.AreEqual(firstProjectDune[i].Name, secondProjectDune[i].Name);
+            }
         }
 
         [Test]
-        public void SaveAs_LoadProject_ProjectAsEntitiesInNewStorage()
+        public void SaveProjectAs_LoadProject_ProjectAsEntitiesInNewStorage()
         {
             // Setup
             StorageSqLite storage = new StorageSqLite();
@@ -119,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 CollectionAssert.IsEmpty(gui.Project.Items);
             }
         }
-        
+
         [Test]
         [STAThread]
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithInvalidFile_EmptyProjectSet()

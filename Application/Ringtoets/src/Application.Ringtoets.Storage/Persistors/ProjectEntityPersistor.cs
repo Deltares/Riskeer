@@ -120,6 +120,12 @@ namespace Application.Ringtoets.Storage.Persistors
             insertedList.Add(entity, project);
 
             converter.ConvertModelToEntity(project, entity);
+
+            if (project.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
+
             InsertChildren(project, entity);
         }
 
