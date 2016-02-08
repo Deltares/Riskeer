@@ -1268,5 +1268,299 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
                 mocks.VerifyAll(); // Expect calls on IDockingManager
             }
         }
+
+        [Test]
+        [TestCase(ViewLocation.Top)]
+        [TestCase(ViewLocation.Bottom)]
+        [TestCase(ViewLocation.Document)]
+        [TestCase(ViewLocation.Floating)]
+        [TestCase(ViewLocation.Left)]
+        [TestCase(ViewLocation.Right)]
+        public void IndexProperty_SetNewView_ReplaceViewWithEventsAndMakeActiveWithEvents(ViewLocation defaultLocation)
+        {
+            // Setup
+            using (var view1 = new ToolWindowTestControl())
+            using (var view2 = new ToolWindowTestControl())
+            {
+                var mocks = new MockRepository();
+                var dockingManager = mocks.Stub<IDockingManager>();
+                dockingManager.Stub(dm => dm.ViewBarClosing += null).IgnoreArguments();
+                dockingManager.Stub(dm => dm.ViewActivated += null).IgnoreArguments();
+                dockingManager.Stub(dm => dm.ViewBarClosing -= null).IgnoreArguments();
+                dockingManager.Stub(dm => dm.ViewActivated -= null).IgnoreArguments();
+                dockingManager.Stub(dm => dm.Dispose());
+                dockingManager.Stub(dm => dm.Add(view1, defaultLocation));
+                dockingManager.Stub(dm => dm.ActivateView(view1));
+                dockingManager.Expect(dm => dm.ActivateView(null));
+                dockingManager.Expect(dm => dm.Remove(view1, true));
+                dockingManager.Expect(dm => dm.Add(view2, defaultLocation));
+                dockingManager.Expect(dm => dm.ActivateView(view2));
+                mocks.ReplayAll();
+
+                using (var viewList = new ViewList(dockingManager, defaultLocation))
+                {
+                    viewList.Add(view1);
+
+                    var updateViewNameActionCallCount = 0;
+                    viewList.UpdateViewNameAction = v => updateViewNameActionCallCount++;
+
+                    var changingEventCount = 0;
+                    viewList.ActiveViewChanging += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        if (changingEventCount == 0)
+                        {
+                            Assert.IsNull(args.View);
+                            Assert.AreSame(view1, args.OldView);
+                        }
+                        else if (changingEventCount == 1)
+                        {
+                            Assert.AreSame(view2, args.View);
+                            Assert.IsNull(args.OldView);
+                        }
+                        changingEventCount++;
+                    };
+
+                    var changedEventCount = 0;
+                    viewList.ActiveViewChanged += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        if (changedEventCount == 0)
+                        {
+                            Assert.IsNull(args.View);
+                            Assert.AreSame(view1, args.OldView);
+                        }
+                        else if (changedEventCount == 1)
+                        {
+                            Assert.AreSame(view2, args.View);
+                            Assert.IsNull(args.OldView);
+                        }
+                        changedEventCount++;
+                    };
+                    var collectionChangedEventCount = 0;
+                    viewList.CollectionChanged += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        Assert.AreEqual(0, args.Index);
+                        if (args.Action == NotifyCollectionChangeAction.Remove)
+                        {
+                            Assert.AreSame(view1, args.Item);
+                        }
+                        else if (args.Action == NotifyCollectionChangeAction.Add)
+                        {
+                            Assert.AreSame(view2, args.Item);
+                        }
+                        else
+                        {
+                            Assert.Fail("Not expecting any other type of event action!");
+                        }
+                        Assert.AreEqual(-1, args.OldIndex);
+                        Assert.IsNull(args.OldItem);
+                        Assert.IsFalse(args.Cancel);
+                        collectionChangedEventCount++;
+                    };
+
+                    // Call
+                    viewList[0] = view2;
+
+                    // Assert
+                    Assert.AreEqual(1, viewList.Count);
+                    CollectionAssert.AreEqual(new[] { view2 }, viewList);
+                    CollectionAssert.AreEqual(new[] { view2 }, viewList.AllViews);
+                    Assert.AreSame(view2, viewList[0]);
+
+                    Assert.AreEqual(1, updateViewNameActionCallCount);
+
+                    Assert.AreEqual(2, changingEventCount);
+                    Assert.AreEqual(2, changedEventCount);
+                    Assert.AreEqual(2, collectionChangedEventCount);
+
+                    Assert.AreSame(view2, viewList.ActiveView);
+                }
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void SynchronizeViews_SomeViewsInCollection_RemoveOtherViews()
+        {
+            // Setup
+            using (var view1 = new ToolWindowTestControl())
+            using (var view2 = new ToolWindowTestControl())
+            using (var view3 = new ToolWindowTestControl())
+            using (var view4 = new ToolWindowTestControl())
+            {
+                var mocks = new MockRepository();
+                var dockingManager = mocks.Stub<IDockingManager>();
+                mocks.ReplayAll();
+
+                using (var viewList = new ViewList(dockingManager, ViewLocation.Bottom))
+                {
+                    viewList.Add(view1);
+                    viewList.Add(view2);
+                    viewList.Add(view3);
+                    viewList.Add(view4);
+
+                    viewList.CollectionChanged += (sender, args) =>
+                    {
+                        Assert.Fail("No events expected");
+                    };
+
+                    var viewsToKeep = new IView[]
+                    {
+                        view2,
+                        view4
+                    };
+
+                    // Call
+                    viewList.Remove(viewsToKeep);
+
+                    // Assert
+                    CollectionAssert.AreEqual(viewsToKeep, viewList);
+                }
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenViewListWithDockingManager_WhenActiveViewChangeEventFired_ThenUpdateActiveViewWithEvents()
+        {
+            // Scenario
+            using (var view1 = new ToolWindowTestControl())
+            using (var view2 = new ToolWindowTestControl())
+            {
+                var mocks = new MockRepository();
+                var dockingManager = mocks.Stub<IDockingManager>();
+                mocks.ReplayAll();
+
+                using (var viewList = new ViewList(dockingManager, ViewLocation.Document))
+                {
+                    viewList.Add(view1);
+                    viewList.Add(view2);
+
+                    var changingEventCount = 0;
+                    viewList.ActiveViewChanging += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        Assert.AreSame(view1, args.View);
+                        Assert.AreSame(view2, args.OldView);
+                        changingEventCount++;
+                    };
+                    var changedEventCount = 0;
+                    viewList.ActiveViewChanged += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        Assert.AreSame(view1, args.View);
+                        Assert.AreSame(view2, args.OldView);
+                        changedEventCount++;
+                    };
+
+                    // Event
+                    dockingManager.Raise(manager => manager.ViewActivated += null,
+                                         dockingManager,
+                                         new ActiveViewChangeEventArgs(view1));
+
+                    // Result
+                    Assert.AreSame(view1, viewList.ActiveView);
+
+                    Assert.AreEqual(1, changingEventCount);
+                    Assert.AreEqual(1, changedEventCount);
+                }
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenEmptyViewListWithDockingManager_WhenActiveViewChangeEventFired_DoNothing()
+        {
+            // Scenario
+            using (var view1 = new ToolWindowTestControl())
+            {
+                var mocks = new MockRepository();
+                var dockingManager = mocks.Stub<IDockingManager>();
+                mocks.ReplayAll();
+
+                using (var viewList = new ViewList(dockingManager, ViewLocation.Document))
+                {
+                    viewList.ActiveViewChanging += (sender, args) =>
+                    {
+                        Assert.Fail("Should not react when not having views.");
+                    };
+                    viewList.ActiveViewChanged += (sender, args) =>
+                    {
+                        Assert.Fail("Should not react when not having views.");
+                    };
+
+                    // Event
+                    dockingManager.Raise(manager => manager.ViewActivated += null,
+                                         dockingManager,
+                                         new ActiveViewChangeEventArgs(view1));
+
+                    // Result
+                    Assert.IsNull(viewList.ActiveView);
+                }
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenViewListWithDockingManager_WhenViewBarClosingEventFired_ThenRemoveItemAndUpdateActiveViewWithEvents()
+        {
+            // Scenario
+            using (var view1 = new ToolWindowTestControl())
+            {
+                var mocks = new MockRepository();
+                var dockingManager = mocks.Stub<IDockingManager>();
+                mocks.ReplayAll();
+
+                using (var viewList = new ViewList(dockingManager, ViewLocation.Document))
+                {
+                    viewList.Add(view1);
+
+                    var changingEventCount = 0;
+                    viewList.ActiveViewChanging += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        Assert.IsNull(args.View);
+                        Assert.AreSame(view1, args.OldView);
+                        changingEventCount++;
+                    };
+                    var changedEventCount = 0;
+                    viewList.ActiveViewChanged += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        Assert.IsNull(args.View);
+                        Assert.AreSame(view1, args.OldView);
+                        changedEventCount++;
+                    };
+                    var collectionChangedEventCount = 0;
+                    viewList.CollectionChanged += (sender, args) =>
+                    {
+                        Assert.AreSame(viewList, sender);
+                        Assert.AreEqual(NotifyCollectionChangeAction.Remove, args.Action);
+                        Assert.AreEqual(0, args.Index);
+                        Assert.AreSame(view1, args.Item);
+                        Assert.AreEqual(-1, args.OldIndex);
+                        Assert.IsNull(args.OldItem);
+                        Assert.IsFalse(args.Cancel);
+                        collectionChangedEventCount++;
+                    };
+
+                    // Event
+                    dockingManager.Raise(manager => manager.ViewBarClosing += null,
+                                         dockingManager,
+                                         new DockTabClosingEventArgs { View = view1 });
+
+                    // Result
+                    Assert.IsNull(viewList.ActiveView);
+
+                    Assert.AreEqual(1, changingEventCount);
+                    Assert.AreEqual(1, changedEventCount);
+                    Assert.AreEqual(1, collectionChangedEventCount);
+                }
+                mocks.VerifyAll();
+            }
+        }
     }
 }

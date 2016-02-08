@@ -25,9 +25,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Events;
+
 using log4net;
 
 namespace Core.Common.Gui.Forms.ViewManager
@@ -37,19 +39,13 @@ namespace Core.Common.Gui.Forms.ViewManager
     /// </summary>
     public class ViewList : IViewList
     {
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
+        private static readonly ILog log = LogManager.GetLogger(typeof(ViewList));
 
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
-
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ViewList));
         private readonly ViewLocation? defaultLocation;
         private readonly IDockingManager dockingManager;
         private readonly IList<IView> views;
 
         private IView activeView;
-        //private bool clearing; // used to skip view activation when it is not necessary
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewList"/> class. 
@@ -67,6 +63,124 @@ namespace Core.Common.Gui.Forms.ViewManager
             this.dockingManager.ViewActivated += DockingManagerViewActivated;
         }
 
+        /// <summary>
+        /// Gets or sets the action to be used to update the name of the view.
+        /// </summary>
+        public Action<IView> UpdateViewNameAction { get; set; }
+
+        /// <summary>
+        /// Sets up the controller for context menus on docked views.
+        /// </summary>
+        public void EnableTabContextMenus()
+        {
+            new ViewSelectionMouseController(dockingManager, this);
+        }
+
+        /// <summary>
+        /// Removes all views in the list except for those specified.
+        /// </summary>
+        /// <param name="viewsToKeep">The views to keep.</param>
+        public void Remove(IView[] viewsToKeep)
+        {
+            foreach (var view in views.ToArray())
+            {
+                if (!viewsToKeep.Contains(view))
+                {
+                    views.Remove(view);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the image used for the docking panel hosting the view.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="image">The image.</param>
+        public void SetImage(IView view, Image image)
+        {
+            dockingManager.SetImage(view, image);
+        }
+
+        private bool Close(IView view, bool removeTabFromDockingManager, bool activateNextView)
+        {
+            if (ViewResolver.IsViewOpening)
+            {
+                throw new InvalidOperationException(Resources.ViewList_Close_View_is_being_closed_while_it_is_being_opened);
+            }
+
+            if (!Contains(view))
+            {
+                return false;
+            }
+
+            if (activateNextView && ActiveView == view)
+            {
+                ChangeActiveViewToPrevious();
+            }
+
+            int oldIndex = views.IndexOf(view);
+
+            var succesfullyRemovedView = views.Remove(view);
+
+            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionRemoveArgs(view, oldIndex));
+
+            // remove from docking manager
+            dockingManager.Remove(view, removeTabFromDockingManager);
+
+            ForceViewCleanup(view);
+
+            return succesfullyRemovedView;
+        }
+
+        private void ChangeActiveViewToPrevious()
+        {
+            var activeViewIndex = views.IndexOf(activeView);
+
+            if (Count > 1)
+            {
+                var viewIndexToActivate = activeViewIndex > 0 ?
+                                              activeViewIndex - 1 :
+                                              1; // There is no previous, so use next instead
+
+                ActiveView = views[viewIndexToActivate];
+            }
+            else
+            {
+                ActiveView = null;
+            }
+        }
+
+        private static void ForceViewCleanup(IView view)
+        {
+            view.Data = null; // reset data for view
+
+            view.Dispose(); // get rid of view.
+        }
+
+        private void DockingManagerViewActivated(object sender, ActiveViewChangeEventArgs e)
+        {
+            if (Count == 0)
+            {
+                return;
+            }
+
+            ActiveView = e.View;
+        }
+
+        private void DockingManagerViewBarClosing(object sender, DockTabClosingEventArgs e)
+        {
+            log.DebugFormat(Resources.ViewList_DockingManagerViewBarClosing_Closing_view_0_, e.View);
+            Close(e.View, false, true);
+        }
+
+        #region Implementation: IViewList
+
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
+
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
         public IView this[int index]
         {
             get
@@ -80,8 +194,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                 Insert(index, value);
             }
         }
-
-        public Action<IView> UpdateViewNameAction { get; set; }
 
         public IView ActiveView
         {
@@ -119,28 +231,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             {
                 return views.IsReadOnly;
             }
-        }
-
-        public void EnableTabContextMenus()
-        {
-            new ViewSelectionMouseController(dockingManager, this);
-        }
-
-        // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
-        public void SynchronizeViews(IView[] openedViews)
-        {
-            foreach (var view in views.ToArray())
-            {
-                if (!openedViews.Contains(view))
-                {
-                    views.Remove(view);
-                }
-            }
-        }
-
-        public void SetImage(IView view, Image image)
-        {
-            dockingManager.SetImage(view, image);
         }
 
         public void Dispose()
@@ -216,7 +306,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                     Resources.ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_parameter_);
             }
 
-            Insert(index, view, (ViewLocation) defaultLocation);
+            Insert(index, view, (ViewLocation)defaultLocation);
         }
 
         public bool Remove(IView view)
@@ -252,11 +342,11 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return;
             }
 
-            if (activeView == view && activeView != null && ((Control) activeView).Visible)
+            if (activeView == view && activeView != null && ((Control)activeView).Visible)
             {
                 if (activeView is Control)
                 {
-                    ((Control) activeView).Focus();
+                    ((Control)activeView).Focus();
                 }
 
                 return;
@@ -274,7 +364,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             {
                 if (!Contains(view))
                 {
-                    Log.Debug(Resources.ViewList_ActivateView_Item_not_found_in_list_of_views);
+                    log.Debug(Resources.ViewList_ActivateView_Item_not_found_in_list_of_views);
                     return;
                 }
             }
@@ -288,76 +378,27 @@ namespace Core.Common.Gui.Forms.ViewManager
             FireActiveViewChangedEvent(oldView);
         }
 
-        private void ChangeActiveViewToPrevious()
+        private void Insert(int index, IView view, ViewLocation viewLocation)
         {
-            var activeViewIndex = views.IndexOf(activeView);
-
-            if (Count > 1)
+            // activate view only if it is already added
+            if (Contains(view))
             {
-                var viewIndexToActivate = activeViewIndex > 0 ?
-                                              activeViewIndex - 1 :
-                                              1; // There is no previous, so use next instead
-
-                ActiveView = views[viewIndexToActivate];
-            }
-            else
-            {
-                ActiveView = null;
-            }
-        }
-
-        private bool Close(IView view, bool removeTabFromDockingManager, bool activateNextView)
-        {
-            if (ViewResolver.IsViewOpening)
-            {
-                throw new InvalidOperationException(Resources.ViewList_Close_View_is_being_closed_while_it_is_being_opened);
-            }
-
-            if (!Contains(view))
-            {
-                return false;
-            }
-
-            if (activateNextView && ActiveView == view)
-            {
-                ChangeActiveViewToPrevious();
-            }
-
-            int oldIndex = views.IndexOf(view);
-
-            var succesfullyRemovedView = views.Remove(view);
-
-            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionRemoveArgs(view, oldIndex));
-
-            // remove from docking manager
-            dockingManager.Remove(view, removeTabFromDockingManager);
-
-            ForceViewCleanup(view);
-
-            return succesfullyRemovedView;
-        }
-
-        private static void ForceViewCleanup(IView view)
-        {
-            view.Data = null; // reset data for view
-
-            view.Dispose(); // get rid of view.
-        }
-
-        private void DockingManagerViewActivated(object sender, ActiveViewChangeEventArgs e)
-        {
-            if (Count == 0)
-            {
+                ActiveView = view;
                 return;
             }
 
-            ActiveView = e.View;
-        }
+            if (UpdateViewNameAction != null)
+            {
+                UpdateViewNameAction(view);
+            }
 
-        private void DockingManagerViewBarClosing(object sender, DockTabClosingEventArgs e)
-        {
-            Log.DebugFormat(Resources.ViewList_DockingManagerViewBarClosing_Closing_view_0_, e.View);
-            Close(e.View, false, true);
+            views.Insert(index, view);
+
+            dockingManager.Add(view, viewLocation);
+
+            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionAddArgs(view, index));
+
+            ActiveView = view;
         }
 
         private void FireActiveViewChangingEvent(IView oldView, IView newView)
@@ -384,27 +425,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        private void Insert(int index, IView view, ViewLocation viewLocation)
-        {
-            // activate view only if it is already added
-            if (Contains(view))
-            {
-                ActiveView = view;
-                return;
-            }
-
-            if (UpdateViewNameAction != null)
-            {
-                UpdateViewNameAction(view);
-            }
-
-            views.Insert(index, view);
-
-            dockingManager.Add(view, viewLocation);
-
-            FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionAddArgs(view, index));
-
-            ActiveView = view;
-        }
+        #endregion
     }
 }
