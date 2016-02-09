@@ -59,11 +59,9 @@
     <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\PartialDikeAssessmentSectionEntity.cs" />
     <Compile Include="DbContext\DuneAssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\PartialDuneAssessmentSectionEntity.cs" />
     <Compile Include="DbContext\ProjectEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

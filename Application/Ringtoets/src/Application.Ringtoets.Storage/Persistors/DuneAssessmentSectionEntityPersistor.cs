@@ -59,24 +59,13 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Loads the <see cref="DuneAssessmentSectionEntity"/> as <see cref="DuneAssessmentSection"/> from <paramref name="parentNavigationProperty"/>.
+        /// Loads the <see cref="DuneAssessmentSectionEntity"/> as <see cref="DuneAssessmentSection"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">Collection where <see cref="DuneAssessmentSectionEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <returns>List of <see cref="DuneAssessmentSection"/>.</returns>
-        public IEnumerable<DuneAssessmentSection> LoadModels(ICollection<DuneAssessmentSectionEntity> parentNavigationProperty)
+        /// <param name="entity">The <see cref="DuneAssessmentSectionEntity"/> to load.</param>
+        /// <returns>A new instance of <see cref="DuneAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
+        public DuneAssessmentSection LoadModel(DuneAssessmentSectionEntity entity)
         {
-            if (parentNavigationProperty == null)
-            {
-                throw new ArgumentNullException("parentNavigationProperty");
-            }
-            var list = new List<DuneAssessmentSection>();
-            var entities = parentNavigationProperty.ToList();
-            entities.Sort();
-            foreach (var entity in entities)
-            {
-                list.Add(converter.ConvertEntityToModel(entity));
-            }
-            return list;
+            return converter.ConvertEntityToModel(entity);
         }
 
         /// <summary>

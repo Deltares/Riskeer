@@ -61,11 +61,11 @@ namespace Application.Ringtoets.Storage.Persistors
         void PerformPostSaveActions();
 
         /// <summary>
-        /// Loads the <see cref="TEntity"/> as <see cref="TModel"/> from <paramref name="parentNavigationProperty"/>.
+        /// Loads the <see cref="TEntity"/> as <see cref="TModel"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">Collection where <see cref="TEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <returns>List of <see cref="TModel"/>.</returns>
-        IEnumerable<TModel> LoadModels(ICollection<TEntity> parentNavigationProperty);
+        /// <param name="entity">The <see cref="TEntity"/> to load.</param>
+        /// <returns>A new instance of <see cref="TModel"/>, based on the properties of <paramref name="entity"/>.</returns>
+        TModel LoadModel(TEntity entity);
 
         /// <summary>
         /// Updates the children of <paramref name="model"/>, in reference to <paramref name="entity"/>, in the storage.

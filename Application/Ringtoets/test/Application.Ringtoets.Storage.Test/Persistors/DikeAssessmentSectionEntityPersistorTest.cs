@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModels_NullDataset_ThrowsArgumentNullException()
+        public void LoadModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.LoadModels(null);
+            TestDelegate test = () => persistor.LoadModel(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -64,25 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModels_EmptyDataset_DoesNotThrowException()
-        {
-            // Setup
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
-            ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => persistor.LoadModels(parentNavigationProperty);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void LoadModels_SingleEntityInDataset_EntityAsModelInList()
+        public void LoadModel_ValidEntity_EntityAsModelInList()
         {
             // Setup
             const long storageId = 1234L;
@@ -90,22 +72,16 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const int norm = 30000;
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
-            ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
+            var entity = new DikeAssessmentSectionEntity
             {
-                new DikeAssessmentSectionEntity
-                {
-                    DikeAssessmentSectionEntityId = storageId, Name = name, Norm = norm
-                }
+                DikeAssessmentSectionEntityId = storageId, Name = name, Norm = norm
             };
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<DikeAssessmentSection> loadedModels = persistor.LoadModels(parentNavigationProperty);
+            DikeAssessmentSection section = persistor.LoadModel(entity);
 
             // Assert
-            var loadedModelsList = loadedModels.ToList();
-            Assert.AreEqual(parentNavigationProperty.Count, loadedModelsList.Count);
-            DikeAssessmentSection section = loadedModelsList[0];
             Assert.AreEqual(storageId, section.StorageId);
             Assert.AreEqual(name, section.Name);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
@@ -114,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModels_MultipleEntitiesInDataset_EntitiesAsModelInList()
+        public void LoadModel_MultipleEntitiesInDataset_EntitiesAsModelInList()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -133,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<DikeAssessmentSection> loadedModels = persistor.LoadModels(parentNavigationProperty);
+            var loadedModels = parentNavigationProperty.Select(entity => persistor.LoadModel(entity));
 
             // Assert
             var parentNavigationPropertyList = parentNavigationProperty.ToList();
@@ -669,7 +645,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     persistor.UpdateModel(parentNavigationPropertyMock, dikeAssessmentSection, 0);
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     Assert.Fail("Precondition failed: persistor.UpdateModel");
                 }

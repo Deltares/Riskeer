@@ -59,24 +59,13 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Loads the <see cref="DikeAssessmentSectionEntity"/> as <see cref="DikeAssessmentSection"/> from <paramref name="parentNavigationProperty"/>.
+        /// Loads the <see cref="DikeAssessmentSectionEntity"/> as <see cref="DikeAssessmentSection"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">Collection where <see cref="DikeAssessmentSectionEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <returns>List of <see cref="DikeAssessmentSection"/>.</returns>
-        public IEnumerable<DikeAssessmentSection> LoadModels(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty)
+        /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to load.</param>
+        /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
+        public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity)
         {
-            if (parentNavigationProperty == null)
-            {
-                throw new ArgumentNullException("parentNavigationProperty");
-            }
-            var list = new List<DikeAssessmentSection>();
-            var entities = parentNavigationProperty.ToList();
-            entities.Sort();
-            foreach (var entity in entities)
-            {
-                list.Add(converter.ConvertEntityToModel(entity));
-            }
-            return list;
+            return converter.ConvertEntityToModel(entity);
         }
 
         /// <summary>

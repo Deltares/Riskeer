@@ -80,21 +80,26 @@ namespace Application.Ringtoets.Storage.Persistors
                 return null;
             }
             var project = converter.ConvertEntityToModel(entry);
-            if (entry.DikeAssessmentSectionEntities.Count > 0)
+
+            var nrOfItems = (entry.DikeAssessmentSectionEntities.Count + entry.DuneAssessmentSectionEntities.Count);
+            var assessmentSections = new object[nrOfItems];
+
+            var dikeAssessmentSectionEntities = entry.DikeAssessmentSectionEntities.ToList();
+            foreach (var sectionEntity in dikeAssessmentSectionEntities)
             {
-                var list = dikeAssessmentSectionEntityPersistor.LoadModels(entry.DikeAssessmentSectionEntities);
-                foreach (var section in list)
-                {
-                    project.Items.Add(section);
-                }
+                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
             }
-            if (entry.DuneAssessmentSectionEntities.Count > 0)
+
+            var duneAssessmentSectionEntities = entry.DuneAssessmentSectionEntities.ToList();
+            foreach (var sectionEntity in duneAssessmentSectionEntities)
             {
-                var duneList = duneAssessmentSectionEntityPersistor.LoadModels(entry.DuneAssessmentSectionEntities);
-                foreach (var section in duneList)
-                {
-                    project.Items.Add(section);
-                }
+                assessmentSections[sectionEntity.Order] = duneAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
+            }
+
+            // Add to items sorted 
+            foreach (var assessmentSection in assessmentSections)
+            {
+                project.Items.Add(assessmentSection);
             }
 
             return project;

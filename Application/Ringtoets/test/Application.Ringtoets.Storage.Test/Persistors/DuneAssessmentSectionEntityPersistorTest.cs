@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModels_NullDataset_ThrowsArgumentNullException()
+        public void LoadModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.LoadModels(null);
+            TestDelegate test = () => persistor.LoadModel(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -64,25 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModels_EmptyDataset_DoesNotThrowException()
-        {
-            // Setup
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            DuneAssessmentSectionEntityPersistor persistor = new DuneAssessmentSectionEntityPersistor(ringtoetsEntities);
-            ICollection<DuneAssessmentSectionEntity> parentNavigationProperty = new List<DuneAssessmentSectionEntity>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => persistor.LoadModels(parentNavigationProperty);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void LoadModels_SingleEntityInDataset_EntityAsModelInList()
+        public void LoadModel_ValidEntity_EntityAsModelInList()
         {
             // Setup
             const long storageId = 1234L;
@@ -90,22 +72,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const int norm = 30000;
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             DuneAssessmentSectionEntityPersistor persistor = new DuneAssessmentSectionEntityPersistor(ringtoetsEntities);
-            ICollection<DuneAssessmentSectionEntity> parentNavigationProperty = new List<DuneAssessmentSectionEntity>
+            var entity = new DuneAssessmentSectionEntity
             {
-                new DuneAssessmentSectionEntity
-                {
-                    DuneAssessmentSectionEntityId = storageId, Name = name, Norm = norm
-                }
+                DuneAssessmentSectionEntityId = storageId,
+                Name = name,
+                Norm = norm
             };
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<DuneAssessmentSection> loadedModels = persistor.LoadModels(parentNavigationProperty);
+            DuneAssessmentSection section = persistor.LoadModel(entity);
 
             // Assert
-            var loadedModelsList = loadedModels.ToList();
-            Assert.AreEqual(parentNavigationProperty.Count, loadedModelsList.Count);
-            DuneAssessmentSection section = loadedModelsList[0];
             Assert.AreEqual(storageId, section.StorageId);
             Assert.AreEqual(name, section.Name);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
@@ -114,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModels_MultipleEntitiesInDataset_EntitiesAsModelInList()
+        public void LoadModel_MultipleEntitiesInDataset_EntitiesAsModelInList()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -133,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<DuneAssessmentSection> loadedModels = persistor.LoadModels(parentNavigationProperty);
+            var loadedModels = parentNavigationProperty.Select(entity => persistor.LoadModel(entity));
 
             // Assert
             var parentNavigationPropertyList = parentNavigationProperty.ToList();
@@ -312,7 +290,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     Norm = norm
                 }
-            };
+            }
+                ;
             mockRepository.ReplayAll();
 
             // Call
@@ -659,7 +638,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     persistor.UpdateModel(parentNavigationPropertyMock, duneAssessmentSection, 0);
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     Assert.Fail("Precondition failed: persistor.UpdateModel");
                 }

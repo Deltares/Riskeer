@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long ProjectEntityId { get; set; }
         public string Name { get; set; }
         public int Norm { get; set; }
-        public long Order { get; set; }
+        public int Order { get; set; }
     
         public virtual ProjectEntity ProjectEntity { get; set; }
     }

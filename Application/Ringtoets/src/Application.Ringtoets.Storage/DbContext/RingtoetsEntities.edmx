@@ -23,7 +23,7 @@
           <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="Norm" Type="int" Nullable="false" />
-          <Property Name="Order" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -88,11 +88,11 @@
           <EntitySet Name="Versions" EntityType="RingtoetsEntitiesModel.Version" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="DikeAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" />
-          <EntitySet Name="DuneAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DuneAssessmentSectionEntity" />
           <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
           </AssociationSet>
+          <EntitySet Name="DuneAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DuneAssessmentSectionEntity" />
           <AssociationSet Name="FK_DuneAssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="DuneAssessmentSectionEntity" EntitySet="DuneAssessmentSectionEntities" />
@@ -128,17 +128,6 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="ProjectEntity" />
         </EntityType>
-        <EntityType Name="DuneAssessmentSectionEntity">
-          <Key>
-            <PropertyRef Name="DuneAssessmentSectionEntityId" />
-          </Key>
-          <Property Name="DuneAssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="Norm" Type="Int32" Nullable="false" />
-          <Property Name="Order" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0" FromRole="DuneAssessmentSectionEntity" ToRole="ProjectEntity" />
-        </EntityType>
         <Association Name="FK_DikeAssessmentSectionEntity_0_0">
           <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="*" />
@@ -151,6 +140,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DuneAssessmentSectionEntity">
+          <Key>
+            <PropertyRef Name="DuneAssessmentSectionEntityId" />
+          </Key>
+          <Property Name="DuneAssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Norm" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0" FromRole="DuneAssessmentSectionEntity" ToRole="ProjectEntity" />
+        </EntityType>
         <Association Name="FK_DuneAssessmentSectionEntity_0_0">
           <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.DuneAssessmentSectionEntity" Role="DuneAssessmentSectionEntity" Multiplicity="*" />
