@@ -134,32 +134,6 @@ namespace Core.Common.Gui.Commands
             return true;
         }
 
-        /// <summary>
-        /// Loads the project from the <see cref="IStoreProject"/>.
-        /// </summary>
-        /// <param name="filePath">The path to load a <see cref="Project"/> from.</param>
-        /// <returns>The loaded <see cref="Project"/> from <paramref name="filePath"/> or <c>null</c> if the project
-        /// could not be loaded from <paramref name="filePath"/>.</returns>
-        private Project LoadProjectFromStorage(string filePath)
-        {
-            Project loadedProject = null;
-
-            try
-            {
-                loadedProject = projectPersistor.LoadProject(filePath);
-            }
-            catch (StorageException e)
-            {
-                log.Error(e.Message, e.InnerException);
-            }
-            catch (ArgumentException e)
-            {
-                log.Error(e.Message, e.InnerException);
-            }
-
-            return loadedProject;
-        }
-
         public void CloseProject()
         {
             if (projectOwner.Project == null)
@@ -233,6 +207,29 @@ namespace Core.Common.Gui.Commands
         {
             projectOwner.ProjectOpened -= ApplicationProjectOpened;
             projectOwner.ProjectClosing -= ApplicationProjectClosing;
+        }
+
+        /// <summary>
+        /// Loads the project from the <see cref="IStoreProject"/>.
+        /// </summary>
+        /// <param name="filePath">The path to load a <see cref="Project"/> from.</param>
+        /// <returns>The loaded <see cref="Project"/> from <paramref name="filePath"/> or <c>null</c> if the project
+        /// could not be loaded from <paramref name="filePath"/>.</returns>
+        /// <exception cref="System.ArgumentException"><paramref name="filePath"/> is invalid.</exception>
+        private Project LoadProjectFromStorage(string filePath)
+        {
+            Project loadedProject = null;
+
+            try
+            {
+                loadedProject = projectPersistor.LoadProject(filePath);
+            }
+            catch (StorageException e)
+            {
+                log.Error(e.Message, e.InnerException);
+            }
+
+            return loadedProject;
         }
 
         /// <summary>

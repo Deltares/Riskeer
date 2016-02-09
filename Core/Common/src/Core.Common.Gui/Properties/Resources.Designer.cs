@@ -97,15 +97,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets wordt gestart....
-        /// </summary>
-        public static string App_App_Starting_Ringtoets {
-            get {
-                return ResourceManager.GetString("App_App_Starting_Ringtoets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Onbekende kritieke fout opgetreden..
         /// </summary>
         public static string App_AppDomain_UnhandledException_Unknown_exception_ {
@@ -133,21 +124,21 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets wordt gestart....
-        /// </summary>
-        public static string App_RunRingtoets_Starting_Ringtoets_Gui {
-            get {
-                return ResourceManager.GetString("App_RunRingtoets_Starting_Ringtoets_Gui", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan niet meerdere instanties van Ringtoets starten. Sluit eerst de andere instantie..
         /// </summary>
         public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Please_close_the_other_instance_first {
             get {
                 return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets_Pleas" +
                         "e_close_the_other_instance_first", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ringtoets wordt gestart....
+        /// </summary>
+        public static string App_Starting_Ringtoets {
+            get {
+                return ResourceManager.GetString("App_Starting_Ringtoets", resourceCulture);
             }
         }
         

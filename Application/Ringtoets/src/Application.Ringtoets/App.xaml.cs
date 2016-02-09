@@ -50,6 +50,7 @@ using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
+
 #endif
 
 namespace Application.Ringtoets
@@ -69,6 +70,7 @@ namespace Application.Ringtoets
 
         private static RingtoetsGui gui;
         private static int waitForProcessId = -1;
+        private static string fileToOpen = String.Empty;
 
         private static Mutex singleInstanceMutex;
 
@@ -78,13 +80,14 @@ namespace Application.Ringtoets
 
             log.Info(Core.Common.Base.Properties.Resources.App_App_Ringtoets_Copyright);
 
-            log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Ringtoets);
+            log.Info(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets);
         }
 
-        public static void RunRingtoets(string file)
+        /// <summary>
+        /// Runs the main Ringtoets application.
+        /// </summary>
+        public static void RunRingtoets()
         {
-            log.Info(Core.Common.Gui.Properties.Resources.App_RunRingtoets_Starting_Ringtoets_Gui);
-
             var loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
             {
@@ -102,7 +105,7 @@ namespace Application.Ringtoets
             // handle exception from all threads except UI
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
 
-            gui.Run(file);
+            gui.Run(fileToOpen);
 
             // Ringtoets started, clean-up all possible memory
             GC.Collect();
@@ -121,7 +124,6 @@ namespace Application.Ringtoets
         private void App_Startup(object sender, StartupEventArgs e)
         {
             ParseArguments(e.Args);
-            var file = GetFileArgument(e.Args);
 
             WaitForPreviousInstanceToExit();
             if (ShutdownIfNotFirstInstance())
@@ -166,27 +168,24 @@ namespace Application.Ringtoets
                 }
             };
 
-            RunRingtoets(file);
+            RunRingtoets();
 
             mainWindow.Show();
         }
 
-        private string GetFileArgument(string[] args)
+        private static bool ParseFileArgument(string potentialPath)
         {
-            string potentialPath = null;
-            if(args.Length > 0) 
+            if (potentialPath.Length > 0)
             {
-                potentialPath = args.Last();
                 try
                 {
                     FileUtils.ValidateFilePath(potentialPath);
+                    fileToOpen = potentialPath;
+                    return true;
                 }
-                catch (ArgumentException)
-                {
-                    potentialPath = null;
-                }
+                catch (ArgumentException) {}
             }
-            return potentialPath;
+            return false;
         }
 
         /// <summary>
@@ -367,6 +366,11 @@ namespace Application.Ringtoets
                         waitForProcessId = pid;
                         break;
                     }
+                }
+
+                if (ParseFileArgument(arg))
+                {
+                    break;
                 }
             }
         }

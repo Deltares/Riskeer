@@ -382,7 +382,7 @@
   <data name="Ribbon_TabItem_Help" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="App_App_Starting_Ringtoets" xml:space="preserve">
+  <data name="App_Starting_Ringtoets" xml:space="preserve">
     <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="ToolWindow_Name_Map" xml:space="preserve">
@@ -555,9 +555,6 @@
   </data>
   <data name="App_ParseArguments_Run_activity_or_model_available_in_the_project_" xml:space="preserve">
     <value>Berekenen activiteit of model is beschikbaar in het project.</value>
-  </data>
-  <data name="App_RunRingtoets_Starting_Ringtoets_Gui" xml:space="preserve">
-    <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout_The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
     <value>Kon de gevraagde 'dock' opmaak niet laden. De instellingen zijn ongeldig en zullen teruggezet worden naar de standaardinstellingen.</value>
