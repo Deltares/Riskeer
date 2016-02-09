@@ -25,6 +25,9 @@ using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class RichTextView : UserControl, IView
     {
         private RichTextFile richTextFile;

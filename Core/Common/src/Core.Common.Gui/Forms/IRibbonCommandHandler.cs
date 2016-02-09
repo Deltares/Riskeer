@@ -26,7 +26,8 @@ using Fluent;
 namespace Core.Common.Gui.Forms
 {
     /// <summary>
-    /// Implemented in the gui plugin, used to extend ribbon control.
+    /// Interface declaring member for providing a <see cref="Ribbon"/>control, commands used by that
+    /// Ribbon control and controller methods.
     /// </summary>
     public interface IRibbonCommandHandler
     {
@@ -36,21 +37,22 @@ namespace Core.Common.Gui.Forms
         IEnumerable<ICommand> Commands { get; }
 
         /// <summary>
-        /// Gets Ribbon control implementation in the gui plugin. Gui will merge it with the existing ribbon.
+        /// Gets <see cref="Ribbon"/> control.
         /// </summary>
         Ribbon GetRibbonControl();
 
         /// <summary>
-        /// Called by the gui when ribbon items need to be validated (e.g. enable/disable).
+        /// Updates/Validates the ribbon elements, such as enabled state.
         /// </summary>
         void ValidateItems();
 
         /// <summary>
-        /// Called when context changes (like selection, active window.).
+        /// Indicates if this command handler requires a particular contextual tab of a
+        /// contextual group to be shown or not.
         /// </summary>
-        /// <param name="tabGroupName"></param>
-        /// <param name="tabName"></param>
-        /// <returns>Return false when contextual tab is not used.</returns>
+        /// <param name="tabGroupName">Name of the contextual group.</param>
+        /// <param name="tabName">Name of the tab.</param>
+        /// <returns>Returns true if tab should be shown, false otherwise.</returns>
         bool IsContextualTabVisible(string tabGroupName, string tabName);
     }
 }

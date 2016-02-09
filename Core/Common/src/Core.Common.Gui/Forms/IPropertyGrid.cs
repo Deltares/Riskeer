@@ -19,13 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls;
 using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms
 {
+    /// <summary>
+    /// View that displays the properties for a given data object.
+    /// </summary>
     public interface IPropertyGrid : IView
     {
+        /// <summary>
+        /// Gets the object properties corresponding to a data object.
+        /// </summary>
+        /// <param name="sourceData">The source data.</param>
+        /// <returns>The object that shows the properties.</returns>
         object GetObjectProperties(object sourceData);
     }
 }

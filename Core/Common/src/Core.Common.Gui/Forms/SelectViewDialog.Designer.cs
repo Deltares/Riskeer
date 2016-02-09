@@ -57,9 +57,9 @@ namespace Core.Common.Gui.Forms
             this.listBox.FormattingEnabled = true;
             this.listBox.Name = "listBox";
             this.listBox.Sorted = true;
-            this.listBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox_DrawItem);
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
-            this.listBox.DoubleClick += new System.EventHandler(this.listBox_DoubleClick);
+            this.listBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxDrawItem);
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.ListBoxSelectedIndexChanged);
+            this.listBox.DoubleClick += new System.EventHandler(this.ListBoxDoubleClick);
             // 
             // label1
             // 
@@ -71,7 +71,7 @@ namespace Core.Common.Gui.Forms
             resources.ApplyResources(this.checkBoxDefault, "checkBoxDefault");
             this.checkBoxDefault.Name = "checkBoxDefault";
             this.checkBoxDefault.UseVisualStyleBackColor = true;
-            this.checkBoxDefault.CheckedChanged += new System.EventHandler(this.checkBoxDefault_CheckedChanged);
+            this.checkBoxDefault.CheckedChanged += new System.EventHandler(this.CheckBoxDefaultCheckedChanged);
             // 
             // SelectViewDialog
             // 

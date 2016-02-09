@@ -116,6 +116,8 @@
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowTest.cs" />
     <Compile Include="Forms\PropertyGridView\PropertyResolverTest.cs" />
+    <Compile Include="Forms\RichTextFileTest.cs" />
+    <Compile Include="Forms\RichTextViewTest.cs" />
     <Compile Include="Forms\SplashScreen\SplashScreenTest.cs" />
     <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgsTest.cs" />
     <Compile Include="Forms\ViewManager\DockTabClosingEventArgsTest.cs" />

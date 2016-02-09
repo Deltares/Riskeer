@@ -28,10 +28,18 @@ using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms
 {
+    /// <summary>
+    /// Dialog for selecting a view for a given piece of data.
+    /// </summary>
     public partial class SelectViewDialog : DialogBase
     {
         private IList<string> items;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectViewDialog"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent for which this dialog should be
+        /// shown on top.</param>
         public SelectViewDialog(IWin32Window dialogParent) : base(dialogParent, Resources.arrow_000_medium_question_mark, 350, 200)
         {
             InitializeComponent();
@@ -44,6 +52,9 @@ namespace Core.Common.Gui.Forms
             listBox.ItemHeight = (int) itemSize.Height;
         }
 
+        /// <summary>
+        /// Gets or sets the items to select from.
+        /// </summary>
         public IList<string> Items
         {
             get
@@ -58,6 +69,9 @@ namespace Core.Common.Gui.Forms
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected item.
+        /// </summary>
         public string SelectedItem
         {
             get
@@ -70,6 +84,9 @@ namespace Core.Common.Gui.Forms
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the default view for the data.
+        /// </summary>
         public string DefaultViewName { get; set; }
 
         protected override Button GetCancelButton()
@@ -77,13 +94,13 @@ namespace Core.Common.Gui.Forms
             return buttonCancel;
         }
 
-        private void listBox_DoubleClick(object sender, EventArgs e)
+        private void ListBoxDoubleClick(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void listBox_DrawItem(object sender, DrawItemEventArgs e)
+        private void ListBoxDrawItem(object sender, DrawItemEventArgs e)
         {
             string itemAsString = listBox.Items[e.Index].ToString();
             Font lbFont = listBox.Font;
@@ -113,13 +130,13 @@ namespace Core.Common.Gui.Forms
             e.DrawFocusRectangle();
         }
 
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             checkBoxDefault.Checked = (listBox.SelectedItem != null &&
                                        listBox.SelectedItem.ToString() == DefaultViewName);
         }
 
-        private void checkBoxDefault_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxDefaultCheckedChanged(object sender, EventArgs e)
         {
             string previousName = DefaultViewName;
             if (listBox.SelectedItem.ToString() == DefaultViewName)

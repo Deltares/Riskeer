@@ -20,16 +20,25 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms
 {
+    /// <summary>
+    /// Dialog that can be used to ask the user to select from a collection of options.
+    /// </summary>
     public partial class SelectItemDialog : DialogBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectItemDialog"/> class.
+        /// </summary>
+        /// <param name="dialogParent">The dialog parent for which this dialog should be 
+        /// shown on top.</param>
         public SelectItemDialog(IWin32Window dialogParent) : base(dialogParent, Resources.plus, 320, 220)
         {
             InitializeComponent();
@@ -45,14 +54,21 @@ namespace Core.Common.Gui.Forms
             ControlHelper.SendMessage(Handle, 0x127, 0x30001, 0);
         }
 
+        /// <summary>
+        /// Gets the data object corresponding to the item selected by the user or null if
+        /// no selection was made.
+        /// </summary>
         public object SelectedItemTag
         {
             get
             {
-                return SelectedItem.Tag;
+                return SelectedItem != null ? SelectedItem.Tag : null;
             }
         }
 
+        /// <summary>
+        /// Gets the name of the selected item or null if no selection was made.
+        /// </summary>
         public string SelectedItemTypeName
         {
             get
@@ -61,6 +77,13 @@ namespace Core.Common.Gui.Forms
             }
         }
 
+        /// <summary>
+        /// Adds an option element to the dialog.
+        /// </summary>
+        /// <param name="name">The name of the element.</param>
+        /// <param name="category">The category of the element.</param>
+        /// <param name="image">The image of the element.</param>
+        /// <param name="tag">The data corresponding to the element.</param>
         public void AddItemType(string name, string category, Image image, object tag)
         {
             if (!ContainsCategory(category))
@@ -76,20 +99,6 @@ namespace Core.Common.Gui.Forms
             listViewItemTypes.Items[listViewItemTypes.Items.Count - 1].Tag = tag;
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Down)
-            {
-                //return true;
-            }
-            if (keyData == Keys.Up)
-            {
-                //return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
         protected override Button GetCancelButton()
         {
             return buttonCancel;
@@ -99,18 +108,12 @@ namespace Core.Common.Gui.Forms
         {
             get
             {
-                if (listViewItemTypes.SelectedIndices.Count > 1)
-                {
-                    throw new InvalidOperationException(Resources.SelectItemDialog_SelectedItem_Number_of_selected_items_must_be_1);
-                }
-
                 if (listViewItemTypes.SelectedIndices.Count == 0)
                 {
                     return null;
                 }
 
                 int selectedIndex = listViewItemTypes.SelectedIndices[0];
-
                 return listViewItemTypes.Items[selectedIndex];
             }
         }
@@ -122,20 +125,12 @@ namespace Core.Common.Gui.Forms
 
         private bool ContainsCategory(string category)
         {
-            foreach (ListViewGroup listViewGroup in listViewItemTypes.Groups)
-            {
-                if (listViewGroup.Header == category)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return listViewItemTypes.Groups
+                                    .Cast<ListViewGroup>()
+                                    .Any(listViewGroup => listViewGroup.Header == category);
         }
 
-        private void NewDataDialog_Validating(object sender, CancelEventArgs e) {}
-
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             if (SelectedItem == null)
             {
@@ -144,7 +139,7 @@ namespace Core.Common.Gui.Forms
             }
         }
 
-        private void listViewItemTypes_DoubleClick(object sender, EventArgs e)
+        private void ListViewItemTypesDoubleClick(object sender, EventArgs e)
         {
             buttonOk.PerformClick();
         }

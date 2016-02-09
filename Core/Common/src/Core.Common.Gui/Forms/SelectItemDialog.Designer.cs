@@ -45,7 +45,7 @@ namespace Core.Common.Gui.Forms
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonOk.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Forms
             this.listViewItemTypes.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewItemTypes.UseCompatibleStateImageBehavior = false;
             this.listViewItemTypes.View = System.Windows.Forms.View.Tile;
-            this.listViewItemTypes.DoubleClick += new System.EventHandler(this.listViewItemTypes_DoubleClick);
+            this.listViewItemTypes.DoubleClick += new System.EventHandler(this.ListViewItemTypesDoubleClick);
             // 
             // imageList
             // 
@@ -101,7 +101,6 @@ namespace Core.Common.Gui.Forms
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Name = "SelectItemDialog";
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.NewDataDialog_Validating);
             this.ResumeLayout(false);
             this.PerformLayout();
 

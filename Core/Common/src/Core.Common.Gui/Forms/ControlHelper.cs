@@ -25,21 +25,53 @@ using System.Windows.Forms;
 
 namespace Core.Common.Gui.Forms
 {
+    /// <summary>
+    /// Helper methods related to <see cref="Control"/> instances.
+    /// </summary>
     public static class ControlHelper
     {
+        /// <summary>
+        /// Sends the specified message to a window or windows. The <see cref="SendMessage"/>
+        /// function calls the window procedure for the specified window and does not 
+        /// return until the window procedure has processed the message.
+        /// </summary>
+        /// <param name="hWnd">A handle to the window whose window procedure will receive 
+        /// the message. If this parameter is HWND_BROADCAST ((HWND)0xffff), the message 
+        /// is sent to all top-level windows in the system, including disabled or invisible 
+        /// unowned windows, overlapped windows, and pop-up windows; but the message is not 
+        /// sent to child windows. Message sending is subject to UIPI. The thread of a 
+        /// process can send messages only to message queues of threads in processes of 
+        /// lesser or equal integrity level.</param>
+        /// <param name="wMsg">The message to be sent. For lists of the system-provided 
+        /// messages, see <see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644927(v=vs.85).aspx#system_defined"/>.</param>
+        /// <param name="wParam">Additional message-specific information.</param>
+        /// <param name="lParam">Additional message-specific information.</param>
+        /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
+        /// <summary>
+        /// Causes a window to use a different set of visual style information than its class normally uses.
+        /// </summary>
+        /// <param name="hWnd">Handle to the window whose visual style information is to be changed.</param>
+        /// <param name="textSubAppName">Pointer to a string that contains the application 
+        /// name to use in place of the calling application's name. If this parameter is <c>null</c>, 
+        /// the calling application's name is used.</param>
+        /// <param name="textSubIdList">Pointer to a string that contains a semicolon-separated
+        /// list of CLSID names to use in place of the actual list passed by the window's 
+        /// class. If this parameter is <c>null</c>, the ID list from the calling class is used.</param>
+        /// <returns></returns>
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
         public static extern int SetWindowTheme(IntPtr hWnd, string textSubAppName, string textSubIdList);
 
         /// <summary>
-        /// Call this method on a view if you want to trigger data binding. For example when switching between views, closing a 
-        /// view or when performing a save.
+        /// Call this method on a view if you want to trigger data binding. For example 
+        /// when switching between views, closing a view or when performing a save.
         /// </summary>
-        /// <param name="containerControl">control to unfocus / trigger validation</param>
-        /// <param name="notSwitchingToOtherControl">If 'true', it messes with switch to another control/tab, but it is required 
-        /// if you close a view or want the current view to commit any changes.</param>
+        /// <param name="containerControl">Control to unfocus / trigger validation.</param>
+        /// <param name="notSwitchingToOtherControl">If <c>true</c>, it messes with switch 
+        /// to another control/tab, but it is required if you close a view or want the 
+        /// current view to commit any changes.</param>
         public static void UnfocusActiveControl(IContainerControl containerControl, bool notSwitchingToOtherControl = false)
         {
             if (containerControl == null)
@@ -60,9 +92,5 @@ namespace Core.Common.Gui.Forms
 
             containerControl.ActiveControl = null; //unfocus current control, to force binding to happen
         }
-
-        // Import GetFocus() from user32.dll
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Winapi)]
-        internal static extern IntPtr GetFocus();
     }
 }

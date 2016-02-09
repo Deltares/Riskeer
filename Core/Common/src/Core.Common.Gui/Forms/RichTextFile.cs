@@ -22,7 +22,7 @@
 namespace Core.Common.Gui.Forms
 {
     /// <summary>
-    /// Very light class to give an entity to rich-text file. Currently used for RTF files.
+    /// Object that refers to an .rtf file.
     /// </summary>
     public class RichTextFile
     {
