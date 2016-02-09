@@ -27,71 +27,45 @@ using Core.Common.Gui.Plugin;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Interface for an object capable of finding a view for a given data object.
+    /// </summary>
     public interface IViewResolver
     {
         /// <summary>
-        /// Default view types registered for data object types.
+        /// Default view types registered for data object types, that can be used to automatically
+        /// resolve to a particular view when multiple candidates are available.
         /// </summary>
         /// <remarks>The keys in this dictionary are the object types and the values the 
-        /// corresponding view object types.</remarks>
+        /// corresponding view types.</remarks>
         IDictionary<Type, Type> DefaultViewTypes { get; }
 
         /// <summary>
-        /// List of view info objects used for resolving views
+        /// Opens a view for specified data.
         /// </summary>
-        IList<ViewInfo> ViewInfos { get; }
-
-        /// <summary>
-        /// Opens a view for specified data. Using viewprovider to resolve the correct view.
-        /// </summary>
-        /// <param name="data">Data to open a view for</param>
-        /// <param name="alwaysShowDialog">Always present the user with a dialog to choose from</param>
+        /// <param name="data">Data to open a view for.</param>
+        /// <param name="alwaysShowDialog">Always present the user with a dialog to choose
+        /// the view that has to be opened.</param>
         bool OpenViewForData(object data, bool alwaysShowDialog = false);
-
-        /// <summary>
-        /// Creates a view for the <paramref name="data"/> 
-        /// </summary>
-        /// <param name="data">The data to create a view for</param>
-        /// <param name="selectViewInfo">Function to filter the view infos to use</param>
-        /// <returns>A view for data</returns>
-        IView CreateViewForData(object data, Func<ViewInfo, bool> selectViewInfo = null);
-
-        /// <summary>
-        /// Check if a view can be created for the <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">The data to check for</param>
-        /// <returns></returns>
-        bool CanOpenViewFor(object data);
-
-        /// <summary>
-        /// Returns all currently opened views for the same data.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        IList<IView> GetViewsForData(object data);
 
         /// <summary>
         /// Closes all views for <paramref name="data"/>.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        /// <param name="data">The data object to close all views for.</param>
         void CloseAllViewsFor(object data);
 
         /// <summary>
-        /// Gives the default viewtype for the given data object.
+        /// Gets the view info objects for the <paramref name="data"/>.
         /// </summary>
-        /// <param name="dataObject"></param>
-        /// <returns></returns>
-        Type GetDefaultViewType(object dataObject);
+        /// <param name="data">Data used for finding matches.</param>
+        /// <returns>The matching view info object.</returns>
+        IEnumerable<ViewInfo> GetViewInfosFor(object data);
 
         /// <summary>
-        /// Gets the view info objects for the <paramref name="data"/>
+        /// Gets the name of the view.
         /// </summary>
-        /// <param name="data">Data used for searching the view infos</param>
-        /// <param name="viewType">The viewType of the view info</param>
-        /// <returns>The matching view infos for data and view type</returns>
-        IEnumerable<ViewInfo> GetViewInfosFor(object data, Type viewType = null);
-
+        /// <param name="view">The view.</param>
+        /// <returns>The name of the view.</returns>
         string GetViewName(IView view);
     }
 }

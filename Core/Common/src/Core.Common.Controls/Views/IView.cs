@@ -24,7 +24,7 @@ using System;
 namespace Core.Common.Controls.Views
 {
     /// <summary>
-    /// Interface for graphical user interface views.
+    /// Interface for graphical user interface views. Class should have a default constructor.
     /// </summary>
     public interface IView : IDisposable
     {

@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Test.TestObjects
+﻿namespace Core.Common.Gui.Test.Forms.ViewManager
 {
     partial class TestView
     {

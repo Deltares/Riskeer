@@ -23,28 +23,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
+
 using log4net;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Object responsible for finding a view given some data-object.
+    /// </summary>
     public class ViewResolver : IViewResolver
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ViewResolver));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ViewResolver));
+
         private readonly IDictionary<Type, Type> defaultViewTypes = new Dictionary<Type, Type>();
 
         private readonly ViewList viewList;
-        private readonly IList<ViewInfo> viewInfos;
-        private readonly IWin32Window owner;
+        private readonly ViewInfo[] viewInfos;
+        private readonly IWin32Window dialogParent;
 
-        public ViewResolver(ViewList viewList, IEnumerable<ViewInfo> viewInfos, IWin32Window owner)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewResolver"/> class.
+        /// </summary>
+        /// <param name="viewList">The view list.</param>
+        /// <param name="viewInfos">The sequence of available view info objects.</param>
+        /// <param name="dialogParent">The parent object for which dialogs should be shown on top.</param>
+        public ViewResolver(ViewList viewList, IEnumerable<ViewInfo> viewInfos, IWin32Window dialogParent)
         {
             this.viewList = viewList;
-            this.viewInfos = viewInfos.ToList();
-            this.owner = owner;
+            this.viewInfos = viewInfos.ToArray();
+            this.dialogParent = dialogParent;
         }
 
         public IDictionary<Type, Type> DefaultViewTypes
@@ -55,38 +67,30 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        public IList<ViewInfo> ViewInfos
-        {
-            get
-            {
-                return viewInfos;
-            }
-        }
-
         public bool OpenViewForData(object data, bool alwaysShowDialog = false)
         {
             try
             {
-                IsViewOpening = true;
+                IsOpeningView = true;
 
                 if (data == null)
                 {
                     return false;
                 }
 
-                var viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToList();
-
-                if (viewInfoList.Count == 0)
+                var viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToArray();
+                if (viewInfoList.Length == 0)
                 {
-                    Log.DebugFormat(Resources.ViewResolver_OpenViewForData_No_view_registered_for_0_, data);
+                    log.DebugFormat(Resources.ViewResolver_OpenViewForData_No_view_registered_for_0_, data);
                     return false;
                 }
 
                 if (!alwaysShowDialog)
                 {
-                    if (viewInfoList.Count == 1)
+                    if (viewInfoList.Length == 1)
                     {
-                        return CreateViewFromViewInfo(data, viewInfoList[0]);
+                        CreateViewFromViewInfo(data, viewInfoList[0]);
+                        return true;
                     }
 
                     // Create default view
@@ -95,98 +99,48 @@ namespace Core.Common.Gui.Forms.ViewManager
 
                     if (defaultViewInfo != null)
                     {
-                        if (CreateViewFromViewInfo(data, defaultViewInfo))
-                        {
-                            return true;
-                        }
-
-                        viewInfoList.Remove(defaultViewInfo);
+                        CreateViewFromViewInfo(data, defaultViewInfo);
+                        return true;
                     }
-                }
-
-                if (viewInfoList.Count == 0)
-                {
-                    return false;
                 }
 
                 // Create chosen view
                 var chosenViewInfo = GetViewInfoUsingDialog(data, viewInfoList);
-
-                return chosenViewInfo != null && CreateViewFromViewInfo(data, chosenViewInfo);
+                if (chosenViewInfo == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    CreateViewFromViewInfo(data, chosenViewInfo);
+                    return true;
+                }
             }
             finally
             {
-                IsViewOpening = false;
+                IsOpeningView = false;
             }
-        }
-
-        public IView CreateViewForData(object data, Func<ViewInfo, bool> selectViewInfo = null)
-        {
-            var viewInfoList = ((selectViewInfo == null)
-                                    ? GetViewInfosFor(data)
-                                    : GetViewInfosFor(data).Where(selectViewInfo))
-                .ToList();
-
-            if (viewInfoList.Count == 0)
-            {
-                return null;
-            }
-
-            if (viewInfoList.Count > 1)
-            {
-                throw new Exception(Resources.ViewResolver_CreateViewForData_More_than_one_view_for_data);
-            }
-
-            return CreateViewForData(data, viewInfoList[0]);
-        }
-
-        public bool CanOpenViewFor(object data)
-        {
-            return data != null && GetViewInfosFor(data).Any();
-        }
-
-        public IList<IView> GetViewsForData(object data)
-        {
-            return GetViewsForData(viewList, data).ToList();
         }
 
         public void CloseAllViewsFor(object data)
         {
-            DoWithMatchingViews(data, viewList,
-                                v => viewList.Remove(v),
-                                (v, o) =>
-                                {
-                                    var viewInfo = GetViewInfoForView(v);
-                                    if (viewInfo != null)
-                                    {
-                                        return viewInfo.CloseForData(v, o);
-                                    }
-
-                                    return false;
-                                });
-        }
-
-        public Type GetDefaultViewType(object dataObject)
-        {
-            if (dataObject == null)
+            if (data == null)
             {
-                return null;
+                return;
             }
 
-            var selectionType = dataObject.GetType();
-
-            return defaultViewTypes.Keys.Contains(selectionType)
-                       ? defaultViewTypes[selectionType]
-                       : null;
+            foreach (var view in viewList.ToArray())
+            {
+                if (ShouldRemoveViewForData(view, data))
+                {
+                    viewList.Remove(view);
+                }
+            }
         }
 
-        public IEnumerable<ViewInfo> GetViewInfosFor(object data, Type viewType = null)
+        public IEnumerable<ViewInfo> GetViewInfosFor(object data)
         {
-            var infos = ViewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
-
-            return viewType != null
-                       ? infos.Where(vi => viewType.Implements(vi.ViewType))
-                       : infos;
+            return viewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
         }
 
         public string GetViewName(IView view)
@@ -201,39 +155,42 @@ namespace Core.Common.Gui.Forms.ViewManager
         }
 
         /// <summary>
-        /// Checks consistency of ViewList / ViewResolver logic. Sometimes views are closed while being opened.
+        /// Indicates if the view resolver is opening a view. Can be used to ensure consistency 
+        /// of <see cref="ViewList"/> / <see cref="ViewResolver"/> logic. Sometimes views 
+        /// are closed while being opened.
         /// </summary>
-        internal static bool IsViewOpening { get; private set; }
+        internal static bool IsOpeningView { get; private set; }
 
-        private void DoWithMatchingViews(object data, IEnumerable<IView> views, Action<IView> viewAction, Func<IView, object, bool> extraCheck = null)
+        private bool ShouldRemoveViewForData(IView view, object data)
         {
-            var viewsToCheck = views.ToList();
-            foreach (var view in viewsToCheck)
+            if (IsViewData(view, data))
             {
-                if (IsViewData(view, data) || (extraCheck != null && extraCheck(view, data)))
-                {
-                    viewAction(view);
-                }
+                return true;
             }
+
+            var viewInfo = GetViewInfoForView(view);
+            return viewInfo != null && viewInfo.CloseForData(view, data);
         }
 
-        private IEnumerable<IView> GetViewsForData(IEnumerable<IView> viewsToCheck, object data)
+        private Type GetDefaultViewType(object dataObject)
         {
-            return data != null
-                       ? GetOpenViewsFor(viewsToCheck, data)
-                       : Enumerable.Empty<IView>();
+            var selectionType = dataObject.GetType();
+
+            return defaultViewTypes.ContainsKey(selectionType)
+                       ? defaultViewTypes[selectionType]
+                       : null;
         }
 
         private static IEnumerable<ViewInfo> FilterOnInheritance(IEnumerable<ViewInfo> compatibleStandaloneViewInfos)
         {
-            var viewInfos = compatibleStandaloneViewInfos.ToList();
+            var viewInfos = compatibleStandaloneViewInfos.ToArray();
 
             // filter on inheritance
-            var dataTypes = viewInfos.Select(i => i.DataType).ToList();
+            var dataTypes = viewInfos.Select(i => i.DataType).ToArray();
             return viewInfos.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
         }
 
-        private bool CreateViewFromViewInfo(object data, ViewInfo viewInfo)
+        private void CreateViewFromViewInfo(object data, ViewInfo viewInfo)
         {
             var viewData = viewInfo.GetViewData(data);
             var view = (viewInfo.DataType == viewInfo.ViewDataType
@@ -246,20 +203,18 @@ namespace Core.Common.Gui.Forms.ViewManager
                 viewInfo.OnActivateView(view, data);
                 viewList.ActiveView = view;
 
-                return true;
+                return;
             }
 
             var newView = CreateViewForData(data, viewInfo);
 
             viewList.Add(newView);
             viewList.SetImage(newView, viewInfo.Image);
-
-            return true;
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
         {
-            var view = (IView) Activator.CreateInstance(viewInfo.ViewType);
+            var view = (IView)Activator.CreateInstance(viewInfo.ViewType);
 
             view.Data = viewInfo.GetViewData(data);
 
@@ -280,7 +235,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                                       : null;
 
             var viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
-            using (var viewSelector = new SelectViewDialog(owner)
+            using (var viewSelector = new SelectViewDialog(dialogParent)
             {
                 DefaultViewName = defaultViewName,
                 Items = viewTypeDictionary.Keys.ToList()
@@ -306,39 +261,20 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data, Func<IView, ViewInfo, bool> extraCheck = null)
+        private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data)
         {
-            if (data == null)
-            {
-                yield break;
-            }
-
-            foreach (var view in viewsToCheck)
-            {
-                var viewInfo = GetViewInfoForView(view);
-
-                if (IsViewData(view, data) && (extraCheck == null || extraCheck(view, viewInfo)))
-                {
-                    yield return view;
-                }
-            }
+            return viewsToCheck.Where(view => IsViewData(view, data));
         }
 
         private bool IsViewData(IView view, object data)
         {
             var viewInfo = GetViewInfoForView(view);
-            return data.Equals(view.Data) || (IsDataForView(view, data) && Equals(viewInfo.GetViewData(data), view.Data));
+            return data.Equals(view.Data) || (IsDataForView(data, GetViewInfoForView(view)) && Equals(viewInfo.GetViewData(data), view.Data));
         }
 
-        private bool IsDataForView(IView view, object data)
+        private bool IsDataForView(object data, ViewInfo info)
         {
-            if (data == null)
-            {
-                return false;
-            }
-
-            var viewInfo = GetViewInfoForView(view);
-            return viewInfo != null && data.GetType().Implements(viewInfo.DataType) && viewInfo.AdditionalDataCheck(data);
+            return info != null && data.GetType().Implements(info.DataType) && info.AdditionalDataCheck(data);
         }
 
         private ViewInfo GetViewInfoForView(IView view)
@@ -350,7 +286,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             var selectedItemType = data.GetType();
 
-            if (defaultViewTypes.Keys.Contains(selectedItemType))
+            if (defaultViewTypes.ContainsKey(selectedItemType))
             {
                 defaultViewTypes.Remove(selectedItemType);
             }
@@ -360,7 +296,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             var selectedItemType = data.GetType();
 
-            if (defaultViewTypes.Keys.Contains(selectedItemType))
+            if (defaultViewTypes.ContainsKey(selectedItemType))
             {
                 defaultViewTypes[selectedItemType] = selectedViewType;
             }
@@ -374,7 +310,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         {
             var selectionType = dataObject.GetType();
 
-            return defaultViewTypes.Keys.Contains(selectionType) ? defaultViewTypes[selectionType] : null;
+            return defaultViewTypes.ContainsKey(selectionType) ? defaultViewTypes[selectionType] : null;
         }
     }
 }

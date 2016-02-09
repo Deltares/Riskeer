@@ -103,7 +103,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private bool Close(IView view, bool removeTabFromDockingManager, bool activateNextView)
         {
-            if (ViewResolver.IsViewOpening)
+            if (ViewResolver.IsOpeningView)
             {
                 throw new InvalidOperationException(Resources.ViewList_Close_View_is_being_closed_while_it_is_being_opened);
             }
