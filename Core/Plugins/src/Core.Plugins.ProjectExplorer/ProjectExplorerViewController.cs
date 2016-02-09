@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -39,9 +40,12 @@ namespace Core.Plugins.ProjectExplorer
         private readonly IApplicationSelection applicationSelection;
         private readonly IViewCommands viewCommands;
         private readonly IDocumentViewController documentViewController;
-
-        public EventHandler<EventArgs> OnOpenView;
         private ProjectExplorer projectExplorer;
+
+        /// <summary>
+        /// Fired when the project explorer view has been opened.
+        /// </summary>
+        public EventHandler<EventArgs> OnOpenView;
 
         /// <summary>
         /// Creates a new instance of <see cref="ProjectExplorerViewController"/>.
@@ -107,7 +111,7 @@ namespace Core.Plugins.ProjectExplorer
         }
 
         /// <summary>
-        /// Makes the <see cref="ProjectExplorer"/> visisble.
+        /// Makes the <see cref="ProjectExplorer"/> visible.
         /// </summary>
         public void OpenView()
         {
@@ -128,7 +132,6 @@ namespace Core.Plugins.ProjectExplorer
         /// <summary>
         /// Returns a value indicating whether the <see cref="ProjectExplorer"/> is visible.
         /// </summary>
-        /// <returns></returns>
         public bool IsViewActive()
         {
             return toolViewController.IsToolWindowOpen<ProjectExplorer>();
@@ -153,9 +156,13 @@ namespace Core.Plugins.ProjectExplorer
 
         private void CloseView()
         {
-            if (IsViewActive())
+            if (projectExplorer != null && IsViewActive())
             {
-                toolViewController.CloseToolView(projectExplorer); // Disposes the view.
+                toolViewController.CloseToolView(projectExplorer);
+                if (!projectExplorer.IsDisposed)
+                {
+                    projectExplorer.Dispose();
+                }
                 projectExplorer = null;
             }
         }

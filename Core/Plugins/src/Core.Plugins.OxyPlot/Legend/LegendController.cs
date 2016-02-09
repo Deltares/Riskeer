@@ -35,6 +35,9 @@ namespace Core.Plugins.OxyPlot.Legend
         private readonly IToolViewController toolViewController;
         private IView legendView;
 
+        /// <summary>
+        /// Fired when the legend has been opened.
+        /// </summary>
         public EventHandler<EventArgs> OnOpenLegend;
 
         /// <summary>

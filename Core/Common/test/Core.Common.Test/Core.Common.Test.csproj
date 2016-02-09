@@ -98,7 +98,6 @@
     <Compile Include="Core\AssemblyInfoTest.cs" />
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
     <Compile Include="Gui\Forms\PropertyGridView\PropertyResolverTest.cs" />
-    <Compile Include="Gui\RingtoetsGuiTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -91,16 +91,23 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             var documentViewController = mocks.StrictMock<IDocumentViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
+            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
+
             var toolViewController = mocks.StrictMock<IToolViewController>();
-            toolViewController.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(isViewOpen).Repeat.Twice();
+            bool explorerViewActuallyOpened = false;
             if (isViewOpen)
             {
-                toolViewController.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Matches(x => true)));
+                toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>())
+                    .Return(false)
+                    .WhenCalled(invocation => invocation.ReturnValue = explorerViewActuallyOpened);
+                toolViewController.Stub(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+                toolViewController.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Is.TypeOf));
+                applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             }
             else
             {
-                applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-                toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(x => true)));
+                toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+                toolViewController.Stub(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false);
             }
 
             mocks.ReplayAll();
@@ -108,6 +115,11 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             var treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
             var explorerViewController = new ProjectExplorerViewController(documentViewController, viewCommands, applicationSelection, toolViewController, treeNodeInfos);
+            if (isViewOpen)
+            {
+                explorerViewController.OpenView();
+                explorerViewActuallyOpened = true;
+            }
 
             var command = new ToggleProjectExplorerCommand(explorerViewController);
 

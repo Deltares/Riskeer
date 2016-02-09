@@ -35,25 +35,19 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            var otherGuiPlugin = mocks.StrictMock<GuiPlugin>();
-
-            gui.Expect(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-
-            gui.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true).Repeat.Twice();
-            gui.Expect(g => g.CloseToolView(Arg<ProjectExplorer>.Matches(r => true)));
-
-            gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
-            gui.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
-
-            gui.Replay();
-
-            using (var projectExplorerGuiPlugin = new ProjectExplorerGuiPlugin
+            using (var projectExplorerGuiPlugin = new ProjectExplorerGuiPlugin())
             {
-                Gui = gui
-            })
-            {
+                var gui = mocks.StrictMock<IGui>();
+                var otherGuiPlugin = mocks.StrictMock<GuiPlugin>();
+
+                gui.Expect(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Expect(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+
+                gui.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true);
+
+                gui.Expect(g => g.ProjectOpened += Arg<Action<Project>>.Is.Anything);
+                gui.Expect(g => g.ProjectOpened -= Arg<Action<Project>>.Is.Anything);
+
                 gui.Expect(g => g.Plugins).Return(new List<GuiPlugin>
                 {
                     projectExplorerGuiPlugin, otherGuiPlugin
@@ -61,11 +55,11 @@ namespace Core.Plugins.ProjectExplorer.Test
 
                 mocks.ReplayAll();
 
+                projectExplorerGuiPlugin.Gui = gui;
+
                 // Call
                 projectExplorerGuiPlugin.Activate();
             }
-
-            // Assert
             mocks.VerifyAll();
         }
 
@@ -91,21 +85,18 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
+            guiStub.Stub(g => g.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
 
-            using (mocks.Ordered())
-            {
-                guiStub.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-                guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-                guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-                guiStub.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            }
-
+            guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerGuiPlugin
@@ -127,21 +118,17 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
-
-            using (mocks.Ordered())
-            {
-                guiStub.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-                guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-                guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-                guiStub.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            }
-
+            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
+            guiStub.Stub(g => g.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
+            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerGuiPlugin
@@ -168,21 +155,18 @@ namespace Core.Plugins.ProjectExplorer.Test
         {
             // Setup
             var mocks = new MockRepository();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ProjectCommands).Return(mocks.Stub<IProjectCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
+            guiStub.Stub(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
+            guiStub.Stub(g => g.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
+            guiStub.Stub(g => g.SelectionChanged += null).IgnoreArguments();
+            guiStub.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
+            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
 
-            using (mocks.Ordered())
-            {
-                guiStub.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(true);
-                guiStub.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-                guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-                guiStub.Expect(g => g.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-            }
-
+            guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var plugin = new ProjectExplorerGuiPlugin
@@ -334,6 +318,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
                 guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(true);
                 guiStub.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Matches(v => true)));
+                guiStub.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             }
 
             mocks.ReplayAll();

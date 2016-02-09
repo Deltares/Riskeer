@@ -39,11 +39,11 @@ namespace Core.Plugins.CommonTools.Test
             var guiPlugin = new CommonToolsGuiPlugin();
 
             // Call
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
+            var viewInfos = guiPlugin.GetViewInfoObjects().ToArray();
 
             // Assert
             Assert.NotNull(viewInfos);
-            Assert.AreEqual(2, viewInfos.Count);
+            Assert.AreEqual(2, viewInfos.Length);
 
             var richTextFileInfo = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
             var webLinkInfo = viewInfos.First(vi => vi.DataType == typeof(WebLink));
@@ -62,9 +62,8 @@ namespace Core.Plugins.CommonTools.Test
         {
             // Setup
             var guiPlugin = new CommonToolsGuiPlugin();
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
 
-            var info = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
+            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(RichTextFile));
             
             // Call
             var name = info.GetViewName(null, null);
@@ -79,9 +78,8 @@ namespace Core.Plugins.CommonTools.Test
             // Setup
             var expected = "SomeName";
             var guiPlugin = new CommonToolsGuiPlugin();
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
 
-            var info = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
+            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(RichTextFile));
             var richTextFile = new RichTextFile
             {
                 Name = expected
@@ -99,9 +97,8 @@ namespace Core.Plugins.CommonTools.Test
         {
             // Setup
             var guiPlugin = new CommonToolsGuiPlugin();
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
 
-            var info = viewInfos.First(vi => vi.DataType == typeof(WebLink));
+            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(WebLink));
 
             // Call
             var name = info.GetViewName(null, null);
@@ -116,9 +113,8 @@ namespace Core.Plugins.CommonTools.Test
             // Setup
             var expected = "SomeName";
             var guiPlugin = new CommonToolsGuiPlugin();
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToList();
 
-            var info = viewInfos.First(vi => vi.DataType == typeof(WebLink));
+            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(WebLink));
             var webLink = new WebLink(expected, null);
 
             // Call
