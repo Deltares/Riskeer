@@ -81,17 +81,15 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             var project = converter.ConvertEntityToModel(entry);
 
-            var nrOfItems = (entry.DikeAssessmentSectionEntities.Count + entry.DuneAssessmentSectionEntities.Count);
+            var nrOfItems = entry.DikeAssessmentSectionEntities.Count + entry.DuneAssessmentSectionEntities.Count;
             var assessmentSections = new object[nrOfItems];
 
-            var dikeAssessmentSectionEntities = entry.DikeAssessmentSectionEntities.ToList();
-            foreach (var sectionEntity in dikeAssessmentSectionEntities)
+            foreach (var sectionEntity in entry.DikeAssessmentSectionEntities)
             {
                 assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
             }
 
-            var duneAssessmentSectionEntities = entry.DuneAssessmentSectionEntities.ToList();
-            foreach (var sectionEntity in duneAssessmentSectionEntities)
+            foreach (var sectionEntity in entry.DuneAssessmentSectionEntities)
             {
                 assessmentSections[sectionEntity.Order] = duneAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
             }
