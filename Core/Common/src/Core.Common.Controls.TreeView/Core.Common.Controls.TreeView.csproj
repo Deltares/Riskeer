@@ -44,6 +44,7 @@
     <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="DragDropHandler.cs" />
     <Compile Include="DragOperations.cs" />
     <Compile Include="TreeNodeInfo.cs" />
     <Compile Include="PlaceholderLocation.cs" />
