@@ -42,7 +42,7 @@ namespace Core.Common.Controls.TreeView
         public Func<object, string> Text { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for obtaining the tree node fore color.
+        /// Gets or sets a function for obtaining the tree node forecolor.
         /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
         public Func<object, Color> ForeColor { get; set; }
@@ -179,7 +179,7 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, string> Text { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for obtaining the tree node fore color.
+        /// Gets or sets a function for obtaining the tree node forecolor.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, Color> ForeColor { get; set; }

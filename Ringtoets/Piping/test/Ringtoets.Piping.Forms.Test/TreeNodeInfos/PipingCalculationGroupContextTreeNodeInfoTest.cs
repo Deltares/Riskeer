@@ -712,7 +712,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
             treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(nodeData)).Repeat.Twice().Return(false);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 
@@ -822,7 +822,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
             treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(nodeData)).Repeat.Twice().Return(false);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 
@@ -925,7 +925,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(nodeData)).Repeat.Twice().Return(false);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
 
             mocks.ReplayAll();
 

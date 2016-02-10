@@ -165,7 +165,7 @@ namespace Core.Plugins.ProjectExplorer
                 return;
             }
 
-            treeViewControl.SelectNodeForData(applicationSelection.Selection);
+            treeViewControl.TrySelectNodeForData(applicationSelection.Selection);
         }
     }
 }

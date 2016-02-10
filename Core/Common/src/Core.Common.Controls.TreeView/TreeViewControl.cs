@@ -29,12 +29,50 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Core.Common.Base;
+using Core.Common.Controls.Forms;
 using Core.Common.Controls.TreeView.Properties;
 using Core.Common.Utils.Events;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Controls.TreeView
 {
+    /// <summary>
+    /// A <see cref="UserControl"/> that encapulates a <see cref="DoubleBufferedTreeView"/>
+    /// in such a way that <see cref="TreeNodeInfo"/> objects can be registered for configuring
+    /// the way tree nodes are drawn and can be interacted with. A general implementation is
+    /// provided when it comes to:
+    /// <list type="bullet">
+    /// <item>
+    /// <description>drawing tree nodes (including images, checkboxes and forecolors);</description>
+    /// </item>
+    /// <item>
+    /// <description>selecting tree nodes;</description>
+    /// </item>
+    /// <item>
+    /// <description>expanding/collapsing tree nodes;</description>
+    /// </item>
+    /// <item>
+    /// <description>renaming tree nodes (including feedback popups);</description>
+    /// </item>
+    /// <item>
+    /// <description>removing tree nodes (including feedback popups);</description>
+    /// </item>
+    /// <item>
+    /// <description>dragging and dropping tree nodes (including visual feedback);</description>
+    /// </item>
+    /// <item>
+    /// <description>opening tree node context menus;</description>
+    /// </item>
+    /// <item>
+    /// <description>short keys for tree node interaction via the keyboard.</description>
+    /// </item>
+    /// </list>
+    /// </summary>
+    /// <remarks>
+    /// The current <see cref="TreeViewControl"/> implementation assumes that the data hierarchy,
+    /// defined by the combination of registered <see cref="TreeNodeInfo"/> objects and the set
+    /// <see cref="Data"/>, only contains uniquely identifiable data objects.
+    /// </remarks>
     public partial class TreeViewControl : UserControl
     {
         public event EventHandler DataDoubleClick;
@@ -53,6 +91,9 @@ namespace Core.Common.Controls.TreeView
 
         private object data;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TreeViewControl"/>.
+        /// </summary>
         public TreeViewControl()
         {
             InitializeComponent();
@@ -85,8 +126,13 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
-        /// Gets or sets the data to render in the tree view.
+        /// Gets or sets the data to show in the <see cref="TreeViewControl"/>.
         /// </summary>
+        /// <remarks>
+        /// Ensure all necessary <see cref="TreeNodeInfo"/> objects are registered in order to prevent
+        /// an <see cref="InvalidOperationException"/>. Take notice of the fact that these kind of
+        /// exceptions might not directly occur after setting the data.
+        /// </remarks>
         public object Data
         {
             get
@@ -110,6 +156,10 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        /// <summary>
+        /// Gets the data of the selected tree node in the <see cref="TreeViewControl"/>.
+        /// </summary>
+        /// <remarks><c>null</c> is returned when no tree node is selected.</remarks>
         public object SelectedData
         {
             get
@@ -119,7 +169,7 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
-        /// This method registers the provided <see cref="TreeNodeInfo"/>.
+        /// This method registers a <see cref="TreeNodeInfo"/> object.
         /// </summary>
         /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to register.</param>
         public void RegisterTreeNodeInfo(TreeNodeInfo treeNodeInfo)
@@ -127,6 +177,12 @@ namespace Core.Common.Controls.TreeView
             tagTypeTreeNodeInfoLookup[treeNodeInfo.TagType] = treeNodeInfo;
         }
 
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// can be renamed.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>Whether or not the tree node can be renamed.</returns>
         public bool CanRenameNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
@@ -134,7 +190,15 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && CanRename(treeNode);
         }
 
-        public void StartRenameForData(object dataObject)
+        /// <summary>
+        /// This method tries to start a rename action for the tree node corresponding to the
+        /// <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <remarks>
+        /// When the tree node cannot be renamed, a popup is shown for notifying the end user.
+        /// </remarks>
+        public void TryRenameNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
@@ -144,6 +208,12 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// can be removed.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>Whether or not the tree node can be removed.</returns>
         public bool CanRemoveNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
@@ -151,7 +221,15 @@ namespace Core.Common.Controls.TreeView
             return treeNode != null && CanRemove(treeNode);
         }
 
-        public void RemoveNodeForData(object dataObject)
+        /// <summary>
+        /// This method tries to remove the tree node corresponding to the <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <remarks>
+        /// When the tree node can be removed, a popup is shown for confirmation by the end user.
+        /// When the tree node cannot be removed, a popup is shown for simply notifying the end user.
+        /// </remarks>
+        public void TryRemoveNodeForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
@@ -161,14 +239,24 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public bool CanExpandOrCollapseAllNodesForData(object dataObject)
+        /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// can be collapsed/expanded.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns>Whether or not the tree node can be collapsed/expanded.</returns>
+        public bool CanExpandOrCollapseForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
             return treeNode != null && treeNode.Nodes.Count > 0;
         }
 
-        public void CollapseAllNodesForData(object dataObject)
+        /// <summary>
+        /// This method tries to collapse all nodes of the tree node corresponding to the <paramref name="dataObject"/>
+        /// (child nodes are taken into account recursively).
+        /// </summary>
+        public void TryCollapseAllNodesForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
@@ -178,7 +266,11 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void ExpandAllNodesForData(object dataObject)
+        /// <summary>
+        /// This method tries to expand all nodes of the tree node corresponding to the <paramref name="dataObject"/>
+        /// (child nodes are taken into account recursively).
+        /// </summary>
+        public void TryExpandAllNodesForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 
@@ -188,12 +280,20 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void SelectNodeForData(object dataObject)
+        /// <summary>
+        /// This method tries to select the tree node corresponding to the <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        public void TrySelectNodeForData(object dataObject)
         {
             treeView.SelectedNode = GetNodeByTag(dataObject);
         }
 
-        public string GetPathForData(object dataObject)
+        /// <summary>
+        /// This method tries to return the path of the tree node corresponding to the <paramref name="dataObject"/>.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        public string TryGetPathForData(object dataObject)
         {
             var treeNode = GetNodeByTag(dataObject);
 

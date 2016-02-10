@@ -880,7 +880,7 @@ namespace Ringtoets.Piping.Plugin
 
                 if (renamed)
                 {
-                    treeViewControl.StartRenameForData(draggedData);
+                    treeViewControl.TryRenameNodeForData(draggedData);
                 }
             }
 

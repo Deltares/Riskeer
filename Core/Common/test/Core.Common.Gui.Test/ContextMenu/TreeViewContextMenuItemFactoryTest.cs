@@ -90,7 +90,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             if (canDelete)
             {
-                treeViewControlMock.Expect(tvc => tvc.RemoveNodeForData(nodeData));
+                treeViewControlMock.Expect(tvc => tvc.TryRemoveNodeForData(nodeData));
             }
 
             mocks.ReplayAll();
@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             if (canRename)
             {
-                treeViewControlMock.Expect(tvc => tvc.StartRenameForData(dataObject));
+                treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(dataObject));
             }
 
             mocks.ReplayAll();

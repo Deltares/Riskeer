@@ -171,7 +171,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             })
             {
                 // Call
-                explorer.TreeViewControl.RemoveNodeForData(project);
+                explorer.TreeViewControl.TryRemoveNodeForData(project);
             }
             // Assert
             mocks.VerifyAll();
@@ -228,7 +228,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.AreNotSame(explorer.TreeViewControl.SelectedData, stringA);
 
                 // Call
-                explorer.TreeViewControl.SelectNodeForData(stringA);
+                explorer.TreeViewControl.TrySelectNodeForData(stringA);
 
                 // Assert
                 Assert.AreSame(explorer.TreeViewControl.SelectedData, stringA);

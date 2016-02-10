@@ -233,7 +233,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
-            treeViewControlMock.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(dataObject)).Return(hasChildren);
+            treeViewControlMock.Expect(tvc => tvc.CanExpandOrCollapseForData(dataObject)).Return(hasChildren);
 
             mocks.ReplayAll();
 
@@ -263,7 +263,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
-            treeViewControlMock.Expect(tvc => tvc.CanExpandOrCollapseAllNodesForData(dataObject)).Return(hasChildren);
+            treeViewControlMock.Expect(tvc => tvc.CanExpandOrCollapseForData(dataObject)).Return(hasChildren);
 
             mocks.ReplayAll();
 

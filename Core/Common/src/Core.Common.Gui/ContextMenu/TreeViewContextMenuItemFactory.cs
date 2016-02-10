@@ -69,7 +69,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.RenameIcon,
                 Enabled = treeViewControl.CanRenameNodeForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.StartRenameForData(dataObject);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.TryRenameNodeForData(dataObject);
             return toolStripMenuItem;
         }
 
@@ -86,7 +86,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.DeleteIcon,
                 Enabled = treeViewControl.CanRemoveNodeForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.RemoveNodeForData(dataObject);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.TryRemoveNodeForData(dataObject);
             return toolStripMenuItem;
         }
 
@@ -101,9 +101,9 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Expand_all_ToolTip,
                 Image = Resources.ExpandAllIcon,
-                Enabled = treeViewControl.CanExpandOrCollapseAllNodesForData(dataObject)
+                Enabled = treeViewControl.CanExpandOrCollapseForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.ExpandAllNodesForData(dataObject);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.TryExpandAllNodesForData(dataObject);
             return toolStripMenuItem;
         }
 
@@ -118,9 +118,9 @@ namespace Core.Common.Gui.ContextMenu
             {
                 ToolTipText = Resources.Collapse_all_ToolTip,
                 Image = Resources.CollapseAllIcon,
-                Enabled = treeViewControl.CanExpandOrCollapseAllNodesForData(dataObject)
+                Enabled = treeViewControl.CanExpandOrCollapseForData(dataObject)
             };
-            toolStripMenuItem.Click += (s, e) => treeViewControl.CollapseAllNodesForData(dataObject);
+            toolStripMenuItem.Click += (s, e) => treeViewControl.TryCollapseAllNodesForData(dataObject);
             return toolStripMenuItem;
         }
     }

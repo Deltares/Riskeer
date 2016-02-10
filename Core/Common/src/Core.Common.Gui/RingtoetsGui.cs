@@ -395,7 +395,7 @@ namespace Core.Common.Gui
                 return;
             }
 
-            DocumentViews.SetTooltip(view, ProjectExplorer.TreeViewControl.GetPathForData(view.Data));
+            DocumentViews.SetTooltip(view, ProjectExplorer.TreeViewControl.TryGetPathForData(view.Data));
         }
 
         private void ConfigureLogging()
