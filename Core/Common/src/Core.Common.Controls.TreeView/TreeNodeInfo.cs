@@ -31,15 +31,7 @@ namespace Core.Common.Controls.TreeView
     public class TreeNodeInfo
     {
         /// <summary>
-        /// Constructs a new <see cref="TreeNodeInfo"/>.
-        /// </summary>
-        public TreeNodeInfo()
-        {
-            Text = tag => "";
-        }
-
-        /// <summary>
-        /// Gets or sets the <see cref="Type"/> of the data wrapped by the tree node.
+        /// Gets or sets the <see cref="Type"/> of the data of the tree node.
         /// </summary>
         public Type TagType { get; set; }
 
@@ -65,7 +57,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for obtaining the tree node context menu.
         /// The first <c>object</c> parameter represents the data of the tree node.
         /// The second <c>object</c> parameter represents the data of the parent tree node.
-        /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
+        /// The <see cref="TreeViewControl"/> parameter represents the tree view control involved.
         /// </summary>
         public Func<object, object, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
@@ -104,8 +96,8 @@ namespace Core.Common.Controls.TreeView
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
-        /// The <c>object</c> parameter represents the data of the tree node.
-        /// The <c>object</c> parameter represents the data of the parent tree node.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
         public Action<object, object> OnNodeRemoved { get; set; }
 
@@ -136,48 +128,41 @@ namespace Core.Common.Controls.TreeView
         public Func<object, object, bool> CanDrag { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
+        /// Gets or sets a function for checking whether or not a tree node can be dropped to the current tree node.
         /// The first <c>object</c> parameter represents the data of the tree node which is dragged.
-        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target.
+        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target (the current node).
         /// </summary>
-        /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        /// <remarks>When dragging a node, the <see cref="CanDrop"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Func<object, object, bool> CanDrop { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node can be inserted into the drop target at a specific index.
+        /// Gets or sets a function for checking whether or not a tree node can be inserted into the current tree node at a specific index.
         /// The first <c>object</c> parameter represents the data of the tree node which is dragged.
-        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target.
+        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target (the current node).
         /// </summary>
+        /// <remarks>When dragging a node, the <see cref="CanInsert"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Func<object, object, bool> CanInsert { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after dropping a tree node.
         /// The first <c>object</c> parameter represents the data of the tree node which was dropped.
-        /// The second <c>object</c> parameter represents the data of the new parent tree node.
+        /// The second <c>object</c> parameter represents the data of the new parent tree node (the current node).
         /// The third <c>object</c> parameter represents the data of the former parent tree node.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
-        /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
+        /// The <see cref="TreeViewControl"/> parameter represents the tree view control involved.
         /// </summary>
-        /// <remarks>After dropping a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        /// <remarks>After dropping a node, the <see cref="OnDrop"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<object, object, object, int, TreeViewControl> OnDrop { get; set; }
     }
 
     /// <summary>
     /// Class that represents information for updating tree nodes.
     /// </summary>
-    /// <typeparam name="TData">The type of data wrapped by the tree node.</typeparam>
+    /// <typeparam name="TData">The type of data of the tree node.</typeparam>
     public class TreeNodeInfo<TData>
     {
         /// <summary>
-        /// Constructs a new <see cref="TreeNodeInfo{TData}"/>.
-        /// </summary>
-        public TreeNodeInfo()
-        {
-            Text = tag => "";
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Type"/> of the data wrapped by the tree node.
+        /// Gets the <see cref="Type"/> of the data of the tree node.
         /// </summary>
         public Type TagType
         {
@@ -194,7 +179,7 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, string> Text { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for obtaining the tree node color.
+        /// Gets or sets a function for obtaining the tree node fore color.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
         public Func<TData, Color> ForeColor { get; set; }
@@ -209,7 +194,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for obtaining the tree node context menu.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// The <c>object</c> parameter represents the data of the parent tree node.
-        /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
+        /// The <see cref="TreeViewControl"/> parameter represents the tree view control involved.
         /// </summary>
         public Func<TData, object, TreeViewControl, ContextMenuStrip> ContextMenuStrip { get; set; }
 
@@ -280,29 +265,30 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, object, bool> CanDrag { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
+        /// Gets or sets a function for checking whether or not a tree node can be dropped to the current tree node.
         /// The first <c>object</c> parameter represents the data of the tree node which is dragged.
-        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target.
+        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target (the current node).
         /// </summary>
-        /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        /// <remarks>When dragging a node, the <see cref="CanDrop"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Func<object, object, bool> CanDrop { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node can be inserted into the drop target at a specific index.
+        /// Gets or sets a function for checking whether or not a tree node can be inserted into the current tree node at a specific index.
         /// The first <c>object</c> parameter represents the data of the tree node which is dragged.
-        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target.
+        /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target (the current node).
         /// </summary>
+        /// <remarks>When dragging a node, the <see cref="CanInsert"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Func<object, object, bool> CanInsert { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after dropping a tree node.
         /// The first <c>object</c> parameter represents the data of the tree node which was dropped.
-        /// The second <c>object</c> parameter represents the data of the new parent tree node.
+        /// The second <c>object</c> parameter represents the data of the new parent tree node (the current node).
         /// The third <c>object</c> parameter represents the data of the former parent tree node.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
-        /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
+        /// The <see cref="TreeViewControl"/> parameter represents the tree view control involved.
         /// </summary>
-        /// <remarks>After dropping a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
+        /// <remarks>After dropping a node, the <see cref="OnDrop"/> method of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
         public Action<object, object, object, int, TreeViewControl> OnDrop { get; set; }
 
         /// <summary>
