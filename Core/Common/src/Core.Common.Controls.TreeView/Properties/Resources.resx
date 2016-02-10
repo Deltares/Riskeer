@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TreeViewControl_DragDrop_Error_during_drag_drop_0_" xml:space="preserve">
-    <value>Fout tijdens slepen/neerzetten: {0}.</value>
-  </data>
   <data name="TreeViewControl_Remove_The_selected_item_cannot_be_removed" xml:space="preserve">
     <value>Het geselecteerde element kan niet worden verwijderd.</value>
   </data>
   <data name="TreeViewControl_Remove_Are_you_sure_you_want_to_remove_the_following_item_0_" xml:space="preserve">
     <value>Weet u zeker dat u het volgende element wilt verwijderen: {0}</value>
+  </data>
+  <data name="TreeViewControl_The_selected_item_cannot_be_renamed" xml:space="preserve">
+    <value>Het geselecteerde element kan niet worden hernoemd.</value>
   </data>
 </root>

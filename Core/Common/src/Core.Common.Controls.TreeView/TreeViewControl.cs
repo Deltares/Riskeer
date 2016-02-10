@@ -43,10 +43,9 @@ namespace Core.Common.Controls.TreeView
         public event EventHandler NodeUpdated; // TODO; Way to explicit!
         public event EventHandler<TreeNodeDataDeletedEventArgs> DataDeleted; // TODO; Way to explicit!
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewControl));
-        private readonly ICollection<TreeNodeInfo> treeNodeInfos = new HashSet<TreeNodeInfo>();
+        private static readonly ILog log = LogManager.GetLogger(typeof(TreeViewControl));
         private readonly Dictionary<Type, TreeNodeInfo> tagTypeTreeNodeInfoLookup = new Dictionary<Type, TreeNodeInfo>();
-        private readonly int maximumTextLength = 259;
+        private const int maximumTextLength = 259;
         private readonly Dictionary<TreeNode, TreeNodeObserver> treeNodeObserverLookup = new Dictionary<TreeNode, TreeNodeObserver>();
         private object data;
         private int dropAtLocation;
@@ -55,6 +54,9 @@ namespace Core.Common.Controls.TreeView
         private TreeNode nodeDropTarget;
         private TreeNode lastPlaceholderNode;
         private Graphics placeHolderGraphics;
+        private const string stateImageLocationString = "StateImage";
+        private const int uncheckedCheckBoxStateImageIndex = 0;
+        private const int checkedCheckBoxStateImageIndex = 1;
 
         public TreeViewControl()
         {
@@ -127,7 +129,6 @@ namespace Core.Common.Controls.TreeView
         /// <param name="treeNodeInfo">The <see cref="TreeNodeInfo"/> to register.</param>
         public void RegisterTreeNodeInfo(TreeNodeInfo treeNodeInfo)
         {
-            treeNodeInfos.Add(treeNodeInfo);
             tagTypeTreeNodeInfoLookup[treeNodeInfo.TagType] = treeNodeInfo;
         }
 
@@ -144,7 +145,7 @@ namespace Core.Common.Controls.TreeView
 
             if (treeNode != null)
             {
-                treeNode.BeginEdit();
+                Rename(treeNode);
             }
         }
 
@@ -169,7 +170,7 @@ namespace Core.Common.Controls.TreeView
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            return treeNode != null && treeNode.Nodes.OfType<TreeNode>().Any();
+            return treeNode != null && treeNode.Nodes.Count > 0;
         }
 
         public void CollapseAllNodesForData(object dataObject)
@@ -201,22 +202,34 @@ namespace Core.Common.Controls.TreeView
         {
             var treeNode = GetNodeByTag(dataObject);
 
-            return treeNode != null ? treeNode.FullPath : "";
+            return treeNode != null ? treeNode.FullPath : null;
         }
 
         private bool CanRename(TreeNode treeNode)
         {
             var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
-            var parentTag = treeNode.Parent != null ? treeNode.Parent.Tag : null;
+            var parentTag = GetParentTag(treeNode);
 
             return treeNodeInfo.CanRename != null && treeNodeInfo.CanRename(treeNode.Tag, parentTag);
+        }
+
+        private void Rename(TreeNode treeNode)
+        {
+            if (!CanRename(treeNode))
+            {
+                MessageBox.Show(Resources.TreeViewControl_The_selected_item_cannot_be_renamed, BaseResources.Confirm, MessageBoxButtons.OK);
+                return;
+            }
+
+            treeNode.BeginEdit();
         }
 
         private bool CanRemove(TreeNode treeNode)
         {
             var treeNodeInfo = GetTreeNodeInfoForData(treeNode.Tag);
+            var parentTag = GetParentTag(treeNode);
 
-            return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null);
+            return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, parentTag);
         }
 
         private void Remove(TreeNode treeNode)
@@ -237,7 +250,9 @@ namespace Core.Common.Controls.TreeView
 
             if (treeNodeInfo.OnNodeRemoved != null)
             {
-                treeNodeInfo.OnNodeRemoved(treeNode.Tag, treeNode.Parent != null ? treeNode.Parent.Tag : null);
+                var parentTag = GetParentTag(treeNode);
+
+                treeNodeInfo.OnNodeRemoved(treeNode.Tag, parentTag);
             }
 
             OnNodeDataDeleted(treeNode);
@@ -247,7 +262,7 @@ namespace Core.Common.Controls.TreeView
         {
             treeNode.Collapse();
 
-            foreach (var childNode in treeNode.Nodes.OfType<TreeNode>())
+            foreach (TreeNode childNode in treeNode.Nodes)
             {
                 CollapseAll(childNode);
             }
@@ -257,7 +272,7 @@ namespace Core.Common.Controls.TreeView
         {
             treeNode.Expand();
 
-            foreach (var childNode in treeNode.Nodes.OfType<TreeNode>())
+            foreach (TreeNode childNode in treeNode.Nodes)
             {
                 ExpandAll(childNode);
             }
@@ -284,9 +299,7 @@ namespace Core.Common.Controls.TreeView
         /// <returns>The <see cref="TreeNode"/> corresponding the provided node data or <c>null</c> if not found.</returns>
         private TreeNode GetNodeByTag(object nodeData)
         {
-            var node = treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
-
-            return node;
+            return treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
         }
 
         private static TreeNode GetNodeByTag(TreeNode rootNode, object tag)
@@ -297,7 +310,7 @@ namespace Core.Common.Controls.TreeView
             }
 
             return rootNode.Nodes
-                           .OfType<TreeNode>()
+                           .Cast<TreeNode>()
                            .Select(n => GetNodeByTag(n, tag))
                            .FirstOrDefault(node => node != null);
         }
@@ -346,7 +359,7 @@ namespace Core.Common.Controls.TreeView
                     treeNode.Checked = !treeNode.Checked;
                     treeView.AfterCheck += TreeViewAfterCheck;
                 }
-                treeNode.StateImageIndex = treeNode.Checked ? 1 : 0;
+                treeNode.StateImageIndex = treeNode.Checked ? checkedCheckBoxStateImageIndex : uncheckedCheckBoxStateImageIndex;
             }
 
             OnNodeUpdated(treeNode);
@@ -436,7 +449,7 @@ namespace Core.Common.Controls.TreeView
             treeNodeObserverLookup[treeNode].Dispose();
             treeNodeObserverLookup.Remove(treeNode);
 
-            foreach (var childNode in treeNode.Nodes.OfType<TreeNode>())
+            foreach (TreeNode childNode in treeNode.Nodes)
             {
                 RemoveTreeNodeFromLookupRecursively(childNode);
             }
@@ -466,8 +479,8 @@ namespace Core.Common.Controls.TreeView
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
             var newTreeNodes = new Dictionary<int, TreeNode>();
-            var outdatedTreeNodes = treeNode.Nodes.OfType<TreeNode>().ToList();
-            var currentTreeNodesPerTag = treeNode.Nodes.OfType<TreeNode>().ToList().ToDictionary(ctn => ctn.Tag, ctn => ctn);
+            var outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().ToList();
+            var currentTreeNodesPerTag = treeNode.Nodes.Cast<TreeNode>().ToList().ToDictionary(ctn => ctn.Tag, ctn => ctn);
             var newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                           ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
                                           : new object[0];
@@ -514,6 +527,27 @@ namespace Core.Common.Controls.TreeView
             {
                 lastAddedNodeToSetSelectionTo.EnsureVisible();
                 treeView.SelectedNode = lastAddedNodeToSetSelectionTo;
+            }
+        }
+
+        private static object GetParentTag(TreeNode treeNode)
+        {
+            return treeNode.Parent != null ? treeNode.Parent.Tag : null;
+        }
+
+        private void OnNodeUpdated(TreeNode treeNode)
+        {
+            if (NodeUpdated != null)
+            {
+                NodeUpdated(treeNode, EventArgs.Empty);
+            }
+        }
+
+        private void OnNodeDataDeleted(TreeNode node)
+        {
+            if (DataDeleted != null)
+            {
+                DataDeleted(this, new TreeNodeDataDeletedEventArgs(node.Tag));
             }
         }
 
@@ -583,7 +617,9 @@ namespace Core.Common.Controls.TreeView
             var treeNodeInfo = GetTreeNodeInfoForData(e.Node.Tag);
             if (treeNodeInfo.OnNodeChecked != null)
             {
-                treeNodeInfo.OnNodeChecked(e.Node.Tag, e.Node.Parent != null ? e.Node.Parent.Tag : null);
+                var parentTag = GetParentTag(e.Node);
+
+                treeNodeInfo.OnNodeChecked(e.Node.Tag, parentTag);
             }
         }
 
@@ -607,16 +643,17 @@ namespace Core.Common.Controls.TreeView
                 }
                 case Keys.F2: // Start editing the label of the selected node
                 {
-                    selectedNode.BeginEdit();
+                    Rename(selectedNode);
                     break;
                 }
                 case Keys.Apps: // If implemented, show the context menu of the selected node
                 {
                     var treeNodeInfo = GetTreeNodeInfoForData(selectedNode.Tag);
+                    var parentTag = GetParentTag(selectedNode);
 
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
                     selectedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, selectedNode.Parent != null ? selectedNode.Parent.Tag : null, this)
+                                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, parentTag, this)
                                                         : null;
 
                     if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
@@ -630,7 +667,7 @@ namespace Core.Common.Controls.TreeView
                 }
                 case Keys.Enter: // Perform the same action as on double click
                 {
-                    OnTreeNodeDoubleClick();
+                    OnDataDoubleClick();
 
                     break;
                 }
@@ -652,13 +689,13 @@ namespace Core.Common.Controls.TreeView
                 }
             }
 
-            if (keyEventArgs.KeyData == (Keys.Control | Keys.Shift | Keys.Right)) // Expand all tree nodes
+            if (keyEventArgs.KeyData == (Keys.Control | Keys.Shift | Keys.Right)) // Expand all child nodes of the selected tree node
             {
                 ExpandAll(selectedNode);
                 selectedNode.EnsureVisible();
             }
 
-            if (keyEventArgs.KeyData == (Keys.Control | Keys.Shift | Keys.Left)) // Collapse all tree nodes
+            if (keyEventArgs.KeyData == (Keys.Control | Keys.Shift | Keys.Left)) // Collapse all child nodes of the selected tree node
             {
                 CollapseAll(selectedNode);
                 selectedNode.EnsureVisible();
@@ -676,13 +713,15 @@ namespace Core.Common.Controls.TreeView
 
             var treeNodeInfo = GetTreeNodeInfoForData(clickedNode.Tag);
 
-            if ((e.Button & MouseButtons.Right) != 0)
+            if (e.Button.HasFlag(MouseButtons.Right))
             {
                 treeView.SelectedNode = clickedNode;
 
+                var parentTag = GetParentTag(clickedNode);
+
                 // Update the context menu
                 clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                                   ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, clickedNode.Parent != null ? clickedNode.Parent.Tag : null, this)
+                                                   ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, parentTag, this)
                                                    : null;
 
                 return;
@@ -697,15 +736,15 @@ namespace Core.Common.Controls.TreeView
 
         private bool IsOnCheckBox(Point point)
         {
-            return treeView.HitTest(point).Location.ToString() == "StateImage";
+            return treeView.HitTest(point).Location.ToString() == stateImageLocationString;
         }
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
         {
-            OnTreeNodeDoubleClick();
+            OnDataDoubleClick();
         }
 
-        private void OnTreeNodeDoubleClick()
+        private void OnDataDoubleClick()
         {
             if (DataDoubleClick != null)
             {
@@ -733,12 +772,9 @@ namespace Core.Common.Controls.TreeView
             }
 
             // Handle dragged items which were originally higher up in the tree under the same parent (all indices shift by one)
-            if (e.Effect.Equals(DragDropEffects.Move) && nodeDragging.Parent == nodeDropTarget && nodeOver.Index > nodeDragging.Index)
+            if (e.Effect.Equals(DragDropEffects.Move) && nodeDragging.Parent == nodeDropTarget && nodeOver.Index > nodeDragging.Index && dropAtLocation > 0)
             {
-                if (dropAtLocation > 0)
-                {
-                    dropAtLocation--;
-                }
+                dropAtLocation--;
             }
 
             // Ensure the drop location is never < 0
@@ -748,28 +784,20 @@ namespace Core.Common.Controls.TreeView
             }
 
             var treeNodeInfo = GetTreeNodeInfoForData(nodeDropTarget.Tag);
+            var previousParentNode = nodeDragging.Parent;
 
-            try
+            previousParentNode.Nodes.Remove(nodeDragging);
+            nodeDropTarget.Nodes.Insert(dropAtLocation, nodeDragging);
+
+            // Ensure the dragged node is visible afterwards
+            nodeDragging.EnsureVisible();
+
+            // Restore any lost selection
+            treeView.SelectedNode = nodeDragging;
+
+            if (treeNodeInfo.OnDrop != null)
             {
-                var previousParentNode = nodeDragging.Parent;
-
-                previousParentNode.Nodes.Remove(nodeDragging);
-                nodeDropTarget.Nodes.Insert(dropAtLocation, nodeDragging);
-
-                // Ensure the dragged node is visible afterwards
-                nodeDragging.EnsureVisible();
-
-                // Restore any lost selection
-                treeView.SelectedNode = nodeDragging;
-
-                if (treeNodeInfo.OnDrop != null)
-                {
-                    treeNodeInfo.OnDrop(nodeDragging.Tag, nodeDragging.Parent.Tag, previousParentNode.Tag, ToDragOperation(e.Effect), dropAtLocation, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(string.Format(Resources.TreeViewControl_DragDrop_Error_during_drag_drop_0_, ex.Message));
+                treeNodeInfo.OnDrop(nodeDragging.Tag, nodeDragging.Parent.Tag, previousParentNode.Tag, ToDragOperation(e.Effect), dropAtLocation, this);
             }
         }
 
@@ -815,8 +843,8 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            // Determine whether ot not the node can be dropped based on the allowed operations.
-            // A node can also be a valid drop traget if it is the root item (nodeDragging.Parent == null).
+            // Determine whether or not the node can be dropped based on the allowed operations.
+            // A node can also be a valid drop target if it is the root item (nodeDragging.Parent == null).
             var dragOperations = treeNodeInfo.CanDrop != null
                                      ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag, allowedOperations)
                                      : DragOperations.None;
@@ -838,9 +866,10 @@ namespace Core.Common.Controls.TreeView
             // gather allowed effects for the current item.
             var sourceNode = (TreeNode) e.Item;
             var treeNodeInfo = GetTreeNodeInfoForData(sourceNode.Tag);
+            var parentTag = GetParentTag(sourceNode);
 
             DragOperations dragOperation = treeNodeInfo.CanDrag != null
-                                               ? treeNodeInfo.CanDrag(sourceNode.Tag, sourceNode.Parent != null ? sourceNode.Parent.Tag : null)
+                                               ? treeNodeInfo.CanDrag(sourceNode.Tag, parentTag)
                                                : DragOperations.None;
 
             DragDropEffects effects = ToDragDropEffects(dragOperation);
@@ -1020,26 +1049,6 @@ namespace Core.Common.Controls.TreeView
         private DragDropEffects ToDragDropEffects(DragOperations operation)
         {
             return (DragDropEffects) Enum.Parse(typeof(DragDropEffects), operation.ToString());
-        }
-
-        # endregion
-
-        # region Event handling
-
-        private void OnNodeUpdated(TreeNode treeNode)
-        {
-            if (NodeUpdated != null)
-            {
-                NodeUpdated(treeNode, EventArgs.Empty);
-            }
-        }
-
-        private void OnNodeDataDeleted(TreeNode node)
-        {
-            if (DataDeleted != null)
-            {
-                DataDeleted(this, new TreeNodeDataDeletedEventArgs(node.Tag));
-            }
         }
 
         # endregion

@@ -61,15 +61,6 @@ namespace Core.Common.Controls.TreeView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fout tijdens slepen/neerzetten: {0}..
-        /// </summary>
-        internal static string TreeViewControl_DragDrop_Error_during_drag_drop_0_ {
-            get {
-                return ResourceManager.GetString("TreeViewControl_DragDrop_Error_during_drag_drop_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u het volgende element wilt verwijderen: {0}.
         /// </summary>
         internal static string TreeViewControl_Remove_Are_you_sure_you_want_to_remove_the_following_item_0_ {
@@ -84,6 +75,15 @@ namespace Core.Common.Controls.TreeView.Properties {
         internal static string TreeViewControl_Remove_The_selected_item_cannot_be_removed {
             get {
                 return ResourceManager.GetString("TreeViewControl_Remove_The_selected_item_cannot_be_removed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het geselecteerde element kan niet worden hernoemd..
+        /// </summary>
+        internal static string TreeViewControl_The_selected_item_cannot_be_renamed {
+            get {
+                return ResourceManager.GetString("TreeViewControl_The_selected_item_cannot_be_renamed", resourceCulture);
             }
         }
     }
