@@ -753,7 +753,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewDragOver(object sender, DragEventArgs e)
         {
-            dragDropHandler.HandleDragOver(treeView, sender, e, GetTreeNodeInfoForData);
+            dragDropHandler.HandleDragOver(treeView, e, GetTreeNodeInfoForData);
         }
 
         private void TreeViewItemDrag(object sender, ItemDragEventArgs e)
