@@ -42,14 +42,12 @@
     </Compile>
     <Compile Include="DragDropHandler.cs" />
     <Compile Include="TreeNodeInfo.cs" />
-    <Compile Include="PlaceholderLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TreeNodeGraphicExtensions.cs" />
     <Compile Include="TreeViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

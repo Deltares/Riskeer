@@ -31,6 +31,17 @@ namespace Core.Common.Controls.TreeView
     /// </summary>
     public class DragDropHandler
     {
+        private enum PlaceholderLocation
+        {
+            Top,
+            Bottom,
+            Middle,
+            None
+        }
+
+        private const int defaultImageWidth = 16;
+        private const int spaceBetweenNodeParts = 2;
+
         private int dropAtLocation;
         private Point lastDragOverPoint;
         private PlaceholderLocation lastPlaceholderLocation;
@@ -47,7 +58,7 @@ namespace Core.Common.Controls.TreeView
         /// <param name="getTreeNodeInfoForData">A function for obtaining the <see cref="TreeNodeInfo"/> object corresponding to a provided data object.</param>
         public void HandleDragDrop(TreeViewControl treeViewControl, FormsTreeView treeView, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
-            ClearPlaceHolders(treeView);
+            RemovePlaceHolder(treeView);
 
             var point = treeView.PointToClient(new Point(e.X, e.Y));
             var nodeOver = treeView.GetNodeAt(point);
@@ -110,7 +121,7 @@ namespace Core.Common.Controls.TreeView
 
             if (nodeOver == null || nodeOver == draggedNode || IsChildOf(nodeOver, draggedNode))
             {
-                ClearPlaceHolders(treeView);
+                RemovePlaceHolder(treeView);
 
                 return;
             }
@@ -136,11 +147,11 @@ namespace Core.Common.Controls.TreeView
 
             if (canDrop)
             {
-                DrawPlaceholder(treeView, nodeOver, placeholderLocation);
+                CreatePlaceholder(treeView, nodeOver, placeholderLocation);
             }
             else
             {
-                ClearPlaceHolders(treeView);
+                RemovePlaceHolder(treeView);
 
                 e.Effect = DragDropEffects.None;
             }
@@ -178,26 +189,26 @@ namespace Core.Common.Controls.TreeView
         /// <param name="treeView">The <see cref="TreeView"/> of the <see cref="TreeViewControl"/>.</param>
         public void HandleDragLeave(FormsTreeView treeView)
         {
-            ClearPlaceHolders(treeView);
+            RemovePlaceHolder(treeView);
         }
 
-        private void DrawPlaceholder(FormsTreeView treeView, TreeNode node, PlaceholderLocation placeHolderLocation)
+        private void CreatePlaceholder(FormsTreeView treeView, TreeNode node, PlaceholderLocation placeHolderLocation)
         {
             if (lastPlaceholderNode == node && lastPlaceholderLocation == placeHolderLocation)
             {
                 return;
             }
 
-            ClearPlaceHolders(treeView);
+            RemovePlaceHolder(treeView);
 
             lastPlaceholderNode = node;
             lastPlaceholderLocation = placeHolderLocation;
 
             placeHolderGraphics = treeView.CreateGraphics();
-            node.DrawPlaceHolder(placeHolderLocation, treeView.CreateGraphics());
+            DrawPlaceHolder(node, placeHolderLocation, treeView.CreateGraphics());
         }
 
-        private void ClearPlaceHolders(FormsTreeView treeView)
+        private void RemovePlaceHolder(FormsTreeView treeView)
         {
             if (placeHolderGraphics != null)
             {
@@ -310,11 +321,100 @@ namespace Core.Common.Controls.TreeView
             if (placeholderLocation == PlaceholderLocation.None
                 || (placeholderLocation == PlaceholderLocation.Middle && nodeDropTarget == nodeDragging.Parent))
             {
-                ClearPlaceHolders(treeView);
+                RemovePlaceHolder(treeView);
                 e.Effect = DragDropEffects.None;
             }
 
             return placeholderLocation;
+        }
+
+        private static void DrawPlaceHolder(TreeNode node, PlaceholderLocation location, Graphics graphics)
+        {
+            var rightTriangle = MakePlaceHoldeTriangle(node, AnchorStyles.Right, location);
+
+            graphics.FillPolygon(Brushes.Black, rightTriangle);
+
+            if (location == PlaceholderLocation.Middle)
+            {
+                return;
+            }
+
+            var leftTriangle = MakePlaceHoldeTriangle(node, AnchorStyles.Left, location);
+            graphics.FillPolygon(Brushes.Black, leftTriangle);
+
+            var yLine = location == PlaceholderLocation.Top
+                            ? node.Bounds.Top
+                            : node.Bounds.Bottom;
+
+            graphics.DrawLine(new Pen(Color.Black, 1), new Point(GetImageLeft(node), yLine), new Point(node.Bounds.Right, yLine));
+        }
+
+        private static Point[] MakePlaceHoldeTriangle(TreeNode node, AnchorStyles anchor, PlaceholderLocation location)
+        {
+            const int placeHolderWidth = 4;
+            const int placeHolderHeigth = 8;
+
+            int xPos, yPos;
+            var bounds = node.Bounds;
+
+            switch (anchor)
+            {
+                case AnchorStyles.Left:
+                    xPos = GetImageLeft(node) - placeHolderWidth;
+                    break;
+                case AnchorStyles.Right:
+                    xPos = bounds.Right;
+                    break;
+                default:
+                    return new Point[0];
+            }
+
+            switch (location)
+            {
+                case PlaceholderLocation.Top:
+                    yPos = bounds.Top;
+                    break;
+                case PlaceholderLocation.Bottom:
+                    yPos = bounds.Bottom;
+                    break;
+                case PlaceholderLocation.Middle:
+                    yPos = bounds.Top + bounds.Height/2;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("location");
+            }
+
+            return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeigth), anchor);
+        }
+
+        private static int GetImageLeft(TreeNode node)
+        {
+            return node.Bounds.Left - (defaultImageWidth + spaceBetweenNodeParts);
+        }
+
+        private static Point[] CreateTrianglePoints(Rectangle bounds, AnchorStyles anchor)
+        {
+            switch (anchor)
+            {
+                case AnchorStyles.Left:
+                    return new[]
+                    {
+                        new Point(bounds.Left, bounds.Top),
+                        new Point(bounds.Right, bounds.Top + bounds.Height/2),
+                        new Point(bounds.Left, bounds.Top + bounds.Height),
+                        new Point(bounds.Left, bounds.Top)
+                    };
+                case AnchorStyles.Right:
+                    return new[]
+                    {
+                        new Point(bounds.Right, bounds.Top),
+                        new Point(bounds.Left, bounds.Top + bounds.Height/2),
+                        new Point(bounds.Right, bounds.Top + bounds.Height),
+                        new Point(bounds.Right, bounds.Top)
+                    };
+                default:
+                    return new Point[0];
+            }
         }
     }
 }
