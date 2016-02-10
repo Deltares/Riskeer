@@ -15,10 +15,11 @@
     Loaded="MainWindow_OnLoaded">
 
     <Window.CommandBindings>
-        <CommandBinding Command="New"  Executed="OnFileNewClicked" />
-        <CommandBinding Command="Save"  Executed="OnFileSaveClicked" />
-        <CommandBinding Command="SaveAs"  Executed="OnFileSaveAsClicked" />
-        <CommandBinding Command="Open"  Executed="OnFileOpenClicked" />
+        <CommandBinding Command="New" Executed="OnFileNewClicked" />
+        <CommandBinding Command="Save" Executed="OnFileSaveClicked" />
+        <CommandBinding Command="SaveAs" Executed="OnFileSaveAsClicked" />
+        <CommandBinding Command="Open" Executed="OnFileOpenClicked" />
+        <CommandBinding Command="Close" Executed="OnFileExitClicked" />
         <CommandBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Executed="CloseDocumentTab" CanExecute="CanCloseDocumentTab"/>
     </Window.CommandBindings>
     
