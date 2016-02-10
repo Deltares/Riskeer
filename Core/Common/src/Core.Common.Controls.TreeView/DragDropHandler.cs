@@ -26,6 +26,9 @@ using FormsTreeView = System.Windows.Forms.TreeView;
 
 namespace Core.Common.Controls.TreeView
 {
+    /// <summary>
+    /// This class handles the drag and drop related logic for a <see cref="TreeViewControl"/>.
+    /// </summary>
     public class DragDropHandler
     {
         private int dropAtLocation;
@@ -35,6 +38,13 @@ namespace Core.Common.Controls.TreeView
         private TreeNode lastPlaceholderNode;
         private Graphics placeHolderGraphics;
 
+        /// <summary>
+        /// This method handles the <see cref="TreeView.DragDrop"/> event for a <see cref="TreeViewControl"/>.
+        /// </summary>
+        /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to handle the <see cref="TreeView.DragDrop"/> event for.</param>
+        /// <param name="treeView">The <see cref="TreeView"/> of the <see cref="TreeViewControl"/>.</param>
+        /// <param name="e">The arguments of the <see cref="TreeView.DragDrop"/> event.</param>
+        /// <param name="getTreeNodeInfoForData">A function for obtaining the <see cref="TreeNodeInfo"/> object corresponding to a provided data object.</param>
         public void HandleDragDrop(TreeViewControl treeViewControl, FormsTreeView treeView, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             ClearPlaceHolders(treeView);
@@ -84,6 +94,13 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        /// <summary>
+        /// This method handles the <see cref="TreeView.DragOver"/> event for a <see cref="TreeViewControl"/>.
+        /// </summary>
+        /// <param name="treeView">The <see cref="TreeView"/> of the <see cref="TreeViewControl"/>.</param>
+        /// <param name="sender">The sender of the <see cref="TreeView.DragOver"/> event.</param>
+        /// <param name="e">The arguments of the <see cref="TreeView.DragOver"/> event.</param>
+        /// <param name="getTreeNodeInfoForData">A function for obtaining the <see cref="TreeNodeInfo"/> object corresponding to a provided data object.</param>
         public void HandleDragOver(FormsTreeView treeView, object sender, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             if (lastDragOverPoint.X == e.X && lastDragOverPoint.Y == e.Y)
@@ -135,6 +152,12 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        /// <summary>
+        /// This method handles the <see cref="TreeView.ItemDrag"/> event for a <see cref="TreeViewControl"/>.
+        /// </summary>
+        /// <param name="treeView">The <see cref="TreeView"/> of the <see cref="TreeViewControl"/>.</param>
+        /// <param name="e">The arguments of the <see cref="TreeView.ItemDrag"/> event.</param>
+        /// <param name="getTreeNodeInfoForData">A function for obtaining the <see cref="TreeNodeInfo"/> object corresponding to a provided data object.</param>
         public void HandleItemDrag(FormsTreeView treeView, ItemDragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             // gather allowed effects for the current item.
@@ -161,6 +184,10 @@ namespace Core.Common.Controls.TreeView
             treeView.DoDragDrop(dataObject, DragDropEffects.Move);
         }
 
+        /// <summary>
+        /// This method handles the <see cref="TreeView.DragLeave"/> event for a <see cref="TreeViewControl"/>.
+        /// </summary>
+        /// <param name="treeView">The <see cref="TreeView"/> of the <see cref="TreeViewControl"/>.</param>
         public void HandleDragLeave(FormsTreeView treeView)
         {
             ClearPlaceHolders(treeView);
