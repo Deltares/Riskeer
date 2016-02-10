@@ -61,20 +61,20 @@ namespace Core.Common.Controls.TreeView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u het volgende element wilt verwijderen: {0}.
+        ///   Looks up a localized string similar to Weet u zeker dat u het geselecteerde element wilt verwijderen?.
         /// </summary>
-        internal static string TreeViewControl_Remove_Are_you_sure_you_want_to_remove_the_following_item_0_ {
+        internal static string TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item {
             get {
-                return ResourceManager.GetString("TreeViewControl_Remove_Are_you_sure_you_want_to_remove_the_following_item_0_", resourceCulture);
+                return ResourceManager.GetString("TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het geselecteerde element kan niet worden verwijderd..
         /// </summary>
-        internal static string TreeViewControl_Remove_The_selected_item_cannot_be_removed {
+        internal static string TreeViewControl_The_selected_item_cannot_be_removed {
             get {
-                return ResourceManager.GetString("TreeViewControl_Remove_The_selected_item_cannot_be_removed", resourceCulture);
+                return ResourceManager.GetString("TreeViewControl_The_selected_item_cannot_be_removed", resourceCulture);
             }
         }
         

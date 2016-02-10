@@ -231,11 +231,11 @@ namespace Core.Common.Controls.TreeView
         {
             if (!CanRemove(treeNode))
             {
-                MessageBox.Show(Resources.TreeViewControl_Remove_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
+                MessageBox.Show(Resources.TreeViewControl_The_selected_item_cannot_be_removed, BaseResources.Confirm, MessageBoxButtons.OK);
                 return;
             }
 
-            var message = string.Format(Resources.TreeViewControl_Remove_Are_you_sure_you_want_to_remove_the_following_item_0_, treeNode.Text);
+            var message = string.Format(Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item);
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
@@ -594,7 +594,7 @@ namespace Core.Common.Controls.TreeView
 
         private void TreeViewAfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            // Check Label for null as this indicates the node edit was cancelled
+            // Check label for null as this indicates the node edit was cancelled
             if (e.Label == null)
             {
                 return;

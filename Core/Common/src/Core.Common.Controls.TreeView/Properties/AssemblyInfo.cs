@@ -30,5 +30,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Core.Common.Controls.TreeView")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-
 [assembly: Guid("e0f7a7cc-de07-4b0a-b72e-7bc923810fde")]
