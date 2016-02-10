@@ -139,10 +139,9 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
         /// The first <c>object</c> parameter represents the data of the tree node which is dragged.
         /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target.
-        /// The <see cref="DragOperations"/> return value indicates what operation is valid when the tree node is dropped onto the drop target.
         /// </summary>
         /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Func<object, object, DragOperations> CanDrop { get; set; }
+        public Func<object, object, bool> CanDrop { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be inserted into the drop target at a specific index.
@@ -284,10 +283,9 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
         /// The first <c>object</c> parameter represents the data of the tree node which is dragged.
         /// The second <c>object</c> parameter represents the data of the tree node being considered as drop target.
-        /// The <see cref="DragOperations"/> return value indicates what operation is valid when the tree node is dropped onto the drop target.
         /// </summary>
         /// <remarks>When dragging a node, the <see cref="CanDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Func<object, object, DragOperations> CanDrop { get; set; }
+        public Func<object, object, bool> CanDrop { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be inserted into the drop target at a specific index.
@@ -361,7 +359,7 @@ namespace Core.Common.Controls.TreeView
                               : (Func<object, object, bool>) null,
                 CanDrop = treeNodeInfo.CanDrop != null
                               ? (draggedTag, targetTag) => treeNodeInfo.CanDrop(draggedTag, targetTag)
-                              : (Func<object, object, DragOperations>) null,
+                              : (Func<object, object, bool>) null,
                 CanInsert = treeNodeInfo.CanInsert != null
                                 ? (draggedTag, targetTag) => treeNodeInfo.CanInsert(draggedTag, targetTag)
                                 : (Func<object, object, bool>) null,

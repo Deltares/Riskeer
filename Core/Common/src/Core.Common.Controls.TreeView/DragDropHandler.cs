@@ -114,25 +114,16 @@ namespace Core.Common.Controls.TreeView
             }
 
             var treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
+            var canDrop = treeNodeInfo.CanDrop != null && treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag);
 
-            DragOperations allowedOperations = treeNodeInfo.CanDrop != null
-                                                   ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag)
-                                                   : DragOperations.None;
-
-            e.Effect = ToDragDropEffects(allowedOperations);
+            e.Effect = canDrop ? DragDropEffects.Move : DragDropEffects.None;
 
             if (PlaceholderLocation.None == placeholderLocation)
             {
                 return;
             }
 
-            // Determine whether or not the node can be dropped based on the allowed operations.
-            // A node can also be a valid drop target if it is the root item (nodeDragging.Parent == null).
-            var dragOperations = treeNodeInfo.CanDrop != null
-                                     ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag)
-                                     : DragOperations.None;
-
-            if (DragOperations.None != dragOperations)
+            if (canDrop)
             {
                 DrawPlaceholder(treeView, nodeOver, placeholderLocation);
             }
@@ -309,11 +300,6 @@ namespace Core.Common.Controls.TreeView
                 e.Effect = DragDropEffects.None;
             }
             return loc;
-        }
-
-        private DragDropEffects ToDragDropEffects(DragOperations operation)
-        {
-            return (DragDropEffects) Enum.Parse(typeof(DragDropEffects), operation.ToString());
         }
     }
 }

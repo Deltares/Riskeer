@@ -149,14 +149,14 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartDataCollection
 
-        private DragOperations BaseChartCanDrop(object draggedData, object targetData)
+        private bool BaseChartCanDrop(object draggedData, object targetData)
         {
             if (draggedData is ChartData)
             {
-                return DragOperations.Move;
+                return true;
             }
 
-            return DragOperations.None;
+            return false;
         }
 
         private bool BaseChartCanInsert(object draggedData, object targetData)

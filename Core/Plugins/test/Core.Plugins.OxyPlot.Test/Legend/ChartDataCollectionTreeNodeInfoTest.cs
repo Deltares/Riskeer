@@ -111,7 +111,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void CanDrop_SourceNodeTagIsNoChartData_ReturnsDragOperationsNone()
+        public void CanDrop_SourceNodeTagIsNoChartData_ReturnsFalse()
         {
             // Setup
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
@@ -119,16 +119,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var validOperations = info.CanDrop(new object(), chartDataCollection);
+            var canDrop = info.CanDrop(new object(), chartDataCollection);
 
             // Assert
-            Assert.AreEqual(DragOperations.None, validOperations);
+            Assert.IsFalse(canDrop);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanDrop_SourceNodeTagIsChartData_ReturnsDragOperationsMove()
+        public void CanDrop_SourceNodeTagIsChartData_ReturnsTrue()
         {
             // Setup
             var chartData = mocks.StrictMock<ChartData>();
@@ -137,16 +137,16 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var validOperations = info.CanDrop(chartData, chartDataCollection);
+            var canDrop = info.CanDrop(chartData, chartDataCollection);
 
             // Assert
-            Assert.AreEqual(DragOperations.Move, validOperations);
+            Assert.IsTrue(canDrop);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanDrop_SourceNodeTagIsNoChartData_ReturnsFalse()
+        public void CanInsert_SourceNodeTagIsNoChartData_ReturnsFalse()
         {
             // Setup
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
@@ -163,7 +163,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void CanDrop_SourceNodeTagIsChartData_ReturnsTrue()
+        public void CanInsert_SourceNodeTagIsChartData_ReturnsTrue()
         {
             // Setup
             var chartData = mocks.StrictMock<ChartData>();
