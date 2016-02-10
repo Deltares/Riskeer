@@ -24,8 +24,9 @@ using System.ComponentModel;
 namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
-    /// Base class for object properties with data of type <typeparam name="T"/>
+    /// Base class for object properties with data of type <typeparamref name="T"/>.
     /// </summary>
+    /// <typeparam name="T">Type of <see cref="Data"/>.</typeparam>
     public class ObjectProperties<T> : IObjectProperties
     {
         protected T data;

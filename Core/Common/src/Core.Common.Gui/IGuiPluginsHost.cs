@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Core.Common.Controls.TreeView;
@@ -28,7 +27,7 @@ using Core.Common.Gui.Plugin;
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Interface describing the object that hosts all the leaded graphical user interface
+    /// Interface describing the object that hosts all the loaded graphical user interface
     /// plugins of the application.
     /// </summary>
     public interface IGuiPluginsHost
@@ -39,15 +38,7 @@ namespace Core.Common.Gui
         IList<GuiPlugin> Plugins { get; }
 
         /// <summary>
-        /// Returns GuiPlugin for a given type.
-        /// TODO: a bit too implicit method, to be removed.
-        /// </summary>
-        /// <param name="type">Any type loaded from plugin.</param>
-        /// <returns>Plugin gui associated with a given type</returns>
-        GuiPlugin GetPluginGuiForType(Type type);
-
-        /// <summary>
-        /// Queries the plugins to get all data with view definitions recursively given a
+        /// Queries the plugins to get all data with view definitions recursively, given a
         /// piece of hierarchical data.
         /// </summary>
         /// <param name="rootDataObject">The root data object.</param>
@@ -57,7 +48,6 @@ namespace Core.Common.Gui
         /// <summary>
         /// Retrieves all the <see cref="TreeNodeInfo"/> defined on the configured plugins.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="TreeNodeInfo"/> which are configured in <see cref="Plugins"/>.</returns>
         IEnumerable<TreeNodeInfo> GetTreeNodeInfos();
     }
 }

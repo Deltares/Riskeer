@@ -24,15 +24,22 @@ using System;
 namespace Core.Common.Gui.Selection
 {
     /// <summary>
-    /// Used by IGui.SelectionChanged.
+    /// Event arguments used when notifying selection changes on application level.
     /// </summary>
     public class SelectedItemChangedEventArgs : EventArgs
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectedItemChangedEventArgs"/> class.
+        /// </summary>
+        /// <param name="item">The newly selected object.</param>
         public SelectedItemChangedEventArgs(object item)
         {
             Item = item;
         }
 
+        /// <summary>
+        /// Gets the item that has been selected.
+        /// </summary>
         public object Item { get; private set; }
     }
 }

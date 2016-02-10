@@ -969,23 +969,6 @@ namespace Core.Common.Gui
 
         public IList<GuiPlugin> Plugins { get; private set; }
 
-        public GuiPlugin GetPluginGuiForType(Type type)
-        {
-            foreach (var plugin in Plugins)
-            {
-                Type[] pluginTypes = plugin.GetType().Assembly.GetTypes();
-                foreach (Type pluginType in pluginTypes)
-                {
-                    if (pluginType == type)
-                    {
-                        return plugin;
-                    }
-                }
-            }
-
-            return null;
-        }
-
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)
         {
             var resultSet = new HashSet<object>();

@@ -24,17 +24,20 @@ using System.ComponentModel;
 using System.Drawing.Design;
 
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.PropertyBag;
 
 namespace Core.Common.Gui
 {
     /// <summary>
+    /// <para>
     /// Use this type in combination with the Editor Attribute on properties in property classes which you want to 
     /// edit with a Ringtoets view.
-    /// 
+    /// </para>
+    /// <para>
     /// The property grid will display an ellipsis button (...). Clicking on the button will open the default view
     /// for the data object in the central tabbed document area of Ringtoets. The view will remain open until 
     /// closed by the user and is not modal.
-    /// 
+    /// </para>
     /// </summary>
     /// <example>
     /// Usage (for example):
@@ -50,7 +53,11 @@ namespace Core.Common.Gui
     /// </example>
     public class ViewPropertyEditor : UITypeEditor
     {
-        public static IViewCommands ViewCommands { get; set; } //static: injected in RingtoetsGui
+        /// <summary>
+        /// Gets or sets the view commands.
+        /// </summary>
+        /// <remarks>Value should be injected before <see cref="IObjectProperties"/> can be accessed by user.</remarks>
+        public static IViewCommands ViewCommands { get; set; }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {

@@ -42,23 +42,17 @@ namespace Core.Common.Gui
         IView ActiveView { get; }
 
         /// <summary>
-        ///  Gets all document views currently opened in the gui.
+        ///  Gets all document views currently opened in the user interface.
         /// </summary>
         IViewList DocumentViews { get; }
 
         /// <summary>
-        /// Resolves document views
+        /// Gets the object responsible for finding a view registered to visualize a data object.
         /// </summary>
         IViewResolver DocumentViewsResolver { get; }
 
         /// <summary>
-        /// Suspends view removal on item delete. Useful to avoid unnecessary checks (faster item removal).
-        /// </summary>
-        bool IsViewRemoveOnItemDeleteSuspended { get; set; }
-
-        /// <summary>
-        /// Update the tool tip for every view currently open. Reasons for doing so 
-        /// include the modification of the tree structure which is reflected in a tool tip.
+        /// Update the tool tip for every view currently open.
         /// </summary>
         void UpdateToolTips();
     }

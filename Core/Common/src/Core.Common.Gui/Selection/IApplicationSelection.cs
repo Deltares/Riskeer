@@ -29,14 +29,12 @@ namespace Core.Common.Gui.Selection
     public interface IApplicationSelection
     {
         /// <summary>
-        /// Gets or sets current selected object(s). Visibility of the menus, toolbars and 
-        /// other controls should be updated when selected object is changed. Default 
-        /// implementation will also show it in the PropertyGrid.
+        /// Gets or sets current selected object(s) within the application.
         /// </summary>
         object Selection { get; set; }
 
         /// <summary>
-        /// Fired when user changes selection by clicking on it or by setting it using <see cref="Selection"/> property.
+        /// Fired when the application's selection has been changed.
         /// </summary>
         event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; 
     }

@@ -26,7 +26,7 @@ using Core.Common.Base.Data;
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Interface declaring members related to owning an <see cref="Project"/>.
+    /// Interface declaring members related to owning a <see cref="Project"/>.
     /// </summary>
     public interface IProjectOwner
     {

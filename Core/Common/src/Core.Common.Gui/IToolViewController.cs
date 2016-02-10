@@ -30,7 +30,7 @@ namespace Core.Common.Gui
     public interface IToolViewController
     {
         /// <summary>
-        /// Gets view manager used to handle tool windows.
+        /// Gets the collection of opened tool views.
         /// </summary>
         IViewList ToolWindowViews { get; }
 
@@ -38,7 +38,8 @@ namespace Core.Common.Gui
         /// Checks whether a tool window of type <typeparamref name="T"/> is open.
         /// </summary>
         /// <typeparam name="T">The type of tool window to check for.</typeparam>
-        /// <returns><c>true</c> if a tool window of type <typeparamref name="T"/> is open, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if a tool window of type <typeparamref name="T"/> is open,
+        /// <c>false</c> otherwise.</returns>
         bool IsToolWindowOpen<T>();
 
         /// <summary>

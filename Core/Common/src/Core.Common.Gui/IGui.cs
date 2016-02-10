@@ -40,8 +40,7 @@ namespace Core.Common.Gui
     {
         /// <summary>
         /// Object responsible for retrieving the <see cref="ObjectProperties{T}"/> instance 
-        /// for a given data object and wrapping that in a <see cref="DynamicPropertyBag"/> 
-        /// for the application to be used.
+        /// for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
 
@@ -51,24 +50,25 @@ namespace Core.Common.Gui
         ApplicationCore ApplicationCore { get; }
 
         /// <summary>
-        /// Gets or sets the current storage.
+        /// Gets or sets the current project storage.
         /// </summary>
         IStoreProject Storage { get; }
 
         /// <summary>
-        /// Runs gui. Internally it runs <see cref="ApplicationCore"/>, initializes all user interface components, including 
-        /// those loaded from plugins. After that it creates and shows main window.
+        /// Runs the user interface, causing all user interface components to initialize, 
+        /// loading plugins and displaying the main window.
         /// </summary>
         void Run();
 
         /// <summary>
-        /// Runs gui and opens a given project in gui.ApplicationCore.
+        /// Runs the user interface, causing all user interface components to initialize, 
+        /// loading plugins, opening a saved project and displaying the main window.
         /// </summary>
         /// <param name="projectPath">Path to the project to be opened.</param>
         void Run(string projectPath);
 
         /// <summary>
-        /// Exits gui by user request.
+        /// Terminates the application.
         /// </summary>
         void Exit();
     }

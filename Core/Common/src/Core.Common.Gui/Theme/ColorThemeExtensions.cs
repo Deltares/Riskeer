@@ -25,7 +25,7 @@ using Core.Common.Gui.Properties;
 namespace Core.Common.Gui.Theme
 {
     /// <summary>
-    /// Extension methods for the <see cref="ColorTheme"/> class
+    /// Extension methods for the <see cref="ColorTheme"/> enum.
     /// </summary>
     public static class ColorThemeExtensions
     {

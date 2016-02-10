@@ -3,7 +3,7 @@ using Core.Common.Utils.Reflection;
 
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Test
+namespace Core.Common.Gui.Test.Settings
 {
     [TestFixture]
     public class SettingsHelperTest
