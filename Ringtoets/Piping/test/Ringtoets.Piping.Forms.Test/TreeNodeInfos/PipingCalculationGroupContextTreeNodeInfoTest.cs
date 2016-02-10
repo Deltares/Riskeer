@@ -264,7 +264,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 //            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
 //            
 //            // Call
-//            info.OnDrop(draggedItemContextNode, newOwnerGroupContextNode, DragOperations.Move, newOwnerGroup.Children.Count);
+//            info.OnDrop(draggedItemContextNode, newOwnerGroupContextNode, newOwnerGroup.Children.Count);
 //
 //            // Assert
 //            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 //            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
 //
 //            // Call
-//            info.OnDrop(preUpdateDraggedItemContextNode, newOwnerGroupContextNode, DragOperations.Move, newIndex);
+//            info.OnDrop(preUpdateDraggedItemContextNode, newOwnerGroupContextNode, newIndex);
 //
 //            // Assert
 //            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
@@ -404,7 +404,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 //                "Name of the dragged item should already exist in new owner.");
 //
 //            // Call
-//            info.OnDrop(preUpdateCalculationContextNode, newOwnerGroupContextNode, DragOperations.Move, 0);
+//            info.OnDrop(preUpdateCalculationContextNode, newOwnerGroupContextNode, 0);
 //
 //            // Assert
 //            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
@@ -487,7 +487,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 //            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
 //
 //            // Call
-//            info.OnDrop(preUpdateDraggedItemContextNode, postUpdateDraggedItemContextNode, DragOperations.Move, newOwnerGroup.Children.Count);
+//            info.OnDrop(preUpdateDraggedItemContextNode, postUpdateDraggedItemContextNode, newOwnerGroup.Children.Count);
 //
 //            // Assert
 //            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
