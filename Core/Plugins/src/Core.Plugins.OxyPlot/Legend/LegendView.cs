@@ -50,7 +50,7 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 Text = pointData => OxyPlotResources.ChartData_Point_data_label,
                 Image = pointData => OxyPlotResources.PointsIcon,
-                CanDrag = (pointData, parentData) => DragOperations.Move,
+                CanDrag = (pointData, parentData) => true,
                 CanCheck = pointData => true,
                 IsChecked = pointData => pointData.IsVisible,
                 OnNodeChecked = PointDataOnNodeChecked
@@ -60,7 +60,7 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 Text = lineData => OxyPlotResources.ChartData_Line_data_label,
                 Image = lineData => OxyPlotResources.LineIcon,
-                CanDrag = (lineData, parentData) => DragOperations.Move,
+                CanDrag = (lineData, parentData) => true,
                 CanCheck = lineData => true,
                 IsChecked = lineData => lineData.IsVisible,
                 OnNodeChecked = LineDataOnNodeChecked
@@ -70,7 +70,7 @@ namespace Core.Plugins.OxyPlot.Legend
             {
                 Text = areaData => OxyPlotResources.ChartData_Area_data_label,
                 Image = areaData => OxyPlotResources.AreaIcon,
-                CanDrag = (areaData, parentData) => DragOperations.Move,
+                CanDrag = (areaData, parentData) => true,
                 CanCheck = areaData => true,
                 IsChecked = areaData => areaData.IsVisible,
                 OnNodeChecked = AreaDataOnNodeChecked

@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDrag_WithParentNodeDefaultBehavior_ReturnMove()
+        public void CanDrag_WithParentNodeDefaultBehavior_ReturnTrue()
         {
             // Setup
             var group = new PipingCalculationGroup();
@@ -87,14 +87,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                  pipingFailureMechanismMock);
 
             // Call
-            DragOperations supportedOperation = info.CanDrag(groupContext, null);
+            var canDrag = info.CanDrag(groupContext, null);
 
             // Assert
-            Assert.AreEqual(DragOperations.Move, supportedOperation);
+            Assert.IsTrue(canDrag);
         }
 
         [Test]
-        public void CanDrag_ParentIsPipingFailureMechanism_ReturnNone()
+        public void CanDrag_ParentIsPipingFailureMechanism_ReturnFalse()
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -108,10 +108,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                  pipingFailureMechanismMock);
 
             // Call
-            DragOperations supportedOperation = info.CanDrag(groupContext, pipingFailureMechanism);
+            var canDrag = info.CanDrag(groupContext, pipingFailureMechanism);
 
             // Assert
-            Assert.AreEqual(DragOperations.None, supportedOperation);
+            Assert.IsFalse(canDrag);
         }
 
         [Test]

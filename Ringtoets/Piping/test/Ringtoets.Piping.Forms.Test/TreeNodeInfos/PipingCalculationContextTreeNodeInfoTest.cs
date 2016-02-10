@@ -230,13 +230,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDrag_Always_ReturnMove()
+        public void CanDrag_Always_ReturnTrue()
         {
             // Call
-            DragOperations dragAllowed = info.CanDrag(null, null);
+            var canDrag = info.CanDrag(null, null);
 
             // Assert
-            Assert.AreEqual(DragOperations.Move, dragAllowed);
+            Assert.IsTrue(canDrag);
         }
 
         [Test]

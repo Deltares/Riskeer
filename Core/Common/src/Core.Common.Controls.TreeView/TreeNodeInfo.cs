@@ -133,7 +133,7 @@ namespace Core.Common.Controls.TreeView
         /// The first <c>object</c> parameter represents the data of the tree node.
         /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<object, object, DragOperations> CanDrag { get; set; }
+        public Func<object, object, bool> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -280,7 +280,7 @@ namespace Core.Common.Controls.TreeView
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<TData, object, DragOperations> CanDrag { get; set; }
+        public Func<TData, object, bool> CanDrag { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be dropped to another location.
@@ -362,7 +362,7 @@ namespace Core.Common.Controls.TreeView
                                     : (Action<object, object>) null,
                 CanDrag = treeNodeInfo.CanDrag != null
                               ? (tag, parentTag) => treeNodeInfo.CanDrag((TData) tag, parentTag)
-                              : (Func<object, object, DragOperations>) null,
+                              : (Func<object, object, bool>) null,
                 CanDrop = treeNodeInfo.CanDrop != null
                               ? (draggedTag, targetTag, dragOperations) => treeNodeInfo.CanDrop(draggedTag, targetTag, dragOperations)
                               : (Func<object, object, DragOperations, DragOperations>) null,

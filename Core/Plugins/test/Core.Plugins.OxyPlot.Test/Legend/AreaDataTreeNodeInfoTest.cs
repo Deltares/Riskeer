@@ -85,7 +85,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void CanDrag_Always_ReturnsDragOperationsMove()
+        public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
             var areaData = mocks.StrictMock<AreaData>(Enumerable.Empty<Tuple<double, double>>());
@@ -93,10 +93,10 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var dragOperations = info.CanDrag(areaData, null);
+            var canDrag = info.CanDrag(areaData, null);
 
             // Assert
-            Assert.AreEqual(DragOperations.Move, dragOperations);
+            Assert.IsTrue(canDrag);
 
             mocks.VerifyAll();
         }

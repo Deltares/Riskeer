@@ -151,13 +151,8 @@ namespace Core.Common.Controls.TreeView
             var treeNodeInfo = getTreeNodeInfoForData(sourceNode.Tag);
             var parentTag = sourceNode.Parent != null ? sourceNode.Parent.Tag : null;
 
-            DragOperations dragOperation = treeNodeInfo.CanDrag != null
-                                               ? treeNodeInfo.CanDrag(sourceNode.Tag, parentTag)
-                                               : DragOperations.None;
-
-            DragDropEffects effects = ToDragDropEffects(dragOperation);
-
-            if (effects == DragDropEffects.None)
+            var canDrag = treeNodeInfo.CanDrag != null && treeNodeInfo.CanDrag(sourceNode.Tag, parentTag);
+            if (!canDrag)
             {
                 return;
             }
@@ -172,7 +167,7 @@ namespace Core.Common.Controls.TreeView
                 dataObject.SetData(sourceNode.Tag.GetType(), sourceNode.Tag);
             }
 
-            treeView.DoDragDrop(dataObject, effects);
+            treeView.DoDragDrop(dataObject, DragDropEffects.Move);
         }
 
         public void HandleDragLeave(FormsTreeView treeView)
