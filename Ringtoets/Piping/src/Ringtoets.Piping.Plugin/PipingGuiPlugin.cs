@@ -759,7 +759,7 @@ namespace Ringtoets.Piping.Plugin
             return GetAsIPipingCalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
         }
 
-        private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, DragOperations operation, int position, TreeViewControl treeViewControl)
+        private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
             IPipingCalculationItem pipingCalculationItem = GetAsIPipingCalculationItem(droppedData);
             var originalOwnerContext = oldParentData as PipingCalculationGroupContext;

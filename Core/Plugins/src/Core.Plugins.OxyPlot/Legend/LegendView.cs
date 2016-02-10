@@ -164,7 +164,7 @@ namespace Core.Plugins.OxyPlot.Legend
             return draggedData is ChartData;
         }
 
-        private void BaseChartOnDrop(object droppedData, object newParentData, object oldParentData, DragOperations operation, int position, TreeViewControl control)
+        private void BaseChartOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
             var chartData = (ChartData) droppedData;
             var target = (ChartDataCollection) newParentData;

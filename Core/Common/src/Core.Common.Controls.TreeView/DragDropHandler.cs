@@ -80,7 +80,7 @@ namespace Core.Common.Controls.TreeView
 
             if (treeNodeInfo.OnDrop != null)
             {
-                treeNodeInfo.OnDrop(nodeDragging.Tag, nodeDragging.Parent.Tag, previousParentNode.Tag, ToDragOperation(e.Effect), dropAtLocation, treeViewControl);
+                treeNodeInfo.OnDrop(nodeDragging.Tag, nodeDragging.Parent.Tag, previousParentNode.Tag, dropAtLocation, treeViewControl);
             }
         }
 

@@ -211,7 +211,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             chartDataCollection.Attach(observer);
 
             // Call
-            info.OnDrop(chartData1, chartDataCollection, chartDataCollection, DragOperations.Move, position, treeViewControlMock);
+            info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControlMock);
 
             // Assert
             var reversedIndex = 2 - position;
@@ -246,7 +246,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => info.OnDrop(chartData1, chartDataCollection, chartDataCollection, DragOperations.Move, position, treeViewControlMock);
+            TestDelegate test = () => info.OnDrop(chartData1, chartDataCollection, chartDataCollection, position, treeViewControlMock);
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);

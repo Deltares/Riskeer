@@ -157,12 +157,11 @@ namespace Core.Common.Controls.TreeView
         /// The first <c>object</c> parameter represents the data of the tree node which was dropped.
         /// The second <c>object</c> parameter represents the data of the new parent tree node.
         /// The third <c>object</c> parameter represents the data of the former parent tree node.
-        /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
         /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
         /// </summary>
         /// <remarks>After dropping a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Action<object, object, object, DragOperations, int, TreeViewControl> OnDrop { get; set; }
+        public Action<object, object, object, int, TreeViewControl> OnDrop { get; set; }
     }
 
     /// <summary>
@@ -304,12 +303,11 @@ namespace Core.Common.Controls.TreeView
         /// The first <c>object</c> parameter represents the data of the tree node which was dropped.
         /// The second <c>object</c> parameter represents the data of the new parent tree node.
         /// The third <c>object</c> parameter represents the data of the former parent tree node.
-        /// The <see cref="DragOperations"/> parameter represents the type of drag operation that was performed.
         /// The <see cref="int"/> parameter represents the drop target index which the tree node was inserted at.
         /// The <see cref="TreeViewControl"/> parameter represents the current tree view control.
         /// </summary>
         /// <remarks>After dropping a node, the <see cref="OnDrop"/> function of the <see cref="TreeNodeInfo"/> of the drop target should be called.</remarks>
-        public Action<object, object, object, DragOperations, int, TreeViewControl> OnDrop { get; set; }
+        public Action<object, object, object, int, TreeViewControl> OnDrop { get; set; }
 
         /// <summary>
         /// This operator converts a <see cref="TreeNodeInfo{TData}"/> into a <see cref="TreeNodeInfo"/>.
@@ -370,8 +368,8 @@ namespace Core.Common.Controls.TreeView
                                 ? (draggedTag, targetTag) => treeNodeInfo.CanInsert(draggedTag, targetTag)
                                 : (Func<object, object, bool>) null,
                 OnDrop = treeNodeInfo.OnDrop != null
-                             ? (droppedTag, newParentTag, oldParentTag, dragOperations, index, treeViewControl) => treeNodeInfo.OnDrop(droppedTag, newParentTag, oldParentTag, dragOperations, index, treeViewControl)
-                             : (Action<object, object, object, DragOperations, int, TreeViewControl>) null
+                             ? (droppedTag, newParentTag, oldParentTag, index, treeViewControl) => treeNodeInfo.OnDrop(droppedTag, newParentTag, oldParentTag, index, treeViewControl)
+                             : (Action<object, object, object, int, TreeViewControl>) null
             };
         }
     }
