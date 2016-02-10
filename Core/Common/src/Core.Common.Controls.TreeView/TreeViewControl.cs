@@ -30,6 +30,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView.Properties;
+using Core.Common.Utils.Events;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Controls.TreeView
@@ -39,7 +40,7 @@ namespace Core.Common.Controls.TreeView
         public event EventHandler DataDoubleClick;
         public event EventHandler SelectedDataChanged;
         public event EventHandler NodeUpdated; // TODO; Way to explicit!
-        public event EventHandler<TreeNodeDataDeletedEventArgs> DataDeleted; // TODO; Way to explicit!
+        public event EventHandler<EventArgs<object>> DataDeleted; // TODO; Way to explicit!
 
         private const int maximumTextLength = 259;
         private const string stateImageLocationString = "StateImage";
@@ -541,7 +542,7 @@ namespace Core.Common.Controls.TreeView
         {
             if (DataDeleted != null)
             {
-                DataDeleted(this, new TreeNodeDataDeletedEventArgs(node.Tag));
+                DataDeleted(this, new EventArgs<object>(node.Tag));
             }
         }
 

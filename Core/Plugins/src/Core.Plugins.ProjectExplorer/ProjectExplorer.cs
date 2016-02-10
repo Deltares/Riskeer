@@ -26,6 +26,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Selection;
+using Core.Common.Utils.Events;
 using Core.Plugins.ProjectExplorer.Properties;
 
 namespace Core.Plugins.ProjectExplorer
@@ -152,9 +153,9 @@ namespace Core.Plugins.ProjectExplorer
             viewCommands.OpenViewForSelection();
         }
 
-        private void TreeViewControlDataDeleted(object sender, TreeNodeDataDeletedEventArgs e)
+        private void TreeViewControlDataDeleted(object sender, EventArgs<object> e)
         {
-            viewCommands.RemoveAllViewsForItem(e.DeletedDataInstance);
+            viewCommands.RemoveAllViewsForItem(e.Value);
         }
 
         private void GuiSelectionChanged(object sender, EventArgs e)
