@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;

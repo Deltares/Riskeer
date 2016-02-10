@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -76,6 +77,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestMapView.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TestView.Designer.cs">
+      <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -105,10 +112,6 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.Test\Core.Common.Test.csproj">
-      <Project>{E0990383-FB2E-47D1-99CD-9B9FA2929E5B}</Project>
-      <Name>Core.Common.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
       <Name>Core.Components.DotSpatial</Name>
@@ -125,7 +128,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="TestView.resx">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

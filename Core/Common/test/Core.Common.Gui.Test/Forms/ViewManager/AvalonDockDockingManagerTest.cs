@@ -1,13 +1,14 @@
-﻿using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewManager;
-using Core.Common.Test.TestObjects;
+﻿using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Utils.Reflection;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
+
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 
-namespace Core.Common.Test.Gui.Forms
+namespace Core.Common.Gui.Test.Forms.ViewManager
 {
     [TestFixture]
     public class AvalonDockDockingManagerTest
