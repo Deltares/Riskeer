@@ -60,13 +60,13 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
 
             // 1. Match property information based on ObjectType and on AdditionalDataCheck:
-            var filteredPropertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToArray();
+            var filteredPropertyInfos = propertyInfos.Where(pi => pi.DataType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToArray();
 
             // 2. Match property information based on object type inheritance, prioritizing most specialized object types:
-            filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.ObjectType);
+            filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.DataType);
 
             // 3. Match property information based on property type inheritance, prioritizing most specialized object property types:
-            filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.PropertyType);
+            filteredPropertyInfos = FilterPropertyInfoByTypeInheritance(filteredPropertyInfos, pi => pi.PropertyObjectType);
 
             if (filteredPropertyInfos.Length == 0)
             {

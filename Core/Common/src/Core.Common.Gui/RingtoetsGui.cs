@@ -586,7 +586,7 @@ namespace Core.Common.Gui
 
             documentViews = documentViewManager;
 
-            DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()), mainWindow);
+            DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
             applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
 

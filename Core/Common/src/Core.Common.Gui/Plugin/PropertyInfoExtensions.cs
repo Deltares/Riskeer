@@ -26,18 +26,19 @@ using Core.Common.Gui.PropertyBag;
 namespace Core.Common.Gui.Plugin
 {
     /// <summary>
-    /// Extensions of <see cref="PropertyInfo"/>
+    /// Extensions of <see cref="PropertyInfo"/>.
     /// </summary>
     public static class PropertyInfoExtensions
     {
         /// <summary>
-        /// Creates object properties based on the combination of <paramref name="propertyInfo"/> and <paramref name="sourceData"/>
+        /// Creates object properties based on the combination of <paramref name="propertyInfo"/>
+        /// and <paramref name="sourceData"/>.
         /// </summary>
-        /// <param name="propertyInfo">The property information used for creating the object properties</param>
-        /// <param name="sourceData">The data that will be set to the created object properties instance</param>
+        /// <param name="propertyInfo">The property information used to create the object properties.</param>
+        /// <param name="sourceData">Data that will be set to the created object properties instance.</param>
         public static IObjectProperties CreateObjectProperties(this PropertyInfo propertyInfo, object sourceData)
         {
-            var objectProperties = (IObjectProperties) Activator.CreateInstance(propertyInfo.PropertyType);
+            var objectProperties = (IObjectProperties) Activator.CreateInstance(propertyInfo.PropertyObjectType);
 
             objectProperties.Data = propertyInfo.GetObjectPropertiesData != null
                                         ? propertyInfo.GetObjectPropertiesData(sourceData)

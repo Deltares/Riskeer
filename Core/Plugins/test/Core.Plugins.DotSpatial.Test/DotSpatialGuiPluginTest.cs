@@ -107,7 +107,7 @@ namespace Core.Plugins.DotSpatial.Test
                 var view = new MapDataView();
 
                 // Call
-                var views = plugin.GetViewInfoObjects().ToArray();
+                var views = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(1, views.Length);

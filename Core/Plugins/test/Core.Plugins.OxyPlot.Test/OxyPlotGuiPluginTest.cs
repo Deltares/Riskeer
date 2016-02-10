@@ -106,7 +106,7 @@ namespace Core.Plugins.OxyPlot.Test
                 var view = new ChartDataView();
 
                 // Call
-                var views = plugin.GetViewInfoObjects().ToArray();
+                var views = plugin.GetViewInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(1, views.Length);

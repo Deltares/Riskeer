@@ -45,8 +45,8 @@ namespace Ringtoets.Integration.Plugin.Test
                 // assert
                 Assert.AreEqual(1, propertyInfos.Length);
 
-                var assessmentSectionProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(AssessmentSectionBase));
-                Assert.AreEqual(typeof(AssessmentSectionBaseProperties), assessmentSectionProperties.PropertyType);
+                var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(AssessmentSectionBase));
+                Assert.AreEqual(typeof(AssessmentSectionBaseProperties), assessmentSectionProperties.PropertyObjectType);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);

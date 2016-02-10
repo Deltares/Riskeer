@@ -42,7 +42,7 @@ namespace Core.Plugins.CommonTools
             yield return new PropertyInfo<Project, ProjectProperties>();
         }
 
-        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<RichTextFile, RichTextView>
             {

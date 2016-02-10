@@ -61,7 +61,7 @@ namespace Core.Plugins.OxyPlot
             activated = true;
         }
 
-        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<ChartDataCollection, ChartDataView>
             {

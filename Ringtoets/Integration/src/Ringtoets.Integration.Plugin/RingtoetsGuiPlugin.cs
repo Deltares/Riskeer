@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<AssessmentSectionBase, AssessmentSectionBaseProperties>();
         }
 
-        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<FailureMechanismContribution, FailureMechanismContributionView>
             {

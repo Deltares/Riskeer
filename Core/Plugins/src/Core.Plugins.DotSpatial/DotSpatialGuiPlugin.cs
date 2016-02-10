@@ -68,7 +68,7 @@ namespace Core.Plugins.DotSpatial
             base.Dispose();
         }
 
-        public override IEnumerable<ViewInfo> GetViewInfoObjects()
+        public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<MapData, MapDataView>
             {

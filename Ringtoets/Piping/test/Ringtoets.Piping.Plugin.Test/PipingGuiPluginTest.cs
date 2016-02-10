@@ -44,38 +44,38 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(6, propertyInfos.Length);
 
-                var pipingCalculationContextProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingCalculationContext));
-                Assert.AreEqual(typeof(PipingCalculationContextProperties), pipingCalculationContextProperties.PropertyType);
+                var pipingCalculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationContext));
+                Assert.AreEqual(typeof(PipingCalculationContextProperties), pipingCalculationContextProperties.PropertyObjectType);
                 Assert.IsNull(pipingCalculationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingCalculationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingCalculationContextProperties.AfterCreate);
 
-                var pipingCalculationGroupProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingCalculationGroupContext));
-                Assert.AreEqual(typeof(PipingCalculationGroupContextProperties), pipingCalculationGroupProperties.PropertyType);
+                var pipingCalculationGroupProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationGroupContext));
+                Assert.AreEqual(typeof(PipingCalculationGroupContextProperties), pipingCalculationGroupProperties.PropertyObjectType);
                 Assert.IsNull(pipingCalculationGroupProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingCalculationGroupProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingCalculationGroupProperties.AfterCreate);
 
-                var pipingInputContextProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingInputContext));
-                Assert.AreEqual(typeof(PipingInputContextProperties), pipingInputContextProperties.PropertyType);
+                var pipingInputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingInputContext));
+                Assert.AreEqual(typeof(PipingInputContextProperties), pipingInputContextProperties.PropertyObjectType);
                 Assert.IsNull(pipingInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingInputContextProperties.AfterCreate);
 
-                var pipingOutputProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingOutput));
-                Assert.AreEqual(typeof(PipingOutputProperties), pipingOutputProperties.PropertyType);
+                var pipingOutputProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingOutput));
+                Assert.AreEqual(typeof(PipingOutputProperties), pipingOutputProperties.PropertyObjectType);
                 Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
 
-                var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(RingtoetsPipingSurfaceLine));
-                Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyType);
+                var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.DataType == typeof(RingtoetsPipingSurfaceLine));
+                Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyObjectType);
                 Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);
 
-                var pipingSoilProfileProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingSoilProfile));
-                Assert.AreEqual(typeof(PipingSoilProfileProperties), pipingSoilProfileProperties.PropertyType);
+                var pipingSoilProfileProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingSoilProfile));
+                Assert.AreEqual(typeof(PipingSoilProfileProperties), pipingSoilProfileProperties.PropertyObjectType);
                 Assert.IsNull(pipingSoilProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSoilProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSoilProfileProperties.AfterCreate);

@@ -25,87 +25,93 @@ using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Plugin
 {
-    public class ViewInfo : ICloneable
+    /// <summary>
+    /// Information for creating a view for a particular data object.
+    /// </summary>
+    public class ViewInfo
     {
         /// <summary>
-        /// Type of the data for this viewInfo
+        /// Data type associated with this view info.
         /// </summary>
         public Type DataType { get; set; }
 
         /// <summary>
-        /// Type of the data of the view
+        /// Type of data used for the view.
         /// </summary>
         public Type ViewDataType { get; set; }
 
         /// <summary>
-        /// Type of the view
+        /// Type of the view.
         /// </summary>
         public Type ViewType { get; set; }
 
         /// <summary>
-        /// Description of the view (shown to the user when there is more then one view for an item) 
+        /// Description of the view.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Name the view should have
+        /// Method used to determine the name for the view. Function arguments:
         /// <list type="number">
-        ///     <item>The view to get a name for</item>
-        ///     <item>The data of the view</item>
-        ///     <item>out - the view name</item>
+        ///     <item>The view to get a name for.</item>
+        ///     <item>The data of the view.</item>
+        ///     <item>out - The name of the view.</item>
         /// </list>
         /// </summary>
         public Func<IView, object, string> GetViewName { get; set; }
 
         /// <summary>
-        /// Icon of the view (shown top left)
+        /// Icon of the view.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Additional data checking for matching the ViewInfo
+        /// Optional method, for checking if this view info object can be used for a given
+        /// data object. Function arguments:
         /// <list type="number">
-        ///     <item>Data as provided by the ViewProvider</item>
-        ///     <item>out - Check succeeded</item>
+        ///     <item>Data for the view.</item>
+        ///     <item>out - <c>true</c> is this view info can be used for the data, or false otherwise.</item>
         /// </list>
         /// </summary>
         public Func<object, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Function that returns the data for the view (when not set it returns T in <see cref="System.Func{T,TResult}"/>)
+        /// Optional method, used to convert data from type defined by <see cref="DataType"/>
+        /// to type defined by <see cref="ViewDataType"/>. Function Arguments:
         /// <list type="number">
-        ///     <item>object - Original data for the view</item>
-        ///     <item>out object - data for the view</item>
+        ///     <item>Original data.</item>
+        ///     <item>out - The converted data to be used in the view.</item>
         /// </list>
         /// </summary>
         public Func<object, object> GetViewData { get; set; }
 
         /// <summary>
-        /// Extra actions that can be performed on the view after creation
+        /// Optional method, to perform additional actions after the view has been created.
+        /// Function arguments:
         /// <list type="number">
-        ///     <item>View to modify</item>
-        ///     <item>Data for this viewinfo</item>
+        ///     <item>The created view instance.</item>
+        ///     <item>The data corresponding to this view info.</item>
         /// </list>
         /// </summary>
         public Action<IView, object> AfterCreate { get; set; }
 
         /// <summary>
-        /// Extra actions that can be performed on the view after the focus has been set on the view.
-        /// (Will be called after creation and when the user tries to open a view for data while there is an existing view
-        /// (and only the focus will be set to the existing view))
+        /// Optional method, to allow for extra actions to be performed after the view has
+        /// received focus. Function arguments:
         /// <list type="number">
-        ///     <item>View to modify</item>
-        ///     <item>Data for this viewinfo</item>
+        ///     <item>View to modify.</item>
+        ///     <item>Data for this view info.</item>
         /// </list>
         /// </summary>
         public Action<IView, object> OnActivateView { get; set; }
 
         /// <summary>
-        /// Override the default closing of the view constructed with this info
+        /// Optional method, such that actions can be performed or checked to see if the
+        /// view should be closed. Function arguments:
         /// <list type="number">
-        ///     <item>View to close</item>
-        ///     <item></item>
-        ///     <item>out - Close succeeded</item>
+        ///     <item>View to close.</item>
+        ///     <item>Data of the view.</item>
+        ///     <item>out - <c>true</c> is the closing action was successful, <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<IView, object, bool> CloseForData { get; set; }
@@ -114,15 +120,19 @@ namespace Core.Common.Gui.Plugin
         {
             return DataType + " : " + ViewDataType + " : " + ViewType;
         }
-
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
     }
 
+    /// <summary>
+    /// Information for creating a view for a particular data object.
+    /// </summary>
+    /// <typeparam name="TData">Data type associated with this view info.</typeparam>
+    /// <typeparam name="TViewData">Type of data used for the view.</typeparam>
+    /// <typeparam name="TView">Type of the view.</typeparam>
     public class ViewInfo<TData, TViewData, TView> where TView : IView
     {
+        /// <summary>
+        /// Data type associated with this view info.
+        /// </summary>
         public Type DataType
         {
             get
@@ -131,6 +141,9 @@ namespace Core.Common.Gui.Plugin
             }
         }
 
+        /// <summary>
+        /// Type of data used for the view.
+        /// </summary>
         public Type ViewDataType
         {
             get
@@ -139,6 +152,9 @@ namespace Core.Common.Gui.Plugin
             }
         }
 
+        /// <summary>
+        /// Type of the view.
+        /// </summary>
         public Type ViewType
         {
             get
@@ -147,22 +163,84 @@ namespace Core.Common.Gui.Plugin
             }
         }
 
+        /// <summary>
+        /// Description of the view.
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Method used to determine the name for the view. Function arguments:
+        /// <list type="number">
+        ///     <item>The view to get a name for.</item>
+        ///     <item>The data of the view.</item>
+        ///     <item>out - The name of the view.</item>
+        /// </list>
+        /// </summary>
         public Func<TView, TViewData, string> GetViewName { get; set; }
 
+        /// <summary>
+        /// Icon of the view.
+        /// </summary>
         public Image Image { get; set; }
 
+        /// <summary>
+        /// Optional method, for checking if this view info object can be used for a given
+        /// data object. Function arguments:
+        /// <list type="number">
+        ///     <item>Data for the view.</item>
+        ///     <item>out - <c>true</c> is this view info can be used for the data, or false otherwise.</item>
+        /// </list>
+        /// </summary>
         public Func<TData, bool> AdditionalDataCheck { get; set; }
 
+        /// <summary>
+        /// Optional method, used to convert data from type defined by <see cref="DataType"/>
+        /// to type defined by <see cref="ViewDataType"/>. Function Arguments:
+        /// <list type="number">
+        ///     <item>Original data.</item>
+        ///     <item>out - The converted data to be used in the view.</item>
+        /// </list>
+        /// </summary>
         public Func<TData, TViewData> GetViewData { get; set; }
 
+        /// <summary>
+        /// Optional method, to perform additional actions after the view has been created.
+        /// Function arguments:
+        /// <list type="number">
+        ///     <item>The created view instance.</item>
+        ///     <item>The data corresponding to this view info.</item>
+        /// </list>
+        /// </summary>
         public Action<TView, TData> AfterCreate { get; set; }
 
+        /// <summary>
+        /// Optional method, to allow for extra actions to be performed after the view has
+        /// received focus. Function arguments:
+        /// <list type="number">
+        ///     <item>View to modify.</item>
+        ///     <item>Data for this view info.</item>
+        /// </list>
+        /// </summary>
         public Action<TView, object> OnActivateView { get; set; }
 
+        /// <summary>
+        /// Optional method, such that actions can be performed or checked to see if the
+        /// view should be closed. Function arguments:
+        /// <list type="number">
+        ///     <item>View to close.</item>
+        ///     <item>Data of the view.</item>
+        ///     <item>out - <c>true</c> is the closing action was successful, <c>false</c> otherwise.</item>
+        /// </list>
+        /// </summary>
         public Func<TView, object, bool> CloseForData { get; set; }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="ViewInfo{TData, TViewData, TView}"/> to <see cref="ViewInfo"/>.
+        /// </summary>
+        /// <param name="viewInfo">The view information.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator ViewInfo(ViewInfo<TData, TViewData, TView> viewInfo)
         {
             return new ViewInfo
@@ -199,5 +277,10 @@ namespace Core.Common.Gui.Plugin
         }
     }
 
+    /// <summary>
+    /// Information for creating a view for a particular data object.
+    /// </summary>
+    /// <typeparam name="TData">Data type associated with this view info.</typeparam>
+    /// <typeparam name="TView">Type of the view.</typeparam>
     public class ViewInfo<TData, TView> : ViewInfo<TData, TData, TView> where TView : IView {}
 }

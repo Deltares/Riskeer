@@ -25,11 +25,11 @@ namespace Core.Plugins.CommonTools.Test
             // Assert
             Assert.AreEqual(2, propertyInfos.Count);
 
-            var projectPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(Project));
-            var urlPropertyInfo = propertyInfos.First(pi => pi.ObjectType == typeof(WebLink));
+            var projectPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(Project));
+            var urlPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(WebLink));
 
-            Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyType);
-            Assert.AreEqual(typeof(WebLinkProperties), urlPropertyInfo.PropertyType);
+            Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyObjectType);
+            Assert.AreEqual(typeof(WebLinkProperties), urlPropertyInfo.PropertyObjectType);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Core.Plugins.CommonTools.Test
             var guiPlugin = new CommonToolsGuiPlugin();
 
             // Call
-            var viewInfos = guiPlugin.GetViewInfoObjects().ToArray();
+            var viewInfos = guiPlugin.GetViewInfos().ToArray();
 
             // Assert
             Assert.NotNull(viewInfos);
@@ -63,7 +63,7 @@ namespace Core.Plugins.CommonTools.Test
             // Setup
             var guiPlugin = new CommonToolsGuiPlugin();
 
-            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(RichTextFile));
+            var info = guiPlugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
             
             // Call
             var name = info.GetViewName(null, null);
@@ -79,7 +79,7 @@ namespace Core.Plugins.CommonTools.Test
             var expected = "SomeName";
             var guiPlugin = new CommonToolsGuiPlugin();
 
-            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(RichTextFile));
+            var info = guiPlugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
             var richTextFile = new RichTextFile
             {
                 Name = expected
@@ -98,7 +98,7 @@ namespace Core.Plugins.CommonTools.Test
             // Setup
             var guiPlugin = new CommonToolsGuiPlugin();
 
-            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(WebLink));
+            var info = guiPlugin.GetViewInfos().First(vi => vi.DataType == typeof(WebLink));
 
             // Call
             var name = info.GetViewName(null, null);
@@ -114,7 +114,7 @@ namespace Core.Plugins.CommonTools.Test
             var expected = "SomeName";
             var guiPlugin = new CommonToolsGuiPlugin();
 
-            var info = guiPlugin.GetViewInfoObjects().First(vi => vi.DataType == typeof(WebLink));
+            var info = guiPlugin.GetViewInfos().First(vi => vi.DataType == typeof(WebLink));
             var webLink = new WebLink(expected, null);
 
             // Call

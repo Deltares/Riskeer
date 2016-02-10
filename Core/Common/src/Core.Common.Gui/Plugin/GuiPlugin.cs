@@ -50,17 +50,17 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Activates the gui plugin.
+        /// Activates the plugin.
         /// </summary>
         public virtual void Activate() {}
 
         /// <summary>
-        /// Deactivates the gui plugin.
+        /// Deactivates the plugin.
         /// </summary>
         public virtual void Deactivate() {}
 
         /// <summary>
-        /// Property info objects which can be provided by the gui plugin.
+        /// Returns all <see cref="PropertyInfo"/> instances provided for data of this plugin.
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -68,22 +68,27 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// View information objects which can be provided by the gui plugin.
+        /// Returns all <see cref="ViewInfo"/> instances provided for data of this plugin.
         /// </summary>
-        public virtual IEnumerable<ViewInfo> GetViewInfoObjects()
+        public virtual IEnumerable<ViewInfo> GetViewInfos()
         {
             yield break;
         }
 
         /// <summary>
-        /// This method returns an enumeration of <see cref="TreeNodeInfo"/>.
+        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of this plugin.
         /// </summary>
-        /// <returns>The enumeration of <see cref="TreeNodeInfo"/> provided by the <see cref="GuiPlugin"/>.</returns>
         public virtual IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield break;
         }
 
+        /// <summary>
+        /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of
+        /// some parent data object.
+        /// </summary>
+        /// <param name="dataObject">The parent data object.</param>
+        /// <returns>Sequence of child data.</returns>
         public virtual IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
         {
             yield break;
