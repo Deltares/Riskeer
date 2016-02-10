@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 case DragDropTestMethod.CanDrop:
                     // Call
-                    DragOperations supportedOperations = info.CanDrop(draggedItemContext, targetGroupContext, DragOperations.Move);
+                    DragOperations supportedOperations = info.CanDrop(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.AreEqual(DragOperations.Move, supportedOperations);
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 case DragDropTestMethod.CanDrop:
                     // Call
-                    DragOperations supportedOperations = info.CanDrop(draggedItemContext, targetGroupContext, DragOperations.Move);
+                    DragOperations supportedOperations = info.CanDrop(draggedItemContext, targetGroupContext);
 
                     // Assert
                     Assert.AreEqual(DragOperations.None, supportedOperations);

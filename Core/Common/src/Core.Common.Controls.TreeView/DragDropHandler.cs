@@ -116,7 +116,7 @@ namespace Core.Common.Controls.TreeView
             var treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
 
             DragOperations allowedOperations = treeNodeInfo.CanDrop != null
-                                                   ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag, ToDragOperation(e.AllowedEffect))
+                                                   ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag)
                                                    : DragOperations.None;
 
             e.Effect = ToDragDropEffects(allowedOperations);
@@ -129,7 +129,7 @@ namespace Core.Common.Controls.TreeView
             // Determine whether or not the node can be dropped based on the allowed operations.
             // A node can also be a valid drop target if it is the root item (nodeDragging.Parent == null).
             var dragOperations = treeNodeInfo.CanDrop != null
-                                     ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag, allowedOperations)
+                                     ? treeNodeInfo.CanDrop(nodeDragging.Tag, nodeDropTarget.Tag)
                                      : DragOperations.None;
 
             if (DragOperations.None != dragOperations)
@@ -202,11 +202,6 @@ namespace Core.Common.Controls.TreeView
                 placeHolderGraphics.Dispose();
                 placeHolderGraphics = null;
             }
-        }
-
-        private DragOperations ToDragOperation(DragDropEffects dragDropEffects)
-        {
-            return (DragOperations) Enum.Parse(typeof(DragOperations), dragDropEffects.ToString());
         }
 
         private bool IsChildOf(TreeNode childNode, TreeNode node)

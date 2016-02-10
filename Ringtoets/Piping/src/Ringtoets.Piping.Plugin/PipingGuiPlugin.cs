@@ -702,11 +702,11 @@ namespace Ringtoets.Piping.Plugin
             return true;
         }
 
-        private DragOperations PipingCalculationGroupContextCanDrop(object draggedData, object targetData, DragOperations validOperations)
+        private DragOperations PipingCalculationGroupContextCanDrop(object draggedData, object targetData)
         {
             if (GetAsIPipingCalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData))
             {
-                return validOperations;
+                return DragOperations.Move;
             }
 
             return DragOperations.None;

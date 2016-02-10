@@ -111,9 +111,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        [TestCase(DragOperations.Move)]
-        [TestCase(DragOperations.None)]
-        public void CanDrop_SourceNodeTagIsNoChartData_ReturnsDragOperationsNone(DragOperations validDragOperations)
+        public void CanDrop_SourceNodeTagIsNoChartData_ReturnsDragOperationsNone()
         {
             // Setup
             var chartDataCollection = mocks.StrictMock<ChartDataCollection>(new List<ChartData>());
@@ -121,7 +119,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var validOperations = info.CanDrop(new object(), chartDataCollection, validDragOperations);
+            var validOperations = info.CanDrop(new object(), chartDataCollection);
 
             // Assert
             Assert.AreEqual(DragOperations.None, validOperations);
@@ -130,9 +128,7 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        [TestCase(DragOperations.Move)]
-        [TestCase(DragOperations.None)]
-        public void CanDrop_SourceNodeTagIsChartData_ReturnsGivenDragOperations(DragOperations validDragOperations)
+        public void CanDrop_SourceNodeTagIsChartData_ReturnsDragOperationsMove()
         {
             // Setup
             var chartData = mocks.StrictMock<ChartData>();
@@ -141,10 +137,10 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             mocks.ReplayAll();
 
             // Call
-            var validOperations = info.CanDrop(chartData, chartDataCollection, validDragOperations);
+            var validOperations = info.CanDrop(chartData, chartDataCollection);
 
             // Assert
-            Assert.AreEqual(validDragOperations, validOperations);
+            Assert.AreEqual(DragOperations.Move, validOperations);
 
             mocks.VerifyAll();
         }
