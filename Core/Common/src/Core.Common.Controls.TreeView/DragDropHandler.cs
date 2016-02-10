@@ -22,7 +22,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Controls.Forms;
+using FormsTreeView = System.Windows.Forms.TreeView;
 
 namespace Core.Common.Controls.TreeView
 {
@@ -35,7 +35,7 @@ namespace Core.Common.Controls.TreeView
         private TreeNode lastPlaceholderNode;
         private Graphics placeHolderGraphics;
 
-        public void HandleDragDrop(TreeViewControl treeViewControl, DoubleBufferedTreeView treeView, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
+        public void HandleDragDrop(TreeViewControl treeViewControl, FormsTreeView treeView, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             ClearPlaceHolders(treeView);
 
@@ -84,7 +84,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void HandleDragOver(DoubleBufferedTreeView treeView, object sender, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
+        public void HandleDragOver(FormsTreeView treeView, object sender, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             if (lastDragOverPoint.X == e.X && lastDragOverPoint.Y == e.Y)
             {
@@ -144,7 +144,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        public void HandleItemDrag(DoubleBufferedTreeView treeView, ItemDragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
+        public void HandleItemDrag(FormsTreeView treeView, ItemDragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             // gather allowed effects for the current item.
             var sourceNode = (TreeNode) e.Item;
@@ -175,12 +175,12 @@ namespace Core.Common.Controls.TreeView
             treeView.DoDragDrop(dataObject, effects);
         }
 
-        public void HandleDragLeave(DoubleBufferedTreeView treeView)
+        public void HandleDragLeave(FormsTreeView treeView)
         {
             ClearPlaceHolders(treeView);
         }
 
-        private void DrawPlaceholder(DoubleBufferedTreeView treeView, TreeNode node, PlaceholderLocation location)
+        private void DrawPlaceholder(FormsTreeView treeView, TreeNode node, PlaceholderLocation location)
         {
             if (lastPlaceholderNode == node && lastPlaceholderLocation == location)
             {
@@ -196,7 +196,7 @@ namespace Core.Common.Controls.TreeView
             node.DrawPlaceHolder(location, treeView.CreateGraphics());
         }
 
-        private void ClearPlaceHolders(DoubleBufferedTreeView treeView)
+        private void ClearPlaceHolders(FormsTreeView treeView)
         {
             if (placeHolderGraphics != null)
             {
@@ -231,7 +231,7 @@ namespace Core.Common.Controls.TreeView
 
         private static void ScrollIntoView(Point point, TreeNode nodeOver, object sender)
         {
-            var treeView = sender as DoubleBufferedTreeView;
+            var treeView = sender as FormsTreeView;
             if (treeView == null)
             {
                 return;
@@ -255,7 +255,7 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private PlaceholderLocation GetPlaceHoldersLocation(DoubleBufferedTreeView treeView, TreeNode nodeDragging, TreeNode nodeOver, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
+        private PlaceholderLocation GetPlaceHoldersLocation(FormsTreeView treeView, TreeNode nodeDragging, TreeNode nodeOver, DragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             var loc = PlaceholderLocation.None;
             int offsetY = treeView.PointToClient(Cursor.Position).Y - nodeOver.Bounds.Top;

@@ -41,14 +41,16 @@ namespace Core.Common.Controls.TreeView
         public event EventHandler NodeUpdated; // TODO; Way to explicit!
         public event EventHandler<TreeNodeDataDeletedEventArgs> DataDeleted; // TODO; Way to explicit!
 
-        private readonly Dictionary<Type, TreeNodeInfo> tagTypeTreeNodeInfoLookup = new Dictionary<Type, TreeNodeInfo>();
         private const int maximumTextLength = 259;
-        private readonly Dictionary<TreeNode, TreeNodeObserver> treeNodeObserverLookup = new Dictionary<TreeNode, TreeNodeObserver>();
-        private object data;
         private const string stateImageLocationString = "StateImage";
         private const int uncheckedCheckBoxStateImageIndex = 0;
         private const int checkedCheckBoxStateImageIndex = 1;
+
         private readonly DragDropHandler dragDropHandler = new DragDropHandler();
+        private readonly Dictionary<Type, TreeNodeInfo> tagTypeTreeNodeInfoLookup = new Dictionary<Type, TreeNodeInfo>();
+        private readonly Dictionary<TreeNode, TreeNodeObserver> treeNodeObserverLookup = new Dictionary<TreeNode, TreeNodeObserver>();
+
+        private object data;
 
         public TreeViewControl()
         {
@@ -270,20 +272,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private Image CreateCheckBoxGlyph(CheckBoxState state)
-        {
-            var result = new Bitmap(16, 16);
-
-            using (var g = Graphics.FromImage(result))
-            {
-                Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
-
-                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width)/2, (result.Height - glyphSize.Height)/2), state);
-            }
-
-            return result;
-        }
-
         /// <summary>
         /// This method searches all nodes in the tree view for a node with a matching tag.
         /// </summary>
@@ -305,6 +293,44 @@ namespace Core.Common.Controls.TreeView
                            .Cast<TreeNode>()
                            .Select(n => GetNodeByTag(n, tag))
                            .FirstOrDefault(node => node != null);
+        }
+
+        private void AddRootNode()
+        {
+            var rootNode = new TreeNode
+            {
+                Tag = data
+            };
+
+            UpdateNode(rootNode);
+
+            if (rootNode.Nodes.Count > 0)
+            {
+                rootNode.Expand();
+            }
+
+            treeView.Nodes.Add(rootNode);
+
+            treeNodeObserverLookup.Add(rootNode, new TreeNodeObserver(rootNode, this));
+        }
+
+        private TreeNode CreateTreeNode(TreeNode parentNode, object nodeData)
+        {
+            var newNode = new TreeNode
+            {
+                Tag = nodeData
+            };
+
+            if (treeView.CheckBoxes)
+            {
+                newNode.Checked = parentNode.Checked;
+            }
+
+            UpdateNode(newNode);
+
+            treeNodeObserverLookup.Add(newNode, new TreeNodeObserver(newNode, this));
+
+            return newNode;
         }
 
         /// <summary>
@@ -355,117 +381,6 @@ namespace Core.Common.Controls.TreeView
             }
 
             OnNodeUpdated(treeNode);
-        }
-
-        private void SetTreeNodeImageKey(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
-        {
-            if (treeNodeInfo.Image != null)
-            {
-                var image = treeNodeInfo.Image(treeNode.Tag);
-                var imageCollection = treeView.ImageList.Images;
-                var imageKey = GetImageHash(image);
-                if (imageCollection.ContainsKey(imageKey))
-                {
-                    treeNode.ImageKey = imageKey;
-                    treeNode.SelectedImageKey = imageKey;
-                }
-                else
-                {
-                    treeNode.ImageKey = imageKey;
-                    treeNode.SelectedImageKey = imageKey;
-                    imageCollection.Add(imageKey, image);
-                }
-            }
-        }
-
-        private string GetImageHash(Image image)
-        {
-            var stream = new MemoryStream();
-            image.Save(stream, image.RawFormat);
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] hash = md5.ComputeHash(stream.ToArray());
-            return Encoding.UTF8.GetString(hash);
-        }
-
-        private void AddRootNode()
-        {
-            var rootNode = new TreeNode
-            {
-                Tag = data
-            };
-
-            UpdateNode(rootNode);
-
-            if (rootNode.Nodes.Count > 0)
-            {
-                rootNode.Expand();
-            }
-
-            treeView.Nodes.Add(rootNode);
-
-            treeNodeObserverLookup.Add(rootNode, new TreeNodeObserver(rootNode, this));
-        }
-
-        private TreeNode CreateTreeNode(TreeNode parentNode, object nodeData)
-        {
-            var newNode = new TreeNode
-            {
-                Tag = nodeData
-            };
-
-            if (treeView.CheckBoxes)
-            {
-                newNode.Checked = parentNode.Checked;
-            }
-
-            UpdateNode(newNode);
-
-            treeNodeObserverLookup.Add(newNode, new TreeNodeObserver(newNode, this));
-
-            return newNode;
-        }
-
-        private void RemoveAllNodes()
-        {
-            foreach (var treeNode in treeNodeObserverLookup.Keys)
-            {
-                treeNodeObserverLookup[treeNode].Dispose();
-            }
-
-            treeNodeObserverLookup.Clear();
-            treeView.Nodes.Clear();
-        }
-
-        private void RemoveTreeNodeFromLookupRecursively(TreeNode treeNode)
-        {
-            treeNodeObserverLookup[treeNode].Dispose();
-            treeNodeObserverLookup.Remove(treeNode);
-
-            foreach (TreeNode childNode in treeNode.Nodes)
-            {
-                RemoveTreeNodeFromLookupRecursively(childNode);
-            }
-        }
-
-        /// <summary>
-        /// This method tries to return a <see cref="TreeNodeInfo"/> object corresponding to the provided data.
-        /// </summary>
-        /// <param name="item">The data to find the corresponding <see cref="TreeNodeInfo"/> for.</param>
-        /// <returns>The <see cref="TreeNodeInfo"/> for the provided data or <c>null</c> if no corresponding <see cref="TreeNodeInfo"/> was found.</returns>
-        private TreeNodeInfo GetTreeNodeInfoForData(object item)
-        {
-            if (item == null)
-            {
-                return null;
-            }
-
-            TreeNodeInfo treeNodeInfo;
-
-            // Try to find an exact match
-            tagTypeTreeNodeInfoLookup.TryGetValue(item.GetType(), out treeNodeInfo);
-
-            // Try to match based on class hierarchy
-            return treeNodeInfo ?? tagTypeTreeNodeInfoLookup.FirstOrDefault(kvp => kvp.Key.IsInstanceOfType(item)).Value;
         }
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
@@ -522,9 +437,96 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
+        private void RemoveAllNodes()
+        {
+            foreach (var treeNode in treeNodeObserverLookup.Keys)
+            {
+                treeNodeObserverLookup[treeNode].Dispose();
+            }
+
+            treeNodeObserverLookup.Clear();
+            treeView.Nodes.Clear();
+        }
+
+        private void RemoveTreeNodeFromLookupRecursively(TreeNode treeNode)
+        {
+            treeNodeObserverLookup[treeNode].Dispose();
+            treeNodeObserverLookup.Remove(treeNode);
+
+            foreach (TreeNode childNode in treeNode.Nodes)
+            {
+                RemoveTreeNodeFromLookupRecursively(childNode);
+            }
+        }
+
+        /// <summary>
+        /// This method tries to return a <see cref="TreeNodeInfo"/> object corresponding to the provided data.
+        /// </summary>
+        /// <param name="item">The data to find the corresponding <see cref="TreeNodeInfo"/> for.</param>
+        /// <returns>The <see cref="TreeNodeInfo"/> for the provided data or <c>null</c> if no corresponding <see cref="TreeNodeInfo"/> was found.</returns>
+        private TreeNodeInfo GetTreeNodeInfoForData(object item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+
+            TreeNodeInfo treeNodeInfo;
+
+            // Try to find an exact match
+            tagTypeTreeNodeInfoLookup.TryGetValue(item.GetType(), out treeNodeInfo);
+
+            // Try to match based on class hierarchy
+            return treeNodeInfo ?? tagTypeTreeNodeInfoLookup.FirstOrDefault(kvp => kvp.Key.IsInstanceOfType(item)).Value;
+        }
+
         private static object GetParentTag(TreeNode treeNode)
         {
             return treeNode.Parent != null ? treeNode.Parent.Tag : null;
+        }
+
+        private Image CreateCheckBoxGlyph(CheckBoxState state)
+        {
+            var result = new Bitmap(16, 16);
+
+            using (var g = Graphics.FromImage(result))
+            {
+                Size glyphSize = CheckBoxRenderer.GetGlyphSize(g, state);
+
+                CheckBoxRenderer.DrawCheckBox(g, new Point((result.Width - glyphSize.Width)/2, (result.Height - glyphSize.Height)/2), state);
+            }
+
+            return result;
+        }
+
+        private void SetTreeNodeImageKey(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
+        {
+            if (treeNodeInfo.Image != null)
+            {
+                var image = treeNodeInfo.Image(treeNode.Tag);
+                var imageCollection = treeView.ImageList.Images;
+                var imageKey = GetImageHash(image);
+                if (imageCollection.ContainsKey(imageKey))
+                {
+                    treeNode.ImageKey = imageKey;
+                    treeNode.SelectedImageKey = imageKey;
+                }
+                else
+                {
+                    treeNode.ImageKey = imageKey;
+                    treeNode.SelectedImageKey = imageKey;
+                    imageCollection.Add(imageKey, image);
+                }
+            }
+        }
+
+        private string GetImageHash(Image image)
+        {
+            var stream = new MemoryStream();
+            image.Save(stream, image.RawFormat);
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] hash = md5.ComputeHash(stream.ToArray());
+            return Encoding.UTF8.GetString(hash);
         }
 
         private void OnNodeUpdated(TreeNode treeNode)
