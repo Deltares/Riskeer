@@ -61,7 +61,7 @@ namespace Core.Common.Controls.TreeView
             RemovePlaceHolder(treeView);
 
             var point = treeView.PointToClient(new Point(e.X, e.Y));
-            var nodeOver = treeView.GetNodeAt(point);
+            TreeNode nodeOver = treeView.GetNodeAt(point);
             var draggedNode = (TreeNode) e.Data.GetData(typeof(TreeNode));
 
             if (nodeOver == null)
@@ -69,20 +69,10 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            // Handle dragged items which were originally higher up in the tree under the same parent (all indices shift by one)
-            if (e.Effect.Equals(DragDropEffects.Move) && draggedNode.Parent == nodeDropTarget && nodeOver.Index > draggedNode.Index && dropAtLocation > 0)
-            {
-                dropAtLocation--;
-            }
+            SetDropAtLocation(e, draggedNode, nodeOver);
 
-            // Ensure the drop location is never < 0
-            if (dropAtLocation < 0)
-            {
-                dropAtLocation = 0;
-            }
-
-            var treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
-            var formerParentNode = draggedNode.Parent;
+            TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
+            TreeNode formerParentNode = draggedNode.Parent;
 
             // Move the tree node
             formerParentNode.Nodes.Remove(draggedNode);
@@ -116,10 +106,10 @@ namespace Core.Common.Controls.TreeView
             lastDragOverPoint = new Point(e.X, e.Y);
 
             var point = treeView.PointToClient(lastDragOverPoint);
-            var nodeOver = treeView.GetNodeAt(point);
+            TreeNode nodeOver = treeView.GetNodeAt(point);
             var draggedNode = (TreeNode) e.Data.GetData(typeof(TreeNode));
 
-            if (nodeOver == null || nodeOver == draggedNode || IsChildOf(nodeOver, draggedNode))
+            if (nodeOver == null || nodeOver == draggedNode || IsDropTargetChildOfDraggedNode(nodeOver, draggedNode))
             {
                 RemovePlaceHolder(treeView);
 
@@ -128,14 +118,14 @@ namespace Core.Common.Controls.TreeView
 
             ScrollIntoView(point, nodeOver, treeView);
 
-            var placeholderLocation = GetPlaceHoldersLocation(treeView, draggedNode, nodeOver, e, getTreeNodeInfoForData);
+            PlaceholderLocation placeholderLocation = GetPlaceHoldersLocation(treeView, draggedNode, nodeOver, e, getTreeNodeInfoForData);
 
             if (nodeDropTarget == null)
             {
                 return;
             }
 
-            var treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
+            TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeDropTarget.Tag);
             var canDrop = treeNodeInfo.CanDrop != null && treeNodeInfo.CanDrop(draggedNode.Tag, nodeDropTarget.Tag);
 
             e.Effect = canDrop ? DragDropEffects.Move : DragDropEffects.None;
@@ -166,11 +156,10 @@ namespace Core.Common.Controls.TreeView
         public void HandleItemDrag(FormsTreeView treeView, ItemDragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             var draggedNode = (TreeNode) e.Item;
-            var treeNodeInfo = getTreeNodeInfoForData(draggedNode.Tag);
+            TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(draggedNode.Tag);
             var parentTag = draggedNode.Parent != null ? draggedNode.Parent.Tag : null;
 
-            var canDrag = treeNodeInfo.CanDrag != null && treeNodeInfo.CanDrag(draggedNode.Tag, parentTag);
-            if (!canDrag)
+            if (treeNodeInfo.CanDrag == null || !treeNodeInfo.CanDrag(draggedNode.Tag, parentTag))
             {
                 return;
             }
@@ -190,6 +179,21 @@ namespace Core.Common.Controls.TreeView
         public void HandleDragLeave(FormsTreeView treeView)
         {
             RemovePlaceHolder(treeView);
+        }
+
+        private void SetDropAtLocation(DragEventArgs e, TreeNode draggedNode, TreeNode nodeOver)
+        {
+            // Handle dragged items which were originally higher up in the tree under the same parent (all indices shift by one)
+            if (e.Effect.Equals(DragDropEffects.Move) && draggedNode.Parent == nodeDropTarget && nodeOver.Index > draggedNode.Index && dropAtLocation > 0)
+            {
+                dropAtLocation--;
+            }
+
+            // Ensure the drop location is never < 0
+            if (dropAtLocation < 0)
+            {
+                dropAtLocation = 0;
+            }
         }
 
         private void CreatePlaceholder(FormsTreeView treeView, TreeNode node, PlaceholderLocation placeHolderLocation)
@@ -221,16 +225,16 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private static bool IsChildOf(TreeNode childNode, TreeNode node)
+        private static bool IsDropTargetChildOfDraggedNode(TreeNode dropTarget, TreeNode draggedNode)
         {
-            while (childNode != null && childNode.Parent != null)
+            while (dropTarget != null && dropTarget.Parent != null)
             {
-                if (childNode.Parent.Equals(node))
+                if (dropTarget.Parent.Equals(draggedNode))
                 {
                     return true;
                 }
 
-                childNode = childNode.Parent; // Walk up the tree
+                dropTarget = dropTarget.Parent; // Walk up the tree
             }
 
             return false;
@@ -239,19 +243,20 @@ namespace Core.Common.Controls.TreeView
         private static void ScrollIntoView(Point point, TreeNode nodeOver, FormsTreeView treeView)
         {
             int delta = treeView.Height - point.Y;
+            double halfTreeViewHeight = treeView.Height/2.0;
 
-            if (delta < treeView.Height/2 && delta > 0)
+            if (delta < halfTreeViewHeight && delta > 0)
             {
-                var nextVisibleNode = nodeOver.NextVisibleNode;
+                TreeNode nextVisibleNode = nodeOver.NextVisibleNode;
                 if (nextVisibleNode != null)
                 {
                     nextVisibleNode.EnsureVisible();
                 }
             }
 
-            if (delta > treeView.Height/2 && delta < treeView.Height)
+            if (delta > halfTreeViewHeight && delta < treeView.Height)
             {
-                var previousVisibleNode = nodeOver.PrevVisibleNode;
+                TreeNode previousVisibleNode = nodeOver.PrevVisibleNode;
                 if (previousVisibleNode != null)
                 {
                     previousVisibleNode.EnsureVisible();
@@ -268,7 +273,7 @@ namespace Core.Common.Controls.TreeView
             {
                 if (nodeOver.Parent != null)
                 {
-                    var treeNodeInfo = getTreeNodeInfoForData(nodeOver.Parent.Tag);
+                    TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeOver.Parent.Tag);
                     if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Tag))
                     {
                         nodeDropTarget = nodeOver.Parent;
@@ -293,7 +298,7 @@ namespace Core.Common.Controls.TreeView
                      && offsetY > nodeOver.Bounds.Height - nodeOver.Bounds.Height/3
                      && nodeDragging.PrevNode != nodeOver)
             {
-                var treeNodeInfo = getTreeNodeInfoForData(nodeOver.Parent.Tag);
+                TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(nodeOver.Parent.Tag);
                 if (treeNodeInfo.CanInsert != null && treeNodeInfo.CanInsert(nodeDragging.Tag, nodeOver.Tag))
                 {
                     nodeDropTarget = nodeOver.Parent;

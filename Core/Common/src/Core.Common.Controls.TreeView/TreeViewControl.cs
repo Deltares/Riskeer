@@ -501,11 +501,11 @@ namespace Core.Common.Controls.TreeView
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
         {
             var newTreeNodes = new Dictionary<int, TreeNode>();
-            var outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().ToList();
-            var currentTreeNodesPerTag = treeNode.Nodes.Cast<TreeNode>().ToList().ToDictionary(ctn => ctn.Tag, ctn => ctn);
-            var newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
-                                          ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
-                                          : new object[0];
+            List<TreeNode> outdatedTreeNodes = treeNode.Nodes.Cast<TreeNode>().ToList();
+            Dictionary<object, TreeNode> currentTreeNodesPerTag = outdatedTreeNodes.ToDictionary(ctn => ctn.Tag, ctn => ctn);
+            object[] newChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
+                                               ? treeNodeInfo.ChildNodeObjects(treeNode.Tag)
+                                               : new object[0];
 
             // Create a list of outdated tree nodes and new tree nodes
             for (var i = 0; i < newChildNodeObjects.Length; i++)
@@ -537,6 +537,11 @@ namespace Core.Common.Controls.TreeView
             }
 
             // If relevant, set selection to the last of the added nodes
+            SelectLastNewNode(newTreeNodes);
+        }
+
+        private void SelectLastNewNode(Dictionary<int, TreeNode> newTreeNodes)
+        {
             var lastAddedNodeToSetSelectionTo = newTreeNodes.Values.LastOrDefault(node =>
             {
                 var dataObject = node.Tag;
