@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // Setup
             var calculation = new PipingCalculation
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
+        public void ChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
         {
             // Setup
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
+        public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
         {
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
@@ -269,7 +269,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_PipingCalculationWithOutput_ContextMenuItemClearOutputEnabled()
+        public void ContextMenuStrip_PipingCalculationWithOutput_ContextMenuItemClearOutputEnabled()
         {
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();

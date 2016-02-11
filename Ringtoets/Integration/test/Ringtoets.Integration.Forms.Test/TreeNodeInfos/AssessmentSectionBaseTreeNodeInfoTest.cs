@@ -226,8 +226,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
     }
 
-    public class TestAssessmentSectionBase : AssessmentSectionBase {
-
+    public class TestAssessmentSectionBase : AssessmentSectionBase
+    {
         private readonly IEnumerable<IFailureMechanism> failureMechanisms;
 
         public TestAssessmentSectionBase(FailureMechanismContribution contribution, IEnumerable<IFailureMechanism> failureMechanisms)

@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();

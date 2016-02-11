@@ -291,9 +291,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van deze berekening wilt wissen?.
         /// </summary>
-        public static string PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output {
+        public static string PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output {
             get {
-                return ResourceManager.GetString("PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output", resourceCulture);
             }
         }
         
@@ -399,9 +399,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u alle uitvoer wilt wissen?.
         /// </summary>
-        public static string PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output {
+        public static string PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output {
             get {
-                return ResourceManager.GetString("PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output", resourceCulture);
             }
         }
         

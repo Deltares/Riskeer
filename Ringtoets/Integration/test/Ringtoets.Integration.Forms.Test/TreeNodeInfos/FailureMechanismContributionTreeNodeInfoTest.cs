@@ -70,7 +70,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {

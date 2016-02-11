@@ -517,13 +517,13 @@
   <data name="PipingCalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
     <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output" xml:space="preserve">
+  <data name="PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
   </data>
   <data name="PipingCalculationGroup_Validate_All_ToolTip" xml:space="preserve">
     <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output" xml:space="preserve">
+  <data name="PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output" xml:space="preserve">
     <value>Weet u zeker dat u de uitvoer van deze berekening wilt wissen?</value>
   </data>
   <data name="Clear_output_ToolTip" xml:space="preserve">

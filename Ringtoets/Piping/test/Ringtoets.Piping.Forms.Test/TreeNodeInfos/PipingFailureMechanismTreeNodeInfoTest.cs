@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetChildNodeObjects_Always_ReturnChildDataNodes()
+        public void ChildNodeObjects_Always_ReturnChildDataNodes()
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();

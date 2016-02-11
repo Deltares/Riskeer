@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_OutputPlaceHolder_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_OutputPlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
             var outputPlaceholder = new OutputPlaceholder(string.Empty);
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_InputPlaceHolder_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_InputPlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
             var inputPlaceholder = new InputPlaceholder(string.Empty);
@@ -163,7 +163,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GetContextMenu_PlaceHolder_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_PlaceHolder_CallsContextMenuBuilderMethods()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();

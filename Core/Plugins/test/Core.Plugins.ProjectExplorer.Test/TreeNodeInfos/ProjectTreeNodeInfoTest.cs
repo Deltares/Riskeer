@@ -143,7 +143,7 @@ namespace Core.Plugins.ProjectExplorer.Test.TreeNodeInfos
 
         [Test]
         [RequiresSTA]
-        public void GetContextMenu_Always_AddsAddItem()
+        public void ContextMenuStrip_Always_AddsAddItem()
         {
             // Setup
             var project = new Project();

@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ClearAll(PipingFailureMechanism failureMechanism)
         {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -471,7 +471,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ClearOutput(PipingCalculation calculation)
         {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationContext_GetContextMenu_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(PipingFormsResources.PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -556,7 +556,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
                 RingtoetsFormsResources.ClearIcon, (o, args) =>
                 {
-                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_GetContextMenu_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
                     {
                         return;
                     }
