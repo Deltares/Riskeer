@@ -30,6 +30,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
 
+        private const int contextMenuAddCalculationGroupIndex = 0;
+        private const int contextMenuAddCalculationIndex = 1;
+        private const int contextMenuValidateAllIndex = 3;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearOutputIndex = 5;
+
         [SetUp]
         public void SetUp()
         {
@@ -1000,8 +1006,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void CanDrag_ParentIsPipingFailureMechanism_ReturnFalse()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var group = pipingFailureMechanism.CalculationsGroup;
+            var group = new PipingCalculationGroup();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
@@ -1011,7 +1016,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                  pipingFailureMechanismMock);
 
             // Call
-            var canDrag = info.CanDrag(groupContext, pipingFailureMechanism);
+            var canDrag = info.CanDrag(groupContext, pipingFailureMechanismMock);
 
             // Assert
             Assert.IsFalse(canDrag);
@@ -1019,7 +1024,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnMoveOrTrue(
+        public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnTrue(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
             [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
         {
@@ -1063,7 +1068,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrInsert_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnNoneOrFalse(
+        public void CanDropOrInsert_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnFalse(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
             [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
         {
@@ -1107,387 +1112,170 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-
-
-//        [Test]
-//        [Combinatorial]
-//        public void OnDragDrop_DraggingPipingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
-//            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
-//        {
-//            // Setup
-//            IPipingCalculationItem draggedItem;
-//            object draggedItemContext;
-//            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
-//
-//            PipingCalculationGroup originalOwnerGroup;
-//            PipingCalculationGroupContext originalOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
-//            originalOwnerGroup.Children.Add(draggedItem);
-//
-//            PipingCalculationGroup newOwnerGroup;
-//            PipingCalculationGroupContext newOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext);
-//
-//            var originalOwnerObserver = mocks.StrictMock<IObserver>();
-//            originalOwnerObserver.Expect(o => o.UpdateObserver());
-//
-//            var updatewasCalled = false;
-//            var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updatewasCalled = true);
-//
-//            var newOwnerGroupContextNode = new TreeNode
-//            {
-//                Tag = newOwnerGroupContext
-//            };
-//
-//            var originalOwnerGroupContextNode = new TreeNode
-//            {
-//                Tag = originalOwnerGroupContext
-//            };
-//
-//            var draggedItemContextNode = new TreeNode
-//            {
-//                Tag = draggedItemContext
-//            };
-//            draggedItemContextNode.Collapse();
-//
-//            newOwnerGroupContextNode.Nodes.Add(draggedItemContextNode);
-//
-//            mocks.ReplayAll();
-//
-//            var treeView = new Core.Common.Controls.TreeView.TreeView();
-//            var root = new TreeNode();
-//            treeView.Nodes.Add(root);
-//            root.Nodes.Add(originalOwnerGroupContextNode);
-//            root.Nodes.Add(newOwnerGroupContextNode);
-//
-//            originalOwnerGroup.Attach(originalOwnerObserver);
-//            newOwnerGroup.Attach(newOwnerObserver);
-//            
-//            // Precondition:
-//            Assert.IsFalse(draggedItemContextNode.IsExpanded);
-//            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-//            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
-//            
-//            // Call
-//            info.OnDrop(draggedItemContextNode, newOwnerGroupContextNode, newOwnerGroup.Children.Count);
-//
-//            // Assert
-//            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
-//            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
-//            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
-//                "Dragging node at the end of the target PipingCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
-//
-//            Assert.AreSame(draggedItemContextNode, draggedItemContextNode.TreeView.SelectedNode);
-//            Assert.IsTrue(newOwnerGroupContextNode.IsExpanded);
-//            Assert.IsFalse(draggedItemContextNode.IsExpanded);
-//
-//            mocks.VerifyAll();
-//        }
-//
-//        [Test]
-//        [Combinatorial]
-//        public void OnDragDrop_InsertingPipingCalculationItemContextAtDifferentLocationWithingSameGroup_ChangeItemIndexOfCalculationItem(
-//            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType,
-//            [Values(0, 2)] int newIndex)
-//        {
-//            // Setup
-//            const string name = "Very cool name";
-//            IPipingCalculationItem draggedItem;
-//            object draggedItemContext;
-//            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, name);
-//
-//            var existingItemStub = mocks.Stub<IPipingCalculationItem>();
-//            existingItemStub.Stub(i => i.Name).Return("");
-//
-//            PipingCalculationGroup originalOwnerGroup;
-//            PipingCalculationGroupContext originalOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
-//            originalOwnerGroup.Children.Add(existingItemStub);
-//            originalOwnerGroup.Children.Add(draggedItem);
-//            originalOwnerGroup.Children.Add(existingItemStub);
-//
-//            bool updatewasCalled = false;
-//            var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updatewasCalled = true);
-//            
-//            var existingItemStub1 = CreateStubTreeNode();
-//            var existingItemStub2 = CreateStubTreeNode();
-//            
-//            var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-//            var postUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-//            TreeNode[] preUpdateNewOwnerChildNodes = { existingItemStub1, preUpdateDraggedItemContextNode, existingItemStub2 };
-//            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, preUpdateNewOwnerChildNodes, invocation =>
-//            {
-//                if (updatewasCalled)
-//                {
-//                    invocation.ReturnValue = new[]
-//                    {
-//                        existingItemStub1,
-//                        postUpdateDraggedItemContextNode,
-//                        existingItemStub2
-//                    };
-//                }
-//            });
-//            postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-//
-//            mocks.ReplayAll();
-//
-//            originalOwnerGroup.Attach(originalOwnerObserver);
-//
-//            // Precondition:
-//            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-//
-//            // Call
-//            info.OnDrop(preUpdateDraggedItemContextNode, newOwnerGroupContextNode, newIndex);
-//
-//            // Assert
-//            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-//            Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
-//                "Should have removed 'draggedItem' from its original location in the collection.");
-//            Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
-//                "Dragging node to specific location within owning PipingCalculationGroup should put the dragged data at that index.");
-//            Assert.AreEqual(name, draggedItem.Name,
-//                "No renaming should occur when dragging within the same PipingCalculationGroup.");
-//
-//            Assert.AreSame(postUpdateDraggedItemContextNode, postUpdateDraggedItemContextNode.TreeView.SelectedNode);
-//
-//            Assert.IsTrue(newOwnerGroupContextNode.IsExpanded);
-//
-//            mocks.VerifyAll();
-//        }
-//
-//        [Test]
-//        [Combinatorial]
-//        public void OnDragDrop_DraggingPipingCalculationItemContextOntoGroupStartWithSameNamedItem_MoveCalculationItemInstanceToNewGroupAndRename(
-//            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
-//        {
-//            // Setup
-//            IPipingCalculationItem draggedItem;
-//            object draggedItemContext;
-//            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
-//
-//            PipingCalculationGroup originalOwnerGroup;
-//            PipingCalculationGroupContext originalOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
-//            originalOwnerGroup.Children.Add(draggedItem);
-//
-//            PipingCalculationGroup newOwnerGroup;
-//            PipingCalculationGroupContext newOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext);
-//
-//            var sameNamedItem = mocks.Stub<IPipingCalculationItem>();
-//            sameNamedItem.Stub(i => i.Name).Return(draggedItem.Name);
-//
-//            var updateWasCalled = false;
-//            var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy();
-//            var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(invocation => updateWasCalled = true);
-//
-//            var preUpdateCalculationContextNode = CreateExpandedNodeStub(draggedItemContext, new TreeNode[0]);
-//            var postUpdateCalculationContextNode = CreateNodeStubToBeExpanded(draggedItemContext, new TreeNode[0]);
-//            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(originalOwnerGroupContext, new TreeNode[0], invocation =>
-//            {
-//                if (updateWasCalled)
-//                {
-//                    invocation.ReturnValue = new[]
-//                    {
-//                        postUpdateCalculationContextNode
-//                    };
-//                }
-//            });
-//            postUpdateCalculationContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-//
-//            mocks.ReplayAll();
-//
-//            newOwnerGroup.Children.Add(sameNamedItem);
-//
-//            originalOwnerGroup.Attach(originalOwnerObserver);
-//            newOwnerGroup.Attach(newOwnerObserver);
-//
-//            // Precondition:
-//            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-//            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
-//            CollectionAssert.Contains(newOwnerGroup.Children.Select(c => c.Name), draggedItem.Name,
-//                "Name of the dragged item should already exist in new owner.");
-//
-//            // Call
-//            info.OnDrop(preUpdateCalculationContextNode, newOwnerGroupContextNode, 0);
-//
-//            // Assert
-//            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
-//            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
-//            Assert.AreSame(draggedItem, newOwnerGroup.Children.First(),
-//                "Dragging to insert node at start of newOwnerGroup should place the node at the start of the list.");
-//            switch (draggedItemType)
-//            {
-//                case PipingCalculationItemType.Calculation:
-//                    Assert.AreEqual("Nieuwe berekening (1)", draggedItem.Name);
-//                    break;
-//                case PipingCalculationItemType.Group:
-//                    Assert.AreEqual("Nieuwe map (1)", draggedItem.Name);
-//                    break;
-//            }
-//
-//            Assert.AreSame(postUpdateCalculationContextNode, postUpdateCalculationContextNode.TreeView.SelectedNode);
-//
-//            Assert.IsTrue(postUpdateCalculationContextNode.IsExpanded);
-//            Assert.IsTrue(newOwnerGroupContextNode.IsExpanded);
-//
-//            mocks.VerifyAll();
-//        }
-//
-//        [Test]
-//        [Combinatorial]
-//        public void OnDragDrop_DraggingPipingCalculationItemContextOntoGroupWithOtherItems_ExpandedCollapsedStateOfOtherItemsRestored(
-//            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
-//        {
-//            // Setup
-//            IPipingCalculationItem draggedItem;
-//            object draggedItemContext;
-//            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext);
-//
-//            PipingCalculationGroup originalOwnerGroup;
-//            PipingCalculationGroupContext originalOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext);
-//            originalOwnerGroup.Children.Add(draggedItem);
-//
-//            PipingCalculationGroup newOwnerGroup;
-//            PipingCalculationGroupContext newOwnerGroupContext;
-//            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext);
-//
-//            var updatewasCalled = false;
-//            var originalOwnerObserver = CreateObserverStubWithUpdateExpectancy();
-//            var newOwnerObserver = CreateObserverStubWithUpdateExpectancy(methodInvocation => updatewasCalled = true);
-//
-//            var nodeStub = CreateStubTreeNode();
-//            TreeNode[] childNodesStub = { nodeStub };
-//
-//            var expandedNodeData = new object();
-//            var preUpdateExpandedNode = CreateExpandedNodeStub(expandedNodeData, childNodesStub);
-//            var postUpdateExpandedNode = CreateNodeStubToBeExpanded(expandedNodeData, childNodesStub);
-//
-//            var collapsedNodeData = new object();
-//            var preUpdateCollapsedNode = CreateCollapsedNodeStub(collapsedNodeData, childNodesStub);
-//            var postUpdateCollapsedNode = CreateNodeStubToBeCollapsed(collapsedNodeData, childNodesStub);
-//
-//            TreeNode[] preUpdateChildNodes = { preUpdateExpandedNode, preUpdateCollapsedNode };
-//            TreeNode[] postUpdateChildNodes = { postUpdateExpandedNode, postUpdateCollapsedNode };
-//            var newOwnerGroupContextNode = CreateNodeStubToBeExpanded(newOwnerGroupContext, preUpdateChildNodes, invocation =>
-//            {
-//                if (updatewasCalled)
-//                {
-//                    invocation.ReturnValue = postUpdateChildNodes;
-//                }
-//            });
-//
-//            var preUpdateDraggedItemContextNode = CreateTreeNodeLeafForData(draggedItemContext);
-//            var postUpdateDraggedItemContextNode = CreateNodeStubToBeCollapsed(draggedItemContext, new TreeNode[0]);
-//            postUpdateDraggedItemContextNode.Expect(n => n.Parent).Return(newOwnerGroupContextNode);
-//
-//            mocks.ReplayAll();
-//
-//            originalOwnerGroup.Attach(originalOwnerObserver);
-//            newOwnerGroup.Attach(newOwnerObserver);
-//
-//            // Precondition:
-//            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
-//            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
-//
-//            // Call
-//            info.OnDrop(preUpdateDraggedItemContextNode, postUpdateDraggedItemContextNode, newOwnerGroup.Children.Count);
-//
-//            // Assert
-//            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
-//            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
-//            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
-//                "Dragging node at the end of the target PipingCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
-//
-//            Assert.AreSame(postUpdateDraggedItemContextNode, postUpdateDraggedItemContextNode.TreeView.SelectedNode);
-//            Assert.IsFalse(postUpdateCollapsedNode.IsExpanded);
-//            Assert.IsFalse(postUpdateDraggedItemContextNode.IsExpanded);
-//            Assert.IsTrue(postUpdateExpandedNode.IsExpanded);
-//            Assert.IsTrue(newOwnerGroupContextNode.IsExpanded);
-//
-//            mocks.VerifyAll();
-//        }
-
-        private const int contextMenuAddCalculationGroupIndex = 0;
-        private const int contextMenuAddCalculationIndex = 1;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearOutputIndex = 5;
-
-        /// <summary>
-        /// Creates a <see cref="TreeNode"/> stub that is in the expanded state.
-        /// </summary>
-        /// <param name="nodeData">The data corresponding with the created node.</param>
-        /// <param name="childNodes">The child nodes.</param>
-        private TreeNode CreateExpandedNodeStub(object nodeData, TreeNode[] childNodes)
+        [Test]
+        [Combinatorial]
+        public void OnDrop_DraggingPipingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
+            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
         {
-            var preUpdateExpandedNode = mocks.Stub<TreeNode>();
-            preUpdateExpandedNode.Tag = nodeData;
-            preUpdateExpandedNode.Expect(n => n.IsExpanded).Return(true);
-            preUpdateExpandedNode.Nodes.AddRange(childNodes);
-            return preUpdateExpandedNode;
-        }
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
 
-        /// <summary>
-        /// Creates an <see cref="TreeNode"/> stub that is expected to be expanded.
-        /// </summary>
-        /// <param name="nodeData">The data corresponding with the created node.</param>
-        /// <param name="childNodes">The child nodes.</param>
-        /// <param name="whenNodesCalledAction">Optional: action to be called when <see cref="TreeNode.Nodes"/> is being retrieved.</param>
-        private TreeNode CreateNodeStubToBeExpanded(object nodeData, TreeNode[] childNodes, Action<MethodInvocation> whenNodesCalledAction = null)
-        {
-            var postUpdateExpandedNode = new TreeNode();
-            postUpdateExpandedNode.Tag = nodeData;
-            postUpdateExpandedNode.Collapse();
-            postUpdateExpandedNode.Nodes.AddRange(childNodes);
-            return postUpdateExpandedNode;
-        }
+            IPipingCalculationItem draggedItem;
+            object draggedItemContext;
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock);
 
-        /// <summary>
-        /// Creates a <see cref="TreeNode"/> stub that is in the collapsed state.
-        /// </summary>
-        /// <param name="nodeData">The data corresponding with the created node.</param>
-        /// <param name="childNodes">The child nodes.</param>
-        private TreeNode CreateCollapsedNodeStub(object nodeData, TreeNode[] childNodes)
-        {
-            var collapsedNode = new TreeNode();
-            collapsedNode.Tag = nodeData;
-            collapsedNode.Collapse();
-            collapsedNode.Nodes.AddRange(childNodes);
-            return collapsedNode;
-        }
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock);
+            originalOwnerGroup.Children.Add(draggedItem);
 
-        /// <summary>
-        /// Creates an <see cref="TreeNode"/> stub that is expected to be collapsed.
-        /// </summary>
-        /// <param name="nodeData">The data corresponding with the created node.</param>
-        /// <param name="childNodes">The child nodes.</param>
-        private TreeNode CreateNodeStubToBeCollapsed(object nodeData, TreeNode[] childNodes)
-        {
-            var nodeToBeCollapsed = new TreeNode();
-            nodeToBeCollapsed.Tag = nodeData;
-            nodeToBeCollapsed.Nodes.AddRange(childNodes);
-            return nodeToBeCollapsed;
-        }
+            PipingCalculationGroup newOwnerGroup;
+            PipingCalculationGroupContext newOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock);
 
-        /// <summary>
-        /// Creates an <see cref="IObserver"/> stub that expects its <see cref="IObserver.UpdateObserver"/>
-        /// method will be called once.
-        /// </summary>
-        /// <param name="whenCalledAction">Optional: Action to be performed when <see cref="IObserver.UpdateObserver"/>
-        /// is being called.</param>
-        private IObserver CreateObserverStubWithUpdateExpectancy(Action<MethodInvocation> whenCalledAction = null)
-        {
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
             var newOwnerObserver = mocks.StrictMock<IObserver>();
-            newOwnerObserver.Expect(o => o.UpdateObserver()).WhenCalled(invocation =>
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
+
+            // Call
+            info.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
+                "Dragging node at the end of the target PipingCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDrop_InsertingPipingCalculationItemContextAtDifferentLocationWithinSameGroup_ChangeItemIndexOfCalculationItem(
+            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType,
+            [Values(0, 2)] int newIndex)
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
+            const string name = "Very cool name";
+            IPipingCalculationItem draggedItem;
+            object draggedItemContext;
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, name);
+
+            var existingItemStub = mocks.Stub<IPipingCalculationItem>();
+            existingItemStub.Stub(i => i.Name).Return("");
+
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock);
+            originalOwnerGroup.Children.Add(existingItemStub);
+            originalOwnerGroup.Children.Add(draggedItem);
+            originalOwnerGroup.Children.Add(existingItemStub);
+
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+
+            // Call
+            info.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
+                "Should have removed 'draggedItem' from its original location in the collection.");
+            Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
+                "Dragging node to specific location within owning PipingCalculationGroup should put the dragged data at that index.");
+            Assert.AreEqual(name, draggedItem.Name,
+                "No renaming should occur when dragging within the same PipingCalculationGroup.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDrop_DraggingPipingCalculationItemContextOntoGroupWithSameNamedItem_MoveCalculationItemInstanceToNewGroupAndRename(
+            [Values(PipingCalculationItemType.Calculation, PipingCalculationItemType.Group)] PipingCalculationItemType draggedItemType)
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
+            IPipingCalculationItem draggedItem;
+            object draggedItemContext;
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock);
+
+            PipingCalculationGroup originalOwnerGroup;
+            PipingCalculationGroupContext originalOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock);
+            originalOwnerGroup.Children.Add(draggedItem);
+
+            PipingCalculationGroup newOwnerGroup;
+            PipingCalculationGroupContext newOwnerGroupContext;
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock);
+
+            var sameNamedItem = mocks.Stub<IPipingCalculationItem>();
+            sameNamedItem.Stub(i => i.Name).Return(draggedItem.Name);
+
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mocks.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(draggedItemContext));
+
+            mocks.ReplayAll();
+
+            newOwnerGroup.Children.Add(sameNamedItem);
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children.Select(c => c.Name), draggedItem.Name,
+                "Name of the dragged item should already exist in new owner.");
+
+            // Call
+            info.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.First(),
+                "Dragging to insert node at start of newOwnerGroup should place the node at the start of the list.");
+            switch (draggedItemType)
             {
-                if (whenCalledAction != null)
-                {
-                    whenCalledAction(invocation);
-                }
-            });
-            return newOwnerObserver;
+                case PipingCalculationItemType.Calculation:
+                    Assert.AreEqual("Nieuwe berekening (1)", draggedItem.Name);
+                    break;
+                case PipingCalculationItemType.Group:
+                    Assert.AreEqual("Nieuwe map (1)", draggedItem.Name);
+                    break;
+            }
+
+            mocks.VerifyAll();
         }
 
         /// <summary>
@@ -1547,26 +1335,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 default:
                     throw new NotSupportedException();
             }
-        }
-
-        /// <summary>
-        /// Use <see cref="MockRepository"/> to creates a stub tree node as a simple node-tree leaf.
-        /// </summary>
-        private TreeNode CreateStubTreeNode()
-        {
-            return CreateTreeNodeLeafForData(new object());
-        }
-
-        /// <summary>
-        /// Creates an <see cref="TreeNode"/> stub that represents a tree-node leaf.
-        /// </summary>
-        /// <param name="nodeData">The data associated with the node.</param>
-        private TreeNode CreateTreeNodeLeafForData(object nodeData)
-        {
-            var preUpdateDraggedItemContextNode = mocks.Stub<TreeNode>();
-            preUpdateDraggedItemContextNode.Tag = nodeData;
-            preUpdateDraggedItemContextNode.Stub(n => n.IsExpanded).Return(false);
-            return preUpdateDraggedItemContextNode;
         }
 
         /// <summary>

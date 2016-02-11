@@ -100,8 +100,8 @@ namespace Ringtoets.Piping.Plugin
                 CanRemove = PipingCalculationGroupContextCanRemove,
                 OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved,
                 CanDrag = PipingCalculationGroupContextCanDrag,
-                CanDrop = PipingCalculationGroupContextCanDrop,
-                CanInsert = PipingCalculationGroupContextCanInsert,
+                CanDrop = PipingCalculationGroupContextCanDropOrCanInsert,
+                CanInsert = PipingCalculationGroupContextCanDropOrCanInsert,
                 OnDrop = PipingCalculationGroupContextOnDrop
             };
 
@@ -702,14 +702,9 @@ namespace Ringtoets.Piping.Plugin
             return true;
         }
 
-        private bool PipingCalculationGroupContextCanDrop(object draggedData, object targetData)
+        private bool PipingCalculationGroupContextCanDropOrCanInsert(object draggedData, object targetData)
         {
-            if (GetAsIPipingCalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData))
-            {
-                return true;
-            }
-
-            return false;
+            return GetAsIPipingCalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
         }
 
         private static IPipingCalculationItem GetAsIPipingCalculationItem(object item)
@@ -752,11 +747,6 @@ namespace Ringtoets.Piping.Plugin
             }
 
             return null;
-        }
-
-        private bool PipingCalculationGroupContextCanInsert(object draggedData, object targetData)
-        {
-            return GetAsIPipingCalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
         }
 
         private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
