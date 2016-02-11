@@ -64,14 +64,18 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, true, true)]
+        [TestCase(true, false, false)]
+        [TestCase(false, true, false)]
+        [TestCase(false, false, false)]
         [RequiresSTA]
-        public void ViewPropertiesVisibility_SupportValuesSet_SupportValuesShouldBeVisible(bool supportVisible)
+        public void ViewPropertiesVisibility_SupportValuesSet_SupportValuesShouldBeVisible(
+            bool emailVisible, bool phoneVisible,
+            bool supportUiElementsShouldBeVisible)
         {
             // Setup
-            var supportEmail = supportVisible ? "<email>" : string.Empty;
-            var supportPhone = supportVisible ? "<phone>" : string.Empty;
+            var supportEmail = emailVisible ? "<email>" : string.Empty;
+            var supportPhone = phoneVisible ? "<phone>" : string.Empty;
 
             // Call
             var screen = new Gui.Forms.SplashScreen.SplashScreen
@@ -82,11 +86,11 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
             screen.Show();
 
             // Assert
-            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportTitle"));
-            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportPhoneNumberTitle"));
-            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportPhoneNumber"));
-            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportEmailAddressTitle"));
-            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportEmailAddress"));
+            Assert.AreEqual(supportUiElementsShouldBeVisible, GetIsControlVisible(screen, "LabelSupportTitle"));
+            Assert.AreEqual(supportUiElementsShouldBeVisible, GetIsControlVisible(screen, "LabelSupportPhoneNumberTitle"));
+            Assert.AreEqual(supportUiElementsShouldBeVisible, GetIsControlVisible(screen, "LabelSupportPhoneNumber"));
+            Assert.AreEqual(supportUiElementsShouldBeVisible, GetIsControlVisible(screen, "LabelSupportEmailAddressTitle"));
+            Assert.AreEqual(supportUiElementsShouldBeVisible, GetIsControlVisible(screen, "LabelSupportEmailAddress"));
 
             // Teardown
             screen.Close();

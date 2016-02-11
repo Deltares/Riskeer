@@ -16,7 +16,7 @@
 
         <Label x:Name="LabelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" Grid.Row="1" Padding="0" Margin="7,0,0,0"/>
 
-        <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Center" Height="12" VerticalAlignment="Center" Width="482" Value="55" Background="White" Opacity="0.8" Foreground="#FF8094A8" IsTabStop="False" Grid.Row="2">
+        <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Value="55" Background="White" Opacity="0.8" Foreground="#FF8094A8" IsTabStop="False" Grid.Row="2" Margin="7,0">
             <ProgressBar.BorderBrush>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF8094A8" Offset="0"/>
@@ -25,7 +25,7 @@
             </ProgressBar.BorderBrush>
 
         </ProgressBar>
-        <Label x:Name="LabelProgressBar" Content="0 %" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Center" x:FieldModifier="protected" Grid.Row="2"  Width="25" Padding="0" />
+        <Label x:Name="LabelProgressBar" Content="0 %" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Center" x:FieldModifier="protected" Grid.Row="2" Padding="0" />
 
         <Grid Grid.Row="3" Margin="10,5,0,0" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
