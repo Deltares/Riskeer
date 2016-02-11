@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_Always_ReturnsFromResource()
         {
             // Call
             var text = info.Text(null);

@@ -59,6 +59,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
@@ -132,6 +133,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Placeholder\Ringtoets.Common.Placeholder.csproj">
       <Project>{e38c11e0-4384-44dd-9f5b-ee73d79fd7f5}</Project>
       <Name>Ringtoets.Common.Placeholder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+      <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
+      <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
