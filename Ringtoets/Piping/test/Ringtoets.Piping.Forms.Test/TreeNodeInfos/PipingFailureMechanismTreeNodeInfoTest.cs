@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -14,6 +16,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -445,6 +448,89 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Clear();
+
+            var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validCalculation.Name = "A";
+            var invalidCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
+            invalidCalculation.Name = "B";
+
+            failureMechanism.CalculationsGroup.Children.Add(validCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+
+            gui.Expect(g => g.Get(failureMechanism, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var contextMenu = info.ContextMenuStrip(failureMechanism, null, treeViewControl);
+
+            // Call
+            Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(6, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
+
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
+                // Some validation error from validation service
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[5]);
+            });
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Clear();
+
+            var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            validCalculation.Name = "A";
+            var invalidCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
+            invalidCalculation.Name = "B";
+
+            failureMechanism.CalculationsGroup.Children.Add(validCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+
+            gui.Expect(g => g.Get(failureMechanism, treeViewControl)).Return(menuBuilder);
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocks.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) => { };
+
+            plugin.Gui = gui;
+
+            var contextMenu = info.ContextMenuStrip(failureMechanism, null, treeViewControl);
+
+            // Call
+            contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+            // Assert
             mocks.VerifyAll();
         }
     }
