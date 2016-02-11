@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Components.DotSpatial.Data;
 using DotSpatial.Data;
@@ -30,25 +28,22 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPolygonData"/> into <see cref="FeatureSet"/> containing <see cref="Polygon"/>.
+    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="FeatureSet"/> containing a <see cref="Polygon"/>.
     /// </summary>
     public class MapPolygonDataConverter : MapDataConverter<MapPolygonData>
     {
         protected override IList<FeatureSet> Convert(MapPolygonData data)
         {
+            var coordinates = data.Points.Select(p => new Coordinate(p.Item1, p.Item2));
+            var polygon = new Polygon(coordinates);
             var featureSet = new FeatureSet(FeatureType.Polygon);
 
-            var points = data.Points.ToArray();
-
-            var coordinates = new Collection<Coordinate>();
-            for (int i = 0; i < points.Length; i++)
-            {
-                coordinates.Add(new Coordinate(points[i].Item1, points[i].Item2));
-            }
-            var polygon = new Polygon(coordinates);
             featureSet.Features.Add(polygon);
 
-            return new List<FeatureSet> { featureSet };
+            return new List<FeatureSet>
+            {
+                featureSet
+            };
         }
     }
 }

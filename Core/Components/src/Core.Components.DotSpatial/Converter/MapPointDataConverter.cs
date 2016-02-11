@@ -27,7 +27,7 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into <see cref="FeatureType.Point"/> <see cref="FeatureSet"/>.
+    /// The converter that converts <see cref="MapPointData"/> into a <see cref="FeatureSet"/> containing one or more <see cref="Coordinate"/>.
     /// </summary>
     public class MapPointDataConverter : MapDataConverter<MapPointData>
     {
@@ -37,8 +37,7 @@ namespace Core.Components.DotSpatial.Converter
 
             foreach (var point in data.Points)
             {
-                var coordinate = new Coordinate(point.Item1, point.Item2);
-                featureSet.Features.Add(coordinate);
+                featureSet.Features.Add(new Coordinate(point.Item1, point.Item2));
             }
 
             return new List<FeatureSet> { featureSet };

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.DotSpatial.Data;
 using DotSpatial.Data;
 
@@ -33,12 +34,8 @@ namespace Core.Components.DotSpatial.Converter
         protected override IList<FeatureSet> Convert(MapDataCollection data)
         {
             var factory = new MapDataFactory();
-            var featureSets = new List<FeatureSet>();
-            foreach (var mapData in data.List)
-            {
-                featureSets.AddRange(factory.Create(mapData));
-            }
-            return featureSets;
+
+            return data.List.SelectMany(md => factory.Create(md)).ToList();
         }
     }
 }

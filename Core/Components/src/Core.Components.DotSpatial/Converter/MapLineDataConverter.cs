@@ -28,25 +28,22 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapLineData"/> into a <see cref="FeatureSet"/> containing <see cref="LineString"/>.
+    /// The converter that converts <see cref="MapLineData"/> into a <see cref="FeatureSet"/> containing a <see cref="LineString"/>.
     /// </summary>
     public class MapLineDataConverter : MapDataConverter<MapLineData>
     {
         protected override IList<FeatureSet> Convert(MapLineData data)
         {
-            var points = data.Points.ToList();
+            var coordinates = data.Points.Select(p => new Coordinate(p.Item1, p.Item2));
+            var lineString = new LineString(coordinates);
             var featureSet = new FeatureSet(FeatureType.Line);
 
-            Coordinate[] coordinates = new Coordinate[points.Count()];
-            for (int i = 0; i < points.Count(); i++)
-            {
-                coordinates[i] = new Coordinate(points[i].Item1, points[i].Item2);
-            }
-            var lineString = new LineString(coordinates);
-            var feature = new Feature(lineString);
-            featureSet.Features.Add(feature);
+            featureSet.Features.Add(lineString);
 
-            return new List<FeatureSet> { featureSet };
+            return new List<FeatureSet>
+            {
+                featureSet
+            };
         }
     }
 }
