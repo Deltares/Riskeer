@@ -1268,10 +1268,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             switch (draggedItemType)
             {
                 case PipingCalculationItemType.Calculation:
-                    Assert.AreEqual("Nieuwe berekening (1)", draggedItem.Name);
+                    Assert.AreEqual("Nieuwe berekening", draggedItem.Name);
                     break;
                 case PipingCalculationItemType.Group:
-                    Assert.AreEqual("Nieuwe map (1)", draggedItem.Name);
+                    Assert.AreEqual("Nieuwe map", draggedItem.Name);
                     break;
             }
 

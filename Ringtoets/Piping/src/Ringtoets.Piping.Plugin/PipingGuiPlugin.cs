@@ -848,8 +848,6 @@ namespace Ringtoets.Piping.Plugin
         /// </summary>
         private class DroppingPipingCalculationToNewContainer : DroppingPipingCalculationInContainerStrategy
         {
-            private bool renamed;
-
             /// <summary>
             /// Initializes a new instance of the <see cref="DroppingPipingCalculationToNewContainer"/> class.
             /// </summary>
@@ -862,13 +860,12 @@ namespace Ringtoets.Piping.Plugin
 
             public override void Execute(object draggedData, IPipingCalculationItem pipingCalculationItem, int newPosition, TreeViewControl treeViewControl)
             {
-                EnsureDraggedNodeHasUniqueNameInNewOwner(pipingCalculationItem, target);
-
                 MoveCalculationItemToNewOwner(pipingCalculationItem, newPosition);
 
                 NotifyObservers();
 
-                if (renamed)
+                // Try to start a name edit action when an item with the same name was already present
+                if (target.WrappedData.Children.Except(new[] { pipingCalculationItem }).Any(c => c.Name.Equals(pipingCalculationItem.Name)))
                 {
                     treeViewControl.TryRenameNodeForData(draggedData);
                 }
@@ -878,35 +875,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 base.NotifyObservers();
                 target.NotifyObservers();
-            }
-
-            private void EnsureDraggedNodeHasUniqueNameInNewOwner(IPipingCalculationItem pipingCalculationItem, PipingCalculationGroupContext newOwner)
-            {
-                renamed = false;
-                string uniqueName = NamingHelper.GetUniqueName(newOwner.WrappedData.Children, pipingCalculationItem.Name, pci => pci.Name);
-                if (!pipingCalculationItem.Name.Equals(uniqueName))
-                {
-                    renamed = TryRenameTo(pipingCalculationItem, uniqueName);
-                }
-            }
-
-            private static bool TryRenameTo(IPipingCalculationItem pipingCalculationItem, string newName)
-            {
-                var calculation = pipingCalculationItem as PipingCalculation;
-                if (calculation != null)
-                {
-                    calculation.Name = newName;
-                    return true;
-                }
-
-                var group = pipingCalculationItem as PipingCalculationGroup;
-                if (group != null && group.IsNameEditable)
-                {
-                    group.Name = newName;
-                    return true;
-                }
-
-                return false;
             }
         }
 
