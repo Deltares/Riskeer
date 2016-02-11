@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
@@ -90,7 +91,20 @@ namespace Core.Common.Gui.Test
 
                 Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
 
-                Assert.IsTrue(Application.RenderWithVisualStyles);
+                // Check for OS settings that allow visual styles to be rendered in the first place:
+                if (VisualStyleInformation.IsSupportedByOS && VisualStyleInformation.IsEnabledByUser &&
+                    (Application.VisualStyleState == VisualStyleState.ClientAreaEnabled ||
+                     Application.VisualStyleState == VisualStyleState.ClientAndNonClientAreasEnabled))
+                {
+                    Assert.IsTrue(Application.RenderWithVisualStyles,
+                        "OS configured to support visual styles, therefore GUI should enable this rendering style.");
+                }
+                else
+                {
+                    // 
+                    Assert.IsFalse(Application.RenderWithVisualStyles,
+                        "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
+                }
             }
             mocks.VerifyAll();
         }
