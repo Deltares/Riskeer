@@ -2513,15 +2513,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bedrijf.
-        /// </summary>
-        public static string SplashScreen_Company {
-            get {
-                return ResourceManager.GetString("SplashScreen_Company", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Copyright.
         /// </summary>
         public static string SplashScreen_CopyRights {
@@ -2554,6 +2545,33 @@ namespace Core.Common.Gui.Properties {
         public static string SplashScreen_Starting {
             get {
                 return ResourceManager.GetString("SplashScreen_Starting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string SplashScreen_SupportEmail {
+            get {
+                return ResourceManager.GetString("SplashScreen_SupportEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefoonnummer.
+        /// </summary>
+        public static string SplashScreen_SupportPhoneNumber {
+            get {
+                return ResourceManager.GetString("SplashScreen_SupportPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heeft u vragen of opmerkingen, neem dan contact op met Helpdesk Water..
+        /// </summary>
+        public static string SplashScreen_SupportTitle {
+            get {
+                return ResourceManager.GetString("SplashScreen_SupportTitle", resourceCulture);
             }
         }
         

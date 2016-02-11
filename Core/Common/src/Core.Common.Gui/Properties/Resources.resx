@@ -445,9 +445,6 @@
   <data name="fullscreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fullscreen.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SplashScreen_Company" xml:space="preserve">
-    <value>Bedrijf</value>
-  </data>
   <data name="ProgressDialog_SetButtonState_Cancel_all_activities" xml:space="preserve">
     <value>Annuleer alle activiteiten</value>
   </data>
@@ -957,5 +954,14 @@
   </data>
   <data name="DotSpatialGuiPlugin_GetViewInfoObjects_Map" xml:space="preserve">
     <value>Kaart</value>
+  </data>
+  <data name="SplashScreen_SupportEmail" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="SplashScreen_SupportPhoneNumber" xml:space="preserve">
+    <value>Telefoonnummer</value>
+  </data>
+  <data name="SplashScreen_SupportTitle" xml:space="preserve">
+    <value>Heeft u vragen of opmerkingen, neem dan contact op met Helpdesk Water.</value>
   </data>
 </root>

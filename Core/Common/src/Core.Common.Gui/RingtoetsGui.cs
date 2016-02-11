@@ -28,6 +28,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
@@ -39,7 +40,6 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
-using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
@@ -48,12 +48,10 @@ using Core.Common.Gui.Settings;
 using Core.Common.Utils.Events;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
-
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-
-using Application = System.Windows.Application;
+using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
 using WindowsApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui
@@ -113,14 +111,6 @@ namespace Core.Common.Gui
 
         public IStoreProject Storage { get; private set; }
 
-        private IProjectExplorer ProjectExplorer
-        {
-            get
-            {
-                return ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
-            }
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -154,20 +144,6 @@ namespace Core.Common.Gui
             HideSplashScreen();
 
             MessageWindowLogAppender.Instance.Enabled = true;
-        }
-
-        private void InitializeProjectFromPath(string projectPath)
-        {
-            var setDefaultProject = string.IsNullOrWhiteSpace(projectPath);
-            if (!setDefaultProject)
-            {
-                setDefaultProject = !storageCommandHandler.OpenExistingProject(projectPath);
-            }
-            if (setDefaultProject)
-            {
-                log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
-                Project = new Project();
-            }
         }
 
         public void Exit()
@@ -205,6 +181,15 @@ namespace Core.Common.Gui
         {
             return Plugins.SelectMany(pluginGui => pluginGui.GetTreeNodeInfos());
         }
+
+        #region Implementation: IContextMenuBuilderProvider
+
+        public IContextMenuBuilder Get(object dataObject, TreeViewControl treeViewControl)
+        {
+            return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, dataObject, treeViewControl);
+        }
+
+        #endregion
 
         protected virtual void Dispose(bool disposing)
         {
@@ -295,7 +280,7 @@ namespace Core.Common.Gui
             var propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
                                                                                 BindingFlags.Static |
                                                                                 BindingFlags.NonPublic);
-            var propertyCache = (Hashtable)propertyCacheInfo.GetValue(null);
+            var propertyCache = (Hashtable) propertyCacheInfo.GetValue(null);
             if (propertyCache != null)
             {
                 propertyCache.Clear();
@@ -358,6 +343,28 @@ namespace Core.Common.Gui
             isAlreadyRunningInstanceOfIGui = false;
         }
 
+        private IProjectExplorer ProjectExplorer
+        {
+            get
+            {
+                return ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
+            }
+        }
+
+        private void InitializeProjectFromPath(string projectPath)
+        {
+            var setDefaultProject = string.IsNullOrWhiteSpace(projectPath);
+            if (!setDefaultProject)
+            {
+                setDefaultProject = !storageCommandHandler.OpenExistingProject(projectPath);
+            }
+            if (setDefaultProject)
+            {
+                log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
+                Project = new Project();
+            }
+        }
+
         private void DeactivatePlugin(GuiPlugin plugin)
         {
             try
@@ -401,7 +408,7 @@ namespace Core.Common.Gui
         private void ConfigureLogging()
         {
             // configure logging
-            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
 
             if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
             {
@@ -412,7 +419,7 @@ namespace Core.Common.Gui
 
         private void RemoveLogging()
         {
-            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             var messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
             if (messageWindowLogAppender != null)
             {
@@ -459,7 +466,6 @@ namespace Core.Common.Gui
                 VersionText = SettingsHelper.ApplicationVersion,
                 CopyrightText = FixedSettings.Copyright,
                 LicenseText = FixedSettings.LicenseDescription,
-                CompanyText = SettingsHelper.ApplicationCompany
             };
 
             splashScreen.IsVisibleChanged += delegate
@@ -702,8 +708,8 @@ namespace Core.Common.Gui
             StringCollection defaultViewDataTypes;
             if (UserSettings["defaultViews"] != null)
             {
-                defaultViews = (StringCollection)UserSettings["defaultViews"];
-                defaultViewDataTypes = (StringCollection)UserSettings["defaultViewDataTypes"];
+                defaultViews = (StringCollection) UserSettings["defaultViews"];
+                defaultViewDataTypes = (StringCollection) UserSettings["defaultViewDataTypes"];
             }
             else
             {
@@ -744,15 +750,6 @@ namespace Core.Common.Gui
         {
             Dispose(false);
         }
-
-        #region Implementation: IContextMenuBuilderProvider
-
-        public IContextMenuBuilder Get(object dataObject, TreeViewControl treeViewControl)
-        {
-            return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, dataObject, treeViewControl);
-        }
-
-        #endregion
 
         #region Implementation: IProjectOwner
 
@@ -1001,7 +998,7 @@ namespace Core.Common.Gui
             }
             private set
             {
-                mainWindow = (MainWindow)value;
+                mainWindow = (MainWindow) value;
                 mainWindow.SetGui(this);
             }
         }

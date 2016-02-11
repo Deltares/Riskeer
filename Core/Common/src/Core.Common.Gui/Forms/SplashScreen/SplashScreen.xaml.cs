@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows;
 using System.Windows.Media;
 
@@ -32,10 +33,12 @@ namespace Core.Common.Gui.Forms.SplashScreen
         private string progressText;
         private int progressValuePercent;
         private string licenseText;
-        private string companyText;
         private string copyrightText;
         private string versionText;
         private bool hasProgress;
+
+        private string supportPhoneNumber;
+        private string supportEmailAddress;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SplashScreen"/> class with a progress
@@ -45,12 +48,11 @@ namespace Core.Common.Gui.Forms.SplashScreen
         {
             InitializeComponent();
 
-            progressBar.Maximum = 100; // classic percentage approach, there is no need for the splash screen to be more precise
+            ProgressBar.Maximum = 100; // classic percentage approach, there is no need for the splash screen to be more precise
 
             HasProgress = true;
             ProgressValuePercent = 0;
             ProgressText = "";
-            CompanyText = "";
             CopyrightText = "";
             LicenseText = "";
             VersionText = "";
@@ -105,22 +107,6 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Registred company to be shown.
-        /// </summary>
-        public string CompanyText
-        {
-            get
-            {
-                return companyText;
-            }
-            set
-            {
-                companyText = value;
-                InvalidateVisual();
-            }
-        }
-
-        /// <summary>
         /// Type of the license, plain text.
         /// </summary>
         public string LicenseText
@@ -169,6 +155,38 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
+        /// Text for support e-mail.
+        /// </summary>
+        public string SupportEmail
+        {
+            private get
+            {
+                return supportEmailAddress;
+            }
+            set
+            {
+                supportEmailAddress = value;
+                InvalidateVisual();
+            }
+        }
+
+        /// <summary>
+        /// Text for support phone number.
+        /// </summary>
+        public string SupportPhoneNumber
+        {
+            private get
+            {
+                return supportPhoneNumber;
+            }
+            set
+            {
+                supportPhoneNumber = value;
+                InvalidateVisual();
+            }
+        }
+
+        /// <summary>
         /// Shuts this instance down.
         /// </summary>
         public void Shutdown()
@@ -181,46 +199,68 @@ namespace Core.Common.Gui.Forms.SplashScreen
         {
             base.OnRender(drawingContext);
 
-            if (labelLicense.Content.ToString() != LicenseText)
+            if (LabelLicense.Content.ToString() != LicenseText)
             {
-                labelLicense.Content = LicenseText;
+                LabelLicense.Content = LicenseText;
             }
 
-            if (labelCompany.Content.ToString() != CompanyText)
+            if (LabelCopyright.Content.ToString() != CopyrightText)
             {
-                labelCompany.Content = CompanyText;
+                LabelCopyright.Content = CopyrightText;
             }
 
-            if (labelCopyright.Content.ToString() != CopyrightText)
+            if (LabelVersion.Content.ToString() != VersionText)
             {
-                labelCopyright.Content = CopyrightText;
+                LabelVersion.Content = VersionText;
             }
 
-            if (labelVersion.Content.ToString() != VersionText)
-            {
-                labelVersion.Content = VersionText;
-            }
+            SetSupportValues();
 
             var progressVisibility = HasProgress ? Visibility.Visible : Visibility.Hidden;
-            
-            progressBar.Visibility = progressVisibility;
-            labelProgressBar.Visibility = progressVisibility;
-            labelProgressMessage.Visibility = progressVisibility;
+
+            ProgressBar.Visibility = progressVisibility;
+            LabelProgressBar.Visibility = progressVisibility;
+            LabelProgressMessage.Visibility = progressVisibility;
 
             if (!HasProgress)
             {
                 return; // no need to update progress related labels below
             }
 
-            if (progressBar.Value != ProgressValuePercent)
+            if (ProgressBar.Value != ProgressValuePercent)
             {
-                progressBar.Value = ProgressValuePercent;
-                labelProgressBar.Content = string.Format("{0} %", ProgressValuePercent);
+                ProgressBar.Value = ProgressValuePercent;
+                LabelProgressBar.Content = string.Format("{0} %", ProgressValuePercent);
             }
 
-            if (labelProgressMessage.Content.ToString() != ProgressText)
+            if (LabelProgressMessage.Content.ToString() != ProgressText)
             {
-                labelProgressMessage.Content = ProgressText;
+                LabelProgressMessage.Content = ProgressText;
+            }
+        }
+
+        private void SetSupportValues()
+        {
+            var supportVisibility = !(String.IsNullOrWhiteSpace(SupportPhoneNumber) && String.IsNullOrWhiteSpace(SupportEmail)) ? Visibility.Visible : Visibility.Collapsed;
+
+            LabelSupportTitle.Visibility = supportVisibility;
+            LabelSupportPhoneNumberTitle.Visibility = supportVisibility;
+            LabelSupportPhoneNumber.Visibility = supportVisibility;
+            LabelSupportEmailAddressTitle.Visibility = supportVisibility;
+            LabelSupportEmailAddress.Visibility = supportVisibility;
+
+            if (supportVisibility != Visibility.Visible)
+            {
+                return;
+            }
+
+            if (LabelSupportPhoneNumber.Content.ToString() != SupportPhoneNumber)
+            {
+                LabelSupportPhoneNumber.Content = SupportPhoneNumber;
+            }
+            if (LabelSupportEmailAddress.Content.ToString() != SupportEmail)
+            {
+                LabelSupportEmailAddress.Content = SupportEmail;
             }
         }
     }

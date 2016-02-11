@@ -35,12 +35,10 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.Options;
 using Core.Common.Gui.Forms.ViewManager;
-
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.Theme;
@@ -104,7 +102,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private string lastNonContextualTab;
 
         private IGui gui;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -199,10 +197,13 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public IntPtr Handle { get
+        public IntPtr Handle
         {
-            return windowInteropHelper.Handle;
-        } }
+            get
+            {
+                return windowInteropHelper.Handle;
+            }
+        }
 
         public bool InvokeRequired
         {
@@ -287,32 +288,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             InitMessagesWindowOrActivate();
             InitPropertiesWindowAndActivate();
-        }
-
-        /// <summary>
-        /// Initializes and shows the property grid tool window.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// When a gui hasn't been set with <see cref="SetGui"/>.
-        /// </exception>
-        public void InitPropertiesWindowAndActivate()
-        {
-            if (gui == null)
-            {
-                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitPropertiesWindowAndActivate'.");
-            }
-
-            if ((propertyGrid == null) || (propertyGrid.IsDisposed))
-            {
-                propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, gui.PropertyResolver);
-            }
-
-            propertyGrid.Text = Properties.Resources.Properties_Title;
-            propertyGrid.Data = propertyGrid.GetObjectProperties(applicationSelection.Selection);
-
-            toolViewController.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
-
-            toolViewController.ToolWindowViews.ActiveView = propertyGrid;
         }
 
         /// <summary>
@@ -408,10 +383,36 @@ namespace Core.Common.Gui.Forms.MainWindow
                 messageWindow.Dispose();
                 messageWindow = null;
             }
-            
+
             ribbonCommandHandlers = null;
 
             SetGui(null);
+        }
+
+        /// <summary>
+        /// Initializes and shows the property grid tool window.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// When a gui hasn't been set with <see cref="SetGui"/>.
+        /// </exception>
+        public void InitPropertiesWindowAndActivate()
+        {
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitPropertiesWindowAndActivate'.");
+            }
+
+            if ((propertyGrid == null) || (propertyGrid.IsDisposed))
+            {
+                propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, gui.PropertyResolver);
+            }
+
+            propertyGrid.Text = Properties.Resources.Properties_Title;
+            propertyGrid.Data = propertyGrid.GetObjectProperties(applicationSelection.Selection);
+
+            toolViewController.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
+
+            toolViewController.ToolWindowViews.ActiveView = propertyGrid;
         }
 
         public void ValidateItems()
@@ -469,26 +470,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             Mouse.OverrideCursor = null;
         }
-
-        #region Implementation: ISynchronizeInvoke
-
-        public IAsyncResult BeginInvoke(Delegate method, object[] args)
-        {
-            Dispatcher.BeginInvoke(method, args);
-            return null;
-        }
-
-        public object EndInvoke(IAsyncResult result)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Invoke(Delegate method, object[] args)
-        {
-            return Dispatcher.Invoke(method, args);
-        }
-
-        #endregion
 
         private void ToolWindowViews_CollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
@@ -608,7 +589,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void CommitMruToSettings()
         {
-            var mruList = (StringCollection)Properties.Settings.Default["mruList"];
+            var mruList = (StringCollection) Properties.Settings.Default["mruList"];
 
             mruList.Clear();
 
@@ -1132,7 +1113,8 @@ namespace Core.Common.Gui.Forms.MainWindow
                 VersionText = SettingsHelper.ApplicationVersion,
                 CopyrightText = settings.FixedSettings.Copyright,
                 LicenseText = settings.FixedSettings.LicenseDescription,
-                CompanyText = SettingsHelper.ApplicationCompany,
+                SupportEmail = settings.FixedSettings.SupportEmailAddress,
+                SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,
                 Title = Properties.Resources.Ribbon_About,
@@ -1153,5 +1135,25 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             aboutDialog.ShowDialog();
         }
+
+        #region Implementation: ISynchronizeInvoke
+
+        public IAsyncResult BeginInvoke(Delegate method, object[] args)
+        {
+            Dispatcher.BeginInvoke(method, args);
+            return null;
+        }
+
+        public object EndInvoke(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Invoke(Delegate method, object[] args)
+        {
+            return Dispatcher.Invoke(method, args);
+        }
+
+        #endregion
     }
 }

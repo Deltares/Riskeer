@@ -48,6 +48,7 @@ using log4net;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
+
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
 
@@ -143,8 +144,8 @@ namespace Application.Ringtoets
             var settings = new GuiCoreSettings
             {
                 StartPageUrl = "http://www.helpdeskwater.nl",
-                SupportEmailAddress = "support@deltaressystems.nl",
-                SupportPhoneNumber = "+31 (0)88 335 8100",
+                SupportEmailAddress = "www.helpdeskwater.nl",
+                SupportPhoneNumber = "+31 (0)88-797 7102",
                 Copyright = "© Deltares 2016",
                 LicenseDescription = "Gratis",
                 MainWindowTitle = "Ringtoets",

@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
 using NUnit.Framework;
-
 using Application = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Test.Forms.SplashScreen
@@ -13,33 +11,84 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
     {
         [Test]
         [RequiresSTA]
+        public void Shutdown_SlashShown_ShouldBeClosed()
+        {
+            // Setup
+            var screen = new Gui.Forms.SplashScreen.SplashScreen();
+            var screenClosedCalled = false;
+            screen.Closed += (sender, args) => { screenClosedCalled = true; };
+            screen.Show();
+
+            // Call
+            screen.Shutdown();
+
+            // Assert
+            Assert.IsFalse(screen.IsVisible);
+            Assert.IsTrue(screenClosedCalled);
+        }
+
+        [Test]
+        [RequiresSTA]
         public void ViewProperties_SetNewValues_ShouldSetLabelTextOfUserInterfaceElements()
         {
             // Setup
-            var strCompany = "Cmp1";
-            var strCopyright = "Copy1";
-            var strLicense = "License1";
-            var strVersion = "Version1";
-            var strProgressText = "SomeProgress1";
+            const string strCopyright = "Copy1";
+            const string strLicense = "License1";
+            const string strVersion = "Version1";
+            const string strProgressText = "SomeProgress1";
+            const string supportEmail = "<email>";
+            const string supportPhone = "<phone>";
 
             // Call
             var screen = new Gui.Forms.SplashScreen.SplashScreen
             {
-                CompanyText = strCompany,
                 CopyrightText = strCopyright,
                 LicenseText = strLicense,
                 VersionText = strVersion,
-                ProgressText = strProgressText
+                ProgressText = strProgressText,
+                SupportEmail = supportEmail,
+                SupportPhoneNumber = supportPhone
             };
             screen.Show();
 
             // Assert
-            Assert.AreEqual(strVersion, GetLabelText(screen, "labelVersion"));
-            Assert.AreEqual(strCompany, GetLabelText(screen, "labelCompany"));
-            Assert.AreEqual(strLicense, GetLabelText(screen, "labelLicense"));
-            Assert.AreEqual(strCopyright, GetLabelText(screen, "labelCopyright"));
-            Assert.AreEqual(strProgressText, GetLabelText(screen, "labelProgressMessage"));
+            Assert.AreEqual(strVersion, GetLabelText(screen, "LabelVersion"));
+            Assert.AreEqual(strLicense, GetLabelText(screen, "LabelLicense"));
+            Assert.AreEqual(strCopyright, GetLabelText(screen, "LabelCopyright"));
+            Assert.AreEqual(strProgressText, GetLabelText(screen, "LabelProgressMessage"));
+            Assert.AreEqual(supportEmail, GetLabelText(screen, "LabelSupportEmailAddress"));
+            Assert.AreEqual(supportPhone, GetLabelText(screen, "LabelSupportPhoneNumber"));
 
+            // Teardown
+            screen.Close();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        [RequiresSTA]
+        public void ViewPropertiesVisibility_SupportValuesSet_SupportValuesShouldBeVisible(bool supportVisible)
+        {
+            // Setup
+            var supportEmail = supportVisible ? "<email>" : string.Empty;
+            var supportPhone = supportVisible ? "<phone>" : string.Empty;
+
+            // Call
+            var screen = new Gui.Forms.SplashScreen.SplashScreen
+            {
+                SupportPhoneNumber = supportPhone,
+                SupportEmail = supportEmail
+            };
+            screen.Show();
+
+            // Assert
+            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportTitle"));
+            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportPhoneNumberTitle"));
+            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportPhoneNumber"));
+            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportEmailAddressTitle"));
+            Assert.AreEqual(supportVisible, GetIsControlVisible(screen, "LabelSupportEmailAddress"));
+
+            // Teardown
             screen.Close();
         }
 
@@ -51,9 +100,9 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
             var screen = new Gui.Forms.SplashScreen.SplashScreen();
             screen.Show();
             Assert.IsTrue(screen.HasProgress, "Initially, the progress should be visible");
-            Assert.IsTrue(GetIsControlVisible(screen, "progressBar"));
-            Assert.IsTrue(GetIsControlVisible(screen, "labelProgressMessage"));
-            Assert.IsTrue(GetIsControlVisible(screen, "labelProgressBar"));
+            Assert.IsTrue(GetIsControlVisible(screen, "ProgressBar"));
+            Assert.IsTrue(GetIsControlVisible(screen, "LabelProgressMessage"));
+            Assert.IsTrue(GetIsControlVisible(screen, "LabelProgressBar"));
 
             // Call
             screen.HasProgress = false;
@@ -61,11 +110,11 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
 
             // Assert
             Assert.IsFalse(screen.HasProgress, "HasProgress is changed to FALSE by now");
+            Assert.IsFalse(GetIsControlVisible(screen, "ProgressBar"));
+            Assert.IsFalse(GetIsControlVisible(screen, "LabelProgressMessage"));
+            Assert.IsFalse(GetIsControlVisible(screen, "LabelProgressBar"));
 
-            Assert.IsFalse(GetIsControlVisible(screen, "progressBar"));
-            Assert.IsFalse(GetIsControlVisible(screen, "labelProgressMessage"));
-            Assert.IsFalse(GetIsControlVisible(screen, "labelProgressBar"));
-
+            // Teardown
             screen.Close();
         }
 
@@ -75,7 +124,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
             FrameworkElement foundChild = null;
             for (var childIndex = 0; childIndex < childrenCount; childIndex++)
             {
-                var child = (FrameworkElement)VisualTreeHelper.GetChild(parent, childIndex);
+                var child = (FrameworkElement) VisualTreeHelper.GetChild(parent, childIndex);
                 foundChild = child.Name == name ? child : FindControlRecursively(child, name);
 
                 if (foundChild != null)

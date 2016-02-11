@@ -3,33 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Properties="clr-namespace:Core.Common.Gui.Properties"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Core.Common.Gui.Forms.SplashScreen.SplashScreen"
-             Width="492px" Height="312px" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,0" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico">
-    <Window.Background>
-        <ImageBrush ImageSource="/Core.Common.Gui;component\Resources\SplashScreenBackground.png" />
-    </Window.Background>
-    <Grid Margin="0,10,0,-10">
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="18px" Margin="0,200,0,0" VerticalAlignment="Top" Width="482" Value="55" Background="White" Opacity="0.8" Foreground="#FF8094A8" IsTabStop="False" Tag="tytyrttqweqweqwewqeqweqweqweqwe">
+             WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderThickness="0,0,0,0" Foreground="{x:Null}" AllowsTransparency="True" Icon="/Core.Common.Gui;component/Resources/Ringtoets.ico" SizeToContent="WidthAndHeight">
+    <Grid Width="493" Height="312">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="106"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="/Core.Common.Gui;component/Resources/SplashScreenBackground.png" Grid.RowSpan="4" />
+
+        <Label x:Name="LabelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" Grid.Row="1" Padding="0" Margin="7,0,0,0"/>
+
+        <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Center" Height="12" VerticalAlignment="Center" Width="482" Value="55" Background="White" Opacity="0.8" Foreground="#FF8094A8" IsTabStop="False" Grid.Row="2">
             <ProgressBar.BorderBrush>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FF8094A8" Offset="0"/>
                     <GradientStop Color="#FF8094A8" Offset="1"/>
                 </LinearGradientBrush>
             </ProgressBar.BorderBrush>
+
         </ProgressBar>
-        <Label x:Name="labelProgressMessage" Content="{x:Static Properties:Resources.SplashScreen_Starting}" HorizontalAlignment="Left" Margin="5,172,0,0" VerticalAlignment="Top" FontSize="9px" Foreground="Black" FontFamily="Arial" BorderBrush="Black" RenderTransformOrigin="0.51,-1.4"/>
-        <Label x:Name="labelProgressBar" Content="0 %" Margin="0,200,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Padding="0" Height="18px" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Right" Width="482"
-               x:FieldModifier="protected" />
-        <Border x:Name="labelsBox" Margin="10,0,230,16" Height="72" VerticalAlignment="Bottom" >
-            <Grid>
-                <Label x:Name="labelVersionTitle"  Content="{x:Static Properties:Resources.SplashScreen_Version}" Height="18px" HorizontalAlignment="Left" Padding="0"  VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold"/>
-                <Label x:Name="labelVersion" Content="1.0.0.0" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,0,0,0" />
-                <Label x:Name="labelCompanyTitle" Content="{x:Static Properties:Resources.SplashScreen_Company}" Height="18px" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Margin="0,18,0,0"/>
-                <Label x:Name="labelCompany" Content="Deltares" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,18,0,0"/>
-                <Label x:Name="labelLicenseTitle" Content="{x:Static Properties:Resources.SplashScreen_License}" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Margin="0,36,0,0"/>
-                <Label x:Name="labelLicense" Content="{x:Static Properties:Resources.SplashScreen_Free}" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,36,0,0"/>
-                <Label x:Name="labelCopyrightTitle" Content="{x:Static Properties:Resources.SplashScreen_CopyRights}" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Margin="0,54,0,0" />
-                <Label x:Name="labelCopyright" Content="© Deltares 2009-2016" Height="18px" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Top" FontSize="10pt" FontFamily="Arial" Margin="84,54,0,0"/>
-            </Grid>
-        </Border>
+        <Label x:Name="LabelProgressBar" Content="0 %" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="9px" HorizontalAlignment="Center" x:FieldModifier="protected" Grid.Row="2"  Width="25" Padding="0" />
+
+        <Grid Grid.Row="3" Margin="10,5,0,0" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Label x:Name="LabelVersionTitle"  Content="{x:Static Properties:Resources.SplashScreen_Version}" Padding="0,1" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="LabelVersion" Content="1.0.0.0" Padding="0,1" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="0"/>
+            
+            <Label x:Name="LabelLicenseTitle" Content="{x:Static Properties:Resources.SplashScreen_License}" Padding="0,1" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="1"/>
+            <Label x:Name="LabelLicense" Content="{x:Static Properties:Resources.SplashScreen_Free}" Padding="0,1" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="1"/>
+            
+            <Label x:Name="LabelCopyrightTitle" Content="{x:Static Properties:Resources.SplashScreen_CopyRights}" Padding="0,1" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="2"/>
+            <Label x:Name="LabelCopyright" Content="© Deltares 2009-2016" Padding="0,1" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="2"/>
+
+            <Label x:Name="LabelSupportTitle" Content="{x:Static Properties:Resources.SplashScreen_SupportTitle}" Padding="0,1" FontSize="10pt" FontFamily="Arial" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" />
+            <Label x:Name="LabelSupportEmailAddressTitle" Content="{x:Static Properties:Resources.SplashScreen_SupportEmail}" Padding="0,1" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="4"/>
+            <Label x:Name="LabelSupportEmailAddress" Content="" Padding="0,1" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="4"/>
+            
+            <Label x:Name="LabelSupportPhoneNumberTitle" Content="{x:Static Properties:Resources.SplashScreen_SupportPhoneNumber}" Padding="0,1" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="5"/>
+            <Label x:Name="LabelSupportPhoneNumber" Content="" Padding="0,1" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="5"/>            
+        </Grid>
     </Grid>
 </Window>
