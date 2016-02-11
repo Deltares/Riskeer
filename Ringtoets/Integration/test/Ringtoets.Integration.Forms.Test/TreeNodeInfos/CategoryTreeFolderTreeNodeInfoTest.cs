@@ -9,7 +9,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class CategoryTreeFolderTreeNodeInfoTest

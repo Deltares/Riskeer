@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TreeNodeInfos\AssessmentSectionBaseTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismPlaceholderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PlaceholderWithReadonlyNameTreeNodeInfoTest.cs" />
