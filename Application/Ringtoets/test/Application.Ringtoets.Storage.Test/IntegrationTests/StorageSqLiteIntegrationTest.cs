@@ -2,8 +2,10 @@
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Plugin;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
@@ -108,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var testFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
             var projectStore = new StorageSqLite();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);
@@ -136,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var testFile = "SomeFile";
             var projectStore = new StorageSqLite();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);
@@ -168,7 +170,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Setup
             var projectStore = new StorageSqLite();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);

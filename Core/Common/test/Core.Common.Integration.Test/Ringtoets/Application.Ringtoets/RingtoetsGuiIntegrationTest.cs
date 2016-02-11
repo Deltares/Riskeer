@@ -1,8 +1,10 @@
 using System.Windows.Controls;
 
+using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using Core.Plugins.ProjectExplorer;
 using NUnit.Framework;
@@ -30,7 +32,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var applicationCore = gui.ApplicationCore;
 
@@ -57,7 +59,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -77,7 +79,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
                 int callCount = 0;
@@ -93,7 +95,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var applicationCore = gui.ApplicationCore;
 

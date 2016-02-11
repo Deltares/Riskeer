@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Windows;
 
+using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Settings;
 using Core.Components.Charting;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.TestUtil;
@@ -127,7 +129,7 @@ namespace Core.Plugins.OxyPlot.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var plugin = new OxyPlotGuiPlugin();
                 var testChartView = new TestChartView();

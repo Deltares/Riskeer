@@ -57,7 +57,7 @@ using WindowsApplication = System.Windows.Forms.Application;
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Gui class provides graphical user functionality for a given IApplication.
+    /// Gui class provides graphical user functionality for the application.
     /// </summary>
     public class RingtoetsGui : IGui
     {
@@ -73,19 +73,45 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
 
-        public RingtoetsGui(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore = null, GuiCoreSettings fixedSettings = null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RingtoetsGui"/> class.
+        /// </summary>
+        /// <param name="mainWindow">The main window.</param>
+        /// <param name="projectStore">The project store.</param>
+        /// <param name="applicationCore">The application core.</param>
+        /// <param name="fixedSettings">The fixed settings.</param>
+        /// <exception cref="System.InvalidOperationException">When another <see cref="RingtoetsGui"/>
+        /// instance is running.</exception>
+        /// <exception cref="System.ArgumentNullException">When any parameter is null.</exception>
+        public RingtoetsGui(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore, GuiCoreSettings fixedSettings)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (isAlreadyRunningInstanceOfIGui)
             {
-                isAlreadyRunningInstanceOfIGui = false; // reset to that the consequent creations won't fail.
+                isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
                 throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
 
+            if (mainWindow == null)
+            {
+                throw new ArgumentNullException("mainWindow");
+            }
+            if (projectStore == null)
+            {
+                throw new ArgumentNullException("projectStore");
+            }
+            if (applicationCore == null)
+            {
+                throw new ArgumentNullException("applicationCore");
+            }
+            if (fixedSettings == null)
+            {
+                throw new ArgumentNullException("fixedSettings");
+            }
             MainWindow = mainWindow;
             Storage = projectStore;
-            ApplicationCore = applicationCore ?? new ApplicationCore();
-            FixedSettings = fixedSettings ?? new GuiCoreSettings();
+            ApplicationCore = applicationCore;
+            FixedSettings = fixedSettings;
 
             isAlreadyRunningInstanceOfIGui = true;
             instanceCreationStackTrace = new StackTrace().ToString();
@@ -894,13 +920,13 @@ namespace Core.Common.Gui
 
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 
-        public bool IsViewRemoveOnItemDeleteSuspended { get; set; }
-
         public IView ActiveView
         {
             get
             {
-                return DocumentViews.ActiveView;
+                return documentViews != null ?
+                           DocumentViews.ActiveView :
+                           null;
             }
         }
 

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+
+using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Settings;
 using Core.Common.Test.TestObjects;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
@@ -127,7 +130,7 @@ namespace Core.Plugins.DotSpatial.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore))
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var plugin = new DotSpatialGuiPlugin();
                 var testMapView = new TestMapView();
