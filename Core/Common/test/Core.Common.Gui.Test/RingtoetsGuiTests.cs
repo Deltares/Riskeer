@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -17,6 +18,10 @@ using Core.Common.Gui.Test.Forms.ViewManager;
 using Core.Common.Gui.Theme;
 using Core.Common.TestUtil;
 
+using log4net;
+using log4net.Appender;
+using log4net.Repository.Hierarchy;
+
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -26,13 +31,13 @@ namespace Core.Common.Gui.Test
     [TestFixture]
     public class RingtoetsGuiTests
     {
-        private MessageWindowLogAppender originalAppender;
+        private MessageWindowLogAppender originalMessageWindowLogAppender;
         private IViewCommands originalViewPropertyEditor;
 
         [SetUp]
         public void SetUp()
         {
-            originalAppender = MessageWindowLogAppender.Instance;
+            originalMessageWindowLogAppender = MessageWindowLogAppender.Instance;
             MessageWindowLogAppender.Instance = new MessageWindowLogAppender();
 
             originalViewPropertyEditor = ViewPropertyEditor.ViewCommands;
@@ -41,7 +46,7 @@ namespace Core.Common.Gui.Test
         [TearDown]
         public void TearDown()
         {
-            MessageWindowLogAppender.Instance = originalAppender;
+            MessageWindowLogAppender.Instance = originalMessageWindowLogAppender;
             ViewPropertyEditor.ViewCommands = originalViewPropertyEditor;
         }
 
@@ -109,40 +114,6 @@ namespace Core.Common.Gui.Test
             mocks.VerifyAll();
         }
 
-        private static void AssertDefaultUserSettings(SettingsBase settings)
-        {
-            Assert.IsNotNull(settings);
-            Assert.AreEqual(15, settings.Properties.Count);
-            var mruList = (StringCollection)settings["mruList"];
-            CollectionAssert.IsEmpty(mruList);
-            var defaultViewDataTypes = (StringCollection)settings["defaultViewDataTypes"];
-            CollectionAssert.IsEmpty(defaultViewDataTypes);
-            var defaultViews = (StringCollection)settings["defaultViews"];
-            CollectionAssert.IsEmpty(defaultViews);
-            var lastVisitedPath = (string)settings["lastVisitedPath"];
-            Assert.AreEqual(string.Empty, lastVisitedPath);
-            var isMainWindowFullScreen = (bool)settings["MainWindow_FullScreen"];
-            Assert.IsFalse(isMainWindowFullScreen);
-            var x = (int)settings["MainWindow_X"];
-            Assert.AreEqual(50, x);
-            var y = (int)settings["MainWindow_Y"];
-            Assert.AreEqual(50, y);
-            var width = (int)settings["MainWindow_Width"];
-            Assert.AreEqual(1024, width);
-            var height = (int)settings["MainWindow_Height"];
-            Assert.AreEqual(768, height);
-            var startPageName = (string)settings["startPageName"];
-            Assert.AreEqual("Startpagina", startPageName);
-            var showStartPage = (bool)settings["showStartPage"];
-            Assert.IsTrue(showStartPage);
-            var showSplashScreen = (bool)settings["showSplashScreen"];
-            Assert.IsTrue(showSplashScreen);
-            var showHiddenDataItems = (bool)settings["showHiddenDataItems"];
-            Assert.IsFalse(showHiddenDataItems);
-            var colorTheme = (ColorTheme)settings["colorTheme"];
-            Assert.AreEqual(ColorTheme.Generic, colorTheme);
-        }
-
         [Test]
         [STAThread]
         [TestCase(0)]
@@ -201,7 +172,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void DisposingGuiDisposesApplication()
+        public void Dispose_ApplicationCoreSet_DisposesOfApplicationCore()
         {
             // Setup
             var mocks = new MockRepository();
@@ -221,23 +192,426 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
+        public void Dispose_GuipluginsAdded_PluginsDisabledAndRemovedAndDisposed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var guiPluginMock = mocks.Stub<GuiPlugin>();
+            guiPluginMock.Expect(p => p.Deactivate());
+            guiPluginMock.Expect(p => p.Dispose());
+            mocks.ReplayAll();
+
+            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
+            gui.Plugins.Add(guiPluginMock);
+
+            // Call
+            gui.Dispose();
+
+            // Assert
+            Assert.IsNull(gui.Plugins);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_GuiPluginAddedButThrowsExceptionDuringDeactivation_LogErrorAndStillDisposeAndRemove()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var guiPluginMock = mocks.Stub<GuiPlugin>();
+            guiPluginMock.Expect(p => p.Deactivate()).Throw(new Exception("Bad stuff happening!"));
+            guiPluginMock.Expect(p => p.Dispose());
+            mocks.ReplayAll();
+
+            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
+            gui.Plugins.Add(guiPluginMock);
+
+            // Call
+            Action call = () => gui.Dispose();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
+            Assert.IsNull(gui.Plugins);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_HasSelection_ClearSelection()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
+            {
+                Selection = new object()
+            };
+
+            // Call
+            gui.Dispose();
+
+            // Assert
+            Assert.IsNull(gui.Selection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_HasProject_ClearProject()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
+            {
+                Project = new Project()
+            };
+
+            // Call
+            gui.Dispose();
+
+            // Assert
+            Assert.IsNull(gui.Project);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_HasMainWindow_DiposeOfMainWindow()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            {
+                var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings());
+
+                // Call
+                gui.Dispose();
+
+                // Assert
+                Assert.IsTrue(mainWindow.IsWindowDisposed);
+                Assert.IsNull(gui.MainWindow);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_HasInitializedMessageWindowForLogAppender_ClearMessageWindow()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            var messageWindowLogAppender = new MessageWindowLogAppender();
+
+            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            rootLogger.AddAppender(messageWindowLogAppender);
+
+            try
+            {
+                using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                {
+                    gui.Run();
+
+                    // Precondition:
+                    Assert.IsNotNull(MessageWindowLogAppender.Instance.MessageWindow);
+                    Assert.IsNotNull(messageWindowLogAppender.MessageWindow);
+
+                    // Call
+                    gui.Dispose();
+
+                    // Assert
+                    Assert.IsNull(MessageWindowLogAppender.Instance.MessageWindow);
+                    Assert.IsNull(messageWindowLogAppender.MessageWindow);
+                    CollectionAssert.DoesNotContain(rootLogger.Appenders, messageWindowLogAppender);
+                }
+            }
+            finally
+            {
+                rootLogger.RemoveAppender(messageWindowLogAppender);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_HasOpenedToolView_ToolViewsClearedAndViewsDisposed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using(var toolView = new TestView())
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                gui.OpenToolView(toolView);
+
+                // Call
+                gui.Dispose();
+
+                // Assert
+                Assert.IsNull(gui.ToolWindowViews);
+                Assert.IsTrue(toolView.IsDisposed);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Dispose_HasOpenedDocumentView_DocumentViewsClearedAndViewsDisposed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var documentView = new TestView())
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                gui.DocumentViews.Add(documentView);
+
+                // Call
+                gui.Dispose();
+
+                // Assert
+                Assert.IsNull(gui.DocumentViews);
+                Assert.IsNull(gui.DocumentViewsResolver);
+                Assert.IsTrue(documentView.IsDisposed);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_NoMessageWindowLogAppender_AddNewLogAppender()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            Logger rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
+            rootLogger.RemoveAllAppenders();
+
+            try
+            {
+                using(var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                {
+                    // Call
+                    gui.Run();
+
+                    // Assert
+                    Assert.AreEqual(1, rootLogger.Appenders.Count);
+                    IAppender appender = rootLogger.Appenders[0];
+                    Assert.IsInstanceOf<MessageWindowLogAppender>(appender);
+                    Assert.AreSame(appender, MessageWindowLogAppender.Instance);
+                    Assert.IsTrue(rootLogger.Repository.Configured);
+                }
+            }
+            finally
+            {
+                rootLogger.RemoveAllAppenders();
+                foreach (var appender in originalAppenders)
+                {
+                    rootLogger.AddAppender(appender);
+                }
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_AlreadyHasMessageWindowLogAppender_NoChangesToLogAppenders()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            var appender = new MessageWindowLogAppender();
+
+            Logger rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
+            rootLogger.RemoveAllAppenders();
+            rootLogger.AddAppender(appender);
+            var rootloggerConfigured = rootLogger.Repository.Configured;
+
+            try
+            {
+                using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                {
+                    // Call
+                    gui.Run();
+
+                    // Assert
+                    Assert.AreEqual(1, rootLogger.Appenders.Count);
+                    Assert.AreSame(appender, rootLogger.Appenders[0]);
+                    Assert.AreSame(appender, MessageWindowLogAppender.Instance);
+                    Assert.AreEqual(rootloggerConfigured, rootLogger.Repository.Configured);
+                }
+            }
+            finally
+            {
+                rootLogger.RemoveAllAppenders();
+                foreach (var originalAppender in originalAppenders)
+                {
+                    rootLogger.AddAppender(originalAppender);
+                }
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
         public void Run_WithFile_LoadProjectFromFile()
         {
             // Setup
-            var testFile = "SomeFile";
+            const string fileName = "SomeFile";
+            string testFile = string.Format("{0}.rtd", fileName);
+
+            var deserializedProject = new Project();
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-            projectStore.Expect(ps => ps.LoadProject(testFile));
+            projectStore.Expect(ps => ps.LoadProject(testFile)).Return(deserializedProject);
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            var fixedSettings = new GuiCoreSettings
+            {
+                MainWindowTitle = "<main window title part>"
+            };
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
             {
                 // Call
-                gui.Run(testFile);
+                Action call = () => gui.Run(testFile);
 
                 // Assert
+                var expectedMessages = new[]
+                {
+                    "Openen van bestaand Ringtoetsproject.",
+                    "Bestaand Ringtoetsproject succesvol geopend."
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
                 Assert.AreEqual(testFile, gui.ProjectFilePath);
+                Assert.AreSame(deserializedProject, gui.Project);
+                Assert.AreEqual(fileName, gui.Project.Name,
+                    "Project name should be updated to the name of the file.");
+
+                Assert.AreSame(gui.Selection, gui.Project);
+                var expectedTitle = string.Format("{0} - {1} {2}",
+                                                  fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_LoadingFromFileThrowsStorageException_LogErrorAndLoadDefaultProjectInstead()
+        {
+            // Setup
+            const string fileName = "SomeFile";
+            string testFile = string.Format("{0}.rtd", fileName);
+
+            const string storageExceptionText = "<Some error preventing the project from being opened>";
+
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            projectStore.Expect(ps => ps.LoadProject(testFile)).Throw(new StorageException(storageExceptionText));
+            mocks.ReplayAll();
+
+            var fixedSettings = new GuiCoreSettings
+            {
+                MainWindowTitle = "<main window title part>"
+            };
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
+            {
+                // Call
+                Action call = () => gui.Run(testFile);
+
+                // Assert
+                var expectedMessages = new[]
+                {
+                    "Openen van bestaand Ringtoetsproject.",
+                    storageExceptionText,
+                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                    "Nieuw project aanmaken..."
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+
+                Assert.IsNull(gui.ProjectFilePath);
+                const string expectedProjectName = "Project";
+                Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                Assert.AreEqual(string.Empty, gui.Project.Description);
+                CollectionAssert.IsEmpty(gui.Project.Items);
+                Assert.AreEqual(0, gui.Project.StorageId);
+
+                Assert.AreSame(gui.Selection, gui.Project);
+                var expectedTitle = string.Format("{0} - {1} {2}",
+                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("     ")]
+        [TestCase(null)]
+        [STAThread]
+        public void Run_WithoutFile_CreateNewDefaultProject(string path)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.StrictMock<IStoreProject>();
+            mocks.ReplayAll();
+
+            var fixedSettings = new GuiCoreSettings
+            {
+                MainWindowTitle = "<title part>"
+            };
+
+            using(var mainWindow = new MainWindow())
+            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
+            {
+                // Call
+                Action call = () => gui.Run(path);
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(call, "Nieuw project aanmaken...");
+
+                Assert.IsNull(gui.ProjectFilePath);
+                const string expectedProjectName = "Project";
+                Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                Assert.AreEqual(string.Empty, gui.Project.Description);
+                CollectionAssert.IsEmpty(gui.Project.Items);
+                Assert.AreEqual(0, gui.Project.StorageId);
+
+                Assert.AreSame(gui.Selection, gui.Project);
+                var expectedTitle = string.Format("{0} - {1} {2}",
+                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
         }
@@ -480,6 +854,40 @@ namespace Core.Common.Gui.Test
             }
 
             mocks.VerifyAll();
+        }
+
+        private static void AssertDefaultUserSettings(SettingsBase settings)
+        {
+            Assert.IsNotNull(settings);
+            Assert.AreEqual(15, settings.Properties.Count);
+            var mruList = (StringCollection)settings["mruList"];
+            CollectionAssert.IsEmpty(mruList);
+            var defaultViewDataTypes = (StringCollection)settings["defaultViewDataTypes"];
+            CollectionAssert.IsEmpty(defaultViewDataTypes);
+            var defaultViews = (StringCollection)settings["defaultViews"];
+            CollectionAssert.IsEmpty(defaultViews);
+            var lastVisitedPath = (string)settings["lastVisitedPath"];
+            Assert.AreEqual(string.Empty, lastVisitedPath);
+            var isMainWindowFullScreen = (bool)settings["MainWindow_FullScreen"];
+            Assert.IsFalse(isMainWindowFullScreen);
+            var x = (int)settings["MainWindow_X"];
+            Assert.AreEqual(50, x);
+            var y = (int)settings["MainWindow_Y"];
+            Assert.AreEqual(50, y);
+            var width = (int)settings["MainWindow_Width"];
+            Assert.AreEqual(1024, width);
+            var height = (int)settings["MainWindow_Height"];
+            Assert.AreEqual(768, height);
+            var startPageName = (string)settings["startPageName"];
+            Assert.AreEqual("Startpagina", startPageName);
+            var showStartPage = (bool)settings["showStartPage"];
+            Assert.IsTrue(showStartPage);
+            var showSplashScreen = (bool)settings["showSplashScreen"];
+            Assert.IsTrue(showSplashScreen);
+            var showHiddenDataItems = (bool)settings["showHiddenDataItems"];
+            Assert.IsFalse(showHiddenDataItems);
+            var colorTheme = (ColorTheme)settings["colorTheme"];
+            Assert.AreEqual(ColorTheme.Generic, colorTheme);
         }
     }
 }

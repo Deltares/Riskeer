@@ -223,7 +223,7 @@ namespace Core.Common.Gui
             {
                 if (Plugins != null)
                 {
-                    foreach (var plugin in Plugins.ToList())
+                    foreach (var plugin in Plugins.ToArray())
                     {
                         DeactivatePlugin(plugin);
                     }
@@ -240,22 +240,18 @@ namespace Core.Common.Gui
 
                 Project = null;
 
-                if (ToolWindowViews != null)
+                if (toolWindowViews != null)
                 {
                     toolWindowViews.CollectionChanged -= ToolWindowViewsOnCollectionChanged;
-                    ToolWindowViews.Clear();
+                    toolWindowViews.Clear();
+                    toolWindowViews.Dispose();
+                    toolWindowViews = null;
                 }
 
                 if (storageCommandHandler != null)
                 {
                     storageCommandHandler.Dispose();
                     storageCommandHandler = null;
-                }
-
-                if (toolWindowViews != null)
-                {
-                    toolWindowViews.Dispose();
-                    toolWindowViews = null;
                 }
 
                 if (documentViews != null)
@@ -299,14 +295,15 @@ namespace Core.Common.Gui
 
             WindowsApplication.ApplicationExit -= HandleApplicationExit;
 
-            // prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
+            #region prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
+
             var systemAssembly = typeof(Component).Assembly;
             var reflectTypeDescriptionProviderType =
                 systemAssembly.GetType("System.ComponentModel.ReflectTypeDescriptionProvider");
             var propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
                                                                                 BindingFlags.Static |
                                                                                 BindingFlags.NonPublic);
-            var propertyCache = (Hashtable) propertyCacheInfo.GetValue(null);
+            var propertyCache = (Hashtable)propertyCacheInfo.GetValue(null);
             if (propertyCache != null)
             {
                 propertyCache.Clear();
@@ -362,6 +359,8 @@ namespace Core.Common.Gui
             {
                 defaultProviders.Clear();
             }
+
+            #endregion
 
             GC.Collect();
 
