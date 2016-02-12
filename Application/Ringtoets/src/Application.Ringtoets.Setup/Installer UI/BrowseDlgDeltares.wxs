@@ -39,7 +39,7 @@
                 <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 		            <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.BrowseDlgDescription)" />
-		            <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.BrowseDlgTitle)" />
+		            <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgTitle)" />
             </Dialog>
         </UI>
     </Fragment>
