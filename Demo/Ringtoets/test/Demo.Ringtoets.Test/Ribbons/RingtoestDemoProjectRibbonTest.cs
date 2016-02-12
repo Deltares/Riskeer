@@ -5,7 +5,6 @@ using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewManager;
-using Core.Components.DotSpatial.Data;
 using Demo.Ringtoets.Ribbons;
 using NUnit.Framework;
 using Rhino.Mocks;

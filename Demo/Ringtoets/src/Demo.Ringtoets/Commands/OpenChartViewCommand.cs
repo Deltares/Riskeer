@@ -14,6 +14,10 @@ namespace Demo.Ringtoets.Commands
     {
         private readonly IDocumentViewController documentViewController;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="OpenChartViewCommand"/>.
+        /// </summary>
+        /// <param name="documentViewController">The <see cref="IDocumentViewController"/> to use internally.</param>
         public OpenChartViewCommand(IDocumentViewController documentViewController)
         {
             this.documentViewController = documentViewController;

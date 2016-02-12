@@ -14,6 +14,10 @@ namespace Demo.Ringtoets.Commands
     {
         private readonly IDocumentViewController documentViewController;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="OpenMapViewCommand"/>.
+        /// </summary>
+        /// <param name="documentViewController">The <see cref="IDocumentViewController"/> to use internally.</param>
         public OpenMapViewCommand(IDocumentViewController documentViewController)
         {
             this.documentViewController = documentViewController;
@@ -55,7 +59,6 @@ namespace Demo.Ringtoets.Commands
                 new Tuple<double, double>(3.0, 2.6),
                 new Tuple<double, double>(5.6, 1.6)
             });
-
 
             documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData> { points, lines, polygons }));
         }
