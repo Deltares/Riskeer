@@ -24,8 +24,16 @@ using System.Collections.Generic;
 
 namespace Core.Components.DotSpatial.Data
 {
+    /// <summary>
+    /// This class represents data in 2D space which forms a closed area.
+    /// </summary>
     public class MapPolygonData : PointBasedMapData
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MapPolygonData"/>.
+        /// </summary>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public MapPolygonData(IEnumerable<Tuple<double, double>> points) : base(points) {}
     }
 }

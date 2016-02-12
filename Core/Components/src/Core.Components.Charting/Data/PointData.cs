@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Core.Components.Charting.Data
 {
@@ -33,7 +32,7 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Creates a new instance of <see cref="PointData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public PointData(IEnumerable<Tuple<double, double>> points) : base(points) {}
     }

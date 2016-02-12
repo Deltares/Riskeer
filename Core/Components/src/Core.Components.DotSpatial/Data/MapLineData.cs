@@ -24,8 +24,16 @@ using System.Collections.Generic;
 
 namespace Core.Components.DotSpatial.Data
 {
+    /// <summary>
+    /// This class represents data in 2D space which is visible as a line.
+    /// </summary>
     public class MapLineData : PointBasedMapData
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MapLineData"/>.
+        /// </summary>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public MapLineData(IEnumerable<Tuple<double, double>> points) : base(points) {}
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Core.Components.Charting.Data
@@ -32,9 +31,9 @@ namespace Core.Components.Charting.Data
     public abstract class PointBasedChartData : ChartData 
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PointData"/>.
+        /// Creates a new instance of <see cref="PointBasedChartData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         protected PointBasedChartData(IEnumerable<Tuple<double, double>> points)
         {
@@ -48,7 +47,7 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="ChartData"/> is visible.
+        /// Gets or sets a value indicating whether the <see cref="PointBasedChartData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
 

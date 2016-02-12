@@ -21,20 +21,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Core.Components.DotSpatial.Data
 {
     /// <summary>
-    /// A collection of points for the Map.
+    /// This class represents data in 2D space which is visible as points.
     /// </summary>
     public class MapPointData : PointBasedMapData
     {
         /// <summary>
         /// Create a new instance of <see cref="MapPointData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="Collection{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public MapPointData(IEnumerable<Tuple<double, double>> points) : base(points) {}
     }

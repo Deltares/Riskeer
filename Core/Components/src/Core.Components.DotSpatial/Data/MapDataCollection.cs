@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Core.Components.DotSpatial.Data
 {
     /// <summary>
-    /// A collection of <see cref="MapData"/>.
+    /// This class represents a collection of <see cref="MapData"/>.
     /// </summary>
     public class MapDataCollection : MapData
     {
