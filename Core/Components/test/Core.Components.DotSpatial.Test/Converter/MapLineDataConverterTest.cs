@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.Data;
@@ -16,7 +15,7 @@ namespace Core.Components.DotSpatial.Test.Converter
     public class MapLineDataConverterTest
     {
         [Test]
-        public void DefaultConstructor_IsChartDataConverter()
+        public void DefaultConstructor_IsMapLineDataConverter()
         {
             // Call
             var converter = new MapLineDataConverter();
@@ -26,7 +25,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertSeries_LineData_ReturnTrue()
+        public void CanConvertMapData_LineData_ReturnTrue()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -40,7 +39,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertSeries_ChartData_ReturnsFalse()
+        public void CanConvertMapData_TestMapData_ReturnsFalse()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -71,13 +70,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new MapLineDataConverter();
-            var testChartData = new TestMapData();
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            var testMapData = new TestMapData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
+
             // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testChartData));
+            Assert.IsFalse(testConverter.CanConvertMapData(testMapData));
 
             // Call
-            TestDelegate test = () => testConverter.Convert(testChartData);
+            TestDelegate test = () => testConverter.Convert(testMapData);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);

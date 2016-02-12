@@ -70,13 +70,14 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new MapDataCollectionConverter();
-            var testChartData = new TestMapData();
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            var testMapData = new TestMapData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
+
             // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testChartData));
+            Assert.IsFalse(testConverter.CanConvertMapData(testMapData));
 
             // Call
-            TestDelegate test = () => testConverter.Convert(testChartData);
+            TestDelegate test = () => testConverter.Convert(testMapData);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);

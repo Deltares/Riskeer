@@ -16,7 +16,7 @@ namespace Core.Components.DotSpatial.Test.Converter
     public class MapPointDataConverterTest
     {
         [Test]
-        public void DefaultConstructor_IsMapDataConverter()
+        public void DefaultConstructor_IsMapPointDataConverter()
         {
             // Call
             var converter = new MapPointDataConverter();
@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointData_ReturnsNewSeries()
+        public void Convert_RandomPointData_ReturnsNewFeatureSetList()
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -71,7 +71,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Call
             var featureSets = converter.Convert(pointData);
-
 
             // Assert
             Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
@@ -100,13 +99,13 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new MapPointDataConverter();
-            var testChartData = new TestMapData();
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testChartData.GetType());
+            var testMapData = new TestMapData();
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
             // Precondition
-            Assert.IsFalse(testConverter.CanConvertMapData(testChartData));
+            Assert.IsFalse(testConverter.CanConvertMapData(testMapData));
 
             // Call
-            TestDelegate test = () => testConverter.Convert(testChartData);
+            TestDelegate test = () => testConverter.Convert(testMapData);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
