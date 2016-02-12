@@ -64,11 +64,11 @@ namespace Core.Plugins.DotSpatial.Test
 
             if (useMapView)
             {
-                var chartView = mocks.Stub<IMapView>();
-                var chart = mocks.Stub<IMap>();
-                chart.Data = new TestMapData();
-                chartView.Stub(v => v.Map).Return(chart);
-                view = chartView;
+                var mapView = mocks.Stub<IMapView>();
+                var map = mocks.Stub<IMap>();
+                map.Data = new TestMapData();
+                mapView.Stub(v => v.Map).Return(map);
+                view = mapView;
             }
             else
             {

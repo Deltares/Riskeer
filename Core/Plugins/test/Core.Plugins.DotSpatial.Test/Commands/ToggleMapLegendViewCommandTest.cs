@@ -33,7 +33,7 @@ namespace Core.Plugins.DotSpatial.Test.Commands
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Checekd_LegendViewOpenOrClosed_ReturnsExpectedState(bool open)
+        public void Checked_LegendViewOpenOrClosed_ReturnsExpectedState(bool open)
         {
             // Setup
             var mocks = new MockRepository();
