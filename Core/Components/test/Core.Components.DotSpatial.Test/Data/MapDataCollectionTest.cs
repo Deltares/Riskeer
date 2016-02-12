@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Data;
 using NUnit.Framework;
 
@@ -11,14 +12,11 @@ namespace Core.Components.DotSpatial.Test.Data
         [Test]
         public void Constructor_NullList_ThrowsArgumentNullException()
         {
-            // Setup
+            // Call
             TestDelegate test = () => new MapDataCollection(null);
 
-            // Call
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-
             // Assert
-            StringAssert.Contains("A list collection is required when creating MapDataCollection.", message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A list collection is required when creating MapDataCollection.");
         }
 
         [Test]

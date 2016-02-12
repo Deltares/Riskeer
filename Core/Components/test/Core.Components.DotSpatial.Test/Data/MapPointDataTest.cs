@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Data;
 using NUnit.Framework;
 
@@ -11,14 +12,11 @@ namespace Core.Components.DotSpatial.Test.Data
         [Test]
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
-            // Setup
+            // Call
             TestDelegate test = () => new MapPointData(null);
 
-            // Call
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-
             // Assert
-            StringAssert.Contains(string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)), message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
         }
 
         [Test]
