@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Core.Components.Charting.TestUtil")]
-[assembly: AssemblyProduct("Core.Components.Charting.TestUtil")]
+[assembly: AssemblyTitle("Core.Components.DotSpatial.TestUtil")]
+[assembly: AssemblyProduct("Core.Components.DotSpatial.TestUtil")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
