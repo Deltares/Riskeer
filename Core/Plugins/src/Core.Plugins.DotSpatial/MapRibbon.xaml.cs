@@ -29,17 +29,23 @@ using Fluent;
 namespace Core.Plugins.DotSpatial
 {
     /// <summary>
-    /// Interaction logic for MapRibbon.xaml
+    /// This class represents the ribbon interaction which has to do with maps.
     /// </summary>
     public partial class MapRibbon : IRibbonCommandHandler
     {
         private IMap map;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="MapRibbon"/>.
+        /// </summary>
         public MapRibbon()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the <see cref="IMap"/> to show the ribbon for.
+        /// </summary>
         public IMap Map
         {
             private get
@@ -61,6 +67,9 @@ namespace Core.Plugins.DotSpatial
             }
         }
 
+        /// <summary>
+        /// Sets the command used when the toggle legend view button is clicked.
+        /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
 
         public IEnumerable<ICommand> Commands

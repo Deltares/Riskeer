@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
-using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
 
 namespace Core.Plugins.DotSpatial.Legend
@@ -38,14 +37,14 @@ namespace Core.Plugins.DotSpatial.Legend
         public EventHandler<EventArgs> OnOpenLegend;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MapLegendController"/>
+        /// Creates a new instance of <see cref="MapLegendController"/>.
         /// </summary>
-        /// <param name="toolViewController">The <see cref="DotSpatialGuiPlugin"/> to invoke actions upon.</param>
+        /// <param name="toolViewController">The <see cref="IToolViewController"/> to invoke actions upon.</param>
         public MapLegendController(IToolViewController toolViewController)
         {
             if (toolViewController == null)
             {
-                throw new ArgumentNullException("toolViewController", "Cannot create a MapLegendController when the plugin is null.");
+                throw new ArgumentNullException("toolViewController", "Cannot create a MapLegendController when the tool view controller is null.");
             }
             this.toolViewController = toolViewController;
         }
@@ -100,7 +99,7 @@ namespace Core.Plugins.DotSpatial.Legend
         /// <summary>
         /// Updates the data for the <see cref="MapLegendView"/> if it is open.
         /// </summary>
-        /// <param name="data">The <see cref="BaseMap"/> for which to show data. If <c>null</c> the 
+        /// <param name="data">The <see cref="MapData"/> to show. If <c>null</c> the 
         /// data will be cleared.</param>
         public void Update(MapData data)
         {

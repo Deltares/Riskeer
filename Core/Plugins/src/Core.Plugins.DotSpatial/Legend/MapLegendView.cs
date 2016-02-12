@@ -37,7 +37,7 @@ namespace Core.Plugins.DotSpatial.Legend
     /// </summary>
     public sealed partial class MapLegendView : UserControl, IView
     {
-        private TreeViewControl treeViewControl;
+        private readonly TreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendView"/>.
@@ -53,10 +53,10 @@ namespace Core.Plugins.DotSpatial.Legend
             };
             Controls.Add(treeViewControl);
 
-            RegisterTreeNodes();
+            RegisterTreeNodeInfos();
         }
 
-        private void RegisterTreeNodes()
+        private void RegisterTreeNodeInfos()
         {
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
             {
@@ -66,21 +66,21 @@ namespace Core.Plugins.DotSpatial.Legend
             
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
             {
-                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Line_data_label,
-                Image = mapPointData => DotSpatialResources.LineIcon
+                Text = mapLineData => DotSpatialResources.MapDataNodePresenter_Line_data_label,
+                Image = mapLineData => DotSpatialResources.LineIcon
             });
             
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
             {
-                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Polygon_data_label,
-                Image = mapPointData => DotSpatialResources.AreaIcon
+                Text = mapPolygonData => DotSpatialResources.MapDataNodePresenter_Polygon_data_label,
+                Image = mapPolygonData => DotSpatialResources.AreaIcon
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
             {
-                Text = mapPointData => DotSpatialResources.General_Map,
-                Image = mapPointData => GuiResources.folder,
-                ChildNodeObjects = baseMap => baseMap.List.Reverse().Cast<object>().ToArray()
+                Text = mapDataCollection => DotSpatialResources.General_Map,
+                Image = mapDataCollection => GuiResources.folder,
+                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray()
             });
         }
 

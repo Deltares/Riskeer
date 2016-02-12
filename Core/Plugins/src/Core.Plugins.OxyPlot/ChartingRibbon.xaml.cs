@@ -43,6 +43,9 @@ namespace Core.Plugins.OxyPlot
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the <see cref="IChart"/> to show the ribbon for.
+        /// </summary>
         public IChart Chart
         {
             private get
@@ -80,7 +83,6 @@ namespace Core.Plugins.OxyPlot
             }
         }
 
-
         /// <summary>
         /// Shows the charting contextual tab.
         /// </summary>
@@ -117,7 +119,7 @@ namespace Core.Plugins.OxyPlot
             // but more ideally be removed.
             return ChartingContextualGroup.Name == tabGroupName && ChartingContextualGroup.Visibility == Visibility.Visible;
         }
-        
+
         private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
         {
             ToggleLegendViewCommand.Execute();

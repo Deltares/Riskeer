@@ -43,12 +43,12 @@ namespace Core.Plugins.OxyPlot.Legend
         /// <summary>
         /// Creates a new instance of <see cref="LegendController"/>.
         /// </summary>
-        /// <param name="toolViewController">The <see cref="OxyPlotGuiPlugin"/> to invoke actions upon.</param>
+        /// <param name="toolViewController">The <see cref="IToolViewController"/> to invoke actions upon.</param>
         public LegendController(IToolViewController toolViewController)
         {
             if (toolViewController == null)
             {
-                throw new ArgumentNullException("toolViewController", "Cannot create a LegendController when the plugin is null.");
+                throw new ArgumentNullException("toolViewController", "Cannot create a LegendController when the tool view controller is null.");
             }
             this.toolViewController = toolViewController;
         }
@@ -103,7 +103,7 @@ namespace Core.Plugins.OxyPlot.Legend
         /// <summary>
         /// Updates the data for the <see cref="LegendView"/> if it is open.
         /// </summary>
-        /// <param name="data">The <see cref="BaseChart"/> for which to show data. If <c>null</c> the 
+        /// <param name="data">The <see cref="ChartData"/> to show. If <c>null</c> the 
         /// data will be cleared.</param>
         public void Update(ChartData data)
         {
