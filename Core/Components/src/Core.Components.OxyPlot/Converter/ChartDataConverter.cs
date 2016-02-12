@@ -69,7 +69,7 @@ namespace Core.Components.OxyPlot.Converter
         /// <summary>
         /// Creates one or more <see cref="Series"/> based on the <paramref name="data"/> that was given.
         /// </summary>
-        /// <param name="data">The data to transform into a <see cref="Series"/>.</param>
+        /// <param name="data">The data to transform into one or more <see cref="Series"/>.</param>
         /// <returns>A new <see cref="IList{T}"/> of <see cref="Series"/>.</returns>
         protected abstract IList<Series> Convert(T data);
     }

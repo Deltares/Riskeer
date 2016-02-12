@@ -40,9 +40,9 @@ namespace Core.Components.DotSpatial.Converter
         bool CanConvertMapData(MapData data);
 
         /// <summary>
-        /// Creates a <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
+        /// Creates a one or more <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
         /// </summary>
-        /// <param name="data">The data to transform into a <see cref="FeatureSet"/>.</param>
+        /// <param name="data">The data to transform into one or more <see cref="FeatureSet"/>.</param>
         /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
         /// <exception cref="ArgumentException">Thrown when <see cref="CanConvertMapData"/> returns <c>false</c>.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>

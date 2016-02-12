@@ -27,7 +27,7 @@ using DotSpatial.Data;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapData"/> in <see cref="MapDataCollection"/> into (one or more) <see cref="FeatureSet"/>.
+    /// The converter that converts <see cref="MapData"/> in <see cref="MapDataCollection"/> into one or more <see cref="FeatureSet"/>.
     /// </summary>
     public class MapDataCollectionConverter : MapDataConverter<MapDataCollection>
     {

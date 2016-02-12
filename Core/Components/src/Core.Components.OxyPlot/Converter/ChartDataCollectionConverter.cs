@@ -27,7 +27,7 @@ namespace Core.Components.OxyPlot.Converter
 {
     /// <summary>
     /// This class converts the <see cref="ChartData"/> in <see cref="ChartDataCollection"/> into 
-    /// (one or more) <see cref="Series"/>.
+    /// one or more <see cref="Series"/>.
     /// </summary>
     public class ChartDataCollectionConverter : ChartDataConverter<ChartDataCollection>
     {

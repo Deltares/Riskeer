@@ -52,9 +52,9 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Creates a <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
+        /// Creates one or more <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
         /// </summary>
-        /// <param name="data">The data to transform into a <see cref="FeatureSet"/>.</param>
+        /// <param name="data">The data to transform into one or more <see cref="FeatureSet"/>.</param>
         /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
         protected abstract IList<FeatureSet> Convert(T data);
     }

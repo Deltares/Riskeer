@@ -32,6 +32,9 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     public class MapDataFactory
     {
+        /// <summary>
+        /// Collection of converters that the <see cref="MapDataFactory"/> can use to transform <see cref="MapData"/>.
+        /// </summary>
         private readonly IEnumerable<IMapDataConverter> converters = new Collection<IMapDataConverter>
         {
             new MapDataCollectionConverter(),
@@ -39,8 +42,9 @@ namespace Core.Components.DotSpatial.Converter
             new MapLineDataConverter(),
             new MapPolygonDataConverter()
         };
+
         /// <summary>
-        /// Creates a new <see cref="FeatureSet"/> from the given <paramref name="data"/>.
+        /// Creates one or more new <see cref="FeatureSet"/> from the given <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="FeatureSet"/> upon.</param>
         /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>

@@ -44,10 +44,11 @@ namespace Core.Components.OxyPlot.Converter
         };
 
         /// <summary>
-        /// Creates a new <see cref="Series"/> from the given <paramref name="data"/>.
+        /// Creates one or more new <see cref="Series"/> from the given <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="ChartData"/> to base the creation of a <see cref="Series"/> upon.</param>
-        /// <returns>A new <see cref="Series"/>.</returns>
+        /// <param name="data">The <see cref="ChartData"/> to base the creation of the <see cref="Series"/> upon.</param>
+        /// <returns>A new <see cref="IList{T}"/> of <see cref="Series"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public IList<Series> Create(ChartData data)
         {
             foreach (var converter in converters)
