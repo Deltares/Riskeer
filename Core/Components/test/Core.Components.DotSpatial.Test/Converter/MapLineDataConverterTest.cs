@@ -25,7 +25,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void CanConvertMapData_LineData_ReturnTrue()
+        public void CanConvertMapData_MapLineData_ReturnTrue()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -58,11 +58,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var testConverter = new MapLineDataConverter();
 
-            // Call
             TestDelegate test = () => testConverter.Convert(null);
 
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            StringAssert.EndsWith("Null data cannot be converted into feature sets.", message);
         }
 
         [Test]

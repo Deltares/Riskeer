@@ -58,11 +58,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var testConverter = new MapDataCollectionConverter();
 
-            // Call
             TestDelegate test = () => testConverter.Convert(null);
 
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            StringAssert.EndsWith("Null data cannot be converted into feature sets.", message);
         }
 
         [Test]
