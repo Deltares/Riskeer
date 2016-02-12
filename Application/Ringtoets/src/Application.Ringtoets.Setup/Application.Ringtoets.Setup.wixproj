@@ -38,12 +38,13 @@
   <ItemGroup>
     <Compile Include="Installer UI\BrowseDlgDeltares.wxs" />
     <Compile Include="Installer UI\CancelDlgDeltares.wxs" />
-    <Compile Include="Installer UI\CustomizeDlgDeltares.wxs" />
     <Compile Include="Installer UI\DiskCostDlgDeltares.wxs" />
     <Compile Include="Installer UI\ErrorDlgDeltares.wxs" />
     <Compile Include="Installer UI\ExitDialogDeltares.wxs" />
     <Compile Include="Installer UI\FatalErrorDeltares.wxs" />
     <Compile Include="Installer UI\FilesInUseDeltares.wxs" />
+    <Compile Include="Installer UI\InstallDirDlgDeltares.wxs" />
+    <Compile Include="Installer UI\InvalidDirDlgDeltares.wxs" />
     <Compile Include="Installer UI\LicenseAgreementDlgDeltares.wxs" />
     <Compile Include="Installer UI\MaintenanceTypeDlgDeltares.wxs" />
     <Compile Include="Installer UI\MaintenanceWelcomeDlg.wxs" />
@@ -53,7 +54,6 @@
     <Compile Include="Installer UI\PrepareDlgDeltares.wxs" />
     <Compile Include="Installer UI\ProgressDlgDeltares.wxs" />
     <Compile Include="Installer UI\ResumeDlgDeltares.wxs" />
-    <Compile Include="Installer UI\SetupTypeDlgDeltares.wxs" />
     <Compile Include="Installer UI\UserExitDeltares.wxs" />
     <Compile Include="Installer UI\VerifyReadyDlgDeltares.wxs" />
     <Compile Include="Installer UI\WelcomeDlgDeltares.wxs" />
