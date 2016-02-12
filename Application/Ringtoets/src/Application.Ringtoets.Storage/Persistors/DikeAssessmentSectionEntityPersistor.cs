@@ -42,6 +42,8 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection> insertedList = new Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection>();
         private readonly ICollection<DikeAssessmentSectionEntity> modifiedList = new List<DikeAssessmentSectionEntity>();
 
+        private readonly PipingFailureMechanismPersistor pipingFailureMechanismPersistor;
+
         /// <summary>
         /// New instance of <see cref="DikeAssessmentSectionEntityPersistor"/>.
         /// </summary>
@@ -56,6 +58,8 @@ namespace Application.Ringtoets.Storage.Persistors
             dbContext = ringtoetsContext;
 
             converter = new DikeAssessmentSectionEntityConverter();
+
+            pipingFailureMechanismPersistor = new PipingFailureMechanismPersistor(dbContext);
         }
 
         /// <summary>
@@ -65,7 +69,17 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
         public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity)
         {
-            return converter.ConvertEntityToModel(entity);
+            var dikeAssessmentSection = converter.ConvertEntityToModel(entity);
+
+            foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
+            {
+                if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.PipingFailureMechanism)
+                {
+                    PipingFailureMechanismPersistor.LoadModel(dikeAssessmentSection.PipingFailureMechanism, failureMechanismEntity);
+                }
+            }
+
+            return dikeAssessmentSection;
         }
 
         /// <summary>
@@ -154,6 +168,8 @@ namespace Application.Ringtoets.Storage.Persistors
         public void PerformPostSaveActions()
         {
             UpdateStorageIdsInModel();
+
+            pipingFailureMechanismPersistor.PerformPostSaveActions();
         }
 
         /// <summary>
@@ -161,14 +177,22 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="model">The <see cref="DikeAssessmentSection"/> of which children need to be updated.</param>
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
-        public void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity) {}
+        public void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
+        {
+            pipingFailureMechanismPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
+            pipingFailureMechanismPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+        }
 
         /// <summary>
         /// Inserts the children of <paramref name="model"/>, in reference to <paramref name="model"/>, in the storage.
         /// </summary>
         /// <param name="model">The <see cref="DikeAssessmentSection"/> of which children need to be inserted.</param>
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
-        public void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity) {}
+        public void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
+        {
+            pipingFailureMechanismPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
+            pipingFailureMechanismPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+        }
 
         /// <summary>
         /// Performs the update of <paramref name="model"/> to <see cref="DikeAssessmentSectionEntity"/>.

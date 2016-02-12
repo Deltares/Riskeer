@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModel_ValidEntity_EntityAsModelInList()
+        public void LoadModel_ValidEntity_EntityAsModel()
         {
             // Setup
             const long storageId = 1234L;
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModel_MultipleEntitiesInDataset_EntitiesAsModelInList()
+        public void LoadModel_MultipleEntitiesInDataset_EntitiesAsModel()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -541,6 +541,63 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(storageId, entity.DuneAssessmentSectionEntityId);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(norm, entity.Norm);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveUnModifiedEntries_MultipleEntitiesInnParentNavigationPropertySingleModelStorageId_UpdatedDuneAssessmentSectionAsEntityAndOtherDeletedInDbSet()
+        {
+            // Setup
+            const string name = "test";
+            const long storageId = 1234L;
+            const int norm = 30000;
+            DuneAssessmentSectionEntity entityToUpdate = new DuneAssessmentSectionEntity
+            {
+                DuneAssessmentSectionEntityId = storageId,
+                Name = "Entity to update"
+            };
+            DuneAssessmentSectionEntity entityToDelete = new DuneAssessmentSectionEntity
+            {
+                DuneAssessmentSectionEntityId = 4567L,
+                Name = "First entity to delete"
+            };
+
+            IList<DuneAssessmentSectionEntity> parentNavigationProperty = new List<DuneAssessmentSectionEntity>
+            {
+                entityToDelete,
+                entityToUpdate
+            };
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
+            dbset.Expect(x => x.Remove(entityToDelete)).Return(entityToDelete);
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            ringtoetsEntities.Expect(x => x.DuneAssessmentSectionEntities).Return(dbset);
+
+            DuneAssessmentSectionEntityPersistor persistor = new DuneAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DuneAssessmentSection duneAssessmentSection = new DuneAssessmentSection
+            {
+                Name = name,
+                FailureMechanismContribution =
+                {
+                    Norm = norm
+                },
+                StorageId = storageId
+            };
+            mockRepository.ReplayAll();
+
+            TestDelegate updateTest = () => persistor.UpdateModel(parentNavigationProperty, duneAssessmentSection, 0);
+            Assert.DoesNotThrow(updateTest, "Precondition failed: Update should not throw exception.");
+
+            // Call
+            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
+
+            // Assert
+            Assert.AreEqual(2, parentNavigationProperty.Count);
+            Assert.IsInstanceOf<DuneAssessmentSectionEntity>(entityToUpdate);
+            Assert.AreEqual(storageId, entityToUpdate.DuneAssessmentSectionEntityId);
+            Assert.AreEqual(name, entityToUpdate.Name);
+            Assert.AreEqual(norm, entityToUpdate.Norm);
 
             mockRepository.VerifyAll();
         }

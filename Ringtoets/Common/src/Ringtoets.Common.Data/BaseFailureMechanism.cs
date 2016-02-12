@@ -49,6 +49,14 @@ namespace Ringtoets.Common.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the failure mechanism.
+        /// </summary>
         public string Name { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        public long StorageId { get; set; }
     }
 }

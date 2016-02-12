@@ -1,19 +1,20 @@
 --
--- File generated with SQLiteStudio v3.0.7 on Thu Feb 4 14:00:37 2016
+-- File generated with SQLiteStudio v3.0.7 on Thu Feb 11 11:54:23 2016
 --
 -- Text encoding used: windows-1252
 --
 PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
 
--- Table: ProjectEntity
-DROP TABLE IF EXISTS ProjectEntity;
+-- Table: Version
+DROP TABLE IF EXISTS Version;
 
-CREATE TABLE ProjectEntity (
-    ProjectEntityId INTEGER           NOT NULL
-                                      PRIMARY KEY AUTOINCREMENT,
-    Description     TEXT (2147483647),
-    LastUpdated     INTEGER           DEFAULT (CURRENT_TIMESTAMP) 
+CREATE TABLE Version (
+    VersionId   INTEGER      PRIMARY KEY AUTOINCREMENT
+                             NOT NULL,
+    FromVersion VARCHAR (16),
+    ToVersion   VARCHAR (16),
+    Timestamp   NUMERIC
 );
 
 
@@ -47,15 +48,32 @@ CREATE TABLE DikeAssessmentSectionEntity (
 );
 
 
--- Table: Version
-DROP TABLE IF EXISTS Version;
+-- Table: ProjectEntity
+DROP TABLE IF EXISTS ProjectEntity;
 
-CREATE TABLE Version (
-    VersionId   INTEGER      PRIMARY KEY AUTOINCREMENT
-                             NOT NULL,
-    FromVersion VARCHAR (16),
-    ToVersion   VARCHAR (16),
-    Timestamp   NUMERIC
+CREATE TABLE ProjectEntity (
+    ProjectEntityId INTEGER           NOT NULL
+                                      PRIMARY KEY AUTOINCREMENT,
+    Description     TEXT (2147483647),
+    LastUpdated     INTEGER           DEFAULT (CURRENT_TIMESTAMP) 
+);
+
+
+-- Table: FailureMechanismEntity
+DROP TABLE IF EXISTS FailureMechanismEntity;
+
+CREATE TABLE FailureMechanismEntity (
+    FailureMechanismEntityId      INTEGER NOT NULL
+                                          PRIMARY KEY AUTOINCREMENT,
+    DikeAssessmentSectionEntityId INTEGER REFERENCES DikeAssessmentSectionEntity (DikeAssessmentSectionEntityId) ON DELETE CASCADE
+                                                                                                                 ON UPDATE CASCADE
+                                          NOT NULL,
+    FailureMechanismType          INT (2) NOT NULL,
+    UNIQUE (
+        DikeAssessmentSectionEntityId,
+        FailureMechanismType
+    )
+    ON CONFLICT REPLACE
 );
 
 

@@ -11,6 +11,8 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneAssessmentSectionEntity" Width="1.5" PointX="5.625" PointY="4.5" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="2.5" PointX="7.875" PointY="1.375" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

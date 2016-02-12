@@ -56,5 +56,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual IDbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
         public virtual IDbSet<DuneAssessmentSectionEntity> DuneAssessmentSectionEntities { get; set; }
+        public virtual IDbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
     }
 }
