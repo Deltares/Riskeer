@@ -71,6 +71,45 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Create_MapDataCollection_ReturnFeatureSetCorrespondingToListItems()
+        {
+            // Setup
+            var factory = new MapDataFactory();
+            var testData = CreateTestData();
+            var mapDataCollection = new MapDataCollection(new List<MapData>
+            {
+                new MapPointData(testData),
+                new MapLineData(testData),
+                new MapPolygonData(testData)
+            });
+
+            // Call
+            IList<FeatureSet> featureSets = factory.Create(mapDataCollection);
+
+            // Assert
+            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
+            Assert.AreEqual(3, featureSets.Count);
+
+            var featureSet = featureSets[0];
+            Assert.AreEqual(testData.Count, featureSet.Features.Count);
+            Assert.IsInstanceOf<FeatureSet>(featureSet);
+            Assert.AreEqual(FeatureType.Point, featureSet.FeatureType);
+            CollectionAssert.AreNotEqual(testData, featureSet.Features[0].Coordinates);
+
+            featureSet = featureSets[1];
+            Assert.AreEqual(1, featureSet.Features.Count);
+            Assert.IsInstanceOf<FeatureSet>(featureSet);
+            Assert.IsInstanceOf<LineString>(featureSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Line, featureSet.FeatureType);
+
+            featureSet = featureSets[2];
+            Assert.AreEqual(1, featureSet.Features.Count);
+            Assert.IsInstanceOf<FeatureSet>(featureSet);
+            Assert.IsInstanceOf<Polygon>(featureSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Polygon, featureSet.FeatureType);
+        }
+
+        [Test]
         public void Create_OtherData_ThrownsNotSupportedException()
         {
             // Setup

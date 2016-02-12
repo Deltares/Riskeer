@@ -11,11 +11,14 @@ namespace Core.Components.DotSpatial.Test.Data
         [Test]
         public void Constructor_NullList_ThrowsArgumentNullException()
         {
-            // Call
+            // Setup
             TestDelegate test = () => new MapDataCollection(null);
 
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            StringAssert.Contains("A list collection is required when creating MapDataCollection.", message);
         }
 
         [Test]

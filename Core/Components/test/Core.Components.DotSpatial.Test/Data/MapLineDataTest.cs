@@ -11,15 +11,18 @@ namespace Core.Components.DotSpatial.Test.Data
         [Test]
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
-            // Call
+            // Setup
             TestDelegate test = () => new MapLineData(null);
 
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            StringAssert.Contains(string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)), message);
         }
 
         [Test]
-        public void Constructor_WithEmptyPoints_CreatesNewICharData()
+        public void Constructor_WithEmptyPoints_CreatesNewMapLineData()
         {
             // Setup
             var points = new Collection<Tuple<double, double>>();
@@ -33,7 +36,7 @@ namespace Core.Components.DotSpatial.Test.Data
         }
 
         [Test]
-        public void Constructor_WithPoints_CreatesNewICharData()
+        public void Constructor_WithPoints_CreatesNewMapLineData()
         {
             // Setup
             var points = CreateTestPoints();
