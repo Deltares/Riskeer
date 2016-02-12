@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.PipingFailureMechanism)
                 {
-                    PipingFailureMechanismPersistor.LoadModel(dikeAssessmentSection.PipingFailureMechanism, failureMechanismEntity);
+                    pipingFailureMechanismPersistor.LoadModel(failureMechanismEntity, dikeAssessmentSection.PipingFailureMechanism);
                 }
             }
 

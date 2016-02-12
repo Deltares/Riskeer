@@ -51,9 +51,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             PipingFailureMechanism model = new PipingFailureMechanism();
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => PipingFailureMechanismPersistor.LoadModel(model, null);
+            TestDelegate test = () => persistor.LoadModel(null, model);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -64,9 +66,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             FailureMechanismEntity entity = new FailureMechanismEntity();
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => PipingFailureMechanismPersistor.LoadModel(null, entity);
+            TestDelegate test = () => persistor.LoadModel(entity, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -83,9 +87,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.StoneRevetmentFailureMechanism,
             };
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => PipingFailureMechanismPersistor.LoadModel(model, entity);
+            TestDelegate test = () => persistor.LoadModel(entity, model);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -102,9 +108,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
             };
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             // Call
-            PipingFailureMechanismPersistor.LoadModel(model, entity);
+            persistor.LoadModel(entity, model);
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanism>(model);

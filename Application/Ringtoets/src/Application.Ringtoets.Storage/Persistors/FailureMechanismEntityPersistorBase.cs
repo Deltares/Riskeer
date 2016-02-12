@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -30,12 +31,20 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
+    /// <summary>
+    /// Persistor for classes derived from <see cref="BaseFailureMechanism"/>.
+    /// </summary>
     public abstract class FailureMechanismEntityPersistorBase
     {
         protected readonly IRingtoetsEntities dbContext;
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> insertedList = new Dictionary<FailureMechanismEntity, IFailureMechanism>();
         private readonly ICollection<FailureMechanismEntity> modifiedList = new List<FailureMechanismEntity>();
 
+        /// <summary>
+        /// New instance of <see cref="FailureMechanismEntityPersistorBase"/>.
+        /// </summary>
+        /// <param name="ringtoetsContext">The storage context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
         protected FailureMechanismEntityPersistorBase(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
@@ -45,6 +54,11 @@ namespace Application.Ringtoets.Storage.Persistors
             dbContext = ringtoetsContext;
         }
 
+        /// <summary>
+        /// All unmodified <see cref="FailureMechanismEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
+        /// </summary>
+        /// <param name="parentNavigationProperty">List where <see cref="FailureMechanismEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<FailureMechanismEntity> parentNavigationProperty)
         {
             var originalList = parentNavigationProperty.ToList();
@@ -65,6 +79,9 @@ namespace Application.Ringtoets.Storage.Persistors
             modifiedList.Clear();
         }
 
+        /// <summary>
+        /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
+        /// </summary>
         public void PerformPostSaveActions()
         {
             foreach (var entry in insertedList)
@@ -74,6 +91,15 @@ namespace Application.Ringtoets.Storage.Persistors
             insertedList.Clear();
         }
 
+        /// <summary>
+        /// Ensures that the model is added as <see cref="FailureMechanismEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// </summary>
+        /// <param name="parentNavigationProperty">Collection where <see cref="FailureMechanismEntity"/> objects can be added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="model"><see cref="IFailureMechanism"/> to be saved in the storage.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
+        /// <item><paramref name="model"/> is <c>null</c>.</item>
+        /// </list></exception>
         protected void InsertModel(ICollection<FailureMechanismEntity> parentNavigationProperty, IFailureMechanism model)
         {
             if (parentNavigationProperty == null)
@@ -93,6 +119,20 @@ namespace Application.Ringtoets.Storage.Persistors
             }
         }
 
+        /// <summary>
+        /// Ensures that the <paramref name="model"/> is set as <see cref="FailureMechanismEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// </summary>
+        /// <param name="parentNavigationProperty">Collection where <see cref="FailureMechanismEntity"/> objects can be searched and added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="model"><see cref="IFailureMechanism"/> to be saved in the storage.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
+        /// <item><paramref name="model"/> is <c>null</c>.</item>
+        /// </list></exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
+        /// <exception cref="EntityNotFoundException">Thrown when the storageId of <paramref name="model"/> &gt; 0 and: <list type="bullet">
+        /// <item>More than one element found in <paramref name="parentNavigationProperty"/> that should have been unique.</item>
+        /// <item>No such element exists in <paramref name="parentNavigationProperty"/>.</item>
+        /// </list></exception>
         protected void UpdateModel(ICollection<FailureMechanismEntity> parentNavigationProperty, IFailureMechanism model)
         {
             if (model == null)
@@ -129,36 +169,47 @@ namespace Application.Ringtoets.Storage.Persistors
             ConvertModelToEntity(model, entity);
         }
 
-        protected static void LoadModel(IFailureMechanism model, FailureMechanismType modelType, FailureMechanismEntity entity)
+        /// <summary>
+        /// Updates the <paramref name="model"/> from <paramref name="entity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to update from.</param>
+        /// <param name="model">The <see cref="IFailureMechanism"/> to update.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c>.</item>
+        /// <item><paramref name="model"/> is <c>null</c>.</item>
+        /// </list></exception>
+        protected static void ConvertEntityToModel(FailureMechanismEntity entity, IFailureMechanism model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+            model.StorageId = entity.FailureMechanismEntityId;
+        }
+
+        /// <summary>
+        /// Updates the <paramref name="entity"/> from <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="IFailureMechanism"/> to update from.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to update.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="model"/> is <c>null</c>.</item>
+        /// </list></exception>
+        private static void ConvertModelToEntity(IFailureMechanism model, FailureMechanismEntity entity)
         {
             if (model == null)
             {
                 throw new ArgumentNullException("model");
             }
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            if (entity.FailureMechanismType != (int) modelType)
-            {
-                throw new ArgumentException("Incorrect modelType", "entity");
-            }
-            model.StorageId = entity.FailureMechanismEntityId;
-        }
-
-        private static void ConvertModelToEntity(IFailureMechanism modelObject, FailureMechanismEntity entity)
-        {
-            if (modelObject == null)
-            {
-                throw new ArgumentNullException("modelObject");
-            }
-            entity.FailureMechanismEntityId = modelObject.StorageId;
-            if (modelObject is PipingFailureMechanism)
+            entity.FailureMechanismEntityId = model.StorageId;
+            if (model is PipingFailureMechanism)
             {
                 entity.FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism;
-                return;
             }
-            throw new InvalidOperationException("modelObject is not a known implementation of IFailureMechanism");
         }
     }
 }
