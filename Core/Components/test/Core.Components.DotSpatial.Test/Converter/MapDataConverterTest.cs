@@ -5,7 +5,6 @@ using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.Data;
 using Core.Components.DotSpatial.TestUtil;
 using DotSpatial.Data;
-using DotSpatial.Topology;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -13,24 +12,6 @@ namespace Core.Components.DotSpatial.Test.Converter
     [TestFixture]
     public class MapDataConverterTest
     {
-        [Test]
-        public void TupleToDataPoint_RandomTupleDoubleDouble_ReturnsCoordinate()
-        {
-            // Setup
-            var random = new Random(21);
-            var a = random.NextDouble();
-            var b = random.NextDouble();
-            var tuple = new Tuple<double, double>(a, b);
-            var testConverter = new TestMapDataConverter<MapData>();
-
-            // Call
-            var coordinate = testConverter.PublicTupleToCoordinate(tuple);
-
-            // Assert
-            Assert.AreEqual(a, coordinate.X);
-            Assert.AreEqual(b, coordinate.Y);
-        }
-
         [Test]
         public void CanConvertMapData_DifferentInherritingTypes_OnlySupportsExactType()
         {
@@ -81,6 +62,23 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
+        [Test]
+        public void Convert_DataCanBeConverted_ReturnsResult()
+        {
+            // Setup
+            var testConverter = new TestMapDataConverter<TestMapData>();
+            var testMapData = new TestMapData();
+
+            // Precondition
+            Assert.IsTrue(testConverter.CanConvertMapData(testMapData));
+
+            // Call
+            var result = testConverter.Convert(testMapData);
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
         private class Class : MapData {}
 
         private class Child : Class {}
@@ -89,12 +87,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             protected override IList<FeatureSet> Convert(T data)
             {
-                throw new NotImplementedException();
-            }
-
-            public Coordinate PublicTupleToCoordinate(Tuple<double, double> obj)
-            {
-                return new Coordinate(obj.Item1, obj.Item2);
+                return new List<FeatureSet>(); // Dummy implementation
             }
         }
     }
