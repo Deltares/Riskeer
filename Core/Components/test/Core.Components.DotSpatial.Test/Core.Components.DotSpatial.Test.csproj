@@ -112,7 +112,6 @@
     <Compile Include="Data\MapPointDataTest.cs" />
     <Compile Include="Data\MapPolygonDataTest.cs" />
     <Compile Include="Data\PointsBasedMapDataTest.cs" />
-    <Compile Include="Exceptions\MapDataExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
