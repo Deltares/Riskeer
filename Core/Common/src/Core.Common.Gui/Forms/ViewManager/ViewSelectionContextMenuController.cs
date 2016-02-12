@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         private void MenuItemCloseOtherClick(object sender, EventArgs e)
         {
-            viewManager.Clear(selectedView);
+            viewManager.RemoveAllExcept(selectedView);
         }
 
         private void MenuItemCloseAllClick(object sender, EventArgs e)

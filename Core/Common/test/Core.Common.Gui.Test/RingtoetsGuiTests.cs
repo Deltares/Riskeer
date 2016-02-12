@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
@@ -9,9 +10,13 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
+using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.Test.Forms.ViewManager;
@@ -423,6 +428,8 @@ namespace Core.Common.Gui.Test
                     Assert.IsInstanceOf<MessageWindowLogAppender>(appender);
                     Assert.AreSame(appender, MessageWindowLogAppender.Instance);
                     Assert.IsTrue(rootLogger.Repository.Configured);
+
+                    Assert.IsTrue(MessageWindowLogAppender.Instance.Enabled);
                 }
             }
             finally
@@ -465,6 +472,8 @@ namespace Core.Common.Gui.Test
                     Assert.AreSame(appender, rootLogger.Appenders[0]);
                     Assert.AreSame(appender, MessageWindowLogAppender.Instance);
                     Assert.AreEqual(rootloggerConfigured, rootLogger.Repository.Configured);
+
+                    Assert.IsTrue(MessageWindowLogAppender.Instance.Enabled);
                 }
             }
             finally
@@ -612,6 +621,141 @@ namespace Core.Common.Gui.Test
                 var expectedTitle = string.Format("{0} - {1} {2}",
                                                   expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_WithGuiPlugins_SetGuiAndActivatePlugins()
+        {
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var guiPlugin = mocks.Stub<GuiPlugin>();
+            guiPlugin.Stub(p => p.Deactivate());
+            guiPlugin.Stub(p => p.Dispose());
+            guiPlugin.Expect(p => p.Activate());
+            guiPlugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            guiPlugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            mocks.ReplayAll();
+
+            // Setup
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(guiPlugin);
+
+                // Call
+                gui.Run();
+
+                // Assert
+                Assert.AreSame(gui, guiPlugin.Gui);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_WithGuiPluginThatThrowsExceptionWhenActivated_DeactivateAndDisposePlugin()
+        {
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var guiPlugin = mocks.Stub<GuiPlugin>();
+            guiPlugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            guiPlugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            guiPlugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
+            guiPlugin.Expect(p => p.Deactivate());
+            guiPlugin.Expect(p => p.Dispose());
+            mocks.ReplayAll();
+
+            // Setup
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(guiPlugin);
+
+                // Call
+                gui.Run();
+            }
+            // Assert
+            mocks.VerifyAll(); // Expect calls on plugin
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_WithGuiPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogErrorForDeactivatingThenDispose()
+        {
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var guiPlugin = mocks.Stub<GuiPlugin>();
+            guiPlugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            guiPlugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            guiPlugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
+            guiPlugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
+            guiPlugin.Expect(p => p.Dispose());
+            mocks.ReplayAll();
+
+            // Setup
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(guiPlugin);
+
+                // Call
+                Action call = () => gui.Run();
+
+                // Assert
+                var expectedMessage = "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            }
+            mocks.VerifyAll(); // Expect Dispose call on plugin
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_InitializesDocumentViewController()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                // Call
+                Action call = () => gui.Run();
+
+                // Assert
+                var expectedMessage = "Schermmanager voor documenten aan het maken...";
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+
+                CollectionAssert.IsEmpty(gui.DocumentViews);
+                Assert.IsFalse(gui.DocumentViews.IgnoreActivation);
+                Assert.IsNull(gui.DocumentViews.ActiveView);
+                
+                Assert.IsNotNull(gui.DocumentViewsResolver);
+                CollectionAssert.IsEmpty(gui.DocumentViewsResolver.DefaultViewTypes);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Run_InitializesToolViewController()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                // Call
+                gui.Run();
+
+                // Assert
+                Assert.AreEqual(2, gui.ToolWindowViews.Count);
+                Assert.AreEqual(1, gui.ToolWindowViews.Count(v => v is PropertyGridView));
+                Assert.AreEqual(1, gui.ToolWindowViews.Count(v => v is MessageWindow));
+                Assert.IsFalse(gui.ToolWindowViews.IgnoreActivation);
+                Assert.IsNull(gui.ToolWindowViews.ActiveView);
             }
             mocks.VerifyAll();
         }
@@ -856,38 +1000,182 @@ namespace Core.Common.Gui.Test
             mocks.VerifyAll();
         }
 
+        [Test]
+        [STAThread]
+        public void Get_GuiHasntRunYet_ThrowInvalidOperationException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var treeView = new TreeViewControl())
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                // Call
+                TestDelegate call = () => gui.Get(new object(), treeView);
+
+                // Assert
+                var message = Assert.Throws<InvalidOperationException>(call).Message;
+                Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
+
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Get_GuiIsRunning_ReturnsContextMenuBuilder()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var treeView = new TreeViewControl())
+            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                // Call
+                IContextMenuBuilder builder = gui.Get(new object(), treeView);
+
+                // Assert
+                ContextMenuStrip contextMenu = builder.AddRenameItem()
+                                                      .AddCollapseAllItem()
+                                                      .AddDeleteItem()
+                                                      .AddExpandAllItem()
+                                                      .AddImportItem()
+                                                      .AddExportItem()
+                                                      .AddOpenItem()
+                                                      .AddSeparator()
+                                                      .AddPropertiesItem()
+                                                      .Build();
+                Assert.AreEqual(9, contextMenu.Items.Count);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void GivenGuiRunCalled_WhenMainWindowOpens_EnsurePropertyGridAndMessageWindowAreActivated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                gui.ToolWindowViews.Add(new ProjectExplorerMock());
+
+                var activatedViewsDuringShow = new List<IView>();
+                gui.ToolWindowViews.ActiveViewChanged += (sender, args) =>
+                {
+                    activatedViewsDuringShow.Add(args.View);
+                };
+
+                // Call
+                mainWindow.Show();
+
+                // Assert
+                Assert.AreEqual(2, activatedViewsDuringShow.Count);
+                Assert.AreEqual(1, activatedViewsDuringShow.Count(v => v is MessageWindow));
+                Assert.AreEqual(1, activatedViewsDuringShow.Count(v => v is PropertyGrid));
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [STAThread]
+        public void Project_SetNewValue_FireProjectClosingAndOpenedEvents()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var storeProject = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new RingtoetsGui(new MainWindow(), storeProject, new ApplicationCore(), new GuiCoreSettings()))
+            {
+                var oldProject = new Project("A");
+                var newProject = new Project("B");
+
+                gui.Project = oldProject;
+
+                int closingCallCount = 0;
+                gui.ProjectClosing += project =>
+                {
+                    if (closingCallCount == 0)
+                    {
+                        Assert.AreSame(oldProject, project);
+                    }
+                    else
+                    {
+                        // Dispose causes this one:
+                        Assert.AreSame(newProject, project);
+                    }
+                    closingCallCount++;
+                };
+                int openedCallCount = 0;
+                gui.ProjectOpened += project =>
+                {
+                    Assert.AreSame(newProject, project);
+                    openedCallCount++;
+                };
+
+                // Call
+                gui.Project = newProject;
+
+                // Assert
+                Assert.AreEqual(1, closingCallCount);
+                Assert.AreEqual(1, openedCallCount);
+            }
+            mocks.VerifyAll();
+        }
+
         private static void AssertDefaultUserSettings(SettingsBase settings)
         {
             Assert.IsNotNull(settings);
             Assert.AreEqual(15, settings.Properties.Count);
+
+            // Note: Cannot assert particular values, as they can be changed by user.
             var mruList = (StringCollection)settings["mruList"];
-            CollectionAssert.IsEmpty(mruList);
+            Assert.IsNotNull(mruList);
             var defaultViewDataTypes = (StringCollection)settings["defaultViewDataTypes"];
-            CollectionAssert.IsEmpty(defaultViewDataTypes);
+            Assert.IsNotNull(defaultViewDataTypes);
             var defaultViews = (StringCollection)settings["defaultViews"];
-            CollectionAssert.IsEmpty(defaultViews);
+            Assert.IsNotNull(defaultViews);
             var lastVisitedPath = (string)settings["lastVisitedPath"];
-            Assert.AreEqual(string.Empty, lastVisitedPath);
+            Assert.IsNotNull(lastVisitedPath);
             var isMainWindowFullScreen = (bool)settings["MainWindow_FullScreen"];
-            Assert.IsFalse(isMainWindowFullScreen);
+            Assert.IsNotNull(isMainWindowFullScreen);
             var x = (int)settings["MainWindow_X"];
-            Assert.AreEqual(50, x);
+            Assert.IsNotNull(x);
             var y = (int)settings["MainWindow_Y"];
-            Assert.AreEqual(50, y);
+            Assert.IsNotNull(y);
             var width = (int)settings["MainWindow_Width"];
-            Assert.AreEqual(1024, width);
+            Assert.IsNotNull(width);
             var height = (int)settings["MainWindow_Height"];
-            Assert.AreEqual(768, height);
+            Assert.IsNotNull(height);
             var startPageName = (string)settings["startPageName"];
-            Assert.AreEqual("Startpagina", startPageName);
+            Assert.IsNotNull(startPageName);
             var showStartPage = (bool)settings["showStartPage"];
-            Assert.IsTrue(showStartPage);
+            Assert.IsNotNull(showStartPage);
             var showSplashScreen = (bool)settings["showSplashScreen"];
-            Assert.IsTrue(showSplashScreen);
+            Assert.IsNotNull(showSplashScreen);
             var showHiddenDataItems = (bool)settings["showHiddenDataItems"];
-            Assert.IsFalse(showHiddenDataItems);
+            Assert.IsNotNull(showHiddenDataItems);
             var colorTheme = (ColorTheme)settings["colorTheme"];
-            Assert.AreEqual(ColorTheme.Generic, colorTheme);
+            Assert.IsNotNull(colorTheme);
+        }
+
+        private class ProjectExplorerMock : UserControl, IProjectExplorer
+        {
+            public object Data { get; set; }
+            public TreeViewControl TreeViewControl { get; private set; }
         }
     }
 }

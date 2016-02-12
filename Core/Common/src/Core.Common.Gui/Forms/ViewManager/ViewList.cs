@@ -77,21 +77,6 @@ namespace Core.Common.Gui.Forms.ViewManager
         }
 
         /// <summary>
-        /// Removes all views in the list except for those specified.
-        /// </summary>
-        /// <param name="viewsToKeep">The views to keep.</param>
-        public void Remove(IView[] viewsToKeep)
-        {
-            foreach (var view in views.ToArray())
-            {
-                if (!viewsToKeep.Contains(view))
-                {
-                    views.Remove(view);
-                }
-            }
-        }
-
-        /// <summary>
         /// Updates the image used for the docking panel hosting the view.
         /// </summary>
         /// <param name="view">The view.</param>
@@ -263,7 +248,7 @@ namespace Core.Common.Gui.Forms.ViewManager
             FireCollectionChangedEvent(NotifyCollectionChangeEventArgs.CreateCollectionResetArgs());
         }
 
-        public void Clear(IView viewToKeep)
+        public void RemoveAllExcept(IView viewToKeep)
         {
             var viewToKeepIndex = views.IndexOf(viewToKeep);
 
@@ -276,6 +261,17 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
 
             ActiveView = viewToKeep;
+        }
+
+        public void RemoveAllExcept(IView[] viewsToKeep)
+        {
+            foreach (var view in views.ToArray())
+            {
+                if (!viewsToKeep.Contains(view))
+                {
+                    views.Remove(view);
+                }
+            }
         }
 
         public bool Contains(IView item)

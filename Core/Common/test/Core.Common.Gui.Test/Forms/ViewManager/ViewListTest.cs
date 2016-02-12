@@ -1003,7 +1003,7 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
                 };
 
                 // Call
-                viewList.Clear(viewToKeep);
+                viewList.RemoveAllExcept(viewToKeep);
 
                 // Assert
                 Assert.AreSame(viewToKeep, viewList.ActiveView);
@@ -1414,7 +1414,7 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
                     };
 
                     // Call
-                    viewList.Remove(viewsToKeep);
+                    viewList.RemoveAllExcept(viewsToKeep);
 
                     // Assert
                     CollectionAssert.AreEqual(viewsToKeep, viewList);

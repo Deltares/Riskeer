@@ -113,6 +113,12 @@ namespace Core.Common.Gui.Forms.ViewManager
         /// </summary>
         /// <param name="viewToKeep">The view that should be kept open and made the active view. 
         /// If set to null, all views will be closed and <see cref="ActiveView"/> will be null.</param>
-        void Clear(IView viewToKeep);
+        void RemoveAllExcept(IView viewToKeep);
+
+        /// <summary>
+        /// Removes all views in the list except for those specified.
+        /// </summary>
+        /// <param name="viewsToKeep">The views to keep.</param>
+        void RemoveAllExcept(IView[] viewsToKeep);
     }
 }

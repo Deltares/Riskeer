@@ -203,15 +203,14 @@ namespace Core.Common.Gui
             }
         }
 
-        public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
-        {
-            return Plugins.SelectMany(pluginGui => pluginGui.GetTreeNodeInfos());
-        }
-
         #region Implementation: IContextMenuBuilderProvider
 
         public IContextMenuBuilder Get(object dataObject, TreeViewControl treeViewControl)
         {
+            if (applicationFeatureCommands == null)
+            {
+                throw new InvalidOperationException("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.");
+            }
             return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, dataObject, treeViewControl);
         }
 
@@ -240,12 +239,12 @@ namespace Core.Common.Gui
 
                 Project = null;
 
-                if (toolWindowViews != null)
+                if (ToolWindowViews != null)
                 {
-                    toolWindowViews.CollectionChanged -= ToolWindowViewsOnCollectionChanged;
-                    toolWindowViews.Clear();
-                    toolWindowViews.Dispose();
-                    toolWindowViews = null;
+                    ToolWindowViews.CollectionChanged -= ToolWindowViewsOnCollectionChanged;
+                    ToolWindowViews.Clear();
+                    ToolWindowViews.Dispose();
+                    ToolWindowViews = null;
                 }
 
                 if (storageCommandHandler != null)
@@ -254,15 +253,15 @@ namespace Core.Common.Gui
                     storageCommandHandler = null;
                 }
 
-                if (documentViews != null)
+                if (DocumentViews != null)
                 {
-                    documentViews.ActiveViewChanging -= ActiveViewChanging;
-                    documentViews.ActiveViewChanged -= OnActiveViewChanged;
-                    documentViews.CollectionChanged -= DocumentViewsCollectionChanged;
+                    DocumentViews.ActiveViewChanging -= ActiveViewChanging;
+                    DocumentViews.ActiveViewChanged -= OnActiveViewChanged;
+                    DocumentViews.CollectionChanged -= DocumentViewsCollectionChanged;
 
-                    documentViews.Clear();
-                    documentViews.Dispose();
-                    documentViews = null;
+                    DocumentViews.Clear();
+                    DocumentViews.Dispose();
+                    DocumentViews = null;
                 }
 
                 if (toolWindowViewsDockingManager != null)
@@ -292,8 +291,6 @@ namespace Core.Common.Gui
                 RemoveLogging();
                 Plugins = null;
             }
-
-            WindowsApplication.ApplicationExit -= HandleApplicationExit;
 
             #region prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
 
@@ -456,19 +453,13 @@ namespace Core.Common.Gui
         {
             InitializeWindows();
 
-            Plugins.ForEachElementDo(p => p.Gui = this);
-
-            ActivatePlugins();
-
-            InitializeMenusAndToolbars();
-
-            WindowsApplication.ApplicationExit += HandleApplicationExit;
+            InitializeGuiPlugins();
 
             CopyDefaultViewsFromUserSettings();
 
             //enable activation AFTER initialization
-            documentViews.IgnoreActivation = false;
-            toolWindowViews.IgnoreActivation = false;
+            DocumentViews.IgnoreActivation = false;
+            ToolWindowViews.IgnoreActivation = false;
 
             if (Properties.Settings.Default.SettingsKey.Contains("mruList"))
             {
@@ -477,11 +468,6 @@ namespace Core.Common.Gui
                     Properties.Settings.Default["mruList"] = new StringCollection();
                 }
             }
-        }
-
-        private void HandleApplicationExit(object sender, EventArgs e)
-        {
-            Exit();
         }
 
         private void ShowSplashScreen()
@@ -528,7 +514,7 @@ namespace Core.Common.Gui
                 toolWindowViewsDockingManager.UpdateLayout();
 
                 // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
-                toolWindowViews.Remove(toolWindowViewsDockingManager.Views.ToArray());
+                ToolWindowViews.RemoveAllExcept(toolWindowViewsDockingManager.Views.ToArray());
 
                 // make sure these windows come on top
                 if (ToolWindowViews.Contains(mainWindow.PropertyGrid))
@@ -570,7 +556,7 @@ namespace Core.Common.Gui
             InitializeMainWindow();
 
             log.Info(Resources.RingtoetsGui_InitializeWindows_Creating_default_tool_windows);
-            InitToolWindows();
+            InitializeToolWindows();
 
             UpdateTitle();
 
@@ -590,11 +576,28 @@ namespace Core.Common.Gui
             }
         }
 
-        // TODO: incapsulate any knowledge of the plugin XML inside plugin configurator, the rest of the system should not know about it!
-        private void InitToolWindows()
+        private void InitializeToolWindows()
         {
             log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_document_window_manager);
 
+            InitializeDocumentViewController();
+
+            PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
+            applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, mainWindow, this);
+
+            InitializeToolViewController();
+
+            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_tool_window_manager);
+
+            mainWindow.InitializeToolWindows();
+
+            log.Debug(Resources.RingtoetsGui_InitToolWindows_Finished_InitToolWindows);
+
+            mainWindow.SubscribeToGui();
+        }
+
+        private void InitializeDocumentViewController()
+        {
             var allowedDocumentWindowLocations = new[]
             {
                 ViewLocation.Document,
@@ -606,7 +609,7 @@ namespace Core.Common.Gui
             var documentViewManager = new ViewList(documentDockingManager, ViewLocation.Document)
             {
                 IgnoreActivation = true,
-                UpdateViewNameAction = v => UpdateViewName(v),
+                UpdateViewNameAction = v => UpdateViewName(v)
             };
 
             documentViewManager.EnableTabContextMenus();
@@ -615,12 +618,13 @@ namespace Core.Common.Gui
             documentViewManager.ActiveViewChanged += OnActiveViewChanged;
             documentViewManager.CollectionChanged += DocumentViewsCollectionChanged;
 
-            documentViews = documentViewManager;
+            DocumentViews = documentViewManager;
 
-            DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
-            PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
-            applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, MainWindow, this);
+            DocumentViewsResolver = new ViewResolver(documentViewManager, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
+        }
 
+        private void InitializeToolViewController()
+        {
             var allowedToolWindowLocations = new[]
             {
                 ViewLocation.Left,
@@ -632,20 +636,12 @@ namespace Core.Common.Gui
 
             toolWindowViewsDockingManager = new AvalonDockDockingManager(mainWindow.DockingManager, allowedToolWindowLocations);
 
-            toolWindowViews = new ViewList(toolWindowViewsDockingManager, ViewLocation.Left)
+            ToolWindowViews = new ViewList(toolWindowViewsDockingManager, ViewLocation.Left)
             {
-                IgnoreActivation = true,
+                IgnoreActivation = true
             };
 
-            toolWindowViews.CollectionChanged += ToolWindowViewsOnCollectionChanged;
-
-            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_tool_window_manager);
-
-            mainWindow.InitializeToolWindows();
-
-            log.Debug(Resources.RingtoetsGui_InitToolWindows_Finished_InitToolWindows);
-
-            mainWindow.SubscribeToGui();
+            ToolWindowViews.CollectionChanged += ToolWindowViewsOnCollectionChanged;
         }
 
         private void OnActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
@@ -684,7 +680,7 @@ namespace Core.Common.Gui
 
         private void DocumentViewsCollectionChanged(object sender, NotifyCollectionChangeEventArgs e)
         {
-            if (isExiting || documentViews.Count != 0)
+            if (isExiting || DocumentViews.Count != 0)
             {
                 return;
             }
@@ -693,18 +689,10 @@ namespace Core.Common.Gui
             mainWindow.ValidateItems();
         }
 
-        private void InitializeMenusAndToolbars()
+        private void InitializeGuiPlugins()
         {
-            log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars);
+            Plugins.ForEachElementDo(p => p.Gui = this);
 
-            // Validate once when loading is completed
-            mainWindow.ValidateItems();
-
-            log.Info(Resources.RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready);
-        }
-
-        private void ActivatePlugins()
-        {
             var problematicPlugins = new List<GuiPlugin>();
 
             // Try to activate all plugins
@@ -714,7 +702,7 @@ namespace Core.Common.Gui
                 {
                     plugin.Activate();
                 }
-                catch (Exception)
+                catch
                 {
                     problematicPlugins.Add(plugin);
                 }
@@ -729,25 +717,23 @@ namespace Core.Common.Gui
 
         private void CopyDefaultViewsFromUserSettings()
         {
-            StringCollection defaultViews;
-            StringCollection defaultViewDataTypes;
-            if (UserSettings["defaultViews"] != null)
-            {
-                defaultViews = (StringCollection) UserSettings["defaultViews"];
-                defaultViewDataTypes = (StringCollection) UserSettings["defaultViewDataTypes"];
-            }
-            else
+            if (UserSettings["defaultViews"] == null)
             {
                 return;
             }
 
+            var defaultViews = (StringCollection) UserSettings["defaultViews"];
+            var defaultViewDataTypes = (StringCollection) UserSettings["defaultViewDataTypes"];
+
             for (int i = 0; i < defaultViews.Count; i++)
             {
-                string skey = defaultViewDataTypes[i];
-                string sview = defaultViews[i];
-                if (AssemblyUtils.GetTypeByName(skey) != null)
+                string viewDataTypeName = defaultViewDataTypes[i];
+                string viewTypeName = defaultViews[i];
+
+                Type viewDataType = AssemblyUtils.GetTypeByName(viewDataTypeName);
+                if (viewDataType != null)
                 {
-                    DocumentViewsResolver.DefaultViewTypes.Add(AssemblyUtils.GetTypeByName(skey), AssemblyUtils.GetTypeByName(sview));
+                    DocumentViewsResolver.DefaultViewTypes.Add(viewDataType, AssemblyUtils.GetTypeByName(viewTypeName));
                 }
             }
         }
@@ -915,27 +901,19 @@ namespace Core.Common.Gui
 
         #region Implementation: IDocumentViewController
 
-        private ViewList documentViews;
-
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 
         public IView ActiveView
         {
             get
             {
-                return documentViews != null ?
+                return DocumentViews != null ?
                            DocumentViews.ActiveView :
                            null;
             }
         }
 
-        public IViewList DocumentViews
-        {
-            get
-            {
-                return documentViews;
-            }
-        }
+        public IViewList DocumentViews { get; private set; }
 
         public IViewResolver DocumentViewsResolver { get; private set; }
 
@@ -990,6 +968,11 @@ namespace Core.Common.Gui
         #region Implementation: IGuiPluginHost
 
         public IList<GuiPlugin> Plugins { get; private set; }
+
+        public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
+        {
+            return Plugins.SelectMany(pluginGui => pluginGui.GetTreeNodeInfos());
+        }
 
         public IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootDataObject)
         {
@@ -1052,15 +1035,7 @@ namespace Core.Common.Gui
 
         #region Implementation: IToolViewController
 
-        private ViewList toolWindowViews;
-
-        public IViewList ToolWindowViews
-        {
-            get
-            {
-                return toolWindowViews;
-            }
-        }
+        public IViewList ToolWindowViews { get; private set; }
 
         public void CloseToolView(IView toolView)
         {
