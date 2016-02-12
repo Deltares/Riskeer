@@ -42,7 +42,7 @@ namespace Core.Components.DotSpatial.Test.Data
 
         private class TestPointBasedMapData : PointBasedMapData
         {
-            public TestPointBasedMapData(IEnumerable<Tuple<double, double>> points) : base(points) { }
+            public TestPointBasedMapData(IEnumerable<Tuple<double, double>> points) : base(points) {}
         }
     }
 }

@@ -6,7 +6,6 @@ using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.Data;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
-
 using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 
 namespace Core.Plugins.DotSpatial.Test.Legend

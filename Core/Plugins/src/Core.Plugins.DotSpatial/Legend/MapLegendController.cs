@@ -32,9 +32,9 @@ namespace Core.Plugins.DotSpatial.Legend
     public class MapLegendController
     {
         private readonly IToolViewController toolViewController;
-        private IView legendView;
 
         public EventHandler<EventArgs> OnOpenLegend;
+        private IView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendController"/>.
@@ -74,6 +74,19 @@ namespace Core.Plugins.DotSpatial.Legend
         }
 
         /// <summary>
+        /// Updates the data for the <see cref="MapLegendView"/> if it is open.
+        /// </summary>
+        /// <param name="data">The <see cref="MapData"/> to show. If <c>null</c> the 
+        /// data will be cleared.</param>
+        public void Update(MapData data)
+        {
+            if (IsLegendViewOpen())
+            {
+                legendView.Data = data;
+            }
+        }
+
+        /// <summary>
         /// Open the <see cref="MapLegendView"/>.
         /// </summary>
         private void OpenLegendView()
@@ -94,19 +107,6 @@ namespace Core.Plugins.DotSpatial.Legend
             toolViewController.CloseToolView(legendView);
             legendView.Dispose();
             legendView = null;
-        }
-
-        /// <summary>
-        /// Updates the data for the <see cref="MapLegendView"/> if it is open.
-        /// </summary>
-        /// <param name="data">The <see cref="MapData"/> to show. If <c>null</c> the 
-        /// data will be cleared.</param>
-        public void Update(MapData data)
-        {
-            if (IsLegendViewOpen())
-            {
-                legendView.Data = data;
-            }
         }
     }
 }

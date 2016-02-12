@@ -40,7 +40,10 @@ namespace Core.Components.DotSpatial.Converter
                 featureSet.Features.Add(new Coordinate(point.Item1, point.Item2));
             }
 
-            return new List<FeatureSet> { featureSet };
+            return new List<FeatureSet>
+            {
+                featureSet
+            };
         }
     }
 }

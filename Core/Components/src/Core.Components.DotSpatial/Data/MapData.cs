@@ -24,5 +24,5 @@ namespace Core.Components.DotSpatial.Data
     /// <summary>
     /// Abstract class for data with the purpose of becoming visible in map components.
     /// </summary>
-    public abstract class MapData { }
+    public abstract class MapData {}
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-
 using Core.Common.Base.Plugin;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.Views;
@@ -9,7 +8,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Common.Test.TestObjects;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
 using Core.Components.DotSpatial.TestUtil;
@@ -103,7 +101,7 @@ namespace Core.Plugins.DotSpatial.Test
         [Test]
         public void GetViewInfoObjects_Always_ReturnsMapDataViewInfo()
         {
-             // Setup
+            // Setup
             using (var plugin = new DotSpatialGuiPlugin())
             {
                 var view = new MapDataView();

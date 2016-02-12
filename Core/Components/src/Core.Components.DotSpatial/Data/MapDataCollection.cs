@@ -46,6 +46,6 @@ namespace Core.Components.DotSpatial.Data
         /// <summary>
         /// Gets the list of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
         /// </summary>
-        public IList<MapData> List { get; private set; } 
+        public IList<MapData> List { get; private set; }
     }
 }

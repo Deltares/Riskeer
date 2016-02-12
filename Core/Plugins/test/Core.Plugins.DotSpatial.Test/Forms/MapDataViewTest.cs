@@ -44,7 +44,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         {
             // Setup
             var mapView = new MapDataView();
-            var map = (BaseMap)mapView.Controls[0];
+            var map = (BaseMap) mapView.Controls[0];
 
             // Call
             TestDelegate testDelegate = () => mapView.Data = null;
@@ -72,7 +72,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         {
             // Setup
             var mapView = new MapDataView();
-            var map = (BaseMap)mapView.Controls[0];
+            var map = (BaseMap) mapView.Controls[0];
             var pointData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
 
             // Call

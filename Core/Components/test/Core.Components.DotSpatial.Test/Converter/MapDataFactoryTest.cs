@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             IList<FeatureSet> featureSets = factory.Create(new MapLineData(testData));
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>> (featureSets);
+            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
             var featureSet = featureSets[0];
             Assert.AreEqual(1, featureSet.Features.Count);
             Assert.IsInstanceOf<FeatureSet>(featureSet);
@@ -62,7 +62,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             IList<FeatureSet> featureSets = factory.Create(new MapPolygonData(testData));
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>> (featureSets);
+            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
             var featureSet = featureSets[0];
             Assert.AreEqual(1, featureSet.Features.Count);
             Assert.IsInstanceOf<FeatureSet>(featureSet);
@@ -123,7 +123,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.Throws<NotSupportedException>(test);
         }
 
-        private static Collection<Tuple<double, double>>  CreateTestData()
+        private static Collection<Tuple<double, double>> CreateTestData()
         {
             return new Collection<Tuple<double, double>>
             {

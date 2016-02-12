@@ -25,8 +25,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Data;
-using Core.Plugins.DotSpatial.Properties;
-
 using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -45,7 +43,7 @@ namespace Core.Plugins.DotSpatial.Legend
         public MapLegendView()
         {
             InitializeComponent();
-            Text = Resources.General_Map;
+            Text = DotSpatialResources.General_Map;
 
             treeViewControl = new TreeViewControl
             {
@@ -54,34 +52,6 @@ namespace Core.Plugins.DotSpatial.Legend
             Controls.Add(treeViewControl);
 
             RegisterTreeNodeInfos();
-        }
-
-        private void RegisterTreeNodeInfos()
-        {
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
-            {
-                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Point_data_label,
-                Image = mapPointData => DotSpatialResources.PointsIcon
-            });
-            
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
-            {
-                Text = mapLineData => DotSpatialResources.MapDataNodePresenter_Line_data_label,
-                Image = mapLineData => DotSpatialResources.LineIcon
-            });
-            
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
-            {
-                Text = mapPolygonData => DotSpatialResources.MapDataNodePresenter_Polygon_data_label,
-                Image = mapPolygonData => DotSpatialResources.AreaIcon
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
-            {
-                Text = mapDataCollection => DotSpatialResources.General_Map,
-                Image = mapDataCollection => GuiResources.folder,
-                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray()
-            });
         }
 
         public object Data
@@ -99,6 +69,34 @@ namespace Core.Plugins.DotSpatial.Legend
 
                 treeViewControl.Data = (MapData) value;
             }
+        }
+
+        private void RegisterTreeNodeInfos()
+        {
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
+            {
+                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Point_data_label,
+                Image = mapPointData => DotSpatialResources.PointsIcon
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
+            {
+                Text = mapLineData => DotSpatialResources.MapDataNodePresenter_Line_data_label,
+                Image = mapLineData => DotSpatialResources.LineIcon
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
+            {
+                Text = mapPolygonData => DotSpatialResources.MapDataNodePresenter_Polygon_data_label,
+                Image = mapPolygonData => DotSpatialResources.AreaIcon
+            });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
+            {
+                Text = mapDataCollection => DotSpatialResources.General_Map,
+                Image = mapDataCollection => GuiResources.folder,
+                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray()
+            });
         }
     }
 }

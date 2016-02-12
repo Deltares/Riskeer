@@ -92,7 +92,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var objects = info.ChildNodeObjects(mapDataCollection);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { mapData3, mapData2, mapData1 }, objects);
+            CollectionAssert.AreEqual(new[]
+            {
+                mapData3,
+                mapData2,
+                mapData1
+            }, objects);
 
             mocks.VerifyAll();
         }

@@ -54,9 +54,9 @@ namespace Core.Components.DotSpatial.Test.Data
         {
             return new Collection<Tuple<double, double>>
             {
-                new Tuple<double, double>(0.0, 1.1),    
+                new Tuple<double, double>(0.0, 1.1),
                 new Tuple<double, double>(1.0, 2.1),
-                new Tuple<double, double>(1.6, 1.6)    
+                new Tuple<double, double>(1.6, 1.6)
             };
         }
     }

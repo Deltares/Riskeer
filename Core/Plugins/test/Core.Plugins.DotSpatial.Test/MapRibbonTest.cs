@@ -59,7 +59,10 @@ namespace Core.Plugins.DotSpatial.Test
             var commands = ribbon.Commands.ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(new ICommand[] { toggleLegendViewCommand }, commands);
+            CollectionAssert.AreEqual(new ICommand[]
+            {
+                toggleLegendViewCommand
+            }, commands);
             mocks.VerifyAll();
         }
 
