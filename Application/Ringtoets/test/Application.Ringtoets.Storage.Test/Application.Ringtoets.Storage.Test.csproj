@@ -86,7 +86,7 @@
     <Compile Include="Persistors\DuneAssessmentSectionEntityPersistorTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Persistors\PipingFailureMechanismPersistorTest.cs" />
+    <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistorTest.cs" />
     <Compile Include="Persistors\ProjectEntityPersistorTest.cs">
       <SubType>Code</SubType>
     </Compile>

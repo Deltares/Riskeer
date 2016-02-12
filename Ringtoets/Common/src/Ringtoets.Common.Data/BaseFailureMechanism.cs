@@ -33,6 +33,11 @@ namespace Ringtoets.Common.Data
     {
         private double contribution;
 
+        /// <summary>
+        /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
+        /// as part of the overall verdict.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval (0-100].</exception>
         public double Contribution
         {
             get
@@ -50,7 +55,7 @@ namespace Ringtoets.Common.Data
         }
 
         /// <summary>
-        /// Gets or sets the name of the failure mechanism.
+        /// Gets or sets the name of the <see cref="IFailureMechanism"/>.
         /// </summary>
         public string Name { get; protected set; }
 

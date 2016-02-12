@@ -75,7 +75,7 @@
     </Compile>
     <Compile Include="Persistors\FailureMechanismEntityPersistorBase.cs" />
     <Compile Include="Persistors\IPersistor.cs" />
-    <Compile Include="Persistors\PipingFailureMechanismPersistor.cs" />
+    <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistor.cs" />
     <Compile Include="Persistors\ProjectEntityPersistor.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />

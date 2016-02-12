@@ -546,7 +546,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void RemoveUnModifiedEntries_MultipleEntitiesInnParentNavigationPropertySingleModelStorageId_UpdatedDuneAssessmentSectionAsEntityAndOtherDeletedInDbSet()
+        public void RemoveUnModifiedEntries_MultipleEntitiesInParentNavigationPropertySingleModelStorageId_UpdatedDuneAssessmentSectionAsEntityAndOtherDeletedInDbSet()
         {
             // Setup
             const string name = "test";

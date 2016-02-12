@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     new FailureMechanismEntity
                     {
-                        FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism, FailureMechanismEntityId = pipingFailureMechanismStorageId
+                        FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism, FailureMechanismEntityId = pipingFailureMechanismStorageId
                     }
                 }
             };
@@ -266,7 +266,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreNotEqual(dikeAssessmentSection, entity);
 
             Assert.AreEqual(1, entity.FailureMechanismEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.PipingFailureMechanism)));
+            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.DikesPipingFailureMechanism)));
 
             mockRepository.VerifyAll();
         }
@@ -562,7 +562,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreNotEqual(dikeAssessmentSection, entity);
 
             Assert.AreEqual(1, entity.FailureMechanismEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.PipingFailureMechanism)));
+            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.DikesPipingFailureMechanism)));
 
             mockRepository.VerifyAll();
         }
@@ -618,7 +618,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void RemoveUnModifiedEntries_MultipleEntitiesInnParentNavigationPropertySingleModelStorageId_UpdatedDikeAssessmentSectionAsEntityAndOtherDeletedInDbSet()
+        public void RemoveUnModifiedEntries_MultipleEntitiesInParentNavigationPropertySingleModelStorageId_UpdatedDikeAssessmentSectionAsEntityAndOtherDeletedInDbSet()
         {
             // Setup
             const string name = "test";

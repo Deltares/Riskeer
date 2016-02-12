@@ -24,7 +24,7 @@ namespace Application.Ringtoets.Storage.Test.DbContext
             // Setup
             const long expectedParentId = 1L;
             const long expectedId = 1024L;
-            int failureMechanismType = (int) FailureMechanismType.PipingFailureMechanism;
+            int failureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
 
             // Call
             FailureMechanismEntity failureMechanismEntity = new FailureMechanismEntity

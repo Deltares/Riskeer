@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public abstract class FailureMechanismEntityPersistorBase
     {
-        protected readonly IRingtoetsEntities dbContext;
+        private readonly IRingtoetsEntities dbContext;
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> insertedList = new Dictionary<FailureMechanismEntity, IFailureMechanism>();
         private readonly ICollection<FailureMechanismEntity> modifiedList = new List<FailureMechanismEntity>();
 
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
-        protected void InsertModel(ICollection<FailureMechanismEntity> parentNavigationProperty, IFailureMechanism model)
+        public void InsertModel(ICollection<FailureMechanismEntity> parentNavigationProperty, IFailureMechanism model)
         {
             if (parentNavigationProperty == null)
             {
@@ -133,7 +133,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item>More than one element found in <paramref name="parentNavigationProperty"/> that should have been unique.</item>
         /// <item>No such element exists in <paramref name="parentNavigationProperty"/>.</item>
         /// </list></exception>
-        protected void UpdateModel(ICollection<FailureMechanismEntity> parentNavigationProperty, IFailureMechanism model)
+        public void UpdateModel(ICollection<FailureMechanismEntity> parentNavigationProperty, IFailureMechanism model)
         {
             if (model == null)
             {
@@ -208,7 +208,7 @@ namespace Application.Ringtoets.Storage.Persistors
             entity.FailureMechanismEntityId = model.StorageId;
             if (model is PipingFailureMechanism)
             {
-                entity.FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism;
+                entity.FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
             }
         }
     }
