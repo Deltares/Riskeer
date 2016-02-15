@@ -681,6 +681,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schermen initialiseren....
+        /// </summary>
+        public static string GuiCore_InitializeWindows_Initializing_windows {
+            get {
+                return ResourceManager.GetString("GuiCore_InitializeWindows_Initializing_windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Schermmanager voor documenten aan het maken....
         /// </summary>
         public static string GuiCore_InitToolWindows_Creating_document_window_manager {
@@ -759,6 +768,15 @@ namespace Core.Common.Gui.Properties {
         public static string GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting {
             get {
                 return ResourceManager.GetString("GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onbekend.
+        /// </summary>
+        public static string GuiCore_UpdateTitle_Unknown {
+            get {
+                return ResourceManager.GetString("GuiCore_UpdateTitle_Unknown", resourceCulture);
             }
         }
         
@@ -1487,15 +1505,6 @@ namespace Core.Common.Gui.Properties {
         public static string Ringtoets_project_file_filter {
             get {
                 return ResourceManager.GetString("Ringtoets_project_file_filter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onbekend.
-        /// </summary>
-        public static string RingtoetsGui_UpdateTitle_Unknown {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_UpdateTitle_Unknown", resourceCulture);
             }
         }
         

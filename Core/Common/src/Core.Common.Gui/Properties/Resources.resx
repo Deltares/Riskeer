@@ -460,9 +460,6 @@
   <data name="SplashScreen_Version" xml:space="preserve">
     <value>Versie</value>
   </data>
-  <data name="RingtoetsGui_UpdateTitle_Unknown" xml:space="preserve">
-    <value>Onbekend</value>
-  </data>
   <data name="MainWindow_LicenseView_Name" xml:space="preserve">
     <value>Licentie</value>
   </data>
@@ -681,5 +678,11 @@
   </data>
   <data name="SplashScreen_SupportTitle" xml:space="preserve">
     <value>Heeft u vragen of opmerkingen, neem dan contact op met Helpdesk Water.</value>
+  </data>
+  <data name="GuiCore_InitializeWindows_Initializing_windows" xml:space="preserve">
+    <value>Schermen initialiseren...</value>
+  </data>
+  <data name="GuiCore_UpdateTitle_Unknown" xml:space="preserve">
+    <value>Onbekend</value>
   </data>
 </root>
