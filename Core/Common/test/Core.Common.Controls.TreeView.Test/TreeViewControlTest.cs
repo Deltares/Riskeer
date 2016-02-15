@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -22,6 +23,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsTrue(treeView.LabelEdit);
             Assert.IsFalse(treeView.HideSelection);
             Assert.AreEqual(TreeViewDrawMode.Normal, treeView.DrawMode);
+            Assert.AreEqual("\\", treeView.PathSeparator);
 
             Assert.NotNull(treeView.ImageList);
             Assert.AreEqual(0, treeView.ImageList.Images.Count);
@@ -153,12 +155,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRename = (o, p) => true
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             treeViewControl.Data = new object();
 
             // Call
@@ -173,12 +175,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRename = (o, p) => true
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
             // Call
             var result = treeViewControl.CanRenameNodeForData(new object());
@@ -194,12 +196,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRename = (o, p) => expected
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             var dataObject = new object();
             treeViewControl.Data = dataObject;
 
@@ -216,12 +218,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRename = (o, p) => false
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             var dataObject = new object();
             treeViewControl.Data = dataObject;
 
@@ -247,12 +249,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRename = (o, p) => true
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             var dataObject = new object();
             treeViewControl.Data = dataObject;
 
@@ -273,12 +275,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRemove = (o, p) => true
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             treeViewControl.Data = new object();
 
             // Call
@@ -293,12 +295,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRemove = (o, p) => true
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
             // Call
             var result = treeViewControl.CanRemoveNodeForData(new object());
@@ -314,12 +316,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRemove = (o, p) => expected
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             var dataObject = new object();
             treeViewControl.Data = dataObject;
 
@@ -336,12 +338,12 @@ namespace Core.Common.Controls.TreeView.Test
         {
             // Setup
             var treeViewControl = new TreeViewControl();
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRemove = (o, p) => false
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             var dataObject = new object();
             treeViewControl.Data = dataObject;
 
@@ -368,13 +370,13 @@ namespace Core.Common.Controls.TreeView.Test
             // Setup
             var treeViewControl = new TreeViewControl();
             var hit = 0;
-            var treeNodeInfoOverride = new TreeNodeInfo
+            var treeNodeInfo = new TreeNodeInfo
             {
                 TagType = typeof(object),
                 CanRemove = (o, p) => true,
                 OnNodeRemoved = (o, p) => hit++
             };
-            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
             var dataObject = new object();
             treeViewControl.Data = dataObject;
 
@@ -397,6 +399,418 @@ namespace Core.Common.Controls.TreeView.Test
             WindowsFormsTestHelper.CloseAll();
 
             Assert.AreEqual(1, hit);
+        }
+
+        [Test]
+        public void CanExpandOrCollapseForData_NoDataForNull_ReturnsFalse()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+
+            // Call
+            treeViewControl.CanExpandOrCollapseForData(null);
+
+            // Assert
+
+        }
+
+        [Test]
+        public void CanExpandOrCollapseForData_NoChildren_ReturnsFalse()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            var result = treeViewControl.CanExpandOrCollapseForData(data);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CanExpandOrCollapseForData_WithChildren_ReturnsTrue()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            var result = treeViewControl.CanExpandOrCollapseForData(data);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void TryCollapseAllNodesForData_WithoutChildrenForNull_NoChange()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
+            var treeNode = treeView.Nodes[0];
+            treeNode.Expand();
+
+            // Call
+            treeViewControl.TryCollapseAllNodesForData(null);
+
+            // Assert
+            Assert.IsTrue(treeNode.IsExpanded);
+        }
+
+        [Test]
+        public void TryCollapseAllNodesForData_WithoutChildren_Collapsed()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
+            var treeNode = treeView.Nodes[0];
+            treeNode.Expand();
+
+            // Call
+            treeViewControl.TryCollapseAllNodesForData(data);
+
+            // Assert
+            Assert.IsFalse(treeNode.IsExpanded);
+        }
+
+        [Test]
+        public void TryCollapseAllNodesForData_WithChildren_CollapsesNodeAndChildren()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+            var treeNode = treeView.Nodes[0];
+            treeNode.Expand();
+            var childNode = treeNode.Nodes[0];
+            childNode.Expand();
+
+            // Call
+            treeViewControl.TryCollapseAllNodesForData(data);
+
+            // Assert
+            Assert.IsFalse(treeNode.IsExpanded);
+            Assert.IsFalse(childNode.IsExpanded);
+        }
+
+        [Test]
+        public void TryExpandAllNodesForData_ForNull_NoChange()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+            var treeNode = treeView.Nodes[0];
+            treeNode.Collapse();
+
+            // Call
+            treeViewControl.TryExpandAllNodesForData(null);
+
+            // Assert
+            Assert.IsFalse(treeNode.IsExpanded);
+        }
+
+        [Test]
+        public void TryExpandAllNodesForData_WithoutChildren_Expanded()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
+            var treeNode = treeView.Nodes[0];
+            treeNode.Collapse();
+
+            // Call
+            treeViewControl.TryExpandAllNodesForData(data);
+
+            // Assert
+            Assert.IsTrue(treeNode.IsExpanded);
+        }
+
+        [Test]
+        public void TryExpandAllNodesForData_WithChildren_ExpandsNodeAndChildren()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+            var treeNode = treeView.Nodes[0];
+            treeNode.Collapse();
+            var childNode = treeNode.Nodes[0];
+            childNode.Collapse();
+
+            // Call
+            treeViewControl.TryExpandAllNodesForData(data);
+
+            // Assert
+            Assert.IsTrue(treeNode.IsExpanded);
+            Assert.IsTrue(childNode.IsExpanded);
+        }
+
+        [Test]
+        public void TrySelectNodeForData_NoData_SelectNull()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+
+            // Call
+            treeViewControl.TrySelectNodeForData(null);
+
+            // Assert
+            Assert.IsNull(treeViewControl.SelectedData);
+        }
+
+        [Test]
+        public void TrySelectNodeForData_WithChildDataSelectRoot_RootSelected()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            treeViewControl.TrySelectNodeForData(data);
+
+            // Assert
+            Assert.AreSame(data, treeViewControl.SelectedData);
+        }
+
+        [Test]
+        public void TrySelectNodeForData_WithChildDataSelectChild_ChildSelected()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            treeViewControl.TrySelectNodeForData(string.Empty);
+
+            // Assert
+            Assert.AreSame(string.Empty, treeViewControl.SelectedData);
+        }
+
+        [Test]
+        public void TrySelectNodeForData_WithChildDataSelectNull_NoSelection()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty }
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string)
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            treeViewControl.TrySelectNodeForData(null);
+
+            // Assert
+            Assert.IsNull(treeViewControl.SelectedData);
+        }
+
+        [Test]
+        public void TryGetPathForData_WithChildDataForRoot_ReturnsPathToRoot()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var rootText = "root";
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty },
+                Text = o => rootText
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string),
+                Text = o => "child"
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            var result = treeViewControl.TryGetPathForData(data);
+
+            // Assert
+            Assert.AreEqual(rootText, result);
+        }
+
+        [Test]
+        public void TryGetPathForData_WithChildDataForChild_ReturnsPathToChild()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var rootText = "root";
+            var childText = "child";
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty },
+                Text = o => rootText
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string),
+                Text = o => "child"
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+
+            // Call
+            var result = treeViewControl.TryGetPathForData(string.Empty);
+
+            // Assert
+            Assert.AreEqual(rootText + treeView.PathSeparator + childText, result);
+        }
+
+        [Test]
+        public void TryGetPathForData_WithChildDataForNull_ReturnsNull()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                ChildNodeObjects = o => new[] { string.Empty },
+                Text = o => "root"
+            };
+            var childTreeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(string),
+                Text = o => "child"
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+            treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+            var data = new object();
+            treeViewControl.Data = data;
+
+            // Call
+            var result = treeViewControl.TryGetPathForData(null);
+
+            // Assert
+            Assert.IsNull(result);
         }
 //
 //        [Test]
