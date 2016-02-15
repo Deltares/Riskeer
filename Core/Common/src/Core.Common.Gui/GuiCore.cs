@@ -59,9 +59,9 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for the application.
     /// </summary>
-    public class RingtoetsGui : IGui
+    public class GuiCore : IGui
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsGui));
+        private static readonly ILog log = LogManager.GetLogger(typeof(GuiCore));
 
         private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
@@ -74,16 +74,16 @@ namespace Core.Common.Gui
         private bool isExiting;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RingtoetsGui"/> class.
+        /// Initializes a new instance of the <see cref="GuiCore"/> class.
         /// </summary>
         /// <param name="mainWindow">The main window.</param>
         /// <param name="projectStore">The project store.</param>
         /// <param name="applicationCore">The application core.</param>
         /// <param name="fixedSettings">The fixed settings.</param>
-        /// <exception cref="System.InvalidOperationException">When another <see cref="RingtoetsGui"/>
+        /// <exception cref="System.InvalidOperationException">When another <see cref="GuiCore"/>
         /// instance is running.</exception>
         /// <exception cref="System.ArgumentNullException">When any parameter is null.</exception>
-        public RingtoetsGui(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore, GuiCoreSettings fixedSettings)
+        public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore, GuiCoreSettings fixedSettings)
         {
             // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (isAlreadyRunningInstanceOfIGui)
@@ -757,7 +757,7 @@ namespace Core.Common.Gui
             UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
         }
 
-        ~RingtoetsGui()
+        ~GuiCore()
         {
             Dispose(false);
         }

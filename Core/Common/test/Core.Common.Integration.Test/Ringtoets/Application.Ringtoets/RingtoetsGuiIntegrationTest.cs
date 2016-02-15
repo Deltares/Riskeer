@@ -32,7 +32,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var applicationCore = gui.ApplicationCore;
 
@@ -59,7 +59,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -79,7 +79,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
                 int callCount = 0;
@@ -95,7 +95,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var applicationCore = gui.ApplicationCore;
 

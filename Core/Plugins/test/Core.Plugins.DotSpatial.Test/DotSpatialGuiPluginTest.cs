@@ -128,7 +128,7 @@ namespace Core.Plugins.DotSpatial.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var plugin = new DotSpatialGuiPlugin();
                 var testMapView = new TestMapView();

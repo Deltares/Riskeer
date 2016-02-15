@@ -160,7 +160,7 @@
                     </StackPanel>
                 </DataTemplate>
             </avalonDock:DockingManager.DocumentHeaderTemplate>
-            <avalonDock:LayoutRoot PropertyChanged="OnLayoutRootPropertyChanged">
+            <avalonDock:LayoutRoot>
                 <avalonDock:LayoutPanel Orientation="Horizontal">
 
                     <avalonDock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="220">

@@ -43,6 +43,9 @@ using Point = System.Drawing.Point;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Provides view docking management based on the 'Avalon Docking framework'.
+    /// </summary>
     public class AvalonDockDockingManager : IDockingManager
     {
         public event EventHandler<DockTabClosingEventArgs> ViewBarClosing;
@@ -52,17 +55,22 @@ namespace Core.Common.Gui.Forms.ViewManager
         public event Action<object, MouseEventArgs, IView> ViewSelectionMouseDown;
 
         private readonly DockingManager dockingManager;
-        private readonly ViewLocation[] dockingLocations;
+        private readonly ViewLocation[] supportedDockingLocations;
 
         private readonly List<IView> views;
         private IView activeView;
 
         private readonly List<WindowsFormsHost> hostControls;
 
-        public AvalonDockDockingManager(DockingManager dockingManager, ViewLocation[] dockingLocations)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AvalonDockDockingManager"/> class.
+        /// </summary>
+        /// <param name="dockingManager">The Avalon docking manager.</param>
+        /// <param name="supportedDockingLocations">The supported docking locations.</param>
+        public AvalonDockDockingManager(DockingManager dockingManager, ViewLocation[] supportedDockingLocations)
         {
             this.dockingManager = dockingManager;
-            this.dockingLocations = dockingLocations;
+            this.supportedDockingLocations = supportedDockingLocations;
 
             views = new List<IView>();
             hostControls = new List<WindowsFormsHost>();
@@ -151,7 +159,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             views.Add(view);
 
-            if (dockingLocations.Contains(ViewLocation.Document))
+            if (supportedDockingLocations.Contains(ViewLocation.Document))
             {
                 AddDocumentView(view);
             }
@@ -234,7 +242,7 @@ namespace Core.Common.Gui.Forms.ViewManager
                 return;
             }
 
-            if (dockingLocations.Contains(ViewLocation.Document))
+            if (supportedDockingLocations.Contains(ViewLocation.Document))
             {
                 var layoutDocument = dockingManager.Layout.Descendents().OfType<LayoutDocument>().FirstOrDefault(a => ContainsView(a, view));
 

@@ -148,7 +148,7 @@
     <Compile Include="PropertyBag\ObjectPropertiesTest.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptorTest.cs" />
     <Compile Include="PropertyBag\PropertySpecTest.cs" />
-    <Compile Include="RingtoetsGuiTests.cs" />
+    <Compile Include="GuiCoreTest.cs" />
     <Compile Include="Selection\SelectedItemChangedEventArgsTest.cs" />
     <Compile Include="Settings\SettingsHelperTest.cs" />
     <Compile Include="Theme\ColorThemeExtensionsTest.cs" />

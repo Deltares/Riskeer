@@ -26,14 +26,22 @@ using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// Controller for handling context menu logic, taking the docking manager into account.
+    /// </summary>
     public class ViewSelectionMouseController
     {
-        private readonly ViewSelectionContextMenuController contextMenuController; // expose when necessary
+        private readonly ViewSelectionContextMenuController contextMenuController;
+        private readonly IViewList viewManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewSelectionMouseController"/> class.
+        /// </summary>
+        /// <param name="dockingManager">The docking manager.</param>
+        /// <param name="viewList">The view list.</param>
         public ViewSelectionMouseController(IDockingManager dockingManager, IViewList viewList)
         {
-            DockingManager = dockingManager;
-            ViewManager = viewList;
+            viewManager = viewList;
 
             dockingManager.ViewSelectionMouseDown += OnViewSelectionMouseDown;
 
@@ -42,13 +50,9 @@ namespace Core.Common.Gui.Forms.ViewManager
             viewList.ActiveViewChanged += ViewManagerActiveViewChanged;
         }
 
-        public IDockingManager DockingManager { get; private set; }
-
-        public IViewList ViewManager { get; set; }
-
         private void ViewManagerActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
-            contextMenuController.ContextMenuStripValidate(null, ViewManager);
+            contextMenuController.ContextMenuStripValidate(null, viewManager);
         }
 
         private void OnViewSelectionMouseDown(object sender, MouseEventArgs e, IView selectedView)
@@ -58,14 +62,14 @@ namespace Core.Common.Gui.Forms.ViewManager
                 throw new ArgumentException(Resources.ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control);
             }
 
-            if (!ViewManager.Contains(selectedView))
+            if (!viewManager.Contains(selectedView))
             {
                 return; //View is not in our ViewList, don't handle this
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                if (contextMenuController.ContextMenuStripValidate(selectedView, ViewManager))
+                if (contextMenuController.ContextMenuStripValidate(selectedView, viewManager))
                 {
                     contextMenuController.ContextMenuStrip.Show((sender as Control).PointToScreen(e.Location));
                 }

@@ -39,7 +39,7 @@ namespace Core.Common.Gui.Properties
     {
         public Settings()
         {
-            PortableSettingsProvider.SettingsFileName = Path.Combine(SettingsHelper.GetApplicationLocalUserSettingsDirectory(), "user.config");
+            PortableSettingsProvider.SettingsFilePath = Path.Combine(SettingsHelper.GetApplicationLocalUserSettingsDirectory(), "user.config");
             //add default intances for collections
             if (mruList == null)
             {

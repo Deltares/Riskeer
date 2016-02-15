@@ -34,7 +34,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test
 {
     [TestFixture]
-    public class RingtoetsGuiTests
+    public class GuiCoreTests
     {
         private MessageWindowLogAppender originalMessageWindowLogAppender;
         private IViewCommands originalViewPropertyEditor;
@@ -69,7 +69,7 @@ namespace Core.Common.Gui.Test
 
             // Call
             using (var mainWindow = new MainWindow())
-            using (var gui = new RingtoetsGui(mainWindow, projectStore, applicationCore, guiCoreSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, applicationCore, guiCoreSettings))
             {
                 // Assert
                 Assert.AreSame(applicationCore, gui.ApplicationCore);
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Test
             
             {
                 // Call
-                TestDelegate call = () => new RingtoetsGui(nullArgumentIndex == 0 ? null : mainWindow, projectStore, applicationCore, guiCoreSettings);
+                TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow, projectStore, applicationCore, guiCoreSettings);
 
                 // Assert
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Value cannot be null.");
@@ -163,10 +163,10 @@ namespace Core.Common.Gui.Test
 
             // Call
             using (var mainWindow = new MainWindow())
-            using (var gui = new RingtoetsGui(mainWindow, projectStore, applicationCore, guiCoreSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, applicationCore, guiCoreSettings))
             {
                 // Call
-                using (var gui2 = new RingtoetsGui(mainWindow, projectStore, applicationCore, guiCoreSettings))
+                using (var gui2 = new GuiCore(mainWindow, projectStore, applicationCore, guiCoreSettings))
                 {
                     // Assert
                     Assert.Fail("Expected an InvalidOperationException to be thrown.");
@@ -186,7 +186,7 @@ namespace Core.Common.Gui.Test
             applicationCore.Expect(ac => ac.Dispose());
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(), projectStore, applicationCore, new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, applicationCore, new GuiCoreSettings());
 
             // Call
             gui.Dispose();
@@ -207,7 +207,7 @@ namespace Core.Common.Gui.Test
             guiPluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
             gui.Plugins.Add(guiPluginMock);
 
             // Call
@@ -230,7 +230,7 @@ namespace Core.Common.Gui.Test
             guiPluginMock.Expect(p => p.Dispose());
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
+            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings());
             gui.Plugins.Add(guiPluginMock);
 
             // Call
@@ -251,7 +251,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
+            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
             {
                 Selection = new object()
             };
@@ -273,7 +273,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
+            var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings())
             {
                 Project = new Project()
             };
@@ -297,7 +297,7 @@ namespace Core.Common.Gui.Test
 
             using (var mainWindow = new MainWindow())
             {
-                var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings());
+                var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings());
 
                 // Call
                 gui.Dispose();
@@ -325,7 +325,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
                 {
                     gui.Run();
 
@@ -359,7 +359,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using(var toolView = new TestView())
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -385,7 +385,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var documentView = new TestView())
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -417,7 +417,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using(var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                using(var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
                 {
                     // Call
                     gui.Run();
@@ -462,7 +462,7 @@ namespace Core.Common.Gui.Test
 
             try
             {
-                using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+                using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
                 {
                     // Call
                     gui.Run();
@@ -508,7 +508,7 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
             {
                 // Call
                 Action call = () => gui.Run(testFile);
@@ -554,7 +554,7 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
             {
                 // Call
                 Action call = () => gui.Run(testFile);
@@ -602,7 +602,7 @@ namespace Core.Common.Gui.Test
             };
 
             using(var mainWindow = new MainWindow())
-            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), fixedSettings))
             {
                 // Call
                 Action call = () => gui.Run(path);
@@ -640,7 +640,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(guiPlugin);
 
@@ -668,7 +668,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(guiPlugin);
 
@@ -694,7 +694,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             // Setup
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(guiPlugin);
 
@@ -717,7 +717,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action call = () => gui.Run();
@@ -745,7 +745,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 gui.Run();
@@ -768,7 +768,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 Assert.NotNull(ViewPropertyEditor.ViewCommands);
             }
@@ -784,7 +784,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var ringtoetsGui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var rootData = new object();
 
@@ -823,7 +823,7 @@ namespace Core.Common.Gui.Test
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var ringtoetsGui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -875,7 +875,7 @@ namespace Core.Common.Gui.Test
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var ringtoetsGui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 ringtoetsGui.Plugins.Add(plugin1);
                 ringtoetsGui.Plugins.Add(plugin2);
@@ -902,7 +902,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -935,7 +935,7 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 var result = gui.GetTreeNodeInfos();
@@ -983,7 +983,7 @@ namespace Core.Common.Gui.Test
             pluginC.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(pluginA);
                 gui.Plugins.Add(pluginB);
@@ -1010,7 +1010,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 TestDelegate call = () => gui.Get(new object(), treeView);
@@ -1033,7 +1033,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -1066,7 +1066,7 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new RingtoetsGui(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(mainWindow, projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 gui.Run();
 
@@ -1098,7 +1098,7 @@ namespace Core.Common.Gui.Test
             var storeProject = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), storeProject, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), storeProject, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var oldProject = new Project("A");
                 var newProject = new Project("B");

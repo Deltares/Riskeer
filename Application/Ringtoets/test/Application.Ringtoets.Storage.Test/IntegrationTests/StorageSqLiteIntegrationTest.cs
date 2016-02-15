@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var testFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
             var projectStore = new StorageSqLite();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var testFile = "SomeFile";
             var projectStore = new StorageSqLite();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);
@@ -170,7 +170,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // Setup
             var projectStore = new StorageSqLite();
 
-            using (var gui = new RingtoetsGui(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
                 Action action = () => gui.Run(testFile);

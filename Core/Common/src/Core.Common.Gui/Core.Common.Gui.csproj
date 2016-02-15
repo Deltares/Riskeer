@@ -161,7 +161,7 @@
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
     <Compile Include="Selection\ItemEventArgs.cs" />
-    <Compile Include="Settings\CustomSettingsProvider.cs" />
+    <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Settings\GuiCoreSettings.cs" />
     <Compile Include="Settings\ISettingsOwner.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />
@@ -183,7 +183,7 @@
     </Compile>
     <Compile Include="Forms\ProgressDialog\ProgressReporter.cs" />
     <Compile Include="Forms\PropertyGridView\IPropertyResolver.cs" />
-    <Compile Include="RingtoetsGui.cs" />
+    <Compile Include="GuiCore.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />

@@ -35,6 +35,10 @@ using log4net;
 
 namespace Core.Common.Gui.Settings
 {
+    /// <summary>
+    /// <see cref="SettingsProvider"/> that allows for library settings (<c>*.config</c>)
+    /// to be stored at a different location then next to the corresponding library *.dll.
+    /// </summary>
     public class PortableSettingsProvider : SettingsProvider
     {
         //XML Root Node
@@ -59,7 +63,10 @@ namespace Core.Common.Gui.Settings
             set {}
         }
 
-        public static string SettingsFileName { get; set; }
+        /// <summary>
+        /// Gets or sets the file location where the settings should be stored.
+        /// </summary>
+        public static string SettingsFilePath { get; set; }
 
         public override void Initialize(string name, NameValueCollection col)
         {
@@ -77,11 +84,11 @@ namespace Core.Common.Gui.Settings
 
             try
             {
-                SettingsXML.Save(SettingsFileName);
+                SettingsXML.Save(SettingsFilePath);
             }
             catch
             {
-                log.ErrorFormat(Resources.PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_, SettingsFileName);
+                log.ErrorFormat(Resources.PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to_0_, SettingsFilePath);
             }
         }
 
@@ -113,7 +120,7 @@ namespace Core.Common.Gui.Settings
                 if (m_SettingsXML == null)
                 {
                     m_SettingsXML = new XmlDocument();
-                    var filePath = SettingsFileName;
+                    var filePath = SettingsFilePath;
                     if (File.Exists(filePath))
                     {
                         try

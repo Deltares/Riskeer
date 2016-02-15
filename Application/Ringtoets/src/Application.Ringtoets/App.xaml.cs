@@ -69,7 +69,7 @@ namespace Application.Ringtoets
 
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
 
-        private static RingtoetsGui gui;
+        private static GuiCore gui;
         private static int waitForProcessId = -1;
         private static string fileToOpen = String.Empty;
 
@@ -153,7 +153,7 @@ namespace Application.Ringtoets
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
             var mainWindow = new MainWindow();
-            gui = new RingtoetsGui(mainWindow, new StorageSqLite(), applicationCore, settings)
+            gui = new GuiCore(mainWindow, new StorageSqLite(), applicationCore, settings)
             {
                 Plugins =
                 {

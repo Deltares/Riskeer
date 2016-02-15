@@ -25,11 +25,17 @@ using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms.ViewManager
 {
+    /// <summary>
+    /// This class provides a custom context menu for views hosted inside a docking manager.
+    /// </summary>
     public partial class ViewSelectionContextMenuController : UserControl
     {
         private IView selectedView;
         private IViewList viewManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewSelectionContextMenuController"/> class.
+        /// </summary>
         public ViewSelectionContextMenuController()
         {
             InitializeComponent();
@@ -38,6 +44,12 @@ namespace Core.Common.Gui.Forms.ViewManager
 
         public new ContextMenuStrip ContextMenuStrip { get; private set; }
 
+        /// <summary>
+        /// Refreshes the context menu.
+        /// </summary>
+        /// <param name="view">The view for which the context menu is shown.</param>
+        /// <param name="viewManager">The view manager.</param>
+        /// <returns><c>true</c> if the context menu can be used, <c>false</c> otherwise.</returns>
         public bool ContextMenuStripValidate(IView view, IViewList viewManager)
         {
             this.viewManager = viewManager;

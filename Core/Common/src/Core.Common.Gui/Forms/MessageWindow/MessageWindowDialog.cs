@@ -26,14 +26,14 @@ using Core.Common.Gui.Properties;
 namespace Core.Common.Gui.Forms.MessageWindow
 {
     /// <summary>
-    /// Class for showing a message dialog.
+    /// Dialog for showing a particular message.
     /// </summary>
     public partial class MessageWindowDialog : DialogBase
     {
         /// <summary>
         /// Constructs a new <see cref="MessageWindowDialog"/>.
         /// </summary>
-        /// <param name="dialogParent">The owner of the dialog.</param>
+        /// <param name="dialogParent">The owner of the dialog, for which this should show on top.</param>
         /// <param name="text">The text to show in the dialog.</param>
         public MessageWindowDialog(IWin32Window dialogParent, string text) : base(dialogParent, Resources.application_import_blue1, 200, 150)
         {

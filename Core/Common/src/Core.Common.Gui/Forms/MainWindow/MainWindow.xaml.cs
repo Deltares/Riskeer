@@ -604,8 +604,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        private void OnLayoutRootPropertyChanged(object sender, PropertyChangedEventArgs e) {}
-
         private void UpdateToolWindowButtonState()
         {
             if (toolViewController.ToolWindowViews != null)
