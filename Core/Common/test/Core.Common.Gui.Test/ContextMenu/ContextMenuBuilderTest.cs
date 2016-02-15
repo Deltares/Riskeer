@@ -394,7 +394,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
 
-            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Properties, Resources.Properties_ToolTip, Resources.PropertiesIcon, hasPropertiesForNodeData);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0, Resources.Properties, Resources.Properties_ToolTip, Resources.PropertiesHS, hasPropertiesForNodeData);
 
             mocks.VerifyAll();
         }

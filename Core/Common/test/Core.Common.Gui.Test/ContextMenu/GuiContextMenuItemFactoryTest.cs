@@ -233,7 +233,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             Assert.AreEqual(Resources.Properties, item.Text);
             Assert.AreEqual(Resources.Properties_ToolTip, item.ToolTipText);
-            TestHelper.AssertImagesAreEqual(Resources.PropertiesIcon, item.Image);
+            TestHelper.AssertImagesAreEqual(Resources.PropertiesHS, item.Image);
             Assert.AreEqual(hasPropertyInfoForNodeData, item.Enabled);
 
             mocks.VerifyAll();

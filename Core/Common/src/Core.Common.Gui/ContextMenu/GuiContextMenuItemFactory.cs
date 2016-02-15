@@ -143,7 +143,7 @@ namespace Core.Common.Gui.ContextMenu
             var newItem = new ToolStripMenuItem(Resources.Properties)
             {
                 ToolTipText = Resources.Properties_ToolTip,
-                Image = Resources.PropertiesIcon,
+                Image = Resources.PropertiesHS,
                 Enabled = canShowProperties
             };
             newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesFor(dataObject);

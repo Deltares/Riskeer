@@ -378,8 +378,6 @@
     <None Include="Resources\arrow.png" />
     <None Include="Resources\arrow-stop-090.png" />
     <None Include="Resources\arrow-stop-270.png" />
-    <None Include="Resources\table_delete.png" />
-    <None Include="Resources\property.png" />
     <None Include="Resources\table-import.png" />
     <None Include="Resources\table-export.png" />
   </ItemGroup>
@@ -394,9 +392,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\-1.png" />
-    <Resource Include="Resources\application_form1.png" />
-    <Resource Include="Resources\application_form2.png" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -404,13 +399,8 @@
     <Resource Include="Resources\application_import_blue.ico" />
     <Resource Include="Resources\application_import_blue.png" />
     <Resource Include="Resources\application_view_list.png" />
-    <Resource Include="Resources\application_view_list2.png" />
-    <Resource Include="Resources\bg.png" />
     <Resource Include="Resources\brick.png" />
-    <Resource Include="Resources\bricks1.png" />
     <Resource Include="Resources\brick_add.png" />
-    <Resource Include="Resources\brick_add1.png" />
-    <Resource Include="Resources\brick_delete1.png" />
     <Resource Include="Resources\chart_curve.png" />
     <Resource Include="Resources\ClosePreviewHH.png" />
     <Resource Include="Resources\Copy.png" />
@@ -421,18 +411,14 @@
     <Resource Include="Resources\exclamation.png" />
     <Resource Include="Resources\feedback.png" />
     <Resource Include="Resources\folder.png" />
-    <Resource Include="Resources\folder1.png" />
     <Resource Include="Resources\icon_clear_all_messages.PNG" />
     <Resource Include="Resources\information.png" />
-    <Resource Include="Resources\link1.png" />
     <Resource Include="Resources\manual.png" />
     <Resource Include="Resources\map.png" />
-    <Resource Include="Resources\new.png" />
     <Resource Include="Resources\openfolderHS.png" />
     <Resource Include="Resources\OptionsHS.png" />
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />
-    <Resource Include="Resources\project-16.png" />
     <Resource Include="Resources\PropertiesHS.png" />
     <Resource Include="Resources\Ringtoets.ico" />
     <Resource Include="Resources\SaveAsHH.png" />

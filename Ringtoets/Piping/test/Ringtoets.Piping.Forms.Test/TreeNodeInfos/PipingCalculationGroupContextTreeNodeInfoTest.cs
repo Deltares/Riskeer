@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 16,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesIcon,
+                                                          CoreCommonGuiResources.PropertiesHS,
                                                           false);
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
@@ -379,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 15,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesIcon,
+                                                          CoreCommonGuiResources.PropertiesHS,
                                                           false);
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
@@ -478,7 +478,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesIcon,
+                                                          CoreCommonGuiResources.PropertiesHS,
                                                           false);
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
