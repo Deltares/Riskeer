@@ -97,6 +97,10 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
+      <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
+      <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{aa47e858-a2a7-470e-8b2d-c76ae8ed9ccd}</Project>
       <Name>Core.Components.DotSpatial</Name>

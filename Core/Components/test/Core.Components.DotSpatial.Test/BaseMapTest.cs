@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
+using Core.Components.DotSpatial.Forms;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 

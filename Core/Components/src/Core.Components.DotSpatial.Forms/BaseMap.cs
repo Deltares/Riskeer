@@ -20,13 +20,16 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 
 using DotSpatial.Controls;
+using DotSpatial.Data;
+
 using IMap = Core.Components.Gis.IMap;
 
-namespace Core.Components.DotSpatial
+namespace Core.Components.DotSpatial.Forms
 {
     /// <summary>
     /// This class describes a map view with configured projection and function mode.
@@ -70,7 +73,7 @@ namespace Core.Components.DotSpatial
             {
                 foreach (var featureSet in mapDataFactory.Create(data))
                 {
-                    map.Layers.Add(featureSet);
+                    map.Layers.Add((IFeatureSet)featureSet);
                 }
             }
         }
