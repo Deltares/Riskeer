@@ -21,6 +21,7 @@
   <String Id="UserExitDescriptionCustom">De installatie van [ProductName] is onderbroken. Het systeem is niet gewijzigd. Als u dit programma op een later tijdstip wilt installeren, voert u het installatiehulpprogramma nogmaals uit. Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
   <String Id="ExitDialogDescription">Klik op de knop Voltooien om het installatiehulpprogramma af te sluiten.</String>
   
+  <String Id="MaintenanceTypeDlgTitle">{\WixUI_Font_Title}Installatie herstellen of verwijderen</String>
   <String Id="InstallDirDlgTitle">{\WixUI_Font_Title}Installatiemap</String>
   <String Id="InstallDirDlgFolderLabel">[ProductName] installeren in:</String>
   <String Id="InstallDirDlgDescription">{\WixUI_Font_Banner_Description}Kies hier het pad waar u [ProductName] geïnstalleerd wilt hebben.</String>
