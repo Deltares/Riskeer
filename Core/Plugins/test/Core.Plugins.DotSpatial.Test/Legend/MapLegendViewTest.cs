@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Legend;
 using Core.Plugins.DotSpatial.Properties;
 using NUnit.Framework;

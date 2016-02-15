@@ -21,14 +21,16 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Components.DotSpatial.Data;
+
+using Core.Components.Gis.Data;
+
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="FeatureSet"/> containing a <see cref="Polygon"/>.
+    /// The converter that converts <see cref="Core.Components.Gis.Data.MapPolygonData"/> into a <see cref="FeatureSet"/> containing a <see cref="Polygon"/>.
     /// </summary>
     public class MapPolygonDataConverter : MapDataConverter<MapPolygonData>
     {

@@ -21,13 +21,15 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Components.DotSpatial.Data;
+
+using Core.Components.Gis.Data;
+
 using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The abstract base class for transforming <see cref="MapData"/> in specific <see cref="FeatureSet"/> instances.
+    /// The abstract base class for transforming <see cref="Core.Components.Gis.Data.MapData"/> in specific <see cref="FeatureSet"/> instances.
     /// </summary>
     public abstract class MapDataConverter<T> : IMapDataConverter where T : MapData
     {

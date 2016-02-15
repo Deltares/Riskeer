@@ -21,14 +21,16 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Components.DotSpatial.Data;
+
+using Core.Components.Gis.Data;
+
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapLineData"/> into a <see cref="FeatureSet"/> containing a <see cref="LineString"/>.
+    /// The converter that converts <see cref="Core.Components.Gis.Data.MapLineData"/> into a <see cref="FeatureSet"/> containing a <see cref="LineString"/>.
     /// </summary>
     public class MapLineDataConverter : MapDataConverter<MapLineData>
     {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
-using Core.Components.DotSpatial.Data;
 using Core.Components.DotSpatial.TestUtil;
+using Core.Components.Gis.Data;
+
 using DotSpatial.Data;
 using DotSpatial.Topology;
 using NUnit.Framework;

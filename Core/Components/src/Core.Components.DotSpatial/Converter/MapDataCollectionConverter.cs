@@ -21,13 +21,15 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Components.DotSpatial.Data;
+
+using Core.Components.Gis.Data;
+
 using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapData"/> in <see cref="MapDataCollection"/> into one or more <see cref="FeatureSet"/>.
+    /// The converter that converts <see cref="Core.Components.Gis.Data.MapData"/> in <see cref="Core.Components.Gis.Data.MapDataCollection"/> into one or more <see cref="FeatureSet"/>.
     /// </summary>
     public class MapDataCollectionConverter : MapDataConverter<MapDataCollection>
     {

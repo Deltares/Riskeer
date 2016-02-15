@@ -101,6 +101,10 @@
       <Name>Core.Components.DotSpatial</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>

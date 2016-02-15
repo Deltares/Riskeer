@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Core.Components.DotSpatial.Data
+namespace Core.Components.Gis.Data
 {
     /// <summary>
     /// This class represents data in 2D space which forms a closed area.

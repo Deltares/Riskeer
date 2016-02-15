@@ -21,20 +21,22 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Components.DotSpatial.Data;
+
+using Core.Components.Gis.Data;
+
 using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The interface for a converter which converts <see cref="MapData"/> into <see cref="FeatureSet"/>.
+    /// The interface for a converter which converts <see cref="Core.Components.Gis.Data.MapData"/> into <see cref="FeatureSet"/>.
     /// </summary>
     public interface IMapDataConverter
     {
         /// <summary>
         /// Checks whether the <see cref="IMapDataConverter"/> can convert the <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="MapData"/> to check for.</param>
+        /// <param name="data">The <see cref="Core.Components.Gis.Data.MapData"/> to check for.</param>
         /// <returns><c>true</c> if the <paramref name="data"/> can be converted by the
         /// <see cref="IMapDataConverter"/>, <c>false</c> otherwise.</returns>
         bool CanConvertMapData(MapData data);

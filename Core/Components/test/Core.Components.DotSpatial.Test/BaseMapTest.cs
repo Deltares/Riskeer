@@ -2,10 +2,13 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
-using Core.Components.DotSpatial.Data;
 using Core.Components.DotSpatial.TestUtil;
+using Core.Components.Gis.Data;
+
 using DotSpatial.Controls;
 using NUnit.Framework;
+
+using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Test
 {

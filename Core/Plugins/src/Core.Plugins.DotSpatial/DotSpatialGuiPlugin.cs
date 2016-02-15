@@ -25,7 +25,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Forms;
 using Core.Plugins.DotSpatial.Legend;

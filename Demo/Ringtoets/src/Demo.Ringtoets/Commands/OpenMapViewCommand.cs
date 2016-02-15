@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
 
 namespace Demo.Ringtoets.Commands
 {
     /// <summary>
-    /// The command for opening a view for <see cref="MapData"/> with some arbitrary data.
+    /// The command for opening a view for <see cref="Core.Components.Gis.Data.MapData"/> with some arbitrary data.
     /// </summary>
     public class OpenMapViewCommand : ICommand
     {

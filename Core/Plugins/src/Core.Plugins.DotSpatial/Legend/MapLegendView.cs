@@ -24,7 +24,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
+
 using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 

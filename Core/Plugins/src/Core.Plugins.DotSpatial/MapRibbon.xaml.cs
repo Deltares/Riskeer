@@ -23,7 +23,8 @@ using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
-using Core.Components.DotSpatial;
+using Core.Components.Gis;
+
 using Fluent;
 
 namespace Core.Plugins.DotSpatial
@@ -44,7 +45,7 @@ namespace Core.Plugins.DotSpatial
         }
 
         /// <summary>
-        /// Sets the <see cref="IMap"/> to show the ribbon for.
+        /// Sets the <see cref="Core.Components.Gis.IMap"/> to show the ribbon for.
         /// </summary>
         public IMap Map
         {

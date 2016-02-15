@@ -98,13 +98,6 @@
     <Compile Include="Converter\MapLineDataConverter.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />
     <Compile Include="Converter\MapPolygonDataConverter.cs" />
-    <Compile Include="Data\MapPolygonData.cs" />
-    <Compile Include="Data\MapData.cs" />
-    <Compile Include="Data\MapDataCollection.cs" />
-    <Compile Include="Data\MapLineData.cs" />
-    <Compile Include="Data\MapPointData.cs" />
-    <Compile Include="Data\PointBasedMapData.cs" />
-    <Compile Include="IMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +105,10 @@
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj">
+      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
+      <Name>Core.Components.Gis</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

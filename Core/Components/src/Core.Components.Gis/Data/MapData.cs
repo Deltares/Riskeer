@@ -19,21 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-
-namespace Core.Components.DotSpatial.Data
+namespace Core.Components.Gis.Data
 {
     /// <summary>
-    /// This class represents data in 2D space which is visible as points.
+    /// Abstract class for data with the purpose of becoming visible in map components.
     /// </summary>
-    public class MapPointData : PointBasedMapData
-    {
-        /// <summary>
-        /// Create a new instance of <see cref="MapPointData"/>.
-        /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapPointData(IEnumerable<Tuple<double, double>> points) : base(points) {}
-    }
+    public abstract class MapData {}
 }

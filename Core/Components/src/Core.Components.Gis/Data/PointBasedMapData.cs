@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Components.DotSpatial.Data
+namespace Core.Components.Gis.Data
 {
     /// <summary>
     /// Base class for <see cref="MapData"/> which is based on a collection of points.

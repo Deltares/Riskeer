@@ -21,8 +21,10 @@
 
 using System.Windows.Forms;
 using Core.Components.DotSpatial.Converter;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
+
 using DotSpatial.Controls;
+using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial
 {

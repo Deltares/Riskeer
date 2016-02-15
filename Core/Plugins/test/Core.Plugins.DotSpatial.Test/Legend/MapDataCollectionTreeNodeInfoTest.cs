@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;

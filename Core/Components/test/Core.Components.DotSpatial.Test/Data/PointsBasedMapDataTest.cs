@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Core.Common.TestUtil;
-using Core.Components.DotSpatial.Data;
+using Core.Components.Gis.Data;
+
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Data
@@ -17,7 +18,7 @@ namespace Core.Components.DotSpatial.Test.Data
             TestDelegate test = () => new TestPointBasedMapData(null);
 
             // Assert
-            var expectedMessage = "A point collection is required when creating a subclass of Core.Components.DotSpatial.Data.PointBasedMapData.";
+            var expectedMessage = "A point collection is required when creating a subclass of Core.Components.Gis.Data.PointBasedMapData.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 

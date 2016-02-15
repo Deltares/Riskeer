@@ -19,33 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
+using Core.Components.Gis.Data;
 
-namespace Core.Components.DotSpatial.Data
+namespace Core.Components.Gis
 {
     /// <summary>
-    /// This class represents a collection of <see cref="MapData"/>.
+    /// Interface describing general map interactions.
     /// </summary>
-    public class MapDataCollection : MapData
+    public interface IMap
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapDataCollection"/>.
+        /// Gets or sets the data to show in the <see cref="IMap"/>.
         /// </summary>
-        /// <param name="list">A <see cref="List{T}"/> of <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is <c>null</c>.</exception>
-        public MapDataCollection(IList<MapData> list)
-        {
-            if (list == null)
-            {
-                throw new ArgumentNullException("list", "A list collection is required when creating MapDataCollection.");
-            }
-            List = list;
-        }
-
-        /// <summary>
-        /// Gets the list of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
-        /// </summary>
-        public IList<MapData> List { get; private set; }
+        MapData Data { get; set; }
     }
 }
