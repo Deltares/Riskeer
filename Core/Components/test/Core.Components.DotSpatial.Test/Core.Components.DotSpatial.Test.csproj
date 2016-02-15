@@ -100,14 +100,9 @@
     <Compile Include="Converter\MapDataCollectionConverterTest.cs" />
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
-    <Compile Include="Data\MapDataCollectionTest.cs" />
     <Compile Include="Converter\MapDataConverterTest.cs" />
     <Compile Include="Converter\MapDataFactoryTest.cs" />
     <Compile Include="Converter\MapPointDataConverterTest.cs" />
-    <Compile Include="Data\MapLineDataTest.cs" />
-    <Compile Include="Data\MapPointDataTest.cs" />
-    <Compile Include="Data\MapPolygonDataTest.cs" />
-    <Compile Include="Data\PointsBasedMapDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

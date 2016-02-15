@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 
 using NUnit.Framework;
 
-namespace Core.Components.DotSpatial.Test.Data
+namespace Core.Components.Gis.Test.Data
 {
     [TestFixture]
-    public class MapPointDataTest
+    public class MapPolygonDataTest
     {
         [Test]
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapPointData(null);
+            TestDelegate test = () => new MapPolygonData(null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
         }
 
         [Test]
-        public void Constructor_WithEmptyPoints_CreatesNewMapPointData()
+        public void Constructor_WithEmptyPoints_CreatesNewMapPolygonData()
         {
             // Setup
             var points = new Collection<Tuple<double, double>>();
 
             // Call
-            var data = new MapPointData(points);
+            var data = new MapPolygonData(points);
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -35,13 +36,13 @@ namespace Core.Components.DotSpatial.Test.Data
         }
 
         [Test]
-        public void Constructor_WithPoints_CreatesNewMapPointData()
+        public void Constructor_WithPoints_CreatesNewMapPolygonData()
         {
             // Setup
             var points = CreateTestPoints();
 
             // Call
-            var data = new MapPointData(points);
+            var data = new MapPolygonData(points);
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -49,7 +50,7 @@ namespace Core.Components.DotSpatial.Test.Data
             CollectionAssert.AreEqual(points, data.Points);
         }
 
-        private Collection<Tuple<double, double>> CreateTestPoints()
+        private static Collection<Tuple<double, double>> CreateTestPoints()
         {
             return new Collection<Tuple<double, double>>
             {

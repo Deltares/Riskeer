@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 
 using NUnit.Framework;
 
-namespace Core.Components.DotSpatial.Test.Data
+namespace Core.Components.Gis.Test.Data
 {
     [TestFixture]
     public class PointsBasedMapDataTest

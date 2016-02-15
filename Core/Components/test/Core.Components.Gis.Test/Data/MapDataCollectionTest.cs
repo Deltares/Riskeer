@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 
 using NUnit.Framework;
 
-namespace Core.Components.DotSpatial.Test.Data
+namespace Core.Components.Gis.Test.Data
 {
     [TestFixture]
     public class MapDataCollectionTest
