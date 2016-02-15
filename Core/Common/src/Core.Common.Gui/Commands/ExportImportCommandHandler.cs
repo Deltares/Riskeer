@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Commands
             }
             catch (Exception)
             {
-                log.ErrorFormat(Resources.GuiCommandHandler_ImportOn_Unable_to_import_on_0_, target);
+                log.ErrorFormat(Resources.ExportImportCommandHandler_ImportOn_Unable_to_import_on_0_, target);
             }
         }
 

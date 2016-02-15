@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Commands
         {
             if (projectOwner.Project == null)
             {
-                log.Error(Resources.GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
+                log.Error(Resources.ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item);
             }
 
             using (var selectDataDialog = CreateSelectionDialogWithItems(applicationCore.GetSupportedDataItemInfos(parent).ToArray()))

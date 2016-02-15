@@ -154,6 +154,11 @@
     <Compile Include="Plugin\PropertyInfo.cs" />
     <Compile Include="Plugin\PropertyInfoExtensions.cs" />
     <Compile Include="Plugin\ViewInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PropertyBag\DynamicPropertyBag.cs" />
     <Compile Include="PropertyBag\IObjectProperties.cs" />
     <Compile Include="PropertyBag\ObjectProperties.cs" />
@@ -252,11 +257,6 @@
       <DependentUpon>ViewSelectionContextMenuController.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ViewManager\ViewSelectionMouseController.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
@@ -365,8 +365,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -395,7 +395,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\-1.png" />
-    <Resource Include="Resources\application_form.png" />
     <Resource Include="Resources\application_form1.png" />
     <Resource Include="Resources\application_form2.png" />
     <None Include="Properties\Settings.settings">
@@ -404,116 +403,42 @@
     </None>
     <Resource Include="Resources\application_import_blue.ico" />
     <Resource Include="Resources\application_import_blue.png" />
-    <Resource Include="Resources\application_import_blue_Large.png" />
     <Resource Include="Resources\application_view_list.png" />
-    <Resource Include="Resources\application_view_list1.png" />
     <Resource Include="Resources\application_view_list2.png" />
     <Resource Include="Resources\bg.png" />
-    <Resource Include="Resources\binocular_32.png" />
     <Resource Include="Resources\brick.png" />
-    <Resource Include="Resources\brick1.png" />
-    <Resource Include="Resources\bricks.png" />
     <Resource Include="Resources\bricks1.png" />
-    <Resource Include="Resources\brick_active.png" />
     <Resource Include="Resources\brick_add.png" />
     <Resource Include="Resources\brick_add1.png" />
-    <Resource Include="Resources\brick_delete.png" />
     <Resource Include="Resources\brick_delete1.png" />
-    <Resource Include="Resources\brick_edit.png" />
-    <Resource Include="Resources\brick_error.png" />
-    <Resource Include="Resources\brick_link.png" />
-    <Resource Include="Resources\bug.png" />
-    <Resource Include="Resources\calendar.png" />
-    <Resource Include="Resources\calendar_view_day.png" />
-    <Resource Include="Resources\chart_bar.png" />
     <Resource Include="Resources\chart_curve.png" />
-    <Resource Include="Resources\chart_line.png" />
-    <Resource Include="Resources\chart_organisation.png" />
-    <Resource Include="Resources\chart_pie.png" />
-    <Resource Include="Resources\clipboard_32.png" />
     <Resource Include="Resources\ClosePreviewHH.png" />
-    <Resource Include="Resources\cog.png" />
-    <Resource Include="Resources\cog_active.png" />
-    <Resource Include="Resources\cog_add.png" />
-    <Resource Include="Resources\cog_add_Large.png" />
-    <Resource Include="Resources\cog_delete.png" />
-    <Resource Include="Resources\control_play.png" />
-    <Resource Include="Resources\control_stop.png" />
     <Resource Include="Resources\Copy.png" />
     <Resource Include="Resources\CopyHS.png" />
-    <Resource Include="Resources\cross-small-bw.png" />
-    <Resource Include="Resources\cross-small.png" />
-    <Resource Include="Resources\cross_small.png" />
-    <Resource Include="Resources\cut.png" />
-    <Resource Include="Resources\CutHS.png" />
-    <Resource Include="Resources\cut_red.png" />
-    <Resource Include="Resources\data_item.png" />
-    <Resource Include="Resources\data_item_error.png" />
-    <Resource Include="Resources\data_item_link.png" />
     <Resource Include="Resources\DeleteHS.png" />
     <Resource Include="Resources\DocumentHS.png" />
-    <Resource Include="Resources\edit-redo.png" />
-    <Resource Include="Resources\edit-undo.png" />
-    <Resource Include="Resources\Edit_RedoHS.png" />
-    <Resource Include="Resources\Edit_UndoHS.png" />
     <Resource Include="Resources\error.png" />
     <Resource Include="Resources\exclamation.png" />
-    <Resource Include="Resources\feed.png" />
     <Resource Include="Resources\feedback.png" />
-    <Resource Include="Resources\FindProject.png" />
-    <Resource Include="Resources\FindView.png" />
     <Resource Include="Resources\folder.png" />
     <Resource Include="Resources\folder1.png" />
-    <Resource Include="Resources\folder_add.png" />
-    <Resource Include="Resources\folder_brick.png" />
-    <Resource Include="Resources\folder_database.png" />
-    <Resource Include="Resources\folder_delete.png" />
-    <Resource Include="Resources\folder_edit.png" />
-    <Resource Include="Resources\folder_error.png" />
-    <Resource Include="Resources\folder_feed.png" />
-    <Resource Include="Resources\folder_input.png" />
-    <Resource Include="Resources\folder_output.png" />
-    <Resource Include="Resources\folder_wrench.png" />
-    <Resource Include="Resources\fullscreen.PNG" />
-    <Resource Include="Resources\graphhs.png" />
     <Resource Include="Resources\icon_clear_all_messages.PNG" />
     <Resource Include="Resources\information.png" />
-    <Resource Include="Resources\information_32.png" />
-    <Resource Include="Resources\link.png" />
     <Resource Include="Resources\link1.png" />
-    <Resource Include="Resources\link_break.png" />
-    <Resource Include="Resources\lock_edit.png" />
-    <Resource Include="Resources\magnifier.png" />
     <Resource Include="Resources\manual.png" />
     <Resource Include="Resources\map.png" />
     <Resource Include="Resources\new.png" />
-    <Resource Include="Resources\newspaper.png" />
-    <Resource Include="Resources\note.png" />
     <Resource Include="Resources\openfolderHS.png" />
     <Resource Include="Resources\OptionsHS.png" />
-    <Resource Include="Resources\OrgChartHS.png" />
     <Resource Include="Resources\Paste.png" />
-    <Resource Include="Resources\PasteHS.png" />
     <Resource Include="Resources\PasteLarge.png" />
-    <Resource Include="Resources\PlayAll.png" />
-    <Resource Include="Resources\PlayHS.png" />
-    <Resource Include="Resources\plugin.png" />
-    <Resource Include="Resources\plugin_disabled.png" />
-    <Resource Include="Resources\plus-button_32.png" />
     <Resource Include="Resources\project-16.png" />
     <Resource Include="Resources\PropertiesHS.png" />
-    <Resource Include="Resources\RelationshipsHS.png" />
-    <Resource Include="Resources\resultset_next.png" />
     <Resource Include="Resources\Ringtoets.ico" />
-    <Resource Include="Resources\SaveAllHS.png" />
     <Resource Include="Resources\SaveAsHH.png" />
     <Resource Include="Resources\saveHS.png" />
-    <Resource Include="Resources\script.png" />
-    <Resource Include="Resources\shape_square.png" />
     <Resource Include="Resources\SplashScreenBackground.png" />
     <Resource Include="Resources\startpage.png" />
-    <Resource Include="Resources\StopHS.png" />
-    <Resource Include="Resources\WebInsertHyperlinkHS.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\OptionsHS.ico" />

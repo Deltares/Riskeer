@@ -82,7 +82,7 @@ namespace Core.Common.Gui.Commands
             {
                 if (e is Win32Exception || e is ObjectDisposedException || e is FileNotFoundException)
                 {
-                    MessageBox.Show(Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
+                    MessageBox.Show(Resources.ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
                     Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
                 }
                 else

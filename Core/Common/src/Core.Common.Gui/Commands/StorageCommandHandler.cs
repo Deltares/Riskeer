@@ -83,10 +83,10 @@ namespace Core.Common.Gui.Commands
         {
             CloseProject();
 
-            log.Info(Resources.Project_new_opening);
+            log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project);
             projectOwner.Project = new Project();
             projectOwner.ProjectFilePath = "";
-            log.Info(Resources.Project_new_successfully_opened);
+            log.Info(Resources.StorageCommandHandler_NewProject_Created_new_project_succesful);
 
             mainWindowController.RefreshGui();
         }
@@ -106,19 +106,19 @@ namespace Core.Common.Gui.Commands
                 }
             }
 
-            log.Warn(Resources.Project_existing_project_opening_cancelled);
+            log.Warn(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project_cancelled);
             return false;
         }
 
         public bool OpenExistingProject(string filePath)
         {
-            log.Info(Resources.Project_existing_opening_project);
+            log.Info(Resources.StorageCommandHandler_OpenExistingProject_Opening_existing_project);
 
             var loadedProject = LoadProjectFromStorage(filePath);
 
             if (loadedProject == null)
             {
-                log.Error(Resources.Project_existing_project_opening_failed);
+                log.Error(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed);
                 return false;
             }
 
@@ -130,7 +130,7 @@ namespace Core.Common.Gui.Commands
             projectOwner.Project.Name = Path.GetFileNameWithoutExtension(filePath);
             projectOwner.Project.NotifyObservers();
             mainWindowController.RefreshGui();
-            log.Info(Resources.Project_existing_successfully_opened);
+            log.Info(Resources.StorageCommandHandler_OpeningExistingProject_Opening_existing_project_successful);
             return true;
         }
 
@@ -175,7 +175,7 @@ namespace Core.Common.Gui.Commands
             project.Name = Path.GetFileNameWithoutExtension(filePath);
             project.NotifyObservers();
             mainWindowController.RefreshGui();
-            log.Info(String.Format(Resources.Project_saving_project_saved_0, project.Name));
+            log.Info(String.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
             return true;
         }
 
@@ -199,7 +199,7 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            log.Info(String.Format(Resources.Project_saving_project_saved_0, project.Name));
+            log.Info(String.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
             return true;
         }
 
@@ -250,7 +250,7 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    log.Warn(Resources.Project_saving_project_cancelled);
+                    log.Warn(Resources.StorageCommandHandler_SaveProject_Saving_project_cancelled);
                     return null;
                 }
                 return saveFileDialog.FileName;
@@ -267,7 +267,7 @@ namespace Core.Common.Gui.Commands
             catch (StorageException e)
             {
                 log.Error(e.Message, e.InnerException);
-                log.Error(Resources.Project_saving_project_failed);
+                log.Error(Resources.StorageCommandHandler_Saving_project_failed);
                 return false;
             }
         }
@@ -282,7 +282,7 @@ namespace Core.Common.Gui.Commands
             catch (StorageException e)
             {
                 log.Error(e.Message, e.InnerException);
-                log.Error(Resources.Project_saving_project_failed);
+                log.Error(Resources.StorageCommandHandler_Saving_project_failed);
                 return false;
             }
         }

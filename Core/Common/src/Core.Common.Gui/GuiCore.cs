@@ -89,7 +89,7 @@ namespace Core.Common.Gui
             if (isAlreadyRunningInstanceOfIGui)
             {
                 isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
-                throw new InvalidOperationException(Resources.RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
+                throw new InvalidOperationException(Resources.GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace + instanceCreationStackTrace);
             }
 
             if (mainWindow == null)
@@ -155,15 +155,15 @@ namespace Core.Common.Gui
 
             ShowSplashScreen();
 
-            log.Info(Resources.RingtoetsGui_Run_Starting_application);
+            log.Info(Resources.GuiCore_Run_Starting_application);
 
             InitializeProjectFromPath(projectPath);
 
-            log.Info(Resources.RingtoetsGui_Run_Initializing_graphical_user_interface);
+            log.Info(Resources.GuiCore_Run_Initializing_graphical_user_interface);
 
             Initialize();
 
-            log.InfoFormat(Resources.RingtoetsGui_Run_Started_in_0_f2_sec, (DateTime.Now - startTime).TotalSeconds);
+            log.InfoFormat(Resources.GuiCore_Run_Started_in_0_f2_sec, (DateTime.Now - startTime).TotalSeconds);
 
             runFinished = true;
 
@@ -382,7 +382,7 @@ namespace Core.Common.Gui
             }
             if (setDefaultProject)
             {
-                log.Info(Resources.RingtoetsGui_Run_Creating_new_project);
+                log.Info(Resources.GuiCore_Run_Creating_new_project);
                 Project = new Project();
             }
         }
@@ -395,7 +395,7 @@ namespace Core.Common.Gui
             }
             catch (Exception exception)
             {
-                log.Error(Resources.RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation, exception);
+                log.Error(Resources.GuiCore_ActivatePlugins_Exception_during_plugin_gui_deactivation, exception);
             }
 
             plugin.Dispose();
@@ -488,7 +488,7 @@ namespace Core.Common.Gui
 
                 if (!runFinished) // splash screen was closed before gui started.
                 {
-                    log.Info(Resources.RingtoetsGui_ShowSplashScreen_User_has_cancelled_start_Exiting);
+                    log.Info(Resources.GuiCore_ShowSplashScreen_User_has_cancelled_start_Exiting);
                     Environment.Exit(1);
                 }
             };
@@ -551,16 +551,16 @@ namespace Core.Common.Gui
 
         private void InitializeWindows()
         {
-            log.Info(Resources.RingtoetsGui_InitializeWindows_Initializing_windows);
+            log.Info(Resources.GuiCore_InitializeWindows_Initializing_windows);
 
             InitializeMainWindow();
 
-            log.Info(Resources.RingtoetsGui_InitializeWindows_Creating_default_tool_windows);
+            log.Info(Resources.GuiCore_InitializeWindows_Creating_default_tool_windows);
             InitializeToolWindows();
 
             UpdateTitle();
 
-            log.Info(Resources.RingtoetsGui_InitializeWindows_All_windows_are_created);
+            log.Info(Resources.GuiCore_InitializeWindows_All_windows_are_created);
         }
 
         private void ActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
@@ -578,7 +578,7 @@ namespace Core.Common.Gui
 
         private void InitializeToolWindows()
         {
-            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_document_window_manager);
+            log.Info(Resources.GuiCore_InitToolWindows_Creating_document_window_manager);
 
             InitializeDocumentViewController();
 
@@ -587,11 +587,11 @@ namespace Core.Common.Gui
 
             InitializeToolViewController();
 
-            log.Info(Resources.RingtoetsGui_InitToolWindows_Creating_tool_window_manager);
+            log.Info(Resources.GuiCore_InitToolWindows_Creating_tool_window_manager);
 
             mainWindow.InitializeToolWindows();
 
-            log.Debug(Resources.RingtoetsGui_InitToolWindows_Finished_InitToolWindows);
+            log.Debug(Resources.GuiCore_InitToolWindows_Finished_InitToolWindows);
 
             mainWindow.SubscribeToGui();
         }
@@ -1025,7 +1025,7 @@ namespace Core.Common.Gui
             if (mainWindow != null)
             {
                 mainWindow.Title = string.Format("{0} - {1} {2}",
-                                                 Project != null ? Project.Name : Resources.RingtoetsGui_UpdateTitle_Unknown,
+                                                 Project != null ? Project.Name : Resources.GuiCore_UpdateTitle_Unknown,
                                                  FixedSettings.MainWindowTitle,
                                                  SettingsHelper.ApplicationVersion);
             }
