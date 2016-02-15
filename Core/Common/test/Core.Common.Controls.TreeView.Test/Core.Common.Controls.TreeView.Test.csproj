@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfoTest.cs" />
-    <Compile Include="TreeViewControllerTest.cs" />
+    <Compile Include="TreeViewControlTest.cs" />
     <Compile Include="TreeViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

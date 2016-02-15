@@ -1,21 +1,403 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using Core.Common.Utils.Reflection;
-//using NUnit.Framework;
-//using Rhino.Mocks;
-//
-//namespace Core.Common.Controls.TreeView.Test
-//{
-//    [TestFixture]
-//    public class TreeViewControllerTest
-//    {
-//        [Test]
-//        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Structuurweergave mag niet leeg zijn.")]
-//        public void ConstructWithoutTreeView()
-//        {
-//            new TreeViewController(null);
-//        }
+﻿using System;
+using System.Windows.Forms;
+using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
+using NUnit.Framework;
+
+namespace Core.Common.Controls.TreeView.Test
+{
+    [TestFixture]
+    public class TreeViewControlTest : NUnitFormTest
+    {
+        [Test]
+        public void DefaultConstructor_InitializedTreeViewControl()
+        {
+            // Call
+            var treeViewControl = new TreeViewControl();
+
+            // Assert
+            var treeView = treeViewControl.Controls[0] as System.Windows.Forms.TreeView;
+            Assert.NotNull(treeView);
+            Assert.IsTrue(treeView.AllowDrop);
+            Assert.IsTrue(treeView.LabelEdit);
+            Assert.IsFalse(treeView.HideSelection);
+            Assert.AreEqual(TreeViewDrawMode.Normal, treeView.DrawMode);
+
+            Assert.NotNull(treeView.ImageList);
+            Assert.AreEqual(0, treeView.ImageList.Images.Count);
+
+            Assert.NotNull(treeView.StateImageList);
+            Assert.AreEqual(2, treeView.StateImageList.Images.Count);
+        }
+
+        [Test]
+        public void RegisterTreeNodeInfo_Null_ThrowsNullReferenceException()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            
+            // Call
+            TestDelegate test = () => treeViewControl.RegisterTreeNodeInfo(null);
+
+            // Assert
+            Assert.Throws<NullReferenceException>(test);
+        }
+
+        [Test]
+        public void RegisterTreeNodeInfo_NodeInfoWithoutTagType_ThrowsArgumentNullException()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo();
+            
+            // Call
+            TestDelegate test = () => treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void RegisterTreeNodeInfo_NodeInfoWithTagType_DoesNotThrow()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object)
+            };
+
+            // Call
+            TestDelegate test = () => treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+        
+        [Test]
+        public void RegisterTreeNodeInfo_NodeInfoForTagTypeAlreadySet_OverridesNodeInfo()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfo = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o, p) => false
+            };
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o,p) => true
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            // Call
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+
+            // Assert
+            Assert.IsTrue(treeViewControl.CanRenameNodeForData(dataObject));
+        }
+
+        [Test]
+        public void Data_SetToNull_DataIsNull()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+
+            // Call
+            treeViewControl.Data = null;
+
+            // Assert
+            Assert.IsNull(treeViewControl.Data);
+        }
+
+        [Test]
+        public void Data_NoNodeInfoSet_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var testNodeData = new object();
+
+            // Call
+            TestDelegate test = () => treeViewControl.Data = testNodeData;
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Data_NodeInfoSet_DataSet()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo
+            {
+                TagType = typeof(object)
+            });
+
+            var testNodeData = new object();
+
+            // Call
+            treeViewControl.Data = testNodeData;
+
+            // Assert
+            Assert.AreSame(testNodeData, treeViewControl.Data);
+            Assert.AreSame(testNodeData, treeViewControl.SelectedData);
+        }
+
+        [Test]
+        public void CanRenameNodeForData_Null_ReturnsFalse()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o, p) => true
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.Data = new object();
+
+            // Call
+            var result = treeViewControl.CanRenameNodeForData(null);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CanRenameNodeForData_DataNotSet_ReturnsFalse()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o, p) => true
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+
+            // Call
+            var result = treeViewControl.CanRenameNodeForData(new object());
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CanRenameNodeForData_DataSet_ReturnsValueOfCanRename(bool expected)
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o, p) => expected
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            // Call
+            var result = treeViewControl.CanRenameNodeForData(dataObject);
+
+            // Assert
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TryRenameNodeForData_NotRenameable_ShowsDialog()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o, p) => false
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            // Call
+            Action test = () =>
+            {
+                treeViewControl.TryRenameNodeForData(dataObject);
+            };
+
+            // Assert
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_renamed, helper.Text);
+                helper.ClickOk();
+            };
+            test();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TryRenameNodeForData_Renameable_BeginEdit()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRename = (o, p) => true
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            WindowsFormsTestHelper.Show(treeViewControl);
+
+            // Call
+            treeViewControl.TryRenameNodeForData(dataObject);
+
+            // Assert
+            var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
+            Assert.IsTrue(treeView.Nodes[0].IsEditing);
+
+            WindowsFormsTestHelper.CloseAll();
+        }
+
+        [Test]
+        public void CanRemoveNodeForData_Null_ReturnsFalse()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRemove = (o, p) => true
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            treeViewControl.Data = new object();
+
+            // Call
+            var result = treeViewControl.CanRemoveNodeForData(null);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CanRemoveNodeForData_DataNotSet_ReturnsFalse()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRemove = (o, p) => true
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+
+            // Call
+            var result = treeViewControl.CanRemoveNodeForData(new object());
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CanRemoveNodeForData_DataSet_ReturnsValueOfCanRename(bool expected)
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRemove = (o, p) => expected
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            // Call
+            var result = treeViewControl.CanRemoveNodeForData(dataObject);
+
+            // Assert
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TryRemoveNodeForData_NotRemoveable_ShowsDialog()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRemove = (o, p) => false
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            // Call
+            Action test = () =>
+            {
+                treeViewControl.TryRemoveNodeForData(dataObject);
+            };
+
+            // Assert
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_removed, helper.Text);
+                helper.ClickOk();
+            };
+            test();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TryRemoveNodeForData_Removeable_OnNodeRemovedCalled()
+        {
+            // Setup
+            var treeViewControl = new TreeViewControl();
+            var hit = 0;
+            var treeNodeInfoOverride = new TreeNodeInfo
+            {
+                TagType = typeof(object),
+                CanRemove = (o, p) => true,
+                OnNodeRemoved = (o, p) => hit++
+            };
+            treeViewControl.RegisterTreeNodeInfo(treeNodeInfoOverride);
+            var dataObject = new object();
+            treeViewControl.Data = dataObject;
+
+            WindowsFormsTestHelper.Show(treeViewControl);
+
+            // Call
+            Action test = () =>
+            {
+                treeViewControl.TryRemoveNodeForData(dataObject);
+            };
+
+            // Assert
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, helper.Text);
+                helper.ClickOk();
+            };
+            test();
+            WindowsFormsTestHelper.CloseAll();
+
+            Assert.AreEqual(1, hit);
+        }
 //
 //        [Test]
 //        public void ResolveNodePresenterForDataWalksUpClassHierarchy()
@@ -552,84 +934,84 @@
 //        {
 //            public override void UpdateNode(TreeNode parentNode, TreeNode node, BaseClass nodeData) { }
 //        }
+
+        # region Refactor
+
+//        [Test]
+//        public void Clear_ChildrenSubscribed_ChildrenUnsubscribe()
+//        {
+//            // Setup
+//            var mocks = new MockRepository();
+//            var treeView = mocks.Stub<TreeView>();
+//            var someTreeNodeCollectionContainer = new System.Windows.Forms.TreeNode();
+//            var parentNode = new TreeNode(treeView);
+//            var childNode = new TreeNode(treeView);
+//            var childChildNode = new TreeNode(treeView);
 //
-//        # region Refactor
+//            var parentData = mocks.Stub<IObservable>();
+//            var childData = mocks.Stub<IObservable>();
+//            var childChildData = mocks.Stub<IObservable>();
 //
-////        [Test]
-////        public void Clear_ChildrenSubscribed_ChildrenUnsubscribe()
-////        {
-////            // Setup
-////            var mocks = new MockRepository();
-////            var treeView = mocks.Stub<TreeView>();
-////            var someTreeNodeCollectionContainer = new System.Windows.Forms.TreeNode();
-////            var parentNode = new TreeNode(treeView);
-////            var childNode = new TreeNode(treeView);
-////            var childChildNode = new TreeNode(treeView);
-////
-////            var parentData = mocks.Stub<IObservable>();
-////            var childData = mocks.Stub<IObservable>();
-////            var childChildData = mocks.Stub<IObservable>();
-////
-////            parentData.Expect(p => p.Attach(parentNode));
-////            childData.Expect(p => p.Attach(childNode));
-////            childChildData.Expect(p => p.Attach(childChildNode));
-////
-////            parentData.Expect(p => p.Detach(parentNode));
-////            childData.Expect(p => p.Detach(childNode));
-////            childChildData.Expect(p => p.Detach(childChildNode));
-////
-////            mocks.ReplayAll();
-////
-////            parentNode.Tag = parentData;
-////            childNode.Tag = childData;
-////            childChildNode.Tag = childChildData;
-////
-////            var treeNodeList = new TreeNodeList(someTreeNodeCollectionContainer.Nodes);
-////            treeNodeList.Add(parentNode);
-////            treeNodeList.Add(childNode);
-////            treeNodeList.Add(childChildNode);
-////
-////            // Call
-////            treeNodeList.Clear();
-////
-////            // Assert
-////            mocks.VerifyAll();
-////        }
+//            parentData.Expect(p => p.Attach(parentNode));
+//            childData.Expect(p => p.Attach(childNode));
+//            childChildData.Expect(p => p.Attach(childChildNode));
 //
-////        [Test]
-////        public void TestTextLengthLimit()
-////        {
-////            var node = new TreeNode(null);
-////
-////            var largeText = "";
-////            for (var i = 0; i <= 24; i++) 
-////            {
-////                largeText += "1234567890";
-////            }
-////
-////            node.Text = largeText;
-////            Assert.AreEqual(250, node.Text.Length);
-////
-////            node.Text = largeText + "123456789";
-////            Assert.AreEqual(259, node.Text.Length);
-////
-////            node.Text = largeText + "1234567890";
-////            Assert.AreEqual(259, node.Text.Length, "Text length limit should be 259");
-////        }
-////
-////        [Test]
-////        public void TestTextSetToNull()
-////        {
-////            var node = new TreeNode(null);
-////
-////            var originalText = "test";
-////            node.Text = originalText;
-////            Assert.AreEqual(originalText, node.Text);
-////
-////            node.Text = null;
-////            Assert.AreEqual("", node.Text);
-////        }
+//            parentData.Expect(p => p.Detach(parentNode));
+//            childData.Expect(p => p.Detach(childNode));
+//            childChildData.Expect(p => p.Detach(childChildNode));
 //
-//        # endregion
-//    }
-//}
+//            mocks.ReplayAll();
+//
+//            parentNode.Tag = parentData;
+//            childNode.Tag = childData;
+//            childChildNode.Tag = childChildData;
+//
+//            var treeNodeList = new TreeNodeList(someTreeNodeCollectionContainer.Nodes);
+//            treeNodeList.Add(parentNode);
+//            treeNodeList.Add(childNode);
+//            treeNodeList.Add(childChildNode);
+//
+//            // Call
+//            treeNodeList.Clear();
+//
+//            // Assert
+//            mocks.VerifyAll();
+//        }
+
+//        [Test]
+//        public void TestTextLengthLimit()
+//        {
+//            var node = new TreeNode(null);
+//
+//            var largeText = "";
+//            for (var i = 0; i <= 24; i++) 
+//            {
+//                largeText += "1234567890";
+//            }
+//
+//            node.Text = largeText;
+//            Assert.AreEqual(250, node.Text.Length);
+//
+//            node.Text = largeText + "123456789";
+//            Assert.AreEqual(259, node.Text.Length);
+//
+//            node.Text = largeText + "1234567890";
+//            Assert.AreEqual(259, node.Text.Length, "Text length limit should be 259");
+//        }
+//
+//        [Test]
+//        public void TestTextSetToNull()
+//        {
+//            var node = new TreeNode(null);
+//
+//            var originalText = "test";
+//            node.Text = originalText;
+//            Assert.AreEqual(originalText, node.Text);
+//
+//            node.Text = null;
+//            Assert.AreEqual("", node.Text);
+//        }
+
+        # endregion
+    }
+}
