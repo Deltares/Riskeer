@@ -22,8 +22,8 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
-using System.IO;
-using Core.Common.Utils;
+using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
@@ -35,15 +35,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// <summary>
     /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> instances from this database.
     /// </summary>
-    public class PipingSoilProfileReader : IRowBasedDatabaseReader, IDisposable
+    public class PipingSoilProfileReader : DatabaseReaderBase, IRowBasedDatabaseReader
     {
         private const string databaseRequiredVersion = "15.0.5.0";
         private const string pipingMechanismName = "Piping";
         private const string mechanismParameterName = "mechanism";
 
-        private readonly string fullFilePath;
-
-        private SQLiteConnection connection;
         private SQLiteDataReader dataReader;
 
         /// <summary>
@@ -52,31 +49,15 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// profiles.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>Preparing the queries to read from the database failed.</item>
         /// </list>
         /// </exception>
-        public PipingSoilProfileReader(string databaseFilePath)
+        public PipingSoilProfileReader(string databaseFilePath) : base(databaseFilePath)
         {
-            try
-            {
-                FileUtils.ValidateFilePath(databaseFilePath);
-            }
-            catch (ArgumentException e)
-            {
-                throw new CriticalFileReadException(e.Message, e);
-            }
-            if (!File.Exists(databaseFilePath))
-            {
-                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(UtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
-            }
-
-            fullFilePath = databaseFilePath;
-            OpenConnection(databaseFilePath);
             InitializeReader();
         }
 
@@ -97,7 +78,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         /// <returns>The next <see cref="PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public PipingSoilProfile ReadProfile()
         {
             if (!HasNext)
@@ -111,19 +92,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (InvalidCastException e)
             {
-                var message = new FileReaderErrorMessageBuilder(fullFilePath).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
+                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, e);
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             if (dataReader != null)
             {
                 dataReader.Dispose();
             }
-            connection.Close();
-            connection.Dispose();
+            base.Dispose();
         }
 
         /// <summary>
@@ -150,14 +130,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 return null;
             }
             return (T) valueObject;
-        }
-
-        public string Path
-        {
-            get
-            {
-                return fullFilePath;
-            }
         }
 
         /// <summary>
@@ -212,24 +184,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             PrepareReader();
             MoveNext();
-        }
-
-        /// <summary>
-        /// Opens the connection with the <paramref name="databaseFile"/>.
-        /// </summary>
-        /// <param name="databaseFile">The database file to establish a connection with.</param>
-        private void OpenConnection(string databaseFile)
-        {
-            var connectionStringBuilder = new SQLiteConnectionStringBuilder
-            {
-                FailIfMissing = true,
-                DataSource = databaseFile,
-                ReadOnly = true,
-                ForeignKeys = true
-            };
-
-            connection = new SQLiteConnection(connectionStringBuilder.ConnectionString);
-            connection.Open();
         }
 
         /// <summary>
@@ -389,7 +343,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </exception>
         private void CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
-            using (var query = new SQLiteCommand(connection)
+            using (var query = new SQLiteCommand(Connection)
             {
                 CommandText = queryString
             })
@@ -405,7 +359,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 catch (SQLiteException e)
                 {
                     Dispose();
-                    var message = new FileReaderErrorMessageBuilder(fullFilePath).Build(Resources.Error_SoilProfile_read_from_database);
+                    var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_SoilProfile_read_from_database);
                     throw new CriticalFileReadException(message, e);
                 }
             }

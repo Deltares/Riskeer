@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
+        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when
         /// <list type="bullet">
         /// <item>a layer's geometry could not be parsed as XML;</item>

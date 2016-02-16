@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Piping.IO.Exceptions;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
@@ -45,7 +44,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
+        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
         T Read<T>(string columnName);
 
         /// <summary>

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// went wrong while querying the database.
         /// </summary>
         /// <param name="reader">The <see cref="IRowBasedDatabaseReader"/> from which to obtain the critical properties.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the values in the database could not be 
+        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when the values in the database could not be 
         /// casted to the expected column types.</exception>
         internal CriticalProfileProperties(IRowBasedDatabaseReader reader)
         {

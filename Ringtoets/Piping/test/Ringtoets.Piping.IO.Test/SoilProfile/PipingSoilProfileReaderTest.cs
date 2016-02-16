@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -82,6 +84,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             {
                 // Assert
                 Assert.AreEqual(dbFile, pipingSoilProfileReader.Path);
+                Assert.IsInstanceOf<DatabaseReaderBase>(pipingSoilProfileReader);
             }
         }
 

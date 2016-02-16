@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;

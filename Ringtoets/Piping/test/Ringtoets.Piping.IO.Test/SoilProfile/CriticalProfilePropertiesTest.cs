@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
