@@ -5,7 +5,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -44,13 +43,19 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(1, propertyInfos.Length);
+                Assert.AreEqual(2, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(AssessmentSectionBase));
                 Assert.AreEqual(typeof(AssessmentSectionBaseProperties), assessmentSectionProperties.PropertyObjectType);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
+
+                var hydraulicBoundaryDatabase = propertyInfos.Single(pi => pi.DataType == typeof(HydraulicBoundaryDatabase));
+                Assert.AreEqual(typeof(HydraulicBoundaryDatabaseProperties), hydraulicBoundaryDatabase.PropertyObjectType);
+                Assert.IsNull(hydraulicBoundaryDatabase.AdditionalDataCheck);
+                Assert.IsNull(hydraulicBoundaryDatabase.GetObjectPropertiesData);
+                Assert.IsNull(hydraulicBoundaryDatabase.AfterCreate);
             }
         }
 
@@ -101,7 +106,10 @@ namespace Ringtoets.Integration.Plugin.Test
             var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(assessmentSectionBase);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { assessmentSectionBase.FailureMechanismContribution }, childrenWithViewDefinitions);
+            CollectionAssert.AreEqual(new[]
+            {
+                assessmentSectionBase.FailureMechanismContribution
+            }, childrenWithViewDefinitions);
             mocks.VerifyAll();
         }
 

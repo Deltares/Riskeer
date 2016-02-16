@@ -51,6 +51,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\AssessmentSectionBaseProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
     <Compile Include="Views\FailureMechanismContributionView.cs">
       <SubType>UserControl</SubType>
     </Compile>

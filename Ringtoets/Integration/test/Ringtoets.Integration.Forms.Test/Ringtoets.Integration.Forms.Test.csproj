@@ -58,6 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionBaseTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionTreeNodeInfoTest.cs" />

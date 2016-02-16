@@ -19,12 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
+using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
+using Ringtoets.Integration.Data.HydraulicBoundary;
+using Ringtoets.Integration.Forms.Properties;
 
-namespace Ringtoets.Integration.Data.HydraulicBoundary
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
-    public class HydraulicBoundaryDatabase : Observable
+    /// <summary>
+    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
+    /// </summary>
+    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
-        public string FilePath { get; set; }
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Name_Description")]
+        public string FilePath
+        {
+            get
+            {
+                return data.FilePath;
+            }
+        }
     }
 }

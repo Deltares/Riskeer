@@ -38,7 +38,6 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Data.Placeholders;
-using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
@@ -61,17 +60,24 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        /// <summary>
+        /// Returns all <see cref="PropertyInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<AssessmentSectionBase, AssessmentSectionBaseProperties>();
+            yield return new PropertyInfo<HydraulicBoundaryDatabase, HydraulicBoundaryDatabaseProperties>();
         }
 
+        /// <summary>
+        /// Returns all <see cref="ViewInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// </summary>
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<FailureMechanismContribution, FailureMechanismContributionView>
             {
-                GetViewName = (v,o) => Resources.FailureMechanismContribution_DisplayName,
-                Image = Forms.Properties.Resources.GenericInputOutputIcon,
+                GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
+                Image = RingtoetsFormsResources.GenericInputOutputIcon,
                 CloseForData = (v, o) =>
                 {
                     var assessmentSection = o as AssessmentSectionBase;
@@ -80,6 +86,11 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
+        /// <summary>
+        /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of some parent data object.
+        /// </summary>
+        /// <param name="dataObject">The parent data object.</param>
+        /// <returns>Sequence of child data.</returns>
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
         {
             var assessmentSection = dataObject as AssessmentSectionBase;
@@ -89,6 +100,9 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
+        /// <summary>
+        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return new TreeNodeInfo<AssessmentSectionBase>
@@ -337,19 +351,19 @@ namespace Ringtoets.Integration.Plugin
         }
 
         # endregion
-        
+
         #region HydraulicBoundaryDatabase
 
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabase nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var connectionItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect, 
-                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip, 
+                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect,
+                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData));
 
             var toetsPeilItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Toetspeil_Calculate, 
-                RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip, 
+                RingtoetsCommonFormsResources.Toetspeil_Calculate,
+                RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip,
                 GetFolderIcon(TreeFolderCategory.General), null);
 
             return Gui.Get(nodeData, treeViewControl)
@@ -410,10 +424,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static void ShowCleanDialog()
-        {
-            
-        }
+        private static void ShowCleanDialog() {}
 
         #endregion
     }

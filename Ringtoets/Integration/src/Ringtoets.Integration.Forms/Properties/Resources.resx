@@ -145,4 +145,10 @@
   <data name="DuneAssessmentSection_DisplayName" xml:space="preserve">
     <value>Duintraject</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Name_Description" xml:space="preserve">
+    <value>Locatie van het HLCD database bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Name_DisplayName" xml:space="preserve">
+    <value>HLCD database</value>
+  </data>
 </root>

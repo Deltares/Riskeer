@@ -1,11 +1,7 @@
 ﻿using Core.Common.Base;
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
