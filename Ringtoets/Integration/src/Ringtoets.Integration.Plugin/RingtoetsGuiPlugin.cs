@@ -30,6 +30,8 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data;
@@ -42,6 +44,7 @@ using Ringtoets.Integration.Forms.Views;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -376,9 +379,40 @@ namespace Ringtoets.Integration.Plugin
             {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                 {
-                    nodeData.FileName = dialog.FileName;
+                    ValidateSelectedFile(nodeData, dialog);
                 }
             }
+        }
+
+        private static void ValidateSelectedFile(HydraulicBoundaryDatabase nodeData, OpenFileDialog dialog)
+        {
+            var selectedFile = dialog.FileName;
+            try
+            {
+                if (!string.IsNullOrEmpty(nodeData.FilePath))
+                {
+                    // Compare
+                    bool isEqual = FileUtils.CompareFiles(nodeData.FilePath, selectedFile);
+
+                    if (!isEqual)
+                    {
+                        // show dialog
+                        ShowCleanDialog();
+                        return;
+                    }
+                }
+
+                nodeData.FilePath = selectedFile;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalFileReadException(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, selectedFile), e);
+            }
+        }
+
+        private static void ShowCleanDialog()
+        {
+            
         }
 
         #endregion

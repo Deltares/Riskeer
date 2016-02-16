@@ -23,6 +23,6 @@ namespace Ringtoets.Integration.Data.HydraulicBoundary
 {
     public class HydraulicBoundaryDatabase
     {
-        public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 }
