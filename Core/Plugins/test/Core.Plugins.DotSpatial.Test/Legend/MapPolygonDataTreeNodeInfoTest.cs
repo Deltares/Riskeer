@@ -56,7 +56,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(DotSpatialResources.MapDataNodePresenter_Polygon_data_label, text);
+            Assert.AreEqual(DotSpatialResources.MapData_Polygon_data_label, text);
         }
 
         [Test]

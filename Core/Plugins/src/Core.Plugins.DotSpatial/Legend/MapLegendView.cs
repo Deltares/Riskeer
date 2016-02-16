@@ -77,19 +77,19 @@ namespace Core.Plugins.DotSpatial.Legend
         {
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
             {
-                Text = mapPointData => DotSpatialResources.MapDataNodePresenter_Point_data_label,
+                Text = mapPointData => DotSpatialResources.MapData_Point_data_label,
                 Image = mapPointData => DotSpatialResources.PointsIcon
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
             {
-                Text = mapLineData => DotSpatialResources.MapDataNodePresenter_Line_data_label,
+                Text = mapLineData => DotSpatialResources.MapData_Line_data_label,
                 Image = mapLineData => DotSpatialResources.LineIcon
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
             {
-                Text = mapPolygonData => DotSpatialResources.MapDataNodePresenter_Polygon_data_label,
+                Text = mapPolygonData => DotSpatialResources.MapData_Polygon_data_label,
                 Image = mapPolygonData => DotSpatialResources.AreaIcon
             });
 
