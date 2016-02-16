@@ -24,12 +24,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
@@ -49,7 +47,6 @@ namespace Ringtoets.Piping.IO
     public class PipingCharacteristicPointsCsvReader : IDisposable
     {
         private const string locationHeader = "locationid";
-        private string orderNumberHeader = "volgnummer";
 
         private const char separator = ';';
 
@@ -78,6 +75,7 @@ namespace Ringtoets.Piping.IO
         private const string bottomRiverChannelKey = "teen geul";
 
         private readonly string filePath;
+        private readonly string orderNumberHeader = "volgnummer";
 
         /// <summary>
         /// Lower case string representations of the known characteristic point types.
@@ -90,7 +88,6 @@ namespace Ringtoets.Piping.IO
         /// The next line number to be read by this reader.
         /// </summary>
         private int lineNumber;
-
 
         /// <summary>
         /// Initializes a new instance of <see cref="PipingCharacteristicPointsCsvReader"/> using
@@ -193,7 +190,7 @@ namespace Ringtoets.Piping.IO
         /// Validates the header of the file.
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
-        /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">The header is not in the required format or the file is empty.</exception>
         private void ValidateHeader(TextReader reader)
         {
             var currentLine = 1;
@@ -250,6 +247,12 @@ namespace Ringtoets.Piping.IO
             return new CriticalFileReadException(message, innerException);
         }
 
+        /// <summary>
+        /// Checks whether the given <paramref name="header"/> is valid. A valid header has a locationid column and is followed by triplets
+        /// of x_{characteristic_point_type};y_{characteristic_point_type};z_{characteristic_point_type} triplets.
+        /// </summary>
+        /// <param name="header">The line which should represent the header of a characteristic point file.</param>
+        /// <returns><c>true</c> if the <paramref name="header"/> is valid, <c>false</c> otherwise.</returns>
         private bool IsHeaderValid(string header)
         {
             var hasLocationColumn = header.ToLowerInvariant().StartsWith(locationHeader);
@@ -258,7 +261,11 @@ namespace Ringtoets.Piping.IO
                 return false;
             }
 
-            var columns = GetColumnsFromHeader(header);
+            var columns = GetCharacteristicPointColumnsFromHeader(header);
+            if (columns.Count % 3 > 0)
+            {
+                return false;
+            }
 
             var columnsValid = true;
             var currentColumn = 0;
@@ -266,16 +273,8 @@ namespace Ringtoets.Piping.IO
             {
                 var key = columns.ElementAt(currentColumn).Substring(2);
                 columnsValid &= columns.ElementAt(currentColumn) == xPrefix + key;
-
-                try
-                {
-                    columnsValid &= columns.ElementAt(currentColumn + 1) == yPrefix + key;
-                    columnsValid &= columns.ElementAt(currentColumn + 2) == zPrefix + key;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    return false;
-                }
+                columnsValid &= columns.ElementAt(currentColumn + 1) == yPrefix + key;
+                columnsValid &= columns.ElementAt(currentColumn + 2) == zPrefix + key;
 
                 currentColumn += 3;
             }
@@ -285,7 +284,13 @@ namespace Ringtoets.Piping.IO
             return columnsValid;
         }
 
-        private IList<string> GetColumnsFromHeader(string header)
+        /// <summary>
+        /// Obtains the columns from the header by stripping of the location and order number columns.
+        /// </summary>
+        /// <param name="header">The header to obtain characteristic point columns from.</param>
+        /// <returns>A <see cref="IList{T}"/> of column names which should represent triplets of x,y,z for characteristic
+        /// points.</returns>
+        private IList<string> GetCharacteristicPointColumnsFromHeader(string header)
         {
             IList<string> tokenizedHeader = TokenizeString(header.ToLowerInvariant()).ToList();
 
@@ -400,13 +405,20 @@ namespace Ringtoets.Piping.IO
             location.BottomRiverChannel = GetPoint3D(points, bottomRiverChannelKey);
         }
 
-        private Point3D GetPoint3D(Point3D[] points, string characteristicPointName)
+        /// <summary>
+        /// Obtains the <see cref="Point3D"/> from <paramref name="points"/> for a <paramref name="characteristicPointType"/>.
+        /// </summary>
+        /// <param name="points">The collection of characteristic points that were read.</param>
+        /// <param name="characteristicPointType">The type of characteristic point to obtain.</param>
+        /// <returns>Returns the <see cref="Point3D"/> from the <paramref name="points"/> collections 
+        /// for the <paramref name="characteristicPointType"/>.</returns>
+        private Point3D GetPoint3D(Point3D[] points, string characteristicPointType)
         {
-            var columnName = xPrefix + characteristicPointName;
+            var columnName = xPrefix + characteristicPointType;
             var columnIndex = columnsInFile.IndexOf(columnName);
             if (columnIndex > -1)
             {
-                var indexOfPoint = columnIndex / 3;
+                var indexOfPoint = columnIndex/3;
                 return points[indexOfPoint];
             }
             return null;
