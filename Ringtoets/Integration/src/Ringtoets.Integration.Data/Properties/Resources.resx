@@ -127,7 +127,7 @@
     <value>Faalkansverdeling</value>
   </data>
   <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-    <value>HR locatiedatabase</value>
+    <value>Hydraulische randvoorwaarden</value>
   </data>
   <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Duinen - Erosie</value>

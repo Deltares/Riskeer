@@ -113,6 +113,8 @@
     <None Include="Resources\table_delete.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\database.png" />
+    <None Include="Resources\database--exclamation.png" />
     <Content Include="Resources\PlayHS.png" />
     <Content Include="Resources\tickAll.png" />
   </ItemGroup>

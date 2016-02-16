@@ -26,6 +26,7 @@ using Core.Common.Base.Storage;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Data.Properties;
 
 namespace Ringtoets.Integration.Data
@@ -42,7 +43,7 @@ namespace Ringtoets.Integration.Data
         {
             Name = "";
             ReferenceLine = new InputPlaceholder(Resources.ReferenceLine_DisplayName);
-            HydraulicBoundaryDatabase = new InputPlaceholder(Resources.HydraulicBoundaryDatabase_DisplayName);
+            HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets or sets the hydraulic boundary database.
         /// </summary>
-        public InputPlaceholder HydraulicBoundaryDatabase { get; private set; }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; private set; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

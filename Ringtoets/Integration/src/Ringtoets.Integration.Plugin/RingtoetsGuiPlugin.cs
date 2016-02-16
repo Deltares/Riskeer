@@ -34,6 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -134,6 +135,13 @@ namespace Ringtoets.Integration.Plugin
                                                                                                      .AddSeparator()
                                                                                                      .AddExportItem()
                                                                                                      .Build()
+            };
+
+            yield return new TreeNodeInfo<HydraulicBoundaryDatabase>
+            {
+                Text = hydraulicBoundaryDatabase => RingtoetsDataResources.HydraulicBoundaryDatabase_DisplayName,
+                Image = hydraulicBoundaryDatabase => RingtoetsFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
         }
 
@@ -326,5 +334,53 @@ namespace Ringtoets.Integration.Plugin
         }
 
         # endregion
+        
+        #region HydraulicBoundaryDatabase
+
+        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabase nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var connectionItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect, 
+                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip, 
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData));
+
+            var toetsPeilItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Toetspeil_Calculate, 
+                RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip, 
+                GetFolderIcon(TreeFolderCategory.General), null);
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(connectionItem)
+                      .AddImportItem()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(toetsPeilItem)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        private void SelectDatabaseFile(HydraulicBoundaryDatabase nodeData)
+        {
+            var windowTitle = RingtoetsCommonFormsResources.SelectDatabaseFile_Title;
+            using (var dialog = new OpenFileDialog
+            {
+                Filter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsCommonFormsResources.SelectDatabaseFile_FilterName),
+                Multiselect = false,
+                Title = windowTitle,
+                RestoreDirectory = true,
+                CheckFileExists = true,
+            })
+            {
+                if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
+                {
+                    nodeData.FileName = dialog.FileName;
+                }
+            }
+        }
+
+        #endregion
     }
 }
