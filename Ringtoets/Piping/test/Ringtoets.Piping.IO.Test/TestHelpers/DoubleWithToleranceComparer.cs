@@ -1,7 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Ringtoets.Piping.Data;
+
+using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Piping.IO.Test.TestHelpers
 {

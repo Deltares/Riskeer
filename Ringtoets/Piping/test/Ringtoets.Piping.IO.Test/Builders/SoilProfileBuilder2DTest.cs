@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data;

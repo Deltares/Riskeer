@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Calculation;
 using Ringtoets.Piping.IO.Properties;
@@ -236,7 +237,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// Gets a <see cref="Collection{T}"/> of heights where the <paramref name="loop"/> intersects the 
         /// vertical line at <paramref name="atX"/>.
         /// </summary>
-        /// <param name="loop">The <see cref="HashSet{T}"/> of <see cref="Point3D"/> which together create a loop.</param>
+        /// <param name="loop">The <see cref="HashSet{T}"/> of <see cref="Core.Common.Base.Geometry.Point3D"/> which together create a loop.</param>
         /// <param name="atX">The point on the x-axis where the vertical line is constructed do determine intersections with.</param>
         /// <returns>A <see cref="Collection{T}"/> of <see cref="double"/>, representing the height at which the 
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>

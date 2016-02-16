@@ -1,4 +1,7 @@
 ﻿using System;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.Test

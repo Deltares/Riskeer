@@ -29,6 +29,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
 
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 
 using Ringtoets.Piping.Data;
@@ -204,7 +205,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         }
 
         /// <summary>
-        /// Parses the XML element to create a <see cref="Point2D"/>.
+        /// Parses the XML element to create a <see cref="Core.Common.Base.Geometry.Point2D"/>.
         /// </summary>
         /// <param name="point">The 2D point element.</param>
         /// <exception cref="SoilLayer2DConversionException">When any of the following occurs:

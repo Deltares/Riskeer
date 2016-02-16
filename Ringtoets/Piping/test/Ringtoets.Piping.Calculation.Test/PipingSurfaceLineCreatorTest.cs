@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Core.Common.Base.Geometry;
+
 using Deltares.WTIPiping;
 
 using NUnit.Framework;

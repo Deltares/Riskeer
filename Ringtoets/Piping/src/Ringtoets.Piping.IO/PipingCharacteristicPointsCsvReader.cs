@@ -24,9 +24,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
@@ -336,7 +339,7 @@ namespace Ringtoets.Piping.IO
         /// Sets the locations for the characteristic points for the <paramref name="location"/> based on the 
         /// values read from file.
         /// </summary>
-        /// <param name="points">The <see cref="Point3D"/> collection from file.</param>
+        /// <param name="points">The <see cref="Core.Common.Base.Geometry.Point3D"/> collection from file.</param>
         /// <param name="location">The <see cref="PipingCharacteristicPointsLocation"/> to set the locations of
         /// the characteristic points for.</param>
         private void MapPointsToCharacteristicPoints(Point3D[] points, PipingCharacteristicPointsLocation location)

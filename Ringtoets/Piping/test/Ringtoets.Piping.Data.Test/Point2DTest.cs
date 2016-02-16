@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Core.Common.Base.Geometry;
+
 using MathNet.Numerics.LinearAlgebra.Double;
 
 using NUnit.Framework;

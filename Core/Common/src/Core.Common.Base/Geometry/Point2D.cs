@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+
 using MathNet.Numerics.LinearAlgebra.Double;
 
-namespace Ringtoets.Piping.Data
+namespace Core.Common.Base.Geometry
 {
     /// <summary>
     /// Defines a mathematical point in 2D Euclidean space.

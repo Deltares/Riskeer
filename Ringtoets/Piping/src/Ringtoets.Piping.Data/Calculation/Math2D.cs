@@ -23,6 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Calculation

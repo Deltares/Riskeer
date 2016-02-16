@@ -1,0 +1,72 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using Core.Common.Base.Geometry;
+
+using Ringtoets.Common.Data.Properties;
+
+using Resources = Core.Common.Base.Properties.Resources;
+
+namespace Ringtoets.Common.Data
+{
+    /// <summary>
+    /// Class representing the reference line used a basis for assessment.
+    /// </summary>
+    public class ReferenceLine
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReferenceLine"/> class with no coordinate points.
+        /// </summary>
+        public ReferenceLine()
+        {
+            Points = new Point2D[0];
+        }
+
+        /// <summary>
+        /// Gets the 2D points describing the geometry of the reference line.
+        /// </summary>
+        public IEnumerable<Point2D> Points { get; private set; }
+
+        /// <summary>
+        /// Sets the geometry of the reference line.
+        /// </summary>
+        /// <param name="newPoints">The sequence of points defining the reference line geometry.</param>
+        /// <exception cref="ArgumentException">Thrown when any of the <paramref name="newPoints"/> has no value (== <c>null</c>).</exception>
+        public void SetGeometry(IEnumerable<Point2D> newPoints)
+        {
+            if (newPoints == null)
+            {
+                throw new ArgumentNullException("newPoints", Resources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
+            }
+            Point2D[] point2Ds = newPoints.ToArray();
+            if (point2Ds.Any(p => p == null))
+            {
+                throw new ArgumentException(Resources.ReferenceLine_SetGeometry_New_geometry_has_null_coordinate, "newPoints");
+            }
+
+            Points = point2Ds;
+        }
+    }
+}

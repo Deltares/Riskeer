@@ -1,5 +1,7 @@
 using System;
 
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.TestUtil

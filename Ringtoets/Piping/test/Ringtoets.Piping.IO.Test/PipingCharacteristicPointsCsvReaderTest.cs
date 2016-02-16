@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
+
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;

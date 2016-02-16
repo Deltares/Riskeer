@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Piping.Data
+namespace Core.Common.Base.Geometry
 {
     /// <summary>
     /// Defines a mathematical point in 3D Euclidean space.
