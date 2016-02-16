@@ -195,6 +195,253 @@ namespace Ringtoets.Piping.IO.Test
             ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation();
         }
 
+        [Test]
+        public void ReadLine_OpenedValidFileWithHeaderAndTwoLocationsWhileAtTheEndOfFile_ReturnNull()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations.krp.csv");
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                int locationsCount = reader.GetLocationsCount();
+                for (int i = 0; i < locationsCount; i++)
+                {
+                    var characteristicPointsLocation = reader.ReadLine();
+                    Assert.IsNotInstanceOf<IDisposable>(characteristicPointsLocation,
+                                                        "Fail Fast: Disposal logic required to be implemented in test.");
+                    Assert.IsNotNull(characteristicPointsLocation);
+                }
+
+                // Call
+                var result = reader.ReadLine();
+
+                // Assert
+                Assert.IsNull(result);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileCannotBeFound_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "I_do_not_exist.csv");
+
+            // Precondition
+            Assert.IsFalse(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadLine_DirectoryCannotBeFound_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "..", "this_folder_does_not_exist", "I_do_not_exist.csv");
+
+            // Precondition
+            Assert.IsFalse(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadLine_EmptyFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "empty.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_InvalidHeader_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "1location_invalid_header.krp.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileHasInvalidCoordinate_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "1location_invalid_double.krp.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .WithSubject("locatie 'Invalid'")
+                    .Build(Resources.Error_CharacteristicPoint_has_not_double);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<FormatException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        [TestCase("overflow_x")]
+        [TestCase("overflow_y")]
+        [TestCase("overflow_z")]
+        [TestCase("underflow_x")]
+        [TestCase("underflow_y")]
+        [TestCase("underflow_z")]
+        public void ReadLine_FileHasCoordinateCausingOverOrUnderflow_ThrowLineParseException(string malformattedVariableName)
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, string.Format("1location_{0}.krp.csv", malformattedVariableName));
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .WithSubject("locatie 'InvalidNumber'")
+                    .Build(Resources.Error_CharacteristicPoint_parsing_causes_overflow);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileLacksIds_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations_each_missing_id.krp.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                // 1st line has no text at all:
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
+                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // 2nd line has only whitespace text:
+                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 3").Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
+                exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileHasIncompleteCoordinateTriplets_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations_each_missing_values.krp.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                // 1st row lacks 1 coordinate value:
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .WithSubject("locatie 'LacksOneCoordinate'")
+                    .Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points);
+                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // 2nd row lacks 2 coordinate values:
+                exception = Assert.Throws<LineParseException>(call);
+                expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 3")
+                    .WithSubject("locatie 'LacksTwoCoordinates'")
+                    .Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void Dispose_HavingReadFile_CorrectlyReleaseFile()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations.krp.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
+
+            // Call
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                reader.ReadLine();
+                reader.ReadLine();
+            }
+
+            // Assert
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
+        }
+
         private void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation()
         {
             // Setup
