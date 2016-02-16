@@ -71,9 +71,9 @@ namespace Core.Components.DotSpatial.Forms
             map.ClearLayers();
             if (data != null)
             {
-                foreach (var featureSet in mapDataFactory.Create(data))
+                foreach (FeatureSet featureSet in mapDataFactory.Create(data))
                 {
-                    map.Layers.Add((IFeatureSet)featureSet);
+                    map.Layers.Add(featureSet);
                 }
             }
         }
