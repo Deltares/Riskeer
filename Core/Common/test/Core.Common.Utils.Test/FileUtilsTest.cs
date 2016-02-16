@@ -68,5 +68,84 @@ namespace Core.Common.Utils.Test
             var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", folderPath);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
+
+        [Test]
+        [TestCase(null, "FileToCompare_Original.txt")]
+        [TestCase("", "FileToCompare_Original.txt")]
+        [TestCase("   ", "FileToCompare_Original.txt")]
+        [TestCase("FileToCompare_Original.txt", null)]
+        [TestCase("FileToCompare_Original.txt", "")]
+        [TestCase("FileToCompare_Original.txt", "   ")]
+        public void CompareFiles_InvalidPaths_ThrowsArgumentxception(string pathA, string pathB)
+        {
+            // Setup
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                ("FileToCompare_Original.txt" == pathB) ? pathA : pathB);
+
+            // Call
+            TestDelegate test = () => FileUtils.CompareFiles(pathA, pathB);
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [TestCase("DoesNotExist", "FileToCompare_Original.txt")]
+        [TestCase("FileToCompare_Original.txt", "DoesNotExist")]
+        public void CompareFiles_NonExistingPaths_ThrowsArgumentException(string pathA, string pathB)
+        {
+            // Setup
+            const string expectedMessage = "Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand.";
+
+            // Call
+            TestDelegate test = () => FileUtils.CompareFiles(pathA, pathB);
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void CompareFiles_SameFiles_ReturnsTrue()
+        {
+            // Setup
+            var pathA = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "FileToCompare_Original.txt");
+            var pathB = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "FileToCompare_Equal.txt");
+
+            // Call
+            bool areEqual = FileUtils.CompareFiles(pathA, pathB);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
+        public void CompareFiles_EqualFiles_ReturnsTrue()
+        {
+            // Setup
+            var pathA = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "FileToCompare_Original.txt");
+            var pathB = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "FileToCompare_Equal.txt");
+
+            // Call
+            bool areEqual = FileUtils.CompareFiles(pathA, pathB);
+
+            // Assert
+            Assert.IsTrue(areEqual);
+        }
+
+        [Test]
+        public void CompareFiles_DifferentFiles_ReturnsFalse()
+        {
+            // Setup
+            var pathA = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "FileToCompare_Original.txt");
+            var pathB = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "FileToCompare_Different.txt");
+
+            // Call
+            bool areEqual = FileUtils.CompareFiles(pathA, pathB);
+
+            // Assert
+            Assert.IsFalse(areEqual);
+        }
     }
 }

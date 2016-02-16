@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO
@@ -106,6 +105,15 @@ namespace Ringtoets.Piping.IO
                 ValidateHeader(reader, 1);
 
                 return CountNonEmptyLines(reader, 2);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (fileReader != null)
+            {
+                fileReader.Dispose();
+                fileReader = null;
             }
         }
 
@@ -195,15 +203,6 @@ namespace Ringtoets.Piping.IO
                 lineNumberForMessage++;
             }
             return count;
-        }
-
-        public void Dispose()
-        {
-            if (fileReader != null)
-            {
-                fileReader.Dispose();
-                fileReader = null;
-            }
         }
     }
 }
