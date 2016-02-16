@@ -237,6 +237,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.Forms", "Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj", "{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.Forms.Test", "Core\Components\test\Core.Components.DotSpatial.Forms.Test\Core.Components.DotSpatial.Forms.Test.csproj", "{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|Any CPU = CreateInstaller|Any CPU
@@ -1989,6 +1991,29 @@ Global
 		{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}.ReleaseForCodeCoverage|Mixed Platforms.Build.0 = ReleaseForCodeCoverage|x86
 		{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstaller|Any CPU.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstaller|Mixed Platforms.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstaller|Mixed Platforms.Build.0 = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstallerWithDemoProject|Any CPU.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstallerWithDemoProject|Mixed Platforms.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstallerWithDemoProject|Mixed Platforms.Build.0 = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Debug|x86.ActiveCfg = Debug|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Debug|x86.Build.0 = Debug|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Release|Any CPU.ActiveCfg = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Release|x86.ActiveCfg = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.Release|x86.Build.0 = Release|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.ReleaseForCodeCoverage|Any CPU.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.ReleaseForCodeCoverage|Mixed Platforms.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.ReleaseForCodeCoverage|Mixed Platforms.Build.0 = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2083,6 +2108,7 @@ Global
 		{E900A014-CA87-4374-87F0-813D653A9698} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{CCA12632-92B8-46DB-A3CA-E3C7C92B1AB0} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
+		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{594C5C6D-5833-4E1C-9F30-13A202628EEF} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 		{555F3460-DD3D-4B1D-8319-0AA454050FF7} = {EC6E52A5-2BB1-4080-9784-5DC8D0B08ED3}
 		{F2C4C4F7-4058-4E71-859B-D704F15D2745} = {555F3460-DD3D-4B1D-8319-0AA454050FF7}
