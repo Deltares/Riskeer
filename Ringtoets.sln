@@ -246,6 +246,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.IO.Test", "Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.IO", "Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj", "{FD264FAD-E6F9-47CC-97CD-770199A8E629}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.IO.Test", "Core\Components\test\Core.Components.Gis.IO.Test\Core.Components.Gis.IO.Test.csproj", "{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -939,6 +941,14 @@ Global
 		{FD264FAD-E6F9-47CC-97CD-770199A8E629}.Release|x86.Build.0 = Release|x86
 		{FD264FAD-E6F9-47CC-97CD-770199A8E629}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{FD264FAD-E6F9-47CC-97CD-770199A8E629}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.Debug|x86.ActiveCfg = Debug|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.Debug|x86.Build.0 = Debug|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.Release|x86.ActiveCfg = Release|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.Release|x86.Build.0 = Release|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1037,6 +1047,7 @@ Global
 		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{CCA12632-92B8-46DB-A3CA-E3C7C92B1AB0} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{73AB8619-65A0-4CC7-9024-A8D08C76FBF5} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
+		{2A542599-87A4-4BDE-8BE1-8C77D178E5E4} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{594C5C6D-5833-4E1C-9F30-13A202628EEF} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 		{555F3460-DD3D-4B1D-8319-0AA454050FF7} = {EC6E52A5-2BB1-4080-9784-5DC8D0B08ED3}
 		{F2C4C4F7-4058-4E71-859B-D704F15D2745} = {555F3460-DD3D-4B1D-8319-0AA454050FF7}
