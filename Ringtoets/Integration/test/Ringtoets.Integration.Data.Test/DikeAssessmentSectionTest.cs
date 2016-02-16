@@ -47,7 +47,6 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual("Dijktraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
-            Assert.AreEqual("HR locatiedatabase", section.HydraulicBoundaryDatabase.Name);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.SoilProfiles);

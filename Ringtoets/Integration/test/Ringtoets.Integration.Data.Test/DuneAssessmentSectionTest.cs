@@ -32,7 +32,6 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual("Duintraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
-            Assert.AreEqual("HR locatiedatabase", section.HydraulicBoundaryDatabase.Name);
             Assert.AreEqual(duneErosionName, section.DuneErosionFailureMechanism.Name);
 
             Assert.AreEqual(70, section.DuneErosionFailureMechanism.Contribution);
