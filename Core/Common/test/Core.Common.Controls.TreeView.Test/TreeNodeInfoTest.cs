@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.Controls.TreeView.Test
 {
@@ -131,28 +132,26 @@ namespace Core.Common.Controls.TreeView.Test
         public void SimpleProperties_GenericTreeNodeInfoSetNewValues_GetNewlySetValues()
         {
             // Setup
-            var treeNodeInfo = new TreeNodeInfo();
-            var tagType = typeof(int);
-            Func<object, string> text = o => "";
-            Func<object, Color> foreColor = o => Color.Azure;
-            Func<object, Image> image = o => new Bitmap(16, 16);
-            Func<object, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
-            Func<object, bool> ensureVisibleOnCreate = o => true;
-            Func<object, object[]> childNodeObjects = o => new object[0];
-            Func<object, object, bool> canRename = (o1, o2) => true;
-            Action<object, string> onNodeRenamed = (o, newName) => { };
-            Func<object, object, bool> canRemove = (o1, o2) => true;
-            Action<object, object> onNodeRemoved = (o1, o2) => { };
-            Func<object, bool> canCheck = o => true;
-            Func<object, bool> isChecked = o => true;
-            Action<object, object> onNodeChecked = (o1, o2) => { };
-            Func<object, object, bool> canDrag = (o1, o2) => true;
+            var treeNodeInfo = new TreeNodeInfo<int>();
+            Func<int, string> text = o => "";
+            Func<int, Color> foreColor = o => Color.Azure;
+            Func<int, Image> image = o => new Bitmap(16, 16);
+            Func<int, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
+            Func<int, bool> ensureVisibleOnCreate = o => true;
+            Func<int, object[]> childNodeObjects = o => new object[0];
+            Func<int, object, bool> canRename = (o1, o2) => true;
+            Action<int, string> onNodeRenamed = (o, newName) => { };
+            Func<int, object, bool> canRemove = (o1, o2) => true;
+            Action<int, object> onNodeRemoved = (o1, o2) => { };
+            Func<int, bool> canCheck = o => true;
+            Func<int, bool> isChecked = o => true;
+            Action<int, object> onNodeChecked = (o1, o2) => { };
+            Func<int, object, bool> canDrag = (o1, o2) => true;
             Func<object, object, bool> canDrop = (o1, o2) => true;
             Func<object, object, bool> canInsert = (o1, o2) => true;
             Action<object, object, object, int, TreeViewControl> onDrop = (o1, o2, o3, index, tvc) => { };
 
             // Call
-            treeNodeInfo.TagType = tagType;
             treeNodeInfo.Text = text;
             treeNodeInfo.ForeColor = foreColor;
             treeNodeInfo.Image = image;
@@ -172,7 +171,7 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.OnDrop = onDrop;
 
             // Assert
-            Assert.AreEqual(tagType, treeNodeInfo.TagType);
+            Assert.AreEqual(typeof(int), treeNodeInfo.TagType);
             Assert.AreEqual(text, treeNodeInfo.Text);
             Assert.AreEqual(foreColor, treeNodeInfo.ForeColor);
             Assert.AreEqual(image, treeNodeInfo.Image);
@@ -190,6 +189,117 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(canDrop, treeNodeInfo.CanDrop);
             Assert.AreEqual(canInsert, treeNodeInfo.CanInsert);
             Assert.AreEqual(onDrop, treeNodeInfo.OnDrop);
+        }
+
+        [Test]
+        public void ImplicitOperator_WithNoMethodsSet_InfoFullyConverted()
+        {
+            var genericTreeNodeInfo = new TreeNodeInfo<int>();
+
+            // Precondition
+            Assert.IsInstanceOf<TreeNodeInfo<int>>(genericTreeNodeInfo);
+
+            // Call
+            TreeNodeInfo treeNodeInfo = genericTreeNodeInfo;
+
+            // Assert
+            Assert.AreEqual(typeof(int), treeNodeInfo.TagType);
+            Assert.IsNull(treeNodeInfo.Text);
+            Assert.IsNull(treeNodeInfo.ForeColor);
+            Assert.IsNull(treeNodeInfo.Image);
+            Assert.IsNull(treeNodeInfo.ContextMenuStrip);
+            Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.IsNull(treeNodeInfo.ChildNodeObjects);
+            Assert.IsNull(treeNodeInfo.CanRename);
+            Assert.IsNull(treeNodeInfo.OnNodeRenamed);
+            Assert.IsNull(treeNodeInfo.CanRemove);
+            Assert.IsNull(treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.CanCheck);
+            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.OnNodeChecked);
+            Assert.IsNull(treeNodeInfo.CanDrag);
+            Assert.IsNull(treeNodeInfo.CanDrop);
+            Assert.IsNull(treeNodeInfo.CanInsert);
+            Assert.IsNull(treeNodeInfo.OnDrop);
+        }
+
+        [Test]
+        public void ImplicitOperator_WithAllMethodsSet_InfoFullyConverted()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var onDropCounter = 0;
+            var onNodeRenamedCounter = 0;
+            var onNodeRemovedCounter = 0;
+            var onNodeCheckedCounter = 0;
+
+            var genericTreeNodeInfo = new TreeNodeInfo<int>
+            {
+                Text = o => "text",
+                ForeColor = o => Color.Azure,
+                Image = o => new Bitmap(16, 16),
+                ContextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip
+                {
+                    Items =
+                    {
+                        new ToolStripButton()
+                    }
+                },
+                EnsureVisibleOnCreate = o => true,
+                ChildNodeObjects = o => new[]
+                {
+                    new object()
+                },
+                CanRename = (o1, o2) => true,
+                OnNodeRenamed = (o, newName) => { onNodeRenamedCounter++; },
+                CanRemove = (o1, o2) => true,
+                OnNodeRemoved = (o1, o2) => { onNodeRemovedCounter++; },
+                CanCheck = o => true,
+                IsChecked = o => true,
+                OnNodeChecked = (o1, o2) => { onNodeCheckedCounter++; },
+                CanDrag = (o1, o2) => true,
+                CanDrop = (o1, o2) => true,
+                CanInsert = (o1, o2) => true,
+                OnDrop = (o1, o2, o3, index, tvc) => { onDropCounter++; }
+            };
+
+            // Precondition
+            Assert.IsInstanceOf<TreeNodeInfo<int>>(genericTreeNodeInfo);
+
+            // Call
+            TreeNodeInfo treeNodeInfo = genericTreeNodeInfo;
+
+            // Assert
+            Assert.AreEqual(typeof(int), treeNodeInfo.TagType);
+            Assert.AreEqual("text", treeNodeInfo.Text(0));
+            Assert.AreEqual(Color.Azure, treeNodeInfo.ForeColor(0));
+            Assert.AreEqual(16, treeNodeInfo.Image(0).Height);
+            Assert.AreEqual(1, treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl).Items.Count);
+            Assert.IsTrue(treeNodeInfo.EnsureVisibleOnCreate(0));
+            Assert.AreEqual(1, treeNodeInfo.ChildNodeObjects(0).Length);
+            Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
+            Assert.IsTrue(treeNodeInfo.CanRemove(0, 1));
+            Assert.IsTrue(treeNodeInfo.CanCheck(0));
+            Assert.IsTrue(treeNodeInfo.IsChecked(0));
+            Assert.IsTrue(treeNodeInfo.CanDrag(0, 1));
+            Assert.IsTrue(treeNodeInfo.CanDrop(0, 1));
+            Assert.IsTrue(treeNodeInfo.CanInsert(0, 1));
+
+            treeNodeInfo.OnNodeRenamed(0, "newName");
+            Assert.AreEqual(1, onNodeRenamedCounter);
+
+            treeNodeInfo.OnNodeRemoved(0, 1);
+            Assert.AreEqual(1, onNodeRemovedCounter);
+
+            treeNodeInfo.OnNodeChecked(0, 1);
+            Assert.AreEqual(1, onNodeCheckedCounter);
+
+            treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewControl);
+            Assert.AreEqual(1, onDropCounter);
         }
     }
 }
