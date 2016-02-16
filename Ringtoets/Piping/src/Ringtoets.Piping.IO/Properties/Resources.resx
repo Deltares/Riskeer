@@ -180,4 +180,7 @@
   <data name="PipingSoilProfileReader_SoilProfileName_0_" xml:space="preserve">
     <value>ondergrondschematisering '{0}'</value>
   </data>
+  <data name="PipingCharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
+    <value>Het bestand is niet geschikt om profielmetingen uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
+  </data>
 </root>

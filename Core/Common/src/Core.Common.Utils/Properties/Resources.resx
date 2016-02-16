@@ -147,4 +147,7 @@
   <data name="Error_Writing_To_File_0_1" xml:space="preserve">
     <value>Fout bij het schrijven naar bestand '{0}': {1}</value>
   </data>
+  <data name="Error_Line_too_big_for_RAM" xml:space="preserve">
+    <value>Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden.</value>
+  </data>
 </root>

@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.IO
         /// </exception>
         public int GetSurfaceLinesCount()
         {
-            using (var reader = InitializeStreamReader(filePath))
+            using (var reader = StreamReaderHelper.InitializeStreamReader(filePath))
             {
                 ValidateHeader(reader, 1);
 
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.IO
         {
             if (fileReader == null)
             {
-                fileReader = InitializeStreamReader(filePath);
+                fileReader = StreamReaderHelper.InitializeStreamReader(filePath);
 
                 ValidateHeader(fileReader, 1);
                 lineNumber = 2;
@@ -140,20 +140,7 @@ namespace Ringtoets.Piping.IO
             {
                 try
                 {
-                    var tokenizedString = TokenizeString(readText);
-
-                    var surfaceLineName = GetSurfaceLineName(tokenizedString);
-                    var points = GetSurfaceLinePoints(tokenizedString, surfaceLineName);
-
-                    var surfaceLine = new RingtoetsPipingSurfaceLine
-                    {
-                        Name = surfaceLineName
-                    };
-                    surfaceLine.SetGeometry(points);
-
-                    CheckIfGeometryIsValid(surfaceLine);
-
-                    return surfaceLine;
+                    return CreateRingtoetsPipingSurfaceLine(readText);
                 }
                 finally
                 {
@@ -162,6 +149,24 @@ namespace Ringtoets.Piping.IO
             }
 
             return null;
+        }
+
+        private RingtoetsPipingSurfaceLine CreateRingtoetsPipingSurfaceLine(string readText)
+        {
+            var tokenizedString = TokenizeString(readText);
+
+            var surfaceLineName = GetSurfaceLineName(tokenizedString);
+            var points = GetSurfaceLinePoints(tokenizedString, surfaceLineName);
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = surfaceLineName
+            };
+            surfaceLine.SetGeometry(points);
+
+            CheckIfGeometryIsValid(surfaceLine);
+
+            return surfaceLine;
         }
 
         public void Dispose()
@@ -292,36 +297,6 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Initializes the stream reader for a UTF8 encoded file.
-        /// </summary>
-        /// <param name="path">The path to the file to be read.</param>
-        /// <returns>A UTF8 encoding configured stream reader opened on <paramref name="path"/>.</returns>
-        /// <exception cref="CriticalFileReadException">File/directory cannot be found or 
-        /// some other I/O related problem occurred.</exception>
-        private static StreamReader InitializeStreamReader(string path)
-        {
-            try
-            {
-                return new StreamReader(path);
-            }
-            catch (FileNotFoundException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (IOException e)
-            {
-                var message = new FileReaderErrorMessageBuilder(path).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
-                throw new CriticalFileReadException(message, e);
-            }
-        }
-
-        /// <summary>
         /// Validates the header of the file.
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
@@ -427,7 +402,7 @@ namespace Ringtoets.Piping.IO
             }
             catch (OutOfMemoryException e)
             {
-                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_File_does_not_exist, e);
+                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_Line_too_big_for_RAM, e);
             }
             catch (IOException e)
             {
@@ -446,7 +421,7 @@ namespace Ringtoets.Piping.IO
                 return false;
             }
 
-            // CHeck for valid 1st coordinate in header:
+            // Check for valid 1st coordinate in header:
             bool valid = true;
             for (int i = 0; i < expectedFirstCoordinateHeader.Length && valid; i++)
             {

@@ -97,6 +97,15 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden..
+        /// </summary>
+        public static string Error_Line_too_big_for_RAM {
+            get {
+                return ResourceManager.GetString("Error_Line_too_big_for_RAM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bestandspad mag niet de volgende tekens bevatten: {0}.
         /// </summary>
         public static string Error_Path_cannot_contain_Characters_0_ {
