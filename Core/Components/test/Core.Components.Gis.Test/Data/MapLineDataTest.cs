@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -33,6 +34,7 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.IsInstanceOf<MapData>(data);
             Assert.AreNotSame(points, data.Points);
+            CollectionAssert.IsEmpty(data.MetaData);
         }
 
         [Test]
@@ -48,6 +50,23 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsInstanceOf<MapData>(data);
             Assert.AreNotSame(points, data.Points);
             CollectionAssert.AreEqual(points, data.Points);
+            CollectionAssert.IsEmpty(data.MetaData);
+        }
+
+        [Test]
+        public void MetaData_SetNewValue_GetNewlySetValue()
+        {
+            // Setup
+            var data = new MapLineData(Enumerable.Empty<Tuple<double, double>>());
+
+            const string key = "<some key>";
+            var newValue = new object();
+
+            // Call
+            data.MetaData[key] = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, data.MetaData[key]);
         }
 
         private static Collection<Tuple<double, double>> CreateTestPoints()

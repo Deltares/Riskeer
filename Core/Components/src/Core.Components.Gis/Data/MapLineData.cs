@@ -34,6 +34,14 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapLineData(IEnumerable<Tuple<double, double>> points) : base(points) {}
+        public MapLineData(IEnumerable<Tuple<double, double>> points) : base(points)
+        {
+            MetaData = new Dictionary<string, object>();
+        }
+
+        /// <summary>
+        /// Gets the meta data associated with the line data.
+        /// </summary>
+        public IDictionary<string,object> MetaData { get; private set; }
     }
 }
