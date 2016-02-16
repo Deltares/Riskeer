@@ -84,6 +84,13 @@ namespace Core.Common.Utils
 
             try
             {
+                var fileA = new FileInfo(pathA);
+                var fileB = new FileInfo(pathB);
+                if (fileA.Length != fileB.Length)
+                {
+                    return false;
+                }
+
                 using (var md5 = MD5.Create())
                 {
                     byte[] hashA;
@@ -92,6 +99,7 @@ namespace Core.Common.Utils
                     {
                         hashA = md5.ComputeHash(stream);
                     }
+
                     using (var stream = File.OpenRead(pathB))
                     {
                         hashB = md5.ComputeHash(stream);
