@@ -162,6 +162,33 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
+        [TestCase("start")]
+        [TestCase("middle")]
+        [TestCase("end")]
+        [TestCase("start_order_number")]
+        [TestCase("middle_order_number")]
+        [TestCase("end_order_number")]
+        public void GetLocationsCount_FileHasColumnsMissingInHeader_ThrowCriticalFileReadException(string malformattedVariableName)
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, string.Format("1location_column_missing_{0}.krp.csv", malformattedVariableName));
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
         public void GetLocationsCount_InvalidHeader1_ThrowCriticalFileReadException()
         {
             // Setup
@@ -582,6 +609,9 @@ namespace Ringtoets.Piping.IO.Test
                     Z = -1.5
                 }, location1.DikeTableHeight);
 
+                Assert.IsNull(location1.InsertRiverChannel);
+                Assert.IsNull(location1.BottomRiverChannel);
+
                 #endregion
 
                 #region 2nd location
@@ -706,6 +736,9 @@ namespace Ringtoets.Piping.IO.Test
                     Y = 0,
                     Z = -1.52
                 }, location2.DikeTableHeight);
+
+                Assert.IsNull(location2.InsertRiverChannel);
+                Assert.IsNull(location2.BottomRiverChannel);
 
                 #endregion
             }

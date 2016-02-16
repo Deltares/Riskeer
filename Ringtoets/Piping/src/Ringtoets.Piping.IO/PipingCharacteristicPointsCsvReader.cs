@@ -48,8 +48,14 @@ namespace Ringtoets.Piping.IO
     /// </summary>
     public class PipingCharacteristicPointsCsvReader : IDisposable
     {
-        private const string expectedHeader = "locationid;x_maaiveld binnenwaarts;y_maaiveld binnenwaarts;z_maaiveld binnenwaarts;x_insteek sloot polderzijde;y_insteek sloot polderzijde;z_insteek sloot polderzijde;x_slootbodem polderzijde;y_slootbodem polderzijde;z_slootbodem polderzijde;x_slootbodem dijkzijde;y_slootbodem dijkzijde;z_slootbodem dijkzijde;x_insteek sloot dijkzijde;y_insteek_sloot dijkzijde;z_insteek sloot dijkzijde;x_teen dijk binnenwaarts;y_teen dijk binnenwaarts;z_teen dijk binnenwaarts;x_kruin binnenberm;y_kruin binnenberm;z_kruin binnenberm;x_insteek binnenberm;y_insteek binnenberm;z_insteek binnenberm;x_kruin binnentalud;y_kruin binnentalud;z_kruin binnentalud;x_verkeersbelasting kant binnenwaarts;y_verkeersbelasting kant binnenwaarts;z_verkeersbelasting kant binnenwaarts;x_verkeersbelasting kant buitenwaarts;y_verkeersbelasting kant buitenwaarts;z_verkeersbelasting kant buitenwaarts;x_kruin buitentalud;y_kruin buitentalud;z_kruin buitentalud;x_insteek buitenberm;y_insteek buitenberm;z_insteek buitenberm;x_kruin buitenberm;y_kruin buitenberm;z_kruin buitenberm;x_teen dijk buitenwaarts;y_teen dijk buitenwaarts;z_teen dijk buitenwaarts;x_maaiveld buitenwaarts;y_maaiveld buitenwaarts;z_maaiveld buitenwaarts;x_dijktafelhoogte;y_dijktafelhoogte;z_dijktafelhoogte;volgnummer";
+        private const string locationHeader = "locationid";
+        private string orderNumberHeader = "volgnummer";
+
         private const char separator = ';';
+
+        private const string xPrefix = "x_";
+        private const string yPrefix = "y_";
+        private const string zPrefix = "z_";
 
         private const string surfaceLevelInsideKey = "maaiveld binnenwaarts";
         private const string ditchPolderSideKey = "insteek sloot polderzijde";
@@ -68,32 +74,15 @@ namespace Ringtoets.Piping.IO
         private const string dikeToeAtRiverKey = "teen dijk buitenwaarts";
         private const string surfaceLevelOutsideKey = "maaiveld buitenwaarts";
         private const string dikeTableHeightKey = "dijktafelhoogte";
+        private const string insertRiverChannelKey = "insteek geul";
+        private const string bottomRiverChannelKey = "teen geul";
 
         private readonly string filePath;
 
         /// <summary>
         /// Lower case string representations of the known characteristic point types.
         /// </summary>
-        private readonly string[] characteristicPointKeys =
-        {
-            surfaceLevelInsideKey,
-            ditchPolderSideKey,
-            bottomDitchPolderSideKey,
-            bottomDitchDikeSideKey,
-            ditchDikeSideKey,
-            dikeToeAtPolderKey,
-            topShoulderInsideKey,
-            shoulderInsideKey,
-            dikeTopAtPolderKey,
-            trafficLoadInsideKey,
-            trafficLoadOutsideKey,
-            dikeTopAtRiverKey,
-            shoulderOutsideKey,
-            topShoulderOutsideKey,
-            dikeToeAtRiverKey,
-            surfaceLevelOutsideKey,
-            dikeTableHeightKey
-        };
+        private IList<string> columnsInFile;
 
         private StreamReader fileReader;
 
@@ -101,6 +90,7 @@ namespace Ringtoets.Piping.IO
         /// The next line number to be read by this reader.
         /// </summary>
         private int lineNumber;
+
 
         /// <summary>
         /// Initializes a new instance of <see cref="PipingCharacteristicPointsCsvReader"/> using
@@ -262,7 +252,52 @@ namespace Ringtoets.Piping.IO
 
         private bool IsHeaderValid(string header)
         {
-            return expectedHeader == header.ToLowerInvariant();
+            var hasLocationColumn = header.ToLowerInvariant().StartsWith(locationHeader);
+            if (!hasLocationColumn)
+            {
+                return false;
+            }
+
+            var columns = GetColumnsFromHeader(header);
+
+            var columnsValid = true;
+            var currentColumn = 0;
+            while (columnsValid && currentColumn < columns.Count)
+            {
+                var key = columns.ElementAt(currentColumn).Substring(2);
+                columnsValid &= columns.ElementAt(currentColumn) == xPrefix + key;
+
+                try
+                {
+                    columnsValid &= columns.ElementAt(currentColumn + 1) == yPrefix + key;
+                    columnsValid &= columns.ElementAt(currentColumn + 2) == zPrefix + key;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    return false;
+                }
+
+                currentColumn += 3;
+            }
+
+            columnsInFile = columns;
+
+            return columnsValid;
+        }
+
+        private IList<string> GetColumnsFromHeader(string header)
+        {
+            IList<string> tokenizedHeader = TokenizeString(header.ToLowerInvariant()).ToList();
+
+            tokenizedHeader.RemoveAt(0);
+
+            var hasOrderNumberColumn = tokenizedHeader.Last() == orderNumberHeader;
+            if (hasOrderNumberColumn)
+            {
+                tokenizedHeader.RemoveAt(tokenizedHeader.Count - 1);
+            }
+
+            return tokenizedHeader;
         }
 
         /// <summary>
@@ -312,7 +347,7 @@ namespace Ringtoets.Piping.IO
         private void SetCharacteristicPoints(string[] tokenizedString, PipingCharacteristicPointsLocation location)
         {
             int expectedValuesForPoint = 3;
-            int expectedValuesCount = characteristicPointKeys.Length*expectedValuesForPoint;
+            int expectedValuesCount = columnsInFile.Count;
             var locationName = location.Name;
 
             var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, locationName);
@@ -344,23 +379,37 @@ namespace Ringtoets.Piping.IO
         /// the characteristic points for.</param>
         private void MapPointsToCharacteristicPoints(Point3D[] points, PipingCharacteristicPointsLocation location)
         {
-            location.SurfaceLevelInside = points[Array.IndexOf(characteristicPointKeys, surfaceLevelInsideKey)];
-            location.DitchPolderSide = points[Array.IndexOf(characteristicPointKeys, ditchPolderSideKey)];
-            location.BottomDitchPolderSide = points[Array.IndexOf(characteristicPointKeys, bottomDitchPolderSideKey)];
-            location.BottomDitchDikeSide = points[Array.IndexOf(characteristicPointKeys, bottomDitchDikeSideKey)];
-            location.DitchDikeSide = points[Array.IndexOf(characteristicPointKeys, ditchDikeSideKey)];
-            location.DikeToeAtPolder = points[Array.IndexOf(characteristicPointKeys, dikeToeAtPolderKey)];
-            location.TopShoulderInside = points[Array.IndexOf(characteristicPointKeys, topShoulderInsideKey)];
-            location.ShoulderInside = points[Array.IndexOf(characteristicPointKeys, shoulderInsideKey)];
-            location.DikeTopAtPolder = points[Array.IndexOf(characteristicPointKeys, dikeTopAtPolderKey)];
-            location.TrafficLoadInside = points[Array.IndexOf(characteristicPointKeys, trafficLoadInsideKey)];
-            location.TrafficLoadOutside = points[Array.IndexOf(characteristicPointKeys, trafficLoadOutsideKey)];
-            location.DikeTopAtRiver = points[Array.IndexOf(characteristicPointKeys, dikeTopAtRiverKey)];
-            location.ShoulderOutisde = points[Array.IndexOf(characteristicPointKeys, shoulderOutsideKey)];
-            location.TopShoulderOutside = points[Array.IndexOf(characteristicPointKeys, topShoulderOutsideKey)];
-            location.DikeToeAtRiver = points[Array.IndexOf(characteristicPointKeys, dikeToeAtRiverKey)];
-            location.SurfaceLevelOutside = points[Array.IndexOf(characteristicPointKeys, surfaceLevelOutsideKey)];
-            location.DikeTableHeight = points[Array.IndexOf(characteristicPointKeys, dikeTableHeightKey)];
+            location.SurfaceLevelInside = GetPoint3D(points, surfaceLevelInsideKey);
+            location.DitchPolderSide = GetPoint3D(points, ditchPolderSideKey);
+            location.BottomDitchPolderSide = GetPoint3D(points, bottomDitchPolderSideKey);
+            location.BottomDitchDikeSide = GetPoint3D(points, bottomDitchDikeSideKey);
+            location.DitchDikeSide = GetPoint3D(points, ditchDikeSideKey);
+            location.DikeToeAtPolder = GetPoint3D(points, dikeToeAtPolderKey);
+            location.TopShoulderInside = GetPoint3D(points, topShoulderInsideKey);
+            location.ShoulderInside = GetPoint3D(points, shoulderInsideKey);
+            location.DikeTopAtPolder = GetPoint3D(points, dikeTopAtPolderKey);
+            location.TrafficLoadInside = GetPoint3D(points, trafficLoadInsideKey);
+            location.TrafficLoadOutside = GetPoint3D(points, trafficLoadOutsideKey);
+            location.DikeTopAtRiver = GetPoint3D(points, dikeTopAtRiverKey);
+            location.ShoulderOutisde = GetPoint3D(points, shoulderOutsideKey);
+            location.TopShoulderOutside = GetPoint3D(points, topShoulderOutsideKey);
+            location.DikeToeAtRiver = GetPoint3D(points, dikeToeAtRiverKey);
+            location.SurfaceLevelOutside = GetPoint3D(points, surfaceLevelOutsideKey);
+            location.DikeTableHeight = GetPoint3D(points, dikeTableHeightKey);
+            location.InsertRiverChannel = GetPoint3D(points, insertRiverChannelKey);
+            location.BottomRiverChannel = GetPoint3D(points, bottomRiverChannelKey);
+        }
+
+        private Point3D GetPoint3D(Point3D[] points, string characteristicPointName)
+        {
+            var columnName = xPrefix + characteristicPointName;
+            var columnIndex = columnsInFile.IndexOf(columnName);
+            if (columnIndex > -1)
+            {
+                var indexOfPoint = columnIndex / 3;
+                return points[indexOfPoint];
+            }
+            return null;
         }
 
         /// <summary>
@@ -425,7 +474,7 @@ namespace Ringtoets.Piping.IO
                                                                          separator));
             }
             return readText.Split(separator)
-                           .TakeWhile(text => !String.IsNullOrEmpty(text))
+                           .TakeWhile(text => !string.IsNullOrEmpty(text))
                            .ToArray();
         }
 

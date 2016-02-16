@@ -47,5 +47,7 @@ namespace Ringtoets.Piping.Data
         public Point3D DikeToeAtRiver { get; set; }
         public Point3D SurfaceLevelOutside { get; set; }
         public Point3D DikeTableHeight { get; set; }
+        public Point3D InsertRiverChannel { get; set; }
+        public Point3D BottomRiverChannel { get; set; }
     }
 }
