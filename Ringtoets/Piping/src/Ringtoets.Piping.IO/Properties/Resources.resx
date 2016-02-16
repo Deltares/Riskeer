@@ -183,4 +183,22 @@
   <data name="PipingCharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om profielmetingen uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
   </data>
+  <data name="Error_CharacteristicPoint_has_not_double" xml:space="preserve">
+    <value>Karakteristiek punt heeft een waarde die niet omgezet kan worden naar een getal.</value>
+  </data>
+  <data name="Error_CharacteristicPoint_parsing_causes_overflow" xml:space="preserve">
+    <value>Karakteristiek punt heeft een waarde die te groot of te klein is om ingelezen te worden.</value>
+  </data>
+  <data name="PipingCharacteristicPointsCsvReader_LocationName_0_" xml:space="preserve">
+    <value>locatie '{0}'</value>
+  </data>
+  <data name="PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
+    <value>Regel heeft geen ID.</value>
+  </data>
+  <data name="PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
+    <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
+  </data>
+  <data name="PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points" xml:space="preserve">
+    <value>Voor locatie ontbreken er waardes om alle 3D (X,Y,Z) karakteristieke punten aan te maken.</value>
+  </data>
 </root>

@@ -4,7 +4,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test
@@ -44,7 +46,7 @@ namespace Ringtoets.Piping.IO.Test
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                                                              String.Join(", ", Path.GetInvalidFileNameChars())));
+                                                                                                     String.Join(", ", Path.GetInvalidFileNameChars())));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -77,6 +79,7 @@ namespace Ringtoets.Piping.IO.Test
         [Test]
         [TestCase("0locations.krp.csv", 0)]
         [TestCase("1location.krp.csv", 1)]
+        [TestCase("2locations.krp.csv", 2)]
         [TestCase("2locations_empty_line.krp.csv", 2)]
         public void GetLocationsCount_DifferentFiles_ShouldReturnNumberOfLocations(string fileName, int expectedCount)
         {
@@ -173,8 +176,290 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Properties.Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithCultureNL_ReturnCreatedCharacteristicPointsLocation()
+        {
+            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithCultureEN_ReturnCreatedCharacteristicPointsLocation()
+        {
+            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation();
+        }
+
+        private void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations.krp.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                var location1 = reader.ReadLine();
+                var location2 = reader.ReadLine();
+
+                // Assert
+
+                #region 1st location
+
+                Assert.AreEqual("Rotterdam1", location1.Name);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 100,
+                    Y = 0,
+                    Z = -0.63
+                }, location1.SurfaceLevelInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 60.83,
+                    Y = 0,
+                    Z = -0.57
+                }, location1.DitchPolderSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 59.36,
+                    Y = 0,
+                    Z = -1.87
+                }, location1.BottomDitchPolderSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 57.99,
+                    Y = 0,
+                    Z = -1.9
+                }, location1.BottomDitchDikeSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 55.37,
+                    Y = 0,
+                    Z = -0.31
+                }, location1.DitchDikeSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 55.37,
+                    Y = 0,
+                    Z = -0.31
+                }, location1.DikeToeAtPolder);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location1.TopShoulderInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location1.ShoulderInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 40.17,
+                    Y = 0,
+                    Z = 2.63
+                }, location1.DikeTopAtPolder);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 40.85,
+                    Y = 0,
+                    Z = 2.44
+                }, location1.TrafficLoadInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 38.35,
+                    Y = 0,
+                    Z = 2.623
+                }, location1.TrafficLoadOutside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 35.95,
+                    Y = 0,
+                    Z = 2.61
+                }, location1.DikeTopAtRiver);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location1.ShoulderOutisde);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location1.TopShoulderOutside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 29.1,
+                    Y = 0,
+                    Z = -0.2
+                }, location1.DikeToeAtRiver);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 0,
+                    Y = 0,
+                    Z = -0.71
+                }, location1.SurfaceLevelOutside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 23.703,
+                    Y = 0,
+                    Z = -1.5
+                }, location1.DikeTableHeight);
+
+                #endregion
+
+                #region 2nd location
+
+                Assert.AreEqual("Amsterdam1", location2.Name);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 100,
+                    Y = 0,
+                    Z = -0.47
+                }, location2.SurfaceLevelInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 58.42,
+                    Y = 0,
+                    Z = -0.6
+                }, location2.DitchPolderSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 56.2,
+                    Y = 0,
+                    Z = -1.98
+                }, location2.BottomDitchPolderSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 56.2,
+                    Y = 0,
+                    Z = -1.98
+                }, location2.BottomDitchDikeSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 53.48,
+                    Y = 0,
+                    Z = -0.49
+                }, location2.DitchDikeSide);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 53.48,
+                    Y = 0,
+                    Z = -0.49
+                }, location2.DikeToeAtPolder);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location2.TopShoulderInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location2.ShoulderInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 38.17,
+                    Y = 0,
+                    Z = 3.04
+                }, location2.DikeTopAtPolder);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 37.73,
+                    Y = 0,
+                    Z = 3.13
+                }, location2.TrafficLoadInside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 35.23,
+                    Y = 0,
+                    Z = 3.253
+                }, location2.TrafficLoadOutside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 32.77,
+                    Y = 0,
+                    Z = 3.11
+                }, location2.DikeTopAtRiver);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location2.ShoulderOutisde);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = -1,
+                    Y = -1,
+                    Z = -1
+                }, location2.TopShoulderOutside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 19.61,
+                    Y = 0,
+                    Z = -0.05
+                }, location2.DikeToeAtRiver);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 0,
+                    Y = 0,
+                    Z = -0.33
+                }, location2.SurfaceLevelOutside);
+
+                Assert.AreEqual(new Point3D
+                {
+                    X = 17.32,
+                    Y = 0,
+                    Z = -1.52
+                }, location2.DikeTableHeight);
+
+                #endregion
             }
         }
     }

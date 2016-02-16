@@ -27,5 +27,23 @@ namespace Ringtoets.Piping.Data
         /// characteristic points.
         /// </summary>
         public string Name { get; private set; }
+
+        public Point3D SurfaceLevelInside { get; set; }
+        public Point3D DitchPolderSide { get; set; }
+        public Point3D BottomDitchPolderSide { get; set; }
+        public Point3D BottomDitchDikeSide { get; set; }
+        public Point3D DitchDikeSide { get; set; }
+        public Point3D DikeToeAtPolder { get; set; }
+        public Point3D TopShoulderInside { get; set; }
+        public Point3D ShoulderInside { get; set; }
+        public Point3D DikeTopAtPolder { get; set; }
+        public Point3D TrafficLoadInside { get; set; }
+        public Point3D TrafficLoadOutside { get; set; }
+        public Point3D DikeTopAtRiver { get; set; }
+        public Point3D ShoulderOutisde { get; set; }
+        public Point3D TopShoulderOutside { get; set; }
+        public Point3D DikeToeAtRiver { get; set; }
+        public Point3D SurfaceLevelOutside { get; set; }
+        public Point3D DikeTableHeight { get; set; }
     }
 }
