@@ -133,7 +133,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(observableSurfaceLinesList, validFilePath);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Profielmeting Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", 1);
+            var mesages = new[]
+            {
+                "Profielmeting Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.",
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
+                              Path.Combine(testDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv"))
+            };
+
+            TestHelper.AssertLogMessagesAreGenerated(call, mesages, 2);
             Assert.IsTrue(importResult);
             var importTargetArray = observableSurfaceLinesList.ToArray();
             Assert.AreEqual(1, importTargetArray.Length);
@@ -430,9 +437,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 .WithLocation("op regel 3")
                 .WithSubject("profielmeting 'InvalidRow'")
                 .Build(PipingIOResources.Error_SurfaceLine_has_not_double);
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
-                                                   internalErrorMessage);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            var expectedLogMessages = new[]
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
+                              internalErrorMessage),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
+                              Path.Combine(testDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.krp.csv"))
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
             Assert.IsTrue(importResult);
 
             Assert.AreEqual(2, observableSurfaceLinesList.Count,
@@ -474,9 +486,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 .WithLocation("op regel 2")
                 .WithSubject("profielmeting 'Rotterdam1'")
                 .Build(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
-                                                   internalErrorMessage);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            var expectedLogMessages = new []
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
+                              internalErrorMessage),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
+                              Path.Combine(testDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv"))
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
             Assert.IsTrue(importResult);
             var importTargetArray = observableSurfaceLinesList.ToArray();
             Assert.AreEqual(0, importTargetArray.Length);

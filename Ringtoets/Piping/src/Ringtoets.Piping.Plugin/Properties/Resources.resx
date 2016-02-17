@@ -163,4 +163,7 @@ Deze ondergrondschematisering wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
     <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_" xml:space="preserve">
+    <value>Geen karakteristieke punten-bestand gevonden bij het profielschematisatiebestand. (Verwacht bestand: {0})</value>
+  </data>
 </root>

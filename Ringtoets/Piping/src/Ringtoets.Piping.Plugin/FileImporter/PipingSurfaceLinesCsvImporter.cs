@@ -33,7 +33,6 @@ using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;
 using Ringtoets.Piping.IO.Exceptions;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -49,6 +48,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     {
         private readonly ILog log;
         private bool shouldCancel;
+        private string characteristicPointsFileSubExtension = ".krp";
 
         public PipingSurfaceLinesCsvImporter()
         {
@@ -111,6 +111,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 if (!shouldCancel)
                 {
+                    FindCharacteristicPointsFile(filePath);
+
                     AddImportedDataToModel(targetItem, importResult.ImportedItems);
 
                     return true;
@@ -120,6 +122,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             return false;
+        }
+
+        private void FindCharacteristicPointsFile(string filePath)
+        {
+            var characteristicPointsFilePath = filePath.Insert(filePath.Length - 4, characteristicPointsFileSubExtension);
+            var hasCharacteristicPointsFile = File.Exists(characteristicPointsFilePath);
+
+            if (!hasCharacteristicPointsFile)
+            {
+                log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, characteristicPointsFilePath));
+            }
         }
 
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
