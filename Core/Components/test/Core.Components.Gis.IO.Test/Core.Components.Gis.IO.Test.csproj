@@ -61,10 +61,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LineShapeFileReaderTest.cs" />
+    <Compile Include="PolylineShapeFileReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>

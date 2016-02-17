@@ -44,7 +44,7 @@ namespace Ringtoets.Common.IO
         /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
         public ReferenceLine ReadReferenceLine(string shapeFilePath)
         {
-            using (var lineShapeReader = new LineShapeFileReader(shapeFilePath))
+            using (var lineShapeReader = new PolylineShapeFileReader(shapeFilePath))
             {
                 MapLineData lineMapData = lineShapeReader.ReadLine();
 

@@ -63,10 +63,19 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="LineShapeFileReader.cs" />
+    <Compile Include="PolylineShapeFileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
@@ -89,6 +98,13 @@
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
