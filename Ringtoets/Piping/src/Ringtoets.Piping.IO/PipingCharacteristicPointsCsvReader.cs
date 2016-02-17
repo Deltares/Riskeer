@@ -46,36 +46,74 @@ namespace Ringtoets.Piping.IO
     /// </summary>
     public class PipingCharacteristicPointsCsvReader : IDisposable
     {
-        private const string locationHeader = "locationid";
+        #region csv columns
+
+        private const string locationIdKey = "locationid";
+        private const string surfaceLineKey = "profielnaam";
+        private const string surfaceLevelInsideXKey = "x_maaiveld_binnenwaarts";
+        private const string surfaceLevelInsideYKey = "y_maaiveld_binnenwaarts";
+        private const string surfaceLevelInsideZKey = "z_maaiveld_binnenwaarts";
+        private const string ditchPolderSideXKey = "x_insteek_sloot_polderzijde";
+        private const string ditchPolderSideYKey = "y_insteek_sloot_polderzijde";
+        private const string ditchPolderSideZKey = "z_insteek_sloot_polderzijde";
+        private const string bottomDitchPolderSideXKey = "x_slootbodem_polderzijde";
+        private const string bottomDitchPolderSideYKey = "y_slootbodem_polderzijde";
+        private const string bottomDitchPolderSideZKey = "z_slootbodem_polderzijde";
+        private const string bottomDitchDikeSideXKey = "x_slootbodem_dijkzijde";
+        private const string bottomDitchDikeSideYKey = "y_slootbodem_dijkzijde";
+        private const string bottomDitchDikeSideZKey = "z_slootbodem_dijkzijde";
+        private const string ditchDikeSideXKey = "x_insteek_sloot_dijkzijde";
+        private const string ditchDikeSideYKey = "y_insteek_sloot_dijkzijde";
+        private const string ditchDikeSideZKey = "z_insteek_sloot_dijkzijde";
+        private const string dikeToeAtPolderXKey = "x_teen_dijk_binnenwaarts";
+        private const string dikeToeAtPolderYKey = "y_teen_dijk_binnenwaarts";
+        private const string dikeToeAtPolderZKey = "z_teen_dijk_binnenwaarts";
+        private const string topShoulderInsideXKey = "x_kruin_binnenberm";
+        private const string topShoulderInsideYKey = "y_kruin_binnenberm";
+        private const string topShoulderInsideZKey = "z_kruin_binnenberm";
+        private const string shoulderInsideXKey = "x_insteek_binnenberm";
+        private const string shoulderInsideYKey = "y_insteek_binnenberm";
+        private const string shoulderInsideZKey = "z_insteek_binnenberm";
+        private const string dikeTopAtPolderXKey = "x_kruin_binnentalud";
+        private const string dikeTopAtPolderYKey = "y_kruin_binnentalud";
+        private const string dikeTopAtPolderZKey = "z_kruin_binnentalud";
+        private const string trafficLoadInsideXKey = "x_verkeersbelasting_kant_binnenwaarts";
+        private const string trafficLoadInsideYKey = "y_verkeersbelasting_kant_binnenwaarts";
+        private const string trafficLoadInsideZKey = "z_verkeersbelasting_kant_binnenwaarts";
+        private const string trafficLoadOutsideXKey = "x_verkeersbelasting_kant_buitenwaarts";
+        private const string trafficLoadOutsideYKey = "y_verkeersbelasting_kant_buitenwaarts";
+        private const string trafficLoadOutsideZKey = "z_verkeersbelasting_kant_buitenwaarts";
+        private const string dikeTopAtRiverXKey = "x_kruin_buitentalud";
+        private const string dikeTopAtRiverYKey = "y_kruin_buitentalud";
+        private const string dikeTopAtRiverZKey = "z_kruin_buitentalud";
+        private const string shoulderOutsideXKey = "x_insteek_buitenberm";
+        private const string shoulderOutsideYKey = "y_insteek_buitenberm";
+        private const string shoulderOutsideZKey = "z_insteek_buitenberm";
+        private const string topShoulderOutsideXKey = "x_kruin_buitenberm";
+        private const string topShoulderOutsideYKey = "y_kruin_buitenberm";
+        private const string topShoulderOutsideZKey = "z_kruin_buitenberm";
+        private const string dikeToeAtRiverXKey = "x_teen_dijk_buitenwaarts";
+        private const string dikeToeAtRiverYKey = "y_teen_dijk_buitenwaarts";
+        private const string dikeToeAtRiverZKey = "z_teen_dijk_buitenwaarts";
+        private const string surfaceLevelOutsideXKey = "x_maaiveld_buitenwaarts";
+        private const string surfaceLevelOutsideYKey = "y_maaiveld_buitenwaarts";
+        private const string surfaceLevelOutsideZKey = "z_maaiveld_buitenwaarts";
+        private const string dikeTableHeightXKey = "x_dijktafelhoogte";
+        private const string dikeTableHeightYKey = "y_dijktafelhoogte";
+        private const string dikeTableHeightZKey = "z_dijktafelhoogte";
+        private const string insertRiverChannelXKey = "x_insteek_geul";
+        private const string insertRiverChannelYKey = "y_insteek_geul";
+        private const string insertRiverChannelZKey = "z_insteek_geul";
+        private const string bottomRiverChannelXKey = "x_teen_geul";
+        private const string bottomRiverChannelYKey = "y_teen_geul";
+        private const string bottomRiverChannelZKey = "z_teen_geul";
+        private const string orderNumberKey = "volgnummer";
+
+        #endregion
 
         private const char separator = ';';
 
-        private const string xPrefix = "x_";
-        private const string yPrefix = "y_";
-        private const string zPrefix = "z_";
-
-        private const string surfaceLevelInsideKey = "maaiveld binnenwaarts";
-        private const string ditchPolderSideKey = "insteek sloot polderzijde";
-        private const string bottomDitchPolderSideKey = "slootbodem polderzijde";
-        private const string bottomDitchDikeSideKey = "slootbodem dijkzijde";
-        private const string ditchDikeSideKey = "insteek sloot dijkzijde";
-        private const string dikeToeAtPolderKey = "teen dijk binnenwaarts";
-        private const string topShoulderInsideKey = "kruin binnenberm";
-        private const string shoulderInsideKey = "insteek binnenberm";
-        private const string dikeTopAtPolderKey = "kruin binnentalud";
-        private const string trafficLoadInsideKey = "verkeersbelasting kant binnenwaarts";
-        private const string trafficLoadOutsideKey = "verkeersbelasting kant buitenwaarts";
-        private const string dikeTopAtRiverKey = "kruin buitentalud";
-        private const string shoulderOutsideKey = "insteek buitenberm";
-        private const string topShoulderOutsideKey = "kruin buitenberm";
-        private const string dikeToeAtRiverKey = "teen dijk buitenwaarts";
-        private const string surfaceLevelOutsideKey = "maaiveld buitenwaarts";
-        private const string dikeTableHeightKey = "dijktafelhoogte";
-        private const string insertRiverChannelKey = "insteek geul";
-        private const string bottomRiverChannelKey = "teen geul";
-
         private readonly string filePath;
-        private readonly string orderNumberHeader = "volgnummer";
 
         /// <summary>
         /// Lower case string representations of the known characteristic point types.
@@ -88,6 +126,10 @@ namespace Ringtoets.Piping.IO
         /// The next line number to be read by this reader.
         /// </summary>
         private int lineNumber;
+
+        private const string xPrefix = "x_";
+        private const string yPrefix = "y_";
+        private const string zPrefix = "z_";
 
         /// <summary>
         /// Initializes a new instance of <see cref="PipingCharacteristicPointsCsvReader"/> using
@@ -277,54 +319,42 @@ namespace Ringtoets.Piping.IO
         /// <returns><c>true</c> if the <paramref name="header"/> is valid, <c>false</c> otherwise.</returns>
         private bool IsHeaderValid(string header)
         {
-            var hasLocationColumn = header.ToLowerInvariant().StartsWith(locationHeader);
+            string[] tokenizedHeader = TokenizeString(header.ToLowerInvariant().Replace(' ','_'));
+
+            var hasLocationColumn = tokenizedHeader.Contains(locationIdKey) || tokenizedHeader.Contains(surfaceLineKey);
+            var hasOrderNumberColumn = tokenizedHeader.Contains(orderNumberKey);
             if (!hasLocationColumn)
             {
                 return false;
             }
 
-            var columns = GetCharacteristicPointColumnsFromHeader(header);
-            if (columns.Count % 3 > 0)
+            var columnsValid = true;
+            var pointCount = 0;
+            foreach (string column in tokenizedHeader)
+            {
+                if (column.StartsWith(xPrefix))
+                {
+                    pointCount++;
+                    var key = column.Substring(2);
+                    columnsValid &= tokenizedHeader.Contains(yPrefix + key);
+                    columnsValid &= tokenizedHeader.Contains(zPrefix + key);
+                }
+                if (!columnsValid)
+                {
+                    return false;
+                }
+            }
+
+            var nonPointColumns = hasOrderNumberColumn ? 2 : 1;
+            var pointColumns = tokenizedHeader.Length - nonPointColumns;
+            if (pointColumns % 3 > 0 || pointColumns / 3 != pointCount)
             {
                 return false;
             }
 
-            var columnsValid = true;
-            var currentColumn = 0;
-            while (columnsValid && currentColumn < columns.Count)
-            {
-                var key = columns.ElementAt(currentColumn).Substring(2);
-                columnsValid &= columns.ElementAt(currentColumn) == xPrefix + key;
-                columnsValid &= columns.ElementAt(currentColumn + 1) == yPrefix + key;
-                columnsValid &= columns.ElementAt(currentColumn + 2) == zPrefix + key;
+            columnsInFile = tokenizedHeader;
 
-                currentColumn += 3;
-            }
-
-            columnsInFile = columns;
-
-            return columnsValid;
-        }
-
-        /// <summary>
-        /// Obtains the columns from the header by stripping of the location and order number columns.
-        /// </summary>
-        /// <param name="header">The header to obtain characteristic point columns from.</param>
-        /// <returns>A <see cref="IList{T}"/> of column names which should represent triplets of x,y,z for characteristic
-        /// points.</returns>
-        private IList<string> GetCharacteristicPointColumnsFromHeader(string header)
-        {
-            IList<string> tokenizedHeader = TokenizeString(header.ToLowerInvariant()).ToList();
-
-            tokenizedHeader.RemoveAt(0);
-
-            var hasOrderNumberColumn = tokenizedHeader.Last() == orderNumberHeader;
-            if (hasOrderNumberColumn)
-            {
-                tokenizedHeader.RemoveAt(tokenizedHeader.Count - 1);
-            }
-
-            return tokenizedHeader;
+            return true;
         }
 
         /// <summary>
@@ -357,8 +387,11 @@ namespace Ringtoets.Piping.IO
         private PipingCharacteristicPointsLocation CreatePipingCharacteristicPointsLocation(string readText)
         {
             var tokenizedString = TokenizeString(readText);
-
             var locationName = GetLocationName(tokenizedString);
+            if (tokenizedString.Length != columnsInFile.Count)
+            {
+                throw CreateLineParseException(lineNumber, locationName, Resources.PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points);
+            }
             var location = new PipingCharacteristicPointsLocation(locationName);
 
             SetCharacteristicPoints(tokenizedString, location);
@@ -373,100 +406,44 @@ namespace Ringtoets.Piping.IO
         /// <param name="location">The <see cref="PipingCharacteristicPointsLocation"/> to set the characteristic points for.</param>
         private void SetCharacteristicPoints(string[] tokenizedString, PipingCharacteristicPointsLocation location)
         {
-            int expectedValuesForPoint = 3;
-            int expectedValuesCount = columnsInFile.Count;
-            var locationName = location.Name;
-
-            var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, locationName);
-            if (worldCoordinateValues.Length != expectedValuesCount)
-            {
-                throw CreateLineParseException(lineNumber, locationName, Resources.PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points);
-            }
-
-            int coordinateCount = worldCoordinateValues.Length/expectedValuesForPoint;
-            var points = new Point3D[coordinateCount];
-            for (int i = 0; i < coordinateCount; i++)
-            {
-                points[i] = new Point3D
-                {
-                    X = worldCoordinateValues[i*expectedValuesForPoint],
-                    Y = worldCoordinateValues[i*expectedValuesForPoint + 1],
-                    Z = worldCoordinateValues[i*expectedValuesForPoint + 2]
-                };
-            }
-            MapPointsToCharacteristicPoints(points, location);
+            location.SurfaceLevelInside = GetPoint3D(location.Name, tokenizedString, surfaceLevelInsideXKey, surfaceLevelInsideYKey, surfaceLevelInsideZKey);
+            location.DitchPolderSide = GetPoint3D(location.Name, tokenizedString, ditchPolderSideXKey, ditchPolderSideYKey, ditchPolderSideZKey);
+            location.BottomDitchPolderSide = GetPoint3D(location.Name, tokenizedString, bottomDitchPolderSideXKey, bottomDitchPolderSideYKey, bottomDitchPolderSideZKey);
+            location.BottomDitchDikeSide = GetPoint3D(location.Name, tokenizedString, bottomDitchDikeSideXKey, bottomDitchDikeSideYKey, bottomDitchDikeSideZKey);
+            location.DitchDikeSide = GetPoint3D(location.Name, tokenizedString, ditchDikeSideXKey, ditchDikeSideYKey, ditchDikeSideZKey);
+            location.DikeToeAtPolder = GetPoint3D(location.Name, tokenizedString, dikeToeAtPolderXKey, dikeToeAtPolderYKey, dikeToeAtPolderZKey);
+            location.TopShoulderInside = GetPoint3D(location.Name, tokenizedString, topShoulderInsideXKey, topShoulderInsideYKey, topShoulderInsideZKey);
+            location.ShoulderInside = GetPoint3D(location.Name, tokenizedString, shoulderInsideXKey, shoulderInsideYKey, shoulderInsideZKey);
+            location.DikeTopAtPolder = GetPoint3D(location.Name, tokenizedString, dikeTopAtPolderXKey, dikeTopAtPolderYKey, dikeTopAtPolderZKey);
+            location.TrafficLoadInside = GetPoint3D(location.Name, tokenizedString, trafficLoadInsideXKey, trafficLoadInsideYKey, trafficLoadInsideZKey);
+            location.TrafficLoadOutside = GetPoint3D(location.Name, tokenizedString, trafficLoadOutsideXKey, trafficLoadOutsideYKey, trafficLoadOutsideZKey);
+            location.DikeTopAtRiver = GetPoint3D(location.Name, tokenizedString, dikeTopAtRiverXKey, dikeTopAtRiverYKey, dikeTopAtRiverZKey);
+            location.ShoulderOutisde = GetPoint3D(location.Name, tokenizedString, shoulderOutsideXKey, shoulderOutsideYKey, shoulderOutsideZKey);
+            location.TopShoulderOutside = GetPoint3D(location.Name, tokenizedString, topShoulderOutsideXKey, topShoulderOutsideYKey, topShoulderOutsideZKey);
+            location.DikeToeAtRiver = GetPoint3D(location.Name, tokenizedString, dikeToeAtRiverXKey, dikeToeAtRiverYKey, dikeToeAtRiverZKey);
+            location.SurfaceLevelOutside = GetPoint3D(location.Name, tokenizedString, surfaceLevelOutsideXKey, surfaceLevelOutsideYKey, surfaceLevelOutsideZKey);
+            location.DikeTableHeight = GetPoint3D(location.Name, tokenizedString, dikeTableHeightXKey, dikeTableHeightYKey, dikeTableHeightZKey);
+            location.InsertRiverChannel = GetPoint3D(location.Name, tokenizedString, insertRiverChannelXKey, insertRiverChannelYKey, insertRiverChannelZKey);
+            location.BottomRiverChannel = GetPoint3D(location.Name, tokenizedString, bottomRiverChannelXKey, bottomRiverChannelYKey, bottomRiverChannelZKey);
         }
 
-        /// <summary>
-        /// Sets the locations for the characteristic points for the <paramref name="location"/> based on the 
-        /// values read from file.
-        /// </summary>
-        /// <param name="points">The <see cref="Core.Common.Base.Geometry.Point3D"/> collection from file.</param>
-        /// <param name="location">The <see cref="PipingCharacteristicPointsLocation"/> to set the locations of
-        /// the characteristic points for.</param>
-        private void MapPointsToCharacteristicPoints(Point3D[] points, PipingCharacteristicPointsLocation location)
-        {
-            location.SurfaceLevelInside = GetPoint3D(points, surfaceLevelInsideKey);
-            location.DitchPolderSide = GetPoint3D(points, ditchPolderSideKey);
-            location.BottomDitchPolderSide = GetPoint3D(points, bottomDitchPolderSideKey);
-            location.BottomDitchDikeSide = GetPoint3D(points, bottomDitchDikeSideKey);
-            location.DitchDikeSide = GetPoint3D(points, ditchDikeSideKey);
-            location.DikeToeAtPolder = GetPoint3D(points, dikeToeAtPolderKey);
-            location.TopShoulderInside = GetPoint3D(points, topShoulderInsideKey);
-            location.ShoulderInside = GetPoint3D(points, shoulderInsideKey);
-            location.DikeTopAtPolder = GetPoint3D(points, dikeTopAtPolderKey);
-            location.TrafficLoadInside = GetPoint3D(points, trafficLoadInsideKey);
-            location.TrafficLoadOutside = GetPoint3D(points, trafficLoadOutsideKey);
-            location.DikeTopAtRiver = GetPoint3D(points, dikeTopAtRiverKey);
-            location.ShoulderOutisde = GetPoint3D(points, shoulderOutsideKey);
-            location.TopShoulderOutside = GetPoint3D(points, topShoulderOutsideKey);
-            location.DikeToeAtRiver = GetPoint3D(points, dikeToeAtRiverKey);
-            location.SurfaceLevelOutside = GetPoint3D(points, surfaceLevelOutsideKey);
-            location.DikeTableHeight = GetPoint3D(points, dikeTableHeightKey);
-            location.InsertRiverChannel = GetPoint3D(points, insertRiverChannelKey);
-            location.BottomRiverChannel = GetPoint3D(points, bottomRiverChannelKey);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="Point3D"/> from <paramref name="points"/> for a <paramref name="characteristicPointType"/>.
-        /// </summary>
-        /// <param name="points">The collection of characteristic points that were read.</param>
-        /// <param name="characteristicPointType">The type of characteristic point to obtain.</param>
-        /// <returns>Returns the <see cref="Point3D"/> from the <paramref name="points"/> collections 
-        /// for the <paramref name="characteristicPointType"/>.</returns>
-        private Point3D GetPoint3D(Point3D[] points, string characteristicPointType)
-        {
-            var columnName = xPrefix + characteristicPointType;
-            var columnIndex = columnsInFile.IndexOf(columnName);
-            if (columnIndex > -1)
-            {
-                var indexOfPoint = columnIndex/3;
-                return points[indexOfPoint];
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Parses the world coordinate values and handles parse errors.
-        /// </summary>
-        /// <param name="tokenizedString">The tokenized string.</param>
-        /// <param name="locationName">The name of the characteristic points location whose coordinate values are being parsed.</param>
-        /// <returns></returns>
-        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
-        /// <list type="bullet">
-        /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
-        /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
-        /// </list>
-        /// </exception>
-        private double[] ParseWorldCoordinateValuesAndHandleParseErrors(string[] tokenizedString, string locationName)
+        private Point3D GetPoint3D(string locationName, string[] points, string xColumn, string yColumn, string zColumn)
         {
             try
             {
-                return tokenizedString
-                    .Take(tokenizedString.Length - 1)
-                    .Skip(1)
-                    .Select(ts => double.Parse(ts, CultureInfo.InvariantCulture))
-                    .ToArray();
+                var xColumnIndex = columnsInFile.IndexOf(xColumn);
+                var yColumnIndex = columnsInFile.IndexOf(yColumn);
+                var zColumnIndex = columnsInFile.IndexOf(zColumn);
+                if (xColumnIndex > -1)
+                {
+                    return new Point3D
+                    {
+                        X = double.Parse(points[xColumnIndex], CultureInfo.InvariantCulture),
+                        Y = double.Parse(points[yColumnIndex], CultureInfo.InvariantCulture),
+                        Z = double.Parse(points[zColumnIndex], CultureInfo.InvariantCulture)
+                    };
+                }
+                return null;
             }
             catch (FormatException e)
             {
@@ -486,10 +463,16 @@ namespace Ringtoets.Piping.IO
         /// <exception cref="LineParseException">Id value is null or empty.</exception>
         private string GetLocationName(IList<string> tokenizedString)
         {
-            var name = tokenizedString.Any() ? tokenizedString[0].Trim() : string.Empty;
+            var nameIndex = columnsInFile.IndexOf(locationIdKey);
+            if (nameIndex == -1)
+            {
+                nameIndex = columnsInFile.IndexOf(surfaceLineKey);
+            }
+
+            var name = tokenizedString.Any() ? tokenizedString[nameIndex].Trim() : string.Empty; 
             if (string.IsNullOrEmpty(name))
             {
-                throw CreateLineParseException(lineNumber, Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
+                throw CreateLineParseException(lineNumber, Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
             }
             return name;
         }
