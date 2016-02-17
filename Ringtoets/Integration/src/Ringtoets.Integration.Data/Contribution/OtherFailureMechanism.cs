@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Ringtoets.Common.Data;
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
@@ -36,6 +37,14 @@ namespace Ringtoets.Integration.Data.Contribution
         public OtherFailureMechanism()
         {
             Name = RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName;
+        }
+
+        public override IEnumerable<ICalculationItem> CalculationItems
+        {
+            get
+            {
+                yield break;
+            }
         }
     }
 }

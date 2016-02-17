@@ -165,6 +165,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wil je alle toetspeil berekeningen verwijderen?.
+        /// </summary>
+        public static string Delete_ToetsPeil_Calculations_Text {
+            get {
+                return ResourceManager.GetString("Delete_ToetsPeil_Calculations_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle berekeningen verwijderen?.
+        /// </summary>
+        public static string Delete_ToetsPeil_Calculations_Title {
+            get {
+                return ResourceManager.GetString("Delete_ToetsPeil_Calculations_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string FailureMechanism_Inputs_DisplayName {
@@ -254,6 +272,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Ringtoets_Category {
             get {
                 return ResourceManager.GetString("Ringtoets_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database op pad {0} gekoppeld.
+        /// </summary>
+        public static string RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked {
+            get {
+                return ResourceManager.GetString("RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked", resourceCulture);
             }
         }
         

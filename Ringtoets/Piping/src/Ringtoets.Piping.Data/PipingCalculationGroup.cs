@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base;
-
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -40,10 +38,7 @@ namespace Ringtoets.Piping.Data
         /// Initializes a new instance of the <see cref="PipingCalculationGroup"/> class
         /// with an editable name.
         /// </summary>
-        public PipingCalculationGroup() : this(Resources.PipingCalculationGroup_DefaultName, true)
-        {
-
-        }
+        public PipingCalculationGroup() : this(Resources.PipingCalculationGroup_DefaultName, true) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationGroup"/> class.
@@ -61,6 +56,11 @@ namespace Ringtoets.Piping.Data
         /// Gets the children that define this group.
         /// </summary>
         public IList<IPipingCalculationItem> Children { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether <see cref="Name"/> is editable or not.
+        /// </summary>
+        public bool IsNameEditable { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of this calculation grouping object.
@@ -88,10 +88,5 @@ namespace Ringtoets.Piping.Data
                 return Children.Any(c => c.HasOutput);
             }
         }
-
-        /// <summary>
-        /// Gets a value indicating whether <see cref="Name"/> is editable or not.
-        /// </summary>
-        public bool IsNameEditable { get; private set; }
     }
 }

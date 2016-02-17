@@ -12,6 +12,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
@@ -137,6 +138,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var pipingCalculation1 = new PipingCalculation
+            {
+                Output = new TestPipingOutput()
+            };
+            var pipingCalculation2 = new PipingCalculation
+            {
+                Output = new TestPipingOutput()
+            };
 
             var observer = mocks.StrictMock<IObserver>();
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -147,19 +156,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }
 
             gui.Expect(cmp => cmp.Get(dataMock, treeViewControl)).Return(menuBuilder);
+            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[]
+            {
+                pipingCalculation1,
+                pipingCalculation2
+            });
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
-            dataMock.CalculationsGroup.Children.Add(new PipingCalculation
-            {
-                Output = new TestPipingOutput()
-            });
-            dataMock.CalculationsGroup.Children.Add(new PipingCalculation
-            {
-                Output = new TestPipingOutput()
-            });
+            dataMock.CalculationsGroup.Children.Clear();
+            dataMock.CalculationsGroup.Children.Add(pipingCalculation1);
+            dataMock.CalculationsGroup.Children.Add(pipingCalculation2);
             dataMock.CalculationsGroup.Children.ElementAt(0).Attach(observer);
             dataMock.CalculationsGroup.Children.ElementAt(1).Attach(observer);
 
@@ -248,6 +257,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
 
+            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[0]);
+
             var gui = mocks.StrictMock<IGui>();
             gui.Expect(cmp => cmp.Get(dataMock, treeViewControl)).Return(menuBuilder);
 
@@ -272,20 +283,22 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var pipingCalculation = new PipingCalculation
+            {
+                Output = new TestPipingOutput()
+            };
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var gui = mocks.StrictMock<IGui>();
 
             gui.Expect(cmp => cmp.Get(dataMock, treeViewControl)).Return(menuBuilder);
+            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[] { pipingCalculation });
 
             mocks.ReplayAll();
 
             plugin.Gui = gui;
 
-            dataMock.CalculationsGroup.Children.Add(new PipingCalculation
-            {
-                Output = new TestPipingOutput()
-            });
+            dataMock.CalculationsGroup.Children.Add(pipingCalculation);
 
             // Call
             ContextMenuStrip contextMenu = info.ContextMenuStrip(dataMock, null, treeViewControl);

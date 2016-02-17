@@ -9,6 +9,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Plugin;
@@ -114,15 +115,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = new TestAssessmentSectionBase(contribution, failureMechanismList);
 
             // Call
-            var objects = info.ChildNodeObjects(assessmentSection);
+            var objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
             // Assert
-            var collection = new List<object>();
-            collection.Add(assessmentSection.ReferenceLine);
-            collection.Add(contribution);
-            collection.Add(assessmentSection.HydraulicBoundaryDatabase);
-            collection.Add(failureMechanism);
-            CollectionAssert.AreEqual(collection, objects);
+            Assert.AreEqual(4, objects.Length);
+            Assert.AreSame(assessmentSection.ReferenceLine, objects[0]);
+            Assert.AreSame(contribution, objects[1]);
+
+            var context = (HydraulicBoundaryDatabaseContext)objects[2];
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.BoundaryDatabase);
+            Assert.AreSame(assessmentSection, context.BaseNode);
+
+            Assert.AreSame(failureMechanism, objects[3]);
 
             mocks.VerifyAll();
         }

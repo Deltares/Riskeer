@@ -19,29 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using Core.Common.Base.Storage;
+using Core.Common.Base;
 
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Defines a failure mechanism.
+    /// A calculation related object.
     /// </summary>
-    public interface IFailureMechanism : IStorable
+    public interface ICalculationItem : IObservable
     {
         /// <summary>
-        /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
-        /// as part of the overall verdict.
+        /// Clears the calculated output.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval (0-100].</exception>
-        double Contribution { get; set; }
-
-        /// <summary>
-        /// The name of the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        string Name { get; }
-
-        IEnumerable<ICalculationItem> CalculationItems { get; }
+        void ClearOutput();
     }
 }

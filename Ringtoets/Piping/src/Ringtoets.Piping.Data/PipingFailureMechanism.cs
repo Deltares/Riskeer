@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
@@ -78,5 +79,13 @@ namespace Ringtoets.Piping.Data
         /// Gets the calculation results for this failure mechanism.
         /// </summary>
         public OutputPlaceholder AssessmentResult { get; private set; }
+
+        public override IEnumerable<ICalculationItem> CalculationItems
+        {
+            get
+            {
+                return CalculationsGroup.GetPipingCalculations();
+            }
+        }
     }
 }

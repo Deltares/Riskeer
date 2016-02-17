@@ -29,7 +29,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -232,7 +232,7 @@ namespace Ringtoets.Piping.Plugin
                 (o, args) => ClearAll(failureMechanism)
                 );
 
-            if (!GetAllPipingCalculationsResursively(failureMechanism).Any(c => c.HasOutput))
+            if (!GetAllPipingCalculations(failureMechanism).Any(c => c.HasOutput))
             {
                 clearAllItem.Enabled = false;
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
@@ -254,6 +254,11 @@ namespace Ringtoets.Piping.Plugin
                       .Build();
         }
 
+        private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
+        {
+            return failureMechanism.CalculationItems.OfType<PipingCalculation>();
+        }
+
         private StrictContextMenuItem CreateCalculateAllItem(PipingFailureMechanism failureMechanism)
         {
             var menuItem = new StrictContextMenuItem(
@@ -263,7 +268,7 @@ namespace Ringtoets.Piping.Plugin
                 (o, args) => CalculateAll(failureMechanism)
                 );
 
-            if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
+            if (!GetAllPipingCalculations(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
@@ -281,7 +286,7 @@ namespace Ringtoets.Piping.Plugin
                 (o, args) => ValidateAll(failureMechanism)
                 );
 
-            if (!GetAllPipingCalculationsResursively(failureMechanism).Any())
+            if (!GetAllPipingCalculations(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
@@ -296,7 +301,8 @@ namespace Ringtoets.Piping.Plugin
             {
                 return;
             }
-            foreach (PipingCalculation calc in GetAllPipingCalculationsResursively(failureMechanism))
+
+            foreach (ICalculationItem calc in failureMechanism.CalculationItems)
             {
                 calc.ClearOutput();
                 calc.NotifyObservers();
@@ -305,7 +311,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void ValidateAll(PipingFailureMechanism failureMechanism)
         {
-            foreach (PipingCalculation calculation in GetAllPipingCalculationsResursively(failureMechanism))
+            foreach (PipingCalculation calculation in GetAllPipingCalculations(failureMechanism))
             {
                 PipingCalculationService.Validate(calculation);
             }
@@ -313,7 +319,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(PipingFailureMechanism failureMechanism)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculationsResursively(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
         private void AddCalculationGroup(PipingFailureMechanism failureMechanism)
@@ -334,11 +340,6 @@ namespace Ringtoets.Piping.Plugin
             };
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             failureMechanism.CalculationsGroup.NotifyObservers();
-        }
-
-        private static IEnumerable<PipingCalculation> GetAllPipingCalculationsResursively(PipingFailureMechanism failureMechanism)
-        {
-            return failureMechanism.CalculationsGroup.GetPipingCalculations().ToArray();
         }
 
         private object[] FailureMechanismChildNodeObjects(PipingFailureMechanism pipingFailureMechanism)

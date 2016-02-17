@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -62,5 +63,13 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// Gets the calculation results for this failure mechanism.
         /// </summary>
         public OutputPlaceholder AssessmentResult { get; private set; }
+
+        public override IEnumerable<ICalculationItem> CalculationItems
+        {
+            get
+            {
+                yield break;
+            }
+        }
     }
 }

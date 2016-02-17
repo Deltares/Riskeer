@@ -60,6 +60,11 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.IO.Test");
             }
+
+            public static class Integration
+            {
+                public static readonly TestDataPath Forms = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Forms.Test");
+            }
         }
     }
 }

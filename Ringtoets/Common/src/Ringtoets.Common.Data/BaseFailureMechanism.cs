@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
@@ -58,6 +59,8 @@ namespace Ringtoets.Common.Data
         /// Gets or sets the name of the <see cref="IFailureMechanism"/>.
         /// </summary>
         public string Name { get; protected set; }
+
+        public abstract IEnumerable<ICalculationItem> CalculationItems { get; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.

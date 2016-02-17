@@ -76,6 +76,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(testname, text);
+
+            mocks.VerifyAll();
         }
 
         [Test]

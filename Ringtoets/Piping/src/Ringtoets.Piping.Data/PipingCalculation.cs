@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Properties;
 
@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information which can be made visible in the graphical interface of the application.
     /// </summary>
-    public class PipingCalculation : Observable, IPipingCalculationItem
+    public class PipingCalculation : Observable, ICalculationItem, IPipingCalculationItem
     {
         /// <summary>
         /// Constructs a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
@@ -73,9 +73,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        /// <summary>
-        /// Clears the <see cref="Output"/>.
-        /// </summary>
         public void ClearOutput()
         {
             Output = null;

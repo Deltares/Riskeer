@@ -19,29 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using Core.Common.Base.Storage;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace Ringtoets.Common.Data
-{
-    /// <summary>
-    /// Defines a failure mechanism.
-    /// </summary>
-    public interface IFailureMechanism : IStorable
-    {
-        /// <summary>
-        /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
-        /// as part of the overall verdict.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval (0-100].</exception>
-        double Contribution { get; set; }
-
-        /// <summary>
-        /// The name of the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        string Name { get; }
-
-        IEnumerable<ICalculationItem> CalculationItems { get; }
-    }
-}
+[assembly: AssemblyTitle("Ringtoets.Integration.Plugin")]
+[assembly: AssemblyProduct("Ringtoets.Integration.Plugin")]
+[assembly: Guid("EFB9B7E0-82A8-40CA-95C8-B56B4AC02294")]

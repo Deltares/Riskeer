@@ -63,9 +63,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Clears the output of the <see cref="PipingCalculationContext"/>.
         /// </summary>
-        public void ClearOutput()
-        {
-            WrappedData.ClearOutput();
-        }
+//        public void ClearOutput()
+//        {
+//            WrappedData.ClearOutput();
+//        }
     }
 }

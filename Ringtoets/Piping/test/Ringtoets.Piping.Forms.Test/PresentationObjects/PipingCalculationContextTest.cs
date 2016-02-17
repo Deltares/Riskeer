@@ -127,66 +127,35 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             mocks.VerifyAll(); // Expect not calls on 'observer'
         }
-
-        [Test]
-        public void PipingCalculationNotifyObservers_AttachedOnPipingCalculationContext_ObserverNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var surfacelines = new[]
-            {
-                new RingtoetsPipingSurfaceLine()
-            };
-            var profiles = new[]
-            {
-                new TestPipingSoilProfile()
-            };
-            var calculation = new PipingCalculation();
-
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            mocks.ReplayAll();
-
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
-            presentationObject.Attach(observer);
-
-            // Call
-            calculation.NotifyObservers();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearOutput_Always_SetsOutputToNull()
-        {
-            // Setup
-            var surfacelines = new[]
-            {
-                new RingtoetsPipingSurfaceLine()
-            };
-            var profiles = new[]
-            {
-                new TestPipingSoilProfile()
-            };
-            var calculation = new PipingCalculation
-            {
-                Output = new TestPipingOutput()
-            };
-
-            var mocks = new MockRepository();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            mocks.ReplayAll();
-
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
-
-            // Call
-            presentationObject.ClearOutput();
-
-            // Assert
-            Assert.IsNull(presentationObject.WrappedData.Output);
-        }
+//
+//        [Test]
+//        public void ClearOutput_Always_SetsOutputToNull()
+//        {
+//            // Setup
+//            var surfacelines = new[]
+//            {
+//                new RingtoetsPipingSurfaceLine()
+//            };
+//            var profiles = new[]
+//            {
+//                new TestPipingSoilProfile()
+//            };
+//            var calculation = new PipingCalculation
+//            {
+//                Output = new TestPipingOutput()
+//            };
+//
+//            var mocks = new MockRepository();
+//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+//            mocks.ReplayAll();
+//
+//            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
+//
+//            // Call
+//            presentationObject.ClearOutput();
+//
+//            // Assert
+//            Assert.IsNull(presentationObject.WrappedData.Output);
+//        }
     }
 }
