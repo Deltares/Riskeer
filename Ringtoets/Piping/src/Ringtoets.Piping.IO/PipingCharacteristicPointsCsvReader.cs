@@ -384,6 +384,11 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <param name="readText">A single line read from file.</param>
         /// <returns>A new <see cref="PipingCharacteristicPointsLocation"/> with name and characteristic points set.</returns>
+        /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="readText"/> has too many or few columns.</item>
+        /// <item><paramref name="readText"/> contains a coordinate value which could not be parsed to <see cref="double"/>.</item>
+        /// </list></exception>
         private PipingCharacteristicPointsLocation CreatePipingCharacteristicPointsLocation(string readText)
         {
             var tokenizedString = TokenizeString(readText);
@@ -404,6 +409,8 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <param name="tokenizedString">The string read from file.</param>
         /// <param name="location">The <see cref="PipingCharacteristicPointsLocation"/> to set the characteristic points for.</param>
+        /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when <paramref name="tokenizedString"/> 
+        /// contains a coordinate value which could not be parsed to <see cref="double"/>.</exception>
         private void SetCharacteristicPoints(string[] tokenizedString, PipingCharacteristicPointsLocation location)
         {
             location.SurfaceLevelInside = GetPoint3D(location.Name, tokenizedString, surfaceLevelInsideXKey, surfaceLevelInsideYKey, surfaceLevelInsideZKey);
@@ -427,7 +434,19 @@ namespace Ringtoets.Piping.IO
             location.BottomRiverChannel = GetPoint3D(location.Name, tokenizedString, bottomRiverChannelXKey, bottomRiverChannelYKey, bottomRiverChannelZKey);
         }
 
-        private Point3D GetPoint3D(string locationName, string[] points, string xColumn, string yColumn, string zColumn)
+        /// <summary>
+        /// Creates a new <see cref="Point3D"/> from the collection of <paramref name="valuesRead"/>,
+        /// </summary>
+        /// <param name="locationName">The name of the location used for creating descriptive errors.</param>
+        /// <param name="valuesRead">The collection of read data.</param>
+        /// <param name="xColumn">The name of the column to use as x-coordinate of the new point.</param>
+        /// <param name="yColumn">The name of the column to use as y-coordinate of the new point.</param>
+        /// <param name="zColumn">The name of the column to use as z-coordinate of the new point.</param>
+        /// <returns>A new <see cref="Point3D"/> with values for x,y,z set.</returns>
+        /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when 
+        /// <paramref name="valuesRead"/> contains value which could not be parsed to a double in column <paramref name="xColumn"/>,
+        /// <paramref name="yColumn"/> or <paramref name="zColumn"/>.</exception>
+        private Point3D GetPoint3D(string locationName, string[] valuesRead, string xColumn, string yColumn, string zColumn)
         {
             try
             {
@@ -438,9 +457,9 @@ namespace Ringtoets.Piping.IO
                 {
                     return new Point3D
                     {
-                        X = double.Parse(points[xColumnIndex], CultureInfo.InvariantCulture),
-                        Y = double.Parse(points[yColumnIndex], CultureInfo.InvariantCulture),
-                        Z = double.Parse(points[zColumnIndex], CultureInfo.InvariantCulture)
+                        X = double.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
+                        Y = double.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
+                        Z = double.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
                     };
                 }
                 return null;
