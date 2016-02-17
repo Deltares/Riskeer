@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.IO.Test
         public void GetLocationsCount_EmptyFile_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = Path.Combine(testDataPath, "empty.csv");
+            string path = Path.Combine(testDataPath, "empty.krp.csv");
 
             // Precondition
             Assert.IsTrue(File.Exists(path));
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -213,14 +213,20 @@ namespace Ringtoets.Piping.IO.Test
         [SetCulture("nl-NL")]
         public void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithCultureNL_ReturnCreatedCharacteristicPointsLocation()
         {
-            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation();
+            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation("2locations.krp.csv");
         }
 
         [Test]
         [SetCulture("en-US")]
         public void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithCultureEN_ReturnCreatedCharacteristicPointsLocation()
         {
-            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation();
+            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation("2locations.krp.csv");
+        }
+
+        [Test]
+        public void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocationsWithWhiteLine_ReturnCreatedCharacteristicPointsLocation()
+        {
+            ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation("2locations_with_white_line.krp.csv");
         }
 
         [Test]
@@ -234,14 +240,14 @@ namespace Ringtoets.Piping.IO.Test
                 int locationsCount = reader.GetLocationsCount();
                 for (int i = 0; i < locationsCount; i++)
                 {
-                    var characteristicPointsLocation = reader.ReadLine();
+                    var characteristicPointsLocation = reader.ReadCharacteristicPointsLocation();
                     Assert.IsNotInstanceOf<IDisposable>(characteristicPointsLocation,
                                                         "Fail Fast: Disposal logic required to be implemented in test.");
                     Assert.IsNotNull(characteristicPointsLocation);
                 }
 
                 // Call
-                var result = reader.ReadLine();
+                var result = reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 Assert.IsNull(result);
@@ -260,7 +266,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -282,7 +288,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -296,7 +302,7 @@ namespace Ringtoets.Piping.IO.Test
         public void ReadLine_EmptyFile_ThrowCriticalFileReadException()
         {
             // Setup
-            string path = Path.Combine(testDataPath, "empty.csv");
+            string path = Path.Combine(testDataPath, "empty.krp.csv");
 
             // Precondition
             Assert.IsTrue(File.Exists(path));
@@ -304,7 +310,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -325,7 +331,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -346,7 +352,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -377,7 +383,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -402,7 +408,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 // 1st line has no text at all:
@@ -413,6 +419,54 @@ namespace Ringtoets.Piping.IO.Test
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 3").Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
                 exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileLacksIdsWithWhiteLine_ThrowLineParseExceptionOnCorrectLine()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations_each_missing_id_with_white_line.krp.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+
+                // Assert
+                // 1st line has no text at all:
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
+                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // 2nd line has only whitespace text:
+                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 4").Build(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
+                exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_IncorrectValueSeparator_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "2locations_invalid_separator.krp.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingCharacteristicPointsCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 0").Build(string.Format(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_separator_0_, ';'));
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -429,7 +483,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadCharacteristicPointsLocation();
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
@@ -462,18 +516,18 @@ namespace Ringtoets.Piping.IO.Test
             // Call
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
-                reader.ReadLine();
-                reader.ReadLine();
+                reader.ReadCharacteristicPointsLocation();
+                reader.ReadCharacteristicPointsLocation();
             }
 
             // Assert
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
         }
 
-        private void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation()
+        private void ReadLine_OpenedValidFileWithHeaderAndTwoCharacteristicPointsLocations_ReturnCreatedCharacteristicPointsLocation(string fileName)
         {
             // Setup
-            string path = Path.Combine(testDataPath, "2locations.krp.csv");
+            string path = Path.Combine(testDataPath, fileName);
 
             // Precondition:
             Assert.IsTrue(File.Exists(path));
@@ -481,8 +535,8 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingCharacteristicPointsCsvReader(path))
             {
                 // Call
-                var location1 = reader.ReadLine();
-                var location2 = reader.ReadLine();
+                var location1 = reader.ReadCharacteristicPointsLocation();
+                var location2 = reader.ReadCharacteristicPointsLocation();
 
                 // Assert
 

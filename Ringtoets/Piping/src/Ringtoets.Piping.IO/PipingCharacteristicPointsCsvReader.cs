@@ -128,8 +128,8 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Reads and consumes the next data row, parsing the data to create an instance 
-        /// of <see cref="PipingCharacteristicPointsLocation"/>.
+        /// Reads and consumes the next data row containing a characteristic points location, parsing the data to 
+        /// create an instance of <see cref="PipingCharacteristicPointsLocation"/>.
         /// </summary>
         /// <returns>Return the parsed characteristic points location, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.IO
         /// <item>The row is missing values to form a characteristic point.</item>
         /// </list>
         /// </exception>
-        public PipingCharacteristicPointsLocation ReadLine()
+        public PipingCharacteristicPointsLocation ReadCharacteristicPointsLocation()
         {
             if (fileReader == null)
             {
@@ -161,7 +161,8 @@ namespace Ringtoets.Piping.IO
                 lineNumber = 2;
             }
 
-            var readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
+            var readText = ReadNextNonEmptyLine();
+
             if (readText != null)
             {
                 try
@@ -175,6 +176,27 @@ namespace Ringtoets.Piping.IO
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Reads lines from file until the first non white line is hit.
+        /// </summary>
+        /// <returns>The next line which is not a whiteline, or <c>null</c> when no non white line could be found before the
+        /// end of file.</returns>
+        private string ReadNextNonEmptyLine()
+        {
+            var readText = string.Empty;
+            var isWhiteSpace = new Func<string, bool>(s => s != null && s.All(char.IsWhiteSpace));
+
+            while (isWhiteSpace(readText))
+            {
+                readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
+                if (isWhiteSpace(readText))
+                {
+                    lineNumber++;
+                }
+            }
+            return readText;
         }
 
         public void Dispose()

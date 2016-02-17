@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 try
                 {
-                    var ringtoetsPipingSurfaceLine = reader.ReadLine();
+                    var ringtoetsPipingSurfaceLine = reader.ReadSurfaceLine();
                     PruneConsecutiveDuplicateGeometryPoints(ringtoetsPipingSurfaceLine);
                     readSurfaceLines.Add(ringtoetsPipingSurfaceLine);
                 }

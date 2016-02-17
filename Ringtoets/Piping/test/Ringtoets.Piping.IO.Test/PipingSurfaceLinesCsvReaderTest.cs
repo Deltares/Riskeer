@@ -235,6 +235,55 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
+        public void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLinesWithWhiteLine_ReturnCreatedSurfaceLine()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithWhiteLine.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                var surfaceLine1 = reader.ReadSurfaceLine();
+                var surfaceLine2 = reader.ReadSurfaceLine();
+
+                // Assert
+
+                #region 1st surfaceline
+
+                Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
+                Assert.AreEqual(8, surfaceLine1.Points.Count());
+                Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
+                Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
+                Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
+                Assert.AreEqual(94331.1767309, surfaceLine1.EndingWorldPoint.X);
+                Assert.AreEqual(427960.112661, surfaceLine1.EndingWorldPoint.Y);
+                Assert.AreEqual(1.44, surfaceLine1.EndingWorldPoint.Z);
+                Assert.AreEqual(surfaceLine1.StartingWorldPoint, surfaceLine1.Points.First());
+                Assert.AreEqual(surfaceLine1.EndingWorldPoint, surfaceLine1.Points.Last());
+
+                #endregion
+
+                #region 2nd surfaceline
+
+                Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
+                Assert.AreEqual(3, surfaceLine2.Points.Count());
+                Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
+                Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
+                Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
+                Assert.AreEqual(5.7, surfaceLine2.EndingWorldPoint.X);
+                Assert.AreEqual(0, surfaceLine2.EndingWorldPoint.Y);
+                Assert.AreEqual(1.1, surfaceLine2.EndingWorldPoint.Z);
+                Assert.AreEqual(surfaceLine2.StartingWorldPoint, surfaceLine2.Points.First());
+                Assert.AreEqual(surfaceLine2.EndingWorldPoint, surfaceLine2.Points.Last());
+
+                #endregion
+            }
+        }
+
+        [Test]
         [SetCulture("en-US")]
         public void ReadLine_OpenedValidFileWithHeaderAndSurfaceLinesWithDuplicatePointsWithCultureEN_ReturnCreatedSurfaceLineWithDuplicatePoints()
         {
@@ -248,7 +297,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                var surfaceLine1 = reader.ReadLine();
+                var surfaceLine1 = reader.ReadSurfaceLine();
 
                 // Assert
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
@@ -273,14 +322,14 @@ namespace Ringtoets.Piping.IO.Test
                 int surfaceLinesCount = reader.GetSurfaceLinesCount();
                 for (int i = 0; i < surfaceLinesCount; i++)
                 {
-                    var pipingSurfaceLine = reader.ReadLine();
+                    var pipingSurfaceLine = reader.ReadSurfaceLine();
                     Assert.IsNotInstanceOf<IDisposable>(pipingSurfaceLine,
                                                         "Fail Fast: Disposal logic required to be implemented in test.");
                     Assert.IsNotNull(pipingSurfaceLine);
                 }
 
                 // Call
-                var result = reader.ReadLine();
+                var result = reader.ReadSurfaceLine();
 
                 // Assert
                 Assert.IsNull(result);
@@ -299,7 +348,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -321,7 +370,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -343,7 +392,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -364,7 +413,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -389,7 +438,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
@@ -415,7 +464,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -446,7 +495,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -471,7 +520,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 // 1st line has no text at all:
@@ -481,6 +530,33 @@ namespace Ringtoets.Piping.IO.Test
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 3").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileLacksIdsWithWhiteLine_ThrowLineParseExceptionOnCorrectLine()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoInvalidRows_LacksIdWithWhiteLine.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadSurfaceLine();
+
+                // Assert
+                // 1st line has no text at all:
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // 2nd line has only whitespace text:
+                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 4").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -498,7 +574,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -519,7 +595,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -542,7 +618,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
@@ -575,7 +651,7 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                TestDelegate call = () => reader.ReadLine();
+                TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -599,8 +675,8 @@ namespace Ringtoets.Piping.IO.Test
             // Call
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
-                reader.ReadLine();
-                reader.ReadLine();
+                reader.ReadSurfaceLine();
+                reader.ReadSurfaceLine();
             }
 
             // Assert
@@ -618,8 +694,8 @@ namespace Ringtoets.Piping.IO.Test
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                var surfaceLine1 = reader.ReadLine();
-                var surfaceLine2 = reader.ReadLine();
+                var surfaceLine1 = reader.ReadSurfaceLine();
+                var surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
