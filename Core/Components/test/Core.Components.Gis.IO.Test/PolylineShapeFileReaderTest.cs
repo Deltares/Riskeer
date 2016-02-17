@@ -94,6 +94,27 @@ namespace Core.Components.Gis.IO.Test
         }
 
         [Test]
+        [TestCase("Single_Point_with_ID.shp")]
+        [TestCase("Multiple_Point_with_ID.shp")]
+        [TestCase("Single_Multi-Polygon_with_ID.shp")]
+        [TestCase("Multiple_Polygon_with_ID.shp")]
+        public void ParameteredConstructor_ShapeFileIsNotLinesShapesfile_ThrowCriticalFileReadException(string shapeFileName)
+        {
+            // Setup
+            string nonLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                 shapeFileName);
+
+            // Call
+            TestDelegate call = () => new PolylineShapeFileReader(nonLineShapeFile);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geometrieën die geen lijn zijn.",
+                                                nonLineShapeFile);
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         public void GetNumberOfLines_EmptyLineShapeFile_ReturnZero()
         {
             // Setup
@@ -263,28 +284,7 @@ namespace Core.Components.Gis.IO.Test
         }
 
         [Test]
-        [TestCase("Single_Point_with_ID.shp")]
-        [TestCase("Multiple_Point_with_ID.shp")]
-        [TestCase("Single_Multi-Polygon_with_ID.shp")]
-        [TestCase("Multiple_Polygon_with_ID.shp")]
-        public void ParameteredConstructor_ShapeFileIsNotLinesShapesfile_ThrowCriticalFileReadException(string shapeFileName)
-        {
-            // Setup
-            string nonLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 shapeFileName);
-
-            // Call
-            TestDelegate call = () => new PolylineShapeFileReader(nonLineShapeFile);
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geometrieën die geen lijn zijn.",
-                                                nonLineShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        public void ParameteredConstructor_ShapeFileIsIsMultiLine_ThrowCriticalFileReadException()
+        public void ReadLine_ShapeFileIsIsMultiLine_ThrowCriticalFileReadException()
         {
             // Setup
             string nonLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,

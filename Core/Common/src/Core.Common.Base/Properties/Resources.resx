@@ -144,4 +144,10 @@
   <data name="ReferenceLine_SetGeometry_New_geometry_has_null_coordinate" xml:space="preserve">
     <value>Een punt in de geometrie voor de referentielijn heeft geen waarde.</value>
   </data>
+  <data name="ReferenceLineReader_File_must_contain_1_polyline" xml:space="preserve">
+    <value>Bestand moet exact 1 gehele polylijn bevatten.</value>
+  </data>
+  <data name="ReferenceLineReader_File_contains_unsupported_multi_polyline" xml:space="preserve">
+    <value>Bestand bevat 1 multi-polylijn, welke niet ondersteund is.</value>
+  </data>
 </root>

@@ -141,5 +141,23 @@ namespace Core.Common.Base.Properties {
                 return ResourceManager.GetString("ReferenceLine_SetGeometry_New_geometry_has_null_coordinate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestand bevat 1 multi-polylijn, welke niet ondersteund is..
+        /// </summary>
+        public static string ReferenceLineReader_File_contains_unsupported_multi_polyline {
+            get {
+                return ResourceManager.GetString("ReferenceLineReader_File_contains_unsupported_multi_polyline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestand moet exact 1 gehele polylijn bevatten..
+        /// </summary>
+        public static string ReferenceLineReader_File_must_contain_1_polyline {
+            get {
+                return ResourceManager.GetString("ReferenceLineReader_File_must_contain_1_polyline", resourceCulture);
+            }
+        }
     }
 }
