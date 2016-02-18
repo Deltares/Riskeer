@@ -68,6 +68,42 @@ namespace Ringtoets.HydraRing.Plugin.Test
             Assert.AreEqual(typeof(HydraulicBoundaryLocation), importer.SupportedItemType);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
             Assert.IsNull(importer.ProgressChanged);
+            Assert.IsNull(importer.Version);
+        }
+
+        [Test]
+        [TestCase("/")]
+        [TestCase("nonexisting.sqlit")]
+        public void ValidateFile_NonExistingFileOrInvalidFile_LogError(string filename)
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, filename);
+            var importer = new HydraulicBoundaryLocationsImporter();
+
+            // Call
+            Action call = () => importer.ValidateFile(filePath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                var ExpectedMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+                StringAssert.EndsWith(ExpectedMessage, messageArray[0]);
+            });
+        }
+
+        [Test]
+        public void ValidateFile_ValidFile_GetDatabaseVersion()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            var importer = new HydraulicBoundaryLocationsImporter();
+
+            // Call
+            importer.ValidateFile(validFilePath);
+
+            // Assert
+            Assert.IsNotNullOrEmpty(importer.Version);
         }
 
         [Test]

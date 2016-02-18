@@ -41,6 +41,11 @@ namespace Ringtoets.HydraRing.Plugin
         private bool shouldCancel;
 
         /// <summary>
+        /// Gets the version of the used Hydraulic Boundary Database.
+        /// </summary>
+        public string Version { get; private set; }
+
+        /// <summary>
         /// Gets the name of the <see cref="HydraulicBoundaryLocationsImporter"/>.
         /// </summary>
         public string Name
@@ -102,11 +107,30 @@ namespace Ringtoets.HydraRing.Plugin
         public ProgressChangedDelegate ProgressChanged { get; set; }
 
         /// <summary>
+        /// Validates the file at <paramref name="filePath"/> and sets the version.
+        /// </summary>
+        /// <param name="filePath">The paht to the file.</param>
+        public void ValidateFile(string filePath)
+        {
+            try
+            {
+                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(filePath))
+                {
+                    Version = hydraulicBoundaryDatabaseReader.Version;
+                }
+            }
+            catch (CriticalFileReadException e)
+            {
+                HandleException(e);
+            }
+        }
+
+        /// <summary>
         /// This method imports the data to an item from a file at the given location.
         /// </summary>
         /// <param name="targetItem">The item to perform the import on.</param>
         /// <param name="filePath">The path of the file to import the data from.</param>
-        /// <returns><c>true</c> if the import was successful. <c>false</c> otherwise.</returns>
+        /// <returns><c>True</c> if the import was successful. <c>False</c> otherwise.</returns>
         public bool Import(object targetItem, string filePath)
         {
             var importResult = ReadHydraulicBoundaryLocations(filePath);

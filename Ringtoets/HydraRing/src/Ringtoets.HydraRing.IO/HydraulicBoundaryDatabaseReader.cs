@@ -36,6 +36,12 @@ namespace Ringtoets.HydraRing.IO
         /// </summary>
         public int Count { get; private set; }
 
+
+        /// <summary>
+        /// Gets the version from the database.
+        /// </summary>
+        public string Version { get; private set; }
+
         /// <summary>
         /// Gets the value <c>true</c> if profiles can be read using the <see cref="HydraulicBoundaryDatabaseReader"/>.
         /// <c>false</c> otherwise.
@@ -122,6 +128,7 @@ namespace Ringtoets.HydraRing.IO
         /// </summary>
         private void ReadLocations()
         {
+            var versionQuery = string.Format("SELECT (NameRegion || CreationDate) as {0} FROM General LIMIT 0,1;", HydraulicBoundaryDatabaseColumns.Version);
             var countQuery = string.Format("SELECT count(*) as {0} FROM HRDLocations WHERE LocationTypeId > 1 ;", HydraulicBoundaryDatabaseColumns.LocationCount);
 
             var locationsQuery = string.Format(
@@ -131,7 +138,7 @@ namespace Ringtoets.HydraRing.IO
                 HydraulicBoundaryDatabaseColumns.LocationX,
                 HydraulicBoundaryDatabaseColumns.LocationY);
 
-            CreateDataReader(string.Join(" ", countQuery, locationsQuery), new SQLiteParameter
+            CreateDataReader(string.Join(" ", versionQuery, countQuery, locationsQuery), new SQLiteParameter
             {
                 DbType = DbType.String
             });
@@ -149,6 +156,7 @@ namespace Ringtoets.HydraRing.IO
                 try
                 {
                     dataReader = query.ExecuteReader();
+                    GetVersion();
                     GetCount();
                 }
                 catch (SQLiteException exception)
@@ -158,6 +166,15 @@ namespace Ringtoets.HydraRing.IO
                     throw new CriticalFileReadException(message, exception);
                 }
             }
+        }
+
+        private void GetVersion()
+        {
+            if (dataReader.Read())
+            {
+                Version = Read<string>(HydraulicBoundaryDatabaseColumns.Version);
+            }
+            dataReader.NextResult();
         }
 
         private void GetCount()

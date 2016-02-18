@@ -30,8 +30,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -128,11 +126,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => "Referentielijn",
                 Image = context => RingtoetsFormsResources.ReferenceLineIcon,
-                ForeColor = context => context.WrappedData == null ? 
-                    Color.FromKnownColor(KnownColor.GrayText) : 
-                    Color.FromKnownColor(KnownColor.ControlText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => 
-                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
+                ForeColor = context => context.WrappedData == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
+                                   Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
             yield return new TreeNodeInfo<FailureMechanismPlaceholder>
@@ -377,11 +375,7 @@ namespace Ringtoets.Integration.Plugin
             var connectionItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect,
                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) =>
-                {
-                    SelectDatabaseFile(nodeData);
-                    ImportDatabaseFileLovations(nodeData);
-                });
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData); });
 
             var toetsPeilItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Toetspeil_Calculate,
@@ -415,43 +409,35 @@ namespace Ringtoets.Integration.Plugin
             {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                 {
-                    ValidateSelectedFile(nodeData, dialog.FileName);
+                    ValidateAndImportSelectedFile(nodeData, dialog.FileName);
                 }
             }
         }
 
-        private void ImportDatabaseFileLovations(HydraulicBoundaryDatabaseContext nodeData)
+        private static void ValidateAndImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
         {
             var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryLocationsImporter();
-            hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, nodeData.BoundaryDatabase.FilePath);
+
+            hydraulicBoundaryLocationsImporter.ValidateFile(selectedFile);
+
+            var currentVersion = nodeData.BoundaryDatabase.Version;
+            var newVersion = hydraulicBoundaryLocationsImporter.Version;
+
+            // Compare
+            if (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion)
+            {
+                // Show dialog
+                ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
+                return;
+            }
+
+            ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
         }
 
-        private static void ValidateSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(nodeData.BoundaryDatabase.FilePath))
-                {
-                    // Compare
-                    bool isEqual = FileUtils.CompareFiles(nodeData.BoundaryDatabase.FilePath, selectedFile);
-
-                    if (!isEqual)
-                    {
-                        // show dialog
-                        ShowCleanDialog(nodeData, selectedFile);
-                        return;
-                    }
-                }
-
-                SetBoundaryDatabaseFilePath(nodeData, selectedFile);
-            }
-            catch (Exception e)
-            {
-                throw new CriticalFileReadException(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, selectedFile), e);
-            }
-        }
-
-        private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData, string filePath)
+        private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData, 
+                                            HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
+                                            string filePath,
+                                            string version)
         {
             var confirmation = MessageBox.Show(
                 RingtoetsCommonFormsResources.Delete_ToetsPeil_Calculations_Text,
@@ -462,7 +448,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 ClearCalculations(nodeData.BaseNode);
 
-                SetBoundaryDatabaseFilePath(nodeData, filePath);
+                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, filePath, version);
             }
         }
 
@@ -477,9 +463,19 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static void SetBoundaryDatabaseFilePath(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
+        private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,                                               
+                                               HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
+                                               string selectedFile,
+                                               string newVersion)
+        {
+            hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, selectedFile);
+            SetBoundaryDatabaseData(nodeData, selectedFile, newVersion);
+        }
+
+        private static void SetBoundaryDatabaseData(HydraulicBoundaryDatabaseContext nodeData, string selectedFile, string version)
         {
             nodeData.BoundaryDatabase.FilePath = selectedFile;
+            nodeData.BoundaryDatabase.Version = version;
             nodeData.NotifyObservers();
             log.InfoFormat(RingtoetsCommonFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
         }

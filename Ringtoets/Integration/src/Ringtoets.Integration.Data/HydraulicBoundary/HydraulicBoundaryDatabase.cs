@@ -33,6 +33,7 @@ namespace Ringtoets.Integration.Data.HydraulicBoundary
         }
 
         public string FilePath { get; set; }
+        public string Version { get; set; }
 
         /// <summary>
         /// Gets the hydraulic boundary locations.

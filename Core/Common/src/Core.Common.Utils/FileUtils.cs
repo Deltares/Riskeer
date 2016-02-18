@@ -64,53 +64,5 @@ namespace Core.Common.Utils
                 throw new ArgumentException(message);
             }
         }
-
-        /// <summary>
-        /// Compares <paramref name="pathA"/> with <paramref name="pathB"/>.
-        /// </summary>
-        /// <param name="pathA">Path to the original file.</param>
-        /// <param name="pathB">Path to the file to compare to.</param>
-        /// <returns><c>True</c> if the files are structural equal, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentException">Thrown when: <list type="bullet">
-        /// <item><paramref name="pathA"/> is invalid;</item>
-        /// <item><paramref name="pathB"/> is invalid;</item>
-        /// <item>Failed to read file <paramref name="pathA"/>;</item>
-        /// <item>Failed to read file <paramref name="pathB"/>;</item>
-        /// </list></exception>
-        public static bool CompareFiles(string pathA, string pathB)
-        {
-            ValidateFilePath(pathA);
-            ValidateFilePath(pathB);
-
-            try
-            {
-                var fileA = new FileInfo(pathA);
-                var fileB = new FileInfo(pathB);
-                if (fileA.Length != fileB.Length)
-                {
-                    return false;
-                }
-
-                using (var md5 = MD5.Create())
-                {
-                    byte[] hashA;
-                    byte[] hashB;
-                    using (var stream = File.OpenRead(pathA))
-                    {
-                        hashA = md5.ComputeHash(stream);
-                    }
-
-                    using (var stream = File.OpenRead(pathB))
-                    {
-                        hashB = md5.ComputeHash(stream);
-                    }
-                    return StructuralComparisons.StructuralEqualityComparer.Equals(hashA, hashB);
-                }
-            }
-            catch (SystemException exception)
-            {
-                throw new ArgumentException(Resources.Error_General_IO_ErrorMessage, exception);
-            }
-        }
     }
 }
