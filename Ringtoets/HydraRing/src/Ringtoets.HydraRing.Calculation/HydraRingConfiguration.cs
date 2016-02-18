@@ -31,21 +31,44 @@ namespace Ringtoets.HydraRing.Calculation
     /// </summary>
     public class HydraRingConfiguration
     {
-        private readonly Dictionary<string, List<OrderedDictionary>> configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
-
         /// <summary>
-        /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
+        /// Gets or sets the <see cref="TimeIntegrationScheme"/>.
         /// </summary>
-        public HydraRingConfiguration()
-        {
-            InitializeHydraulicModels();
-        }
+        public TimeIntegrationScheme TimeIntegrationScheme { get; set; }
 
         /// <summary>
         /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
         /// </summary>
         /// <returns>The database creation script.</returns>
         public string GenerateDataBaseCreationScript()
+        {
+            var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
+
+            InitializeHydraulicModelsConfiguration(configurationDictionary);
+
+            return GenerateDataBaseCreationScript(configurationDictionary);
+        }
+
+        private void InitializeHydraulicModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["HydraulicModels"] = new List<OrderedDictionary>
+            {
+                new OrderedDictionary
+                {
+                    {
+                        "TimeIntegrationSchemeID", TimeIntegrationScheme != TimeIntegrationScheme.None ? (int?) TimeIntegrationScheme : null
+                    },
+                    {
+                        "UncertaintiesID", null // Model property: HydraulicModelsUncertaintiesId
+                    },
+                    {
+                        "DataSetName", "WTI 2017"
+                    }
+                }
+            };
+        }
+
+        private static string GenerateDataBaseCreationScript(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
             var lines = new List<string>();
 
@@ -94,25 +117,6 @@ namespace Ringtoets.HydraRing.Calculation
             }
 
             return string.Join(Environment.NewLine, lines);
-        }
-
-        private void InitializeHydraulicModels()
-        {
-            configurationDictionary["HydraulicModels"] = new List<OrderedDictionary>
-            {
-                new OrderedDictionary
-                {
-                    {
-                        "TimeIntegrationSchemeID", null // Model property: HydraulicModelsTimeIntegrationSchemeId
-                    },
-                    {
-                        "UncertaintiesID", null // Model property: HydraulicModelsUncertaintiesId
-                    },
-                    {
-                        "DataSetName", "WTI 2017"
-                    }
-                }
-            };
         }
     }
 }

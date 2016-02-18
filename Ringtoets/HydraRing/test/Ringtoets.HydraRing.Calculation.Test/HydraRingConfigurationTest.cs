@@ -38,5 +38,21 @@ namespace Ringtoets.HydraRing.Calculation.Test
 
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
+
+        [Test]
+        public void GenerateDataBaseCreationScript_NonDefaultHydraRingConfiguration_ReturnsExpectedCreationScript()
+        {
+            var hydraRingConfiguration = new HydraRingConfiguration
+            {
+                TimeIntegrationScheme = TimeIntegrationScheme.NTI
+            };
+
+            var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
+                                         "INSERT INTO [HydraulicModels] VALUES (" + (int) TimeIntegrationScheme.NTI + ", NULL, 'WTI 2017');" + Environment.NewLine;
+
+            var creationScript = hydraRingConfiguration.GenerateDataBaseCreationScript();
+
+            Assert.AreEqual(expectedCreationScript, creationScript);
+        }
     }
 }
