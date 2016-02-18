@@ -93,6 +93,22 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
         }
 
         [Test]
+        public void GetSurfaceLinesCount_OpenedValidFileWithHeaderWithOptionalHeadersAndTwoSurfaceLines_ReturnNumberOfSurfaceLines()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithOptionalHeaders.csv");
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                int linesCount = reader.GetSurfaceLinesCount();
+
+                // Assert
+                Assert.AreEqual(2, linesCount);
+            }
+        }
+
+        [Test]
         public void GetSurfaceLinesCount_OpenedValidFileWithHeaderAndNoSurfaceLines_ReturnZero()
         {
             // Setup
@@ -238,6 +254,55 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
         {
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithWhiteLine.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                var surfaceLine1 = reader.ReadSurfaceLine();
+                var surfaceLine2 = reader.ReadSurfaceLine();
+
+                // Assert
+
+                #region 1st surfaceline
+
+                Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
+                Assert.AreEqual(8, surfaceLine1.Points.Count());
+                Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
+                Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
+                Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
+                Assert.AreEqual(94331.1767309, surfaceLine1.EndingWorldPoint.X);
+                Assert.AreEqual(427960.112661, surfaceLine1.EndingWorldPoint.Y);
+                Assert.AreEqual(1.44, surfaceLine1.EndingWorldPoint.Z);
+                Assert.AreEqual(surfaceLine1.StartingWorldPoint, surfaceLine1.Points.First());
+                Assert.AreEqual(surfaceLine1.EndingWorldPoint, surfaceLine1.Points.Last());
+
+                #endregion
+
+                #region 2nd surfaceline
+
+                Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
+                Assert.AreEqual(3, surfaceLine2.Points.Count());
+                Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
+                Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
+                Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
+                Assert.AreEqual(5.7, surfaceLine2.EndingWorldPoint.X);
+                Assert.AreEqual(0, surfaceLine2.EndingWorldPoint.Y);
+                Assert.AreEqual(1.1, surfaceLine2.EndingWorldPoint.Z);
+                Assert.AreEqual(surfaceLine2.StartingWorldPoint, surfaceLine2.Points.First());
+                Assert.AreEqual(surfaceLine2.EndingWorldPoint, surfaceLine2.Points.Last());
+
+                #endregion
+            }
+        }
+
+        [Test]
+        public void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLinesWithOptionalHeaders_ReturnCreatedSurfaceLine()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithOptionalHeaders.csv");
 
             // Precondition:
             Assert.IsTrue(File.Exists(path));

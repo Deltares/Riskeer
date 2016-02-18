@@ -65,6 +65,9 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private StreamReader fileReader;
         private int lineNumber;
 
+        private int idNameColumnIndex;
+        private int startGeometryColumnIndex;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingSurfaceLinesCsvReader"/> class
         /// and opens a given file path.
@@ -283,7 +286,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <exception cref="LineParseException">Id value is null or empty.</exception>
         private string GetSurfaceLineName(IList<string> tokenizedString)
         {
-            var name = tokenizedString.Any() ? tokenizedString[0].Trim() : string.Empty;
+            var name = tokenizedString.Any() ? tokenizedString[idNameColumnIndex].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
                 throw CreateLineParseException(lineNumber, Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
@@ -307,7 +310,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             try
             {
-                return tokenizedString.Skip(1)
+                return tokenizedString.Skip(startGeometryColumnIndex)
                                       .Select(ts => Double.Parse(ts, CultureInfo.InvariantCulture))
                                       .ToArray();
             }
@@ -441,18 +444,45 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             var tokenizedHeader = header.Split(separator).Select(s => s.Trim().ToLowerInvariant()).ToArray();
 
             // Check for valid id:
-            if (!acceptableLowerCaseIdNames.Contains(tokenizedHeader[0]))
+            DetermineIdNameColumnIndex(tokenizedHeader);
+
+            if (idNameColumnIndex == -1)
             {
                 return false;
             }
 
             // Check for valid 1st coordinate in header:
+            DetermineStartGeometryColumnIndex(tokenizedHeader);
+
+            if (startGeometryColumnIndex == -1)
+            {
+                return false;
+            }
+
             bool valid = true;
             for (int i = 0; i < expectedFirstCoordinateHeader.Length && valid; i++)
             {
-                valid = tokenizedHeader[1 + i].Equals(expectedFirstCoordinateHeader[i]);
+                valid = tokenizedHeader[startGeometryColumnIndex + i].Equals(expectedFirstCoordinateHeader[i]);
             }
             return valid;
+        }
+
+        private void DetermineStartGeometryColumnIndex(string[] tokenizedHeader)
+        {
+            startGeometryColumnIndex = Array.IndexOf(tokenizedHeader, expectedFirstCoordinateHeader[0]);
+        }
+
+        private void DetermineIdNameColumnIndex(string[] tokenizedHeader)
+        {
+            idNameColumnIndex = -1;
+            foreach (string name in acceptableLowerCaseIdNames)
+            {
+                idNameColumnIndex = Array.IndexOf(tokenizedHeader, name);
+                if (idNameColumnIndex > -1)
+                {
+                    break;
+                }
+            }
         }
     }
 }
