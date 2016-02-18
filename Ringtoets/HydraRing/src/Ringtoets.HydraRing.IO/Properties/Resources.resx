@@ -120,4 +120,7 @@
   <data name="Error_HydraulicBoundaryLocation_read_from_database" xml:space="preserve">
     <value>Kon geen locaties verkrijgen van de database.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.</value>
+  </data>
 </root>

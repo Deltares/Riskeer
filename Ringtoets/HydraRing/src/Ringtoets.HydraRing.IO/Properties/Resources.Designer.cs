@@ -68,5 +68,14 @@ namespace Ringtoets.HydraRing.IO.Properties {
                 return ResourceManager.GetString("Error_HydraulicBoundaryLocation_read_from_database", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column", resourceCulture);
+            }
+        }
     }
 }

@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
@@ -9,6 +30,9 @@ using Ringtoets.HydraRing.IO.Properties;
 
 namespace Ringtoets.HydraRing.IO
 {
+    /// <summary>
+    /// This class reads a SqLite database file and constructs <see cref="HydraulicBoundaryLocation"/> instances from this database.
+    /// </summary>
     public class HydraulicBoundaryDatabaseReader : DatabaseReaderBase, IRowBasedDatabaseReader
     {
         private SQLiteDataReader dataReader;
@@ -32,10 +56,9 @@ namespace Ringtoets.HydraRing.IO
         }
 
         /// <summary>
-        /// Gets the total number of profiles that can be read from the database.
+        /// Gets the total number of locations that can be read from the database.
         /// </summary>
         public int Count { get; private set; }
-
 
         /// <summary>
         /// Gets the version from the database.
@@ -43,11 +66,16 @@ namespace Ringtoets.HydraRing.IO
         public string Version { get; private set; }
 
         /// <summary>
-        /// Gets the value <c>true</c> if profiles can be read using the <see cref="HydraulicBoundaryDatabaseReader"/>.
+        /// Gets the value <c>true</c> if locations can be read using the <see cref="HydraulicBoundaryDatabaseReader"/>.
         /// <c>false</c> otherwise.
         /// </summary>
         public bool HasNext { get; private set; }
 
+        /// <summary>
+        /// Reads the next location from the database.
+        /// </summary>
+        /// <returns>New instance of <see cref="HydraulicBoundaryLocation"/>, based on the data read from the database or <c>null</c> if no data is available.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public HydraulicBoundaryLocation ReadLocation()
         {
             if (!HasNext)
@@ -61,11 +89,14 @@ namespace Ringtoets.HydraRing.IO
             }
             catch (InvalidCastException e)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, e);
             }
         }
 
+        /// <summary>
+        /// Disposes the reader.
+        /// </summary>
         public override void Dispose()
         {
             if (dataReader != null)
@@ -83,11 +114,25 @@ namespace Ringtoets.HydraRing.IO
             HasNext = dataReader.Read() || (dataReader.NextResult() && dataReader.Read());
         }
 
+        /// <summary>
+        /// Reads a value at column <paramref name="columnName"/> from the database.
+        /// </summary>
+        /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
+        /// <param name="columnName">The name of the column to read from.</param>
+        /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
+        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
         public T Read<T>(string columnName)
         {
             return (T) dataReader[columnName];
         }
 
+        /// <summary>
+        /// Reads the value in the column with name <paramref name="columnName"/> from the currently pointed row.
+        /// </summary>
+        /// <typeparam name="T">The type of object to read.</typeparam>
+        /// <param name="columnName">The name of the column to read from.</param>
+        /// <returns>The value in the column, or <c>null</c> if the value was <see cref="DBNull.Value"/>.</returns>
+        /// <exception cref="InvalidCastException">Thrown when the value in the column could not be casted to type <typeparamref name="T"/>.</exception>
         public T? ReadOrNull<T>(string columnName) where T : struct
         {
             var valueObject = dataReader[columnName];
@@ -98,6 +143,11 @@ namespace Ringtoets.HydraRing.IO
             return (T) valueObject;
         }
 
+        /// <summary>
+        /// Reads the current row into a new instance of <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <returns>A new instance of <see cref="HydraulicBoundaryLocation"/>, based upon the current row.</returns>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for required properties.</exception>
         private HydraulicBoundaryLocation ReadHydraulicBoundaryLocation()
         {
             try
@@ -109,7 +159,7 @@ namespace Ringtoets.HydraRing.IO
                 MoveNext();
                 return new HydraulicBoundaryLocation(id, name, x, y);
             }
-            catch (InvalidCastException)
+            catch (InvalidCastException exception)
             {
                 MoveNext();
                 throw;
@@ -117,16 +167,19 @@ namespace Ringtoets.HydraRing.IO
         }
 
         /// <summary>
+        /// Prepares a new data reader with queries for obtaining the locations and updates the reader
+        /// so that it points to the first row of the result set.
         /// </summary>
         private void InitializeReader()
         {
-            ReadLocations();
+            PrepareReader();
             MoveNext();
         }
 
         /// <summary>
+        /// Prepares the queries required for obtaining locations from the database.
         /// </summary>
-        private void ReadLocations()
+        private void PrepareReader()
         {
             var versionQuery = string.Format("SELECT (NameRegion || CreationDate) as {0} FROM General LIMIT 0,1;", HydraulicBoundaryDatabaseColumns.Version);
             var countQuery = string.Format("SELECT count(*) as {0} FROM HRDLocations WHERE LocationTypeId > 1 ;", HydraulicBoundaryDatabaseColumns.LocationCount);
@@ -144,6 +197,15 @@ namespace Ringtoets.HydraRing.IO
             });
         }
 
+        /// <summary>
+        /// Creates a new data reader to use in this class.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when
+        /// <list type="bullet">
+        ///     <item>Amount of locations in database could not be read.</item>
+        ///     <item>A query could not be executed on the database schema.</item>
+        /// </list>
+        /// </exception>
         private void CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
             using (var query = new SQLiteCommand(Connection)
@@ -168,6 +230,9 @@ namespace Ringtoets.HydraRing.IO
             }
         }
 
+        /// <summary>
+        /// Gets the database version from the metadata table.
+        /// </summary>
         private void GetVersion()
         {
             if (dataReader.Read())
@@ -177,6 +242,9 @@ namespace Ringtoets.HydraRing.IO
             dataReader.NextResult();
         }
 
+        /// <summary>
+        /// Gets the amount of locations that can be read from the database.
+        /// </summary>
         private void GetCount()
         {
             dataReader.Read();

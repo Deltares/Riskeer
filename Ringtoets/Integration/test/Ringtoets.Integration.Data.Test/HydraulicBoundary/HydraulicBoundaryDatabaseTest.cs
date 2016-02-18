@@ -19,9 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data.HydraulicBoundary;
 
-[assembly: AssemblyTitle("Ringtoets.HydraRing.IO")]
-[assembly: AssemblyProduct("Ringtoets.HydraRing.IO")]
-[assembly: Guid("B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70")]
+namespace Ringtoets.Integration.Data.Test.HydraulicBoundary
+{
+    public class HydraulicBoundaryDatabaseTest
+    {
+        [Test]
+        public void Constructor_DefaultConstructor_ExpectedValues()
+        {
+            // Setup & call
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Assert
+            // Call
+            Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.Version);
+            Assert.IsInstanceOf<IEnumerable<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+        }
+    }
+}

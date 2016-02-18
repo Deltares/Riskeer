@@ -25,6 +25,9 @@ namespace Ringtoets.HydraRing.Data
 {
     public class HydraulicBoundaryLocation
     {
+        /// <summary>
+        /// Creates a new instance ofL <see cref="HydraulicBoundaryLocation"/>, with the given <paramref name="id"/>, <paramref name="name"/>, <paramref name="x"/>, and <paramref name="y"/>.
+        /// </summary>
         public HydraulicBoundaryLocation(long id, string name, double x, double y)
         {
             Id = id;
@@ -43,10 +46,14 @@ namespace Ringtoets.HydraRing.Data
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the X-coordinate of <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the coordinates of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public Point2D Location { get; set; }
+        public Point2D Location { get; private set; }
 
+        /// <summary>
+        /// Returns a String that represents the current Object.
+        /// </summary>
+        /// <returns>A String that represents the current Object.</returns>
         public override string ToString()
         {
             return Name;

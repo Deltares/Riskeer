@@ -19,10 +19,67 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
 namespace Ringtoets.HydraRing.Data.Test
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationTest {}
+    public class HydraulicBoundaryLocationTest
+    {
+        [Test]
+        public void Constructor_NullName_DoesNotThrowException()
+        {
+            // Setup
+            long id = 0L;
+            double x = 1.0;
+            double y = 1.0;
+
+            // Call
+            TestDelegate test = () => new HydraulicBoundaryLocation(id, null, x, y);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_PropertiesAsExpected()
+        {
+            // Setup
+            long id = 1234L;
+            string name = "<some name>";
+            double x = 567.0;
+            double y = 890.0;
+
+            // Call
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocation>(hydraulicBoundaryLocation);
+            Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
+            Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
+            Point2D location = hydraulicBoundaryLocation.Location;
+            Assert.IsInstanceOf<Point2D>(location);
+            Assert.AreEqual(x, location.X);
+            Assert.AreEqual(y, location.Y);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("some name")]
+        public void ToString_WithName_ReturnsName(string name)
+        {
+            // Setup
+            long id = 1234L;
+            double x = 567.0;
+            double y = 890.0;
+
+            // Call
+            var profile = new HydraulicBoundaryLocation(id, name, x, y);
+
+            // Assert
+            Assert.AreEqual(name, profile.ToString());
+        }
+    }
 }
