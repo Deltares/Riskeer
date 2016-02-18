@@ -24,12 +24,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using log4net;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;
 using Ringtoets.Piping.IO.Exceptions;
@@ -47,8 +46,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSurfaceLinesCsvImporter : IFileImporter
     {
         private readonly ILog log;
+        private readonly string characteristicPointsFileSubExtension = ".krp";
         private bool shouldCancel;
-        private string characteristicPointsFileSubExtension = ".krp";
 
         public PipingSurfaceLinesCsvImporter()
         {
@@ -96,12 +95,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
+        public ProgressChangedDelegate ProgressChanged { get; set; }
+
         public void Cancel()
         {
             shouldCancel = true;
         }
-
-        public ProgressChangedDelegate ProgressChanged { get; set; }
 
         public bool Import(object targetItem, string filePath)
         {
@@ -136,7 +135,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return true;
         }
 
-        private PipingReadResult<PipingCharacteristicPointsLocation> ReadCharacteristicPoints(string surfaceLineFilePath)
+        private ReadResult<PipingCharacteristicPointsLocation> ReadCharacteristicPoints(string surfaceLineFilePath)
         {
             var path = surfaceLineFilePath.Insert(surfaceLineFilePath.Length - 4, characteristicPointsFileSubExtension);
             var hasCharacteristicPointsFile = File.Exists(path);
@@ -144,7 +143,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             if (!hasCharacteristicPointsFile)
             {
                 log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path));
-                return new PipingReadResult<PipingCharacteristicPointsLocation>(false);
+                return new ReadResult<PipingCharacteristicPointsLocation>(false);
             }
 
             PipingCharacteristicPointsCsvReader reader;
@@ -159,7 +158,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             var stepName = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
                                          Path.GetFileName(path));
-            
+
             int itemCount;
             try
             {
@@ -171,7 +170,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 reader.Dispose();
                 return HandleCriticalCharacteristicPointsReadError(e);
             }
-
 
             var readCharacteristicPointsLocations = new List<PipingCharacteristicPointsLocation>(itemCount);
             for (int i = 0; i < itemCount && !shouldCancel; i++)
@@ -197,7 +195,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             reader.Dispose();
 
-            return new PipingReadResult<PipingCharacteristicPointsLocation>(false)
+            return new ReadResult<PipingCharacteristicPointsLocation>(false)
             {
                 ImportedItems = readCharacteristicPointsLocations
             };
@@ -211,7 +209,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private PipingReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
+        private ReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
         {
             PipingSurfaceLinesCsvReader reader;
             try
@@ -263,7 +261,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             reader.Dispose();
 
-            return new PipingReadResult<RingtoetsPipingSurfaceLine>(false)
+            return new ReadResult<RingtoetsPipingSurfaceLine>(false)
             {
                 ImportedItems = readSurfaceLines
             };
@@ -295,27 +293,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private PipingReadResult<RingtoetsPipingSurfaceLine> HandleCriticalSurfaceLineReadError(Exception e)
+        private ReadResult<RingtoetsPipingSurfaceLine> HandleCriticalSurfaceLineReadError(Exception e)
         {
             var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
             log.Error(message);
-            return new PipingReadResult<RingtoetsPipingSurfaceLine>(true);
+            return new ReadResult<RingtoetsPipingSurfaceLine>(true);
         }
 
-        private PipingReadResult<PipingCharacteristicPointsLocation> HandleCriticalCharacteristicPointsReadError(Exception e)
+        private ReadResult<PipingCharacteristicPointsLocation> HandleCriticalCharacteristicPointsReadError(Exception e)
         {
             var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
             log.Error(message);
-            return new PipingReadResult<PipingCharacteristicPointsLocation>(true);
+            return new ReadResult<PipingCharacteristicPointsLocation>(true);
         }
 
         private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<PipingCharacteristicPointsLocation> readCharacteristicPointsLocations)
         {
             NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 
-            var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>)target;
+            var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>) target;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
                 var characteristicPointsLocation = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);

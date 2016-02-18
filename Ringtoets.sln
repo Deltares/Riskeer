@@ -259,6 +259,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Forms",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Forms.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Forms.Test\Ringtoets.HydraRing.Forms.Test.csproj", "{EC6B2FE8-C211-4C62-BEAC-AFD5B47197CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.IO", "Ringtoets\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj", "{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Plugin", "Ringtoets\HydraRing\src\Ringtoets.HydraRing.Plugin\Ringtoets.HydraRing.Plugin.csproj", "{0A0B4576-1FD4-4836-880C-A7829ACB944A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.IO.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.IO.Test\Ringtoets.HydraRing.IO.Test.csproj", "{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Plugin.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Plugin.Test\Ringtoets.HydraRing.Plugin.Test.csproj", "{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -996,6 +1004,46 @@ Global
 		{EC6B2FE8-C211-4C62-BEAC-AFD5B47197CA}.Release|x86.Build.0 = Release|x86
 		{EC6B2FE8-C211-4C62-BEAC-AFD5B47197CA}.ReleaseForCodeCoverage|x86.ActiveCfg = Release|x86
 		{EC6B2FE8-C211-4C62-BEAC-AFD5B47197CA}.ReleaseForCodeCoverage|x86.Build.0 = Release|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.Debug|x86.ActiveCfg = Debug|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.Debug|x86.Build.0 = Debug|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.Release|x86.ActiveCfg = Release|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.Release|x86.Build.0 = Release|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.CreateInstaller|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.CreateInstaller|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.CreateInstallerWithDemoProject|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.CreateInstallerWithDemoProject|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.Debug|x86.ActiveCfg = Debug|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.Debug|x86.Build.0 = Debug|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.Release|x86.ActiveCfg = Release|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.Release|x86.Build.0 = Release|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.CreateInstaller|x86.Build.0 = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.Debug|x86.ActiveCfg = Debug|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.Debug|x86.Build.0 = Debug|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.Release|x86.ActiveCfg = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.Release|x86.Build.0 = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.ReleaseForCodeCoverage|x86.ActiveCfg = Release|x86
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}.ReleaseForCodeCoverage|x86.Build.0 = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.CreateInstaller|x86.Build.0 = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.Debug|x86.ActiveCfg = Debug|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.Debug|x86.Build.0 = Debug|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.Release|x86.ActiveCfg = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.Release|x86.Build.0 = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.ReleaseForCodeCoverage|x86.ActiveCfg = Release|x86
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23}.ReleaseForCodeCoverage|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1108,9 +1156,13 @@ Global
 		{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2} = {B31E1A9B-D13E-42CD-BEDD-9D4A709CE7BD}
 		{888D4097-8BC2-4703-9FB1-8744C94D525E} = {B31E1A9B-D13E-42CD-BEDD-9D4A709CE7BD}
 		{EFB9B7E0-82A8-40CA-95C8-B56B4AC02294} = {B31E1A9B-D13E-42CD-BEDD-9D4A709CE7BD}
+		{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70} = {B31E1A9B-D13E-42CD-BEDD-9D4A709CE7BD}
+		{0A0B4576-1FD4-4836-880C-A7829ACB944A} = {B31E1A9B-D13E-42CD-BEDD-9D4A709CE7BD}
 		{175406DB-C0DA-42A7-968C-0C17CF2257B1} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 		{BFD6A78A-237A-413F-8DC3-8EC6E8C5809C} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 		{EC6B2FE8-C211-4C62-BEAC-AFD5B47197CA} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
+		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
+		{B4C237B2-88B4-4A39-925A-BA0ED2F34D23} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 	EndGlobalSection
 	GlobalSection(TextTemplating) = postSolution
 		TextTemplating = 1

@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
-using Ringtoets.Piping.Plugin.FileImporter;
+﻿using Core.Common.IO.Readers;
+using NUnit.Framework;
 
-namespace Ringtoets.Piping.Plugin.Test.FileImporter
+namespace Core.Common.IO.Test.Readers
 {
     [TestFixture]
-    public class PipingReadResultTest
+    public class ReadResultTest
     {
         [Test]
         [TestCase(true)]
@@ -12,11 +12,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Constructor_CriticalErrorOccuredOrNot_InitializesCollectionAndSetsCriticalErrorOccuredProperty(bool errorOccurred)
         {
             // Call
-            var readResult = new PipingReadResult<object>(errorOccurred);
+            var readResult = new ReadResult<object>(errorOccurred);
 
             // Assert
             CollectionAssert.IsEmpty(readResult.ImportedItems);
             Assert.AreEqual(errorOccurred, readResult.CriticalErrorOccurred);
-        } 
+        }
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Properties;
 

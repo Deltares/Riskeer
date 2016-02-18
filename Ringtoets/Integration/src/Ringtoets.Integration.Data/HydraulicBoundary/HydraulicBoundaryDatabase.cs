@@ -19,12 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Data.HydraulicBoundary
 {
     public class HydraulicBoundaryDatabase : Observable
     {
+        public HydraulicBoundaryDatabase()
+        {
+            Locations = new ObservableList<HydraulicBoundaryLocation>();
+        }
+
         public string FilePath { get; set; }
+
+        /// <summary>
+        /// Gets the hydraulic boundary locations.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocation> Locations { get; private set; }
     }
 }

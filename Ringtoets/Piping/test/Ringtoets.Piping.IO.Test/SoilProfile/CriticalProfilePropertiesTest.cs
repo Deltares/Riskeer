@@ -1,9 +1,9 @@
 ﻿using System;
 using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 

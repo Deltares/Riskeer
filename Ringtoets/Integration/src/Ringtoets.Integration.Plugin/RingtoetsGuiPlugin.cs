@@ -37,6 +37,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
@@ -187,7 +188,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 new ReferenceLineContext(nodeData.ReferenceLine, nodeData),
                 nodeData.FailureMechanismContribution,
-                new HydraulicBoundaryDatabaseContext (nodeData.HydraulicBoundaryDatabase, nodeData)
+                new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData)
             };
 
             childNodes.AddRange(nodeData.GetFailureMechanisms());
@@ -376,7 +377,11 @@ namespace Ringtoets.Integration.Plugin
             var connectionItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect,
                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData));
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) =>
+                {
+                    SelectDatabaseFile(nodeData);
+                    ImportDatabaseFileLovations(nodeData);
+                });
 
             var toetsPeilItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Toetspeil_Calculate,
@@ -413,6 +418,12 @@ namespace Ringtoets.Integration.Plugin
                     ValidateSelectedFile(nodeData, dialog.FileName);
                 }
             }
+        }
+
+        private void ImportDatabaseFileLovations(HydraulicBoundaryDatabaseContext nodeData)
+        {
+            var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryLocationsImporter();
+            hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, nodeData.BoundaryDatabase.FilePath);
         }
 
         private static void ValidateSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)

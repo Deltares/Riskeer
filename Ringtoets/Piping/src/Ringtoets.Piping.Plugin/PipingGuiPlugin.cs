@@ -619,7 +619,6 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
                 RingtoetsFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
 
-
             if (!group.GetPipingCalculations().Any())
             {
                 menuItem.Enabled = false;
@@ -634,10 +633,7 @@ namespace Ringtoets.Piping.Plugin
             var menuItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.Validate_all,
                 PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
-                RingtoetsFormsResources.ValidateAllIcon, (o, args) =>
-                {
-                    ValidateAll(group);
-                });
+                RingtoetsFormsResources.ValidateAllIcon, (o, args) => { ValidateAll(group); });
 
             if (!group.GetPipingCalculations().Any())
             {
@@ -840,7 +836,7 @@ namespace Ringtoets.Piping.Plugin
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
             public DroppingPipingCalculationWithinSameContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
-                base(originalOwnerContext, target) { }
+                base(originalOwnerContext, target) {}
         }
 
         /// <summary>
@@ -857,7 +853,7 @@ namespace Ringtoets.Piping.Plugin
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
             public DroppingPipingCalculationToNewContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
-                base(originalOwnerContext, target) { }
+                base(originalOwnerContext, target) {}
 
             public override void Execute(object draggedData, IPipingCalculationItem pipingCalculationItem, int newPosition, TreeViewControl treeViewControl)
             {
@@ -866,7 +862,10 @@ namespace Ringtoets.Piping.Plugin
                 NotifyObservers();
 
                 // Try to start a name edit action when an item with the same name was already present
-                if (target.WrappedData.Children.Except(new[] { pipingCalculationItem }).Any(c => c.Name.Equals(pipingCalculationItem.Name)))
+                if (target.WrappedData.Children.Except(new[]
+                {
+                    pipingCalculationItem
+                }).Any(c => c.Name.Equals(pipingCalculationItem.Name)))
                 {
                     treeViewControl.TryRenameNodeForData(draggedData);
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -17,13 +18,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         private IRowBasedDatabaseReader reader;
 
         private readonly byte[] someGeometry = StringGeometryHelper.GetByteArray("<GeometrySurface><OuterLoop><CurveList>" +
-                                                                                   "<GeometryCurve>" +
-                                                                                   "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                                                                                   "</GeometryCurve>" +
-                                                                                   "<GeometryCurve>" +
-                                                                                   "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                                                                                   "</GeometryCurve>" +
-                                                                                   "</CurveList></OuterLoop>" +
+                                                                                 "<GeometryCurve>" +
+                                                                                 "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
+                                                                                 "</GeometryCurve>" +
+                                                                                 "<GeometryCurve>" +
+                                                                                 "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
+                                                                                 "</GeometryCurve>" +
+                                                                                 "</CurveList></OuterLoop>" +
                                                                                  "<InnerLoops/></GeometrySurface>");
 
         [SetUp]

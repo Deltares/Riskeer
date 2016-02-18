@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Utils.Reflection;
+using Ringtoets.HydraRing.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -52,8 +52,21 @@ namespace Demo.Ringtoets.Commands
             {
                 Name = "Demo dijktraject"
             };
+            InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
             return demoAssessmentSection;
+        }
+
+        private void InitializeDemoHydraulicBoundaryDatabase(DikeAssessmentSection demoAssessmentSection)
+        {
+            var hydraulicBoundaryDatabase = demoAssessmentSection.HydraulicBoundaryDatabase;
+
+            using (var tempPath = new TemporaryImportFile("HRD_dutchcoastsouth.sqlite"))
+            {
+                hydraulicBoundaryDatabase.FilePath = tempPath.FilePath;
+                var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryLocationsImporter();
+                hydraulicBoundaryDatabaseImporter.Import(hydraulicBoundaryDatabase.Locations, tempPath.FilePath);
+            }
         }
 
         private void InitializeDemoPipingData(DikeAssessmentSection demoAssessmentSection)

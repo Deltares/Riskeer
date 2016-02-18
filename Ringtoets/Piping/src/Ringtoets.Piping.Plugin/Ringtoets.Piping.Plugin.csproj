@@ -62,7 +62,6 @@
     </Compile>
     <Compile Include="FileImporter\PipingSoilProfilesImporter.cs" />
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporter.cs" />
-    <Compile Include="FileImporter\PipingReadResult.cs" />
     <Compile Include="PipingApplicationPlugin.cs" />
     <Compile Include="PipingFileImporterProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

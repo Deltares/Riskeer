@@ -41,29 +41,33 @@ namespace Core.Common.TestUtil
                     public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.Gis.IO.Test");
                 }
             }
-            
+
             public static class Plugins
             {
                 public static readonly TestDataPath DotSpatial = System.IO.Path.Combine("Core", "Plugins", "test", "Core.Plugins.DotSpatial.Test");
             }
-
         }
 
         public static class Ringtoets
         {
-            public static class Piping
-            {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
-            }
-
             public static class Common
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.IO.Test");
             }
 
+            public static class HydraRing
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.IO.Test");
+            }
+
             public static class Integration
             {
                 public static readonly TestDataPath Forms = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Forms.Test");
+            }
+
+            public static class Piping
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
             }
         }
     }

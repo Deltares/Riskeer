@@ -102,9 +102,9 @@ namespace Core.Common.IO.Readers
                 DataSource = databaseFile,
                 ReadOnly = true,
                 ForeignKeys = true
-            };
+            }.ConnectionString;
 
-            Connection = new SQLiteConnection(connectionStringBuilder.ConnectionString);
+            Connection = new SQLiteConnection(connectionStringBuilder);
             Connection.Open();
         }
     }

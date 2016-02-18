@@ -61,6 +61,10 @@ namespace Demo.Ringtoets.Test.Commands
             var demoAssessmentSection = (DikeAssessmentSection) project.Items[0];
             Assert.AreEqual("Demo dijktraject", demoAssessmentSection.Name);
 
+            Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
+
             var profiles = demoAssessmentSection.PipingFailureMechanism.SoilProfiles.ToArray();
             Assert.AreEqual(26, profiles.Length);
             var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();

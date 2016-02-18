@@ -21,6 +21,7 @@
 
 using System;
 using System.Data.SQLite;
+using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;

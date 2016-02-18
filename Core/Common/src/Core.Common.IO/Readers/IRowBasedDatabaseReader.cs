@@ -21,12 +21,12 @@
 
 using System;
 
-namespace Ringtoets.Piping.IO.SoilProfile
+namespace Core.Common.IO.Readers
 {
     /// <summary>
     /// This interface can be used for data bases to implement a row/column based way of reading records.
     /// </summary>
-    internal interface IRowBasedDatabaseReader
+    public interface IRowBasedDatabaseReader
     {
         /// <summary>
         /// Gets the path of the database being read.
