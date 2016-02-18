@@ -41,7 +41,8 @@
   <ItemGroup>
     <Compile Include="HydraRingConfigurationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeIntegrationSchemeTest.cs" />
+    <Compile Include="TimeIntegrationSchemeTypeTest.cs" />
+    <Compile Include="UncertaintiesTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">

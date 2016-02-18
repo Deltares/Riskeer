@@ -32,9 +32,23 @@ namespace Ringtoets.HydraRing.Calculation
     public class HydraRingConfiguration
     {
         /// <summary>
-        /// Gets or sets the <see cref="TimeIntegrationScheme"/>.
+        /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
         /// </summary>
-        public TimeIntegrationScheme TimeIntegrationScheme { get; set; }
+        public HydraRingConfiguration()
+        {
+            TimeIntegrationSchemeType = TimeIntegrationSchemeType.Undefined;
+            UncertaintiesType = UncertaintiesType.Undefined;
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="TimeIntegrationSchemeType"/>.
+        /// </summary>
+        public TimeIntegrationSchemeType TimeIntegrationSchemeType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="UncertaintiesType"/>.
+        /// </summary>
+        public UncertaintiesType UncertaintiesType { get; set; }
 
         /// <summary>
         /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
@@ -56,10 +70,10 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", TimeIntegrationScheme != TimeIntegrationScheme.None ? (int?) TimeIntegrationScheme : null
+                        "TimeIntegrationSchemeID", TimeIntegrationSchemeType != TimeIntegrationSchemeType.Undefined ? (int?) TimeIntegrationSchemeType : null
                     },
                     {
-                        "UncertaintiesID", null // Model property: HydraulicModelsUncertaintiesId
+                        "UncertaintiesID", UncertaintiesType != UncertaintiesType.Undefined ? (int?) UncertaintiesType : null
                     },
                     {
                         "DataSetName", "WTI 2017"

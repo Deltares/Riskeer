@@ -19,22 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
+using System;
+using NUnit.Framework;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Test
 {
-    /// <summary>
-    /// Enumeration that defines the possible time integration schemes.
-    /// </summary>
-    /// <remarks>
-    /// The integer values correspond to time integration scheme ids defined by Hydra-Ring.
-    /// </remarks>
-    public enum TimeIntegrationScheme
+    [TestFixture]
+    public class TimeIntegrationSchemeTypeTest
     {
-        [Description("---")]
-        None= 0,
-        FBC = 1,
-        APT = 2,
-        NTI = 3
+        [Test]
+        public void Values_HasFour()
+        {
+            Assert.AreEqual(4, Enum.GetValues(typeof(TimeIntegrationSchemeType)).Length);
+        }
+
+        [Test]
+        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
+        {
+            Assert.AreEqual(-1, (int) TimeIntegrationSchemeType.Undefined);
+            Assert.AreEqual(1, (int) TimeIntegrationSchemeType.FBC);
+            Assert.AreEqual(2, (int) TimeIntegrationSchemeType.APT);
+            Assert.AreEqual(3, (int) TimeIntegrationSchemeType.NTI);
+        }
     }
 }

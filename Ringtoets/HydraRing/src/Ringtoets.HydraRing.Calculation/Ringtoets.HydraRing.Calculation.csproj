@@ -41,7 +41,8 @@
     </Compile>
     <Compile Include="HydraRingConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeIntegrationScheme.cs" />
+    <Compile Include="TimeIntegrationSchemeType.cs" />
+    <Compile Include="UncertaintiesType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">

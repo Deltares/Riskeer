@@ -44,11 +44,12 @@ namespace Ringtoets.HydraRing.Calculation.Test
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                TimeIntegrationScheme = TimeIntegrationScheme.NTI
+                TimeIntegrationSchemeType = TimeIntegrationSchemeType.NTI,
+                UncertaintiesType = UncertaintiesType.Model
             };
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
-                                         "INSERT INTO [HydraulicModels] VALUES (" + (int) TimeIntegrationScheme.NTI + ", NULL, 'WTI 2017');" + Environment.NewLine;
+                                         "INSERT INTO [HydraulicModels] VALUES (" + (int) TimeIntegrationSchemeType.NTI + ", " + (int) UncertaintiesType.Model + ", 'WTI 2017');" + Environment.NewLine;
 
             var creationScript = hydraRingConfiguration.GenerateDataBaseCreationScript();
 
