@@ -209,7 +209,7 @@
     <value>Selecteer database</value>
   </data>
   <data name="SelectDatabaseFile_FilterName" xml:space="preserve">
-    <value>HLCD database</value>
+    <value>HR database</value>
   </data>
   <data name="Delete_ToetsPeil_Calculations_Text" xml:space="preserve">
     <value>Wil je alle toetspeil berekeningen verwijderen?</value>

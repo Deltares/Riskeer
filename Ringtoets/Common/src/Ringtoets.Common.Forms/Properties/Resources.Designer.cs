@@ -285,7 +285,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HLCD database.
+        ///   Looks up a localized string similar to HR database.
         /// </summary>
         public static string SelectDatabaseFile_FilterName {
             get {

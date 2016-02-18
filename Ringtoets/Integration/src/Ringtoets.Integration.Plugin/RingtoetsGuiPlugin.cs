@@ -377,19 +377,12 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData); });
 
-            var toetsPeilItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Toetspeil_Calculate,
-                RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip,
-                GetFolderIcon(TreeFolderCategory.General), null);
-
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(connectionItem)
                       .AddImportItem()
                       .AddExportItem()
-                      .AddSeparator()
-                      .AddCustomItem(toetsPeilItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
@@ -404,7 +397,7 @@ namespace Ringtoets.Integration.Plugin
                 Multiselect = false,
                 Title = windowTitle,
                 RestoreDirectory = true,
-                CheckFileExists = true,
+                CheckFileExists = false,
             })
             {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
@@ -468,8 +461,10 @@ namespace Ringtoets.Integration.Plugin
                                                string selectedFile,
                                                string newVersion)
         {
-            hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, selectedFile);
-            SetBoundaryDatabaseData(nodeData, selectedFile, newVersion);
+            if (hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, selectedFile))
+            {
+                SetBoundaryDatabaseData(nodeData, selectedFile, newVersion);
+            }
         }
 
         private static void SetBoundaryDatabaseData(HydraulicBoundaryDatabaseContext nodeData, string selectedFile, string version)
