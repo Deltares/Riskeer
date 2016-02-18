@@ -132,4 +132,10 @@
   <data name="FailureMechanism_SectionDevisions_DisplayName" xml:space="preserve">
     <value>Vakindeling</value>
   </data>
+  <data name="ReferenceLine_SetGeometry_New_geometry_cannot_be_null" xml:space="preserve">
+    <value>De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.</value>
+  </data>
+  <data name="ReferenceLine_SetGeometry_New_geometry_has_null_coordinate" xml:space="preserve">
+    <value>Een punt in de geometrie voor de referentielijn heeft geen waarde.</value>
+  </data>
 </root>

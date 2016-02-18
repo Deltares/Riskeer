@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
@@ -34,6 +33,7 @@ using Core.Components.Gis.IO;
 using Ringtoets.Common.Data;
 
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Common.IO
 {
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.IO
             catch (CriticalFileReadException e)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(Resources.ReferenceLineReader_File_must_contain_1_polyline);
+                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.IO
             if (lineShapeReader.GetNumberOfLines() != 1)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(Resources.ReferenceLineReader_File_must_contain_1_polyline);
+                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
                 throw new CriticalFileReadException(message);
             }
 
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.IO
             catch (ElementReadException e)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(Resources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
+                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
                 throw new CriticalFileReadException(message, e);
             }
         }

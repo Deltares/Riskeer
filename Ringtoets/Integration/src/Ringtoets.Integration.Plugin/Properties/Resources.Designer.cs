@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.Common.IO.Properties {
+namespace Ringtoets.Integration.Plugin.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Common.IO.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Integration.Plugin.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,13 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat 1 multi-polylijn, welke niet ondersteund is..
+        ///   Looks up a localized string similar to {0}
+        ///Er is geen referentielijn geïmporteerd..
         /// </summary>
-        internal static string ReferenceLineReader_File_contains_unsupported_multi_polyline {
+        internal static string ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported {
             get {
-                return ResourceManager.GetString("ReferenceLineReader_File_contains_unsupported_multi_polyline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestand moet exact 1 gehele polylijn bevatten..
-        /// </summary>
-        internal static string ReferenceLineReader_File_must_contain_1_polyline {
-            get {
-                return ResourceManager.GetString("ReferenceLineReader_File_must_contain_1_polyline", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_import" +
+                        "ed", resourceCulture);
             }
         }
     }

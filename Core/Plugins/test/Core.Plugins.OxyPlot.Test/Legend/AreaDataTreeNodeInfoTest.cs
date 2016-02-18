@@ -32,6 +32,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
             info = treeNodeInfoLookup[typeof(AreaData)];
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            legendView.Dispose();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {

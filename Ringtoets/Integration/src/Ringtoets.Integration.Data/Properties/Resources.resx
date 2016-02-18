@@ -120,9 +120,6 @@
   <data name="DuneAssessmentSection_DisplayName" xml:space="preserve">
     <value>Duintraject</value>
   </data>
-  <data name="ReferenceLine_DisplayName" xml:space="preserve">
-    <value>Referentielijn</value>
-  </data>
   <data name="FailureMechanismContribution_DisplayName" xml:space="preserve">
     <value>Faalkansverdeling</value>
   </data>

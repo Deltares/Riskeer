@@ -43,12 +43,12 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IToolViewController>();
-            plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
+            var toolViewController = mocks.StrictMock<IToolViewController>();
+            toolViewController.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
 
             mocks.ReplayAll();
 
-            var controller = new LegendController(plugin);
+            var controller = new LegendController(toolViewController);
 
             // Call
             var result = controller.IsLegendViewOpen();
@@ -65,22 +65,22 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var plugin = mocks.StrictMock<IToolViewController>();
+            var toolViewController = mocks.StrictMock<IToolViewController>();
             if (open)
             {
-                plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);
-                plugin.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(c => true)));
-                plugin.Expect(p => p.CloseToolView(Arg<LegendView>.Matches(c => true)));
+                toolViewController.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(false);
+                toolViewController.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(c => true)));
+                toolViewController.Expect(p => p.CloseToolView(Arg<LegendView>.Matches(c => true)));
             }
             else
             {
-                plugin.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(c => true)));
+                toolViewController.Expect(p => p.OpenToolView(Arg<LegendView>.Matches(c => true)));
             }
-            plugin.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
+            toolViewController.Expect(p => p.IsToolWindowOpen<LegendView>()).Return(open);
 
             mocks.ReplayAll();
 
-            var controller = new LegendController(plugin);
+            var controller = new LegendController(toolViewController);
 
             if (open)
             {

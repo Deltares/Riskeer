@@ -46,16 +46,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             mockRepository.ReplayAll();
 
-            var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView
             {
                 Data = distribution
-            };
+            })
+            {
+                ShowFormWithView(distributionView);
 
-            ShowFormWithView(distributionView);
-
-            // Assert
-            Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
-
+                // Assert
+                Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -69,22 +69,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             distribution.Attach(observerMock);
-            var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView
             {
                 Data = distribution
-            };
+            })
+            {
+                ShowFormWithView(distributionView);
 
-            ShowFormWithView(distributionView);
+                // Precondition
+                Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
 
-            // Precondition
-            Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
+                // Call
+                normTester.Properties.Text = 200.ToString();
 
-            // Call
-            normTester.Properties.Text = 200.ToString();
-
-            // Assert
-            Assert.AreEqual(200, distribution.Norm);
-
+                // Assert
+                Assert.AreEqual(200, distribution.Norm);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -109,29 +109,30 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            var distributionView = new FailureMechanismContributionView
+            using (var distributionView = new FailureMechanismContributionView
             {
                 Data = failureMechanism
-            };
+            })
+            {
+                ShowFormWithView(distributionView);
 
-            ShowFormWithView(distributionView);
+                // Precondition
+                Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
 
-            // Precondition
-            Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
+                // Call
+                distributionView.Data = newFailureMechanism;
 
-            // Call
-            distributionView.Data = newFailureMechanism;
+                // Assert
+                Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
 
-            // Assert
-            Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+                // Call
+                failureMechanism.NotifyObservers();
 
-            // Call
-            failureMechanism.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(failureMechanism.Norm, aValue);
-            Assert.AreEqual(newFailureMechanism.Norm, expectedValue);
-            Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+                // Assert
+                Assert.AreEqual(failureMechanism.Norm, aValue);
+                Assert.AreEqual(newFailureMechanism.Norm, expectedValue);
+                Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+            }
 
             mockRepository.VerifyAll();
         }

@@ -25,9 +25,7 @@ using System.Linq;
 
 using Core.Common.Base.Geometry;
 
-using Ringtoets.Common.Data.Properties;
-
-using Resources = Core.Common.Base.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Data
 {
@@ -58,12 +56,12 @@ namespace Ringtoets.Common.Data
         {
             if (newPoints == null)
             {
-                throw new ArgumentNullException("newPoints", Resources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
+                throw new ArgumentNullException("newPoints", RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_cannot_be_null);
             }
             Point2D[] point2Ds = newPoints.ToArray();
             if (point2Ds.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.ReferenceLine_SetGeometry_New_geometry_has_null_coordinate, "newPoints");
+                throw new ArgumentException(RingtoetsCommonDataResources.ReferenceLine_SetGeometry_New_geometry_has_null_coordinate, "newPoints");
             }
 
             Points = point2Ds;

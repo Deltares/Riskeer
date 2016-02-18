@@ -55,7 +55,13 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="FileImporters\ReferenceLineImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RingtoetsApplicationPlugin.cs" />
     <Compile Include="RingtoetsGuiPlugin.cs" />
     <Compile Include="RingtoetsRibbon.xaml.cs">
@@ -108,6 +114,10 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Placeholder\Ringtoets.Common.Placeholder.csproj">
       <Project>{e38c11e0-4384-44dd-9f5b-ee73d79fd7f5}</Project>
       <Name>Ringtoets.Common.Placeholder</Name>
@@ -152,6 +162,12 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

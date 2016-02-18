@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<ReferenceLineContext>
             {
-                Text = context => "Referentielijn",
+                Text = context => RingtoetsFormsResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsFormsResources.ReferenceLineIcon,
                 ForeColor = context => context.WrappedData == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new ReferenceLineContext(nodeData.ReferenceLine, nodeData),
+                new ReferenceLineContext(nodeData),
                 nodeData.FailureMechanismContribution,
                 new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData)
             };

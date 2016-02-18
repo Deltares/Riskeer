@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLine = new ReferenceLine();
 
-            var referenceLineContext = new ReferenceLineContext(referenceLine, assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             // Call
             var text = info.Text(referenceLineContext);
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLine = new ReferenceLine();
 
-            var referenceLineContext = new ReferenceLineContext(referenceLine, assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             // Call
             var image = info.Image(referenceLineContext);
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(null, assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             // Call
             Color color = info.ForeColor(referenceLineContext);
@@ -144,10 +144,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var referenceLine = new ReferenceLine();
-            var referenceLineContext = new ReferenceLineContext(referenceLine, assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             // Call
             Color color = info.ForeColor(referenceLineContext);

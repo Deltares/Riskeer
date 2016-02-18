@@ -164,6 +164,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Referentielijn.
+        /// </summary>
+        internal static string ReferenceLine_DisplayName {
+            get {
+                return ResourceManager.GetString("ReferenceLine_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen presentatie object maken voor een referentielijn zonder een traject als eigenaar..
+        /// </summary>
+        internal static string ReferenceLineContext_Parent_assessment_section_cannot_be_null {
+            get {
+                return ResourceManager.GetString("ReferenceLineContext_Parent_assessment_section_cannot_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ReferenceLineIcon {

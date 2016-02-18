@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Plugin.FileImporters;
+
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -46,6 +49,20 @@ namespace Ringtoets.Integration.Plugin.Test
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, duneAssessmentDataItemDefinition.Image);
             Assert.IsNull(duneAssessmentDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(new Project()));
+        }
+
+        [Test]
+        public void GetFileImporters_ReturnsExpectedFileImporters()
+        {
+            // Setup
+            var plugin = new RingtoetsApplicationPlugin();
+
+            // Call
+            IFileImporter[] importers = plugin.GetFileImporters().ToArray();
+
+            // Assert
+            Assert.AreEqual(1, importers.Length);
+            Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
         }
 
         [Test]

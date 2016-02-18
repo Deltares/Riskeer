@@ -22,9 +22,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Plugin.FileImporters;
+
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -63,6 +66,11 @@ namespace Ringtoets.Integration.Plugin
                     return duneAssessmentSection;
                 }
             };
+        }
+
+        public override IEnumerable<IFileImporter> GetFileImporters()
+        {
+            yield return new ReferenceLineImporter();
         }
 
         private static string GetUniqueForAssessmentSectionName(Project project, string baseName)

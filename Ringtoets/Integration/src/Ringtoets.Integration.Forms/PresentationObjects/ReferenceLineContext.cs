@@ -19,35 +19,87 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
+using Core.Common.Base;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for <see cref="ReferenceLine"/> instances.
     /// </summary>
-    public class ReferenceLineContext
+    public class ReferenceLineContext : Observable, IEquatable<ReferenceLineContext>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineContext"/> class.
         /// </summary>
-        /// <param name="referenceLine">The reference line.</param>
-        /// <param name="parent">The parent owner of <paramref name="referenceLine"/>.</param>
-        public ReferenceLineContext(ReferenceLine referenceLine, AssessmentSectionBase parent)
+        /// <param name="parent">The parent owner of the data represented by the presentation object.</param>
+        public ReferenceLineContext(AssessmentSectionBase parent)
         {
-            WrappedData = referenceLine;
+            if (parent == null)
+            {
+                throw new ArgumentNullException("parent", Resources.ReferenceLineContext_Parent_assessment_section_cannot_be_null);
+            }
             Parent = parent;
         }
 
         /// <summary>
         /// The reference line data wrapped by this presentation object.
         /// </summary>
-        public ReferenceLine WrappedData { get; private set; }
+        public ReferenceLine WrappedData
+        {
+            get
+            {
+                return Parent.ReferenceLine;
+            }
+        }
 
         /// <summary>
         /// The assessment section owning <see cref="WrappedData"/>.
         /// </summary>
         public AssessmentSectionBase Parent { get; private set; }
+
+        #region Implementation: IEquatable<ReferenceLineContext>
+
+        public bool Equals(ReferenceLineContext other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Parent.Equals(other.Parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((ReferenceLineContext)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Parent.GetHashCode();
+        }
+
+        #endregion
     }
 }
