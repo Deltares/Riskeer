@@ -126,4 +126,13 @@
   <data name="HydraulicBoundaryLocationsImporter_Import_cancelled" xml:space="preserve">
     <value>Locaties van hydraulische randvoorwaarden importeren is afgebroken. Er is geen data ingelezen.</value>
   </data>
+  <data name="HydraulicBoundaryLocationsImporter_Import_Import_successful" xml:space="preserve">
+    <value>Locaties uit de hydraulische randvoorwaarden ingelezen</value>
+  </data>
+  <data name="HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations" xml:space="preserve">
+    <value>Inlezen van de de hydraulische randvoorwaarden database</value>
+  </data>
+  <data name="HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult" xml:space="preserve">
+    <value>Inlezen van de locaties uit de hydraulische randvoorwaarden database</value>
+  </data>
 </root>

@@ -79,6 +79,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             // Setup
             string filePath = Path.Combine(testDataPath, filename);
             var importer = new HydraulicBoundaryLocationsImporter();
+            var expectedMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
 
             // Call
             Action call = () => importer.ValidateFile(filePath);
@@ -87,8 +88,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var ExpectedMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
-                StringAssert.EndsWith(ExpectedMessage, messageArray[0]);
+                StringAssert.EndsWith(expectedMessage, messageArray[0]);
             });
         }
 
@@ -156,9 +156,15 @@ namespace Ringtoets.HydraRing.Plugin.Test
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
 
             // Call
-            var importResult = importer.Import(importTarget, validFilePath);
+            var importResult = false;
+            Action call = () => importResult = importer.Import(importTarget, validFilePath);
 
             // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                StringAssert.EndsWith(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_Import_Import_successful, messageArray[0]);
+            });
             Assert.IsTrue(importResult);
             Assert.AreEqual(18, importTarget.Count);
             CollectionAssert.AllItemsAreNotNull(importTarget);

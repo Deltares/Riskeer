@@ -21,6 +21,9 @@
 
 namespace Ringtoets.HydraRing.IO
 {
+    /// <summary>
+    /// Represents columns that are set in the queries to the hydraulic boundary database.
+    /// </summary>
     internal static class HydraulicBoundaryDatabaseColumns
     {
         internal const string Version = "Version";

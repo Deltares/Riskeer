@@ -35,6 +35,9 @@ using ApplicationResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
 
 namespace Ringtoets.HydraRing.Plugin
 {
+    /// <summary>
+    /// Imports Hydraulic boundary .sqlite files (SqlLite database files).
+    /// </summary>
     public class HydraulicBoundaryLocationsImporter : IFileImporter
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsImporter));
@@ -140,7 +143,7 @@ namespace Ringtoets.HydraRing.Plugin
                 if (!shouldCancel)
                 {
                     AddImportedDataToModel(targetItem, importResult);
-                    log.Info("Locaties uit de hydraulische randvoorwaarden ingelezen");
+                    log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_Import_successful);
                     return true;
                 }
 
@@ -161,7 +164,7 @@ namespace Ringtoets.HydraRing.Plugin
 
         private ReadResult<HydraulicBoundaryLocation> ReadHydraulicBoundaryLocations(string path)
         {
-            NotifyProgress("Inlezen van de de hydraulische randvoorwaarden database", 1, 1);
+            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations, 1, 1);
 
             try
             {
@@ -197,7 +200,7 @@ namespace Ringtoets.HydraRing.Plugin
                 }
                 try
                 {
-                    NotifyProgress("Inlezen van de locaties uit de hydraulische randvoorwaarden database", currentStep++, totalNumberOfSteps);
+                    NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
                     locations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());
                 }
                 catch (CriticalFileReadException e)
@@ -217,8 +220,8 @@ namespace Ringtoets.HydraRing.Plugin
         {
             var targetCollection = (ICollection<HydraulicBoundaryLocation>) target;
 
-            int totalProfileCount = imported.ImportedItems.Count;
-            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model, totalProfileCount, totalProfileCount);
+            int totalCount = imported.ImportedItems.Count;
+            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model, totalCount, totalCount);
 
             foreach (var item in imported.ImportedItems)
             {
