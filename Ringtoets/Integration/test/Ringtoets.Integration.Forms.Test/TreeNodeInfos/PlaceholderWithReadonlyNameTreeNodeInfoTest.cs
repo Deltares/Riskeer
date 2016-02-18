@@ -27,6 +27,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PlaceholderWithReadonlyName));
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {

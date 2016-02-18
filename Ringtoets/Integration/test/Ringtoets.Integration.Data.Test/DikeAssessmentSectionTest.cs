@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<AssessmentSectionBase>(section);
 
             Assert.AreEqual("Dijktraject", section.Name);
-            Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
+            Assert.IsNull(section.ReferenceLine);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.SoilProfiles);

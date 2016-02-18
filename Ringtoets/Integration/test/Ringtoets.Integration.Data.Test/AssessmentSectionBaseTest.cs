@@ -21,8 +21,23 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(assessmentSection);
             Assert.AreEqual(String.Empty, assessmentSection.Name);
-            Assert.AreEqual("Referentielijn", assessmentSection.ReferenceLine.Name);
+            Assert.IsNull(assessmentSection.ReferenceLine);
             Assert.IsNull(assessmentSection.FailureMechanismContribution);
+        }
+
+        [Test]
+        public void SimpleProperties_SetNewValue_GetNewlySetValue()
+        {
+            // Setup
+            var assessmentSection = new SimpleAssessmentSection();
+
+            var newReferenceLine = new ReferenceLine();
+
+            // Call
+            assessmentSection.ReferenceLine = newReferenceLine;
+
+            // Assert
+            Assert.AreSame(newReferenceLine, assessmentSection.ReferenceLine);
         }
 
         private class SimpleAssessmentSection : AssessmentSectionBase {

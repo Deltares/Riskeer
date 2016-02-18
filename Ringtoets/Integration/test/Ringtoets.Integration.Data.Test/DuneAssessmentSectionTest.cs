@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             Assert.AreEqual("Duintraject", section.Name);
-            Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
+            Assert.IsNull(section.ReferenceLine);
             Assert.AreEqual(duneErosionName, section.DuneErosionFailureMechanism.Name);
 
             Assert.AreEqual(70, section.DuneErosionFailureMechanism.Contribution);

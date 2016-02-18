@@ -16,7 +16,6 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Plugin;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -35,6 +34,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
+        }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            base.TearDown();
         }
 
         [Test]

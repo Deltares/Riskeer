@@ -42,7 +42,6 @@ namespace Ringtoets.Integration.Data
         protected AssessmentSectionBase()
         {
             Name = "";
-            ReferenceLine = new InputPlaceholder(Resources.ReferenceLine_DisplayName);
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
         }
 
@@ -54,7 +53,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets or sets the reference line defining the geometry of the dike assessment section.
         /// </summary>
-        public InputPlaceholder ReferenceLine { get; private set; }
+        public ReferenceLine ReferenceLine { get; set; }
 
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.

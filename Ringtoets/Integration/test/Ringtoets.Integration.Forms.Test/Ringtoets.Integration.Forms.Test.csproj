@@ -58,6 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionBaseTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="TreeNodeInfos\PlaceholderWithReadonlyNameTreeNodeInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DikeAssessmentSectionPropertiesTest.cs" />
+    <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

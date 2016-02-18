@@ -40,9 +40,9 @@ using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
-using Ringtoets.Piping.Data;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -123,6 +123,17 @@ namespace Ringtoets.Integration.Plugin
                 OnNodeRemoved = AssessmentSectionBaseOnNodeRemoved
             };
 
+            yield return new TreeNodeInfo<ReferenceLineContext>
+            {
+                Text = context => "Referentielijn",
+                Image = context => RingtoetsFormsResources.ReferenceLineIcon,
+                ForeColor = context => context.WrappedData == null ? 
+                    Color.FromKnownColor(KnownColor.GrayText) : 
+                    Color.FromKnownColor(KnownColor.ControlText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => 
+                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
+            };
+
             yield return new TreeNodeInfo<FailureMechanismPlaceholder>
             {
                 Text = failureMechanismPlaceholder => failureMechanismPlaceholder.Name,
@@ -174,7 +185,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                nodeData.ReferenceLine,
+                new ReferenceLineContext(nodeData.ReferenceLine, nodeData),
                 nodeData.FailureMechanismContribution,
                 new HydraulicBoundaryDatabaseContext (nodeData.HydraulicBoundaryDatabase, nodeData)
             };

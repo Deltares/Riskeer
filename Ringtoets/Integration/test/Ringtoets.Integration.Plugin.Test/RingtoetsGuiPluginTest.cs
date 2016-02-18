@@ -13,6 +13,7 @@ using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -81,8 +82,9 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(6, treeNodeInfos.Length);
+                Assert.AreEqual(7, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionBase)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PlaceholderWithReadonlyName)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismPlaceholder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));

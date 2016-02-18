@@ -12,6 +12,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -30,6 +31,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSectionBase));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
         }
 
         [Test]
@@ -119,7 +126,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(4, objects.Length);
-            Assert.AreSame(assessmentSection.ReferenceLine, objects[0]);
+            var referenceLineContext = (ReferenceLineContext)objects[0];
+            Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
+            Assert.AreSame(assessmentSection, referenceLineContext.Parent);
+
             Assert.AreSame(contribution, objects[1]);
 
             var context = (HydraulicBoundaryDatabaseContext)objects[2];
