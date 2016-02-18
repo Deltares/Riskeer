@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using MathNet.Numerics.LinearAlgebra.Double;
 using Ringtoets.Piping.Data.Calculation;
 using Ringtoets.Piping.Data.Exceptions;
@@ -76,6 +74,26 @@ namespace Ringtoets.Piping.Data
         public Point3D EndingWorldPoint { get; private set; }
 
         /// <summary>
+        /// Gets the point which characterizes the ditch at polder side.
+        /// </summary>
+        public Point3D DitchPolderSide { get; private set; }
+
+        /// <summary>
+        /// Gets the point which characterizes the bottom of the ditch at polder side.
+        /// </summary>
+        public Point3D BottomDitchPolderSide { get; private set; }
+
+        /// <summary>
+        /// Gets the point which characterizes the bottom of the ditch at dike side.
+        /// </summary>
+        public Point3D BottomDitchDikeSide { get; private set; }
+
+        /// <summary>
+        /// Gets the point which characterizes the ditch at dike side.
+        /// </summary>
+        public Point3D DitchDikeSide { get; private set; }
+
+        /// <summary>
         /// Sets the geometry of the surfaceline.
         /// </summary>
         /// <param name="points">The collection of points defining the surfaceline geometry.</param>
@@ -97,6 +115,65 @@ namespace Ringtoets.Piping.Data
                 StartingWorldPoint = geometryPoints[0];
                 EndingWorldPoint = geometryPoints[geometryPoints.Length - 1];
             }
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DitchPolderSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException"><see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDitchPolderSideAt(Point3D point)
+        {
+            var pointToSet = Points.FirstOrDefault(p => p.Equals(point));
+            if (pointToSet == null)
+            {
+                throw CreateCharacteristicPointSetException(point);
+            }
+            DitchPolderSide = pointToSet;
+        }
+
+        private static ArgumentException CreateCharacteristicPointSetException(Point3D point)
+        {
+            var message = string.Format(Core.Common.Base.Properties.Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                                        point.X,
+                                        point.Y,
+                                        point.Z);
+            return new ArgumentException(message);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        public void SetBottomDitchPolderSideAt(Point3D point)
+        {
+            
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        public void SetBottomDitchDikeSideAt(Point3D point)
+        {
+            
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DitchDikeSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        public void SetDitchDikeSideAt(Point3D point)
+        {
+            
         }
 
         /// <summary>
@@ -194,9 +271,9 @@ namespace Ringtoets.Piping.Data
             // Project each vector onto the 'spanning vector' to determine it's X coordinate in local coordinates:
             for (int i = 0; i < worldCoordinateVectors.Length - 1; i++)
             {
-                double projectOnSpanningVectorFactor = (worldCoordinateVectors[i].DotProduct(spanningVector)) /
+                double projectOnSpanningVectorFactor = (worldCoordinateVectors[i].DotProduct(spanningVector))/
                                                        (spanningVectorDotProduct);
-                localCoordinatesX[i + 1] = projectOnSpanningVectorFactor * length;
+                localCoordinatesX[i + 1] = projectOnSpanningVectorFactor*length;
             }
             localCoordinatesX[localCoordinatesX.Length - 1] = length;
         }

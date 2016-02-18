@@ -167,9 +167,29 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen &apos;{0}&apos;.
         /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen &apos;{0}&apos;.
+        /// </summary>
         public static string PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_ {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///Deze locatie met karakteristieke punten wordt overgeslagen..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_Charac" +
+                        "teristicPoints_skipped", resourceCulture);
             }
         }
         

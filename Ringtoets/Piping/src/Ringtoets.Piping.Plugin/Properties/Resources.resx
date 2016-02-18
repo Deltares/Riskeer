@@ -166,4 +166,11 @@ Deze ondergrondschematisering wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_" xml:space="preserve">
     <value>Geen karakteristieke punten-bestand gevonden naast het profielmetingenbestand. (Verwacht bestand: {0})</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped" xml:space="preserve">
+    <value>{0}
+Deze locatie met karakteristieke punten wordt overgeslagen.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_" xml:space="preserve">
+    <value>Inlezen '{0}'</value>
+  </data>
 </root>

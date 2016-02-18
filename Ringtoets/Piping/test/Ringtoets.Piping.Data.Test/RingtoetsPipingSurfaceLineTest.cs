@@ -250,5 +250,43 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(niceName, text);
         }
+
+        [Test]
+        public void SetDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D
+            {
+                X = testX, Y = testY, Z = testZ
+            };
+            var random = new Random(21);
+            var points = new[]
+            {
+                new Point3D
+                {
+                    X = random.NextDouble(), Y = random.NextDouble(), Z = random.NextDouble()
+                },
+                new Point3D
+                {
+                    X = testX, Y = testY, Z = testZ
+                },
+                new Point3D
+                {
+                    X = 2 + random.NextDouble(), Y = random.NextDouble(), Z = random.NextDouble()
+                }
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(points);
+
+            // Call
+            surfaceLine.SetDitchPolderSideAt(testPoint);
+
+            // Assert
+            Assert.AreEqual(testPoint, surfaceLine.DitchPolderSide);
+            Assert.AreNotSame(testPoint, surfaceLine.DitchPolderSide);
+        }
     }
 }

@@ -150,4 +150,7 @@
   <data name="ReferenceLineReader_File_contains_unsupported_multi_polyline" xml:space="preserve">
     <value>Bestand bevat 1 multi-polylijn, welke niet ondersteund is.</value>
   </data>
+  <data name="RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point" xml:space="preserve">
+    <value>De geometrie bevat geen punt op locatie ({0},{1},{2}) om als karakteristiek punt in te stellen.</value>
+  </data>
 </root>

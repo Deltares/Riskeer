@@ -105,34 +105,102 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public bool Import(object targetItem, string filePath)
         {
-            var importResult = ReadPipingSurfaceLines(filePath);
+            var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
 
-            if (!importResult.CriticalErrorOccurred)
+            if (importSurfaceLinesResult.CriticalErrorOccurred)
             {
-                if (!shouldCancel)
-                {
-                    FindCharacteristicPointsFile(filePath);
-
-                    AddImportedDataToModel(targetItem, importResult.ImportedItems);
-
-                    return true;
-                }
-
-                HandleUserCancellingImport();
+                return false;
             }
 
-            return false;
+            if (shouldCancel)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
+
+            var importCharacteristicPointsResult = ReadCharacteristicPoints(filePath);
+
+            if (importCharacteristicPointsResult.CriticalErrorOccurred)
+            {
+                return false;
+            }
+
+            if (shouldCancel)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
+
+            AddImportedDataToModel(targetItem, importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
+
+            return true;
         }
 
-        private void FindCharacteristicPointsFile(string filePath)
+        private PipingReadResult<PipingCharacteristicPointsLocation> ReadCharacteristicPoints(string surfaceLineFilePath)
         {
-            var characteristicPointsFilePath = filePath.Insert(filePath.Length - 4, characteristicPointsFileSubExtension);
-            var hasCharacteristicPointsFile = File.Exists(characteristicPointsFilePath);
+            var path = surfaceLineFilePath.Insert(surfaceLineFilePath.Length - 4, characteristicPointsFileSubExtension);
+            var hasCharacteristicPointsFile = File.Exists(path);
 
             if (!hasCharacteristicPointsFile)
             {
-                log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, characteristicPointsFilePath));
+                log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path));
+                return new PipingReadResult<PipingCharacteristicPointsLocation>(false);
             }
+
+            PipingCharacteristicPointsCsvReader reader;
+            try
+            {
+                reader = new PipingCharacteristicPointsCsvReader(path);
+            }
+            catch (ArgumentException e)
+            {
+                return HandleCriticalCharacteristicPointsReadError(e);
+            }
+
+            var stepName = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
+                                         Path.GetFileName(path));
+            
+            int itemCount;
+            try
+            {
+                itemCount = reader.GetLocationsCount();
+                NotifyProgress(stepName, 0, itemCount);
+            }
+            catch (CriticalFileReadException e)
+            {
+                reader.Dispose();
+                return HandleCriticalCharacteristicPointsReadError(e);
+            }
+
+
+            var readCharacteristicPointsLocations = new List<PipingCharacteristicPointsLocation>(itemCount);
+            for (int i = 0; i < itemCount && !shouldCancel; i++)
+            {
+                try
+                {
+                    var pipingCharacteristicPointsLocation = reader.ReadCharacteristicPointsLocation();
+                    readCharacteristicPointsLocations.Add(pipingCharacteristicPointsLocation);
+                }
+                catch (CriticalFileReadException e)
+                {
+                    reader.Dispose();
+                    return HandleCriticalCharacteristicPointsReadError(e);
+                }
+                catch (LineParseException e)
+                {
+                    var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
+                                                e.Message);
+                    log.Error(message);
+                }
+                NotifyProgress(stepName, i + 1, itemCount);
+            }
+
+            reader.Dispose();
+
+            return new PipingReadResult<PipingCharacteristicPointsLocation>(false)
+            {
+                ImportedItems = readCharacteristicPointsLocations
+            };
         }
 
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
@@ -152,10 +220,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             catch (ArgumentException e)
             {
-                return HandleCriticalError(path, e);
+                return HandleCriticalSurfaceLineReadError(e);
             }
 
-            var stepName = String.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
+            var stepName = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
                                          Path.GetFileName(path));
 
             int itemCount;
@@ -167,7 +235,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             catch (CriticalFileReadException e)
             {
                 reader.Dispose();
-                return HandleCriticalError(path, e);
+                return HandleCriticalSurfaceLineReadError(e);
             }
 
             var readSurfaceLines = new List<RingtoetsPipingSurfaceLine>(itemCount);
@@ -182,7 +250,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 catch (CriticalFileReadException e)
                 {
                     reader.Dispose();
-                    return HandleCriticalError(path, e);
+                    return HandleCriticalSurfaceLineReadError(e);
                 }
                 catch (LineParseException e)
                 {
@@ -227,7 +295,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private PipingReadResult<RingtoetsPipingSurfaceLine> HandleCriticalError(string path, Exception e)
+        private PipingReadResult<RingtoetsPipingSurfaceLine> HandleCriticalSurfaceLineReadError(Exception e)
         {
             var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
@@ -235,13 +303,29 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return new PipingReadResult<RingtoetsPipingSurfaceLine>(true);
         }
 
-        private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines)
+        private PipingReadResult<PipingCharacteristicPointsLocation> HandleCriticalCharacteristicPointsReadError(Exception e)
+        {
+            var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                                        e.Message);
+            log.Error(message);
+            return new PipingReadResult<PipingCharacteristicPointsLocation>(true);
+        }
+
+        private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<PipingCharacteristicPointsLocation> readCharacteristicPointsLocations)
         {
             NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 
             var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>)target;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
+                var characteristicPointsLocation = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);
+                if (characteristicPointsLocation != null)
+                {
+                    readSurfaceLine.SetDitchPolderSideAt(characteristicPointsLocation.DitchPolderSide);
+                    readSurfaceLine.SetBottomDitchPolderSideAt(characteristicPointsLocation.BottomDitchPolderSide);
+                    readSurfaceLine.SetBottomDitchDikeSideAt(characteristicPointsLocation.BottomDitchDikeSide);
+                    readSurfaceLine.SetDitchDikeSideAt(characteristicPointsLocation.DitchDikeSide);
+                }
                 targetCollection.Add(readSurfaceLine);
             }
         }
