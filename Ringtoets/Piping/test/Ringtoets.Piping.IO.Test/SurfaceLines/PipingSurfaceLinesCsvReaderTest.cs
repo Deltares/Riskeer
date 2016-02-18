@@ -6,10 +6,11 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.SurfaceLines;
 using IOResources = Ringtoets.Piping.IO.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.Piping.IO.Test
+namespace Ringtoets.Piping.IO.Test.SurfaceLines
 {
     [TestFixture]
     public class PipingSurfaceLinesCsvReaderTest
@@ -20,19 +21,18 @@ namespace Ringtoets.Piping.IO.Test
         [TestCase("")]
         [TestCase(null)]
         [TestCase("     ")]
-        public void ParameterdConstructor_InvalidStringArgument_ThrowsArgumentException(string path)
+        public void Constructor_InvalidStringArgument_ThrowsArgumentException(string path)
         {
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(path);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
             var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
-        public void ParameterdConstructor_InvalidPathCharactersInPath_ThrowsArgumentException()
+        public void Constructor_InvalidPathCharactersInPath_ThrowsArgumentException()
         {
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
@@ -45,14 +45,13 @@ namespace Ringtoets.Piping.IO.Test
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(corruptPath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
             var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
                                                                                               String.Join(", ", Path.GetInvalidFileNameChars())));
-            Assert.AreEqual(expectedMessage, exception.Message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
-        public void ParametersConstructor_PathToFolder_ThrowsArgumentException()
+        public void Constructor_PathToFolder_ThrowsArgumentException()
         {
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(testDataPath);
@@ -64,7 +63,7 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void ParameterdConstructor_AnyPath_ExpectedValues()
+        public void Constructor_AnyPath_ExpectedValues()
         {
             // Setup
             const string fakeFilePath = @"I\Dont\Really\Exist";
@@ -215,7 +214,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build("Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).");
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build("Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -444,7 +443,7 @@ namespace Ringtoets.Piping.IO.Test
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 var expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1).");
+                    .Build("Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

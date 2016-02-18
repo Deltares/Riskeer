@@ -1,16 +1,17 @@
 ﻿using System;
 using NUnit.Framework;
+using Ringtoets.Piping.IO.SurfaceLines;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.Piping.IO.Test.SurfaceLines
 {
     [TestFixture]
-    public class PipingCharacteristicPointsLocationTest
+    public class CharacteristicPointsTest
     {
         [Test]
         public void Constructor_WithNullName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingCharacteristicPointsLocation(null);
+            TestDelegate test = () => new CharacteristicPoints(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -22,7 +23,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithName_ThrowsArgumentNullException(string name)
         {
             // Call
-            var location = new PipingCharacteristicPointsLocation(name);
+            var location = new CharacteristicPoints(name);
 
             // Assert
             Assert.AreEqual(name, location.Name);

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -28,11 +28,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
-namespace Ringtoets.Piping.IO
+namespace Ringtoets.Piping.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing
@@ -44,100 +43,59 @@ namespace Ringtoets.Piping.IO
     /// Where {LocationID} has to be a particular accepted text, {Volgnummer} is ignored, and n triplets of doubles form the
     /// 3D coordinates defining each characteristic point.
     /// </summary>
-    public class PipingCharacteristicPointsCsvReader : IDisposable
+    public class CharacteristicPointsCsvReader : IDisposable
     {
+        private const char separator = ';';
+
         #region csv columns
 
         private const string locationIdKey = "locationid";
         private const string surfaceLineKey = "profielnaam";
-        private const string surfaceLevelInsideXKey = "x_maaiveld_binnenwaarts";
-        private const string surfaceLevelInsideYKey = "y_maaiveld_binnenwaarts";
-        private const string surfaceLevelInsideZKey = "z_maaiveld_binnenwaarts";
-        private const string ditchPolderSideXKey = "x_insteek_sloot_polderzijde";
-        private const string ditchPolderSideYKey = "y_insteek_sloot_polderzijde";
-        private const string ditchPolderSideZKey = "z_insteek_sloot_polderzijde";
-        private const string bottomDitchPolderSideXKey = "x_slootbodem_polderzijde";
-        private const string bottomDitchPolderSideYKey = "y_slootbodem_polderzijde";
-        private const string bottomDitchPolderSideZKey = "z_slootbodem_polderzijde";
-        private const string bottomDitchDikeSideXKey = "x_slootbodem_dijkzijde";
-        private const string bottomDitchDikeSideYKey = "y_slootbodem_dijkzijde";
-        private const string bottomDitchDikeSideZKey = "z_slootbodem_dijkzijde";
-        private const string ditchDikeSideXKey = "x_insteek_sloot_dijkzijde";
-        private const string ditchDikeSideYKey = "y_insteek_sloot_dijkzijde";
-        private const string ditchDikeSideZKey = "z_insteek_sloot_dijkzijde";
-        private const string dikeToeAtPolderXKey = "x_teen_dijk_binnenwaarts";
-        private const string dikeToeAtPolderYKey = "y_teen_dijk_binnenwaarts";
-        private const string dikeToeAtPolderZKey = "z_teen_dijk_binnenwaarts";
-        private const string topShoulderInsideXKey = "x_kruin_binnenberm";
-        private const string topShoulderInsideYKey = "y_kruin_binnenberm";
-        private const string topShoulderInsideZKey = "z_kruin_binnenberm";
-        private const string shoulderInsideXKey = "x_insteek_binnenberm";
-        private const string shoulderInsideYKey = "y_insteek_binnenberm";
-        private const string shoulderInsideZKey = "z_insteek_binnenberm";
-        private const string dikeTopAtPolderXKey = "x_kruin_binnentalud";
-        private const string dikeTopAtPolderYKey = "y_kruin_binnentalud";
-        private const string dikeTopAtPolderZKey = "z_kruin_binnentalud";
-        private const string trafficLoadInsideXKey = "x_verkeersbelasting_kant_binnenwaarts";
-        private const string trafficLoadInsideYKey = "y_verkeersbelasting_kant_binnenwaarts";
-        private const string trafficLoadInsideZKey = "z_verkeersbelasting_kant_binnenwaarts";
-        private const string trafficLoadOutsideXKey = "x_verkeersbelasting_kant_buitenwaarts";
-        private const string trafficLoadOutsideYKey = "y_verkeersbelasting_kant_buitenwaarts";
-        private const string trafficLoadOutsideZKey = "z_verkeersbelasting_kant_buitenwaarts";
-        private const string dikeTopAtRiverXKey = "x_kruin_buitentalud";
-        private const string dikeTopAtRiverYKey = "y_kruin_buitentalud";
-        private const string dikeTopAtRiverZKey = "z_kruin_buitentalud";
-        private const string shoulderOutsideXKey = "x_insteek_buitenberm";
-        private const string shoulderOutsideYKey = "y_insteek_buitenberm";
-        private const string shoulderOutsideZKey = "z_insteek_buitenberm";
-        private const string topShoulderOutsideXKey = "x_kruin_buitenberm";
-        private const string topShoulderOutsideYKey = "y_kruin_buitenberm";
-        private const string topShoulderOutsideZKey = "z_kruin_buitenberm";
-        private const string dikeToeAtRiverXKey = "x_teen_dijk_buitenwaarts";
-        private const string dikeToeAtRiverYKey = "y_teen_dijk_buitenwaarts";
-        private const string dikeToeAtRiverZKey = "z_teen_dijk_buitenwaarts";
-        private const string surfaceLevelOutsideXKey = "x_maaiveld_buitenwaarts";
-        private const string surfaceLevelOutsideYKey = "y_maaiveld_buitenwaarts";
-        private const string surfaceLevelOutsideZKey = "z_maaiveld_buitenwaarts";
-        private const string dikeTableHeightXKey = "x_dijktafelhoogte";
-        private const string dikeTableHeightYKey = "y_dijktafelhoogte";
-        private const string dikeTableHeightZKey = "z_dijktafelhoogte";
-        private const string insertRiverChannelXKey = "x_insteek_geul";
-        private const string insertRiverChannelYKey = "y_insteek_geul";
-        private const string insertRiverChannelZKey = "z_insteek_geul";
-        private const string bottomRiverChannelXKey = "x_teen_geul";
-        private const string bottomRiverChannelYKey = "y_teen_geul";
-        private const string bottomRiverChannelZKey = "z_teen_geul";
+        private const string surfaceLevelInsideKey = "maaiveld_binnenwaarts";
+        private const string ditchPolderSideKey = "insteek_sloot_polderzijde";
+        private const string bottomDitchPolderSideKey = "slootbodem_polderzijde";
+        private const string bottomDitchDikeSideKey = "slootbodem_dijkzijde";
+        private const string ditchDikeSideKey = "insteek_sloot_dijkzijde";
+        private const string dikeToeAtPolderKey = "teen_dijk_binnenwaarts";
+        private const string topShoulderInsideKey = "kruin_binnenberm";
+        private const string shoulderInsideKey = "insteek_binnenberm";
+        private const string dikeTopAtPolderKey = "kruin_binnentalud";
+        private const string trafficLoadInsideKey = "verkeersbelasting_kant_binnenwaarts";
+        private const string trafficLoadOutsideKey = "verkeersbelasting_kant_buitenwaarts";
+        private const string dikeTopAtRiverKey = "kruin_buitentalud";
+        private const string shoulderOutsideKey = "insteek_buitenberm";
+        private const string topShoulderOutsideKey = "kruin_buitenberm";
+        private const string dikeToeAtRiverKey = "teen_dijk_buitenwaarts";
+        private const string surfaceLevelOutsideKey = "maaiveld_buitenwaarts";
+        private const string dikeTableHeightKey = "dijktafelhoogte";
+        private const string insertRiverChannelKey = "insteek_geul";
+        private const string bottomRiverChannelKey = "teen_geul";
         private const string orderNumberKey = "volgnummer";
 
         #endregion
 
-        private const char separator = ';';
+        private const string xPrefix = "x_";
+        private const string yPrefix = "y_";
+        private const string zPrefix = "z_";
 
         private readonly string filePath;
 
         /// <summary>
         /// Lower case string representations of the known characteristic point types.
         /// </summary>
-        private IList<string> columnsInFile;
+        private Dictionary<string,int> columnsInFile = new Dictionary<string, int>();
 
         private StreamReader fileReader;
 
-        /// <summary>
-        /// The next line number to be read by this reader.
-        /// </summary>
         private int lineNumber;
 
-        private const string xPrefix = "x_";
-        private const string yPrefix = "y_";
-        private const string zPrefix = "z_";
-
         /// <summary>
-        /// Initializes a new instance of <see cref="PipingCharacteristicPointsCsvReader"/> using
+        /// Initializes a new instance of <see cref="CharacteristicPointsCsvReader"/> using
         /// the given <paramref name="path"/>.
         /// </summary>
         /// <param name="path">The path to use for reading characteristic points.</param>
         /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
-        public PipingCharacteristicPointsCsvReader(string path)
+        public CharacteristicPointsCsvReader(string path)
         {
             FileUtils.ValidateFilePath(path);
 
@@ -145,18 +103,18 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Reads the file to determine the number of available <see cref="PipingCharacteristicPointsLocation"/>
+        /// Reads the file to determine the number of available <see cref="CriticalFileReadException"/>
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
-        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <exception cref="CharacteristicPoints">A critical error has occurred, which may be caused by:
         /// <list type="bullet">
-        /// <item>File cannot be found at specified path.</item>
+        /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>File incompatible for importing characteristic points locations.</item>
+        /// <item>The file incompatible for importing characteristic points locations.</item>
         /// </list>
         /// </exception>
         public int GetLocationsCount()
@@ -170,30 +128,30 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Reads and consumes the next data row containing a characteristic points location, parsing the data to 
-        /// create an instance of <see cref="PipingCharacteristicPointsLocation"/>.
+        /// Reads and parses the next data row to create a new instance of <see cref="CharacteristicPoints"/>,
+        /// which will contain all the declared characteristic points for some surfaceline.
         /// </summary>
         /// <returns>Return the parsed characteristic points location, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
         /// <list type="bullet">
-        /// <item>File cannot be found at specified path.</item>
+        /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>File incompatible for importing characteristic points.</item>
+        /// <item>The file incompatible for importing characteristic points.</item>
         /// </list>
         /// </exception>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
-        /// <item>The row doesn't contain any supported separator character.</item>
+        /// <item>The row doesn't use ';' as separator character.</item>
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
         /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
         /// <item>The row is missing an identifier value.</item>
         /// <item>The row is missing values to form a characteristic point.</item>
         /// </list>
         /// </exception>
-        public PipingCharacteristicPointsLocation ReadCharacteristicPointsLocation()
+        public CharacteristicPoints ReadCharacteristicPointsLocation()
         {
             if (fileReader == null)
             {
@@ -220,27 +178,6 @@ namespace Ringtoets.Piping.IO
             return null;
         }
 
-        /// <summary>
-        /// Reads lines from file until the first non white line is hit.
-        /// </summary>
-        /// <returns>The next line which is not a whiteline, or <c>null</c> when no non white line could be found before the
-        /// end of file.</returns>
-        private string ReadNextNonEmptyLine()
-        {
-            var readText = string.Empty;
-            var isWhiteSpace = new Func<string, bool>(s => s != null && s.All(char.IsWhiteSpace));
-
-            while (isWhiteSpace(readText))
-            {
-                readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
-                if (isWhiteSpace(readText))
-                {
-                    lineNumber++;
-                }
-            }
-            return readText;
-        }
-
         public void Dispose()
         {
             if (fileReader != null)
@@ -248,6 +185,28 @@ namespace Ringtoets.Piping.IO
                 fileReader.Dispose();
                 fileReader = null;
             }
+        }
+
+        /// <summary>
+        /// Reads lines from file until the first non-white line is hit.
+        /// </summary>
+        /// <returns>The next line which is not a white line, or <c>null</c> when no non-white line could be found before the
+        /// end of file.</returns>
+        private string ReadNextNonEmptyLine()
+        {
+            string readText;
+            while ((readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber)) != null)
+            {
+                if (string.IsNullOrWhiteSpace(readText))
+                {
+                    lineNumber++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return readText;
         }
 
         /// <summary>
@@ -297,21 +256,6 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
-        /// </summary>
-        /// <param name="currentLine">The line number being read.</param>
-        /// <param name="criticalErrorMessage">The critical error message.</param>
-        /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
-        /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
-        private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
-        {
-            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
-            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
-                                                                     .Build(criticalErrorMessage);
-            return new CriticalFileReadException(message, innerException);
-        }
-
-        /// <summary>
         /// Checks whether the given <paramref name="header"/> is valid. A valid header has a locationid column and is followed by triplets
         /// of x_{characteristic_point_type};y_{characteristic_point_type};z_{characteristic_point_type} triplets.
         /// </summary>
@@ -319,41 +263,80 @@ namespace Ringtoets.Piping.IO
         /// <returns><c>true</c> if the <paramref name="header"/> is valid, <c>false</c> otherwise.</returns>
         private bool IsHeaderValid(string header)
         {
-            string[] tokenizedHeader = TokenizeString(header.ToLowerInvariant().Replace(' ','_'));
+            columnsInFile.Clear();
 
-            var hasLocationColumn = tokenizedHeader.Contains(locationIdKey) || tokenizedHeader.Contains(surfaceLineKey);
-            var hasOrderNumberColumn = tokenizedHeader.Contains(orderNumberKey);
-            if (!hasLocationColumn)
+            string[] tokenizedHeader = TokenizeString(header.ToLowerInvariant().Replace(' ', '_'));
+
+            if (!DetermineIdColumn(tokenizedHeader))
             {
                 return false;
             }
 
-            var columnsValid = true;
-            var pointCount = 0;
             foreach (string column in tokenizedHeader)
             {
                 if (column.StartsWith(xPrefix))
                 {
-                    pointCount++;
-                    var key = column.Substring(2);
-                    columnsValid &= tokenizedHeader.Contains(yPrefix + key);
-                    columnsValid &= tokenizedHeader.Contains(zPrefix + key);
-                }
-                if (!columnsValid)
-                {
-                    return false;
+                    if (!DetermineRequiredYZColumns(column, tokenizedHeader))
+                    {
+                        return false;
+                    }
                 }
             }
 
-            var nonPointColumns = hasOrderNumberColumn ? 2 : 1;
-            var pointColumns = tokenizedHeader.Length - nonPointColumns;
-            if (pointColumns % 3 > 0 || pointColumns / 3 != pointCount)
+            DetermineOrderColumn(tokenizedHeader);
+
+            return tokenizedHeader.Length == columnsInFile.Count;
+        }
+
+        private void DetermineOrderColumn(string[] tokenizedHeader)
+        {
+            var orderColumnIndex = Array.IndexOf(tokenizedHeader, orderNumberKey);
+            if (orderColumnIndex > -1)
+            {
+                columnsInFile[orderNumberKey] = orderColumnIndex;
+                return;
+            }
+        }
+
+        private bool DetermineRequiredYZColumns(string column, string[] tokenizedHeader)
+        {
+            var key = column.Substring(2);
+
+            var xColumnIdentifier = xPrefix + key;
+            var yColumnIdentifier = yPrefix + key;
+            var zColumnIdentifier = zPrefix + key;
+
+            var xColumnIndex = Array.IndexOf(tokenizedHeader, xColumnIdentifier);
+            var yColumnIndex = Array.IndexOf(tokenizedHeader, yColumnIdentifier);
+            var zColumnIndex = Array.IndexOf(tokenizedHeader, zColumnIdentifier);
+
+            if (yColumnIndex == -1 || zColumnIndex == -1)
             {
                 return false;
             }
 
-            columnsInFile = tokenizedHeader;
+            columnsInFile[xColumnIdentifier] = xColumnIndex;
+            columnsInFile[yColumnIdentifier] = yColumnIndex;
+            columnsInFile[zColumnIdentifier] = zColumnIndex;
 
+            return true;
+        }
+
+        private bool DetermineIdColumn(string[] tokenizedHeader)
+        {
+            var locationIdColumnIndex = Array.IndexOf(tokenizedHeader, locationIdKey);
+            if (locationIdColumnIndex == -1)
+            {
+                locationIdColumnIndex = Array.IndexOf(tokenizedHeader, surfaceLineKey);
+            }
+            if (locationIdColumnIndex > -1)
+            {
+                columnsInFile[locationIdKey] = locationIdColumnIndex;
+            }
+            else
+            {
+                return false;
+            }
             return true;
         }
 
@@ -380,24 +363,24 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Creates a new <see cref="PipingCharacteristicPointsLocation"/> from the <paramref name="readText"/>.
+        /// Creates a new <see cref="CharacteristicPoints"/> from the <paramref name="readText"/>.
         /// </summary>
         /// <param name="readText">A single line read from file.</param>
-        /// <returns>A new <see cref="PipingCharacteristicPointsLocation"/> with name and characteristic points set.</returns>
+        /// <returns>A new <see cref="CharacteristicPoints"/> with name and characteristic points set.</returns>
         /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="readText"/> has too many or few columns.</item>
         /// <item><paramref name="readText"/> contains a coordinate value which could not be parsed to <see cref="double"/>.</item>
         /// </list></exception>
-        private PipingCharacteristicPointsLocation CreatePipingCharacteristicPointsLocation(string readText)
+        private CharacteristicPoints CreatePipingCharacteristicPointsLocation(string readText)
         {
-            var tokenizedString = TokenizeString(readText);
-            var locationName = GetLocationName(tokenizedString);
+            string[] tokenizedString = TokenizeString(readText);
+            string locationName = GetLocationName(tokenizedString);
             if (tokenizedString.Length != columnsInFile.Count)
             {
-                throw CreateLineParseException(lineNumber, locationName, Resources.PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points);
+                throw CreateLineParseException(lineNumber, locationName, Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
             }
-            var location = new PipingCharacteristicPointsLocation(locationName);
+            var location = new CharacteristicPoints(locationName);
 
             SetCharacteristicPoints(tokenizedString, location);
 
@@ -408,53 +391,53 @@ namespace Ringtoets.Piping.IO
         /// Sets the characteristic points from the given <paramref name="tokenizedString"/> to the given <paramref name="location"/>.
         /// </summary>
         /// <param name="tokenizedString">The string read from file.</param>
-        /// <param name="location">The <see cref="PipingCharacteristicPointsLocation"/> to set the characteristic points for.</param>
+        /// <param name="location">The <see cref="CharacteristicPoints"/> to set the characteristic points for.</param>
         /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when <paramref name="tokenizedString"/> 
         /// contains a coordinate value which could not be parsed to <see cref="double"/>.</exception>
-        private void SetCharacteristicPoints(string[] tokenizedString, PipingCharacteristicPointsLocation location)
+        private void SetCharacteristicPoints(string[] tokenizedString, CharacteristicPoints location)
         {
-            location.SurfaceLevelInside = GetPoint3D(location.Name, tokenizedString, surfaceLevelInsideXKey, surfaceLevelInsideYKey, surfaceLevelInsideZKey);
-            location.DitchPolderSide = GetPoint3D(location.Name, tokenizedString, ditchPolderSideXKey, ditchPolderSideYKey, ditchPolderSideZKey);
-            location.BottomDitchPolderSide = GetPoint3D(location.Name, tokenizedString, bottomDitchPolderSideXKey, bottomDitchPolderSideYKey, bottomDitchPolderSideZKey);
-            location.BottomDitchDikeSide = GetPoint3D(location.Name, tokenizedString, bottomDitchDikeSideXKey, bottomDitchDikeSideYKey, bottomDitchDikeSideZKey);
-            location.DitchDikeSide = GetPoint3D(location.Name, tokenizedString, ditchDikeSideXKey, ditchDikeSideYKey, ditchDikeSideZKey);
-            location.DikeToeAtPolder = GetPoint3D(location.Name, tokenizedString, dikeToeAtPolderXKey, dikeToeAtPolderYKey, dikeToeAtPolderZKey);
-            location.TopShoulderInside = GetPoint3D(location.Name, tokenizedString, topShoulderInsideXKey, topShoulderInsideYKey, topShoulderInsideZKey);
-            location.ShoulderInside = GetPoint3D(location.Name, tokenizedString, shoulderInsideXKey, shoulderInsideYKey, shoulderInsideZKey);
-            location.DikeTopAtPolder = GetPoint3D(location.Name, tokenizedString, dikeTopAtPolderXKey, dikeTopAtPolderYKey, dikeTopAtPolderZKey);
-            location.TrafficLoadInside = GetPoint3D(location.Name, tokenizedString, trafficLoadInsideXKey, trafficLoadInsideYKey, trafficLoadInsideZKey);
-            location.TrafficLoadOutside = GetPoint3D(location.Name, tokenizedString, trafficLoadOutsideXKey, trafficLoadOutsideYKey, trafficLoadOutsideZKey);
-            location.DikeTopAtRiver = GetPoint3D(location.Name, tokenizedString, dikeTopAtRiverXKey, dikeTopAtRiverYKey, dikeTopAtRiverZKey);
-            location.ShoulderOutisde = GetPoint3D(location.Name, tokenizedString, shoulderOutsideXKey, shoulderOutsideYKey, shoulderOutsideZKey);
-            location.TopShoulderOutside = GetPoint3D(location.Name, tokenizedString, topShoulderOutsideXKey, topShoulderOutsideYKey, topShoulderOutsideZKey);
-            location.DikeToeAtRiver = GetPoint3D(location.Name, tokenizedString, dikeToeAtRiverXKey, dikeToeAtRiverYKey, dikeToeAtRiverZKey);
-            location.SurfaceLevelOutside = GetPoint3D(location.Name, tokenizedString, surfaceLevelOutsideXKey, surfaceLevelOutsideYKey, surfaceLevelOutsideZKey);
-            location.DikeTableHeight = GetPoint3D(location.Name, tokenizedString, dikeTableHeightXKey, dikeTableHeightYKey, dikeTableHeightZKey);
-            location.InsertRiverChannel = GetPoint3D(location.Name, tokenizedString, insertRiverChannelXKey, insertRiverChannelYKey, insertRiverChannelZKey);
-            location.BottomRiverChannel = GetPoint3D(location.Name, tokenizedString, bottomRiverChannelXKey, bottomRiverChannelYKey, bottomRiverChannelZKey);
+            location.SurfaceLevelInside = GetPoint3D(tokenizedString, surfaceLevelInsideKey, location.Name);
+            location.DitchPolderSide = GetPoint3D(tokenizedString, ditchPolderSideKey, location.Name);
+            location.BottomDitchPolderSide = GetPoint3D(tokenizedString, bottomDitchPolderSideKey, location.Name);
+            location.BottomDitchDikeSide = GetPoint3D(tokenizedString, bottomDitchDikeSideKey, location.Name);
+            location.DitchDikeSide = GetPoint3D(tokenizedString, ditchDikeSideKey, location.Name);
+            location.DikeToeAtPolder = GetPoint3D(tokenizedString, dikeToeAtPolderKey, location.Name);
+            location.TopShoulderInside = GetPoint3D(tokenizedString, topShoulderInsideKey, location.Name);
+            location.ShoulderInside = GetPoint3D(tokenizedString, shoulderInsideKey, location.Name);
+            location.DikeTopAtPolder = GetPoint3D(tokenizedString, dikeTopAtPolderKey, location.Name);
+            location.TrafficLoadInside = GetPoint3D(tokenizedString, trafficLoadInsideKey, location.Name);
+            location.TrafficLoadOutside = GetPoint3D(tokenizedString, trafficLoadOutsideKey, location.Name);
+            location.DikeTopAtRiver = GetPoint3D(tokenizedString, dikeTopAtRiverKey, location.Name);
+            location.ShoulderOutisde = GetPoint3D(tokenizedString, shoulderOutsideKey, location.Name);
+            location.TopShoulderOutside = GetPoint3D(tokenizedString, topShoulderOutsideKey, location.Name);
+            location.DikeToeAtRiver = GetPoint3D(tokenizedString, dikeToeAtRiverKey, location.Name);
+            location.SurfaceLevelOutside = GetPoint3D(tokenizedString, surfaceLevelOutsideKey, location.Name);
+            location.DikeTableHeight = GetPoint3D(tokenizedString, dikeTableHeightKey, location.Name);
+            location.InsertRiverChannel = GetPoint3D(tokenizedString, insertRiverChannelKey, location.Name);
+            location.BottomRiverChannel = GetPoint3D(tokenizedString, bottomRiverChannelKey, location.Name);
         }
 
         /// <summary>
-        /// Creates a new <see cref="Point3D"/> from the collection of <paramref name="valuesRead"/>,
+        /// Creates a new <see cref="Point3D"/> from the collection of <paramref name="valuesRead"/>, by using
+        /// the <paramref name="typeKey"/> to create the column identifiers to read from.
         /// </summary>
-        /// <param name="locationName">The name of the location used for creating descriptive errors.</param>
         /// <param name="valuesRead">The collection of read data.</param>
-        /// <param name="xColumn">The name of the column to use as x-coordinate of the new point.</param>
-        /// <param name="yColumn">The name of the column to use as y-coordinate of the new point.</param>
-        /// <param name="zColumn">The name of the column to use as z-coordinate of the new point.</param>
+        /// <param name="typeKey">The key for the type of characteristic point.</param>
+        /// <param name="locationName">The name of the location used for creating descriptive errors.</param>
         /// <returns>A new <see cref="Point3D"/> with values for x,y,z set.</returns>
-        /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when 
-        /// <paramref name="valuesRead"/> contains value which could not be parsed to a double in column <paramref name="xColumn"/>,
-        /// <paramref name="yColumn"/> or <paramref name="zColumn"/>.</exception>
-        private Point3D GetPoint3D(string locationName, string[] valuesRead, string xColumn, string yColumn, string zColumn)
+        /// <exception cref="CreateLineParseException(int,string,string,Exception)"><paramref name="valuesRead"/> 
+        /// contains a value which could not be parsed to a double in the column that had to be read for creating
+        /// the <see cref="Point3D"/>.</exception>
+        private Point3D GetPoint3D(string[] valuesRead, string typeKey, string locationName)
         {
             try
             {
-                var xColumnIndex = columnsInFile.IndexOf(xColumn);
-                var yColumnIndex = columnsInFile.IndexOf(yColumn);
-                var zColumnIndex = columnsInFile.IndexOf(zColumn);
-                if (xColumnIndex > -1)
+                var xColumnKey = xPrefix + typeKey;
+                if (columnsInFile.ContainsKey(xColumnKey))
                 {
+                    var xColumnIndex = columnsInFile[xColumnKey];
+                    var yColumnIndex = columnsInFile[yPrefix + typeKey];
+                    var zColumnIndex = columnsInFile[zPrefix + typeKey];
                     return new Point3D
                     {
                         X = double.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
@@ -475,20 +458,15 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Gets the name of the characteristic points location.
+        /// Gets the name of the location for which the <paramref name="tokenizedString"/> defines the
+        /// characteristic points.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string from which the name should be extracted.</param>
         /// <returns>The name of the location.</returns>
         /// <exception cref="LineParseException">Id value is null or empty.</exception>
         private string GetLocationName(IList<string> tokenizedString)
         {
-            var nameIndex = columnsInFile.IndexOf(locationIdKey);
-            if (nameIndex == -1)
-            {
-                nameIndex = columnsInFile.IndexOf(surfaceLineKey);
-            }
-
-            var name = tokenizedString.Any() ? tokenizedString[nameIndex].Trim() : string.Empty; 
+            string name = tokenizedString.Any() ? tokenizedString[columnsInFile[locationIdKey]].Trim() : null;
             if (string.IsNullOrEmpty(name))
             {
                 throw CreateLineParseException(lineNumber, Resources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
@@ -506,12 +484,27 @@ namespace Ringtoets.Piping.IO
         {
             if (!readText.Contains(separator))
             {
-                throw CreateLineParseException(lineNumber, string.Format(Resources.PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_separator_0_,
+                throw CreateLineParseException(lineNumber, string.Format(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_,
                                                                          separator));
             }
             return readText.Split(separator)
                            .TakeWhile(text => !string.IsNullOrEmpty(text))
                            .ToArray();
+        }
+
+        /// <summary>
+        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
+        /// </summary>
+        /// <param name="currentLine">The line number being read.</param>
+        /// <param name="criticalErrorMessage">The critical error message.</param>
+        /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
+        /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
+        private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
+        {
+            string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
+            var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
+                                                                     .Build(criticalErrorMessage);
+            return new CriticalFileReadException(message, innerException);
         }
 
         /// <summary>

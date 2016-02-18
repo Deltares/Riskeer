@@ -32,6 +32,7 @@ using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;
 using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.SurfaceLines;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -46,8 +47,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSurfaceLinesCsvImporter : IFileImporter
     {
         private readonly ILog log;
-        private readonly string characteristicPointsFileSubExtension = ".krp";
         private bool shouldCancel;
+        private const string characteristicPointsFileSubExtension = ".krp";
 
         public PipingSurfaceLinesCsvImporter()
         {
@@ -135,7 +136,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return true;
         }
 
-        private ReadResult<PipingCharacteristicPointsLocation> ReadCharacteristicPoints(string surfaceLineFilePath)
+        private ReadResult<CharacteristicPoints> ReadCharacteristicPoints(string surfaceLineFilePath)
         {
             var path = surfaceLineFilePath.Insert(surfaceLineFilePath.Length - 4, characteristicPointsFileSubExtension);
             var hasCharacteristicPointsFile = File.Exists(path);
@@ -143,13 +144,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             if (!hasCharacteristicPointsFile)
             {
                 log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path));
-                return new ReadResult<PipingCharacteristicPointsLocation>(false);
+                return new ReadResult<CharacteristicPoints>(false);
             }
 
-            PipingCharacteristicPointsCsvReader reader;
+            CharacteristicPointsCsvReader reader;
             try
             {
-                reader = new PipingCharacteristicPointsCsvReader(path);
+                reader = new CharacteristicPointsCsvReader(path);
             }
             catch (ArgumentException e)
             {
@@ -171,7 +172,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return HandleCriticalCharacteristicPointsReadError(e);
             }
 
-            var readCharacteristicPointsLocations = new List<PipingCharacteristicPointsLocation>(itemCount);
+            var readCharacteristicPointsLocations = new List<CharacteristicPoints>(itemCount);
             for (int i = 0; i < itemCount && !shouldCancel; i++)
             {
                 try
@@ -195,7 +196,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             reader.Dispose();
 
-            return new ReadResult<PipingCharacteristicPointsLocation>(false)
+            return new ReadResult<CharacteristicPoints>(false)
             {
                 ImportedItems = readCharacteristicPointsLocations
             };
@@ -301,15 +302,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return new ReadResult<RingtoetsPipingSurfaceLine>(true);
         }
 
-        private ReadResult<PipingCharacteristicPointsLocation> HandleCriticalCharacteristicPointsReadError(Exception e)
+        private ReadResult<CharacteristicPoints> HandleCriticalCharacteristicPointsReadError(Exception e)
         {
             var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
             log.Error(message);
-            return new ReadResult<PipingCharacteristicPointsLocation>(true);
+            return new ReadResult<CharacteristicPoints>(true);
         }
 
-        private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<PipingCharacteristicPointsLocation> readCharacteristicPointsLocations)
+        private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
             NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 

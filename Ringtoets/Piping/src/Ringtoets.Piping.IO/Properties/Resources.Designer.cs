@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karakteristiek punt heeft een waarde die niet omgezet kan worden naar een getal..
+        ///   Looks up a localized string similar to Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
         /// </summary>
         public static string Error_CharacteristicPoint_has_not_double {
             get {
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karakteristiek punt heeft een waarde die te groot of te klein is om ingelezen te worden..
+        ///   Looks up a localized string similar to Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
         /// </summary>
         public static string Error_CharacteristicPoint_parsing_causes_overflow {
             get {
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielmeting heeft een waarde die niet omgezet kan worden naar een getal..
+        ///   Looks up a localized string similar to Profielmeting heeft een coördinaatwaarde die niet omgezet kan worden naar een getal..
         /// </summary>
         public static string Error_SurfaceLine_has_not_double {
             get {
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielmeting heeft een waarde die te groot of te klein is om ingelezen te worden..
+        ///   Looks up a localized string similar to Profielmeting heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden..
         /// </summary>
         public static string Error_SurfaceLine_parsing_causes_overflow {
             get {
@@ -145,28 +145,30 @@ namespace Ringtoets.Piping.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Regel heeft geen ID..
         /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID {
+        public static string PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID {
             get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_ID", resourceCulture);
+                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_I" +
+                        "D", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Regel ontbreekt het verwachte scheidingsteken (het karakter: {0})..
         /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_separator_0_ {
+        public static string PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_ {
             get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadLine_Line_lacks_separator_0_", resourceCulture);
+                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_s" +
+                        "eparator_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor locatie ontbreken er waardes om alle 3D (X,Y,Z) karakteristieke punten aan te maken..
+        ///   Looks up a localized string similar to De locatie heeft een incorrect aantal kolommen..
         /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteristic_points {
+        public static string PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points {
             get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadLine_Location_lacks_values_for_characteri" +
-                        "stic_points", resourceCulture);
+                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lac" +
+                        "ks_values_for_characteristic_points", resourceCulture);
             }
         }
         
@@ -216,7 +218,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielmetingen uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1)..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_File_invalid_header {
             get {
@@ -252,7 +254,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor profielmeting ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
+        ///   Looks up a localized string similar to Voor de profielmeting ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet {
             get {

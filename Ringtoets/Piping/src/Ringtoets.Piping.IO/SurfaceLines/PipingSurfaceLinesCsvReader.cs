@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -34,7 +33,7 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.Piping.IO
+namespace Ringtoets.Piping.IO.SurfaceLines
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing
@@ -84,14 +83,14 @@ namespace Ringtoets.Piping.IO
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
         /// <list type="bullet">
-        /// <item>File cannot be found at specified path.</item>
+        /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>File incompatible for importing surface lines.</item>
+        /// <item>The file incompatible for importing surface lines.</item>
         /// </list>
         /// </exception>
         public int GetSurfaceLinesCount()
@@ -109,19 +108,19 @@ namespace Ringtoets.Piping.IO
         /// of <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <returns>Return the parse surfaceline, or null when at the end of the file.</returns>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
         /// <list type="bullet">
-        /// <item>File cannot be found at specified path.</item>
+        /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
-        /// <item>File incompatible for importing surface lines.</item>
+        /// <item>The file incompatible for importing surface lines.</item>
         /// </list>
         /// </exception>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
-        /// <item>The row doesn't contain any supported separator character.</item>
+        /// <item>The row doesn't use ';' as separator character.</item>
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
         /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
         /// <item>The row is missing an identifier value.</item>
@@ -156,21 +155,22 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Reads lines from file until the first non white line is hit.
+        /// Reads lines from file until the first non-white line is hit.
         /// </summary>
-        /// <returns>The next line which is not a whiteline, or <c>null</c> when no non white line could be found before the
+        /// <returns>The next line which is not a white line, or <c>null</c> when no non-white line could be found before the
         /// end of file.</returns>
         private string ReadNextNonEmptyLine()
         {
-            var readText = string.Empty;
-            var isWhiteSpace = new Func<string, bool>(s => s != null && s.All(char.IsWhiteSpace));
-
-            while (isWhiteSpace(readText))
+            string readText;
+            while ((readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber)) != null)
             {
-                readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
-                if (isWhiteSpace(readText))
+                if (string.IsNullOrWhiteSpace(readText))
                 {
                     lineNumber++;
+                }
+                else
+                {
+                    break;
                 }
             }
             return readText;
@@ -326,7 +326,7 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
         /// <param name="currentLine">Row index used in error messaging.</param>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">The header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
         private void ValidateHeader(TextReader reader, int currentLine)
         {
             var header = ReadLineAndHandleIOExceptions(reader, currentLine);
@@ -344,12 +344,12 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Throws a configured instance of <see cref="Core.Common.IO.Exceptions.CriticalFileReadException"/>.
+        /// Throws a configured instance of <see cref="CriticalFileReadException"/>.
         /// </summary>
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="criticalErrorMessage">The critical error message.</param>
         /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
-        /// <returns>New <see cref="Core.Common.IO.Exceptions.CriticalFileReadException"/> with message and inner exception set.</returns>
+        /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
@@ -396,7 +396,7 @@ namespace Ringtoets.Piping.IO
         /// <param name="reader">The reader at the row from which counting should start.</param>
         /// <param name="currentLine">The current line, used for error messaging.</param>
         /// <returns>An integer greater than or equal to 0, being the number of surfaceline rows.</returns>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">An I/O exception occurred.</exception>
+        /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
             int count = 0, lineNumberForMessage = currentLine;
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.IO
         /// <param name="reader">The opened text file reader.</param>
         /// <param name="currentLine">Row number for error messaging.</param>
         /// <returns>The read line, or null when at the end of the file.</returns>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">An critical I/O exception occurred.</exception>
+        /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
         private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
         {
             try

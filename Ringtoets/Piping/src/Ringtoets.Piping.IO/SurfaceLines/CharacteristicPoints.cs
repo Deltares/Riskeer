@@ -1,21 +1,20 @@
-﻿using System;
-
+using System;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.Piping.Data
+namespace Ringtoets.Piping.IO.SurfaceLines
 {
     /// <summary>
-    /// This class represents a location for which there are points along the surface line
-    /// which are characterizing for that surface line.
+    /// This class represents a collection of characterizing locations on a surface line.
     /// </summary>
-    public class PipingCharacteristicPointsLocation
+    public class CharacteristicPoints
     {
         /// <summary>
-        /// Creates an instance of <see cref="PipingCharacteristicPointsLocation"/>.
+        /// Creates an instance of <see cref="CharacteristicPoints"/>.
         /// </summary>
-        /// <param name="name">The name of the location for which the <see cref="PipingCharacteristicPointsLocation"/>
+        /// <param name="name">The name of the location for which the <see cref="CharacteristicPoints"/>
         /// defines characteristic points.</param>
-        public PipingCharacteristicPointsLocation(string name)
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <c>null</c>.</exception>
+        public CharacteristicPoints(string name)
         {
             if (name == null)
             {
@@ -25,7 +24,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the name of the location for which the <see cref="PipingCharacteristicPointsLocation"/> defines
+        /// Gets the name of the location for which the <see cref="CharacteristicPoints"/> defines
         /// characteristic points.
         /// </summary>
         public string Name { get; private set; }
