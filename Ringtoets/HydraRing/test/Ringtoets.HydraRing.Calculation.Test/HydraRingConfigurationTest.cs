@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HydraRing.Calculation.Test
 {
@@ -54,14 +55,15 @@ namespace Ringtoets.HydraRing.Calculation.Test
             var hydraRingConfiguration = new HydraRingConfiguration
             {
                 TimeIntegrationSchemeType = TimeIntegrationSchemeType.NTI,
-                UncertaintiesType = UncertaintiesType.Model
+                UncertaintiesType = UncertaintiesType.Model,
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0)
             };
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
-                                         "INSERT INTO [HydraulicModels] VALUES (" + (int) TimeIntegrationSchemeType.NTI + ", " + (int) UncertaintiesType.Model + ", 'WTI 2017');" + Environment.NewLine +
+                                         "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, NULL, NULL, 100, NULL, NULL);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, 700003, 700003, 100, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +

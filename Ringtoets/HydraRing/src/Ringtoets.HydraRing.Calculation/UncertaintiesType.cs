@@ -30,9 +30,9 @@ namespace Ringtoets.HydraRing.Calculation
     public enum UncertaintiesType
     {
         Undefined = -1,
-        None = 0, // "Geen onzekerheden"
-        All = 1, // "Alle onzekerheden"
-        Model = 2, // "Model onzekerheden"
-        Statistic = 3 // "Statistische onzekerheden"
+        None = 0, // "No uncertainties"
+        All = 1, // "All uncertainties"
+        Model = 2, // "Only model uncertainties"
+        Statistic = 3 // "Only statistical uncertainties"
     }
 }

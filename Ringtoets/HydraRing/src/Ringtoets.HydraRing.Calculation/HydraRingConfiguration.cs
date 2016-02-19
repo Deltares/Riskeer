@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HydraRing.Calculation
 {
@@ -49,6 +50,11 @@ namespace Ringtoets.HydraRing.Calculation
         /// Gets or sets the <see cref="UncertaintiesType"/>.
         /// </summary>
         public UncertaintiesType UncertaintiesType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
@@ -79,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "UncertaintiesID", UncertaintiesType != UncertaintiesType.Undefined ? (int?) UncertaintiesType : null
                     },
                     {
-                        "DataSetName", "WTI 2017"
+                        "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations
                     }
                 }
             };
@@ -92,46 +98,46 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "SectionId", 999
+                        "SectionId", 999 // TODO: Dike section integration
                     },
                     {
-                        "PresentationId", 1
+                        "PresentationId", 1 // Fixed: only relevant in case of combination of dike sections
                     },
                     {
-                        "MainMechanismId", 1
+                        "MainMechanismId", 1 // Fixed: only relevant in case of combination of dike sections
                     },
                     {
-                        "Name", "HydraRingLocation"
+                        "Name", "HydraRingLocation" // TODO: Dike section integration
                     },
                     {
-                        "Description", "HydraRingLocation"
+                        "Description", "HydraRingLocation" // TODO: Dike section integration
                     },
                     {
-                        "RingCoordinateBegin", null
+                        "RingCoordinateBegin", null // TODO: Dike section integration
                     },
                     {
-                        "RingCoordinateEnd", null
+                        "RingCoordinateEnd", null // TODO: Dike section integration
                     },
                     {
-                        "XCoordinate", null
+                        "XCoordinate", null // TODO: Dike cross section integration
                     },
                     {
-                        "YCoordinate", null
+                        "YCoordinate", null // TODO: Dike cross section integration
                     },
                     {
-                        "StationId1", null
+                        "StationId1", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null
                     },
                     {
-                        "StationId2", null
+                        "StationId2", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null // Same as "StationId1": only support coupling of one station
                     },
                     {
-                        "Relative", 100.0
+                        "Relative", 100.0 // Fixed: only support coupling of one station
                     },
                     {
-                        "Normal", null
+                        "Normal", null // TODO: Dike cross section integration
                     },
                     {
-                        "Length", null
+                        "Length", null // TODO: Dike section integration
                     }
                 }
             };
