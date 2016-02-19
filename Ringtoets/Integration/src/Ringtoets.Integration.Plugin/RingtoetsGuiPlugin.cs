@@ -377,12 +377,26 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData); });
 
+            var toetsPeilItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Toetspeil_Calculate,
+                RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip,
+                RingtoetsFormsResources.FailureMechanismIcon,
+                null);
+
+            if (string.IsNullOrEmpty(nodeData.BoundaryDatabase.FilePath))
+            {
+                toetsPeilItem.Enabled = false;
+                toetsPeilItem.ToolTipText = RingtoetsCommonFormsResources.Toetspeil_No_HRD_To_Calculate;
+            }
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(connectionItem)
                       .AddImportItem()
                       .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(toetsPeilItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
@@ -427,7 +441,7 @@ namespace Ringtoets.Integration.Plugin
             ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
         }
 
-        private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData, 
+        private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
                                             HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
                                             string filePath,
                                             string version)
@@ -456,7 +470,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,                                               
+        private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
                                                HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
                                                string selectedFile,
                                                string newVersion)

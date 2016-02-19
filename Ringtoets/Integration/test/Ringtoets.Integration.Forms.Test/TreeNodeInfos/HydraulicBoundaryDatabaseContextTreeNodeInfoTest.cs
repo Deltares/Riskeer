@@ -2,6 +2,7 @@
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -11,6 +12,8 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Plugin;
+using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -112,6 +115,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
@@ -126,6 +131,59 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoHydraulicBoundaryDatabaseSet_ContextMenuItemCalculateToetspeilenDisabled()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var hydraulicBoundaryDatabaseMock = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var nodeData = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabaseMock, assessmentSectionMock);
+
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on arguments
+
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, RingtoetsCommonFormsResources.Toetspeil_Calculate, RingtoetsCommonFormsResources.Toetspeil_No_HRD_To_Calculate, RingtoetsFormsResources.FailureMechanismIcon, false);
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseSet_ContextMenuItemCalculateToetspeilenEnabled()
+        {
+            // Setup
+            var guiMock = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var hydraulicBoundaryDatabaseMock = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var nodeData = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabaseMock, assessmentSectionMock);
+
+            guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            plugin.Gui = guiMock;
+
+            // Call
+            nodeData.BoundaryDatabase.FilePath = testDataPath;
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on arguments
+
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, RingtoetsCommonFormsResources.Toetspeil_Calculate, RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip, RingtoetsFormsResources.FailureMechanismIcon);
         }
     }
 }

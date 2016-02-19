@@ -321,6 +321,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen Hydraulische randvoorwaarden database beschikbaar om de toetspeilen te bereken..
+        /// </summary>
+        public static string Toetspeil_No_HRD_To_Calculate {
+            get {
+                return ResourceManager.GetString("Toetspeil_No_HRD_To_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Valideren.
         /// </summary>
         public static string Validate {

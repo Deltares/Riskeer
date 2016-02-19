@@ -244,6 +244,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
         {
+            // Setup
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var calculation = new PipingCalculation();
