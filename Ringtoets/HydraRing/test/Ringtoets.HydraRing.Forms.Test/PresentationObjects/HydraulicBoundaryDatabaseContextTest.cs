@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het traject mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("Assessment section cannot be null.", customMessage);
         }
 
         [Test]

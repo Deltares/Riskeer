@@ -45,10 +45,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         {
             if (baseNode == null)
             {
-                var message = string.Format(
-                    Resources.HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext__0__cannot_bet__null__,
-                    Resources.HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext_The_assessment_section);
-                throw new ArgumentNullException("baseNode", message);
+                throw new ArgumentNullException("baseNode", "Assessment section cannot be null.");
             }
 
             this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;

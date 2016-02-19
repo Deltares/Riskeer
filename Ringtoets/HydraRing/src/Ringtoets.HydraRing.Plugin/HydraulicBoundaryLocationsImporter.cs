@@ -32,7 +32,7 @@ using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
-using HydraringResources = Ringtoets.HydraRing.Forms.Properties.Resources;
+using HydraRingResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 
 
 namespace Ringtoets.HydraRing.Plugin
@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Plugin
         {
             get
             {
-                return string.Format("{0} (*.sqlite)|*.sqlite", HydraringResources.SelectDatabaseFile_FilterName);
+                return string.Format("{0} (*.sqlite)|*.sqlite", HydraRingResources.SelectDatabaseFile_FilterName);
             }
         }
 
