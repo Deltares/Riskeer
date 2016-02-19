@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
                 TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.NTI,
                 UncertaintiesType = HydraRingUncertaintiesType.Model,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
-                FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                FailureMechanismType = HydraRingFailureMechanismType.QVariant
             };
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -114,7 +114,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, 700003, 700003, 100, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (999, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (999, 3, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +

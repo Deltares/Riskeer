@@ -230,7 +230,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "SectionId", 999 // TODO: Dike section integration
                     },
                     {
-                        "MechanismId", null // TODO: Fix as part of WTI-324
+                        "MechanismId", (int?) FailureMechanismType
                     },
                     {
                         "LayerId", null // Fixed: no support for revetments
@@ -239,7 +239,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "Method", null // TODO: Fix as part of WTI-324
+                        "Method", 1 // Fixed: no support for computations other than of type 1
                     },
                     {
                         "VariableId", null // TODO: Fix as part of WTI-324
