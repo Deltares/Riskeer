@@ -29,37 +29,37 @@ namespace Ringtoets.HydraRing.Calculation.Test
     public class HydraRingConfigurationTest
     {
         [Test]
-        public void GenerateDataBaseCreationScript_HydraRingTimeIntegrationSchemeTypeUnspecified_ThrowsInvalidOperationException()
+        public void GenerateDataBaseCreationScript_TimeIntegrationSchemeTypeUnspecified_ThrowsInvalidOperationException()
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                HydraRingUncertaintiesType = HydraRingUncertaintiesType.Model,
+                UncertaintiesType = HydraRingUncertaintiesType.Model,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
-                HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
             };
 
             // Call
             TestDelegate test = () => hydraRingConfiguration.GenerateDataBaseCreationScript();
 
             // Assert
-            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: HydraRingTimeIntegrationSchemeType unspecified.");
+            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: TimeIntegrationSchemeType unspecified.");
         }
 
         [Test]
-        public void GenerateDataBaseCreationScript_HydraRingUncertaintiesTypeUnspecified_ThrowsInvalidOperationException()
+        public void GenerateDataBaseCreationScript_UncertaintiesTypeUnspecified_ThrowsInvalidOperationException()
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
+                TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
-                HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
             };
 
             // Call
             TestDelegate test = () => hydraRingConfiguration.GenerateDataBaseCreationScript();
 
             // Assert
-            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: HydraRingUncertaintiesType unspecified.");
+            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: UncertaintiesType unspecified.");
         }
 
         [Test]
@@ -67,9 +67,9 @@ namespace Ringtoets.HydraRing.Calculation.Test
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
-                HydraRingUncertaintiesType = HydraRingUncertaintiesType.Model,
-                HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
+                UncertaintiesType = HydraRingUncertaintiesType.Model,
+                FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
             };
 
             // Call
@@ -80,12 +80,12 @@ namespace Ringtoets.HydraRing.Calculation.Test
         }
 
         [Test]
-        public void GenerateDataBaseCreationScript_HydraRingFailureMechanismTypeUnspecified_ThrowsInvalidOperationException()
+        public void GenerateDataBaseCreationScript_FailureMechanismTypeUnspecified_ThrowsInvalidOperationException()
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
-                HydraRingUncertaintiesType = HydraRingUncertaintiesType.Model,
+                TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
+                UncertaintiesType = HydraRingUncertaintiesType.Model,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0)
             };
 
@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
             TestDelegate test = () => hydraRingConfiguration.GenerateDataBaseCreationScript();
 
             // Assert
-            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: HydraRingFailureMechanismType unspecified.");
+            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: FailureMechanismType unspecified.");
         }
 
         [Test]
@@ -101,10 +101,10 @@ namespace Ringtoets.HydraRing.Calculation.Test
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.NTI,
-                HydraRingUncertaintiesType = HydraRingUncertaintiesType.Model,
+                TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.NTI,
+                UncertaintiesType = HydraRingUncertaintiesType.Model,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
-                HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
             };
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +

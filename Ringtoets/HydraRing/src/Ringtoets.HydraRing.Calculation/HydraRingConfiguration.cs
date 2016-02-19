@@ -32,15 +32,67 @@ namespace Ringtoets.HydraRing.Calculation
     /// </summary>
     public class HydraRingConfiguration
     {
+        private IEnumerable<HydraRingConfigurationSettings> configurationSettings;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
+        /// </summary>
+        public HydraRingConfiguration()
+        {
+            configurationSettings = new[]
+            {
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveHeight
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure
+                }
+            };
+        }
+
         /// <summary>
         /// Gets or sets the <see cref="HydraRingTimeIntegrationSchemeType"/>.
         /// </summary>
-        public HydraRingTimeIntegrationSchemeType? HydraRingTimeIntegrationSchemeType { get; set; }
+        public HydraRingTimeIntegrationSchemeType? TimeIntegrationSchemeType { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="HydraRingUncertaintiesType"/>.
         /// </summary>
-        public HydraRingUncertaintiesType? HydraRingUncertaintiesType { get; set; }
+        public HydraRingUncertaintiesType? UncertaintiesType { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
@@ -50,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation
         /// <summary>
         /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
         /// </summary>
-        public HydraRingFailureMechanismType? HydraRingFailureMechanismType { get; set; }
+        public HydraRingFailureMechanismType? FailureMechanismType { get; set; }
 
         /// <summary>
         /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
@@ -76,14 +128,14 @@ namespace Ringtoets.HydraRing.Calculation
         {
             var formattedExceptionMessage = "Cannot generate database creation script: {0} unspecified.";
 
-            if (HydraRingTimeIntegrationSchemeType == null)
+            if (TimeIntegrationSchemeType == null)
             {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingTimeIntegrationSchemeType"));
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "TimeIntegrationSchemeType"));
             }
 
-            if (HydraRingUncertaintiesType == null)
+            if (UncertaintiesType == null)
             {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingUncertaintiesType"));
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "UncertaintiesType"));
             }
 
             if (HydraulicBoundaryLocation == null)
@@ -91,9 +143,9 @@ namespace Ringtoets.HydraRing.Calculation
                 throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraulicBoundaryLocation"));
             }
 
-            if (HydraRingFailureMechanismType == null)
+            if (FailureMechanismType == null)
             {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingFailureMechanismType"));
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "FailureMechanismType"));
             }
         }
 
@@ -104,10 +156,10 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", (int?) HydraRingTimeIntegrationSchemeType
+                        "TimeIntegrationSchemeID", (int?) TimeIntegrationSchemeType
                     },
                     {
-                        "UncertaintiesID", (int?) HydraRingUncertaintiesType
+                        "UncertaintiesID", (int?) UncertaintiesType
                     },
                     {
                         "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations
