@@ -48,14 +48,20 @@ namespace Ringtoets.HydraRing.Calculation
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
+        /// </summary>
+        public HydraRingFailureMechanismType? HydraRingFailureMechanismType { get; set; }
+
+        /// <summary>
         /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
         /// </summary>
         /// <returns>The database creation script.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when one of the relevant input properties is not set.</exception>
         public string GenerateDataBaseCreationScript()
         {
             var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
 
-            ValidateInput();
+            ValidateDataBaseCreationScriptInput();
 
             InitializeHydraulicModelsConfiguration(configurationDictionary);
             InitializeSectionsConfiguration(configurationDictionary);
@@ -66,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation
             return GenerateDataBaseCreationScript(configurationDictionary);
         }
 
-        private void ValidateInput()
+        private void ValidateDataBaseCreationScriptInput()
         {
             var formattedExceptionMessage = "Cannot generate database creation script: {0} unspecified.";
 
@@ -78,6 +84,16 @@ namespace Ringtoets.HydraRing.Calculation
             if (HydraRingUncertaintiesType == null)
             {
                 throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingUncertaintiesType"));
+            }
+
+            if (HydraulicBoundaryLocation == null)
+            {
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraulicBoundaryLocation"));
+            }
+
+            if (HydraRingFailureMechanismType == null)
+            {
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingFailureMechanismType"));
             }
         }
 
@@ -134,10 +150,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "YCoordinate", null // TODO: Dike cross section integration
                     },
                     {
-                        "StationId1", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null
+                        "StationId1", HydraulicBoundaryLocation.Id
                     },
                     {
-                        "StationId2", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null // Same as "StationId1": no support for coupling two stations
+                        "StationId2", HydraulicBoundaryLocation.Id // Same as "StationId1": no support for coupling two stations
                     },
                     {
                         "Relative", 100.0 // Fixed: no support for coupling two stations
