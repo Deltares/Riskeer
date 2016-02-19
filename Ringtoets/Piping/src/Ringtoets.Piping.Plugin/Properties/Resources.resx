@@ -173,4 +173,19 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_" xml:space="preserve">
     <value>Inlezen '{0}'</value>
   </data>
+  <data name="CharacteristicPoint_BottomDitchDikeSide" xml:space="preserve">
+    <value>Slootbodem dijkzijde</value>
+  </data>
+  <data name="CharacteristicPoint_BottomDitchPolderSide" xml:space="preserve">
+    <value>Slootbodem polderzijde</value>
+  </data>
+  <data name="CharacteristicPoint_DitchDikeSide" xml:space="preserve">
+    <value>Insteek sloot dijkzijde</value>
+  </data>
+  <data name="CharacteristicPoint_DitchPolderSide" xml:space="preserve">
+    <value>Insteek sloot polderzijde</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_" xml:space="preserve">
+    <value>Karakteristiek punt '{0}' van profielmeting '{1}' is overgeslagen. {2}</value>
+  </data>
 </root>

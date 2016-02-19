@@ -61,6 +61,42 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slootbodem dijkzijde.
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchDikeSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchDikeSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slootbodem polderzijde.
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchPolderSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchPolderSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek sloot dijkzijde.
+        /// </summary>
+        public static string CharacteristicPoint_DitchDikeSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchDikeSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek sloot polderzijde.
+        /// </summary>
+        public static string CharacteristicPoint_DitchPolderSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchPolderSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kommagescheiden bestand.
         /// </summary>
         public static string Csv_file_name {
@@ -132,6 +168,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
         public static string PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karakteristiek punt &apos;{0}&apos; van profielmeting &apos;{1}&apos; is overgeslagen. {2}.
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_caus" +
+                        "e_2_", resourceCulture);
             }
         }
         

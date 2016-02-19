@@ -260,8 +260,95 @@ namespace Ringtoets.Piping.Data.Test
             var testZ = 4.4;
             Point3D testPoint = new Point3D
             {
-                X = testX, Y = testY, Z = testZ
+                X = testX,
+                Y = testY,
+                Z = testZ
             };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            surfaceLine.SetDitchPolderSideAt(testPoint);
+
+            // Assert
+            Assert.AreEqual(testPoint, surfaceLine.DitchPolderSide);
+            Assert.AreNotSame(testPoint, surfaceLine.DitchPolderSide);
+        }
+
+        [Test]
+        public void SetBottomDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D
+            {
+                X = testX,
+                Y = testY,
+                Z = testZ
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            surfaceLine.SetBottomDitchPolderSideAt(testPoint);
+
+            // Assert
+            Assert.AreEqual(testPoint, surfaceLine.BottomDitchPolderSide);
+            Assert.AreNotSame(testPoint, surfaceLine.BottomDitchPolderSide);
+        }
+
+        [Test]
+        public void SetBottomDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D
+            {
+                X = testX,
+                Y = testY,
+                Z = testZ
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            surfaceLine.SetBottomDitchDikeSideAt(testPoint);
+
+            // Assert
+            Assert.AreEqual(testPoint, surfaceLine.BottomDitchDikeSide);
+            Assert.AreNotSame(testPoint, surfaceLine.BottomDitchDikeSide);
+        }
+
+        [Test]
+        public void SetDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D
+            {
+                X = testX,
+                Y = testY,
+                Z = testZ
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
+
+            // Call
+            surfaceLine.SetDitchDikeSideAt(testPoint);
+
+            // Assert
+            Assert.AreEqual(testPoint, surfaceLine.DitchDikeSide);
+            Assert.AreNotSame(testPoint, surfaceLine.DitchDikeSide);
+        }
+
+        private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
+        {
             var random = new Random(21);
             var points = new[]
             {
@@ -271,22 +358,14 @@ namespace Ringtoets.Piping.Data.Test
                 },
                 new Point3D
                 {
-                    X = testX, Y = testY, Z = testZ
+                    X = testPoint.X, Y = testPoint.Y, Z = testPoint.Z
                 },
                 new Point3D
                 {
                     X = 2 + random.NextDouble(), Y = random.NextDouble(), Z = random.NextDouble()
                 }
             };
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(points);
-
-            // Call
-            surfaceLine.SetDitchPolderSideAt(testPoint);
-
-            // Assert
-            Assert.AreEqual(testPoint, surfaceLine.DitchPolderSide);
-            Assert.AreNotSame(testPoint, surfaceLine.DitchPolderSide);
         }
     }
 }

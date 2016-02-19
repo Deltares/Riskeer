@@ -136,72 +136,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return true;
         }
 
-        private ReadResult<CharacteristicPoints> ReadCharacteristicPoints(string surfaceLineFilePath)
-        {
-            var path = surfaceLineFilePath.Insert(surfaceLineFilePath.Length - 4, characteristicPointsFileSubExtension);
-            var hasCharacteristicPointsFile = File.Exists(path);
-
-            if (!hasCharacteristicPointsFile)
-            {
-                log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path));
-                return new ReadResult<CharacteristicPoints>(false);
-            }
-
-            CharacteristicPointsCsvReader reader;
-            try
-            {
-                reader = new CharacteristicPointsCsvReader(path);
-            }
-            catch (ArgumentException e)
-            {
-                return HandleCriticalCharacteristicPointsReadError(e);
-            }
-
-            var stepName = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
-                                         Path.GetFileName(path));
-
-            int itemCount;
-            try
-            {
-                itemCount = reader.GetLocationsCount();
-                NotifyProgress(stepName, 0, itemCount);
-            }
-            catch (CriticalFileReadException e)
-            {
-                reader.Dispose();
-                return HandleCriticalCharacteristicPointsReadError(e);
-            }
-
-            var readCharacteristicPointsLocations = new List<CharacteristicPoints>(itemCount);
-            for (int i = 0; i < itemCount && !shouldCancel; i++)
-            {
-                try
-                {
-                    var pipingCharacteristicPointsLocation = reader.ReadCharacteristicPointsLocation();
-                    readCharacteristicPointsLocations.Add(pipingCharacteristicPointsLocation);
-                }
-                catch (CriticalFileReadException e)
-                {
-                    reader.Dispose();
-                    return HandleCriticalCharacteristicPointsReadError(e);
-                }
-                catch (LineParseException e)
-                {
-                    var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
-                                                e.Message);
-                    log.Error(message);
-                }
-                NotifyProgress(stepName, i + 1, itemCount);
-            }
-
-            reader.Dispose();
-
-            return new ReadResult<CharacteristicPoints>(false)
-            {
-                ImportedItems = readCharacteristicPointsLocations
-            };
-        }
-
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
         {
             if (ProgressChanged != null)
@@ -268,6 +202,72 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             };
         }
 
+        private ReadResult<CharacteristicPoints> ReadCharacteristicPoints(string surfaceLineFilePath)
+        {
+            var path = surfaceLineFilePath.Insert(surfaceLineFilePath.Length - 4, characteristicPointsFileSubExtension);
+            var hasCharacteristicPointsFile = File.Exists(path);
+
+            if (!hasCharacteristicPointsFile)
+            {
+                log.Info(string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path));
+                return new ReadResult<CharacteristicPoints>(false);
+            }
+
+            CharacteristicPointsCsvReader reader;
+            try
+            {
+                reader = new CharacteristicPointsCsvReader(path);
+            }
+            catch (ArgumentException e)
+            {
+                return HandleCriticalCharacteristicPointsReadError(e);
+            }
+
+            var stepName = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
+                                         Path.GetFileName(path));
+
+            int itemCount;
+            try
+            {
+                itemCount = reader.GetLocationsCount();
+                NotifyProgress(stepName, 0, itemCount);
+            }
+            catch (CriticalFileReadException e)
+            {
+                reader.Dispose();
+                return HandleCriticalCharacteristicPointsReadError(e);
+            }
+
+            var readCharacteristicPointsLocations = new List<CharacteristicPoints>(itemCount);
+            for (int i = 0; i < itemCount && !shouldCancel; i++)
+            {
+                try
+                {
+                    var pipingCharacteristicPointsLocation = reader.ReadCharacteristicPointsLocation();
+                    readCharacteristicPointsLocations.Add(pipingCharacteristicPointsLocation);
+                }
+                catch (CriticalFileReadException e)
+                {
+                    reader.Dispose();
+                    return HandleCriticalCharacteristicPointsReadError(e);
+                }
+                catch (LineParseException e)
+                {
+                    var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
+                                                e.Message);
+                    log.Error(message);
+                }
+                NotifyProgress(stepName, i + 1, itemCount);
+            }
+
+            reader.Dispose();
+
+            return new ReadResult<CharacteristicPoints>(false)
+            {
+                ImportedItems = readCharacteristicPointsLocations
+            };
+        }
+
         private void PruneConsecutiveDuplicateGeometryPoints(RingtoetsPipingSurfaceLine ringtoetsPipingSurfaceLine)
         {
             Point3D[] readPoints = ringtoetsPipingSurfaceLine.Points.ToArray();
@@ -320,12 +320,60 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 var characteristicPointsLocation = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);
                 if (characteristicPointsLocation != null)
                 {
-                    readSurfaceLine.SetDitchPolderSideAt(characteristicPointsLocation.DitchPolderSide);
-                    readSurfaceLine.SetBottomDitchPolderSideAt(characteristicPointsLocation.BottomDitchPolderSide);
-                    readSurfaceLine.SetBottomDitchDikeSideAt(characteristicPointsLocation.BottomDitchDikeSide);
-                    readSurfaceLine.SetDitchDikeSideAt(characteristicPointsLocation.DitchDikeSide);
+                    SetCharacteristicPointsOnSurfaceLine(readSurfaceLine, characteristicPointsLocation);
                 }
                 targetCollection.Add(readSurfaceLine);
+            }
+        }
+
+        private void SetCharacteristicPointsOnSurfaceLine(RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPointsLocation)
+        {
+            TrySetCharacteristicPoint(
+                characteristicPointsLocation.DitchPolderSide, 
+                readSurfaceLine.SetDitchPolderSideAt, 
+                readSurfaceLine.Name,
+                RingtoetsPluginResources.CharacteristicPoint_DitchPolderSide);
+
+            TrySetCharacteristicPoint(
+                characteristicPointsLocation.BottomDitchPolderSide,
+                readSurfaceLine.SetBottomDitchPolderSideAt,
+                readSurfaceLine.Name,
+                RingtoetsPluginResources.CharacteristicPoint_BottomDitchPolderSide);
+
+            TrySetCharacteristicPoint(
+                characteristicPointsLocation.BottomDitchDikeSide,
+                readSurfaceLine.SetBottomDitchDikeSideAt,
+                readSurfaceLine.Name,
+                RingtoetsPluginResources.CharacteristicPoint_BottomDitchDikeSide);
+
+            TrySetCharacteristicPoint(
+                characteristicPointsLocation.DitchDikeSide,
+                readSurfaceLine.SetDitchDikeSideAt,
+                readSurfaceLine.Name,
+                RingtoetsPluginResources.CharacteristicPoint_DitchDikeSide);
+        }
+
+        private void TrySetCharacteristicPoint(Point3D point, Action<Point3D> setAction, string surfaceLineName, string characteristicPointType)
+        {
+            var undefinedPoint = new Point3D
+            {
+                X = -1,
+                Y = -1,
+                Z = -1
+            };
+
+            if (!point.Equals(undefinedPoint))
+            {
+                try
+                {
+                    setAction(point);
+                }
+                catch (ArgumentException e)
+                {
+                    var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_,
+                                                characteristicPointType, surfaceLineName, e.Message);
+                    log.Error(message);
+                }
             }
         }
 

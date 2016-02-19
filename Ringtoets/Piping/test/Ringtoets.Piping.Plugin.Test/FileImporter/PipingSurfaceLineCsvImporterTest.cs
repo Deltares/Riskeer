@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
@@ -499,6 +500,131 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(0, importTargetArray.Length);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
+
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+
+
+        [Test]
+        public void Import_ImportingToValidTargetWithValidFileWithCharacteristicPoints_ImportSurfaceLinesToCollection()
+        {
+            // Setup
+            const int expectedNumberOfSurfaceLines = 2;
+            const int expectedNumberOfCharacteristicPointsDefinitions = 2;
+            var twovalidsurfacelinesCsv = "TwoValidSurfaceLines_WithCharacteristicPoints.csv";
+            var twovalidsurfacelinesCharacteristicPointsCsv = "TwoValidSurfaceLines_WithCharacteristicPoints.krp.csv";
+            string validSurfaceLinesFilePath = Path.Combine(testDataPath, twovalidsurfacelinesCsv);
+            string validCharacteristicPointsFilePath = Path.Combine(testDataPath, twovalidsurfacelinesCsv);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+            int callCount = 0;
+            importer.ProgressChanged += delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
+            {
+                if (callCount <= expectedNumberOfSurfaceLines)
+                {
+                    Assert.AreEqual(string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
+                }
+                else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 1)
+                {
+                    Assert.AreEqual(string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_, twovalidsurfacelinesCharacteristicPointsCsv), currentStepName);
+                }
+                else if (callCount == expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 2)
+                {
+                    Assert.AreEqual(ApplicationResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
+                }
+                else
+                {
+                    Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
+                }
+
+                Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
+                callCount++;
+            };
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(File.Exists(validSurfaceLinesFilePath));
+            Assert.IsTrue(File.Exists(validCharacteristicPointsFilePath));
+
+            // Call
+            var importResult = importer.Import(observableSurfaceLinesList, validSurfaceLinesFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+            var importTargetArray = observableSurfaceLinesList.ToArray();
+            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+
+            // Sample some of the imported data:
+            var firstSurfaceLine = importTargetArray[0];
+            Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
+            Assert.AreEqual(8, firstSurfaceLine.Points.Count());
+            Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
+            Assert.AreEqual(new Point3D 
+            {
+                X = 94263.0026213,
+                Y = 427776.654093,
+                Z = -1.02
+            }, firstSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(new Point3D
+            {
+                X = 94275.9126686,
+                Y = 427811.080886,
+                Z = -1.04
+            }, firstSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D
+            {
+                X = 94284.0663827,
+                Y = 427831.918156,
+                Z = 1.25
+            }, firstSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D
+            {
+                X = 94294.9380015,
+                Y = 427858.191234,
+                Z = 1.45
+            }, firstSurfaceLine.DitchDikeSide);
+
+            var secondSurfaceLine = importTargetArray[1];
+            Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
+            Assert.AreEqual(3, secondSurfaceLine.Points.Count());
+            Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
+            Assert.AreEqual(new Point3D
+            {
+                X = 2.3,
+                Y = 0,
+                Z = 1.0
+            }, secondSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(new Point3D
+            {
+                X = 4.4,
+                Y = 0,
+                Z = 2.0
+            }, secondSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D
+            {
+                X = 5.7,
+                Y = 0,
+                Z = 1.1
+            }, secondSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D
+            {
+                X = 5.7,
+                Y = 0,
+                Z = 1.1
+            }, secondSurfaceLine.DitchDikeSide);
+
+            Assert.AreEqual(7, callCount);
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(validSurfaceLinesFilePath));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(validCharacteristicPointsFilePath));
 
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }

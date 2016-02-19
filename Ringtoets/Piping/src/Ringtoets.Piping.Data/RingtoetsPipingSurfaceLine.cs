@@ -121,17 +121,70 @@ namespace Ringtoets.Piping.Data
         /// Sets the <see cref="DitchPolderSide"/> at the given point.
         /// </summary>
         /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException"><see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
         {
-            var pointToSet = Points.FirstOrDefault(p => p.Equals(point));
-            if (pointToSet == null)
+            DitchPolderSide = GetPointFromGeometry(point);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetBottomDitchPolderSideAt(Point3D point)
+        {
+            BottomDitchPolderSide = GetPointFromGeometry(point);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetBottomDitchDikeSideAt(Point3D point)
+        {
+            BottomDitchDikeSide = GetPointFromGeometry(point);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DitchDikeSide"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetDitchDikeSideAt(Point3D point)
+        {
+            DitchDikeSide = GetPointFromGeometry(point);
+        }
+
+        /// <summary>
+        /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
+        /// </summary>
+        /// <param name="point">The location of a point from <see cref="Points"/>.</param>
+        /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        private Point3D GetPointFromGeometry(Point3D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException("Cannot find a point in geometry using a null point.");
+            }
+            var pointFromGeometry = Points.FirstOrDefault(p => p.Equals(point));
+            if (pointFromGeometry == null)
             {
                 throw CreateCharacteristicPointSetException(point);
             }
-            DitchPolderSide = pointToSet;
+            return pointFromGeometry;
         }
 
         private static ArgumentException CreateCharacteristicPointSetException(Point3D point)
@@ -141,39 +194,6 @@ namespace Ringtoets.Piping.Data
                                         point.Y,
                                         point.Z);
             return new ArgumentException(message);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
-        /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
-        public void SetBottomDitchPolderSideAt(Point3D point)
-        {
-            
-        }
-
-        /// <summary>
-        /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
-        /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
-        public void SetBottomDitchDikeSideAt(Point3D point)
-        {
-            
-        }
-
-        /// <summary>
-        /// Sets the <see cref="DitchDikeSide"/> at the given point.
-        /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
-        public void SetDitchDikeSideAt(Point3D point)
-        {
-            
         }
 
         /// <summary>
