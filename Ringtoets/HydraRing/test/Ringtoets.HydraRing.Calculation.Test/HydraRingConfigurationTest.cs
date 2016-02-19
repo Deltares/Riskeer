@@ -29,27 +29,35 @@ namespace Ringtoets.HydraRing.Calculation.Test
     public class HydraRingConfigurationTest
     {
         [Test]
-        public void GenerateDataBaseCreationScript_DefaultHydraRingConfiguration_ReturnsExpectedCreationScript()
+        public void GenerateDataBaseCreationScript_HydraRingTimeIntegrationSchemeTypeUnspecified_ThrowsInvalidOperationException()
         {
-            var hydraRingConfiguration = new HydraRingConfiguration();
-            var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
-                                         "INSERT INTO [HydraulicModels] VALUES (NULL, NULL, 'WTI 2017');" + Environment.NewLine +
-                                         Environment.NewLine +
-                                         "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, NULL, NULL, 100, NULL, NULL);" + Environment.NewLine +
-                                         Environment.NewLine +
-                                         "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (999, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
-                                         Environment.NewLine +
-                                         "DELETE FROM [Areas];" + Environment.NewLine +
-                                         "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
-                                         Environment.NewLine +
-                                         "DELETE FROM [Projects];" + Environment.NewLine +
-                                         "INSERT INTO [Projects] VALUES (1, 'Sprint', 'Hydra-Ring Sprint');" + Environment.NewLine;
+            var hydraRingConfiguration = new HydraRingConfiguration
+            {
+                HydraRingUncertaintiesType = HydraRingUncertaintiesType.Model,
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0)
+            };
 
-            var creationScript = hydraRingConfiguration.GenerateDataBaseCreationScript();
+            // Call
+            TestDelegate test = () => hydraRingConfiguration.GenerateDataBaseCreationScript();
 
-            Assert.AreEqual(expectedCreationScript, creationScript);
+            // Assert
+            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: HydraRingTimeIntegrationSchemeType unspecified.");
+        }
+
+        [Test]
+        public void GenerateDataBaseCreationScript_HydraRingUncertaintiesTypeUnspecified_ThrowsInvalidOperationException()
+        {
+            var hydraRingConfiguration = new HydraRingConfiguration
+            {
+                HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0)
+            };
+
+            // Call
+            TestDelegate test = () => hydraRingConfiguration.GenerateDataBaseCreationScript();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test, "Cannot generate database creation script: HydraRingUncertaintiesType unspecified.");
         }
 
         [Test]

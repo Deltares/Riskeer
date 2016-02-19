@@ -55,6 +55,8 @@ namespace Ringtoets.HydraRing.Calculation
         {
             var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
 
+            ValidateInput();
+
             InitializeHydraulicModelsConfiguration(configurationDictionary);
             InitializeSectionsConfiguration(configurationDictionary);
             InitializeDesignTablesConfiguration(configurationDictionary);
@@ -64,6 +66,21 @@ namespace Ringtoets.HydraRing.Calculation
             return GenerateDataBaseCreationScript(configurationDictionary);
         }
 
+        private void ValidateInput()
+        {
+            var formattedExceptionMessage = "Cannot generate database creation script: {0} unspecified.";
+
+            if (HydraRingTimeIntegrationSchemeType == null)
+            {
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingTimeIntegrationSchemeType"));
+            }
+
+            if (HydraRingUncertaintiesType == null)
+            {
+                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraRingUncertaintiesType"));
+            }
+        }
+
         private void InitializeHydraulicModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
             configurationDictionary["HydraulicModels"] = new List<OrderedDictionary>
@@ -71,10 +88,10 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", HydraRingTimeIntegrationSchemeType != null ? (int?) HydraRingTimeIntegrationSchemeType : null
+                        "TimeIntegrationSchemeID", (int?) HydraRingTimeIntegrationSchemeType
                     },
                     {
-                        "UncertaintiesID", HydraRingUncertaintiesType != null ? (int?) HydraRingUncertaintiesType : null
+                        "UncertaintiesID", (int?) HydraRingUncertaintiesType
                     },
                     {
                         "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations
