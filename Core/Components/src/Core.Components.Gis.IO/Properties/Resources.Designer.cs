@@ -79,7 +79,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingelezen element is een &apos;multi-lijn&apos;; Alleen enkelvoudige lijn elementen worden ondersteund..
+        ///   Looks up a localized string similar to Ingelezen element is een &apos;multi-lijn&apos;; alleen enkelvoudige lijn elementen worden ondersteund..
         /// </summary>
         internal static string PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline {
             get {

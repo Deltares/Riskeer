@@ -64,8 +64,8 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             for (int i = 0; i < randomCount; i++)
             {
-                pointsArea.Add(new Tuple<double, double>(random.NextDouble(), random.NextDouble()));
-                pointsLine.Add(new Tuple<double, double>(random.NextDouble(), random.NextDouble()));
+                pointsArea.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                pointsLine.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
             }
 
             var collectionData = new ChartDataCollection(new List<ChartData>());

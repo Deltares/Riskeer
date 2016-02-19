@@ -8,7 +8,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis;

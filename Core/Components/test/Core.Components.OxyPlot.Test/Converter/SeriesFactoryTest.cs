@@ -95,9 +95,9 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             return new Collection<Tuple<double, double>>
             {
-                new Tuple<double, double>(1.2, 3.4),
-                new Tuple<double, double>(3.2, 3.4),
-                new Tuple<double, double>(0.2, 2.4)
+                Tuple.Create(1.2, 3.4),
+                Tuple.Create(3.2, 3.4),
+                Tuple.Create(0.2, 2.4)
             };
         }
     }

@@ -25,12 +25,12 @@ using Core.Components.Gis;
 namespace Core.Plugins.DotSpatial.Forms
 {
     /// <summary>
-    /// Interface describing <see cref="IView"/> that contain a <see cref="Core.Components.Gis.IMap"/> as one of its components.
+    /// Interface describing <see cref="IView"/> that contain a <see cref="IMap"/> as one of its components.
     /// </summary>
     public interface IMapView : IView
     {
         /// <summary>
-        /// Gets the <see cref="Core.Components.Gis.IMap"/> set for this <see cref="IMapView"/>.
+        /// Gets the <see cref="IMap"/> set for this <see cref="IMapView"/>.
         /// </summary>
         IMap Map { get; }
     }

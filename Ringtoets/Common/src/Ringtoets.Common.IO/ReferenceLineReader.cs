@@ -43,11 +43,10 @@ namespace Ringtoets.Common.IO
     public class ReferenceLineReader
     {
         /// <summary>
-        /// Reads an instance of <see cref="ReferenceLine"/> from a shape file that should
-        /// contain one polyline.
+        /// Reads an instance of <see cref="ReferenceLine"/> from a shapefile containing one polyline.
         /// </summary>
-        /// <param name="shapeFilePath">The filepath to the shape file.</param>
-        /// <returns>The reference line created from the data in the shape file.</returns>
+        /// <param name="shapeFilePath">The file path to the shapefile.</param>
+        /// <returns>The reference line created from the data in the shapefile.</returns>
         /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">When either:
         /// <list type="bullet">
@@ -68,17 +67,17 @@ namespace Ringtoets.Common.IO
 
             using (PolylineShapeFileReader lineShapeReader = OpenPolyLineShapeFile(shapeFilePath))
             {
-                var lineMapData = GetReferenceLineMapData(lineShapeReader, shapeFilePath);
+                MapLineData lineMapData = GetReferenceLineMapData(lineShapeReader, shapeFilePath);
                 return CreateReferenceLine(lineMapData);
             }
         }
 
         /// <summary>
-        /// Opens the poly line shape file.
+        /// Opens the polyline shapefile.
         /// </summary>
-        /// <param name="shapeFilePath">The shape file path.</param>
-        /// <returns>The reader that can be used to read the shape file.</returns>
-        /// <exception cref="CriticalFileReadException">When shape file does not have line geometries.</exception>
+        /// <param name="shapeFilePath">The file path to the shapefile.</param>
+        /// <returns>The reader that can be used to read the shapefile.</returns>
+        /// <exception cref="CriticalFileReadException">When shapefile does not have line geometries.</exception>
         private static PolylineShapeFileReader OpenPolyLineShapeFile(string shapeFilePath)
         {
             try
@@ -97,8 +96,8 @@ namespace Ringtoets.Common.IO
         /// Gets the reference line map data.
         /// </summary>
         /// <param name="lineShapeReader">The line shape reader.</param>
-        /// <param name="shapeFilePath">The shape file path.</param>
-        /// <returns></returns>
+        /// <param name="shapeFilePath">The shapefile path.</param>
+        /// <returns>The map data representing the reference line.</returns>
         /// <exception cref="CriticalFileReadException">
         /// When either:
         /// <list type="bullet">

@@ -37,6 +37,7 @@ namespace Ringtoets.Common.Data.Test
 
             // Assert
             CollectionAssert.AreEqual(newPoints, referenceLine.Points);
+            Assert.AreNotSame(newPoints, referenceLine.Points);
         }
 
         [Test]

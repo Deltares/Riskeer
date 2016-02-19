@@ -64,7 +64,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             for (int i = 0; i < randomCount; i++)
             {
-                polygonPoints.Add(new Tuple<double, double>(random.NextDouble(), random.NextDouble()));
+                polygonPoints.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
             }
 
             var polygonData = new MapPolygonData(polygonPoints);

@@ -31,8 +31,9 @@ using Ringtoets.Piping.IO.Properties;
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// This class represents objects which were imported from a DSoilModel database. Instances of this class are transient and are not to be used
-    /// once the DSoilModel database has been imported.
+    /// This class represents objects which were imported from a DSoilModel database. 
+    /// Instances of this class are transient and are not to be used once the DSoilModel
+    /// database has been imported.
     /// </summary>
     internal class SoilLayer2D
     {
@@ -228,7 +229,7 @@ namespace Ringtoets.Piping.IO.Builders
             {
                 var first = orderedHeights[i];
                 var second = orderedHeights[i + 1];
-                result.Add(new Tuple<double, double>(first, second));
+                result.Add(Tuple.Create(first, second));
             }
             return result;
         }
@@ -237,7 +238,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// Gets a <see cref="Collection{T}"/> of heights where the <paramref name="loop"/> intersects the 
         /// vertical line at <paramref name="atX"/>.
         /// </summary>
-        /// <param name="loop">The <see cref="HashSet{T}"/> of <see cref="Core.Common.Base.Geometry.Point3D"/> which together create a loop.</param>
+        /// <param name="loop">The sequence of <see cref="Segment2D"/> which together create a loop.</param>
         /// <param name="atX">The point on the x-axis where the vertical line is constructed do determine intersections with.</param>
         /// <returns>A <see cref="Collection{T}"/> of <see cref="double"/>, representing the height at which the 
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>

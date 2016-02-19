@@ -76,8 +76,8 @@ namespace Core.Plugins.DotSpatial.Legend
         /// <summary>
         /// Updates the data for the <see cref="MapLegendView"/> if it is open.
         /// </summary>
-        /// <param name="data">The <see cref="Core.Components.Gis.Data.MapData"/> to show. If <c>null</c> the 
-        /// data will be cleared.</param>
+        /// <param name="data">The <see cref="MapData"/> to show. If <c>null</c> the data 
+        /// will be cleared.</param>
         public void Update(MapData data)
         {
             if (IsLegendViewOpen())

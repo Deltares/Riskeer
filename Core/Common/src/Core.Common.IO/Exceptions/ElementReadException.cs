@@ -25,7 +25,7 @@ namespace Core.Common.IO.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a file reader class encounters an error while
-    /// reading an particular element from the file.
+    /// reading a particular element from the file.
     /// </summary>
     public class ElementReadException : Exception
     {

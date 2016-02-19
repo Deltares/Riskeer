@@ -73,9 +73,9 @@ namespace Core.Components.Gis.Test.Data
         {
             return new Collection<Tuple<double, double>>
             {
-                new Tuple<double, double>(0.0, 1.1),
-                new Tuple<double, double>(1.0, 2.1),
-                new Tuple<double, double>(1.6, 1.6)
+                Tuple.Create(0.0, 1.1),
+                Tuple.Create(1.0, 2.1),
+                Tuple.Create(1.6, 1.6)
             };
         }
     }

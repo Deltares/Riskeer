@@ -29,7 +29,7 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="Core.Components.Gis.Data.MapPointData"/> into a <see cref="FeatureSet"/> containing one or more <see cref="Coordinate"/>.
+    /// The converter that converts <see cref="MapPointData"/> into a <see cref="FeatureSet"/> containing one or more <see cref="Coordinate"/>.
     /// </summary>
     public class MapPointDataConverter : MapDataConverter<MapPointData>
     {

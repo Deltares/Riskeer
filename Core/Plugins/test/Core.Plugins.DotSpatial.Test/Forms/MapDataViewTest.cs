@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Components.DotSpatial;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;

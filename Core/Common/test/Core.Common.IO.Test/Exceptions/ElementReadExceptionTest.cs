@@ -63,7 +63,7 @@ namespace Core.Common.IO.Test.Exceptions
             Assert.AreEqual(messageText, exception.Message);
             CollectionAssert.IsEmpty(exception.Data);
             Assert.IsNull(exception.HelpLink);
-            Assert.AreEqual(innerException, exception.InnerException);
+            Assert.AreSame(innerException, exception.InnerException);
             Assert.IsNull(exception.Source);
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);

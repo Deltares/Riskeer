@@ -296,7 +296,7 @@ namespace Core.Components.Gis.IO.Test
             TestDelegate call = () => reader.ReadLine();
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op index 0: Ingelezen element is een 'multi-lijn'; Alleen enkelvoudige lijn elementen worden ondersteund.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op index 0: Ingelezen element is een 'multi-lijn'; alleen enkelvoudige lijn elementen worden ondersteund.",
                                                 nonLineShapeFile);
             var message = Assert.Throws<ElementReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

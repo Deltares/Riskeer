@@ -121,7 +121,7 @@
     <value>Bestand bevat geometrieën die geen lijn zijn.</value>
   </data>
   <data name="PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline" xml:space="preserve">
-    <value>Ingelezen element is een 'multi-lijn'; Alleen enkelvoudige lijn elementen worden ondersteund.</value>
+    <value>Ingelezen element is een 'multi-lijn'; alleen enkelvoudige lijn elementen worden ondersteund.</value>
   </data>
   <data name="PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_" xml:space="preserve">
     <value>op index {0}</value>

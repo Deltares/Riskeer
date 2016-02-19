@@ -96,8 +96,8 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             for (int i = 0; i < randomCount; i++)
             {
-                points.Add(new Tuple<double, double>(random.NextDouble(), random.NextDouble()));
-                linePoints.Add(new Tuple<double, double>(random.NextDouble(), random.NextDouble()));
+                points.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                linePoints.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
             }
 
             var collectionData = new MapDataCollection(new List<MapData>());

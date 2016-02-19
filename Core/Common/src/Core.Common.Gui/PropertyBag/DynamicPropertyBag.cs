@@ -150,7 +150,7 @@ namespace Core.Common.Gui.PropertyBag
                 var propertyOrderAttribute = pd.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault();
                 if (propertyOrderAttribute != null)
                 {
-                    propertiesWithOrdering.Add(new Tuple<int, PropertyDescriptor>(propertyOrderAttribute.Order, pd));
+                    propertiesWithOrdering.Add(Tuple.Create(propertyOrderAttribute.Order, pd));
                 }
                 else
                 {

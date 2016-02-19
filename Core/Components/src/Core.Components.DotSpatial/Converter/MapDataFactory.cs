@@ -30,12 +30,12 @@ using DotSpatial.Data;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// A factory to create <see cref="FeatureSet"/> data from <see cref="Core.Components.Gis.Data.MapData"/> which can be used on the map.
+    /// A factory to create <see cref="FeatureSet"/> data from <see cref="MapData"/> which can be used on the map.
     /// </summary>
     public class MapDataFactory
     {
         /// <summary>
-        /// Collection of converters that the <see cref="MapDataFactory"/> can use to transform <see cref="Core.Components.Gis.Data.MapData"/>.
+        /// Collection of converters that the <see cref="MapDataFactory"/> can use to transform <see cref="MapData"/>.
         /// </summary>
         private readonly IEnumerable<IMapDataConverter> converters = new Collection<IMapDataConverter>
         {
@@ -48,7 +48,7 @@ namespace Core.Components.DotSpatial.Converter
         /// <summary>
         /// Creates one or more new <see cref="FeatureSet"/> from the given <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="Core.Components.Gis.Data.MapData"/> to base the creation of <see cref="FeatureSet"/> upon.</param>
+        /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="FeatureSet"/> upon.</param>
         /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
         public IList<FeatureSet> Create(MapData data)

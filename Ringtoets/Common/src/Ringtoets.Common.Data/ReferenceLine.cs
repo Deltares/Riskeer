@@ -30,7 +30,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Class representing the reference line used a basis for assessment.
+    /// Class representing the reference line used as a basis for assessment.
     /// </summary>
     public class ReferenceLine
     {
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data
         /// Sets the geometry of the reference line.
         /// </summary>
         /// <param name="newPoints">The sequence of points defining the reference line geometry.</param>
-        /// <exception cref="ArgumentException">Thrown when any of the <paramref name="newPoints"/> has no value (== <c>null</c>).</exception>
+        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="newPoints"/> is <c>null</c>.</exception>
         public void SetGeometry(IEnumerable<Point2D> newPoints)
         {
             if (newPoints == null)

@@ -112,10 +112,6 @@
       <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
-      <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
-      <Name>Core.Components.DotSpatial</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>

@@ -45,7 +45,7 @@ namespace Core.Plugins.DotSpatial
         }
 
         /// <summary>
-        /// Sets the <see cref="Core.Components.Gis.IMap"/> to show the ribbon for.
+        /// Sets the <see cref="IMap"/> to show the ribbon for.
         /// </summary>
         public IMap Map
         {

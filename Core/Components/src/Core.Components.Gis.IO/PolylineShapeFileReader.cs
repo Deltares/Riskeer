@@ -37,7 +37,7 @@ using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 namespace Core.Components.Gis.IO
 {
     /// <summary>
-    /// Class to be used to read polylines from a shape file.
+    /// Class to be used to read polylines from a shapefile.
     /// </summary>
     public class PolylineShapeFileReader : IDisposable
     {
@@ -48,7 +48,7 @@ namespace Core.Components.Gis.IO
         /// <summary>
         /// Initializes a new instance of the <see cref="PolylineShapeFileReader"/> class.
         /// </summary>
-        /// <param name="shapeFilePath">The shape file path.</param>
+        /// <param name="shapeFilePath">The shapefile path.</param>
         /// <exception cref="ArgumentException">When <paramref name="shapeFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">When either:
         /// <list type="bullet">
@@ -85,7 +85,7 @@ namespace Core.Components.Gis.IO
         }
 
         /// <summary>
-        /// Gets the number of lines in the shape file.
+        /// Gets the number of lines in the shapefile.
         /// </summary>
         public int GetNumberOfLines()
         {
@@ -96,7 +96,7 @@ namespace Core.Components.Gis.IO
         /// Reads a line shape from the file.
         /// </summary>
         /// <returns>The <see cref="MapLineData"/> representing the read line shape, or 
-        /// <c>null</c> when at the end of the shape file.</returns>
+        /// <c>null</c> when at the end of the shapefile.</returns>
         /// <exception cref="ElementReadException">When reading a multi-line feature.</exception>
         public MapLineData ReadLine()
         {
@@ -107,7 +107,7 @@ namespace Core.Components.Gis.IO
 
             try
             {
-                var lineFeature = GetSingleLineFeature(readIndex);
+                IFeature lineFeature = GetSingleLineFeature(readIndex);
                 return ConvertSingleLineFeatureToMapLineData(lineFeature);
             }
             finally
@@ -137,7 +137,7 @@ namespace Core.Components.Gis.IO
 
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature)
         {
-            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => new Tuple<double, double>(c.X, c.Y)));
+            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => Tuple.Create(c.X, c.Y)));
             DataTable table = lineShapeFile.GetAttributes(readIndex, 1);
             DataRow dataRow = table.Rows[0];
             for (int i = 0; i < table.Columns.Count; i++)

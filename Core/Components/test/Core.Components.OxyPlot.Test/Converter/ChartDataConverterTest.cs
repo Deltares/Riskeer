@@ -20,7 +20,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var random = new Random(21);
             var a = random.NextDouble();
             var b = random.NextDouble();
-            var tuple = new Tuple<double,double>(a,b);
+            var tuple = Tuple.Create(a,b);
             var testConverter = new TestChartDataConverter<ChartData>();
 
             // Call

@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
-using Core.Components.DotSpatial;
 using Core.Components.Gis;
 using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Legend;
