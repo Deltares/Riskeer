@@ -1,11 +1,7 @@
-﻿using System.IO;
-using System.Linq;
-using Core.Common.Base;
+﻿using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -131,51 +127,5 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll();
         }
-
-//        [Test]
-//        [RequiresSTA]
-//        public void GivenNoFilePathIsSet_WhenOpeningFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
-//        {
-//            // Given
-//            var testFile = Path.Combine(testDataPath, "empty.sqlite");
-//            var guiMock = mocks.StrictMock<IGui>();
-//            var mainWindow = mocks.Stub<IMainWindow>();
-//            var observer = mocks.StrictMock<IObserver>();
-//
-//            using (var treeViewControl = new TreeViewControl())
-//            {
-//                var hydraulicBoundaryDatabaseMock = mocks.StrictMock<HydraulicBoundaryDatabase>();
-//                var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-//
-//                var nodeData = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabaseMock, assessmentSectionMock);
-//                nodeData.Attach(observer);
-//
-//                observer.Expect(o => o.UpdateObserver());
-//
-//                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-//                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
-//
-//                var openFolderContextMenuItemIndex = 1;
-//
-//                mocks.ReplayAll();
-//
-//                ModalFormHandler = (name, wnd, form) =>
-//                {
-//                    var tester = new OpenFileDialogTester(wnd);
-//                    tester.OpenFile(testFile);
-//                };
-//
-//                plugin.Gui = guiMock;
-//
-//                var contextMenuAdapter = info.ContextMenuStrip(nodeData, null, treeViewControl);
-//
-//                // When
-//                Action action = () => { contextMenuAdapter.Items[openFolderContextMenuItemIndex].PerformClick(); };
-//
-//                // Then
-//                TestHelper.AssertLogMessageIsGenerated(action, string.Format("Database op pad {0} gekoppeld", testFile));
-//                mocks.VerifyAll();
-//            }
-//        }
     }
 }
