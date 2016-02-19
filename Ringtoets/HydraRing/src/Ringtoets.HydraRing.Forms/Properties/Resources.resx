@@ -142,7 +142,7 @@
     <value>Bereken de toetspeilen</value>
   </data>
   <data name="DesignWaterLevel_No_HRD_To_Calculate" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te bereken.</value>
+    <value>Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
     <value>Koppel aan database</value>
