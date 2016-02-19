@@ -194,4 +194,13 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_" xml:space="preserve">
     <value>Beginnen met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_" xml:space="preserve">
+    <value>Karakteristieke punten gevonden zonder bijbehorende profielmeting voor locatie '{0}'.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_" xml:space="preserve">
+    <value>Meerdere karakterstieke punten definities gevonden voor locatie '{0}'.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
+    <value>Meerdere definities gevonden voor profielmeting '{0}'.</value>
+  </data>
 </root>

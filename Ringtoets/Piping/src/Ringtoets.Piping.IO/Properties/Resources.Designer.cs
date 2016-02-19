@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om profielmetingen uit te lezen: koptekst komt niet overeen met wat verwacht wordt..
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt..
         /// </summary>
         public static string PipingCharacteristicPointsCsvReader_File_invalid_header {
             get {

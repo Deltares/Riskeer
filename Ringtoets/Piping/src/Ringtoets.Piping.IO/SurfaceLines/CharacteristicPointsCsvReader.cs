@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="readText">A single line read from file.</param>
         /// <returns>A new <see cref="CharacteristicPoints"/> with name and characteristic points set.</returns>
-        /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when:
+        /// <exception cref="LineParseException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="readText"/> has too many or few columns.</item>
         /// <item><paramref name="readText"/> contains a coordinate value which could not be parsed to <see cref="double"/>.</item>
@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="tokenizedString">The string read from file.</param>
         /// <param name="location">The <see cref="CharacteristicPoints"/> to set the characteristic points for.</param>
-        /// <exception cref="CreateLineParseException(int,string,string,Exception)">Thrown when <paramref name="tokenizedString"/> 
+        /// <exception cref="LineParseException">Thrown when <paramref name="tokenizedString"/> 
         /// contains a coordinate value which could not be parsed to <see cref="double"/>.</exception>
         private void SetCharacteristicPoints(string[] tokenizedString, CharacteristicPoints location)
         {
@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <param name="typeKey">The key for the type of characteristic point.</param>
         /// <param name="locationName">The name of the location used for creating descriptive errors.</param>
         /// <returns>A new <see cref="Point3D"/> with values for x,y,z set.</returns>
-        /// <exception cref="CreateLineParseException(int,string,string,Exception)"><paramref name="valuesRead"/> 
+        /// <exception cref="LineParseException"><paramref name="valuesRead"/> 
         /// contains a value which could not be parsed to a double in the column that had to be read for creating
         /// the <see cref="Point3D"/>.</exception>
         private Point3D GetPoint3D(string[] valuesRead, string typeKey, string locationName)

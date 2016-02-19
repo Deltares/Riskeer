@@ -68,6 +68,7 @@ namespace Core.Common.TestUtil
             public static class Piping
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
+                public static readonly TestDataPath Plugin = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.Plugin.Test");
             }
         }
     }

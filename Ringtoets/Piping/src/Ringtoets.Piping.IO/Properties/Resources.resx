@@ -181,7 +181,7 @@
     <value>ondergrondschematisering '{0}'</value>
   </data>
   <data name="PipingCharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
-    <value>Het bestand is niet geschikt om profielmetingen uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
+    <value>Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
   </data>
   <data name="Error_CharacteristicPoint_has_not_double" xml:space="preserve">
     <value>Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.</value>

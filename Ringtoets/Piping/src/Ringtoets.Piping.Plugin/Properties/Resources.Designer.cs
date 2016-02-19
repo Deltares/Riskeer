@@ -163,6 +163,36 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Karakteristieke punten gevonden zonder bijbehorende profielmeting voor locatie &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_" +
+                        "for_unknown_SurfaceLine_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meerdere karakterstieke punten definities gevonden voor locatie &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_sa" +
+                        "me_characteristic_point_location_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meerdere definities gevonden voor profielmeting &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_sa" +
+                        "me_location_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er konden geen karakteristieke punten gevonden worden voor profielmeting &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_ {
