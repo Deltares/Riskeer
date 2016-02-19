@@ -59,13 +59,5 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Gets the piping failure mechanism which the piping context belongs to.
         /// </summary>
         public PipingFailureMechanism PipingFailureMechanism { get; private set; }
-
-        /// <summary>
-        /// Clears the output of the <see cref="PipingCalculationContext"/>.
-        /// </summary>
-//        public void ClearOutput()
-//        {
-//            WrappedData.ClearOutput();
-//        }
     }
 }

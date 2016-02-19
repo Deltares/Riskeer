@@ -106,6 +106,10 @@
       <Name>Ringtoets.Common.Placeholder</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Forms\Ringtoets.HydraRing.Forms.csproj">
       <Project>{EFB9B7E0-82A8-40CA-95C8-B56B4AC02294}</Project>
       <Name>Ringtoets.HydraRing.Forms</Name>

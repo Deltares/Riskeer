@@ -21,14 +21,14 @@
 
 using System;
 using Core.Common.Base;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.Properties;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.HydraulicBoundary;
 
 namespace Ringtoets.HydraRing.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/>.
     /// </summary>
     public class HydraulicBoundaryDatabaseContext : Observable
     {
@@ -38,8 +38,9 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> instance wrapped by this context object.</param>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/> instance wrapped by this context object.</param>
         /// <param name="baseNode">The <see cref="AssessmentSectionBase"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseNode"/> is <c>null</c>.</exception>
         public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, AssessmentSectionBase baseNode)
         {
             if (baseNode == null)
@@ -55,7 +56,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryDatabase"/> which is wrapped by this context object.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/> which is wrapped by this context object.
         /// </summary>
         public HydraulicBoundaryDatabase BoundaryDatabase
         {

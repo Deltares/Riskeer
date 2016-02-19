@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.IO;
-using System.Security.Cryptography;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 

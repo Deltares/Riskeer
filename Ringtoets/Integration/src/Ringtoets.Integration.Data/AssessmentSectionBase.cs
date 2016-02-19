@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
 using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Contribution;
-using Ringtoets.Integration.Data.HydraulicBoundary;
 
 namespace Ringtoets.Integration.Data
 {

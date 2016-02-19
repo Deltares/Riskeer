@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // Prepare
-            var expectedFileFilter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsCommonFormsResources.SelectDatabaseFile_FilterName);
+            var expectedFileFilter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsHydraRingFormsResources.SelectDatabaseFile_FilterName);
 
             // Call
             var importer = new HydraulicBoundaryLocationsImporter();
@@ -108,11 +108,12 @@ namespace Ringtoets.HydraRing.Plugin.Test
 
         [Test]
         [TestCase("/")]
-        [TestCase("nonexisting.sqlit")]
+        [TestCase("nonexisting.sqlite")]
         public void Import_FromNonExistingFileOrInvalidFile_LogError(string filename)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, filename);
+            var expectedMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -136,8 +137,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
-                StringAssert.EndsWith(message, messageArray[0]);
+                StringAssert.EndsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(observableList);

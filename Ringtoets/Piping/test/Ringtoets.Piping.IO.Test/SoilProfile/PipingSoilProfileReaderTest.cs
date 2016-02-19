@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             {
                 // Assert
                 Assert.AreEqual(dbFile, pipingSoilProfileReader.Path);
-                Assert.IsInstanceOf<DatabaseReaderBase>(pipingSoilProfileReader);
+                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(pipingSoilProfileReader);
             }
         }
 

@@ -50,7 +50,7 @@
     <Compile Include="Exceptions\CriticalFileReadExceptionTest.cs" />
     <Compile Include="Exceptions\ElementReadExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Readers\DatabaseReaderBaseTest.cs" />
+    <Compile Include="Readers\SqLiteDatabaseReaderBaseTest.cs" />
     <Compile Include="Readers\ReadResultTest.cs" />
   </ItemGroup>
   <ItemGroup />

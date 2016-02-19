@@ -1,9 +1,9 @@
 ﻿using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses

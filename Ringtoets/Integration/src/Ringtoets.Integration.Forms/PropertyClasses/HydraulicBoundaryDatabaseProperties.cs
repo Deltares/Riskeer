@@ -22,13 +22,12 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.HydraulicBoundary;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
+    /// ViewModel of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {

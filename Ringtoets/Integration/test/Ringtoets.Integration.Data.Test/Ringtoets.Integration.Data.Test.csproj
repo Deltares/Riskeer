@@ -57,7 +57,6 @@
     <Compile Include="DuneAssessmentSectionTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
-    <Compile Include="HydraulicBoundary\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Placeholders\FailureMechanismPlaceholderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

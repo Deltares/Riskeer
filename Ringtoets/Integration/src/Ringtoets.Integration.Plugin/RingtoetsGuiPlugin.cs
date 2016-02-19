@@ -46,6 +46,7 @@ using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
+using HydraringResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -171,7 +172,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = hydraulicBoundaryDatabase => RingtoetsDataResources.HydraulicBoundaryDatabase_DisplayName,
+                Text = hydraulicBoundaryDatabase => HydraringResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
@@ -373,20 +374,20 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var connectionItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect,
-                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                HydraringResources.HydraulicBoundaryDatabase_Connect,
+                HydraringResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData); });
 
-            var toetsPeilItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Toetspeil_Calculate,
-                RingtoetsCommonFormsResources.Toetspeil_Calculate_ToolTip,
+            var DesignWaterLevelItem = new StrictContextMenuItem(
+                HydraringResources.DesignWaterLevel_Calculate,
+                HydraringResources.DesignWaterLevel_Calculate_ToolTip,
                 RingtoetsFormsResources.FailureMechanismIcon,
                 null);
 
             if (string.IsNullOrEmpty(nodeData.BoundaryDatabase.FilePath))
             {
-                toetsPeilItem.Enabled = false;
-                toetsPeilItem.ToolTipText = RingtoetsCommonFormsResources.Toetspeil_No_HRD_To_Calculate;
+                DesignWaterLevelItem.Enabled = false;
+                DesignWaterLevelItem.ToolTipText = HydraringResources.DesignWaterLevel_No_HRD_To_Calculate;
             }
 
             return Gui.Get(nodeData, treeViewControl)
@@ -396,7 +397,7 @@ namespace Ringtoets.Integration.Plugin
                       .AddImportItem()
                       .AddExportItem()
                       .AddSeparator()
-                      .AddCustomItem(toetsPeilItem)
+                      .AddCustomItem(DesignWaterLevelItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
@@ -404,10 +405,10 @@ namespace Ringtoets.Integration.Plugin
 
         private void SelectDatabaseFile(HydraulicBoundaryDatabaseContext nodeData)
         {
-            var windowTitle = RingtoetsCommonFormsResources.SelectDatabaseFile_Title;
+            var windowTitle = HydraringResources.SelectDatabaseFile_Title;
             using (var dialog = new OpenFileDialog
             {
-                Filter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsCommonFormsResources.SelectDatabaseFile_FilterName),
+                Filter = string.Format("{0} (*.sqlite)|*.sqlite", HydraringResources.SelectDatabaseFile_FilterName),
                 Multiselect = false,
                 Title = windowTitle,
                 RestoreDirectory = true,
@@ -447,8 +448,8 @@ namespace Ringtoets.Integration.Plugin
                                             string version)
         {
             var confirmation = MessageBox.Show(
-                RingtoetsCommonFormsResources.Delete_ToetsPeil_Calculations_Text,
-                RingtoetsCommonFormsResources.Delete_ToetsPeil_Calculations_Title,
+                HydraringResources.Delete_DesignWaterLevel_Calculations_Text,
+                HydraringResources.Delete_DesignWaterLevel_Calculations_Title,
                 MessageBoxButtons.YesNo);
 
             if (confirmation == DialogResult.Yes)
@@ -468,6 +469,8 @@ namespace Ringtoets.Integration.Plugin
                 calc.ClearOutput();
                 calc.NotifyObservers();
             }
+
+            log.Info(HydraringResources.DesignWaterLevel_Calculations_Deleted);
         }
 
         private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
@@ -486,7 +489,7 @@ namespace Ringtoets.Integration.Plugin
             nodeData.BoundaryDatabase.FilePath = selectedFile;
             nodeData.BoundaryDatabase.Version = version;
             nodeData.NotifyObservers();
-            log.InfoFormat(RingtoetsCommonFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
+            log.InfoFormat(HydraringResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
         }
 
         #endregion

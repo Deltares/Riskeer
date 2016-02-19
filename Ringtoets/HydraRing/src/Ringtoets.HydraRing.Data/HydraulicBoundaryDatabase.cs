@@ -21,18 +21,31 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Integration.Data.HydraulicBoundary
+namespace Ringtoets.HydraRing.Data
 {
+    /// <summary>
+    /// The data object for the hydraulic boundary database.
+    /// </summary>
     public class HydraulicBoundaryDatabase : Observable
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>
+        /// and creates a <see cref="ObservableList{T}"/> with <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
         public HydraulicBoundaryDatabase()
         {
             Locations = new ObservableList<HydraulicBoundaryLocation>();
         }
 
+        /// <summary>
+        /// The path to the hydraulic boundary database file.
+        /// </summary>
         public string FilePath { get; set; }
+
+        /// <summary>
+        /// The version of the hydraulic boundary database.
+        /// </summary>
         public string Version { get; set; }
 
         /// <summary>

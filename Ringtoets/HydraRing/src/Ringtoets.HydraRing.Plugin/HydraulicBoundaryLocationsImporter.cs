@@ -32,6 +32,8 @@ using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
+using HydraringResources = Ringtoets.HydraRing.Forms.Properties.Resources;
+
 
 namespace Ringtoets.HydraRing.Plugin
 {
@@ -100,7 +102,7 @@ namespace Ringtoets.HydraRing.Plugin
         {
             get
             {
-                return string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsCommonFormsResources.SelectDatabaseFile_FilterName);
+                return string.Format("{0} (*.sqlite)|*.sqlite", HydraringResources.SelectDatabaseFile_FilterName);
             }
         }
 
@@ -112,12 +114,12 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// Validates the file at <paramref name="filePath"/> and sets the version.
         /// </summary>
-        /// <param name="filePath">The paht to the file.</param>
+        /// <param name="filePath">The path to the file.</param>
         public void ValidateFile(string filePath)
         {
             try
             {
-                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(filePath))
+                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath))
                 {
                     Version = hydraulicBoundaryDatabaseReader.Version;
                 }
@@ -168,7 +170,7 @@ namespace Ringtoets.HydraRing.Plugin
 
             try
             {
-                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(path))
+                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(path))
                 {
                     return GetHydraulicBoundaryLocationReadResult(path, hydraulicBoundaryDatabaseReader);
                 }
@@ -186,13 +188,13 @@ namespace Ringtoets.HydraRing.Plugin
             log.Error(message);
         }
 
-        private ReadResult<HydraulicBoundaryLocation> GetHydraulicBoundaryLocationReadResult(string path, HydraulicBoundaryDatabaseReader hydraulicBoundaryDatabaseReader)
+        private ReadResult<HydraulicBoundaryLocation> GetHydraulicBoundaryLocationReadResult(string path, HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader)
         {
-            var totalNumberOfSteps = hydraulicBoundaryDatabaseReader.Count;
+            var totalNumberOfSteps = hydraulicBoundarySqLiteDatabaseReader.Count;
             var currentStep = 1;
 
             var locations = new Collection<HydraulicBoundaryLocation>();
-            while (hydraulicBoundaryDatabaseReader.HasNext)
+            while (hydraulicBoundarySqLiteDatabaseReader.HasNext)
             {
                 if (shouldCancel)
                 {
@@ -201,7 +203,7 @@ namespace Ringtoets.HydraRing.Plugin
                 try
                 {
                     NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
-                    locations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());
+                    locations.Add(hydraulicBoundarySqLiteDatabaseReader.ReadLocation());
                 }
                 catch (CriticalFileReadException e)
                 {

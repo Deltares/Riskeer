@@ -21,10 +21,8 @@
 
 using System.Collections.Generic;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data.HydraulicBoundary;
 
-namespace Ringtoets.Integration.Data.Test.HydraulicBoundary
+namespace Ringtoets.HydraRing.Data.Test
 {
     public class HydraulicBoundaryDatabaseTest
     {

@@ -33,9 +33,9 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Core.Common.IO.Test.Readers
 {
     [TestFixture]
-    public class DatabaseReaderBaseTest
+    public class SqLiteDatabaseReaderBaseTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO, "DatabaseReaderBase");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO, "SqLiteDatabaseReaderBase");
 
         [Test]
         public void Constructor_WithParameter_OpensConnection()
@@ -47,7 +47,7 @@ namespace Core.Common.IO.Test.Readers
             using (var reader = new TestReader(testFile))
             {
                 // Assert
-                Assert.IsInstanceOf<DatabaseReaderBase>(reader);
+                Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
                 Assert.AreEqual(ConnectionState.Open, reader.TestConnection.State);
             }
         }
@@ -57,13 +57,13 @@ namespace Core.Common.IO.Test.Readers
         {
             // Setup
             var testFile = Path.Combine(testDataPath, "none.sqlite");
+            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
 
             // Call
             TestDelegate test = () => new TestReader(testFile).Dispose();
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -72,13 +72,15 @@ namespace Core.Common.IO.Test.Readers
         [TestCase("")]
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
+            // Setup
+            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+                                                fileName, UtilsResources.Error_Path_must_be_specified);
+
             // Call
             TestDelegate test = () => new TestReader(fileName).Dispose();
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
-                                                fileName, UtilsResources.Error_Path_must_be_specified);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -95,7 +97,7 @@ namespace Core.Common.IO.Test.Readers
             Assert.AreEqual(testFile, reader.Path);
         }
 
-        private class TestReader : DatabaseReaderBase
+        private class TestReader : SqLiteDatabaseReaderBase
         {
             public TestReader(string databaseFilePath) : base(databaseFilePath) {}
 

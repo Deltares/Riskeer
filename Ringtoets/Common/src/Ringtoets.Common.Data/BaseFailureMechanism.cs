@@ -60,6 +60,7 @@ namespace Ringtoets.Common.Data
         /// </summary>
         public string Name { get; protected set; }
 
+        
         public abstract IEnumerable<ICalculationItem> CalculationItems { get; }
 
         /// <summary>

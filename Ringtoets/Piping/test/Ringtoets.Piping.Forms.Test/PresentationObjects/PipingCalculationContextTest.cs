@@ -127,35 +127,5 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             mocks.VerifyAll(); // Expect not calls on 'observer'
         }
-//
-//        [Test]
-//        public void ClearOutput_Always_SetsOutputToNull()
-//        {
-//            // Setup
-//            var surfacelines = new[]
-//            {
-//                new RingtoetsPipingSurfaceLine()
-//            };
-//            var profiles = new[]
-//            {
-//                new TestPipingSoilProfile()
-//            };
-//            var calculation = new PipingCalculation
-//            {
-//                Output = new TestPipingOutput()
-//            };
-//
-//            var mocks = new MockRepository();
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            mocks.ReplayAll();
-//
-//            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
-//
-//            // Call
-//            presentationObject.ClearOutput();
-//
-//            // Assert
-//            Assert.IsNull(presentationObject.WrappedData.Output);
-//        }
     }
 }

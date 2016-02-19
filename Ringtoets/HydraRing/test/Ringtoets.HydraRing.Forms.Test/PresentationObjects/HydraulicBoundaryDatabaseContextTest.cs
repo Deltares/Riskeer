@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.HydraulicBoundary;
 
 namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
 {
@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("De assessment sectie mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("Het traject mag niet 'null' zijn.", customMessage);
         }
 
         [Test]

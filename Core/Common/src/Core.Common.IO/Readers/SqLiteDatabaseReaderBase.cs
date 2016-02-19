@@ -32,12 +32,12 @@ namespace Core.Common.IO.Readers
     /// <summary>
     /// Base class for database readers.
     /// </summary>
-    public abstract class DatabaseReaderBase : IDisposable
+    public abstract class SqLiteDatabaseReaderBase : IDisposable
     {
         private readonly string fullFilePath;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DatabaseReaderBase"/> which will use the <paramref name="databaseFilePath"/>
+        /// Creates a new instance of <see cref="SqLiteDatabaseReaderBase"/> which will use the <paramref name="databaseFilePath"/>
         /// as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -48,7 +48,7 @@ namespace Core.Common.IO.Readers
         /// <item>Preparing the queries to read from the database failed.</item>
         /// </list>
         /// </exception>
-        protected DatabaseReaderBase(string databaseFilePath)
+        protected SqLiteDatabaseReaderBase(string databaseFilePath)
         {
             try
             {
@@ -79,6 +79,9 @@ namespace Core.Common.IO.Readers
             }
         }
 
+        /// <summary>
+        /// Closes and disposes the existing <see cref="Connection"/>.
+        /// </summary>
         public virtual void Dispose()
         {
             Connection.Close();

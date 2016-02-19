@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// <summary>
     /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> instances from this database.
     /// </summary>
-    public class PipingSoilProfileReader : DatabaseReaderBase, IRowBasedDatabaseReader
+    public class PipingSoilProfileReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
         private const string databaseRequiredVersion = "15.0.5.0";
         private const string pipingMechanismName = "Piping";

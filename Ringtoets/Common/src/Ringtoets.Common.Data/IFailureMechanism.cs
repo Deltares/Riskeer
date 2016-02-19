@@ -42,6 +42,9 @@ namespace Ringtoets.Common.Data
         /// </summary>
         string Name { get; }
 
+        /// <summary>
+        /// Gets a <see cref="IEnumerable{T}"/> of <see cref="ICalculationItem"/>.
+        /// </summary>
         IEnumerable<ICalculationItem> CalculationItems { get; }
     }
 }

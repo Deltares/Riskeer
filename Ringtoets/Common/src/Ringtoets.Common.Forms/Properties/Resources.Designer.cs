@@ -165,24 +165,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wil je alle toetspeil berekeningen verwijderen?.
-        /// </summary>
-        public static string Delete_ToetsPeil_Calculations_Text {
-            get {
-                return ResourceManager.GetString("Delete_ToetsPeil_Calculations_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen verwijderen?.
-        /// </summary>
-        public static string Delete_ToetsPeil_Calculations_Title {
-            get {
-                return ResourceManager.GetString("Delete_ToetsPeil_Calculations_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string FailureMechanism_Inputs_DisplayName {
@@ -229,24 +211,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koppel aan database.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Connect {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Connect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Koppelen aan de HR database.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Connect_ToolTip {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Connect_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap InputFolderIcon {
@@ -272,60 +236,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Ringtoets_Category {
             get {
                 return ResourceManager.GetString("Ringtoets_Category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database op pad {0} gekoppeld.
-        /// </summary>
-        public static string RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked {
-            get {
-                return ResourceManager.GetString("RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HR database.
-        /// </summary>
-        public static string SelectDatabaseFile_FilterName {
-            get {
-                return ResourceManager.GetString("SelectDatabaseFile_FilterName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer database.
-        /// </summary>
-        public static string SelectDatabaseFile_Title {
-            get {
-                return ResourceManager.GetString("SelectDatabaseFile_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeilen berekenen.
-        /// </summary>
-        public static string Toetspeil_Calculate {
-            get {
-                return ResourceManager.GetString("Toetspeil_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bereken de toetspeilen.
-        /// </summary>
-        public static string Toetspeil_Calculate_ToolTip {
-            get {
-                return ResourceManager.GetString("Toetspeil_Calculate_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen Hydraulische randvoorwaarden database beschikbaar om de toetspeilen te bereken..
-        /// </summary>
-        public static string Toetspeil_No_HRD_To_Calculate {
-            get {
-                return ResourceManager.GetString("Toetspeil_No_HRD_To_Calculate", resourceCulture);
             }
         }
         

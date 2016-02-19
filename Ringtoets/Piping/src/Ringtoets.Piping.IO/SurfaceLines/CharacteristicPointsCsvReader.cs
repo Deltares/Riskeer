@@ -178,6 +178,9 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             return null;
         }
 
+        /// <summary>
+        /// Disposed the current <see cref="fileReader"/>.
+        /// </summary>
         public void Dispose()
         {
             if (fileReader != null)
