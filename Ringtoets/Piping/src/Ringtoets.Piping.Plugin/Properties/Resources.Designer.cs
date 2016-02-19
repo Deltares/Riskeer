@@ -163,6 +163,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er konden geen karakteristieke punten gevonden worden voor profielmeting &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for" +
+                        "_SurfaceLine_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan faalmechanisme.
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model {
@@ -236,6 +246,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_Charac" +
                         "teristicPoints_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beginnen met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characterist" +
+                        "ic_points_from_file_0_", resourceCulture);
             }
         }
         

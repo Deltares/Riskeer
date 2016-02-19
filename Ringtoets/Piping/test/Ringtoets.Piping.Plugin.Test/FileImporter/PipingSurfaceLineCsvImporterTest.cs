@@ -504,8 +504,269 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
+        [Test]
+        public void Import_CancelOfImportWithCharacteristicPointsAfterSurfaceLinesRead_CancelImportAndLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
 
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            importer.Cancel();
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, validFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled, 1);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+
+            mocks.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void Import_CharacteristicPointsFileDoesNotExist_Log()
+        {
+            // Setup
+            string surfaceLineFile = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+            string nonExistingCharacteristicFile = Path.Combine(testDataPath, "TwoValidSurfaceLines.krp.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importResult = true;
+
+            // Precondition
+            Assert.IsTrue(File.Exists(surfaceLineFile));
+            Assert.IsFalse(File.Exists(nonExistingCharacteristicFile));
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
+
+            // Assert
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
+                                                   nonExistingCharacteristicFile);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(2, observableSurfaceLinesList.Count);
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void Import_CharacteristicPointsFileIsEmpty_AbortImportAndLog()
+        {
+            // Setup
+            string surfaceLineFile = Path.Combine(testDataPath, "TwoValidSurfaceLines_EmptyCharacteristicPoints.csv");
+            string corruptPath = Path.Combine(testDataPath, "TwoValidSurfaceLines_EmptyCharacteristicPoints.krp.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
+
+            // Assert
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
+                .WithLocation("op regel 1")
+                .Build(UtilsResources.Error_File_empty);
+
+            var expectedLogMessages = new[]
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_,
+                              corruptPath),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                              internalErrorMessage)
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                                     "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void Import_CharacteristicPointsFileHasInvalidHeader_AbortImportAndLog()
+        {
+            // Setup
+            string surfaceLineFile = Path.Combine(testDataPath, "TwoValidSurfaceLines_InvalidHaderCharacteristicPoints.csv");
+            string corruptPath = Path.Combine(testDataPath, "TwoValidSurfaceLines_InvalidHaderCharacteristicPoints.krp.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
+
+            // Assert
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
+                .WithLocation("op regel 1")
+                .Build(PipingIOResources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+
+            var expectedLogMessages = new[]
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_,
+                              corruptPath),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                              internalErrorMessage)
+            };
+
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            Assert.IsFalse(importResult);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                                     "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void Import_CharacteristicPointsFileDeletedDuringRead_AbortImportAndLog()
+        {
+            // Setup
+            var copyTargetPath = "Import_FileDeletedDuringRead_AbortImportAndLog.csv";
+            var copyCharacteristicPointsTargetPath = "Import_FileDeletedDuringRead_AbortImportAndLog.krp.csv";
+            string surfaceLines = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithCharacteristicPoints.csv");
+            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithCharacteristicPoints.krp.csv");
+            File.Copy(surfaceLines, copyTargetPath);
+            File.Copy(validFilePath, copyCharacteristicPointsTargetPath);
+
+            try
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                mocks.ReplayAll();
+
+                var importer = new PipingSurfaceLinesCsvImporter();
+                importer.ProgressChanged += (name, step, steps) =>
+                {
+                    // Delete the file being read by the import during the import itself:
+                    if (name == string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
+                                              copyCharacteristicPointsTargetPath))
+                    {
+                        File.Delete(copyCharacteristicPointsTargetPath);
+                    }
+                };
+
+                var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+                observableSurfaceLinesList.Attach(observer);
+
+                var importResult = true;
+
+                // Call
+                Action call = () => importResult = importer.Import(observableSurfaceLinesList, copyTargetPath);
+
+                // Assert
+                var internalErrorMessage = new FileReaderErrorMessageBuilder(copyCharacteristicPointsTargetPath).Build(UtilsResources.Error_File_does_not_exist);
+                var expectedLogMessages = new[]
+                {
+                    string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_,
+                                  copyCharacteristicPointsTargetPath),
+                    string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
+                                  internalErrorMessage)
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+                Assert.IsFalse(importResult);
+                CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                                         "No items should be added to collection when import is aborted.");
+                mocks.VerifyAll(); // Expect no calls on 'observer'
+            }
+            finally
+            {
+                // Fallback delete in case progress event is not fired:
+                if (File.Exists(copyTargetPath))
+                {
+                    File.Delete(copyTargetPath);
+                }
+                // Fallback delete in case progress event is not fired:
+                if (File.Exists(copyCharacteristicPointsTargetPath))
+                {
+                    File.Delete(copyCharacteristicPointsTargetPath);
+                }
+            }
+        }
+
+        [Test]
+        public void Import_FileWithTwoValidLinesAndOneInvalidCharacteristicPointsDefinitionDueToUnparsableNumber_SkipInvalidRowAndLog()
+        {
+            // Setup
+            string surfaceLines = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithOneInvalidCharacteristicPoints.csv");
+            string corruptPath = Path.Combine(testDataPath, "TwoValidSurfaceLines_WithOneInvalidCharacteristicPoints.krp.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+            int progressCallCount = 0;
+            importer.ProgressChanged += (name, step, steps) => { progressCallCount++; };
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLines);
+
+            // Assert
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
+                .WithLocation("op regel 2")
+                .WithSubject("locatie 'Rotterdam1Invalid'")
+                .Build(PipingIOResources.Error_CharacteristicPoint_has_not_double);
+            var expectedLogMessages = new[]
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_, 
+                    corruptPath),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
+                    internalErrorMessage)
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 3);
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(2, observableSurfaceLinesList.Count,
+                            "Ensure only the two valid surfacelines have been imported.");
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "Rotterdam1Invalid"));
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "ArtifcialLocal"));
+
+            Assert.AreEqual(7, progressCallCount,
+                            "Expect 1 call for each surfaceline (2 in total) +1 for 0/N progress and for each characteristic point location (2 in total) +1 for 0/N progress, and 1 for putting data in model.");
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+        
         [Test]
         public void Import_ImportingToValidTargetWithValidFileWithCharacteristicPoints_ImportSurfaceLinesToCollection()
         {

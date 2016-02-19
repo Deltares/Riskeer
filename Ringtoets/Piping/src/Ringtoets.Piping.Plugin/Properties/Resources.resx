@@ -188,4 +188,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_" xml:space="preserve">
     <value>Karakteristiek punt '{0}' van profielmeting '{1}' is overgeslagen. {2}</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_" xml:space="preserve">
+    <value>Er konden geen karakteristieke punten gevonden worden voor profielmeting '{0}'.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_" xml:space="preserve">
+    <value>Beginnen met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
+  </data>
 </root>
