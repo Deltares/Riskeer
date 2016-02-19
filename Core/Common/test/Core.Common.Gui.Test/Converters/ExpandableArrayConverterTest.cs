@@ -14,8 +14,6 @@ namespace Core.Common.Gui.Test.Converters
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var converter = new ExpandableArrayConverter();
 
@@ -51,7 +49,7 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void ConvertTo_FromArrayToInt_ThrowsInvalidOperationException()
+        public void ConvertTo_FromArrayToInt_ThrowsNotSupportedException()
         {
             // Setup
             var sourceArray = new int[1];
@@ -65,7 +63,7 @@ namespace Core.Common.Gui.Test.Converters
         }
 
         [Test]
-        public void ConvertTo_FromArrayToString_ReturnCountText()
+        public void ConvertTo_FromArrayToNull_ThrowsArgumentNullException()
         {
             // Setup
             var sourceArray = new int[2];

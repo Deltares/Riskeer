@@ -186,7 +186,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        public void DoAppend_LogMessagetHasException_AppendTextForReferToLogfileToMessage()
+        public void DoAppend_LogMessageHasException_AppendTextForReferToLogfileToMessage()
         {
             // Setup
             const string messageText = "<logmessage text>";

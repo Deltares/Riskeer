@@ -32,7 +32,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_WithoutTreeNode_ThrowsArgumentNullException()
+        public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
             // Setup
             var applicationFeatureCommandHandler = mocks.StrictMock<IApplicationFeatureCommands>();
@@ -108,21 +108,14 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateOpenItem_Always_Disabled(bool hasViewersForNodeData)
+        public void CreateOpenItem_NoDataAvailableForView_MenuItemIsDisabled()
         {
             // Setup
             var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
             var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var nodeData = new object();
-            viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(hasViewersForNodeData);
-            if (hasViewersForNodeData)
-            {
-                viewCommandsMock.Expect(ch => ch.OpenView(nodeData));
-            }
-
+            viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(false);
             mocks.ReplayAll();
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, nodeData);
@@ -135,7 +128,34 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Open, item.Text);
             Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
-            Assert.AreEqual(hasViewersForNodeData, item.Enabled);
+            Assert.IsFalse(item.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateOpenItem_HasViewForData_MenuItemEnabledAndCausesViewToOpenWhenClicked()
+        {
+            // Setup
+            var commandHandlerMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportCommandHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var nodeData = new object();
+            viewCommandsMock.Expect(ch => ch.CanOpenViewFor(nodeData)).Return(true);
+            viewCommandsMock.Expect(ch => ch.OpenView(nodeData));
+            mocks.ReplayAll();
+
+            var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock, exportImportCommandHandlerMock, viewCommandsMock, nodeData);
+
+            // Call
+            var item = contextMenuFactory.CreateOpenItem();
+            item.PerformClick();
+
+            // Assert
+            Assert.AreEqual(Resources.Open, item.Text);
+            Assert.AreEqual(Resources.Open_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.OpenIcon, item.Image);
+            Assert.IsTrue(item.Enabled);
 
             mocks.VerifyAll();
         }

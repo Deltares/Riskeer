@@ -25,14 +25,17 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Properties;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
+
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
@@ -44,6 +47,14 @@ namespace Application.Ringtoets.Storage
     {
         private string filePath;
         private string connectionString;
+
+        public string FileFilter
+        {
+            get
+            {
+                return Resources.Ringtoets_project_file_filter;
+            }
+        }
 
         /// <summary>
         /// Converts <paramref name="project"/> to a new <see cref="ProjectEntity"/> in the database.

@@ -35,10 +35,10 @@ namespace Core.Common.Gui
         IViewList ToolWindowViews { get; }
 
         /// <summary>
-        /// Checks whether a tool window of type <typeparamref name="T"/> is open.
+        /// Checks whether a tool view of type <typeparamref name="T"/> is open.
         /// </summary>
-        /// <typeparam name="T">The type of tool window to check for.</typeparam>
-        /// <returns><c>true</c> if a tool window of type <typeparamref name="T"/> is open,
+        /// <typeparam name="T">The type of tool view to check for.</typeparam>
+        /// <returns><c>true</c> if a tool view of type <typeparamref name="T"/> is open,
         /// <c>false</c> otherwise.</returns>
         bool IsToolWindowOpen<T>();
 

@@ -66,7 +66,7 @@ namespace Core.Common.Gui.PropertyBag
         public ICollection<PropertySpec> Properties { get; private set; }
 
         /// <summary>
-        /// Gets the object wrapped inside this <see cref="DynamicPropertyBag"/>
+        /// Gets the object wrapped inside this <see cref="DynamicPropertyBag"/>.
         /// </summary>
         public object WrappedObject { get; private set; }
 

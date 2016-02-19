@@ -26,7 +26,7 @@ using System.Windows.Forms;
 namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>
-    /// Class used by the <see cref="ContextMenuBuilder"/> to enforce instantiation the following properties.
+    /// Class used by the <see cref="ContextMenuBuilder"/> to enforce instantiation of the following properties:
     /// <list type="bullet">
     /// <item><see cref="ToolStripMenuItem.Text"/></item>
     /// <item><see cref="ToolStripItem.ToolTipText"/></item>

@@ -26,8 +26,8 @@ using Fluent;
 namespace Core.Common.Gui.Forms
 {
     /// <summary>
-    /// Interface declaring member for providing a <see cref="Ribbon"/>control, commands used by that
-    /// Ribbon control and controller methods.
+    /// Interface declaring a member for providing a <see cref="Ribbon"/> control, commands 
+    /// used by that <see cref="Ribbon"/> control and controller methods.
     /// </summary>
     public interface IRibbonCommandHandler
     {
@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Forms
         IEnumerable<ICommand> Commands { get; }
 
         /// <summary>
-        /// Gets <see cref="Ribbon"/> control.
+        /// Gets the <see cref="Ribbon"/> control.
         /// </summary>
         Ribbon GetRibbonControl();
 
@@ -52,7 +52,7 @@ namespace Core.Common.Gui.Forms
         /// </summary>
         /// <param name="tabGroupName">Name of the contextual group.</param>
         /// <param name="tabName">Name of the tab.</param>
-        /// <returns>Returns true if tab should be shown, false otherwise.</returns>
+        /// <returns>Returns <c>true</c> if the tab should be shown; <c>false</c> otherwise.</returns>
         bool IsContextualTabVisible(string tabGroupName, string tabName);
     }
 }

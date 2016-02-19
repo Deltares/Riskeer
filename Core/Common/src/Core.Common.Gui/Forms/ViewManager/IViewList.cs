@@ -28,38 +28,6 @@ using Core.Common.Utils.Events;
 namespace Core.Common.Gui.Forms.ViewManager
 {
     /// <summary>
-    /// Flags on where views can be located.
-    /// </summary>
-    [Flags]
-    public enum ViewLocation
-    {
-        /// <summary>
-        /// The location reserved for Document Views.
-        /// </summary>
-        Document = 0x0,
-        /// <summary>
-        /// Left of the location reserved for Document Views.
-        /// </summary>
-        Left = 0x1,
-        /// <summary>
-        /// Right of the location reserved for Document Views.
-        /// </summary>
-        Right = 0x2,
-        /// <summary>
-        /// Above the location reserved for Document Views.
-        /// </summary>
-        Top = 0x4,
-        /// <summary>
-        /// Below the location reserved for Document Views.
-        /// </summary>
-        Bottom = 0x8,
-        /// <summary>
-        /// Floating panel.
-        /// </summary>
-        Floating = 0x16
-    };
-
-    /// <summary>
     /// Manages currently displayed views.
     /// </summary>
     public interface IViewList : IList<IView>, IDisposable
@@ -90,7 +58,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         IView ActiveView { get; set; }
 
         /// <summary>
-        /// Returns all views.
+        /// Gets all views.
         /// </summary>
         IEnumerable<IView> AllViews { get; }
 
@@ -109,7 +77,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         void SetTooltip(IView view, string tooltip);
 
         /// <summary>
-        /// Removes all views except <paramref name="viewToKeep"/>
+        /// Removes all views except <paramref name="viewToKeep"/>.
         /// </summary>
         /// <param name="viewToKeep">The view that should be kept open and made the active view. 
         /// If set to null, all views will be closed and <see cref="ActiveView"/> will be null.</param>

@@ -653,7 +653,7 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
         }
 
         [Test]
-        public void Contains_ViewNotInList_ReturnTrue()
+        public void Contains_ViewInList_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1137,7 +1137,7 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void IndexOf_ViewInList_ReturnMinusOne(int expectedViewIndex)
+        public void IndexOf_ViewInList_ReturnExpectedIndex(int expectedViewIndex)
         {
             // Setup
             var mocks = new MockRepository();

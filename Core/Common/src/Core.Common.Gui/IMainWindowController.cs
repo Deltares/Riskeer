@@ -24,7 +24,7 @@ using Core.Common.Gui.Forms.MainWindow;
 namespace Core.Common.Gui
 {
     /// <summary>
-    /// Interface that declare members that allow for the controlling the main window of
+    /// Interface that declares members that allow for controlling the main window of
     /// the application.
     /// </summary>
     public interface IMainWindowController

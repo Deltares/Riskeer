@@ -11,7 +11,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
     {
         [Test]
         [RequiresSTA]
-        public void Shutdown_SlashShown_ShouldBeClosed()
+        public void Shutdown_SlashScreenShown_ShouldBeClosed()
         {
             // Setup
             var screen = new Gui.Forms.SplashScreen.SplashScreen();
@@ -98,11 +98,13 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
 
         [Test]
         [RequiresSTA]
-        public void TestProgressBarVisible()
+        public void HasProgress_SetToFalse_HideProgressBarRelatedUserInterfaceElements()
         {
             // Setup
             var screen = new Gui.Forms.SplashScreen.SplashScreen();
             screen.Show();
+
+            // Precondition:
             Assert.IsTrue(screen.HasProgress, "Initially, the progress should be visible");
             Assert.IsTrue(GetIsControlVisible(screen, "ProgressBar"));
             Assert.IsTrue(GetIsControlVisible(screen, "LabelProgressMessage"));

@@ -22,13 +22,15 @@
 namespace Core.Common.Base
 {
     /// <summary>
-    /// Interface that describes the methods that need to be implemented on classes that are supposed to be observer.
+    /// Interface that describes the methods that need to be implemented on classes that
+    /// observe an observable object.
     /// </summary>
     /// <seealso cref="IObservable"/>
     public interface IObserver
     {
         /// <summary>
-        /// This method performs an update of the <seealso cref="IObserver"/>, triggered by a notification of an <seealso cref="IObservable"/>.
+        /// This method performs an update of the <see cref="IObserver"/>, triggered by a 
+        /// notification of an <see cref="IObservable"/>.
         /// </summary>
         void UpdateObserver();
     }

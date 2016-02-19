@@ -1490,15 +1490,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoetsproject (*.rtd)|*.rtd.
-        /// </summary>
-        public static string Ringtoets_project_file_filter {
-            get {
-                return ResourceManager.GetString("Ringtoets_project_file_filter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SaveAsHH {

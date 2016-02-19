@@ -324,7 +324,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             Assert.IsNull(result);
         }
 
-        #region Nester Types: various test-case classes
+        #region Nested Types: various test-case classes
 
         private class A
         {

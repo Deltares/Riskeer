@@ -31,7 +31,7 @@ using Core.Common.Utils.Reflection;
 namespace Core.Common.Gui.Forms.Options
 {
     /// <summary>
-    /// Dialog for edition user settings.
+    /// Dialog for editing user settings.
     /// </summary>
     public partial class OptionsDialog : DialogBase
     {

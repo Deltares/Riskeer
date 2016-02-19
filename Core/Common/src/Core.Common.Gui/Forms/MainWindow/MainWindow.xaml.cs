@@ -214,9 +214,8 @@ namespace Core.Common.Gui.Forms.MainWindow
         }
 
         /// <summary>
-        /// Sets the GUI and dependencies.
+        /// Sets the <see cref="IGui"/> and dependencies.
         /// </summary>
-        /// <param name="value">The GUI implementation.</param>
         public void SetGui(IGui value)
         {
             gui = value;
@@ -229,7 +228,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         }
 
         /// <summary>
-        /// Subscribes the main user interface to the GUI provided by <see cref="SetGui"/>.
+        /// Subscribes the main user interface to the <see cref="IGui"/> provided by <see cref="SetGui"/>.
         /// </summary>
         public void SubscribeToGui()
         {
@@ -245,7 +244,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         }
 
         /// <summary>
-        /// Unsubscribes the main user interface from the GUI provided by <see cref="SetGui"/>.
+        /// Unsubscribes the main user interface from the <see cref="IGui"/> provided by <see cref="SetGui"/>.
         /// </summary>
         public void UnsubscribeFromGui()
         {
@@ -282,7 +281,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// Initializes and shows all the tool windows.
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// When a gui hasn't been set with <see cref="SetGui"/>.
+        /// When a <see cref="IGui"/> hasn't been set with <see cref="SetGui"/>.
         /// </exception>
         public void InitializeToolWindows()
         {
@@ -393,7 +392,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// Initializes and shows the property grid tool window.
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// When a gui hasn't been set with <see cref="SetGui"/>.
+        /// When a <see cref="IGui"/> hasn't been set with <see cref="SetGui"/>.
         /// </exception>
         public void InitPropertiesWindowAndActivate()
         {

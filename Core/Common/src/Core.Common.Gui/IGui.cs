@@ -39,8 +39,8 @@ namespace Core.Common.Gui
                             IMainWindowController, IGuiPluginsHost, IDisposable
     {
         /// <summary>
-        /// Object responsible for retrieving the <see cref="ObjectProperties{T}"/> instance 
-        /// for a given data object for the application to use.
+        /// Gets the object responsible for retrieving the <see cref="ObjectProperties{T}"/>
+        /// instance for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
 
@@ -50,7 +50,7 @@ namespace Core.Common.Gui
         ApplicationCore ApplicationCore { get; }
 
         /// <summary>
-        /// Gets or sets the current project storage.
+        /// Gets the current project storage.
         /// </summary>
         IStoreProject Storage { get; }
 

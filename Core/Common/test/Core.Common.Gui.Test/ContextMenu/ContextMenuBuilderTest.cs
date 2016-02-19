@@ -481,7 +481,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(1)]
         [TestCase(10)]
-        public void AddSeparator_SeperatorsAddedInBetweenItems_OneSeparatorAdded(int count)
+        public void AddSeparator_SeparatorsAddedInBetweenItems_OneSeparatorAdded(int count)
         {
             // Setup
             var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();

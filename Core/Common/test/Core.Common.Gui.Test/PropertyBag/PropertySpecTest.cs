@@ -166,7 +166,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void SetValue_PropertyWithoutPublicGet_ThrowInvalidOperationException()
+        public void SetValue_PropertyWithoutPublicSet_ThrowInvalidOperationException()
         {
             // Setup
             var target = new ClassWithProperties();

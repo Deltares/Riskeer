@@ -26,12 +26,15 @@ using Core.Common.Controls.Views;
 namespace Core.Common.Gui.Forms
 {
     /// <summary>
-    /// 
+    /// A view to display a <see cref="RichTextFile"/> instance.
     /// </summary>
     public partial class RichTextView : UserControl, IView
     {
         private RichTextFile richTextFile;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RichTextView"/> class.
+        /// </summary>
         public RichTextView()
         {
             InitializeComponent();

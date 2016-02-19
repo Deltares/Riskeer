@@ -27,12 +27,12 @@ namespace Core.Common.Gui.Forms
     public class RichTextFile
     {
         /// <summary>
-        /// The actual title. Can be the file name.
+        /// Gets or sets the title of the document (can be the file name).
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Path to use for loading the rich-text foramatted file. 
+        /// Gets or sets the file path to use for loading the rich-text formatted file. 
         /// </summary>
         public string FilePath { get; set; }
     }

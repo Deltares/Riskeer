@@ -22,12 +22,12 @@
 namespace Core.Common.Gui.PropertyBag
 {
     /// <summary>
-    /// Interface for object properties
+    /// Interface for object properties.
     /// </summary>
     public interface IObjectProperties
     {
         /// <summary>
-        /// The data of the object properties
+        /// Gets or sets the data of the object properties.
         /// </summary>
         object Data { get; set; }
     }

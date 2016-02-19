@@ -27,8 +27,14 @@ using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Settings
 {
+    /// <summary>
+    /// Class that defines helper methods related to user settings.
+    /// </summary>
     public static class SettingsHelper
     {
+        /// <summary>
+        /// Initializes the <see cref="SettingsHelper"/> static properties.
+        /// </summary>
         static SettingsHelper()
         {
             //set defaults based on executing assembly
@@ -38,12 +44,25 @@ namespace Core.Common.Gui.Settings
             ApplicationCompany = info.Company;
         }
 
+        /// <summary>
+        /// Gets the name of the application.
+        /// </summary>
         public static string ApplicationName { get; private set; }
 
+        /// <summary>
+        /// Gets the version of the application.
+        /// </summary>
         public static string ApplicationVersion { get; private set; }
 
+        /// <summary>
+        /// Gets the company that released the application.
+        /// </summary>
         public static string ApplicationCompany { get; private set; }
 
+        /// <summary>
+        /// Gets the application local user settings directory.
+        /// </summary>
+        /// <returns>Directory path to where the user settings can be found</returns>
         public static string GetApplicationLocalUserSettingsDirectory()
         {
             var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

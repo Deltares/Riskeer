@@ -23,6 +23,19 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Setup
+
+            // Call
+            var storage = new StorageSqLite();
+
+            // Assert
+            Assert.IsInstanceOf<IStoreProject>(storage);
+            Assert.AreEqual("Ringtoetsproject (*.rtd)|*.rtd", storage.FileFilter);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]

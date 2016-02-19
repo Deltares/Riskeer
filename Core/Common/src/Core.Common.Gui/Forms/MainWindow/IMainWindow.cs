@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         void SetWaitCursorOn();
 
         /// <summary>
-        /// Change the cursor to display the default cursor.
+        /// Changes the cursor to display the default cursor.
         /// </summary>
         void SetWaitCursorOff();
 

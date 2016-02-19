@@ -15,8 +15,9 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
     {
         [Test]
         [RequiresSTA]
-        public void ViewTextChangedResultsInTabNameChanged()
+        public void GivenViewDockedAsDocument_WhenViewTextIsChanged_ThenViewContainersTitleChangedToNewViewText()
         {
+            // Setup
             var mocks = new MockRepository();
             var dockManager = mocks.Stub<DockingManager>();
             var view = new TestView();
@@ -29,20 +30,24 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
 
             var layout = TypeUtils.CallPrivateMethod<LayoutContent>(dock, "GetLayoutContent", view);
 
+            // Precondition
             Assert.AreEqual("", layout.Title);
+
+            // Call
             view.Text = @"Test";
 
+            // Assert
             Assert.AreEqual("Test", layout.Title);
         }
 
         [Test]
         [RequiresSTA]
-        public void SwitchingTabCausesOldTabsActiveControlToLoseFocusTools9109()
+        public void ActivateView_ChangingActiveViewToDifferentDockedView_OldActiveViewActiveControlIsNull()
         {
+            // Setup
             var view = new TestView();
             var view2 = new TestView();
 
-            // create an avalon dock/tab with two views
             var dock = new AvalonDockDockingManager(new DockingManager(), new[]
             {
                 ViewLocation.Document
@@ -51,13 +56,12 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
             dock.Add(view2, ViewLocation.Document);
             dock.ActivateView(view);
 
-            // set a textbox active
             view.ActiveControl = view.Controls[0];
 
-            // switch to other tab
+            // Call
             dock.ActivateView(view2);
 
-            // assert the textbox is no longer active 
+            // Assert
             Assert.IsNull(view.ActiveControl);
         }
     }

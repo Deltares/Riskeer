@@ -35,7 +35,7 @@ namespace Core.Common.Gui.PropertyBag
     public class PropertySpec
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PropertySpec));
-        private readonly System.Reflection.PropertyInfo propertyInfo;
+        private readonly PropertyInfo propertyInfo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertySpec"/> class for a given
@@ -89,7 +89,6 @@ namespace Core.Common.Gui.PropertyBag
         /// <exception cref="ArgumentException">When
         /// <list type="bullet">
         /// <item>Represented property is an index-property.</item>
-        /// <item>Property setter is not available.</item>
         /// <item><paramref name="instance"/> does not match the target type.</item>
         /// <item>Property is an instance property but <paramref name="instance"/> is null.</item>
         /// <item><paramref name="newValue"/> is of incorrect type.</item>
@@ -136,7 +135,6 @@ namespace Core.Common.Gui.PropertyBag
         /// <exception cref="ArgumentException">When
         /// <list type="bullet">
         /// <item>Represented property is an index-property.</item>
-        /// <item>Property getter is not available.</item>
         /// <item><paramref name="instance"/> does not match the target type.</item>
         /// <item>Property is an instance property but <paramref name="instance"/> is null.</item>
         /// <item>An error occurred while setting the property value. The <see cref="Exception.InnerException"/>
@@ -173,8 +171,8 @@ namespace Core.Common.Gui.PropertyBag
         /// Determines whether the captured property is decorated with <see cref="TypeConverterAttribute"/>
         /// that is configured to use <see cref="ExpandableObjectConverter"/>.
         /// </summary>
-        /// <returns>Returns true if a <see cref="TypeConverterAttribute"/> is declared using
-        /// <see cref="ExpandableObjectConverter"/>, false if no match has been found or when
+        /// <returns>Returns <c>true</c> if a <see cref="TypeConverterAttribute"/> is declared using
+        /// <see cref="ExpandableObjectConverter"/>, <c>false</c> if no match has been found or when
         /// the type converter inherits from <see cref="ExpandableObjectConverter"/>.</returns>
         /// <remarks>Custom implementations of <see cref="ExpandableObjectConverter"/> is
         /// likely to have behavior that Core.Common.Gui namespace cannot account for. As

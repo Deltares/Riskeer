@@ -28,56 +28,64 @@ using Core.Common.Controls.Views;
 namespace Core.Common.Gui.Forms.ViewManager
 {
     /// <summary>
-    /// Interface providing view docking control.
+    /// Interface for objects controlling view docking behavior.
     /// </summary>
     public interface IDockingManager : IDisposable
     {
         /// <summary>
-        /// Occurs when the bar of a view trying to close. 
+        /// Occurs when the docking-bar of a view trying to close. 
         /// </summary>
         event EventHandler<DockTabClosingEventArgs> ViewBarClosing;
 
         /// <summary>
-        /// Occurs when a view got activated by clicked or entering it otherways
+        /// Occurs when a view has been activated.
         /// </summary>
         event EventHandler<ActiveViewChangeEventArgs> ViewActivated;
 
+        /// <summary>
+        /// Occurs when a 'mouse down' event occurs on the docking control.
+        /// </summary>
         event Action<object, MouseEventArgs, IView> ViewSelectionMouseDown;
 
+        /// <summary>
+        /// Gets the views that are available within the docking control.
+        /// </summary>
         IEnumerable<IView> Views { get; }
 
         /// <summary>
-        /// Adds view at specified location
+        /// Adds the view at specified docking location.
         /// </summary>
-        /// <param name="view">View to add</param>
-        /// <param name="location">Location of the view</param>
+        /// <param name="view">View to add.</param>
+        /// <param name="location">Location of the view.</param>
         void Add(IView view, ViewLocation location);
 
         /// <summary>
-        /// Removes view and container from bars. If bar is empty it is also removed
+        /// Removes the view from docking-bars. If the docking-bar is empty, it is also removed.
         /// </summary>
-        /// <param name="view"></param>
-        /// <param name="removeTabFromDockingbar"></param>
+        /// <param name="view">View to remove.</param>
+        /// <param name="removeTabFromDockingbar">When set to <c>true</c>, the docking-bar
+        /// that hosts <paramref name="view"/> is closed. Otherwise only the view is removed
+        /// from the docking-bar.</param>
         void Remove(IView view, bool removeTabFromDockingbar);
 
         /// <summary>
-        /// Sets the tooltip of the container of the view
+        /// Sets the tooltip of the container corresponding to the view.
         /// </summary>
-        /// <param name="view"></param>
-        /// <param name="tooltip"></param>
+        /// <param name="view">A view added to the docking control.</param>
+        /// <param name="tooltip">The tooltip text.</param>
         void SetToolTip(IView view, string tooltip);
 
         /// <summary>
-        /// Sets the image of the container of the view
+        /// Sets the image of the container corresponding to the view.
         /// </summary>
-        /// <param name="view"></param>
-        /// <param name="image"></param>
+        /// <param name="view">A view added to the docking control.</param>
+        /// <param name="image">The image.</param>
         void SetImage(IView view, Image image);
 
         /// <summary>
-        /// Activates view.
+        /// Activates the view.
         /// </summary>
-        /// <param name="view"></param>
+        /// <param name="view">The view to activate.</param>
         void ActivateView(IView view);
     }
 }

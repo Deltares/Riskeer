@@ -81,7 +81,7 @@ namespace Core.Common.Gui.Test
 
                 Assert.AreEqual(null, gui.Selection);
 
-                Assert.IsInstanceOf<ProjectCommandsHandler>(gui.ProjectCommands);
+                Assert.IsInstanceOf<ProjectCommandHandler>(gui.ProjectCommands);
                 Assert.IsInstanceOf<StorageCommandHandler>(gui.StorageCommands);
                 Assert.IsInstanceOf<ViewCommandHandler>(gui.ViewCommands);
                 Assert.AreEqual(null, gui.ApplicationCommands);
@@ -762,21 +762,6 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [STAThread]
-        public void CheckViewPropertyEditorIsInitialized()
-        {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            mocks.ReplayAll();
-
-            using (new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
-            {
-                Assert.NotNull(ViewPropertyEditor.ViewCommands);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
         public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnEmpty()
         {
             // Setup
@@ -784,12 +769,12 @@ namespace Core.Common.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 var rootData = new object();
 
                 // Call
-                var dataInstancesWithViewDefinitions = ringtoetsGui.GetAllDataWithViewDefinitionsRecursively(rootData);
+                var dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData);
 
                 // Assert
                 CollectionAssert.IsEmpty(dataInstancesWithViewDefinitions);
@@ -823,13 +808,13 @@ namespace Core.Common.Gui.Test
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
-                ringtoetsGui.Plugins.Add(plugin1);
-                ringtoetsGui.Plugins.Add(plugin2);
+                gui.Plugins.Add(plugin1);
+                gui.Plugins.Add(plugin2);
 
                 // Call
-                var dataInstancesWithViewDefinitions = ringtoetsGui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
+                var dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
 
                 // Assert
                 var expectedDataDefinitions = new[]
@@ -875,13 +860,13 @@ namespace Core.Common.Gui.Test
             plugin2.Stub(p => p.Deactivate());
             mocks.ReplayAll();
 
-            using (var ringtoetsGui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
-                ringtoetsGui.Plugins.Add(plugin1);
-                ringtoetsGui.Plugins.Add(plugin2);
+                gui.Plugins.Add(plugin1);
+                gui.Plugins.Add(plugin2);
 
                 // Call
-                var dataInstancesWithViewDefinitions = ringtoetsGui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
+                var dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
 
                 // Assert
                 var expectedDataDefinitions = new[]

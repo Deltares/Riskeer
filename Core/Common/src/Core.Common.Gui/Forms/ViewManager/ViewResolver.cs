@@ -34,7 +34,7 @@ using log4net;
 namespace Core.Common.Gui.Forms.ViewManager
 {
     /// <summary>
-    /// Object responsible for finding a view given some data-object.
+    /// Class responsible for finding a view given some data-object.
     /// </summary>
     public class ViewResolver : IViewResolver
     {
@@ -155,9 +155,9 @@ namespace Core.Common.Gui.Forms.ViewManager
         }
 
         /// <summary>
-        /// Indicates if the view resolver is opening a view. Can be used to ensure consistency 
-        /// of <see cref="ViewList"/> / <see cref="ViewResolver"/> logic. Sometimes views 
-        /// are closed while being opened.
+        /// Gets or sets a value indicating if the view resolver is opening a view. Can be
+        /// used to ensure consistency of <see cref="ViewList"/> / <see cref="ViewResolver"/> 
+        /// logic. Sometimes views are closed while being opened.
         /// </summary>
         internal static bool IsOpeningView { get; private set; }
 

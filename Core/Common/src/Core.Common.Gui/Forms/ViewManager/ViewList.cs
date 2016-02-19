@@ -35,7 +35,7 @@ using log4net;
 namespace Core.Common.Gui.Forms.ViewManager
 {
     /// <summary>
-    /// ViewList manages all view in a given dock sites.
+    /// This class provides a concrete implementation of <see cref="IViewList"/>.
     /// </summary>
     public class ViewList : IViewList
     {
@@ -48,11 +48,10 @@ namespace Core.Common.Gui.Forms.ViewManager
         private IView activeView;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewList"/> class. 
-        /// Instantiates a view manager
+        /// Initializes a new instance of the <see cref="ViewList"/> class.
         /// </summary>
-        /// <param name="dockingManager">Docking manager to provide adding removing windows</param>
-        /// <param name="defaultLocation">Location used if a view is added without a location parameter</param>
+        /// <param name="dockingManager">Docking manager to provide adding/removing windows.</param>
+        /// <param name="defaultLocation">Location used if a view is added without a location parameter.</param>
         public ViewList(IDockingManager dockingManager, ViewLocation? defaultLocation)
         {
             this.dockingManager = dockingManager;

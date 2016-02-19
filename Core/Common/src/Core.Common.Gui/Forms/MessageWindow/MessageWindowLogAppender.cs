@@ -39,10 +39,10 @@ namespace Core.Common.Gui.Forms.MessageWindow
     public class MessageWindowLogAppender : AppenderSkeleton
     {
         /// <summary>
-        /// This list contains any messages that could not yet be delivered to the <see cref="MessageWindow"/>
-        /// (typically because it doesn't exist yet at startup). They are kept in the backlog 
-        /// and send to <see cref="MessageWindow"/> upon the first message arriving while there is a MessageWindow
-        /// <see cref="MessageWindow"/> has been set.
+        /// This list contains any messages that could not yet be delivered to the <see cref="IMessageWindow"/>
+        /// (typically because it doesn't exist yet at startup). The messages are kept in the backlog 
+        /// and sent to <see cref="IMessageWindow"/> upon the next message arriving while an
+        /// instance of <see cref="IMessageWindow"/> has been set.
         /// </summary>
         private readonly IList<LoggingEvent> messageBackLog = new List<LoggingEvent>();
 
@@ -80,8 +80,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
         }
 
         /// <summary>
-        /// Indicating whether this appender should forward it's messages to <see cref="MessageWindow"/>
-        /// (set to <c>true</c>) or should cache them when it's enabled at a later time (set to <c>false</c>).
+        /// Indicates whether this appender should forward its messages to <see cref="IMessageWindow"/>
+        /// (set to <c>true</c>) or should cache them when for when it's enabled at a later 
+        /// time (set to <c>false</c>).
         /// </summary>
         public bool Enabled
         {

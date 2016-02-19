@@ -16,7 +16,7 @@ using Ringtoets.Integration.Plugin;
 namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
-    public class RingtoetsGuiIntegrationTest
+    public class GuiCoreIntegrationTest
     {
         [SetUp]
         public void SetUp()

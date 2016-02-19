@@ -10,8 +10,6 @@ namespace Core.Common.Gui.Test.Forms
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var file = new RichTextFile();
 

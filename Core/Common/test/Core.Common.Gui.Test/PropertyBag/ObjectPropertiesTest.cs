@@ -38,7 +38,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void Data_IsNotBrowseable()
+        public void Data_IsNotBrowsable()
         {
             // Setup
             var properties = new ObjectProperties<string>();

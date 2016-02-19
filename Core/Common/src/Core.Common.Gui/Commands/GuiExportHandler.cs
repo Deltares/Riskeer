@@ -71,8 +71,8 @@ namespace Core.Common.Gui.Commands
         }
 
         /// <summary>
-        /// Ask the user for the source file to import data from, then perform the import
-        /// on the target object.
+        /// Ask the user for the target file to export data to, then perform the export
+        /// using the source object.
         /// </summary>
         /// <param name="exporter">The importer to use.</param>
         /// <param name="selectedItem">The import target.</param>

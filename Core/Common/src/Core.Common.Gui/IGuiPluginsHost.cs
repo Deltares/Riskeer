@@ -33,7 +33,7 @@ namespace Core.Common.Gui
     public interface IGuiPluginsHost
     {
         /// <summary>
-        /// List of plugins.
+        /// Gets the list of plugins.
         /// </summary>
         IList<GuiPlugin> Plugins { get; }
 

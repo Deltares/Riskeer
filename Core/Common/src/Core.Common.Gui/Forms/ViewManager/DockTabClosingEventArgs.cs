@@ -30,12 +30,12 @@ namespace Core.Common.Gui.Forms.ViewManager
     public class DockTabClosingEventArgs : EventArgs
     {
         /// <summary>
-        /// View trying to close (because a tab is being closed).
+        /// Gets or sets the view trying to close (because a tab is being closed).
         /// </summary>
         public IView View { get; set; }
 
         /// <summary>
-        /// Specifies if the close action should be cancelled.
+        /// Indicates if the close action should be cancelled.
         /// </summary>
         public bool Cancel { get; set; }
     }

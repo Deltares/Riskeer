@@ -13,7 +13,7 @@ using Rhino.Mocks;
 namespace Core.Common.Gui.Test.Commands
 {
     [TestFixture]
-    public class ProjectCommandsHandlerTest
+    public class ProjectCommandHandlerTest
     {
         [Test]
         public void AddItemToProject_AddToProjectItemsAndNotifyObservers()
@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.Commands
 
             project.Attach(observer);
 
-            var commandHandler = new ProjectCommandsHandler(projectOwner, dialogParent, applicationCore, applicationSelection, documentViewController);
+            var commandHandler = new ProjectCommandHandler(projectOwner, dialogParent, applicationCore, applicationSelection, documentViewController);
 
             // Call
             commandHandler.AddItemToProject(childData);

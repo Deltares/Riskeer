@@ -32,7 +32,7 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Class responsible for exporting and importing of data.
+    /// Class responsible for exporting and importing data.
     /// </summary>
     public class ExportImportCommandHandler : IExportImportCommandHandler
     {

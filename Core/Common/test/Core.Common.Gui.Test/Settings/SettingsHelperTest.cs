@@ -9,7 +9,7 @@ namespace Core.Common.Gui.Test.Settings
     public class SettingsHelperTest
     {
         [Test]
-        public void ApplicationName_ReturnProductNameOfExecutingAssebly()
+        public void ApplicationName_ReturnProductNameOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationName;
@@ -19,7 +19,7 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void ApplicationVersion_ReturnVersionOfExecutingAssebly()
+        public void ApplicationVersion_ReturnVersionOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationVersion;
@@ -29,7 +29,7 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void ApplicationCompany_ReturnCompanyOfExecutingAssebly()
+        public void ApplicationCompany_ReturnCompanyOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationCompany;

@@ -31,27 +31,27 @@ namespace Core.Common.Gui.Plugin
     public class ViewInfo
     {
         /// <summary>
-        /// Data type associated with this view info.
+        /// Gets or sets the data type associated with this view info.
         /// </summary>
         public Type DataType { get; set; }
 
         /// <summary>
-        /// Type of data used for the view.
+        /// Gets or sets the type of data used for the view.
         /// </summary>
         public Type ViewDataType { get; set; }
 
         /// <summary>
-        /// Type of the view.
+        /// Gets or sets the type of the view.
         /// </summary>
         public Type ViewType { get; set; }
 
         /// <summary>
-        /// Description of the view.
+        /// Gets or sets the description of the view.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Method used to determine the name for the view. Function arguments:
+        /// Gets or sets the method used to determine the name for the view. Function arguments:
         /// <list type="number">
         ///     <item>The view to get a name for.</item>
         ///     <item>The data of the view.</item>
@@ -61,23 +61,23 @@ namespace Core.Common.Gui.Plugin
         public Func<IView, object, string> GetViewName { get; set; }
 
         /// <summary>
-        /// Icon of the view.
+        /// Gets or sets the icon of the view.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Optional method, for checking if this view info object can be used for a given
-        /// data object. Function arguments:
+        /// Gets or sets the optional method for checking if this view info object can be 
+        /// used for a given data object. Function arguments:
         /// <list type="number">
         ///     <item>Data for the view.</item>
-        ///     <item>out - <c>true</c> is this view info can be used for the data, or false otherwise.</item>
+        ///     <item>out - <c>true</c> is this view info can be used for the data, or <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<object, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Optional method, used to convert data from type defined by <see cref="DataType"/>
-        /// to type defined by <see cref="ViewDataType"/>. Function Arguments:
+        /// Gets or sets the optional method used to convert data from the type defined by 
+        /// <see cref="DataType"/> to the type defined by <see cref="ViewDataType"/>. Function Arguments:
         /// <list type="number">
         ///     <item>Original data.</item>
         ///     <item>out - The converted data to be used in the view.</item>
@@ -86,8 +86,8 @@ namespace Core.Common.Gui.Plugin
         public Func<object, object> GetViewData { get; set; }
 
         /// <summary>
-        /// Optional method, to perform additional actions after the view has been created.
-        /// Function arguments:
+        /// Gets or sets the optional method that performs additional actions after the
+        /// view has been created. Function arguments:
         /// <list type="number">
         ///     <item>The created view instance.</item>
         ///     <item>The data corresponding to this view info.</item>
@@ -96,8 +96,8 @@ namespace Core.Common.Gui.Plugin
         public Action<IView, object> AfterCreate { get; set; }
 
         /// <summary>
-        /// Optional method, to allow for extra actions to be performed after the view has
-        /// received focus. Function arguments:
+        /// Gets or sets the optional method that allow for extra actions to be performed
+        /// after the view has received focus. Function arguments:
         /// <list type="number">
         ///     <item>View to modify.</item>
         ///     <item>Data for this view info.</item>
@@ -106,12 +106,12 @@ namespace Core.Common.Gui.Plugin
         public Action<IView, object> OnActivateView { get; set; }
 
         /// <summary>
-        /// Optional method, such that actions can be performed or checked to see if the
-        /// view should be closed. Function arguments:
+        /// Gets or sets the optional method that allows for actions to be performed  to 
+        /// see if the view should be closed. Function arguments:
         /// <list type="number">
         ///     <item>View to close.</item>
         ///     <item>Data of the view.</item>
-        ///     <item>out - <c>true</c> is the closing action was successful, <c>false</c> otherwise.</item>
+        ///     <item>out - <c>true</c> if the closing action was successful, <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<IView, object, bool> CloseForData { get; set; }
@@ -131,7 +131,7 @@ namespace Core.Common.Gui.Plugin
     public class ViewInfo<TData, TViewData, TView> where TView : IView
     {
         /// <summary>
-        /// Data type associated with this view info.
+        /// Gets or sets the data type associated with this view info.
         /// </summary>
         public Type DataType
         {
@@ -142,7 +142,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Type of data used for the view.
+        /// Gets or sets the type of data used for the view.
         /// </summary>
         public Type ViewDataType
         {
@@ -153,7 +153,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Type of the view.
+        /// Gets or sets the type of the view.
         /// </summary>
         public Type ViewType
         {
@@ -164,12 +164,12 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Description of the view.
+        /// Gets or sets the description of the view.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Method used to determine the name for the view. Function arguments:
+        /// Gets or sets the method used to determine the name for the view. Function arguments:
         /// <list type="number">
         ///     <item>The view to get a name for.</item>
         ///     <item>The data of the view.</item>
@@ -179,23 +179,23 @@ namespace Core.Common.Gui.Plugin
         public Func<TView, TViewData, string> GetViewName { get; set; }
 
         /// <summary>
-        /// Icon of the view.
+        /// Gets or sets the icon of the view.
         /// </summary>
         public Image Image { get; set; }
 
         /// <summary>
-        /// Optional method, for checking if this view info object can be used for a given
-        /// data object. Function arguments:
+        /// Gets or sets the optional method for checking if this view info object can be 
+        /// used for a given data object. Function arguments:
         /// <list type="number">
         ///     <item>Data for the view.</item>
-        ///     <item>out - <c>true</c> is this view info can be used for the data, or false otherwise.</item>
+        ///     <item>out - <c>true</c> is this view info can be used for the data, or <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<TData, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Optional method, used to convert data from type defined by <see cref="DataType"/>
-        /// to type defined by <see cref="ViewDataType"/>. Function Arguments:
+        /// Gets or sets the optional method used to convert data from the type defined by 
+        /// <see cref="DataType"/> to the type defined by <see cref="ViewDataType"/>. Function Arguments:
         /// <list type="number">
         ///     <item>Original data.</item>
         ///     <item>out - The converted data to be used in the view.</item>
@@ -204,8 +204,8 @@ namespace Core.Common.Gui.Plugin
         public Func<TData, TViewData> GetViewData { get; set; }
 
         /// <summary>
-        /// Optional method, to perform additional actions after the view has been created.
-        /// Function arguments:
+        /// Gets or sets the optional method that performs additional actions after the
+        /// view has been created. Function arguments:
         /// <list type="number">
         ///     <item>The created view instance.</item>
         ///     <item>The data corresponding to this view info.</item>
@@ -214,8 +214,8 @@ namespace Core.Common.Gui.Plugin
         public Action<TView, TData> AfterCreate { get; set; }
 
         /// <summary>
-        /// Optional method, to allow for extra actions to be performed after the view has
-        /// received focus. Function arguments:
+        /// Gets or sets the optional method that allow for extra actions to be performed
+        /// after the view has received focus. Function arguments:
         /// <list type="number">
         ///     <item>View to modify.</item>
         ///     <item>Data for this view info.</item>
@@ -224,12 +224,12 @@ namespace Core.Common.Gui.Plugin
         public Action<TView, object> OnActivateView { get; set; }
 
         /// <summary>
-        /// Optional method, such that actions can be performed or checked to see if the
-        /// view should be closed. Function arguments:
+        /// Gets or sets the optional method that allows for actions to be performed  to 
+        /// see if the view should be closed. Function arguments:
         /// <list type="number">
         ///     <item>View to close.</item>
         ///     <item>Data of the view.</item>
-        ///     <item>out - <c>true</c> is the closing action was successful, <c>false</c> otherwise.</item>
+        ///     <item>out - <c>true</c> if the closing action was successful, <c>false</c> otherwise.</item>
         /// </list>
         /// </summary>
         public Func<TView, object, bool> CloseForData { get; set; }

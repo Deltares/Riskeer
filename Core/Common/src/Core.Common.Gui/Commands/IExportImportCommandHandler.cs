@@ -32,6 +32,7 @@ namespace Core.Common.Gui.Commands
         /// Indicates if there are importers for the given object.
         /// </summary>
         /// <param name="obj">The object to check importer availability for.</param>
+        /// <returns><c>True</c> if there are importers available, <c>false</c> otherwise.</returns>
         bool CanImportOn(object obj);
 
         /// <summary>
@@ -51,15 +52,16 @@ namespace Core.Common.Gui.Commands
         /// Indicates if there are exporters for the given object.
         /// </summary>
         /// <param name="obj">The object to check exporter availability for.</param>
+        /// <returns><c>True</c> if there are exporters available, <c>false</c> otherwise.</returns>
         bool CanExportFrom(object obj);
 
         /// <summary>
         /// Perform the export workflow by:
         /// <list type="number">
-        /// <item>If multiple exporters are available for target data object, ask the user
+        /// <item>If multiple exporters are available for source data object, ask the user
         /// which exporter to use;</item>
         /// <item>Ask the user which file or file-destination to export to;</item>
-        /// <item>Export from the target data object to the specified location.</item>
+        /// <item>Export from the source data object to the specified location.</item>
         /// </list>
         /// </summary>
         /// <param name="data">The data to export.</param>

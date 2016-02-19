@@ -38,8 +38,7 @@ namespace Core.Common.Gui.ContextMenu
         private readonly ContextMenuStrip contextMenu;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ContextMenuBuilder"/>, which uses the given <paramref name="featureCommandHandler"/> to 
-        /// create a <see cref="ContextMenuStrip"/> for the given <paramref name="dataObject"/>.
+        /// Creates a new instance of <see cref="ContextMenuBuilder"/>.
         /// </summary>
         /// <param name="featureCommandHandler">The <see cref="IApplicationFeatureCommands"/> from which to obtain information to render and bind actions
         /// to the items of the <see cref="ContextMenu"/>. If <c>null</c>, this builder will not render items which
@@ -53,8 +52,7 @@ namespace Core.Common.Gui.ContextMenu
         /// If <c>null</c>, this builder will not render items which require this type of information.</param>
         /// <param name="dataObject">The data object for which to create a <see cref="ContextMenuStrip"/>.</param>
         /// <param name="treeViewControl">The <see cref="TreeViewControl"/> to use while executing the <see cref="ContextMenuStrip"/> actions.</param>
-        /// <exception cref="ContextMenuBuilderException">Thrown when the required object instances could not be created based on
-        /// the <paramref name="featureCommandHandler"/> or <paramref name="dataObject"/>.</exception>
+        /// <exception cref="ContextMenuBuilderException">Thrown when the any input argument is null.</exception>
         public ContextMenuBuilder(IApplicationFeatureCommands featureCommandHandler, IExportImportCommandHandler importExportHandler, IViewCommands viewsCommandsHandler, object dataObject, TreeViewControl treeViewControl)
         {
             try

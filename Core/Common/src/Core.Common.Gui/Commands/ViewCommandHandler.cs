@@ -53,22 +53,6 @@ namespace Core.Common.Gui.Commands
             this.guiPluginsHost = guiPluginsHost;
         }
 
-        public object GetDataOfActiveView()
-        {
-            return documentViewController.DocumentViews.ActiveView != null ? documentViewController.DocumentViews.ActiveView.Data : null;
-        }
-
-        public bool CanOpenSelectViewDialog()
-        {
-            return applicationSelection.Selection != null && 
-                documentViewController.DocumentViewsResolver.GetViewInfosFor(applicationSelection.Selection).Count() > 1;
-        }
-
-        public void OpenSelectViewDialog()
-        {
-            documentViewController.DocumentViewsResolver.OpenViewForData(applicationSelection.Selection, true);
-        }
-
         public void OpenViewForSelection()
         {
             OpenView(applicationSelection.Selection);

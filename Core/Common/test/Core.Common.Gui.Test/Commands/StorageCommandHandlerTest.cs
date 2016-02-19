@@ -270,7 +270,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void SaveProject_SavingProjectIsSuccesful_LogSuccesAndReturnTrue()
+        public void SaveProject_SavingProjectIsSuccessful_LogSuccessAndReturnTrue()
         {
             // Setup
             var project = new Project("<some cool name>");
@@ -442,7 +442,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_OpeningProjectWithAlreadyLoaded_SetNewlyLoadedProjectAndReturnTrue()
+        public void OpenExistingProject_OpeningProjectWithAlreadyLoadedProject_SetNewlyLoadedProjectAndReturnTrue()
         {
             // Setup
             const string fileName = "newProject";

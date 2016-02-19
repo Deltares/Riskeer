@@ -27,20 +27,20 @@ namespace Core.Common.Gui.Commands
     public interface IApplicationFeatureCommands
     {
         /// <summary>
-        /// Makes the properties window visible for the given object and select it.
+        /// Makes the properties window visible for the given object and selects it.
         /// </summary>
         /// <param name="obj">The object for which to show its properties.</param>
         void ShowPropertiesFor(object obj);
 
         /// <summary>
-        /// Indicates if there is a property-edit window is defined for some object.
+        /// Indicates if there is a property-edit window defined for some object.
         /// </summary>
         /// <param name="obj">The object to check.</param>
         /// <returns><c>true</c> if a property view is defined, <c>false</c> otherwise.</returns>
         bool CanShowPropertiesFor(object obj);
 
         /// <summary>
-        /// Opens the current log-file, or the folder with logs if no current log-file available.
+        /// Opens the current log-file, or the folder with logs if no current log-file is available.
         /// </summary>
         void OpenLogFileExternal();
     }

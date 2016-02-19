@@ -127,7 +127,7 @@
     <Compile Include="Commands\IProjectCommands.cs" />
     <Compile Include="Commands\IStorageCommands.cs" />
     <Compile Include="Commands\IViewCommands.cs" />
-    <Compile Include="Commands\ProjectCommandsHandler.cs" />
+    <Compile Include="Commands\ProjectCommandHandler.cs" />
     <Compile Include="Commands\StorageCommandHandler.cs" />
     <Compile Include="Commands\ViewCommandHandler.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
@@ -145,6 +145,7 @@
     <Compile Include="Forms\ViewManager\ActiveViewChangeEventArgs.cs" />
     <Compile Include="Forms\ViewManager\IViewList.cs" />
     <Compile Include="Forms\ViewManager\IViewResolver.cs" />
+    <Compile Include="Forms\ViewManager\ViewLocation.cs" />
     <Compile Include="IDocumentViewController.cs" />
     <Compile Include="IGuiPluginsHost.cs" />
     <Compile Include="IMainWindowController.cs" />
@@ -165,7 +166,7 @@
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
-    <Compile Include="Selection\ItemEventArgs.cs" />
+    <Compile Include="Selection\SelectedItemChangedEventArgs.cs" />
     <Compile Include="Settings\PortableSettingsProvider.cs" />
     <Compile Include="Settings\GuiCoreSettings.cs" />
     <Compile Include="Settings\ISettingsOwner.cs" />

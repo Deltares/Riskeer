@@ -27,11 +27,6 @@ namespace Core.Common.Gui.Commands
     public interface IViewCommands
     {
         /// <summary>
-        /// Asks the user to select a view for the application's selection.
-        /// </summary>
-        void OpenSelectViewDialog();
-
-        /// <summary>
         /// Open the view for the application's selection.
         /// </summary>
         /// <remarks>If multiple views are available, the user is asked which view to use.</remarks>
@@ -56,20 +51,7 @@ namespace Core.Common.Gui.Commands
         /// Indicates if a there are any views available for the application's selection.
         /// </summary>
         /// <param name="dataObject">The data object to open views for.</param>
-        /// <returns>true if there are any views for <paramref name="dataObject"/>, false otherwise.</returns>
+        /// <returns><c>True</c> if there are any views for <paramref name="dataObject"/>, <c>false</c> otherwise.</returns>
         bool CanOpenViewFor(object dataObject);
-
-        /// <summary>
-        /// Indicates if a there are any views available for the application's selection.
-        /// </summary>
-        /// <returns>True if there are any supported views for the current selection,
-        /// false otherwise.</returns>
-        bool CanOpenSelectViewDialog();
-
-        /// <summary>
-        /// Gets the data of current active Document View.
-        /// </summary>
-        /// <returns>The view data, or null if there is no active view.</returns>
-        object GetDataOfActiveView(); 
     }
 }

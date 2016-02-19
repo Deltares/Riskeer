@@ -291,24 +291,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
             messageWindowData.Clear();
         }
 
-        public bool IsMessageLevelEnabled(Level level)
-        {
-            if (level == Level.Warn && !buttonShowWarning.Checked)
-            {
-                return false;
-            }
-            if (level == Level.Info && !buttonShowInfo.Checked)
-            {
-                return false;
-            }
-            if (level == Level.Error && !buttonShowError.Checked)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         #endregion
     }
 }

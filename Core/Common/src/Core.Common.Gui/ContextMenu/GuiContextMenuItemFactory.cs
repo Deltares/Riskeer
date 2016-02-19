@@ -28,9 +28,7 @@ using Core.Common.Gui.Properties;
 namespace Core.Common.Gui.ContextMenu
 {
     /// <summary>
-    /// This class represents a factory for creating <see cref="ToolStripItem"/>. The
-    /// items the factory creates are dependent on a <see cref="IGui"/> set for this
-    /// factory.
+    /// This class represents a factory for creating <see cref="ToolStripItem"/>.
     /// </summary>
     internal class GuiContextMenuItemFactory
     {
@@ -40,8 +38,7 @@ namespace Core.Common.Gui.ContextMenu
         private readonly object dataObject;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>, which uses the 
-        /// <paramref name="applicationFeatureCommandHandler"/> to create <see cref="ToolStripItem"/>.
+        /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>.
         /// </summary>
         /// <param name="applicationFeatureCommandHandler">The <see cref="IApplicationFeatureCommands"/> which contains information for creating the 
         /// <see cref="ToolStripItem"/>.</param>
@@ -115,7 +112,7 @@ namespace Core.Common.Gui.ContextMenu
 
         /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of importing
-        /// the data of the given <see cref="TreeNode"/>.
+        /// to the data of the given <see cref="TreeNode"/>.
         /// </summary>
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()

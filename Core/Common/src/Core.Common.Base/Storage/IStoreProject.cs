@@ -30,6 +30,11 @@ namespace Core.Common.Base.Storage
     public interface IStoreProject
     {
         /// <summary>
+        /// Gets the file name filter string.
+        /// </summary>
+        string FileFilter { get; }
+
+        /// <summary>
         /// Converts <paramref name="project"/> to a new storage entry.
         /// </summary>
         /// <param name="project"><see cref="Project"/> to save.</param>

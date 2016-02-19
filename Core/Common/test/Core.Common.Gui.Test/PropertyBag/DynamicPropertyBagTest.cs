@@ -5,6 +5,7 @@ using System.Linq;
 
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Reflection;
 
 using NUnit.Framework;
 
@@ -214,31 +215,51 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void DynamicPropertyBagResolvesDynamicVisibleAttributes()
+        public void GivenObjectPropertiesWithDynamicVisibleProperties_WhenPropertyShown_ThenPropertyShouldBePresentInBag()
         {
+            // Setup
             var propertyObject = new TestProperties
             {
                 Visible = true
             };
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties(new[]
+            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
-            var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            Assert.IsTrue(namePropertyDescriptor.IsBrowsable, "Name should be visible");
+            // Call
+            var dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
+            var namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
-            propertyObject.Visible = false;
+            // TearDown
+            Assert.IsTrue(namePropertyDescriptor.IsBrowsable,
+                          string.Format("{0} should be visible", dynamicallyVisiblePropertyName));
+        }
 
-            propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties(new[]
+        [Test]
+        public void GivenObjectPropertiesWithDynamicVisibleProperties_WhenPropertyHidden_ThenPropertyNotPresentInBag()
+        {
+            // Setup
+            var propertyObject = new TestProperties
+            {
+                Visible = false
+            };
+            var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
+
+            var propertyDescriptorCollection = ((ICustomTypeDescriptor)dynamicPropertyBag).GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
-            namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            Assert.IsNull(namePropertyDescriptor, "Name should not be visible anymore");
+            // Call
+            var dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
+            var namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
+
+            // Assert
+            Assert.IsNull(namePropertyDescriptor,
+                          string.Format("{0} should not be visible anymore", dynamicallyVisiblePropertyName));
         }
 
         [Test]
@@ -266,7 +287,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void DynamicPropertyBagWrapsNestedPropertyObjects()
+        public void GetProperties_PropertyIsDecoratedWithExpandableObjectConverter_WrapPropertyValueInDynamicPropertyBag()
         {
             // Setup
             var subProperties = new TestProperties
@@ -279,12 +300,11 @@ namespace Core.Common.Gui.Test.PropertyBag
             };
             var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
 
-            var propertiesCollection = dynamicPropertyBag.GetProperties();
-
             // Call
-            var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject);
-
+            var propertiesCollection = dynamicPropertyBag.GetProperties();
+            
             // Assert
+            var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject);
             var bag = (DynamicPropertyBag)wrappedValue;
             Assert.AreSame(subProperties, bag.WrappedObject);
         }

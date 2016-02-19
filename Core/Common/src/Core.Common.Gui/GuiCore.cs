@@ -85,7 +85,7 @@ namespace Core.Common.Gui
         /// <exception cref="System.ArgumentNullException">When any parameter is null.</exception>
         public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, ApplicationCore applicationCore, GuiCoreSettings fixedSettings)
         {
-            // error detection code, make sure we use only a single instance of RingtoetsGui at a time
+            // error detection code, make sure we use only a single instance of GuiCore at a time
             if (isAlreadyRunningInstanceOfIGui)
             {
                 isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
@@ -123,7 +123,7 @@ namespace Core.Common.Gui
             viewCommandHandler = new ViewCommandHandler(this, this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore);
-            projectCommandsHandler = new ProjectCommandsHandler(this, MainWindow, ApplicationCore, this, this);
+            projectCommandsHandler = new ProjectCommandHandler(this, MainWindow, ApplicationCore, this, this);
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;
@@ -511,8 +511,6 @@ namespace Core.Common.Gui
             {
                 mainWindow.LoadLayout();
 
-                toolWindowViewsDockingManager.UpdateLayout();
-
                 // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
                 ToolWindowViews.RemoveAllExcept(toolWindowViewsDockingManager.Views.ToArray());
 
@@ -861,7 +859,7 @@ namespace Core.Common.Gui
 
         private ApplicationFeatureCommandHandler applicationFeatureCommands;
         private readonly ViewCommandHandler viewCommandHandler;
-        private readonly ProjectCommandsHandler projectCommandsHandler;
+        private readonly ProjectCommandHandler projectCommandsHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
         private StorageCommandHandler storageCommandHandler;
 

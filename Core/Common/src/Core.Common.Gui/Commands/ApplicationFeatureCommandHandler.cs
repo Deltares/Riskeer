@@ -46,6 +46,13 @@ namespace Core.Common.Gui.Commands
         private readonly IMainWindow mainWindow;
         private readonly IApplicationSelection applicationSelection;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationFeatureCommandHandler"/> class.
+        /// </summary>
+        /// <param name="propertyResolver">The object responsible for finding the object properties
+        /// for a given data object.</param>
+        /// <param name="mainWindow">The main user interface of the application.</param>
+        /// <param name="applicationSelection">The application's selection mechanism.</param>
         public ApplicationFeatureCommandHandler(IPropertyResolver propertyResolver, IMainWindow mainWindow, IApplicationSelection applicationSelection)
         {
             this.propertyResolver = propertyResolver;

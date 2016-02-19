@@ -13,8 +13,6 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var eventArgs = new DockTabClosingEventArgs();
 

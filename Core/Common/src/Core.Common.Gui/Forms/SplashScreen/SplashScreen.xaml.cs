@@ -59,7 +59,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Defines if the progress bar and progress label should be visible in the window.
+        /// Indicates where or not the progress bar and progress label are visible in the window.
         /// </summary>
         public bool HasProgress
         {
@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Version to be shown.
+        /// Gets or sets the version to be shown.
         /// </summary>
         public string VersionText
         {
@@ -91,7 +91,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Copyright owner to be shown.
+        /// Gets or sets the copyright owner to be shown.
         /// </summary>
         public string CopyrightText
         {
@@ -107,7 +107,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Type of the license, plain text.
+        /// Gets or sets the type of the license, plain text.
         /// </summary>
         public string LicenseText
         {
@@ -123,7 +123,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Percentage value to be set as progress indication. 
+        /// Gets or sets the percentage value (in the range [0, 100]) to be set as progress indication. 
         /// </summary>
         public int ProgressValuePercent
         {
@@ -139,7 +139,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Text, as a current status of the progress.
+        /// Gets or sets the descriptive text for current status of the progress.
         /// </summary>
         public string ProgressText
         {
@@ -155,7 +155,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Text for support e-mail.
+        /// Gets or sets the support e-mail.
         /// </summary>
         public string SupportEmail
         {
@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Text for support phone number.
+        /// Gets or sets the support phone number.
         /// </summary>
         public string SupportPhoneNumber
         {

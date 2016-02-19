@@ -30,13 +30,13 @@ namespace Core.Common.Gui
 {
     /// <summary>
     /// <para>
-    /// Use this type in combination with the Editor Attribute on properties in property classes which you want to 
-    /// edit with a Ringtoets view.
+    /// Use this type in combination with <see cref="EditorAttribute"/> on properties in
+    /// property classes which you want to edit with a view.
     /// </para>
     /// <para>
-    /// The property grid will display an ellipsis button (...). Clicking on the button will open the default view
-    /// for the data object in the central tabbed document area of Ringtoets. The view will remain open until 
-    /// closed by the user and is not modal.
+    /// The property grid will display an ellipsis button (...). Clicking on the button 
+    /// will open the default view for the data object in the central tabbed document area
+    /// of the application. The view will remain open (is not modal) until closed by the user.
     /// </para>
     /// </summary>
     /// <example>

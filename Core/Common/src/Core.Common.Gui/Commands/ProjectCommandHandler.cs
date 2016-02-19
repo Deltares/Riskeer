@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -35,11 +34,11 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// This class provides concrete implementation for <see cref="IProjectCommands"/>.
+    /// This class provides concrete implementations for <see cref="IProjectCommands"/>.
     /// </summary>
-    public class ProjectCommandsHandler : IProjectCommands
+    public class ProjectCommandHandler : IProjectCommands
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ProjectCommandsHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ProjectCommandHandler));
 
         private readonly IProjectOwner projectOwner;
         private readonly IWin32Window dialogOwner;
@@ -48,14 +47,14 @@ namespace Core.Common.Gui.Commands
         private readonly IDocumentViewController documentViewController;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectCommandsHandler"/> class.
+        /// Initializes a new instance of the <see cref="ProjectCommandHandler"/> class.
         /// </summary>
         /// <param name="projectOwner">Class owning the application's <see cref="Project"/> instance.</param>
         /// <param name="dialogParent">The window on which dialogs should be shown on top.</param>
         /// <param name="applicationCore">The application-plugins host.</param>
         /// <param name="applicationSelection">The application selection mechanism.</param>
         /// <param name="documentViewController">The controller for Document Views.</param>
-        public ProjectCommandsHandler(IProjectOwner projectOwner, IWin32Window dialogParent,
+        public ProjectCommandHandler(IProjectOwner projectOwner, IWin32Window dialogParent,
                                       ApplicationCore applicationCore, IApplicationSelection applicationSelection,
                                       IDocumentViewController documentViewController)
         {
@@ -64,18 +63,6 @@ namespace Core.Common.Gui.Commands
             this.applicationCore = applicationCore;
             this.applicationSelection = applicationSelection;
             this.documentViewController = documentViewController;
-        }
-
-        public object AddNewChildItem(object parent, IEnumerable<Type> childItemValueTypes)
-        {
-            using (var selectDataDialog = CreateSelectionDialogWithItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToArray()))
-            {
-                if (selectDataDialog.ShowDialog() == DialogResult.OK)
-                {
-                    return GetNewDataObject(parent, selectDataDialog.SelectedItemTag as DataItemInfo);
-                }
-                return null;
-            }
         }
 
         public void AddNewItem(object parent)
@@ -105,11 +92,6 @@ namespace Core.Common.Gui.Commands
         {
             projectOwner.Project.Items.Add(newItem);
             projectOwner.Project.NotifyObservers();
-        }
-
-        private IEnumerable<DataItemInfo> GetSupportedDataItemInfosByValueTypes(object parent, IEnumerable<Type> valueTypes)
-        {
-            return applicationCore.GetSupportedDataItemInfos(parent).Where(dii => valueTypes.Contains(dii.ValueType));
         }
 
         private SelectItemDialog CreateSelectionDialogWithItems(IEnumerable<DataItemInfo> dataItemInfos)

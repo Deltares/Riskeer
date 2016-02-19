@@ -42,12 +42,5 @@ namespace Core.Common.Gui.Forms.MessageWindow
         /// Clears all messages in the view.
         /// </summary>
         void Clear();
-
-        /// <summary>
-        /// Indicates if a given logging-level is enabled or not.
-        /// </summary>
-        /// <param name="level">The type of logging message to check.</param>
-        /// <returns><c>true</c> is the particular logging-level is enabled; <c>false</c> otherwise.</returns>
-        bool IsMessageLevelEnabled(Level level);
     }
 }

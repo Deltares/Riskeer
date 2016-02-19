@@ -15,9 +15,4 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
     }
 
     public class TestViewDerivative : TestView {}
-
-    public class TestWrapper
-    {
-        public string RealData { get; set; }
-    }
 }

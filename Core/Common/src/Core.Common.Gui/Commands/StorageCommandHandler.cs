@@ -54,7 +54,7 @@ namespace Core.Common.Gui.Commands
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="applicationSelection">Class managing the application selection.</param>
         /// <param name="mainWindowController">Controller for UI.</param>
-        /// <param name="toolViewController">Controller for Tool Windows.</param>
+        /// <param name="toolViewController">Controller for Tool Views.</param>
         /// <param name="viewCommands">The view command handler.</param>
         public StorageCommandHandler(IStoreProject projectStorage, IProjectOwner projectOwner,
                                      IApplicationSelection applicationSelection, IMainWindowController mainWindowController,
@@ -71,9 +71,6 @@ namespace Core.Common.Gui.Commands
             this.projectOwner.ProjectClosing += ApplicationProjectClosing;
         }
 
-        /// <summary>
-        /// This method performs an update of the <seealso cref="IObserver"/>, triggered by a notification of an <seealso cref="IObservable"/>.
-        /// </summary>
         public void UpdateObserver()
         {
             mainWindowController.RefreshGui();
@@ -95,7 +92,7 @@ namespace Core.Common.Gui.Commands
         {
             using (var openFileDialog = new OpenFileDialog
             {
-                Filter = Resources.Ringtoets_project_file_filter,
+                Filter = projectPersistor.FileFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true
             })
@@ -159,7 +156,7 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            var filePath = OpenRingtoetsProjectFileSaveDialog(project.Name);
+            var filePath = OpenProjectFileSaveDialog(project.Name);
             if (String.IsNullOrWhiteSpace(filePath))
             {
                 return false;
@@ -233,16 +230,16 @@ namespace Core.Common.Gui.Commands
         }
 
         /// <summary>
-        /// Prompts a new <see cref="SaveFileDialog"/> to select a location for saving the Ringtoets project file.
+        /// Prompts a new <see cref="SaveFileDialog"/> to select a location for saving the project file.
         /// </summary>
         /// <param name="projectName">A string containing the file name selected in the file dialog box.</param>
         /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
-        private static string OpenRingtoetsProjectFileSaveDialog(string projectName)
+        private string OpenProjectFileSaveDialog(string projectName)
         {
             // show file open dialog and select project file
             using (var saveFileDialog = new SaveFileDialog
             {
-                Filter = string.Format(Resources.Ringtoets_project_file_filter),
+                Filter = projectPersistor.FileFilter,
                 FilterIndex = 1,
                 RestoreDirectory = true,
                 FileName = projectName

@@ -98,50 +98,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
         }
 
-        /// <summary>
-        /// Called after layout is changed (e.g. loaded).
-        /// </summary>
-        public void UpdateLayout()
-        {
-            var existingContents = dockingManager.Layout.Descendents().OfType<LayoutContent>().ToArray();
-            var existingHostControls = existingContents.Select(c => c.Content as WindowsFormsHost);
-
-            foreach (var view in views.ToArray())
-            {
-                if (existingHostControls.Any(c => c != null && c.Child == view))
-                {
-                    continue;
-                }
-
-                // view removed
-                var index = views.IndexOf(view);
-                var control = view as Control;
-                if (control != null)
-                {
-                    control.TextChanged -= ControlOnTextChanged;
-                }
-
-                view.Dispose();
-                view.Data = null;
-                views.RemoveAt(index);
-                hostControls.RemoveAt(index);
-
-                if (views.Count != hostControls.Count)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-
-            // subscribe to anchorables (this must be much simpler)
-            var anchorables = dockingManager.Layout.Descendents().OfType<LayoutAnchorable>().ToArray();
-
-            foreach (var layoutAnchorable in anchorables)
-            {
-                layoutAnchorable.PropertyChanged -= AnchorableOnPropertyChanged;
-                layoutAnchorable.PropertyChanged += AnchorableOnPropertyChanged;
-            }
-        }
-
         public void Dispose() {}
 
         public void Add(IView view, ViewLocation location)

@@ -31,21 +31,22 @@ namespace Core.Common.Gui.Plugin
     public class PropertyInfo
     {
         /// <summary>
-        /// The type of the data to create properties for.
+        /// Gets or sets the type of the data to create properties for.
         /// </summary>
         public Type DataType { get; set; }
 
         /// <summary>
-        /// The type of object properties to create.
+        /// Gets or sets the type of object properties to create.
         /// </summary>
         public Type PropertyObjectType { get; set; }
 
         /// <summary>
-        /// Optional function, used to determine if a this instance is relevant given a data object.
+        /// Gets or sets the optional function used to determine if this instance is relevant 
+        /// given a data object.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties} { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
+        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
         /// </example>
         /// <remarks>
         /// This property breaks the single responsibility principle; besides <see cref="DataType"/> and <see cref="PropertyObjectType"/> an additional method is 
@@ -54,8 +55,8 @@ namespace Core.Common.Gui.Plugin
         public Func<object, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Optional function, that allows a data object to be converted to another data
-        /// object that should be used for the property object.
+        /// Gets or sets the optional function that allows a data object to be converted 
+        /// to another data object that should be used as the property object instead.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
@@ -64,8 +65,8 @@ namespace Core.Common.Gui.Plugin
         public Func<object, object> GetObjectPropertiesData { get; set; }
 
         /// <summary>
-        /// Optional function, that allows for post-creation logic to be executed on the
-        /// newly create object properties.
+        /// Gets or sets the optional function that allows for post-creation logic to be 
+        /// executed on the newly created object properties.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
@@ -75,14 +76,14 @@ namespace Core.Common.Gui.Plugin
     }
 
     /// <summary>
-    /// Information for creating object properties
+    /// Information for creating object properties.
     /// </summary>
-    /// <typeparam name="TObject">The type of the object to create object properties for</typeparam>
-    /// <typeparam name="TProperty">The type of the object properties to create</typeparam>
+    /// <typeparam name="TObject">The type of the object to create object properties for.</typeparam>
+    /// <typeparam name="TProperty">The type of the object properties to create.</typeparam>
     public class PropertyInfo<TObject, TProperty> where TProperty : IObjectProperties
     {
         /// <summary>
-        /// The type of the data to create properties for.
+        /// Gets or sets the type of the data to create properties for.
         /// </summary>
         public Type DataType
         {
@@ -93,7 +94,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// The type of object properties to create.
+        /// Gets or sets the type of object properties to create.
         /// </summary>
         public Type PropertyObjectType
         {
@@ -104,11 +105,12 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Optional function, used to determine if a this instance is relevant given a data object.
+        /// Gets or sets the optional function used to determine if this instance is relevant 
+        /// given a data object.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
-        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties} { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
+        /// <code>var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties &gt; { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };</code>
         /// </example>
         /// <remarks>
         /// This property breaks the single responsibility principle; besides <see cref="DataType"/> and <see cref="PropertyObjectType"/> an additional method is 
@@ -117,8 +119,8 @@ namespace Core.Common.Gui.Plugin
         public Func<TObject, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Optional function, that allows a data object to be converted to another data
-        /// object that should be used for the property object.
+        /// Gets or sets the optional function that allows a data object to be converted 
+        /// to another data object that should be used as the property object instead.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:
@@ -127,7 +129,8 @@ namespace Core.Common.Gui.Plugin
         public Func<TObject, object> GetObjectPropertiesData { get; set; }
 
         /// <summary>
-        /// Optional function, that allows for post-creation logic to be executed.
+        /// Gets or sets the optional function that allows for post-creation logic to be 
+        /// executed on the newly created object properties.
         /// </summary>
         /// <example>
         /// As an example, you could implement this as follows:

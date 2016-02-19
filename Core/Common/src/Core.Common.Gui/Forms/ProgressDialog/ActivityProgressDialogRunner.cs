@@ -43,8 +43,8 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// <summary>
         /// Runs a sequence of activities while showing progress in a dialog.
         /// </summary>
-        /// <param name="dialogParent">The dialog parent.</param>
-        /// <param name="activities">The activities.</param>
+        /// <param name="dialogParent">The dialog parent for which the progress dialog should be shown on top.</param>
+        /// <param name="activities">The activities to be executed.</param>
         public static void Run(IWin32Window dialogParent, IEnumerable<Activity> activities)
         {
             using (var activityProgressDialog = new ActivityProgressDialog(dialogParent, activities))

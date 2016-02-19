@@ -66,7 +66,7 @@ namespace Core.Common.Gui.Commands
         bool OpenExistingProject(string filePath);
 
         /// <summary>
-        /// Close current project and and related views.
+        /// Close the current project and related views.
         /// </summary>
         void CloseProject();
     }

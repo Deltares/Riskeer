@@ -42,7 +42,7 @@ namespace Core.Common.Gui
         IView ActiveView { get; }
 
         /// <summary>
-        ///  Gets all document views currently opened in the user interface.
+        /// Gets all document views currently opened in the user interface.
         /// </summary>
         IViewList DocumentViews { get; }
 

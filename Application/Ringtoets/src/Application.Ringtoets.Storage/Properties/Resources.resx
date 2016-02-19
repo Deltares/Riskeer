@@ -136,4 +136,7 @@
   <data name="Error_Write_Structure_to_Database" xml:space="preserve">
     <value>Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.</value>
   </data>
+  <data name="Ringtoets_project_file_filter" xml:space="preserve">
+    <value>Ringtoetsproject (*.rtd)|*.rtd</value>
+  </data>
 </root>

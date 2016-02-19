@@ -32,15 +32,6 @@ namespace Core.Common.Gui.Commands
     public interface IProjectCommands
     {
         /// <summary>
-        /// Ask the user which data object should be created such that it can be added to the project.
-        /// </summary>
-        /// <param name="parent">The owner of the new child data.</param>
-        /// <param name="childItemTypes">The supported data types.</param>
-        /// <returns>The child data object that should be added to the project.</returns>
-        /// <remarks>This method should not add the new data object to an <see cref="Project"/> instance.</remarks>
-        object AddNewChildItem(object parent, IEnumerable<Type> childItemTypes);
-
-        /// <summary>
         /// Ask the user which data object should be created and then add it to the project.
         /// </summary>
         /// <param name="parent">The data parent.</param>

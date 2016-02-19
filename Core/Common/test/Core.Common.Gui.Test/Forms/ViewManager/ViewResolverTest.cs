@@ -401,7 +401,7 @@ namespace Core.Common.Gui.Test.Forms.ViewManager
 
         [Test]
         [RequiresSTA]
-        public void OpeningViewForDataTwiceShouldOnlySetActiveView()
+        public void OpenViewForData_OpeningViewForAlreadyOpenedButInactiveView_ActivateView()
         {
             // Setup
             var url = new WebLink("Deltares", new Uri("http://www.deltares.nl"));

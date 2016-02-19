@@ -21,7 +21,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_WithoutTreeNode_ThrowsArgumentNullException()
+        public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
             // Setup
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
@@ -48,7 +48,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         }
 
         [Test]
-        public void Constructor_WithDataObject_DoesNotThrow()
+        public void Constructor_WithAllInput_DoesNotThrow()
         {
             // Setup
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
@@ -157,7 +157,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateExpandAllItem_DependingOnChildNodes_ItemWithExpandFunctionWillBeEnabled(bool hasChildren)
+        public void CreateExpandAllItem_DependingOnCanExpandOrCollapseForData_ItemWithExpandFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
             var dataObject = "string";
@@ -195,7 +195,7 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateCollapseAllItem_DependingOnChildNodes_ItemWithCollapseFunctionWillBeEnabled(bool hasChildren)
+        public void CreateCollapseAllItem_DependingOnCanExpandOrCollapseForData_ItemWithCollapseFunctionWillBeEnabled(bool hasChildren)
         {
             // Setup
             var dataObject = "string";
