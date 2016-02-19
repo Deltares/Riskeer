@@ -22,12 +22,12 @@
 namespace Ringtoets.HydraRing.Calculation
 {
     /// <summary>
-    /// Enumeration that defines the possible uncertainties types.
+    /// Enumeration that defines the uncertainties types supported by Hydra-Ring.
     /// </summary>
     /// <remarks>
-    /// Except for <see cref="Undefined"/>, the integer values correspond to uncertainties ids defined by Hydra-Ring.
+    /// Except for <see cref="Undefined"/>, the integer values correspond to uncertainties ids defined within Hydra-Ring.
     /// </remarks>
-    public enum UncertaintiesType
+    public enum HydraRingUncertaintiesType
     {
         Undefined = -1,
         None = 0, // "No uncertainties"

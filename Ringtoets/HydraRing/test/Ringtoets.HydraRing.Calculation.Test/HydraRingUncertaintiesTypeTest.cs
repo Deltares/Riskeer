@@ -25,21 +25,22 @@ using NUnit.Framework;
 namespace Ringtoets.HydraRing.Calculation.Test
 {
     [TestFixture]
-    public class TimeIntegrationSchemeTypeTest
+    public class HydraRingUncertaintiesTypeTest
     {
         [Test]
-        public void Values_HasFour()
+        public void Values_HasFive()
         {
-            Assert.AreEqual(4, Enum.GetValues(typeof(TimeIntegrationSchemeType)).Length);
+            Assert.AreEqual(5, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
         }
 
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(-1, (int) TimeIntegrationSchemeType.Undefined);
-            Assert.AreEqual(1, (int) TimeIntegrationSchemeType.FBC);
-            Assert.AreEqual(2, (int) TimeIntegrationSchemeType.APT);
-            Assert.AreEqual(3, (int) TimeIntegrationSchemeType.NTI);
+            Assert.AreEqual(-1, (int) HydraRingUncertaintiesType.Undefined);
+            Assert.AreEqual(0, (int) HydraRingUncertaintiesType.None);
+            Assert.AreEqual(1, (int) HydraRingUncertaintiesType.All);
+            Assert.AreEqual(2, (int) HydraRingUncertaintiesType.Model);
+            Assert.AreEqual(3, (int) HydraRingUncertaintiesType.Statistic);
         }
     }
 }

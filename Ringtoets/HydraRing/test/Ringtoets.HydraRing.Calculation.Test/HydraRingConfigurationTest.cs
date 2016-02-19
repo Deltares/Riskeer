@@ -57,8 +57,8 @@ namespace Ringtoets.HydraRing.Calculation.Test
         {
             var hydraRingConfiguration = new HydraRingConfiguration
             {
-                TimeIntegrationSchemeType = TimeIntegrationSchemeType.NTI,
-                UncertaintiesType = UncertaintiesType.Model,
+                HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.NTI,
+                HydraRingUncertaintiesType = HydraRingUncertaintiesType.Model,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0)
             };
 

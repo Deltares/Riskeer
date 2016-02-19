@@ -37,19 +37,19 @@ namespace Ringtoets.HydraRing.Calculation
         /// </summary>
         public HydraRingConfiguration()
         {
-            TimeIntegrationSchemeType = TimeIntegrationSchemeType.Undefined;
-            UncertaintiesType = UncertaintiesType.Undefined;
+            HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.Undefined;
+            HydraRingUncertaintiesType = HydraRingUncertaintiesType.Undefined;
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="TimeIntegrationSchemeType"/>.
+        /// Gets or sets the <see cref="HydraRingTimeIntegrationSchemeType"/>.
         /// </summary>
-        public TimeIntegrationSchemeType TimeIntegrationSchemeType { get; set; }
+        public HydraRingTimeIntegrationSchemeType HydraRingTimeIntegrationSchemeType { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="UncertaintiesType"/>.
+        /// Gets or sets the <see cref="HydraRingUncertaintiesType"/>.
         /// </summary>
-        public UncertaintiesType UncertaintiesType { get; set; }
+        public HydraRingUncertaintiesType HydraRingUncertaintiesType { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
@@ -80,10 +80,10 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", TimeIntegrationSchemeType != TimeIntegrationSchemeType.Undefined ? (int?) TimeIntegrationSchemeType : null
+                        "TimeIntegrationSchemeID", HydraRingTimeIntegrationSchemeType != HydraRingTimeIntegrationSchemeType.Undefined ? (int?) HydraRingTimeIntegrationSchemeType : null
                     },
                     {
-                        "UncertaintiesID", UncertaintiesType != UncertaintiesType.Undefined ? (int?) UncertaintiesType : null
+                        "UncertaintiesID", HydraRingUncertaintiesType != HydraRingUncertaintiesType.Undefined ? (int?) HydraRingUncertaintiesType : null
                     },
                     {
                         "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations
