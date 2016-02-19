@@ -59,6 +59,7 @@ namespace Ringtoets.HydraRing.Calculation
             var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
 
             InitializeHydraulicModelsConfiguration(configurationDictionary);
+            InitializeSectionsConfiguration(configurationDictionary);
             InitializeAreasConfiguration(configurationDictionary);
             InitializeProjectsConfiguration(configurationDictionary);
 
@@ -79,6 +80,58 @@ namespace Ringtoets.HydraRing.Calculation
                     },
                     {
                         "DataSetName", "WTI 2017"
+                    }
+                }
+            };
+        }
+
+        private void InitializeSectionsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Sections"] = new List<OrderedDictionary>
+            {
+                new OrderedDictionary
+                {
+                    {
+                        "SectionId", 999
+                    },
+                    {
+                        "PresentationId", 1
+                    },
+                    {
+                        "MainMechanismId", 1
+                    },
+                    {
+                        "Name", "HydraRingLocation"
+                    },
+                    {
+                        "Description", "HydraRingLocation"
+                    },
+                    {
+                        "RingCoordinateBegin", null
+                    },
+                    {
+                        "RingCoordinateEnd", null
+                    },
+                    {
+                        "XCoordinate", null
+                    },
+                    {
+                        "YCoordinate", null
+                    },
+                    {
+                        "StationId1", null
+                    },
+                    {
+                        "StationId2", null
+                    },
+                    {
+                        "Relative", 100.0
+                    },
+                    {
+                        "Normal", null
+                    },
+                    {
+                        "Length", null
                     }
                 }
             };
