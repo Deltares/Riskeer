@@ -59,6 +59,8 @@ namespace Ringtoets.HydraRing.Calculation
             var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
 
             InitializeHydraulicModelsConfiguration(configurationDictionary);
+            InitializeAreasConfiguration(configurationDictionary);
+            InitializeProjectsConfiguration(configurationDictionary);
 
             return GenerateDataBaseCreationScript(configurationDictionary);
         }
@@ -77,6 +79,44 @@ namespace Ringtoets.HydraRing.Calculation
                     },
                     {
                         "DataSetName", "WTI 2017"
+                    }
+                }
+            };
+        }
+
+        private void InitializeAreasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Areas"] = new List<OrderedDictionary>
+            {
+                new OrderedDictionary
+                {
+                    {
+                        "aDefault", 1
+                    },
+                    {
+                        "bDefault", "1"
+                    },
+                    {
+                        "cDefault", "Nederland"
+                    }
+                }
+            };
+        }
+
+        private void InitializeProjectsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Projects"] = new List<OrderedDictionary>
+            {
+                new OrderedDictionary
+                {
+                    {
+                        "aDefault", 1
+                    },
+                    {
+                        "bDefault", "Sprint"
+                    },
+                    {
+                        "cDefault", "Hydra-Ring Sprint"
                     }
                 }
             };
