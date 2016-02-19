@@ -27,8 +27,13 @@ namespace Ringtoets.HydraRing.Calculation
     public class HydraRingConfigurationSettings
     {
         /// <summary>
-        /// Gets or sets the <see cref="HydraRingFailureMechanismType"/> of the <see cref="HydraRingConfigurationSettings"/>.
+        /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
         /// </summary>
         public HydraRingFailureMechanismType HydraRingFailureMechanismType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id of the variable that is considered.
+        /// </summary>
+        public int VariableId { get; set; }
     }
 }

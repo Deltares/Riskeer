@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.Linq;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HydraRing.Calculation
@@ -43,43 +44,53 @@ namespace Ringtoets.HydraRing.Calculation
             {
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
+                    VariableId = 26
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
+                    VariableId = 28
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveHeight
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
+                    VariableId = 29
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
+                    VariableId = 29
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    VariableId = 114
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
+                    VariableId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    VariableId = 44
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    VariableId = 60
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    VariableId = 65
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    VariableId = 65
                 }
             };
         }
@@ -242,7 +253,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "Method", 1 // Fixed: no support for computations other than of type 1
                     },
                     {
-                        "VariableId", null // TODO: Fix as part of WTI-324
+                        "VariableId", configurationSettings.First(cs => cs.HydraRingFailureMechanismType == FailureMechanismType).VariableId
                     },
                     {
                         "LoadVariableId", null // Fixed: not relevant
