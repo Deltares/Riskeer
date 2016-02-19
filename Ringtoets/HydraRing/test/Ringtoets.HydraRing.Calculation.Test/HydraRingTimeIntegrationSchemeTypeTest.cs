@@ -28,15 +28,14 @@ namespace Ringtoets.HydraRing.Calculation.Test
     public class HydraRingTimeIntegrationSchemeTypeTest
     {
         [Test]
-        public void Values_HasFour()
+        public void Values_HasThree()
         {
-            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingTimeIntegrationSchemeType)).Length);
+            Assert.AreEqual(3, Enum.GetValues(typeof(HydraRingTimeIntegrationSchemeType)).Length);
         }
 
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(-1, (int) HydraRingTimeIntegrationSchemeType.Undefined);
             Assert.AreEqual(1, (int) HydraRingTimeIntegrationSchemeType.FBC);
             Assert.AreEqual(2, (int) HydraRingTimeIntegrationSchemeType.APT);
             Assert.AreEqual(3, (int) HydraRingTimeIntegrationSchemeType.NTI);

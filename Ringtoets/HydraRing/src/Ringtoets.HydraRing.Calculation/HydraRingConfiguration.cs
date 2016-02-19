@@ -33,23 +33,14 @@ namespace Ringtoets.HydraRing.Calculation
     public class HydraRingConfiguration
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
-        /// </summary>
-        public HydraRingConfiguration()
-        {
-            HydraRingTimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.Undefined;
-            HydraRingUncertaintiesType = HydraRingUncertaintiesType.Undefined;
-        }
-
-        /// <summary>
         /// Gets or sets the <see cref="HydraRingTimeIntegrationSchemeType"/>.
         /// </summary>
-        public HydraRingTimeIntegrationSchemeType HydraRingTimeIntegrationSchemeType { get; set; }
+        public HydraRingTimeIntegrationSchemeType? HydraRingTimeIntegrationSchemeType { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="HydraRingUncertaintiesType"/>.
         /// </summary>
-        public HydraRingUncertaintiesType HydraRingUncertaintiesType { get; set; }
+        public HydraRingUncertaintiesType? HydraRingUncertaintiesType { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
@@ -80,10 +71,10 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", HydraRingTimeIntegrationSchemeType != HydraRingTimeIntegrationSchemeType.Undefined ? (int?) HydraRingTimeIntegrationSchemeType : null
+                        "TimeIntegrationSchemeID", HydraRingTimeIntegrationSchemeType != null ? (int?) HydraRingTimeIntegrationSchemeType : null
                     },
                     {
-                        "UncertaintiesID", HydraRingUncertaintiesType != HydraRingUncertaintiesType.Undefined ? (int?) HydraRingUncertaintiesType : null
+                        "UncertaintiesID", HydraRingUncertaintiesType != null ? (int?) HydraRingUncertaintiesType : null
                     },
                     {
                         "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations

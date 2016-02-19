@@ -28,15 +28,14 @@ namespace Ringtoets.HydraRing.Calculation.Test
     public class HydraRingUncertaintiesTypeTest
     {
         [Test]
-        public void Values_HasFive()
+        public void Values_HasFour()
         {
-            Assert.AreEqual(5, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
+            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
         }
 
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(-1, (int) HydraRingUncertaintiesType.Undefined);
             Assert.AreEqual(0, (int) HydraRingUncertaintiesType.None);
             Assert.AreEqual(1, (int) HydraRingUncertaintiesType.All);
             Assert.AreEqual(2, (int) HydraRingUncertaintiesType.Model);

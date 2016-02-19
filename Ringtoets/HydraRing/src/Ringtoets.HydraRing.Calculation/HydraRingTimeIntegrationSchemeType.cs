@@ -25,11 +25,10 @@ namespace Ringtoets.HydraRing.Calculation
     /// Enumeration that defines the time integration scheme types supported by Hydra-Ring.
     /// </summary>
     /// <remarks>
-    /// Except for <see cref="Undefined"/>, the integer values correspond to time integration scheme ids defined within Hydra-Ring.
+    /// The integer values correspond to time integration scheme ids defined within Hydra-Ring.
     /// </remarks>
     public enum HydraRingTimeIntegrationSchemeType
     {
-        Undefined = -1,
         FBC = 1,
         APT = 2,
         NTI = 3
