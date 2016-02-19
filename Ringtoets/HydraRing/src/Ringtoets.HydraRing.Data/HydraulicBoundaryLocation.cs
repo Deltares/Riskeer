@@ -26,7 +26,8 @@ namespace Ringtoets.HydraRing.Data
     public class HydraulicBoundaryLocation
     {
         /// <summary>
-        /// Creates a new instance ofL <see cref="HydraulicBoundaryLocation"/>, with the given <paramref name="id"/>, <paramref name="name"/>, <paramref name="x"/>, and <paramref name="y"/>.
+        /// Creates a new instance ofL <see cref="HydraulicBoundaryLocation"/>, 
+        /// with the given <paramref name="id"/>, <paramref name="name"/>, <paramref name="x"/>, and <paramref name="y"/>.
         /// </summary>
         public HydraulicBoundaryLocation(long id, string name, double x, double y)
         {

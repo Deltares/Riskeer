@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Components.Gis.Data;
 
 namespace Ringtoets.Integration.Data.Map

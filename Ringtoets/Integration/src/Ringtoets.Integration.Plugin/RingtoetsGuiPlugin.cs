@@ -31,7 +31,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial;
 using Core.Plugins.DotSpatial.Forms;
 using log4net;
 using Ringtoets.Common.Data;
@@ -51,6 +50,7 @@ using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using HydraringResources = Ringtoets.HydraRing.Forms.Properties.Resources;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -445,7 +445,7 @@ namespace Ringtoets.Integration.Plugin
             var newVersion = hydraulicBoundaryLocationsImporter.Version;
 
             // Compare
-            if (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion)
+            if (string.IsNullOrEmpty(currentVersion) || currentVersion != newVersion)
             {
                 // Show dialog
                 ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
@@ -460,12 +460,13 @@ namespace Ringtoets.Integration.Plugin
                                             string filePath,
                                             string version)
         {
+
             var confirmation = MessageBox.Show(
                 HydraringResources.Delete_DesignWaterLevel_Calculations_Text,
-                HydraringResources.Delete_DesignWaterLevel_Calculations_Title,
-                MessageBoxButtons.YesNo);
+                BaseResources.Confirm,
+                MessageBoxButtons.OKCancel);
 
-            if (confirmation == DialogResult.Yes)
+            if (confirmation == DialogResult.OK)
             {
                 ClearCalculations(nodeData.BaseNode);
 
