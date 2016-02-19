@@ -1055,7 +1055,8 @@ namespace Core.Common.Gui.Test
             {
                 gui.Run();
 
-                gui.ToolWindowViews.Add(new ProjectExplorerMock());
+                var projectExplorerMock = new ProjectExplorerMock();
+                gui.ToolWindowViews.Add(projectExplorerMock);
 
                 var activatedViewsDuringShow = new List<IView>();
                 gui.ToolWindowViews.ActiveViewChanged += (sender, args) =>
@@ -1067,9 +1068,10 @@ namespace Core.Common.Gui.Test
                 mainWindow.Show();
 
                 // Assert
-                Assert.AreEqual(2, activatedViewsDuringShow.Count);
+                Assert.AreEqual(3, activatedViewsDuringShow.Count);
                 Assert.AreEqual(1, activatedViewsDuringShow.Count(v => v is MessageWindow));
                 Assert.AreEqual(1, activatedViewsDuringShow.Count(v => v is PropertyGrid));
+                Assert.AreEqual(1, activatedViewsDuringShow.Count(v => ReferenceEquals(v, projectExplorerMock)));
             }
             mocks.VerifyAll();
         }
