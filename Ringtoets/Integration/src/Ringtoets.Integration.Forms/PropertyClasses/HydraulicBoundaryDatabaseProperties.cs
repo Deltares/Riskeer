@@ -21,19 +21,21 @@
 
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
+using HydraRingResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Name_Description")]
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Name_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Name_Description")]
         public string FilePath
         {
             get
