@@ -66,6 +66,7 @@ namespace Ringtoets.HydraRing.Calculation
 
             InitializeHydraulicModelsConfiguration(configurationDictionary);
             InitializeSectionsConfiguration(configurationDictionary);
+            InitializeDesignTablesConfiguration(configurationDictionary);
             InitializeAreasConfiguration(configurationDictionary);
             InitializeProjectsConfiguration(configurationDictionary);
 
@@ -101,10 +102,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "SectionId", 999 // TODO: Dike section integration
                     },
                     {
-                        "PresentationId", 1 // Fixed: only relevant in case of combination of dike sections
+                        "PresentationId", 1 // Fixed: no support for combination of multiple dike sections
                     },
                     {
-                        "MainMechanismId", 1 // Fixed: only relevant in case of combination of dike sections
+                        "MainMechanismId", 1 // Fixed: no support for combination of multiple dike sections
                     },
                     {
                         "Name", "HydraRingLocation" // TODO: Dike section integration
@@ -128,16 +129,65 @@ namespace Ringtoets.HydraRing.Calculation
                         "StationId1", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null
                     },
                     {
-                        "StationId2", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null // Same as "StationId1": only support coupling of one station
+                        "StationId2", HydraulicBoundaryLocation != null ? (long?) HydraulicBoundaryLocation.Id : null // Same as "StationId1": no support for coupling two stations
                     },
                     {
-                        "Relative", 100.0 // Fixed: only support coupling of one station
+                        "Relative", 100.0 // Fixed: no support for coupling two stations
                     },
                     {
                         "Normal", null // TODO: Dike cross section integration
                     },
                     {
                         "Length", null // TODO: Dike section integration
+                    }
+                }
+            };
+        }
+
+        private void InitializeDesignTablesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["DesignTables"] = new List<OrderedDictionary>
+            {
+                new OrderedDictionary
+                {
+                    {
+                        "SectionId", 999 // TODO: Dike section integration
+                    },
+                    {
+                        "MechanismId", null // TODO: Fix as part of WTI-324
+                    },
+                    {
+                        "LayerId", null // Fixed: no support for revetments
+                    },
+                    {
+                        "AlternativeId", null // Fixed: no support for piping
+                    },
+                    {
+                        "Method", null // TODO: Fix as part of WTI-324
+                    },
+                    {
+                        "VariableId", null // TODO: Fix as part of WTI-324
+                    },
+                    {
+                        "LoadVariableId", null // Fixed: not relevant
+                    },
+                    {
+                        "TableMin", null // Fixed: no support for type 3 computations (see "Method")
+                    },
+                    {
+                        "TableMax", null // Fixed: no support for type 3 computations (see "Method")
+                    },
+                    {
+                        "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
+                    },
+                    {
+                        "ValueMin", null // Fixed: no support for type 2 computations (see "Method")
+                    },
+                    {
+                        "ValueMax", null // Fixed: no support for type 2 computations (see "Method")
+                    },
+                    {
+                        "Beta", null // Fixed: no support for type 2 computations (see "Method")
                     }
                 }
             };
@@ -150,13 +200,13 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "aDefault", 1
+                        "aDefault", 1 // Fixed: Not relevant
                     },
                     {
-                        "bDefault", "1"
+                        "bDefault", "1" // Fixed: Not relevant
                     },
                     {
-                        "cDefault", "Nederland"
+                        "cDefault", "Nederland" // Fixed: Not relevant
                     }
                 }
             };
@@ -169,13 +219,13 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "aDefault", 1
+                        "aDefault", 1 // Fixed: Not relevant
                     },
                     {
-                        "bDefault", "Sprint"
+                        "bDefault", "Sprint" // Fixed: Not relevant
                     },
                     {
-                        "cDefault", "Hydra-Ring Sprint"
+                        "cDefault", "Hydra-Ring Sprint" // Fixed: Not relevant
                     }
                 }
             };
