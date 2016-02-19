@@ -27,7 +27,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.IsFalse(mapDataResult);
             Assert.IsTrue(classResult);
-            Assert.IsFalse(childResult);
+            Assert.IsTrue(childResult);
         }
 
         [Test]

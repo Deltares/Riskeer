@@ -5,6 +5,9 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
+using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -15,6 +18,8 @@ using Ringtoets.Integration.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.Views;
+using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -59,6 +64,30 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(hydraulicBoundaryDatabase.AfterCreate);
             }
         }
+
+        [Test]
+        public void GetViewInfos_ReturnsSupportedViewInfoClasses()
+        {
+            // Setup
+            using (var guiPlugin = new RingtoetsGuiPlugin())
+            {
+                // Call
+                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, viewInfos.Length);
+
+                var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContribution));
+                Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, contributionViewInfo.Image);
+
+                var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionBase));
+                Assert.AreEqual(typeof(MapDataView), mapViewInfo.ViewType);
+                Assert.AreEqual(typeof(MapData), mapViewInfo.ViewDataType);
+                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
+            }
+        }
+				
 
         [Test]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()

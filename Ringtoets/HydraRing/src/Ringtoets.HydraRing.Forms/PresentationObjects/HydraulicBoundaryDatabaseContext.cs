@@ -22,13 +22,12 @@
 using System;
 using Core.Common.Base;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Forms.Properties;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.HydraRing.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
     public class HydraulicBoundaryDatabaseContext : Observable
     {

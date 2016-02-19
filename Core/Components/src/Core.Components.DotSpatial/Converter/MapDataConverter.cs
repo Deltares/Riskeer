@@ -35,7 +35,7 @@ namespace Core.Components.DotSpatial.Converter
     {
         public bool CanConvertMapData(MapData data)
         {
-            return data.GetType() == typeof(T);
+            return data is T;
         }
 
         public IList<FeatureSet> Convert(MapData data)

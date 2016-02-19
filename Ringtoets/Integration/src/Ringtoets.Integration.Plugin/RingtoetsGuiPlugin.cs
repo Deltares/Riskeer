@@ -30,6 +30,9 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Components.Gis.Data;
+using Core.Plugins.DotSpatial;
+using Core.Plugins.DotSpatial.Forms;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -38,6 +41,7 @@ using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Integration.Data.Map;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -88,6 +92,13 @@ namespace Ringtoets.Integration.Plugin
                     var assessmentSection = o as AssessmentSectionBase;
                     return assessmentSection != null && assessmentSection.FailureMechanismContribution == v.Data;
                 }
+            };
+
+            yield return new ViewInfo<AssessmentSectionBase, MapData, MapDataView>
+            {
+                GetViewName = (v, o) => RingtoetsFormsResources.TrajectMap_DisplayName,
+                GetViewData = assessmentSectionBase => new AssessmentSectionMapData(assessmentSectionBase),
+                Image = RingtoetsFormsResources.Map
             };
         }
 
@@ -212,6 +223,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip AssessmentSectionBaseContextMenuStrip(AssessmentSectionBase nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddRenameItem()
                       .AddDeleteItem()
                       .AddSeparator()
