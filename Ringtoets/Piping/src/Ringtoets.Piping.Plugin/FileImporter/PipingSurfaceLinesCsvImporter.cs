@@ -34,6 +34,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SurfaceLines;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
@@ -47,6 +48,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSurfaceLinesCsvImporter : FileImporterBase
     {
         private readonly ILog log;
+
+        private readonly Point3D undefinedPoint = new Point3D
+        {
+            X = -1,
+            Y = -1,
+            Z = -1
+        };
+
         private const string characteristicPointsFileSubExtension = ".krp";
 
         public PipingSurfaceLinesCsvImporter()
@@ -329,11 +338,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             foreach (var readSurfaceLine in readSurfaceLines)
             {
-                var characteristicPointsLocation = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);
-                if (characteristicPointsLocation != null)
+                var characteristicPoints = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);
+                if (characteristicPoints != null)
                 {
-                    SetCharacteristicPointsOnSurfaceLine(readSurfaceLine, characteristicPointsLocation);
-                    readCharacteristicPointsLocationNames.Remove(characteristicPointsLocation.Name);
+                    SetCharacteristicPointsOnSurfaceLine(readSurfaceLine, characteristicPoints);
+                    readCharacteristicPointsLocationNames.Remove(characteristicPoints.Name);
                 }
                 else if (readCharacteristicPointsLocations.Count > 0)
                 {
@@ -372,18 +381,46 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 readSurfaceLine.SetDitchDikeSideAt,
                 readSurfaceLine.Name,
                 RingtoetsPluginResources.CharacteristicPoint_DitchDikeSide);
+
+            TrySetLForPoint(characteristicPointsLocation.DikeToeAtRiver, 
+                readSurfaceLine, 
+                l => readSurfaceLine.EntryPointL = l,
+                RingtoetsPluginResources.CharacteristicPoint_DikeToeAtRiver);
+
+            TrySetLForPoint(characteristicPointsLocation.DikeToeAtPolder,
+                readSurfaceLine,
+                l => readSurfaceLine.ExitPointL = l,
+                RingtoetsPluginResources.CharacteristicPoint_DikeToeAtPolder);
+        }
+
+        private void TrySetLForPoint(Point3D point, RingtoetsPipingSurfaceLine readSurfaceLine, Action<double> setAction, string characteristicPointType)
+        {
+            if (IsDefined(point))
+            {
+                var index = readSurfaceLine.Points.ToList().IndexOf(point);
+                if (index < 0)
+                {
+                    var message = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                                                point.X,
+                                                point.Y,
+                                                point.Z);
+
+                    log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_,
+                                    characteristicPointType,
+                                    readSurfaceLine.Name,
+                                    message);
+                }
+                else
+                {
+                    var localPoint = readSurfaceLine.ProjectGeometryToLZ().ElementAt(index);
+                    setAction(localPoint.X);
+                }
+            }
         }
 
         private void TrySetCharacteristicPoint(Point3D point, Action<Point3D> setAction, string surfaceLineName, string characteristicPointType)
         {
-            var undefinedPoint = new Point3D
-            {
-                X = -1,
-                Y = -1,
-                Z = -1
-            };
-
-            if (!point.Equals(undefinedPoint))
+            if (IsDefined(point))
             {
                 try
                 {
@@ -391,11 +428,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (ArgumentException e)
                 {
-                    var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_,
-                                                characteristicPointType, surfaceLineName, e.Message);
-                    log.Error(message);
+                    log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_, 
+                        characteristicPointType, 
+                        surfaceLineName, 
+                        e.Message);
                 }
             }
+        }
+
+        private bool IsDefined(Point3D point)
+        {
+            return point != null && !point.Equals(undefinedPoint);
         }
 
         private void HandleUserCancellingImport()

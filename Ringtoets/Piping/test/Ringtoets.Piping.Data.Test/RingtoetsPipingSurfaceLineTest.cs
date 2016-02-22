@@ -246,7 +246,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var expectedMessage = "Kan geen hoogte bepalen. L moet in het bereik van [0, 3.1] liggen.";
+            var expectedMessage = string.Format("Kan geen hoogte bepalen. L moet in het bereik van [{0}, {1}] liggen.",
+                0,3.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -442,7 +443,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.EntryPointL = testL;
 
             // Assert
-            var expectedMessage = "Kan intredepunt niet zetten. L moet in het bereik van [0, 4.1] liggen.";
+            var expectedMessage = string.Format("Kan intredepunt niet zetten. L moet in het bereik van [{0}, {1}] liggen.",
+                0, 4.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 

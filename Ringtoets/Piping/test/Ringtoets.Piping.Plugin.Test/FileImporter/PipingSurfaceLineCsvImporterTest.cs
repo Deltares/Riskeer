@@ -13,6 +13,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -924,6 +925,61 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidBottomDitchDikeSide", "Slootbodem dijkzijde")]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidBottomDitchPolderSide", "Slootbodem polderzijde")]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtPolder", "Teen dijk binnenwaarts")]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtRiver", "Teen dijk buitenwaarts")]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDitchDikeSide", "Insteek sloot dijkzijde")]
+        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDitchPolderSide", "Insteek sloot polderzijde")]
+        public void Import_FileWithTwoValidLinesAndCharacteristicPointNotOnGeometry_LogInvalidPointDefinition(string fileName, string characteristicPointName)
+        {
+            // Setup
+            string surfaceLines = Path.Combine(pluginTestDataPath, fileName + ".csv");
+            string corruptPath = Path.Combine(pluginTestDataPath, fileName + ".krp.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+            int progressCallCount = 0;
+            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLines);
+
+            // Assert
+            var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,0,1,2);
+            var expectedLogMessages = new[]
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_, 
+                    corruptPath),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_,
+                    characteristicPointName,
+                    "Rotterdam1Invalid",
+                    pointFormat)
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(2, observableSurfaceLinesList.Count,
+                            "Ensure only the two valid surfacelines have been imported.");
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "Rotterdam1Invalid"));
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "ArtifcialLocal"));
+
+            Assert.AreEqual(7, progressCallCount,
+                            "Expect 1 call for each surfaceline (2 in total) +1 for 0/N progress and for " +
+                            "each characteristic point location (2 in total) +1 for 0/N progress, " +
+                            "and 1 for putting data in model.");
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        [Test]
         public void Import_ImportingToValidTargetWithValidFileWithCharacteristicPoints_ImportSurfaceLinesToCollection()
         {
             // Setup
@@ -1009,6 +1065,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Z = 1.45
             }, firstSurfaceLine.DitchDikeSide);
 
+            Assert.AreEqual(firstSurfaceLine.ProjectGeometryToLZ().ElementAt(2).X, firstSurfaceLine.EntryPointL, double.Epsilon);
+            Assert.AreEqual(firstSurfaceLine.ProjectGeometryToLZ().ElementAt(4).X, firstSurfaceLine.ExitPointL, double.Epsilon);
+
             var secondSurfaceLine = importTargetArray[1];
             Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
             Assert.AreEqual(3, secondSurfaceLine.Points.Count());
@@ -1037,6 +1096,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Y = 0,
                 Z = 1.1
             }, secondSurfaceLine.DitchDikeSide);
+
+            Assert.AreEqual(secondSurfaceLine.ProjectGeometryToLZ().ElementAt(0).X, secondSurfaceLine.EntryPointL, double.Epsilon);
+            Assert.AreEqual(secondSurfaceLine.ProjectGeometryToLZ().ElementAt(2).X, secondSurfaceLine.ExitPointL, double.Epsilon);
 
             Assert.AreEqual(7, callCount);
 

@@ -229,7 +229,7 @@ namespace Ringtoets.Piping.Data
 
         private static ArgumentException CreateCharacteristicPointSetException(Point3D point)
         {
-            var message = string.Format(Core.Common.Base.Properties.Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
                                         point.X,
                                         point.Y,
                                         point.Z);

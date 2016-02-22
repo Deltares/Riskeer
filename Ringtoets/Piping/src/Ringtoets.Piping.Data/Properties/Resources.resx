@@ -186,4 +186,7 @@
   <data name="RingtoetsPipingSurfaceLine_ExitPointL_Cannot_set_exit_point_at_L_0" xml:space="preserve">
     <value>Kan uittredepunt niet zetten.</value>
   </data>
+  <data name="RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point" xml:space="preserve">
+    <value>De geometrie bevat geen punt op locatie ({0},{1},{2}) om als karakteristiek punt in te stellen.</value>
+  </data>
 </root>

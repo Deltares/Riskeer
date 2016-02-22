@@ -79,6 +79,24 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teen dijk binnenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtPolder {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtPolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teen dijk buitenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtRiver {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtRiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insteek sloot dijkzijde.
         /// </summary>
         public static string CharacteristicPoint_DitchDikeSide {

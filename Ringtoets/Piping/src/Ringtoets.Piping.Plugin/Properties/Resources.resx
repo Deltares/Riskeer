@@ -203,4 +203,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
     <value>Meerdere definities gevonden voor profielmeting '{0}'.</value>
   </data>
+  <data name="CharacteristicPoint_DikeToeAtPolder" xml:space="preserve">
+    <value>Teen dijk binnenwaarts</value>
+  </data>
+  <data name="CharacteristicPoint_DikeToeAtRiver" xml:space="preserve">
+    <value>Teen dijk buitenwaarts</value>
+  </data>
 </root>
