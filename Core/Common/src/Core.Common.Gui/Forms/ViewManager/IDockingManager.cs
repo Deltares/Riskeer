@@ -33,7 +33,7 @@ namespace Core.Common.Gui.Forms.ViewManager
     public interface IDockingManager : IDisposable
     {
         /// <summary>
-        /// Occurs when the docking-bar of a view trying to close. 
+        /// Occurs when the docking-bar of a view is trying to close. 
         /// </summary>
         event EventHandler<DockTabClosingEventArgs> ViewBarClosing;
 
@@ -53,7 +53,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         IEnumerable<IView> Views { get; }
 
         /// <summary>
-        /// Adds the view at specified docking location.
+        /// Adds the view at a specified docking location.
         /// </summary>
         /// <param name="view">View to add.</param>
         /// <param name="location">Location of the view.</param>

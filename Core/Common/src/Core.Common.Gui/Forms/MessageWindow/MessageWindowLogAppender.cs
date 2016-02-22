@@ -80,9 +80,9 @@ namespace Core.Common.Gui.Forms.MessageWindow
         }
 
         /// <summary>
-        /// Indicates whether this appender should forward its messages to <see cref="IMessageWindow"/>
-        /// (set to <c>true</c>) or should cache them when for when it's enabled at a later 
-        /// time (set to <c>false</c>).
+        /// Gets or sets a value indicating whether or not this appender should forward its 
+        /// messages to <see cref="IMessageWindow"/> (set to <c>true</c>) or should cache 
+        /// them for when it's enabled at a later time (set to <c>false</c>).
         /// </summary>
         public bool Enabled
         {

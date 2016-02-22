@@ -45,7 +45,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         string Title { get; set; }
 
         /// <summary>
-        /// Indicates if the main user interface is visible.
+        /// Gets a value indicating whether or not the main user interface is visible.
         /// </summary>
         bool Visible { get; }
 

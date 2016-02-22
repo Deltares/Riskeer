@@ -93,16 +93,16 @@ namespace Core.Common.Gui.Test.Attributes
         [Test]
         [TestCase(false)]
         [TestCase(true)]
-        public void CreateIsVisibleMethod_ClassWithDynamicVisibleProperty_ReturnResultFromValidationMethod(bool isReadOnly)
+        public void CreateIsVisibleMethod_ClassWithDynamicVisibleProperty_ReturnResultFromValidationMethod(bool isVisible)
         {
             // Setup
-            var o = new ClassWithDynamicVisibleProperty(isReadOnly);
+            var o = new ClassWithDynamicVisibleProperty(isVisible);
 
             // Call
             var result = DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);
 
             // Assert
-            Assert.AreEqual(isReadOnly, result("Property"));
+            Assert.AreEqual(isVisible, result("Property"));
         }
     }
 }

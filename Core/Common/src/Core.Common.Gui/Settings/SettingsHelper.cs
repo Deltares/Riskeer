@@ -62,7 +62,7 @@ namespace Core.Common.Gui.Settings
         /// <summary>
         /// Gets the application local user settings directory.
         /// </summary>
-        /// <returns>Directory path to where the user settings can be found</returns>
+        /// <returns>Directory path where the user settings can be found.</returns>
         public static string GetApplicationLocalUserSettingsDirectory()
         {
             var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

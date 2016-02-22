@@ -66,8 +66,8 @@ namespace Ringtoets.HydraRing.IO
         public string Version { get; private set; }
 
         /// <summary>
-        /// Gets the value <c>true</c> if locations can be read using the <see cref="HydraulicBoundarySqLiteDatabaseReader"/>.
-        /// <c>false</c> otherwise.
+        /// Gets a value indicating whether or not more hydraulic boundary locations can
+        /// be read using the <see cref="HydraulicBoundarySqLiteDatabaseReader"/>.
         /// </summary>
         public bool HasNext { get; private set; }
 

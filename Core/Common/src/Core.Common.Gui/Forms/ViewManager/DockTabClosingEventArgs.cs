@@ -35,7 +35,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         public IView View { get; set; }
 
         /// <summary>
-        /// Indicates if the close action should be cancelled.
+        /// Gets or sets a value indicating whether or not the close action should be cancelled.
         /// </summary>
         public bool Cancel { get; set; }
     }

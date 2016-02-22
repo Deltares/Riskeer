@@ -67,14 +67,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
         public int Count { get; private set; }
 
         /// <summary>
-        /// Gets the value <c>true</c> if profiles can be read using the <see cref="PipingSoilProfileReader"/>.
-        /// <c>false</c> otherwise.
+        /// Gets a value indicating whether or not more soil profiles can be read using 
+        /// the <see cref="PipingSoilProfileReader"/>.
         /// </summary>
         public bool HasNext { get; private set; }
 
         /// <summary>
-        /// Reads the information for the next profile from the database and creates a <see cref="PipingSoilProfile"/> instance
-        /// of the information.
+        /// Reads the information for the next profile from the database and creates a 
+        /// <see cref="PipingSoilProfile"/> instance of the information.
         /// </summary>
         /// <returns>The next <see cref="PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>

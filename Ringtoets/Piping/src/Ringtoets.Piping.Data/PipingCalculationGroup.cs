@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data
         public IList<IPipingCalculationItem> Children { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether <see cref="Name"/> is editable or not.
+        /// Gets a value indicating whether or not <see cref="Name"/> is editable.
         /// </summary>
         public bool IsNameEditable { get; private set; }
 

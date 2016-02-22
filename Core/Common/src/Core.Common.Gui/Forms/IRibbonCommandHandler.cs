@@ -32,7 +32,7 @@ namespace Core.Common.Gui.Forms
     public interface IRibbonCommandHandler
     {
         /// <summary>
-        /// Returns all commands provided by this command handler.
+        /// Gets all commands provided by this command handler.
         /// </summary>
         IEnumerable<ICommand> Commands { get; }
 

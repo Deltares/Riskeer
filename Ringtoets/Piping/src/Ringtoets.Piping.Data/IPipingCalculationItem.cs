@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Data
         string Name { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this calculation item contains piping calculation outputs.
+        /// Gets a value indicating whether or not  this calculation item contains piping calculation outputs.
         /// </summary>
         bool HasOutput { get; }
     }

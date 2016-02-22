@@ -28,7 +28,7 @@ using Core.Common.Gui.Selection;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// This class provides concrete implementation of <see cref="IViewCommands"/>.
+    /// This class provides concrete implementations for <see cref="IViewCommands"/>.
     /// </summary>
     public class ViewCommandHandler : IViewCommands
     {

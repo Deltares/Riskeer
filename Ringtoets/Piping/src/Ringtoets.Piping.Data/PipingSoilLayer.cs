@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data
         public double Top { get; private set; }
 
         /// <summary>
-        /// Gets or sets the boolean value which represents whether the <see cref="PipingSoilLayer"/> is an aquifer.
+        /// Gets or sets a value indicating whether or not the <see cref="PipingSoilLayer"/> is an aquifer.
         /// </summary>
         public bool IsAquifer { get; set; }
 

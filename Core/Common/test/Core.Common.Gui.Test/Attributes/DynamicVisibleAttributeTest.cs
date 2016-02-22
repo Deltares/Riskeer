@@ -26,10 +26,10 @@ namespace Core.Common.Gui.Test.Attributes
         public void IsVisible_NoPropertyName_ReturnTrue(string propertyName)
         {
             // Call
-            var isReadOnly = DynamicVisibleAttribute.IsVisible(new object(), propertyName);
+            var isVisible = DynamicVisibleAttribute.IsVisible(new object(), propertyName);
 
             // Assert
-            Assert.IsTrue(isReadOnly);
+            Assert.IsTrue(isVisible);
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace Core.Common.Gui.Test.Attributes
             var o = new ClassWithPropertyWithoutDynamicVisibleAttribute();
 
             // Call
-            var isReadOnly = DynamicVisibleAttribute.IsVisible(o, "Property");
+            var isVisible = DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            Assert.IsTrue(isReadOnly);
+            Assert.IsTrue(isVisible);
         }
 
         [Test]
@@ -142,16 +142,16 @@ namespace Core.Common.Gui.Test.Attributes
         [Test]
         [TestCase(false)]
         [TestCase(true)]
-        public void IsVisible_ClassWithDynamicVisibleProperty_ReturnResultFromValidationMethod(bool isReadOnly)
+        public void IsVisible_ClassWithDynamicVisibleProperty_ReturnResultFromValidationMethod(bool isVisible)
         {
             // Setup
-            var o = new ClassWithDynamicVisibleProperty(isReadOnly);
+            var o = new ClassWithDynamicVisibleProperty(isVisible);
 
             // Call
             var result = DynamicVisibleAttribute.IsVisible(o, "Property");
 
             // Assert
-            Assert.AreEqual(isReadOnly, result);
+            Assert.AreEqual(isVisible, result);
         }
     }
 }

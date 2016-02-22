@@ -233,7 +233,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var dynamicallyVisiblePropertyName = TypeUtils.GetMemberName<TestProperties>(tp => tp.Name);
             var namePropertyDescriptor = propertyDescriptorCollection.Find(dynamicallyVisiblePropertyName, false);
 
-            // TearDown
+            // Assert
             Assert.IsTrue(namePropertyDescriptor.IsBrowsable,
                           string.Format("{0} should be visible", dynamicallyVisiblePropertyName));
         }

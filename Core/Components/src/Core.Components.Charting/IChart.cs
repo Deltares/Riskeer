@@ -29,12 +29,12 @@ namespace Core.Components.Charting
     public interface IChart
     {
         /// <summary>
-        /// Gets a value representing whether the chart can be panned with the left mouse button.
+        /// Gets a value indicating whether or not the chart can be panned with the left mouse button.
         /// </summary>
         bool IsPanningEnabled { get; }
 
         /// <summary>
-        /// Gets a value representing whether the chart can be zoomed by rectangle with the left mouse button.
+        /// Gets a value indicating whether or not the chart can be zoomed by rectangle with the left mouse button.
         /// </summary>
         bool IsRectangleZoomingEnabled { get; }
 

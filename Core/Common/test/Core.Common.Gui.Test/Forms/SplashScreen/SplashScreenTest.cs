@@ -11,7 +11,7 @@ namespace Core.Common.Gui.Test.Forms.SplashScreen
     {
         [Test]
         [RequiresSTA]
-        public void Shutdown_SlashScreenShown_ShouldBeClosed()
+        public void Shutdown_SplashScreenShown_ShouldBeClosed()
         {
             // Setup
             var screen = new Gui.Forms.SplashScreen.SplashScreen();

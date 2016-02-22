@@ -19,13 +19,13 @@ namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
         public double Property { get; set; }
 
         [DynamicVisibleValidationMethod]
-        public bool IsDynamicReadOnly1(string propertyName)
+        public bool IsDynamicVisible1(string propertyName)
         {
             return true;
         }
 
         [DynamicVisibleValidationMethod]
-        public bool IsDynamicReadOnly2(string propertyName)
+        public bool IsDynamicVisible2(string propertyName)
         {
             return false;
         }
@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
         public double Property { get; set; }
 
         [DynamicVisibleValidationMethod]
-        public int IsDynamicReadOnly(string propertyName)
+        public int IsDynamicVisible(string propertyName)
         {
             return 0;
         }
@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
         public double Property { get; set; }
 
         [DynamicVisibleValidationMethod]
-        public bool IsDynamicReadOnly(object o, string propertyName)
+        public bool IsDynamicVisible(object o, string propertyName)
         {
             return true;
         }
@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
         public double Property { get; set; }
 
         [DynamicVisibleValidationMethod]
-        public bool IsDynamicReadOnly(object o)
+        public bool IsDynamicVisible(object o)
         {
             return true;
         }

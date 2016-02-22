@@ -48,7 +48,7 @@ namespace Core.Common.Gui.Forms.ViewManager
         event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
-        /// HACK: Hack to disable activation temporarily
+        /// HACK: Gets or sets a value indicating whether or not to disable activation temporarily.
         /// </summary>
         bool IgnoreActivation { get; set; }
 

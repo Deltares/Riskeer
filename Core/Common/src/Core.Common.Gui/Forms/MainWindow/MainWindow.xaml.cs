@@ -116,7 +116,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         }
 
         /// <summary>
-        /// Indicates whether this instance is disposed or not.
+        /// Gets a value indicating whether this window is disposed.
         /// </summary>
         public bool IsWindowDisposed { get; private set; }
 
@@ -140,7 +140,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         }
 
         /// <summary>
-        /// Indicates if the main user interface is visible.
+        /// Gets or sets a value indicating whether or not the main user interface is visible.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">When no gui has been set using <see cref="SetGui"/>.</exception>
         public bool Visible

@@ -59,7 +59,8 @@ namespace Core.Common.Gui.Forms.SplashScreen
         }
 
         /// <summary>
-        /// Indicates where or not the progress bar and progress label are visible in the window.
+        /// Gets or sets a value indicating whether or not the progress bar and progress
+        /// label are visible in the window.
         /// </summary>
         public bool HasProgress
         {

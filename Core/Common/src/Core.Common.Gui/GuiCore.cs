@@ -123,7 +123,7 @@ namespace Core.Common.Gui
             viewCommandHandler = new ViewCommandHandler(this, this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, this, this, this, viewCommandHandler);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow, ApplicationCore);
-            projectCommandsHandler = new ProjectCommandHandler(this, MainWindow, ApplicationCore, this, this);
+            projectCommandHandler = new ProjectCommandHandler(this, MainWindow, ApplicationCore, this, this);
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;
@@ -859,7 +859,7 @@ namespace Core.Common.Gui
 
         private ApplicationFeatureCommandHandler applicationFeatureCommands;
         private readonly ViewCommandHandler viewCommandHandler;
-        private readonly ProjectCommandHandler projectCommandsHandler;
+        private readonly ProjectCommandHandler projectCommandHandler;
         private readonly ExportImportCommandHandler exportImportCommandHandler;
         private StorageCommandHandler storageCommandHandler;
 
@@ -883,7 +883,7 @@ namespace Core.Common.Gui
         {
             get
             {
-                return projectCommandsHandler;
+                return projectCommandHandler;
             }
         }
 

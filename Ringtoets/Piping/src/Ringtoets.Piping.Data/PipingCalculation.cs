@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Data
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether the <see cref="PipingCalculation"/> has <see cref="Output"/>.
+        /// Gets a value indicating whether or not the <see cref="PipingCalculation"/> has <see cref="Output"/>.
         /// </summary>
         public bool HasOutput
         {

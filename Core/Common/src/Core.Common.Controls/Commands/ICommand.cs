@@ -27,12 +27,12 @@ namespace Core.Common.Controls.Commands
     public interface ICommand
     {
         /// <summary>
-        /// Gets whether or not the <see cref="ICommand"/> is enabled.
+        /// Gets a value indicating whether or not the <see cref="ICommand"/> is enabled.
         /// </summary>
         bool Enabled { get; }
 
         /// <summary>
-        /// Gets whether or not the <see cref="ICommand"/> is checked.
+        /// Gets a value indicating whether or not the <see cref="ICommand"/> is checked.
         /// </summary>
         bool Checked { get; }
 
