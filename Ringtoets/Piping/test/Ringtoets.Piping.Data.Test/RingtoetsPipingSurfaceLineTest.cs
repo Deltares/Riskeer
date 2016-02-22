@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.Exceptions;
 
@@ -160,28 +160,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetZAtL_SurfaceLineContainsPointAtL_ReturnsZOfPoint()
-        {
-            // Setup
-            var testZ = new Random(22).NextDouble();
-
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var l = 2.0;
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
-                new Point3D { X = l, Y = 0.0, Z = testZ },
-                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
-            });
-
-            // Call
-            var result = surfaceLine.GetZAtL(l);
-
-            // Assert
-            Assert.AreEqual(testZ, result);
-        }
-
-        [Test]
         public void SetGeometry_GeometryIsNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -207,6 +185,68 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
             StringAssert.StartsWith(Properties.Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
+        }
+
+        [Test]
+        public void GetZAtL_GeometryIsEmpty_ThrowInvalidOperationException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var l = new Random(21).NextDouble();
+
+            // Call
+            TestDelegate test = () => surfaceLine.GetZAtL(l);
+
+            // Assert
+            var exceptionMessage = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual(Properties.Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry, exceptionMessage);
+        }
+
+        [Test]
+        public void GetZAtL_SurfaceLineContainsPointAtL_ReturnsZOfPoint()
+        {
+            // Setup
+            var testZ = new Random(22).NextDouble();
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var l = 2.0;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
+                new Point3D { X = l, Y = 0.0, Z = testZ },
+                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+            });
+
+            // Call
+            var result = surfaceLine.GetZAtL(l);
+
+            // Assert
+            Assert.AreEqual(testZ, result);
+        }
+
+        [Test]
+        [TestCase(-1e-6)]
+        [TestCase(3 + 1e-6)]
+        public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRange(double l)
+        {
+            // Setup
+            var testZ = new Random(22).NextDouble();
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
+                new Point3D { X = 2.0, Y = 0.0, Z = testZ },
+                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+            });
+
+            // Call
+            TestDelegate test = () => surfaceLine.GetZAtL(l);
+
+            // Assert
+            var expectedMessage = string.Format(Properties.Resources.RingtoetsPipingSurfaceLine_L_needs_to_be_in_0_1_range_to_be_able_to_determine_height, 
+                0.0, 3.0);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -345,6 +385,56 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(testPoint, surfaceLine.DitchDikeSide);
             Assert.AreNotSame(testPoint, surfaceLine.DitchDikeSide);
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(2.0)]
+        [TestCase(3.0)]
+        [TestCase(5.0)]
+        public void EntryPointX_WithinGeometryRange_ValueSet(double testX)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D
+                {
+                    X = 1.0, Y = 0.0, Z = 0.0
+                },
+                new Point3D
+                {
+                    X = 5.0, Y = 0.0, Z = 0.0
+                }
+            });
+
+            // Call
+            surfaceLine.EntryPointX = testX;
+
+            // Assert
+            Assert.AreEqual(testX, surfaceLine.EntryPointX);
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(-1.0)]
+        public void EntryPointX_OutsideGeometryRange_ArgumentOutOfRangeException(double testX)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D
+                {
+                    X = 0.0, Y = 0.0, Z = 0.0
+                }
+            });
+
+            // Call
+            TestDelegate test = () => surfaceLine.EntryPointX = testX;
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)

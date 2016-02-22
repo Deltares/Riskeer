@@ -37,6 +37,7 @@ namespace Ringtoets.Piping.Data
     public class RingtoetsPipingSurfaceLine
     {
         private Point3D[] geometryPoints;
+        private double entryPointX;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
@@ -92,6 +93,25 @@ namespace Ringtoets.Piping.Data
         /// Gets the point which characterizes the ditch at dike side.
         /// </summary>
         public Point3D DitchDikeSide { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the x-coördinate of the entree point.
+        /// </summary>
+        public double EntryPointX
+        {
+            get
+            {
+                return entryPointX;
+            }
+            set
+            {
+                if (value < Points.First().X || value > Points.Last().X)
+                {
+                    throw new ArgumentOutOfRangeException("value", "Cannot set entry point x-coordinate beyond the geometry.");
+                }
+                entryPointX = value;
+            }
+        }
 
         /// <summary>
         /// Sets the geometry of the surfaceline.
@@ -203,9 +223,18 @@ namespace Ringtoets.Piping.Data
         /// <returns>The height of the <see cref="RingtoetsPipingSurfaceLine"/> at L=<paramref name="l"/>.</returns>
         /// <exception cref="RingtoetsPipingSurfaceLineException">Thrown when the <see cref="RingtoetsPipingSurfaceLine"/>
         /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
         public double GetZAtL(double l)
         {
+            if (!Points.Any())
+            {
+                throw new InvalidOperationException(Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry);
+            }
+
             var projectGeometryToLz = ProjectGeometryToLZ().ToArray();
+
+            ValidateInRange(l, projectGeometryToLz);
+            
             var segments = new Collection<Segment2D>();
             for (int i = 1; i < projectGeometryToLz.Length; i++)
             {
@@ -222,6 +251,28 @@ namespace Ringtoets.Piping.Data
 
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
             throw new RingtoetsPipingSurfaceLineException(message);
+        }
+
+        /// <summary>
+        /// Checks whether <paramref name="l"/> is in range of the <paramref name="lzGeometry"/>.
+        /// </summary>
+        /// <param name="l">The value to check for.</param>
+        /// <param name="lzGeometry">The 2 dimensional geometry which determines the valid range for <paramref name="l"/>, where
+        /// elements are expected to be ordered on the x-coordinate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Throw when:
+        /// <list type="bullet">
+        /// <item><paramref name="l"/> &lt; {first point's x-coordinate}</item>
+        /// <item><paramref name="l"/> &gt; {last point's x-coordinate}</item>
+        /// </list></exception>
+        private static void ValidateInRange(double l, Point2D[] lzGeometry)
+        {
+            if (lzGeometry.First().X > l || lzGeometry.Last().X < l)
+            {
+                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_L_needs_to_be_in_0_1_range_to_be_able_to_determine_height,
+                                                      lzGeometry.First().X,
+                                                      lzGeometry.Last().X);
+                throw new ArgumentOutOfRangeException("l", outOfRangeMessage);
+            }
         }
 
         /// <summary>
