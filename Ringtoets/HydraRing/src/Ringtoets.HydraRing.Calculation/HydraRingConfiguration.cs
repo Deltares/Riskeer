@@ -46,61 +46,233 @@ namespace Ringtoets.HydraRing.Calculation
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
                     CalculationTypeId = 1,
-                    VariableId = 26
+                    VariableId = 26,
+                    SubMechanismId = 1,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
                     CalculationTypeId = 1,
-                    VariableId = 28
+                    VariableId = 28,
+                    SubMechanismId = 11,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
                     CalculationTypeId = 1,
-                    VariableId = 29
+                    VariableId = 29,
+                    SubMechanismId = 14,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
                     CalculationTypeId = 1,
-                    VariableId = 29
+                    VariableId = 29,
+                    SubMechanismId = 16,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     CalculationTypeId = 6,
-                    VariableId = 114
+                    VariableId = 114,
+                    SubMechanismId = 3,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    CalculationTypeId = 6,
+                    VariableId = 114,
+                    SubMechanismId = 4,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    CalculationTypeId = 6,
+                    VariableId = 114,
+                    SubMechanismId = 5,
+                    CalculationTechniqueId = 4
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
                     CalculationTypeId = 1,
-                    VariableId = 1
+                    VariableId = 1,
+                    SubMechanismId = 102,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
+                    CalculationTypeId = 1,
+                    VariableId = 1,
+                    SubMechanismId = 103,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     CalculationTypeId = 1,
-                    VariableId = 44
+                    VariableId = 44,
+                    SubMechanismId = 311,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    CalculationTypeId = 1,
+                    VariableId = 44,
+                    SubMechanismId = 313,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    CalculationTypeId = 1,
+                    VariableId = 44,
+                    SubMechanismId = 314,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     CalculationTypeId = 1,
-                    VariableId = 60
+                    VariableId = 60,
+                    SubMechanismId = 421,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    CalculationTypeId = 1,
+                    VariableId = 60,
+                    SubMechanismId = 422,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    CalculationTypeId = 1,
+                    VariableId = 60,
+                    SubMechanismId = 423,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     CalculationTypeId = 1,
-                    VariableId = 65
+                    VariableId = 65,
+                    SubMechanismId = 422,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 424,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 425,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 426,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 427,
+                    CalculationTechniqueId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     CalculationTypeId = 1,
-                    VariableId = 65
+                    VariableId = 65,
+                    SubMechanismId = 422,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 424,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 425,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 430,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 431,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 432,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 433,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 434,
+                    CalculationTechniqueId = 1
+                },
+                new HydraRingConfigurationSettings
+                {
+                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    CalculationTypeId = 1,
+                    VariableId = 65,
+                    SubMechanismId = 435,
+                    CalculationTechniqueId = 1
                 }
             };
         }
