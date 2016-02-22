@@ -38,6 +38,7 @@ namespace Ringtoets.Piping.Data
     {
         private Point3D[] geometryPoints;
         private double entryPointL;
+        private double exitPointL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
@@ -114,10 +115,29 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets or sets the L-coördinate of the exit point.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
+        /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
+        public double ExitPointL
+        {
+            get
+            {
+                return exitPointL;
+            }
+            set
+            {
+                ValidateHasPoints();
+                ValidateInRange(value, ProjectGeometryToLZ().ToArray(), Resources.RingtoetsPipingSurfaceLine_ExitPointL_Cannot_set_exit_point_at_L_0);
+                exitPointL = value;
+            }
+        }
+
+        /// <summary>
         /// Sets the geometry of the surfaceline.
         /// </summary>
         /// <param name="points">The collection of points defining the surfaceline geometry.</param>
-        /// <exception cref="ArgumentException">Thrown when any of the <paramref name="points"/> has no value (== <c>null</c>).</exception>
+        /// <exception cref="ArgumentException">Thrown when any element of <paramref name="points"/> is <c>null</c>.</exception>
         public void SetGeometry(IEnumerable<Point3D> points)
         {
             if (points == null)

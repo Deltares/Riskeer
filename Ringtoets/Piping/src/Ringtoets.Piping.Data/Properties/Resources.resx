@@ -183,4 +183,7 @@
   <data name="RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height" xml:space="preserve">
     <value>Kan geen hoogte bepalen.</value>
   </data>
+  <data name="RingtoetsPipingSurfaceLine_ExitPointL_Cannot_set_exit_point_at_L_0" xml:space="preserve">
+    <value>Kan uittredepunt niet zetten.</value>
+  </data>
 </root>

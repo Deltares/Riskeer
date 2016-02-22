@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.Remoting;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -414,6 +414,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(testL, surfaceLine.EntryPointL);
         }
+
         [Test]
         [TestCase(-1.0)]
         [TestCase(-1e-6)]
@@ -443,6 +444,93 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             var expectedMessage = "Kan intredepunt niet zetten. L moet in het bereik van [0, 4.1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void EntryPointL_EmptyGeometry_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.EntryPointL = new Random(21).NextDouble();
+
+            // Assert
+            var expectedMessage = "De profielmeting heeft geen geometrie.";
+            var message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(0.0)]
+        [TestCase(3.0)]
+        [TestCase(4.0)]
+        public void ExitPointL_WithinGeometryRange_ValueSet(double testL)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = 1.0, Y = 0.0, Z = 0.0
+                },
+                new Point3D
+                {
+                    X = 5.0, Y = 0.0, Z = 0.0
+                }
+            });
+
+            // Call
+            surfaceLine.ExitPointL = testL;
+
+            // Assert
+            Assert.AreEqual(testL, surfaceLine.ExitPointL);
+        }
+        [Test]
+        [TestCase(-1.0)]
+        [TestCase(-1e-6)]
+        [TestCase(4.1 + 1e-6)]
+        [TestCase(5.0)]
+        public void ExitPointL_OutsideGeometryRange_ThrowsArgumentOutOfRangeException(double testL)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var min = 1.0;
+            var max = 5.1;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = min, Y = 0.0, Z = 0.0
+                },
+                new Point3D
+                {
+                    X = max, Y = 0.0, Z = 0.0
+                }
+            });
+
+            // Call
+            TestDelegate test = () => surfaceLine.ExitPointL = testL;
+
+            // Assert
+            var expectedMessage = "Kan uittredepunt niet zetten. L moet in het bereik van [0, 4.1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void ExitPointL_EmptyGeometry_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.ExitPointL = new Random(21).NextDouble();
+
+            // Assert
+            var expectedMessage = "De profielmeting heeft geen geometrie.";
+            var message = Assert.Throws<InvalidOperationException>(test).Message;
+            Assert.AreEqual(expectedMessage, message);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)
