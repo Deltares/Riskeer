@@ -119,6 +119,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 yield return assessmentSection.FailureMechanismContribution;
             }
+
+            if (assessmentSectionMapData != null)
+            {
+                yield return assessmentSectionMapData;
+            }
         }
 
         /// <summary>
