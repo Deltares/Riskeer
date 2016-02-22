@@ -22,7 +22,6 @@
 using System.Linq;
 
 using Core.Common.Base.Geometry;
-using Core.Common.Gui;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -48,6 +47,66 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return data.Name;
+            }
+        }
+
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_EntryPointL_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_EntryPointL_Description")]
+        public double EntryPointL
+        {
+            get
+            {
+                return data.EntryPointL;
+            }
+        }
+
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_ExitPointL_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_ExitPointL_Description")]
+        public double ExitPointL
+        {
+            get
+            {
+                return data.ExitPointL;
+            }
+        }
+
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DitchDikeSide_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DitchDikeSide_Description")]
+        public Point3D DitchDikeSide
+        {
+            get
+            {
+                return data.DitchDikeSide;
+            }
+        }
+
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_BottomDitchDikeSide_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description")]
+        public Point3D BottomDitchDikeSide
+        {
+            get
+            {
+                return data.BottomDitchDikeSide;
+            }
+        }
+
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_BottomDitchPolderSide_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description")]
+        public Point3D BottomDitchPolderSide
+        {
+            get
+            {
+                return data.BottomDitchPolderSide;
+            }
+        }
+
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DitchPolderSide_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DitchPolderSide_Description")]
+        public Point3D DitchPolderSide
+        {
+            get
+            {
+                return data.DitchPolderSide;
             }
         }
 

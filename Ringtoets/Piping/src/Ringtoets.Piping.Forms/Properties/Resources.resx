@@ -535,4 +535,40 @@
   <data name="PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
     <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
+  <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
+    <value>Het punt dat de slootbodem dijkzijde voorstelt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_DisplayName" xml:space="preserve">
+    <value>Slootbodem dijkzijde</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description" xml:space="preserve">
+    <value>Het punt dat de slootbodem polderzijde voorstelt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_BottomDitchPolderSide_DisplayName" xml:space="preserve">
+    <value>Slootbodem polderzijde</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DitchDikeSide_Description" xml:space="preserve">
+    <value>Het punt dat de intsteek sloot dijkzijde voorstelt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DitchDikeSide_DisplayName" xml:space="preserve">
+    <value>Insteek sloot dijkzijde</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DitchPolderSide_Description" xml:space="preserve">
+    <value>Het punt dat de intsteek sloot polderzijde voorstelt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DitchPolderSide_DisplayName" xml:space="preserve">
+    <value>Insteek sloot polderzijde</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_EntryPointL_Description" xml:space="preserve">
+    <value>De x-coördinaat van het intredepunt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_EntryPointL_DisplayName" xml:space="preserve">
+    <value>Intredepunt</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_ExitPointL_Description" xml:space="preserve">
+    <value>De x-coördinaat van het uittredepunt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_ExitPointL_DisplayName" xml:space="preserve">
+    <value>Uittredepunt</value>
+  </data>
 </root>
