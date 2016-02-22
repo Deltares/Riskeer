@@ -129,8 +129,8 @@
   <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
   </data>
-  <data name="Delete_DesignWaterLevel_Calculations_Text" xml:space="preserve">
-    <value>Wilt u alle toetspeil berekening uitvoer verwijderen?</value>
+  <data name="Delete_Calculations_Text" xml:space="preserve">
+    <value>Wilt u de uitvoer van alle berekeningen verwijderen?</value>
   </data>
   <data name="DesignWaterLevel_Calculate" xml:space="preserve">
     <value>Toetspeilen berekenen</value>
@@ -162,7 +162,7 @@
   <data name="SelectDatabaseFile_Title" xml:space="preserve">
     <value>Selecteer database</value>
   </data>
-  <data name="DesignWaterLevel_Calculations_Deleted" xml:space="preserve">
-    <value>Alle toetspeil berekening uitvoeren zijn verwijderd.</value>
+  <data name="Calculations_Deleted" xml:space="preserve">
+    <value>Uitvoer van alle berekeningen is verwijderd.</value>
   </data>
 </root>

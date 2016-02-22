@@ -61,11 +61,20 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wilt u alle toetspeil berekening uitvoer verwijderen?.
+        ///   Looks up a localized string similar to Uitvoer van alle berekeningen is verwijderd..
         /// </summary>
-        public static string Delete_DesignWaterLevel_Calculations_Text {
+        public static string Calculations_Deleted {
             get {
-                return ResourceManager.GetString("Delete_DesignWaterLevel_Calculations_Text", resourceCulture);
+                return ResourceManager.GetString("Calculations_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wilt u de uitvoer van alle berekeningen verwijderen?.
+        /// </summary>
+        public static string Delete_Calculations_Text {
+            get {
+                return ResourceManager.GetString("Delete_Calculations_Text", resourceCulture);
             }
         }
         
@@ -84,15 +93,6 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         public static string DesignWaterLevel_Calculate_ToolTip {
             get {
                 return ResourceManager.GetString("DesignWaterLevel_Calculate_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle toetspeil berekening uitvoeren zijn verwijderd..
-        /// </summary>
-        public static string DesignWaterLevel_Calculations_Deleted {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_Calculations_Deleted", resourceCulture);
             }
         }
         

@@ -462,7 +462,7 @@ namespace Ringtoets.Integration.Plugin
         {
 
             var confirmation = MessageBox.Show(
-                HydraringResources.Delete_DesignWaterLevel_Calculations_Text,
+                HydraringResources.Delete_Calculations_Text,
                 BaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 
@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.Plugin
                 calc.NotifyObservers();
             }
 
-            log.Info(HydraringResources.DesignWaterLevel_Calculations_Deleted);
+            log.Info(HydraringResources.Calculations_Deleted);
         }
 
         private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
