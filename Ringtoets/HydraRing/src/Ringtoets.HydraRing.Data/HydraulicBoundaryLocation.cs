@@ -23,17 +23,25 @@ using Core.Common.Base.Geometry;
 
 namespace Ringtoets.HydraRing.Data
 {
+    /// <summary>
+    /// Location of an hydraulic boundary.
+    /// </summary>
     public class HydraulicBoundaryLocation
     {
         /// <summary>
-        /// Creates a new instance ofL <see cref="HydraulicBoundaryLocation"/>, 
-        /// with the given <paramref name="id"/>, <paramref name="name"/>, <paramref name="x"/>, and <paramref name="y"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public HydraulicBoundaryLocation(long id, string name, double x, double y)
+        /// <param name="id">Id of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="x">X-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="y">Y-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="designWaterLevel">Design water level of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        public HydraulicBoundaryLocation(long id, string name, double x, double y, string designWaterLevel)
         {
             Id = id;
             Name = name;
             Location = new Point2D(x, y);
+            DesignWaterLevel = designWaterLevel;
         }
 
         /// <summary>
@@ -52,12 +60,8 @@ namespace Ringtoets.HydraRing.Data
         public Point2D Location { get; private set; }
 
         /// <summary>
-        /// Returns a String that represents the current Object.
+        /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <returns>A String that represents the current Object.</returns>
-        public override string ToString()
-        {
-            return Name;
-        }
+        public string DesignWaterLevel { get; private set; }
     }
 }

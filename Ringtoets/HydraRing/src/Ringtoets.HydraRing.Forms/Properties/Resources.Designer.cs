@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoer van alle berekeningen is verwijderd..
+        ///   Looks up a localized string similar to Uitvoer van alle afhankelijke berekeningen is verwijderd..
         /// </summary>
         public static string Calculations_Deleted {
             get {
@@ -137,18 +137,72 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Locatie van het hydraulische randvoorwaarden database bestand..
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Name_Description {
+        public static string HydraulicBoundaryDatabase_FilePath_Description {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Name_Description", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden database.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Name_DisplayName {
+        public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Name_DisplayName", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinaten.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Coordinates {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locaties uit de hydraulische randvoorwaarden database..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetspeil.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DesignWaterLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locaties.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Id {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Name {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Name", resourceCulture);
             }
         }
         

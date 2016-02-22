@@ -149,10 +149,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
     <value>Koppel aan hydraulische randvoorwaarden database</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Name_Description" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
     <value>Locatie van het hydraulische randvoorwaarden database bestand.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Name_DisplayName" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden database</value>
   </data>
   <data name="RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked" xml:space="preserve">
@@ -166,5 +166,23 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="Calculations_Deleted" xml:space="preserve">
     <value>Uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
+    <value>Locaties uit de hydraulische randvoorwaarden database.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_DisplayName" xml:space="preserve">
+    <value>Locaties</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Coordinates" xml:space="preserve">
+    <value>Coördinaten</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel" xml:space="preserve">
+    <value>Toetspeil</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Name" xml:space="preserve">
+    <value>Naam</value>
   </data>
 </root>

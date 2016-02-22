@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
             var hydraRingConfiguration = new HydraRingConfiguration
             {
                 UncertaintiesType = HydraRingUncertaintiesType.Model,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0, ""),
                 FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
             };
 
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
             var hydraRingConfiguration = new HydraRingConfiguration
             {
                 TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0, ""),
                 FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel
             };
 
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
             {
                 TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC,
                 UncertaintiesType = HydraRingUncertaintiesType.Model,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0, "")
             };
 
             // Call
@@ -103,7 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
             {
                 TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.NTI,
                 UncertaintiesType = HydraRingUncertaintiesType.Model,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "", 0, 0, ""),
                 FailureMechanismType = HydraRingFailureMechanismType.QVariant
             };
 

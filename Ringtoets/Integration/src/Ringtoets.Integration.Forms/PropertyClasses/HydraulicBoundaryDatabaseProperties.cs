@@ -19,6 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.HydraRing.Data;
@@ -33,14 +37,32 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
+        /// <summary>
+        /// Gets the location of the Hydraulic Boundary Database.
+        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Name_DisplayName")]
-        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Name_Description")]
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_FilePath_Description")]
         public string FilePath
         {
             get
             {
                 return data.BoundaryDatabase.FilePath;
+            }
+        }
+
+        /// <summary>
+        /// Gets the locations that were loaded from the Hydraulic Boundary Database.
+        /// </summary>
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Description")]
+        public IEnumerable<HydraulicBoundaryLocationProperties> Locations
+        {
+            get
+            {
+                return data.BoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray();
             }
         }
     }

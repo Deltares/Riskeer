@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.HydraRing.Data.Test
 {
@@ -34,9 +38,10 @@ namespace Ringtoets.HydraRing.Data.Test
             long id = 0L;
             double x = 1.0;
             double y = 1.0;
+            string designWaterLevel = "<some value>";
 
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocation(id, null, x, y);
+            TestDelegate test = () => new HydraulicBoundaryLocation(id, null, x, y, designWaterLevel);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -50,14 +55,16 @@ namespace Ringtoets.HydraRing.Data.Test
             string name = "<some name>";
             double x = 567.0;
             double y = 890.0;
+            string designWaterLevel = "<some value>";
 
             // Call
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y, designWaterLevel);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocation>(hydraulicBoundaryLocation);
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
+            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
             Point2D location = hydraulicBoundaryLocation.Location;
             Assert.IsInstanceOf<Point2D>(location);
             Assert.AreEqual(x, location.X);
@@ -65,21 +72,43 @@ namespace Ringtoets.HydraRing.Data.Test
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("some name")]
-        public void ToString_WithName_ReturnsName(string name)
+        public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            long id = 1234L;
-            double x = 567.0;
-            double y = 890.0;
+            var hydraulicBoundaryLocationProperties = new HydraulicBoundaryDatabaseProperties();
+
+            var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
+            const string expectedFilePathDisplayName = "Hydraulische randvoorwaarden database";
+            const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaarden database bestand.";
+            const string expectedFilePathCategory = "Algemeen";
+
+            const string expectedLocationsDisplayName = "Locaties";
+            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaarden database.";
+            const string expectedLocationsCategory = "Algemeen";
 
             // Call
-            var profile = new HydraulicBoundaryLocation(id, name, x, y);
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            PropertyDescriptor filePathProperty = dynamicProperties.Find("FilePath", false);
+            PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
 
             // Assert
-            Assert.AreEqual(name, profile.ToString());
+            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+
+            Assert.IsNotNull(filePathProperty);
+            Assert.IsTrue(filePathProperty.IsReadOnly);
+            Assert.IsTrue(filePathProperty.IsBrowsable);
+            Assert.AreEqual(expectedFilePathDisplayName, filePathProperty.DisplayName);
+            Assert.AreEqual(expectedFilePathDescription, filePathProperty.Description);
+            Assert.AreEqual(expectedFilePathCategory, filePathProperty.Category);
+
+            Assert.IsNotNull(locationsProperty);
+            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
+            Assert.IsTrue(locationsProperty.IsReadOnly);
+            Assert.IsTrue(locationsProperty.IsBrowsable);
+            Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
+            Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
+            Assert.AreEqual(expectedLocationsCategory, filePathProperty.Category);
         }
     }
 }

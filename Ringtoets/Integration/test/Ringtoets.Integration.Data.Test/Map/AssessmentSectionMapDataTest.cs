@@ -71,8 +71,8 @@ namespace Ringtoets.Integration.Data.Test.Map
             // Setup
             var assessmentSection = new TestAssessmentSectionBase();
 
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 1.1));
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 1.4));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 1.1, ""));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 1.4, ""));
 
             // Call
             var mapData = new AssessmentSectionMapData(assessmentSection);
@@ -97,8 +97,8 @@ namespace Ringtoets.Integration.Data.Test.Map
             // Setup
             var assessmentSection = new TestAssessmentSectionBase();
 
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 1.1));
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 1.4));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 1.1, "toetspeil"));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 1.4, "toetspeil"));
 
             var mapData = new AssessmentSectionMapData(assessmentSection);
 
@@ -106,8 +106,8 @@ namespace Ringtoets.Integration.Data.Test.Map
             Assert.AreEqual(1, mapData.List.Count);
 
             assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "test3", 3.0, 3.1));
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(4, "test4", 5.0, 4.4));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "test3", 3.0, 3.1, "toetspeil"));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(4, "test4", 5.0, 4.4, "toetspeil"));
 
             // Call
             mapData.UpdateHydraulicBoundaryDatabaseMap();
