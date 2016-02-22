@@ -50,5 +50,10 @@ namespace Ringtoets.HydraRing.Calculation
         /// Gets or sets the id of the calculation technique that should be used.
         /// </summary>
         public int CalculationTechniqueId { get; set; }
+
+        /// <summary>
+        /// Gets or set the FORM start method.
+        /// </summary>
+        public int FormStartMethod { get; set; }
     }
 }

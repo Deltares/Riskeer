@@ -48,7 +48,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 26,
                     SubMechanismId = 1,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -56,7 +57,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 28,
                     SubMechanismId = 11,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -64,7 +66,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 29,
                     SubMechanismId = 14,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -72,7 +75,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 29,
                     SubMechanismId = 16,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -80,7 +84,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 6,
                     VariableId = 114,
                     SubMechanismId = 3,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -88,7 +93,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 6,
                     VariableId = 114,
                     SubMechanismId = 4,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -96,7 +102,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 6,
                     VariableId = 114,
                     SubMechanismId = 5,
-                    CalculationTechniqueId = 4
+                    CalculationTechniqueId = 4,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -104,7 +111,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 1,
                     SubMechanismId = 102,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -112,7 +120,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 1,
                     SubMechanismId = 103,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -120,7 +129,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 44,
                     SubMechanismId = 311,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -128,7 +138,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 44,
                     SubMechanismId = 313,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -136,7 +147,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 44,
                     SubMechanismId = 314,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -144,7 +156,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 60,
                     SubMechanismId = 421,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -152,7 +165,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 60,
                     SubMechanismId = 422,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -160,7 +174,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 60,
                     SubMechanismId = 423,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -168,7 +183,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 422,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -176,7 +192,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 424,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -184,7 +201,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 425,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -192,7 +210,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 426,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -200,7 +219,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 427,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -208,7 +228,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 422,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -216,7 +237,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 424,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -224,7 +246,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 425,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -232,7 +255,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 430,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -240,7 +264,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 431,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -248,7 +273,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 432,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -256,7 +282,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 433,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 1
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -264,7 +291,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 434,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 },
                 new HydraRingConfigurationSettings
                 {
@@ -272,7 +300,8 @@ namespace Ringtoets.HydraRing.Calculation
                     CalculationTypeId = 1,
                     VariableId = 65,
                     SubMechanismId = 435,
-                    CalculationTechniqueId = 1
+                    CalculationTechniqueId = 1,
+                    FormStartMethod = 4
                 }
             };
         }
@@ -488,7 +517,50 @@ namespace Ringtoets.HydraRing.Calculation
                     },
                     {
                         "Method", configurationSettingsForFailureMechanism.CalculationTechniqueId
-                    }
+                    },
+                    {
+                        "FormStartMethod", configurationSettingsForFailureMechanism.FormStartMethod
+                    },
+
+//                    {
+//                        "FormNumberOfIterations", 50
+//                    },
+//                    {
+//                        "FormRelaxationFactor", 0.15
+//                    },
+//                    {
+//                        "FormEpsBeta", 0.01
+//                    },
+//                    {
+//                        "FormEpsHOH", 0.01
+//                    },
+//                    {
+//                        "FormEpsZFunc", 0.01
+//                    },
+//                    {
+//                        "DsStartMethod", 2
+//                    },
+//                    {
+//                        "DsIterationmethod", 1
+//                    },
+//                    {
+//                        "DsMinNumberOfIterations", 10000
+//                    },
+//                    {
+//                        "DsMaxNumberOfIterations", 20000
+//                    },
+//                    {
+//                        "DsVarCoefficient", 0.1
+//                    },
+//                    {
+//                        "NiUMin", -6.0
+//                    },
+//                    {
+//                        "NiUMax", 6.0
+//                    },
+//                    {
+//                        "NiNumberSteps", 25
+//                    }
                 }).ToList();
         }
 
