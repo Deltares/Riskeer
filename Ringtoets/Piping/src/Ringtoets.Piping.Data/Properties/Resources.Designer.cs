@@ -215,24 +215,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan intredepunt niet zetten..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_EntryPointL_Cannot_set_entry_point_at_L_0 {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_EntryPointL_Cannot_set_entry_point_at_L_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan uittredepunt niet zetten..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_ExitPointL_Cannot_set_exit_point_at_L_0 {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_ExitPointL_Cannot_set_exit_point_at_L_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan geen hoogte bepalen..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height {

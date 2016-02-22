@@ -1069,13 +1069,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 X = 94284.0663827,
                 Y = 427831.918156,
                 Z = 1.25
-            }, firstSurfaceLine.EntryPoint);
+            }, firstSurfaceLine.DikeToeAtRiver);
             Assert.AreEqual(new Point3D
             {
                 X = 94305.3566362,
                 Y = 427889.900123,
                 Z = 1.65
-            }, firstSurfaceLine.ExitPoint);
+            }, firstSurfaceLine.DikeToeAtPolder);
 
             var secondSurfaceLine = importTargetArray[1];
             Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
@@ -1110,13 +1110,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 X = 2.3,
                 Y = 0,
                 Z = 1.0
-            }, secondSurfaceLine.EntryPoint);
+            }, secondSurfaceLine.DikeToeAtRiver);
             Assert.AreEqual(new Point3D
             {
                 X = 5.7,
                 Y = 0,
                 Z = 1.1
-            }, secondSurfaceLine.ExitPoint);
+            }, secondSurfaceLine.DikeToeAtPolder);
 
             Assert.AreEqual(7, callCount);
 

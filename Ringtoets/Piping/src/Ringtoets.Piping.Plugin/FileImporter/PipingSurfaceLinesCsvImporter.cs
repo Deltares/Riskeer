@@ -376,13 +376,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             TrySetCharacteristicPoint(
                 characteristicPointsLocation.DikeToeAtRiver,
-                readSurfaceLine.SetEntryPointAt,
+                readSurfaceLine.SetDikeToeAtRiver,
                 readSurfaceLine.Name,
                 RingtoetsPluginResources.CharacteristicPoint_DikeToeAtRiver);
 
             TrySetCharacteristicPoint(
                 characteristicPointsLocation.DikeToeAtPolder,
-                readSurfaceLine.SetExitPointAt,
+                readSurfaceLine.SetDikeToeAtPolder,
                 readSurfaceLine.Name,
                 RingtoetsPluginResources.CharacteristicPoint_DikeToeAtPolder);
         }

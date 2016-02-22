@@ -75,7 +75,7 @@ namespace Demo.Ringtoets.Commands
         {
             var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
-            using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv"))
+            using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
                 surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, tempPath.FilePath);
@@ -105,18 +105,30 @@ namespace Demo.Ringtoets.Commands
             /// Initializes a new instance of the <see cref="TemporaryImportFile"/> class.
             /// </summary>
             /// <param name="embeddedResourceFileName">Name of the file with build action 'Embedded Resource' within this project.</param>
-            public TemporaryImportFile(string embeddedResourceFileName)
+            /// <param name="supportFiles">Names of extra files required for importing the <paramref name="embeddedResourceFileName"/>.</param>
+            public TemporaryImportFile(string embeddedResourceFileName, params string[] supportFiles)
             {
                 tempTargetFolderPath = Path.Combine(Path.GetTempPath(), "demo_traject");
                 Directory.CreateDirectory(tempTargetFolderPath);
 
                 fullFilePath = Path.Combine(tempTargetFolderPath, embeddedResourceFileName);
 
+                WriteEmbeddedResourceToTemporaryFile(embeddedResourceFileName, fullFilePath);
+
+                foreach (string supportFile in supportFiles)
+                {
+                    var filePath = Path.Combine(tempTargetFolderPath, supportFile);
+                    WriteEmbeddedResourceToTemporaryFile(supportFile, filePath);
+                }
+            }
+
+            private void WriteEmbeddedResourceToTemporaryFile(string embeddedResourceFileName, string filePath)
+            {
                 var stream = GetStreamToFileInResource(embeddedResourceFileName);
 
                 var bytes = GetBinaryDataOfStream(stream);
 
-                File.WriteAllBytes(fullFilePath, bytes);
+                File.WriteAllBytes(filePath, bytes);
             }
 
             public string FilePath

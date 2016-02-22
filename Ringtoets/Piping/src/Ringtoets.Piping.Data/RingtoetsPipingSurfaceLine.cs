@@ -37,8 +37,6 @@ namespace Ringtoets.Piping.Data
     public class RingtoetsPipingSurfaceLine
     {
         private Point3D[] geometryPoints;
-        private double entryPointL;
-        private double exitPointL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
@@ -96,14 +94,14 @@ namespace Ringtoets.Piping.Data
         public Point3D DitchDikeSide { get; private set; }
 
         /// <summary>
-        /// Gets the point which is the entry point for piping.
+        /// Gets the point which characterizes the dike toe at river side.
         /// </summary>
-        public Point3D EntryPoint { get; private set; }
+        public Point3D DikeToeAtRiver { get; private set; }
 
         /// <summary>
-        /// Gets the point which is the exit point for piping.
+        /// Gets the point which characterizes the dike toe at polder side.
         /// </summary>
-        public Point3D ExitPoint { get; private set; }
+        public Point3D DikeToeAtPolder { get; private set; }
 
         /// <summary>
         /// Sets the geometry of the surfaceline.
@@ -178,27 +176,27 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Sets the <see cref="EntryPoint"/> at the given point.
+        /// Sets the <see cref="DikeToeAtRiver"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="EntryPoint"/>.</param>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        public void SetEntryPointAt(Point3D point)
+        public void SetDikeToeAtRiver(Point3D point)
         {
-            EntryPoint = GetPointFromGeometry(point);
+            DikeToeAtRiver = GetPointFromGeometry(point);
         }
 
         /// <summary>
-        /// Sets the <see cref="ExitPoint"/> at the given point.
+        /// Sets the <see cref="DikeToeAtPolder"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="ExitPoint"/>.</param>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        public void SetExitPointAt(Point3D point)
+        public void SetDikeToeAtPolder(Point3D point)
         {
-            ExitPoint = GetPointFromGeometry(point);
+            DikeToeAtPolder = GetPointFromGeometry(point);
         }
 
         /// <summary>

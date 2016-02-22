@@ -50,8 +50,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 point1,
                 point2
             });
-            surfaceLine.SetEntryPointAt(point1);
-            surfaceLine.SetExitPointAt(point2);
+            surfaceLine.SetDikeToeAtRiver(point1);
+            surfaceLine.SetDikeToeAtPolder(point2);
             surfaceLine.SetDitchDikeSideAt(point1);
             surfaceLine.SetBottomDitchDikeSideAt(point1);
             surfaceLine.SetBottomDitchPolderSideAt(point2);
@@ -65,8 +65,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(expectedName, properties.Name);
             CollectionAssert.AreEqual(surfaceLine.Points, properties.Points);
-            Assert.AreEqual(point1, properties.EntryPoint);
-            Assert.AreEqual(point2, properties.ExitPoint);
+            Assert.AreEqual(point1, properties.DikeToeAtRiver);
+            Assert.AreEqual(point2, properties.DikeToeAtPolder);
             Assert.AreEqual(point1, properties.DitchDikeSide);
             Assert.AreEqual(point1, properties.BottomDitchDikeSide);
             Assert.AreEqual(point2, properties.BottomDitchPolderSide);

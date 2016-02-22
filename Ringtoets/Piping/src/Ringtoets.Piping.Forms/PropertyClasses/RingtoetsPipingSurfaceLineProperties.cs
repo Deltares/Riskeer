@@ -51,24 +51,24 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_EntryPointL_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_EntryPointL_Description")]
-        public Point3D EntryPoint
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DikeToeAtRiver_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description")]
+        public Point3D DikeToeAtRiver
         {
             get
             {
-                return data.EntryPoint;
+                return data.DikeToeAtRiver;
             }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Characteristic_points")]
-        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_ExitPointL_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_ExitPointL_Description")]
-        public Point3D ExitPoint
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DikeToeAtPolder_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description")]
+        public Point3D DikeToeAtPolder
         {
             get
             {
-                return data.ExitPoint;
+                return data.DikeToeAtPolder;
             }
         }
 

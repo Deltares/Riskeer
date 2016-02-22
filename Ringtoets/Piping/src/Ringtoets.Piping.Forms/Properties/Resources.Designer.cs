@@ -1303,6 +1303,42 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het punt dat de dijkteen binnenwaarts voorstelt..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkteen binnenwaarts.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_DikeToeAtPolder_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DikeToeAtPolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het punt dat de dijkteen buitenwaarts voorstelt..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkteen buitenwaarts.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_DikeToeAtRiver_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DikeToeAtRiver_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profielmeting.
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_DisplayName {
@@ -1344,42 +1380,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string RingtoetsPipingSurfaceLine_DitchPolderSide_DisplayName {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DitchPolderSide_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het punt van intrede voor piping..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_EntryPointL_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_EntryPointL_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Intredepunt.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_EntryPointL_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_EntryPointL_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het punt van uittrede voor piping..
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_ExitPointL_Description {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_ExitPointL_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uittredepunt.
-        /// </summary>
-        public static string RingtoetsPipingSurfaceLine_ExitPointL_DisplayName {
-            get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_ExitPointL_DisplayName", resourceCulture);
             }
         }
         
