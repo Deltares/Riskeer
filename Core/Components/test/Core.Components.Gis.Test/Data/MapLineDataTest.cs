@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 
@@ -26,7 +26,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithEmptyPoints_CreatesNewMapLineData()
         {
             // Setup
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             // Call
             var data = new MapLineData(points);
@@ -57,7 +57,7 @@ namespace Core.Components.Gis.Test.Data
         public void MetaData_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var data = new MapLineData(Enumerable.Empty<Tuple<double, double>>());
+            var data = new MapLineData(Enumerable.Empty<Point2D>());
 
             const string key = "<some key>";
             var newValue = new object();
@@ -69,13 +69,13 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(newValue, data.MetaData[key]);
         }
 
-        private static Collection<Tuple<double, double>> CreateTestPoints()
+        private static Collection<Point2D> CreateTestPoints()
         {
-            return new Collection<Tuple<double, double>>
+            return new Collection<Point2D>
             {
-                Tuple.Create(0.0, 1.1),
-                Tuple.Create(1.0, 2.1),
-                Tuple.Create(1.6, 1.6)
+                new Point2D(0.0, 1.1),
+                new Point2D(1.0, 2.1),
+                new Point2D(1.6, 1.6)
             };
         }
     }

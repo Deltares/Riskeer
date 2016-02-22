@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Components.Gis.Data;
@@ -41,23 +42,23 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute(params object[] arguments)
         {
-            var points = new MapPointData(new Collection<Tuple<double, double>>
+            var points = new MapPointData(new Collection<Point2D>
             {
-                Tuple.Create(1.5, 2.0),
-                Tuple.Create(1.1, 1.0),
-                Tuple.Create(0.8, 0.5)
+                new Point2D(1.5, 2),
+                new Point2D(1.1, 1),
+                new Point2D(0.8, 0.5)
             });
-            var lines = new MapLineData(new Collection<Tuple<double, double>>
+            var lines = new MapLineData(new Collection<Point2D>
             {
-                Tuple.Create(0.0, 1.1),
-                Tuple.Create(1.0, 2.1),
-                Tuple.Create(1.6, 1.6)
+                new Point2D(0.0, 1.1),
+                new Point2D(1.0, 2.1),
+                new Point2D(1.6, 1.6)
             });
-            var polygons = new MapPolygonData(new Collection<Tuple<double, double>>
+            var polygons = new MapPolygonData(new Collection<Point2D>
             {
-                Tuple.Create(1.0, 1.3),
-                Tuple.Create(3.0, 2.6),
-                Tuple.Create(5.6, 1.6)
+                new Point2D(1.0, 1.3),
+                new Point2D(3.0, 2.6),
+                new Point2D(5.6, 1.6)
             });
 
             documentViewController.DocumentViewsResolver.OpenViewForData(new MapDataCollection(new List<MapData> { points, lines, polygons }));

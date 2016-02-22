@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
@@ -31,7 +32,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var pointData = new MapPointData(new Collection<Tuple<double, double>>());
+            var pointData = new MapPointData(new Collection<Point2D>());
 
             // Call
             var canConvert = converter.CanConvertMapData(pointData);
@@ -61,11 +62,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPointDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
             {
-                points.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
             var pointData = new MapPointData(points);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
@@ -91,13 +92,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapDataCollectionConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var points = new Collection<Tuple<double, double>>();
-            var linePoints = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
+            var linePoints = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
             {
-                points.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
-                linePoints.Add(Tuple.Create(random.NextDouble(), random.NextDouble()));
+                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
+                linePoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
             var collectionData = new MapDataCollection(new List<MapData>());

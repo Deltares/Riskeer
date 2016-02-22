@@ -21,7 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 
 namespace Ringtoets.Integration.Data.Map
@@ -45,6 +46,17 @@ namespace Ringtoets.Integration.Data.Map
                 throw new ArgumentNullException("assessmentSection");
             }
             this.assessmentSection = assessmentSection;
+            
+            var locationData = assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hydraulicBoundaryLocation => hydraulicBoundaryLocation.Location).ToList();
+            if (locationData.Count > 0)
+            {
+                CreateMapPointData(locationData);
+            }
+        }
+
+        private void CreateMapPointData(IEnumerable<Point2D> locationData)
+        {
+            List.Add(new MapPointData(locationData));
         }
 
         public override bool Equals(object other)

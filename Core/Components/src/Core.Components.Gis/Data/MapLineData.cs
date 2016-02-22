@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 
 namespace Core.Components.Gis.Data
 {
@@ -34,7 +35,7 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) points.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapLineData(IEnumerable<Tuple<double, double>> points) : base(points)
+        public MapLineData(IEnumerable<Point2D> points) : base(points)
         {
             MetaData = new Dictionary<string, object>();
         }

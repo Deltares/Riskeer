@@ -29,11 +29,10 @@ namespace Ringtoets.HydraRing.Data.Test
         [Test]
         public void Constructor_DefaultConstructor_ExpectedValues()
         {
-            // Setup & call
+            // Call
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Assert
-            // Call
             Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.FilePath);
             Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.Version);
             Assert.IsInstanceOf<IEnumerable<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);

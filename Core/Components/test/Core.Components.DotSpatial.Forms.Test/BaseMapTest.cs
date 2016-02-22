@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
@@ -61,7 +61,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new MapPointData(Enumerable.Empty<Point2D>());
 
             // Call
             map.Data = testData;
@@ -75,7 +75,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new MapPointData(Enumerable.Empty<Point2D>());
             var mapView = TypeUtils.GetField<Map>(map, "map");
 
             // Call
@@ -90,7 +90,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            var testData = new MapPointData(Enumerable.Empty<Point2D>());
             var mapView = TypeUtils.GetField<Map>(map, "map");
 
             map.Data = testData;

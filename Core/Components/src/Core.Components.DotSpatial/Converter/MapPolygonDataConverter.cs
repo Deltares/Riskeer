@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IList<FeatureSet> Convert(MapPolygonData data)
         {
-            var coordinates = data.Points.Select(p => new Coordinate(p.Item1, p.Item2));
+            var coordinates = data.Points.Select(p => new Coordinate(p.X, p.Y));
             var polygon = new Polygon(coordinates);
             var featureSet = new FeatureSet(FeatureType.Polygon);
 

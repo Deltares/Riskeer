@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Map;
 
 namespace Ringtoets.Integration.Data.Test.Map
@@ -44,8 +47,36 @@ namespace Ringtoets.Integration.Data.Test.Map
             // Assert
             Assert.IsInstanceOf<MapDataCollection>(mapData);
             Assert.IsInstanceOf<IEquatable<AssessmentSectionMapData>>(mapData);
-            CollectionAssert.IsEmpty(mapData.List);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_NoHydraulicDatabaseLocationsSet_NoLayerAddedToMap()
+        {
+            // Setup
+            var assessmentSection = new TestAssessmentSectionBase();
+
+            // Call
+            var mapData = new AssessmentSectionMapData(assessmentSection);
+
+            // Assert
+            CollectionAssert.IsEmpty(mapData.List);
+        }
+
+        [Test]
+        public void Constructor_HydraulicDatabaseLocationsSet_AddsLayerToMap()
+        {
+            // Setup
+            var assessmentSection = new TestAssessmentSectionBase();
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 1.1));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 1.4));
+
+            // Call
+            var mapData = new AssessmentSectionMapData(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(1, mapData.List.Count);
         }
 
         [Test]
@@ -152,7 +183,6 @@ namespace Ringtoets.Integration.Data.Test.Map
             Assert.IsFalse(isEqual2);
         }
 
-
         [Test]
         public void GetHashCode_TwoEqualAssessmentSectionMapDataInstances_ReturnSameHash()
         {
@@ -170,6 +200,14 @@ namespace Ringtoets.Integration.Data.Test.Map
 
             // Assert
             Assert.AreEqual(hash1, hash2);
+        }
+
+        private class TestAssessmentSectionBase : AssessmentSectionBase
+        {
+            public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
+            {
+                yield break;
+            }
         }
     }
 }

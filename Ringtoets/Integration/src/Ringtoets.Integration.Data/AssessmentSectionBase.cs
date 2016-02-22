@@ -23,7 +23,6 @@ using System.Collections.Generic;
 
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-using Core.Components.Gis.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Contribution;

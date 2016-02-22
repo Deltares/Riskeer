@@ -51,6 +51,6 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> Locations { get; private set; }
+        public ICollection<HydraulicBoundaryLocation> Locations { get; private set; }
     }
 }

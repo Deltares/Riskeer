@@ -129,7 +129,7 @@ namespace Ringtoets.Common.IO
         private static ReferenceLine CreateReferenceLine(MapLineData lineMapData)
         {
             var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(lineMapData.Points.Select(t => new Point2D(t.Item1, t.Item2)));
+            referenceLine.SetGeometry(lineMapData.Points.Select(t => new Point2D(t.X, t.Y)));
             return referenceLine;
         }
     }

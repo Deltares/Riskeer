@@ -177,8 +177,8 @@ namespace Core.Components.Gis.IO.Test
                 // Assert
                 var points = line.Points.ToArray();
                 Assert.AreEqual(1669, points.Length);
-                Assert.AreEqual(202714.219, points[457].Item1, 1e-6);
-                Assert.AreEqual(507775.781, points[457].Item2, 1e-6);
+                Assert.AreEqual(202714.219, points[457].X, 1e-6);
+                Assert.AreEqual(507775.781, points[457].Y, 1e-6);
 
                 Assert.AreEqual(6, line.MetaData.Count);
                 Assert.AreEqual("A", line.MetaData["CATEGORIE"]);
@@ -213,8 +213,8 @@ namespace Core.Components.Gis.IO.Test
 
                 var line1Points = line1.Points.ToArray();
                 Assert.AreEqual(15, line1Points.Length);
-                Assert.AreEqual(-1.514151, line1Points[2].Item1, 1e-6);
-                Assert.AreEqual(-0.879717, line1Points[2].Item2, 1e-6);
+                Assert.AreEqual(-1.514151, line1Points[2].X, 1e-6);
+                Assert.AreEqual(-0.879717, line1Points[2].Y, 1e-6);
 
                 Assert.AreEqual(1, line1.MetaData.Count);
                 Assert.AreEqual(4, line1.MetaData["id"]);
@@ -225,8 +225,8 @@ namespace Core.Components.Gis.IO.Test
 
                 var line2Points = line2.Points.ToArray();
                 Assert.AreEqual(6, line2Points.Length);
-                Assert.AreEqual(-2.028302, line2Points[3].Item1, 1e-6);
-                Assert.AreEqual(-0.382075, line2Points[3].Item2, 1e-6);
+                Assert.AreEqual(-2.028302, line2Points[3].X, 1e-6);
+                Assert.AreEqual(-0.382075, line2Points[3].Y, 1e-6);
 
                 Assert.AreEqual(1, line2.MetaData.Count);
                 Assert.AreEqual(3, line2.MetaData["id"]);
@@ -237,8 +237,8 @@ namespace Core.Components.Gis.IO.Test
 
                 var line3Points = line3.Points.ToArray();
                 Assert.AreEqual(13, line3Points.Length);
-                Assert.AreEqual(0.891509, line3Points[12].Item1, 1e-6);
-                Assert.AreEqual(-0.122641, line3Points[12].Item2, 1e-6);
+                Assert.AreEqual(0.891509, line3Points[12].X, 1e-6);
+                Assert.AreEqual(-0.122641, line3Points[12].Y, 1e-6);
 
                 Assert.AreEqual(1, line3.MetaData.Count);
                 Assert.AreEqual(2, line3.MetaData["id"]);
@@ -249,8 +249,8 @@ namespace Core.Components.Gis.IO.Test
 
                 var line4Points = line4.Points.ToArray();
                 Assert.AreEqual(6, line4Points.Length);
-                Assert.AreEqual(-2.070754, line4Points[0].Item1, 1e-6);
-                Assert.AreEqual(0.73584906, line4Points[0].Item2, 1e-6);
+                Assert.AreEqual(-2.070754, line4Points[0].X, 1e-6);
+                Assert.AreEqual(0.73584906, line4Points[0].Y, 1e-6);
 
                 Assert.AreEqual(1, line4.MetaData.Count);
                 Assert.AreEqual(1, line4.MetaData["id"]);

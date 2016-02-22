@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 
@@ -25,7 +25,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithEmptyPoints_CreatesNewMapPointData()
         {
             // Setup
-            var points = new Collection<Tuple<double, double>>();
+            var points = new Collection<Point2D>();
 
             // Call
             var data = new MapPointData(points);
@@ -50,13 +50,13 @@ namespace Core.Components.Gis.Test.Data
             CollectionAssert.AreEqual(points, data.Points);
         }
 
-        private Collection<Tuple<double, double>> CreateTestPoints()
+        private Collection<Point2D> CreateTestPoints()
         {
-            return new Collection<Tuple<double, double>>
+            return new Collection<Point2D>
             {
-                Tuple.Create(0.0, 1.1),
-                Tuple.Create(1.0, 2.1),
-                Tuple.Create(1.6, 1.6)
+                new Point2D(0.0, 1.1),
+                new Point2D(1.0, 2.1),
+                new Point2D(1.6, 1.6)
             };
         }
     }

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 
 namespace Core.Components.Gis.Data
 {
@@ -35,7 +36,7 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        protected PointBasedMapData(IEnumerable<Tuple<double, double>> points)
+        protected PointBasedMapData(IEnumerable<Point2D> points)
         {
             if (points == null)
             {
@@ -54,6 +55,6 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets the collection of points in 2D space.
         /// </summary>
-        public IEnumerable<Tuple<double, double>> Points { get; private set; }
+        public IEnumerable<Point2D> Points { get; private set; }
     }
 }

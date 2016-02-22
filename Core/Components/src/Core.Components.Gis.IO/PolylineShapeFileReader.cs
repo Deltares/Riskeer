@@ -23,7 +23,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
-
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
@@ -137,7 +137,7 @@ namespace Core.Components.Gis.IO
 
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature)
         {
-            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => Tuple.Create(c.X, c.Y)));
+            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             DataTable table = lineShapeFile.GetAttributes(readIndex, 1);
             DataRow dataRow = table.Rows[0];
             for (int i = 0; i < table.Columns.Count; i++)

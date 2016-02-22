@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
@@ -73,7 +74,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             // Setup
             var mapView = new MapDataView();
             var map = (BaseMap) mapView.Controls[0];
-            var pointData = new MapPointData(Enumerable.Empty<Tuple<double, double>>());
+            var pointData = new MapPointData(Enumerable.Empty<Point2D>());
 
             // Call
             mapView.Data = pointData;
