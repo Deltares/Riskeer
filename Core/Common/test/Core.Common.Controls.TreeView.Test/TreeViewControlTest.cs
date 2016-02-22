@@ -253,21 +253,22 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = dataObject;
                 treeViewControl.NodeUpdated += (s, e) => hit++;
 
-                // Call
-                Action test = () =>
-                {
-                    treeViewControl.TryRenameNodeForData(dataObject);
-                };
-
-                // Assert
+                string messageBoxText = null;
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var helper = new MessageBoxTester(wnd);
-                    Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_renamed, helper.Text);
+
+                    messageBoxText = helper.Text;
+
                     helper.ClickOk();
                 };
-                test();
+
+                // Call
+                treeViewControl.TryRenameNodeForData(dataObject);
+
+                // Assert
                 Assert.AreEqual(0, hit);
+                Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_renamed, messageBoxText);
             }
         }
 
@@ -399,22 +400,24 @@ namespace Core.Common.Controls.TreeView.Test
                 var dataObject = new object();
                 treeViewControl.Data = dataObject;
 
-                // Call
-                Action test = () =>
-                {
-                    treeViewControl.TryRemoveNodeForData(dataObject);
-                };
-
-                // Assert
+                string messageBoxText = null;
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var helper = new MessageBoxTester(wnd);
-                    Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_removed, helper.Text);
+
+                    messageBoxText = helper.Text;
+
                     helper.ClickOk();
                 };
-                test();
+
+                // Call
+                treeViewControl.TryRemoveNodeForData(dataObject);
+
+                // Assert
                 Assert.AreEqual(0, onNodeRemovedHit);
                 Assert.AreEqual(0, onDataDeletedHit);
+
+                Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_removed, messageBoxText);
             }
         }
 
@@ -442,23 +445,24 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.Show(treeViewControl);
 
-                    // Call
-                    Action test = () =>
-                    {
-                        treeViewControl.TryRemoveNodeForData(dataObject);
-                    };
-
-                    // Assert
+                    string messageBoxText = null;
                     DialogBoxHandler = (name, wnd) =>
                     {
                         var helper = new MessageBoxTester(wnd);
-                        Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, helper.Text);
+
+                        messageBoxText = helper.Text;
+
                         helper.ClickOk();
                     };
-                    test();
 
+                    // Call
+                    treeViewControl.TryRemoveNodeForData(dataObject);
+
+                    // Assert
                     Assert.AreEqual(1, onNodeRemovedHit);
                     Assert.AreEqual(1, onDataDeletedHit);
+
+                    Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
                 }
                 finally
                 {
@@ -489,22 +493,23 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.Show(treeViewControl);
 
-                    // Call
-                    Action test = () =>
-                    {
-                        treeViewControl.TryRemoveNodeForData(dataObject);
-                    };
-
-                    // Assert
+                    string messageBoxText = null;
                     DialogBoxHandler = (name, wnd) =>
                     {
                         var helper = new MessageBoxTester(wnd);
-                        Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, helper.Text);
+
+                        messageBoxText = helper.Text;
+
                         helper.ClickCancel();
                     };
-                    test();
 
+                    // Call
+                    treeViewControl.TryRemoveNodeForData(dataObject);
+
+                    // Assert
                     Assert.AreEqual(0, hit);
+
+                    Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
                 }
                 finally
                 {

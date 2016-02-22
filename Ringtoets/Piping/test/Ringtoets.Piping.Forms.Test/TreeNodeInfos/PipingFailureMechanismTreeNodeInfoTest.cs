@@ -174,11 +174,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(dataMock, null, treeViewControl);
 
+            string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBox.Text);
-                Assert.AreEqual("Bevestigen", messageBox.Title);
+
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
                 if (confirm)
                 {
                     messageBox.ClickOk();
@@ -195,6 +198,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Then
             Assert.AreNotEqual(confirm, dataMock.CalculationsGroup.HasOutput);
 
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             mocks.VerifyAll();
         }
 
@@ -534,11 +539,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) => { };
-
             plugin.Gui = gui;
 
             var contextMenu = info.ContextMenuStrip(failureMechanism, null, treeViewControl);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
 
             // Call
             contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();

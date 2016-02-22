@@ -490,13 +490,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) => { };
-
             plugin.Gui = gui;
 
             calculation.Attach(observer);
 
             var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
 
             // When
             Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
@@ -584,8 +587,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) => { };
-
             plugin.Gui = gui;
 
             calculation.InputParameters.AssessmentLevel = validPipingInput.AssessmentLevel;
@@ -615,6 +616,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             calculation.Attach(observer);
 
             var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
 
             // When
             Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
@@ -671,11 +677,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControlMock);
 
+            string messageBoxText = null, messageBoxTitle = null;
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBox.Text);
-                Assert.AreEqual("Bevestigen", messageBox.Title);
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
                 if (confirm)
                 {
                     messageBox.ClickOk();
@@ -691,7 +698,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Then
             Assert.AreNotEqual(confirm, calculation.HasOutput);
-
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
             mocks.VerifyAll();
         }
     }

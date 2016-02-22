@@ -719,9 +719,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            DialogBoxHandler = (name, wnd) => { };
-
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
 
             // Call
             contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
@@ -781,11 +784,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
+            string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBox = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBox.Text);
-                Assert.AreEqual("Bevestigen", messageBox.Title);
+
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
                 if (confirm)
                 {
                     messageBox.ClickOk();
@@ -808,6 +814,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreNotEqual(confirm, @group.HasOutput);
             Assert.AreNotEqual(confirm, calculation1.HasOutput);
             Assert.AreNotEqual(confirm, calculation2.HasOutput);
+
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             mocks.VerifyAll();
         }
 
