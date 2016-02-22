@@ -130,7 +130,9 @@
     <value>Hydraulische randvoorwaarden</value>
   </data>
   <data name="Delete_Calculations_Text" xml:space="preserve">
-    <value>Wilt u de uitvoer van alle berekeningen verwijderen?</value>
+    <value>U heeft een ander hydraulische randvoorwaarden bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+    
+Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="DesignWaterLevel_Calculate" xml:space="preserve">
     <value>Toetspeilen berekenen</value>
@@ -145,7 +147,7 @@
     <value>Koppel aan database...</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
-    <value>Koppelen aan de hydraulische randvoorwaarden database</value>
+    <value>Koppel aan hydraulische randvoorwaarden database</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Name_Description" xml:space="preserve">
     <value>Locatie van het hydraulische randvoorwaarden database bestand.</value>
