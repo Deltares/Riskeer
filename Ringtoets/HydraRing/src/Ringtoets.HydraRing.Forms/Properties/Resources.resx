@@ -165,6 +165,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Selecteer database</value>
   </data>
   <data name="Calculations_Deleted" xml:space="preserve">
-    <value>Uitvoer van alle berekeningen is verwijderd.</value>
+    <value>Uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
   </data>
 </root>

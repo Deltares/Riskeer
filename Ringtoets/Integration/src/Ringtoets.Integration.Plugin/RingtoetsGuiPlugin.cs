@@ -449,15 +449,23 @@ namespace Ringtoets.Integration.Plugin
             var currentVersion = nodeData.BoundaryDatabase.Version;
             var newVersion = hydraulicBoundaryLocationsImporter.Version;
 
+            var currentFilePath = nodeData.BoundaryDatabase.FilePath;
+            var newFilePath = selectedFile;
+
             // Compare
-            if (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion)
+            if ((!string.IsNullOrEmpty(currentFilePath) && currentFilePath != newFilePath) ||
+               (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion))
             {
                 // Show dialog
                 ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
                 return;
             }
 
-            ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
+            // Only import inmediatly when there is nothing set.
+            if (string.IsNullOrEmpty(currentFilePath) && string.IsNullOrEmpty(currentVersion) && nodeData.BoundaryDatabase.Locations.Count == 0)
+            {
+                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion); 
+            }
         }
 
         private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
