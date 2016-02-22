@@ -560,15 +560,18 @@
     <value>Insteek sloot polderzijde</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_EntryPointL_Description" xml:space="preserve">
-    <value>De x-coördinaat van het intredepunt.</value>
+    <value>Het punt van intrede voor piping.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_EntryPointL_DisplayName" xml:space="preserve">
     <value>Intredepunt</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_ExitPointL_Description" xml:space="preserve">
-    <value>De x-coördinaat van het uittredepunt.</value>
+    <value>Het punt van uittrede voor piping.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_ExitPointL_DisplayName" xml:space="preserve">
     <value>Uittredepunt</value>
+  </data>
+  <data name="Categories_Characteristic_points" xml:space="preserve">
+    <value>Karakteristieke punten</value>
   </data>
 </root>

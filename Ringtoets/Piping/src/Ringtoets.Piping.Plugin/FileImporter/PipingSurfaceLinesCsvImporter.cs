@@ -374,40 +374,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 readSurfaceLine.Name,
                 RingtoetsPluginResources.CharacteristicPoint_DitchDikeSide);
 
-            TrySetLForPoint(characteristicPointsLocation.DikeToeAtRiver, 
-                readSurfaceLine, 
-                l => readSurfaceLine.EntryPointL = l,
+            TrySetCharacteristicPoint(
+                characteristicPointsLocation.DikeToeAtRiver,
+                readSurfaceLine.SetEntryPointAt,
+                readSurfaceLine.Name,
                 RingtoetsPluginResources.CharacteristicPoint_DikeToeAtRiver);
 
-            TrySetLForPoint(characteristicPointsLocation.DikeToeAtPolder,
-                readSurfaceLine,
-                l => readSurfaceLine.ExitPointL = l,
+            TrySetCharacteristicPoint(
+                characteristicPointsLocation.DikeToeAtPolder,
+                readSurfaceLine.SetExitPointAt,
+                readSurfaceLine.Name,
                 RingtoetsPluginResources.CharacteristicPoint_DikeToeAtPolder);
-        }
-
-        private void TrySetLForPoint(Point3D point, RingtoetsPipingSurfaceLine readSurfaceLine, Action<double> setAction, string characteristicPointType)
-        {
-            if (IsDefined(point))
-            {
-                var index = readSurfaceLine.Points.ToList().IndexOf(point);
-                if (index < 0)
-                {
-                    var message = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
-                                                point.X,
-                                                point.Y,
-                                                point.Z);
-
-                    log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_,
-                                    characteristicPointType,
-                                    readSurfaceLine.Name,
-                                    message);
-                }
-                else
-                {
-                    var localPoint = readSurfaceLine.ProjectGeometryToLZ().ElementAt(index);
-                    setAction(localPoint.X);
-                }
-            }
         }
 
         private void TrySetCharacteristicPoint(Point3D point, Action<Point3D> setAction, string surfaceLineName, string characteristicPointType)

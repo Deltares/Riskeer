@@ -180,7 +180,7 @@
   <data name="PipingSoilProfileReader_SoilProfileName_0_" xml:space="preserve">
     <value>ondergrondschematisering '{0}'</value>
   </data>
-  <data name="PipingCharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
+  <data name="CharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>
   </data>
   <data name="Error_CharacteristicPoint_has_not_double" xml:space="preserve">
@@ -189,16 +189,16 @@
   <data name="Error_CharacteristicPoint_parsing_causes_overflow" xml:space="preserve">
     <value>Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.</value>
   </data>
-  <data name="PipingCharacteristicPointsCsvReader_LocationName_0_" xml:space="preserve">
+  <data name="CharacteristicPointsCsvReader_LocationName_0_" xml:space="preserve">
     <value>locatie '{0}'</value>
   </data>
-  <data name="PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID" xml:space="preserve">
+  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID" xml:space="preserve">
     <value>Regel heeft geen ID.</value>
   </data>
-  <data name="PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_" xml:space="preserve">
+  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_" xml:space="preserve">
     <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
   </data>
-  <data name="PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points" xml:space="preserve">
+  <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points" xml:space="preserve">
     <value>De locatie heeft een incorrect aantal kolommen.</value>
   </data>
 </root>

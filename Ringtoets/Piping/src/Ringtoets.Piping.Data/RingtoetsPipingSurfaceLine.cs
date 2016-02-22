@@ -96,42 +96,14 @@ namespace Ringtoets.Piping.Data
         public Point3D DitchDikeSide { get; private set; }
 
         /// <summary>
-        /// Gets or sets the L-coördinate of the entry point.
+        /// Gets the point which is the entry point for piping.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
-        /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
-        public double EntryPointL
-        {
-            get
-            {
-                return entryPointL;
-            }
-            set
-            {
-                ValidateHasPoints();
-                ValidateInRange(value, ProjectGeometryToLZ().ToArray(), Resources.RingtoetsPipingSurfaceLine_EntryPointL_Cannot_set_entry_point_at_L_0);
-                entryPointL = value;
-            }
-        }
+        public Point3D EntryPoint { get; private set; }
 
         /// <summary>
-        /// Gets or sets the L-coördinate of the exit point.
+        /// Gets the point which is the exit point for piping.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is not in range of the LZ-projected <see cref="Points"/>.</exception>
-        /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
-        public double ExitPointL
-        {
-            get
-            {
-                return exitPointL;
-            }
-            set
-            {
-                ValidateHasPoints();
-                ValidateInRange(value, ProjectGeometryToLZ().ToArray(), Resources.RingtoetsPipingSurfaceLine_ExitPointL_Cannot_set_exit_point_at_L_0);
-                exitPointL = value;
-            }
-        }
+        public Point3D ExitPoint { get; private set; }
 
         /// <summary>
         /// Sets the geometry of the surfaceline.
@@ -206,6 +178,30 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Sets the <see cref="EntryPoint"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="EntryPoint"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetEntryPointAt(Point3D point)
+        {
+            EntryPoint = GetPointFromGeometry(point);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ExitPoint"/> at the given point.
+        /// </summary>
+        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="ExitPoint"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        public void SetExitPointAt(Point3D point)
+        {
+            ExitPoint = GetPointFromGeometry(point);
+        }
+
+        /// <summary>
         /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
         /// </summary>
         /// <param name="point">The location of a point from <see cref="Points"/>.</param>
@@ -217,7 +213,7 @@ namespace Ringtoets.Piping.Data
         {
             if (point == null)
             {
-                throw new ArgumentNullException("Cannot find a point in geometry using a null point.");
+                throw new ArgumentNullException("point", "Cannot find a point in geometry using a null point.");
             }
             var pointFromGeometry = Points.FirstOrDefault(p => p.Equals(point));
             if (pointFromGeometry == null)

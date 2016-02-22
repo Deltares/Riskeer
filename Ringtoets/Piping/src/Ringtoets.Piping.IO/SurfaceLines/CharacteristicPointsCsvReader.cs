@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             {
                 if (!IsHeaderValid(header))
                 {
-                    throw CreateCriticalFileReadException(currentLine, Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                    throw CreateCriticalFileReadException(currentLine, Resources.CharacteristicPointsCsvReader_File_invalid_header);
                 }
             }
             else
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             string locationName = GetLocationName(tokenizedString);
             if (tokenizedString.Length != columnsInFile.Count)
             {
-                throw CreateLineParseException(lineNumber, locationName, Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
+                throw CreateLineParseException(lineNumber, locationName, Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
             }
             var location = new CharacteristicPoints(locationName);
 
@@ -487,7 +487,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             if (!readText.Contains(separator))
             {
-                throw CreateLineParseException(lineNumber, string.Format(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_,
+                throw CreateLineParseException(lineNumber, string.Format(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_,
                                                                          separator));
             }
             return readText.Split(separator)
@@ -535,7 +535,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private LineParseException CreateLineParseException(int currentLine, string locationName, string lineParseErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(Resources.TextFile_On_LineNumber_0_, currentLine);
-            string subjectDescription = string.Format(Resources.PipingCharacteristicPointsCsvReader_LocationName_0_, locationName);
+            string subjectDescription = string.Format(Resources.CharacteristicPointsCsvReader_LocationName_0_, locationName);
             var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                      .WithSubject(subjectDescription)
                                                                      .Build(lineParseErrorMessage);

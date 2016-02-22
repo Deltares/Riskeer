@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.Exceptions;
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -318,6 +318,44 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void SetDitchPolderSideAt_GeometryEmpty_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var random = new Random(21);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var z = random.NextDouble();
+            Point3D testPoint = new Point3D
+            {
+                X = x,
+                Y = y,
+                Z = z
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(testPoint);
+
+            // Assert
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                x,y,z);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        [Test]
+        public void SetDitchPolderSideAt_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+        }
+
+        [Test]
         public void SetBottomDitchPolderSideAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
@@ -339,6 +377,44 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(testPoint, surfaceLine.BottomDitchPolderSide);
             Assert.AreNotSame(testPoint, surfaceLine.BottomDitchPolderSide);
+        }
+
+        [Test]
+        public void SetBottomDitchPolderSideAt_GeometryEmpty_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var random = new Random(21);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var z = random.NextDouble();
+            Point3D testPoint = new Point3D
+            {
+                X = x,
+                Y = y,
+                Z = z
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(testPoint);
+
+            // Assert
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                x, y, z);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        [Test]
+        public void SetBottomDitchPolderSideAt_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
         }
 
         [Test]
@@ -366,6 +442,44 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void SetBottomDitchDikeSideAt_GeometryEmpty_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var random = new Random(21);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var z = random.NextDouble();
+            Point3D testPoint = new Point3D
+            {
+                X = x,
+                Y = y,
+                Z = z
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(testPoint);
+
+            // Assert
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                x, y, z);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        [Test]
+        public void SetBottomDitchDikeSideAt_Null_ThrowsArgumentNullException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+        }
+
+        [Test]
         public void SetDitchDikeSideAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
@@ -390,150 +504,165 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(0.0)]
-        [TestCase(3.0)]
-        [TestCase(4.0)]
-        public void EntryPointL_WithinGeometryRange_ValueSet(double testL)
+        public void SetDitchDikeSideAt_GeometryEmpty_ThrowsInvalidOperationException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var random = new Random(21);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var z = random.NextDouble();
+            Point3D testPoint = new Point3D
             {
-                new Point3D
-                {
-                    X = 1.0, Y = 0.0, Z = 0.0
-                },
-                new Point3D
-                {
-                    X = 5.0, Y = 0.0, Z = 0.0
-                }
-            });
+                X = x,
+                Y = y,
+                Z = z
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            surfaceLine.EntryPointL = testL;
+            TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(testPoint);
 
             // Assert
-            Assert.AreEqual(testL, surfaceLine.EntryPointL);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                x, y, z);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
         [Test]
-        [TestCase(-1.0)]
-        [TestCase(-1e-6)]
-        [TestCase(4.1 + 1e-6)]
-        [TestCase(5.0)]
-        public void EntryPointL_OutsideGeometryRange_ThrowsArgumentOutOfRangeException(double testL)
+        public void SetDitchDikeSideAt_Null_ThrowsArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var min = 1.0;
-            var max = 5.1;
-            surfaceLine.SetGeometry(new[]
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+        }
+
+        [Test]
+        public void SetEntryPointAt_PointInGeometry_PointSetFromGeometry()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D
             {
-                new Point3D
-                {
-                    X = min, Y = 0.0, Z = 0.0
-                },
-                new Point3D
-                {
-                    X = max, Y = 0.0, Z = 0.0
-                }
-            });
+                X = testX,
+                Y = testY,
+                Z = testZ
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            TestDelegate test = () => surfaceLine.EntryPointL = testL;
+            surfaceLine.SetEntryPointAt(testPoint);
 
             // Assert
-            var expectedMessage = string.Format("Kan intredepunt niet zetten. L moet in het bereik van [{0}, {1}] liggen.",
-                0, 4.1);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            Assert.AreEqual(testPoint, surfaceLine.EntryPoint);
+            Assert.AreNotSame(testPoint, surfaceLine.EntryPoint);
         }
 
         [Test]
-        public void EntryPointL_EmptyGeometry_ThrowsInvalidOperationException()
+        public void SetEntryPointAt_GeometryEmpty_ThrowsInvalidOperationException()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-
-            // Call
-            TestDelegate test = () => surfaceLine.EntryPointL = new Random(21).NextDouble();
-
-            // Assert
-            var expectedMessage = "De profielmeting heeft geen geometrie.";
-            var message = Assert.Throws<InvalidOperationException>(test).Message;
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        [TestCase(0.0)]
-        [TestCase(3.0)]
-        [TestCase(4.0)]
-        public void ExitPointL_WithinGeometryRange_ValueSet(double testL)
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var random = new Random(21);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var z = random.NextDouble();
+            Point3D testPoint = new Point3D
             {
-                new Point3D
-                {
-                    X = 1.0, Y = 0.0, Z = 0.0
-                },
-                new Point3D
-                {
-                    X = 5.0, Y = 0.0, Z = 0.0
-                }
-            });
+                X = x,
+                Y = y,
+                Z = z
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            surfaceLine.ExitPointL = testL;
+            TestDelegate test = () => surfaceLine.SetEntryPointAt(testPoint);
 
             // Assert
-            Assert.AreEqual(testL, surfaceLine.ExitPointL);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                x, y, z);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
+
         [Test]
-        [TestCase(-1.0)]
-        [TestCase(-1e-6)]
-        [TestCase(4.1 + 1e-6)]
-        [TestCase(5.0)]
-        public void ExitPointL_OutsideGeometryRange_ThrowsArgumentOutOfRangeException(double testL)
+        public void SetEntryPointAt_Null_ThrowsArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var min = 1.0;
-            var max = 5.1;
-            surfaceLine.SetGeometry(new[]
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetEntryPointAt(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+        }
+
+        [Test]
+        public void SetExitPointAt_PointInGeometry_PointSetFromGeometry()
+        {
+            // Setup
+            var testX = 1.0;
+            var testY = 2.2;
+            var testZ = 4.4;
+            Point3D testPoint = new Point3D
             {
-                new Point3D
-                {
-                    X = min, Y = 0.0, Z = 0.0
-                },
-                new Point3D
-                {
-                    X = max, Y = 0.0, Z = 0.0
-                }
-            });
+                X = testX,
+                Y = testY,
+                Z = testZ
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            TestDelegate test = () => surfaceLine.ExitPointL = testL;
+            surfaceLine.SetExitPointAt(testPoint);
 
             // Assert
-            var expectedMessage = string.Format("Kan uittredepunt niet zetten. L moet in het bereik van [{0}, {1}] liggen.",
-                0, 4.1);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            Assert.AreEqual(testPoint, surfaceLine.ExitPoint);
+            Assert.AreNotSame(testPoint, surfaceLine.ExitPoint);
         }
 
         [Test]
-        public void ExitPointL_EmptyGeometry_ThrowsInvalidOperationException()
+        public void SetExitPointAt_GeometryEmpty_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var random = new Random(21);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var z = random.NextDouble();
+            Point3D testPoint = new Point3D
+            {
+                X = x,
+                Y = y,
+                Z = z
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetExitPointAt(testPoint);
+
+            // Assert
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
+                x, y, z);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        [Test]
+        public void SetExitPointAt_Null_ThrowsArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.ExitPointL = new Random(21).NextDouble();
+            TestDelegate test = () => surfaceLine.SetExitPointAt(null);
 
             // Assert
-            var expectedMessage = "De profielmeting heeft geen geometrie.";
-            var message = Assert.Throws<InvalidOperationException>(test).Message;
-            Assert.AreEqual(expectedMessage, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)

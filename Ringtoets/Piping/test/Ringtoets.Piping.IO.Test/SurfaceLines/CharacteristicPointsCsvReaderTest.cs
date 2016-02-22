@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -202,7 +202,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -375,7 +375,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(Resources.CharacteristicPointsCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -453,11 +453,11 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 // Assert
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
-                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 3").Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
+                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 3").Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -480,11 +480,11 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 // Assert
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
-                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 4").Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
+                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 4").Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -506,7 +506,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 0").Build(string.Format(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_, ';'));
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 0").Build(string.Format(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_, ';'));
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -531,7 +531,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'LacksOneCoordinate'")
-                    .Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
+                    .Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
@@ -539,7 +539,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 3")
                     .WithSubject("locatie 'LacksTwoCoordinates'")
-                    .Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
+                    .Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -564,7 +564,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 var expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("locatie 'OneValueTooMuch'")
-                    .Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
+                    .Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
@@ -572,7 +572,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 3")
                     .WithSubject("locatie 'ThreeValuesTooMuch'")
-                    .Build(Resources.PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
+                    .Build(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

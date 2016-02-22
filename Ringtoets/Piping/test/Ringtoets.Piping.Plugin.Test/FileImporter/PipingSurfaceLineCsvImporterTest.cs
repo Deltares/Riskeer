@@ -666,7 +666,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 1")
-                .Build(PipingIOResources.PipingCharacteristicPointsCsvReader_File_invalid_header);
+                .Build(PipingIOResources.CharacteristicPointsCsvReader_File_invalid_header);
 
             var expectedLogMessages = new[]
             {
@@ -1064,9 +1064,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Y = 427858.191234,
                 Z = 1.45
             }, firstSurfaceLine.DitchDikeSide);
-
-            Assert.AreEqual(firstSurfaceLine.ProjectGeometryToLZ().ElementAt(2).X, firstSurfaceLine.EntryPointL, double.Epsilon);
-            Assert.AreEqual(firstSurfaceLine.ProjectGeometryToLZ().ElementAt(4).X, firstSurfaceLine.ExitPointL, double.Epsilon);
+            Assert.AreEqual(new Point3D
+            {
+                X = 94284.0663827,
+                Y = 427831.918156,
+                Z = 1.25
+            }, firstSurfaceLine.EntryPoint);
+            Assert.AreEqual(new Point3D
+            {
+                X = 94305.3566362,
+                Y = 427889.900123,
+                Z = 1.65
+            }, firstSurfaceLine.ExitPoint);
 
             var secondSurfaceLine = importTargetArray[1];
             Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
@@ -1096,9 +1105,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 Y = 0,
                 Z = 1.1
             }, secondSurfaceLine.DitchDikeSide);
-
-            Assert.AreEqual(secondSurfaceLine.ProjectGeometryToLZ().ElementAt(0).X, secondSurfaceLine.EntryPointL, double.Epsilon);
-            Assert.AreEqual(secondSurfaceLine.ProjectGeometryToLZ().ElementAt(2).X, secondSurfaceLine.ExitPointL, double.Epsilon);
+            Assert.AreEqual(new Point3D
+            {
+                X = 2.3,
+                Y = 0,
+                Z = 1.0
+            }, secondSurfaceLine.EntryPoint);
+            Assert.AreEqual(new Point3D
+            {
+                X = 5.7,
+                Y = 0,
+                Z = 1.1
+            }, secondSurfaceLine.ExitPoint);
 
             Assert.AreEqual(7, callCount);
 

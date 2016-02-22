@@ -71,6 +71,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Karakteristieke punten.
+        /// </summary>
+        public static string Categories_Characteristic_points {
+            get {
+                return ResourceManager.GetString("Categories_Characteristic_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
@@ -1339,7 +1348,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De x-coördinaat van het intredepunt..
+        ///   Looks up a localized string similar to Het punt van intrede voor piping..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_EntryPointL_Description {
             get {
@@ -1357,7 +1366,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De x-coördinaat van het uittredepunt..
+        ///   Looks up a localized string similar to Het punt van uittrede voor piping..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_ExitPointL_Description {
             get {

@@ -32,8 +32,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             const string expectedName = "<some nice name>";
             var random = new Random(21);
-            double expectedEntryPointL = random.NextDouble();
-            double expectedExitPointL = random.NextDouble();
             var point1 = new Point3D
             {
                 X = 1.1, Y = 2.2, Z = 3.3
@@ -52,8 +50,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 point1,
                 point2
             });
-            surfaceLine.EntryPointL = expectedEntryPointL;
-            surfaceLine.ExitPointL = expectedExitPointL;
+            surfaceLine.SetEntryPointAt(point1);
+            surfaceLine.SetExitPointAt(point2);
             surfaceLine.SetDitchDikeSideAt(point1);
             surfaceLine.SetBottomDitchDikeSideAt(point1);
             surfaceLine.SetBottomDitchPolderSideAt(point2);
@@ -67,8 +65,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(expectedName, properties.Name);
             CollectionAssert.AreEqual(surfaceLine.Points, properties.Points);
-            Assert.AreEqual(expectedEntryPointL, properties.EntryPointL);
-            Assert.AreEqual(expectedExitPointL, properties.ExitPointL);
+            Assert.AreEqual(point1, properties.EntryPoint);
+            Assert.AreEqual(point2, properties.ExitPoint);
             Assert.AreEqual(point1, properties.DitchDikeSide);
             Assert.AreEqual(point1, properties.BottomDitchDikeSide);
             Assert.AreEqual(point2, properties.BottomDitchPolderSide);

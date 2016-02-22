@@ -61,6 +61,53 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_File_invalid_header {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_File_invalid_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to locatie &apos;{0}&apos;.
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_LocationName_0_ {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_LocationName_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel heeft geen ID..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel ontbreekt het verwachte scheidingsteken (het karakter: {0})..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_ {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separat" +
+                        "or_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie heeft een incorrect aantal kolommen..
+        /// </summary>
+        public static string CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points {
+            get {
+                return ResourceManager.GetString("CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_val" +
+                        "ues_for_characteristic_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}..
         /// </summary>
         public static string Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_ {
@@ -121,54 +168,6 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string Error_SurfaceLine_parsing_causes_overflow {
             get {
                 return ResourceManager.GetString("Error_SurfaceLine_parsing_causes_overflow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt..
-        /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_File_invalid_header {
-            get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_File_invalid_header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to locatie &apos;{0}&apos;.
-        /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_LocationName_0_ {
-            get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_LocationName_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regel heeft geen ID..
-        /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_ID {
-            get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_I" +
-                        "D", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regel ontbreekt het verwachte scheidingsteken (het karakter: {0})..
-        /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_ {
-            get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_s" +
-                        "eparator_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie heeft een incorrect aantal kolommen..
-        /// </summary>
-        public static string PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points {
-            get {
-                return ResourceManager.GetString("PipingCharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lac" +
-                        "ks_values_for_characteristic_points", resourceCulture);
             }
         }
         
