@@ -35,8 +35,26 @@ namespace Ringtoets.HydraRing.Data.Test
             // Assert
             Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.FilePath);
             Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.Version);
-            Assert.IsInstanceOf<IEnumerable<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);
+            Assert.IsInstanceOf<ICollection<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+        }
+
+        [Test]
+        public void ClearLocations_Always_EmtpyLocationCollection()
+        {
+            // Setup
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var location = hydraulicBoundaryDatabase.Locations;
+            location.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(location);
+
+            // Call
+            hydraulicBoundaryDatabase.ClearLocations();
+
+            // Assert
+            CollectionAssert.IsEmpty(location);
         }
     }
 }

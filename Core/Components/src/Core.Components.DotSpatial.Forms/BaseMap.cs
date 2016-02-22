@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-
+using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 
 using DotSpatial.Controls;
 using DotSpatial.Data;
-
+using DotSpatial.Symbology;
 using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms
@@ -34,7 +34,7 @@ namespace Core.Components.DotSpatial.Forms
     /// <summary>
     /// This class describes a map view with configured projection and function mode.
     /// </summary>
-    public sealed class BaseMap : Control, IMap
+    public sealed class BaseMap : Control, IMap, IObserver
     {
         private readonly MapDataFactory mapDataFactory = new MapDataFactory();
         private MapData data;
@@ -46,6 +46,28 @@ namespace Core.Components.DotSpatial.Forms
         public BaseMap()
         {
             InitializeMapView();
+        }
+
+        /// <summary>
+        /// Attaches the <see cref="BaseMap"/> to the currently set <see cref="Data"/>, if there is any.
+        /// </summary>
+        private void AttachToData()
+        {
+            if (data != null)
+            {
+                data.Attach(this);
+            }
+        }
+
+        /// <summary>
+        /// Detaches the <see cref="BaseMap"/> to the currently set <see cref="Data"/>, if there is any.
+        /// </summary>
+        private void DetachFromData()
+        {
+            if (data != null)
+            {
+                data.Detach(this);
+            }
         }
 
         public MapData Data
@@ -61,7 +83,9 @@ namespace Core.Components.DotSpatial.Forms
                     return;
                 }
 
+                DetachFromData();
                 data = value;
+                AttachToData();
                 DrawFeatureSets();
             }
         }
@@ -75,6 +99,8 @@ namespace Core.Components.DotSpatial.Forms
                 {
                     map.Layers.Add(featureSet);
                 }
+
+                map.ZoomToMaxExtent();
             }
         }
 
@@ -84,10 +110,15 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan
+                FunctionMode = FunctionMode.Pan,
             };
 
             Controls.Add(map);
+        }
+
+        public void UpdateObserver()
+        {
+            DrawFeatureSets();
         }
     }
 }

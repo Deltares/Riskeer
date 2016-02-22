@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.TestUtil;
@@ -71,7 +73,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void Data_KnownMapData_MapFeatureAdded()
+        public void Data_KnownMapData_MapFeatureAddedAndZoomedToExtents()
         {
             // Setup
             var map = new BaseMap();
@@ -83,14 +85,16 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             // Assert
             Assert.AreEqual(1, mapView.Layers.Count);
+            Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
         }
 
         [Test]
-        public void Data_SetToNull_MapFeaturesCleared()
+        public void Data_SetToNull_BaseMapDetachedFeaturesCleared()
         {
             // Setup
             var map = new BaseMap();
             var testData = new MapPointData(Enumerable.Empty<Point2D>());
+            var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
             var mapView = TypeUtils.GetField<Map>(map, "map");
 
             map.Data = testData;
@@ -103,7 +107,55 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             // Assert
             Assert.IsNull(map.Data);
-            Assert.AreEqual(0, mapView.Layers.Count);
+            CollectionAssert.IsEmpty(observers);
+            CollectionAssert.IsEmpty(mapView.Layers);
+        }
+
+        [Test]
+        public void Data_NewDataSet_BaseMapDetachedFromOldAttachedToNewFeaturesUpdated()
+        {
+            // Setup
+            var map = new BaseMap();
+            var testDataOld = new MapPointData(Enumerable.Empty<Point2D>());
+            var testDataNew = new MapPointData(Enumerable.Empty<Point2D>());
+
+            var observersOld = TypeUtils.GetField<ICollection<IObserver>>(testDataOld, "observers");
+            var observersNew = TypeUtils.GetField<ICollection<IObserver>>(testDataNew, "observers");
+            var view = TypeUtils.GetField<Map>(map, "map");
+
+            // Call
+            map.Data = testDataOld;
+            map.Data = testDataNew;
+
+            // Assert
+            CollectionAssert.IsEmpty(observersOld);
+            CollectionAssert.AreEqual(new[] { map }, observersNew);
+            Assert.AreEqual(1, view.Layers.Count);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void UpdateObserver_MapInForm_MapLayersRenewed()
+        {
+            // Setup
+            var form = new Form();
+            var map = new BaseMap();
+            var testData = new MapPointData(Enumerable.Empty<Point2D>());
+            var view = TypeUtils.GetField<Map>(map, "map");
+
+            map.Data = testData;
+            var layers = view.Layers.ToList();
+
+            form.Controls.Add(map);
+
+            form.Show();
+
+            // Call
+            map.UpdateObserver();
+
+            // Assert
+            Assert.AreEqual(1, view.Layers.Count);
+            Assert.AreNotSame(layers[0], view.Layers[0]);
         }
     }
 }

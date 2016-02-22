@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
 
         [Test]
         [TestCase("/")]
-        [TestCase("nonexisting.sqlit")]
+        [TestCase("nonexisting.sqlite")]
         public void ValidateFile_NonExistingFileOrInvalidFile_LogError(string filename)
         {
             // Setup

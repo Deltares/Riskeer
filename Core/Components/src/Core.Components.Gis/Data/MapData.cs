@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
+
 namespace Core.Components.Gis.Data
 {
     /// <summary>
     /// Abstract class for data with the purpose of becoming visible in map components.
     /// </summary>
-    public abstract class MapData {}
+    public abstract class MapData : Observable {}
 }

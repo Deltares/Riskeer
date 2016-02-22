@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
+using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -88,6 +90,32 @@ namespace Ringtoets.Integration.Data.Test.Map
             // Assert
             Assert.Throws<ArgumentNullException>(call);
         }
+
+        [Test]
+        public void UpdateHydraulicBoundaryDatabaseMap_NewDataSet_RemovesOldListItemAndAddsNew()
+        {
+            // Setup
+            var assessmentSection = new TestAssessmentSectionBase();
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 1.1));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 1.4));
+
+            var mapData = new AssessmentSectionMapData(assessmentSection);
+
+            // Precondition
+            Assert.AreEqual(1, mapData.List.Count);
+
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Clear();
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "test3", 3.0, 3.1));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(4, "test4", 5.0, 4.4));
+
+            // Call
+            mapData.UpdateHydraulicBoundaryDatabaseMap();
+
+            // Assert
+            Assert.AreEqual(1, mapData.List.Count);
+        }
+				
 
         [Test]
         public void Equals_EqualsWithItself_ReturnTrue()

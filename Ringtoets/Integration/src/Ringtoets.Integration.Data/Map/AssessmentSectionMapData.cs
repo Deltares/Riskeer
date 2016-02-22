@@ -46,17 +46,41 @@ namespace Ringtoets.Integration.Data.Map
                 throw new ArgumentNullException("assessmentSection");
             }
             this.assessmentSection = assessmentSection;
-            
-            var locationData = assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hydraulicBoundaryLocation => hydraulicBoundaryLocation.Location).ToList();
+
+            CheckHydraulicBoundaryDatabaseLocationData();
+        }
+
+        public void UpdateHydraulicBoundaryDatabaseMap()
+        {
+            List.Clear();
+
+            CheckHydraulicBoundaryDatabaseLocationData();
+        }
+
+        private void CheckHydraulicBoundaryDatabaseLocationData()
+        {
+            var locationData = GetHydraulicBoundaryDatabaseLocationData();
             if (locationData.Count > 0)
             {
                 CreateMapPointData(locationData);
             }
         }
 
+        private List<Point2D> GetHydraulicBoundaryDatabaseLocationData()
+        {
+            return assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hydraulicBoundaryLocation => hydraulicBoundaryLocation.Location).ToList();
+        }
+
         private void CreateMapPointData(IEnumerable<Point2D> locationData)
         {
             List.Add(new MapPointData(locationData));
+        }
+
+        #region IEquatable implementation
+
+        public bool Equals(AssessmentSectionMapData other)
+        {
+            return other != null && Equals(other.assessmentSection, assessmentSection);
         }
 
         public override bool Equals(object other)
@@ -69,9 +93,6 @@ namespace Ringtoets.Integration.Data.Map
             return assessmentSection.GetHashCode();
         }
 
-        public bool Equals(AssessmentSectionMapData other)
-        {
-            return other != null && Equals(other.assessmentSection, assessmentSection);
-        }
+        #endregion
     }
 }

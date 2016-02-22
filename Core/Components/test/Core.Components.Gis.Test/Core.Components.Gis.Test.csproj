@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\MapDataCollectionTest.cs" />
+    <Compile Include="Data\MapDataTest.cs" />
     <Compile Include="Data\MapLineDataTest.cs" />
     <Compile Include="Data\MapPointDataTest.cs" />
     <Compile Include="Data\MapPolygonDataTest.cs" />

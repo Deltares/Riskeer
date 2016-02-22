@@ -60,6 +60,7 @@ namespace Ringtoets.Integration.Plugin
     public class RingtoetsGuiPlugin : GuiPlugin
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiPlugin));
+        private static AssessmentSectionMapData assessmentSectionMapData;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -97,7 +98,11 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<AssessmentSectionBase, MapData, MapDataView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.TrajectMap_DisplayName,
-                GetViewData = assessmentSectionBase => new AssessmentSectionMapData(assessmentSectionBase),
+                GetViewData = assessmentSectionBase =>
+                {
+                    assessmentSectionMapData = new AssessmentSectionMapData(assessmentSectionBase);
+                    return assessmentSectionMapData;
+                },
                 Image = RingtoetsFormsResources.Map
             };
         }
@@ -460,7 +465,6 @@ namespace Ringtoets.Integration.Plugin
                                             string filePath,
                                             string version)
         {
-
             var confirmation = MessageBox.Show(
                 HydraringResources.Delete_Calculations_Text,
                 BaseResources.Confirm,
@@ -492,9 +496,11 @@ namespace Ringtoets.Integration.Plugin
                                                string selectedFile,
                                                string newVersion)
         {
+            nodeData.BoundaryDatabase.ClearLocations();
             if (hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, selectedFile))
             {
                 SetBoundaryDatabaseData(nodeData, selectedFile, newVersion);
+                UpdateMap();
             }
         }
 
@@ -504,6 +510,15 @@ namespace Ringtoets.Integration.Plugin
             nodeData.BoundaryDatabase.Version = version;
             nodeData.NotifyObservers();
             log.InfoFormat(HydraringResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
+        }
+
+        private static void UpdateMap()
+        {
+            if (assessmentSectionMapData != null)
+            {
+                assessmentSectionMapData.UpdateHydraulicBoundaryDatabaseMap();
+                assessmentSectionMapData.NotifyObservers();
+            }
         }
 
         #endregion

@@ -47,6 +47,10 @@
     <Compile Include="TestMapData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
       <Project>{aa47e858-a2a7-470e-8b2d-c76ae8ed9ccd}</Project>
       <Name>Core.Components.DotSpatial</Name>
