@@ -467,11 +467,9 @@ namespace Ringtoets.HydraRing.Calculation
 
         private void InitializeNumericsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            var configurationSettingsForFailureMechanism = configurationSettings.First(cs => cs.HydraRingFailureMechanismType == FailureMechanismType);
-
-            configurationDictionary["Numerics"] = new List<OrderedDictionary>
-            {
-                new OrderedDictionary
+            configurationDictionary["Numerics"] = configurationSettings
+                .Where(cs => cs.HydraRingFailureMechanismType == FailureMechanismType)
+                .Select(configurationSettingsForFailureMechanism => new OrderedDictionary
                 {
                     {
                         "SectionId", 999 // TODO: Dike section integration
@@ -486,13 +484,12 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "SubMechanismId", null // TODO: fix as part of WTI-324
+                        "SubMechanismId", configurationSettingsForFailureMechanism.SubMechanismId
                     },
                     {
-                        "Method", null // TODO: fix as part of WTI-324
+                        "Method", configurationSettingsForFailureMechanism.CalculationTechniqueId
                     }
-                }
-            };
+                }).ToList();
         }
 
         private void InitializeAreasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)

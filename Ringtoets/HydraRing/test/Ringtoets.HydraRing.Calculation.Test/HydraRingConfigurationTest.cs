@@ -117,7 +117,9 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [DesignTables] VALUES (999, 3, NULL, NULL, 6, 114, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, NULL, NULL);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 3, 1);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 4, 1);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 5, 4);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
