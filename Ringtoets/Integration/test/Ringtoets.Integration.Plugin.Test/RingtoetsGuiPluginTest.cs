@@ -137,8 +137,9 @@ namespace Ringtoets.Integration.Plugin.Test
             var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(assessmentSectionBase);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
+            CollectionAssert.AreEqual(new object[]
             {
+                assessmentSectionBase,
                 assessmentSectionBase.FailureMechanismContribution
             }, childrenWithViewDefinitions);
             mocks.VerifyAll();

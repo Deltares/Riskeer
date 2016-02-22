@@ -102,8 +102,15 @@ namespace Ringtoets.Integration.Plugin
                 {
                     assessmentSectionMapData = new AssessmentSectionMapData(assessmentSectionBase);
                     return assessmentSectionMapData;
+                },                
+                CloseForData = (view, o) =>
+                {
+                    var sectionMapData = (AssessmentSectionMapData) view.Data;
+                    var assessmentSection = o as AssessmentSectionBase;
+
+                    return assessmentSection != null && sectionMapData.AssessmentSection == assessmentSection;
                 },
-                Image = RingtoetsFormsResources.Map
+                Image = RingtoetsFormsResources.Map,
             };
         }
 
@@ -117,12 +124,8 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = dataObject as AssessmentSectionBase;
             if (assessmentSection != null)
             {
+                yield return assessmentSection;
                 yield return assessmentSection.FailureMechanismContribution;
-            }
-
-            if (assessmentSectionMapData != null)
-            {
-                yield return assessmentSectionMapData;
             }
         }
 

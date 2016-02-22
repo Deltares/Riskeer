@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Data.Map
     /// </summary>
     public class AssessmentSectionMapData : MapDataCollection, IEquatable<AssessmentSectionMapData>
     {
-        private readonly AssessmentSectionBase assessmentSection;
+        public AssessmentSectionBase AssessmentSection { get; private set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMapData"/>.
@@ -45,7 +45,8 @@ namespace Ringtoets.Integration.Data.Map
             {
                 throw new ArgumentNullException("assessmentSection");
             }
-            this.assessmentSection = assessmentSection;
+            
+            AssessmentSection = assessmentSection;
 
             CheckHydraulicBoundaryDatabaseLocationData();
         }
@@ -68,7 +69,7 @@ namespace Ringtoets.Integration.Data.Map
 
         private List<Point2D> GetHydraulicBoundaryDatabaseLocationData()
         {
-            return assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hydraulicBoundaryLocation => hydraulicBoundaryLocation.Location).ToList();
+            return AssessmentSection.HydraulicBoundaryDatabase.Locations.Select(hydraulicBoundaryLocation => hydraulicBoundaryLocation.Location).ToList();
         }
 
         private void CreateMapPointData(IEnumerable<Point2D> locationData)
@@ -80,7 +81,7 @@ namespace Ringtoets.Integration.Data.Map
 
         public bool Equals(AssessmentSectionMapData other)
         {
-            return other != null && Equals(other.assessmentSection, assessmentSection);
+            return other != null && Equals(other.AssessmentSection, AssessmentSection);
         }
 
         public override bool Equals(object other)
@@ -90,7 +91,7 @@ namespace Ringtoets.Integration.Data.Map
 
         public override int GetHashCode()
         {
-            return assessmentSection.GetHashCode();
+            return AssessmentSection.GetHashCode();
         }
 
         #endregion
