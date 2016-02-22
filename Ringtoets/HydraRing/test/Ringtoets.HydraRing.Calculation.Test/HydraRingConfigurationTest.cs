@@ -117,9 +117,9 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [DesignTables] VALUES (999, 3, NULL, NULL, 6, 114, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 3, 1, 4, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 4, 1, 4, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 5, 4, 4, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 3, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 4, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 5, 4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +

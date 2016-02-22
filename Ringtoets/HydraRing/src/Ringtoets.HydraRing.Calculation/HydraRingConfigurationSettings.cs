@@ -64,28 +64,28 @@ namespace Ringtoets.HydraRing.Calculation
         /// <summary>
         /// Gets or set a relaxation towards the design point for FORM.
         /// </summary>
-        public int FormRelaxationFactor { get; set; }
+        public double FormRelaxationFactor { get; set; }
 
         /// <summary>
         /// Gets or set one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsHOH"/>
         /// <seealso cref="FormEpsZFunc"/>
-        public int FormEpsBeta { get; set; }
+        public double FormEpsBeta { get; set; }
 
         /// <summary>
         /// Gets or set one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsBeta"/>
         /// <seealso cref="FormEpsZFunc"/>
-        public int FormEpsHOH { get; set; }
+        public double FormEpsHOH { get; set; }
 
         /// <summary>
         /// Gets or set one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsBeta"/>
         /// <seealso cref="FormEpsHOH"/>
-        public int FormEpsZFunc { get; set; }
+        public double FormEpsZFunc { get; set; }
 
         /// <summary>
         /// Gets or set the DIRS start method.
@@ -105,17 +105,17 @@ namespace Ringtoets.HydraRing.Calculation
         /// <summary>
         /// Gets or set the variation coefficient to use within the DIRS iterations.
         /// </summary>
-        public int DsVarCoefficient { get; set; }
+        public double DsVarCoefficient { get; set; }
 
         /// <summary>
         /// Gets or set the lower size limit of a uniform grid deployed by NINT.
         /// </summary>
-        public int NiUMin { get; set; }
+        public double NiUMin { get; set; }
 
         /// <summary>
         /// Gets or set the upper size limit of a uniform grid deployed by NINT.
         /// </summary>
-        public int NiUMax { get; set; }
+        public double NiUMax { get; set; }
 
         /// <summary>
         /// Gets or set the number of steps between <seealso cref="NiUMin"/> and <seealso cref="NiUMax"/> for NINT.
