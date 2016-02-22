@@ -65,6 +65,8 @@ namespace Demo.Ringtoets.Commands
             {
                 hydraulicBoundaryDatabase.FilePath = tempPath.FilePath;
                 var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryLocationsImporter();
+                hydraulicBoundaryDatabaseImporter.ValidateFile(tempPath.FilePath);
+                hydraulicBoundaryDatabase.Version = hydraulicBoundaryDatabaseImporter.Version;
                 hydraulicBoundaryDatabaseImporter.Import(hydraulicBoundaryDatabase.Locations, tempPath.FilePath);
             }
         }

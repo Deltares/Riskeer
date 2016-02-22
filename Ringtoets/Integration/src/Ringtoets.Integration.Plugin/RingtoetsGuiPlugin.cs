@@ -445,7 +445,7 @@ namespace Ringtoets.Integration.Plugin
             var newVersion = hydraulicBoundaryLocationsImporter.Version;
 
             // Compare
-            if (string.IsNullOrEmpty(currentVersion) || currentVersion != newVersion)
+            if (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion)
             {
                 // Show dialog
                 ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
