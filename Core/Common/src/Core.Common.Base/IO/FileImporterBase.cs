@@ -13,6 +13,13 @@ namespace Core.Common.Base.IO
     /// <seealso cref="Core.Common.Base.IO.IFileImporter" />
     public abstract class FileImporterBase : IFileImporter
     {
+        /// <summary>
+        /// Indicates if a cancel request has been made. When true, no changes should be
+        /// made to the data model unless the importer is already in progress of changing
+        /// the data model.
+        /// </summary>
+        protected bool ImportIsCancelled;
+
         public abstract string Name { get; }
         public abstract string Category { get; }
         public abstract Bitmap Image { get; }
@@ -22,10 +29,18 @@ namespace Core.Common.Base.IO
 
         public abstract bool Import(object targetItem, string filePath);
 
-        public abstract void Cancel();
+        public void Cancel()
+        {
+            ImportIsCancelled = true;
+        }
 
         public void DoPostImportUpdates(object targetItem)
         {
+            if (ImportIsCancelled)
+            {
+                return;
+            }
+
             var observableTarget = targetItem as IObservable;
             if (observableTarget != null)
             {

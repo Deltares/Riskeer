@@ -42,7 +42,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSoilProfilesImporter : FileImporterBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
-        private bool shouldCancel;
 
         public override string Name
         {
@@ -87,18 +86,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override void Cancel()
-        {
-            shouldCancel = true;
-        }
-
         public override bool Import(object targetItem, string filePath)
         {
             var importResult = ReadSoilProfiles(filePath);
 
             if (!importResult.CriticalErrorOccurred)
             {
-                if (!shouldCancel)
+                if (!ImportIsCancelled)
                 {
                     AddImportedDataToModel(targetItem, importResult);
 
@@ -144,7 +138,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var profiles = new Collection<PipingSoilProfile>();
             while (soilProfileReader.HasNext)
             {
-                if (shouldCancel)
+                if (ImportIsCancelled)
                 {
                     return new ReadResult<PipingSoilProfile>(false);
                 }
@@ -198,7 +192,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             log.Info(ApplicationResources.PipingSoilProfilesImporter_Import_Import_cancelled);
 
-            shouldCancel = false;
+            ImportIsCancelled = false;
         }
     }
 }

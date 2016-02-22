@@ -65,6 +65,30 @@ namespace Core.Common.Base.Test.IO
             mocks.VerifyAll(); // Assert NotifyObservers is called
         }
 
+        [Test]
+        public void DoPostImportUpdates_ImportCancelled_NoNotifyObserversCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observableInstance = mocks.StrictMock<IObservable>();
+
+            var observableTarget = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
+
+            var simpleImporter = new SimpleFileImporter();
+            simpleImporter.GetAffectedNonTargetObservableInstancesOverride = new[]
+            {
+                observableInstance
+            };
+            simpleImporter.Cancel();
+
+            // Call
+            simpleImporter.DoPostImportUpdates(observableTarget);
+
+            // Assert
+            mocks.VerifyAll(); // Assert no NotifyObservers were called
+        }
+
         private class SimpleFileImporter : FileImporterBase
         {
             public override string Name
@@ -116,11 +140,6 @@ namespace Core.Common.Base.Test.IO
             }
 
             public override bool Import(object targetItem, string filePath)
-            {
-                throw new NotImplementedException();
-            }
-
-            public override void Cancel()
             {
                 throw new NotImplementedException();
             }

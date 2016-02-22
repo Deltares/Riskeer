@@ -332,7 +332,90 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
         }
 
-        // TODO: Cancel
+        [Test]
+        public void Import_CancellingImport_ReturnFalseAndNoChanges()
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var importer = new ReferenceLineImporter();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                importer.Cancel();
+
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Call
+            bool importSuccesful = importer.Import(referenceLineContext, path);
+
+            // Assert
+            Assert.IsFalse(importSuccesful);
+            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var calculation1 = mocks.StrictMock<ICalculationItem>();
+
+            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            {
+                calculation1
+            });
+
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism1
+            });
+
+            var contextObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            referenceLineContext.Attach(contextObserver);
+
+            var importer = new ReferenceLineImporter();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                importer.Cancel();
+
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Precondition
+            Assert.IsFalse(importer.Import(referenceLineContext, path));
+
+            // Call
+            importer.DoPostImportUpdates(referenceLineContext);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no NotifyObserver calls
+        }
+
         // TODO: Progress reporting
         // TODO: Instance reuse
     }

@@ -213,11 +213,6 @@ namespace Core.Common.Base.Test.Service
 
                 return true;
             }
-
-            public override void Cancel()
-            {
-
-            }
         }
     }
 }

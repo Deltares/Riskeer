@@ -114,6 +114,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 }
             }
 
+            if (ImportIsCancelled)
+            {
+                return false;
+            }
+
             ReferenceLine importedReferenceLine;
             try
             {
@@ -130,11 +135,14 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
+            if (ImportIsCancelled)
+            {
+                return false;
+            }
+
             AddReferenceLineToDataModel(importTarget.Parent, importedReferenceLine, clearReferenceLineDependentData);
             return true;
         }
-
-        public override void Cancel() {}
 
         protected override IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
         {

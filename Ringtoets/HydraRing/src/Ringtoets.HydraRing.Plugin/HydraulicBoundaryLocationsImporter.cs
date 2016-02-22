@@ -43,7 +43,6 @@ namespace Ringtoets.HydraRing.Plugin
     public class HydraulicBoundaryLocationsImporter : FileImporterBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsImporter));
-        private bool shouldCancel;
 
         /// <summary>
         /// Gets the version of the used Hydraulic Boundary Database.
@@ -86,7 +85,7 @@ namespace Ringtoets.HydraRing.Plugin
 
         /// <summary>
         /// Gets the <see cref="Type"/> of the item supported by the <see cref="HydraulicBoundaryLocationsImporter"/>.
-        /// </summary
+        /// </summary>
         public override Type SupportedItemType
         {
             get
@@ -142,7 +141,7 @@ namespace Ringtoets.HydraRing.Plugin
 
             if (!importResult.CriticalErrorOccurred)
             {
-                if (!shouldCancel)
+                if (!ImportIsCancelled)
                 {
                     AddImportedDataToModel(targetItem, importResult);
                     log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_Import_successful);
@@ -150,18 +149,10 @@ namespace Ringtoets.HydraRing.Plugin
                 }
 
                 log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_cancelled);
-                shouldCancel = false;
+                ImportIsCancelled = false;
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// This method cancels an import.
-        /// </summary>
-        public override void Cancel()
-        {
-            shouldCancel = true;
         }
 
         private ReadResult<HydraulicBoundaryLocation> ReadHydraulicBoundaryLocations(string path)
@@ -196,7 +187,7 @@ namespace Ringtoets.HydraRing.Plugin
             var locations = new Collection<HydraulicBoundaryLocation>();
             while (hydraulicBoundarySqLiteDatabaseReader.HasNext)
             {
-                if (shouldCancel)
+                if (ImportIsCancelled)
                 {
                     return new ReadResult<HydraulicBoundaryLocation>(false);
                 }

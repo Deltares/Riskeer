@@ -47,7 +47,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSurfaceLinesCsvImporter : FileImporterBase
     {
         private readonly ILog log;
-        private bool shouldCancel;
         private const string characteristicPointsFileSubExtension = ".krp";
 
         public PipingSurfaceLinesCsvImporter()
@@ -98,11 +97,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override void Cancel()
-        {
-            shouldCancel = true;
-        }
-
         public override bool Import(object targetItem, string filePath)
         {
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
@@ -111,7 +105,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            if (shouldCancel)
+            if (ImportIsCancelled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -124,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            if (shouldCancel)
+            if (ImportIsCancelled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -172,7 +166,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             var readSurfaceLines = new List<RingtoetsPipingSurfaceLine>(itemCount);
             var readSurfaceLineIdentifiers = new HashSet<string>();
-            for (int i = 0; i < itemCount && !shouldCancel; i++)
+            for (int i = 0; i < itemCount && !ImportIsCancelled; i++)
             {
                 try
                 {
@@ -250,7 +244,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             var readCharacteristicPointsLocations = new List<CharacteristicPoints>(itemCount);
             var readCharacteristicPointsLocationIdentifiers = new HashSet<string>();
-            for (int i = 0; i < itemCount && !shouldCancel; i++)
+            for (int i = 0; i < itemCount && !ImportIsCancelled; i++)
             {
                 try
                 {
@@ -408,7 +402,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled);
 
-            shouldCancel = false;
+            ImportIsCancelled = false;
         }
     }
 }
