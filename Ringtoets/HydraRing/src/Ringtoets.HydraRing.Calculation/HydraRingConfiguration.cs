@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation
     /// </summary>
     public class HydraRingConfiguration
     {
-        private IEnumerable<HydraRingConfigurationSettings> configurationSettings;
+        private readonly IEnumerable<HydraRingConfigurationSettings> configurationSettings;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
@@ -139,6 +139,7 @@ namespace Ringtoets.HydraRing.Calculation
             InitializeHydraulicModelsConfiguration(configurationDictionary);
             InitializeSectionsConfiguration(configurationDictionary);
             InitializeDesignTablesConfiguration(configurationDictionary);
+            InitializeNumericsConfiguration(configurationDictionary);
             InitializeAreasConfiguration(configurationDictionary);
             InitializeProjectsConfiguration(configurationDictionary);
 
@@ -287,6 +288,36 @@ namespace Ringtoets.HydraRing.Calculation
                     },
                     {
                         "Beta", null // Fixed: no support for type 2 computations (see "Method")
+                    }
+                }
+            };
+        }
+
+        private void InitializeNumericsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            var configurationSettingsForFailureMechanism = configurationSettings.First(cs => cs.HydraRingFailureMechanismType == FailureMechanismType);
+
+            configurationDictionary["Numerics"] = new List<OrderedDictionary>
+            {
+                new OrderedDictionary
+                {
+                    {
+                        "SectionId", 999 // TODO: Dike section integration
+                    },
+                    {
+                        "MechanismId", (int?) FailureMechanismType
+                    },
+                    {
+                        "LayerId", null // Fixed: no support for revetments
+                    },
+                    {
+                        "AlternativeId", null // Fixed: no support for piping
+                    },
+                    {
+                        "SubMechanismId", null // TODO: fix as part of WTI-324
+                    },
+                    {
+                        "Method", null // TODO: fix as part of WTI-324
                     }
                 }
             };
