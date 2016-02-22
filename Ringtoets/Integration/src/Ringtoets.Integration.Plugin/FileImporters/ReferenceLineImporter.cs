@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 
@@ -42,11 +45,13 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="AssessmentSectionBase"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
-    public class ReferenceLineImporter : IFileImporter
+    public class ReferenceLineImporter : FileImporterBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
 
-        public string Name
+        private readonly IList<IObservable> changedObservables = new List<IObservable>();
+
+        public override string Name
         {
             get
             {
@@ -54,7 +59,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        public string Category
+        public override string Category
         {
             get
             {
@@ -62,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        public Bitmap Image
+        public override Bitmap Image
         {
             get
             {
@@ -70,7 +75,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        public Type SupportedItemType
+        public override Type SupportedItemType
         {
             get
             {
@@ -78,7 +83,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        public string FileFilter
+        public override string FileFilter
         {
             get
             {
@@ -87,16 +92,32 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        public ProgressChangedDelegate ProgressChanged { get; set; }
+        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public bool Import(object targetItem, string filePath)
+        public override bool Import(object targetItem, string filePath)
         {
+            bool clearReferenceLineDependentData = false;
+            var importTarget = (ReferenceLineContext)targetItem;
+            if (importTarget.Parent.ReferenceLine != null)
+            {
+                var title = "Referentielijn vervangen?";
+                var text = "Weet u zeker dat u de referentielijn wilt vervangen?" + Environment.NewLine +
+                           "Als u door gaat zullen alle vakindelingen, berekende hydrolische randvoorwaarden en berekeningsresultaten worden verwijderd.";
+                DialogResult result = MessageBox.Show(text, title, MessageBoxButtons.OKCancel);
+                if (result == DialogResult.Cancel)
+                {
+                    return false;
+                }
+                else
+                {
+                    clearReferenceLineDependentData = true;
+                }
+            }
+
+            ReferenceLine importedReferenceLine;
             try
             {
-                var importTarget = (ReferenceLineContext)targetItem;
-                var importedReferenceLine = new ReferenceLineReader().ReadReferenceLine(filePath);
-                importTarget.Parent.ReferenceLine = importedReferenceLine;
-                return true;
+                importedReferenceLine = new ReferenceLineReader().ReadReferenceLine(filePath);
             }
             catch (ArgumentException e)
             {
@@ -108,9 +129,58 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 HandleCriticalFileReadError(e);
                 return false;
             }
+
+            AddReferenceLineToDataModel(importTarget.Parent, importedReferenceLine, clearReferenceLineDependentData);
+            return true;
         }
 
-        public void Cancel() {}
+        public override void Cancel() {}
+
+        protected override IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
+        {
+            return changedObservables;
+        }
+
+        private void AddReferenceLineToDataModel(AssessmentSectionBase assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
+        {
+            assessmentSection.ReferenceLine = importedReferenceLine;
+
+            if (clearReferenceLineDependentData)
+            {
+                ClearReferenceLineDependentData(assessmentSection);
+            }
+        }
+
+        private void ClearReferenceLineDependentData(AssessmentSectionBase assessmentSection)
+        {
+            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                ClearCalculationOutput(failureMechanism);
+                ClearFailureMechanismSections(failureMechanism);
+            }
+            ClearHydraulicBoundaryOutput(assessmentSection);
+        }
+
+        private void ClearCalculationOutput(IFailureMechanism failureMechanism)
+        {
+            foreach (var calculationItem in failureMechanism.CalculationItems)
+            {
+                calculationItem.ClearOutput();
+                changedObservables.Add(calculationItem);
+            }
+        }
+
+        private void ClearFailureMechanismSections(IFailureMechanism failureMechanisms)
+        {
+            // TODO: WTI-365 - Clear all 'vakindelingen'
+            //changedObservables.Add(clearedInstance);
+        }
+
+        private void ClearHydraulicBoundaryOutput(AssessmentSectionBase assessmentSection)
+        {
+            // TODO: WTI-360 - Clear all 'Toetspeil' calculation output
+            //changedObservables.Add(clearedInstance);
+        }
 
         private static void HandleCriticalFileReadError(Exception e)
         {

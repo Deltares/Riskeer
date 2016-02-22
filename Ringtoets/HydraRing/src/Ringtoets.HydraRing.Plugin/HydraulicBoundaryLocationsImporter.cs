@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Plugin
     /// <summary>
     /// Imports Hydraulic boundary .sqlite files (SqlLite database files).
     /// </summary>
-    public class HydraulicBoundaryLocationsImporter : IFileImporter
+    public class HydraulicBoundaryLocationsImporter : FileImporterBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsImporter));
         private bool shouldCancel;
@@ -53,7 +53,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// Gets the name of the <see cref="HydraulicBoundaryLocationsImporter"/>.
         /// </summary>
-        public string Name
+        public override string Name
         {
             get
             {
@@ -64,7 +64,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// Gets the category of the <see cref="HydraulicBoundaryLocationsImporter"/>.
         /// </summary>
-        public string Category
+        public override string Category
         {
             get
             {
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// Gets the image of the <see cref="HydraulicBoundaryLocationsImporter"/>.
         /// </summary>
         /// <remarks>This image can be used in selection and/or progress dialogs.</remarks>
-        public Bitmap Image
+        public override Bitmap Image
         {
             get
             {
@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// Gets the <see cref="Type"/> of the item supported by the <see cref="HydraulicBoundaryLocationsImporter"/>.
         /// </summary
-        public Type SupportedItemType
+        public override Type SupportedItemType
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// Gets the file filter of the <see cref="HydraulicBoundaryLocationsImporter"/>.
         /// </summary>
-        public string FileFilter
+        public override string FileFilter
         {
             get
             {
@@ -109,7 +109,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// Sets the action to perform when progress has changed.
         /// </summary>
-        public ProgressChangedDelegate ProgressChanged { get; set; }
+        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
         /// <summary>
         /// Validates the file at <paramref name="filePath"/> and sets the version.
@@ -136,7 +136,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <param name="targetItem">The item to perform the import on.</param>
         /// <param name="filePath">The path of the file to import the data from.</param>
         /// <returns><c>True</c> if the import was successful. <c>False</c> otherwise.</returns>
-        public bool Import(object targetItem, string filePath)
+        public override bool Import(object targetItem, string filePath)
         {
             var importResult = ReadHydraulicBoundaryLocations(filePath);
 
@@ -159,7 +159,7 @@ namespace Ringtoets.HydraRing.Plugin
         /// <summary>
         /// This method cancels an import.
         /// </summary>
-        public void Cancel()
+        public override void Cancel()
         {
             shouldCancel = true;
         }

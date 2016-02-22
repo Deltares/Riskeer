@@ -67,7 +67,6 @@ namespace Ringtoets.HydraRing.Plugin.Test
             Assert.AreEqual(16, importer.Image.Height);
             Assert.AreEqual(typeof(HydraulicBoundaryLocation), importer.SupportedItemType);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
-            Assert.IsNull(importer.ProgressChanged);
             Assert.IsNull(importer.Version);
         }
 

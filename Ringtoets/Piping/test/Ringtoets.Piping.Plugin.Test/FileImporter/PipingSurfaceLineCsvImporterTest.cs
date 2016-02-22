@@ -41,7 +41,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv",
                                                    PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
-            Assert.IsNull(importer.ProgressChanged);
         }
 
         [Test]
@@ -61,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
             int callCount = 0;
-            importer.ProgressChanged += delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
+            importer.ProgressChanged = delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
                 if (callCount <= expectedNumberOfSurfaceLines)
                 {
@@ -407,7 +406,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 mocks.ReplayAll();
 
                 var importer = new PipingSurfaceLinesCsvImporter();
-                importer.ProgressChanged += (name, step, steps) =>
+                importer.ProgressChanged = (name, step, steps) =>
                 {
                     // Delete the file being read by the import during the import itself:
                     File.Delete(copyTargetPath);
@@ -453,7 +452,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
             int progressCallCount = 0;
-            importer.ProgressChanged += (name, step, steps) => { progressCallCount++; };
+            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
@@ -701,7 +700,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 mocks.ReplayAll();
 
                 var importer = new PipingSurfaceLinesCsvImporter();
-                importer.ProgressChanged += (name, step, steps) =>
+                importer.ProgressChanged = (name, step, steps) =>
                 {
                     // Delete the file being read by the import during the import itself:
                     if (name == string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_,
@@ -796,7 +795,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
             int progressCallCount = 0;
-            importer.ProgressChanged += (name, step, steps) => { progressCallCount++; };
+            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
@@ -846,7 +845,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
             int progressCallCount = 0;
-            importer.ProgressChanged += (name, step, steps) => { progressCallCount++; };
+            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
@@ -890,7 +889,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
             int progressCallCount = 0;
-            importer.ProgressChanged += (name, step, steps) => { progressCallCount++; };
+            importer.ProgressChanged = (name, step, steps) => { progressCallCount++; };
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
@@ -944,7 +943,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
             int callCount = 0;
-            importer.ProgressChanged += delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
+            importer.ProgressChanged = delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
                 if (callCount <= expectedNumberOfSurfaceLines)
                 {

@@ -39,12 +39,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the DSoilModel application.
     /// </summary>
-    public class PipingSoilProfilesImporter : IFileImporter
+    public class PipingSoilProfilesImporter : FileImporterBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
         private bool shouldCancel;
 
-        public string Name
+        public override string Name
         {
             get
             {
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public string Category
+        public override string Category
         {
             get
             {
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public Bitmap Image
+        public override Bitmap Image
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public Type SupportedItemType
+        public override Type SupportedItemType
         {
             get
             {
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public string FileFilter
+        public override string FileFilter
         {
             get
             {
@@ -85,14 +85,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public ProgressChangedDelegate ProgressChanged { get; set; }
+        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public void Cancel()
+        public override void Cancel()
         {
             shouldCancel = true;
         }
 
-        public bool Import(object targetItem, string filePath)
+        public override bool Import(object targetItem, string filePath)
         {
             var importResult = ReadSoilProfiles(filePath);
 

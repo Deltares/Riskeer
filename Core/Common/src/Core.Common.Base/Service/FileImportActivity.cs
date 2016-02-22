@@ -89,11 +89,7 @@ namespace Core.Common.Base.Service
 
         protected override void OnFinish()
         {
-            var observableTarget = target as IObservable;
-            if (observableTarget != null)
-            {
-                observableTarget.NotifyObservers();
-            }
+            fileImporter.DoPostImportUpdates(target);
         }
     }
 }

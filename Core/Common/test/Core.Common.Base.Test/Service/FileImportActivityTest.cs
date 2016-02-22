@@ -142,7 +142,6 @@ namespace Core.Common.Base.Test.Service
         {
             // Setup
             var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
             var observer = mocks.StrictMock<IObserver>();
 
             observer.Expect(o => o.UpdateObserver());
@@ -151,7 +150,7 @@ namespace Core.Common.Base.Test.Service
 
             var target = new ObservableList<object>();
             target.Attach(observer);
-
+            var fileImporter = new SimpleFileImporter();
             var fileImportActivity = new FileImportActivity(fileImporter, target, "");
 
             // Call
@@ -161,9 +160,9 @@ namespace Core.Common.Base.Test.Service
             mocks.VerifyAll();
         }
 
-        private class SimpleFileImporter : IFileImporter
+        private class SimpleFileImporter : FileImporterBase
         {
-            public string Name
+            public override string Name
             {
                 get
                 {
@@ -171,7 +170,7 @@ namespace Core.Common.Base.Test.Service
                 }
             }
 
-            public string Category
+            public override string Category
             {
                 get
                 {
@@ -179,7 +178,7 @@ namespace Core.Common.Base.Test.Service
                 }
             }
 
-            public Bitmap Image
+            public override Bitmap Image
             {
                 get
                 {
@@ -187,7 +186,7 @@ namespace Core.Common.Base.Test.Service
                 }
             }
 
-            public Type SupportedItemType
+            public override Type SupportedItemType
             {
                 get
                 {
@@ -195,7 +194,7 @@ namespace Core.Common.Base.Test.Service
                 }
             }
 
-            public string FileFilter
+            public override string FileFilter
             {
                 get
                 {
@@ -203,9 +202,9 @@ namespace Core.Common.Base.Test.Service
                 }
             }
 
-            public ProgressChangedDelegate ProgressChanged { private get; set; }
+            public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-            public bool Import(object targetItem, string filePath)
+            public override bool Import(object targetItem, string filePath)
             {
                 if (ProgressChanged != null)
                 {
@@ -215,7 +214,7 @@ namespace Core.Common.Base.Test.Service
                 return true;
             }
 
-            public void Cancel()
+            public override void Cancel()
             {
 
             }

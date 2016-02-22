@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
@@ -43,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : IFileImporter
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase
     {
         private readonly ILog log;
         private bool shouldCancel;
@@ -54,7 +55,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             log = LogManager.GetLogger(GetType());
         }
 
-        public string Name
+        public override string Name
         {
             get
             {
@@ -62,7 +63,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public string Category
+        public override string Category
         {
             get
             {
@@ -70,7 +71,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public Bitmap Image
+        public override Bitmap Image
         {
             get
             {
@@ -78,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public Type SupportedItemType
+        public override Type SupportedItemType
         {
             get
             {
@@ -86,7 +87,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public string FileFilter
+        public override string FileFilter
         {
             get
             {
@@ -95,17 +96,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        public ProgressChangedDelegate ProgressChanged { get; set; }
+        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public void Cancel()
+        public override void Cancel()
         {
             shouldCancel = true;
         }
 
-        public bool Import(object targetItem, string filePath)
+        public override bool Import(object targetItem, string filePath)
         {
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
-
             if (importSurfaceLinesResult.CriticalErrorOccurred)
             {
                 return false;
