@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
-using Core.Common.Utils.Reflection;
+
 using Ringtoets.HydraRing.Plugin;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
@@ -52,9 +52,20 @@ namespace Demo.Ringtoets.Commands
             {
                 Name = "Demo dijktraject"
             };
+            InitializeDemoReferenceLine(demoAssessmentSection);
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
             return demoAssessmentSection;
+        }
+
+        private void InitializeDemoReferenceLine(DikeAssessmentSection demoAssessmentSection)
+        {
+            using (var temporaryShapeFile = new TemporaryImportFile("traject_10-1.shp",
+                                                                    "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
+            {
+                var importer = new ReferenceLineImporter();
+                importer.Import(new ReferenceLineContext(demoAssessmentSection), temporaryShapeFile.FilePath);
+            }
         }
 
         private void InitializeDemoHydraulicBoundaryDatabase(DikeAssessmentSection demoAssessmentSection)
@@ -90,72 +101,6 @@ namespace Demo.Ringtoets.Commands
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
-        }
-
-        /// <summary>
-        /// Class for creating a temporary file in the windows Temp directory based on a
-        /// file stored in Embedded Resources.
-        /// </summary>
-        private class TemporaryImportFile : IDisposable
-        {
-            private readonly string tempTargetFolderPath;
-            private readonly string fullFilePath;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TemporaryImportFile"/> class.
-            /// </summary>
-            /// <param name="embeddedResourceFileName">Name of the file with build action 'Embedded Resource' within this project.</param>
-            /// <param name="supportFiles">Names of extra files required for importing the <paramref name="embeddedResourceFileName"/>.</param>
-            public TemporaryImportFile(string embeddedResourceFileName, params string[] supportFiles)
-            {
-                tempTargetFolderPath = Path.Combine(Path.GetTempPath(), "demo_traject");
-                Directory.CreateDirectory(tempTargetFolderPath);
-
-                fullFilePath = Path.Combine(tempTargetFolderPath, embeddedResourceFileName);
-
-                WriteEmbeddedResourceToTemporaryFile(embeddedResourceFileName, fullFilePath);
-
-                foreach (string supportFile in supportFiles)
-                {
-                    var filePath = Path.Combine(tempTargetFolderPath, supportFile);
-                    WriteEmbeddedResourceToTemporaryFile(supportFile, filePath);
-                }
-            }
-
-            private void WriteEmbeddedResourceToTemporaryFile(string embeddedResourceFileName, string filePath)
-            {
-                var stream = GetStreamToFileInResource(embeddedResourceFileName);
-
-                var bytes = GetBinaryDataOfStream(stream);
-
-                File.WriteAllBytes(filePath, bytes);
-            }
-
-            public string FilePath
-            {
-                get
-                {
-                    return fullFilePath;
-                }
-            }
-
-            public void Dispose()
-            {
-                Directory.Delete(tempTargetFolderPath, true);
-            }
-
-            private Stream GetStreamToFileInResource(string embeddedResourceFileName)
-            {
-                return AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, embeddedResourceFileName);
-            }
-
-            private static byte[] GetBinaryDataOfStream(Stream stream)
-            {
-                var bytes = new byte[stream.Length];
-                var reader = new BinaryReader(stream);
-                reader.Read(bytes, 0, (int) stream.Length);
-                return bytes;
-            }
         }
     }
 }

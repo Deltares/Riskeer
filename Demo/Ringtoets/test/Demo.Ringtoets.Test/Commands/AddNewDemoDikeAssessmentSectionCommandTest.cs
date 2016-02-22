@@ -65,6 +65,8 @@ namespace Demo.Ringtoets.Test.Commands
             var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
 
+            Assert.AreEqual(1669, demoAssessmentSection.ReferenceLine.Points.Count());
+
             var profiles = demoAssessmentSection.PipingFailureMechanism.SoilProfiles.ToArray();
             Assert.AreEqual(26, profiles.Length);
             var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();

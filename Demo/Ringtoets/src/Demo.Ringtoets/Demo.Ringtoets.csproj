@@ -64,6 +64,7 @@
     <Compile Include="Ribbons\RingtoetsDemoProjectRibbon.xaml.cs">
       <DependentUpon>RingtoetsDemoProjectRibbon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemporaryImportFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -118,6 +119,14 @@
       <Name>Ringtoets.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
+      <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
+      <Name>Ringtoets.Integration.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+      <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
+      <Name>Ringtoets.Integration.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
@@ -133,6 +142,10 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.csv" />
     <EmbeddedResource Include="Resources\complete.soil" />
+    <EmbeddedResource Include="Resources\traject_10-1.dbf" />
+    <EmbeddedResource Include="Resources\traject_10-1.prj" />
+    <EmbeddedResource Include="Resources\traject_10-1.shp" />
+    <EmbeddedResource Include="Resources\traject_10-1.shx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Ribbons\RingtoetsDemoProjectRibbon.xaml">

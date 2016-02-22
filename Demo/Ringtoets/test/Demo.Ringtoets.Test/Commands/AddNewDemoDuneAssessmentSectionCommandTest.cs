@@ -1,4 +1,6 @@
-﻿using Core.Common.Base;
+﻿using System.Linq;
+
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
@@ -56,6 +58,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1, project.Items.Count);
             var demoAssessmentSection = (DuneAssessmentSection) project.Items[0];
             Assert.AreEqual("Demo duintraject", demoAssessmentSection.Name);
+
+            Assert.AreEqual(1669, demoAssessmentSection.ReferenceLine.Points.Count());
             mocks.VerifyAll();
         }
     }

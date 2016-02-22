@@ -1,6 +1,8 @@
 ﻿using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -45,7 +47,19 @@ namespace Demo.Ringtoets.Commands
             {
                 Name = "Demo duintraject"
             };
+            InitializeDemoReferenceLine(demoAssessmentSection);
+
             return demoAssessmentSection;
+        }
+
+        private void InitializeDemoReferenceLine(DuneAssessmentSection demoAssessmentSection)
+        {
+            using (var temporaryShapeFile = new TemporaryImportFile("traject_10-1.shp",
+                                                                    "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
+            {
+                var importer = new ReferenceLineImporter();
+                importer.Import(new ReferenceLineContext(demoAssessmentSection), temporaryShapeFile.FilePath);
+            }
         }
     }
 }
