@@ -96,6 +96,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         public override bool Import(object targetItem, string filePath)
         {
+            ImportIsCancelled = false;
+            changedObservables.Clear();
             bool clearReferenceLineDependentData = false;
             var importTarget = (ReferenceLineContext)targetItem;
             if (importTarget.Parent.ReferenceLine != null)

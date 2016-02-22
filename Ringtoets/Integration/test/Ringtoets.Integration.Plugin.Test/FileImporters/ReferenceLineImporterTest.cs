@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Import_ContextWithoutReferenceLineAndFileProperFile_ImportReferenceLineToAssessmentSection()
+        public void Import_ContextWithoutReferenceLine_ImportReferenceLineToAssessmentSection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -264,6 +264,69 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_CancellingImport_ReturnFalseAndNoChanges()
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var importer = new ReferenceLineImporter();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                importer.Cancel();
+
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Call
+            bool importSuccesful = importer.Import(referenceLineContext, path);
+
+            // Assert
+            Assert.IsFalse(importSuccesful);
+            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ReusingCancelledImporterForContextWithoutReferenceLine_ImportReferenceLineToAssessmentSection()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var importer = new ReferenceLineImporter();
+            importer.Cancel();
+
+            // Call
+            bool importSuccesful = importer.Import(referenceLineContext, path);
+
+            // Assert
+            Assert.IsTrue(importSuccesful);
+            Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
+            Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
+            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
+            Assert.AreEqual(803, point2Ds.Length);
+            Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
+            Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void DoPostImportUpdates_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextAndClearedObjects()
         {
             // Setup
@@ -333,40 +396,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Import_CancellingImport_ReturnFalseAndNoChanges()
-        {
-            // Setup
-            var originalReferenceLine = new ReferenceLine();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
-            mocks.ReplayAll();
-
-            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var importer = new ReferenceLineImporter();
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                importer.Cancel();
-
-                var messageBoxTester = new MessageBoxTester(wnd);
-                messageBoxTester.ClickOk();
-            };
-
-            // Call
-            bool importSuccesful = importer.Import(referenceLineContext, path);
-
-            // Assert
-            Assert.IsFalse(importSuccesful);
-            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
         {
             // Setup
@@ -416,7 +445,82 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.VerifyAll(); // Expect no NotifyObserver calls
         }
 
+        [Test]
+        public void DoPostImportUpdates_ReuseImporterWithAssessmentSectionWithReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextAndClearedObjects()
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var calculation1 = mocks.Stub<ICalculationItem>();
+            calculation1.Stub(c => c.ClearOutput());
+            calculation1.Expect(c => c.NotifyObservers());
+            var calculation2 = mocks.Stub<ICalculationItem>();
+            calculation2.Stub(c => c.ClearOutput());
+            calculation2.Expect(c => c.NotifyObservers());
+            var calculation3 = mocks.Stub<ICalculationItem>();
+            calculation3.Stub(c => c.ClearOutput());
+            calculation3.Expect(c => c.NotifyObservers());
+            var calculation4 = mocks.Stub<ICalculationItem>();
+            calculation4.Stub(c => c.ClearOutput());
+            calculation4.Expect(c => c.NotifyObservers());
+
+            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            {
+                calculation1,
+                calculation2
+            });
+
+            var failureMechanism2 = mocks.Stub<IFailureMechanism>();
+            failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
+            {
+                calculation3,
+                calculation4
+            });
+
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism1,
+                failureMechanism2
+            });
+
+            var contextObserver = mocks.Stub<IObserver>();
+            contextObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            referenceLineContext.Attach(contextObserver);
+
+            var importer = new ReferenceLineImporter();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Precondition
+            Assert.IsTrue(importer.Import(referenceLineContext, path));
+            importer.Cancel();
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+            Assert.IsTrue(importer.Import(referenceLineContext, path));
+
+            // Call
+            importer.DoPostImportUpdates(referenceLineContext);
+
+            // Assert
+            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
+        }
+
         // TODO: Progress reporting
-        // TODO: Instance reuse
     }
 }
