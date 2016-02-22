@@ -45,61 +45,61 @@ namespace Ringtoets.HydraRing.Calculation
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 26
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 28
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 29
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 29
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                    MethodId = 6,
+                    CalculationTypeId = 6,
                     VariableId = 114
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 1
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 44
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 60
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 65
                 },
                 new HydraRingConfigurationSettings
                 {
                     HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    MethodId = 1,
+                    CalculationTypeId = 1,
                     VariableId = 65
                 }
             };
@@ -263,7 +263,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "Method", configurationSettingsForFailureMechanism.MethodId
+                        "Method", configurationSettingsForFailureMechanism.CalculationTypeId
                     },
                     {
                         "VariableId", configurationSettingsForFailureMechanism.VariableId
