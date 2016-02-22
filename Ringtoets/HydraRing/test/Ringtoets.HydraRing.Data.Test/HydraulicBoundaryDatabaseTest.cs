@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Data.Test
             // Setup
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var location = hydraulicBoundaryDatabase.Locations;
-            location.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            location.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, "toetspeil"));
 
             // Precondition
             CollectionAssert.IsNotEmpty(location);
