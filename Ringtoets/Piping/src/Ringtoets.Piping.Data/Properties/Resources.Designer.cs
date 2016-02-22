@@ -178,6 +178,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} L moet in het bereik van [{1}, {2}] liggen..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor de profielmeting heeft geen waarde..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null {
@@ -206,12 +215,20 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to L moet in het bereik van [{0}, {1}] liggen om de hoogte op dat punt te kunnen bepalen..
+        ///   Looks up a localized string similar to Kan intredepunt niet zetten..
         /// </summary>
-        public static string RingtoetsPipingSurfaceLine_L_needs_to_be_in_0_1_range_to_be_able_to_determine_height {
+        public static string RingtoetsPipingSurfaceLine_EntryPointL_Cannot_set_entry_point_at_L_0 {
             get {
-                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_L_needs_to_be_in_0_1_range_to_be_able_to_determine_hei" +
-                        "ght", resourceCulture);
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_EntryPointL_Cannot_set_entry_point_at_L_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen hoogte bepalen..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height", resourceCulture);
             }
         }
         

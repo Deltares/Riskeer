@@ -225,8 +225,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [TestCase(-1)]
         [TestCase(-1e-6)]
-        [TestCase(3 + 1e-6)]
+        [TestCase(3.1 + 1e-6)]
+        [TestCase(4.0)]
         public void GetZAtL_SurfaceLineDoesNotContainsPointAtL_ThrowsArgumentOutOfRange(double l)
         {
             // Setup
@@ -235,17 +237,16 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
+                new Point3D { X = 1.0, Y = 0.0, Z = 2.2 }, 
                 new Point3D { X = 2.0, Y = 0.0, Z = testZ },
-                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+                new Point3D { X = 4.1, Y = 0.0, Z = 7.7 },
             });
 
             // Call
             TestDelegate test = () => surfaceLine.GetZAtL(l);
 
             // Assert
-            var expectedMessage = string.Format(Properties.Resources.RingtoetsPipingSurfaceLine_L_needs_to_be_in_0_1_range_to_be_able_to_determine_height, 
-                0.0, 3.0);
+            var expectedMessage = "Kan geen hoogte bepalen. L moet in het bereik van [0, 3.1] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -388,15 +389,14 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(1.0)]
-        [TestCase(2.0)]
+        [TestCase(0.0)]
         [TestCase(3.0)]
-        [TestCase(5.0)]
-        public void EntryPointX_WithinGeometryRange_ValueSet(double testX)
+        [TestCase(4.0)]
+        public void EntryPointL_WithinGeometryRange_ValueSet(double testL)
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new []
+            surfaceLine.SetGeometry(new[]
             {
                 new Point3D
                 {
@@ -409,32 +409,40 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             // Call
-            surfaceLine.EntryPointX = testX;
+            surfaceLine.EntryPointL = testL;
 
             // Assert
-            Assert.AreEqual(testX, surfaceLine.EntryPointX);
+            Assert.AreEqual(testL, surfaceLine.EntryPointL);
         }
-
         [Test]
-        [TestCase(1.0)]
         [TestCase(-1.0)]
-        public void EntryPointX_OutsideGeometryRange_ArgumentOutOfRangeException(double testX)
+        [TestCase(-1e-6)]
+        [TestCase(4.1 + 1e-6)]
+        [TestCase(5.0)]
+        public void EntryPointL_OutsideGeometryRange_ThrowsArgumentOutOfRangeException(double testL)
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new []
+            var min = 1.0;
+            var max = 5.1;
+            surfaceLine.SetGeometry(new[]
             {
                 new Point3D
                 {
-                    X = 0.0, Y = 0.0, Z = 0.0
+                    X = min, Y = 0.0, Z = 0.0
+                },
+                new Point3D
+                {
+                    X = max, Y = 0.0, Z = 0.0
                 }
             });
 
             // Call
-            TestDelegate test = () => surfaceLine.EntryPointX = testX;
+            TestDelegate test = () => surfaceLine.EntryPointL = testL;
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
+            var expectedMessage = "Kan intredepunt niet zetten. L moet in het bereik van [0, 4.1] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         private static void CreateTestGeometry(Point3D testPoint, RingtoetsPipingSurfaceLine surfaceLine)

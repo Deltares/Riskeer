@@ -171,10 +171,16 @@
   <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Piping</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_L_needs_to_be_in_0_1_range_to_be_able_to_determine_height" xml:space="preserve">
-    <value>L moet in het bereik van [{0}, {1}] liggen om de hoogte op dat punt te kunnen bepalen.</value>
+  <data name="RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range" xml:space="preserve">
+    <value>{0} L moet in het bereik van [{1}, {2}] liggen.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry" xml:space="preserve">
     <value>De profielmeting heeft geen geometrie.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_EntryPointL_Cannot_set_entry_point_at_L_0" xml:space="preserve">
+    <value>Kan intredepunt niet zetten.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height" xml:space="preserve">
+    <value>Kan geen hoogte bepalen.</value>
   </data>
 </root>
