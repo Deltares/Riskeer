@@ -516,7 +516,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.ExitPointL = testL;
 
             // Assert
-            var expectedMessage = "Kan uittredepunt niet zetten. L moet in het bereik van [0, 4.1] liggen.";
+            var expectedMessage = string.Format("Kan uittredepunt niet zetten. L moet in het bereik van [{0}, {1}] liggen.",
+                0, 4.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
