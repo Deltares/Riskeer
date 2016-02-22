@@ -55,5 +55,71 @@ namespace Ringtoets.HydraRing.Calculation
         /// Gets or set the FORM start method.
         /// </summary>
         public int FormStartMethod { get; set; }
+
+        /// <summary>
+        /// Gets or set the maximum number of FORM iterations to perform.
+        /// </summary>
+        public int FormNumberOfIterations { get; set; }
+
+        /// <summary>
+        /// Gets or set a relaxation towards the design point for FORM.
+        /// </summary>
+        public int FormRelaxationFactor { get; set; }
+
+        /// <summary>
+        /// Gets or set one of the three convergence criteria for FORM.
+        /// </summary>
+        /// <seealso cref="FormEpsHOH"/>
+        /// <seealso cref="FormEpsZFunc"/>
+        public int FormEpsBeta { get; set; }
+
+        /// <summary>
+        /// Gets or set one of the three convergence criteria for FORM.
+        /// </summary>
+        /// <seealso cref="FormEpsBeta"/>
+        /// <seealso cref="FormEpsZFunc"/>
+        public int FormEpsHOH { get; set; }
+
+        /// <summary>
+        /// Gets or set one of the three convergence criteria for FORM.
+        /// </summary>
+        /// <seealso cref="FormEpsBeta"/>
+        /// <seealso cref="FormEpsHOH"/>
+        public int FormEpsZFunc { get; set; }
+
+        /// <summary>
+        /// Gets or set the DIRS start method.
+        /// </summary>
+        public int DsStartMethod { get; set; }
+
+        /// <summary>
+        /// Gets or set the minimum number of DIRS iterations to perform.
+        /// </summary>
+        public int DsMinNumberOfIterations { get; set; }
+
+        /// <summary>
+        /// Gets or set the maximum number of DIRS iterations to perform.
+        /// </summary>
+        public int DsMaxNumberOfIterations { get; set; }
+
+        /// <summary>
+        /// Gets or set the variation coefficient to use within the DIRS iterations.
+        /// </summary>
+        public int DsVarCoefficient { get; set; }
+
+        /// <summary>
+        /// Gets or set the lower size limit of a uniform grid deployed by NINT.
+        /// </summary>
+        public int NiUMin { get; set; }
+
+        /// <summary>
+        /// Gets or set the upper size limit of a uniform grid deployed by NINT.
+        /// </summary>
+        public int NiUMax { get; set; }
+
+        /// <summary>
+        /// Gets or set the number of steps between <seealso cref="NiUMin"/> and <seealso cref="NiUMax"/> for NINT.
+        /// </summary>
+        public int NiNumberSteps { get; set; }
     }
 }

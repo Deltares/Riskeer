@@ -498,7 +498,7 @@ namespace Ringtoets.HydraRing.Calculation
         {
             configurationDictionary["Numerics"] = configurationSettings
                 .Where(cs => cs.HydraRingFailureMechanismType == FailureMechanismType)
-                .Select(configurationSettingsForFailureMechanism => new OrderedDictionary
+                .Select(cs => new OrderedDictionary
                 {
                     {
                         "SectionId", 999 // TODO: Dike section integration
@@ -513,54 +513,53 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "SubMechanismId", configurationSettingsForFailureMechanism.SubMechanismId
+                        "SubMechanismId", cs.SubMechanismId
                     },
                     {
-                        "Method", configurationSettingsForFailureMechanism.CalculationTechniqueId
+                        "Method", cs.CalculationTechniqueId
                     },
                     {
-                        "FormStartMethod", configurationSettingsForFailureMechanism.FormStartMethod
+                        "FormStartMethod", cs.FormStartMethod
                     },
-
-//                    {
-//                        "FormNumberOfIterations", 50
-//                    },
-//                    {
-//                        "FormRelaxationFactor", 0.15
-//                    },
-//                    {
-//                        "FormEpsBeta", 0.01
-//                    },
-//                    {
-//                        "FormEpsHOH", 0.01
-//                    },
-//                    {
-//                        "FormEpsZFunc", 0.01
-//                    },
-//                    {
-//                        "DsStartMethod", 2
-//                    },
-//                    {
-//                        "DsIterationmethod", 1
-//                    },
-//                    {
-//                        "DsMinNumberOfIterations", 10000
-//                    },
-//                    {
-//                        "DsMaxNumberOfIterations", 20000
-//                    },
-//                    {
-//                        "DsVarCoefficient", 0.1
-//                    },
-//                    {
-//                        "NiUMin", -6.0
-//                    },
-//                    {
-//                        "NiUMax", 6.0
-//                    },
-//                    {
-//                        "NiNumberSteps", 25
-//                    }
+                    {
+                        "FormNumberOfIterations", cs.FormNumberOfIterations
+                    },
+                    {
+                        "FormRelaxationFactor", cs.FormRelaxationFactor
+                    },
+                    {
+                        "FormEpsBeta", cs.FormEpsBeta
+                    },
+                    {
+                        "FormEpsHOH", cs.FormEpsHOH
+                    },
+                    {
+                        "FormEpsZFunc", cs.FormEpsZFunc
+                    },
+                    {
+                        "DsStartMethod", cs.DsStartMethod
+                    },
+                    {
+                        "DsIterationmethod", 1 // Fixed: Not relevant
+                    },
+                    {
+                        "DsMinNumberOfIterations", cs.DsMinNumberOfIterations
+                    },
+                    {
+                        "DsMaxNumberOfIterations", cs.DsMaxNumberOfIterations
+                    },
+                    {
+                        "DsVarCoefficient", cs.DsVarCoefficient
+                    },
+                    {
+                        "NiUMin", cs.NiUMin
+                    },
+                    {
+                        "NiUMax", cs.NiUMax
+                    },
+                    {
+                        "NiNumberSteps", cs.NiNumberSteps
+                    }
                 }).ToList();
         }
 
