@@ -52,10 +52,12 @@ namespace Core.Common.Base.Test.IO
             observableInstance.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var simpleImporter = new SimpleFileImporter();
-            simpleImporter.GetAffectedNonTargetObservableInstancesOverride = new[]
+            var simpleImporter = new SimpleFileImporter
             {
-                observableInstance
+                GetAffectedNonTargetObservableInstancesOverride = new[]
+                {
+                    observableInstance
+                }
             };
 
             // Call
@@ -75,10 +77,12 @@ namespace Core.Common.Base.Test.IO
             var observableTarget = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var simpleImporter = new SimpleFileImporter();
-            simpleImporter.GetAffectedNonTargetObservableInstancesOverride = new[]
+            var simpleImporter = new SimpleFileImporter
             {
-                observableInstance
+                GetAffectedNonTargetObservableInstancesOverride = new[]
+                {
+                    observableInstance
+                }
             };
             simpleImporter.Cancel();
 
@@ -87,6 +91,47 @@ namespace Core.Common.Base.Test.IO
 
             // Assert
             mocks.VerifyAll(); // Assert no NotifyObservers were called
+        }
+
+        [Test]
+        public void NotifyProgress_NoDelegateSet_DoNothing()
+        {
+            // Setup
+            var simpleImporter = new SimpleFileImporter
+            {
+                ProgressChanged = null
+            };
+
+            // Call
+            TestDelegate call = () => simpleImporter.TestNotifyProgress("A", 1, 2);
+
+            // Assert
+            Assert.DoesNotThrow(call);
+        }
+
+        [Test]
+        public void NotifyProgress_DelegateSet_CallProgressChanged()
+        {
+            // Setup
+            var expectedDescription = "B";
+            var expectedStep = 1;
+            var expectedNumberOfSteps = 3;
+
+            var simpleImporter = new SimpleFileImporter();
+            int progressChangedCallCount = 0;
+            simpleImporter.ProgressChanged = (description, step, steps) =>
+            {
+                Assert.AreEqual(expectedDescription, description);
+                Assert.AreEqual(expectedStep, step);
+                Assert.AreEqual(expectedNumberOfSteps, steps);
+                progressChangedCallCount++;
+            };
+
+            // Call
+            simpleImporter.TestNotifyProgress(expectedDescription, expectedStep, expectedNumberOfSteps);
+
+            // Assert
+            Assert.AreEqual(1, progressChangedCallCount);
         }
 
         private class SimpleFileImporter : FileImporterBase
@@ -142,6 +187,11 @@ namespace Core.Common.Base.Test.IO
             public override bool Import(object targetItem, string filePath)
             {
                 throw new NotImplementedException();
+            }
+
+            public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
+            {
+                NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
             }
         }
     }

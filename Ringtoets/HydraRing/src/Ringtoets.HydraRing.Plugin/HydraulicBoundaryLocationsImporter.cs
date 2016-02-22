@@ -221,13 +221,5 @@ namespace Ringtoets.HydraRing.Plugin
                 targetCollection.Add(item);
             }
         }
-
-        private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
-        {
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
-            }
-        }
     }
 }

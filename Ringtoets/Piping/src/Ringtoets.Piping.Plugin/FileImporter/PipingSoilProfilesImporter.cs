@@ -180,14 +180,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
-        {
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
-            }
-        }
-
         private void HandleUserCancellingImport()
         {
             log.Info(ApplicationResources.PipingSoilProfilesImporter_Import_Import_cancelled);

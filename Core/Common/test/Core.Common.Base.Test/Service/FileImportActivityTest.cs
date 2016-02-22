@@ -206,10 +206,7 @@ namespace Core.Common.Base.Test.Service
 
             public override bool Import(object targetItem, string filePath)
             {
-                if (ProgressChanged != null)
-                {
-                    ProgressChanged("Step description", 1, 10);
-                }
+                NotifyProgress("Step description", 1, 10);
 
                 return true;
             }

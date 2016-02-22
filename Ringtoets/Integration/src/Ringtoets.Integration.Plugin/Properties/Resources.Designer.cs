@@ -61,6 +61,26 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u de referentielijn wilt vervangen?
+        ///Als u door gaat zullen alle vakindelingen, berekende hydrolische randvoorwaarden en berekeningsresultaten worden verwijderd..
+        /// </summary>
+        internal static string ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_dat" +
+                        "a_when_performed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referentielijn vervangen?.
+        /// </summary>
+        internal static string ReferenceLineImporter_ConfirmImport_DialogTitle {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ConfirmImport_DialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///Er is geen referentielijn geïmporteerd..
         /// </summary>
@@ -68,6 +88,53 @@ namespace Ringtoets.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_import" +
                         "ed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het traject..
+        /// </summary>
+        internal static string ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsec" +
+                        "tion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen data ingelezen..
+        /// </summary>
+        internal static string ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen referentielijn..
+        /// </summary>
+        internal static string ReferenceLineImporter_ProgressText_Reading_referenceline {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Reading_referenceline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwijderen rekenresultaten en vakindelingen van faalmechanismen..
+        /// </summary>
+        internal static string ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechan" +
+                        "ism_sections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwijderen hydraulische randvoorwaarde uitvoer..
+        /// </summary>
+        internal static string ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output {
+            get {
+                return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output", resourceCulture);
             }
         }
     }

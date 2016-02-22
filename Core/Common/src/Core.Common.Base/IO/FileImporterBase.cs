@@ -64,5 +64,13 @@ namespace Core.Common.Base.IO
         {
             return Enumerable.Empty<IObservable>();
         }
+
+        protected void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
+        {
+            if (ProgressChanged != null)
+            {
+                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
+            }
+        }
     }
 }

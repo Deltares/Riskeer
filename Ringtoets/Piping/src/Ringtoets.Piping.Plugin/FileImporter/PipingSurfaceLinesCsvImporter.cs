@@ -138,14 +138,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return true;
         }
 
-        private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
-        {
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
-            }
-        }
-
         private ReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
         {
             PipingSurfaceLinesCsvReader reader;

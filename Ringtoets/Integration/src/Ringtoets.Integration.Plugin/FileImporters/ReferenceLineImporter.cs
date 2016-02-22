@@ -102,13 +102,12 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             var importTarget = (ReferenceLineContext)targetItem;
             if (importTarget.Parent.ReferenceLine != null)
             {
-                var title = "Referentielijn vervangen?";
-                var text = "Weet u zeker dat u de referentielijn wilt vervangen?" + Environment.NewLine +
-                           "Als u door gaat zullen alle vakindelingen, berekende hydrolische randvoorwaarden en berekeningsresultaten worden verwijderd.";
-                DialogResult result = MessageBox.Show(text, title, MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show(Resources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
+                                                      Resources.ReferenceLineImporter_ConfirmImport_DialogTitle,
+                                                      MessageBoxButtons.OKCancel);
                 if (result == DialogResult.Cancel)
                 {
-                    return false;
+                    ImportIsCancelled = true;
                 }
                 else
                 {
@@ -118,12 +117,16 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
             if (ImportIsCancelled)
             {
+                NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read,
+                               0, clearReferenceLineDependentData ? 4 : 2);
                 return false;
             }
 
             ReferenceLine importedReferenceLine;
             try
             {
+                NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Reading_referenceline,
+                               1, clearReferenceLineDependentData ? 4 : 2);
                 importedReferenceLine = new ReferenceLineReader().ReadReferenceLine(filePath);
             }
             catch (ArgumentException e)
@@ -139,6 +142,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
             if (ImportIsCancelled)
             {
+                NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read,
+                               1, clearReferenceLineDependentData ? 4 : 2);
                 return false;
             }
 
@@ -153,6 +158,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private void AddReferenceLineToDataModel(AssessmentSectionBase assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
+            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
+                           2, clearReferenceLineDependentData ? 4 : 2);
             assessmentSection.ReferenceLine = importedReferenceLine;
 
             if (clearReferenceLineDependentData)
@@ -163,11 +170,15 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private void ClearReferenceLineDependentData(AssessmentSectionBase assessmentSection)
         {
+            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
+                           3, 4);
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 ClearCalculationOutput(failureMechanism);
                 ClearFailureMechanismSections(failureMechanism);
             }
+            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output,
+                           4, 4);
             ClearHydraulicBoundaryOutput(assessmentSection);
         }
 

@@ -68,6 +68,43 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_ContextWithoutReferenceLine_GeneratedExpectedProgressMessages()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var expectedProgressMessages = new[]
+            {
+                new ExpectedProgressNotification{ Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 2 },
+                new ExpectedProgressNotification{ Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 2 },
+            };
+            var progressChangedCallCount = 0;
+            var importer = new ReferenceLineImporter
+            {
+                ProgressChanged = (description, step, steps) =>
+                {
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                    progressChangedCallCount++;
+                }
+            };
+
+            // Call
+            importer.Import(referenceLineContext, path);
+
+            // Assert
+            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
@@ -264,6 +301,66 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_GenerateExpectedProgressMessages()
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var calculation1 = mocks.Stub<ICalculationItem>();
+            var calculation2 = mocks.Stub<ICalculationItem>();
+
+            var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            {
+                calculation1,
+                calculation2
+            });
+
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism1,
+            });
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var expectedProgressMessages = new[]
+            {
+                new ExpectedProgressNotification { Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 4 }, 
+                new ExpectedProgressNotification { Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 4 }, 
+                new ExpectedProgressNotification { Text = "Verwijderen rekenresultaten en vakindelingen van faalmechanismen.", CurrentStep = 3, MaxNrOfSteps = 4 }, 
+                new ExpectedProgressNotification { Text = "Verwijderen hydraulische randvoorwaarde uitvoer.", CurrentStep = 4, MaxNrOfSteps = 4 }, 
+            };
+            var progressChangedCallCount = 0;
+            var importer = new ReferenceLineImporter();
+            importer.ProgressChanged = (description, step, steps) =>
+            {
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                progressChangedCallCount++;
+            };
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Call
+            importer.Import(referenceLineContext, path);
+
+            // Assert
+            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_CancellingImport_ReturnFalseAndNoChanges()
         {
             // Setup
@@ -294,6 +391,63 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Assert
             Assert.IsFalse(importSuccesful);
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Import_CancelImportDuringDialogInteraction_GenerateExpectedProgressMessages(bool acceptRemovalOfReferenceLineDependentData)
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var expectedProgressMessages = new[]
+            {
+                new ExpectedProgressNotification { Text = "Referentielijn importeren afgebroken. Geen data ingelezen.", CurrentStep = 0, MaxNrOfSteps = acceptRemovalOfReferenceLineDependentData ? 4 : 2 }
+            };
+
+            var progressChangedCount = 0;
+            var importer = new ReferenceLineImporter
+            {
+                ProgressChanged = (description, step, steps) =>
+                {
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCount].Text, description);
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCount].CurrentStep, step);
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCount].MaxNrOfSteps, steps);
+                    progressChangedCount++;
+                }
+            };
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                importer.Cancel();
+
+                var messageBoxTester = new MessageBoxTester(wnd);
+                if (acceptRemovalOfReferenceLineDependentData)
+                {
+                    messageBoxTester.ClickOk();
+                }
+                else
+                {
+                    messageBoxTester.ClickCancel();
+                }
+            };
+
+            // Call
+            importer.Import(referenceLineContext, path);
+
+            // Assert
+            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCount);
             mocks.VerifyAll();
         }
 
@@ -521,6 +675,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
         }
 
-        // TODO: Progress reporting
+        private class ExpectedProgressNotification
+        {
+            public string Text { get; set; }
+            public int CurrentStep { get; set; }
+            public int MaxNrOfSteps { get; set; }
+        }
     }
 }
