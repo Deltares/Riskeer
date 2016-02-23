@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverterTest.cs" />
-    <Compile Include="Appenders\RunReportLogAppenderTest.cs" />
+    <Compile Include="Appenders\RenderedMessageLogAppenderTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttributeTest.cs" />
     <Compile Include="Attributes\DynamicVisibleAttributeTest.cs" />

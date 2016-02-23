@@ -30,14 +30,14 @@ namespace Core.Common.Gui.Appenders
     /// Singleton log-appender for Log4Net that is used to fill a 'Run-report' when executing
     /// a particular piece of code.
     /// </summary>
-    public class RunReportLogAppender : AppenderSkeleton
+    public class RenderedMessageLogAppender : AppenderSkeleton
     {
         private Action<string> appendMessageLineAction;
 
         /// <summary>
         /// Initializes the singleton.
         /// </summary>
-        public RunReportLogAppender() // Constructor might be marked as unused, but is called in app.config.
+        public RenderedMessageLogAppender() // Constructor might be marked as unused, but is called in app.config.
         {
             Instance = this;
         }
@@ -45,7 +45,7 @@ namespace Core.Common.Gui.Appenders
         /// <summary>
         /// The singleton value.
         /// </summary>
-        public static RunReportLogAppender Instance { get; private set; }
+        public static RenderedMessageLogAppender Instance { get; private set; }
 
         /// <summary>
         /// The action to be called when a new message is logged.

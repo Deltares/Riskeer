@@ -90,9 +90,9 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
                     try
                     {
-                        if (RunReportLogAppender.Instance != null)
+                        if (RenderedMessageLogAppender.Instance != null)
                         {
-                            RunReportLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);
+                            RenderedMessageLogAppender.Instance.AppendMessageLineAction = message => runningActivity.LogMessages.Add(message);
                         }
 
                         runningActivity.ProgressChanged += ActivityOnProgressChanged;
@@ -102,9 +102,9 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     }
                     finally
                     {
-                        if (RunReportLogAppender.Instance != null)
+                        if (RenderedMessageLogAppender.Instance != null)
                         {
-                            RunReportLogAppender.Instance.AppendMessageLineAction = null;
+                            RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
                         }
 
                         runningActivity.ProgressChanged -= ActivityOnProgressChanged;

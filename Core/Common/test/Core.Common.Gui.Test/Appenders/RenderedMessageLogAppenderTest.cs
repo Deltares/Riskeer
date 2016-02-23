@@ -11,31 +11,31 @@ using NUnit.Framework;
 namespace Core.Common.Gui.Test.Appenders
 {
     [TestFixture]
-    public class RunReportLogAppenderTest
+    public class RenderedMessageLogAppenderTest
     {
         private Action<string> originalAppendMessageLineAction;
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
-            if (RunReportLogAppender.Instance != null)
+            if (RenderedMessageLogAppender.Instance != null)
             {
-                originalAppendMessageLineAction = RunReportLogAppender.Instance.AppendMessageLineAction;
-                RunReportLogAppender.Instance.AppendMessageLineAction = null;
+                originalAppendMessageLineAction = RenderedMessageLogAppender.Instance.AppendMessageLineAction;
+                RenderedMessageLogAppender.Instance.AppendMessageLineAction = null;
             }
         }
 
         [TestFixtureTearDown]
         public void TestFixtureTearDown()
         {
-            RunReportLogAppender.Instance.AppendMessageLineAction = originalAppendMessageLineAction;
+            RenderedMessageLogAppender.Instance.AppendMessageLineAction = originalAppendMessageLineAction;
         }
 
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var appender = new RunReportLogAppender();
+            var appender = new RenderedMessageLogAppender();
 
             // Assert
             Assert.IsInstanceOf<AppenderSkeleton>(appender);
@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Test.Appenders
             Assert.IsNull(appender.Name);
             Assert.IsNull(appender.Threshold);
 
-            Assert.AreSame(appender, RunReportLogAppender.Instance);
+            Assert.AreSame(appender, RenderedMessageLogAppender.Instance);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Core.Common.Gui.Test.Appenders
             var logEvent = new LoggingEvent(logEventData);
 
             int actionCallCount = 0;
-            var appender = new RunReportLogAppender
+            var appender = new RenderedMessageLogAppender
             {
                 AppendMessageLineAction = s =>
                 {
@@ -91,7 +91,7 @@ namespace Core.Common.Gui.Test.Appenders
             };
             var logEvent = new LoggingEvent(logEventData);
 
-            var appender = new RunReportLogAppender();
+            var appender = new RenderedMessageLogAppender();
 
             // Call
             TestDelegate call = () => appender.DoAppend(logEvent);
@@ -104,7 +104,7 @@ namespace Core.Common.Gui.Test.Appenders
         public void AppendMessageLineAction_SetTwoActions_ThrowInvalidOperationException()
         {
             // Setup
-            var appender = new RunReportLogAppender
+            var appender = new RenderedMessageLogAppender
             {
                 AppendMessageLineAction = s =>
                 {
@@ -127,7 +127,7 @@ namespace Core.Common.Gui.Test.Appenders
         public void AppendMessageLineAction_SetToNullWhenAlreadyHasAction_SetActionToNull()
         {
             // Setup
-            var appender = new RunReportLogAppender
+            var appender = new RenderedMessageLogAppender
             {
                 AppendMessageLineAction = s =>
                 {

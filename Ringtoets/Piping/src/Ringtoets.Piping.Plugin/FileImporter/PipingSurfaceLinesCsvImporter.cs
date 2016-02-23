@@ -121,7 +121,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
 
             var importCharacteristicPointsResult = ReadCharacteristicPoints(filePath);
-
             if (importCharacteristicPointsResult.CriticalErrorOccurred)
             {
                 return false;
