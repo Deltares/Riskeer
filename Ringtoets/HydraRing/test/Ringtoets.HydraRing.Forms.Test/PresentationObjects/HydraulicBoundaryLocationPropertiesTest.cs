@@ -132,7 +132,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             const string expectedIdDescription = "Id van de hydraulische randvoorwaarden locatie in de database.";
             const string expectedNameDescriptione = "Naam van de hydraulische randvoorwaarden locatie.";
             const string expectedLocationDescriptione = "Coördinaten van de hydraulische randvoorwaarden locatie.";
-            const string expectedDesignWaterLevelDescription = "Berekende toetspeil.";
+            const string expectedDesignWaterLevelDescription = "Berekend toetspeil.";
 
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
