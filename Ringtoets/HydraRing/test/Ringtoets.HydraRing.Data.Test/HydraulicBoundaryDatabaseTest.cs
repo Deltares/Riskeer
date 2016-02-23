@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using NUnit.Framework;
 
 namespace Ringtoets.HydraRing.Data.Test
@@ -36,6 +37,7 @@ namespace Ringtoets.HydraRing.Data.Test
             Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.FilePath);
             Assert.IsNullOrEmpty(null, hydraulicBoundaryDatabase.Version);
             Assert.IsInstanceOf<ICollection<HydraulicBoundaryLocation>>(hydraulicBoundaryDatabase.Locations);
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
         }
 

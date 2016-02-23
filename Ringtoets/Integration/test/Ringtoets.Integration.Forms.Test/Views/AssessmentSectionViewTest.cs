@@ -21,10 +21,12 @@
 
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -92,6 +94,39 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreSame(assessmentSectionBase, view.Data);
             Assert.IsInstanceOf<MapData>(map.Data);
+        }
+
+        [Test]
+        public void UpdateObserver_DataUpdated_SetNewMapData()
+        {
+            // Setup
+            var view = new AssessmentSectionView();
+            var map = (BaseMap)view.Controls[0];
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            
+            mocks.ReplayAll();
+
+            var assessmentSectionBase = new AssessmentSectionBaseTestClass();
+            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSectionBase.HydraulicBoundaryDatabase.Attach(observer);
+
+            view.Data = assessmentSectionBase;
+            var mapData = map.Data;
+
+            // Precondition
+            Assert.AreSame(assessmentSectionBase, view.Data);
+
+            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2, 3));
+            
+            // Call
+            assessmentSectionBase.HydraulicBoundaryDatabase.NotifyObservers();
+
+            // Assert
+            Assert.AreNotEqual(mapData, map.Data);
+            mocks.VerifyAll();
         }
 
         private class AssessmentSectionBaseTestClass : AssessmentSectionBase

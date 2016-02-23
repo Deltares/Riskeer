@@ -26,7 +26,6 @@ using Core.Components.Gis.Data;
 
 using DotSpatial.Controls;
 using DotSpatial.Data;
-using DotSpatial.Symbology;
 using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms

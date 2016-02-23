@@ -506,6 +506,7 @@ namespace Ringtoets.Integration.Plugin
         {
             nodeData.BoundaryDatabase.FilePath = selectedFile;
             nodeData.BoundaryDatabase.Version = version;
+            nodeData.BoundaryDatabase.NotifyObservers();
             nodeData.NotifyObservers();
             log.InfoFormat(HydraringResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
         }

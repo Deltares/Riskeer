@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
@@ -32,7 +33,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// This class represents a simple view with a map, to which data can be added. 
     /// </summary>
-    public partial class AssessmentSectionView : UserControl, IMapView
+    public partial class AssessmentSectionView : UserControl, IMapView, IObserver
     {
         private readonly BaseMap map;
         private AssessmentSectionBase data;
@@ -61,7 +62,8 @@ namespace Ringtoets.Integration.Forms.Views
 
                 if (data != null)
                 {
-                    Map.Data = GetHydraulicBoudaryLocations(data);
+                    SetDataToMap();
+                    data.HydraulicBoundaryDatabase.Attach(this);
                 }
             }
         }
@@ -75,6 +77,16 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return map;
             }
+        }
+
+        public void UpdateObserver()
+        {
+            SetDataToMap();
+        }
+
+        private void SetDataToMap()
+        {
+            map.Data = GetHydraulicBoudaryLocations(data);
         }
 
         private MapData GetHydraulicBoudaryLocations(AssessmentSectionBase assessmentSectionBase)
