@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
+using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
 using Ringtoets.Integration.Data;
 
@@ -59,17 +61,26 @@ namespace Ringtoets.Integration.Forms.Views
 
                 if (data != null)
                 {
-                    //TODO set data to map.
+                    Map.Data = GetHydraulicBoudaryLocations(data);
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="BaseMap"/> object.
+        /// </summary>
         public IMap Map
         {
             get
             {
                 return map;
             }
+        }
+
+        private MapData GetHydraulicBoudaryLocations(AssessmentSectionBase assessmentSectionBase)
+        {
+            var locations = assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
+            return new MapPointData(locations);
         }
     }
 }

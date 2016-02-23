@@ -19,10 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
+using Core.Components.Gis.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -70,6 +75,31 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.DoesNotThrow(testDelegate);
             Assert.IsNull(map.Data);
+        }
+
+        [Test]
+        public void Data_SetToMapPointData_MapDataSet()
+        {
+            // Setup
+            var view = new AssessmentSectionView();
+            var map = (BaseMap)view.Controls[0];
+            var assessmentSectionBase = new AssessmentSectionBaseTestClass();
+            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, "level"));
+
+            // Call
+            view.Data = assessmentSectionBase;
+
+            // Assert
+            Assert.AreSame(assessmentSectionBase, view.Data);
+            Assert.IsInstanceOf<MapData>(map.Data);
+        }
+
+        private class AssessmentSectionBaseTestClass : AssessmentSectionBase
+        {
+            public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
+            {
+                yield break;
+            }
         }
     }
 }
