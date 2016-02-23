@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Core.Common.Base;
-
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -62,6 +62,47 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient);
             Assert.AreEqual(37, inputParameters.BeddingAngle);
             Assert.AreEqual(2.08e-4, inputParameters.MeanDiameter70);
+        }
+
+        [Test]
+        public void SurfaceLine_WithDikeToeDikeSideAndDikeToeRiverSide_SetsExitPointLAndSeePageLength()
+        {
+            // Setup
+            var inputParameters = new PipingInput();
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var firstPointX = 1.0;
+            var secondPointX = 4.0;
+            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
+            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
+            surfaceLine.SetGeometry(new []
+            {
+                point1,
+                point2,
+            });
+            surfaceLine.SetDikeToeAtRiverAt(point1);
+            surfaceLine.SetDikeToeAtPolderAt(point2);
+            
+            // Call
+            inputParameters.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL);
+        }
+
+        [Test]
+        public void SurfaceLine_WithoutDikeToeDikeSideAndDikeToeRiverSide_NoChangeForExitPointLAndSeePageLength()
+        {
+            // Setup
+            var inputParameters = new PipingInput();
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            
+            // Call
+            inputParameters.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(Math.Exp(-0.5), inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(0, inputParameters.ExitPointL);
         }
     }
 }

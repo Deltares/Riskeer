@@ -50,8 +50,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 point1,
                 point2
             });
-            surfaceLine.SetDikeToeAtRiver(point1);
-            surfaceLine.SetDikeToeAtPolder(point2);
+            surfaceLine.SetDikeToeAtRiverAt(point1);
+            surfaceLine.SetDikeToeAtPolderAt(point2);
             surfaceLine.SetDitchDikeSideAt(point1);
             surfaceLine.SetBottomDitchDikeSideAt(point1);
             surfaceLine.SetBottomDitchPolderSideAt(point2);

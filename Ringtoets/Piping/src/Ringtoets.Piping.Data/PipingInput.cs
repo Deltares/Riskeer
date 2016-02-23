@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using Core.Common.Base;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -30,6 +32,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingInput : Observable
     {
+        private RingtoetsPipingSurfaceLine surfaceLine;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
         /// </summary>
@@ -194,7 +198,34 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the surface line.
         /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
+        public RingtoetsPipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return surfaceLine;
+            }
+            set
+            {
+                surfaceLine = value;
+                UpdateValuesBasedOnSurfaceLine();
+            }
+        }
+
+        private void UpdateValuesBasedOnSurfaceLine()
+        {
+            var entryPointIndex = Array.IndexOf(surfaceLine.Points.ToArray(), surfaceLine.DikeToeAtRiver);
+            var exitPointIndex = Array.IndexOf(surfaceLine.Points.ToArray(), surfaceLine.DikeToeAtPolder);
+
+            if (entryPointIndex > -1 && exitPointIndex > -1)
+            {
+                var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+                var entryPointL = localGeometry.ElementAt(entryPointIndex).X;
+                var exitPointL = localGeometry.ElementAt(exitPointIndex).X;
+
+                ExitPointL = exitPointL;
+                SeepageLength.Mean = exitPointL - entryPointL;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.

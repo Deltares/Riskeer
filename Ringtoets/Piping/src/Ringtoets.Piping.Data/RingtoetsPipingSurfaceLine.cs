@@ -182,7 +182,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        public void SetDikeToeAtRiver(Point3D point)
+        public void SetDikeToeAtRiverAt(Point3D point)
         {
             DikeToeAtRiver = GetPointFromGeometry(point);
         }
@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        public void SetDikeToeAtPolder(Point3D point)
+        public void SetDikeToeAtPolderAt(Point3D point)
         {
             DikeToeAtPolder = GetPointFromGeometry(point);
         }

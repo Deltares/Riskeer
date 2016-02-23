@@ -542,7 +542,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SetDikeToeAtRiver_PointInGeometry_PointSetFromGeometry()
+        public void SetDikeToeAtRiverAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
             var testX = 1.0;
@@ -558,7 +558,7 @@ namespace Ringtoets.Piping.Data.Test
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            surfaceLine.SetDikeToeAtRiver(testPoint);
+            surfaceLine.SetDikeToeAtRiverAt(testPoint);
 
             // Assert
             Assert.AreEqual(testPoint, surfaceLine.DikeToeAtRiver);
@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SetDikeToeAtRiver_GeometryEmpty_ThrowsInvalidOperationException()
+        public void SetDikeToeAtRiverAt_GeometryEmpty_ThrowsInvalidOperationException()
         {
             // Setup
             var random = new Random(21);
@@ -582,7 +582,7 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtRiver(testPoint);
+            TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(testPoint);
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
@@ -591,20 +591,20 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SetDikeToeAtRiver_Null_ThrowsArgumentNullException()
+        public void SetDikeToeAtRiverAt_Null_ThrowsArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtRiver(null);
+            TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
         }
 
         [Test]
-        public void SetDikeToeAtPolder_PointInGeometry_PointSetFromGeometry()
+        public void SetDikeToeAtPolderAt_PointInGeometry_PointSetFromGeometry()
         {
             // Setup
             var testX = 1.0;
@@ -620,7 +620,7 @@ namespace Ringtoets.Piping.Data.Test
             CreateTestGeometry(testPoint, surfaceLine);
 
             // Call
-            surfaceLine.SetDikeToeAtPolder(testPoint);
+            surfaceLine.SetDikeToeAtPolderAt(testPoint);
 
             // Assert
             Assert.AreEqual(testPoint, surfaceLine.DikeToeAtPolder);
@@ -628,7 +628,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SetDikeToeAtPolder_GeometryEmpty_ThrowsInvalidOperationException()
+        public void SetDikeToeAtPolderAt_GeometryEmpty_ThrowsInvalidOperationException()
         {
             // Setup
             var random = new Random(21);
@@ -644,7 +644,7 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtPolder(testPoint);
+            TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(testPoint);
 
             // Assert
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
@@ -653,13 +653,13 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SetDikeToeAtPolder_Null_ThrowsArgumentNullException()
+        public void SetDikeToeAtPolderAt_Null_ThrowsArgumentNullException()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetDikeToeAtPolder(null);
+            TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");

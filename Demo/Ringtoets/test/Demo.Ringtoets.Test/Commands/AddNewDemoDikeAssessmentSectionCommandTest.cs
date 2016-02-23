@@ -129,12 +129,12 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.IsTrue(PipingCalculationService.Validate(calculation));
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
-            Assert.AreEqual(0.0021, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(-143.3235, calculation.Output.HeaveZValue, 1e-3);
-            Assert.AreEqual(4.4072, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(5.6044, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.0016, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.6387, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(99.0, calculation.Output.HeaveFactorOfSafety, 1e-3);
+            Assert.AreEqual(118.627, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(99.0, calculation.Output.UpliftFactorOfSafety, 1e-3);
+            Assert.AreEqual(3.655, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(-1.56, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(3.478, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -158,9 +158,9 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("AD640M00_Segment_36005_1D2", inputParameters.SoilProfile.Name);
 
             Assert.AreEqual(3.666, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(), 1e-3);
-            Assert.AreEqual(-1.645, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(1.355, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(), 1e-3);
             Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(), 1e-3);
-            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(), 1e-3);
+            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(), 92.614006456265088);
             Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(), 1e-3);
             Assert.AreEqual(2.345, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(), 1e-3);
             Assert.AreEqual(2.345, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(), 1e-3);
