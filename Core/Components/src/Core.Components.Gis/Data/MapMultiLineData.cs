@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 
 namespace Core.Components.Gis.Data
@@ -28,21 +29,26 @@ namespace Core.Components.Gis.Data
     /// <summary>
     /// This class represents data in 2D space which is visible as a line.
     /// </summary>
-    public class MapLineData : PointBasedMapData
+    public class MapMultiLineData : MapData
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> which describes a line in 2D space.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapLineData(IEnumerable<Point2D> points) : base(points)
+        /// <param name="lines">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) lines.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="lines"/> is <c>null</c>.</exception>
+        public MapMultiLineData(IEnumerable<IEnumerable<Point2D>> lines)
         {
-            MetaData = new Dictionary<string, object>();
+            if (lines == null)
+            {
+                var message = String.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData));
+                throw new ArgumentNullException("lines", message);
+            }
+            Lines = lines.ToArray();
         }
 
         /// <summary>
-        /// Gets the meta data associated with the line data.
+        /// Gets all the lines in the multi line data
         /// </summary>
-        public IDictionary<string,object> MetaData { get; private set; }
+        public IEnumerable<Point2D>[] Lines { get; private set; }
     }
 }

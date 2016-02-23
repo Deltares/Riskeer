@@ -19,30 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Components.Gis.Data;
+using DotSpatial.Data;
+using DotSpatial.Topology;
 
-namespace Core.Components.Gis.Data
+namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// This class represents data in 2D space which is visible as a line.
+    /// The converter that converts <see cref="MapMultiLineData"/> into a <see cref="FeatureSet"/> containing multiple <see cref="LineString"/>.
     /// </summary>
-    public class MapLineData : PointBasedMapData
+    public class MapMultiLineDataConverter : MapDataConverter<MapMultiLineData>
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="MapLineData"/>.
-        /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> which describes a line in 2D space.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapLineData(IEnumerable<Point2D> points) : base(points)
+        protected override IList<FeatureSet> Convert(MapMultiLineData data)
         {
-            MetaData = new Dictionary<string, object>();
-        }
+            var featureSet = new FeatureSet(FeatureType.Line);
 
-        /// <summary>
-        /// Gets the meta data associated with the line data.
-        /// </summary>
-        public IDictionary<string,object> MetaData { get; private set; }
+            foreach (IEnumerable<Point2D> line in data.Lines)
+            {
+                var coordinates = line.Select(p => new Coordinate(p.X, p.Y));
+                var lineString = new LineString(coordinates);
+
+                featureSet.Features.Add(lineString);
+            }
+
+            return new List<FeatureSet>
+            {
+                featureSet
+            };
+        }
     }
 }

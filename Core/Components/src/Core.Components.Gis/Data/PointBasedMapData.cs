@@ -34,7 +34,7 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Create a new instance of <see cref="PointBasedMapData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) coordinates.</param>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> which describe locations in 2D space.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         protected PointBasedMapData(IEnumerable<Point2D> points)
         {

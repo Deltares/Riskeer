@@ -44,6 +44,7 @@
     <Compile Include="Data\MapData.cs" />
     <Compile Include="Data\MapDataCollection.cs" />
     <Compile Include="Data\MapLineData.cs" />
+    <Compile Include="Data\MapMultiLineData.cs" />
     <Compile Include="Data\MapPointData.cs" />
     <Compile Include="Data\MapPolygonData.cs" />
     <Compile Include="Data\PointBasedMapData.cs" />

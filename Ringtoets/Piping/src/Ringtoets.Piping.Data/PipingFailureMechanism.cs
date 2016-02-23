@@ -58,12 +58,12 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
-        public IEnumerable<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
+        public ICollection<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
 
         /// <summary>
         /// Gets the available profiles within the scope of the piping failure mechanism.
         /// </summary>
-        public IEnumerable<PipingSoilProfile> SoilProfiles { get; private set; }
+        public ICollection<PipingSoilProfile> SoilProfiles { get; private set; }
 
         /// <summary>
         /// Gets the boundary conditions applying to the piping failure mechanism.
