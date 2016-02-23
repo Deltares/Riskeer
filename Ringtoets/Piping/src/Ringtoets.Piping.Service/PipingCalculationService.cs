@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Service
                 PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
                 inputParameters.MeanDiameter70,
                 inputParameters.BeddingAngle,
-                inputParameters.ExitPointXCoordinate,
+                inputParameters.ExitPointL,
                 inputParameters.SurfaceLine,
                 inputParameters.SoilProfile
                 );

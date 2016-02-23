@@ -574,4 +574,22 @@
   <data name="Categories_Characteristic_points" xml:space="preserve">
     <value>Karakteristieke punten</value>
   </data>
+  <data name="PipingInput_EntryPointL_Description" xml:space="preserve">
+    <value>Het L-coordinaat van het intredepunt.</value>
+  </data>
+  <data name="PipingInput_EntryPointL_DisplayName" xml:space="preserve">
+    <value>Inttredepunt</value>
+  </data>
+  <data name="PipingInput_ExitPointL_Description" xml:space="preserve">
+    <value>Het L-coordinaat van het uittredepunt.</value>
+  </data>
+  <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
+    <value>Uittredepunt</value>
+  </data>
+  <data name="PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length" xml:space="preserve">
+    <value>Kon waarde {0} voor het uittredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte.</value>
+  </data>
+  <data name="PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length" xml:space="preserve">
+    <value>Kon waarde {0} voor het intredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte.</value>
+  </data>
 </root>

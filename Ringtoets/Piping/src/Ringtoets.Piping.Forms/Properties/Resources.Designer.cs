@@ -633,6 +633,42 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het L-coordinaat van het intredepunt..
+        /// </summary>
+        public static string PipingInput_EntryPointL_Description {
+            get {
+                return ResourceManager.GetString("PipingInput_EntryPointL_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inttredepunt.
+        /// </summary>
+        public static string PipingInput_EntryPointL_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingInput_EntryPointL_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het L-coordinaat van het uittredepunt..
+        /// </summary>
+        public static string PipingInput_ExitPointL_Description {
+            get {
+                return ResourceManager.GetString("PipingInput_ExitPointL_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uittredepunt.
+        /// </summary>
+        public static string PipingInput_ExitPointL_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingInput_ExitPointL_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De x-coordinaat van het uittredepunt..
         /// </summary>
         public static string PipingInput_ExitPointXCoordinate_Description {
@@ -962,6 +998,26 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingInputContext_NodeDisplayName {
             get {
                 return ResourceManager.GetString("PipingInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon waarde {0} voor het intredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte..
+        /// </summary>
+        public static string PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length {
+            get {
+                return ResourceManager.GetString("PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_lengt" +
+                        "h", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon waarde {0} voor het uittredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte..
+        /// </summary>
+        public static string PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length {
+            get {
+                return ResourceManager.GetString("PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length" +
+                        "", resourceCulture);
             }
         }
         

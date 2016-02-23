@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     {
                         Mean = 1.0
                     },
-                    ExitPointXCoordinate = 1.0,
+                    ExitPointL = 1.0,
                     Gravity = 1.0,
                     MeanDiameter70 = 1.0,
                     PiezometricHeadExit = 1.0,

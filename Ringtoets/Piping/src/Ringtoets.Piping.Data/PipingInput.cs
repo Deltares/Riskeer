@@ -132,10 +132,10 @@ namespace Ringtoets.Piping.Data
         public double SellmeijerModelFactor { get; set; }
 
         /// <summary>
-        /// Gets or sets the x coordinate of the exit point.
+        /// Gets or sets the L-coordinate of the exit point.
         /// [m]
         /// </summary>
-        public double ExitPointXCoordinate { get; set; }
+        public double ExitPointL { get; set; }
 
         #region Probabilistic parameters
 

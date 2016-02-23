@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-
-using Core.Common.Gui;
+using System.Reflection;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
@@ -207,6 +207,57 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #endregion
 
         #region Uplift 
+        
+        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_EntryPointL_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_EntryPointL_Description")]
+        public double EntryPointL
+        {
+            get
+            {
+                return data.WrappedData.ExitPointL - data.WrappedData.SeepageLength.Mean;
+            }
+            set
+            {
+                try
+                {
+                    data.WrappedData.SeepageLength.Mean = data.WrappedData.ExitPointL - value;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, value);
+                    throw new ArgumentException(message);
+                }
+
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_ExitPointL_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_ExitPointL_Description")]
+        public double ExitPointL
+        {
+            get
+            {
+                return data.WrappedData.ExitPointL;
+            }
+            set
+            {
+                try
+                {
+                    data.WrappedData.SeepageLength.Mean -= data.WrappedData.ExitPointL - value;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, value);
+                    throw new ArgumentException(message);
+                }
+
+                data.WrappedData.ExitPointL = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
 
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_WaterVolumetricWeight_DisplayName")]

@@ -97,6 +97,9 @@ namespace Core.Common.Gui.PropertyBag
         /// </list></exception>
         /// <exception cref="InvalidOperationException">Calling this method while property
         /// has no setter.</exception>
+        /// <exception cref="TargetInvocationException">Calling the method resulted in an exception.</exception>
+        /// <exception cref="TargetException"><paramref name="instance"/> is <c>null</c> or the
+        /// method is not defined on <paramref name="instance"/>.</exception>
         public void SetValue(object instance, object newValue)
         {
             var setMethodInfo = propertyInfo.GetSetMethod();
@@ -105,26 +108,10 @@ namespace Core.Common.Gui.PropertyBag
                 throw new InvalidOperationException("Property lacks public setter!");
             }
 
-            try
+            setMethodInfo.Invoke(instance, new[]
             {
-                setMethodInfo.Invoke(instance, new[]
-                {
-                    newValue
-                });
-            }
-            catch (TargetException e)
-            {
-                object type = instance == null ? null : instance.GetType();
-                var message = string.Format("Are you calling SetValue on the correct instance? Expected '{0}', but was '{1}'",
-                                            propertyInfo.DeclaringType, type);
-                throw new ArgumentException(message, "instance", e);
-            }
-            catch (TargetInvocationException e)
-            {
-                var message = string.Format("Something went wrong while setting property with value '{0}'; Check InnerException for more information.",
-                                            newValue);
-                throw new ArgumentException(message, "newValue", e);
-            }
+                newValue
+            });
         }
 
         /// <summary>

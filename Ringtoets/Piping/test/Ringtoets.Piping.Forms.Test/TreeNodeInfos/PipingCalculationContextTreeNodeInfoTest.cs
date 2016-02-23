@@ -594,7 +594,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             calculation.InputParameters.DampingFactorExit.Mean = validPipingInput.DampingFactorExit;
             calculation.InputParameters.DarcyPermeability.Mean = validPipingInput.DarcyPermeability;
             calculation.InputParameters.Diameter70.Mean = validPipingInput.Diameter70;
-            calculation.InputParameters.ExitPointXCoordinate = validPipingInput.ExitPointXCoordinate;
+            calculation.InputParameters.ExitPointL = validPipingInput.ExitPointXCoordinate;
             calculation.InputParameters.Gravity = validPipingInput.Gravity;
             calculation.InputParameters.MeanDiameter70 = validPipingInput.MeanDiameter70;
             calculation.InputParameters.PhreaticLevelExit.Mean = validPipingInput.PhreaticLevelExit;

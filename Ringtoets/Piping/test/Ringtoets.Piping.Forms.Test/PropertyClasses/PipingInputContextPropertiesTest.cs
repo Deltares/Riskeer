@@ -2,9 +2,8 @@
 using System.Linq;
 
 using Core.Common.Base;
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -66,7 +65,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExitHeave.Distribution);
             Assert.AreSame(inputParameters.ThicknessCoverageLayer, properties.ThicknessCoverageLayerHeave.Distribution);
             Assert.AreSame(inputParameters.ThicknessCoverageLayer, properties.ThicknessCoverageLayerSellmeijer.Distribution);
-            Assert.AreSame(inputParameters.SeepageLength, properties.SeepageLength.Distribution);
             Assert.AreSame(inputParameters.Diameter70, properties.Diameter70.Distribution);
             Assert.AreSame(inputParameters.DarcyPermeability, properties.DarcyPermeability.Distribution);
             Assert.AreSame(inputParameters.ThicknessAquiferLayer, properties.ThicknessAquiferLayer.Distribution);
@@ -90,6 +88,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.WhitesDragCoefficient, properties.WhitesDragCoefficient);
             Assert.AreEqual(inputParameters.BeddingAngle, properties.BeddingAngle);
             Assert.AreEqual(inputParameters.MeanDiameter70, properties.MeanDiameter70);
+
+            Assert.AreSame(inputParameters.SeepageLength, properties.SeepageLength.Distribution);
+            Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
+            Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
+
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(soilProfile, properties.SoilProfile);
         }
@@ -215,6 +218,201 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
 
             mocks.VerifyAll();
+        }
+        
+        [Test]
+        [TestCase(2, 2, 0)]
+        [TestCase(2, 4, -2)]
+        [TestCase(0, 4, -4)]
+        [TestCase(1e-6, 4, - (4 - 1e-6))]
+        [TestCase(3, 1e-6, 3 - 1e-6)]
+        [TestCase(0, 1e-6, -1e-6)]
+        public void EntryPointL_ExitPointAndSeepageLengthSet_ExpectedValue(double exitPoint, double seepageLength, double entryPoint)
+        {
+            // Setup
+            var random = new Random(22);
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
+            });
+            var inputParameters = new PipingInput
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
+            };
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
+            };
+
+            properties.ExitPointL = exitPoint;
+            properties.SeepageLength.Distribution.Mean = seepageLength;
+
+            // Call & Assert
+            Assert.AreEqual(entryPoint, properties.EntryPointL);
+            Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
+            Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+        }
+
+        [Test]
+        [TestCase(0, 3, 3)]
+        [TestCase(2, 4, 2)]
+        [TestCase(1e-6, 4, 4 - 1e-6)]
+        [TestCase(1e-6, 3, 3 - 1e-6)]
+        [TestCase(0, 1e-6, 1e-6)]
+        public void SeepageLength_ExitPointAndEntryPointSet_ExpectedValue(double entryPoint, double exitPoint, double seepageLength)
+        {
+            // Setup
+            var random = new Random(22);
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
+            });
+            var inputParameters = new PipingInput
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
+            };
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
+            };
+
+            properties.ExitPointL = exitPoint;
+            properties.EntryPointL = entryPoint;
+
+            // Call & Assert
+            Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean);
+            Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
+            Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+        }
+
+        [Test]
+        public void SeepageLength_EntryPointAndThenExitPointSet_ExpectedValue()
+        {
+            // Setup
+            var random = new Random(22);
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
+            });
+            var inputParameters = new PipingInput
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
+            };
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
+            };
+
+            properties.EntryPointL = -1;
+            properties.ExitPointL = 2;
+
+            // Call & Assert
+            Assert.AreEqual(3, properties.SeepageLength.Distribution.Mean);
+            Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
+            Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+        }
+
+        [Test]
+        public void EntryPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(22);
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
+            });
+            var inputParameters = new PipingInput
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
+            };
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
+            };
+
+            var l = 2.0;
+            properties.ExitPointL = l;
+
+            // Call
+            TestDelegate test = () => properties.EntryPointL = l;
+
+            // Assert
+            var message = string.Format(Properties.Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        [Test]
+        public void ExitPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(22);
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
+            });
+            var inputParameters = new PipingInput
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
+            };
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>())
+            };
+
+            var l = -2.0;
+            properties.EntryPointL = l;
+
+            // Call
+            TestDelegate test = () => properties.ExitPointL = l;
+
+            // Assert
+            var message = string.Format(Properties.Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, l);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
     }
 }
