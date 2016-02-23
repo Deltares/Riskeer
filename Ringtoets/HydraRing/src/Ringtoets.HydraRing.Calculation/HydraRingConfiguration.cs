@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HydraRing.Calculation
 {
@@ -33,6 +32,7 @@ namespace Ringtoets.HydraRing.Calculation
     /// </summary>
     public class HydraRingConfiguration
     {
+        private readonly IList<HydraRingCalculationData> hydraRingCalculations;
         private readonly IEnumerable<HydraRingConfigurationDefaults> configurationDefaults;
         private readonly IEnumerable<HydraRingConfigurationSettings> configurationSettings;
 
@@ -41,6 +41,8 @@ namespace Ringtoets.HydraRing.Calculation
         /// </summary>
         public HydraRingConfiguration()
         {
+            hydraRingCalculations = new List<HydraRingCalculationData>();
+
             configurationDefaults = new[]
             {
                 new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.AssessmentLevel, 1, 26, new[]
@@ -671,14 +673,13 @@ namespace Ringtoets.HydraRing.Calculation
         public HydraRingUncertaintiesType? UncertaintiesType { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
+        /// Adds a Hydra-Ring calculation to the <see cref="HydraRingConfiguration"/>.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
-        /// </summary>
-        public HydraRingFailureMechanismType? FailureMechanismType { get; set; }
+        /// <param name="hydraRingCalculationData">The container that holds all data for configuring the calculation.</param>
+        public void AddHydraRingCalculation(HydraRingCalculationData hydraRingCalculationData)
+        {
+            hydraRingCalculations.Add(hydraRingCalculationData);
+        }
 
         /// <summary>
         /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
@@ -689,8 +690,6 @@ namespace Ringtoets.HydraRing.Calculation
         {
             var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
 
-            ValidateDataBaseCreationScriptInput();
-
             InitializeHydraulicModelsConfiguration(configurationDictionary);
             InitializeSectionsConfiguration(configurationDictionary);
             InitializeDesignTablesConfiguration(configurationDictionary);
@@ -699,31 +698,6 @@ namespace Ringtoets.HydraRing.Calculation
             InitializeProjectsConfiguration(configurationDictionary);
 
             return GenerateDataBaseCreationScript(configurationDictionary);
-        }
-
-        private void ValidateDataBaseCreationScriptInput()
-        {
-            var formattedExceptionMessage = "Cannot generate database creation script: {0} unspecified.";
-
-            if (TimeIntegrationSchemeType == null)
-            {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "TimeIntegrationSchemeType"));
-            }
-
-            if (UncertaintiesType == null)
-            {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "UncertaintiesType"));
-            }
-
-            if (HydraulicBoundaryLocation == null)
-            {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "HydraulicBoundaryLocation"));
-            }
-
-            if (FailureMechanismType == null)
-            {
-                throw new InvalidOperationException(string.Format(formattedExceptionMessage, "FailureMechanismType"));
-            }
         }
 
         private void InitializeHydraulicModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
@@ -747,174 +721,176 @@ namespace Ringtoets.HydraRing.Calculation
 
         private void InitializeSectionsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            configurationDictionary["Sections"] = new List<OrderedDictionary>
+            configurationDictionary["Sections"] = hydraRingCalculations.Select(hydraRingCalculation => new OrderedDictionary
             {
-                new OrderedDictionary
                 {
-                    {
-                        "SectionId", 999 // TODO: Dike section integration
-                    },
-                    {
-                        "PresentationId", 1 // Fixed: no support for combination of multiple dike sections
-                    },
-                    {
-                        "MainMechanismId", 1 // Fixed: no support for combination of multiple dike sections
-                    },
-                    {
-                        "Name", "HydraRingLocation" // TODO: Dike section integration
-                    },
-                    {
-                        "Description", "HydraRingLocation" // TODO: Dike section integration
-                    },
-                    {
-                        "RingCoordinateBegin", null // TODO: Dike section integration
-                    },
-                    {
-                        "RingCoordinateEnd", null // TODO: Dike section integration
-                    },
-                    {
-                        "XCoordinate", null // TODO: Dike cross section integration
-                    },
-                    {
-                        "YCoordinate", null // TODO: Dike cross section integration
-                    },
-                    {
-                        "StationId1", HydraulicBoundaryLocation.Id
-                    },
-                    {
-                        "StationId2", HydraulicBoundaryLocation.Id // Same as "StationId1": no support for coupling two stations
-                    },
-                    {
-                        "Relative", 100.0 // Fixed: no support for coupling two stations
-                    },
-                    {
-                        "Normal", null // TODO: Dike cross section integration
-                    },
-                    {
-                        "Length", null // TODO: Dike section integration
-                    }
+                    "SectionId", 999 // TODO: Dike section integration
+                },
+                {
+                    "PresentationId", 1 // Fixed: no support for combination of multiple dike sections
+                },
+                {
+                    "MainMechanismId", 1 // Fixed: no support for combination of multiple dike sections
+                },
+                {
+                    "Name", "HydraRingLocation" // TODO: Dike section integration
+                },
+                {
+                    "Description", "HydraRingLocation" // TODO: Dike section integration
+                },
+                {
+                    "RingCoordinateBegin", null // TODO: Dike section integration
+                },
+                {
+                    "RingCoordinateEnd", null // TODO: Dike section integration
+                },
+                {
+                    "XCoordinate", null // TODO: Dike cross section integration
+                },
+                {
+                    "YCoordinate", null // TODO: Dike cross section integration
+                },
+                {
+                    "StationId1", hydraRingCalculation.HydraulicBoundaryLocation.Id
+                },
+                {
+                    "StationId2", hydraRingCalculation.HydraulicBoundaryLocation.Id // Same as "StationId1": no support for coupling two stations
+                },
+                {
+                    "Relative", 100.0 // Fixed: no support for coupling two stations
+                },
+                {
+                    "Normal", null // TODO: Dike cross section integration
+                },
+                {
+                    "Length", null // TODO: Dike section integration
                 }
-            };
+            }).ToList();
         }
 
         private void InitializeDesignTablesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            var defaultsForFailureMechanism = configurationDefaults.First(cs => cs.FailureMechanismType == FailureMechanismType);
-
-            configurationDictionary["DesignTables"] = new List<OrderedDictionary>
-            {
-                new OrderedDictionary
-                {
-                    {
-                        "SectionId", 999 // TODO: Dike section integration
-                    },
-                    {
-                        "MechanismId", (int?) FailureMechanismType
-                    },
-                    {
-                        "LayerId", null // Fixed: no support for revetments
-                    },
-                    {
-                        "AlternativeId", null // Fixed: no support for piping
-                    },
-                    {
-                        "Method", defaultsForFailureMechanism.CalculationTypeId
-                    },
-                    {
-                        "VariableId", defaultsForFailureMechanism.VariableId
-                    },
-                    {
-                        "LoadVariableId", null // Fixed: not relevant
-                    },
-                    {
-                        "TableMin", null // Fixed: no support for type 3 computations (see "Method")
-                    },
-                    {
-                        "TableMax", null // Fixed: no support for type 3 computations (see "Method")
-                    },
-                    {
-                        "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
-                    },
-                    {
-                        "ValueMin", null // Fixed: no support for type 2 computations (see "Method")
-                    },
-                    {
-                        "ValueMax", null // Fixed: no support for type 2 computations (see "Method")
-                    },
-                    {
-                        "Beta", null // Fixed: no support for type 2 computations (see "Method")
-                    }
-                }
-            };
+            configurationDictionary["DesignTables"] =
+                (from hydraRingCalculation in hydraRingCalculations
+                 let defaultsForFailureMechanism = configurationDefaults.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType)
+                 select new OrderedDictionary
+                 {
+                     {
+                         "SectionId", 999 // TODO: Dike section integration
+                     },
+                     {
+                         "MechanismId", (int?) hydraRingCalculation.FailureMechanismType
+                     },
+                     {
+                         "LayerId", null // Fixed: no support for revetments
+                     },
+                     {
+                         "AlternativeId", null // Fixed: no support for piping
+                     },
+                     {
+                         "Method", defaultsForFailureMechanism.CalculationTypeId
+                     },
+                     {
+                         "VariableId", defaultsForFailureMechanism.VariableId
+                     },
+                     {
+                         "LoadVariableId", null // Fixed: not relevant
+                     },
+                     {
+                         "TableMin", null // Fixed: no support for type 3 computations (see "Method")
+                     },
+                     {
+                         "TableMax", null // Fixed: no support for type 3 computations (see "Method")
+                     },
+                     {
+                         "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
+                     },
+                     {
+                         "ValueMin", null // Fixed: no support for type 2 computations (see "Method")
+                     },
+                     {
+                         "ValueMax", null // Fixed: no support for type 2 computations (see "Method")
+                     },
+                     {
+                         "Beta", null // Fixed: no support for type 2 computations (see "Method")
+                     }
+                 }).ToList();
         }
 
         private void InitializeNumericsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            configurationDictionary["Numerics"] = configurationSettings
-                .Where(cs => cs.HydraRingFailureMechanismType == FailureMechanismType)
-                .Select(cs => new OrderedDictionary
-                {
-                    {
-                        "SectionId", 999 // TODO: Dike section integration
-                    },
-                    {
-                        "MechanismId", (int?) FailureMechanismType
-                    },
-                    {
-                        "LayerId", null // Fixed: no support for revetments
-                    },
-                    {
-                        "AlternativeId", null // Fixed: no support for piping
-                    },
-                    {
-                        "SubMechanismId", cs.SubMechanismId
-                    },
-                    {
-                        "Method", cs.CalculationTechniqueId
-                    },
-                    {
-                        "FormStartMethod", cs.FormStartMethod
-                    },
-                    {
-                        "FormNumberOfIterations", cs.FormNumberOfIterations
-                    },
-                    {
-                        "FormRelaxationFactor", cs.FormRelaxationFactor
-                    },
-                    {
-                        "FormEpsBeta", cs.FormEpsBeta
-                    },
-                    {
-                        "FormEpsHOH", cs.FormEpsHOH
-                    },
-                    {
-                        "FormEpsZFunc", cs.FormEpsZFunc
-                    },
-                    {
-                        "DsStartMethod", cs.DsStartMethod
-                    },
-                    {
-                        "DsIterationmethod", 1 // Fixed: Not relevant
-                    },
-                    {
-                        "DsMinNumberOfIterations", cs.DsMinNumberOfIterations
-                    },
-                    {
-                        "DsMaxNumberOfIterations", cs.DsMaxNumberOfIterations
-                    },
-                    {
-                        "DsVarCoefficient", cs.DsVarCoefficient
-                    },
-                    {
-                        "NiUMin", cs.NiUMin
-                    },
-                    {
-                        "NiUMax", cs.NiUMax
-                    },
-                    {
-                        "NiNumberSteps", cs.NiNumberSteps
-                    }
-                }).ToList();
+            var orderDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
+            {
+                orderDictionaries.AddRange(configurationSettings
+                                               .Where(cs => cs.HydraRingFailureMechanismType == hydraRingCalculation.FailureMechanismType)
+                                               .Select(cs => new OrderedDictionary
+                                               {
+                                                   {
+                                                       "SectionId", 999 // TODO: Dike section integration
+                                                   },
+                                                   {
+                                                       "MechanismId", (int?) hydraRingCalculation.FailureMechanismType
+                                                   },
+                                                   {
+                                                       "LayerId", null // Fixed: no support for revetments
+                                                   },
+                                                   {
+                                                       "AlternativeId", null // Fixed: no support for piping
+                                                   },
+                                                   {
+                                                       "SubMechanismId", cs.SubMechanismId
+                                                   },
+                                                   {
+                                                       "Method", cs.CalculationTechniqueId
+                                                   },
+                                                   {
+                                                       "FormStartMethod", cs.FormStartMethod
+                                                   },
+                                                   {
+                                                       "FormNumberOfIterations", cs.FormNumberOfIterations
+                                                   },
+                                                   {
+                                                       "FormRelaxationFactor", cs.FormRelaxationFactor
+                                                   },
+                                                   {
+                                                       "FormEpsBeta", cs.FormEpsBeta
+                                                   },
+                                                   {
+                                                       "FormEpsHOH", cs.FormEpsHOH
+                                                   },
+                                                   {
+                                                       "FormEpsZFunc", cs.FormEpsZFunc
+                                                   },
+                                                   {
+                                                       "DsStartMethod", cs.DsStartMethod
+                                                   },
+                                                   {
+                                                       "DsIterationmethod", 1 // Fixed: Not relevant
+                                                   },
+                                                   {
+                                                       "DsMinNumberOfIterations", cs.DsMinNumberOfIterations
+                                                   },
+                                                   {
+                                                       "DsMaxNumberOfIterations", cs.DsMaxNumberOfIterations
+                                                   },
+                                                   {
+                                                       "DsVarCoefficient", cs.DsVarCoefficient
+                                                   },
+                                                   {
+                                                       "NiUMin", cs.NiUMin
+                                                   },
+                                                   {
+                                                       "NiUMax", cs.NiUMax
+                                                   },
+                                                   {
+                                                       "NiNumberSteps", cs.NiNumberSteps
+                                                   }
+                                               }));
+            }
+
+            configurationDictionary["Numerics"] = orderDictionaries;
         }
 
         private void InitializeAreasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
