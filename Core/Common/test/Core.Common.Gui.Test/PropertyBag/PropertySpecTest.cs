@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Test.PropertyBag
         }
 
         [Test]
-        public void SetValue_IncorrectInstanceType_ThrowArgumentException()
+        public void SetValue_IncorrectInstanceType_ThrowTargetException()
         {
             // Setup
             var target = new ClassWithProperties();
@@ -145,12 +145,11 @@ namespace Core.Common.Gui.Test.PropertyBag
             TestDelegate call = () => propertySpec.SetValue(new object(), 2);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.IsInstanceOf<TargetException>(exception.InnerException);
+            Assert.Throws<TargetException>(call);
         }
 
         [Test]
-        public void SetValue_InstanceIsNull_ThrowArgumentException()
+        public void SetValue_InstanceIsNull_ThrowTargetException()
         {
             // Setup
             var target = new ClassWithProperties();
@@ -161,8 +160,23 @@ namespace Core.Common.Gui.Test.PropertyBag
             TestDelegate call = () => propertySpec.SetValue(null, 2);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.IsInstanceOf<TargetException>(exception.InnerException);
+            Assert.Throws<TargetException>(call);
+        }
+
+        [Test]
+        public void SetValue_SettingValueResultsInException_ThrowTargetInvocationException()
+        {
+            // Setup
+            var target = new ClassWithProperties();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("ThrowsException"));
+
+            // Call
+            TestDelegate call = () => propertySpec.SetValue(target, "");
+
+            // Assert
+            var innerException = Assert.Throws<TargetInvocationException>(call).InnerException;
+            Assert.IsInstanceOf<ArgumentException>(innerException);
         }
 
         [Test]
@@ -367,6 +381,14 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             [TypeConverter(typeof(SomeTypeConverter))]
             public string StringPropertyWithSomeTypeConverter { get; set; }
+
+            public string ThrowsException
+            {
+                set
+                {
+                    throw new ArgumentException();
+                }
+            }
         }
 
         private class InheritorSettingPropertyToNotBrowsable : ClassWithProperties
