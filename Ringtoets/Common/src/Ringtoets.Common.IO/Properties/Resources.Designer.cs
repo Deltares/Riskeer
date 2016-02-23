@@ -61,6 +61,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bestand mag uitsluitend polylijnen bevatten..
+        /// </summary>
+        internal static string FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bestand bevat 1 multi-polylijn, welke niet ondersteund is..
         /// </summary>
         internal static string ReferenceLineReader_File_contains_unsupported_multi_polyline {

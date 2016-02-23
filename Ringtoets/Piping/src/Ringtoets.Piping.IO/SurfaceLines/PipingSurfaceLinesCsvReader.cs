@@ -29,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -110,7 +109,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// Reads and consumes the next data row which contains a surface line, parsing the data to create an instance 
         /// of <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
-        /// <returns>Return the parse surfaceline, or null when at the end of the file.</returns>
+        /// <returns>Return the parsed surfaceline, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
