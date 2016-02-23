@@ -173,16 +173,28 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Locations_DisplayName" xml:space="preserve">
     <value>Locaties</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Coordinates" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Id" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Locations_Id_DisplayName" xml:space="preserve">
     <value>Id</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Name" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Locations_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Coordinates_Description" xml:space="preserve">
+    <value>Coördinaten van de hydraulische randvoorwaarden locatie.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description" xml:space="preserve">
+    <value>Berekende toetspeil.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Id_Description" xml:space="preserve">
+    <value>Id van de hydraulische randvoorwaarden locatie in de database.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_Name_Description" xml:space="preserve">
+    <value>Naam van de hydraulische randvoorwaarden locatie.</value>
   </data>
 </root>

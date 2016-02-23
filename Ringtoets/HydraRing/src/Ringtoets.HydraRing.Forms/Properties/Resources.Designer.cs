@@ -153,11 +153,20 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaarden locatie..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Coordinates_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Coordinates_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coördinaten.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_Coordinates {
+        public static string HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Coordinates", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName", resourceCulture);
             }
         }
         
@@ -171,11 +180,20 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende toetspeil..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetspeil.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel {
+        public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DesignWaterLevel", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName", resourceCulture);
             }
         }
         
@@ -189,20 +207,38 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Id van de hydraulische randvoorwaarden locatie in de database..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Id_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Id_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Id.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_Id {
+        public static string HydraulicBoundaryDatabase_Locations_Id_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Id", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Id_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de hydraulische randvoorwaarden locatie..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_Name_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Name_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_Name {
+        public static string HydraulicBoundaryDatabase_Locations_Name_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Name", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_Name_DisplayName", resourceCulture);
             }
         }
         

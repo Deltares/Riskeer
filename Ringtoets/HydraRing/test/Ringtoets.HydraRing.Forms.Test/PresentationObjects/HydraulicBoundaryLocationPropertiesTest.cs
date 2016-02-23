@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -65,16 +66,10 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             Point2D coordinates = new Point2D(x, y);
             string name = "<some name>";
             double designWaterLevel = 741.0;
+            string expectedDesignWaterLevel = designWaterLevel.ToString("G2", CultureInfo.InvariantCulture);
 
             var mockRepository = new MockRepository();
-            object[] hydraulicBoundaryLocationArguments =
-            {
-                id,
-                name,
-                x,
-                y
-            };
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
+            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(id, name, x, y);
             hydraulicBoundaryLocationMock.DesignWaterLevel = designWaterLevel;
             mockRepository.ReplayAll();
 
@@ -84,7 +79,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             // Assert
             Assert.AreEqual(id, hydraulicBoundaryLocationProperties.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocationProperties.Name);
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocationProperties.DesignWaterLevel);
+            Assert.AreEqual(expectedDesignWaterLevel, hydraulicBoundaryLocationProperties.DesignWaterLevel);
             Assert.AreEqual(coordinates, hydraulicBoundaryLocationProperties.Location);
             mockRepository.VerifyAll();
         }
@@ -134,6 +129,10 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten";
             const string expectedDesignWaterLevelDisplayName = "Toetspeil";
+            const string expectedIdDescription = "Id van de hydraulische randvoorwaarden locatie in de database.";
+            const string expectedNameDescriptione = "Naam van de hydraulische randvoorwaarden locatie.";
+            const string expectedLocationDescriptione = "Coördinaten van de hydraulische randvoorwaarden locatie.";
+            const string expectedDesignWaterLevelDescription = "Berekende toetspeil.";
 
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
@@ -150,21 +149,25 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             Assert.IsTrue(idProperty.IsReadOnly);
             Assert.IsTrue(idProperty.IsBrowsable);
             Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
+            Assert.AreEqual(expectedIdDescription, idProperty.Description);
 
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
             Assert.IsTrue(nameProperty.IsBrowsable);
             Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
+            Assert.AreEqual(expectedNameDescriptione, nameProperty.Description);
 
             Assert.IsNotNull(locationProperty);
             Assert.IsTrue(locationProperty.IsReadOnly);
             Assert.IsTrue(locationProperty.IsBrowsable);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
+            Assert.AreEqual(expectedLocationDescriptione, locationProperty.Description);
 
             Assert.IsNotNull(designWaterLevelProperty);
             Assert.IsTrue(designWaterLevelProperty.IsReadOnly);
             Assert.IsTrue(designWaterLevelProperty.IsBrowsable);
             Assert.AreEqual(expectedDesignWaterLevelDisplayName, designWaterLevelProperty.DisplayName);
+            Assert.AreEqual(expectedDesignWaterLevelDescription, designWaterLevelProperty.Description);
 
             mockRepository.VerifyAll();
         }

@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -49,7 +50,8 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         /// Gets the Id from the |<see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(1)]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Id")]
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Id_Description")]
         public long Id
         {
             get
@@ -62,7 +64,8 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         /// Gets the Name from the |<see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(2)]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Name")]
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Name_Description")]
         public string Name
         {
             get
@@ -75,7 +78,8 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         /// Gets the Location from the |<see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(3)]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Coordinates")]
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Coordinates_Description")]
         public Point2D Location
         {
             get
@@ -88,12 +92,13 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         /// Gets the DesignWaterLevel from the |<see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(4)]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel")]
-        public double DesignWaterLevel
+        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
+        public string DesignWaterLevel
         {
             get
             {
-                return data.DesignWaterLevel;
+                return double.IsNaN(data.DesignWaterLevel) ? "" : data.DesignWaterLevel.ToString("G2", CultureInfo.InvariantCulture);
             }
         }
 
