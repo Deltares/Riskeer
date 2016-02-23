@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -86,13 +87,36 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetDataToMap()
         {
-            map.Data = GetHydraulicBoudaryLocations(data);
+            var mapDataList = new List<MapData>();
+
+            if (GetReferenceLineData() != null)
+            {
+                mapDataList.Add(GetReferenceLineData());
+            }
+
+            if (GetHydraulicBoudaryLocations() != null)
+            {
+                mapDataList.Add(GetHydraulicBoudaryLocations());
+            }
+
+            map.Data = new MapDataCollection(mapDataList);
         }
 
-        private MapData GetHydraulicBoudaryLocations(AssessmentSectionBase assessmentSectionBase)
+        private MapData GetReferenceLineData()
         {
-            var locations = assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
-            return new MapPointData(locations);
+            if (data.ReferenceLine == null)
+            {
+                return null;
+            }
+
+            var points = data.ReferenceLine.Points.ToList();
+            return points.Count > 0 ? new MapLineData(data.ReferenceLine.Points) : null;
+        }
+
+        private MapData GetHydraulicBoudaryLocations()
+        {
+            var locations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
+            return locations.Count > 0 ? new MapPointData(locations) : null;
         }
     }
 }
