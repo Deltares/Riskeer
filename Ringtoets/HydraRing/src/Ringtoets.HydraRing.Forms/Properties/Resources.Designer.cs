@@ -180,7 +180,7 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende toetspeil..
+        ///   Looks up a localized string similar to Berekend toetspeil..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description {
             get {

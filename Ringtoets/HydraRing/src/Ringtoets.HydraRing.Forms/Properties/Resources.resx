@@ -189,7 +189,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Coördinaten van de hydraulische randvoorwaarden locatie.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description" xml:space="preserve">
-    <value>Berekende toetspeil.</value>
+    <value>Berekend toetspeil.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Id_Description" xml:space="preserve">
     <value>Id van de hydraulische randvoorwaarden locatie in de database.</value>
