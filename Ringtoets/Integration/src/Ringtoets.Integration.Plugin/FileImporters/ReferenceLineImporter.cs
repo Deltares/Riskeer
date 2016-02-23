@@ -22,11 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 
 using log4net;
 
@@ -98,62 +100,96 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             ImportIsCancelled = false;
             changedObservables.Clear();
+
             bool clearReferenceLineDependentData = false;
+
             var importTarget = (ReferenceLineContext)targetItem;
             if (importTarget.Parent.ReferenceLine != null)
             {
-                DialogResult result = MessageBox.Show(Resources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
-                                                      Resources.ReferenceLineImporter_ConfirmImport_DialogTitle,
-                                                      MessageBoxButtons.OKCancel);
-                if (result == DialogResult.Cancel)
-                {
-                    ImportIsCancelled = true;
-                }
-                else
-                {
-                    clearReferenceLineDependentData = true;
-                }
+                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData();
             }
 
             if (ImportIsCancelled)
             {
-                NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read,
-                               0, clearReferenceLineDependentData ? 4 : 2);
+                HandleUserCancellingImport();
                 return false;
             }
 
-            ReferenceLine importedReferenceLine;
-            try
+            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Reading_referenceline,
+                           1, clearReferenceLineDependentData ? 4 : 2);
+            ReadResult<ReferenceLine> readResult = ReadReferenceLine(filePath);
+            if (readResult.CriticalErrorOccurred)
             {
-                NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Reading_referenceline,
-                               1, clearReferenceLineDependentData ? 4 : 2);
-                importedReferenceLine = new ReferenceLineReader().ReadReferenceLine(filePath);
-            }
-            catch (ArgumentException e)
-            {
-                HandleCriticalFileReadError(e);
-                return false;
-            }
-            catch (CriticalFileReadException e)
-            {
-                HandleCriticalFileReadError(e);
                 return false;
             }
 
             if (ImportIsCancelled)
             {
-                NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read,
-                               1, clearReferenceLineDependentData ? 4 : 2);
+                HandleUserCancellingImport();
                 return false;
             }
 
-            AddReferenceLineToDataModel(importTarget.Parent, importedReferenceLine, clearReferenceLineDependentData);
+            AddReferenceLineToDataModel(importTarget.Parent, readResult.ImportedItems.First(), clearReferenceLineDependentData);
             return true;
         }
 
         protected override IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
         {
             return changedObservables;
+        }
+
+        private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData()
+        {
+            var clearReferenceLineDependentData = false;
+
+            DialogResult result = MessageBox.Show(Resources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
+                                                  Resources.ReferenceLineImporter_ConfirmImport_DialogTitle,
+                                                  MessageBoxButtons.OKCancel);
+            if (result == DialogResult.Cancel)
+            {
+                ImportIsCancelled = true;
+            }
+            else
+            {
+                clearReferenceLineDependentData = true;
+            }
+
+            return clearReferenceLineDependentData;
+        }
+
+        private static void HandleUserCancellingImport()
+        {
+            log.Info(Resources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
+        }
+
+        private ReadResult<ReferenceLine> ReadReferenceLine(string filePath)
+        {
+            try
+            {
+                return new ReadResult<ReferenceLine>(false)
+                {
+                    ImportedItems = new[]
+                    {
+                        new ReferenceLineReader().ReadReferenceLine(filePath)
+                    }
+                };
+            }
+            catch (ArgumentException e)
+            {
+                return HandleCriticalFileReadError(e);
+            }
+            catch (CriticalFileReadException e)
+            {
+                return HandleCriticalFileReadError(e);
+            }
+        }
+
+        private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
+        {
+            var errorMessage = String.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+                                             e.Message);
+            log.Error(errorMessage);
+            return new ReadResult<ReferenceLine>(true);
         }
 
         private void AddReferenceLineToDataModel(AssessmentSectionBase assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
@@ -201,13 +237,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             // TODO: WTI-360 - Clear all 'Toetspeil' calculation output
             //changedObservables.Add(clearedInstance);
-        }
-
-        private static void HandleCriticalFileReadError(Exception e)
-        {
-            var errorMessage = String.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
-                                             e.Message);
-            log.Error(errorMessage);
         }
     }
 }

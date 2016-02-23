@@ -397,7 +397,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Import_CancelImportDuringDialogInteraction_GenerateExpectedProgressMessages(bool acceptRemovalOfReferenceLineDependentData)
+        public void Import_CancelImportDuringDialogInteraction_GenerateCancelledLogMessage(bool acceptRemovalOfReferenceLineDependentData)
         {
             // Setup
             var originalReferenceLine = new ReferenceLine();
@@ -411,22 +411,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var expectedProgressMessages = new[]
-            {
-                new ExpectedProgressNotification { Text = "Referentielijn importeren afgebroken. Geen data ingelezen.", CurrentStep = 0, MaxNrOfSteps = acceptRemovalOfReferenceLineDependentData ? 4 : 2 }
-            };
-
-            var progressChangedCount = 0;
-            var importer = new ReferenceLineImporter
-            {
-                ProgressChanged = (description, step, steps) =>
-                {
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCount].Text, description);
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCount].CurrentStep, step);
-                    Assert.AreEqual(expectedProgressMessages[progressChangedCount].MaxNrOfSteps, steps);
-                    progressChangedCount++;
-                }
-            };
+            var importer = new ReferenceLineImporter();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -444,10 +429,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             };
 
             // Call
-            importer.Import(referenceLineContext, path);
+            Action call = () => importer.Import(referenceLineContext, path);
 
             // Assert
-            Assert.AreEqual(expectedProgressMessages.Length, progressChangedCount);
+            TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen data ingelezen.", 1);
             mocks.VerifyAll();
         }
 
