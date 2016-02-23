@@ -22,14 +22,14 @@
 namespace Ringtoets.HydraRing.Calculation
 {
     /// <summary>
-    /// Container for configuration settings on a per <see cref="HydraRingFailureMechanismType"/> basis.
+    /// Container for configuration settings on a per <see cref="FailureMechanismType"/> basis.
     /// </summary>
     public class HydraRingConfigurationSettings
     {
         /// <summary>
         /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
         /// </summary>
-        public HydraRingFailureMechanismType HydraRingFailureMechanismType { get; set; }
+        public HydraRingFailureMechanismType FailureMechanismType { get; set; }
 
         /// <summary>
         /// Gets or sets the id of the sub mechanism.

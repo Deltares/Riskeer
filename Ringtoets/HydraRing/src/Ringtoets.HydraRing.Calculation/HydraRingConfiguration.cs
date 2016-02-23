@@ -110,7 +110,7 @@ namespace Ringtoets.HydraRing.Calculation
             {
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
+                    FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
                     SubMechanismId = 1,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -129,7 +129,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
+                    FailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
                     SubMechanismId = 11,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -148,7 +148,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
+                    FailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
                     SubMechanismId = 14,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -167,7 +167,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
+                    FailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
                     SubMechanismId = 16,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -186,7 +186,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     SubMechanismId = 3,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -205,7 +205,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     SubMechanismId = 4,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -224,7 +224,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     SubMechanismId = 5,
                     CalculationTechniqueId = 4,
                     FormStartMethod = 4,
@@ -243,7 +243,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
                     SubMechanismId = 102,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -262,7 +262,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
                     SubMechanismId = 103,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -281,7 +281,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     SubMechanismId = 311,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -300,7 +300,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     SubMechanismId = 313,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -319,7 +319,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     SubMechanismId = 314,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -338,7 +338,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     SubMechanismId = 421,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -357,7 +357,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     SubMechanismId = 422,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -376,7 +376,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     SubMechanismId = 423,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -395,7 +395,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 422,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -414,7 +414,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 424,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -433,7 +433,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 425,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -452,7 +452,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 426,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -471,7 +471,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 427,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -490,7 +490,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 422,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -509,7 +509,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 424,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -528,7 +528,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 425,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -547,7 +547,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 430,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -566,7 +566,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 431,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -585,7 +585,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 432,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -604,7 +604,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 433,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 1,
@@ -623,7 +623,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 434,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -642,7 +642,7 @@ namespace Ringtoets.HydraRing.Calculation
                 },
                 new HydraRingConfigurationSettings
                 {
-                    HydraRingFailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 435,
                     CalculationTechniqueId = 1,
                     FormStartMethod = 4,
@@ -823,71 +823,76 @@ namespace Ringtoets.HydraRing.Calculation
 
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
-                orderDictionaries.AddRange(configurationSettings
-                                               .Where(cs => cs.HydraRingFailureMechanismType == hydraRingCalculation.FailureMechanismType)
-                                               .Select(cs => new OrderedDictionary
-                                               {
-                                                   {
-                                                       "SectionId", 999 // TODO: Dike section integration
-                                                   },
-                                                   {
-                                                       "MechanismId", (int?) hydraRingCalculation.FailureMechanismType
-                                                   },
-                                                   {
-                                                       "LayerId", null // Fixed: no support for revetments
-                                                   },
-                                                   {
-                                                       "AlternativeId", null // Fixed: no support for piping
-                                                   },
-                                                   {
-                                                       "SubMechanismId", cs.SubMechanismId
-                                                   },
-                                                   {
-                                                       "Method", cs.CalculationTechniqueId
-                                                   },
-                                                   {
-                                                       "FormStartMethod", cs.FormStartMethod
-                                                   },
-                                                   {
-                                                       "FormNumberOfIterations", cs.FormNumberOfIterations
-                                                   },
-                                                   {
-                                                       "FormRelaxationFactor", cs.FormRelaxationFactor
-                                                   },
-                                                   {
-                                                       "FormEpsBeta", cs.FormEpsBeta
-                                                   },
-                                                   {
-                                                       "FormEpsHOH", cs.FormEpsHOH
-                                                   },
-                                                   {
-                                                       "FormEpsZFunc", cs.FormEpsZFunc
-                                                   },
-                                                   {
-                                                       "DsStartMethod", cs.DsStartMethod
-                                                   },
-                                                   {
-                                                       "DsIterationmethod", 1 // Fixed: Not relevant
-                                                   },
-                                                   {
-                                                       "DsMinNumberOfIterations", cs.DsMinNumberOfIterations
-                                                   },
-                                                   {
-                                                       "DsMaxNumberOfIterations", cs.DsMaxNumberOfIterations
-                                                   },
-                                                   {
-                                                       "DsVarCoefficient", cs.DsVarCoefficient
-                                                   },
-                                                   {
-                                                       "NiUMin", cs.NiUMin
-                                                   },
-                                                   {
-                                                       "NiUMax", cs.NiUMax
-                                                   },
-                                                   {
-                                                       "NiNumberSteps", cs.NiNumberSteps
-                                                   }
-                                               }));
+                var defaultsForFailureMechanism = configurationDefaults.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+
+                foreach (var subMechanimsId in defaultsForFailureMechanism.SubMechanismIds)
+                {
+                    var relevantConfigurationSettings = configurationSettings.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
+
+                    orderDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", 999 // TODO: Dike section integration
+                        },
+                        {
+                            "MechanismId", (int?) hydraRingCalculation.FailureMechanismType
+                        },
+                        {
+                            "LayerId", null // Fixed: no support for revetments
+                        },
+                        {
+                            "AlternativeId", null // Fixed: no support for piping
+                        },
+                        {
+                            "SubMechanismId", relevantConfigurationSettings.SubMechanismId
+                        },
+                        {
+                            "Method", relevantConfigurationSettings.CalculationTechniqueId
+                        },
+                        {
+                            "FormStartMethod", relevantConfigurationSettings.FormStartMethod
+                        },
+                        {
+                            "FormNumberOfIterations", relevantConfigurationSettings.FormNumberOfIterations
+                        },
+                        {
+                            "FormRelaxationFactor", relevantConfigurationSettings.FormRelaxationFactor
+                        },
+                        {
+                            "FormEpsBeta", relevantConfigurationSettings.FormEpsBeta
+                        },
+                        {
+                            "FormEpsHOH", relevantConfigurationSettings.FormEpsHOH
+                        },
+                        {
+                            "FormEpsZFunc", relevantConfigurationSettings.FormEpsZFunc
+                        },
+                        {
+                            "DsStartMethod", relevantConfigurationSettings.DsStartMethod
+                        },
+                        {
+                            "DsIterationmethod", 1 // Fixed: Not relevant
+                        },
+                        {
+                            "DsMinNumberOfIterations", relevantConfigurationSettings.DsMinNumberOfIterations
+                        },
+                        {
+                            "DsMaxNumberOfIterations", relevantConfigurationSettings.DsMaxNumberOfIterations
+                        },
+                        {
+                            "DsVarCoefficient", relevantConfigurationSettings.DsVarCoefficient
+                        },
+                        {
+                            "NiUMin", relevantConfigurationSettings.NiUMin
+                        },
+                        {
+                            "NiUMax", relevantConfigurationSettings.NiUMax
+                        },
+                        {
+                            "NiNumberSteps", relevantConfigurationSettings.NiNumberSteps
+                        }
+                    });
+                }
             }
 
             configurationDictionary["Numerics"] = orderDictionaries;
