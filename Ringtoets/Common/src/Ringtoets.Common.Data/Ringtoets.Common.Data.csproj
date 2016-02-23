@@ -40,6 +40,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="BaseFailureMechanism.cs" />
+    <Compile Include="FailureMechanismSection.cs" />
     <Compile Include="ICalculationItem.cs" />
     <Compile Include="IFailureMechanism.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
