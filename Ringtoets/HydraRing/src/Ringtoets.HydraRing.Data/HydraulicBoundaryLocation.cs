@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.HydraRing.Data
@@ -40,6 +41,7 @@ namespace Ringtoets.HydraRing.Data
             Id = id;
             Name = name;
             Location = new Point2D(x, y);
+            DesignWaterLevel = Double.NaN;
         }
 
         /// <summary>
