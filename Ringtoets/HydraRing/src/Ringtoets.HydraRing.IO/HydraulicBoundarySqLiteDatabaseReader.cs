@@ -26,19 +26,22 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.Properties;
 
 namespace Ringtoets.HydraRing.IO
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs <see cref="HydraulicBoundaryLocation"/> instances from this database.
+    /// This class reads a SqLite database file and constructs <see cref="HydraulicBoundaryLocation"/> 
+    /// instances from this database.
     /// </summary>
-    public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
+    public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase
     {
         private SQLiteDataReader dataReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, which will use the <paramref name="databaseFilePath"/>
+        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, which will use 
+        /// the <paramref name="databaseFilePath"/>
         /// as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
@@ -46,11 +49,10 @@ namespace Ringtoets.HydraRing.IO
         /// <list type="bullet">
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
-        /// <item>Preparing the queries to read from the database failed.</item>
+        /// <item>Preparing the database queries failed.</item>
         /// </list>
         /// </exception>
-        public HydraulicBoundarySqLiteDatabaseReader(string databaseFilePath)
-            : base(databaseFilePath)
+        public HydraulicBoundarySqLiteDatabaseReader(string databaseFilePath) : base(databaseFilePath)
         {
             InitializeReader();
         }
@@ -74,8 +76,10 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// Reads the next location from the database.
         /// </summary>
-        /// <returns>New instance of <see cref="HydraulicBoundaryLocation"/>, based on the data read from the database or <c>null</c> if no data is available.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <returns>New instance of <see cref="HydraulicBoundaryLocation"/>, based on the data read from the 
+        /// database or <c>null</c> if no data is available.</returns>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         public HydraulicBoundaryLocation ReadLocation()
         {
             if (!HasNext)
@@ -89,14 +93,12 @@ namespace Ringtoets.HydraRing.IO
             }
             catch (InvalidCastException e)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new CriticalFileReadException(message, e);
+                var message = new FileReaderErrorMessageBuilder(Path).
+                    Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, e);
             }
         }
 
-        /// <summary>
-        /// Disposes the reader.
-        /// </summary>
         public override void Dispose()
         {
             if (dataReader != null)
@@ -109,7 +111,7 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// Moves the reader to the next record in the database.
         /// </summary>
-        public void MoveNext()
+        private void MoveNext()
         {
             HasNext = dataReader.Read() || (dataReader.NextResult() && dataReader.Read());
         }
@@ -120,34 +122,19 @@ namespace Ringtoets.HydraRing.IO
         /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
-        public T Read<T>(string columnName)
+        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type 
+        /// <typeparamref name="T"/>.</exception>
+        private T Read<T>(string columnName)
         {
             return (T) dataReader[columnName];
-        }
-
-        /// <summary>
-        /// Reads the value in the column with name <paramref name="columnName"/> from the currently pointed row.
-        /// </summary>
-        /// <typeparam name="T">The type of object to read.</typeparam>
-        /// <param name="columnName">The name of the column to read from.</param>
-        /// <returns>The value in the column, or <c>null</c> if the value was <see cref="DBNull.Value"/>.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the value in the column could not be casted to type <typeparamref name="T"/>.</exception>
-        public T? ReadOrNull<T>(string columnName) where T : struct
-        {
-            var valueObject = dataReader[columnName];
-            if (valueObject.Equals(DBNull.Value))
-            {
-                return null;
-            }
-            return (T) valueObject;
         }
 
         /// <summary>
         /// Reads the current row into a new instance of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <returns>A new instance of <see cref="HydraulicBoundaryLocation"/>, based upon the current row.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         private HydraulicBoundaryLocation ReadHydraulicBoundaryLocation()
         {
             try
@@ -159,7 +146,7 @@ namespace Ringtoets.HydraRing.IO
                 MoveNext();
                 return new HydraulicBoundaryLocation(id, name, x, y);
             }
-            catch (InvalidCastException exception)
+            catch (InvalidCastException)
             {
                 MoveNext();
                 throw;
@@ -181,15 +168,9 @@ namespace Ringtoets.HydraRing.IO
         /// </summary>
         private void PrepareReader()
         {
-            var versionQuery = string.Format("SELECT (NameRegion || CreationDate) as {0} FROM General LIMIT 0,1;", HydraulicBoundaryDatabaseColumns.Version);
-            var countQuery = string.Format("SELECT count(*) as {0} FROM HRDLocations WHERE LocationTypeId > 1 ;", HydraulicBoundaryDatabaseColumns.LocationCount);
-
-            var locationsQuery = string.Format(
-                "SELECT HRDLocationId as {0}, Name as {1}, XCoordinate as {2}, YCoordinate as {3} FROM HRDLocations WHERE LocationTypeId > 1;",
-                HydraulicBoundaryDatabaseColumns.LocationId,
-                HydraulicBoundaryDatabaseColumns.LocationName,
-                HydraulicBoundaryDatabaseColumns.LocationX,
-                HydraulicBoundaryDatabaseColumns.LocationY);
+            var versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
+            var countQuery = HydraulicBoundaryDatabaseQueryBuilder.GetLocationsCountQuery();
+            var locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetLocationsQuery();
 
             CreateDataReader(string.Join(" ", versionQuery, countQuery, locationsQuery), new SQLiteParameter
             {

@@ -283,18 +283,18 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden database.
         /// </summary>
-        public static string SelectDatabaseFile_FilterName {
+        public static string SelectHydraulicBoundaryDatabaseFile_FilterName {
             get {
-                return ResourceManager.GetString("SelectDatabaseFile_FilterName", resourceCulture);
+                return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_FilterName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Selecteer database.
         /// </summary>
-        public static string SelectDatabaseFile_Title {
+        public static string SelectHydraulicBoundaryDatabaseFile_Title {
             get {
-                return ResourceManager.GetString("SelectDatabaseFile_Title", resourceCulture);
+                return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_Title", resourceCulture);
             }
         }
     }

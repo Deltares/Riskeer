@@ -1,10 +1,8 @@
 ﻿using System;
-
+using Core.Common.IO.Exceptions;
 using NUnit.Framework;
 
-using Ringtoets.Piping.IO.Exceptions;
-
-namespace Ringtoets.Piping.IO.Test.Exceptions
+namespace Core.Common.IO.Test.Exceptions
 {
     [TestFixture]
     public class LineParseExceptionTest
@@ -67,6 +65,6 @@ namespace Ringtoets.Piping.IO.Test.Exceptions
             Assert.IsNull(exception.Source);
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);
-        } 
+        }
     }
 }

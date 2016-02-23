@@ -68,7 +68,6 @@
     <Compile Include="Builders\SoilProfileBuilderExceptionTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
-    <Compile Include="Exceptions\LineParseExceptionTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
     <Compile Include="SoilProfile\CriticalProfilePropertiesTest.cs" />
     <Compile Include="SoilProfile\SoilLayer2DReaderTest.cs" />

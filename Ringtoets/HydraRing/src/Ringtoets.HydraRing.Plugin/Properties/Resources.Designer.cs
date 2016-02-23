@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan faalmechanisme.
+        ///   Looks up a localized string similar to Geïmporteerde hydraulische randvoorwaarde locaties toevoegen aan traject..
         /// </summary>
         public static string HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model {
             get {

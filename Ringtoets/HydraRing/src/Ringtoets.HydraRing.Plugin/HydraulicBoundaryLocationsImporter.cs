@@ -34,24 +34,16 @@ using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Re
 using ApplicationResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
 using HydraRingResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 
-
 namespace Ringtoets.HydraRing.Plugin
 {
     /// <summary>
-    /// Imports Hydraulic boundary .sqlite files (SqlLite database files).
+    /// Imports locations read from an Hydraulic boundary .sqlite file (SqlLite database file) to a 
+    /// collection of <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
     public class HydraulicBoundaryLocationsImporter : FileImporterBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsImporter));
 
-        /// <summary>
-        /// Gets the version of the used Hydraulic Boundary Database.
-        /// </summary>
-        public string Version { get; private set; }
-
-        /// <summary>
-        /// Gets the name of the <see cref="HydraulicBoundaryLocationsImporter"/>.
-        /// </summary>
         public override string Name
         {
             get
@@ -60,9 +52,6 @@ namespace Ringtoets.HydraRing.Plugin
             }
         }
 
-        /// <summary>
-        /// Gets the category of the <see cref="HydraulicBoundaryLocationsImporter"/>.
-        /// </summary>
         public override string Category
         {
             get
@@ -71,10 +60,6 @@ namespace Ringtoets.HydraRing.Plugin
             }
         }
 
-        /// <summary>
-        /// Gets the image of the <see cref="HydraulicBoundaryLocationsImporter"/>.
-        /// </summary>
-        /// <remarks>This image can be used in selection and/or progress dialogs.</remarks>
         public override Bitmap Image
         {
             get
@@ -83,76 +68,51 @@ namespace Ringtoets.HydraRing.Plugin
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="Type"/> of the item supported by the <see cref="HydraulicBoundaryLocationsImporter"/>.
-        /// </summary>
         public override Type SupportedItemType
         {
             get
             {
-                return typeof(HydraulicBoundaryLocation);
+                return typeof(ICollection<HydraulicBoundaryLocation>);
             }
         }
 
-        /// <summary>
-        /// Gets the file filter of the <see cref="HydraulicBoundaryLocationsImporter"/>.
-        /// </summary>
         public override string FileFilter
         {
             get
             {
-                return string.Format("{0} (*.sqlite)|*.sqlite", HydraRingResources.SelectDatabaseFile_FilterName);
+                return string.Format("{0} (*.sqlite)|*.sqlite", HydraRingResources.SelectHydraulicBoundaryDatabaseFile_FilterName);
             }
         }
 
-        /// <summary>
-        /// Sets the action to perform when progress has changed.
-        /// </summary>
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        /// <summary>
-        /// Validates the file at <paramref name="filePath"/> and sets the version.
-        /// </summary>
-        /// <param name="filePath">The path to the file.</param>
-        public void ValidateFile(string filePath)
+        public string GetHydraulicBoundaryDatabaseVersion(string filePath)
         {
-            try
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath))
             {
-                using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath))
-                {
-                    Version = hydraulicBoundaryDatabaseReader.Version;
-                }
-            }
-            catch (CriticalFileReadException e)
-            {
-                HandleException(e);
+                return hydraulicBoundaryDatabaseReader.Version;
             }
         }
 
-        /// <summary>
-        /// This method imports the data to an item from a file at the given location.
-        /// </summary>
-        /// <param name="targetItem">The item to perform the import on.</param>
-        /// <param name="filePath">The path of the file to import the data from.</param>
-        /// <returns><c>True</c> if the import was successful. <c>False</c> otherwise.</returns>
         public override bool Import(object targetItem, string filePath)
         {
             var importResult = ReadHydraulicBoundaryLocations(filePath);
 
-            if (!importResult.CriticalErrorOccurred)
+            if (importResult.CriticalErrorOccurred)
             {
-                if (!ImportIsCancelled)
-                {
-                    AddImportedDataToModel(targetItem, importResult);
-                    log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_Import_successful);
-                    return true;
-                }
-
+                return false;
+            }
+            if (ImportIsCancelled)
+            {
                 log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_cancelled);
                 ImportIsCancelled = false;
+
+                return false;
             }
 
-            return false;
+            AddImportedDataToModel(targetItem, importResult);
+            log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_Import_successful);
+            return true;
         }
 
         private ReadResult<HydraulicBoundaryLocation> ReadHydraulicBoundaryLocations(string path)
@@ -166,7 +126,7 @@ namespace Ringtoets.HydraRing.Plugin
                     return GetHydraulicBoundaryLocationReadResult(path, hydraulicBoundaryDatabaseReader);
                 }
             }
-            catch (CriticalFileReadException e)
+            catch (LineParseException e)
             {
                 HandleException(e);
             }
@@ -179,7 +139,8 @@ namespace Ringtoets.HydraRing.Plugin
             log.Error(message);
         }
 
-        private ReadResult<HydraulicBoundaryLocation> GetHydraulicBoundaryLocationReadResult(string path, HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader)
+        private ReadResult<HydraulicBoundaryLocation> GetHydraulicBoundaryLocationReadResult(string path,
+                                                                                             HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader)
         {
             var totalNumberOfSteps = hydraulicBoundarySqLiteDatabaseReader.Count;
             var currentStep = 1;
@@ -191,9 +152,9 @@ namespace Ringtoets.HydraRing.Plugin
                 {
                     return new ReadResult<HydraulicBoundaryLocation>(false);
                 }
+                NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
                 try
                 {
-                    NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
                     locations.Add(hydraulicBoundarySqLiteDatabaseReader.ReadLocation());
                 }
                 catch (CriticalFileReadException e)
@@ -214,7 +175,8 @@ namespace Ringtoets.HydraRing.Plugin
             var targetCollection = (ICollection<HydraulicBoundaryLocation>) target;
 
             int totalCount = imported.ImportedItems.Count;
-            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model, totalCount, totalCount);
+            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model,
+                           totalCount, totalCount);
 
             foreach (var item in imported.ImportedItems)
             {

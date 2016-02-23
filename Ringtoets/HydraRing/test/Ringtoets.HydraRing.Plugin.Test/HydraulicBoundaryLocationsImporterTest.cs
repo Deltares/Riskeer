@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
@@ -53,66 +55,78 @@ namespace Ringtoets.HydraRing.Plugin.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Prepare
-            var expectedFileFilter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsHydraRingFormsResources.SelectDatabaseFile_FilterName);
+            // Setup
+            var expectedFileFilter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsHydraRingFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName);
+            var expectedDisplayName = "Locaties van de hydraulische randvoorwaarden";
 
             // Call
             var importer = new HydraulicBoundaryLocationsImporter();
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
-            Assert.AreEqual(RingtoetsHydraRingFormsResources.HydraulicBoundaryLocationsCollection_DisplayName, importer.Name);
+            Assert.AreEqual(expectedDisplayName, importer.Name);
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            Assert.AreEqual(typeof(HydraulicBoundaryLocation), importer.SupportedItemType);
+            Assert.AreEqual(typeof(ICollection<HydraulicBoundaryLocation>), importer.SupportedItemType);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
-            Assert.IsNull(importer.Version);
         }
 
         [Test]
-        [TestCase("/")]
-        [TestCase("nonexisting.sqlite")]
-        public void ValidateFile_NonExistingFileOrInvalidFile_LogError(string filename)
+        public void GetHydraulicBoundaryDatabaseVersion_NonExistingFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testDataPath, filename);
+            string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
             var importer = new HydraulicBoundaryLocationsImporter();
-            var expectedMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
 
             // Call
-            Action call = () => importer.ValidateFile(filePath);
+            TestDelegate test = () => importer.GetHydraulicBoundaryDatabaseVersion(filePath);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith(expectedMessage, messageArray[0]);
-            });
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
 
         [Test]
-        public void ValidateFile_ValidFile_GetDatabaseVersion()
+        public void GetHydraulicBoundaryDatabaseVersion_InvalidFile_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "/");
+            var importer = new HydraulicBoundaryLocationsImporter();
+            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", filePath);
+
+            // Call
+            TestDelegate test = () => importer.GetHydraulicBoundaryDatabaseVersion(filePath);
+
+            // Assert
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryDatabaseVersion_ValidFile_GetDatabaseVersion()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             var importer = new HydraulicBoundaryLocationsImporter();
 
             // Call
-            importer.ValidateFile(validFilePath);
+            string version = importer.GetHydraulicBoundaryDatabaseVersion(validFilePath);
 
             // Assert
-            Assert.IsNotNullOrEmpty(importer.Version);
+            Assert.IsNotNullOrEmpty(version);
         }
 
         [Test]
-        [TestCase("/")]
-        [TestCase("nonexisting.sqlite")]
-        public void Import_FromNonExistingFileOrInvalidFile_LogError(string filename)
+        [TestCase("/", "Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.")]
+        [TestCase("nonexisting.sqlite", "Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.")]
+        public void Import_FromNonExistingFileOrInvalidFile_ThrowsCriticalFileReadException(string filename, string exceptionMessage)
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, filename);
-            var expectedMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+            var expectedMessage = string.Format(exceptionMessage, validFilePath);
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -127,18 +141,13 @@ namespace Ringtoets.HydraRing.Plugin.Test
 
             // Precondition
             CollectionAssert.IsEmpty(observableList);
-            var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(observableList, validFilePath);
+            TestDelegate test = () => importer.Import(observableList, validFilePath);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith(expectedMessage, messageArray[0]);
-            });
-            Assert.IsFalse(importResult);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
             CollectionAssert.IsEmpty(observableList);
             Assert.AreEqual(1, progress);
 
@@ -246,14 +255,16 @@ namespace Ringtoets.HydraRing.Plugin.Test
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithEmptyFile_AbortImportAndLog()
+        public void Import_ImportingToValidTargetWithEmptyFile_ThrowsCriticalFileReadException()
         {
             // Setup
-            string corruptPath = Path.Combine(testDataPath, "empty.sqlite");
-
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
+
+            string corruptPath = Path.Combine(testDataPath, "empty.sqlite");
+            var expectedExceptionMessage = new FileReaderErrorMessageBuilder(corruptPath).
+                Build(RingtoetsHydraRingIOResources.Error_HydraulicBoundaryLocation_read_from_database);
 
             var importer = new HydraulicBoundaryLocationsImporter
             {
@@ -263,20 +274,14 @@ namespace Ringtoets.HydraRing.Plugin.Test
             var observableHydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
             observableHydraulicBoundaryLocationList.Attach(observer);
 
-            var importResult = true;
-
             // Call
-            Action call = () => importResult = importer.Import(observableHydraulicBoundaryLocationList, corruptPath);
+            TestDelegate test = () => importer.Import(observableHydraulicBoundaryLocationList, corruptPath);
 
             // Assert
-
-            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(RingtoetsHydraRingIOResources.Error_HydraulicBoundaryLocation_read_from_database);
-            var expectedLogMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped,
-                                                   internalErrorMessage);
-
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(observableHydraulicBoundaryLocationList, "No items should be added to collection when importin an empty database.");
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            CollectionAssert.IsEmpty(observableHydraulicBoundaryLocationList, "No items should be added to collection when import in an empty database.");
             Assert.AreEqual(1, progress);
 
             mocks.VerifyAll(); // Expect no calls on 'observer'
@@ -286,11 +291,12 @@ namespace Ringtoets.HydraRing.Plugin.Test
         public void Import_ImportingFileWithCorruptSchema_AbortAndLog()
         {
             // Setup
-            string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
-
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
+
+            string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
+            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
 
             var importer = new HydraulicBoundaryLocationsImporter
             {
@@ -306,8 +312,6 @@ namespace Ringtoets.HydraRing.Plugin.Test
             Action call = () => importResult = importer.Import(observableHydraulicBoundaryLocationList, corruptPath);
 
             // Assert
-            var expectedLogMessage = string.Format(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, corruptPath);
-
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(observableHydraulicBoundaryLocationList, "No items should be added to collection when import from corrupt database.");

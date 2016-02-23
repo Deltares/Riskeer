@@ -158,10 +158,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked" xml:space="preserve">
     <value>Database op pad {0} gekoppeld</value>
   </data>
-  <data name="SelectDatabaseFile_FilterName" xml:space="preserve">
+  <data name="SelectHydraulicBoundaryDatabaseFile_FilterName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden database</value>
   </data>
-  <data name="SelectDatabaseFile_Title" xml:space="preserve">
+  <data name="SelectHydraulicBoundaryDatabaseFile_Title" xml:space="preserve">
     <value>Selecteer database</value>
   </data>
   <data name="Calculations_Deleted" xml:space="preserve">

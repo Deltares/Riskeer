@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Piping.IO.Exceptions
+namespace Core.Common.IO.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a file reader class encounters an error while
@@ -32,14 +32,14 @@ namespace Ringtoets.Piping.IO.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="LineParseException"/> class.
         /// </summary>
-        public LineParseException() { }
+        public LineParseException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineParseException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public LineParseException(string message) : base(message) { }
+        public LineParseException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineParseException"/> class
@@ -49,6 +49,6 @@ namespace Ringtoets.Piping.IO.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public LineParseException(string message, Exception inner) : base(message, inner) { }
+        public LineParseException(string message, Exception inner) : base(message, inner) {}
     }
 }

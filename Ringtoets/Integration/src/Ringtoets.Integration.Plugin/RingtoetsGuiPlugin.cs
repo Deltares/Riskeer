@@ -30,6 +30,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
+using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -414,10 +415,10 @@ namespace Ringtoets.Integration.Plugin
 
         private void SelectDatabaseFile(HydraulicBoundaryDatabaseContext nodeData)
         {
-            var windowTitle = HydraringResources.SelectDatabaseFile_Title;
+            var windowTitle = HydraringResources.SelectHydraulicBoundaryDatabaseFile_Title;
             using (var dialog = new OpenFileDialog
             {
-                Filter = string.Format("{0} (*.sqlite)|*.sqlite", HydraringResources.SelectDatabaseFile_FilterName),
+                Filter = string.Format("{0} (*.sqlite)|*.sqlite", HydraringResources.SelectHydraulicBoundaryDatabaseFile_FilterName),
                 Multiselect = false,
                 Title = windowTitle,
                 RestoreDirectory = true,
@@ -434,28 +435,33 @@ namespace Ringtoets.Integration.Plugin
         private static void ValidateAndImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
         {
             var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryLocationsImporter();
-
-            hydraulicBoundaryLocationsImporter.ValidateFile(selectedFile);
-
+            string newVersion;
+            try
+            {
+                newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion(selectedFile);
+            }
+            catch (CriticalFileReadException exception)
+            {
+                log.Error(exception.Message, exception);
+                return;
+            }
             var currentVersion = nodeData.BoundaryDatabase.Version;
-            var newVersion = hydraulicBoundaryLocationsImporter.Version;
-
             var currentFilePath = nodeData.BoundaryDatabase.FilePath;
             var newFilePath = selectedFile;
 
             // Compare
             if ((!string.IsNullOrEmpty(currentFilePath) && currentFilePath != newFilePath) ||
-               (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion))
+                (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion))
             {
                 // Show dialog
                 ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
                 return;
             }
 
-            // Only import inmediatly when there is nothing set.
+            // Only import immediately when there is nothing set.
             if (string.IsNullOrEmpty(currentFilePath) && string.IsNullOrEmpty(currentVersion) && nodeData.BoundaryDatabase.Locations.Count == 0)
             {
-                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion); 
+                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
             }
         }
 

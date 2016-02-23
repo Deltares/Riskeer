@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
+    <value>Geïmporteerde hydraulische randvoorwaarde locaties toevoegen aan traject.</value>
   </data>
   <data name="HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
     <value>{0} Het bestand wordt overgeslagen.</value>

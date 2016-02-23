@@ -34,13 +34,13 @@ namespace Ringtoets.HydraRing.Data
         /// </summary>
         /// <param name="id">Id of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="x">X-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="y">Y-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        public HydraulicBoundaryLocation(long id, string name, double x, double y)
+        /// <param name="coordinateX">X coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="coordinateY">Y coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY)
         {
             Id = id;
             Name = name;
-            Location = new Point2D(x, y);
+            Location = new Point2D(coordinateX, coordinateY);
             DesignWaterLevel = Double.NaN;
         }
 

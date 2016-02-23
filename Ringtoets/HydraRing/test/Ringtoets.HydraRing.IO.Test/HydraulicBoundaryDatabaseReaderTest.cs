@@ -108,7 +108,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void ReadLocation_InvalidColums_ThrowsCriticalFileReadException()
+        public void ReadLocation_InvalidColums_ThrowsLineParseException()
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
@@ -123,7 +123,7 @@ namespace Ringtoets.HydraRing.IO.Test
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(test);
+                var exception = Assert.Throws<LineParseException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
