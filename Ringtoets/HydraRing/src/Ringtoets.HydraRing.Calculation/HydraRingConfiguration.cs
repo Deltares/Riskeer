@@ -29,6 +29,12 @@ namespace Ringtoets.HydraRing.Calculation
 {
     /// <summary>
     /// Container for all configurations that are necessary for performing a Hydra-Ring calculation.
+    /// The following Hydra-Ring features are not exposed (yet):
+    /// - Combination of multiple dike sections
+    /// - Coupling two hydraulic boundary stations
+    /// - Performing revetment calculations (DesignTables > LayerId)
+    /// - Performing piping calculations (DesignTables > AlternativeId)
+    /// - Type 3 computations (DesignTables > Method)
     /// </summary>
     public class HydraRingConfiguration
     {
@@ -721,100 +727,113 @@ namespace Ringtoets.HydraRing.Calculation
 
         private void InitializeSectionsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            configurationDictionary["Sections"] = hydraRingCalculations.Select(hydraRingCalculation => new OrderedDictionary
+            var orderedDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
             {
+                orderedDictionaries.Add(new OrderedDictionary
                 {
-                    "SectionId", 999 // TODO: Dike section integration
-                },
-                {
-                    "PresentationId", 1 // Fixed: no support for combination of multiple dike sections
-                },
-                {
-                    "MainMechanismId", 1 // Fixed: no support for combination of multiple dike sections
-                },
-                {
-                    "Name", "HydraRingLocation" // TODO: Dike section integration
-                },
-                {
-                    "Description", "HydraRingLocation" // TODO: Dike section integration
-                },
-                {
-                    "RingCoordinateBegin", null // TODO: Dike section integration
-                },
-                {
-                    "RingCoordinateEnd", null // TODO: Dike section integration
-                },
-                {
-                    "XCoordinate", null // TODO: Dike cross section integration
-                },
-                {
-                    "YCoordinate", null // TODO: Dike cross section integration
-                },
-                {
-                    "StationId1", hydraRingCalculation.HydraulicBoundaryLocation.Id
-                },
-                {
-                    "StationId2", hydraRingCalculation.HydraulicBoundaryLocation.Id // Same as "StationId1": no support for coupling two stations
-                },
-                {
-                    "Relative", 100.0 // Fixed: no support for coupling two stations
-                },
-                {
-                    "Normal", null // TODO: Dike cross section integration
-                },
-                {
-                    "Length", null // TODO: Dike section integration
-                }
-            }).ToList();
+                    {
+                        "SectionId", 999 // TODO: Dike section integration
+                    },
+                    {
+                        "PresentationId", 1 // Fixed: no support for combination of multiple dike sections
+                    },
+                    {
+                        "MainMechanismId", 1 // Fixed: no support for combination of multiple dike sections
+                    },
+                    {
+                        "Name", "HydraRingLocation" // TODO: Dike section integration
+                    },
+                    {
+                        "Description", "HydraRingLocation" // TODO: Dike section integration
+                    },
+                    {
+                        "RingCoordinateBegin", null // TODO: Dike section integration
+                    },
+                    {
+                        "RingCoordinateEnd", null // TODO: Dike section integration
+                    },
+                    {
+                        "XCoordinate", null // TODO: Dike cross section integration
+                    },
+                    {
+                        "YCoordinate", null // TODO: Dike cross section integration
+                    },
+                    {
+                        "StationId1", hydraRingCalculation.HydraulicBoundaryLocation.Id
+                    },
+                    {
+                        "StationId2", hydraRingCalculation.HydraulicBoundaryLocation.Id // Same as "StationId1": no support for coupling two stations
+                    },
+                    {
+                        "Relative", 100.0 // Fixed: no support for coupling two stations
+                    },
+                    {
+                        "Normal", null // TODO: Dike cross section integration
+                    },
+                    {
+                        "Length", null // TODO: Dike section integration
+                    }
+                });
+            }
+
+            configurationDictionary["Sections"] = orderedDictionaries;
         }
 
         private void InitializeDesignTablesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            configurationDictionary["DesignTables"] =
-                (from hydraRingCalculation in hydraRingCalculations
-                 let defaultsForFailureMechanism = configurationDefaults.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType)
-                 select new OrderedDictionary
-                 {
-                     {
-                         "SectionId", 999 // TODO: Dike section integration
-                     },
-                     {
-                         "MechanismId", (int?) hydraRingCalculation.FailureMechanismType
-                     },
-                     {
-                         "LayerId", null // Fixed: no support for revetments
-                     },
-                     {
-                         "AlternativeId", null // Fixed: no support for piping
-                     },
-                     {
-                         "Method", defaultsForFailureMechanism.CalculationTypeId
-                     },
-                     {
-                         "VariableId", defaultsForFailureMechanism.VariableId
-                     },
-                     {
-                         "LoadVariableId", null // Fixed: not relevant
-                     },
-                     {
-                         "TableMin", null // Fixed: no support for type 3 computations (see "Method")
-                     },
-                     {
-                         "TableMax", null // Fixed: no support for type 3 computations (see "Method")
-                     },
-                     {
-                         "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
-                     },
-                     {
-                         "ValueMin", null // Fixed: no support for type 2 computations (see "Method")
-                     },
-                     {
-                         "ValueMax", null // Fixed: no support for type 2 computations (see "Method")
-                     },
-                     {
-                         "Beta", null // Fixed: no support for type 2 computations (see "Method")
-                     }
-                 }).ToList();
+            var orderedDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
+            {
+                var defaults = configurationDefaults.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+
+                orderedDictionaries.Add(new OrderedDictionary
+                {
+                    {
+                        "SectionId", 999 // TODO: Dike section integration
+                    },
+                    {
+                        "MechanismId", (int?) hydraRingCalculation.FailureMechanismType
+                    },
+                    {
+                        "LayerId", null // Fixed: no support for revetments
+                    },
+                    {
+                        "AlternativeId", null // Fixed: no support for piping
+                    },
+                    {
+                        "Method", defaults.CalculationTypeId
+                    },
+                    {
+                        "VariableId", defaults.VariableId
+                    },
+                    {
+                        "LoadVariableId", null // Fixed: not relevant
+                    },
+                    {
+                        "TableMin", null // Fixed: no support for type 3 computations (see "Method")
+                    },
+                    {
+                        "TableMax", null // Fixed: no support for type 3 computations (see "Method")
+                    },
+                    {
+                        "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
+                    },
+                    {
+                        "ValueMin", null // TODO: Implement
+                    },
+                    {
+                        "ValueMax", null // TODO: Implement
+                    },
+                    {
+                        "Beta", null // TODO: Implement
+                    }
+                });
+            }
+
+            configurationDictionary["DesignTables"] = orderedDictionaries;
         }
 
         private void InitializeNumericsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
@@ -871,7 +890,7 @@ namespace Ringtoets.HydraRing.Calculation
                             "DsStartMethod", relevantConfigurationSettings.DsStartMethod
                         },
                         {
-                            "DsIterationmethod", 1 // Fixed: Not relevant
+                            "DsIterationmethod", 1 // Fixed: not relevant
                         },
                         {
                             "DsMinNumberOfIterations", relevantConfigurationSettings.DsMinNumberOfIterations
@@ -905,13 +924,13 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "aDefault", 1 // Fixed: Not relevant
+                        "aDefault", 1 // Fixed: not relevant
                     },
                     {
-                        "bDefault", "1" // Fixed: Not relevant
+                        "bDefault", "1" // Fixed: not relevant
                     },
                     {
-                        "cDefault", "Nederland" // Fixed: Not relevant
+                        "cDefault", "Nederland" // Fixed: not relevant
                     }
                 }
             };
@@ -924,13 +943,13 @@ namespace Ringtoets.HydraRing.Calculation
                 new OrderedDictionary
                 {
                     {
-                        "aDefault", 1 // Fixed: Not relevant
+                        "aDefault", 1 // Fixed: not relevant
                     },
                     {
-                        "bDefault", "Sprint" // Fixed: Not relevant
+                        "bDefault", "Sprint" // Fixed: not relevant
                     },
                     {
-                        "cDefault", "Hydra-Ring Sprint" // Fixed: Not relevant
+                        "cDefault", "Hydra-Ring Sprint" // Fixed: not relevant
                     }
                 }
             };
