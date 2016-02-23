@@ -58,7 +58,6 @@
     <Compile Include="DuneAssessmentSectionTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
-    <Compile Include="Map\AssessmentSectionMapDataTest.cs" />
     <Compile Include="Placeholders\FailureMechanismPlaceholderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

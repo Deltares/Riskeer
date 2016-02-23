@@ -206,7 +206,6 @@ namespace Core.Common.Gui.Test.Commands
             var guiPluginsHost = mocks.Stub<IGuiPluginsHost>();
             guiPluginsHost.Expect(g => g.GetAllDataWithViewDefinitionsRecursively(data)).Return(new[]
             {
-                data,
                 childData
             });
             var documentViewController = mocks.Stub<IDocumentViewController>();

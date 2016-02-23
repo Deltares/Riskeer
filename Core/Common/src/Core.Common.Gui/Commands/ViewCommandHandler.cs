@@ -75,7 +75,14 @@ namespace Core.Common.Gui.Commands
                 return;
             }
 
-            foreach (var data in guiPluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject))
+            var objectsToRemoveViewsFor = new List<object>
+            {
+                dataObject
+            };
+
+            objectsToRemoveViewsFor.AddRange(guiPluginsHost.GetAllDataWithViewDefinitionsRecursively(dataObject).Cast<object>());
+
+            foreach (var data in objectsToRemoveViewsFor)
             {
                 documentViewController.DocumentViewsResolver.CloseAllViewsFor(data);
                 RemoveViewsAndData(toolViewController.ToolWindowViews.Where(v => v.Data == data).ToArray());

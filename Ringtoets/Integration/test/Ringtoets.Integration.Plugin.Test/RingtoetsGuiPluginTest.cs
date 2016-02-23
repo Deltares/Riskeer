@@ -82,8 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, contributionViewInfo.Image);
 
                 var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionBase));
-                Assert.AreEqual(typeof(MapDataView), mapViewInfo.ViewType);
-                Assert.AreEqual(typeof(MapData), mapViewInfo.ViewDataType);
+                Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
             }
         }
@@ -139,7 +138,6 @@ namespace Ringtoets.Integration.Plugin.Test
             // Assert
             CollectionAssert.AreEqual(new object[]
             {
-                assessmentSectionBase,
                 assessmentSectionBase.FailureMechanismContribution
             }, childrenWithViewDefinitions);
             mocks.VerifyAll();

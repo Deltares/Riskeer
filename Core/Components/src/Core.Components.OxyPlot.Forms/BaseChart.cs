@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,7 +35,6 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     public sealed class BaseChart : Control, IObserver, IChart
     {
-        private readonly ICollection<IObserver> observers = new Collection<IObserver>();
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
 
         private ChartData data;

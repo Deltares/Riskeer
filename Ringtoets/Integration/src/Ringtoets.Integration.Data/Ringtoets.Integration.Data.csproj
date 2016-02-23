@@ -46,7 +46,6 @@
     <Compile Include="DikeAssessmentSection.cs" />
     <Compile Include="DuneAssessmentSection.cs" />
     <Compile Include="Contribution\OtherFailureMechanism.cs" />
-    <Compile Include="Map\AssessmentSectionMapData.cs" />
     <Compile Include="Placeholders\FailureMechanismPlaceholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -30,8 +30,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Forms;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -40,7 +38,6 @@ using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Contribution;
-using Ringtoets.Integration.Data.Map;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -60,7 +57,6 @@ namespace Ringtoets.Integration.Plugin
     public class RingtoetsGuiPlugin : GuiPlugin
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiPlugin));
-        private static AssessmentSectionMapData assessmentSectionMapData;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -95,21 +91,9 @@ namespace Ringtoets.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<AssessmentSectionBase, MapData, MapDataView>
+            yield return new ViewInfo<AssessmentSectionBase, AssessmentSectionView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.TrajectMap_DisplayName,
-                GetViewData = assessmentSectionBase =>
-                {
-                    assessmentSectionMapData = new AssessmentSectionMapData(assessmentSectionBase);
-                    return assessmentSectionMapData;
-                },                
-                CloseForData = (view, o) =>
-                {
-                    var sectionMapData = (AssessmentSectionMapData) view.Data;
-                    var assessmentSection = o as AssessmentSectionBase;
-
-                    return assessmentSection != null && sectionMapData.AssessmentSection == assessmentSection;
-                },
                 Image = RingtoetsFormsResources.Map,
             };
         }
@@ -124,7 +108,6 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = dataObject as AssessmentSectionBase;
             if (assessmentSection != null)
             {
-                yield return assessmentSection;
                 yield return assessmentSection.FailureMechanismContribution;
             }
         }
@@ -404,7 +387,7 @@ namespace Ringtoets.Integration.Plugin
                 HydraringResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData); });
 
-            var DesignWaterLevelItem = new StrictContextMenuItem(
+            var designWaterLevelItem = new StrictContextMenuItem(
                 HydraringResources.DesignWaterLevel_Calculate,
                 HydraringResources.DesignWaterLevel_Calculate_ToolTip,
                 RingtoetsFormsResources.FailureMechanismIcon,
@@ -412,8 +395,8 @@ namespace Ringtoets.Integration.Plugin
 
             if (string.IsNullOrEmpty(nodeData.BoundaryDatabase.FilePath))
             {
-                DesignWaterLevelItem.Enabled = false;
-                DesignWaterLevelItem.ToolTipText = HydraringResources.DesignWaterLevel_No_HRD_To_Calculate;
+                designWaterLevelItem.Enabled = false;
+                designWaterLevelItem.ToolTipText = HydraringResources.DesignWaterLevel_No_HRD_To_Calculate;
             }
 
             return Gui.Get(nodeData, treeViewControl)
@@ -423,7 +406,7 @@ namespace Ringtoets.Integration.Plugin
                       .AddImportItem()
                       .AddExportItem()
                       .AddSeparator()
-                      .AddCustomItem(DesignWaterLevelItem)
+                      .AddCustomItem(designWaterLevelItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
@@ -516,7 +499,6 @@ namespace Ringtoets.Integration.Plugin
             if (hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, selectedFile))
             {
                 SetBoundaryDatabaseData(nodeData, selectedFile, newVersion);
-                UpdateMap();
             }
         }
 
@@ -526,15 +508,6 @@ namespace Ringtoets.Integration.Plugin
             nodeData.BoundaryDatabase.Version = version;
             nodeData.NotifyObservers();
             log.InfoFormat(HydraringResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
-        }
-
-        private static void UpdateMap()
-        {
-            if (assessmentSectionMapData != null)
-            {
-                assessmentSectionMapData.UpdateHydraulicBoundaryDatabaseMap();
-                assessmentSectionMapData.NotifyObservers();
-            }
         }
 
         #endregion
