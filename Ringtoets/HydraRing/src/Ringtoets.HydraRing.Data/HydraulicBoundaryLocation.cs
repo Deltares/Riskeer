@@ -35,13 +35,11 @@ namespace Ringtoets.HydraRing.Data
         /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="x">X-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="y">Y-coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="designWaterLevel">Design water level of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        public HydraulicBoundaryLocation(long id, string name, double x, double y, string designWaterLevel)
+        public HydraulicBoundaryLocation(long id, string name, double x, double y)
         {
             Id = id;
             Name = name;
             Location = new Point2D(x, y);
-            DesignWaterLevel = designWaterLevel;
         }
 
         /// <summary>
@@ -62,6 +60,6 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public string DesignWaterLevel { get; private set; }
+        public double DesignWaterLevel { get; set; }
     }
 }

@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             object mapObject = view.Controls[0];
             Assert.IsInstanceOf<BaseMap>(mapObject);
 
-            var map = (BaseMap)mapObject;
+            var map = (BaseMap) mapObject;
             Assert.AreEqual(DockStyle.Fill, map.Dock);
             Assert.NotNull(view.Map);
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (BaseMap) view.Controls[0];
 
             // Call
             TestDelegate testDelegate = () => view.Data = null;
@@ -82,9 +82,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (BaseMap) view.Controls[0];
             var assessmentSectionBase = new AssessmentSectionBaseTestClass();
-            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0, "level"));
+            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
             // Call
             view.Data = assessmentSectionBase;

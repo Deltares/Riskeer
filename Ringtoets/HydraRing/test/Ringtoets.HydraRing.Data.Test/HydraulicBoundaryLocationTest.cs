@@ -38,10 +38,9 @@ namespace Ringtoets.HydraRing.Data.Test
             long id = 0L;
             double x = 1.0;
             double y = 1.0;
-            string designWaterLevel = "<some value>";
 
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocation(id, null, x, y, designWaterLevel);
+            TestDelegate test = () => new HydraulicBoundaryLocation(id, null, x, y);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -55,20 +54,32 @@ namespace Ringtoets.HydraRing.Data.Test
             string name = "<some name>";
             double x = 567.0;
             double y = 890.0;
-            string designWaterLevel = "<some value>";
 
             // Call
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y, designWaterLevel);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocation>(hydraulicBoundaryLocation);
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
             Point2D location = hydraulicBoundaryLocation.Location;
             Assert.IsInstanceOf<Point2D>(location);
             Assert.AreEqual(x, location.X);
             Assert.AreEqual(y, location.Y);
+        }
+
+        [Test]
+        public void Properties_ValidParameters_PropertiesAsExpected()
+        {
+            // Setup
+            double designWaterLevel = 741.0;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
+
+            // Call
+            hydraulicBoundaryLocation.DesignWaterLevel = designWaterLevel;
+
+            // Assert
+            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
         }
 
         [Test]

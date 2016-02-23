@@ -89,7 +89,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         /// </summary>
         [PropertyOrder(4)]
         [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel")]
-        public string DesignWaterLevel
+        public double DesignWaterLevel
         {
             get
             {

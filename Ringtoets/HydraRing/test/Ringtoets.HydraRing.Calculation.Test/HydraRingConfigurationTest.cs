@@ -40,13 +40,13 @@ namespace Ringtoets.HydraRing.Calculation.Test
             hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationData
             {
                 FailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "Location 1", 0, 0, "10.0")
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "Location 1", 0, 0)
             });
 
             hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationData
             {
                 FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700004, "Location 2", 1, 1, "12.0")
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700004, "Location 2", 1, 1)
             });
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +

@@ -156,9 +156,8 @@ namespace Ringtoets.HydraRing.IO
                 var name = Read<string>(HydraulicBoundaryDatabaseColumns.LocationName);
                 var x = Read<double>(HydraulicBoundaryDatabaseColumns.LocationX);
                 var y = Read<double>(HydraulicBoundaryDatabaseColumns.LocationY);
-                var designWaterLevel = "";
                 MoveNext();
-                return new HydraulicBoundaryLocation(id, name, x, y, designWaterLevel);
+                return new HydraulicBoundaryLocation(id, name, x, y);
             }
             catch (InvalidCastException exception)
             {

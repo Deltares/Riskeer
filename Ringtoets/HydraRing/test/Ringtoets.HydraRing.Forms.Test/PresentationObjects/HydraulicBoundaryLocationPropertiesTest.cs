@@ -42,8 +42,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
                 0,
                 "",
                 0.0,
-                0.0,
-                ""
+                0.0
             };
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
             mockRepository.ReplayAll();
@@ -65,7 +64,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             double y = 890.0;
             Point2D coordinates = new Point2D(x, y);
             string name = "<some name>";
-            string designWaterLevel = "<some level>";
+            double designWaterLevel = 741.0;
 
             var mockRepository = new MockRepository();
             object[] hydraulicBoundaryLocationArguments =
@@ -73,10 +72,10 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
                 id,
                 name,
                 x,
-                y,
-                designWaterLevel
+                y
             };
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
+            hydraulicBoundaryLocationMock.DesignWaterLevel = designWaterLevel;
             mockRepository.ReplayAll();
 
             // Call
@@ -106,8 +105,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
                 id,
                 name,
                 x,
-                y,
-                ""
+                y
             };
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
             mockRepository.ReplayAll();
@@ -126,7 +124,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(0, "", 0.0, 0.0, "");
+            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(0, "", 0.0, 0.0);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocationMock);
