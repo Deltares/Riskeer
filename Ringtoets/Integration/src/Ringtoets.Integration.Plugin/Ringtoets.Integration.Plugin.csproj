@@ -104,10 +104,6 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
-      <Name>Core.Components.Gis</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
       <Project>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</Project>
       <Name>Core.Plugins.DotSpatial</Name>
@@ -144,11 +140,6 @@
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Plugin\Ringtoets.HydraRing.Plugin.csproj">
       <Project>{0a0b4576-1fd4-4836-880c-a7829acb944a}</Project>
       <Name>Ringtoets.HydraRing.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
-      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">

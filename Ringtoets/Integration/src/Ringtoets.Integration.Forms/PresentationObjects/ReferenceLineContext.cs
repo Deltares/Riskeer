@@ -38,6 +38,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="ReferenceLineContext"/> class.
         /// </summary>
         /// <param name="parent">The parent owner of the data represented by the presentation object.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="parent"/> is <c>null</c>.</exception>
         public ReferenceLineContext(AssessmentSectionBase parent)
         {
             if (parent == null)
