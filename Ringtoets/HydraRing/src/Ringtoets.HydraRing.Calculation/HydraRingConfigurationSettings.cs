@@ -32,16 +32,6 @@ namespace Ringtoets.HydraRing.Calculation
         public HydraRingFailureMechanismType HydraRingFailureMechanismType { get; set; }
 
         /// <summary>
-        /// Gets or sets the id of the calculation type that should be used.
-        /// </summary>
-        public int CalculationTypeId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the id of the variable that is considered.
-        /// </summary>
-        public int VariableId { get; set; }
-
-        /// <summary>
         /// Gets or sets the id of the sub mechanism.
         /// </summary>
         public int SubMechanismId { get; set; }
