@@ -69,9 +69,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="BaseMap"/> object.
-        /// </summary>
         public IMap Map
         {
             get

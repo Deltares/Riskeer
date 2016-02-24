@@ -23,7 +23,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
-
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using IMap = Core.Components.Gis.IMap;
@@ -47,6 +46,31 @@ namespace Core.Components.DotSpatial.Forms
             InitializeMapView();
         }
 
+        public MapData Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                if (IsDisposed)
+                {
+                    return;
+                }
+
+                DetachFromData();
+                data = value;
+                AttachToData();
+                DrawFeatureSets();
+            }
+        }
+
+        public void UpdateObserver()
+        {
+            DrawFeatureSets();
+        }
+
         /// <summary>
         /// Attaches the <see cref="BaseMap"/> to the currently set <see cref="Data"/>, if there is any.
         /// </summary>
@@ -66,26 +90,6 @@ namespace Core.Components.DotSpatial.Forms
             if (data != null)
             {
                 data.Detach(this);
-            }
-        }
-
-        public MapData Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                if (IsDisposed)
-                {
-                    return;
-                }
-
-                DetachFromData();
-                data = value;
-                AttachToData();
-                DrawFeatureSets();
             }
         }
 
@@ -113,11 +117,6 @@ namespace Core.Components.DotSpatial.Forms
             };
 
             Controls.Add(map);
-        }
-
-        public void UpdateObserver()
-        {
-            DrawFeatureSets();
         }
     }
 }

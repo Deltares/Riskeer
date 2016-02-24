@@ -78,7 +78,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             var map = new BaseMap();
             var testData = new MapPointData(Enumerable.Empty<Point2D>());
-            var mapView = TypeUtils.GetField<Map>(map, "map");
+            var mapView = map.Controls.OfType<Map>().First();
 
             // Call
             map.Data = testData;
@@ -95,7 +95,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var map = new BaseMap();
             var testData = new MapPointData(Enumerable.Empty<Point2D>());
             var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
-            var mapView = TypeUtils.GetField<Map>(map, "map");
+            var mapView = map.Controls.OfType<Map>().First();
 
             map.Data = testData;
 
@@ -112,26 +112,78 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void Data_NewDataSet_BaseMapDetachedFromOldAttachedToNewFeaturesUpdated()
+        public void Data_SetPointData_MapPointLayerAdded()
         {
             // Setup
             var map = new BaseMap();
-            var testDataOld = new MapPointData(Enumerable.Empty<Point2D>());
-            var testDataNew = new MapPointData(Enumerable.Empty<Point2D>());
-
-            var observersOld = TypeUtils.GetField<ICollection<IObserver>>(testDataOld, "observers");
-            var observersNew = TypeUtils.GetField<ICollection<IObserver>>(testDataNew, "observers");
-            var view = TypeUtils.GetField<Map>(map, "map");
+            var testData = new MapPointData(Enumerable.Empty<Point2D>());
+            var mapView = map.Controls.OfType<Map>().First();
 
             // Call
-            map.Data = testDataOld;
-            map.Data = testDataNew;
+            map.Data = testData;            
 
             // Assert
-            CollectionAssert.IsEmpty(observersOld);
-            CollectionAssert.AreEqual(new[] { map }, observersNew);
-            Assert.AreEqual(1, view.Layers.Count);
+            Assert.IsInstanceOf<MapPointData>(map.Data);
+            Assert.AreEqual(1, mapView.Layers.Count);
+            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
         }
+
+        [Test]
+        public void UpdateObserver_UpdateData_UpdateMap()
+        {
+            // Setup
+            var map = new BaseMap();
+            var mapView = map.Controls.OfType<Map>().First();
+            var testData = new MapDataCollection(new List<MapData>
+            {
+                new MapPointData(Enumerable.Empty<Point2D>())
+            });
+
+            map.Data = testData;
+
+            // Precondition
+            Assert.AreEqual(1, mapView.Layers.Count);
+            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+
+            testData.List.Add(new MapLineData(Enumerable.Empty<Point2D>()));
+
+            // Call
+            map.UpdateObserver();
+
+            // Assert
+            Assert.AreEqual(2, mapView.Layers.Count);
+            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+            Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
+        }
+
+        [Test]
+        public void Data__SetToNull_DetachObserver()
+        {
+            // Setup
+            var map = new BaseMap();
+            var mapView = map.Controls.OfType<Map>().First();
+            var testData = new MapDataCollection(new List<MapData>
+            {
+                new MapPointData(Enumerable.Empty<Point2D>())
+            });
+
+            map.Data = testData;
+
+            // Precondition
+            Assert.AreEqual(1, mapView.Layers.Count);
+            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+
+            map.Data = null;
+
+            testData.List.Add(new MapPointData(Enumerable.Empty<Point2D>()));
+
+            // Call
+            map.UpdateObserver();
+
+            // Assert
+            Assert.IsNull(map.Data);
+            Assert.AreEqual(0, mapView.Layers.Count);
+        }	
 
         [Test]
         [RequiresSTA]
@@ -141,7 +193,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var form = new Form();
             var map = new BaseMap();
             var testData = new MapPointData(Enumerable.Empty<Point2D>());
-            var view = TypeUtils.GetField<Map>(map, "map");
+            var view = map.Controls.OfType<Map>().First();
 
             map.Data = testData;
             var layers = view.Layers.ToList();

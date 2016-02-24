@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.AreSame(assessmentSectionBase, view.Data);
-            Assert.IsInstanceOf<MapData>(map.Data);
+            Assert.IsInstanceOf<MapDataCollection>(map.Data);
         }
 
         [Test]
@@ -113,21 +113,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSectionBase = new AssessmentSectionBaseTestClass();
             assessmentSectionBase.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-            assessmentSectionBase.HydraulicBoundaryDatabase.Attach(observer);
+            assessmentSectionBase.Attach(observer);
 
             view.Data = assessmentSectionBase;
             var mapData = map.Data;
 
             // Precondition
             Assert.AreSame(assessmentSectionBase, view.Data);
+            Assert.AreSame(mapData, map.Data);
 
-            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2, 3));
-            
+            var assessmentSectionBase2 = new AssessmentSectionBaseTestClass();
+            assessmentSectionBase2.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSectionBase2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+
             // Call
-            assessmentSectionBase.HydraulicBoundaryDatabase.NotifyObservers();
+            assessmentSectionBase.NotifyObservers();
 
             // Assert
-            Assert.AreEqual(mapData, map.Data);
+            Assert.AreNotEqual(mapData, map.Data);
+            Assert.IsInstanceOf<MapDataCollection>(map.Data);
             mocks.VerifyAll();
         }
 
