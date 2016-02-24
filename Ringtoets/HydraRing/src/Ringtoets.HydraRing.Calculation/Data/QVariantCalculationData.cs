@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -21,21 +21,26 @@
 
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>
-    /// Container of all data necessary for configuring a Hydra-Ring calculation.
+    /// Container of all data necessary for performing a Q-variant calculation via Hydra-Ring.
     /// </summary>
-    public class HydraRingCalculationData
+    public class QVariantCalculationData : HydraulicCalculationData
     {
         /// <summary>
-        /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
+        /// Creates a new instance of the <see cref="QVariantCalculationData"/> class.
         /// </summary>
-        public HydraRingFailureMechanismType FailureMechanismType { get; set; }
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to perform the calculation for.</param>
+        /// <param name="beta">The beta value to use during the calculation.</param>
+        public QVariantCalculationData(HydraulicBoundaryLocation hydraulicBoundaryLocation, double beta) : base(hydraulicBoundaryLocation, beta) {}
 
-        /// <summary>
-        /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+        public override HydraRingFailureMechanismType FailureMechanismType
+        {
+            get
+            {
+                return HydraRingFailureMechanismType.QVariant;
+            }
+        }
     }
 }

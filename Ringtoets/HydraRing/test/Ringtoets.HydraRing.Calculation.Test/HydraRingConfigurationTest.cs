@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HydraRing.Calculation.Test
@@ -37,17 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Test
                 UncertaintiesType = HydraRingUncertaintiesType.Model
             };
 
-            hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationData
-            {
-                FailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700003, "Location 1", 0, 0)
-            });
-
-            hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationData
-            {
-                FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(700004, "Location 2", 1, 1)
-            });
+            hydraRingConfiguration.AddHydraRingCalculation(new QVariantCalculationData(new HydraulicBoundaryLocation(700003, "Location 1", 0, 0), 1.1));
+            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculationData(new HydraulicBoundaryLocation(700004, "Location 2", 1, 1), 2.2));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
@@ -57,15 +49,14 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, 700004, 700004, 100, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (999, 3, NULL, NULL, 6, 114, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (999, 101, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (999, 3, NULL, NULL, 6, 114, NULL, NULL, NULL, NULL, NULL, NULL, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (999, 1, NULL, NULL, 2, 26, NULL, NULL, NULL, NULL, NULL, NULL, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
                                          "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 3, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 4, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          "INSERT INTO [Numerics] VALUES (999, 3, NULL, NULL, 5, 4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 101, NULL, NULL, 102, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 101, NULL, NULL, 103, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (999, 1, NULL, NULL, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +

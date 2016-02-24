@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
+using Ringtoets.HydraRing.Calculation.Data;
 
 namespace Ringtoets.HydraRing.Calculation
 {
@@ -51,19 +52,19 @@ namespace Ringtoets.HydraRing.Calculation
 
             configurationDefaults = new[]
             {
-                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.AssessmentLevel, 1, 26, new[]
+                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.AssessmentLevel, 2, 26, new[]
                 {
                     1
                 }),
-                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.WaveHeight, 1, 28, new[]
+                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.WaveHeight, 2, 28, new[]
                 {
                     11
                 }),
-                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.WavePeakPeriod, 1, 29, new[]
+                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.WavePeakPeriod, 2, 29, new[]
                 {
                     14
                 }),
-                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.WaveSpectralPeriod, 1, 29, new[]
+                new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.WaveSpectralPeriod, 2, 29, new[]
                 {
                     16
                 }),
@@ -828,7 +829,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "ValueMax", null // TODO: Implement
                     },
                     {
-                        "Beta", null // TODO: Implement
+                        "Beta", !double.IsNaN(hydraRingCalculation.Beta) ? (double?) hydraRingCalculation.Beta : null
                     }
                 });
             }
