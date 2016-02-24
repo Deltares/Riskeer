@@ -61,6 +61,24 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand heeft een of meerdere multi-polylijnen, welke niet ondersteund worden..
+        /// </summary>
+        internal static string FailureMechanismSectionReader_File_has_unsupported_multiPolyline {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionReader_File_has_unsupported_multiPolyline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand heeft geen attribuut &apos;{0}&apos; welke vereist is om een vakindeling te importeren..
+        /// </summary>
+        internal static string FailureMechanismSectionReader_File_lacks_required_Attribute_0_ {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionReader_File_lacks_required_Attribute_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bestand mag uitsluitend polylijnen bevatten..
         /// </summary>
         internal static string FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines {

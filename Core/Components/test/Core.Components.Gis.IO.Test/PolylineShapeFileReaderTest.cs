@@ -266,9 +266,9 @@ namespace Core.Components.Gis.IO.Test
         public void ReadLine_WhenAtEndOfShapeFile_ReturnNull(string shapeFileName)
         {
             // Setup
-            string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 shapeFileName);
-            using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
+            string linesShapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                       shapeFileName);
+            using (var reader = new PolylineShapeFileReader(linesShapefileFilePath))
             {
                 for (int i = 0; i < reader.GetNumberOfLines(); i++)
                 {
@@ -300,6 +300,43 @@ namespace Core.Components.Gis.IO.Test
                                                 nonLineShapeFile);
             var message = Assert.Throws<ElementReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void HasAttribute_AttributeInShapefile_ReturnTrue()
+        {
+            // Setup
+            string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                 "Multiple_PolyLine_with_ID.shp");
+            using (var reader = new PolylineShapeFileReader(shapefileFilePath))
+            {
+                // Call
+                bool result = reader.HasAttribute("id");
+
+                // Assert
+                Assert.IsTrue(result);
+            }
+        }
+
+        [Test]
+        [TestCase("id", true)]
+        [TestCase("ID", false)]
+        [TestCase("Id", false)]
+        [TestCase("iD", false)]
+        [TestCase("Im_not_in_file", false)]
+        public void HasAttribute_VariousCases_ReturnTrueIfMatchesInProperCaseHasBeenFound(string attributeName, bool expectedResult)
+        {
+            // Setup
+            string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                 "Multiple_PolyLine_with_ID.shp");
+            using (var reader = new PolylineShapeFileReader(shapefileFilePath))
+            {
+                // Call
+                bool result = reader.HasAttribute(attributeName);
+
+                // Assert
+                Assert.AreEqual(expectedResult, result);
+            }
         }
     }
 }

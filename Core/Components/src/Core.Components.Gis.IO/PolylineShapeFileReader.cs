@@ -23,6 +23,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
+
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
@@ -79,11 +80,6 @@ namespace Core.Components.Gis.IO
             }
         }
 
-        public void Dispose()
-        {
-            lineShapeFile.Close();
-        }
-
         /// <summary>
         /// Gets the number of lines in the shapefile.
         /// </summary>
@@ -117,6 +113,22 @@ namespace Core.Components.Gis.IO
         }
 
         /// <summary>
+        /// Determines whether the specified attribute has been defined in the shapefile attributes.
+        /// </summary>
+        /// <param name="attributeName">Name of the attribute.</param>
+        /// <returns><c>True</c> is the attribute is defined, <c>false</c> otherwise.</returns>
+        /// <remarks>This check is case-sensitive.</remarks>
+        public bool HasAttribute(string attributeName)
+        {
+            return lineShapeFile.Attributes.Columns.Any(c => c.ColumnName == attributeName);
+        }
+
+        public void Dispose()
+        {
+            lineShapeFile.Close();
+        }
+
+        /// <summary>
         /// Gets the single line feature at the given index.
         /// </summary>
         /// <param name="index">The index of which feature to retrieve.</param>
@@ -128,8 +140,8 @@ namespace Core.Components.Gis.IO
             if (lineFeature.NumGeometries > 1)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .WithLocation(string.Format(Properties.Resources.PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_, index))
-                    .Build(Properties.Resources.PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline);
+                    .WithLocation(string.Format(GisIOResources.PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_, index))
+                    .Build(GisIOResources.PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline);
                 throw new ElementReadException(message);
             }
             return lineFeature;

@@ -69,11 +69,12 @@ namespace Ringtoets.Common.IO
         /// <summary>
         /// Gets the number of failure mechanism sections in the shapefile.
         /// </summary>
+        /// <exception cref="CriticalFileReadException">When the shapefile does not have
+        /// a required attribute defined.</exception>
         public int GetFailureMechanismSectionCount()
         {
+            ValidateExistenceOfRequiredAttributes();
             return polylineShapeFileReader.GetNumberOfLines();
-
-            // TODO: Validate: Existence of required attributes
         }
 
         /// <summary>
@@ -82,8 +83,15 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <returns>The <see cref="FailureMechanismSection"/> read from the file, or <c>null</c>
         /// when at the end of the file.</returns>
+        /// <exception cref="CriticalFileReadException">When either:
+        /// <list type="bullet">
+        /// <item>the shapefile does not have a required attribute defined.</item>
+        /// <item>the element read from the file is a multi-polyline.</item>
+        /// </list></exception>
         public FailureMechanismSection ReadFailureMechanismSection()
         {
+            ValidateExistenceOfRequiredAttributes();
+
             var lineData = ReadMapLineData();
             if (lineData == null)
             {
@@ -96,6 +104,21 @@ namespace Ringtoets.Common.IO
         public void Dispose()
         {
             polylineShapeFileReader.Dispose();
+        }
+
+        /// <summary>
+        /// Validates the existence of required attributes.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">When the shapefile does not have
+        /// a required attribute defined.</exception>
+        private void ValidateExistenceOfRequiredAttributes()
+        {
+            if (!polylineShapeFileReader.HasAttribute(SectionNameAttributeKey))
+            {
+                var message = string.Format(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_lacks_required_Attribute_0_,
+                                            SectionNameAttributeKey);
+                throw new CriticalFileReadException(message);
+            }
         }
 
         private static PolylineShapeFileReader OpenPolyLineShapeFile(string shapeFilePath)
@@ -112,10 +135,21 @@ namespace Ringtoets.Common.IO
             }
         }
 
+        /// <summary>
+        /// Reads a new <see cref="MapLineData"/> from the file.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="CriticalFileReadException">When the line being read is a multi-polyline.</exception>
         private MapLineData ReadMapLineData()
         {
-            MapLineData lineData = polylineShapeFileReader.ReadLine();
-            return lineData;
+            try
+            {
+                return polylineShapeFileReader.ReadLine();
+            }
+            catch (ElementReadException e)
+            {
+                throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline, e);
+            }
         }
 
         private FailureMechanismSection CreateFailureMechanismSection(MapLineData lineData)

@@ -126,4 +126,10 @@
   <data name="FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines" xml:space="preserve">
     <value>Bestand mag uitsluitend polylijnen bevatten.</value>
   </data>
+  <data name="FailureMechanismSectionReader_File_lacks_required_Attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}' welke vereist is om een vakindeling te importeren.</value>
+  </data>
+  <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
+    <value>Het bestand heeft een of meerdere multi-polylijnen, welke niet ondersteund worden.</value>
+  </data>
 </root>

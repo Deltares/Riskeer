@@ -138,7 +138,23 @@ namespace Ringtoets.Common.IO.Test
             }
         }
 
-        // TODO: GetFailureMechanismSectionCount : Required attributes missing -> Throw exception
+        [Test]
+        public void GetFailureMechanismSectionCount_FileLacksNameAttribute_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              "traject_227_vakken_LacksVaknaamAttribute.shp");
+
+            using (var reader = new FailureMechanismSectionReader(validFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetFailureMechanismSectionCount();
+
+                // Assert
+                var message = Assert.Throws<CriticalFileReadException>(call).Message;
+                Assert.AreEqual("Het bestand heeft geen attribuut 'Vaknaam' welke vereist is om een vakindeling te importeren.", message);
+            }
+        }
 
         [Test]
         public void ReadFailureMechanismSection_ValidFilePath1_ReturnElement()
@@ -232,6 +248,47 @@ namespace Ringtoets.Common.IO.Test
             }
         }
 
-        // TODO: Reading file with Multi-polyline
+        [Test]
+        public void ReadFailureMechanismSection_FileLacksNameAttribute_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              "traject_227_vakken_LacksVaknaamAttribute.shp");
+
+            using (var reader = new FailureMechanismSectionReader(validFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadFailureMechanismSection();
+
+                // Assert
+                var message = Assert.Throws<CriticalFileReadException>(call).Message;
+                Assert.AreEqual("Het bestand heeft geen attribuut 'Vaknaam' welke vereist is om een vakindeling te importeren.", message);
+            }
+        }
+
+        [Test]
+        public void ReadFailureMechanismSection_FileHadMultiPolylines_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              "Artificial_MultiPolyline_vakken.shp");
+
+            using (var reader = new FailureMechanismSectionReader(validFilePath))
+            {
+                // Call
+                TestDelegate call = () =>
+                {
+                    reader.ReadFailureMechanismSection();
+                    reader.ReadFailureMechanismSection();
+                    reader.ReadFailureMechanismSection();
+                    reader.ReadFailureMechanismSection();
+                };
+
+
+                // Assert
+                var message = Assert.Throws<CriticalFileReadException>(call).Message;
+                Assert.AreEqual("Het bestand heeft een of meerdere multi-polylijnen, welke niet ondersteund worden.", message);
+            }
+        }
     }
 }
