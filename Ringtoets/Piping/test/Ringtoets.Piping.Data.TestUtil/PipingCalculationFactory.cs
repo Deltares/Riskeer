@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {
@@ -12,11 +13,29 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingCalculation CreateCalculationWithValidInput()
         {
             var random = new Random(22);
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            var bottom = random.NextDouble();
+            var top = bottom + random.NextDouble();
+            var soilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
             {
-                new PipingSoilLayer(random.NextDouble())
+                new PipingSoilLayer(top)
                 {
                     IsAquifer = true
+                }
+            });
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D
+                {
+                    X = 0.0,
+                    Y = 0.0,
+                    Z = 0.0
+                }, 
+                new Point3D
+                {
+                    X = 1.0,
+                    Y = 0.0,
+                    Z = top 
                 }
             });
             return new PipingCalculation
@@ -65,7 +84,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     WaterKinematicViscosity = 1.0,
                     WaterVolumetricWeight = 1.0,
                     WhitesDragCoefficient = 1.0,
-                    SurfaceLine = new RingtoetsPipingSurfaceLine(),
+                    SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile
                 }
             };

@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.Data
 
             var projectGeometryToLz = ProjectGeometryToLZ().ToArray();
 
-            ValidateInRange(l, projectGeometryToLz, Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height);
+            ValidateInRange(l, projectGeometryToLz);
             
             var segments = new Collection<Segment2D>();
             for (int i = 1; i < projectGeometryToLz.Length; i++)
@@ -283,18 +283,17 @@ namespace Ringtoets.Piping.Data
         /// <param name="l">The value to check for.</param>
         /// <param name="lzGeometry">The 2 dimensional geometry which determines the valid range for <paramref name="l"/>, where
         ///     elements are expected to be ordered on the x-coordinate.</param>
-        /// <param name="ringtoetsPipingSurfaceLineGetZatLCannotDetermineHeightCause"></param>
         /// <exception cref="ArgumentOutOfRangeException">Throw when:
         /// <list type="bullet">
         /// <item><paramref name="l"/> &lt; {first point's x-coordinate}</item>
         /// <item><paramref name="l"/> &gt; {last point's x-coordinate}</item>
         /// </list></exception>
-        private static void ValidateInRange(double l, Point2D[] lzGeometry, string operationDescription)
+        private static void ValidateInRange(double l, Point2D[] lzGeometry)
         {
             if (lzGeometry.First().X > l || lzGeometry.Last().X < l)
             {
                 var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
-                    operationDescription,                                  
+                    Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,                                  
                     lzGeometry.First().X,
                     lzGeometry.Last().X);
                 throw new ArgumentOutOfRangeException("l", outOfRangeMessage);

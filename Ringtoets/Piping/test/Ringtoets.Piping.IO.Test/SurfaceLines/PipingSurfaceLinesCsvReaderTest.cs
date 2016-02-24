@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "ValidFileWithoutSurfaceLines.csv");
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            using (var reader = new PipingSurfaceLinesCsvReader(path)) 
             {
                 // Call
                 int linesCount = reader.GetSurfaceLinesCount();
@@ -723,6 +723,32 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                     .WithLocation("op regel 2")
                     .WithSubject("profielmeting 'ArtificialLocal'")
                     .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        [TestCase("InvalidRow_DuplicatePointsCausingZeroLength.csv")]
+        [TestCase("InvalidRow_SinglePoint.csv")]
+        public void ReadLine_LineWithZeroLength_ThrowLineParseException(string file)
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, file);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadSurfaceLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .WithSubject("profielmeting 'Rotterdam1'")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

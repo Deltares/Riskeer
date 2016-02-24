@@ -91,18 +91,83 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SurfaceLine_WithoutDikeToeDikeSideAndDikeToeRiverSide_NoChangeForExitPointLAndSeePageLength()
+        public void SurfaceLine_WithoutDikeToeDikeSideAndDikeToeRiverSide_ExitPointAtEndAndSeePageLengthIsLengthInX()
         {
             // Setup
             var inputParameters = new PipingInput();
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var firstPointX = 1.0;
+            var secondPointX = 4.0;
+            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
+            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
+            surfaceLine.SetGeometry(new[]
+            {
+                point1,
+                point2
+            });
             
             // Call
             inputParameters.SurfaceLine = surfaceLine;
 
             // Assert
-            Assert.AreEqual(Math.Exp(-0.5), inputParameters.SeepageLength.Mean);
-            Assert.AreEqual(0, inputParameters.ExitPointL);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL);
+        }
+
+        [Test]
+        public void SurfaceLine_WithoutDikeToeDikeSide_ExitPointSetSeePageLengthStartToExitPointInX()
+        {
+            // Setup
+            var inputParameters = new PipingInput();
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var firstPointX = 1.0;
+            var secondPointX = 3.0;
+            var thirdPointX = 5.0;
+            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
+            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
+            var point3 = new Point3D { X = thirdPointX, Y = 0.0, Z = 1.8 };
+            surfaceLine.SetGeometry(new[]
+            {
+                point1,
+                point2,
+                point3
+            });
+            surfaceLine.SetDikeToeAtPolderAt(point2);
+            
+            // Call
+            inputParameters.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL);
+        }
+
+        [Test]
+        public void SurfaceLine_WithoutDikeToeRiverSide_ExitPointAtEndSeePageLengthLessThanLengthInX()
+        {
+            // Setup
+            var inputParameters = new PipingInput();
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var firstPointX = 1.0;
+            var secondPointX = 3.0;
+            var thirdPointX = 5.0;
+            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
+            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
+            var point3 = new Point3D { X = thirdPointX, Y = 0.0, Z = 1.8 };
+            surfaceLine.SetGeometry(new[]
+            {
+                point1,
+                point2,
+                point3
+            });
+            surfaceLine.SetDikeToeAtRiverAt(point2);
+
+            // Call
+            inputParameters.SurfaceLine = surfaceLine;
+
+            // Assert
+            Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(thirdPointX - firstPointX, inputParameters.ExitPointL);
         }
     }
 }

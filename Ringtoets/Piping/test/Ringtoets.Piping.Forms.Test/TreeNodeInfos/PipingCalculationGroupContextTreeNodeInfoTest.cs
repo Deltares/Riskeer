@@ -644,13 +644,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var emptyChildGroup = new PipingCalculationGroup();
 
             var group = new PipingCalculationGroup();
-            @group.Children.Add(childGroup);
-            @group.Children.Add(emptyChildGroup);
-            @group.Children.Add(invalidCalculation);
+            group.Children.Add(childGroup);
+            group.Children.Add(emptyChildGroup);
+            group.Children.Add(invalidCalculation);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
 
-            var nodeData = new PipingCalculationGroupContext(@group,
+            var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>(),
                                                              pipingFailureMechanismMock);

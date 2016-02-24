@@ -216,15 +216,23 @@ namespace Ringtoets.Piping.Data
             var entryPointIndex = Array.IndexOf(surfaceLine.Points.ToArray(), surfaceLine.DikeToeAtRiver);
             var exitPointIndex = Array.IndexOf(surfaceLine.Points.ToArray(), surfaceLine.DikeToeAtPolder);
 
-            if (entryPointIndex > -1 && exitPointIndex > -1)
-            {
-                var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
-                var entryPointL = localGeometry.ElementAt(entryPointIndex).X;
-                var exitPointL = localGeometry.ElementAt(exitPointIndex).X;
+            var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
 
-                ExitPointL = exitPointL;
-                SeepageLength.Mean = exitPointL - entryPointL;
+            var entryPointL = localGeometry[0].X;
+            var exitPointL = localGeometry[localGeometry.Length - 1].X;
+
+            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+            if (differentPoints && exitPointIndex > 0)
+            {
+                exitPointL = localGeometry.ElementAt(exitPointIndex).X;
             }
+            if (differentPoints && entryPointIndex > -1)
+            {
+                entryPointL = localGeometry.ElementAt(entryPointIndex).X;
+            }
+
+            ExitPointL = exitPointL;
+            SeepageLength.Mean = exitPointL - entryPointL;
         }
 
         /// <summary>

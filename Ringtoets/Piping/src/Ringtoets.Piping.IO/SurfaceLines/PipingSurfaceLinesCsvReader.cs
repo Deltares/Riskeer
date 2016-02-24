@@ -209,8 +209,31 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// Checks if the geometry defining the surface line is valid.
         /// </summary>
         /// <param name="surfaceLine">The surface line to be checked.</param>
-        /// <exception cref="LineParseException">Surface line geometry is invalid</exception>
+        /// <exception cref="LineParseException">Surface line geometry is invalid.</exception>
         private void CheckIfGeometryIsValid(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            CheckReclinging(surfaceLine);
+            CheckZeroLength(surfaceLine);
+        }
+
+        private void CheckZeroLength(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            Point3D lastPoint = null;
+            foreach (var point in surfaceLine.Points.ToArray())
+            {
+                if (lastPoint != null)
+                {
+                    if(!Equals(lastPoint, point))
+                    {
+                        return;
+                    }
+                }
+                lastPoint = point;
+            }
+            throw CreateLineParseException(lineNumber, surfaceLine.Name, Resources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
+        }
+
+        private void CheckReclinging(RingtoetsPipingSurfaceLine surfaceLine)
         {
             double[] lCoordinates = surfaceLine.ProjectGeometryToLZ().Select(p => p.X).ToArray();
             for (int i = 1; i < lCoordinates.Length; i++)

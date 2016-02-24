@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileImporter\PipingSoilProfilesImporterTest.cs" />
-    <Compile Include="FileImporter\PipingSurfaceLineCsvImporterTest.cs" />
+    <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
     <Compile Include="PipingFileImporterProviderTest.cs" />
     <Compile Include="PipingGuiPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

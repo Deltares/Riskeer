@@ -21,7 +21,7 @@ using UtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class PipingSurfaceLineCsvImporterTest
+    public class PipingSurfaceLinesCsvImporterTest
     {
         private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
         private readonly string pluginTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
@@ -523,6 +523,52 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                               internalErrorMessage),
                 string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
                               Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingRecline.krp.csv"))
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            Assert.IsTrue(importResult);
+            var importTargetArray = observableSurfaceLinesList.ToArray();
+            Assert.AreEqual(0, importTargetArray.Length);
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(path));
+
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        [Test]
+        public void Import_ImportingToValidTargetWithInValidFileWithDuplicatePointsCausingZeroLength_SkipInvalidRowAndLog()
+        {
+            // Setup
+            var twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingZeroLength.csv";
+            string path = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(File.Exists(path));
+
+            // Call
+            var importResult = false;
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, path);
+
+            // Assert
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(path)
+                .WithLocation("op regel 2")
+                .WithSubject("profielmeting 'Rotterdam1'")
+                .Build(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
+            var expectedLogMessages = new[]
+            {
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
+                              internalErrorMessage),
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
+                              Path.Combine(ioTestDataPath, "InvalidRow_DuplicatePointsCausingZeroLength.krp.csv"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
             Assert.IsTrue(importResult);

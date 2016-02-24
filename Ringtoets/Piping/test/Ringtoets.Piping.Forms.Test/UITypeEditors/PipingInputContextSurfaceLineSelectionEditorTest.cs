@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
-
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
@@ -23,7 +22,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             // Setup
             var pipingInput = new PipingInput
             {
-                SurfaceLine = new RingtoetsPipingSurfaceLine()
+                SurfaceLine = ValidSurfaceLine()
             };
             var inputParametersContext = new PipingInputContext(pipingInput,
                                                                 new[]
@@ -65,6 +64,21 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = 0.0,
+                    Y = 0.0,
+                    Z = 0.0
+                }, 
+                new Point3D
+                {
+                    X = 1.0,
+                    Y = 0.0,
+                    Z = 1.0 
+                }
+            });
             var pipingInput = new PipingInput
             {
                 SurfaceLine = surfaceLine
@@ -102,6 +116,27 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             Assert.AreSame(surfaceLine, result);
 
             mockRepository.VerifyAll();
+        }
+
+        private static RingtoetsPipingSurfaceLine ValidSurfaceLine()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = 0.0,
+                    Y = 0.0,
+                    Z = 0.0
+                },
+                new Point3D
+                {
+                    X = 1.0,
+                    Y = 0.0,
+                    Z = 1.0
+                }
+            });
+            return surfaceLine;
         }
     }
 }

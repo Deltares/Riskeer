@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Linq;
-
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -36,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
@@ -129,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 22;
+            int numberProperties = 24;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -151,6 +150,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double gravity = random.NextDouble();
             double meanDiameter70 = random.NextDouble();
             double beddingAngle = random.NextDouble();
+            double entryPointL = random.NextDouble();
+            double exitPointL = entryPointL + random.NextDouble();
+
+            // Precondition
+            Assert.Greater(exitPointL, entryPointL);
 
             var dampingFactorExit = new LognormalDistribution();
             var phreaticLevelExit = new NormalDistribution();
@@ -160,11 +164,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var darcyPermeability = new LognormalDistribution();
             var thicknessAquiferLayer = new LognormalDistribution();
 
-            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
 
             // Call
-            new PipingInputContextProperties
+            var inputContext = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -193,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 SoilProfile = soilProfile,
             };
 
-            // Assert
+            // Assert I
             Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel);
             Assert.AreEqual(waterVolumetricWeight, inputParameters.WaterVolumetricWeight);
             Assert.AreEqual(upliftModelFactor, inputParameters.UpliftModelFactor);
@@ -214,25 +218,32 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(thicknessAquiferLayer, inputParameters.ThicknessAquiferLayer);
             Assert.AreEqual(meanDiameter70, inputParameters.MeanDiameter70);
             Assert.AreEqual(beddingAngle, inputParameters.BeddingAngle);
-            Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
+            
+            // Call
+            inputContext.ExitPointL = exitPointL;
+            inputContext.EntryPointL = entryPointL;
+
+            // Assert II
+            Assert.AreEqual(exitPointL - entryPointL, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(exitPointL, inputParameters.ExitPointL);
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(2, 2, 0)]
         [TestCase(2, 4, -2)]
-        [TestCase(0, 4, -4)]
-        [TestCase(1e-6, 4, - (4 - 1e-6))]
+        [TestCase(0.5, 4, -3.5)]
+        [TestCase(1e-6, 4, -(4 - 1e-6))]
         [TestCase(3, 1e-6, 3 - 1e-6)]
-        [TestCase(0, 1e-6, -1e-6)]
+        [TestCase(0.5, 1e-6, 0.5-1e-6)]
         public void EntryPointL_ExitPointAndSeepageLengthSet_ExpectedValue(double exitPoint, double seepageLength, double entryPoint)
         {
             // Setup
             var random = new Random(22);
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
@@ -273,8 +284,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
@@ -309,8 +320,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
@@ -345,7 +356,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
@@ -373,7 +384,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.EntryPointL = l;
 
             // Assert
-            var message = string.Format(Properties.Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
+            var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -383,7 +394,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
 
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
@@ -411,8 +422,29 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.ExitPointL = l;
 
             // Assert
-            var message = string.Format(Properties.Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, l);
+            var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, l);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+        }
+
+        private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = xMin,
+                    Y = 0.0,
+                    Z = 0.0
+                },
+                new Point3D
+                {
+                    X = xMax,
+                    Y = 0.0,
+                    Z = 1.0
+                }
+            });
+            return surfaceLine;
         }
     }
 }

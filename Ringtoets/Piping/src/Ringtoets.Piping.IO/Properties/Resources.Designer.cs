@@ -253,6 +253,15 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profielmeting heeft een geometrie die een lijn met lengte 0 beschrijft..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voor de profielmeting ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet {
