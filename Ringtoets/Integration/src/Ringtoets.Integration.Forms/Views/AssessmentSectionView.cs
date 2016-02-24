@@ -64,6 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
 
                 if (data != null)
                 {
+                    data.Detach(this);
                     SetDataToMap();
                     data.Attach(this);
                 }
@@ -80,7 +81,10 @@ namespace Ringtoets.Integration.Forms.Views
 
         public void UpdateObserver()
         {
-            SetDataToMap();
+            if (data != null)
+            {
+                SetDataToMap();
+            }
         }
 
         private void SetDataToMap()

@@ -210,6 +210,50 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void UpdateObserver_DataNull_MapDataNotUpdated()
+        {
+            // Setup
+            var view = new AssessmentSectionView();
+            var map = (BaseMap)view.Controls[0];
+            
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var assessmentSectionBase = new AssessmentSectionBaseTestClass();
+            assessmentSectionBase.ReferenceLine = new ReferenceLine();
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            view.Data = assessmentSectionBase;
+            
+            assessmentSectionBase.Attach(observer);
+
+            MapData dataBeforeUpdate = map.Data;
+            view.Data = null;
+
+            assessmentSectionBase.ReferenceLine = new ReferenceLine();
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(2.0, 5.0),
+                new Point2D(34.0, 2.0)
+            });
+
+            // Call
+            assessmentSectionBase.NotifyObservers();
+
+            // Assert
+            Assert.IsNull(view.Data);
+            Assert.AreEqual(dataBeforeUpdate, map.Data);
+            mocks.VerifyAll();
+        }
+
         private class AssessmentSectionBaseTestClass : AssessmentSectionBase
         {
             public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
