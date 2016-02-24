@@ -25,6 +25,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Settings;
 using Ringtoets.HydraRing.Calculation.Types;
 
 namespace Ringtoets.HydraRing.Calculation
@@ -42,7 +43,7 @@ namespace Ringtoets.HydraRing.Calculation
     {
         private readonly IList<HydraRingCalculationData> hydraRingCalculations;
         private readonly IDictionary<HydraRingFailureMechanismType, DefaultsPerFailureMechanism> defaultsPerFailureMechanism;
-        private readonly IEnumerable<HydraRingConfigurationSettings> configurationPerSubMechanism;
+        private readonly IEnumerable<SubMechanismSettings> subMechanismSettings;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
@@ -144,9 +145,9 @@ namespace Ringtoets.HydraRing.Calculation
                 }
             };
 
-            configurationPerSubMechanism = new[]
+            subMechanismSettings = new[]
             {
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
                     SubMechanismId = 1,
@@ -165,7 +166,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
                     SubMechanismId = 11,
@@ -184,7 +185,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
                     SubMechanismId = 14,
@@ -203,7 +204,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
                     SubMechanismId = 16,
@@ -222,7 +223,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     SubMechanismId = 3,
@@ -241,7 +242,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     SubMechanismId = 4,
@@ -260,7 +261,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.QVariant,
                     SubMechanismId = 5,
@@ -279,7 +280,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
                     SubMechanismId = 102,
@@ -298,7 +299,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
                     SubMechanismId = 103,
@@ -317,7 +318,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     SubMechanismId = 311,
@@ -336,7 +337,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     SubMechanismId = 313,
@@ -355,7 +356,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
                     SubMechanismId = 314,
@@ -374,7 +375,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     SubMechanismId = 421,
@@ -393,7 +394,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     SubMechanismId = 422,
@@ -412,7 +413,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
                     SubMechanismId = 423,
@@ -431,7 +432,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 422,
@@ -450,7 +451,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 424,
@@ -469,7 +470,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 425,
@@ -488,7 +489,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 426,
@@ -507,7 +508,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
                     SubMechanismId = 427,
@@ -526,7 +527,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 422,
@@ -545,7 +546,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 424,
@@ -564,7 +565,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 425,
@@ -583,7 +584,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 430,
@@ -602,7 +603,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 431,
@@ -621,7 +622,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 432,
@@ -640,7 +641,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 433,
@@ -659,7 +660,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 434,
@@ -678,7 +679,7 @@ namespace Ringtoets.HydraRing.Calculation
                     NiUMax = 6.0,
                     NiNumberSteps = 25
                 },
-                new HydraRingConfigurationSettings
+                new SubMechanismSettings
                 {
                     FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
                     SubMechanismId = 435,
@@ -878,7 +879,7 @@ namespace Ringtoets.HydraRing.Calculation
 
                 foreach (var subMechanimsId in defaultsForFailureMechanism.SubMechanismIds)
                 {
-                    var configurationForSubMechanism = configurationPerSubMechanism.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
+                    var configurationForSubMechanism = subMechanismSettings.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {

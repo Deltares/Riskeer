@@ -21,12 +21,15 @@
 
 using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Settings
 {
     /// <summary>
-    /// Container for configuration settings on a per <see cref="FailureMechanismType"/> basis.
+    /// Container for sub mechanims settings, uniquely identified by the combination of:
+    /// - SectionID
+    /// - <see cref="FailureMechanismType"/>
+    /// - <see cref="SubMechanismId"/>
     /// </summary>
-    public class HydraRingConfigurationSettings
+    public class SubMechanismSettings
     {
         /// <summary>
         /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
