@@ -762,10 +762,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "YCoordinate", null // TODO: Dike cross section integration
                     },
                     {
-                        "StationId1", hydraRingCalculation.HydraulicBoundaryLocation.Id
+                        "StationId1", hydraRingCalculation.HydraulicBoundaryLocationId
                     },
                     {
-                        "StationId2", hydraRingCalculation.HydraulicBoundaryLocation.Id // Same as "StationId1": no support for coupling two stations
+                        "StationId2", hydraRingCalculation.HydraulicBoundaryLocationId // Same as "StationId1": no support for coupling two stations
                     },
                     {
                         "Relative", 100.0 // Fixed: no support for coupling two stations

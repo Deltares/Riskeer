@@ -38,8 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Test
                 UncertaintiesType = HydraRingUncertaintiesType.Model
             };
 
-            hydraRingConfiguration.AddHydraRingCalculation(new QVariantCalculationData(new HydraulicBoundaryLocation(700003, "Location 1", 0, 0), 1.1));
-            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculationData(new HydraulicBoundaryLocation(700004, "Location 2", 1, 1), 2.2));
+            hydraRingConfiguration.AddHydraRingCalculation(new QVariantCalculationData(700003, 1.1));
+            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculationData(700004, 2.2));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
