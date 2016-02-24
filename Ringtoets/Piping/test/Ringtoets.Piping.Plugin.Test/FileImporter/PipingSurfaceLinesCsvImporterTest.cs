@@ -26,6 +26,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
         private readonly string pluginTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
 
+        private string krpFormat = ("{0}.krp.csv");
+        private string surfaceLineFormat = ("{0}.csv");
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -618,8 +621,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_CharacteristicPointsFileDoesNotExist_Log()
         {
             // Setup
-            string surfaceLineFile = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.csv");
-            string nonExistingCharacteristicFile = Path.Combine(ioTestDataPath, "TwoValidSurfaceLines.krp.csv");
+            var fileName = "TwoValidSurfaceLines";
+            string surfaceLineFile = Path.Combine(ioTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string nonExistingCharacteristicFile = Path.Combine(ioTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -652,8 +656,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_CharacteristicPointsFileIsEmpty_AbortImportAndLog()
         {
             // Setup
-            string surfaceLineFile = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_EmptyCharacteristicPoints.csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_EmptyCharacteristicPoints.krp.csv");
+            const string fileName = "TwoValidSurfaceLines_EmptyCharacteristicPoints";
+            string surfaceLineFile = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -692,8 +697,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_CharacteristicPointsFileHasInvalidHeader_AbortImportAndLog()
         {
             // Setup
-            string surfaceLineFile = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_InvalidHeaderCharacteristicPoints.csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_InvalidHeaderCharacteristicPoints.krp.csv");
+            const string fileName = "TwoValidSurfaceLines_InvalidHeaderCharacteristicPoints";
+            string surfaceLineFile = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -733,10 +739,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_CharacteristicPointsFileDeletedDuringRead_AbortImportAndLog()
         {
             // Setup
-            var copyTargetPath = "Import_FileDeletedDuringRead_AbortImportAndLog.csv";
-            var copyCharacteristicPointsTargetPath = "Import_FileDeletedDuringRead_AbortImportAndLog.krp.csv";
-            string surfaceLines = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithCharacteristicPoints.csv");
-            string validFilePath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithCharacteristicPoints.krp.csv");
+            const string target = "Import_FileDeletedDuringRead_AbortImportAndLog";
+            const string source = "TwoValidSurfaceLines_WithCharacteristicPoints";
+
+            var copyTargetPath = string.Format(surfaceLineFormat, target);
+            var copyCharacteristicPointsTargetPath = string.Format(krpFormat, target);
+            string surfaceLines = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, source));
+            string validFilePath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, source));
             File.Copy(surfaceLines, copyTargetPath);
             File.Copy(validFilePath, copyCharacteristicPointsTargetPath);
 
@@ -799,8 +808,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_CharacteristicPointsFileHasDuplicateIdentifier_AbortImportAndLog()
         {
             // Setup
-            string surfaceLines = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_DuplicateIdentifiersCharacteristicPoints.csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_DuplicateIdentifiersCharacteristicPoints.krp.csv");
+            const string fileName = "TwoValidSurfaceLines_DuplicateIdentifiersCharacteristicPoints";
+            string surfaceLineFile = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -814,7 +824,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLines);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
 
             // Assert
             var expectedLogMessages = new[]
@@ -833,8 +843,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_FileWithTwoValidLinesAndOneInvalidCharacteristicPointsDefinitionDueToUnparsableNumber_SkipInvalidRowAndLog()
         {
             // Setup
-            string surfaceLines = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithOneInvalidCharacteristicPoints.csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithOneInvalidCharacteristicPoints.krp.csv");
+            const string fileName = "TwoValidSurfaceLines_WithOneInvalidCharacteristicPoints";
+            string surfaceLineFile = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -850,7 +861,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importResult = false;
 
             // Call
-            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLines);
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
@@ -883,8 +894,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_FileWithTwoValidLinesAndOneCharacteristicPointsDefinition_LogMissingDefinition()
         {
             // Setup
-            string surfaceLines = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithOneCharacteristicPointsLocation.csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithOneCharacteristicPointsLocation.krp.csv");
+            const string fileName = "TwoValidSurfaceLines_WithOneCharacteristicPointsLocation";
+            string surfaceLines = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -927,8 +939,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_FileWithTwoValidLinesAndThreeCharacteristicPointsDefinition_LogMissingDefinition()
         {
             // Setup
-            string surfaceLines = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithThreeCharacteristicPointsLocations.csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_WithThreeCharacteristicPointsLocations.krp.csv");
+            const string fileName = "TwoValidSurfaceLines_WithThreeCharacteristicPointsLocations";
+            string surfaceLines = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -980,8 +993,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void Import_FileWithTwoValidLinesAndCharacteristicPointNotOnGeometry_LogInvalidPointDefinition(string fileName, string characteristicPointName)
         {
             // Setup
-            string surfaceLines = Path.Combine(pluginTestDataPath, fileName + ".csv");
-            string corruptPath = Path.Combine(pluginTestDataPath, fileName + ".krp.csv");
+            string surfaceLines = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -1031,8 +1044,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             const int expectedNumberOfSurfaceLines = 2;
             const int expectedNumberOfCharacteristicPointsDefinitions = 2;
-            var twovalidsurfacelinesCsv = "TwoValidSurfaceLines_WithCharacteristicPoints.csv";
-            var twovalidsurfacelinesCharacteristicPointsCsv = "TwoValidSurfaceLines_WithCharacteristicPoints.krp.csv";
+
+            const string fileName = "TwoValidSurfaceLines_WithCharacteristicPoints";
+            string twovalidsurfacelinesCsv =string.Format(surfaceLineFormat, fileName);
+            string twovalidsurfacelinesCharacteristicPointsCsv = string.Format(krpFormat, fileName);
+
             string validSurfaceLinesFilePath = Path.Combine(pluginTestDataPath, twovalidsurfacelinesCsv);
             string validCharacteristicPointsFilePath = Path.Combine(pluginTestDataPath, twovalidsurfacelinesCsv);
 

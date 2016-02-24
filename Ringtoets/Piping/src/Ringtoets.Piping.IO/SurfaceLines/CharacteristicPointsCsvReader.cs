@@ -28,7 +28,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.SurfaceLines
@@ -45,34 +44,14 @@ namespace Ringtoets.Piping.IO.SurfaceLines
     /// </summary>
     public class CharacteristicPointsCsvReader : IDisposable
     {
+        public static readonly Point3D UndefinedPoint = new Point3D
+        {
+            X = -1,
+            Y = -1,
+            Z = -1
+        };
+
         private const char separator = ';';
-
-        #region csv columns
-
-        private const string locationIdKey = "locationid";
-        private const string surfaceLineKey = "profielnaam";
-        private const string surfaceLevelInsideKey = "maaiveld_binnenwaarts";
-        private const string ditchPolderSideKey = "insteek_sloot_polderzijde";
-        private const string bottomDitchPolderSideKey = "slootbodem_polderzijde";
-        private const string bottomDitchDikeSideKey = "slootbodem_dijkzijde";
-        private const string ditchDikeSideKey = "insteek_sloot_dijkzijde";
-        private const string dikeToeAtPolderKey = "teen_dijk_binnenwaarts";
-        private const string topShoulderInsideKey = "kruin_binnenberm";
-        private const string shoulderInsideKey = "insteek_binnenberm";
-        private const string dikeTopAtPolderKey = "kruin_binnentalud";
-        private const string trafficLoadInsideKey = "verkeersbelasting_kant_binnenwaarts";
-        private const string trafficLoadOutsideKey = "verkeersbelasting_kant_buitenwaarts";
-        private const string dikeTopAtRiverKey = "kruin_buitentalud";
-        private const string shoulderOutsideKey = "insteek_buitenberm";
-        private const string topShoulderOutsideKey = "kruin_buitenberm";
-        private const string dikeToeAtRiverKey = "teen_dijk_buitenwaarts";
-        private const string surfaceLevelOutsideKey = "maaiveld_buitenwaarts";
-        private const string dikeTableHeightKey = "dijktafelhoogte";
-        private const string insertRiverChannelKey = "insteek_geul";
-        private const string bottomRiverChannelKey = "teen_geul";
-        private const string orderNumberKey = "volgnummer";
-
-        #endregion
 
         private const string xPrefix = "x_";
         private const string yPrefix = "y_";
@@ -83,7 +62,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <summary>
         /// Lower case string representations of the known characteristic point types.
         /// </summary>
-        private Dictionary<string,int> columnsInFile = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> columnsInFile = new Dictionary<string, int>();
 
         private StreamReader fileReader;
 
@@ -541,5 +520,32 @@ namespace Ringtoets.Piping.IO.SurfaceLines
                                                                      .Build(lineParseErrorMessage);
             return new LineParseException(message, innerException);
         }
+
+        #region csv columns
+
+        private const string locationIdKey = "locationid";
+        private const string surfaceLineKey = "profielnaam";
+        private const string surfaceLevelInsideKey = "maaiveld_binnenwaarts";
+        private const string ditchPolderSideKey = "insteek_sloot_polderzijde";
+        private const string bottomDitchPolderSideKey = "slootbodem_polderzijde";
+        private const string bottomDitchDikeSideKey = "slootbodem_dijkzijde";
+        private const string ditchDikeSideKey = "insteek_sloot_dijkzijde";
+        private const string dikeToeAtPolderKey = "teen_dijk_binnenwaarts";
+        private const string topShoulderInsideKey = "kruin_binnenberm";
+        private const string shoulderInsideKey = "insteek_binnenberm";
+        private const string dikeTopAtPolderKey = "kruin_binnentalud";
+        private const string trafficLoadInsideKey = "verkeersbelasting_kant_binnenwaarts";
+        private const string trafficLoadOutsideKey = "verkeersbelasting_kant_buitenwaarts";
+        private const string dikeTopAtRiverKey = "kruin_buitentalud";
+        private const string shoulderOutsideKey = "insteek_buitenberm";
+        private const string topShoulderOutsideKey = "kruin_buitenberm";
+        private const string dikeToeAtRiverKey = "teen_dijk_buitenwaarts";
+        private const string surfaceLevelOutsideKey = "maaiveld_buitenwaarts";
+        private const string dikeTableHeightKey = "dijktafelhoogte";
+        private const string insertRiverChannelKey = "insteek_geul";
+        private const string bottomRiverChannelKey = "teen_geul";
+        private const string orderNumberKey = "volgnummer";
+
+        #endregion
     }
 }

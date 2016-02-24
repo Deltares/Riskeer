@@ -30,82 +30,100 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets or sets the location of surface level inside.
+        /// Gets or sets the location which generalizes the surface level on the
+        /// inside of the polder
         /// </summary>
         public Point3D SurfaceLevelInside { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of ditch polder side inside.
+        /// Gets or sets the location of the start of the ditch when approaching from
+        /// inside the polder.
         /// </summary>
         public Point3D DitchPolderSide { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of bottom ditch polder side.
+        /// Gets or sets the location of the bottom of the ditch when approaching 
+        /// from inside the polder.
         /// </summary>
         public Point3D BottomDitchPolderSide { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of bottom ditch dike side.
+        /// Gets or sets the location of the bottom of the ditch when approaching
+        /// from the dike.
         /// </summary>
         public Point3D BottomDitchDikeSide { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of ditch dike side.
+        /// Gets or sets the location of the start of the ditch when approaching
+        /// from the dike.
         /// </summary>
         public Point3D DitchDikeSide { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of dike toe at polder.
+        /// Gets or sets the location of dike toe when approaching from inside
+        /// the polder.
         /// </summary>
         public Point3D DikeToeAtPolder { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of top shoulder inside.
+        /// Gets or sets the location where the shoulder on the side of the polder
+        /// declines towards the location of the dike toe when approaching from inside 
+        /// the polder.
         /// </summary>
         public Point3D TopShoulderInside { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of shoulder inside.
+        /// Gets or sets the location where the shoulder on the side of the polder
+        /// connects with the dike.
         /// </summary>
         public Point3D ShoulderInside { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of dike top at polder.
+        /// Gets or sets the location of the top of the dike when approaching from 
+        /// inside the polder.
         /// </summary>
         public Point3D DikeTopAtPolder { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of traffic load inside.
+        /// Gets or sets the location of the start of traffic load when approaching 
+        /// from inside the polder.
         /// </summary>
         public Point3D TrafficLoadInside { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of traffic load outside.
+        /// Gets or sets the location of the start of traffic load when approaching 
+        /// from outside the polder.
         /// </summary>
         public Point3D TrafficLoadOutside { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of dike top at river.
+        /// Gets or sets the location of the top of the dike when approaching 
+        /// from outside the polder.
         /// </summary>
         public Point3D DikeTopAtRiver { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of shoulder outside.
+        /// Gets or sets the location where the shoulder on the outside of the polder
+        /// connects with the dike.
         /// </summary>
         public Point3D ShoulderOutisde { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of top shoulder outside.
+        /// Gets or sets the location where the shoulder on the outside of the polder
+        /// declines towards the location of the dike toe when approaching from outside 
+        /// the polder.
         /// </summary>
         public Point3D TopShoulderOutside { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of dike toe at river.
+        /// Gets or sets the location of dike toe when approaching from outside 
+        /// the polder.
         /// </summary>
         public Point3D DikeToeAtRiver { get; set; }
 
         /// <summary>
-        /// Gets or sets the location of surface level outside.
+        /// Gets or sets the location which generalizes the height of the surface
+        /// on the oustide of the polder.
         /// </summary>
         public Point3D SurfaceLevelOutside { get; set; }
 

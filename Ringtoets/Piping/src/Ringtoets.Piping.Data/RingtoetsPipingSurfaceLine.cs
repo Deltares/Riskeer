@@ -241,20 +241,23 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
         public double GetZAtL(double l)
         {
+
             ValidateHasPoints();
 
-            var projectGeometryToLz = ProjectGeometryToLZ().ToArray();
+            Point2D[] pointsInLocalCoordinates = ProjectGeometryToLZ().ToArray();
 
-            ValidateInRange(l, projectGeometryToLz);
+            ValidateInRange(l, pointsInLocalCoordinates);
             
             var segments = new Collection<Segment2D>();
-            for (int i = 1; i < projectGeometryToLz.Length; i++)
+            for (int i = 1; i < pointsInLocalCoordinates.Length; i++)
             {
-                segments.Add(new Segment2D(projectGeometryToLz[i - 1], projectGeometryToLz[i]));
+                segments.Add(new Segment2D(pointsInLocalCoordinates[i - 1], pointsInLocalCoordinates[i]));
             }
 
-            var intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
-            var equalIntersections = Math.Abs(intersectionPoints.First().Y - intersectionPoints.Last().Y) < 1e-8;
+            IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
+
+            const double intersectionTolerance = 1e-8;
+            bool equalIntersections = Math.Abs(intersectionPoints.First().Y - intersectionPoints.Last().Y) < intersectionTolerance;
 
             if (equalIntersections)
             {
@@ -278,25 +281,22 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Checks whether <paramref name="l"/> is in range of the <paramref name="lzGeometry"/>.
+        /// Checks whether <paramref name="localCoordinateL"/> is in range of the <paramref name="geometryInLocalCoordinates"/>.
         /// </summary>
-        /// <param name="l">The value to check for.</param>
-        /// <param name="lzGeometry">The 2 dimensional geometry which determines the valid range for <paramref name="l"/>, where
-        ///     elements are expected to be ordered on the x-coordinate.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Throw when:
-        /// <list type="bullet">
-        /// <item><paramref name="l"/> &lt; {first point's x-coordinate}</item>
-        /// <item><paramref name="l"/> &gt; {last point's x-coordinate}</item>
-        /// </list></exception>
-        private static void ValidateInRange(double l, Point2D[] lzGeometry)
+        /// <param name="localCoordinateL">The value to check for.</param>
+        /// <param name="geometryInLocalCoordinates">Geometry projected in local coordinate system where the points are ordered on the
+        /// L-coordinate being monotonically non-decreasing</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="localCoordinateL"/> falls outside the L-coordiante span
+        /// defined by <paramref name="geometryInLocalCoordinates"/>.</exception>
+        private static void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
         {
-            if (lzGeometry.First().X > l || lzGeometry.Last().X < l)
+            if (geometryInLocalCoordinates.First().X > localCoordinateL || geometryInLocalCoordinates.Last().X < localCoordinateL)
             {
                 var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
                     Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,                                  
-                    lzGeometry.First().X,
-                    lzGeometry.Last().X);
-                throw new ArgumentOutOfRangeException("l", outOfRangeMessage);
+                    geometryInLocalCoordinates.First().X,
+                    geometryInLocalCoordinates.Last().X);
+                throw new ArgumentOutOfRangeException("localCoordinateL", outOfRangeMessage);
             }
         }
 

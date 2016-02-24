@@ -536,40 +536,40 @@
     <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
-    <value>Het punt dat de slootbodem dijkzijde voorstelt.</value>
+    <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_DisplayName" xml:space="preserve">
+  <data name="CharacteristicPoint_BottomDitchDikeSide" xml:space="preserve">
     <value>Slootbodem dijkzijde</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description" xml:space="preserve">
-    <value>Het punt dat de slootbodem polderzijde voorstelt.</value>
+    <value>De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_BottomDitchPolderSide_DisplayName" xml:space="preserve">
+  <data name="CharacteristicPoint_BottomDitchPolderSide" xml:space="preserve">
     <value>Slootbodem polderzijde</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_DitchDikeSide_Description" xml:space="preserve">
-    <value>Het punt dat de intsteek sloot dijkzijde voorstelt.</value>
+    <value>De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_DitchDikeSide_DisplayName" xml:space="preserve">
+  <data name="CharacteristicPoint_DitchDikeSide" xml:space="preserve">
     <value>Insteek sloot dijkzijde</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_DitchPolderSide_Description" xml:space="preserve">
-    <value>Het punt dat de intsteek sloot polderzijde voorstelt.</value>
+    <value>De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_DitchPolderSide_DisplayName" xml:space="preserve">
+  <data name="CharacteristicPoint_DitchPolderSide" xml:space="preserve">
     <value>Insteek sloot polderzijde</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description" xml:space="preserve">
-    <value>Het punt dat de dijkteen buitenwaarts voorstelt.</value>
+    <value>De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benard.</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_DikeToeAtRiver_DisplayName" xml:space="preserve">
-    <value>Dijkteen buitenwaarts</value>
+  <data name="CharacteristicPoint_DikeToeAtRiver" xml:space="preserve">
+    <value>Teen dijk buitenwaarts</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description" xml:space="preserve">
-    <value>Het punt dat de dijkteen binnenwaarts voorstelt.</value>
+    <value>De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.</value>
   </data>
-  <data name="RingtoetsPipingSurfaceLine_DikeToeAtPolder_DisplayName" xml:space="preserve">
-    <value>Dijkteen binnenwaarts</value>
+  <data name="CharacteristicPoint_DikeToeAtPolder" xml:space="preserve">
+    <value>Teen dijk binnenwaarts</value>
   </data>
   <data name="Categories_Characteristic_points" xml:space="preserve">
     <value>Karakteristieke punten</value>
