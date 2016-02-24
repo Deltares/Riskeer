@@ -44,24 +44,43 @@ namespace Ringtoets.HydraRing.Calculation
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
         private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
+        private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
+        private readonly HydraRingUncertaintiesType uncertaintiesType;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
         /// </summary>
-        public HydraRingConfiguration()
+        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the configured Hydra-Ring calculations.</param>
+        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.</param>
+        public HydraRingConfiguration(HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
         {
             hydraRingCalculations = new List<HydraRingCalculationData>();
+
+            this.timeIntegrationSchemeType = timeIntegrationSchemeType;
+            this.uncertaintiesType = uncertaintiesType;
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="HydraRingTimeIntegrationSchemeType"/>.
+        /// Gets the <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the configured Hydra-Ring calculations.
         /// </summary>
-        public HydraRingTimeIntegrationSchemeType? TimeIntegrationSchemeType { get; set; }
+        public HydraRingTimeIntegrationSchemeType? TimeIntegrationSchemeType
+        {
+            get
+            {
+                return timeIntegrationSchemeType;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the <see cref="HydraRingUncertaintiesType"/>.
+        /// Gets the <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.
         /// </summary>
-        public HydraRingUncertaintiesType? UncertaintiesType { get; set; }
+        public HydraRingUncertaintiesType? UncertaintiesType
+        {
+            get
+            {
+                return uncertaintiesType;
+            }
+        }
 
         /// <summary>
         /// Adds a Hydra-Ring calculation to the <see cref="HydraRingConfiguration"/>.

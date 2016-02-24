@@ -30,13 +30,20 @@ namespace Ringtoets.HydraRing.Calculation.Test
     public class HydraRingConfigurationTest
     {
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var hydraRingConfiguration = new HydraRingConfiguration(HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+
+            // Assert
+            Assert.AreEqual(HydraRingTimeIntegrationSchemeType.NTI, hydraRingConfiguration.TimeIntegrationSchemeType);
+            Assert.AreEqual(HydraRingUncertaintiesType.Model, hydraRingConfiguration.UncertaintiesType);
+        }
+
+        [Test]
         public void GenerateDataBaseCreationScript_NonDefaultHydraRingConfiguration_ReturnsExpectedCreationScript()
         {
-            var hydraRingConfiguration = new HydraRingConfiguration
-            {
-                TimeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.NTI,
-                UncertaintiesType = HydraRingUncertaintiesType.Model
-            };
+            var hydraRingConfiguration = new HydraRingConfiguration(HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
             hydraRingConfiguration.AddHydraRingCalculation(new QVariantCalculationData(700003, 1.1));
             hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculationData(700004, 2.2));
