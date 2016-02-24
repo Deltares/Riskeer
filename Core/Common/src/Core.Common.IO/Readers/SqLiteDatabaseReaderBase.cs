@@ -84,8 +84,13 @@ namespace Core.Common.IO.Readers
         /// </summary>
         public virtual void Dispose()
         {
-            Connection.Close();
-            Connection.Dispose();
+            if (Connection != null)
+            {
+                Connection.Close();
+                Connection.Dispose();
+            }
+
+            
         }
 
         /// <summary>

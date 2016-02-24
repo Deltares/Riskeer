@@ -40,7 +40,6 @@ namespace Ringtoets.Integration.Data
         protected AssessmentSectionBase()
         {
             Name = "";
-            HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
         }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets or sets the hydraulic boundary database.
         /// </summary>
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; private set; }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

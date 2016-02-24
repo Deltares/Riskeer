@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
                 if (data != null)
                 {
                     SetDataToMap();
-                    data.HydraulicBoundaryDatabase.Attach(this);
+                    data.Attach(this);
                 }
             }
         }
@@ -110,11 +110,16 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             var points = data.ReferenceLine.Points.ToList();
-            return points.Count > 0 ? new MapLineData(data.ReferenceLine.Points) : null;
+            return points.Count > 0 ? new MapLineData(points) : null;
         }
 
         private MapData GetHydraulicBoudaryLocations()
         {
+            if (data.HydraulicBoundaryDatabase == null)
+            {
+                return null;
+            }
+
             var locations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
             return locations.Count > 0 ? new MapPointData(locations) : null;
         }

@@ -61,12 +61,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var name = "Hydraulische randvoorwaarden";
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
             mocks.ReplayAll();
 
-            var context = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, assessmentSectionMock);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             // Call
             var text = info.Text(context);
@@ -104,10 +103,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var guiMock = mocks.StrictMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var hydraulicBoundaryDatabaseMock = mocks.StrictMock<HydraulicBoundaryDatabase>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabaseMock, assessmentSectionMock);
+            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -139,10 +137,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var hydraulicBoundaryDatabaseMock = mocks.StrictMock<HydraulicBoundaryDatabase>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabaseMock, assessmentSectionMock);
+            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
@@ -165,10 +162,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var hydraulicBoundaryDatabaseMock = mocks.StrictMock<HydraulicBoundaryDatabase>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
-            var nodeData = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabaseMock, assessmentSectionMock);
+            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
+            nodeData.Parent.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
 
@@ -177,7 +174,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             plugin.Gui = guiMock;
 
             // Call
-            nodeData.BoundaryDatabase.FilePath = testDataPath;
+            nodeData.Parent.HydraulicBoundaryDatabase.FilePath = testDataPath;
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
 
             // Assert

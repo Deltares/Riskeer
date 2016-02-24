@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.BoundaryDatabase.FilePath;
+                return data.Parent.HydraulicBoundaryDatabase.FilePath;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.BoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray();
+                return data.Parent.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray();
             }
         }
     }

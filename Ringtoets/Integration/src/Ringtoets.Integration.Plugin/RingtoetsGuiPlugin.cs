@@ -195,7 +195,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 new ReferenceLineContext(nodeData),
                 nodeData.FailureMechanismContribution,
-                new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData)
+                new HydraulicBoundaryDatabaseContext(nodeData)
             };
 
             childNodes.AddRange(nodeData.GetFailureMechanisms());
@@ -394,7 +394,7 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsFormsResources.FailureMechanismIcon,
                 null);
 
-            if (string.IsNullOrEmpty(nodeData.BoundaryDatabase.FilePath))
+            if (nodeData.Parent.HydraulicBoundaryDatabase == null)
             {
                 designWaterLevelItem.Enabled = false;
                 designWaterLevelItem.ToolTipText = HydraringResources.DesignWaterLevel_No_HRD_To_Calculate;
@@ -435,40 +435,46 @@ namespace Ringtoets.Integration.Plugin
         private static void ValidateAndImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
         {
             var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryLocationsImporter();
+
+            if (nodeData.Parent.HydraulicBoundaryDatabase == null)
+            {
+                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile);
+                return;
+            }
+
             string newVersion;
             try
             {
-                newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion(selectedFile);
+                hydraulicBoundaryLocationsImporter.ValidateAndConnectTo(selectedFile);
+                newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion();
             }
             catch (CriticalFileReadException exception)
             {
                 log.Error(exception.Message, exception);
                 return;
             }
-            var currentVersion = nodeData.BoundaryDatabase.Version;
-            var currentFilePath = nodeData.BoundaryDatabase.FilePath;
-            var newFilePath = selectedFile;
+
+            var currentVersion = nodeData.Parent.HydraulicBoundaryDatabase.Version;
+            var currentFilePath = nodeData.Parent.HydraulicBoundaryDatabase.FilePath;
 
             // Compare
-            if ((!string.IsNullOrEmpty(currentFilePath) && currentFilePath != newFilePath) ||
-                (!string.IsNullOrEmpty(currentVersion) && currentVersion != newVersion))
+            if (currentVersion != newVersion)
             {
                 // Show dialog
-                ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
+                ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile);
                 return;
             }
 
-            // Only import immediately when there is nothing set.
-            if (string.IsNullOrEmpty(currentFilePath) && string.IsNullOrEmpty(currentVersion) && nodeData.BoundaryDatabase.Locations.Count == 0)
+            if (currentFilePath != selectedFile)
             {
-                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile, newVersion);
+                // Only set the new file path. Don't import the complete database.
+                SetBoundaryDatabaseData(nodeData, selectedFile);
             }
         }
 
         private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
                                             HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
-                                            string filePath,
-                                            string version)
+                                            string filePath)
         {
             var confirmation = MessageBox.Show(
                 HydraringResources.Delete_Calculations_Text,
@@ -477,9 +483,9 @@ namespace Ringtoets.Integration.Plugin
 
             if (confirmation == DialogResult.OK)
             {
-                ClearCalculations(nodeData.BaseNode);
+                ClearCalculations(nodeData.Parent);
 
-                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, filePath, version);
+                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, filePath);
             }
         }
 
@@ -498,21 +504,22 @@ namespace Ringtoets.Integration.Plugin
 
         private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
                                                HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
-                                               string selectedFile,
-                                               string newVersion)
+                                               string selectedFile)
         {
-            nodeData.BoundaryDatabase.ClearLocations();
-            if (hydraulicBoundaryLocationsImporter.Import(nodeData.BoundaryDatabase.Locations, selectedFile))
+            if (hydraulicBoundaryLocationsImporter.Import(nodeData, selectedFile))
             {
-                SetBoundaryDatabaseData(nodeData, selectedFile, newVersion);
+                SetBoundaryDatabaseData(nodeData);
             }
         }
 
-        private static void SetBoundaryDatabaseData(HydraulicBoundaryDatabaseContext nodeData, string selectedFile, string version)
+        private static void SetBoundaryDatabaseData(HydraulicBoundaryDatabaseContext nodeData, string selectedFile = null)
         {
-            nodeData.BoundaryDatabase.FilePath = selectedFile;
-            nodeData.BoundaryDatabase.Version = version;
-            nodeData.BoundaryDatabase.NotifyObservers();
+            if (!String.IsNullOrEmpty(selectedFile))
+            {
+                nodeData.Parent.HydraulicBoundaryDatabase.FilePath = selectedFile;
+            }
+
+            nodeData.Parent.NotifyObservers();
             nodeData.NotifyObservers();
             log.InfoFormat(HydraringResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path__0__linked, selectedFile);
         }

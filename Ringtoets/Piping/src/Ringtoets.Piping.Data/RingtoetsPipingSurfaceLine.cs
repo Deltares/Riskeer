@@ -325,9 +325,9 @@ namespace Ringtoets.Piping.Data
             for (int i = 0; i < count; i++)
             {
                 result[i] = new Point2D
-                {
-                    X = localCoordinatesX[i], Y = geometryPoints[i].Z
-                };
+                (
+                    localCoordinatesX[i], geometryPoints[i].Z
+                );
             }
             return result;
         }
@@ -351,9 +351,9 @@ namespace Ringtoets.Piping.Data
             // Determine the vectors from the first coordinate to each other coordinate point 
             // in the XY world coordinate plane:
             Point2D[] worldCoordinates = Points.Select(p => new Point2D
-            {
-                X = p.X, Y = p.Y
-            }).ToArray();
+            (
+                p.X, p.Y
+            )).ToArray();
             var worldCoordinateVectors = new Vector[worldCoordinates.Length - 1];
             for (int i = 1; i < worldCoordinates.Length; i++)
             {

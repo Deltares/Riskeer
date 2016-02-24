@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Data.Test
             Point2D[] lzCoordinates = surfaceLine.ProjectGeometryToLZ().ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(new[]{ new Point2D { X = 0.0, Y = originalZ } }, lzCoordinates);
+            CollectionAssert.AreEqual(new[]{ new Point2D ( 0.0, originalZ ) }, lzCoordinates);
         }
 
         [Test]

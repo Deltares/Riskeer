@@ -36,8 +36,13 @@ namespace Ringtoets.HydraRing.Data
         /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="coordinateX">X coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="coordinateY">Y coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public HydraulicBoundaryLocation(long id, string name, double coordinateX, double coordinateY)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);

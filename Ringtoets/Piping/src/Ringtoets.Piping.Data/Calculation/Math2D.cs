@@ -80,10 +80,10 @@ namespace Ringtoets.Piping.Data.Calculation
             }
 
             return new Point2D
-            {
-                X = (bOtherLine*cLine - bLine*cOtherLine)/determinant,
-                Y = (aLine*cOtherLine - aOtherLine*cLine)/determinant
-            };
+            (
+                (bOtherLine*cLine - bLine*cOtherLine)/determinant,
+                (aLine*cOtherLine - aOtherLine*cLine)/determinant
+            );
         }
 
         /// <summary>
@@ -129,15 +129,15 @@ namespace Ringtoets.Piping.Data.Calculation
         private static Point2D LineIntersectionWithVerticalLine(Point2D point1, Point2D point2, double x)
         {
             var verticalLineFirstPoint = new Point2D
-            {
-                X = x,
-                Y = 0
-            };
+            (
+                x,
+                0
+            );
             var verticalLineSecondPoint = new Point2D
-            {
-                X = x,
-                Y = 1
-            };
+            (
+                x,
+                1
+            );
 
             try
             {

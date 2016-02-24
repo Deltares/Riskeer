@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
@@ -32,18 +33,13 @@ namespace Ringtoets.HydraRing.Data.Test
     public class HydraulicBoundaryLocationTest
     {
         [Test]
-        public void Constructor_NullName_DoesNotThrowException()
+        public void Constructor_NullName_ThrowsArgumentNullException()
         {
-            // Setup
-            long id = 0L;
-            double x = 1.0;
-            double y = 1.0;
-
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocation(id, null, x, y);
+            TestDelegate test = () => new HydraulicBoundaryLocation(0L, null, 0.0, 0.0);
 
             // Assert
-            Assert.DoesNotThrow(test);
+            Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]

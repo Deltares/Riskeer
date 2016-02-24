@@ -222,10 +222,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 try
                 {
                     return new Point2D
-                    {
-                        X = double.Parse(x.Value, CultureInfo.InvariantCulture),
-                        Y = double.Parse(y.Value, CultureInfo.InvariantCulture)
-                    };
+                    (
+                        double.Parse(x.Value, CultureInfo.InvariantCulture),
+                        double.Parse(y.Value, CultureInfo.InvariantCulture)
+                    );
                 }
                 catch (ArgumentNullException e)
                 {

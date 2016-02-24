@@ -21,17 +21,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Forms.PresentationObjects;
+using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 using RingtoetsHydraRingPluginResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
@@ -46,10 +46,20 @@ namespace Ringtoets.HydraRing.Plugin.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
         private int progress;
 
+        private HydraulicBoundaryLocationsImporter importer;
+
         [SetUp]
         public void SetUp()
         {
             progress = 0;
+
+            importer = new HydraulicBoundaryLocationsImporter();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            importer.Dispose();
         }
 
         [Test]
@@ -59,8 +69,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             var expectedFileFilter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsHydraRingFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName);
             var expectedDisplayName = "Locaties van de hydraulische randvoorwaarden";
 
-            // Call
-            var importer = new HydraulicBoundaryLocationsImporter();
+            // Call is done in SetUp
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
@@ -73,15 +82,27 @@ namespace Ringtoets.HydraRing.Plugin.Test
         }
 
         [Test]
-        public void GetHydraulicBoundaryDatabaseVersion_NonExistingFile_ThrowsCriticalFileReadException()
+        public void ValidateAndConnectTo_ExistingFile_DoesNotThrowException()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            // Call
+            TestDelegate test = () => importer.ValidateAndConnectTo(validFilePath);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        [Test]
+        public void ValidateAndConnectTo_NonExistingFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            var importer = new HydraulicBoundaryLocationsImporter();
             var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
 
             // Call
-            TestDelegate test = () => importer.GetHydraulicBoundaryDatabaseVersion(filePath);
+            TestDelegate test = () => importer.ValidateAndConnectTo(filePath);
 
             // Assert
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
@@ -89,15 +110,14 @@ namespace Ringtoets.HydraRing.Plugin.Test
         }
 
         [Test]
-        public void GetHydraulicBoundaryDatabaseVersion_InvalidFile_ThrowsCriticalFileReadException()
+        public void ValidateAndConnectTo_InvalidFile_ThrowsCriticalFileReadException()
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "/");
-            var importer = new HydraulicBoundaryLocationsImporter();
             var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", filePath);
 
             // Call
-            TestDelegate test = () => importer.GetHydraulicBoundaryDatabaseVersion(filePath);
+            TestDelegate test = () => importer.ValidateAndConnectTo(filePath);
 
             // Assert
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
@@ -110,58 +130,53 @@ namespace Ringtoets.HydraRing.Plugin.Test
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var importer = new HydraulicBoundaryLocationsImporter();
+            importer.ValidateAndConnectTo(validFilePath);
 
             // Call
-            string version = importer.GetHydraulicBoundaryDatabaseVersion(validFilePath);
+            string version = importer.GetHydraulicBoundaryDatabaseVersion();
 
             // Assert
             Assert.IsNotNullOrEmpty(version);
         }
 
         [Test]
-        [TestCase("/", "Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.")]
-        [TestCase("nonexisting.sqlite", "Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.")]
-        public void Import_FromNonExistingFileOrInvalidFile_ThrowsCriticalFileReadException(string filename, string exceptionMessage)
+        public void Import_ConnectionNotOpened_ThrowsInValidOperationException()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, filename);
-            var expectedMessage = string.Format(exceptionMessage, validFilePath);
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableList = new ObservableList<HydraulicBoundaryLocation>();
-            observableList.Attach(observer);
-            var importer = new HydraulicBoundaryLocationsImporter
-            {
-                ProgressChanged = IncrementProgress
-            };
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            // Precondition
-            CollectionAssert.IsEmpty(observableList);
+            var expectedMessage = "Er is nog geen bestand geopend.";
 
             // Call
-            TestDelegate test = () => importer.Import(observableList, validFilePath);
+            TestDelegate call = () => importer.Import(context, validFilePath);
 
             // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<InvalidOperationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
-            CollectionAssert.IsEmpty(observableList);
-            Assert.AreEqual(1, progress);
-
-            mocks.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
         public void Import_ImportingToValidTargetWithValidFile_ImportHydraulicBoundaryLocationsToCollection()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var importer = new HydraulicBoundaryLocationsImporter();
-            var importTarget = new List<HydraulicBoundaryLocation>();
+
+            // Precondition
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+
+            importer.ValidateAndConnectTo(validFilePath);
 
             // Call
             var importResult = false;
@@ -174,9 +189,10 @@ namespace Ringtoets.HydraRing.Plugin.Test
                 StringAssert.EndsWith(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_Import_Import_successful, messageArray[0]);
             });
             Assert.IsTrue(importResult);
-            Assert.AreEqual(18, importTarget.Count);
-            CollectionAssert.AllItemsAreNotNull(importTarget);
-            CollectionAssert.AllItemsAreUnique(importTarget);
+            ICollection<HydraulicBoundaryLocation> importedLocations = importTarget.Parent.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(18, importedLocations.Count);
+            CollectionAssert.AllItemsAreNotNull(importedLocations);
+            CollectionAssert.AllItemsAreUnique(importedLocations);
         }
 
         [Test]
@@ -187,30 +203,30 @@ namespace Ringtoets.HydraRing.Plugin.Test
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableList = new ObservableList<HydraulicBoundaryLocation>();
-            observableList.Attach(observer);
+            var importTarget = new HydraulicBoundaryDatabaseContext( assessmentSection);
+            importTarget.Attach(observer);
 
-            var importer = new HydraulicBoundaryLocationsImporter
-            {
-                ProgressChanged = IncrementProgress
-            };
+            importer.ProgressChanged = IncrementProgress;
 
             // Precondition
-            CollectionAssert.IsEmpty(observableList);
+            Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase);
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+
+            importer.ValidateAndConnectTo(validFilePath);
 
             importer.Cancel();
             var importResult = true;
 
             // Call
-            Action call = () => importResult = importer.Import(observableList, validFilePath);
+            Action call = () => importResult = importer.Import(importTarget, validFilePath);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Locaties van hydraulische randvoorwaarden importeren is afgebroken. Er is geen data ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Het importeren van hydraulische randvoorwaarden locaties is afgebroken. Er is geen data ingelezen.", 1);
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(observableList);
+            Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase);
             Assert.AreEqual(1, progress);
 
             mocks.VerifyAll(); // 'observer' should not be notified
@@ -224,67 +240,35 @@ namespace Ringtoets.HydraRing.Plugin.Test
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var observableList = new ObservableList<HydraulicBoundaryLocation>();
-            observableList.Attach(observer);
+            var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            importTarget.Attach(observer);
 
-            var importer = new HydraulicBoundaryLocationsImporter
-            {
-                ProgressChanged = IncrementProgress
-            };
+            importer.ProgressChanged = IncrementProgress;
 
             // Precondition
-            CollectionAssert.IsEmpty(observableList);
+            Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase);
             Assert.IsTrue(File.Exists(validFilePath));
+
+            importer.ValidateAndConnectTo(validFilePath);
 
             // Setup (second part)
             importer.Cancel();
-            var importResult = importer.Import(observableList, validFilePath);
+            var importResult = importer.Import(importTarget, validFilePath);
             Assert.IsFalse(importResult);
 
             // Call
-            importResult = importer.Import(observableList, validFilePath);
+            importResult = importer.Import(importTarget, validFilePath);
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(18, observableList.Count);
-            CollectionAssert.AllItemsAreNotNull(observableList);
-            CollectionAssert.AllItemsAreUnique(observableList);
-        }
-
-        [Test]
-        public void Import_ImportingToValidTargetWithEmptyFile_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            string corruptPath = Path.Combine(testDataPath, "empty.sqlite");
-            var expectedExceptionMessage = new FileReaderErrorMessageBuilder(corruptPath).
-                Build(RingtoetsHydraRingIOResources.Error_HydraulicBoundaryLocation_read_from_database);
-
-            var importer = new HydraulicBoundaryLocationsImporter
-            {
-                ProgressChanged = IncrementProgress
-            };
-
-            var observableHydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            observableHydraulicBoundaryLocationList.Attach(observer);
-
-            // Call
-            TestDelegate test = () => importer.Import(observableHydraulicBoundaryLocationList, corruptPath);
-
-            // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(expectedExceptionMessage, exception.Message);
-            Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
-            CollectionAssert.IsEmpty(observableHydraulicBoundaryLocationList, "No items should be added to collection when import in an empty database.");
-            Assert.AreEqual(1, progress);
-
-            mocks.VerifyAll(); // Expect no calls on 'observer'
+            Assert.IsNotNull(importTarget.Parent.HydraulicBoundaryDatabase);
+            Assert.AreEqual(18, importTarget.Parent.HydraulicBoundaryDatabase.Locations.Count);
+            CollectionAssert.AllItemsAreNotNull(importTarget.Parent.HydraulicBoundaryDatabase.Locations);
+            CollectionAssert.AllItemsAreUnique(importTarget.Parent.HydraulicBoundaryDatabase.Locations);
         }
 
         [Test]
@@ -293,28 +277,29 @@ namespace Ringtoets.HydraRing.Plugin.Test
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
+
+            var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
             var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
 
-            var importer = new HydraulicBoundaryLocationsImporter
-            {
-                ProgressChanged = IncrementProgress
-            };
+            importer.ProgressChanged = IncrementProgress;
 
-            var observableHydraulicBoundaryLocationList = new ObservableList<HydraulicBoundaryLocation>();
-            observableHydraulicBoundaryLocationList.Attach(observer);
+            importTarget.Attach(observer);
 
             var importResult = true;
 
+            importer.ValidateAndConnectTo(corruptPath);
+
             // Call
-            Action call = () => importResult = importer.Import(observableHydraulicBoundaryLocationList, corruptPath);
+            Action call = () => importResult = importer.Import(importTarget, corruptPath);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(observableHydraulicBoundaryLocationList, "No items should be added to collection when import from corrupt database.");
+            Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
             Assert.AreEqual(2, progress);
 
             mocks.VerifyAll(); // Expect no calls on 'observer'

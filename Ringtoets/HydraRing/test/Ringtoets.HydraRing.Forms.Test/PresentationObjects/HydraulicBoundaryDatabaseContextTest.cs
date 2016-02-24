@@ -36,29 +36,23 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
             var mocks = new MockRepository();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             // Call
-            var pressentationObject = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, assessmentSectionBaseMock);
+            var pressentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(pressentationObject);
-            Assert.AreSame(hydraulicBoundaryDatabase, pressentationObject.BoundaryDatabase);
-            Assert.AreSame(assessmentSectionBaseMock, pressentationObject.BaseNode);
+            Assert.AreSame(assessmentSectionBaseMock, pressentationObject.Parent);
         }
 
         [Test]
         public void Constructor_AssesmentSectionBaseIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
             // Call
-            TestDelegate call = () => new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, null);
+            TestDelegate call = () => new HydraulicBoundaryDatabaseContext(null);
 
             var exception = Assert.Throws<ArgumentNullException>(call);
             string customMessage = exception.Message.Split(new[]
@@ -76,11 +70,10 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var presentationObject = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, assessmentSectionBaseMock);
+            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
             presentationObject.Attach(observer);
 
             // Call
@@ -97,11 +90,10 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
 
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var presentationObject = new HydraulicBoundaryDatabaseContext(hydraulicBoundaryDatabase, assessmentSectionBaseMock);
+            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 

@@ -86,6 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var view = new AssessmentSectionView();
             var map = (BaseMap) view.Controls[0];
             var assessmentSectionBase = new AssessmentSectionBaseTestClass();
+            assessmentSectionBase.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
 
             // Call
@@ -110,6 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             var assessmentSectionBase = new AssessmentSectionBaseTestClass();
+            assessmentSectionBase.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
             assessmentSectionBase.HydraulicBoundaryDatabase.Attach(observer);
 
@@ -125,7 +127,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             assessmentSectionBase.HydraulicBoundaryDatabase.NotifyObservers();
 
             // Assert
-            Assert.AreNotEqual(mapData, map.Data);
+            Assert.AreEqual(mapData, map.Data);
             mocks.VerifyAll();
         }
 

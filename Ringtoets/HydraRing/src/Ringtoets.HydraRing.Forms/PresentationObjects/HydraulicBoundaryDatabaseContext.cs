@@ -31,45 +31,31 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
     /// </summary>
     public class HydraulicBoundaryDatabaseContext : Observable
     {
-        private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
-        private readonly AssessmentSectionBase baseNode;
+        private readonly AssessmentSectionBase parent;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/> instance wrapped by this context object.</param>
-        /// <param name="baseNode">The <see cref="AssessmentSectionBase"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseNode"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, AssessmentSectionBase baseNode)
+        /// <param name="parent">The <see cref="AssessmentSectionBase"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="parent"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseContext(AssessmentSectionBase parent)
         {
-            if (baseNode == null)
+            if (parent == null)
             {
-                throw new ArgumentNullException("baseNode", "Assessment section cannot be null.");
+                throw new ArgumentNullException("parent", "Assessment section cannot be null.");
             }
 
-            this.hydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            this.baseNode = baseNode;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryDatabase"/> which is wrapped by this context object.
-        /// </summary>
-        public HydraulicBoundaryDatabase BoundaryDatabase
-        {
-            get
-            {
-                return hydraulicBoundaryDatabase;
-            }
+            this.parent = parent;
         }
 
         /// <summary>
         /// Gets the <see cref="AssessmentSectionBase"/> which this context object belongs to.
         /// </summary>
-        public AssessmentSectionBase BaseNode
+        public AssessmentSectionBase Parent
         {
             get
             {
-                return baseNode;
+                return parent;
             }
         }
     }

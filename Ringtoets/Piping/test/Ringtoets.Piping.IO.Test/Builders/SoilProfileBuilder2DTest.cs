@@ -101,22 +101,10 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var profileName = "SomeProfile";
             var builder = new SoilProfileBuilder2D(profileName, 0.0);
-            var firstPoint = new Point2D
-            {
-                X = -0.5, Y = 1.0
-            };
-            var secondPoint = new Point2D
-            {
-                X = 0.5, Y = 1.0
-            };
-            var thirdPoint = new Point2D
-            {
-                X = 0.5, Y = -1.0
-            };
-            var fourthPoint = new Point2D
-            {
-                X = -0.5, Y = -1.0
-            };
+            var firstPoint = new Point2D(-0.5, 1.0);
+            var secondPoint = new Point2D(0.5, 1.0);
+            var thirdPoint = new Point2D(0.5, -1.0);
+            var fourthPoint = new Point2D(-0.5, -1.0);
             builder.Add(new SoilLayer2D
             {
                 OuterLoop = new List<Segment2D>

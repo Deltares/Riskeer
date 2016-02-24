@@ -40,10 +40,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 foreach (var tuple in AllIndexesOfDigit(lines[lineIndex]))
                 {
-                    points.Add(tuple.Item1,new Point2D
-                    {
-                        X = tuple.Item2, Y = y
-                    });
+                    points.Add(tuple.Item1, new Point2D(tuple.Item2, y));
                 }
             }
             return CreateLoop(points);

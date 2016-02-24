@@ -37,20 +37,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(x, point.X);
             Assert.AreEqual(y, point.Y);
         }
-        [Test]
-        public void AutomaticProperties_SetAndGetValuesAgain_ReturnedValueShouldBeSameAsSetValue()
-        {
-            // Setup
-            var point = new Point2D();
-
-            // Call
-            point.X = 1.1;
-            point.Y = 2.2;
-
-            // Assert
-            Assert.AreEqual(1.1, point.X);
-            Assert.AreEqual(2.2, point.Y);
-        }
 
         [Test]
         public void Equals_ToNull_ReturnsFalse()
@@ -97,16 +83,8 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_OtherWithSameCoordinates_ReturnsTrue(double x, double y)
         {
             // Setup
-            var point = new Point2D
-            {
-                X = x,
-                Y = y,
-            };
-            var otherPoint = new Point2D
-            {
-                X = x,
-                Y = y,
-            };
+            var point = new Point2D ( x, y );
+            var otherPoint = new Point2D ( x, y );
 
             // Call
             var result = point.Equals(otherPoint);
@@ -125,16 +103,8 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
 
-            var point = new Point2D
-            {
-                X = x,
-                Y = y,
-            };
-            var otherPoint = new Point2D
-            {
-                X = x + deltaX,
-                Y = y + deltaY,
-            };
+            var point = new Point2D(x, y);
+            var otherPoint = new Point2D(x + deltaX, y + deltaY);
 
             // Call
             var result = point.Equals(otherPoint);
@@ -151,16 +121,8 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
 
-            var point = new Point2D
-            {
-                X = x,
-                Y = y,
-            };
-            var otherPoint = new Point2D
-            {
-                X = x,
-                Y = y,
-            };
+            var point = new Point2D(x, y);
+            var otherPoint = new Point2D(x, y);
 
             // Call
             var result = point.GetHashCode();
@@ -188,16 +150,8 @@ namespace Ringtoets.Piping.Data.Test
         public void SubstractOperation_TwoDifferentPoints_Return2DVector()
         {
             // Setup
-            var point1 = new Point2D
-            {
-                X = 3.0,
-                Y = 4.0
-            };
-            var point2 = new Point2D
-            {
-                X = 1.0,
-                Y = 1.0
-            };
+            var point1 = new Point2D(3.0, 4.0);
+            var point2 = new Point2D(1.0, 1.0);
 
             // Call
             Vector vector = point1 - point2;
@@ -211,11 +165,7 @@ namespace Ringtoets.Piping.Data.Test
         private static void DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture()
         {
             // Setup
-            var point = new Point2D
-            {
-                X = 1.1,
-                Y = 2.2,
-            };
+            var point = new Point2D(1.1, 2.2);
 
             // Call
             var stringRepresentation = point.ToString();

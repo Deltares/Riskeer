@@ -241,24 +241,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 OuterLoop = new List<Segment2D>
                 {
                     new Segment2D(
-                        new Point2D
-                        {
-                            X = 1.0, Y = y1
-                        },
-                        new Point2D
-                        {
-                            X = 1.2, Y = y2
-                        }),
-                        
+                        new Point2D(1.0, y1),
+                        new Point2D(1.2, y2)
+                        ),
                     new Segment2D(
-                        new Point2D
-                        {
-                            X = 1.2, Y = y2
-                        },
-                        new Point2D
-                        {
-                            X = 1.0, Y = y1
-                        })
+                        new Point2D(1.2, y2),
+                        new Point2D(1.0, y1)
+                        )
                 }
             };
             double bottom;
@@ -281,24 +270,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 OuterLoop = new List<Segment2D>
                 {
                     new Segment2D(
-                        new Point2D
-                        {
-                            X = -0.1, Y = expectedZ
-                        },
-                        new Point2D
-                        {
-                            X = 0.1, Y = expectedZ
-                        }),
-                        
+                        new Point2D(-0.1, expectedZ),
+                        new Point2D(0.1, expectedZ)
+                        ),
                     new Segment2D(
-                        new Point2D
-                        {
-                            X = -0.1, Y = expectedZ
-                        },
-                        new Point2D
-                        {
-                            X = 0.1, Y = expectedZ
-                        })
+                        new Point2D(-0.1, expectedZ),
+                        new Point2D(0.1, expectedZ)
+                        )
                 }
             };
             double bottom;

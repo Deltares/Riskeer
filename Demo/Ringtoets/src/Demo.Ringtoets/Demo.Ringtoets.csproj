@@ -110,6 +110,10 @@
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Forms\Ringtoets.HydraRing.Forms.csproj">
+      <Project>{EFB9B7E0-82A8-40CA-95C8-B56B4AC02294}</Project>
+      <Name>Ringtoets.HydraRing.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Plugin\Ringtoets.HydraRing.Plugin.csproj">
       <Project>{0A0B4576-1FD4-4836-880C-A7829ACB944A}</Project>
       <Name>Ringtoets.HydraRing.Plugin</Name>

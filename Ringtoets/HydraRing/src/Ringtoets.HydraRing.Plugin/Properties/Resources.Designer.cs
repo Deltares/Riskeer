@@ -61,15 +61,6 @@ namespace Ringtoets.HydraRing.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde hydraulische randvoorwaarde locaties toevoegen aan traject..
-        /// </summary>
-        public static string HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsImporter_Adding_imported_data_to_model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} Het bestand wordt overgeslagen..
         /// </summary>
         public static string HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped {
@@ -79,7 +70,7 @@ namespace Ringtoets.HydraRing.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de locaties uit de hydraulische randvoorwaarden database.
+        ///   Looks up a localized string similar to Inlezen van de locaties uit de hydraulische randvoorwaarden database..
         /// </summary>
         public static string HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult {
             get {
@@ -88,7 +79,7 @@ namespace Ringtoets.HydraRing.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locaties van hydraulische randvoorwaarden importeren is afgebroken. Er is geen data ingelezen..
+        ///   Looks up a localized string similar to Het importeren van hydraulische randvoorwaarden locaties is afgebroken. Er is geen data ingelezen..
         /// </summary>
         public static string HydraulicBoundaryLocationsImporter_Import_cancelled {
             get {
@@ -97,7 +88,7 @@ namespace Ringtoets.HydraRing.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locaties uit de hydraulische randvoorwaarden ingelezen.
+        ///   Looks up a localized string similar to De hydraulische randvoorwaarden locaties zijn ingelezen..
         /// </summary>
         public static string HydraulicBoundaryLocationsImporter_Import_Import_successful {
             get {
@@ -106,7 +97,16 @@ namespace Ringtoets.HydraRing.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de de hydraulische randvoorwaarden database.
+        ///   Looks up a localized string similar to Er is nog geen bestand geopend..
+        /// </summary>
+        public static string HydraulicBoundaryLocationsImporter_Import_The_file_is_not_opened {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationsImporter_Import_The_file_is_not_opened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de de hydraulische randvoorwaarden database..
         /// </summary>
         public static string HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations {
             get {

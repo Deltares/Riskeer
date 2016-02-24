@@ -85,7 +85,6 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
         }
 
         [Test]
-        [TestCase(null)]
         [TestCase("")]
         [TestCase("some name")]
         public void ToString_WithName_ReturnsName(string name)

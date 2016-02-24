@@ -70,16 +70,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(22);
-            var firstPoint = new Point2D
-            {
-                X = firstPointX,
-                Y = random.NextDouble()
-            };
-            var secondPoint = new Point2D
-            {
-                X = secondPointX,
-                Y = random.NextDouble()
-            };
+            var firstPoint = new Point2D(firstPointX, random.NextDouble());
+            var secondPoint = new Point2D(secondPointX, random.NextDouble());
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Call
@@ -100,16 +92,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(22);
-            var firstPoint = new Point2D
-            {
-                X = firstPointX,
-                Y = random.NextDouble()
-            };
-            var secondPoint = new Point2D
-            {
-                X = secondPointX,
-                Y = random.NextDouble()
-            };
+            var firstPoint = new Point2D(firstPointX, random.NextDouble());
+            var secondPoint = new Point2D(secondPointX, random.NextDouble());
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Call
@@ -131,16 +115,8 @@ namespace Ringtoets.Piping.Data.Test
             var random = new Random(22);
             var x = random.NextDouble();
             var y = random.NextDouble();
-            var firstPoint = new Point2D
-            {
-                X = x,
-                Y = y
-            };
-            var secondPoint = new Point2D
-            {
-                X = x,
-                Y = y+difference
-            };
+            var firstPoint = new Point2D(x, y);
+            var secondPoint = new Point2D(x, y + difference);
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Call
