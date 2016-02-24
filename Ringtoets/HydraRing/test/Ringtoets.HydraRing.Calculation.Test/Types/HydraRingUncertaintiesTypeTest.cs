@@ -19,18 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation
+using System;
+using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Types;
+
+namespace Ringtoets.HydraRing.Calculation.Test.Types
 {
-    /// <summary>
-    /// Enumeration that defines the time integration scheme types supported by Hydra-Ring.
-    /// </summary>
-    /// <remarks>
-    /// The integer values correspond to time integration scheme ids defined within Hydra-Ring.
-    /// </remarks>
-    public enum HydraRingTimeIntegrationSchemeType
+    [TestFixture]
+    public class HydraRingUncertaintiesTypeTest
     {
-        FBC = 1,
-        APT = 2,
-        NTI = 3
+        [Test]
+        public void Values_HasFour()
+        {
+            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
+        }
+
+        [Test]
+        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
+        {
+            Assert.AreEqual(0, (int) HydraRingUncertaintiesType.None);
+            Assert.AreEqual(1, (int) HydraRingUncertaintiesType.All);
+            Assert.AreEqual(2, (int) HydraRingUncertaintiesType.Model);
+            Assert.AreEqual(3, (int) HydraRingUncertaintiesType.Statistic);
+        }
     }
 }

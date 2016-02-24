@@ -19,26 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-
-namespace Ringtoets.HydraRing.Calculation.Test
+namespace Ringtoets.HydraRing.Calculation.Types
 {
-    [TestFixture]
-    public class HydraRingTimeIntegrationSchemeTypeTest
+    /// <summary>
+    /// Enumeration that defines the failure mechanism types supported by Hydra-Ring.
+    /// </summary>
+    /// <remarks>
+    /// The integer values DON'T correspond to failure mechanism ids defined within Hydra-Ring.
+    /// </remarks>
+    public enum HydraRingFailureMechanismType
     {
-        [Test]
-        public void Values_HasThree()
-        {
-            Assert.AreEqual(3, Enum.GetValues(typeof(HydraRingTimeIntegrationSchemeType)).Length);
-        }
-
-        [Test]
-        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
-        {
-            Assert.AreEqual(1, (int) HydraRingTimeIntegrationSchemeType.FBC);
-            Assert.AreEqual(2, (int) HydraRingTimeIntegrationSchemeType.APT);
-            Assert.AreEqual(3, (int) HydraRingTimeIntegrationSchemeType.NTI);
-        }
+        AssessmentLevel,
+        QVariant,
+        WaveHeight,
+        WavePeakPeriod,
+        WaveSpectralPeriod,
+        DikesOvertopping,
+        DikesPiping,
+        StructuresOvertopping,
+        StructuresClosure,
+        StructuresStructuralFailure
     }
 }

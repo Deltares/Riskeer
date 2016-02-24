@@ -19,25 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Types
 {
     /// <summary>
-    /// Enumeration that defines the failure mechanism types supported by Hydra-Ring.
+    /// Enumeration that defines the time integration scheme types supported by Hydra-Ring.
     /// </summary>
     /// <remarks>
-    /// The integer values correspond to failure mechanism ids defined within Hydra-Ring.
+    /// The integer values correspond to time integration scheme ids defined within Hydra-Ring.
     /// </remarks>
-    public enum HydraRingFailureMechanismType
+    public enum HydraRingTimeIntegrationSchemeType
     {
-        AssessmentLevel = 1,
-        QVariant = 3,
-        WaveHeight = 11,
-        WavePeakPeriod = 11,
-        WaveSpectralPeriod = 11,
-        DikesOvertopping = 101,
-        DikesPiping = 103,
-        StructuresOvertopping = 110,
-        StructuresClosure = 111,
-        StructuresStructuralFailure = 112
+        FBC = 1,
+        APT = 2,
+        NTI = 3
     }
 }

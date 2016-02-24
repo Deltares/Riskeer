@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Types
 {
     /// <summary>
     /// Enumeration that defines the uncertainties types supported by Hydra-Ring.

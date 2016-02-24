@@ -41,13 +41,13 @@
     </Compile>
     <Compile Include="Data\AssessmentLevelCalculationData.cs" />
     <Compile Include="Data\HydraRingCalculationData.cs" />
-    <Compile Include="HydraRingFailureMechanismType.cs" />
+    <Compile Include="Types\HydraRingFailureMechanismType.cs" />
     <Compile Include="HydraRingConfiguration.cs" />
     <Compile Include="HydraRingConfigurationSettings.cs" />
     <Compile Include="Data\HydraulicCalculationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HydraRingTimeIntegrationSchemeType.cs" />
-    <Compile Include="HydraRingUncertaintiesType.cs" />
+    <Compile Include="Types\HydraRingTimeIntegrationSchemeType.cs" />
+    <Compile Include="Types\HydraRingUncertaintiesType.cs" />
     <Compile Include="Data\QVariantCalculationData.cs" />
     <Compile Include="Data\WaveHeightCalculationData.cs" />
     <Compile Include="Data\WavePeakPeriodCalculationData.cs" />

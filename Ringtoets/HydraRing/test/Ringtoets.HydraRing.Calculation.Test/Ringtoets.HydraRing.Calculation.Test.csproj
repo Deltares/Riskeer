@@ -49,10 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HydraRingConfigurationTest.cs" />
-    <Compile Include="HydraRingFailureMechanismTypeTest.cs" />
+    <Compile Include="Types\HydraRingFailureMechanismTypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HydraRingTimeIntegrationSchemeTypeTest.cs" />
-    <Compile Include="HydraRingUncertaintiesTypeTest.cs" />
+    <Compile Include="Types\HydraRingTimeIntegrationSchemeTypeTest.cs" />
+    <Compile Include="Types\HydraRingUncertaintiesTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">

@@ -21,25 +21,17 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation.Test
+namespace Ringtoets.HydraRing.Calculation.Test.Types
 {
     [TestFixture]
-    public class HydraRingUncertaintiesTypeTest
+    public class HydraRingFailureMechanismTypeTest
     {
         [Test]
-        public void Values_HasFour()
+        public void Values_HasTen()
         {
-            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
-        }
-
-        [Test]
-        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
-        {
-            Assert.AreEqual(0, (int) HydraRingUncertaintiesType.None);
-            Assert.AreEqual(1, (int) HydraRingUncertaintiesType.All);
-            Assert.AreEqual(2, (int) HydraRingUncertaintiesType.Model);
-            Assert.AreEqual(3, (int) HydraRingUncertaintiesType.Statistic);
+            Assert.AreEqual(10, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
         }
     }
 }

@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Calculation.Types;
 
 namespace Ringtoets.HydraRing.Calculation.Test
 {

@@ -21,31 +21,25 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation.Test
+namespace Ringtoets.HydraRing.Calculation.Test.Types
 {
     [TestFixture]
-    public class HydraRingFailureMechanismTypeTest
+    public class HydraRingTimeIntegrationSchemeTypeTest
     {
         [Test]
-        public void Values_HasTen()
+        public void Values_HasThree()
         {
-            Assert.AreEqual(10, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
+            Assert.AreEqual(3, Enum.GetValues(typeof(HydraRingTimeIntegrationSchemeType)).Length);
         }
 
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(1, (int) HydraRingFailureMechanismType.AssessmentLevel);
-            Assert.AreEqual(3, (int) HydraRingFailureMechanismType.QVariant);
-            Assert.AreEqual(11, (int) HydraRingFailureMechanismType.WaveHeight);
-            Assert.AreEqual(11, (int) HydraRingFailureMechanismType.WavePeakPeriod);
-            Assert.AreEqual(11, (int) HydraRingFailureMechanismType.WaveSpectralPeriod);
-            Assert.AreEqual(101, (int) HydraRingFailureMechanismType.DikesOvertopping);
-            Assert.AreEqual(103, (int) HydraRingFailureMechanismType.DikesPiping);
-            Assert.AreEqual(110, (int) HydraRingFailureMechanismType.StructuresOvertopping);
-            Assert.AreEqual(111, (int) HydraRingFailureMechanismType.StructuresClosure);
-            Assert.AreEqual(112, (int) HydraRingFailureMechanismType.StructuresStructuralFailure);
+            Assert.AreEqual(1, (int) HydraRingTimeIntegrationSchemeType.FBC);
+            Assert.AreEqual(2, (int) HydraRingTimeIntegrationSchemeType.APT);
+            Assert.AreEqual(3, (int) HydraRingTimeIntegrationSchemeType.NTI);
         }
     }
 }
