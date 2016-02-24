@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
-using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Settings;
 using Ringtoets.HydraRing.Calculation.Types;
@@ -42,9 +41,9 @@ namespace Ringtoets.HydraRing.Calculation
     public class HydraRingConfiguration
     {
         private readonly IList<HydraRingCalculationData> hydraRingCalculations;
-        private IEnumerable<FixedFailureMechanismSettings> fixedFailureMechanismSettings;
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
         private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
+        private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
@@ -52,82 +51,6 @@ namespace Ringtoets.HydraRing.Calculation
         public HydraRingConfiguration()
         {
             hydraRingCalculations = new List<HydraRingCalculationData>();
-
-            InitializeFixedFailureMechanismSettings();
-        }
-
-        /// <summary>
-        /// Initializes some fixed settings on a per <see cref="HydraRingFailureMechanismType"/> basis.
-        /// </summary>
-        /// <remarks>
-        /// These fixed settings cannot be overruled and just reflect:
-        /// - some supported ids within Hydra-Ring;
-        /// - a WTI 2017 specific configuration of Hydra-Ring.
-        /// </remarks>
-        private void InitializeFixedFailureMechanismSettings()
-        {
-            fixedFailureMechanismSettings = new[]
-            {
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.AssessmentLevel, 1, 2, 26, new[]
-                {
-                    1
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.WaveHeight, 11, 2, 28, new[]
-                {
-                    11
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.WavePeakPeriod, 11, 2, 29, new[]
-                {
-                    14
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.WaveSpectralPeriod, 11, 2, 29, new[]
-                {
-                    16
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.QVariant, 3, 6, 114, new[]
-                {
-                    3,
-                    4,
-                    5
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.DikesOvertopping, 101, 1, 1, new[]
-                {
-                    102,
-                    103
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.DikesPiping, 103, 1, 44, new[]
-                {
-                    311,
-                    313,
-                    314
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.StructuresOvertopping, 110, 1, 60, new[]
-                {
-                    421,
-                    422,
-                    423
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.StructuresClosure, 111, 1, 65, new[]
-                {
-                    422,
-                    424,
-                    425,
-                    426,
-                    427
-                }),
-                new FixedFailureMechanismSettings(HydraRingFailureMechanismType.StructuresStructuralFailure, 112, 1, 65, new[]
-                {
-                    422,
-                    424,
-                    425,
-                    430,
-                    431,
-                    432,
-                    433,
-                    434,
-                    435
-                })
-            };
         }
 
         /// <summary>
@@ -249,7 +172,7 @@ namespace Ringtoets.HydraRing.Calculation
 
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
-                var fixedFailureMechanismSettingsForCalculation = fixedFailureMechanismSettings.First(ffms => ffms.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
                 var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculation.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
@@ -258,7 +181,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "SectionId", 999 // TODO: Dike section integration
                     },
                     {
-                        "MechanismId", fixedFailureMechanismSettingsForCalculation.MechanismId
+                        "MechanismId", failureMechanismDefaults.MechanismId
                     },
                     {
                         "LayerId", null // Fixed: no support for revetments
@@ -267,10 +190,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "Method", fixedFailureMechanismSettingsForCalculation.CalculationTypeId
+                        "Method", failureMechanismDefaults.CalculationTypeId
                     },
                     {
-                        "VariableId", fixedFailureMechanismSettingsForCalculation.VariableId
+                        "VariableId", failureMechanismDefaults.VariableId
                     },
                     {
                         "LoadVariableId", null // Fixed: not relevant
@@ -305,9 +228,9 @@ namespace Ringtoets.HydraRing.Calculation
 
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
-                var fixedFailureMechanismSettingsForCalculation = fixedFailureMechanismSettings.First(ffms => ffms.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
 
-                foreach (var subMechanimsId in fixedFailureMechanismSettingsForCalculation.SubMechanismIds)
+                foreach (var subMechanimsId in failureMechanismDefaults.SubMechanismIds)
                 {
                     var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculation.FailureMechanismType, subMechanimsId);
 
@@ -317,7 +240,7 @@ namespace Ringtoets.HydraRing.Calculation
                             "SectionId", 999 // TODO: Dike section integration
                         },
                         {
-                            "MechanismId", fixedFailureMechanismSettingsForCalculation.MechanismId
+                            "MechanismId", failureMechanismDefaults.MechanismId
                         },
                         {
                             "LayerId", null // Fixed: no support for revetments
@@ -468,90 +391,5 @@ namespace Ringtoets.HydraRing.Calculation
 
             return string.Join(Environment.NewLine, lines);
         }
-
-        # region Nested types
-
-        /// <summary>
-        /// Container of default Hydra-Ring settings for a specific <see cref="HydraRingFailureMechanismType"/>.
-        /// </summary>
-        private class FixedFailureMechanismSettings
-        {
-            private readonly int variableId;
-            private readonly int mechanismId;
-            private readonly int calculationTypeId;
-            private readonly IEnumerable<int> subMechanismIds;
-            private readonly HydraRingFailureMechanismType failureMechanismType;
-
-            /// <summary>
-            /// Creates a new instance of the <see cref="FixedFailureMechanismSettings"/> class.
-            /// </summary>
-            /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> the specify the fixed settings for.</param>
-            /// <param name="mechanismId">The corresponding mechanism id.</param>
-            /// <param name="calculationTypeId">The corresponding calculation type id.</param>
-            /// <param name="variableId">The corresponding variable id.</param>
-            /// <param name="subMechanismIds">The corresponding sub mechanism ids.</param>
-            public FixedFailureMechanismSettings(HydraRingFailureMechanismType failureMechanismType, int mechanismId, int calculationTypeId, int variableId, IEnumerable<int> subMechanismIds)
-            {
-                this.failureMechanismType = failureMechanismType;
-                this.mechanismId = mechanismId;
-                this.variableId = variableId;
-                this.calculationTypeId = calculationTypeId;
-                this.subMechanismIds = subMechanismIds;
-            }
-
-            public HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return failureMechanismType;
-                }
-            }
-
-            /// <summary>
-            /// Gets the mechanism id that corresponds to a specific <see cref="HydraRingFailureMechanismType"/>.
-            /// </summary>
-            public int MechanismId
-            {
-                get
-                {
-                    return mechanismId;
-                }
-            }
-
-            /// <summary>
-            /// Gets the calculation type id that is applicable for a specific <see cref="HydraRingFailureMechanismType"/>.
-            /// </summary>
-            public int CalculationTypeId
-            {
-                get
-                {
-                    return calculationTypeId;
-                }
-            }
-
-            /// <summary>
-            /// Gets the id of the variable that is relevant for a specific <see cref="HydraRingFailureMechanismType"/>.
-            /// </summary>
-            public int VariableId
-            {
-                get
-                {
-                    return variableId;
-                }
-            }
-
-            /// <summary>
-            /// Gets the sub mechanism ids that are applicable for a specific <see cref="HydraRingFailureMechanismType"/>.
-            /// </summary>
-            public IEnumerable<int> SubMechanismIds
-            {
-                get
-                {
-                    return subMechanismIds;
-                }
-            }
-        }
-
-        # endregion
     }
 }
