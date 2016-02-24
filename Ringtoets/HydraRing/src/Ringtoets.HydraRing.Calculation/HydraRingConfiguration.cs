@@ -40,8 +40,8 @@ namespace Ringtoets.HydraRing.Calculation
     public class HydraRingConfiguration
     {
         private readonly IList<HydraRingCalculationData> hydraRingCalculations;
-        private readonly IEnumerable<HydraRingConfigurationDefaults> configurationDefaults;
-        private readonly IEnumerable<HydraRingConfigurationSettings> configurationSettings;
+        private readonly IEnumerable<HydraRingConfigurationDefaults> defaultsPerFailureMechanism;
+        private readonly IEnumerable<HydraRingConfigurationSettings> configurationPerSubMechanism;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation
         {
             hydraRingCalculations = new List<HydraRingCalculationData>();
 
-            configurationDefaults = new[]
+            defaultsPerFailureMechanism = new[]
             {
                 new HydraRingConfigurationDefaults(HydraRingFailureMechanismType.AssessmentLevel, 2, 26, new[]
                 {
@@ -113,7 +113,7 @@ namespace Ringtoets.HydraRing.Calculation
                 })
             };
 
-            configurationSettings = new[]
+            configurationPerSubMechanism = new[]
             {
                 new HydraRingConfigurationSettings
                 {
@@ -788,7 +788,7 @@ namespace Ringtoets.HydraRing.Calculation
 
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
-                var defaults = configurationDefaults.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+                var defaultsForFailureMechanism = defaultsPerFailureMechanism.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -805,10 +805,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "Method", defaults.CalculationTypeId
+                        "Method", defaultsForFailureMechanism.CalculationTypeId
                     },
                     {
-                        "VariableId", defaults.VariableId
+                        "VariableId", defaultsForFailureMechanism.VariableId
                     },
                     {
                         "LoadVariableId", null // Fixed: not relevant
@@ -843,11 +843,11 @@ namespace Ringtoets.HydraRing.Calculation
 
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
-                var defaultsForFailureMechanism = configurationDefaults.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+                var defaultsForFailureMechanism = defaultsPerFailureMechanism.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
 
                 foreach (var subMechanimsId in defaultsForFailureMechanism.SubMechanismIds)
                 {
-                    var relevantConfigurationSettings = configurationSettings.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
+                    var configurationForSubMechanism = configurationPerSubMechanism.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -864,52 +864,52 @@ namespace Ringtoets.HydraRing.Calculation
                             "AlternativeId", null // Fixed: no support for piping
                         },
                         {
-                            "SubMechanismId", relevantConfigurationSettings.SubMechanismId
+                            "SubMechanismId", configurationForSubMechanism.SubMechanismId
                         },
                         {
-                            "Method", relevantConfigurationSettings.CalculationTechniqueId
+                            "Method", configurationForSubMechanism.CalculationTechniqueId
                         },
                         {
-                            "FormStartMethod", relevantConfigurationSettings.FormStartMethod
+                            "FormStartMethod", configurationForSubMechanism.FormStartMethod
                         },
                         {
-                            "FormNumberOfIterations", relevantConfigurationSettings.FormNumberOfIterations
+                            "FormNumberOfIterations", configurationForSubMechanism.FormNumberOfIterations
                         },
                         {
-                            "FormRelaxationFactor", relevantConfigurationSettings.FormRelaxationFactor
+                            "FormRelaxationFactor", configurationForSubMechanism.FormRelaxationFactor
                         },
                         {
-                            "FormEpsBeta", relevantConfigurationSettings.FormEpsBeta
+                            "FormEpsBeta", configurationForSubMechanism.FormEpsBeta
                         },
                         {
-                            "FormEpsHOH", relevantConfigurationSettings.FormEpsHOH
+                            "FormEpsHOH", configurationForSubMechanism.FormEpsHOH
                         },
                         {
-                            "FormEpsZFunc", relevantConfigurationSettings.FormEpsZFunc
+                            "FormEpsZFunc", configurationForSubMechanism.FormEpsZFunc
                         },
                         {
-                            "DsStartMethod", relevantConfigurationSettings.DsStartMethod
+                            "DsStartMethod", configurationForSubMechanism.DsStartMethod
                         },
                         {
                             "DsIterationmethod", 1 // Fixed: not relevant
                         },
                         {
-                            "DsMinNumberOfIterations", relevantConfigurationSettings.DsMinNumberOfIterations
+                            "DsMinNumberOfIterations", configurationForSubMechanism.DsMinNumberOfIterations
                         },
                         {
-                            "DsMaxNumberOfIterations", relevantConfigurationSettings.DsMaxNumberOfIterations
+                            "DsMaxNumberOfIterations", configurationForSubMechanism.DsMaxNumberOfIterations
                         },
                         {
-                            "DsVarCoefficient", relevantConfigurationSettings.DsVarCoefficient
+                            "DsVarCoefficient", configurationForSubMechanism.DsVarCoefficient
                         },
                         {
-                            "NiUMin", relevantConfigurationSettings.NiUMin
+                            "NiUMin", configurationForSubMechanism.NiUMin
                         },
                         {
-                            "NiUMax", relevantConfigurationSettings.NiUMax
+                            "NiUMax", configurationForSubMechanism.NiUMax
                         },
                         {
-                            "NiNumberSteps", relevantConfigurationSettings.NiNumberSteps
+                            "NiNumberSteps", configurationForSubMechanism.NiNumberSteps
                         }
                     });
                 }
